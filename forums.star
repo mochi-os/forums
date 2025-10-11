@@ -28,95 +28,96 @@ def database_create():
     # mochi.db.query("create index votes_post on votes( post )")
     # mochi.db.query("create index votes_comment on votes( comment )")
     # mochi.db.query("create index votes_voter on votes( voter )")
-    return 1
+    pass
 
 # ACTIONS
 
-def action_view(action, inputs):
-    return 1
+def action_view(action, inputs): # forums_view
+    pass
 
-def action_create(action, inputs):
-    return 1
+def action_create(action, inputs): # forums_create
+    pass
 
-def action_find(action, inputs):
-    return 1
+def action_find(action, inputs): # forums_find
+    pass
 
-def action_new(action, inputs):
-    return 1
+def action_new(action, inputs): # forums_new
+    pass
 
-def action_post_create(action, inputs):
-    return 1
+def action_post_create(action, inputs): # forums_post_create
+    pass
 
-def action_post_new(action, inputs):
-    return 1
+def action_post_new(action, inputs): # forums_post_new
+    pass
 
-def action_search(action, inputs):
-    return 1
+def action_search(action, inputs): # forums_search
+    pass
 
-def action_members_edit(action, inputs):
-    return 1
+def action_members_edit(action, inputs): # forums_members_edit
+    pass
 
-def action_members_save(action, inputs):
-    return 1
+def action_members_save(action, inputs): # forums_members_save
+    pass
 
-def action_subscribe(action, inputs):
-    return 1
+def action_subscribe(action, inputs): # forums_subscribe
+    pass
 
-def action_unsubscribe(action, inputs):
-    return 1
+def action_unsubscribe(action, inputs): # forums_unsubscribe
+    pass
 
-def action_post_view(action, inputs):
-    return 1
+def action_post_view(action, inputs): # forums_post_view
+    pass
 
-def action_comment_new(action, inputs):
-    return 1
+def action_comment_new(action, inputs): # forums_comment_new
+    pass
 
-def action_comment_create(action, inputs):
-    return 1
+def action_comment_create(action, inputs): # forums_comment_create
+    pass
 
-def action_post_vote(action, inputs):
-    return 1
+def action_post_vote(action, inputs): # forums_post_vote
+    pass
 
-def action_comment_vote(action, inputs):
-    return 1
+def action_comment_vote(action, inputs): # forums_comment_vote
+    pass
+
 
 # EVENTS
 
-def event_comment_create_event(event, content):
-    return 1
+def event_comment_create_event(event, content): # forums_comment_create_event
+    pass
 
-def event_comment_submit_event(action, inputs):
-    return 1
+def event_comment_submit_event(action, inputs): # forums_comment_submit_event
+    pass
 
-def event_comment_update_event(event, content):
-    return 1
+def event_comment_update_event(event, content): # forums_comment_update_event
+    pass
 
-def event_comment_vote_event(action, inputs):
-    return 1
+def event_comment_vote_event(action, inputs): # forums_comment_vote_event
+    pass
 
-def event_member_update_event(event, content):
-    return 1
+def event_member_update_event(event, content): # forums_member_update_event
+    pass
 
-def event_post_create_event(action, inputs):
-    return 1
+def event_post_create_event(action, inputs): # forums_post_create_event
+    pass
 
-def event_post_submit_event(event, content):
-    return 1
+def event_post_submit_event(event, content): # forums_post_submit_event
+    pass
 
-def event_post_update_event(action, inputs):
-    return 1
+def event_post_update_event(action, inputs): # forums_post_update_event
+    pass
 
-def event_post_vote_event(event, content):
-    return 1
+def event_post_vote_event(event, content): # forums_post_vote_event
+    pass
 
-def event_subscribe_event(action, inputs):
-    return 1
+def event_subscribe_event(action, inputs): # forums_subscribe_event
+    pass
 
-def event_unsubscribe_event(event, content):
-    return 1
+def event_unsubscribe_event(event, content): # forums_unsubscribe_event
+    pass
 
-def event_update_event(action, inputs):
-    return 1
+def event_update_event(action, inputs): # forums_update_event
+    pass
 
 
 # # Create new chat
