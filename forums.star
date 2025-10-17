@@ -186,7 +186,7 @@ def event_update_event(action, inputs): # forums_update_event
 #     mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], action["identity.id"], action["identity.name"], body, mochi.time.now())
 
 #     attachments = mochi.attachment.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
-#     mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": action["identity.name"], "body": body, "attachments": attachments})
+#     mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": action["identity.name"], "body": body, "attachments": attachments})
 
 #     for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
 #         mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
@@ -230,7 +230,7 @@ def event_update_event(action, inputs): # forums_update_event
 #     attachments = mochi.event.segment()
 #     mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
 
-#     mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
+#     mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 #     mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 
