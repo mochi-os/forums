@@ -2,8 +2,15 @@
 	"version": "1.0",
 	"label": "app_name",
 	"engine": {"architecture": "starlark", "version": 1},
-	"files": [ "forums.star" ],
-	"database": {"file": "forums.db", "create": "database_create"},
+	"files": [ "forums.star", "database.star" ],
+
+	"database": {
+		"version": 1,
+		"file": "forums.db",
+		"create": {"function": "database_create"},
+		"upgrade": {"function": "database_upgrade"},
+		"downgrade": {"function": "database_downgrade"}
+	},
 
 	"icons": [
 		{"path": "forums", "label": "app_name", "icon": "forums.png"}
