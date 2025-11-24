@@ -289,32 +289,63 @@ def action_members_save(a):
         a.error(404, "Forum not found")
         return
     
-    member = get_member(forum["id"], a.user.identity.id, "administrator")
-    if not member:
-        a.error(403, "Not authorized")
+    # Check if user is owner (has entity)
+    entity = mochi.entity.by_id(forum["id"])
+    if not entity:
+        a.error(404, "Forum not found")
         return
     
-    # Update member roles from form inputs
-    members = mochi.db.query("select * from members where forum=?", forum["id"])
+    # Update member roles from form inputs (excluding current user)
+    members = mochi.db.query("select * from members where forum=? and id!=?", forum["id"], a.user.identity.id)
     for m in members:
-        new_role = a.input(m["id"])
-        if new_role and new_role in FORUM_ROLES:
+        new_role = a.input("role_" + m["id"])
+        if new_role and new_role != m["role"]:
+            if new_role not in FORUM_ROLES:
+                a.error(400, "Invalid role")
+                return
+            
             mochi.db.query("update members set role=? where forum=? and id=?", new_role, forum["id"], m["id"])
             
             # Notify member of role change
-            if m["id"] != a.user.identity.id:
-                mochi.message.send(
-                    {"from": forum["id"], "to": m["id"], "service": "forums", "event": "member/update"},
-                    {"role": new_role},
-                    []
-                )
+            mochi.message.send(
+                {"from": forum["id"], "to": m["id"], "service": "forums", "event": "member/update"},
+                {"role": new_role},
+                []
+            )
+            
+            # If member was disabled and now has access, send recent posts
+            if m["role"] == "disabled" and new_role != "disabled":
+                posts = mochi.db.query("select * from posts where forum=? order by created desc limit 20", forum["id"])
+                for p in posts:
+                    post_data = {
+                        "id": p["id"],
+                        "member": p["member"],
+                        "name": p["name"],
+                        "title": p["title"],
+                        "body": p["body"],
+                        "created": p["created"]
+                    }
+                    attachments = mochi.attachment.get("forums/" + forum["id"] + "/" + p["id"])
+                    mochi.message.send(
+                        {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
+                        post_data,
+                        attachments
+                    )
     
-    # Update member count
+    # Broadcast updated member count to all members
     updated_members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
     mochi.db.query("update forums set members=?, updated=? where id=?", len(updated_members), mochi.time.now(), forum["id"])
     
+    for m in updated_members:
+        if m["id"] != a.user.identity.id:
+            mochi.message.send(
+                {"from": forum["id"], "to": m["id"], "service": "forums", "event": "update"},
+                {"members": str(len(updated_members))},
+                []
+            )
+    
     return {
-        "data": {}
+        "data": {"forum": forum}
     }
 
 # Subscribe to a forum
