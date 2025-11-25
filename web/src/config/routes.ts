@@ -15,28 +15,28 @@ export const APP_ROUTES = {
   },
   // Chat app
   CHAT: {
-    BASE: '/chat',
-    HOME: '/chat',
+    BASE: '/chat/',
+    HOME: '/chat/',
   },
   // Friends app
   FRIENDS: {
-    BASE: '/friends',
-    HOME: '/friends',
+    BASE: '/friends/',
+    HOME: '/friends/',
   },
   // Home app
   HOME: {
-    BASE: '/home',
-    HOME: '/home',
+    BASE: '/home/',
+    HOME: '/home/',
   },
   // Feeds app
   FEEDS: {
-    BASE: '/feeds',
-    HOME: '/feeds',
+    BASE: '/feeds/',
+    HOME: '/feeds/',
   },
   // Notifications app
   NOTIFICATIONS: {
-    BASE: '/notifications',
-    HOME: '/notifications',
+    BASE: '/notifications/',
+    HOME: '/notifications/',
   },
   // Forums app
   FORUMS: {
