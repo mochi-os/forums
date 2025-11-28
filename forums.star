@@ -24,18 +24,18 @@ def database_create():
     mochi.db.query("create table members ( forum references forums( id ), id text not null, name text not null default '', role text not null, primary key ( forum, id ) )")
     mochi.db.query("create index members_id on members( id )")
 
-    mochi.db.query("create table posts ( id text not null primary key, forum references forum( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null )")
+    mochi.db.query("create table posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null )")
     mochi.db.query("create index posts_forum on posts( forum )")
     mochi.db.query("create index posts_created on posts( created )")
     mochi.db.query("create index posts_updated on posts( updated )")
 
-    mochi.db.query("create table comments ( id text not null primary key, forum references forum( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null )")
+    mochi.db.query("create table comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null )")
     mochi.db.query("create index comments_forum on comments( forum )")
     mochi.db.query("create index comments_post on comments( post )")
     mochi.db.query("create index comments_parent on comments( parent )")
     mochi.db.query("create index comments_created on comments( created )")
 
-    mochi.db.query("create table votes ( forum references forum( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
+    mochi.db.query("create table votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
     mochi.db.query("create index votes_post on votes( post )")
     mochi.db.query("create index votes_comment on votes( comment )")
     mochi.db.query("create index votes_voter on votes( voter )")
