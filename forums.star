@@ -290,7 +290,7 @@ def action_members_save(a):
         return
     
     # Check if user is owner (has entity)
-    entity = mochi.entity.by_id(forum["id"])
+    entity = mochi.entity.get(forum["id"])
     if not entity:
         a.error(404, "Forum not found")
         return
