@@ -92,7 +92,7 @@ def action_view(a):
             p["attachments"] = mochi.attachment.list(p["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
-                mochi.attachment.fetch(p["id"], forum["id"])
+                p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
         
         return {
             "data": {
@@ -454,7 +454,7 @@ def action_post_view(a):
     post["attachments"] = mochi.attachment.list(post_id)
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and not mochi.entity.get(forum["id"]):
-        mochi.attachment.fetch(post_id, forum["id"])
+        post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
 
     comments = get_comments("", 0)
     
