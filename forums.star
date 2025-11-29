@@ -89,7 +89,10 @@ def action_view(a):
         posts = mochi.db.query("select * from posts where forum=? order by updated desc", forum["id"])
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
-            p["attachments"] = mochi.attachment.get("forums/" + forum["id"] + "/" + p["id"])
+            p["attachments"] = mochi.attachment.list(p["id"])
+            # Fetch attachments from forum owner if we don't have them locally
+            if not p["attachments"] and not mochi.entity.get(forum["id"]):
+                mochi.attachment.fetch(p["id"], forum["id"])
         
         return {
             "data": {
@@ -196,11 +199,14 @@ def action_post_create(a):
         id, forum["id"], a.user.identity.id, a.user.identity.name, title, body, now, now)
     
     mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
-    
-    # Attach uploaded files
-    attachments = mochi.attachment.put("attachments", "forums/" + forum["id"] + "/" + id, a.user.identity.id, True)
-    
-    # Broadcast to members
+
+    # Get members for notification
+    members = mochi.db.query("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], a.user.identity.id)
+
+    # Save any uploaded attachments and notify members via _attachment/create events
+    attachments = mochi.attachment.save(id, "attachments", [], [], members)
+
+    # Broadcast post to members (attachments sent separately via federation)
     post_data = {
         "id": id,
         "member": a.user.identity.id,
@@ -209,15 +215,12 @@ def action_post_create(a):
         "body": body,
         "created": now
     }
-    
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+
     for m in members:
-        if m["id"] != a.user.identity.id:
-            mochi.message.send(
-                {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
-                post_data,
-                attachments
-            )
+        mochi.message.send(
+            {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
+            post_data
+        )
     
     return {
         "data": {"forum": forum["id"], "post": id}
@@ -314,6 +317,7 @@ def action_members_save(a):
             )
             
             # If member was disabled and now has access, send recent posts
+            # Attachments are fetched on-demand when viewing posts
             if m["role"] == "disabled" and new_role != "disabled":
                 posts = mochi.db.query("select * from posts where forum=? order by created desc limit 20", forum["id"])
                 for p in posts:
@@ -325,11 +329,9 @@ def action_members_save(a):
                         "body": p["body"],
                         "created": p["created"]
                     }
-                    attachments = mochi.attachment.get("forums/" + forum["id"] + "/" + p["id"])
                     mochi.message.send(
                         {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
-                        post_data,
-                        attachments
+                        post_data
                     )
     
     # Broadcast updated member count to all members
@@ -449,8 +451,11 @@ def action_post_view(a):
         return comments
     
     post["created_local"] = mochi.time.local(post["created"])
-    post["attachments"] = mochi.attachment.get("forums/" + forum["id"] + "/" + post_id)
-    
+    post["attachments"] = mochi.attachment.list(post_id)
+    # Fetch attachments from forum owner if we don't have them locally
+    if not post["attachments"] and not mochi.entity.get(forum["id"]):
+        mochi.attachment.fetch(post_id, forum["id"])
+
     comments = get_comments("", 0)
     
     return {
@@ -889,12 +894,9 @@ def event_post_create_event(e):
     
     mochi.db.query("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], member, name, title, body, created, created)
-    
+
     mochi.db.query("update forums set updated=? where id=?", created, forum["id"])
-    
-    # Save attachments
-    attachments = mochi.event.segment()
-    mochi.attachment.save(attachments, "forums/" + forum["id"] + "/" + id, e.content("from"))
+    # Attachments arrive via _attachment/create events and are saved automatically
 
 # Received a post submission from member (we are forum owner)
 def event_post_submit_event(e):
@@ -929,14 +931,11 @@ def event_post_submit_event(e):
     
     mochi.db.query("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], e.content("from"), member["name"], title, body, now, now)
-    
+
     mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
-    
-    # Save attachments
-    attachments = mochi.event.segment()
-    mochi.attachment.save(attachments, "forums/" + forum["id"] + "/" + id, e.content("from"))
-    
-    # Broadcast to all members except sender
+    # Attachments arrive via _attachment/create events and are saved automatically
+
+    # Broadcast to all members except sender (attachments fetched on-demand)
     post_data = {
         "id": id,
         "member": e.content("from"),
@@ -945,15 +944,13 @@ def event_post_submit_event(e):
         "body": body,
         "created": now
     }
-    
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+
+    members = mochi.db.query("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], e.content("from"))
     for m in members:
-        if m["id"] != e.content("from"):
-            mochi.message.send(
-                {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
-                post_data,
-                attachments
-            )
+        mochi.message.send(
+            {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
+            post_data
+        )
 
 # Received a post update from forum owner
 def event_post_update_event(e):
@@ -1049,7 +1046,7 @@ def event_subscribe_event(e):
         members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
         mochi.db.query("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
         
-        # Send recent posts to new member
+        # Send recent posts to new member (attachments fetched on-demand)
         posts = mochi.db.query("select * from posts where forum=? order by created desc limit 20", forum["id"])
         for p in posts:
             post_data = {
@@ -1060,11 +1057,9 @@ def event_subscribe_event(e):
                 "body": p["body"],
                 "created": p["created"]
             }
-            attachments = mochi.attachment.get("forums/" + forum["id"] + "/" + p["id"])
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
-                post_data,
-                attachments
+                post_data
             )
         
         # Notify all members of new subscription
