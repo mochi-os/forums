@@ -342,7 +342,7 @@ def action_members_save(a):
         if m["id"] != a.user.identity.id:
             mochi.message.send(
                 {"from": forum["id"], "to": m["id"], "service": "forums", "event": "update"},
-                {"members": str(len(updated_members))},
+                {"members": len(updated_members)},
                 []
             )
     
@@ -1067,7 +1067,7 @@ def event_subscribe_event(e):
             if m["id"] != member_id:
                 mochi.message.send(
                     {"from": forum["id"], "to": m["id"], "service": "forums", "event": "update"},
-                    {"members": str(len(members))},
+                    {"members": len(members)},
                     []
                 )
 
@@ -1088,7 +1088,7 @@ def event_unsubscribe_event(e):
     for m in members:
         mochi.message.send(
             {"from": forum["id"], "to": m["id"], "service": "forums", "event": "update"},
-            {"members": str(len(members))},
+            {"members": len(members)},
             []
         )
 
@@ -1099,7 +1099,7 @@ def event_update_event(e):
         return
     
     members = e.content("members")
-    if not mochi.valid(members, "natural"):
+    if type(members) != "int" or members < 0:
         return
-    
-    mochi.db.query("update forums set members=?, updated=? where id=?", int(members), mochi.time.now(), forum["id"])
+
+    mochi.db.query("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
