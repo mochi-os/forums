@@ -1,56 +1,55 @@
 {
 	"version": "1.0",
 	"label": "app_name",
-	"classes": ["forum"],
-	"paths": ["forums"],
-	"services": ["forums"],
-
-	"architecture": {"engine": "starlark", "version": 2},
-	"execute": ["forums.star"],
-
+	"paths": [
+		"forums"
+	],
+	"services": [
+		"forums"
+	],
+	"architecture": {
+		"engine": "starlark",
+		"version": 2
+	},
+	"execute": [
+		"forums.star"
+	],
 	"database": {
 		"schema": 1,
 		"file": "forums.db",
-		"create": {"function": "database_create"},
-		"helpers": ["attachments"]
+		"create": {
+			"function": "database_create"
+		}
 	},
-
-	"icons": [
-		{"action": "", "label": "app_name", "file": "forums.png"}
-	],
-
 	"actions": {
-		"": {"function": "action_view"},
-		"create": {"function": "action_create"},
-		"find": {"function": "action_find"},
-		"new": {"function": "action_new"},
-		"post/create": {"function": "action_post_create"},
-		"post/new": {"function": "action_post_new"},
-		"search": {"function": "action_search"},
-		":forum": {"function": "action_view"},
-		":forum/members": {"function": "action_members_edit"},
-		":forum/members/save": {"function": "action_members_save"},
-		":forum/subscribe": {"function": "action_subscribe"},
-		":forum/unsubscribe": {"function": "action_unsubscribe"},
-		":forum/:post": {"function": "action_post_view"},
-		":forum/:post/comment": {"function": "action_comment_new"},
-		":forum/:post/create": {"function": "action_comment_create"},
-		":forum/:post/vote/:vote": {"function": "action_post_vote"},
-		":forum/:post/:comment/vote/:vote":	{"function": "action_comment_vote"}
+		"": {
+			"file": "web/dist/index.html"
+		},
+		"assets": {
+			"files": "web/dist/assets"
+		},
+		"images": {
+			"files": "web/dist/images"
+		}
 	},
-
-	"events": {
-		"comment/create": {"function": "event_comment_create_event"},
-		"comment/submit": {"function": "event_comment_submit_event"},
-		"comment/update": {"function": "event_comment_update_event"},
-		"comment/vote": {"function": "event_comment_vote_event"},
-		"member/update": {"function": "event_member_update_event"},
-		"post/create": {"function": "event_post_create_event"},
-		"post/submit": {"function": "event_post_submit_event"},
-		"post/update": {"function": "event_post_update_event"},
-		"post/vote": {"function": "event_post_vote_event"},
-		"subscribe": {"function": "event_subscribe_event"},
-		"unsubscribe": {"function": "event_unsubscribe_event"},
-		"update": {"function": "event_update_event"}
+	"functions": {
+		"create": {
+			"function": "function_create"
+		},
+		"find": {
+			"function": "function_find"
+		},
+		"members/edit": {
+			"function": "function_members_edit"
+		},
+		"members/save": {
+			"function": "function_members_save"
+		},
+		"subscribe": {
+			"function": "function_subscribe"
+		},
+		"unsubscribe": {
+			"function": "function_unsubscribe"
+		}
 	}
 }
