@@ -1,0 +1,986 @@
+openapi: "3.0.3"
+info:
+  title: "Forums App API"
+  version: "0.1.0"
+  description: |
+    HTTP API for the `forums` app - A decentralized forum system with posts, comments, voting, and role-based permissions.
+    
+    Forum roles (in ascending order of permissions):
+    - **disabled** (0): No access to forum
+    - **viewer** (1): Can view posts and comments
+    - **voter** (2): Can vote on posts and comments
+    - **commenter** (3): Can create comments
+    - **poster** (4): Can create posts
+    - **administrator** (5): Can manage members and roles
+
+paths:
+  "/forums":
+    get:
+      summary: View all forums or a specific forum
+      description: |
+        Without `forum` parameter: Lists all forums the user is subscribed to.
+        With `forum` parameter: Views a specific forum with its posts.
+      parameters:
+        - name: forum
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Forum ID or fingerprint. If omitted, lists all user's forums."
+      responses:
+        "200":
+          description: Forum data
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ViewForumResponse'
+                  - $ref: '#/components/schemas/ListForumsResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/create":
+    post:
+      summary: Create a new forum
+      description: Creates a new forum entity and adds the creator as administrator
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  description: "Forum name"
+                  example: "Technology Discussion"
+      responses:
+        "200":
+          description: Forum created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: "Newly created forum ID"
+        "400":
+          description: Invalid name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/find":
+    get:
+      summary: Find forums by search query
+      description: Search the directory for forums matching the search term
+      parameters:
+        - name: search
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Search term to find forums"
+          example: "technology"
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forums:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DirectoryEntry'
+
+  "/forums/new":
+    get:
+      summary: Get new forum form data
+      description: Returns empty data object for new forum creation form
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Form data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/search":
+    get:
+      summary: Search forums
+      description: Search for forums in the directory (includes user's own forums)
+      parameters:
+        - name: search
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Search term"
+          example: "gaming"
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DirectoryEntry'
+
+  "/forums/subscribe":
+    post:
+      summary: Subscribe to a forum
+      description: Add the forum to user's local database and send subscription request to forum owner
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [forum]
+              properties:
+                forum:
+                  type: string
+                  description: "Forum ID to subscribe to"
+      responses:
+        "200":
+          description: Subscribed successfully or already subscribed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      already_subscribed:
+                        type: boolean
+                        description: "True if user was already subscribed"
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found in directory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/unsubscribe":
+    post:
+      summary: Unsubscribe from a forum
+      description: Removes all local data for the forum (posts, comments, votes) and notifies forum owner
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [forum]
+              properties:
+                forum:
+                  type: string
+                  description: "Forum ID or fingerprint to unsubscribe from"
+      responses:
+        "200":
+          description: Unsubscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/members/edit":
+    get:
+      summary: View forum members for editing
+      description: Get list of all forum members (administrator only)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+      responses:
+        "200":
+          description: Forum members list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        $ref: '#/components/schemas/Forum'
+                      members:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Member'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized (not administrator)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/members/save":
+    post:
+      summary: Save forum member roles
+      description: Update member roles (administrator only, requires entity ownership)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [forum]
+              properties:
+                forum:
+                  type: string
+                  description: "Forum ID or fingerprint"
+                role_{member_id}:
+                  type: string
+                  description: "Role for each member (disabled, viewer, voter, commenter, poster, administrator)"
+                  enum: [disabled, viewer, voter, commenter, poster, administrator]
+            example:
+              forum: "forum123"
+              role_user456: "poster"
+              role_user789: "commenter"
+      responses:
+        "200":
+          description: Member roles updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        $ref: '#/components/schemas/Forum'
+        "400":
+          description: Invalid role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/post/new":
+    get:
+      summary: Get new post form data
+      description: Returns forum data for creating a new post (requires poster role)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+      responses:
+        "200":
+          description: Form data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        $ref: '#/components/schemas/Forum'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to post
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/post/create":
+    post:
+      summary: Create a new post
+      description: Create a new post in a forum (requires poster role). Supports file attachments.
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [forum, title, body]
+              properties:
+                forum:
+                  type: string
+                  description: "Forum ID or fingerprint"
+                title:
+                  type: string
+                  description: "Post title"
+                  example: "Welcome to the forum"
+                body:
+                  type: string
+                  description: "Post body content"
+                  example: "This is my first post!"
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: "Optional file attachments"
+      responses:
+        "200":
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        type: string
+                        description: "Forum ID"
+                      post:
+                        type: string
+                        description: "Newly created post ID"
+        "400":
+          description: Invalid title or body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to post
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/post/view":
+    get:
+      summary: View a post with comments
+      description: Get post details and nested comments tree
+      parameters:
+        - name: post
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Post ID"
+      responses:
+        "200":
+          description: Post and comments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        $ref: '#/components/schemas/Forum'
+                      post:
+                        $ref: '#/components/schemas/Post'
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                      member:
+                        $ref: '#/components/schemas/Member'
+                      role_voter:
+                        type: boolean
+                        description: "True if user can vote"
+                      role_commenter:
+                        type: boolean
+                        description: "True if user can comment"
+        "404":
+          description: Post or forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/post/vote":
+    post:
+      summary: Vote on a post
+      description: Cast an upvote or downvote on a post (requires voter role)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [post, vote]
+              properties:
+                post:
+                  type: string
+                  description: "Post ID"
+                vote:
+                  type: string
+                  enum: [up, down]
+                  description: "Vote direction"
+      responses:
+        "200":
+          description: Vote recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        type: string
+                      post:
+                        type: string
+        "400":
+          description: Invalid vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Post or forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/comment/new":
+    get:
+      summary: Get new comment form data
+      description: Returns data for creating a new comment
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+        - name: post
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Post ID"
+        - name: parent
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Parent comment ID (for nested replies)"
+      responses:
+        "200":
+          description: Form data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        $ref: '#/components/schemas/Forum'
+                      post:
+                        type: string
+                      parent:
+                        type: string
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/comment/create":
+    post:
+      summary: Create a new comment
+      description: Add a comment to a post or reply to another comment (requires commenter role)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [forum, post, body]
+              properties:
+                forum:
+                  type: string
+                  description: "Forum ID or fingerprint"
+                post:
+                  type: string
+                  description: "Post ID"
+                parent:
+                  type: string
+                  description: "Parent comment ID (optional, for nested replies)"
+                body:
+                  type: string
+                  description: "Comment body content"
+                  example: "Great post!"
+      responses:
+        "200":
+          description: Comment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        type: string
+                      post:
+                        type: string
+        "400":
+          description: Invalid body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum, post, or parent comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/comment/vote":
+    post:
+      summary: Vote on a comment
+      description: Cast an upvote or downvote on a comment (requires voter role)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [comment, vote]
+              properties:
+                comment:
+                  type: string
+                  description: "Comment ID"
+                vote:
+                  type: string
+                  enum: [up, down]
+                  description: "Vote direction"
+      responses:
+        "200":
+          description: Vote recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        type: string
+                      post:
+                        type: string
+        "400":
+          description: Invalid vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Comment or forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: login
+      description: "Login cookie set after successful authentication"
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JWT token or legacy login token in Authorization header"
+    headerAuth:
+      type: apiKey
+      in: header
+      name: X-Login
+      description: "Login token in X-Login header"
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "Error message"
+          example: "Not authorized"
+
+    Forum:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Forum unique identifier"
+        fingerprint:
+          type: string
+          description: "Human-readable forum identifier"
+        name:
+          type: string
+          description: "Forum name"
+        role:
+          type: string
+          description: "Default role for new members (empty for owner's forum)"
+          enum: ["", "disabled", "viewer", "voter", "commenter", "poster", "administrator"]
+        members:
+          type: integer
+          description: "Number of active members (role != disabled)"
+        updated:
+          type: integer
+          description: "Unix timestamp of last update"
+
+    Member:
+      type: object
+      properties:
+        forum:
+          type: string
+          description: "Forum ID"
+        id:
+          type: string
+          description: "Member entity ID"
+        name:
+          type: string
+          description: "Member name"
+        role:
+          type: string
+          description: "Member role"
+          enum: [disabled, viewer, voter, commenter, poster, administrator]
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Post unique identifier"
+        forum:
+          type: string
+          description: "Forum ID"
+        member:
+          type: string
+          description: "Post author entity ID"
+        name:
+          type: string
+          description: "Post author name"
+        title:
+          type: string
+          description: "Post title"
+        body:
+          type: string
+          description: "Post body content"
+        comments:
+          type: integer
+          description: "Number of comments"
+        up:
+          type: integer
+          description: "Number of upvotes"
+        down:
+          type: integer
+          description: "Number of downvotes"
+        created:
+          type: integer
+          description: "Unix timestamp of creation"
+        updated:
+          type: integer
+          description: "Unix timestamp of last update"
+        created_local:
+          type: string
+          description: "Human-readable local time"
+        attachments:
+          type: array
+          items:
+            type: object
+          description: "File attachments"
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Comment unique identifier"
+        forum:
+          type: string
+          description: "Forum ID"
+        post:
+          type: string
+          description: "Post ID"
+        parent:
+          type: string
+          description: "Parent comment ID (empty for top-level comments)"
+        member:
+          type: string
+          description: "Comment author entity ID"
+        name:
+          type: string
+          description: "Comment author name"
+        body:
+          type: string
+          description: "Comment body content"
+        up:
+          type: integer
+          description: "Number of upvotes"
+        down:
+          type: integer
+          description: "Number of downvotes"
+        created:
+          type: integer
+          description: "Unix timestamp of creation"
+        created_local:
+          type: string
+          description: "Human-readable local time"
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          description: "Nested child comments"
+        role_voter:
+          type: boolean
+          description: "True if user can vote on this comment"
+        role_commenter:
+          type: boolean
+          description: "True if user can reply to this comment"
+
+    DirectoryEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Entity ID"
+        fingerprint:
+          type: string
+          description: "Human-readable identifier"
+        fingerprint_hyphens:
+          type: string
+          description: "Fingerprint formatted with hyphens"
+        name:
+          type: string
+          description: "Entity name"
+        class:
+          type: string
+          description: "Entity class"
+          example: "forum"
+        created:
+          type: integer
+          description: "Unix timestamp of creation"
+
+    ViewForumResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            forum:
+              $ref: '#/components/schemas/Forum'
+            posts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Post'
+            member:
+              $ref: '#/components/schemas/Member'
+            role_administrator:
+              type: boolean
+              description: "True if user is administrator"
+
+    ListForumsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Forum'
