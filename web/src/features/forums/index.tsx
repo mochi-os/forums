@@ -55,8 +55,7 @@ export function Forums() {
 
   const handleThreadSelect = (threadId: string) => {
     navigate({
-      to: '/thread/$threadId',
-      params: { threadId },
+      to: `/thread/${threadId}`,
     })
   }
 

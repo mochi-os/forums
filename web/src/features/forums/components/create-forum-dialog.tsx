@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, X, Check } from 'lucide-react'
+import { MessageSquarePlus, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   ResponsiveDialog,
@@ -58,7 +58,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
     <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
       <ResponsiveDialogTrigger asChild>
         <Button size='sm' className='text-sm'>
-          <Plus className='size-4' />
+          <MessageSquarePlus className='size-4' />
           Create forum
         </Button>
       </ResponsiveDialogTrigger>
@@ -117,7 +117,6 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
           <ResponsiveDialogFooter className='gap-2'>
             <ResponsiveDialogClose asChild>
               <Button type='button' variant='outline'>
-                <X className='size-4' />
                 Cancel
               </Button>
             </ResponsiveDialogClose>

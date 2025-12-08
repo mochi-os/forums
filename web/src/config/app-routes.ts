@@ -1,12 +1,4 @@
 export const APP_ROUTES = {
-  // Core app (Authentication)
-  CORE: {
-    BASE: '/',
-    SIGN_IN: '/login',
-    SIGN_UP: '/sign-up',
-    FORGOT_PASSWORD: '/forgot-password',
-    OTP: '/otp',
-  },
   // Chat app
   CHAT: {
     BASE: '/chat/',
@@ -17,25 +9,25 @@ export const APP_ROUTES = {
     BASE: '/friends/',
     HOME: '/friends/',
   },
-  // Home app
+  // Home app (future)
   HOME: {
     BASE: '/home/',
     HOME: '/home/',
   },
-  // Feeds app
+  // Feeds app (future)
   FEEDS: {
     BASE: '/feeds/',
     HOME: '/feeds/',
-  },
-  // Notifications app
-  NOTIFICATIONS: {
-    BASE: '/notifications/',
-    HOME: '/notifications/',
   },
   // Forums app
   FORUMS: {
     BASE: './',
     HOME: './',
+  },
+  // Notifications app
+  NOTIFICATIONS: {
+    BASE: '/notifications/',
+    HOME: '/notifications/',
   },
   // Template app
   TEMPLATE: {

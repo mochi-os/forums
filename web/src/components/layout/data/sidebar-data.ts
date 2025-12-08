@@ -1,12 +1,12 @@
 import { APP_ROUTES } from '@/config/app-routes'
 import {
-  MessagesSquare,
   Bell,
   Home,
-  UserPlus,
-  Newspaper,
-  MessageSquare,
   LayoutTemplate,
+  Newspaper,
+  MessagesSquare,
+  UserPlus,
+  MessageCircle,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -48,7 +48,7 @@ export const sidebarData: SidebarData = {
         {
           title: 'Forums',
           url: APP_ROUTES.FORUMS.HOME,
-          icon: MessageSquare,
+          icon: MessageCircle,
         },
         {
           title: 'Template',

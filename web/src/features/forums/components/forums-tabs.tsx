@@ -50,7 +50,11 @@ export function ForumsTabs({
         <TabsTrigger value='all' className='relative'>
           All threads
           {allThreads.length > 0 && (
-            <Badge variant='secondary' className='ml-1.5 size-5 rounded-full p-0 text-[10px]'>
+            <Badge
+              variant='secondary'
+              className='ml-1.5 flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px]'
+            >
+              <MessageSquare className='h-3 w-3' />
               {allThreads.length}
             </Badge>
           )}
@@ -58,7 +62,11 @@ export function ForumsTabs({
         <TabsTrigger value='trending' className='relative'>
           Trending
           {trendingThreads.length > 0 && (
-            <Badge variant='default' className='ml-1.5 size-5 rounded-full p-0 text-[10px]'>
+            <Badge
+              variant='default'
+              className='ml-1.5 flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px]'
+            >
+              <Flame className='h-3 w-3' />
               {trendingThreads.length}
             </Badge>
           )}
@@ -66,7 +74,11 @@ export function ForumsTabs({
         <TabsTrigger value='unanswered' className='relative'>
           Unanswered
           {unansweredThreads.length > 0 && (
-            <Badge variant='outline' className='ml-1.5 size-5 rounded-full p-0 text-[10px]'>
+            <Badge
+              variant='outline'
+              className='ml-1.5 flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px]'
+            >
+              <Users className='h-3 w-3' />
               {unansweredThreads.length}
             </Badge>
           )}
