@@ -5,23 +5,29 @@
 	"version": "1.0",
 	"label": "app_name",
 	"classes": ["forum"],
-	"paths": ["forums"],
-	"services": ["forums"],
-
-	"architecture": {"engine": "starlark", "version": 2},
-	"execute": ["forums.star"],
-
+	"paths": [
+		"forums"
+	],
+	"services": [
+		"forums"
+	],
+	"architecture": {
+		"engine": "starlark",
+		"version": 2
+	},
+	"execute": [
+		"forums.star"
+	],
 	"database": {
 		"schema": 1,
 		"file": "forums.db",
-		"create": {"function": "database_create"},
-		"helpers": ["attachments"]
+		"create": {
+			"function": "database_create"
+		}
 	},
-
 	"icons": [
 		{"action": "", "label": "app_name", "file": "forums.png"}
 	],
-
 	"actions": {
 		"": {"file": "web/dist/index.html"},
 		"list": {"function": "action_view"},
