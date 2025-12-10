@@ -1,9 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
-import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@/components/notifications-dropdown'
 import { forumThreads, type ForumThread } from './data'
 import { ForumsHeader } from './components/forums-header'
 import { ForumsTabs } from './components/forums-tabs'
@@ -101,12 +98,7 @@ export function Forums() {
 
   return (
     <>
-      <Header>
-        <Search />
-        <div className='ms-auto flex items-center space-x-4'>
-          <NotificationsDropdown />
-        </div>
-      </Header>
+
 
       <Main>
         <ForumsHeader
