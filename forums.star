@@ -128,23 +128,23 @@ def action_create(a):
         a.error(400, "Invalid name")
         return
     
-    # Create entity for the forum
-    entity = mochi.entity.create("forum", name, "public", "")
-    if not entity:
+    # Create entity for the forum (returns entity ID string)
+    entity_id = mochi.entity.create("forum", name, "public", "")
+    if not entity_id:
         a.error(500, "Failed to create forum entity")
         return
     
     # Create forum record
     now = mochi.time.now()
     mochi.db.query("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
-        entity["id"], mochi.entity.fingerprint(entity["id"]), name, "", 1, now)
+        entity_id, mochi.entity.fingerprint(entity_id), name, "", 1, now)
     
     # Add creator as administrator
     mochi.db.query("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
-        entity["id"], a.user.identity.id, a.user.identity.name, "administrator")
+        entity_id, a.user.identity.id, a.user.identity.name, "administrator")
     
     return {
-        "data": {"id": entity["id"]}
+        "data": {"id": entity_id}
     }
 
 # Find forums by searching

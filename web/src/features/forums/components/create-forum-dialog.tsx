@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { MessageSquarePlus, Check } from 'lucide-react'
 import {
   Button,
@@ -21,6 +21,22 @@ import {
 } from '@mochi/common'
 import { memberAccessOptions } from '../constants'
 
+// Characters disallowed in forum names (matches backend validation)
+const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
+
+function validateForumName(name: string): string | null {
+  if (!name.trim()) {
+    return null // Empty is handled separately
+  }
+  if (DISALLOWED_NAME_CHARS.test(name)) {
+    return 'Name cannot contain < > \\ ; " \' or ` characters'
+  }
+  if (name.length > 1000) {
+    return 'Name must be 1000 characters or less'
+  }
+  return null
+}
+
 type CreateForumDialogProps = {
   onCreate: (input: { name: string; memberAccess: string; allowSearch: boolean }) => void
 }
@@ -39,9 +55,11 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
     allowSearch: true,
   })
 
+  const nameError = useMemo(() => validateForumName(form.name), [form.name])
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!form.name.trim()) return
+    if (!form.name.trim() || nameError) return
 
     onCreate(form)
     setForm({
@@ -77,7 +95,11 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setForm((prev) => ({ ...prev, name: event.target.value }))
               }
+              aria-invalid={!!nameError}
             />
+            {nameError && (
+              <p className='text-sm text-destructive'>{nameError}</p>
+            )}
           </div>
           <div className='space-y-2'>
             <Label htmlFor='forum-member-access'>New members may</Label>
@@ -118,7 +140,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
                 Cancel
               </Button>
             </ResponsiveDialogClose>
-            <Button type='submit' disabled={!form.name.trim()}>
+            <Button type='submit' disabled={!form.name.trim() || !!nameError}>
               <Check className='size-4' />
               Create
             </Button>
