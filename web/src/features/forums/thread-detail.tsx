@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@/components/notifications-dropdown'
+import { NotificationsDropdown } from '@mochi/common'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {

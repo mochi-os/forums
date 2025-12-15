@@ -4,7 +4,7 @@ import { ArrowLeft, ListChecks, Sparkles, Save, Send } from 'lucide-react'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@/components/notifications-dropdown'
+import { NotificationsDropdown } from '@mochi/common'
 import { Button } from '@/components/ui/button'
 import {
   Card,
