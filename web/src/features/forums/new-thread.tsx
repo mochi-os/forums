@@ -35,7 +35,7 @@ export function CreateThread() {
     queryFn: () => forumsApi.list(),
   })
   
-  const forumId = forumsData?.data?.[0]?.id
+  const forumId = forumsData?.data?.forums?.[0]?.id
 
   const [formState, setFormState] = useState<ThreadFormState>({
     title: '',

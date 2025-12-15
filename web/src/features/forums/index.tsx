@@ -13,21 +13,14 @@ export function Forums() {
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState('all')
 
-  // Fetch list of forums
+  // Fetch list of forums (also includes posts from subscribed forums)
   const { data: forumsData } = useQuery({
     queryKey: ['forums', 'list'],
     queryFn: () => forumsApi.list(),
   })
 
-  // For now, get the first forum to display posts (in a real app, user would select)
-  const selectedForumId = forumsData?.data?.[0]?.id
-
-  // Fetch posts for selected forum
-  const { data: forumData } = useQuery({
-    queryKey: ['forums', 'view', selectedForumId],
-    queryFn: () => forumsApi.view(selectedForumId!),
-    enabled: !!selectedForumId,
-  })
+  // Get posts from the list response
+  const posts = forumsData?.data?.posts || []
 
   // Create forum mutation
   const createForumMutation = useMutation({
@@ -49,8 +42,6 @@ export function Forums() {
     }
     createForumMutation.mutate(input.name)
   }
-
-  const posts = forumData?.data?.posts || []
 
   const handleThreadSelect = (threadId: string) => {
     navigate({

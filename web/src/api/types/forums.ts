@@ -28,7 +28,24 @@ export interface DirectoryEntry {
 // API Request/Response Types
 
 export interface ListForumsResponse {
-  data: Forum[]
+  data: {
+    forums: Forum[]
+    posts: Array<{
+      id: string
+      forum: string
+      member: string
+      name: string
+      title: string
+      body: string
+      comments: number
+      up: number
+      down: number
+      created: number
+      updated: number
+      created_local: string
+      attachments?: unknown[]
+    }>
+  }
 }
 
 export interface ViewForumResponse {
