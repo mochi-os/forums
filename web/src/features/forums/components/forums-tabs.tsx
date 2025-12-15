@@ -1,5 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsContent, TabsList, TabsTrigger, Badge } from '@mochi/common'
 import { Flame, MessageSquare, Users } from 'lucide-react'
 import { ThreadListPanel } from './thread-list-panel'
 import { type ForumThread } from '../data'

@@ -1,6 +1,5 @@
 import { type ComponentType } from 'react'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Card, CardContent } from '@/components/ui/card'
+import { ScrollArea, Card, CardContent } from '@mochi/common'
 import { ThreadListItem } from './thread-list-item'
 import { type ForumThread } from '../data'
 

@@ -1,4 +1,4 @@
-import { Input } from '@/components/ui/input'
+import { Input } from '@mochi/common'
 import { CreateForumDialog } from './create-forum-dialog'
 
 type ForumsHeaderProps = {

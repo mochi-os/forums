@@ -1,7 +1,5 @@
 import { Flame, MessageSquare, Pin, Users } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { cn, Badge, Avatar, AvatarFallback, AvatarImage } from '@mochi/common'
 import { threadStatusStyles } from '../status'
 import { type ForumThread } from '../data'
 

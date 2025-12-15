@@ -8,22 +8,24 @@ import {
   Share2,
   // Users,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@mochi/common'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import {
+  cn,
+  Search,
+  NotificationsDropdown,
+  Button,
+  Badge,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-// import { Textarea } from '@/components/ui/textarea'
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  // Textarea,
+  Header,
+  Main,
+} from '@mochi/common'
 import {
   findThreadById,
   // type ForumAuthor,

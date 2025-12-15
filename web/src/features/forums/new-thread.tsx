@@ -1,29 +1,27 @@
 import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { ArrowLeft, ListChecks, Sparkles, Save, Send } from 'lucide-react'
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@mochi/common'
-import { Button } from '@/components/ui/button'
 import {
+  Search,
+  NotificationsDropdown,
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import {
+  Badge,
+  Input,
+  Label,
+  Textarea,
   Select,
   SelectContent,
+  Header,
+  Main,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@mochi/common'
 
 const categories = [
   'General Discussion',

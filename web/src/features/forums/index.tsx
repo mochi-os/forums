@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main } from '@/components/layout/main'
+import { Main } from '@mochi/common'
 import { forumThreads, type ForumThread } from './data'
 import { ForumsHeader } from './components/forums-header'
 import { ForumsTabs } from './components/forums-tabs'
