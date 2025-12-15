@@ -74,7 +74,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
               id='forum-name'
               placeholder='Forum name'
               value={form.name}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setForm((prev) => ({ ...prev, name: event.target.value }))
               }
             />
@@ -83,7 +83,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
             <Label htmlFor='forum-member-access'>New members may</Label>
             <Select
               value={form.memberAccess}
-              onValueChange={(value) => setForm((prev) => ({ ...prev, memberAccess: value }))}
+              onValueChange={(value: string) => setForm((prev) => ({ ...prev, memberAccess: value }))}
             >
               <SelectTrigger id='forum-member-access' className='w-full justify-between'>
                 <SelectValue placeholder='Select access level' />
@@ -109,7 +109,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
             <Switch
               id='forum-search-visibility'
               checked={form.allowSearch}
-              onCheckedChange={(checked) => setForm((prev) => ({ ...prev, allowSearch: checked }))}
+              onCheckedChange={(checked: boolean) => setForm((prev) => ({ ...prev, allowSearch: checked }))}
             />
           </div>
           <ResponsiveDialogFooter className='gap-2'>

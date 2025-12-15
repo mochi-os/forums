@@ -1,13 +1,14 @@
-// import { type ComponentType, useMemo, useRef } from 'react'
+import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   ArrowLeft,
   BellPlus,
-  // Eye,
-  // MessageSquare,
   Share2,
-  // Users,
+  ThumbsUp,
+  ThumbsDown,
 } from 'lucide-react'
+import { toast } from 'sonner'
 import {
   cn,
   Search,
@@ -22,15 +23,11 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  // Textarea,
+  Textarea,
   Header,
   Main,
 } from '@mochi/common'
-import {
-  findThreadById,
-  // type ForumAuthor,
-  type ForumComment,
-} from './data'
+import { forumsApi } from '@/api/forums'
 import { threadStatusStyles } from './status'
 
 type ThreadDetailProps = {
@@ -39,25 +36,86 @@ type ThreadDetailProps = {
 
 export function ThreadDetail({ threadId }: ThreadDetailProps) {
   const navigate = useNavigate()
-  const thread = findThreadById(threadId)
-  // const replySectionRef = useRef<HTMLDivElement | null>(null)
+  const queryClient = useQueryClient()
+  const [commentBody, setCommentBody] = useState('')
 
-  // const participants = useMemo(() => {
-  //   if (!thread) {
-  //     return []
-  //   }
+  // Fetch post data
+  const { data: postData, isLoading } = useQuery({
+    queryKey: ['forums', 'post', threadId],
+    queryFn: () => forumsApi.viewPost({ post: threadId }),
+  })
 
-  //   const unique = new Map<string, ForumAuthor>()
-  //   unique.set(thread.author.name, thread.author)
-  //   thread.comments.forEach((comment) => {
-  //     if (!unique.has(comment.author.name)) {
-  //       unique.set(comment.author.name, comment.author)
-  //     }
-  //   })
-  //   return Array.from(unique.values())
-  // }, [thread])
+  // Vote on post mutation
+  const votePostMutation = useMutation({
+    mutationFn: (vote: 'up' | 'down') =>
+      forumsApi.votePost({ post: threadId, vote }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      toast.success('Vote recorded')
+    },
+    onError: () => {
+      toast.error('Failed to vote on post')
+    },
+  })
 
-  if (!thread) {
+  // Vote on comment mutation
+  const voteCommentMutation = useMutation({
+    mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' }) =>
+      forumsApi.voteComment({ comment: commentId, vote }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      toast.success('Vote recorded')
+    },
+    onError: () => {
+      toast.error('Failed to vote on comment')
+    },
+  })
+
+  // Create comment mutation
+  const createCommentMutation = useMutation({
+    mutationFn: (body: string) =>
+      forumsApi.createComment({
+        forum: postData!.data.forum.id,
+        post: threadId,
+        body,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      setCommentBody('')
+      toast.success('Comment posted')
+    },
+    onError: () => {
+      toast.error('Failed to post comment')
+    },
+  })
+
+  const handleCommentSubmit = () => {
+    if (!commentBody.trim()) {
+      toast.error('Please enter a comment')
+      return
+    }
+    createCommentMutation.mutate(commentBody)
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Header>
+          <Search />
+          <div className='ms-auto flex items-center space-x-4'>
+            <NotificationsDropdown />
+          </div>
+        </Header>
+        <Main>
+          <div className='text-center py-12 text-muted-foreground'>
+            Loading post...
+          </div>
+        </Main>
+      </>
+    )
+  }
+
+  if (!postData) {
     return (
       <>
         <Header>
@@ -91,15 +149,10 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
     )
   }
 
-  const status = threadStatusStyles[thread.status]
+  const { post, comments } = postData.data
+  const status = threadStatusStyles['open'] // API doesn't provide status, default to open
   const StatusIcon = status.icon
-  const commentCount = thread.comments.length
-  const handleNewCommentClick = () => {
-    // replySectionRef.current?.scrollIntoView({
-    //   behavior: 'smooth',
-    //   block: 'start',
-    // })
-  }
+  const commentCount = comments.length
 
   return (
     <>
@@ -124,12 +177,11 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
           Back to threads
         </Button>
 
-        <div className='grid gap-6 lg:grid-cols-[2fr,1fr]'>
+        <div className='grid gap-6'>
           <div className='space-y-6'>
             <Card>
               <CardHeader className='gap-4 border-b border-border/40 pb-4'>
                 <div className='flex flex-wrap items-center gap-2'>
-                  <Badge variant='secondary'>{thread.category}</Badge>
                   <Badge
                     variant='outline'
                     className={cn(
@@ -142,62 +194,27 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
                   </Badge>
                 </div>
                 <div className='flex flex-col gap-2'>
-                  <CardTitle className='text-2xl'>{thread.title}</CardTitle>
-                  <CardDescription className='text-base text-muted-foreground'>
-                    {thread.excerpt}
-                  </CardDescription>
+                  <CardTitle className='text-2xl'>{post.title}</CardTitle>
                   <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground'>
                     <span>
                       Posted&nbsp;
-                      <span className='font-semibold text-foreground'>{thread.postedAt}</span>
+                      <span className='font-semibold text-foreground'>{post.created_local}</span>
                     </span>
                     <span>•</span>
                     <span>
                       Author&nbsp;
                       <span className='font-semibold text-foreground'>
-                        {thread.author.name}
+                        {post.name}
                       </span>
                     </span>
-                    {thread.editedBy && (
-                      <>
-                        <span>•</span>
-                        <span>
-                          Edited by&nbsp;
-                          <span className='font-semibold text-foreground'>
-                            {thread.editedBy.name}
-                          </span>
-                        </span>
-                      </>
-                    )}
-                    <span>•</span>
-                    <span>Last activity {thread.lastActivity}</span>
-                    <Button
-                      variant='link'
-                      size='sm'
-                      className='px-2 py-1.5 h-auto text-primary'
-                      onClick={handleNewCommentClick}
-                    >
-                      New comment
-                    </Button>
                   </div>
-                </div>
-                <div className='flex flex-wrap items-center gap-3'>
-                  {thread.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant='outline'
-                      className='text-xs font-medium'
-                    >
-                      #{tag}
-                    </Badge>
-                  ))}
                 </div>
                 <div className='flex flex-wrap items-center gap-3 text-sm text-muted-foreground'>
                   <div className='flex items-center gap-2'>
                     <Avatar className='size-10'>
-                      <AvatarImage src='' alt={thread.author.name} />
+                      <AvatarImage src='' alt={post.name} />
                       <AvatarFallback>
-                        {thread.author.name
+                        {post.name
                           .split(' ')
                           .map((n) => n[0])
                           .join('')
@@ -207,14 +224,31 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
                     </Avatar>
                     <div>
                       <p className='font-semibold text-foreground'>
-                        {thread.author.name}
+                        {post.name}
                       </p>
-                      <p>{thread.author.role}</p>
+                      <p>Member</p>
                     </div>
                   </div>
-                  <span>Updated {thread.lastActivity}</span>
                 </div>
-                <div className='flex flex-wrap gap-2'>
+                <div className='flex flex-wrap gap-3 items-center'>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    onClick={() => votePostMutation.mutate('up')}
+                    disabled={votePostMutation.isPending}
+                  >
+                    <ThumbsUp className='mr-1 size-4' />
+                    {post.up}
+                  </Button>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    onClick={() => votePostMutation.mutate('down')}
+                    disabled={votePostMutation.isPending}
+                  >
+                    <ThumbsDown className='mr-1 size-4' />
+                    {post.down}
+                  </Button>
                   <Button variant='secondary' size='sm'>
                     <BellPlus className='mr-2 size-4' />
                     Follow thread
@@ -225,14 +259,6 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
                   </Button>
                 </div>
               </CardHeader>
-              {/* <CardContent className='space-y-4 text-sm leading-relaxed text-muted-foreground'>
-                <p>{thread.content}</p>
-                <p>
-                  Feel free to expand with your own render profiles or capture
-                  metrics if you have them. I will roll everything into a doc so
-                  the settings stay easy to find later.
-                </p>
-              </CardContent> */}
             </Card>
 
             <Card>
@@ -247,108 +273,43 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent className='space-y-5'>
-                {thread.comments.map((comment) => (
+                {comments.map((comment) => (
                   <ThreadComment
                     key={comment.id}
                     comment={comment}
-                    isOwner={comment.author.name === thread.author.name}
+                    isOwner={comment.member === post.member}
+                    onVote={(vote: 'up' | 'down') => voteCommentMutation.mutate({ commentId: comment.id, vote })}
                   />
                 ))}
               </CardContent>
             </Card>
 
-            {/* <div ref={replySectionRef} id='reply-form'>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Leave a reply</CardTitle>
-                  <CardDescription>
-                    Share tips, provide resources, or log your own repro steps.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className='space-y-4'>
-                  <Textarea
-                    placeholder='Add to the conversation...'
-                    className='min-h-[160px]'
-                  />
-                  <div className='flex justify-end gap-3'>
-                    <Button variant='outline' size='sm'>
-                      Save draft
-                    </Button>
-                    <Button size='sm'>Post reply</Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div> */}
+             <Card>
+               <CardHeader>
+                 <CardTitle>Leave a reply</CardTitle>
+                 <CardDescription>
+                   Share tips, provide resources, or log your own observation.
+                 </CardDescription>
+               </CardHeader>
+               <CardContent className='space-y-4'>
+                 <Textarea
+                   placeholder='Add to the conversation...'
+                   className='min-h-[160px]'
+                   value={commentBody}
+                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setCommentBody(e.target.value)}
+                 />
+                 <div className='flex justify-end gap-3'>
+                   <Button 
+                     size='sm'
+                     onClick={handleCommentSubmit}
+                     disabled={createCommentMutation.isPending || !commentBody.trim()}
+                   >
+                     {createCommentMutation.isPending ? 'Posting...' : 'Post reply'}
+                   </Button>
+                 </div>
+               </CardContent>
+             </Card>
           </div>
-
-          {/* <div className='space-y-6'>
-            <Card>
-              <CardHeader className='pb-2'>
-                <CardTitle className='text-lg'>Thread stats</CardTitle>
-                <CardDescription>Updated live from your activity</CardDescription>
-              </CardHeader>
-              <CardContent className='space-y-4'>
-                <ThreadStat
-                  icon={MessageSquare}
-                  label='Replies'
-                  value={`${commentCount}`}
-                />
-                <ThreadStat
-                  icon={Users}
-                  label='Participants'
-                  value={`${thread.participants}`}
-                />
-                <ThreadStat
-                  icon={Eye}
-                  label='Views'
-                  value={`${thread.viewCount}`}
-                />
-                <ThreadStat
-                  icon={BellPlus}
-                  label='Watchers'
-                  value={`${thread.watchers}`}
-                />
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className='pb-2'>
-                <CardTitle className='text-lg'>Participants</CardTitle>
-                <CardDescription>People active in this thread</CardDescription>
-              </CardHeader>
-              <CardContent className='space-y-4'>
-                {participants.length === 0 ? (
-                  <p className='text-sm text-muted-foreground'>
-                    No one has replied yet.
-                  </p>
-                ) : (
-                  participants.map((author) => (
-                    <div key={author.name} className='flex items-center gap-3'>
-                      <Avatar className='size-9'>
-                        <AvatarImage src={author.avatar} alt={author.name} />
-                        <AvatarFallback>
-                          {author.name
-                            .split(' ')
-                            .map((n) => n[0])
-                            .join('')
-                            .slice(0, 2)
-                            .toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className='text-sm font-medium text-foreground'>
-                          {author.name}
-                        </p>
-                        <p className='text-xs text-muted-foreground'>
-                          {author.role ?? 'Contributor'}
-                        </p>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </CardContent>
-            </Card>
-          </div> */}
         </div>
       </Main>
     </>
@@ -378,23 +339,31 @@ export function ThreadDetail({ threadId }: ThreadDetailProps) {
 function ThreadComment({
   comment,
   isOwner,
+  onVote,
 }: {
-  comment: ForumComment
+  comment: {
+    id: string
+    name: string
+    body: string
+    up: number
+    down: number
+    created_local: string
+  }
   isOwner: boolean
+  onVote: (vote: 'up' | 'down') => void
 }) {
   return (
     <div
       className={cn(
-        'rounded-xl border border-border/60 bg-card/80 p-4',
-        comment.isAnswer && 'border-green-500/40 bg-green-500/5'
+        'rounded-xl border border-border/60 bg-card/80 p-4'
       )}
     >
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div className='flex items-center gap-3'>
           <Avatar className='size-10'>
-            <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
+            <AvatarImage src='' alt={comment.name} />
             <AvatarFallback>
-              {comment.author.name
+              {comment.name
                 .split(' ')
                 .map((n) => n[0])
                 .join('')
@@ -404,42 +373,40 @@ function ThreadComment({
           </Avatar>
           <div>
             <p className='text-sm font-semibold text-foreground'>
-              {comment.author.name}
+              {comment.name}
             </p>
             <p className='text-xs text-muted-foreground'>
-              {comment.author.role ?? 'Contributor'}
+              Member
             </p>
           </div>
         </div>
         <div className='flex flex-wrap items-center gap-2 text-xs text-muted-foreground'>
           {isOwner && <Badge variant='secondary'>Original poster</Badge>}
-          {comment.isAnswer && (
-            <Badge variant='outline' className='border-green-500/40 text-green-300'>
-              Marked as solution
-            </Badge>
-          )}
-          <span>{comment.postedAt}</span>
+          <span>{comment.created_local}</span>
         </div>
       </div>
       <p className='mt-4 text-sm leading-6 text-muted-foreground'>
-        {comment.content}
+        {comment.body}
       </p>
       <div className='mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground'>
-        <Button variant='link' size='sm' className='h-auto px-0 text-primary'>
-          Reply
+        <Button 
+          variant='link' 
+          size='sm' 
+          className='h-auto px-0 text-primary'
+          onClick={() => onVote('up')}
+        >
+          <ThumbsUp className='mr-1 size-3' />
+          {comment.up}
         </Button>
-        <div className='flex items-center gap-1'>
-          <span>↑</span>
-          <span className='font-semibold text-foreground'>
-            {comment.upvotes ?? 0}
-          </span>
-        </div>
-        <div className='flex items-center gap-1'>
-          <span>↓</span>
-          <span className='font-semibold text-foreground'>
-            {comment.downvotes ?? 0}
-          </span>
-        </div>
+        <Button 
+          variant='link' 
+          size='sm' 
+          className='h-auto px-0 text-primary'
+          onClick={() => onVote('down')}
+        >
+          <ThumbsDown className='mr-1 size-3' />
+          {comment.down}
+        </Button>
       </div>
     </div>
   )

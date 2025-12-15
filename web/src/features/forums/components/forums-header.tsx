@@ -20,7 +20,7 @@ export function ForumsHeader({ searchTerm, onSearchChange, onCreateForum }: Foru
             type='search'
             placeholder='Search forums'
             value={searchTerm}
-            onChange={(event) => onSearchChange(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => onSearchChange(event.target.value)}
             aria-label='Search forums'
           />
         </div>
