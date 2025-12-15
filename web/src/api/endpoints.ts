@@ -1,10 +1,4 @@
 const endpoints = {
-  auth: {
-    login: '/login',
-    signup: '/signup',
-    verify: '/login/auth',
-    logout: '/logout',
-  },
   forums: {
     list: '/forums',
     create: '/forums/create',
