@@ -16,7 +16,49 @@ info:
 paths:
   "/forums":
     get:
-      summary: View all forums or a specific forum
+      summary: Main forums page
+      description: Serves the main forums web interface
+      responses:
+        "200":
+          description: Forums web interface
+          content:
+            text/html:
+              schema:
+                type: string
+
+  "/forums/assets/{path}":
+    get:
+      summary: Static assets
+      description: Serves static assets for the web interface
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Asset path"
+      responses:
+        "200":
+          description: Static asset file
+
+  "/forums/images/{path}":
+    get:
+      summary: Image files
+      description: Serves image files for the web interface
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Image path"
+      responses:
+        "200":
+          description: Image file
+
+  "/forums/list":
+    get:
+      summary: List all forums or view a specific forum
       description: |
         Without `forum` parameter: Lists all forums the user is subscribed to.
         With `forum` parameter: Views a specific forum with its posts.
@@ -42,6 +84,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/attachments/{path}":
+    get:
+      summary: Download forum attachments
+      description: Retrieves file attachments from posts
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Attachment identifier"
+      responses:
+        "200":
+          description: Attachment file
+        "404":
+          description: Attachment not found
 
   "/forums/create":
     post:
@@ -169,85 +228,24 @@ paths:
                         items:
                           $ref: '#/components/schemas/DirectoryEntry'
 
-  "/forums/subscribe":
-    post:
-      summary: Subscribe to a forum
-      description: Add the forum to user's local database and send subscription request to forum owner
-      security:
-        - cookieAuth: []
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [forum]
-              properties:
-                forum:
-                  type: string
-                  description: "Forum ID to subscribe to"
+  "/forums/{forum}":
+    get:
+      summary: View a specific forum
+      description: Views a specific forum with its posts (alternative path format)
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
       responses:
         "200":
-          description: Subscribed successfully or already subscribed
+          description: Forum data
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      already_subscribed:
-                        type: boolean
-                        description: "True if user was already subscribed"
-        "401":
-          description: Not logged in
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "404":
-          description: Forum not found in directory
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  "/forums/unsubscribe":
-    post:
-      summary: Unsubscribe from a forum
-      description: Removes all local data for the forum (posts, comments, votes) and notifies forum owner
-      security:
-        - cookieAuth: []
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [forum]
-              properties:
-                forum:
-                  type: string
-                  description: "Forum ID or fingerprint to unsubscribe from"
-      responses:
-        "200":
-          description: Unsubscribed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-        "401":
-          description: Not logged in
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ViewForumResponse'
         "404":
           description: Forum not found
           content:
@@ -255,7 +253,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/members/edit":
+  "/forums/{forum}/members":
     get:
       summary: View forum members for editing
       description: Get list of all forum members (administrator only)
@@ -264,7 +262,7 @@ paths:
         - bearerAuth: []
       parameters:
         - name: forum
-          in: query
+          in: path
           required: true
           schema:
             type: string
@@ -305,30 +303,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/members/save":
+  "/forums/{forum}/members/save":
     post:
       summary: Save forum member roles
       description: Update member roles (administrator only, requires entity ownership)
       security:
         - cookieAuth: []
         - bearerAuth: []
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
       requestBody:
         required: true
         content:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [forum]
               properties:
-                forum:
-                  type: string
-                  description: "Forum ID or fingerprint"
                 role_{member_id}:
                   type: string
                   description: "Role for each member (disabled, viewer, voter, commenter, poster, administrator)"
                   enum: [disabled, viewer, voter, commenter, poster, administrator]
             example:
-              forum: "forum123"
               role_user456: "poster"
               role_user789: "commenter"
       responses:
@@ -350,6 +350,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/{forum}/subscribe":
+    post:
+      summary: Subscribe to a forum
+      description: Add the forum to user's local database and send subscription request to forum owner
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID to subscribe to"
+      responses:
+        "200":
+          description: Subscribed successfully or already subscribed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      already_subscribed:
+                        type: boolean
+                        description: "True if user was already subscribed"
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Forum not found in directory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/{forum}/unsubscribe":
+    post:
+      summary: Unsubscribe from a forum
+      description: Removes all local data for the forum (posts, comments, votes) and notifies forum owner
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint to unsubscribe from"
+      responses:
+        "200":
+          description: Unsubscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
         "401":
           description: Not logged in
           content:
@@ -483,13 +561,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/post/view":
+  "/forums/{forum}/{post}":
     get:
       summary: View a post with comments
       description: Get post details and nested comments tree
       parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
         - name: post
-          in: query
+          in: path
           required: true
           schema:
             type: string
@@ -528,84 +612,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/post/vote":
-    post:
-      summary: Vote on a post
-      description: Cast an upvote or downvote on a post (requires voter role)
-      security:
-        - cookieAuth: []
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [post, vote]
-              properties:
-                post:
-                  type: string
-                  description: "Post ID"
-                vote:
-                  type: string
-                  enum: [up, down]
-                  description: "Vote direction"
-      responses:
-        "200":
-          description: Vote recorded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      forum:
-                        type: string
-                      post:
-                        type: string
-        "400":
-          description: Invalid vote
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "401":
-          description: Not logged in
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "403":
-          description: Not authorized to vote
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "404":
-          description: Post or forum not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  "/forums/comment/new":
+  "/forums/{forum}/{post}/comment":
     get:
       summary: Get new comment form data
-      description: Returns data for creating a new comment
+      description: Returns data for creating a new comment on a post
       security:
         - cookieAuth: []
         - bearerAuth: []
       parameters:
         - name: forum
-          in: query
+          in: path
           required: true
           schema:
             type: string
           description: "Forum ID or fingerprint"
         - name: post
-          in: query
+          in: path
           required: true
           schema:
             type: string
@@ -646,27 +668,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/comment/create":
+  "/forums/{forum}/{post}/create":
     post:
       summary: Create a new comment
       description: Add a comment to a post or reply to another comment (requires commenter role)
       security:
         - cookieAuth: []
         - bearerAuth: []
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+        - name: post
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Post ID"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [forum, post, body]
+              required: [body]
               properties:
-                forum:
-                  type: string
-                  description: "Forum ID or fingerprint"
-                post:
-                  type: string
-                  description: "Post ID"
                 parent:
                   type: string
                   description: "Parent comment ID (optional, for nested replies)"
@@ -714,28 +743,106 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  "/forums/comment/vote":
+  "/forums/{forum}/{post}/vote/{vote}":
+    post:
+      summary: Vote on a post
+      description: Cast an upvote or downvote on a post (requires voter role)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+        - name: post
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Post ID"
+        - name: vote
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [up, down]
+          description: "Vote direction"
+      responses:
+        "200":
+          description: Vote recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      forum:
+                        type: string
+                      post:
+                        type: string
+        "400":
+          description: Invalid vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not authorized to vote
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Post or forum not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/forums/{forum}/{post}/{comment}/vote/{vote}":
     post:
       summary: Vote on a comment
       description: Cast an upvote or downvote on a comment (requires voter role)
       security:
         - cookieAuth: []
         - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [comment, vote]
-              properties:
-                comment:
-                  type: string
-                  description: "Comment ID"
-                vote:
-                  type: string
-                  enum: [up, down]
-                  description: "Vote direction"
+      parameters:
+        - name: forum
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Forum ID or fingerprint"
+        - name: post
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Post ID"
+        - name: comment
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Comment ID"
+        - name: vote
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [up, down]
+          description: "Vote direction"
       responses:
         "200":
           description: Vote recorded
