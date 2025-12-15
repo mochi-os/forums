@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { Main } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
 import { ForumsHeader } from './components/forums-header'
@@ -7,6 +9,9 @@ import { ForumsTabs } from './components/forums-tabs'
 
 export function Forums() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeTab, setActiveTab] = useState('all')
 
   // Fetch list of forums
   const { data: forumsData } = useQuery({
@@ -23,6 +28,27 @@ export function Forums() {
     queryFn: () => forumsApi.view(selectedForumId!),
     enabled: !!selectedForumId,
   })
+
+  // Create forum mutation
+  const createForumMutation = useMutation({
+    mutationFn: (name: string) => forumsApi.create({ name }),
+    onSuccess: () => {
+      toast.success('Forum created successfully!')
+      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+    },
+    onError: (error) => {
+      toast.error('Failed to create forum')
+      console.error('Create forum error:', error)
+    },
+  })
+
+  const handleCreateForum = (input: { name: string; memberAccess: string; allowSearch: boolean }) => {
+    if (!input.name.trim()) {
+      toast.error('Please enter a forum name')
+      return
+    }
+    createForumMutation.mutate(input.name)
+  }
 
   const posts = forumData?.data?.posts || []
 
@@ -54,23 +80,32 @@ export function Forums() {
     comments: [],
   }))
 
+  // Filter threads based on search term
+  const normalizedSearch = searchTerm.trim().toLowerCase()
+  const filteredThreads = normalizedSearch
+    ? threads.filter(t => 
+        t.title.toLowerCase().includes(normalizedSearch) ||
+        t.excerpt.toLowerCase().includes(normalizedSearch)
+      )
+    : threads
+
   return (
     <>
       <Main>
         <ForumsHeader
-          searchTerm={''}
-          onSearchChange={() => {}}
-          onCreateForum={() => {}}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onCreateForum={handleCreateForum}
         />
 
         <ForumsTabs
-          activeTab="all"
-          onTabChange={() => {}}
-          allThreads={threads}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          allThreads={filteredThreads}
           trendingThreads={[]}
-          unansweredThreads={threads.filter(t => t.replyCount === 0)}
+          unansweredThreads={filteredThreads.filter(t => t.replyCount === 0)}
           onSelectThread={handleThreadSelect}
-          normalizedSearch=""
+          normalizedSearch={normalizedSearch}
         />
       </Main>
     </>
