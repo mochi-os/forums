@@ -22,7 +22,10 @@ export interface DirectoryEntry {
   fingerprint_hyphens: string
   name: string
   class: string
+  data: string
+  location: string
   created: number
+  updated: number
 }
 
 // API Request/Response Types
