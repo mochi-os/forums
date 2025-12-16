@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   ArrowLeft,
@@ -30,12 +30,9 @@ import {
 import { forumsApi } from '@/api/forums'
 import { threadStatusStyles } from './status'
 
-type ThreadDetailProps = {
-  threadId: string
-}
-
-export function ThreadDetail({ threadId }: ThreadDetailProps) {
+export function ThreadDetail() {
   const navigate = useNavigate()
+  const { threadId } = useParams({ strict: false }) as { threadId: string }
   const queryClient = useQueryClient()
   const [commentBody, setCommentBody] = useState('')
 
