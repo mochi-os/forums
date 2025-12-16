@@ -14,18 +14,6 @@ info:
     - **administrator** (5): Can manage members and roles
 
 paths:
-  "/forums":
-    get:
-      summary: Main forums page
-      description: Serves the main forums web interface
-      responses:
-        "200":
-          description: Forums web interface
-          content:
-            text/html:
-              schema:
-                type: string
-
   "/forums/assets/{path}":
     get:
       summary: Static assets
@@ -57,11 +45,14 @@ paths:
           description: Image file
 
   "/forums/list":
-    get:
+    post:
       summary: List all forums or view a specific forum
       description: |
         Without `forum` parameter: Lists all forums the user is subscribed to.
         With `forum` parameter: Views a specific forum with its posts.
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
       parameters:
         - name: forum
           in: query
@@ -716,8 +707,13 @@ paths:
                     properties:
                       forum:
                         type: string
+                        description: "Forum ID"
                       post:
                         type: string
+                        description: "Post ID"
+                      comment:
+                        type: string
+                        description: "Newly created comment ID"
         "400":
           description: Invalid body
           content:
@@ -972,8 +968,18 @@ components:
           type: string
           description: "Post body content"
         comments:
-          type: integer
-          description: "Number of comments"
+          oneOf:
+            - type: integer
+              description: "Number of comments (in database)"
+            - type: array
+              items:
+                $ref: '#/components/schemas/Comment'
+              description: "Array of comment objects (when viewing specific forum)"
+        comment_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          description: "Array of comment objects (when listing all forums)"
         up:
           type: integer
           description: "Number of upvotes"
@@ -1088,6 +1094,15 @@ components:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Forum'
+          type: object
+          properties:
+            forums:
+              type: array
+              items:
+                $ref: '#/components/schemas/Forum'
+              description: "List of all forums user is subscribed to"
+            posts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Post'
+              description: "Recent posts from all forums. Each post includes comment_list array with comment objects."

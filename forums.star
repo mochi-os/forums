@@ -93,6 +93,9 @@ def action_view(a):
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
+            # Get comment count for this post
+            p["comments"] = mochi.db.query("select * from comments where forum=? and post=? order by created desc",
+                forum["id"], p["id"])
         
         return {
             "data": {
@@ -109,6 +112,9 @@ def action_view(a):
         
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
+            # Get comments for this post
+            p["comment_list"] = mochi.db.query("select * from comments where forum=? and post=? order by created desc",
+                p["forum"], p["id"])
         
         return {
             "data": {
@@ -129,22 +135,23 @@ def action_create(a):
         return
     
     # Create entity for the forum
-    entity = mochi.entity.create("forum", name, "public", "")
-    if not entity:
+    entity_id = mochi.entity.create("forum", name, "public", "")
+    if not entity_id:
         a.error(500, "Failed to create forum entity")
         return
     
     # Create forum record
+    entity_fp = mochi.entity.fingerprint(entity_id)
     now = mochi.time.now()
     mochi.db.query("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
-        entity["id"], mochi.entity.fingerprint(entity["id"]), name, "", 1, now)
+        entity_id, entity_fp, name, "", 1, now)
     
     # Add creator as administrator
     mochi.db.query("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
-        entity["id"], a.user.identity.id, a.user.identity.name, "administrator")
+        entity_id, a.user.identity.id, a.user.identity.name, "administrator")
     
     return {
-        "data": {"id": entity["id"]}
+        "data": {"id": entity_id, "fingerprint": entity_fp}
     }
 
 # Find forums by searching
@@ -549,7 +556,7 @@ def action_comment_create(a):
             )
     
     return {
-        "data": {"forum": forum["id"], "post": post_id}
+        "data": {"forum": forum["id"], "post": post_id, "comment": id}
     }
 
 # Vote on a post
