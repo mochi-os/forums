@@ -13,32 +13,32 @@ FORUM_ROLES = {
 
 # Create database
 def database_create():
-    mochi.db.query("create table settings ( name text not null primary key, value text not null )")
-    mochi.db.query("replace into settings ( name, value ) values ( 'schema', 1 )")
+    mochi.db.execute("create table settings ( name text not null primary key, value text not null )")
+    mochi.db.execute("replace into settings ( name, value ) values ( 'schema', 1 )")
 
-    mochi.db.query("create table forums ( id text not null primary key, fingerprint text not null, name text not null, role text not null default '', members integer not null default 0, updated integer not null )")
-    mochi.db.query("create index forums_fingerprint on forums( fingerprint )")
-    mochi.db.query("create index forums_name on forums( name )")
-    mochi.db.query("create index forums_updated on forums( updated )")
+    mochi.db.execute("create table forums ( id text not null primary key, fingerprint text not null, name text not null, role text not null default '', members integer not null default 0, updated integer not null )")
+    mochi.db.execute("create index forums_fingerprint on forums( fingerprint )")
+    mochi.db.execute("create index forums_name on forums( name )")
+    mochi.db.execute("create index forums_updated on forums( updated )")
 
-    mochi.db.query("create table members ( forum references forums( id ), id text not null, name text not null default '', role text not null, primary key ( forum, id ) )")
-    mochi.db.query("create index members_id on members( id )")
+    mochi.db.execute("create table members ( forum references forums( id ), id text not null, name text not null default '', role text not null, primary key ( forum, id ) )")
+    mochi.db.execute("create index members_id on members( id )")
 
-    mochi.db.query("create table posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null )")
-    mochi.db.query("create index posts_forum on posts( forum )")
-    mochi.db.query("create index posts_created on posts( created )")
-    mochi.db.query("create index posts_updated on posts( updated )")
+    mochi.db.execute("create table posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null )")
+    mochi.db.execute("create index posts_forum on posts( forum )")
+    mochi.db.execute("create index posts_created on posts( created )")
+    mochi.db.execute("create index posts_updated on posts( updated )")
 
-    mochi.db.query("create table comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null )")
-    mochi.db.query("create index comments_forum on comments( forum )")
-    mochi.db.query("create index comments_post on comments( post )")
-    mochi.db.query("create index comments_parent on comments( parent )")
-    mochi.db.query("create index comments_created on comments( created )")
+    mochi.db.execute("create table comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null )")
+    mochi.db.execute("create index comments_forum on comments( forum )")
+    mochi.db.execute("create index comments_post on comments( post )")
+    mochi.db.execute("create index comments_parent on comments( parent )")
+    mochi.db.execute("create index comments_created on comments( created )")
 
-    mochi.db.query("create table votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
-    mochi.db.query("create index votes_post on votes( post )")
-    mochi.db.query("create index votes_comment on votes( comment )")
-    mochi.db.query("create index votes_voter on votes( voter )")
+    mochi.db.execute("create table votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
+    mochi.db.execute("create index votes_post on votes( post )")
+    mochi.db.execute("create index votes_comment on votes( comment )")
+    mochi.db.execute("create index votes_voter on votes( voter )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -86,7 +86,7 @@ def action_view(a):
             return
         
         # Get posts for this forum
-        posts = mochi.db.query("select * from posts where forum=? order by updated desc", forum["id"])
+        posts = mochi.db.rows("select * from posts where forum=? order by updated desc", forum["id"])
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
             p["attachments"] = mochi.attachment.list(p["id"])
@@ -94,7 +94,7 @@ def action_view(a):
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
             # Get comment count for this post
-            p["comments"] = mochi.db.query("select * from comments where forum=? and post=? order by created desc",
+            p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
                 forum["id"], p["id"])
         
         return {
@@ -107,13 +107,13 @@ def action_view(a):
         }
     else:
         # List all forums
-        forums = mochi.db.query("select * from forums order by updated desc")
-        posts = mochi.db.query("select * from posts order by updated desc")
+        forums = mochi.db.rows("select * from forums order by updated desc")
+        posts = mochi.db.rows("select * from posts order by updated desc")
         
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
             # Get comments for this post
-            p["comment_list"] = mochi.db.query("select * from comments where forum=? and post=? order by created desc",
+            p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
                 p["forum"], p["id"])
         
         return {
@@ -143,11 +143,11 @@ def action_create(a):
     # Create forum record
     entity_fp = mochi.entity.fingerprint(entity_id)
     now = mochi.time.now()
-    mochi.db.query("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
         entity_id, entity_fp, name, "", 1, now)
     
     # Add creator as administrator
-    mochi.db.query("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
+    mochi.db.execute("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
         entity_id, a.user.identity.id, a.user.identity.name, "administrator")
     
     return {
@@ -202,13 +202,13 @@ def action_post_create(a):
     id = mochi.uid()
     now = mochi.time.now()
     
-    mochi.db.query("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], a.user.identity.id, a.user.identity.name, title, body, now, now)
     
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Get members for notification
-    members = mochi.db.query("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], a.user.identity.id)
+    members = mochi.db.rows("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], a.user.identity.id)
 
     # Save any uploaded attachments and notify members via _attachment/create events
     attachments = mochi.attachment.save(id, "attachments", [], [], members)
@@ -279,7 +279,7 @@ def action_members_edit(a):
         a.error(403, "Not authorized")
         return
     
-    members = mochi.db.query("select * from members where forum=? order by name", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? order by name", forum["id"])
     
     return {
         "data": {
@@ -306,7 +306,7 @@ def action_members_save(a):
         return
     
     # Update member roles from form inputs (excluding current user)
-    members = mochi.db.query("select * from members where forum=? and id!=?", forum["id"], a.user.identity.id)
+    members = mochi.db.rows("select * from members where forum=? and id!=?", forum["id"], a.user.identity.id)
     for m in members:
         new_role = a.input("role_" + m["id"])
         if new_role and new_role != m["role"]:
@@ -314,7 +314,7 @@ def action_members_save(a):
                 a.error(400, "Invalid role")
                 return
             
-            mochi.db.query("update members set role=? where forum=? and id=?", new_role, forum["id"], m["id"])
+            mochi.db.execute("update members set role=? where forum=? and id=?", new_role, forum["id"], m["id"])
             
             # Notify member of role change
             mochi.message.send(
@@ -326,7 +326,7 @@ def action_members_save(a):
             # If member was disabled and now has access, send recent posts
             # Attachments are fetched on-demand when viewing posts
             if m["role"] == "disabled" and new_role != "disabled":
-                posts = mochi.db.query("select * from posts where forum=? order by created desc limit 20", forum["id"])
+                posts = mochi.db.rows("select * from posts where forum=? order by created desc limit 20", forum["id"])
                 for p in posts:
                     post_data = {
                         "id": p["id"],
@@ -342,8 +342,8 @@ def action_members_save(a):
                     )
     
     # Broadcast updated member count to all members
-    updated_members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
-    mochi.db.query("update forums set members=?, updated=? where id=?", len(updated_members), mochi.time.now(), forum["id"])
+    updated_members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
+    mochi.db.execute("update forums set members=?, updated=? where id=?", len(updated_members), mochi.time.now(), forum["id"])
     
     for m in updated_members:
         if m["id"] != a.user.identity.id:
@@ -377,11 +377,11 @@ def action_subscribe(a):
     
     # Create local forum record
     now = mochi.time.now()
-    mochi.db.query("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
         forum_id, forum["fingerprint"], forum["name"], "viewer", 0, now)
     
     # Add self as member with viewer role
-    mochi.db.query("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
+    mochi.db.execute("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
         forum_id, a.user.identity.id, a.user.identity.name, "viewer")
     
     # Send subscribe message to forum owner
@@ -407,11 +407,11 @@ def action_unsubscribe(a):
         return
     
     # Delete all local data for this forum
-    mochi.db.query("delete from votes where forum=?", forum["id"])
-    mochi.db.query("delete from comments where forum=?", forum["id"])
-    mochi.db.query("delete from posts where forum=?", forum["id"])
-    mochi.db.query("delete from members where forum=?", forum["id"])
-    mochi.db.query("delete from forums where id=?", forum["id"])
+    mochi.db.execute("delete from votes where forum=?", forum["id"])
+    mochi.db.execute("delete from comments where forum=?", forum["id"])
+    mochi.db.execute("delete from posts where forum=?", forum["id"])
+    mochi.db.execute("delete from members where forum=?", forum["id"])
+    mochi.db.execute("delete from forums where id=?", forum["id"])
     
     # Notify forum owner
     mochi.message.send(
@@ -446,7 +446,7 @@ def action_post_view(a):
         if depth > 100:  # Prevent infinite recursion
             return []
         
-        comments = mochi.db.query("select * from comments where forum=? and post=? and parent=? order by created desc",
+        comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
             forum["id"], post_id, parent_id)
         
         for c in comments:
@@ -529,11 +529,11 @@ def action_comment_create(a):
     id = mochi.uid()
     now = mochi.time.now()
     
-    mochi.db.query("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post_id, parent_id or "", a.user.identity.id, a.user.identity.name, body, now)
     
-    mochi.db.query("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast to members
     comment_data = {
@@ -546,7 +546,7 @@ def action_comment_create(a):
         "created": now
     }
     
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != a.user.identity.id:
             mochi.message.send(
@@ -589,26 +589,26 @@ def action_post_vote(a):
     old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], a.user.identity.id)
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.query("update posts set up=up-1 where id=?", post["id"])
+            mochi.db.execute("update posts set up=up-1 where id=?", post["id"])
         elif old_vote["vote"] == "down":
-            mochi.db.query("update posts set down=down-1 where id=?", post["id"])
+            mochi.db.execute("update posts set down=down-1 where id=?", post["id"])
     
     # Add new vote
-    mochi.db.query("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
+    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
         forum["id"], post["id"], a.user.identity.id, vote)
     
     if vote == "up":
-        mochi.db.query("update posts set up=up+1 where id=?", post["id"])
+        mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
     elif vote == "down":
-        mochi.db.query("update posts set down=down+1 where id=?", post["id"])
+        mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
     
     now = mochi.time.now()
-    mochi.db.query("update posts set updated=? where id=?", now, post["id"])
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast update
     updated_post = mochi.db.row("select up, down from posts where id=?", post["id"])
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != a.user.identity.id:
             mochi.message.send(
@@ -651,26 +651,26 @@ def action_comment_vote(a):
     old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], a.user.identity.id)
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.query("update comments set up=up-1 where id=?", comment["id"])
+            mochi.db.execute("update comments set up=up-1 where id=?", comment["id"])
         elif old_vote["vote"] == "down":
-            mochi.db.query("update comments set down=down-1 where id=?", comment["id"])
+            mochi.db.execute("update comments set down=down-1 where id=?", comment["id"])
     
     # Add new vote
-    mochi.db.query("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
         forum["id"], comment["post"], comment["id"], a.user.identity.id, vote)
     
     if vote == "up":
-        mochi.db.query("update comments set up=up+1 where id=?", comment["id"])
+        mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
     elif vote == "down":
-        mochi.db.query("update comments set down=down+1 where id=?", comment["id"])
+        mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
     
     now = mochi.time.now()
-    mochi.db.query("update posts set updated=? where id=?", now, comment["post"])
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast update
     updated_comment = mochi.db.row("select up, down from comments where id=?", comment["id"])
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != a.user.identity.id:
             mochi.message.send(
@@ -717,11 +717,11 @@ def event_comment_create_event(e):
     if not mochi.valid(body, "text"):
         return
     
-    mochi.db.query("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, created)
     
-    mochi.db.query("update posts set updated=?, comments=comments+1 where id=?", created, post)
-    mochi.db.query("update forums set updated=? where id=?", created, forum["id"])
+    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
+    mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
@@ -758,11 +758,11 @@ def event_comment_submit_event(e):
     
     now = mochi.time.now()
     
-    mochi.db.query("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, e.content("from"), member["name"], body, now)
     
-    mochi.db.query("update posts set updated=?, comments=comments+1 where id=?", now, post)
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post)
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast to all members except sender
     comment_data = {
@@ -775,7 +775,7 @@ def event_comment_submit_event(e):
         "created": now
     }
     
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != e.content("from"):
             mochi.message.send(
@@ -796,9 +796,9 @@ def event_comment_update_event(e):
         return
     
     now = mochi.time.now()
-    mochi.db.query("update comments set up=?, down=? where id=?", comment.get("up", 0), comment.get("down", 0), id)
-    mochi.db.query("update posts set updated=? where id=?", now, old_comment["post"])
-    mochi.db.query("update forums set updated=? where id=?", now, old_comment["forum"])
+    mochi.db.execute("update comments set up=?, down=? where id=?", comment.get("up", 0), comment.get("down", 0), id)
+    mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
+    mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
 
 # Received a comment vote from member (we are forum owner)
 def event_comment_vote_event(e):
@@ -827,26 +827,26 @@ def event_comment_vote_event(e):
     old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment_id, e.content("from"))
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.query("update comments set up=up-1 where id=?", comment_id)
+            mochi.db.execute("update comments set up=up-1 where id=?", comment_id)
         elif old_vote["vote"] == "down":
-            mochi.db.query("update comments set down=down-1 where id=?", comment_id)
+            mochi.db.execute("update comments set down=down-1 where id=?", comment_id)
     
     # Add new vote
-    mochi.db.query("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
         forum["id"], comment["post"], comment_id, e.content("from"), vote)
     
     if vote == "up":
-        mochi.db.query("update comments set up=up+1 where id=?", comment_id)
+        mochi.db.execute("update comments set up=up+1 where id=?", comment_id)
     elif vote == "down":
-        mochi.db.query("update comments set down=down+1 where id=?", comment_id)
+        mochi.db.execute("update comments set down=down+1 where id=?", comment_id)
     
     now = mochi.time.now()
-    mochi.db.query("update posts set updated=? where id=?", now, comment["post"])
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast update to all members except sender
     updated_comment = mochi.db.row("select up, down from comments where id=?", comment_id)
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != e.content("from"):
             mochi.message.send(
@@ -865,7 +865,7 @@ def event_member_update_event(e):
     if not role or role not in FORUM_ROLES:
         return
     
-    mochi.db.query("update members set role=? where forum=? and id=?", role, forum["id"], e.content("to"))
+    mochi.db.execute("update members set role=? where forum=? and id=?", role, forum["id"], e.content("to"))
 
 # Received a post from forum owner
 def event_post_create_event(e):
@@ -899,10 +899,10 @@ def event_post_create_event(e):
     if not mochi.valid(body, "text"):
         return
     
-    mochi.db.query("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], member, name, title, body, created, created)
 
-    mochi.db.query("update forums set updated=? where id=?", created, forum["id"])
+    mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
 
 # Received a post submission from member (we are forum owner)
@@ -936,10 +936,10 @@ def event_post_submit_event(e):
     
     now = mochi.time.now()
     
-    mochi.db.query("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], e.content("from"), member["name"], title, body, now, now)
 
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
 
     # Broadcast to all members except sender (attachments fetched on-demand)
@@ -952,7 +952,7 @@ def event_post_submit_event(e):
         "created": now
     }
 
-    members = mochi.db.query("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], e.content("from"))
+    members = mochi.db.rows("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], e.content("from"))
     for m in members:
         mochi.message.send(
             {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
@@ -971,9 +971,9 @@ def event_post_update_event(e):
         return
     
     now = mochi.time.now()
-    mochi.db.query("update posts set up=?, down=? where id=?", post.get("up", 0), post.get("down", 0), id)
-    mochi.db.query("update posts set updated=? where id=?", now, id)
-    mochi.db.query("update forums set updated=? where id=?", now, old_post["forum"])
+    mochi.db.execute("update posts set up=?, down=? where id=?", post.get("up", 0), post.get("down", 0), id)
+    mochi.db.execute("update posts set updated=? where id=?", now, id)
+    mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
 # Received a post vote from member (we are forum owner)
 def event_post_vote_event(e):
@@ -1002,26 +1002,26 @@ def event_post_vote_event(e):
     old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, e.content("from"))
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.query("update posts set up=up-1 where id=?", post_id)
+            mochi.db.execute("update posts set up=up-1 where id=?", post_id)
         elif old_vote["vote"] == "down":
-            mochi.db.query("update posts set down=down-1 where id=?", post_id)
+            mochi.db.execute("update posts set down=down-1 where id=?", post_id)
     
     # Add new vote
-    mochi.db.query("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
+    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
         forum["id"], post_id, e.content("from"), vote)
     
     if vote == "up":
-        mochi.db.query("update posts set up=up+1 where id=?", post_id)
+        mochi.db.execute("update posts set up=up+1 where id=?", post_id)
     elif vote == "down":
-        mochi.db.query("update posts set down=down+1 where id=?", post_id)
+        mochi.db.execute("update posts set down=down+1 where id=?", post_id)
     
     now = mochi.time.now()
-    mochi.db.query("update posts set updated=? where id=?", now, post_id)
-    mochi.db.query("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     
     # Broadcast update to all members except sender
     updated_post = mochi.db.row("select up, down from posts where id=?", post_id)
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
         if m["id"] != e.content("from"):
             mochi.message.send(
@@ -1046,15 +1046,15 @@ def event_subscribe_event(e):
     
     # Add as viewer if not already a member
     if not mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):
-        mochi.db.query("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
+        mochi.db.execute("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
             forum["id"], member_id, name, "viewer")
         
         # Update member count
-        members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
-        mochi.db.query("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
+        members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
+        mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
         
         # Send recent posts to new member (attachments fetched on-demand)
-        posts = mochi.db.query("select * from posts where forum=? order by created desc limit 20", forum["id"])
+        posts = mochi.db.rows("select * from posts where forum=? order by created desc limit 20", forum["id"])
         for p in posts:
             post_data = {
                 "id": p["id"],
@@ -1086,11 +1086,11 @@ def event_unsubscribe_event(e):
     
     member_id = e.content("from")
     
-    mochi.db.query("delete from members where forum=? and id=?", forum["id"], member_id)
+    mochi.db.execute("delete from members where forum=? and id=?", forum["id"], member_id)
     
     # Update member count and notify remaining members
-    members = mochi.db.query("select * from members where forum=? and role!='disabled'", forum["id"])
-    mochi.db.query("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
+    members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
+    mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
     
     for m in members:
         mochi.message.send(
@@ -1109,4 +1109,4 @@ def event_update_event(e):
     if type(members) != "int" or members < 0:
         return
 
-    mochi.db.query("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
+    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
