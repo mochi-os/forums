@@ -16,8 +16,8 @@ import { Route as errors500RouteImport } from './routes/(errors)/500'
 import { Route as errors404RouteImport } from './routes/(errors)/404'
 import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
-import { Route as ThreadForumIdThreadIdRouteImport } from './routes/thread/$forumId/$threadId'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedThreadForumIdThreadIdRouteImport } from './routes/_authenticated/thread/$forumId/$threadId'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -53,15 +53,16 @@ const errors401Route = errors401RouteImport.update({
   path: '/401',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ThreadForumIdThreadIdRoute = ThreadForumIdThreadIdRouteImport.update({
-  id: '/thread/$forumId/$threadId',
-  path: '/thread/$forumId/$threadId',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
     id: '/errors/$error',
     path: '/errors/$error',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedThreadForumIdThreadIdRoute =
+  AuthenticatedThreadForumIdThreadIdRouteImport.update({
+    id: '/thread/$forumId/$threadId',
+    path: '/thread/$forumId/$threadId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -73,7 +74,7 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/thread/$forumId/$threadId': typeof ThreadForumIdThreadIdRoute
+  '/thread/$forumId/$threadId': typeof AuthenticatedThreadForumIdThreadIdRoute
 }
 export interface FileRoutesByTo {
   '/401': typeof errors401Route
@@ -83,7 +84,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/thread/$forumId/$threadId': typeof ThreadForumIdThreadIdRoute
+  '/thread/$forumId/$threadId': typeof AuthenticatedThreadForumIdThreadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,7 +96,7 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/thread/$forumId/$threadId': typeof ThreadForumIdThreadIdRoute
+  '/_authenticated/thread/$forumId/$threadId': typeof AuthenticatedThreadForumIdThreadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -128,7 +129,7 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/errors/$error'
-    | '/thread/$forumId/$threadId'
+    | '/_authenticated/thread/$forumId/$threadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -138,7 +139,6 @@ export interface RootRouteChildren {
   errors404Route: typeof errors404Route
   errors500Route: typeof errors500Route
   errors503Route: typeof errors503Route
-  ThreadForumIdThreadIdRoute: typeof ThreadForumIdThreadIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,18 +192,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof errors401RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/thread/$forumId/$threadId': {
-      id: '/thread/$forumId/$threadId'
-      path: '/thread/$forumId/$threadId'
-      fullPath: '/thread/$forumId/$threadId'
-      preLoaderRoute: typeof ThreadForumIdThreadIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
       path: '/errors/$error'
       fullPath: '/errors/$error'
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/thread/$forumId/$threadId': {
+      id: '/_authenticated/thread/$forumId/$threadId'
+      path: '/thread/$forumId/$threadId'
+      fullPath: '/thread/$forumId/$threadId'
+      preLoaderRoute: typeof AuthenticatedThreadForumIdThreadIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -212,11 +212,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedThreadForumIdThreadIdRoute: typeof AuthenticatedThreadForumIdThreadIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedThreadForumIdThreadIdRoute:
+    AuthenticatedThreadForumIdThreadIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -229,7 +232,6 @@ const rootRouteChildren: RootRouteChildren = {
   errors404Route: errors404Route,
   errors500Route: errors500Route,
   errors503Route: errors503Route,
-  ThreadForumIdThreadIdRoute: ThreadForumIdThreadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

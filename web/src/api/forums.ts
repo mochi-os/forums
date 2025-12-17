@@ -97,9 +97,7 @@ const listForums = async (): Promise<ListForumsResponse> => {
 const viewForum = async (forumId: string): Promise<ViewForumResponse> => {
   const response = await requestHelpers.get<
     ViewForumResponse | ViewForumResponse['data']
-  >(endpoints.forums.list, {
-    params: { forum: forumId },
-  })
+  >(`/forums/${forumId}`)
 
   return toDataResponse<ViewForumResponse['data']>(response, 'view forum')
 }

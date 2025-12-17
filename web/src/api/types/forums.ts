@@ -30,45 +30,21 @@ export interface DirectoryEntry {
 
 // API Request/Response Types
 
+
+import type { Post } from './posts'
+export type { Post }
+
 export interface ListForumsResponse {
   data: {
     forums: Forum[]
-    posts: Array<{
-      id: string
-      forum: string
-      member: string
-      name: string
-      title: string
-      body: string
-      comments: number
-      up: number
-      down: number
-      created: number
-      updated: number
-      created_local: string
-      attachments?: unknown[]
-    }>
+    posts: Post[]
   }
 }
 
 export interface ViewForumResponse {
   data: {
     forum: Forum
-    posts: Array<{
-      id: string
-      forum: string
-      member: string
-      name: string
-      title: string
-      body: string
-      comments: number
-      up: number
-      down: number
-      created: number
-      updated: number
-      created_local: string
-      attachments?: unknown[]
-    }>
+    posts: Post[]
     member: Member
     role_administrator: boolean
   }

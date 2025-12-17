@@ -19,6 +19,9 @@ const dynamicEndpoints = {
   membersEdit: (forumId: string) => `/forums/${forumId}/members`,
   membersSave: (forumId: string) => `/forums/${forumId}/members/save`,
 
+  // View forum: GET /forums/{forumId}
+  forumView: (forumId: string) => `/forums/${forumId}`,
+
   // View post: GET /forums/{forumId}/{postId}
   postView: (forumId: string, postId: string) => `/forums/${forumId}/${postId}`,
 

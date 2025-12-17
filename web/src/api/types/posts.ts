@@ -16,6 +16,7 @@ export interface Post {
   updated: number
   created_local: string
   attachments?: unknown[]
+  forumName?: string
 }
 
 export interface GetNewPostParams {
