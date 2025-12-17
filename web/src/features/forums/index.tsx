@@ -12,7 +12,6 @@ import {
   Avatar,
   AvatarFallback,
   Input,
-  Button,
   ScrollArea,
 } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
@@ -20,7 +19,6 @@ import {
   MessageSquare,
   Users,
   ChevronRight,
-  Plus,
   ThumbsUp,
   ThumbsDown,
   Search,
@@ -30,6 +28,7 @@ import {
   FileEdit,
 } from 'lucide-react'
 import { CreateForumDialog } from './components/create-forum-dialog'
+import { CreatePostDialog } from './components/create-post-dialog'
 import type { Forum } from '@/api/types/forums'
 
 interface Post {
@@ -253,14 +252,14 @@ interface PostCardProps {
   post: Post
   forumName: string
   showForumBadge: boolean
-  onSelect: (postId: string) => void
+  onSelect: (forumId: string, postId: string) => void
 }
 
 function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) {
   return (
     <Card
       className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30"
-      onClick={() => onSelect(post.id)}
+      onClick={() => onSelect(post.forum, post.id)}
     >
       <CardContent className="p-5">
         <div className="flex flex-col gap-3">
@@ -328,11 +327,12 @@ function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) 
 interface ForumOverviewProps {
   forum: Forum | null
   posts: Post[]
-  onSelectPost: (postId: string) => void
-  onNewPost: () => void
+  onSelectPost: (forumId: string, postId: string) => void
+  onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
+  isCreatingPost?: boolean
 }
 
-function ForumOverview({ forum, posts, onSelectPost, onNewPost }: ForumOverviewProps) {
+function ForumOverview({ forum, posts, onSelectPost, onCreatePost, isCreatingPost = false }: ForumOverviewProps) {
   const getForumName = (forumId: string) => forum?.id === forumId ? forum.name : 'Unknown'
 
   if (!forum) {
@@ -462,10 +462,14 @@ function ForumOverview({ forum, posts, onSelectPost, onNewPost }: ForumOverviewP
             <p className="text-sm text-muted-foreground">
               Be the first to start a conversation
             </p>
-            <Button onClick={onNewPost} className="mt-2">
-              <Plus className="h-4 w-4 mr-2" />
-              Create First Post
-            </Button>
+            <div className="mt-2">
+              <CreatePostDialog
+                forumId={forum.id}
+                forumName={forum.name}
+                onCreate={onCreatePost}
+                isPending={isCreatingPost}
+              />
+            </div>
           </CardContent>
         </Card>
       )}
@@ -516,14 +520,27 @@ export function Forums() {
     createForumMutation.mutate(input.name)
   }
 
-  const handlePostSelect = (postId: string) => {
-    navigate({ to: `/thread/${postId}` })
+  const handlePostSelect = (forumId: string, postId: string) => {
+    navigate({ to: `/thread/${forumId}/${postId}` })
   }
 
-  const handleNewPost = () => {
-    if (selectedForumId) {
-      navigate({ to: `/new-thread?forum=${selectedForumId}` })
-    }
+  // Create post mutation
+  const createPostMutation = useMutation({
+    mutationFn: (data: { forum: string; title: string; body: string; attachments?: File[] }) =>
+      forumsApi.createPost(data),
+    onSuccess: (response) => {
+      toast.success('Post created successfully!')
+      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+      // Navigate to the new post
+      navigate({ to: `/thread/${response.data.forum}/${response.data.post}` })
+    },
+    onError: () => {
+      toast.error('Failed to create post')
+    },
+  })
+
+  const handleCreatePost = (data: { forum: string; title: string; body: string; attachments?: File[] }) => {
+    createPostMutation.mutate(data)
   }
 
   // Derived state
@@ -558,10 +575,13 @@ export function Forums() {
         </div>
         <div className="flex items-center gap-2">
           {selectedForumId && selectedForum?.role === '' && (
-            <Button variant="outline" size="sm" onClick={handleNewPost}>
-              <FileEdit className="h-4 w-4 mr-2" />
-              New post
-            </Button>
+            <CreatePostDialog
+              forumId={selectedForumId}
+              forumName={selectedForum?.name || 'Forum'}
+              onCreate={handleCreatePost}
+              isPending={createPostMutation.isPending}
+              triggerVariant="icon"
+            />
           )}
           <CreateForumDialog onCreate={handleCreateForum} />
         </div>
@@ -588,7 +608,8 @@ export function Forums() {
               forum={selectedForum}
               posts={selectedForumId === null ? allPosts.map(p => ({ ...p, forumName: getForumName(p.forum) })) : filteredPosts}
               onSelectPost={handlePostSelect}
-              onNewPost={handleNewPost}
+              onCreatePost={handleCreatePost}
+              isCreatingPost={createPostMutation.isPending}
             />
           ) : (
             <Card className="shadow-md">

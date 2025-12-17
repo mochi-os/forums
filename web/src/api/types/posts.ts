@@ -43,6 +43,7 @@ export interface CreatePostResponse {
 }
 
 export interface ViewPostParams {
+  forum: string
   post: string
 }
 
@@ -73,6 +74,7 @@ export interface ViewPostResponse {
 }
 
 export interface VotePostRequest {
+  forum: string
   post: string
   vote: 'up' | 'down'
 }

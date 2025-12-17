@@ -36,18 +36,23 @@ export function ThreadDetail() {
   const queryClient = useQueryClient()
   const [commentBody, setCommentBody] = useState('')
 
+  // Note: We need the forumId to view the post. For now, we'll get it from route params
+  // This may need refactoring if forumId isn't available in route
+  const { forumId = '' } = useParams({ strict: false }) as { forumId?: string; threadId: string }
+
   // Fetch post data
   const { data: postData, isLoading } = useQuery({
-    queryKey: ['forums', 'post', threadId],
-    queryFn: () => forumsApi.viewPost({ post: threadId }),
+    queryKey: ['forums', 'post', forumId, threadId],
+    queryFn: () => forumsApi.viewPost({ forum: forumId, post: threadId }),
+    enabled: !!forumId && !!threadId,
   })
 
   // Vote on post mutation
   const votePostMutation = useMutation({
     mutationFn: (vote: 'up' | 'down') =>
-      forumsApi.votePost({ post: threadId, vote }),
+      forumsApi.votePost({ forum: postData!.data.forum.id, post: threadId, vote }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
       toast.success('Vote recorded')
     },
     onError: () => {
@@ -58,9 +63,14 @@ export function ThreadDetail() {
   // Vote on comment mutation
   const voteCommentMutation = useMutation({
     mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' }) =>
-      forumsApi.voteComment({ comment: commentId, vote }),
+      forumsApi.voteComment({ 
+        forum: postData!.data.forum.id, 
+        post: threadId, 
+        comment: commentId, 
+        vote 
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
       toast.success('Vote recorded')
     },
     onError: () => {
@@ -77,7 +87,7 @@ export function ThreadDetail() {
         body,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', threadId] })
+      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
       setCommentBody('')
       toast.success('Comment posted')
     },

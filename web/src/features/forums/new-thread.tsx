@@ -48,7 +48,7 @@ export function CreateThread() {
     onSuccess: (response) => {
       toast.success('Thread created successfully!')
       queryClient.invalidateQueries({ queryKey: ['forums', 'view', response.data.forum] })
-      navigate({ to: `/thread/${response.data.post}` })
+      navigate({ to: `/thread/${response.data.forum}/${response.data.post}` })
     },
     onError: (error) => {
       toast.error('Failed to create thread')
