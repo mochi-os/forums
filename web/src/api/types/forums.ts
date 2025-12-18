@@ -5,8 +5,16 @@ export interface Forum {
   fingerprint: string
   name: string
   role: '' | 'disabled' | 'viewer' | 'voter' | 'commenter' | 'poster' | 'administrator'
-  members: number
+  // API may return either a count (number) or an array of member objects
+  members: number | unknown[]
   updated: number
+}
+
+// Helper to safely get member count
+export function getMemberCount(members: number | unknown[] | undefined): number {
+  if (typeof members === 'number') return members
+  if (Array.isArray(members)) return members.length
+  return 0
 }
 
 export interface Member {
@@ -30,45 +38,21 @@ export interface DirectoryEntry {
 
 // API Request/Response Types
 
+
+import type { Post } from './posts'
+export type { Post }
+
 export interface ListForumsResponse {
   data: {
     forums: Forum[]
-    posts: Array<{
-      id: string
-      forum: string
-      member: string
-      name: string
-      title: string
-      body: string
-      comments: number
-      up: number
-      down: number
-      created: number
-      updated: number
-      created_local: string
-      attachments?: unknown[]
-    }>
+    posts: Post[]
   }
 }
 
 export interface ViewForumResponse {
   data: {
     forum: Forum
-    posts: Array<{
-      id: string
-      forum: string
-      member: string
-      name: string
-      title: string
-      body: string
-      comments: number
-      up: number
-      down: number
-      created: number
-      updated: number
-      created_local: string
-      attachments?: unknown[]
-    }>
+    posts: Post[]
     member: Member
     role_administrator: boolean
   }
