@@ -22,15 +22,9 @@ import { Users, Save, Loader2 } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { forumsApi } from '@/api/forums'
 import { toast } from 'sonner'
+import { MEMBER_ROLES } from '../constants'
 
-const ROLES = [
-  { value: 'disabled', label: 'Disabled' },
-  { value: 'viewer', label: 'Viewer' },
-  { value: 'voter', label: 'Voter' },
-  { value: 'commenter', label: 'Commenter' },
-  { value: 'poster', label: 'Poster' },
-  { value: 'administrator', label: 'Administrator' },
-] as const
+
 
 interface MembersDialogProps {
   forumId: string
@@ -170,7 +164,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
                                <SelectValue />
                              </SelectTrigger>
                              <SelectContent>
-                                {ROLES.map((role) => (
+                                {MEMBER_ROLES.map((role) => (
                                     <SelectItem key={role.value} value={role.value} className="text-xs">
                                         {role.label}
                                     </SelectItem>

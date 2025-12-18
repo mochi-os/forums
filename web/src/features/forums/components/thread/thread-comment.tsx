@@ -7,16 +7,22 @@ import {
 } from '@mochi/common'
 import { ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react'
 
-// Partial comment interface based on usage
+// Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
   id: string
+  forum: string
+  post: string
+  parent: string
+  member: string
   name: string
   body: string
   up: number
   down: number
+  created: number
   created_local: string
-  member: string
-  role_voter?: boolean
+  children: unknown[]
+  role_voter: boolean
+  role_commenter: boolean
 }
 
 interface ThreadCommentProps {

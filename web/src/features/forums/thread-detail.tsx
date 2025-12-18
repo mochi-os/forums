@@ -12,7 +12,7 @@ import {
 import { forumsApi } from '@/api/forums'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadContent } from './components/thread/thread-content'
-import { ThreadComment, type ThreadCommentType } from './components/thread/thread-comment'
+import { ThreadComment } from './components/thread/thread-comment'
 import { ThreadReplyForm } from './components/thread/thread-reply-form'
 
 export function ThreadDetail() {
@@ -159,7 +159,7 @@ export function ThreadDetail() {
                 {comments.map((comment) => (
                   <ThreadComment
                     key={comment.id}
-                    comment={comment as unknown as ThreadCommentType}
+                    comment={comment}
                     isOwner={comment.member === post.member}
                     onVote={(vote) => voteCommentMutation.mutate({ commentId: comment.id, vote })}
                     roleVoter={role_voter}

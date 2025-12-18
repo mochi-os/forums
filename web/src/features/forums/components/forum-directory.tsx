@@ -54,11 +54,19 @@ export function ForumDirectory({
   // Filter for Owned forums
   const ownedForums = filteredForums.filter(f => f.role === '' || f.role === 'administrator')
 
-  const isOwnedForum = (id: string | null) => {
+  // Memoize the set of owned forum IDs to prevent UI loops
+  const ownedForumIds = React.useMemo(() => {
+    return new Set(
+      forums
+        .filter(f => f.role === '' || f.role === 'administrator')
+        .map(f => f.id)
+    )
+  }, [forums])
+
+  const isOwnedForum = React.useCallback((id: string | null) => {
     if (!id) return false
-    const forum = forums.find(f => f.id === id)
-    return forum ? (forum.role === '' || forum.role === 'administrator') : false
-  }
+    return ownedForumIds.has(id)
+  }, [ownedForumIds])
 
   // State for the active tab
   const [tabValue, setTabValue] = React.useState('all')
@@ -68,7 +76,7 @@ export function ForumDirectory({
     if (selectedForumId && !isOwnedForum(selectedForumId)) {
       setTabValue('all')
     }
-  }, [selectedForumId, forums]) // Dependency on forums to ensure isOwnedForum check is accurate
+  }, [selectedForumId, isOwnedForum]) // Now uses stable callback reference
 
   // Show search results when searching and results exist
   const showSearchResults = searchTerm.trim().length > 0 && searchResults.length > 0

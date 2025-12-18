@@ -1,3 +1,4 @@
+// Member access options for forum creation
 export const memberAccessOptions = [
   {
     value: 'restricted',
@@ -20,3 +21,18 @@ export const memberAccessOptions = [
     label: 'Post, comment, and vote',
   },
 ]
+
+// Member roles for role management in members dialog
+export const MEMBER_ROLES = [
+  { value: 'disabled', label: 'Disabled' },
+  { value: 'viewer', label: 'Viewer' },
+  { value: 'voter', label: 'Voter' },
+  { value: 'commenter', label: 'Commenter' },
+  { value: 'poster', label: 'Poster' },
+  { value: 'administrator', label: 'Administrator' },
+] as const
+
+// Thread status types
+export type ThreadStatus = 'open' | 'resolved' | 'announcement'
+
+export const THREAD_STATUSES: ThreadStatus[] = ['open', 'resolved', 'announcement']
