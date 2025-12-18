@@ -25,8 +25,8 @@ const dynamicEndpoints = {
   // View post: GET /forums/{forumId}/{postId}
   postView: (forumId: string, postId: string) => `/forums/${forumId}/${postId}`,
 
-  // Vote post: POST /forums/{forumId}/{postId}/vote
-  postVote: (forumId: string, postId: string) => `/forums/${forumId}/${postId}/vote`,
+  // Vote post: POST /forums/{forumId}/{postId}/vote/{vote}
+  postVote: (forumId: string, postId: string, vote: 'up' | 'down') => `/forums/${forumId}/${postId}/vote/${vote}`,
 
   // Comment form: GET /forums/{forumId}/{postId}/comment
   commentNew: (forumId: string, postId: string) => `/forums/${forumId}/${postId}/comment`,

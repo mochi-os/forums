@@ -261,11 +261,11 @@ const viewPost = async (
 const votePost = async (
   payload: VotePostRequest
 ): Promise<VotePostResponse> => {
-  // POST /forums/{forumId}/{postId}/vote with body { post, vote }
+  // POST /forums/{forumId}/{postId}/vote/{vote} with body { post, vote }
   const response = await requestHelpers.post<
     VotePostResponse | VotePostResponse['data'],
     { post: string; vote: 'up' | 'down' }
-  >(endpoints.forums.postVote(payload.forum, payload.post), {
+  >(endpoints.forums.postVote(payload.forum, payload.post, payload.vote), {
     post: payload.post,
     vote: payload.vote,
   })

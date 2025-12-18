@@ -13,6 +13,7 @@ import {
   Hash,
 } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
+import { getCommentCount } from '@/api/types/posts'
 
 interface PostCardProps {
   post: Post
@@ -67,7 +68,7 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <MessageSquare className="h-4 w-4" />
-                <span>{post.comments}</span>
+                <span>{getCommentCount(post.comments)}</span>
               </div>
               <div className="flex items-center gap-1">
                 <ThumbsUp className="h-4 w-4" />

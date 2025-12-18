@@ -1,9 +1,6 @@
 import {
   cn,
   Badge,
-  Card,
-  CardHeader,
-  CardTitle,
   Avatar,
   AvatarImage,
   AvatarFallback,
@@ -11,99 +8,110 @@ import {
 } from '@mochi/common'
 import { ThumbsUp, ThumbsDown, BellPlus, Share2 } from 'lucide-react'
 import { threadStatusStyles } from '../../status'
-import type { Post } from '@/api/types/posts'
+import { PostAttachments } from './post-attachments'
+import type { Post, Attachment } from '@/api/types/posts'
 
 interface ThreadContentProps {
   post: Post
+  attachments?: Attachment[]
   onVote: (vote: 'up' | 'down') => void
   isVotePending: boolean
 }
 
-export function ThreadContent({ post, onVote, isVotePending }: ThreadContentProps) {
+export function ThreadContent({ post, attachments, onVote, isVotePending }: ThreadContentProps) {
   const status = threadStatusStyles['open']
   const StatusIcon = status.icon
 
   return (
-    <Card>
-      <CardHeader className='gap-4 border-b border-border/40 pb-4'>
-        <div className='flex flex-wrap items-center gap-2'>
-          <Badge
-            variant='outline'
-            className={cn(
-              'border px-2 py-1 text-[11px]',
-              status.className
-            )}
-          >
-            <StatusIcon className='mr-1 size-3' />
-            {status.label}
-          </Badge>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <CardTitle className='text-2xl'>{post.title}</CardTitle>
-          <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground'>
-            <span>
-              Posted&nbsp;
-              <span className='font-semibold text-foreground'>{post.created_local}</span>
-            </span>
-            <span>•</span>
-            <span>
-              Author&nbsp;
-              <span className='font-semibold text-foreground'>
-                {post.name}
-              </span>
-            </span>
-          </div>
-        </div>
-        <div className='flex flex-wrap items-center gap-3 text-sm text-muted-foreground'>
-          <div className='flex items-center gap-2'>
-            <Avatar className='size-10'>
-              <AvatarImage src='' alt={post.name} />
-              <AvatarFallback>
-                {post.name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')
-                  .toUpperCase()
-                  .slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className='font-semibold text-foreground'>
-                {post.name}
-              </p>
-              <p>Member</p>
-            </div>
-          </div>
-        </div>
-        <div className='flex flex-wrap gap-3 items-center'>
-          <Button
-            variant='ghost'
-            size='sm'
-            onClick={() => onVote('up')}
-            disabled={isVotePending}
-          >
-            <ThumbsUp className='mr-1 size-4' />
-            {post.up}
+    <div className="space-y-4">
+      {/* Header: Status, Actions */}
+      <div className="flex items-start justify-between gap-3">
+        <Badge
+          variant='outline'
+          className={cn(
+            'border px-2 py-0.5 text-[11px]',
+            status.className
+          )}
+        >
+          <StatusIcon className='mr-1 size-3' />
+          {status.label}
+        </Badge>
+
+        {/* Action buttons */}
+        <div className="flex items-center gap-1 shrink-0">
+          <Button variant='ghost' size='sm' className='h-8 text-muted-foreground hover:text-foreground'>
+            <BellPlus className='mr-1.5 size-3.5' />
+            Follow
           </Button>
-          <Button
-            variant='ghost'
-            size='sm'
-            onClick={() => onVote('down')}
-            disabled={isVotePending}
-          >
-            <ThumbsDown className='mr-1 size-4' />
-            {post.down}
-          </Button>
-          <Button variant='secondary' size='sm'>
-            <BellPlus className='mr-2 size-4' />
-            Follow thread
-          </Button>
-          <Button variant='ghost' size='sm' className='text-muted-foreground'>
-            <Share2 className='mr-2 size-4' />
+          <Button variant='ghost' size='sm' className='h-8 text-muted-foreground hover:text-foreground'>
+            <Share2 className='mr-1.5 size-3.5' />
             Share
           </Button>
         </div>
-      </CardHeader>
-    </Card>
+      </div>
+
+      {/* Title */}
+      <h1 className="text-xl font-semibold leading-tight text-foreground">
+        {post.title}
+      </h1>
+
+      {/* Author & Meta Line */}
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <Avatar className="size-6">
+          <AvatarImage src="" alt={post.name} />
+          <AvatarFallback className="text-[10px]">
+            {post.name
+              .split(' ')
+              .map((n) => n[0])
+              .join('')
+              .toUpperCase()
+              .slice(0, 2)}
+          </AvatarFallback>
+        </Avatar>
+        <span className="font-medium text-foreground">{post.name}</span>
+        <span>•</span>
+        <span>{post.created_local}</span>
+      </div>
+
+      {/* Post Body */}
+      <div className="prose prose-sm dark:prose-invert max-w-none">
+        <p className="text-foreground leading-relaxed whitespace-pre-wrap m-0">
+          {post.body}
+        </p>
+      </div>
+
+      {/* Attachments */}
+      <PostAttachments attachments={attachments || post.attachments || []} />
+
+      {/* Vote buttons - minimal style matching theme */}
+      <div className="flex items-center gap-3 pt-2 text-muted-foreground">
+        <button
+          type="button"
+          className={cn(
+            'flex items-center gap-1.5 text-sm transition-colors',
+            'hover:text-foreground',
+            isVotePending && 'opacity-50 pointer-events-none'
+          )}
+          onClick={() => onVote('up')}
+          disabled={isVotePending}
+        >
+          <ThumbsUp className="size-4" />
+          <span>{post.up}</span>
+        </button>
+        <button
+          type="button"
+          className={cn(
+            'flex items-center gap-1.5 text-sm transition-colors',
+            'hover:text-foreground',
+            isVotePending && 'opacity-50 pointer-events-none'
+          )}
+          onClick={() => onVote('down')}
+          disabled={isVotePending}
+        >
+          <ThumbsDown className="size-4" />
+          <span>{post.down}</span>
+        </button>
+      </div>
+    </div>
   )
 }

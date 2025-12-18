@@ -4,15 +4,17 @@ import {
   ScrollArea,
   Button,
   Badge,
-  cn,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from '@mochi/common'
+import * as React from 'react'
 import {
   Globe,
   Hash,
   Loader2,
   UserPlus,
-  Rss,
-  Users,
 } from 'lucide-react'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 import { ForumListItem } from './forum-list-item'
@@ -48,6 +50,25 @@ export function ForumDirectory({
   const filteredForums = searchTerm.trim()
     ? forums.filter((f) => f.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : forums
+
+  // Filter for Owned forums
+  const ownedForums = filteredForums.filter(f => f.role === '' || f.role === 'administrator')
+
+  const isOwnedForum = (id: string | null) => {
+    if (!id) return false
+    const forum = forums.find(f => f.id === id)
+    return forum ? (forum.role === '' || forum.role === 'administrator') : false
+  }
+
+  // State for the active tab
+  const [tabValue, setTabValue] = React.useState('all')
+
+  // Effect to switch to 'all' tab if a non-owned forum is selected (as it's not visible in 'my')
+  React.useEffect(() => {
+    if (selectedForumId && !isOwnedForum(selectedForumId)) {
+      setTabValue('all')
+    }
+  }, [selectedForumId, forums]) // Dependency on forums to ensure isOwnedForum check is accurate
 
   // Show search results when searching and results exist
   const showSearchResults = searchTerm.trim().length > 0 && searchResults.length > 0
@@ -110,58 +131,87 @@ export function ForumDirectory({
               </>
             )}
 
-            {/* All Forums option */}
-            <button
-              onClick={() => onSelectForum(null)}
-              className={cn(
-                'group flex w-full items-center gap-3 rounded-xl border p-3 text-start transition-all duration-200',
-                'hover:border-primary/50 hover:bg-accent/50',
-                selectedForumId === null 
-                  ? 'border-primary bg-primary/5 text-foreground shadow-sm' 
-                  : 'bg-card'
-              )}
+            {/* Tabs for All vs My Forums */}
+            <Tabs
+              value={tabValue}
+              onValueChange={(v) => {
+                setTabValue(v)
+                if (v === 'all') {
+                   // When switching to All Forums, generally we might want to keep selection
+                   // unless the user specifically implies they want the "All" view (Global).
+                   // But since this is a tab list, usually maintaining state is better.
+                } else {
+                  // If switching to 'my' and current selection is not owned, select the first owned forum
+                  // to prevent showing an empty details pane or invalid state
+                  if (selectedForumId && !isOwnedForum(selectedForumId)) {
+                    const firstOwned = ownedForums[0]
+                    if (firstOwned) {
+                      onSelectForum(firstOwned.id)
+                    } else {
+                      // If no owned forums, maybe deselect?
+                      onSelectForum(null)
+                    }
+                  } else if (!selectedForumId && ownedForums.length > 0) {
+                      // If nothing selected, select first owned
+                      onSelectForum(ownedForums[0].id)
+                  }
+                }
+              }}
+              className="w-full"
             >
-              <div
-                className={cn(
-                  'flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors',
-                   selectedForumId === null ? 'bg-primary/10 text-primary' : 'bg-primary/10 text-primary group-hover:bg-primary/20'
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="all" className="gap-2">
+                  <span>All Forums</span>
+                  <Badge variant="secondary" className="px-1.5 py-0 text-[10px]">
+                    {filteredForums.length}
+                  </Badge>
+                </TabsTrigger>
+                <TabsTrigger value="my" className="gap-2">
+                  <span>My Forums</span>
+                  <Badge variant="secondary" className="px-1.5 py-0 text-[10px]">
+                    {ownedForums.length}
+                  </Badge>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="all" className="mt-2 space-y-2">
+                 {filteredForums.length > 0 ? (
+                  filteredForums.map((forum) => (
+                    <ForumListItem
+                      key={forum.id}
+                      forum={forum}
+                      isActive={selectedForumId === forum.id}
+                      postCount={getPostCount(forum.id)}
+                      onSelect={onSelectForum}
+                    />
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center space-y-2 rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
+                    <p>No forums found</p>
+                    <p className="text-xs">Join some forums to see them here</p>
+                  </div>
                 )}
-              >
-                <Rss className="size-3.5" />
-              </div>
-              <span className="flex-1 truncate text-sm font-semibold">All Forums</span>
-              <Badge variant="secondary" className="ml-auto text-[10px] font-medium">
-                {posts.length} posts
-              </Badge>
-            </button>
+              </TabsContent>
 
-            {/* My Forums Header */}
-            {forums.length > 0 && (
-              <div className="flex items-center gap-2 px-1 pt-2">
-                <Users className="size-4 text-muted-foreground" />
-                <span className="text-xs font-medium text-muted-foreground">
-                  My forums ({filteredForums.length})
-                </span>
-              </div>
-            )}
-
-            {/* Individual forums */}
-            {filteredForums.length > 0 ? (
-              filteredForums.map((forum) => (
-                <ForumListItem
-                  key={forum.id}
-                  forum={forum}
-                  isActive={selectedForumId === forum.id}
-                  postCount={getPostCount(forum.id)}
-                  onSelect={onSelectForum}
-                />
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center space-y-2 rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-                <p>No forums found</p>
-                <p className="text-xs">Create one or search for existing forums</p>
-              </div>
-            )}
+              <TabsContent value="my" className="mt-2 space-y-2">
+                {ownedForums.length > 0 ? (
+                  ownedForums.map((forum) => (
+                    <ForumListItem
+                      key={forum.id}
+                      forum={forum}
+                      isActive={selectedForumId === forum.id}
+                      postCount={getPostCount(forum.id)}
+                      onSelect={onSelectForum}
+                    />
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center space-y-2 rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
+                    <p>No owned forums</p>
+                    <p className="text-xs">Create a forum to see it here</p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
           </div>
         </ScrollArea>
       </CardContent>

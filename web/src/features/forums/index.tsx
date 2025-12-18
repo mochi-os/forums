@@ -5,11 +5,13 @@ import { toast } from 'sonner'
 import {
   Main,
   Input,
+  cn,
 } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
 import {
   Search,
   Loader2,
+  X,
 } from 'lucide-react'
 import { CreateForumDialog } from './components/create-forum-dialog'
 import { CreatePostDialog } from './components/create-post-dialog'
@@ -44,7 +46,8 @@ export function Forums() {
   })
 
   const forums: Forum[] = forumsData?.data?.forums || []
-  const allPosts: Post[] = forumsData?.data?.posts || []
+  // Filter to ensure we only have valid posts (with title)
+  const allPosts: Post[] = (forumsData?.data?.posts || []).filter(p => 'title' in p && p.title)
 
   // Search forums globally
   const { data: searchData, isLoading: isSearching } = useQuery({
@@ -67,7 +70,8 @@ export function Forums() {
   })
 
   const selectedForum = selectedForumId ? forumDetailData?.data?.forum : null
-  const selectedForumPosts = forumDetailData?.data?.posts || []
+  // Filter to ensure we only have valid posts (with title), not comments that may have leaked into the array
+  const selectedForumPosts = (forumDetailData?.data?.posts || []).filter(p => 'title' in p && p.title)
 
   // Create Forum Mutation
   const createForumMutation = useMutation({
@@ -203,8 +207,16 @@ export function Forums() {
                onChange={(e) => handleSearchChange(e.target.value)}
                className="pl-9 h-10 w-full"
              />
+             {searchTerm && (
+               <button
+                 onClick={() => handleSearchChange('')}
+                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+               >
+                 <X className="size-4" />
+               </button>
+             )}
              {isSearching && (
-               <Loader2 className="absolute right-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+               <Loader2 className={cn("absolute top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground", searchTerm ? "right-8" : "right-3")} />
              )}
           </div>
         </div>

@@ -13,8 +13,11 @@ import {
   UserMinus,
 } from 'lucide-react'
 import type { Forum, Post } from '@/api/types/forums'
+import { getMemberCount } from '@/api/types/forums'
+import { getCommentCount } from '@/api/types/posts'
 import { PostCard } from './post-card'
 import { CreatePostDialog } from './create-post-dialog'
+import { MembersDialog } from './members-dialog'
 
 interface ForumOverviewProps {
   forum: Forum | null
@@ -102,7 +105,7 @@ export function ForumOverview({
             </div>
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="text-xs">
-                {forum.members} subscribers
+                {getMemberCount(forum.members)} subscribers
               </Badge>
               {forum.role === '' ? (
                 <Badge variant="secondary" className="text-xs">
@@ -124,6 +127,9 @@ export function ForumOverview({
                   Unsubscribe
                 </Button>
               )}
+              {['', 'administrator'].includes(forum.role) && (
+                <MembersDialog forumId={forum.id} forumName={forum.name} />
+              )}
             </div>
           </div>
 
@@ -135,12 +141,12 @@ export function ForumOverview({
             </div>
             <div className="flex flex-col gap-1 pr-6 border-r">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Members</p>
-                <p className="text-2xl font-bold tracking-tight">{forum.members}</p>
+                <p className="text-2xl font-bold tracking-tight">{getMemberCount(forum.members)}</p>
             </div>
             <div className="flex flex-col gap-1 pr-6 border-r">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Comments</p>
                 <p className="text-2xl font-bold tracking-tight">
-                  {posts.reduce((acc, p) => acc + p.comments, 0)}
+                  {posts.reduce((acc, p) => acc + getCommentCount(p.comments), 0)}
                 </p>
             </div>
             <div className="flex flex-col gap-1">

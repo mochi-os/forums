@@ -4,9 +4,8 @@ import {
   AvatarFallback,
   AvatarImage,
   Badge,
-  Button,
 } from '@mochi/common'
-import { ThumbsUp, ThumbsDown } from 'lucide-react'
+import { ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react'
 
 // Partial comment interface based on usage
 export interface ThreadCommentType {
@@ -17,74 +16,96 @@ export interface ThreadCommentType {
   down: number
   created_local: string
   member: string
+  role_voter?: boolean
 }
 
 interface ThreadCommentProps {
   comment: ThreadCommentType
   isOwner: boolean
   onVote: (vote: 'up' | 'down') => void
+  roleVoter?: boolean
+  isPending?: boolean
 }
 
 export function ThreadComment({
   comment,
   isOwner,
   onVote,
+  roleVoter = true,
+  isPending = false,
 }: ThreadCommentProps) {
   return (
-    <div
-      className={cn(
-        'rounded-xl border border-border/60 bg-card/80 p-4'
-      )}
-    >
-      <div className='flex flex-wrap items-center justify-between gap-3'>
-        <div className='flex items-center gap-3'>
-          <Avatar className='size-10'>
-            <AvatarImage src='' alt={comment.name} />
-            <AvatarFallback>
-              {comment.name
-                .split(' ')
-                .map((n) => n[0])
-                .join('')
-                .slice(0, 2)
-                .toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <p className='text-sm font-semibold text-foreground'>
-              {comment.name}
-            </p>
-            <p className='text-xs text-muted-foreground'>
-              Member
-            </p>
-          </div>
+    <div className="flex gap-3 py-4 border-t border-border/40 first:border-t-0">
+      {/* Avatar */}
+      <Avatar className='size-8 shrink-0'>
+        <AvatarImage src='' alt={comment.name} />
+        <AvatarFallback className="text-xs">
+          {comment.name
+            .split(' ')
+            .map((n) => n[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase()}
+        </AvatarFallback>
+      </Avatar>
+
+      {/* Content */}
+      <div className="flex-1 min-w-0">
+        {/* Header */}
+        <div className='flex flex-wrap items-center gap-2 text-sm'>
+          <span className='font-semibold text-foreground'>
+            {comment.name}
+          </span>
+          {isOwner && (
+            <Badge className="text-[10px] px-1.5 py-0 bg-foreground text-background">
+              Author
+            </Badge>
+          )}
+          <span className="text-muted-foreground text-xs">
+            {comment.created_local}
+          </span>
         </div>
-        <div className='flex flex-wrap items-center gap-2 text-xs text-muted-foreground'>
-          {isOwner && <Badge variant='secondary'>Original poster</Badge>}
-          <span>{comment.created_local}</span>
+
+        {/* Body */}
+        <p className='mt-1 text-sm leading-relaxed text-foreground/90'>
+          {comment.body}
+        </p>
+
+        {/* Actions - minimal style */}
+        <div className='mt-2 flex items-center gap-3 text-muted-foreground'>
+          {isPending ? (
+            <Loader2 className='size-4 animate-spin' />
+          ) : (
+            <>
+              <button
+                type="button"
+                className={cn(
+                  'flex items-center gap-1 text-xs transition-colors',
+                  'hover:text-foreground',
+                  !roleVoter && 'opacity-50 pointer-events-none'
+                )}
+                onClick={() => onVote('up')}
+                disabled={!roleVoter}
+              >
+                <ThumbsUp className='size-3.5' />
+                <span>{comment.up}</span>
+              </button>
+              <button
+                type="button"
+                className={cn(
+                  'flex items-center gap-1 text-xs transition-colors',
+                  'hover:text-foreground',
+                  !roleVoter && 'opacity-50 pointer-events-none'
+                )}
+                onClick={() => onVote('down')}
+                disabled={!roleVoter}
+              >
+                <ThumbsDown className='size-3.5' />
+                <span>{comment.down}</span>
+              </button>
+            </>
+          )}
         </div>
-      </div>
-      <p className='mt-4 text-sm leading-6 text-muted-foreground'>
-        {comment.body}
-      </p>
-      <div className='mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground'>
-        <Button 
-          variant='link' 
-          size='sm' 
-          className='h-auto px-0 text-primary'
-          onClick={() => onVote('up')}
-        >
-          <ThumbsUp className='mr-1 size-3' />
-          {comment.up}
-        </Button>
-        <Button 
-          variant='link' 
-          size='sm' 
-          className='h-auto px-0 text-primary'
-          onClick={() => onVote('down')}
-        >
-          <ThumbsDown className='mr-1 size-3' />
-          {comment.down}
-        </Button>
       </div>
     </div>
   )
