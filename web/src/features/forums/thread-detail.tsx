@@ -104,7 +104,7 @@ export function ThreadDetail() {
 
   if (!postData) {
     return (
-      <Main>
+      <Main fluid>
         <Button
           variant='ghost'
           className='mb-6 h-auto px-0 text-muted-foreground hover:text-foreground'
@@ -122,7 +122,7 @@ export function ThreadDetail() {
   const commentCount = comments.length
 
   return (
-    <Main>
+    <Main fluid>
       <Button
         variant='ghost'
         className='mb-4 h-auto px-0 text-muted-foreground hover:text-foreground'

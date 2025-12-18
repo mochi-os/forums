@@ -189,7 +189,7 @@ export function Forums() {
 
 
   return (
-    <Main className="space-y-6 pb-10">
+    <Main fluid className='space-y-6 pb-10'>
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-1 items-center gap-4">
