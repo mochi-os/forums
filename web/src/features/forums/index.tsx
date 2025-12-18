@@ -4,15 +4,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   Main,
-  Input,
-  cn,
 } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
-import {
-  Search,
-  Loader2,
-  X,
-} from 'lucide-react'
 import { CreateForumDialog } from './components/create-forum-dialog'
 import { CreatePostDialog } from './components/create-post-dialog'
 import { ForumDirectory } from './components/forum-directory'
@@ -192,33 +185,11 @@ export function Forums() {
     <Main fluid className='space-y-6 pb-10'>
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4">
-          <div className="space-y-1">
-             <h1 className="text-2xl font-bold tracking-tight">Forums</h1>
-             <p className="text-sm text-muted-foreground hidden lg:block">
-               Share progress, ask for help, and learn from the community
-             </p>
-          </div>
-          <div className="relative max-w-md flex-1 md:ml-auto">
-             <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-             <Input
-               placeholder="Search forums globally..."
-               value={searchTerm}
-               onChange={(e) => handleSearchChange(e.target.value)}
-               className="pl-9 h-10 w-full"
-             />
-             {searchTerm && (
-               <button
-                 onClick={() => handleSearchChange('')}
-                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-               >
-                 <X className="size-4" />
-               </button>
-             )}
-             {isSearching && (
-               <Loader2 className={cn("absolute top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground", searchTerm ? "right-8" : "right-3")} />
-             )}
-          </div>
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">Forums</h1>
+          <p className="text-sm text-muted-foreground hidden lg:block">
+            Share progress, ask for help, and learn from the community
+          </p>
         </div>
         <div className="flex items-center gap-2">
           {selectedForumId && selectedForum && ['', 'administrator', 'poster'].includes(selectedForum.role) && (
@@ -243,6 +214,8 @@ export function Forums() {
             forums={forums}
             posts={allPosts}
             searchTerm={searchTerm}
+            onSearchChange={handleSearchChange}
+            isSearching={isSearching}
             selectedForumId={selectedForumId}
             onSelectForum={setSelectedForumId}
             searchResults={searchResults}
