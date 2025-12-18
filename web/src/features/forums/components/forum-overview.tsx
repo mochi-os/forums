@@ -25,6 +25,7 @@ interface ForumOverviewProps {
   onSelectPost: (forumId: string, postId: string) => void
   onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
   isCreatingPost?: boolean
+  isPostCreated?: boolean
   onUnsubscribe?: (forumId: string) => void
   isUnsubscribing?: boolean
 }
@@ -34,7 +35,8 @@ export function ForumOverview({
   posts, 
   onSelectPost, 
   onCreatePost, 
-  isCreatingPost = false, 
+  isCreatingPost = false,
+  isPostCreated = false, 
   onUnsubscribe, 
   isUnsubscribing = false 
 }: ForumOverviewProps) {
@@ -189,6 +191,7 @@ export function ForumOverview({
                   forumName={forum.name}
                   onCreate={onCreatePost}
                   isPending={isCreatingPost}
+                  isSuccess={isPostCreated}
                 />
               </div>
             )}

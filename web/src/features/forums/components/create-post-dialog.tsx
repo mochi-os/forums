@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { FileEdit, Send, Upload, X } from 'lucide-react'
 import {
   Button,
@@ -37,7 +37,9 @@ type CreatePostDialogProps = {
   forumName: string
   onCreate: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
   isPending?: boolean
+  isSuccess?: boolean
   triggerVariant?: 'button' | 'icon'
+  onSuccess?: () => void
 }
 
 type CreatePostFormState = {
@@ -51,7 +53,9 @@ export function CreatePostDialog({
   forumName,
   onCreate,
   isPending = false,
+  isSuccess = false,
   triggerVariant = 'button',
+  onSuccess,
 }: CreatePostDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [form, setForm] = useState<CreatePostFormState>({
@@ -73,6 +77,23 @@ export function CreatePostDialog({
       attachments: form.attachments.length > 0 ? form.attachments : undefined,
     })
   }
+
+  // Track if we've already handled the current success state
+  const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
+
+  // Close dialog and reset form when post creation succeeds
+  useEffect(() => {
+    if (isSuccess && isOpen && !wasSuccessHandled) {
+      setWasSuccessHandled(true)
+      setIsOpen(false)
+      resetForm()
+      onSuccess?.()
+    }
+    // Reset the handled flag when isSuccess becomes false (mutation reset)
+    if (!isSuccess && wasSuccessHandled) {
+      setWasSuccessHandled(false)
+    }
+  }, [isSuccess, isOpen, wasSuccessHandled, onSuccess])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files

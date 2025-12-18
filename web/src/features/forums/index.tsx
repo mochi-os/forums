@@ -227,6 +227,7 @@ export function Forums() {
               forumName={selectedForum?.name || 'Forum'}
               onCreate={handleCreatePost}
               isPending={createPostMutation.isPending}
+              isSuccess={createPostMutation.isSuccess}
               triggerVariant="icon"
             />
           )}
@@ -267,6 +268,7 @@ export function Forums() {
               onSelectPost={handlePostSelect}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
+              isPostCreated={createPostMutation.isSuccess}
               onUnsubscribe={handleUnsubscribe}
               isUnsubscribing={unsubscribeMutation.isPending}
             />
