@@ -169,7 +169,7 @@ export function CreatePostDialog({
             <div className="flex flex-wrap items-center gap-2">
               <label
                 htmlFor="post-attachments"
-                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:bg-accent hover:text-foreground"
               >
                 <Upload className="size-4" />
                 Add files
