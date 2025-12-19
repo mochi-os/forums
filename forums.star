@@ -370,7 +370,7 @@ def action_subscribe(a):
         return
     
     # Check if already subscribed
-    if mochi.db.exists("select id from forums where id=?", forum_id):
+    if mochi.db.exists("select id from members where forum=? and id=?", forum_id, a.user.identity.id):
         return {
             "data": {"already_subscribed": True}
         }
