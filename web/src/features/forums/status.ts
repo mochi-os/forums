@@ -1,8 +1,8 @@
 import { BadgeCheck } from 'lucide-react'
-import type { ForumThread } from './data'
+import type { ThreadStatus } from './constants'
 
 export const threadStatusStyles: Record<
-  ForumThread['status'],
+  ThreadStatus,
   { label: string; className: string; icon: typeof BadgeCheck }
 > = {
   open: {

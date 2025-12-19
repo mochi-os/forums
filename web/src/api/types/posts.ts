@@ -2,6 +2,25 @@
 
 import type { Forum, Member } from './forums'
 
+// Attachment interface based on API response
+export interface Attachment {
+  id: string
+  caption: string
+  content_type: string
+  created: number
+  creator: string
+  description: string
+  entity: string
+  image: boolean
+  name: string
+  object: string
+  rank: number
+  size: number
+  thumbnail_url: string
+  type: string
+  url: string
+}
+
 export interface Post {
   id: string
   forum: string
@@ -9,13 +28,23 @@ export interface Post {
   name: string
   title: string
   body: string
-  comments: number
+  // API may return either a count (number) or an array of comment objects
+  comments: number | unknown[]
+  comment_list?: unknown[] // API returns comment objects here
   up: number
   down: number
   created: number
   updated: number
   created_local: string
-  attachments?: unknown[]
+  attachments?: Attachment[]
+  forumName?: string
+}
+
+// Helper to safely get comment count
+export function getCommentCount(comments: number | unknown[] | undefined): number {
+  if (typeof comments === 'number') return comments
+  if (Array.isArray(comments)) return comments.length
+  return 0
 }
 
 export interface GetNewPostParams {
@@ -43,6 +72,7 @@ export interface CreatePostResponse {
 }
 
 export interface ViewPostParams {
+  forum: string
   post: string
 }
 
@@ -73,6 +103,7 @@ export interface ViewPostResponse {
 }
 
 export interface VotePostRequest {
+  forum: string
   post: string
   vote: 'up' | 'down'
 }

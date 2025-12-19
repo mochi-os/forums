@@ -97,9 +97,7 @@ const listForums = async (): Promise<ListForumsResponse> => {
 const viewForum = async (forumId: string): Promise<ViewForumResponse> => {
   const response = await requestHelpers.get<
     ViewForumResponse | ViewForumResponse['data']
-  >(endpoints.forums.list, {
-    params: { forum: forumId },
-  })
+  >(`/forums/${forumId}`)
 
   return toDataResponse<ViewForumResponse['data']>(response, 'view forum')
 }
@@ -152,10 +150,11 @@ const getNewForum = async (): Promise<GetNewForumResponse> => {
 const subscribeForum = async (
   forumId: string
 ): Promise<SubscribeForumResponse> => {
+  // POST /forums/{forumId}/subscribe - no body required
   const response = await requestHelpers.post<
     SubscribeForumResponse | SubscribeForumResponse['data'],
-    { forum: string }
-  >(endpoints.forums.subscribe, { forum: forumId })
+    Record<string, never>
+  >(endpoints.forums.subscribe(forumId), {})
 
   return toDataResponse<SubscribeForumResponse['data']>(
     response,
@@ -166,10 +165,11 @@ const subscribeForum = async (
 const unsubscribeForum = async (
   forumId: string
 ): Promise<UnsubscribeForumResponse> => {
+  // POST /forums/{forumId}/unsubscribe - no body required
   const response = await requestHelpers.post<
     UnsubscribeForumResponse | UnsubscribeForumResponse['data'],
-    { forum: string }
-  >(endpoints.forums.unsubscribe, { forum: forumId })
+    Record<string, never>
+  >(endpoints.forums.unsubscribe(forumId), {})
 
   return toDataResponse<UnsubscribeForumResponse['data']>(
     response,
@@ -180,11 +180,10 @@ const unsubscribeForum = async (
 const getMembers = async (
   params: GetMembersParams
 ): Promise<GetMembersResponse> => {
+  // GET /forums/{forumId}/members
   const response = await requestHelpers.get<
     GetMembersResponse | GetMembersResponse['data']
-  >(endpoints.forums.membersEdit, {
-    params: { forum: params.forum },
-  })
+  >(endpoints.forums.membersEdit(params.forum))
 
   return toDataResponse<GetMembersResponse['data']>(response, 'get members')
 }
@@ -192,10 +191,12 @@ const getMembers = async (
 const saveMembers = async (
   payload: SaveMembersRequest
 ): Promise<SaveMembersResponse> => {
+  // POST /forums/{forumId}/members/save
+  const { forum, ...memberRoles } = payload
   const response = await requestHelpers.post<
     SaveMembersResponse | SaveMembersResponse['data'],
-    SaveMembersRequest
-  >(endpoints.forums.membersSave, payload, {
+    Omit<SaveMembersRequest, 'forum'>
+  >(endpoints.forums.membersSave(forum), memberRoles, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
@@ -249,11 +250,10 @@ const createPost = async (
 const viewPost = async (
   params: ViewPostParams
 ): Promise<ViewPostResponse> => {
+  // GET /forums/{forumId}/{postId}
   const response = await requestHelpers.get<
     ViewPostResponse | ViewPostResponse['data']
-  >(endpoints.forums.postView, {
-    params: { post: params.post },
-  })
+  >(endpoints.forums.postView(params.forum, params.post))
 
   return toDataResponse<ViewPostResponse['data']>(response, 'view post')
 }
@@ -261,10 +261,14 @@ const viewPost = async (
 const votePost = async (
   payload: VotePostRequest
 ): Promise<VotePostResponse> => {
+  // POST /forums/{forumId}/{postId}/vote/{vote} with body { post, vote }
   const response = await requestHelpers.post<
     VotePostResponse | VotePostResponse['data'],
-    VotePostRequest
-  >(endpoints.forums.postVote, payload)
+    { post: string; vote: 'up' | 'down' }
+  >(endpoints.forums.postVote(payload.forum, payload.post, payload.vote), {
+    post: payload.post,
+    vote: payload.vote,
+  })
 
   return toDataResponse<VotePostResponse['data']>(response, 'vote post')
 }
@@ -276,12 +280,11 @@ const votePost = async (
 const getNewComment = async (
   params: GetNewCommentParams
 ): Promise<GetNewCommentResponse> => {
+  // GET /forums/{forumId}/{postId}/comment?parent=...
   const response = await requestHelpers.get<
     GetNewCommentResponse | GetNewCommentResponse['data']
-  >(endpoints.forums.commentNew, {
+  >(endpoints.forums.commentNew(params.forum, params.post), {
     params: omitUndefined({
-      forum: params.forum,
-      post: params.post,
       parent: params.parent,
     }),
   })
@@ -295,10 +298,14 @@ const getNewComment = async (
 const createComment = async (
   payload: CreateCommentRequest
 ): Promise<CreateCommentResponse> => {
+  // POST /forums/{forumId}/{postId}/create with body { body, parent? }
   const response = await requestHelpers.post<
     CreateCommentResponse | CreateCommentResponse['data'],
-    CreateCommentRequest
-  >(endpoints.forums.commentCreate, payload)
+    { body: string; parent?: string }
+  >(endpoints.forums.commentCreate(payload.forum, payload.post), {
+    body: payload.body,
+    parent: payload.parent,
+  })
 
   return toDataResponse<CreateCommentResponse['data']>(
     response,
@@ -309,10 +316,11 @@ const createComment = async (
 const voteComment = async (
   payload: VoteCommentRequest
 ): Promise<VoteCommentResponse> => {
+  // POST /forums/{forumId}/{postId}/{commentId}/vote/{vote} - no body required
   const response = await requestHelpers.post<
     VoteCommentResponse | VoteCommentResponse['data'],
-    VoteCommentRequest
-  >(endpoints.forums.commentVote, payload)
+    Record<string, never>
+  >(endpoints.forums.commentVote(payload.forum, payload.post, payload.comment, payload.vote), {})
 
   return toDataResponse<VoteCommentResponse['data']>(
     response,

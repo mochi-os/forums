@@ -42,12 +42,15 @@ export interface CreateCommentRequest {
 
 export interface CreateCommentResponse {
   data: {
+    comment: string
     forum: string
     post: string
   }
 }
 
 export interface VoteCommentRequest {
+  forum: string
+  post: string
   comment: string
   vote: 'up' | 'down'
 }

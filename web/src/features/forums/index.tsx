@@ -1,567 +1,206 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   Main,
-  cn,
-  Badge,
-  Card,
-  CardContent,
-  CardHeader,
-  Avatar,
-  AvatarFallback,
-  Input,
-  Button,
-  ScrollArea,
 } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
-import {
-  MessageSquare,
-  Users,
-  ChevronRight,
-  Plus,
-  ThumbsUp,
-  ThumbsDown,
-  Search,
-  Hash,
-  Clock,
-  Rss,
-  FileEdit,
-} from 'lucide-react'
 import { CreateForumDialog } from './components/create-forum-dialog'
-import type { Forum } from '@/api/types/forums'
-
-interface Post {
-  id: string
-  forum: string
-  member: string
-  name: string
-  title: string
-  body: string
-  comments: number
-  up: number
-  down: number
-  created: number
-  updated: number
-  created_local: string
-  attachments?: unknown[]
-}
-
-// ============================================================================
-// ForumListItem Component (matching FeedListItem style)
-// ============================================================================
-
-interface ForumListItemProps {
-  forum: Forum
-  isActive: boolean
-  postCount: number
-  onSelect: (forumId: string) => void
-}
-
-function ForumListItem({ forum, isActive, postCount, onSelect }: ForumListItemProps) {
-  const handleActivate = () => onSelect(forum.id)
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      handleActivate()
-    }
-  }
-
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleString(undefined, {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-    })
-  }
-
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={handleActivate}
-      onKeyDown={handleKeyDown}
-      className={cn(
-        'group w-full overflow-hidden rounded-xl border p-3 text-start transition-all duration-200',
-        'hover:border-primary/50 hover:bg-accent/50 hover:shadow-sm',
-        isActive && 'border-primary bg-primary/5 shadow-sm'
-      )}
-    >
-      {/* Header Row: Icon + Name + Owner Badge */}
-      <div className="flex min-w-0 items-center gap-2">
-        <div
-          className={cn(
-            'shrink-0 rounded-lg bg-primary/10 p-1.5 transition-colors',
-            'group-hover:bg-primary/20'
-          )}
-        >
-          <Hash className="size-3.5 text-primary" />
-        </div>
-
-        <span className="min-w-0 flex-1 truncate text-sm font-semibold">
-          {forum.name}
-        </span>
-
-        {forum.role === '' && (
-          <Badge variant="secondary" className="shrink-0 text-[10px] font-medium">
-            Owner
-          </Badge>
-        )}
-      </div>
-
-      {/* Description */}
-      <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-        {postCount} posts in this forum
-      </p>
-
-      {/* Footer Row: Stats */}
-      <div className="mt-3 flex min-w-0 items-center justify-between gap-2">
-        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-          <span className="flex shrink-0 items-center gap-1">
-            <Users className="size-3" />
-            <span className="font-medium">{forum.members}</span>
-            <span>members</span>
-          </span>
-
-          <span className="flex min-w-0 items-center gap-1">
-            <Clock className="size-3 shrink-0" />
-            <span className="truncate">{formatDate(forum.updated)}</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ============================================================================
-// ForumDirectory Component (matching FeedDirectory style)
-// ============================================================================
-
-interface ForumDirectoryProps {
-  forums: Forum[]
-  posts: Post[]
-  searchTerm: string
-  onSearchTermChange: (value: string) => void
-  selectedForumId: string | null
-  onSelectForum: (forumId: string | null) => void
-}
-
-function ForumDirectory({
-  forums,
-  posts,
-  searchTerm,
-  onSearchTermChange,
-  selectedForumId,
-  onSelectForum,
-}: ForumDirectoryProps) {
-  const getPostCount = (forumId: string) => posts.filter((p) => p.forum === forumId).length
-
-  const filteredForums = searchTerm.trim()
-    ? forums.filter((f) => f.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    : forums
-
-  return (
-    <Card className="flex h-full min-w-0 flex-col overflow-hidden shadow-md">
-      <CardHeader className="shrink-0 space-y-3 border-b pb-4">
-        <div className="space-y-1">
-          <p className="text-sm font-semibold">Forums directory</p>
-          <p className="text-xs text-muted-foreground">
-            Search, subscribe, or jump into any forum.
-          </p>
-        </div>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search forums or tags"
-            value={searchTerm}
-            onChange={(e) => onSearchTermChange(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-      </CardHeader>
-
-      <CardContent className="min-h-0 flex-1 overflow-hidden p-0">
-        <ScrollArea className="h-full">
-          <div className="space-y-2 p-3">
-            {/* All Forums option */}
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelectForum(null)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  onSelectForum(null)
-                }
-              }}
-              className={cn(
-                'group w-full overflow-hidden rounded-xl border p-3 text-start transition-all duration-200',
-                'hover:border-primary/50 hover:bg-accent/50 hover:shadow-sm',
-                selectedForumId === null && 'border-primary bg-primary/5 shadow-sm'
-              )}
-            >
-              <div className="flex min-w-0 items-center gap-2">
-                <div
-                  className={cn(
-                    'shrink-0 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 p-1.5'
-                  )}
-                >
-                  <Rss className="size-3.5 text-white" />
-                </div>
-                <span className="min-w-0 flex-1 truncate text-sm font-semibold">
-                  All Forums
-                </span>
-                <Badge variant="outline" className="shrink-0 text-[10px] font-medium">
-                  {posts.length} posts
-                </Badge>
-              </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                View posts from all your subscribed forums
-              </p>
-            </div>
-
-            {/* Individual forums */}
-            {filteredForums.length > 0 ? (
-              filteredForums.map((forum) => (
-                <ForumListItem
-                  key={forum.id}
-                  forum={forum}
-                  isActive={selectedForumId === forum.id}
-                  postCount={getPostCount(forum.id)}
-                  onSelect={onSelectForum}
-                />
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center space-y-2 rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-                <p>No forums found</p>
-                <p className="text-xs">Create one or search for existing forums</p>
-              </div>
-            )}
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
-  )
-}
-
-// ============================================================================
-// PostCard Component
-// ============================================================================
-
-interface PostCardProps {
-  post: Post
-  forumName: string
-  showForumBadge: boolean
-  onSelect: (postId: string) => void
-}
-
-function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) {
-  return (
-    <Card
-      className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30"
-      onClick={() => onSelect(post.id)}
-    >
-      <CardContent className="p-5">
-        <div className="flex flex-col gap-3">
-          {/* Forum tag (only show when viewing all forums) */}
-          {showForumBadge && (
-            <Badge variant="secondary" className="w-fit text-xs">
-              <Hash className="h-3 w-3 mr-1" />
-              {forumName}
-            </Badge>
-          )}
-
-          {/* Title */}
-          <h3 className="text-lg font-semibold leading-tight hover:text-primary transition-colors">
-            {post.title}
-          </h3>
-
-          {/* Body excerpt */}
-          <p className="text-sm text-muted-foreground line-clamp-2">{post.body}</p>
-
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-2 border-t border-border/50">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="text-xs">
-                  {post.name
-                    .split(' ')
-                    .map((w) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-sm font-medium">{post.name}</p>
-                <p className="text-xs text-muted-foreground">{post.created_local}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <MessageSquare className="h-4 w-4" />
-                <span>{post.comments}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <ThumbsUp className="h-4 w-4" />
-                <span>{post.up}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <ThumbsDown className="h-4 w-4" />
-                <span>{post.down}</span>
-              </div>
-              <ChevronRight className="h-4 w-4" />
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
-
-// ============================================================================
-// ForumOverview Component (matching FeedOverview style)
-// ============================================================================
-
-interface ForumOverviewProps {
-  forum: Forum | null
-  posts: Post[]
-  onSelectPost: (postId: string) => void
-  onNewPost: () => void
-}
-
-function ForumOverview({ forum, posts, onSelectPost, onNewPost }: ForumOverviewProps) {
-  const getForumName = (forumId: string) => forum?.id === forumId ? forum.name : 'Unknown'
-
-  if (!forum) {
-    // All forums view
-    return (
-      <div className="space-y-6">
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={getForumName(post.forum)}
-              showForumBadge={true}
-              onSelect={onSelectPost}
-            />
-          ))
-        ) : (
-          <Card className="shadow-md">
-            <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">
-              <div className="rounded-full bg-primary/10 p-4">
-                <MessageSquare className="size-10 text-primary" />
-              </div>
-              <p className="text-sm font-semibold">No posts yet</p>
-              <p className="text-sm text-muted-foreground">
-                Subscribe to forums or create your own to see posts
-              </p>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    )
-  }
-
-  // Selected forum view with header
-  return (
-    <div className="space-y-6">
-      {/* Forum Header Card */}
-      <Card className="shadow-md">
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-12 w-12">
-                <AvatarFallback className="bg-primary text-primary-foreground text-lg">
-                  {forum.name
-                    .split(' ')
-                    .map((w) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h2 className="text-xl font-bold">{forum.name}</h2>
-                <p className="text-sm text-muted-foreground">
-                  Owned by <span className="font-medium">You</span> · Last active{' '}
-                  {new Date(forum.updated * 1000).toLocaleString(undefined, {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                  })}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {forum.members} subscribers
-              </Badge>
-              {forum.role === '' && (
-                <Badge variant="secondary" className="text-xs">
-                  Owner
-                </Badge>
-              )}
-            </div>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Card className="bg-muted/50">
-              <CardContent className="p-4">
-                <p className="text-xs text-muted-foreground">Total posts</p>
-                <p className="text-2xl font-bold">{posts.length}</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-muted/50">
-              <CardContent className="p-4">
-                <p className="text-xs text-muted-foreground">Active members</p>
-                <p className="text-2xl font-bold">{forum.members}</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-muted/50">
-              <CardContent className="p-4">
-                <p className="text-xs text-muted-foreground">Comments</p>
-                <p className="text-2xl font-bold">
-                  {posts.reduce((acc, p) => acc + p.comments, 0)}
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="bg-muted/50">
-              <CardContent className="p-4">
-                <p className="text-xs text-muted-foreground">Total votes</p>
-                <p className="text-2xl font-bold">
-                  {posts.reduce((acc, p) => acc + p.up + p.down, 0)}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Posts */}
-      {posts.length > 0 ? (
-        posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            forumName={forum.name}
-            showForumBadge={false}
-            onSelect={onSelectPost}
-          />
-        ))
-      ) : (
-        <Card className="shadow-md">
-          <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">
-            <div className="rounded-full bg-primary/10 p-4">
-              <FileEdit className="size-10 text-primary" />
-            </div>
-            <p className="text-sm font-semibold">No posts in this forum yet</p>
-            <p className="text-sm text-muted-foreground">
-              Be the first to start a conversation
-            </p>
-            <Button onClick={onNewPost} className="mt-2">
-              <Plus className="h-4 w-4 mr-2" />
-              Create First Post
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-    </div>
-  )
-}
-
-// ============================================================================
-// Main Forums Component
-// ============================================================================
+import { CreatePostDialog } from './components/create-post-dialog'
+import { ForumDirectory } from './components/forum-directory'
+import { ForumOverview } from './components/forum-overview'
+import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
 export function Forums() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const [selectedForumId, setSelectedForumId] = useState<string | null>(null)
+  const [subscribingForumId, setSubscribingForumId] = useState<string | null>(null)
+
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value)
+  }
 
   // Fetch list of forums (also includes posts)
-  const { data: forumsData, isLoading } = useQuery({
+  const { data: forumsData, isLoading: _isLoading } = useQuery({
     queryKey: ['forums', 'list'],
     queryFn: () => forumsApi.list(),
   })
 
   const forums: Forum[] = forumsData?.data?.forums || []
-  const allPosts: Post[] = forumsData?.data?.posts || []
+  // Filter to ensure we only have valid posts (with title)
+  const allPosts: Post[] = (forumsData?.data?.posts || []).filter(p => 'title' in p && p.title)
 
-  // Create forum mutation
+  // Search forums globally
+  const { data: searchData, isLoading: isSearching } = useQuery({
+    queryKey: ['forums', 'search', debouncedSearchTerm],
+    queryFn: () => forumsApi.search({ search: debouncedSearchTerm }),
+    enabled: debouncedSearchTerm.trim().length > 0,
+  })
+
+  const searchResults: DirectoryEntry[] = searchData?.data?.results || []
+
+  // Fetch specific forum details when selected
+  const { data: forumDetailData, isLoading: isLoadingForum } = useQuery({
+    queryKey: ['forums', 'detail', selectedForumId],
+    queryFn: () => {
+      console.log('[Forums] Fetching forum detail for:', selectedForumId)
+      return forumsApi.view(selectedForumId!)
+    },
+    enabled: !!selectedForumId,
+    staleTime: 0, 
+  })
+
+  const selectedForum = selectedForumId ? forumDetailData?.data?.forum : null
+  // Filter to ensure we only have valid posts (with title), not comments that may have leaked into the array
+  const selectedForumPosts = (forumDetailData?.data?.posts || []).filter(p => 'title' in p && p.title)
+
+  // Create Forum Mutation
   const createForumMutation = useMutation({
-    mutationFn: (name: string) => forumsApi.create({ name }),
-    onSuccess: () => {
+    mutationFn: forumsApi.create,
+    onSuccess: (data) => {
       toast.success('Forum created successfully!')
       queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+      setSelectedForumId(data.data.id)
     },
-    onError: () => {
+    onError: (error) => {
       toast.error('Failed to create forum')
+      console.error(error)
     },
   })
 
-  const handleCreateForum = (input: {
-    name: string
-    memberAccess: string
-    allowSearch: boolean
-  }) => {
-    if (!input.name.trim()) {
-      toast.error('Please enter a forum name')
-      return
-    }
-    createForumMutation.mutate(input.name)
+  // Create Post Mutation
+  const createPostMutation = useMutation({
+    mutationFn: forumsApi.createPost,
+    onSuccess: () => {
+      toast.success('Post created successfully!')
+      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+      if (selectedForumId) {
+        queryClient.invalidateQueries({ queryKey: ['forums', 'detail', selectedForumId] })
+      }
+    },
+    onError: (error) => {
+      toast.error('Failed to create post')
+      console.error(error)
+    },
+  })
+
+  // Subscribe Mutation
+  const subscribeMutation = useMutation({
+    mutationFn: (forumId: string) => {
+      setSubscribingForumId(forumId)
+      return forumsApi.subscribe(forumId)
+    },
+    onSuccess: (data, _forumId) => {
+      if (data.data.already_subscribed) {
+        toast.info('You are already subscribed to this forum')
+      } else {
+        toast.success('Subscribed successfully!')
+        queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+      }
+      setSubscribingForumId(null)
+    },
+    onError: (error) => {
+      toast.error('Failed to subscribe')
+      console.error(error)
+      setSubscribingForumId(null)
+    },
+  })
+
+  // Unsubscribe Mutation
+  const unsubscribeMutation = useMutation({
+    mutationFn: (forumId: string) => forumsApi.unsubscribe(forumId),
+    onSuccess: () => {
+      toast.success('Unsubscribed successfully')
+      setSelectedForumId(null) // Go back to all forums
+      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
+    },
+    onError: (error) => {
+      toast.error('Failed to unsubscribe')
+      console.error(error)
+    },
+  })
+
+  const handleCreateForum = (data: { name: string }) => {
+    createForumMutation.mutate(data)
   }
 
-  const handlePostSelect = (postId: string) => {
-    navigate({ to: `/thread/${postId}` })
+  const handleCreatePost = (data: { title: string; body: string; attachments?: File[] }) => {
+    if (!selectedForumId) return
+    createPostMutation.mutate({
+      forum: selectedForumId,
+      ...data,
+    })
   }
 
-  const handleNewPost = () => {
+  const handlePostSelect = (forumId: string, postId: string) => {
+    navigate({
+      to: '/thread/$forumId/$threadId',
+      params: { forumId, threadId: postId },
+    })
+  }
+
+  const handleSubscribe = (forumId: string) => {
+    subscribeMutation.mutate(forumId)
+  }
+
+  const handleUnsubscribe = (forumId: string) => {
+    unsubscribeMutation.mutate(forumId)
+  }
+
+  // Helper to get forum name from ID
+  const getForumName = (id: string) => {
+    const forum = forums.find((f) => f.id === id)
+    return forum ? forum.name : 'Unknown'
+  }
+
+  const postsToDisplay = useMemo(() => {
+    // If a forum is selected, show its posts (fetched from detail endpoint)
     if (selectedForumId) {
-      navigate({ to: `/new-thread?forum=${selectedForumId}` })
+       // If loading specifically this forum, return empty or wait
+       // But usually we might want to show skeleton. Current UI handles loading state.
+       return selectedForumPosts
     }
-  }
+    
+    // Otherwise show all posts from the list endpoint, with forum names added
+    return allPosts.map(post => ({
+      ...post,
+      forumName: getForumName(post.forum)
+    }))
+  }, [selectedForumId, selectedForumPosts, allPosts, getForumName])
 
-  // Derived state
-  const selectedForum = useMemo(
-    () => forums.find((f) => f.id === selectedForumId) ?? null,
-    [forums, selectedForumId]
-  )
-
-  const filteredPosts = useMemo(() => {
-    if (!selectedForumId) return allPosts
-    return allPosts.filter((p) => p.forum === selectedForumId)
-  }, [allPosts, selectedForumId])
-
-  // For "All Forums" view, we need forum names
-  const getForumName = (forumId: string) => {
-    const forum = forums.find((f) => f.id === forumId)
-    return forum?.name || 'Unknown Forum'
-  }
 
   return (
-    <Main className="space-y-6 pb-10">
+    <Main fluid className='space-y-6 pb-10'>
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight">Forums</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground hidden lg:block">
             Share progress, ask for help, and learn from the community
           </p>
-          {isLoading && (
-            <p className="text-xs text-muted-foreground">Syncing forums...</p>
-          )}
         </div>
         <div className="flex items-center gap-2">
-          {selectedForumId && selectedForum?.role === '' && (
-            <Button variant="outline" size="sm" onClick={handleNewPost}>
-              <FileEdit className="h-4 w-4 mr-2" />
-              New post
-            </Button>
+          {selectedForumId && selectedForum && ['', 'administrator', 'poster'].includes(selectedForum.role) && (
+            <CreatePostDialog
+              forumId={selectedForumId}
+              forumName={selectedForum?.name || 'Forum'}
+              onCreate={handleCreatePost}
+              isPending={createPostMutation.isPending}
+              isSuccess={createPostMutation.isSuccess}
+              triggerVariant="icon"
+            />
           )}
           <CreateForumDialog onCreate={handleCreateForum} />
         </div>
@@ -570,38 +209,42 @@ export function Forums() {
       {/* Main Grid Layout */}
       <div className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
         {/* Forum Directory Sidebar */}
-        <div className="h-[calc(100vh-12rem)] lg:sticky lg:top-4">
+        <div className="h-[calc(100vh-5rem)] lg:sticky lg:top-4">
           <ForumDirectory
             forums={forums}
             posts={allPosts}
             searchTerm={searchTerm}
-            onSearchTermChange={setSearchTerm}
+            onSearchChange={handleSearchChange}
+            isSearching={isSearching}
             selectedForumId={selectedForumId}
             onSelectForum={setSelectedForumId}
+            searchResults={searchResults}
+            onSubscribe={handleSubscribe}
+            isSubscribing={subscribeMutation.isPending}
+            subscribingForumId={subscribingForumId}
           />
         </div>
 
         {/* Content Area */}
         <section className="min-w-0 space-y-6">
-          {selectedForum || selectedForumId === null ? (
-            <ForumOverview
-              forum={selectedForum}
-              posts={selectedForumId === null ? allPosts.map(p => ({ ...p, forumName: getForumName(p.forum) })) : filteredPosts}
-              onSelectPost={handlePostSelect}
-              onNewPost={handleNewPost}
-            />
-          ) : (
-            <Card className="shadow-md">
-              <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">
-                <div className="rounded-full bg-primary/10 p-4">
-                  <Hash className="size-10 text-primary" />
+          {isLoadingForum && selectedForumId ? (
+            <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
+                <div className="flex flex-col items-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                    <p className="text-sm">Loading forum...</p>
                 </div>
-                <p className="text-sm font-semibold">Select a forum</p>
-                <p className="text-sm text-muted-foreground">
-                  Choose a forum from the directory to view its posts
-                </p>
-              </CardContent>
-            </Card>
+            </div>
+          ) : (
+            <ForumOverview
+              forum={selectedForum || null}
+              posts={postsToDisplay}
+              onSelectPost={handlePostSelect}
+              onCreatePost={handleCreatePost}
+              isCreatingPost={createPostMutation.isPending}
+              isPostCreated={createPostMutation.isSuccess}
+              onUnsubscribe={handleUnsubscribe}
+              isUnsubscribing={unsubscribeMutation.isPending}
+            />
           )}
         </section>
       </div>
