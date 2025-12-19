@@ -1032,11 +1032,11 @@ def event_post_vote_event(e):
 
 # Received a subscribe request from member (we are forum owner)
 def event_subscribe_event(e):
-    forum = get_forum(e.content("to"))
+    forum = get_forum(e.header("to"))
     if not forum:
         return
     
-    member_id = e.content("from")
+    member_id = e.header("from")
     name = e.content("name")
     
     if not mochi.valid(member_id, "entity"):
@@ -1080,11 +1080,11 @@ def event_subscribe_event(e):
 
 # Received an unsubscribe request from member (we are forum owner)
 def event_unsubscribe_event(e):
-    forum = get_forum(e.content("to"))
+    forum = get_forum(e.header("to"))
     if not forum:
         return
     
-    member_id = e.content("from")
+    member_id = e.header("from")
     
     mochi.db.execute("delete from members where forum=? and id=?", forum["id"], member_id)
     
