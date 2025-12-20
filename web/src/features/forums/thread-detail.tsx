@@ -9,6 +9,7 @@ import {
   Card,
   CardContent,
 } from '@mochi/common'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { forumsApi } from '@/api/forums'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadContent } from './components/thread/thread-content'
@@ -30,6 +31,8 @@ export function ThreadDetail() {
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: threadId }),
     enabled: !!forumId && !!threadId,
   })
+
+  usePageTitle(postData?.data?.post?.title ?? 'Thread')
 
   // Vote on post mutation
   const votePostMutation = useMutation({

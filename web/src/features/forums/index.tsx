@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import {
   Main,
 } from '@mochi/common'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { forumsApi } from '@/api/forums'
 import { CreateForumDialog } from './components/create-forum-dialog'
 import { CreatePostDialog } from './components/create-post-dialog'
@@ -13,6 +14,7 @@ import { ForumOverview } from './components/forum-overview'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
 export function Forums() {
+  usePageTitle('Forums')
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [searchTerm, setSearchTerm] = useState('')
