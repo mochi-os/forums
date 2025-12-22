@@ -1,8 +1,7 @@
 import {
   Card,
   CardContent,
-  Avatar,
-  AvatarFallback,
+  FacelessAvatar,
   Badge,
   Button,
 } from '@mochi/common'
@@ -12,8 +11,7 @@ import {
   Loader2,
   UserMinus,
 } from 'lucide-react'
-import type { Forum, Post } from '@/api/types/forums'
-import { getMemberCount } from '@/api/types/forums'
+import { getMemberCount, type Forum, type Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostCard } from './post-card'
 import { CreatePostDialog } from './create-post-dialog'
@@ -79,20 +77,11 @@ export function ForumOverview({
         <CardContent className="p-6">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-4">
-              <Avatar className="h-12 w-12">
-                <AvatarFallback className="bg-primary text-primary-foreground text-lg">
-                  {forum.name
-                    .split(' ')
-                    .map((w) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              <FacelessAvatar name={forum.name} size={48} className="text-lg" />
               <div>
                 <h2 className="text-xl font-bold">{forum.name}</h2>
                 <p className="text-sm text-muted-foreground">
-                  {forum.role === '' && (
+                  {forum.can_manage && (
                     <>
                       Owned by <span className="font-medium">You</span> ·{' '}
                     </>
@@ -109,7 +98,7 @@ export function ForumOverview({
               <Badge variant="outline" className="text-xs">
                 {getMemberCount(forum.members)} subscribers
               </Badge>
-              {forum.role === '' ? (
+              {forum.can_manage ? (
                 <Badge variant="secondary" className="text-xs">
                   Owner
                 </Badge>
@@ -129,7 +118,7 @@ export function ForumOverview({
                   Unsubscribe
                 </Button>
               )}
-              {['', 'administrator'].includes(forum.role) && (
+              {forum.can_manage && (
                 <MembersDialog forumId={forum.id} forumName={forum.name} />
               )}
             </div>
@@ -180,11 +169,11 @@ export function ForumOverview({
             </div>
             <p className="text-sm font-semibold">No posts in this forum yet</p>
             <p className="text-sm text-muted-foreground">
-              {['', 'administrator', 'poster'].includes(forum.role)
+              {forum.can_post
                 ? 'Be the first to start a conversation'
                 : 'Check back later for new content'}
             </p>
-            {['', 'administrator', 'poster'].includes(forum.role) && (
+            {forum.can_post && (
               <div className="mt-2">
                 <CreatePostDialog
                   forumId={forum.id}

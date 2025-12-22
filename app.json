@@ -19,11 +19,10 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 1,
+		"schema": 2,
 		"file": "forums.db",
-		"create": {
-			"function": "database_create"
-		}
+		"create": {"function": "database_create"},
+		"upgrade": {"function": "database_upgrade"}
 	},
 	"icons": [
 		{"action": "", "label": "app_name", "file": "images/icon.svg"}
@@ -40,16 +39,24 @@
 		"post/create": {"function": "action_post_create"},
 		"post/new": {"function": "action_post_new"},
 		"search": {"function": "action_search"},
-		":forum": {"function": "action_view"},
-		":forum/members": {"function": "action_members_edit"},
-		":forum/members/save": {"function": "action_members_save"},
-		":forum/subscribe": {"function": "action_subscribe"},
-		":forum/unsubscribe": {"function": "action_unsubscribe"},
-		":forum/:post": {"function": "action_post_view"},
-		":forum/:post/comment": {"function": "action_comment_new"},
-		":forum/:post/create": {"function": "action_comment_create"},
-		":forum/:post/vote/:vote": {"function": "action_post_vote"},
-		":forum/:post/:comment/vote/:vote":	{"function": "action_comment_vote"}
+		":forum": {"file": "web/dist/index.html"},
+		":forum/assets": {"files": "web/dist/assets"},
+		":forum/images": {"files": "web/dist/images"},
+		":forum/-/posts": {"function": "action_view"},
+		":forum/-/members": {"function": "action_members_edit"},
+		":forum/-/members/save": {"function": "action_members_save"},
+		":forum/-/subscribe": {"function": "action_subscribe"},
+		":forum/-/unsubscribe": {"function": "action_unsubscribe"},
+		":forum/-/:post": {"function": "action_post_view"},
+		":forum/-/:post/comment": {"function": "action_comment_new"},
+		":forum/-/:post/create": {"function": "action_comment_create"},
+		":forum/-/:post/vote/:vote": {"function": "action_post_vote"},
+		":forum/-/:post/:comment/vote/:vote": {"function": "action_comment_vote"},
+		":forum/-/access": {"function": "action_access"},
+		":forum/-/access/set": {"function": "action_access_set"},
+		":forum/-/access/revoke": {"function": "action_access_revoke"},
+		"-/users/search": {"function": "action_users_search"},
+		"-/groups": {"function": "action_groups"}
 	},
 
 	"events": {

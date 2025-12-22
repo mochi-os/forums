@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+import { toast } from 'sonner'
 import {
   Button,
   ResponsiveDialog,
@@ -9,21 +10,19 @@ import {
   ResponsiveDialogDescription,
   ResponsiveDialogFooter,
   ResponsiveDialogClose,
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  Avatar,
-  AvatarFallback,
-  ScrollArea,
-  Badge,
+  AccessDialog,
+  AccessList,
+  type AccessLevel as CommonAccessLevel,
+  type AccessRule,
+  type AccessOwner,
+  requestHelpers,
 } from '@mochi/common'
-import { Users, Loader2 } from 'lucide-react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { forumsApi } from '@/api/forums'
-import { toast } from 'sonner'
-import { ACCESS_LEVELS } from '../constants'
+import { Users, Plus } from 'lucide-react'
+import {
+  useUserSearch,
+  useGroups,
+} from '@/hooks/use-forums-queries'
+import endpoints from '@/api/endpoints'
 import type { MemberAccess, AccessLevelWithManage } from '@/api/types/forums'
 
 interface MembersDialogProps {
@@ -31,99 +30,118 @@ interface MembersDialogProps {
   forumName: string
 }
 
+// Forum access levels in hierarchical order
+const FORUM_ACCESS_LEVELS: CommonAccessLevel[] = [
+  { value: 'view', label: 'View only' },
+  { value: 'vote', label: 'Vote' },
+  { value: 'comment', label: 'Comment' },
+  { value: 'post', label: 'Post' },
+  { value: 'manage', label: 'Manage' },
+  { value: 'none', label: 'No access' },
+]
+
+interface AccessResponse {
+  forum: { id: string; name: string }
+  access: MemberAccess[]
+}
+
 export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const queryClient = useQueryClient()
+  const [addDialogOpen, setAddDialogOpen] = useState(false)
 
-  // Track pending changes: memberId -> newLevel (null = revoke)
-  const [pendingChanges, setPendingChanges] = useState<Record<string, AccessLevelWithManage | null>>({})
+  // Access rules state
+  const [rules, setRules] = useState<AccessRule[]>([])
+  const [owner, setOwner] = useState<AccessOwner | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
-  // Fetch access rules
-  const {
-    data,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['forums', 'access', forumId],
-    queryFn: () => forumsApi.getAccess({ forum: forumId }),
-    enabled: isOpen,
-    staleTime: 0
-  })
+  // User search for AccessDialog
+  const [userSearchQuery, setUserSearchQuery] = useState('')
+  const { data: userSearchData, isLoading: userSearchLoading } = useUserSearch(userSearchQuery)
+  const { data: groupsData } = useGroups()
 
-  const members = data?.data?.access || []
+  // Load access rules
+  const loadRules = useCallback(async () => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await requestHelpers.get<AccessResponse>(
+        endpoints.forums.access(forumId)
+      )
 
-  // Reset pending changes when dialog opens/closes
+      // Map MemberAccess to AccessRule and extract owner
+      const accessRules: AccessRule[] = []
+      let accessOwner: AccessOwner | null = null
+
+      for (const member of response?.access ?? []) {
+        if (member.level === null) {
+          // Owner has null level
+          accessOwner = { id: member.id, name: member.name }
+        } else {
+          accessRules.push({
+            subject: member.id,
+            operation: member.level,
+            grant: 1,
+            name: member.name,
+          })
+        }
+      }
+
+      setRules(accessRules)
+      setOwner(accessOwner)
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to load access rules'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId])
+
+  // Load rules when dialog opens
   useEffect(() => {
     if (isOpen) {
-      setPendingChanges({})
+      void loadRules()
     }
-  }, [isOpen])
+  }, [isOpen, loadRules])
 
-  // Set access mutation
-  const setAccessMutation = useMutation({
-    mutationFn: forumsApi.setAccess,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'access', forumId] })
-    },
-    onError: (error) => {
+  // Add access handler
+  const handleAdd = async (subject: string, subjectName: string, level: string) => {
+    try {
+      await requestHelpers.post(endpoints.forums.accessSet(forumId), {
+        user: subject,
+        level: level as AccessLevelWithManage,
+      })
+      toast.success(`Access set for ${subjectName}`)
+      void loadRules()
+    } catch {
+      toast.error('Failed to set access')
+    }
+  }
+
+  // Update access level handler
+  const handleLevelChange = async (subject: string, level: string) => {
+    try {
+      await requestHelpers.post(endpoints.forums.accessSet(forumId), {
+        user: subject,
+        level: level as AccessLevelWithManage,
+      })
+      toast.success('Access updated')
+      void loadRules()
+    } catch {
       toast.error('Failed to update access')
-      console.error(error)
-    }
-  })
-
-  // Revoke access mutation
-  const revokeAccessMutation = useMutation({
-    mutationFn: forumsApi.revokeAccess,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'access', forumId] })
-    },
-    onError: (error) => {
-      toast.error('Failed to revoke access')
-      console.error(error)
-    }
-  })
-
-  // Handle access level change
-  const handleAccessChange = (memberId: string, newLevel: string) => {
-    if (newLevel === 'none') {
-      setPendingChanges(prev => ({ ...prev, [memberId]: null }))
-    } else {
-      setPendingChanges(prev => ({ ...prev, [memberId]: newLevel as AccessLevelWithManage }))
     }
   }
 
-  // Apply a single change immediately
-  const applyChange = async (memberId: string, member: MemberAccess) => {
-    const newLevel = pendingChanges[memberId]
-
-    if (newLevel === undefined) return
-
-    if (newLevel === null) {
-      // Revoke access
-      await revokeAccessMutation.mutateAsync({ forum: forumId, user: memberId })
-      toast.success(`Revoked access for ${member.name}`)
-    } else {
-      // Set new access level
-      await setAccessMutation.mutateAsync({ forum: forumId, user: memberId, level: newLevel })
-      toast.success(`Updated access for ${member.name}`)
+  // Revoke access handler
+  const handleRevoke = async (subject: string) => {
+    try {
+      await requestHelpers.post(endpoints.forums.accessRevoke(forumId), {
+        user: subject,
+      })
+      toast.success('Access removed')
+      void loadRules()
+    } catch {
+      toast.error('Failed to remove access')
     }
-
-    // Clear this pending change
-    setPendingChanges(prev => {
-      const next = { ...prev }
-      delete next[memberId]
-      return next
-    })
-  }
-
-  const isPending = setAccessMutation.isPending || revokeAccessMutation.isPending
-
-  // Get effective access level for display
-  const getEffectiveLevel = (member: MemberAccess): string => {
-    if (pendingChanges[member.id] !== undefined) {
-      return pendingChanges[member.id] === null ? 'none' : pendingChanges[member.id]!
-    }
-    return member.level || 'owner'
   }
 
   return (
@@ -134,110 +152,52 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
           Manage members
         </Button>
       </ResponsiveDialogTrigger>
-      <ResponsiveDialogContent className="sm:max-w-[600px] max-h-[85vh] flex flex-col">
+      <ResponsiveDialogContent className="sm:max-w-[700px] max-h-[85vh] flex flex-col">
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Manage members</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
-            Manage access levels for {forumName}
+            Control who can access {forumName} and their permission levels.
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
-        <div className="flex-1 overflow-hidden py-4">
-          {isLoading ? (
-            <div className="flex h-40 items-center justify-center">
-              <Loader2 className="size-6 animate-spin text-muted-foreground" />
-            </div>
-          ) : isError ? (
-            <div className="flex h-40 items-center justify-center text-destructive">
-              Failed to load members
-            </div>
-          ) : members.length === 0 ? (
-            <div className="flex h-40 items-center justify-center text-muted-foreground">
-              No members found
-            </div>
-          ) : (
-            <ScrollArea className="h-[400px] pr-4">
-              <div className="space-y-3">
-                {members.map((member) => {
-                  const effectiveLevel = getEffectiveLevel(member)
-                  const isOwner = member.level === null
-                  const hasChange = pendingChanges[member.id] !== undefined
+        <div className="flex-1 overflow-auto py-4 space-y-4">
+          {/* Add button */}
+          <div className="flex justify-end">
+            <Button onClick={() => setAddDialogOpen(true)} size="sm">
+              <Plus className="size-4 mr-2" />
+              Add
+            </Button>
+          </div>
 
-                  return (
-                    <div key={member.id} className="flex items-center justify-between gap-4 rounded-lg border p-3">
-                      <div className="flex items-center gap-3 overflow-hidden">
-                        <Avatar className="size-9 border text-[10px]">
-                          <AvatarFallback>
-                            {member.name.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="grid gap-0.5">
-                          <div className="flex items-center gap-2">
-                            <p className="text-sm font-medium leading-none truncate max-w-[150px] sm:max-w-[200px]">
-                              {member.name}
-                            </p>
-                            {isOwner && (
-                              <Badge variant="secondary" className="text-[10px]">Owner</Badge>
-                            )}
-                          </div>
-                          <p className="text-xs text-muted-foreground font-mono">
-                            {member.id.substring(0, 8)}
-                          </p>
-                        </div>
-                      </div>
+          {/* Add access dialog */}
+          <AccessDialog
+            open={addDialogOpen}
+            onOpenChange={setAddDialogOpen}
+            onAdd={handleAdd}
+            levels={FORUM_ACCESS_LEVELS.filter(l => l.value !== 'none')}
+            defaultLevel="post"
+            userSearchResults={userSearchData?.results ?? []}
+            userSearchLoading={userSearchLoading}
+            onUserSearch={setUserSearchQuery}
+            groups={groupsData?.groups ?? []}
+          />
 
-                      {isOwner ? (
-                        <span className="text-xs text-muted-foreground">Full access</span>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Select
-                            value={effectiveLevel}
-                            onValueChange={(val) => handleAccessChange(member.id, val)}
-                            disabled={isPending}
-                          >
-                            <SelectTrigger className="w-[120px] h-8 text-xs">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="none" className="text-xs text-destructive">
-                                No access
-                              </SelectItem>
-                              {ACCESS_LEVELS.map((level) => (
-                                <SelectItem key={level.value} value={level.value} className="text-xs">
-                                  {level.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-
-                          {hasChange && (
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-8 px-2"
-                              onClick={() => applyChange(member.id, member)}
-                              disabled={isPending}
-                            >
-                              {isPending ? (
-                                <Loader2 className="size-3 animate-spin" />
-                              ) : (
-                                'Apply'
-                              )}
-                            </Button>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            </ScrollArea>
-          )}
+          {/* Access list */}
+          <AccessList
+            rules={rules}
+            levels={FORUM_ACCESS_LEVELS}
+            onLevelChange={handleLevelChange}
+            onRevoke={handleRevoke}
+            isLoading={isLoading}
+            error={error}
+            owner={owner}
+            selectWidth={150}
+          />
         </div>
 
         <ResponsiveDialogFooter className="gap-2 sm:justify-between">
           <div className="text-xs text-muted-foreground self-center hidden sm:block">
-            {members.length} member{members.length !== 1 ? 's' : ''}
+            {rules.length + (owner ? 1 : 0)} member{rules.length + (owner ? 1 : 0) !== 1 ? 's' : ''}
           </div>
           <ResponsiveDialogClose asChild>
             <Button variant="outline" size="sm">Close</Button>

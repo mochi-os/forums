@@ -1,36 +1,23 @@
-// Member access options for forum creation
-export const memberAccessOptions = [
-  {
-    value: 'restricted',
-    label: 'Not access the forum until approved by an administrator',
-  },
-  {
-    value: 'view-only',
-    label: 'View the forum, but not post, comment, or vote',
-  },
-  {
-    value: 'vote-only',
-    label: 'Vote, but not post or comment',
-  },
-  {
-    value: 'comment-vote',
-    label: 'Comment and vote, but not post',
-  },
-  {
-    value: 'full-access',
-    label: 'Post, comment, and vote',
-  },
-]
-
-// Member roles for role management in members dialog
-export const MEMBER_ROLES = [
-  { value: 'disabled', label: 'Disabled' },
-  { value: 'viewer', label: 'Viewer' },
-  { value: 'voter', label: 'Voter' },
-  { value: 'commenter', label: 'Commenter' },
-  { value: 'poster', label: 'Poster' },
-  { value: 'administrator', label: 'Administrator' },
+// Access levels for forum permissions (hierarchical - higher grants lower)
+// view < vote < comment < post < manage
+export const ACCESS_LEVELS = [
+  { value: 'view', label: 'View only', description: 'Can view posts and comments' },
+  { value: 'vote', label: 'Vote', description: 'Can vote on posts and comments' },
+  { value: 'comment', label: 'Comment', description: 'Can comment and vote' },
+  { value: 'post', label: 'Post', description: 'Can create posts, comment, and vote' },
+  { value: 'manage', label: 'Manage', description: 'Full access including member management' },
 ] as const
+
+// Default access options for new forum subscribers
+export const DEFAULT_ACCESS_OPTIONS = [
+  { value: 'view', label: 'View only' },
+  { value: 'vote', label: 'Vote' },
+  { value: 'comment', label: 'Comment' },
+  { value: 'post', label: 'Post' },
+] as const
+
+// Legacy: Member roles (deprecated - use ACCESS_LEVELS instead)
+export const MEMBER_ROLES = ACCESS_LEVELS
 
 // Thread status types
 export type ThreadStatus = 'open' | 'resolved' | 'announcement'

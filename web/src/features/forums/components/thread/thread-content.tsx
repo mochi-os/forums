@@ -1,9 +1,7 @@
 import {
   cn,
   Badge,
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
+  FacelessAvatar,
   Button
 } from '@mochi/common'
 import { ThumbsUp, ThumbsDown, BellPlus, Share2 } from 'lucide-react'
@@ -57,17 +55,7 @@ export function ThreadContent({ post, attachments, onVote, isVotePending }: Thre
 
       {/* Author & Meta Line */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Avatar className="size-6">
-          <AvatarImage src="" alt={post.name} />
-          <AvatarFallback className="text-[10px]">
-            {post.name
-              .split(' ')
-              .map((n) => n[0])
-              .join('')
-              .toUpperCase()
-              .slice(0, 2)}
-          </AvatarFallback>
-        </Avatar>
+        <FacelessAvatar name={post.name} size={24} className="text-[10px]" />
         <span className="font-medium text-foreground">{post.name}</span>
         <span>•</span>
         <span>{post.created_local}</span>

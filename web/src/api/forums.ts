@@ -14,6 +14,12 @@ import type {
   GetMembersResponse,
   SaveMembersRequest,
   SaveMembersResponse,
+  GetAccessParams,
+  GetAccessResponse,
+  SetAccessRequest,
+  SetAccessResponse,
+  RevokeAccessRequest,
+  RevokeAccessResponse,
 } from '@/api/types/forums'
 import type {
   CreatePostRequest,
@@ -97,7 +103,7 @@ const listForums = async (): Promise<ListForumsResponse> => {
 const viewForum = async (forumId: string): Promise<ViewForumResponse> => {
   const response = await requestHelpers.get<
     ViewForumResponse | ViewForumResponse['data']
-  >(`/forums/${forumId}`)
+  >(endpoints.forums.posts(forumId))
 
   return toDataResponse<ViewForumResponse['data']>(response, 'view forum')
 }
@@ -250,10 +256,10 @@ const createPost = async (
 const viewPost = async (
   params: ViewPostParams
 ): Promise<ViewPostResponse> => {
-  // GET /forums/{forumId}/{postId}
+  // GET /forums/{forumId}/-/{postId}
   const response = await requestHelpers.get<
     ViewPostResponse | ViewPostResponse['data']
-  >(endpoints.forums.postView(params.forum, params.post))
+  >(endpoints.forums.post.view(params.forum, params.post))
 
   return toDataResponse<ViewPostResponse['data']>(response, 'view post')
 }
@@ -261,11 +267,11 @@ const viewPost = async (
 const votePost = async (
   payload: VotePostRequest
 ): Promise<VotePostResponse> => {
-  // POST /forums/{forumId}/{postId}/vote/{vote} with body { post, vote }
+  // POST /forums/{forumId}/-/{postId}/vote/{vote} with body { post, vote }
   const response = await requestHelpers.post<
     VotePostResponse | VotePostResponse['data'],
     { post: string; vote: 'up' | 'down' }
-  >(endpoints.forums.postVote(payload.forum, payload.post, payload.vote), {
+  >(endpoints.forums.post.vote(payload.forum, payload.post, payload.vote), {
     post: payload.post,
     vote: payload.vote,
   })
@@ -280,10 +286,10 @@ const votePost = async (
 const getNewComment = async (
   params: GetNewCommentParams
 ): Promise<GetNewCommentResponse> => {
-  // GET /forums/{forumId}/{postId}/comment?parent=...
+  // GET /forums/{forumId}/-/{postId}/comment?parent=...
   const response = await requestHelpers.get<
     GetNewCommentResponse | GetNewCommentResponse['data']
-  >(endpoints.forums.commentNew(params.forum, params.post), {
+  >(endpoints.forums.comment.new(params.forum, params.post), {
     params: omitUndefined({
       parent: params.parent,
     }),
@@ -298,11 +304,11 @@ const getNewComment = async (
 const createComment = async (
   payload: CreateCommentRequest
 ): Promise<CreateCommentResponse> => {
-  // POST /forums/{forumId}/{postId}/create with body { body, parent? }
+  // POST /forums/{forumId}/-/{postId}/create with body { body, parent? }
   const response = await requestHelpers.post<
     CreateCommentResponse | CreateCommentResponse['data'],
     { body: string; parent?: string }
-  >(endpoints.forums.commentCreate(payload.forum, payload.post), {
+  >(endpoints.forums.comment.create(payload.forum, payload.post), {
     body: payload.body,
     parent: payload.parent,
   })
@@ -316,16 +322,57 @@ const createComment = async (
 const voteComment = async (
   payload: VoteCommentRequest
 ): Promise<VoteCommentResponse> => {
-  // POST /forums/{forumId}/{postId}/{commentId}/vote/{vote} - no body required
+  // POST /forums/{forumId}/-/{postId}/{commentId}/vote/{vote} - no body required
   const response = await requestHelpers.post<
     VoteCommentResponse | VoteCommentResponse['data'],
     Record<string, never>
-  >(endpoints.forums.commentVote(payload.forum, payload.post, payload.comment, payload.vote), {})
+  >(endpoints.forums.comment.vote(payload.forum, payload.post, payload.comment, payload.vote), {})
 
   return toDataResponse<VoteCommentResponse['data']>(
     response,
     'vote comment'
   )
+}
+
+// ============================================================================
+// Access Control APIs
+// ============================================================================
+
+const getAccess = async (
+  params: GetAccessParams
+): Promise<GetAccessResponse> => {
+  const response = await requestHelpers.get<
+    GetAccessResponse | GetAccessResponse['data']
+  >(endpoints.forums.access(params.forum))
+
+  return toDataResponse<GetAccessResponse['data']>(response, 'get access')
+}
+
+const setAccess = async (
+  payload: SetAccessRequest
+): Promise<SetAccessResponse> => {
+  const response = await requestHelpers.post<
+    SetAccessResponse | SetAccessResponse['data'],
+    { user: string; level: string }
+  >(endpoints.forums.accessSet(payload.forum), {
+    user: payload.user,
+    level: payload.level,
+  })
+
+  return toDataResponse<SetAccessResponse['data']>(response, 'set access')
+}
+
+const revokeAccess = async (
+  payload: RevokeAccessRequest
+): Promise<RevokeAccessResponse> => {
+  const response = await requestHelpers.post<
+    RevokeAccessResponse | RevokeAccessResponse['data'],
+    { user: string }
+  >(endpoints.forums.accessRevoke(payload.forum), {
+    user: payload.user,
+  })
+
+  return toDataResponse<RevokeAccessResponse['data']>(response, 'revoke access')
 }
 
 // ============================================================================
@@ -350,6 +397,9 @@ export const forumsApi = {
   getNewComment,
   createComment,
   voteComment,
+  getAccess,
+  setAccess,
+  revokeAccess,
 }
 
 export type {
@@ -377,6 +427,12 @@ export type {
   VoteCommentResponse,
   VotePostRequest,
   VotePostResponse,
+  GetAccessParams,
+  GetAccessResponse,
+  SetAccessRequest,
+  SetAccessResponse,
+  RevokeAccessRequest,
+  RevokeAccessResponse,
 }
 
 export default forumsApi

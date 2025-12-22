@@ -93,12 +93,12 @@ export interface ViewPostResponse {
       created: number
       created_local: string
       children: unknown[] // Recursive type
-      role_voter: boolean
-      role_commenter: boolean
+      can_vote: boolean
+      can_comment: boolean
     }>
     member: Member
-    role_voter: boolean
-    role_commenter: boolean
+    can_vote: boolean
+    can_comment: boolean
   }
 }
 

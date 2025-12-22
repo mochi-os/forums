@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowLeft, MessageSquare } from 'lucide-react'
 import { toast } from 'sonner'
 import {
@@ -8,9 +7,15 @@ import {
   Button,
   Card,
   CardContent,
+  usePageTitle,
 } from '@mochi/common'
-import { usePageTitle } from '@/hooks/usePageTitle'
-import { forumsApi } from '@/api/forums'
+import { useSidebarContext } from '@/context/sidebar-context'
+import {
+  usePostDetail,
+  useVotePost,
+  useVoteComment,
+  useCreateComment,
+} from '@/hooks/use-forums-queries'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadContent } from './components/thread/thread-content'
 import { ThreadComment } from './components/thread/thread-comment'
@@ -18,87 +23,45 @@ import { ThreadReplyForm } from './components/thread/thread-reply-form'
 
 export function ThreadDetail() {
   const navigate = useNavigate()
-  const { threadId } = useParams({ strict: false }) as { threadId: string }
-  const queryClient = useQueryClient()
+  const { forum = '', thread = '' } = useParams({ strict: false }) as { forum?: string; thread?: string }
   const [commentBody, setCommentBody] = useState('')
-  const [votingCommentId, setVotingCommentId] = useState<string | null>(null)
 
-  const { forumId = '' } = useParams({ strict: false }) as { forumId?: string; threadId: string }
+  // Sync forum to sidebar context
+  const { setForum } = useSidebarContext()
+  useEffect(() => {
+    setForum(forum || null)
+    return () => setForum(null)
+  }, [forum, setForum])
 
-  // Fetch post data
-  const { data: postData, isLoading } = useQuery({
-    queryKey: ['forums', 'post', forumId, threadId],
-    queryFn: () => forumsApi.viewPost({ forum: forumId, post: threadId }),
-    enabled: !!forumId && !!threadId,
-  })
+  // Queries
+  const { data: postData, isLoading } = usePostDetail(forum, thread)
 
-  usePageTitle(postData?.data?.post?.title ?? 'Thread')
+  usePageTitle(postData?.data?.post?.title ? `${postData.data.post.title} - Mochi` : 'Thread - Mochi')
 
-  // Vote on post mutation
-  const votePostMutation = useMutation({
-    mutationFn: (vote: 'up' | 'down') =>
-      forumsApi.votePost({ forum: postData!.data.forum.id, post: threadId, vote }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
-      toast.success('Vote recorded')
-    },
-    onError: () => {
-      toast.error('Failed to vote on post')
-    },
-  })
-
-  // Vote on comment mutation
-  const voteCommentMutation = useMutation({
-    mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' }) => {
-      setVotingCommentId(commentId)
-      return forumsApi.voteComment({ 
-        forum: postData!.data.forum.id, 
-        post: threadId, 
-        comment: commentId, 
-        vote 
-      })
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
-      toast.success('Vote recorded')
-      setVotingCommentId(null)
-    },
-    onError: () => {
-      toast.error('Failed to vote on comment')
-      setVotingCommentId(null)
-    },
-  })
-
-  // Create comment mutation
-  const createCommentMutation = useMutation({
-    mutationFn: (body: string) =>
-      forumsApi.createComment({
-        forum: postData!.data.forum.id,
-        post: threadId,
-        body,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'post', forumId, threadId] })
-      setCommentBody('')
-      toast.success('Comment posted')
-    },
-    onError: () => {
-      toast.error('Failed to post comment')
-    },
-  })
+  // Mutations
+  const votePostMutation = useVotePost(forum, thread)
+  const voteCommentMutation = useVoteComment(forum, thread)
+  const createCommentMutation = useCreateComment(forum, thread)
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
       toast.error('Please enter a comment')
       return
     }
-    createCommentMutation.mutate(commentBody)
+    createCommentMutation.mutate(commentBody, {
+      onSuccess: () => setCommentBody(''),
+    })
+  }
+
+  const handleBack = () => {
+    // Navigate back to the forum
+    navigate({ to: '/', search: forum ? { forum } : undefined })
   }
 
   if (isLoading) {
     return (
-      <Main>
-        <div className='text-center py-12 text-muted-foreground'>
+      <Main fixed>
+        <div className="text-center py-12 text-muted-foreground">
           Loading post...
         </div>
       </Main>
@@ -107,43 +70,43 @@ export function ThreadDetail() {
 
   if (!postData) {
     return (
-      <Main fluid>
+      <Main fixed>
         <Button
-          variant='ghost'
-          className='mb-6 h-auto px-0 text-muted-foreground hover:text-foreground'
-          onClick={() => navigate({ to: '/' })}
+          variant="ghost"
+          className="mb-6 h-auto px-0 text-muted-foreground hover:text-foreground"
+          onClick={handleBack}
         >
-          <ArrowLeft className='mr-2 size-4' />
-          Back to threads
+          <ArrowLeft className="mr-2 size-4" />
+          Back to forum
         </Button>
-        <EmptyThreadState onBack={() => navigate({ to: '/' })} />
+        <EmptyThreadState onBack={handleBack} />
       </Main>
     )
   }
 
-  const { post, comments, role_voter, member } = postData.data
+  const { post, comments, can_vote, member } = postData.data
   const commentCount = comments.length
 
   return (
-    <Main fluid>
+    <Main fixed>
       <Button
-        variant='ghost'
-        className='mb-4 h-auto px-0 text-muted-foreground hover:text-foreground'
-        onClick={() => navigate({ to: '/' })}
+        variant="ghost"
+        className="mb-4 h-auto px-0 text-muted-foreground hover:text-foreground"
+        onClick={handleBack}
       >
-        <ArrowLeft className='mr-2 size-4' />
-        Back to threads
+        <ArrowLeft className="mr-2 size-4" />
+        Back to forum
       </Button>
 
       {/* Unified Thread Card */}
       <Card className="overflow-hidden">
         <CardContent className="p-6">
           {/* Post Content with Voting */}
-          <ThreadContent 
+          <ThreadContent
             post={post}
             attachments={post.attachments}
-            onVote={(vote) => votePostMutation.mutate(vote)} 
-            isVotePending={votePostMutation.isPending} 
+            onVote={(vote) => votePostMutation.mutate(vote)}
+            isVotePending={votePostMutation.isPending}
           />
 
           {/* Divider */}
@@ -165,8 +128,8 @@ export function ThreadDetail() {
                     comment={comment}
                     isOwner={comment.member === post.member}
                     onVote={(vote) => voteCommentMutation.mutate({ commentId: comment.id, vote })}
-                    roleVoter={role_voter}
-                    isPending={votingCommentId === comment.id && voteCommentMutation.isPending}
+                    canVote={can_vote}
+                    isPending={voteCommentMutation.variables?.commentId === comment.id && voteCommentMutation.isPending}
                   />
                 ))}
               </div>
@@ -177,7 +140,7 @@ export function ThreadDetail() {
             )}
 
             {/* Reply Form */}
-            <ThreadReplyForm 
+            <ThreadReplyForm
               value={commentBody}
               onChange={setCommentBody}
               onSubmit={handleCommentSubmit}

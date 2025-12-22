@@ -1,13 +1,19 @@
 // Forum Types - Based on forums.yaml specification
 
+// Access levels in hierarchical order (higher grants all lower)
+export type AccessLevel = 'view' | 'vote' | 'comment' | 'post'
+export type AccessLevelWithManage = AccessLevel | 'manage'
+
 export interface Forum {
   id: string
   fingerprint: string
   name: string
-  role: '' | 'disabled' | 'viewer' | 'voter' | 'commenter' | 'poster' | 'administrator'
+  access: '' | AccessLevel  // Default access level for new subscribers
   // API may return either a count (number) or an array of member objects
   members: number | unknown[]
   updated: number
+  can_manage?: boolean  // True if current user can manage this forum
+  can_post?: boolean    // True if current user can create posts
 }
 
 // Helper to safely get member count
@@ -21,7 +27,14 @@ export interface Member {
   forum: string
   id: string
   name: string
-  role: 'disabled' | 'viewer' | 'voter' | 'commenter' | 'poster' | 'administrator'
+  subscribed: number  // Timestamp when subscribed
+}
+
+// Access rule for a member (from mochi.access system)
+export interface MemberAccess {
+  id: string
+  name: string
+  level: AccessLevelWithManage | null  // null = owner (implicit full access)
 }
 
 export interface DirectoryEntry {
@@ -54,12 +67,13 @@ export interface ViewForumResponse {
     forum: Forum
     posts: Post[]
     member: Member
-    role_administrator: boolean
+    can_manage: boolean
   }
 }
 
 export interface CreateForumRequest {
   name: string
+  access?: AccessLevel  // Default access level for new subscribers
 }
 
 export interface CreateForumResponse {
@@ -119,11 +133,48 @@ export interface GetMembersResponse {
 
 export interface SaveMembersRequest {
   forum: string
-  [key: `role_${string}`]: string
+  [key: `role_${string}`]: string  // Legacy - may need update for access system
 }
 
 export interface SaveMembersResponse {
   data: {
     forum: Forum
+  }
+}
+
+// Access control types
+export interface GetAccessParams {
+  forum: string
+}
+
+export interface GetAccessResponse {
+  data: {
+    forum: Forum
+    access: MemberAccess[]
+    levels: AccessLevelWithManage[]
+  }
+}
+
+export interface SetAccessRequest {
+  forum: string
+  user: string
+  level: AccessLevelWithManage
+}
+
+export interface SetAccessResponse {
+  data: {
+    user: string
+    level: AccessLevelWithManage
+  }
+}
+
+export interface RevokeAccessRequest {
+  forum: string
+  user: string
+}
+
+export interface RevokeAccessResponse {
+  data: {
+    user: string
   }
 }

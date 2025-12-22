@@ -1,8 +1,6 @@
 import {
   cn,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
+  FacelessAvatar,
   Badge,
 } from '@mochi/common'
 import { ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react'
@@ -21,15 +19,15 @@ export interface ThreadCommentType {
   created: number
   created_local: string
   children: unknown[]
-  role_voter: boolean
-  role_commenter: boolean
+  can_vote: boolean
+  can_comment: boolean
 }
 
 interface ThreadCommentProps {
   comment: ThreadCommentType
   isOwner: boolean
   onVote: (vote: 'up' | 'down') => void
-  roleVoter?: boolean
+  canVote?: boolean
   isPending?: boolean
 }
 
@@ -37,23 +35,13 @@ export function ThreadComment({
   comment,
   isOwner,
   onVote,
-  roleVoter = true,
+  canVote = true,
   isPending = false,
 }: ThreadCommentProps) {
   return (
     <div className="flex gap-3 py-4 border-t border-border/40 first:border-t-0">
       {/* Avatar */}
-      <Avatar className='size-8 shrink-0'>
-        <AvatarImage src='' alt={comment.name} />
-        <AvatarFallback className="text-xs">
-          {comment.name
-            .split(' ')
-            .map((n) => n[0])
-            .join('')
-            .slice(0, 2)
-            .toUpperCase()}
-        </AvatarFallback>
-      </Avatar>
+      <FacelessAvatar name={comment.name} size={32} className="shrink-0 text-xs" />
 
       {/* Content */}
       <div className="flex-1 min-w-0">
@@ -88,10 +76,10 @@ export function ThreadComment({
                 className={cn(
                   'flex items-center gap-1 text-xs transition-colors',
                   'hover:text-foreground',
-                  !roleVoter && 'opacity-50 pointer-events-none'
+                  !canVote && 'opacity-50 pointer-events-none'
                 )}
                 onClick={() => onVote('up')}
-                disabled={!roleVoter}
+                disabled={!canVote}
               >
                 <ThumbsUp className='size-3.5' />
                 <span>{comment.up}</span>
@@ -101,10 +89,10 @@ export function ThreadComment({
                 className={cn(
                   'flex items-center gap-1 text-xs transition-colors',
                   'hover:text-foreground',
-                  !roleVoter && 'opacity-50 pointer-events-none'
+                  !canVote && 'opacity-50 pointer-events-none'
                 )}
                 onClick={() => onVote('down')}
-                disabled={!roleVoter}
+                disabled={!canVote}
               >
                 <ThumbsDown className='size-3.5' />
                 <span>{comment.down}</span>

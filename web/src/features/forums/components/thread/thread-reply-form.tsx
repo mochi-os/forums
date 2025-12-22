@@ -1,8 +1,7 @@
 import {
   Textarea,
   Button,
-  Avatar,
-  AvatarFallback,
+  FacelessAvatar,
 } from '@mochi/common'
 import { Send } from 'lucide-react'
 
@@ -24,17 +23,8 @@ export function ThreadReplyForm({
   return (
     <div className="flex gap-3 pt-4">
       {/* User Avatar */}
-      <Avatar className="size-8 shrink-0">
-        <AvatarFallback className="text-xs">
-          {userName
-            .split(' ')
-            .map((n) => n[0])
-            .join('')
-            .toUpperCase()
-            .slice(0, 2)}
-        </AvatarFallback>
-      </Avatar>
-      
+      <FacelessAvatar name={userName} size={32} className="shrink-0 text-xs" />
+
       {/* Reply Input */}
       <div className="flex-1 space-y-2">
         <Textarea

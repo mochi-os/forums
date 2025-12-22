@@ -1,8 +1,7 @@
 import {
   Card,
   CardContent,
-  Avatar,
-  AvatarFallback,
+  FacelessAvatar,
   Badge,
 } from '@mochi/common'
 import {
@@ -33,7 +32,7 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
           {/* Forum tag (only show when viewing all forums) */}
           {showForumBadge && (
             <Badge variant="secondary" className="w-fit text-xs">
-              <Hash className="h-3 w-3 mr-1" />
+              <Hash className="size-3 mr-1" />
               {forumName}
             </Badge>
           )}
@@ -49,16 +48,7 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
           {/* Footer */}
           <div className="flex items-center justify-between pt-2 border-t border-border/50">
             <div className="flex items-center gap-3">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="text-xs">
-                  {post.name
-                    .split(' ')
-                    .map((w: string) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              <FacelessAvatar name={post.name} size={32} className="text-xs" />
               <div>
                 <p className="text-sm font-medium">{post.name}</p>
                 <p className="text-xs text-muted-foreground">{post.created_local}</p>
@@ -67,18 +57,18 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
-                <MessageSquare className="h-4 w-4" />
+                <MessageSquare className="size-4" />
                 <span>{getCommentCount(post.comments)}</span>
               </div>
               <div className="flex items-center gap-1">
-                <ThumbsUp className="h-4 w-4" />
+                <ThumbsUp className="size-4" />
                 <span>{post.up}</span>
               </div>
               <div className="flex items-center gap-1">
-                <ThumbsDown className="h-4 w-4" />
+                <ThumbsDown className="size-4" />
                 <span>{post.down}</span>
               </div>
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="size-4" />
             </div>
           </div>
         </div>

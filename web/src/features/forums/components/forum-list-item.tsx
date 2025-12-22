@@ -7,8 +7,7 @@ import {
   Hash,
   Clock,
 } from 'lucide-react'
-import { getMemberCount } from '@/api/types/forums'
-import type { Forum } from '@/api/types/forums'
+import { getMemberCount, type Forum } from '@/api/types/forums'
 
 interface ForumListItemProps {
   forum: Forum
@@ -63,7 +62,7 @@ export function ForumListItem({ forum, isActive, postCount, onSelect }: ForumLis
           {forum.name}
         </span>
 
-        {forum.role === '' ? (
+        {forum.can_manage ? (
           <Badge variant="secondary" className="shrink-0 text-[10px] font-medium">
             Owner
           </Badge>

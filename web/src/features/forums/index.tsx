@@ -1,255 +1,164 @@
-import { useState, useMemo, useEffect } from 'react'
-import { useNavigate } from '@tanstack/react-router'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
+import { useMemo, useEffect } from 'react'
+import { useNavigate, useSearch } from '@tanstack/react-router'
+import { Main, usePageTitle } from '@mochi/common'
+import { useSidebarContext } from '@/context/sidebar-context'
 import {
-  Main,
-} from '@mochi/common'
-import { usePageTitle } from '@/hooks/usePageTitle'
-import { forumsApi } from '@/api/forums'
-import { CreateForumDialog } from './components/create-forum-dialog'
+  useForumsList,
+  useForumDetail,
+  useCreatePost,
+  useSubscribeForum,
+  useUnsubscribeForum,
+  selectForums,
+  selectPosts,
+} from '@/hooks/use-forums-queries'
 import { CreatePostDialog } from './components/create-post-dialog'
-import { ForumDirectory } from './components/forum-directory'
 import { ForumOverview } from './components/forum-overview'
-import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
+import { APP_ROUTES } from '@/config/routes'
 
 export function Forums() {
-  usePageTitle('Forums')
+  usePageTitle('Forums - Mochi')
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
-  const [selectedForumId, setSelectedForumId] = useState<string | null>(null)
-  const [subscribingForumId, setSubscribingForumId] = useState<string | null>(null)
 
-  // Debounce search term
+  // Get forum from URL query param
+  const search = useSearch({ strict: false }) as { forum?: string }
+  const forumFromUrl = search.forum ?? null
+
+  // Sidebar context for state sync
+  const {
+    setForum,
+    setSubscription,
+    subscribeHandler,
+    unsubscribeHandler,
+  } = useSidebarContext()
+
+  // Sync URL forum param to sidebar context
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm)
-    }, 300)
-    return () => clearTimeout(timer)
-  }, [searchTerm])
+    setForum(forumFromUrl)
+  }, [forumFromUrl, setForum])
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value)
-  }
+  // Queries
+  const { data: forumsData } = useForumsList()
+  const forums = selectForums(forumsData)
+  const allPosts = selectPosts(forumsData)
 
-  // Fetch list of forums (also includes posts)
-  const { data: forumsData, isLoading: _isLoading } = useQuery({
-    queryKey: ['forums', 'list'],
-    queryFn: () => forumsApi.list(),
-  })
-
-  const forums: Forum[] = forumsData?.data?.forums || []
-  // Filter to ensure we only have valid posts (with title)
-  const allPosts: Post[] = (forumsData?.data?.posts || []).filter(p => 'title' in p && p.title)
-
-  // Search forums globally
-  const { data: searchData, isLoading: isSearching } = useQuery({
-    queryKey: ['forums', 'search', debouncedSearchTerm],
-    queryFn: () => forumsApi.search({ search: debouncedSearchTerm }),
-    enabled: debouncedSearchTerm.trim().length > 0,
-  })
-
-  const searchResults: DirectoryEntry[] = searchData?.data?.results || []
-
-  // Fetch specific forum details when selected
-  const { data: forumDetailData, isLoading: isLoadingForum } = useQuery({
-    queryKey: ['forums', 'detail', selectedForumId],
-    queryFn: () => {
-      console.log('[Forums] Fetching forum detail for:', selectedForumId)
-      return forumsApi.view(selectedForumId!)
-    },
-    enabled: !!selectedForumId,
-    staleTime: 0, 
-  })
-
-  const selectedForum = selectedForumId ? forumDetailData?.data?.forum : null
-  // Filter to ensure we only have valid posts (with title), not comments that may have leaked into the array
+  const { data: forumDetailData, isLoading: isLoadingForum } = useForumDetail(forumFromUrl)
+  const selectedForum = forumFromUrl ? forumDetailData?.data?.forum : null
   const selectedForumPosts = (forumDetailData?.data?.posts || []).filter(p => 'title' in p && p.title)
 
-  // Create Forum Mutation
-  const createForumMutation = useMutation({
-    mutationFn: forumsApi.create,
-    onSuccess: (data) => {
-      toast.success('Forum created successfully!')
-      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
-      setSelectedForumId(data.data.id)
-    },
-    onError: (error) => {
-      toast.error('Failed to create forum')
-      console.error(error)
-    },
+  // Mutations
+  const createPostMutation = useCreatePost(forumFromUrl)
+  const subscribeMutation = useSubscribeForum()
+  const unsubscribeMutation = useUnsubscribeForum(() => {
+    // Navigate back to all forums after unsubscribe
+    navigate({ to: APP_ROUTES.HOME })
   })
 
-  // Create Post Mutation
-  const createPostMutation = useMutation({
-    mutationFn: forumsApi.createPost,
-    onSuccess: () => {
-      toast.success('Post created successfully!')
-      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
-      if (selectedForumId) {
-        queryClient.invalidateQueries({ queryKey: ['forums', 'detail', selectedForumId] })
-      }
-    },
-    onError: (error) => {
-      toast.error('Failed to create post')
-      console.error(error)
-    },
-  })
+  // Register subscribe/unsubscribe handlers with sidebar
+  useEffect(() => {
+    if (forumFromUrl) {
+      subscribeHandler.current = () => subscribeMutation.mutate(forumFromUrl)
+      unsubscribeHandler.current = () => unsubscribeMutation.mutate(forumFromUrl)
 
-  // Subscribe Mutation
-  const subscribeMutation = useMutation({
-    mutationFn: (forumId: string) => {
-      setSubscribingForumId(forumId)
-      return forumsApi.subscribe(forumId)
-    },
-    onSuccess: (data, _forumId) => {
-      if (data.data.already_subscribed) {
-        toast.info('You are already subscribed to this forum')
-      } else {
-        toast.success('Subscribed successfully!')
-        queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
-      }
-      setSubscribingForumId(null)
-    },
-    onError: (error) => {
-      toast.error('Failed to subscribe')
-      console.error(error)
-      setSubscribingForumId(null)
-    },
-  })
+      // Update subscription state for sidebar
+      const forum = forums.find(f => f.id === forumFromUrl)
+      setSubscription({
+        remote: !forum, // If not in our forums list, it's remote
+        subscribed: !!forum,
+        can_unsubscribe: !!forum && !forum.can_manage,
+      })
+    } else {
+      subscribeHandler.current = null
+      unsubscribeHandler.current = null
+      setSubscription(null)
+    }
 
-  // Unsubscribe Mutation
-  const unsubscribeMutation = useMutation({
-    mutationFn: (forumId: string) => forumsApi.unsubscribe(forumId),
-    onSuccess: () => {
-      toast.success('Unsubscribed successfully')
-      setSelectedForumId(null) // Go back to all forums
-      queryClient.invalidateQueries({ queryKey: ['forums', 'list'] })
-    },
-    onError: (error) => {
-      toast.error('Failed to unsubscribe')
-      console.error(error)
-    },
-  })
-
-  const handleCreateForum = (data: { name: string }) => {
-    createForumMutation.mutate(data)
-  }
+    return () => {
+      subscribeHandler.current = null
+      unsubscribeHandler.current = null
+    }
+  }, [forumFromUrl, forums, subscribeMutation, unsubscribeMutation, subscribeHandler, unsubscribeHandler, setSubscription])
 
   const handleCreatePost = (data: { title: string; body: string; attachments?: File[] }) => {
-    if (!selectedForumId) return
+    if (!forumFromUrl) return
     createPostMutation.mutate({
-      forum: selectedForumId,
+      forum: forumFromUrl,
       ...data,
     })
   }
 
-  const handlePostSelect = (forumId: string, postId: string) => {
+  const handlePostSelect = (forum: string, thread: string) => {
     navigate({
-      to: '/thread/$forumId/$threadId',
-      params: { forumId, threadId: postId },
+      to: '/thread/$forum/$thread',
+      params: { forum, thread },
     })
   }
 
-  const handleSubscribe = (forumId: string) => {
-    subscribeMutation.mutate(forumId)
-  }
-
-  const handleUnsubscribe = (forumId: string) => {
-    unsubscribeMutation.mutate(forumId)
-  }
-
-  // Helper to get forum name from ID
-  const getForumName = (id: string) => {
-    const forum = forums.find((f) => f.id === id)
-    return forum ? forum.name : 'Unknown'
+  const handleUnsubscribe = (forum: string) => {
+    unsubscribeMutation.mutate(forum)
   }
 
   const postsToDisplay = useMemo(() => {
     // If a forum is selected, show its posts (fetched from detail endpoint)
-    if (selectedForumId) {
-       // If loading specifically this forum, return empty or wait
-       // But usually we might want to show skeleton. Current UI handles loading state.
-       return selectedForumPosts
+    if (forumFromUrl) {
+      return selectedForumPosts
     }
-    
-    // Otherwise show all posts from the list endpoint, with forum names added
-    return allPosts.map(post => ({
-      ...post,
-      forumName: getForumName(post.forum)
-    }))
-  }, [selectedForumId, selectedForumPosts, allPosts, getForumName])
 
+    // Otherwise show all posts from the list endpoint, with forum names added
+    return allPosts.map(post => {
+      const forum = forums.find((f) => f.id === post.forum)
+      return {
+        ...post,
+        forumName: forum?.name ?? 'Unknown',
+      }
+    })
+  }, [forumFromUrl, selectedForumPosts, allPosts, forums])
 
   return (
-    <Main fluid className='space-y-6 pb-10'>
+    <Main fixed className="space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight">Forums</h1>
-          <p className="text-sm text-muted-foreground hidden lg:block">
-            Share progress, ask for help, and learn from the community
+          <h1 className="text-2xl font-bold tracking-tight">
+            {selectedForum?.name ?? 'All forums'}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {selectedForum
+              ? `${postsToDisplay.length} post${postsToDisplay.length !== 1 ? 's' : ''}`
+              : 'Share progress, ask for help, and learn from the community'}
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          {selectedForumId && selectedForum && ['', 'administrator', 'poster'].includes(selectedForum.role) && (
-            <CreatePostDialog
-              forumId={selectedForumId}
-              forumName={selectedForum?.name || 'Forum'}
-              onCreate={handleCreatePost}
-              isPending={createPostMutation.isPending}
-              isSuccess={createPostMutation.isSuccess}
-              triggerVariant="icon"
-            />
-          )}
-          <CreateForumDialog onCreate={handleCreateForum} />
-        </div>
-      </div>
-
-      {/* Main Grid Layout */}
-      <div className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
-        {/* Forum Directory Sidebar */}
-        <div className="h-[calc(100vh-5rem)] lg:sticky lg:top-4">
-          <ForumDirectory
-            forums={forums}
-            posts={allPosts}
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-            isSearching={isSearching}
-            selectedForumId={selectedForumId}
-            onSelectForum={setSelectedForumId}
-            searchResults={searchResults}
-            onSubscribe={handleSubscribe}
-            isSubscribing={subscribeMutation.isPending}
-            subscribingForumId={subscribingForumId}
+        {forumFromUrl && selectedForum?.can_post && (
+          <CreatePostDialog
+            forumId={forumFromUrl}
+            forumName={selectedForum?.name || 'Forum'}
+            onCreate={handleCreatePost}
+            isPending={createPostMutation.isPending}
+            isSuccess={createPostMutation.isSuccess}
+            triggerVariant="icon"
           />
-        </div>
-
-        {/* Content Area */}
-        <section className="min-w-0 space-y-6">
-          {isLoadingForum && selectedForumId ? (
-            <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-                <div className="flex flex-col items-center gap-2">
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                    <p className="text-sm">Loading forum...</p>
-                </div>
-            </div>
-          ) : (
-            <ForumOverview
-              forum={selectedForum || null}
-              posts={postsToDisplay}
-              onSelectPost={handlePostSelect}
-              onCreatePost={handleCreatePost}
-              isCreatingPost={createPostMutation.isPending}
-              isPostCreated={createPostMutation.isSuccess}
-              onUnsubscribe={handleUnsubscribe}
-              isUnsubscribing={unsubscribeMutation.isPending}
-            />
-          )}
-        </section>
+        )}
       </div>
+
+      {/* Content */}
+      {isLoadingForum && forumFromUrl ? (
+        <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
+          <div className="flex flex-col items-center gap-2">
+            <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            <p className="text-sm">Loading forum...</p>
+          </div>
+        </div>
+      ) : (
+        <ForumOverview
+          forum={selectedForum || null}
+          posts={postsToDisplay}
+          onSelectPost={handlePostSelect}
+          onCreatePost={handleCreatePost}
+          isCreatingPost={createPostMutation.isPending}
+          isPostCreated={createPostMutation.isSuccess}
+          onUnsubscribe={handleUnsubscribe}
+          isUnsubscribing={unsubscribeMutation.isPending}
+        />
+      )}
     </Main>
   )
 }

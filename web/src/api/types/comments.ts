@@ -15,8 +15,8 @@ export interface Comment {
   created: number
   created_local: string
   children: Comment[]
-  role_voter: boolean
-  role_commenter: boolean
+  can_vote: boolean
+  can_comment: boolean
 }
 
 export interface GetNewCommentParams {

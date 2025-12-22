@@ -57,9 +57,9 @@ export function ForumDirectory({
     ? forums.filter((f) => f.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : forums
 
-  // Filter for Owned forums (local filter only)
+  // Filter for Owned/managed forums (local filter only)
   const ownedForums = React.useMemo(() => {
-    const owned = forums.filter(f => f.role === '' || f.role === 'administrator')
+    const owned = forums.filter(f => f.can_manage)
     if (searchTerm.trim()) {
       return owned.filter((f) => f.name.toLowerCase().includes(searchTerm.toLowerCase()))
     }
@@ -70,7 +70,7 @@ export function ForumDirectory({
   const ownedForumIds = React.useMemo(() => {
     return new Set(
       forums
-        .filter(f => f.role === '' || f.role === 'administrator')
+        .filter(f => f.can_manage)
         .map(f => f.id)
     )
   }, [forums])
