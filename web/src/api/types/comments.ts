@@ -61,3 +61,31 @@ export interface VoteCommentResponse {
     post: string
   }
 }
+
+export interface EditCommentRequest {
+  forum: string
+  post: string
+  comment: string
+  body: string
+}
+
+export interface EditCommentResponse {
+  data: {
+    forum: string
+    post: string
+    comment: string
+  }
+}
+
+export interface DeleteCommentRequest {
+  forum: string
+  post: string
+  comment: string
+}
+
+export interface DeleteCommentResponse {
+  data: {
+    forum: string
+    post: string
+  }
+}

@@ -1,21 +1,12 @@
 import {
   Card,
   CardContent,
-  FacelessAvatar,
-  Badge,
-  Button,
+  LoadMoreTrigger,
 } from '@mochi/common'
-import {
-  MessageSquare,
-  FileEdit,
-  Loader2,
-  UserMinus,
-} from 'lucide-react'
-import { getMemberCount, type Forum, type Post } from '@/api/types/forums'
-import { getCommentCount } from '@/api/types/posts'
+import { MessageSquare, FileEdit } from 'lucide-react'
+import { type Forum, type Post } from '@/api/types/forums'
 import { PostCard } from './post-card'
 import { CreatePostDialog } from './create-post-dialog'
-import { MembersDialog } from './members-dialog'
 
 interface ForumOverviewProps {
   forum: Forum | null
@@ -24,19 +15,21 @@ interface ForumOverviewProps {
   onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
-  onUnsubscribe?: (forumId: string) => void
-  isUnsubscribing?: boolean
+  hasNextPage?: boolean
+  isFetchingNextPage?: boolean
+  onLoadMore?: () => void
 }
 
-export function ForumOverview({ 
-  forum, 
-  posts, 
-  onSelectPost, 
-  onCreatePost, 
+export function ForumOverview({
+  forum,
+  posts,
+  onSelectPost,
+  onCreatePost,
   isCreatingPost = false,
-  isPostCreated = false, 
-  onUnsubscribe, 
-  isUnsubscribing = false 
+  isPostCreated = false,
+  hasNextPage = false,
+  isFetchingNextPage = false,
+  onLoadMore,
 }: ForumOverviewProps) {
   if (!forum) {
     // All forums view - use forumName from post object (set by parent)
@@ -69,98 +62,28 @@ export function ForumOverview({
     )
   }
 
-  // Selected forum view with header
+  // Selected forum view
   return (
     <div className="space-y-6">
-      {/* Forum Header Card */}
-      <Card className="shadow-md">
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <FacelessAvatar name={forum.name} size={48} className="text-lg" />
-              <div>
-                <h2 className="text-xl font-bold">{forum.name}</h2>
-                <p className="text-sm text-muted-foreground">
-                  {forum.can_manage && (
-                    <>
-                      Owned by <span className="font-medium">You</span> ·{' '}
-                    </>
-                  )}
-                  Last active{' '}
-                  {new Date(forum.updated * 1000).toLocaleString(undefined, {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                  })}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {getMemberCount(forum.members)} subscribers
-              </Badge>
-              {forum.can_manage ? (
-                <Badge variant="secondary" className="text-xs">
-                  Owner
-                </Badge>
-              ) : onUnsubscribe && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-7 gap-1 text-xs text-destructive hover:text-destructive"
-                  onClick={() => onUnsubscribe(forum.id)}
-                  disabled={isUnsubscribing}
-                >
-                  {isUnsubscribing ? (
-                    <Loader2 className="size-3 animate-spin" />
-                  ) : (
-                    <UserMinus className="size-3" />
-                  )}
-                  Unsubscribe
-                </Button>
-              )}
-              {forum.can_manage && (
-                <MembersDialog forumId={forum.id} forumName={forum.name} />
-              )}
-            </div>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="mt-6 flex flex-wrap gap-4 border-t pt-6">
-            <div className="flex flex-col gap-1 pr-6 border-r">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Posts</p>
-                <p className="text-2xl font-bold tracking-tight">{posts.length}</p>
-            </div>
-            <div className="flex flex-col gap-1 pr-6 border-r">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Members</p>
-                <p className="text-2xl font-bold tracking-tight">{getMemberCount(forum.members)}</p>
-            </div>
-            <div className="flex flex-col gap-1 pr-6 border-r">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Comments</p>
-                <p className="text-2xl font-bold tracking-tight">
-                  {posts.reduce((acc, p) => acc + getCommentCount(p.comments), 0)}
-                </p>
-            </div>
-            <div className="flex flex-col gap-1">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Votes</p>
-                <p className="text-2xl font-bold tracking-tight">
-                  {posts.reduce((acc, p) => acc + p.up + p.down, 0)}
-                </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Posts */}
       {posts.length > 0 ? (
-        posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            forumName={forum.name}
-            showForumBadge={false}
-            onSelect={onSelectPost}
-          />
-        ))
+        <>
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              forumName={forum.name}
+              showForumBadge={false}
+              onSelect={onSelectPost}
+            />
+          ))}
+          {onLoadMore && (
+            <LoadMoreTrigger
+              hasMore={hasNextPage}
+              isLoading={isFetchingNextPage}
+              onLoadMore={onLoadMore}
+            />
+          )}
+        </>
       ) : (
         <Card className="shadow-md">
           <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">

@@ -202,6 +202,7 @@ export function CreatePostDialog({
                     id="post-attachments"
                     type="file"
                     multiple
+                    accept="image/*,video/*,.pdf,.doc,.docx,.txt,.md"
                     className="hidden"
                     onChange={handleFileChange}
                     disabled={isPending}

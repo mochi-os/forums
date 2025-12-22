@@ -2,9 +2,22 @@ import {
   cn,
   Badge,
   FacelessAvatar,
-  Button
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from '@mochi/common'
-import { ThumbsUp, ThumbsDown, BellPlus, Share2 } from 'lucide-react'
+import { ThumbsUp, ThumbsDown, BellPlus, Share2, MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import { threadStatusStyles } from '../../status'
 import { PostAttachments } from './post-attachments'
 import type { Post, Attachment } from '@/api/types/posts'
@@ -14,11 +27,30 @@ interface ThreadContentProps {
   attachments?: Attachment[]
   onVote: (vote: 'up' | 'down') => void
   isVotePending: boolean
+  canEdit?: boolean
+  onEdit?: () => void
+  onDelete?: () => void
+  isDeletePending?: boolean
 }
 
-export function ThreadContent({ post, attachments, onVote, isVotePending }: ThreadContentProps) {
+export function ThreadContent({
+  post,
+  attachments,
+  onVote,
+  isVotePending,
+  canEdit = false,
+  onEdit,
+  onDelete,
+  isDeletePending = false,
+}: ThreadContentProps) {
   const status = threadStatusStyles['open']
   const StatusIcon = status.icon
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+
+  const handleDelete = () => {
+    setDeleteDialogOpen(false)
+    onDelete?.()
+  }
 
   return (
     <div className="space-y-4">
@@ -45,8 +77,52 @@ export function ThreadContent({ post, attachments, onVote, isVotePending }: Thre
             <Share2 className='mr-1.5 size-3.5' />
             Share
           </Button>
+          {canEdit && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' size='sm' className='h-8 w-8 p-0 text-muted-foreground hover:text-foreground'>
+                  <MoreHorizontal className='size-4' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={onEdit}>
+                  <Pencil className="mr-2 size-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setDeleteDialogOpen(true)}
+                  className="text-destructive focus:text-destructive"
+                >
+                  <Trash2 className="mr-2 size-4" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
+
+      {/* Delete confirmation dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete post?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the post and all its comments. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeletePending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              disabled={isDeletePending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isDeletePending ? 'Deleting...' : 'Delete'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Title */}
       <h1 className="text-xl font-semibold leading-tight text-foreground">
@@ -69,7 +145,7 @@ export function ThreadContent({ post, attachments, onVote, isVotePending }: Thre
       </div>
 
       {/* Attachments */}
-      <PostAttachments attachments={attachments || post.attachments || []} />
+      <PostAttachments attachments={attachments || post.attachments || []} forumId={post.forum} />
 
       {/* Vote buttons - minimal style matching theme */}
       <div className="flex items-center gap-3 pt-2 text-muted-foreground">

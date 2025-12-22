@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { ArrowLeft, MessageSquare } from 'lucide-react'
+import { ArrowLeft, MessageSquare, Send, X } from 'lucide-react'
 import { toast } from 'sonner'
 import {
   Main,
@@ -15,16 +15,22 @@ import {
   useVotePost,
   useVoteComment,
   useCreateComment,
+  useEditPost,
+  useDeletePost,
+  useEditComment,
+  useDeleteComment,
 } from '@/hooks/use-forums-queries'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadContent } from './components/thread/thread-content'
 import { ThreadComment } from './components/thread/thread-comment'
-import { ThreadReplyForm } from './components/thread/thread-reply-form'
+import { EditPostDialog } from './components/edit-post-dialog'
 
 export function ThreadDetail() {
   const navigate = useNavigate()
-  const { forum = '', thread = '' } = useParams({ strict: false }) as { forum?: string; thread?: string }
+  const { forum = '', post: postId = '' } = useParams({ strict: false }) as { forum?: string; post?: string }
   const [commentBody, setCommentBody] = useState('')
+  const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
+  const [showReplyForm, setShowReplyForm] = useState(false)
 
   // Sync forum to sidebar context
   const { setForum } = useSidebarContext()
@@ -34,14 +40,21 @@ export function ThreadDetail() {
   }, [forum, setForum])
 
   // Queries
-  const { data: postData, isLoading } = usePostDetail(forum, thread)
+  const { data: postData, isLoading } = usePostDetail(forum, postId)
 
   usePageTitle(postData?.data?.post?.title ? `${postData.data.post.title} - Mochi` : 'Thread - Mochi')
 
   // Mutations
-  const votePostMutation = useVotePost(forum, thread)
-  const voteCommentMutation = useVoteComment(forum, thread)
-  const createCommentMutation = useCreateComment(forum, thread)
+  const votePostMutation = useVotePost(forum, postId)
+  const voteCommentMutation = useVoteComment(forum, postId)
+  const createCommentMutation = useCreateComment(forum, postId)
+  const editPostMutation = useEditPost(forum, postId)
+  const deletePostMutation = useDeletePost(forum, () => {
+    // Navigate back to forum after deletion
+    navigate({ to: '/', search: forum ? { forum } : undefined })
+  })
+  const editCommentMutation = useEditComment(forum, postId)
+  const deleteCommentMutation = useDeleteComment(forum, postId)
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
@@ -49,7 +62,10 @@ export function ThreadDetail() {
       return
     }
     createCommentMutation.mutate(commentBody, {
-      onSuccess: () => setCommentBody(''),
+      onSuccess: () => {
+        setCommentBody('')
+        setShowReplyForm(false)
+      },
     })
   }
 
@@ -84,8 +100,25 @@ export function ThreadDetail() {
     )
   }
 
-  const { post, comments, can_vote, member } = postData.data
+  const { post, comments, can_vote, member, forum: forumData } = postData.data
   const commentCount = comments.length
+  const currentUserId = member?.id
+
+  // Check if user can edit/delete post (author or forum manager)
+  const isPostAuthor = currentUserId === post.member
+  const isForumManager = forumData?.can_manage === true
+  const canEditPost = isPostAuthor || isForumManager
+
+  // Helper to check if user can edit a comment
+  const canEditComment = (commentMember: string) => {
+    return currentUserId === commentMember || isForumManager
+  }
+
+  const handleEditPost = (data: { title: string; body: string; order: string[]; attachments: File[] }) => {
+    editPostMutation.mutate(data, {
+      onSuccess: () => setEditPostDialogOpen(false),
+    })
+  }
 
   return (
     <Main fixed>
@@ -107,6 +140,10 @@ export function ThreadDetail() {
             attachments={post.attachments}
             onVote={(vote) => votePostMutation.mutate(vote)}
             isVotePending={votePostMutation.isPending}
+            canEdit={canEditPost}
+            onEdit={() => setEditPostDialogOpen(true)}
+            onDelete={() => deletePostMutation.mutate(postId)}
+            isDeletePending={deletePostMutation.isPending}
           />
 
           {/* Divider */}
@@ -130,6 +167,11 @@ export function ThreadDetail() {
                     onVote={(vote) => voteCommentMutation.mutate({ commentId: comment.id, vote })}
                     canVote={can_vote}
                     isPending={voteCommentMutation.variables?.commentId === comment.id && voteCommentMutation.isPending}
+                    canEdit={canEditComment(comment.member)}
+                    onEdit={(body) => editCommentMutation.mutate({ commentId: comment.id, body })}
+                    onDelete={() => deleteCommentMutation.mutate(comment.id)}
+                    isEditPending={editCommentMutation.variables?.commentId === comment.id && editCommentMutation.isPending}
+                    isDeletePending={deleteCommentMutation.variables === comment.id && deleteCommentMutation.isPending}
                   />
                 ))}
               </div>
@@ -139,17 +181,74 @@ export function ThreadDetail() {
               </p>
             )}
 
-            {/* Reply Form */}
-            <ThreadReplyForm
-              value={commentBody}
-              onChange={setCommentBody}
-              onSubmit={handleCommentSubmit}
-              isPending={createCommentMutation.isPending}
-              userName={member?.name}
-            />
+            {/* Reply Button / Form */}
+            {showReplyForm ? (
+              <div className="flex items-end gap-2 pt-4">
+                <textarea
+                  placeholder="Write a reply..."
+                  value={commentBody}
+                  onChange={(e) => setCommentBody(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                      e.preventDefault()
+                      if (commentBody.trim()) {
+                        handleCommentSubmit()
+                      }
+                    } else if (e.key === 'Escape') {
+                      setShowReplyForm(false)
+                    }
+                  }}
+                  className="flex-1 border rounded-md px-3 py-2 text-sm resize-none min-h-20"
+                  rows={3}
+                  autoFocus
+                  disabled={createCommentMutation.isPending}
+                />
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="size-8"
+                  onClick={() => setShowReplyForm(false)}
+                  aria-label="Cancel reply"
+                  disabled={createCommentMutation.isPending}
+                >
+                  <X className="size-4" />
+                </Button>
+                <Button
+                  size="icon"
+                  className="size-8"
+                  disabled={!commentBody.trim() || createCommentMutation.isPending}
+                  onClick={handleCommentSubmit}
+                  aria-label="Submit reply"
+                >
+                  <Send className="size-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="pt-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowReplyForm(true)}
+                  className="gap-1.5"
+                >
+                  <MessageSquare className="size-3.5" />
+                  Reply
+                </Button>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
+
+      {/* Edit Post Dialog */}
+      <EditPostDialog
+        post={post}
+        open={editPostDialogOpen}
+        onOpenChange={setEditPostDialogOpen}
+        onSave={handleEditPost}
+        isPending={editPostMutation.isPending}
+      />
     </Main>
   )
 }

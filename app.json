@@ -19,7 +19,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 2,
+		"schema": 3,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -50,8 +50,14 @@
 		":forum/-/:post": {"function": "action_post_view"},
 		":forum/-/:post/comment": {"function": "action_comment_new"},
 		":forum/-/:post/create": {"function": "action_comment_create"},
+		":forum/-/:post/edit": {"function": "action_post_edit"},
+		":forum/-/:post/delete": {"function": "action_post_delete"},
 		":forum/-/:post/vote/:vote": {"function": "action_post_vote"},
+		":forum/-/:post/:comment/edit": {"function": "action_comment_edit"},
+		":forum/-/:post/:comment/delete": {"function": "action_comment_delete"},
 		":forum/-/:post/:comment/vote/:vote": {"function": "action_comment_vote"},
+		":forum/-/attachments/:attachment": {"function": "action_attachment_view", "public": true},
+		":forum/-/attachments/:attachment/thumbnail": {"function": "action_attachment_thumbnail", "public": true},
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},
@@ -60,12 +66,17 @@
 	},
 
 	"events": {
+		"attachment/view": {"function": "event_attachment_view"},
 		"comment/create": {"function": "event_comment_create_event"},
+		"comment/delete": {"function": "event_comment_delete_event"},
+		"comment/edit": {"function": "event_comment_edit_event"},
 		"comment/submit": {"function": "event_comment_submit_event"},
 		"comment/update": {"function": "event_comment_update_event"},
 		"comment/vote": {"function": "event_comment_vote_event"},
 		"member/update": {"function": "event_member_update_event"},
 		"post/create": {"function": "event_post_create_event"},
+		"post/delete": {"function": "event_post_delete_event"},
+		"post/edit": {"function": "event_post_edit_event"},
 		"post/submit": {"function": "event_post_submit_event"},
 		"post/update": {"function": "event_post_update_event"},
 		"post/vote": {"function": "event_post_vote_event"},

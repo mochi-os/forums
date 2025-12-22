@@ -1,0 +1,87 @@
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
+import { forumsApi } from '@/api/forums'
+import type { Post } from '@/api/types/posts'
+import type { Forum, Member } from '@/api/types/forums'
+
+const DEFAULT_LIMIT = 20
+
+interface UseInfinitePostsOptions {
+  forum: string | null
+  limit?: number
+  enabled?: boolean
+}
+
+interface UseInfinitePostsResult {
+  posts: Post[]
+  forum: Forum | undefined
+  member: Member | undefined
+  can_manage: boolean
+  isLoading: boolean
+  isFetchingNextPage: boolean
+  hasNextPage: boolean
+  fetchNextPage: () => void
+  error: Error | null
+  refetch: () => void
+}
+
+export function useInfinitePosts({
+  forum,
+  limit = DEFAULT_LIMIT,
+  enabled = true,
+}: UseInfinitePostsOptions): UseInfinitePostsResult {
+  const query = useInfiniteQuery({
+    queryKey: ['forum-posts', forum, { limit }],
+    queryFn: async ({ pageParam }) => {
+      if (!forum) throw new Error('Forum ID required')
+
+      const response = await forumsApi.view({
+        forum,
+        limit,
+        before: pageParam as number | undefined,
+      })
+
+      const data = response.data ?? {}
+
+      return {
+        posts: data.posts ?? [],
+        forum: data.forum,
+        member: data.member,
+        can_manage: data.can_manage ?? false,
+        hasMore: data.hasMore ?? false,
+        nextCursor: data.nextCursor,
+      }
+    },
+    initialPageParam: undefined as number | undefined,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasMore ? lastPage.nextCursor : undefined,
+    enabled: enabled && !!forum,
+    staleTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: false,
+  })
+
+  // Flatten all pages into a single array of posts
+  const posts = useMemo(() => {
+    if (!query.data?.pages) return []
+    return query.data.pages.flatMap((page) => page.posts)
+  }, [query.data?.pages])
+
+  // Get forum/member/permissions from first page (they don't change between pages)
+  const forumData = query.data?.pages?.[0]?.forum
+  const memberData = query.data?.pages?.[0]?.member
+  const can_manage = query.data?.pages?.[0]?.can_manage ?? false
+
+  return {
+    posts,
+    forum: forumData,
+    member: memberData,
+    can_manage,
+    isLoading: query.isLoading,
+    isFetchingNextPage: query.isFetchingNextPage,
+    hasNextPage: query.hasNextPage,
+    fetchNextPage: query.fetchNextPage,
+    error: query.error,
+    refetch: query.refetch,
+  }
+}

@@ -1,5 +1,5 @@
 export const APP_ROUTES = {
   HOME: '/',
   SEARCH: '/search',
-  THREAD: (forum: string, thread: string) => `/thread/${forum}/${thread}`,
+  POST: (forum: string, post: string) => `/${forum}/${post}`,
 } as const

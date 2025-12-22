@@ -114,3 +114,30 @@ export interface VotePostResponse {
     post: string
   }
 }
+
+export interface EditPostRequest {
+  forum: string
+  post: string
+  title: string
+  body: string
+  order?: string[]  // Array of attachment IDs (existing) or "new:N" placeholders
+  attachments?: File[]  // New files to upload
+}
+
+export interface EditPostResponse {
+  data: {
+    forum: string
+    post: string
+  }
+}
+
+export interface DeletePostRequest {
+  forum: string
+  post: string
+}
+
+export interface DeletePostResponse {
+  data: {
+    forum: string
+  }
+}

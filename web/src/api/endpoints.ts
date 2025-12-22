@@ -26,6 +26,8 @@ const endpoints = {
     // Post endpoints
     post: {
       view: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}`,
+      edit: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/edit`,
+      delete: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/delete`,
       vote: (forumId: string, postId: string, vote: 'up' | 'down') =>
         `/forums/${forumId}/-/${postId}/vote/${vote}`,
     },
@@ -34,6 +36,10 @@ const endpoints = {
     comment: {
       new: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/comment`,
       create: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/create`,
+      edit: (forumId: string, postId: string, commentId: string) =>
+        `/forums/${forumId}/-/${postId}/${commentId}/edit`,
+      delete: (forumId: string, postId: string, commentId: string) =>
+        `/forums/${forumId}/-/${postId}/${commentId}/delete`,
       vote: (forumId: string, postId: string, commentId: string, vote: 'up' | 'down') =>
         `/forums/${forumId}/-/${postId}/${commentId}/vote/${vote}`,
     },

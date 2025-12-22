@@ -1,135 +1,165 @@
 import { useState } from 'react'
-import {
-  cn,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@mochi/common'
-import { Download, FileIcon, ZoomIn } from 'lucide-react'
+import { File, FileText, Image, Loader2, Play } from 'lucide-react'
+import { ImageLightbox, type LightboxMedia, useVideoThumbnailCached, formatVideoDuration } from '@mochi/common'
 import type { Attachment } from '@/api/types/posts'
 
 interface PostAttachmentsProps {
   attachments: Attachment[]
+  forumId: string
 }
 
-// Format file size for display
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-export function PostAttachments({ attachments }: PostAttachmentsProps) {
-  const [selectedImage, setSelectedImage] = useState<Attachment | null>(null)
+function getFileIcon(type: string) {
+  if (type.startsWith('image/')) return Image
+  if (type.startsWith('text/')) return FileText
+  return File
+}
+
+function isImage(type: string): boolean {
+  return type.startsWith('image/')
+}
+
+function isVideo(type: string): boolean {
+  return type.startsWith('video/')
+}
+
+// Component to render video thumbnail using the hook
+function VideoThumbnail({ url }: { url: string }) {
+  const { url: thumbnailUrl, loading, error, duration } = useVideoThumbnailCached(url)
+
+  if (loading) {
+    return (
+      <div className="flex h-[150px] w-[200px] items-center justify-center bg-muted">
+        <Loader2 className="size-8 animate-spin text-muted-foreground" />
+      </div>
+    )
+  }
+
+  if (error || !thumbnailUrl) {
+    return (
+      <div className="flex h-[150px] w-[200px] items-center justify-center bg-muted">
+        <Play className="size-12 text-muted-foreground" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative">
+      <img
+        src={thumbnailUrl}
+        alt="Video thumbnail"
+        className="h-[150px] w-auto object-cover transition-transform group-hover/thumb:scale-105"
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="rounded-full bg-black/50 p-3">
+          <Play className="size-8 text-white" />
+        </div>
+      </div>
+      {duration != null && (
+        <div className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-xs font-medium text-white">
+          {formatVideoDuration(duration)}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function PostAttachments({ attachments, forumId }: PostAttachmentsProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   if (!attachments || attachments.length === 0) {
     return null
   }
 
-  const imageAttachments = attachments.filter((a) => a.image)
-  const fileAttachments = attachments.filter((a) => !a.image)
+  // Unified attachment URL - backend handles local vs remote
+  const getAttachmentUrl = (id: string) => {
+    return `/forums/${forumId}/-/attachments/${id}`
+  }
+
+  // Thumbnail URL for images
+  const getThumbnailUrl = (id: string) => {
+    return `/forums/${forumId}/-/attachments/${id}/thumbnail`
+  }
+
+  // Separate media (images + videos) from other files
+  const media = attachments.filter((att) => isImage(att.type) || isVideo(att.type))
+  const files = attachments.filter((att) => !isImage(att.type) && !isVideo(att.type))
+
+  // Build lightbox media array
+  const lightboxMedia: LightboxMedia[] = media.map((att) => ({
+    id: att.id,
+    name: att.name,
+    url: getAttachmentUrl(att.id),
+    type: isVideo(att.type) ? 'video' : 'image',
+  }))
+
+  const openLightbox = (index: number) => {
+    setCurrentIndex(index)
+    setLightboxOpen(true)
+  }
 
   return (
     <div className="mt-4 space-y-3">
-      {/* Image Grid - larger previews using full URL */}
-      {imageAttachments.length > 0 && (
-        <div
-          className={cn(
-            'grid gap-3',
-            imageAttachments.length === 1 && 'grid-cols-1',
-            imageAttachments.length >= 2 && 'grid-cols-2'
-          )}
-        >
-          {imageAttachments.map((attachment) => (
+      {/* Media grid (images and videos) */}
+      {media.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {media.map((attachment, index) => (
             <button
               key={attachment.id}
               type="button"
-              onClick={() => setSelectedImage(attachment)}
-              className={cn(
-                'group relative overflow-hidden rounded-lg',
-                'border border-border bg-muted/30',
-                'transition-all hover:border-foreground/30 hover:shadow-md',
-                'focus:outline-none focus:ring-2 focus:ring-ring',
-                // Larger height for better preview
-                imageAttachments.length === 1 ? 'max-w-2xl h-80' : 'h-48'
-              )}
+              onClick={() => openLightbox(index)}
+              className="group/thumb relative overflow-hidden rounded-lg border bg-muted"
             >
-              {/* Use full URL for better quality preview */}
-              <img
-                src={attachment.url}
-                alt={attachment.name}
-                className="h-full w-full object-cover transition-transform group-hover:scale-102"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/10">
-                <ZoomIn className="size-8 text-white opacity-0 drop-shadow-lg transition-opacity group-hover:opacity-100" />
-              </div>
-              {/* Image name overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
-                <span className="text-sm text-white truncate block">{attachment.name}</span>
-              </div>
+              {isVideo(attachment.type) ? (
+                <VideoThumbnail url={getAttachmentUrl(attachment.id)} />
+              ) : (
+                <img
+                  src={getThumbnailUrl(attachment.id)}
+                  alt={attachment.name}
+                  className="max-h-[250px] transition-transform group-hover/thumb:scale-105"
+                />
+              )}
             </button>
           ))}
         </div>
       )}
 
-      {/* File Attachments */}
-      {fileAttachments.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {fileAttachments.map((attachment) => (
-            <a
-              key={attachment.id}
-              href={attachment.url}
-              download={attachment.name}
-              className={cn(
-                'flex items-center gap-2 rounded-lg px-3 py-2',
-                'border border-border bg-muted/30',
-                'text-sm text-muted-foreground',
-                'transition-colors hover:border-foreground/30 hover:bg-muted/50 hover:text-foreground'
-              )}
-            >
-              <FileIcon className="size-4" />
-              <span className="max-w-36 truncate">{attachment.name}</span>
-              <span className="text-xs opacity-70">
-                ({formatFileSize(attachment.size)})
-              </span>
-              <Download className="size-3.5" />
-            </a>
-          ))}
+      {/* File list */}
+      {files.length > 0 && (
+        <div className="space-y-1">
+          {files.map((attachment) => {
+            const FileIcon = getFileIcon(attachment.type)
+            return (
+              <a
+                key={attachment.id}
+                href={getAttachmentUrl(attachment.id)}
+                className="flex items-center gap-2 rounded-lg border p-2 text-sm transition-colors hover:bg-muted"
+              >
+                <FileIcon className="size-4 shrink-0 text-muted-foreground" />
+                <span className="min-w-0 flex-1 truncate">{attachment.name}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">
+                  {formatFileSize(attachment.size)}
+                </span>
+              </a>
+            )
+          })}
         </div>
       )}
 
-      {/* Image Lightbox - full size preview */}
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-5xl p-0 overflow-hidden">
-          <DialogTitle className="sr-only">
-            {selectedImage?.name || 'Image preview'}
-          </DialogTitle>
-          {selectedImage && (
-            <div className="flex flex-col">
-              {/* Large image */}
-              <div className="flex items-center justify-center bg-muted/50 p-4">
-                <img
-                  src={selectedImage.url}
-                  alt={selectedImage.name}
-                  className="max-h-[75vh] w-auto object-contain rounded"
-                />
-              </div>
-              {/* Footer with name and download */}
-              <div className="flex items-center justify-between border-t border-border px-4 py-3">
-                <span className="text-sm font-medium truncate">{selectedImage.name}</span>
-                <a
-                  href={selectedImage.url}
-                  download={selectedImage.name}
-                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Download className="size-4" />
-                  Download
-                </a>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/* Media lightbox */}
+      <ImageLightbox
+        images={lightboxMedia}
+        currentIndex={currentIndex}
+        open={lightboxOpen}
+        onOpenChange={setLightboxOpen}
+        onIndexChange={setCurrentIndex}
+      />
     </div>
   )
 }

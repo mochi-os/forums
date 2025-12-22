@@ -9,6 +9,7 @@ import type {
   SearchForumsResponse,
   SubscribeForumResponse,
   UnsubscribeForumResponse,
+  ViewForumParams,
   ViewForumResponse,
   GetMembersParams,
   GetMembersResponse,
@@ -24,6 +25,10 @@ import type {
 import type {
   CreatePostRequest,
   CreatePostResponse,
+  DeletePostRequest,
+  DeletePostResponse,
+  EditPostRequest,
+  EditPostResponse,
   GetNewPostParams,
   GetNewPostResponse,
   ViewPostParams,
@@ -34,6 +39,10 @@ import type {
 import type {
   CreateCommentRequest,
   CreateCommentResponse,
+  DeleteCommentRequest,
+  DeleteCommentResponse,
+  EditCommentRequest,
+  EditCommentResponse,
   GetNewCommentParams,
   GetNewCommentResponse,
   VoteCommentRequest,
@@ -100,10 +109,15 @@ const listForums = async (): Promise<ListForumsResponse> => {
   return toDataResponse<ListForumsResponse['data']>(response, 'list forums')
 }
 
-const viewForum = async (forumId: string): Promise<ViewForumResponse> => {
+const viewForum = async (params: ViewForumParams): Promise<ViewForumResponse> => {
   const response = await requestHelpers.get<
     ViewForumResponse | ViewForumResponse['data']
-  >(endpoints.forums.posts(forumId))
+  >(endpoints.forums.posts(params.forum), {
+    params: omitUndefined({
+      limit: params.limit?.toString(),
+      before: params.before?.toString(),
+    }),
+  })
 
   return toDataResponse<ViewForumResponse['data']>(response, 'view forum')
 }
@@ -279,6 +293,48 @@ const votePost = async (
   return toDataResponse<VotePostResponse['data']>(response, 'vote post')
 }
 
+const editPost = async (
+  payload: EditPostRequest
+): Promise<EditPostResponse> => {
+  const formData = new FormData()
+  formData.append('title', payload.title)
+  formData.append('body', payload.body)
+
+  // Send order as JSON array
+  if (payload.order && payload.order.length > 0) {
+    formData.append('order', JSON.stringify(payload.order))
+  }
+
+  // Add new files if any
+  if (payload.attachments && payload.attachments.length > 0) {
+    for (const file of payload.attachments) {
+      formData.append('attachments', file)
+    }
+  }
+
+  const response = await requestHelpers.post<
+    EditPostResponse | EditPostResponse['data'],
+    FormData
+  >(endpoints.forums.post.edit(payload.forum, payload.post), formData, {
+    headers: {
+      'Content-Type': undefined,
+    },
+  })
+
+  return toDataResponse<EditPostResponse['data']>(response, 'edit post')
+}
+
+const deletePost = async (
+  payload: DeletePostRequest
+): Promise<DeletePostResponse> => {
+  const response = await requestHelpers.post<
+    DeletePostResponse | DeletePostResponse['data'],
+    Record<string, never>
+  >(endpoints.forums.post.delete(payload.forum, payload.post), {})
+
+  return toDataResponse<DeletePostResponse['data']>(response, 'delete post')
+}
+
 // ============================================================================
 // Comment APIs
 // ============================================================================
@@ -332,6 +388,30 @@ const voteComment = async (
     response,
     'vote comment'
   )
+}
+
+const editComment = async (
+  payload: EditCommentRequest
+): Promise<EditCommentResponse> => {
+  const response = await requestHelpers.post<
+    EditCommentResponse | EditCommentResponse['data'],
+    { body: string }
+  >(endpoints.forums.comment.edit(payload.forum, payload.post, payload.comment), {
+    body: payload.body,
+  })
+
+  return toDataResponse<EditCommentResponse['data']>(response, 'edit comment')
+}
+
+const deleteComment = async (
+  payload: DeleteCommentRequest
+): Promise<DeleteCommentResponse> => {
+  const response = await requestHelpers.post<
+    DeleteCommentResponse | DeleteCommentResponse['data'],
+    Record<string, never>
+  >(endpoints.forums.comment.delete(payload.forum, payload.post, payload.comment), {})
+
+  return toDataResponse<DeleteCommentResponse['data']>(response, 'delete comment')
 }
 
 // ============================================================================
@@ -394,9 +474,13 @@ export const forumsApi = {
   createPost,
   viewPost,
   votePost,
+  editPost,
+  deletePost,
   getNewComment,
   createComment,
   voteComment,
+  editComment,
+  deleteComment,
   getAccess,
   setAccess,
   revokeAccess,
@@ -409,6 +493,14 @@ export type {
   CreateForumResponse,
   CreatePostRequest,
   CreatePostResponse,
+  DeleteCommentRequest,
+  DeleteCommentResponse,
+  DeletePostRequest,
+  DeletePostResponse,
+  EditCommentRequest,
+  EditCommentResponse,
+  EditPostRequest,
+  EditPostResponse,
   FindForumsResponse,
   GetNewCommentParams,
   GetNewCommentResponse,
@@ -420,6 +512,7 @@ export type {
   SearchForumsResponse,
   SubscribeForumResponse,
   UnsubscribeForumResponse,
+  ViewForumParams,
   ViewForumResponse,
   ViewPostParams,
   ViewPostResponse,

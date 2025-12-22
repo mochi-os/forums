@@ -30,7 +30,7 @@ export function useForumsList() {
 export function useForumDetail(forumId: string | null) {
   return useQuery({
     queryKey: forumsKeys.detail(forumId!),
-    queryFn: () => forumsApi.view(forumId!),
+    queryFn: () => forumsApi.view({ forum: forumId! }),
     enabled: !!forumId,
     staleTime: 0,
     refetchOnWindowFocus: false,
@@ -186,6 +186,69 @@ export function useCreateComment(forumId: string, postId: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       toast.success('Comment posted')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useEditPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: { title: string; body: string; order?: string[]; attachments?: File[] }) =>
+      forumsApi.editPost({
+        forum: forumId,
+        post: postId,
+        title: data.title,
+        body: data.body,
+        order: data.order,
+        attachments: data.attachments,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      toast.success('Post updated')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useDeletePost(forumId: string, onDeleted?: () => void) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (postId: string) =>
+      forumsApi.deletePost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      toast.success('Post deleted')
+      onDeleted?.()
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useEditComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ commentId, body }: { commentId: string; body: string }) =>
+      forumsApi.editComment({ forum: forumId, post: postId, comment: commentId, body }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Comment updated')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useDeleteComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (commentId: string) =>
+      forumsApi.deleteComment({ forum: forumId, post: postId, comment: commentId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Comment deleted')
     },
     onError: handleServerError,
   })

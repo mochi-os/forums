@@ -4,13 +4,13 @@ import { Main, usePageTitle } from '@mochi/common'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
-  useForumDetail,
   useCreatePost,
   useSubscribeForum,
   useUnsubscribeForum,
   selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
+import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { CreatePostDialog } from './components/create-post-dialog'
 import { ForumOverview } from './components/forum-overview'
 import { APP_ROUTES } from '@/config/routes'
@@ -41,9 +41,16 @@ export function Forums() {
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
-  const { data: forumDetailData, isLoading: isLoadingForum } = useForumDetail(forumFromUrl)
-  const selectedForum = forumFromUrl ? forumDetailData?.data?.forum : null
-  const selectedForumPosts = (forumDetailData?.data?.posts || []).filter(p => 'title' in p && p.title)
+  // Infinite posts query for selected forum
+  const {
+    posts: infinitePosts,
+    forum: selectedForum,
+    isLoading: isLoadingForum,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useInfinitePosts({ forum: forumFromUrl })
+  const selectedForumPosts = infinitePosts.filter(p => 'title' in p && p.title)
 
   // Mutations
   const createPostMutation = useCreatePost(forumFromUrl)
@@ -88,15 +95,11 @@ export function Forums() {
     })
   }
 
-  const handlePostSelect = (forum: string, thread: string) => {
+  const handlePostSelect = (forum: string, post: string) => {
     navigate({
-      to: '/thread/$forum/$thread',
-      params: { forum, thread },
+      to: '/$forum/$post',
+      params: { forum, post },
     })
-  }
-
-  const handleUnsubscribe = (forum: string) => {
-    unsubscribeMutation.mutate(forum)
   }
 
   const postsToDisplay = useMemo(() => {
@@ -157,8 +160,9 @@ export function Forums() {
           onCreatePost={handleCreatePost}
           isCreatingPost={createPostMutation.isPending}
           isPostCreated={createPostMutation.isSuccess}
-          onUnsubscribe={handleUnsubscribe}
-          isUnsubscribing={unsubscribeMutation.isPending}
+          hasNextPage={forumFromUrl ? hasNextPage : false}
+          isFetchingNextPage={isFetchingNextPage}
+          onLoadMore={forumFromUrl ? fetchNextPage : undefined}
         />
       )}
     </Main>

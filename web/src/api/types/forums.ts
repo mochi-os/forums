@@ -62,12 +62,20 @@ export interface ListForumsResponse {
   }
 }
 
+export interface ViewForumParams {
+  forum: string
+  limit?: number
+  before?: number
+}
+
 export interface ViewForumResponse {
   data: {
     forum: Forum
     posts: Post[]
     member: Member
     can_manage: boolean
+    hasMore: boolean
+    nextCursor: number | null
   }
 }
 

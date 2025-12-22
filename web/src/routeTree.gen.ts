@@ -17,7 +17,7 @@ import { Route as errors404RouteImport } from './routes/(errors)/404'
 import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
-import { Route as AuthenticatedThreadForumThreadRouteImport } from './routes/_authenticated/thread/$forum/$thread'
+import { Route as AuthenticatedForumPostRouteImport } from './routes/_authenticated/$forum/$post'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -59,12 +59,11 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedThreadForumThreadRoute =
-  AuthenticatedThreadForumThreadRouteImport.update({
-    id: '/thread/$forum/$thread',
-    path: '/thread/$forum/$thread',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
+const AuthenticatedForumPostRoute = AuthenticatedForumPostRouteImport.update({
+  id: '/$forum/$post',
+  path: '/$forum/$post',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/401': typeof errors401Route
@@ -73,8 +72,8 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/$forum/$post': typeof AuthenticatedForumPostRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/thread/$forum/$thread': typeof AuthenticatedThreadForumThreadRoute
 }
 export interface FileRoutesByTo {
   '/401': typeof errors401Route
@@ -83,8 +82,8 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/$forum/$post': typeof AuthenticatedForumPostRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/thread/$forum/$thread': typeof AuthenticatedThreadForumThreadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,8 +94,8 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/$forum/$post': typeof AuthenticatedForumPostRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/_authenticated/thread/$forum/$thread': typeof AuthenticatedThreadForumThreadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,8 +106,8 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/$forum/$post'
     | '/errors/$error'
-    | '/thread/$forum/$thread'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/401'
@@ -117,8 +116,8 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/$forum/$post'
     | '/errors/$error'
-    | '/thread/$forum/$thread'
   id:
     | '__root__'
     | '/_authenticated'
@@ -128,8 +127,8 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/$forum/$post'
     | '/_authenticated/errors/$error'
-    | '/_authenticated/thread/$forum/$thread'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -199,11 +198,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/thread/$forum/$thread': {
-      id: '/_authenticated/thread/$forum/$thread'
-      path: '/thread/$forum/$thread'
-      fullPath: '/thread/$forum/$thread'
-      preLoaderRoute: typeof AuthenticatedThreadForumThreadRouteImport
+    '/_authenticated/$forum/$post': {
+      id: '/_authenticated/$forum/$post'
+      path: '/$forum/$post'
+      fullPath: '/$forum/$post'
+      preLoaderRoute: typeof AuthenticatedForumPostRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -211,14 +210,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedForumPostRoute: typeof AuthenticatedForumPostRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
-  AuthenticatedThreadForumThreadRoute: typeof AuthenticatedThreadForumThreadRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedForumPostRoute: AuthenticatedForumPostRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
-  AuthenticatedThreadForumThreadRoute: AuthenticatedThreadForumThreadRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
