@@ -80,7 +80,7 @@ export function CreateForumDialog({ onCreate }: CreateForumDialogProps) {
       </ResponsiveDialogTrigger>
       <ResponsiveDialogContent className='sm:max-w-[520px]'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>New Forum</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>New forum</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             Create a new forum space for your community.
           </ResponsiveDialogDescription>
