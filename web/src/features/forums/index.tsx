@@ -38,8 +38,8 @@ export function Forums() {
 
   // Queries
   const { data: forumsData } = useForumsList()
-  const forums = selectForums(forumsData)
-  const allPosts = selectPosts(forumsData)
+  const forums = useMemo(() => selectForums(forumsData), [forumsData])
+  const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
   const { data: forumDetailData, isLoading: isLoadingForum } = useForumDetail(forumFromUrl)
   const selectedForum = forumFromUrl ? forumDetailData?.data?.forum : null
@@ -76,7 +76,9 @@ export function Forums() {
       subscribeHandler.current = null
       unsubscribeHandler.current = null
     }
-  }, [forumFromUrl, forums, subscribeMutation, unsubscribeMutation, subscribeHandler, unsubscribeHandler, setSubscription])
+    // Note: subscribeMutation/unsubscribeMutation are excluded - refs capture current values when called
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forumFromUrl, forums, setSubscription])
 
   const handleCreatePost = (data: { title: string; body: string; attachments?: File[] }) => {
     if (!forumFromUrl) return
