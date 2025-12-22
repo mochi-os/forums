@@ -11,7 +11,6 @@ import {
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
-import { CreatePostDialog } from './components/create-post-dialog'
 import { ForumOverview } from './components/forum-overview'
 import { APP_ROUTES } from '@/config/routes'
 
@@ -119,32 +118,7 @@ export function Forums() {
   }, [forumFromUrl, selectedForumPosts, allPosts, forums])
 
   return (
-    <Main fixed className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight">
-            {selectedForum?.name ?? 'All forums'}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {selectedForum
-              ? `${postsToDisplay.length} post${postsToDisplay.length !== 1 ? 's' : ''}`
-              : 'Share progress, ask for help, and learn from the community'}
-          </p>
-        </div>
-        {forumFromUrl && selectedForum?.can_post && (
-          <CreatePostDialog
-            forumId={forumFromUrl}
-            forumName={selectedForum?.name || 'Forum'}
-            onCreate={handleCreatePost}
-            isPending={createPostMutation.isPending}
-            isSuccess={createPostMutation.isSuccess}
-            triggerVariant="icon"
-          />
-        )}
-      </div>
-
-      {/* Content */}
+    <Main fixed>
       {isLoadingForum && forumFromUrl ? (
         <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
           <div className="flex flex-col items-center gap-2">
