@@ -11,6 +11,11 @@ type SidebarContextValue = {
   forum: string | null
   setForum: (id: string | null) => void
 
+  // Current post tracking
+  post: string | null
+  postTitle: string | null
+  setPost: (id: string | null, title: string | null) => void
+
   // New post dialog
   post_dialog_open: boolean
   post_dialog_forum: string | null
@@ -33,12 +38,19 @@ const SidebarContext = createContext<SidebarContextValue | null>(null)
 
 export function SidebarProvider({ children }: { children: ReactNode }) {
   const [forum, setForum] = useState<string | null>(null)
+  const [post, setPostId] = useState<string | null>(null)
+  const [postTitle, setPostTitle] = useState<string | null>(null)
   const [post_dialog_open, setPostDialogOpen] = useState(false)
   const [post_dialog_forum, setPostDialogForum] = useState<string | null>(null)
   const [forum_dialog_open, setForumDialogOpen] = useState(false)
   const [subscription, setSubscription] = useState<SubscriptionState | null>(null)
   const subscribeHandler = useRef<(() => void) | null>(null)
   const unsubscribeHandler = useRef<(() => void) | null>(null)
+
+  const setPost = useCallback((id: string | null, title: string | null) => {
+    setPostId(id)
+    setPostTitle(title)
+  }, [])
 
   const openPostDialog = useCallback((targetForum: string) => {
     setPostDialogForum(targetForum)
@@ -62,6 +74,9 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     <SidebarContext.Provider value={{
       forum,
       setForum,
+      post,
+      postTitle,
+      setPost,
       post_dialog_open,
       post_dialog_forum,
       openPostDialog,

@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useLocation } from '@tanstack/react-router'
 import { AuthenticatedLayout, type SidebarData, type NavItem, type NavSubItem } from '@mochi/common'
-import { Hash, MessageSquare, Plus, Search, SquarePen, UserMinus, Users } from 'lucide-react'
+import { FileText, Hash, MessageSquare, Plus, Search, SquarePen, UserMinus, Users } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList, useCreatePost, useCreateForum, forumsKeys } from '@/hooks/use-forums-queries'
@@ -18,6 +18,8 @@ function ForumsLayoutInner() {
 
   const {
     forum,
+    post,
+    postTitle,
     post_dialog_open,
     post_dialog_forum,
     openPostDialog,
@@ -75,6 +77,15 @@ function ForumsLayoutInner() {
     const forumItems = sortedForums.map((f: Forum) => {
       const isCurrentForum = forum === f.id
       const subItems: NavSubItem[] = []
+
+      // Current post title
+      if (isCurrentForum && postTitle && post) {
+        subItems.push({
+          title: postTitle,
+          icon: FileText,
+          url: `/${f.id}/${post}`,
+        })
+      }
 
       // New post for forums where user can post
       if (f.can_post) {
@@ -186,6 +197,8 @@ function ForumsLayoutInner() {
   }, [
     forums,
     forum,
+    post,
+    postTitle,
     pathname,
     openPostDialog,
     openForumDialog,

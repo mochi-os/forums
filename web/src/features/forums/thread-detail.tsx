@@ -32,8 +32,8 @@ export function ThreadDetail() {
   const [replyingToComment, setReplyingToComment] = useState<string | null>(null)
   const [commentReplyBody, setCommentReplyBody] = useState('')
 
-  // Sync forum to sidebar context
-  const { setForum } = useSidebarContext()
+  // Sync forum and post to sidebar context
+  const { setForum, setPost } = useSidebarContext()
   useEffect(() => {
     setForum(forum || null)
     return () => setForum(null)
@@ -41,6 +41,13 @@ export function ThreadDetail() {
 
   // Queries
   const { data: postData, isLoading } = usePostDetail(forum, postId)
+
+  // Sync post title to sidebar
+  useEffect(() => {
+    const title = postData?.data?.post?.title || null
+    setPost(postId || null, title)
+    return () => setPost(null, null)
+  }, [postId, postData?.data?.post?.title, setPost])
 
   usePageTitle(postData?.data?.post?.title ? `${postData.data.post.title} - Mochi` : 'Thread - Mochi')
 
