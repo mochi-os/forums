@@ -136,8 +136,19 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
           ) : (
             <ScrollArea className="h-[400px] pr-4">
                <div className="space-y-4">
-                 {members.map((member) => {
+                 {/* Sort members: administrators/owners first, then by name */}
+                 {[...members]
+                   .sort((a, b) => {
+                     // Owner (administrator) comes first
+                     if (a.role === 'administrator' && b.role !== 'administrator') return -1
+                     if (b.role === 'administrator' && a.role !== 'administrator') return 1
+                     // Then sort by name
+                     return a.name.localeCompare(b.name)
+                   })
+                   .map((member) => {
                     const currentRole = modifiedRoles[member.id] || member.role
+                    const isOwner = member.role === 'administrator'
+                    
                     return (
                         <div key={member.id} className="flex items-center justify-between gap-4 rounded-lg border p-3">
                            <div className="flex items-center gap-3 overflow-hidden">
@@ -150,27 +161,30 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
                                <p className="text-sm font-medium leading-none truncate max-w-[150px] sm:max-w-[200px]">
                                  {member.name}
                                </p>
-                               <p className="text-xs text-muted-foreground font-mono">
-                                 {member.id.substring(0, 8)}
-                               </p>
                              </div>
                            </div>
                            
-                           <Select 
-                              value={currentRole} 
-                              onValueChange={(val) => handleRoleChange(member.id, val)}
-                           >
-                             <SelectTrigger className="w-[140px] h-8 text-xs">
-                               <SelectValue />
-                             </SelectTrigger>
-                             <SelectContent>
-                                {MEMBER_ROLES.map((role) => (
-                                    <SelectItem key={role.value} value={role.value} className="text-xs">
-                                        {role.label}
-                                    </SelectItem>
-                                ))}
-                             </SelectContent>
-                           </Select>
+                           {isOwner ? (
+                             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-800">
+                               <span className="text-xs font-medium">Owner</span>
+                             </div>
+                           ) : (
+                             <Select 
+                                value={currentRole} 
+                                onValueChange={(val) => handleRoleChange(member.id, val)}
+                             >
+                               <SelectTrigger className="w-[140px] h-8 text-xs">
+                                 <SelectValue />
+                               </SelectTrigger>
+                               <SelectContent>
+                                  {MEMBER_ROLES.map((role) => (
+                                      <SelectItem key={role.value} value={role.value} className="text-xs">
+                                          {role.label}
+                                      </SelectItem>
+                                  ))}
+                               </SelectContent>
+                             </Select>
+                           )}
                         </div>
                     )
                  })}

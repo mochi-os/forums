@@ -49,17 +49,17 @@ export function ForumListItem({ forum, isActive, postCount, onSelect }: ForumLis
       )}
     >
       {/* Header Row: Icon + Name + Owner Badge */}
-      <div className="flex min-w-0 items-center gap-2">
+      <div className="flex min-w-0 items-start gap-2">
         <div
           className={cn(
-            'shrink-0 rounded-lg bg-secondary border border-secondary/10 p-1.5 transition-colors',
+            'shrink-0 rounded-lg bg-secondary border border-secondary/10 p-1.5 transition-colors mt-0.5',
             'group-hover:bg-secondary/20 group-hover:border-secondary/20'
           )}
         >
           <Hash className="size-3.5" />
         </div>
 
-        <span className="min-w-0 flex-1 truncate text-sm font-semibold">
+        <span className="min-w-0 flex-1 text-sm font-semibold line-clamp-2 break-words">
           {forum.name}
         </span>
 

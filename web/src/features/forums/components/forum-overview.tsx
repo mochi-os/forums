@@ -21,8 +21,10 @@ import { MembersDialog } from './members-dialog'
 
 interface ForumOverviewProps {
   forum: Forum | null
+  memberRole?: string  // The actual role of the current user in this forum
   posts: Post[]
   onSelectPost: (forumId: string, postId: string) => void
+  onSelectForum?: (forumId: string) => void
   onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
@@ -32,8 +34,10 @@ interface ForumOverviewProps {
 
 export function ForumOverview({ 
   forum, 
+  memberRole,
   posts, 
-  onSelectPost, 
+  onSelectPost,
+  onSelectForum,
   onCreatePost, 
   isCreatingPost = false,
   isPostCreated = false, 
@@ -52,6 +56,7 @@ export function ForumOverview({
               forumName={post.forumName || 'Unknown'}
               showForumBadge={true}
               onSelect={onSelectPost}
+              onSelectForum={onSelectForum}
             />
           ))
         ) : (
@@ -77,9 +82,9 @@ export function ForumOverview({
       {/* Forum Header Card */}
       <Card className="shadow-md">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-12 w-12">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="flex items-start gap-4 min-w-0 flex-1">
+              <Avatar className="h-12 w-12 shrink-0">
                 <AvatarFallback className="bg-primary text-primary-foreground text-lg">
                   {forum.name
                     .split(' ')
@@ -89,8 +94,8 @@ export function ForumOverview({
                     .toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <div>
-                <h2 className="text-xl font-bold">{forum.name}</h2>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-xl font-bold line-clamp-2 break-words">{forum.name}</h2>
                 <p className="text-sm text-muted-foreground">
                   {forum.role === '' && (
                     <>
@@ -105,7 +110,7 @@ export function ForumOverview({
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap shrink-0">
               <Badge variant="outline" className="text-xs">
                 {getMemberCount(forum.members)} subscribers
               </Badge>
@@ -180,11 +185,11 @@ export function ForumOverview({
             </div>
             <p className="text-sm font-semibold">No posts in this forum yet</p>
             <p className="text-sm text-muted-foreground">
-              {['', 'administrator', 'poster'].includes(forum.role)
+              {memberRole && ['administrator', 'poster'].includes(memberRole)
                 ? 'Be the first to start a conversation'
                 : 'Check back later for new content'}
             </p>
-            {['', 'administrator', 'poster'].includes(forum.role) && (
+            {memberRole && ['administrator', 'poster'].includes(memberRole) && (
               <div className="mt-2">
                 <CreatePostDialog
                   forumId={forum.id}
