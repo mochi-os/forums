@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { PostAttachments } from './thread/post-attachments'
 
 interface PostCardProps {
   post: Post
@@ -44,6 +45,9 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
 
           {/* Body excerpt */}
           <p className="text-sm text-muted-foreground line-clamp-2">{post.body}</p>
+
+          {/* Attachments */}
+          <PostAttachments attachments={post.attachments || []} forumId={post.forum} />
 
           {/* Footer */}
           <div className="flex items-center justify-between pt-2 border-t border-border/50">

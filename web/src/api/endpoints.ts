@@ -28,8 +28,8 @@ const endpoints = {
       view: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}`,
       edit: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/edit`,
       delete: (forumId: string, postId: string) => `/forums/${forumId}/-/${postId}/delete`,
-      vote: (forumId: string, postId: string, vote: 'up' | 'down') =>
-        `/forums/${forumId}/-/${postId}/vote/${vote}`,
+      vote: (forumId: string, postId: string, vote: 'up' | 'down' | '') =>
+        `/forums/${forumId}/-/${postId}/vote/${vote || 'none'}`,
     },
 
     // Comment endpoints
@@ -40,8 +40,8 @@ const endpoints = {
         `/forums/${forumId}/-/${postId}/${commentId}/edit`,
       delete: (forumId: string, postId: string, commentId: string) =>
         `/forums/${forumId}/-/${postId}/${commentId}/delete`,
-      vote: (forumId: string, postId: string, commentId: string, vote: 'up' | 'down') =>
-        `/forums/${forumId}/-/${postId}/${commentId}/vote/${vote}`,
+      vote: (forumId: string, postId: string, commentId: string, vote: 'up' | 'down' | '') =>
+        `/forums/${forumId}/-/${postId}/${commentId}/vote/${vote || 'none'}`,
     },
 
     // Access control endpoints

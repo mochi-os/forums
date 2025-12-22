@@ -35,7 +35,9 @@ export interface Post {
   down: number
   created: number
   updated: number
+  edited?: number
   created_local: string
+  user_vote?: 'up' | 'down' | ''
   attachments?: Attachment[]
   forumName?: string
 }
@@ -76,26 +78,31 @@ export interface ViewPostParams {
   post: string
 }
 
+// Comment type used in ViewPostResponse
+export interface ViewPostComment {
+  id: string
+  forum: string
+  post: string
+  parent: string
+  member: string
+  name: string
+  body: string
+  up: number
+  down: number
+  created: number
+  created_local: string
+  edited?: number
+  user_vote?: 'up' | 'down' | ''
+  children: ViewPostComment[]
+  can_vote: boolean
+  can_comment: boolean
+}
+
 export interface ViewPostResponse {
   data: {
     forum: Forum
     post: Post
-    comments: Array<{
-      id: string
-      forum: string
-      post: string
-      parent: string
-      member: string
-      name: string
-      body: string
-      up: number
-      down: number
-      created: number
-      created_local: string
-      children: unknown[] // Recursive type
-      can_vote: boolean
-      can_comment: boolean
-    }>
+    comments: ViewPostComment[]
     member: Member
     can_vote: boolean
     can_comment: boolean
@@ -105,7 +112,7 @@ export interface ViewPostResponse {
 export interface VotePostRequest {
   forum: string
   post: string
-  vote: 'up' | 'down'
+  vote: 'up' | 'down' | ''
 }
 
 export interface VotePostResponse {

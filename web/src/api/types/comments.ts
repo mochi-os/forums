@@ -52,7 +52,7 @@ export interface VoteCommentRequest {
   forum: string
   post: string
   comment: string
-  vote: 'up' | 'down'
+  vote: 'up' | 'down' | ''
 }
 
 export interface VoteCommentResponse {

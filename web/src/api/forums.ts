@@ -284,8 +284,8 @@ const votePost = async (
   // POST /forums/{forumId}/-/{postId}/vote/{vote} with body { post, vote }
   const response = await requestHelpers.post<
     VotePostResponse | VotePostResponse['data'],
-    { post: string; vote: 'up' | 'down' }
-  >(endpoints.forums.post.vote(payload.forum, payload.post, payload.vote), {
+    { post: string; vote: 'up' | 'down' | '' }
+  >(endpoints.forums.post.vote(payload.forum, payload.post, payload.vote || 'up'), {
     post: payload.post,
     vote: payload.vote,
   })

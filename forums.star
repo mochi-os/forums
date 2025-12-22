@@ -555,6 +555,13 @@ def action_post_view(a):
     can_vote = check_access(a, forum["id"], "vote")
     can_comment = check_access(a, forum["id"], "comment")
 
+    # Get user's vote on post
+    user_post_vote = ""
+    if a.user:
+        vote_row = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, a.user.identity.id)
+        if vote_row:
+            user_post_vote = vote_row["vote"]
+
     # Get comments recursively
     def get_comments(parent_id, depth):
         if depth > 100:  # Prevent infinite recursion
@@ -568,10 +575,17 @@ def action_post_view(a):
             c["children"] = get_comments(c["id"], depth + 1)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
+            # Get user's vote on this comment
+            c["user_vote"] = ""
+            if a.user:
+                cv = mochi.db.row("select vote from votes where comment=? and voter=?", c["id"], a.user.identity.id)
+                if cv:
+                    c["user_vote"] = cv["vote"]
 
         return comments
 
     post["created_local"] = mochi.time.local(post["created"])
+    post["user_vote"] = user_post_vote
     post["attachments"] = mochi.attachment.list(post_id)
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and not mochi.entity.get(forum["id"]):
@@ -941,7 +955,10 @@ def action_post_vote(a):
         return
 
     vote = a.input("vote")
-    if vote not in ["up", "down"]:
+    # "none" in URL path means remove vote
+    if vote == "none":
+        vote = ""
+    if vote not in ["up", "down", ""]:
         a.error(400, "Invalid vote")
         return
 
@@ -952,15 +969,18 @@ def action_post_vote(a):
             mochi.db.execute("update posts set up=up-1 where id=?", post["id"])
         elif old_vote["vote"] == "down":
             mochi.db.execute("update posts set down=down-1 where id=?", post["id"])
-    
-    # Add new vote
-    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
-        forum["id"], post["id"], a.user.identity.id, vote)
 
-    if vote == "up":
-        mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
-    elif vote == "down":
-        mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
+    # Add new vote or remove if empty
+    if vote == "":
+        mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], a.user.identity.id)
+    else:
+        mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
+            forum["id"], post["id"], a.user.identity.id, vote)
+
+        if vote == "up":
+            mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
+        elif vote == "down":
+            mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
 
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
@@ -997,7 +1017,10 @@ def action_comment_vote(a):
         return
 
     vote = a.input("vote")
-    if vote not in ["up", "down"]:
+    # "none" in URL path means remove vote
+    if vote == "none":
+        vote = ""
+    if vote not in ["up", "down", ""]:
         a.error(400, "Invalid vote")
         return
 
@@ -1009,14 +1032,17 @@ def action_comment_vote(a):
         elif old_vote["vote"] == "down":
             mochi.db.execute("update comments set down=down-1 where id=?", comment["id"])
 
-    # Add new vote
-    mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
-        forum["id"], comment["post"], comment["id"], a.user.identity.id, vote)
+    # Add new vote or remove if empty
+    if vote == "":
+        mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], a.user.identity.id)
+    else:
+        mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+            forum["id"], comment["post"], comment["id"], a.user.identity.id, vote)
 
-    if vote == "up":
-        mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
-    elif vote == "down":
-        mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
+        if vote == "up":
+            mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
+        elif vote == "down":
+            mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
 
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])

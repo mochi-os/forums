@@ -149,31 +149,22 @@ export function usePostDetail(forumId: string, postId: string) {
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId }),
     enabled: !!forumId && !!postId,
     refetchOnWindowFocus: false,
+    placeholderData: (previousData) => previousData,
   })
 }
 
 export function useVotePost(forumId: string, postId: string) {
-  const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (vote: 'up' | 'down') =>
+    mutationFn: (vote: 'up' | 'down' | '') =>
       forumsApi.votePost({ forum: forumId, post: postId, vote }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Vote recorded')
-    },
     onError: handleServerError,
   })
 }
 
 export function useVoteComment(forumId: string, postId: string) {
-  const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' }) =>
+    mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' | '' }) =>
       forumsApi.voteComment({ forum: forumId, post: postId, comment: commentId, vote }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Vote recorded')
-    },
     onError: handleServerError,
   })
 }
@@ -181,8 +172,8 @@ export function useVoteComment(forumId: string, postId: string) {
 export function useCreateComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (body: string) =>
-      forumsApi.createComment({ forum: forumId, post: postId, body }),
+    mutationFn: ({ body, parent }: { body: string; parent?: string }) =>
+      forumsApi.createComment({ forum: forumId, post: postId, body, parent }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       toast.success('Comment posted')
