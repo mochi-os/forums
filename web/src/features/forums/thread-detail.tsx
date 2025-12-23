@@ -237,11 +237,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
                   />
                 ))}
               </div>
-            ) : !showReplyForm && (
-              <p className="text-sm text-muted-foreground py-4">
-                No replies yet. Be the first to comment!
-              </p>
-            )}
+            ) : null}
           </div>
         </div>
 
