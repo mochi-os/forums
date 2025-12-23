@@ -10,6 +10,7 @@ interface UseInfinitePostsOptions {
   forum: string | null
   limit?: number
   enabled?: boolean
+  server?: string
 }
 
 interface UseInfinitePostsResult {
@@ -18,6 +19,7 @@ interface UseInfinitePostsResult {
   member: Member | undefined
   can_manage: boolean
   isLoading: boolean
+  isError: boolean
   isFetchingNextPage: boolean
   hasNextPage: boolean
   fetchNextPage: () => void
@@ -29,9 +31,10 @@ export function useInfinitePosts({
   forum,
   limit = DEFAULT_LIMIT,
   enabled = true,
+  server,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
   const query = useInfiniteQuery({
-    queryKey: ['forum-posts', forum, { limit }],
+    queryKey: ['forum-posts', forum, { limit, server }],
     queryFn: async ({ pageParam }) => {
       if (!forum) throw new Error('Forum ID required')
 
@@ -39,6 +42,7 @@ export function useInfinitePosts({
         forum,
         limit,
         before: pageParam as number | undefined,
+        server,
       })
 
       const data = response.data ?? {}
@@ -59,6 +63,7 @@ export function useInfinitePosts({
     staleTime: 0,
     refetchOnMount: 'always',
     refetchOnWindowFocus: false,
+    retry: 1,
   })
 
   // Flatten all pages into a single array of posts
@@ -78,6 +83,7 @@ export function useInfinitePosts({
     member: memberData,
     can_manage,
     isLoading: query.isLoading,
+    isError: query.isError,
     isFetchingNextPage: query.isFetchingNextPage,
     hasNextPage: query.hasNextPage,
     fetchNextPage: query.fetchNextPage,

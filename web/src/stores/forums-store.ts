@@ -1,6 +1,11 @@
 import { create } from 'zustand'
 import type { DirectoryEntry } from '@/api/types/forums'
 
+// Cached forum info including server for remote access
+export interface CachedForum extends DirectoryEntry {
+  server?: string
+}
+
 // UI state for the forums feature
 interface ForumsUIState {
   // Selected forum
@@ -12,10 +17,10 @@ interface ForumsUIState {
   setSearchTerm: (term: string) => void
   clearSearch: () => void
 
-  // Cache for remote forums (from search results, not yet subscribed)
-  remoteForumsCache: Record<string, DirectoryEntry>
-  cacheRemoteForum: (forum: DirectoryEntry) => void
-  getCachedRemoteForum: (forumId: string) => DirectoryEntry | undefined
+  // Cache for remote forums (from search/probe results, not yet subscribed)
+  remoteForumsCache: Record<string, CachedForum>
+  cacheRemoteForum: (forum: CachedForum) => void
+  getCachedRemoteForum: (forumId: string) => CachedForum | undefined
   clearRemoteForumsCache: () => void
 
   // View preferences

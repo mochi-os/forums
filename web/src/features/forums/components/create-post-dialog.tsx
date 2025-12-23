@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { FileEdit, Send, Upload, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, FileEdit, Paperclip, Send, X } from 'lucide-react'
 import {
   Button,
   ResponsiveDialog,
@@ -15,7 +15,6 @@ import {
   ResponsiveDialogTrigger,
   Input,
   Textarea,
-  Badge,
   Form,
   FormControl,
   FormField,
@@ -70,6 +69,7 @@ export function CreatePostDialog({
   const setIsOpen = onOpenChange ?? setInternalOpen
   const [attachments, setAttachments] = useState<File[]>([])
   const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<CreatePostFormValues>({
     resolver: zodResolver(createPostSchema),
@@ -114,6 +114,16 @@ export function CreatePostDialog({
 
   const removeAttachment = (index: number) => {
     setAttachments((prev) => prev.filter((_, i) => i !== index))
+  }
+
+  const moveAttachment = (index: number, direction: 'left' | 'right') => {
+    setAttachments((prev) => {
+      const newIndex = direction === 'left' ? index - 1 : index + 1
+      if (newIndex < 0 || newIndex >= prev.length) return prev
+      const newArr = [...prev]
+      ;[newArr[index], newArr[newIndex]] = [newArr[newIndex], newArr[index]]
+      return newArr
+    })
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -190,42 +200,103 @@ export function CreatePostDialog({
 
             {/* Attachments - handled separately from react-hook-form */}
             <div className="space-y-2">
-              <FormLabel>Attachments (optional)</FormLabel>
-              <div className="flex flex-wrap items-center gap-2">
-                <label
-                  htmlFor="post-attachments"
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:bg-accent hover:text-foreground"
-                >
-                  <Upload className="size-4" />
-                  Add files
-                  <input
-                    id="post-attachments"
-                    type="file"
-                    multiple
-                    accept="image/*,video/*,.pdf,.doc,.docx,.txt,.md"
-                    className="hidden"
-                    onChange={handleFileChange}
-                    disabled={isPending}
-                  />
-                </label>
-                {attachments.map((file, index) => (
-                  <Badge
-                    key={`${file.name}-${index}`}
-                    variant="secondary"
-                    className="gap-1 pr-1"
-                  >
-                    <span className="max-w-[120px] truncate">{file.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => removeAttachment(index)}
-                      className="rounded-full p-0.5 hover:bg-destructive/20"
-                      disabled={isPending}
-                    >
-                      <X className="size-3" />
-                    </button>
-                  </Badge>
-                ))}
-              </div>
+              {attachments.length > 0 && (
+                <>
+                  <div className="text-xs font-medium text-muted-foreground">Attachments</div>
+                  <div className="flex flex-wrap gap-2">
+                    {attachments.map((file, index) => {
+                      const isImage = file.type?.startsWith('image/')
+                      const previewUrl = isImage ? URL.createObjectURL(file) : undefined
+                      const isFirst = index === 0
+                      const isLast = index === attachments.length - 1
+
+                      return (
+                        <div
+                          key={`${file.name}-${file.size}-${file.lastModified}`}
+                          className="group/att relative overflow-hidden rounded-[8px] border-2 border-dashed border-primary/30 bg-muted/50 flex items-center justify-center"
+                        >
+                          {isImage && previewUrl ? (
+                            <img
+                              src={previewUrl}
+                              alt={file.name}
+                              className="max-h-[150px] max-w-[200px]"
+                            />
+                          ) : (
+                            <div className="flex h-[100px] w-[150px] flex-col items-center justify-center gap-1 px-2">
+                              <Paperclip className="size-6 text-muted-foreground" />
+                              <span className="text-xs text-muted-foreground text-center line-clamp-2 break-all">
+                                {file.name}
+                              </span>
+                            </div>
+                          )}
+                          {/* Hover overlay with controls */}
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/att:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                            <button
+                              type="button"
+                              className="size-9 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                              disabled={isFirst || isPending}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                moveAttachment(index, 'left')
+                              }}
+                            >
+                              <ArrowLeft className="size-5" />
+                            </button>
+                            <button
+                              type="button"
+                              className="size-9 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                              disabled={isLast || isPending}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                moveAttachment(index, 'right')
+                              }}
+                            >
+                              <ArrowRight className="size-5" />
+                            </button>
+                            <button
+                              type="button"
+                              className="size-9 rounded-full bg-white/20 text-white hover:bg-white/30 flex items-center justify-center"
+                              disabled={isPending}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                removeAttachment(index)
+                              }}
+                            >
+                              <X className="size-5" />
+                            </button>
+                          </div>
+                          {/* Position indicator */}
+                          <div className="absolute top-2 left-2 size-6 rounded-full bg-black/60 text-white text-xs font-medium flex items-center justify-center">
+                            {index + 1}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </>
+              )}
+
+              {/* Hidden file input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*,video/*,.pdf,.doc,.docx,.txt,.md"
+                className="hidden"
+                onChange={handleFileChange}
+                disabled={isPending}
+              />
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isPending}
+              >
+                <Paperclip className="size-4 mr-1" />
+                Add files
+              </Button>
             </div>
 
             <ResponsiveDialogFooter className="gap-2">

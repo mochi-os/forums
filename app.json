@@ -19,7 +19,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 3,
+		"schema": 6,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -36,9 +36,11 @@
 		"create": {"function": "action_create"},
 		"find": {"function": "action_find"},
 		"new": {"function": "action_new"},
+		"search": {"file": "web/dist/index.html"},
 		"post/create": {"function": "action_post_create"},
 		"post/new": {"function": "action_post_new"},
-		"search": {"function": "action_search"},
+		"directory/search": {"function": "action_search"},
+		"probe": {"function": "action_probe"},
 		":forum": {"file": "web/dist/index.html"},
 		":forum/assets": {"files": "web/dist/assets"},
 		":forum/images": {"files": "web/dist/images"},
@@ -47,6 +49,7 @@
 		":forum/-/members/save": {"function": "action_members_save"},
 		":forum/-/subscribe": {"function": "action_subscribe"},
 		":forum/-/unsubscribe": {"function": "action_unsubscribe"},
+		":forum/-/delete": {"function": "action_delete"},
 		":forum/-/:post": {"function": "action_post_view"},
 		":forum/-/:post/comment": {"function": "action_comment_new"},
 		":forum/-/:post/create": {"function": "action_comment_create"},
@@ -61,11 +64,14 @@
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},
-		"-/users/search": {"function": "action_users_search"},
-		"-/groups": {"function": "action_groups"}
+		"users/search": {"function": "action_users_search"},
+		"groups": {"function": "action_groups"}
 	},
 
 	"events": {
+		"info": {"function": "event_info"},
+		"view": {"function": "event_view"},
+		"post/view": {"function": "event_post_view"},
 		"attachment/view": {"function": "event_attachment_view"},
 		"comment/create": {"function": "event_comment_create_event"},
 		"comment/delete": {"function": "event_comment_delete_event"},

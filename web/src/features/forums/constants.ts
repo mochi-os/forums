@@ -8,14 +8,6 @@ export const ACCESS_LEVELS = [
   { value: 'manage', label: 'Manage', description: 'Full access including member management' },
 ] as const
 
-// Default access options for new forum subscribers
-export const DEFAULT_ACCESS_OPTIONS = [
-  { value: 'view', label: 'View only' },
-  { value: 'vote', label: 'Vote' },
-  { value: 'comment', label: 'Comment' },
-  { value: 'post', label: 'Post' },
-] as const
-
 // Legacy: Member roles (deprecated - use ACCESS_LEVELS instead)
 export const MEMBER_ROLES = ACCESS_LEVELS
 

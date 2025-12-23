@@ -8,7 +8,6 @@ export interface Forum {
   id: string
   fingerprint: string
   name: string
-  access: '' | AccessLevel  // Default access level for new subscribers
   // API may return either a count (number) or an array of member objects
   members: number | unknown[]
   updated: number
@@ -35,6 +34,7 @@ export interface MemberAccess {
   id: string
   name: string
   level: AccessLevelWithManage | null  // null = owner (implicit full access)
+  isOwner?: boolean  // True if this is the resource owner
 }
 
 export interface DirectoryEntry {
@@ -66,6 +66,7 @@ export interface ViewForumParams {
   forum: string
   limit?: number
   before?: number
+  server?: string
 }
 
 export interface ViewForumResponse {
@@ -81,7 +82,6 @@ export interface ViewForumResponse {
 
 export interface CreateForumRequest {
   name: string
-  access?: AccessLevel  // Default access level for new subscribers
 }
 
 export interface CreateForumResponse {
@@ -160,6 +160,7 @@ export interface GetAccessResponse {
     forum: Forum
     access: MemberAccess[]
     levels: AccessLevelWithManage[]
+    owner?: { id: string; name?: string } | null
   }
 }
 
@@ -184,5 +185,20 @@ export interface RevokeAccessRequest {
 export interface RevokeAccessResponse {
   data: {
     user: string
+  }
+}
+
+// Probe types for remote forum lookup by URL
+export interface ProbeForumRequest {
+  url: string
+}
+
+export interface ProbeForumResponse {
+  data: {
+    id: string
+    name: string
+    fingerprint: string
+    class: string
+    server: string
   }
 }

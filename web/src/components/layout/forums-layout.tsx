@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { useLocation } from '@tanstack/react-router'
 import { AuthenticatedLayout, type SidebarData, type NavItem, type NavSubItem } from '@mochi/common'
-import { FileText, Hash, MessageSquare, Plus, Search, SquarePen, UserMinus, Users } from 'lucide-react'
+import { FileText, Hash, MessageSquare, Plus, Search, Settings, SquarePen, UserMinus } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList, useCreatePost, useCreateForum, forumsKeys } from '@/hooks/use-forums-queries'
@@ -14,7 +13,6 @@ function ForumsLayoutInner() {
   const { data } = useForumsList()
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
   const queryClient = useQueryClient()
-  const pathname = useLocation({ select: (location) => location.pathname })
 
   const {
     forum,
@@ -52,9 +50,9 @@ function ForumsLayoutInner() {
   const createForumMutation = useCreateForum()
 
   const handleCreateForum = useCallback(
-    (data: { name: string; access: string }) => {
+    (data: { name: string }) => {
       createForumMutation.mutate(
-        { name: data.name, access: data.access as 'view' | 'vote' | 'comment' | 'post' },
+        { name: data.name },
         {
           onSuccess: () => {
             closeForumDialog()
@@ -96,15 +94,12 @@ function ForumsLayoutInner() {
         })
       }
 
-      // Manage members for forum owners
+      // Settings for forum owners
       if (f.can_manage) {
         subItems.push({
-          title: 'Manage members',
-          icon: Users,
-          // For now, clicking navigates to forum - could open dialog in future
-          onClick: () => {
-            // TODO: Could open members dialog directly
-          },
+          title: 'Settings',
+          icon: Settings,
+          url: `/${f.id}/settings`,
         })
       }
 
@@ -122,7 +117,7 @@ function ForumsLayoutInner() {
       if (subItems.length > 0) {
         return {
           title: f.name,
-          url: `/?forum=${f.id}`,
+          url: `/${f.id}`,
           icon: Hash,
           items: subItems,
           open: isCurrentForum,
@@ -131,38 +126,21 @@ function ForumsLayoutInner() {
 
       return {
         title: f.name,
-        url: `/?forum=${f.id}`,
+        url: `/${f.id}`,
         icon: Hash,
       }
     })
 
     // Build "All forums" item
-    const isOnHome = pathname === '/' || pathname === ''
-    const ownedForums = forums.filter((f) => f.can_manage)
-
-    const allForumsItem: NavItem = ownedForums.length > 0
-      ? {
-          title: 'All forums',
-          url: APP_ROUTES.HOME,
-          icon: MessageSquare,
-          items: [
-            {
-              title: 'New forum',
-              icon: Plus,
-              onClick: openForumDialog,
-            },
-          ],
-          open: !forum && isOnHome,
-        }
-      : {
-          title: 'All forums',
-          url: APP_ROUTES.HOME,
-          icon: MessageSquare,
-        }
+    const allForumsItem: NavItem = {
+      title: 'All forums',
+      url: APP_ROUTES.HOME,
+      icon: MessageSquare,
+    }
 
     // Build bottom items
     const bottomItems: NavItem[] = [
-      { title: 'Search', url: APP_ROUTES.SEARCH, icon: Search },
+      { title: 'Search for forums', url: APP_ROUTES.SEARCH, icon: Search },
     ]
 
     // Add subscribe action when viewing remote unsubscribed forum
@@ -199,7 +177,6 @@ function ForumsLayoutInner() {
     forum,
     post,
     postTitle,
-    pathname,
     openPostDialog,
     openForumDialog,
     subscription,

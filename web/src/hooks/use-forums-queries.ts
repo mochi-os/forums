@@ -143,10 +143,10 @@ export function useRevokeAccess(forumId: string) {
 // Thread/Post Queries
 // ============================================================================
 
-export function usePostDetail(forumId: string, postId: string) {
+export function usePostDetail(forumId: string, postId: string, server?: string) {
   return useQuery({
     queryKey: forumsKeys.post(forumId, postId),
-    queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId }),
+    queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId, server }),
     enabled: !!forumId && !!postId,
     refetchOnWindowFocus: false,
     placeholderData: (previousData) => previousData,

@@ -1,98 +1,21 @@
-import { useMemo, useEffect } from 'react'
-import { useNavigate, useSearch } from '@tanstack/react-router'
+import { useMemo } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { Main, usePageTitle } from '@mochi/common'
-import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
-  useCreatePost,
-  useSubscribeForum,
-  useUnsubscribeForum,
   selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
-import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { ForumOverview } from './components/forum-overview'
-import { APP_ROUTES } from '@/config/routes'
 
 export function Forums() {
-  usePageTitle('Forums - Mochi')
+  usePageTitle('Forums')
   const navigate = useNavigate()
-
-  // Get forum from URL query param
-  const search = useSearch({ strict: false }) as { forum?: string }
-  const forumFromUrl = search.forum ?? null
-
-  // Sidebar context for state sync
-  const {
-    setForum,
-    setSubscription,
-    subscribeHandler,
-    unsubscribeHandler,
-  } = useSidebarContext()
-
-  // Sync URL forum param to sidebar context
-  useEffect(() => {
-    setForum(forumFromUrl)
-  }, [forumFromUrl, setForum])
 
   // Queries
   const { data: forumsData } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
-
-  // Infinite posts query for selected forum
-  const {
-    posts: infinitePosts,
-    forum: selectedForum,
-    isLoading: isLoadingForum,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useInfinitePosts({ forum: forumFromUrl })
-  const selectedForumPosts = infinitePosts.filter(p => 'title' in p && p.title)
-
-  // Mutations
-  const createPostMutation = useCreatePost(forumFromUrl)
-  const subscribeMutation = useSubscribeForum()
-  const unsubscribeMutation = useUnsubscribeForum(() => {
-    // Navigate back to all forums after unsubscribe
-    navigate({ to: APP_ROUTES.HOME })
-  })
-
-  // Register subscribe/unsubscribe handlers with sidebar
-  useEffect(() => {
-    if (forumFromUrl) {
-      subscribeHandler.current = () => subscribeMutation.mutate(forumFromUrl)
-      unsubscribeHandler.current = () => unsubscribeMutation.mutate(forumFromUrl)
-
-      // Update subscription state for sidebar
-      const forum = forums.find(f => f.id === forumFromUrl)
-      setSubscription({
-        remote: !forum, // If not in our forums list, it's remote
-        subscribed: !!forum,
-        can_unsubscribe: !!forum && !forum.can_manage,
-      })
-    } else {
-      subscribeHandler.current = null
-      unsubscribeHandler.current = null
-      setSubscription(null)
-    }
-
-    return () => {
-      subscribeHandler.current = null
-      unsubscribeHandler.current = null
-    }
-    // Note: subscribeMutation/unsubscribeMutation are excluded - refs capture current values when called
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forumFromUrl, forums, setSubscription])
-
-  const handleCreatePost = (data: { title: string; body: string; attachments?: File[] }) => {
-    if (!forumFromUrl) return
-    createPostMutation.mutate({
-      forum: forumFromUrl,
-      ...data,
-    })
-  }
 
   const handlePostSelect = (forum: string, post: string) => {
     navigate({
@@ -101,13 +24,8 @@ export function Forums() {
     })
   }
 
+  // Show all posts from the list endpoint, with forum names added
   const postsToDisplay = useMemo(() => {
-    // If a forum is selected, show its posts (fetched from detail endpoint)
-    if (forumFromUrl) {
-      return selectedForumPosts
-    }
-
-    // Otherwise show all posts from the list endpoint, with forum names added
     return allPosts.map(post => {
       const forum = forums.find((f) => f.id === post.forum)
       return {
@@ -115,30 +33,21 @@ export function Forums() {
         forumName: forum?.name ?? 'Unknown',
       }
     })
-  }, [forumFromUrl, selectedForumPosts, allPosts, forums])
+  }, [allPosts, forums])
 
   return (
     <Main fixed>
-      {isLoadingForum && forumFromUrl ? (
-        <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-          <div className="flex flex-col items-center gap-2">
-            <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-            <p className="text-sm">Loading forum...</p>
-          </div>
-        </div>
-      ) : (
-        <ForumOverview
-          forum={selectedForum || null}
-          posts={postsToDisplay}
-          onSelectPost={handlePostSelect}
-          onCreatePost={handleCreatePost}
-          isCreatingPost={createPostMutation.isPending}
-          isPostCreated={createPostMutation.isSuccess}
-          hasNextPage={forumFromUrl ? hasNextPage : false}
-          isFetchingNextPage={isFetchingNextPage}
-          onLoadMore={forumFromUrl ? fetchNextPage : undefined}
-        />
-      )}
+      <ForumOverview
+        forum={null}
+        posts={postsToDisplay}
+        onSelectPost={handlePostSelect}
+        onCreatePost={() => {}}
+        isCreatingPost={false}
+        isPostCreated={false}
+        hasNextPage={false}
+        isFetchingNextPage={false}
+        onLoadMore={undefined}
+      />
     </Main>
   )
 }

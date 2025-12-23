@@ -58,6 +58,7 @@ export function EditPostDialog({
   onSave,
   isPending = false,
 }: EditPostDialogProps) {
+  const appBase = import.meta.env.VITE_APP_BASE_URL || '/forums'
   const [items, setItems] = useState<EditingAttachment[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -193,7 +194,7 @@ export function EditPostDialog({
                       ? item.attachment.type?.startsWith('image/')
                       : item.file.type?.startsWith('image/')
                     const thumbnailUrl = isExisting && isImage
-                      ? `/forums/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
+                      ? `${appBase}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
                       : undefined
                     const previewUrl = !isExisting && isImage
                       ? URL.createObjectURL(item.file)

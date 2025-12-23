@@ -21,6 +21,8 @@ import type {
   SetAccessResponse,
   RevokeAccessRequest,
   RevokeAccessResponse,
+  ProbeForumRequest,
+  ProbeForumResponse,
 } from '@/api/types/forums'
 import type {
   CreatePostRequest,
@@ -116,6 +118,7 @@ const viewForum = async (params: ViewForumParams): Promise<ViewForumResponse> =>
     params: omitUndefined({
       limit: params.limit?.toString(),
       before: params.before?.toString(),
+      server: params.server,
     }),
   })
 
@@ -153,6 +156,20 @@ const searchForums = async (
   return toDataResponse<SearchForumsResponse['data']>(
     response,
     'search forums'
+  )
+}
+
+const probeForum = async (
+  params: ProbeForumRequest
+): Promise<ProbeForumResponse> => {
+  const response = await requestHelpers.post<
+    ProbeForumResponse | ProbeForumResponse['data'],
+    { url: string }
+  >(endpoints.forums.probe, { url: params.url })
+
+  return toDataResponse<ProbeForumResponse['data']>(
+    response,
+    'probe forum'
   )
 }
 
@@ -273,7 +290,11 @@ const viewPost = async (
   // GET /forums/{forumId}/-/{postId}
   const response = await requestHelpers.get<
     ViewPostResponse | ViewPostResponse['data']
-  >(endpoints.forums.post.view(params.forum, params.post))
+  >(endpoints.forums.post.view(params.forum, params.post), {
+    params: omitUndefined({
+      server: params.server,
+    }),
+  })
 
   return toDataResponse<ViewPostResponse['data']>(response, 'view post')
 }
@@ -433,9 +454,9 @@ const setAccess = async (
 ): Promise<SetAccessResponse> => {
   const response = await requestHelpers.post<
     SetAccessResponse | SetAccessResponse['data'],
-    { user: string; level: string }
+    { target: string; level: string }
   >(endpoints.forums.accessSet(payload.forum), {
-    user: payload.user,
+    target: payload.user,
     level: payload.level,
   })
 
@@ -447,12 +468,47 @@ const revokeAccess = async (
 ): Promise<RevokeAccessResponse> => {
   const response = await requestHelpers.post<
     RevokeAccessResponse | RevokeAccessResponse['data'],
-    { user: string }
+    { target: string }
   >(endpoints.forums.accessRevoke(payload.forum), {
-    user: payload.user,
+    target: payload.user,
   })
 
   return toDataResponse<RevokeAccessResponse['data']>(response, 'revoke access')
+}
+
+// ============================================================================
+// Forum Delete API
+// ============================================================================
+
+const deleteForum = async (forumId: string): Promise<{ data: Record<string, never> }> => {
+  const response = await requestHelpers.post<
+    { data: Record<string, never> } | Record<string, never>,
+    Record<string, never>
+  >(endpoints.forums.delete(forumId), {})
+
+  return toDataResponse<Record<string, never>>(response, 'delete forum')
+}
+
+// ============================================================================
+// User/Group Search APIs
+// ============================================================================
+
+const searchUsers = async (query: string): Promise<{ data: { results: Array<{ id: string; name: string }> } }> => {
+  const formData = new URLSearchParams()
+  formData.append('search', query)
+  const response = await requestHelpers.post<
+    { results: Array<{ id: string; name: string }> }
+  >(endpoints.users.search, formData.toString(), {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  })
+  return { data: response }
+}
+
+const listGroups = async (): Promise<{ data: { groups: Array<{ id: string; name: string; description?: string }> } }> => {
+  const response = await requestHelpers.get<
+    { groups: Array<{ id: string; name: string; description?: string }> }
+  >(endpoints.groups.list)
+  return { data: response }
 }
 
 // ============================================================================
@@ -465,9 +521,11 @@ export const forumsApi = {
   create: createForum,
   find: findForums,
   search: searchForums,
+  probe: probeForum,
   getNewForum,
   subscribe: subscribeForum,
   unsubscribe: unsubscribeForum,
+  delete: deleteForum,
   getMembers,
   saveMembers,
   getNewPost,
@@ -484,6 +542,8 @@ export const forumsApi = {
   getAccess,
   setAccess,
   revokeAccess,
+  searchUsers,
+  listGroups,
 }
 
 export type {
@@ -508,6 +568,8 @@ export type {
   GetNewPostParams,
   GetNewPostResponse,
   ListForumsResponse,
+  ProbeForumRequest,
+  ProbeForumResponse,
   SearchForumsParams,
   SearchForumsResponse,
   SubscribeForumResponse,

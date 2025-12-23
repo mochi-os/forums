@@ -8,10 +8,11 @@ interface PostCardProps {
   post: Post
   forumName: string
   showForumBadge: boolean
+  server?: string
   onSelect: (forumId: string, postId: string) => void
 }
 
-export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) {
+export function PostCard({ post, forumName, showForumBadge, server, onSelect }: PostCardProps) {
   return (
     <Card
       className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30 py-0"
@@ -34,7 +35,7 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
       <p className="text-sm text-foreground line-clamp-2">{post.body}</p>
 
       {/* Attachments */}
-      <PostAttachments attachments={post.attachments || []} forumId={post.forum} />
+      <PostAttachments attachments={post.attachments || []} forumId={post.forum} server={server} />
 
       {/* Stats row */}
       <div className="flex items-center gap-4 text-xs text-muted-foreground">

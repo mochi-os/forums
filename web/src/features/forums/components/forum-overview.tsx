@@ -11,6 +11,7 @@ import { CreatePostDialog } from './create-post-dialog'
 interface ForumOverviewProps {
   forum: Forum | null
   posts: Post[]
+  server?: string
   onSelectPost: (forumId: string, postId: string) => void
   onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
   isCreatingPost?: boolean
@@ -23,6 +24,7 @@ interface ForumOverviewProps {
 export function ForumOverview({
   forum,
   posts,
+  server,
   onSelectPost,
   onCreatePost,
   isCreatingPost = false,
@@ -42,6 +44,7 @@ export function ForumOverview({
               post={post}
               forumName={post.forumName || 'Unknown'}
               showForumBadge={true}
+              server={server}
               onSelect={onSelectPost}
             />
           ))
@@ -73,6 +76,7 @@ export function ForumOverview({
               post={post}
               forumName={forum.name}
               showForumBadge={false}
+              server={server}
               onSelect={onSelectPost}
             />
           ))}

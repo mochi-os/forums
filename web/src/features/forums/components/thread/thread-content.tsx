@@ -7,6 +7,7 @@ import type { Post, Attachment } from '@/api/types/posts'
 interface ThreadContentProps {
   post: Post
   attachments?: Attachment[]
+  server?: string
   onVote: (vote: 'up' | 'down' | '') => void
   isVotePending: boolean
   canVote?: boolean
@@ -20,6 +21,7 @@ interface ThreadContentProps {
 export function ThreadContent({
   post,
   attachments,
+  server,
   onVote,
   isVotePending: _isVotePending,
   canVote: _canVote = true,
@@ -77,7 +79,7 @@ export function ThreadContent({
       </div>
 
       {/* Attachments */}
-      <PostAttachments attachments={attachments || post.attachments || []} forumId={post.forum} />
+      <PostAttachments attachments={attachments || post.attachments || []} forumId={post.forum} server={server} />
 
       {/* Actions row */}
       <div className="flex items-center gap-3 text-xs text-muted-foreground">

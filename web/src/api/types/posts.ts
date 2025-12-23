@@ -76,6 +76,7 @@ export interface CreatePostResponse {
 export interface ViewPostParams {
   forum: string
   post: string
+  server?: string
 }
 
 // Comment type used in ViewPostResponse

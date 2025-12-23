@@ -14,11 +14,6 @@ import {
   ResponsiveDialogTitle,
   ResponsiveDialogTrigger,
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Switch,
   Form,
   FormControl,
@@ -26,9 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
 } from '@mochi/common'
-import { DEFAULT_ACCESS_OPTIONS } from '../constants'
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
@@ -41,14 +34,13 @@ const createForumSchema = z.object({
     .refine((val) => !DISALLOWED_NAME_CHARS.test(val), {
       message: 'Name cannot contain < > \\ ; " \' or ` characters',
     }),
-  access: z.enum(['view', 'vote', 'comment', 'post']),
   allowSearch: z.boolean(),
 })
 
 type CreateForumFormValues = z.infer<typeof createForumSchema>
 
 type CreateForumDialogProps = {
-  onCreate: (input: { name: string; access: string; allowSearch: boolean }) => void
+  onCreate: (input: { name: string; allowSearch: boolean }) => void
   open?: boolean
   onOpenChange?: (open: boolean) => void
   hideTrigger?: boolean
@@ -63,7 +55,6 @@ export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }:
     resolver: zodResolver(createForumSchema),
     defaultValues: {
       name: '',
-      access: 'post',
       allowSearch: true,
     },
   })
@@ -115,41 +106,12 @@ export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }:
             />
             <FormField
               control={form.control}
-              name="access"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>New members can</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="w-full justify-between">
-                        <SelectValue placeholder="Select access level" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {DEFAULT_ACCESS_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="allowSearch"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border px-4 py-3">
-                  <div className="space-y-1">
-                    <FormLabel className="text-sm font-medium">
-                      Allow anyone to search for forum
-                    </FormLabel>
-                    <FormDescription className="text-xs">
-                      Keep the forum discoverable across workspaces.
-                    </FormDescription>
-                  </div>
+                  <FormLabel className="text-sm font-medium">
+                    Allow anyone to search for forum
+                  </FormLabel>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>

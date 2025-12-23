@@ -6,6 +6,7 @@ import type { Attachment } from '@/api/types/posts'
 interface PostAttachmentsProps {
   attachments: Attachment[]
   forumId: string
+  server?: string
 }
 
 function formatFileSize(bytes: number): string {
@@ -69,7 +70,7 @@ function VideoThumbnail({ url }: { url: string }) {
   )
 }
 
-export function PostAttachments({ attachments, forumId }: PostAttachmentsProps) {
+export function PostAttachments({ attachments, forumId, server }: PostAttachmentsProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -77,14 +78,17 @@ export function PostAttachments({ attachments, forumId }: PostAttachmentsProps) 
     return null
   }
 
+  const appBase = import.meta.env.VITE_APP_BASE_URL || '/forums'
+  const serverParam = server ? `?server=${encodeURIComponent(server)}` : ''
+
   // Unified attachment URL - backend handles local vs remote
   const getAttachmentUrl = (id: string) => {
-    return `/forums/${forumId}/-/attachments/${id}`
+    return `${appBase}/${forumId}/-/attachments/${id}${serverParam}`
   }
 
   // Thumbnail URL for images
   const getThumbnailUrl = (id: string) => {
-    return `/forums/${forumId}/-/attachments/${id}/thumbnail`
+    return `${appBase}/${forumId}/-/attachments/${id}/thumbnail${serverParam}`
   }
 
   // Separate media (images + videos) from other files
@@ -109,7 +113,10 @@ export function PostAttachments({ attachments, forumId }: PostAttachmentsProps) 
     <button
       key={attachment.id}
       type="button"
-      onClick={() => openLightbox(index)}
+      onClick={(e) => {
+        e.stopPropagation()
+        openLightbox(index)
+      }}
       className="group/thumb relative overflow-hidden rounded-[8px] border"
     >
       {isVideo(attachment.type) ? (
@@ -131,6 +138,7 @@ export function PostAttachments({ attachments, forumId }: PostAttachmentsProps) 
       <a
         key={attachment.id}
         href={getAttachmentUrl(attachment.id)}
+        onClick={(e) => e.stopPropagation()}
         className="flex items-center gap-2 rounded-[8px] border p-2 text-sm transition-colors hover:bg-muted"
       >
         <FileIcon className="size-4 shrink-0 text-muted-foreground" />

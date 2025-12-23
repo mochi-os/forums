@@ -11,12 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as errors503RouteImport } from './routes/(errors)/503'
 import { Route as errors500RouteImport } from './routes/(errors)/500'
 import { Route as errors404RouteImport } from './routes/(errors)/404'
 import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
+import { Route as AuthenticatedForumIndexRouteImport } from './routes/_authenticated/$forum/index'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedForumSettingsRouteImport } from './routes/_authenticated/$forum_.settings'
 import { Route as AuthenticatedForumPostRouteImport } from './routes/_authenticated/$forum/$post'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -26,6 +29,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSearchRoute = AuthenticatedSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const errors503Route = errors503RouteImport.update({
@@ -53,10 +61,21 @@ const errors401Route = errors401RouteImport.update({
   path: '/401',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedForumIndexRoute = AuthenticatedForumIndexRouteImport.update({
+  id: '/$forum/',
+  path: '/$forum/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
     id: '/errors/$error',
     path: '/errors/$error',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedForumSettingsRoute =
+  AuthenticatedForumSettingsRouteImport.update({
+    id: '/$forum_/settings',
+    path: '/$forum/settings',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedForumPostRoute = AuthenticatedForumPostRouteImport.update({
@@ -71,9 +90,12 @@ export interface FileRoutesByFullPath {
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
+  '/search': typeof AuthenticatedSearchRoute
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/$forum/settings': typeof AuthenticatedForumSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/$forum': typeof AuthenticatedForumIndexRoute
 }
 export interface FileRoutesByTo {
   '/401': typeof errors401Route
@@ -81,9 +103,12 @@ export interface FileRoutesByTo {
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
+  '/search': typeof AuthenticatedSearchRoute
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/$forum/settings': typeof AuthenticatedForumSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/$forum': typeof AuthenticatedForumIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,9 +118,12 @@ export interface FileRoutesById {
   '/(errors)/404': typeof errors404Route
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
+  '/_authenticated/search': typeof AuthenticatedSearchRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/_authenticated/$forum_/settings': typeof AuthenticatedForumSettingsRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/_authenticated/$forum/': typeof AuthenticatedForumIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,9 +133,12 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/503'
+    | '/search'
     | '/'
     | '/$forum/$post'
+    | '/$forum/settings'
     | '/errors/$error'
+    | '/$forum'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/401'
@@ -115,9 +146,12 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/503'
+    | '/search'
     | '/'
     | '/$forum/$post'
+    | '/$forum/settings'
     | '/errors/$error'
+    | '/$forum'
   id:
     | '__root__'
     | '/_authenticated'
@@ -126,9 +160,12 @@ export interface FileRouteTypes {
     | '/(errors)/404'
     | '/(errors)/500'
     | '/(errors)/503'
+    | '/_authenticated/search'
     | '/_authenticated/'
     | '/_authenticated/$forum/$post'
+    | '/_authenticated/$forum_/settings'
     | '/_authenticated/errors/$error'
+    | '/_authenticated/$forum/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,6 +191,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/search': {
+      id: '/_authenticated/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof AuthenticatedSearchRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/(errors)/503': {
@@ -191,11 +235,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof errors401RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/$forum/': {
+      id: '/_authenticated/$forum/'
+      path: '/$forum'
+      fullPath: '/$forum'
+      preLoaderRoute: typeof AuthenticatedForumIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
       path: '/errors/$error'
       fullPath: '/errors/$error'
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/$forum_/settings': {
+      id: '/_authenticated/$forum_/settings'
+      path: '/$forum/settings'
+      fullPath: '/$forum/settings'
+      preLoaderRoute: typeof AuthenticatedForumSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/$forum/$post': {
@@ -209,15 +267,21 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedSearchRoute: typeof AuthenticatedSearchRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedForumPostRoute: typeof AuthenticatedForumPostRoute
+  AuthenticatedForumSettingsRoute: typeof AuthenticatedForumSettingsRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedForumIndexRoute: typeof AuthenticatedForumIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedSearchRoute: AuthenticatedSearchRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedForumPostRoute: AuthenticatedForumPostRoute,
+  AuthenticatedForumSettingsRoute: AuthenticatedForumSettingsRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedForumIndexRoute: AuthenticatedForumIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

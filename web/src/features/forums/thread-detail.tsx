@@ -23,7 +23,11 @@ import { ThreadContent } from './components/thread/thread-content'
 import { ThreadComment } from './components/thread/thread-comment'
 import { EditPostDialog } from './components/edit-post-dialog'
 
-export function ThreadDetail() {
+interface ThreadDetailProps {
+  server?: string
+}
+
+export function ThreadDetail({ server }: ThreadDetailProps) {
   const navigate = useNavigate()
   const { forum = '', post: postId = '' } = useParams({ strict: false }) as { forum?: string; post?: string }
   const [commentBody, setCommentBody] = useState('')
@@ -40,7 +44,7 @@ export function ThreadDetail() {
   }, [forum, setForum])
 
   // Queries
-  const { data: postData, isLoading } = usePostDetail(forum, postId)
+  const { data: postData, isLoading } = usePostDetail(forum, postId, server)
 
   // Sync post title to sidebar
   useEffect(() => {
@@ -104,7 +108,7 @@ export function ThreadDetail() {
     )
   }
 
-  if (!postData) {
+  if (!postData?.data?.post) {
     return (
       <Main fixed>
         <Button
@@ -120,7 +124,7 @@ export function ThreadDetail() {
     )
   }
 
-  const { post, comments, can_vote, can_comment, member, forum: forumData } = postData.data
+  const { post, comments = [], can_vote, can_comment, member, forum: forumData } = postData.data
   const commentCount = comments.length
   const currentUserId = member?.id
 
@@ -147,6 +151,7 @@ export function ThreadDetail() {
         <ThreadContent
             post={post}
             attachments={post.attachments}
+            server={server}
             onVote={(vote) => votePostMutation.mutate(vote)}
             isVotePending={votePostMutation.isPending}
             canVote={can_vote}

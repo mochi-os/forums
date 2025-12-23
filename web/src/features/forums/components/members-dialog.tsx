@@ -14,7 +14,6 @@ import {
   AccessList,
   type AccessLevel as CommonAccessLevel,
   type AccessRule,
-  type AccessOwner,
   requestHelpers,
 } from '@mochi/common'
 import { Users, Plus } from 'lucide-react'
@@ -51,7 +50,6 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
 
   // Access rules state
   const [rules, setRules] = useState<AccessRule[]>([])
-  const [owner, setOwner] = useState<AccessOwner | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
@@ -69,26 +67,18 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
         endpoints.forums.access(forumId)
       )
 
-      // Map MemberAccess to AccessRule and extract owner
-      const accessRules: AccessRule[] = []
-      let accessOwner: AccessOwner | null = null
-
-      for (const member of response?.access ?? []) {
-        if (member.level === null) {
-          // Owner has null level
-          accessOwner = { id: member.id, name: member.name }
-        } else {
-          accessRules.push({
-            subject: member.id,
-            operation: member.level,
-            grant: 1,
-            name: member.name,
-          })
-        }
-      }
+      // Map MemberAccess to AccessRule with isOwner flag
+      const accessRules: AccessRule[] = (response?.access ?? [])
+        .filter((member) => member.level !== null || member.isOwner)
+        .map((member) => ({
+          subject: member.id,
+          operation: member.level ?? '*',
+          grant: 1,
+          name: member.name,
+          isOwner: member.isOwner,
+        }))
 
       setRules(accessRules)
-      setOwner(accessOwner)
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load access rules'))
     } finally {
@@ -190,14 +180,13 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
             onRevoke={handleRevoke}
             isLoading={isLoading}
             error={error}
-            owner={owner}
             selectWidth={150}
           />
         </div>
 
         <ResponsiveDialogFooter className="gap-2 sm:justify-between">
           <div className="text-xs text-muted-foreground self-center hidden sm:block">
-            {rules.length + (owner ? 1 : 0)} member{rules.length + (owner ? 1 : 0) !== 1 ? 's' : ''}
+            {rules.length} member{rules.length !== 1 ? 's' : ''}
           </div>
           <ResponsiveDialogClose asChild>
             <Button variant="outline" size="sm">Close</Button>
