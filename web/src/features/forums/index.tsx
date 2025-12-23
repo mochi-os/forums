@@ -4,8 +4,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   Main,
+  usePageTitle,
 } from '@mochi/common'
-import { usePageTitle } from '@/hooks/usePageTitle'
 import { forumsApi } from '@/api/forums'
 import { CreateForumDialog } from './components/create-forum-dialog'
 import { CreatePostDialog } from './components/create-post-dialog'

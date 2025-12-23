@@ -8,8 +8,8 @@ import {
   Button,
   Card,
   CardContent,
+  usePageTitle,
 } from '@mochi/common'
-import { usePageTitle } from '@/hooks/usePageTitle'
 import { forumsApi } from '@/api/forums'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadContent } from './components/thread/thread-content'

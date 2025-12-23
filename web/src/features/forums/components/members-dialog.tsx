@@ -23,8 +23,10 @@ import { Users, Loader2 } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { forumsApi } from '@/api/forums'
 import { toast } from 'sonner'
-import { ACCESS_LEVELS } from '../constants'
-import type { MemberAccess, AccessLevelWithManage } from '@/api/types/forums'
+import { MEMBER_ROLES } from '../constants'
+import type { Member } from '@/api/types/forums'
+
+type MemberRole = typeof MEMBER_ROLES[number]['value']
 
 interface MembersDialogProps {
   forumId: string
@@ -35,22 +37,22 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
 
-  // Track pending changes: memberId -> newLevel (null = revoke)
-  const [pendingChanges, setPendingChanges] = useState<Record<string, AccessLevelWithManage | null>>({})
+  // Track pending changes: memberId -> newRole
+  const [pendingChanges, setPendingChanges] = useState<Record<string, MemberRole>>({})
 
-  // Fetch access rules
+  // Fetch members
   const {
     data,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['forums', 'access', forumId],
-    queryFn: () => forumsApi.getAccess({ forum: forumId }),
+    queryKey: ['forums', 'members', forumId],
+    queryFn: () => forumsApi.getMembers({ forum: forumId }),
     enabled: isOpen,
     staleTime: 0
   })
 
-  const members = data?.data?.access || []
+  const members = data?.data?.members || []
 
   // Reset pending changes when dialog opens/closes
   useEffect(() => {
@@ -59,54 +61,37 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
     }
   }, [isOpen])
 
-  // Set access mutation
-  const setAccessMutation = useMutation({
-    mutationFn: forumsApi.setAccess,
+  // Save members mutation
+  const saveMembersMutation = useMutation({
+    mutationFn: forumsApi.saveMembers,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'access', forumId] })
+      queryClient.invalidateQueries({ queryKey: ['forums', 'members', forumId] })
     },
     onError: (error) => {
-      toast.error('Failed to update access')
+      toast.error('Failed to save member changes')
       console.error(error)
     }
   })
 
-  // Revoke access mutation
-  const revokeAccessMutation = useMutation({
-    mutationFn: forumsApi.revokeAccess,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['forums', 'access', forumId] })
-    },
-    onError: (error) => {
-      toast.error('Failed to revoke access')
-      console.error(error)
-    }
-  })
-
-  // Handle access level change
-  const handleAccessChange = (memberId: string, newLevel: string) => {
-    if (newLevel === 'none') {
-      setPendingChanges(prev => ({ ...prev, [memberId]: null }))
-    } else {
-      setPendingChanges(prev => ({ ...prev, [memberId]: newLevel as AccessLevelWithManage }))
-    }
+  // Handle role change
+  const handleRoleChange = (memberId: string, newRole: string) => {
+    setPendingChanges(prev => ({ ...prev, [memberId]: newRole as MemberRole }))
   }
 
-  // Apply a single change immediately
-  const applyChange = async (memberId: string, member: MemberAccess) => {
-    const newLevel = pendingChanges[memberId]
+  // Apply changes for a single member
+  const applyChange = async (memberId: string, member: Member) => {
+    const newRole = pendingChanges[memberId]
 
-    if (newLevel === undefined) return
+    if (newRole === undefined) return
 
-    if (newLevel === null) {
-      // Revoke access
-      await revokeAccessMutation.mutateAsync({ forum: forumId, user: memberId })
-      toast.success(`Revoked access for ${member.name}`)
-    } else {
-      // Set new access level
-      await setAccessMutation.mutateAsync({ forum: forumId, user: memberId, level: newLevel })
-      toast.success(`Updated access for ${member.name}`)
+    // Build the save request with the role update
+    const payload = {
+      forum: forumId,
+      [`role_${memberId}`]: newRole,
     }
+
+    await saveMembersMutation.mutateAsync(payload)
+    toast.success(`Updated role for ${member.name}`)
 
     // Clear this pending change
     setPendingChanges(prev => {
@@ -116,14 +101,19 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
     })
   }
 
-  const isPending = setAccessMutation.isPending || revokeAccessMutation.isPending
+  const isPending = saveMembersMutation.isPending
 
-  // Get effective access level for display
-  const getEffectiveLevel = (member: MemberAccess): string => {
+  // Get effective role for display
+  const getEffectiveRole = (member: Member): string => {
     if (pendingChanges[member.id] !== undefined) {
-      return pendingChanges[member.id] === null ? 'none' : pendingChanges[member.id]!
+      return pendingChanges[member.id]
     }
-    return member.level || 'owner'
+    return member.role
+  }
+
+  // Check if member is an administrator (owner-like role)
+  const isAdministrator = (member: Member): boolean => {
+    return member.role === 'administrator'
   }
 
   return (
@@ -138,7 +128,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Manage members</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
-            Manage access levels for {forumName}
+            Manage roles for {forumName}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
@@ -158,9 +148,9 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
           ) : (
             <ScrollArea className="h-[400px] pr-4">
               <div className="space-y-3">
-                {members.map((member) => {
-                  const effectiveLevel = getEffectiveLevel(member)
-                  const isOwner = member.level === null
+                {members.map((member: Member) => {
+                  const effectiveRole = getEffectiveRole(member)
+                  const isAdmin = isAdministrator(member)
                   const hasChange = pendingChanges[member.id] !== undefined
 
                   return (
@@ -176,8 +166,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
                             <p className="text-sm font-medium leading-none truncate max-w-[150px] sm:max-w-[200px]">
                               {member.name}
                             </p>
-                            {isOwner && (
-                              <Badge variant="secondary" className="text-[10px]">Owner</Badge>
+                            {isAdmin && (
+                              <Badge variant="secondary" className="text-[10px]">Admin</Badge>
                             )}
                           </div>
                           <p className="text-xs text-muted-foreground font-mono">
@@ -186,47 +176,40 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
                         </div>
                       </div>
 
-                      {isOwner ? (
-                        <span className="text-xs text-muted-foreground">Full access</span>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Select
-                            value={effectiveLevel}
-                            onValueChange={(val) => handleAccessChange(member.id, val)}
+                      <div className="flex items-center gap-2">
+                        <Select
+                          value={effectiveRole}
+                          onValueChange={(val) => handleRoleChange(member.id, val)}
+                          disabled={isPending}
+                        >
+                          <SelectTrigger className="w-[130px] h-8 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {MEMBER_ROLES.map((role) => (
+                              <SelectItem key={role.value} value={role.value} className="text-xs">
+                                {role.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        {hasChange && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-8 px-2"
+                            onClick={() => applyChange(member.id, member)}
                             disabled={isPending}
                           >
-                            <SelectTrigger className="w-[120px] h-8 text-xs">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="none" className="text-xs text-destructive">
-                                No access
-                              </SelectItem>
-                              {ACCESS_LEVELS.map((level) => (
-                                <SelectItem key={level.value} value={level.value} className="text-xs">
-                                  {level.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-
-                          {hasChange && (
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-8 px-2"
-                              onClick={() => applyChange(member.id, member)}
-                              disabled={isPending}
-                            >
-                              {isPending ? (
-                                <Loader2 className="size-3 animate-spin" />
-                              ) : (
-                                'Apply'
-                              )}
-                            </Button>
-                          )}
-                        </div>
-                      )}
+                            {isPending ? (
+                              <Loader2 className="size-3 animate-spin" />
+                            ) : (
+                              'Apply'
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   )
                 })}
