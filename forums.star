@@ -130,12 +130,20 @@ def action_create(a):
         return
     
     name = a.input("name")
-    if not mochi.valid(name, "name"):
+    if not mochi.valid(name, "text") or len(name) > 1000:
         a.error(400, "Invalid name")
         return
     
+    safe_name = ""
+    for i in range(len(name)):
+        c = name[i]
+        if c.isalnum() or c in " -_":
+            safe_name += c
+    if not safe_name:
+        safe_name = "forum"
+        
     # Create entity for the forum
-    entity_id = mochi.entity.create("forum", name, "public", "")
+    entity_id = mochi.entity.create("forum", safe_name, "public", "")
     if not entity_id:
         a.error(500, "Failed to create forum entity")
         return
@@ -190,7 +198,7 @@ def action_post_create(a):
         return
     
     title = a.input("title")
-    if not mochi.valid(title, "name"):
+    if not mochi.valid(title, "text") or len(title) > 1000:
         a.error(400, "Invalid title")
         return
     
@@ -377,12 +385,13 @@ def action_subscribe(a):
     
     # Create local forum record
     now = mochi.time.now()
+    # BUG FIX: Use forum["id"] (canonical UUID) instead of forum_id (input, possibly fingerprint)
     mochi.db.execute("replace into forums ( id, fingerprint, name, role, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
-        forum_id, forum["fingerprint"], forum["name"], "viewer", 0, now)
+        forum["id"], forum["fingerprint"], forum["name"], "viewer", 0, now)
     
     # Add self as member with viewer role
     mochi.db.execute("replace into members ( forum, id, name, role ) values ( ?, ?, ?, ? )",
-        forum_id, a.user.identity.id, a.user.identity.name, "viewer")
+        forum["id"], a.user.identity.id, a.user.identity.name, "viewer")
     
     # Send subscribe message to forum owner
     mochi.message.send(
@@ -1071,13 +1080,19 @@ def event_subscribe_event(e):
                 post_data
             )
         
-        # Notify all members of new subscription
+        # Notify all members of new subscription (include forum name for consistency)
         for m in members:
             if m["id"] != member_id:
                 mochi.message.send(
                     {"from": forum["id"], "to": m["id"], "service": "forums", "event": "update"},
-                    {"members": len(members)},
+                    {"members": len(members), "name": forum["name"]},
                 )
+        
+        # Send forum info to the new subscriber so they have the correct display name
+        mochi.message.send(
+            {"from": forum["id"], "to": member_id, "service": "forums", "event": "update"},
+            {"members": len(members), "name": forum["name"]},
+        )
 
 # Received an unsubscribe request from member (we are forum owner)
 def event_unsubscribe_event(e):
@@ -1107,7 +1122,12 @@ def event_update_event(e):
         return
     
     members = e.content("members")
-    if type(members) != "int" or members < 0:
-        return
-
-    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
+    name = e.content("name")
+    
+    # Update member count if valid
+    if type(members) == "int" and members >= 0:
+        mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
+    
+    # Update forum name if provided (sync display name from owner)
+    if name and mochi.valid(name, "text"):
+        mochi.db.execute("update forums set name=? where id=?", name, forum["id"])

@@ -22,14 +22,14 @@ import {
 import { memberAccessOptions } from '../constants'
 
 // Characters disallowed in forum names (matches backend validation)
-const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
+const DISALLOWED_NAME_CHARS = /[<>\r\n\\]/
 
 function validateForumName(name: string): string | null {
   if (!name.trim()) {
     return null // Empty is handled separately
   }
   if (DISALLOWED_NAME_CHARS.test(name)) {
-    return 'Name cannot contain < > \\ ; " \' or ` characters'
+    return 'Name cannot contain < > \\ or newlines'
   }
   if (name.length > 1000) {
     return 'Name must be 1000 characters or less'
