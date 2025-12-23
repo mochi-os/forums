@@ -688,27 +688,23 @@ def action_comment_vote(a):
 
 # Received a comment from forum owner
 def event_comment_create_event(e):
-    forum = get_forum(e.content("from"))
+    forum = get_forum(e.header("from"))
     if not forum:
         return
     
-    comment = mochi.event.segment()
-    if not comment:
-        return
-    
-    id = comment.get("id")
+    id = e.content("id")
     if not mochi.valid(id, "id"):
         return
     
     if mochi.db.exists("select id from comments where id=?", id):
         return  # Duplicate
     
-    post = comment.get("post")
-    parent = comment.get("parent", "")
-    member = comment.get("member")
-    name = comment.get("name")
-    body = comment.get("body")
-    created = comment.get("created")
+    post = e.content("post")
+    parent = e.content("parent") or ""
+    member = e.content("member")
+    name = e.content("name")
+    body = e.content("body")
+    created = e.content("created")
     
     if not mochi.valid(member, "entity"):
         return
@@ -725,41 +721,37 @@ def event_comment_create_event(e):
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
-    forum = get_forum(e.content("to"))
+    forum = get_forum(e.header("to"))
     if not forum:
         return
     
-    member = get_member(forum["id"], e.content("from"), "commenter")
+    member = get_member(forum["id"], e.header("from"), "commenter")
     if not member:
         return
     
-    comment = mochi.event.segment()
-    if not comment:
-        return
-    
-    id = comment.get("id")
+    id = e.content("id")
     if not mochi.valid(id, "id"):
         return
     
     if mochi.db.exists("select id from comments where id=?", id):
         return  # Duplicate
     
-    post = comment.get("post")
+    post = e.content("post")
     if not mochi.db.exists("select id from posts where forum=? and id=?", forum["id"], post):
         return
     
-    parent = comment.get("parent", "")
+    parent = e.content("parent") or ""
     if parent and not mochi.db.exists("select id from comments where forum=? and post=? and id=?", forum["id"], post, parent):
         return
     
-    body = comment.get("body")
+    body = e.content("body")
     if not mochi.valid(body, "text"):
         return
     
     now = mochi.time.now()
     
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post, parent, e.content("from"), member["name"], body, now)
+        id, forum["id"], post, parent, e.header("from"), member["name"], body, now)
     
     mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -769,7 +761,7 @@ def event_comment_submit_event(e):
         "id": id,
         "post": post,
         "parent": parent,
-        "member": e.content("from"),
+        "member": e.header("from"),
         "name": member["name"],
         "body": body,
         "created": now
@@ -777,7 +769,7 @@ def event_comment_submit_event(e):
     
     members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
-        if m["id"] != e.content("from"):
+        if m["id"] != e.header("from"):
             mochi.message.send(
                 {"from": forum["id"], "to": m["id"], "service": "forums", "event": "comment/create"},
                 comment_data,
@@ -786,27 +778,19 @@ def event_comment_submit_event(e):
 
 # Received a comment update from forum owner
 def event_comment_update_event(e):
-    comment = mochi.event.segment()
-    if not comment:
-        return
-    
-    id = comment.get("id")
-    old_comment = mochi.db.row("select * from comments where forum=? and id=?", e.content("from"), id)
+    id = e.content("id")
+    old_comment = mochi.db.row("select * from comments where forum=? and id=?", e.header("from"), id)
     if not old_comment:
         return
     
     now = mochi.time.now()
-    mochi.db.execute("update comments set up=?, down=? where id=?", comment.get("up", 0), comment.get("down", 0), id)
+    mochi.db.execute("update comments set up=?, down=? where id=?", e.content("up") or 0, e.content("down") or 0, id)
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
 
 # Received a comment vote from member (we are forum owner)
 def event_comment_vote_event(e):
-    vote_data = mochi.event.segment()
-    if not vote_data:
-        return
-    
-    comment_id = vote_data.get("comment")
+    comment_id = e.content("comment")
     comment = mochi.db.row("select * from comments where id=?", comment_id)
     if not comment:
         return
@@ -815,16 +799,16 @@ def event_comment_vote_event(e):
     if not forum:
         return
     
-    member = get_member(forum["id"], e.content("from"), "voter")
+    member = get_member(forum["id"], e.header("from"), "voter")
     if not member:
         return
     
-    vote = vote_data.get("vote")
+    vote = e.content("vote")
     if vote not in ["up", "down"]:
         return
     
     # Remove old vote if exists
-    old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment_id, e.content("from"))
+    old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment_id, e.header("from"))
     if old_vote:
         if old_vote["vote"] == "up":
             mochi.db.execute("update comments set up=up-1 where id=?", comment_id)
@@ -833,7 +817,7 @@ def event_comment_vote_event(e):
     
     # Add new vote
     mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
-        forum["id"], comment["post"], comment_id, e.content("from"), vote)
+        forum["id"], comment["post"], comment_id, e.header("from"), vote)
     
     if vote == "up":
         mochi.db.execute("update comments set up=up+1 where id=?", comment_id)
@@ -848,7 +832,7 @@ def event_comment_vote_event(e):
     updated_comment = mochi.db.row("select up, down from comments where id=?", comment_id)
     members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
-        if m["id"] != e.content("from"):
+        if m["id"] != e.header("from"):
             mochi.message.send(
                 {"from": forum["id"], "to": m["id"], "service": "forums", "event": "comment/update"},
                 {"id": comment_id, "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
@@ -857,7 +841,7 @@ def event_comment_vote_event(e):
 
 # Received a member role update from forum owner
 def event_member_update_event(e):
-    forum = get_forum(e.content("from"))
+    forum = get_forum(e.header("from"))
     if not forum:
         return
     
@@ -865,30 +849,26 @@ def event_member_update_event(e):
     if not role or role not in FORUM_ROLES:
         return
     
-    mochi.db.execute("update members set role=? where forum=? and id=?", role, forum["id"], e.content("to"))
+    mochi.db.execute("update members set role=? where forum=? and id=?", role, forum["id"], e.header("to"))
 
 # Received a post from forum owner
 def event_post_create_event(e):
-    forum = get_forum(e.content("from"))
+    forum = get_forum(e.header("from"))
     if not forum:
         return
     
-    post = mochi.event.segment()
-    if not post:
-        return
-    
-    id = post.get("id")
+    id = e.content("id")
     if not mochi.valid(id, "id"):
         return
     
     if mochi.db.exists("select id from posts where id=?", id):
         return  # Duplicate
     
-    member = post.get("member")
-    name = post.get("name")
-    title = post.get("title")
-    body = post.get("body")
-    created = post.get("created")
+    member = e.content("member")
+    name = e.content("name")
+    title = e.content("title")
+    body = e.content("body")
+    created = e.content("created")
     
     if not mochi.valid(member, "entity"):
         return
@@ -907,37 +887,33 @@ def event_post_create_event(e):
 
 # Received a post submission from member (we are forum owner)
 def event_post_submit_event(e):
-    forum = get_forum(e.content("to"))
+    forum = get_forum(e.header("to"))
     if not forum:
         return
     
-    member = get_member(forum["id"], e.content("from"), "poster")
+    member = get_member(forum["id"], e.header("from"), "poster")
     if not member:
         return
     
-    post = mochi.event.segment()
-    if not post:
-        return
-    
-    id = post.get("id")
+    id = e.content("id")
     if not mochi.valid(id, "id"):
         return
     
     if mochi.db.exists("select id from posts where id=?", id):
         return  # Duplicate
     
-    title = post.get("title")
+    title = e.content("title")
     if not mochi.valid(title, "name"):
         return
     
-    body = post.get("body")
+    body = e.content("body")
     if not mochi.valid(body, "text"):
         return
     
     now = mochi.time.now()
     
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], e.content("from"), member["name"], title, body, now, now)
+        id, forum["id"], e.header("from"), member["name"], title, body, now, now)
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
@@ -945,14 +921,14 @@ def event_post_submit_event(e):
     # Broadcast to all members except sender (attachments fetched on-demand)
     post_data = {
         "id": id,
-        "member": e.content("from"),
+        "member": e.header("from"),
         "name": member["name"],
         "title": title,
         "body": body,
         "created": now
     }
 
-    members = mochi.db.rows("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], e.content("from"))
+    members = mochi.db.rows("select id from members where forum=? and role!='disabled' and id!=?", forum["id"], e.header("from"))
     for m in members:
         mochi.message.send(
             {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/create"},
@@ -961,27 +937,19 @@ def event_post_submit_event(e):
 
 # Received a post update from forum owner
 def event_post_update_event(e):
-    post = mochi.event.segment()
-    if not post:
-        return
-    
-    id = post.get("id")
-    old_post = mochi.db.row("select * from posts where forum=? and id=?", e.content("from"), id)
+    id = e.content("id")
+    old_post = mochi.db.row("select * from posts where forum=? and id=?", e.header("from"), id)
     if not old_post:
         return
     
     now = mochi.time.now()
-    mochi.db.execute("update posts set up=?, down=? where id=?", post.get("up", 0), post.get("down", 0), id)
+    mochi.db.execute("update posts set up=?, down=? where id=?", e.content("up") or 0, e.content("down") or 0, id)
     mochi.db.execute("update posts set updated=? where id=?", now, id)
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
 # Received a post vote from member (we are forum owner)
 def event_post_vote_event(e):
-    vote_data = mochi.event.segment()
-    if not vote_data:
-        return
-    
-    post_id = vote_data.get("post")
+    post_id = e.content("post")
     post = mochi.db.row("select * from posts where id=?", post_id)
     if not post:
         return
@@ -990,16 +958,16 @@ def event_post_vote_event(e):
     if not forum:
         return
     
-    member = get_member(forum["id"], e.content("from"), "voter")
+    member = get_member(forum["id"], e.header("from"), "voter")
     if not member:
         return
     
-    vote = vote_data.get("vote")
+    vote = e.content("vote")
     if vote not in ["up", "down"]:
         return
     
     # Remove old vote if exists
-    old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, e.content("from"))
+    old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, e.header("from"))
     if old_vote:
         if old_vote["vote"] == "up":
             mochi.db.execute("update posts set up=up-1 where id=?", post_id)
@@ -1008,7 +976,7 @@ def event_post_vote_event(e):
     
     # Add new vote
     mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
-        forum["id"], post_id, e.content("from"), vote)
+        forum["id"], post_id, e.header("from"), vote)
     
     if vote == "up":
         mochi.db.execute("update posts set up=up+1 where id=?", post_id)
@@ -1023,7 +991,7 @@ def event_post_vote_event(e):
     updated_post = mochi.db.row("select up, down from posts where id=?", post_id)
     members = mochi.db.rows("select * from members where forum=? and role!='disabled'", forum["id"])
     for m in members:
-        if m["id"] != e.content("from"):
+        if m["id"] != e.header("from"):
             mochi.message.send(
                 {"from": forum["id"], "to": m["id"], "service": "forums", "event": "post/update"},
                 {"id": post_id, "up": updated_post["up"], "down": updated_post["down"]},
