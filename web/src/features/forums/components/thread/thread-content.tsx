@@ -6,7 +6,7 @@ import {
   AvatarFallback,
   Button
 } from '@mochi/common'
-import { ThumbsUp, ThumbsDown, BellPlus, Share2 } from 'lucide-react'
+import { ThumbsUp, ThumbsDown, Share2 } from 'lucide-react'
 import { threadStatusStyles } from '../../status'
 import { PostAttachments } from './post-attachments'
 import type { Post, Attachment } from '@/api/types/posts'
@@ -39,10 +39,6 @@ export function ThreadContent({ post, attachments, onVote, isVotePending }: Thre
 
         {/* Action buttons */}
         <div className="flex items-center gap-1 shrink-0">
-          <Button variant='ghost' size='sm' className='h-8 text-muted-foreground hover:text-foreground'>
-            <BellPlus className='mr-1.5 size-3.5' />
-            Follow
-          </Button>
           <Button variant='ghost' size='sm' className='h-8 text-muted-foreground hover:text-foreground'>
             <Share2 className='mr-1.5 size-3.5' />
             Share

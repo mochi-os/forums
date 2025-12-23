@@ -16,15 +16,15 @@ import {
   Badge,
 } from '@mochi/common'
 
-// Characters disallowed in post titles (matches backend validation for "name" type)
-const DISALLOWED_CHARS = /[<>\r\n\\;"'`]/
+// Characters disallowed in post titles (matches backend validation for "text" type)
+const DISALLOWED_CHARS = /[<>\r\n\\]/
 
 function validateTitle(title: string): string | null {
   if (!title.trim()) {
     return null // Empty is handled separately
   }
   if (DISALLOWED_CHARS.test(title)) {
-    return 'Title cannot contain < > \\ ; " \' or ` characters'
+    return 'Title cannot contain < > \\ or newlines'
   }
   if (title.length > 1000) {
     return 'Title must be 1000 characters or less'

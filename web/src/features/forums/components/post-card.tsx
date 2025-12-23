@@ -20,9 +20,17 @@ interface PostCardProps {
   forumName: string
   showForumBadge: boolean
   onSelect: (forumId: string, postId: string) => void
+  onSelectForum?: (forumId: string) => void
 }
 
-export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) {
+export function PostCard({ post, forumName, showForumBadge, onSelect, onSelectForum }: PostCardProps) {
+  const handleForumClick = (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click from firing
+    if (onSelectForum) {
+      onSelectForum(post.forum)
+    }
+  }
+
   return (
     <Card
       className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30"
@@ -32,7 +40,11 @@ export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCard
         <div className="flex flex-col gap-3">
           {/* Forum tag (only show when viewing all forums) */}
           {showForumBadge && (
-            <Badge variant="secondary" className="w-fit text-xs">
+            <Badge 
+              variant="secondary" 
+              className="w-fit text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
+              onClick={handleForumClick}
+            >
               <Hash className="h-3 w-3 mr-1" />
               {forumName}
             </Badge>

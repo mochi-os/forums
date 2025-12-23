@@ -65,6 +65,8 @@ export function Forums() {
   })
 
   const selectedForum = selectedForumId ? forumDetailData?.data?.forum : null
+  // Get the current user's member data for the selected forum (includes actual role)
+  const selectedForumMember = forumDetailData?.data?.member
   // Filter to ensure we only have valid posts (with title), not comments that may have leaked into the array
   const selectedForumPosts = (forumDetailData?.data?.posts || []).filter(p => 'title' in p && p.title)
 
@@ -194,7 +196,7 @@ export function Forums() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {selectedForumId && selectedForum && ['', 'administrator', 'poster'].includes(selectedForum.role) && (
+          {selectedForumId && selectedForum && selectedForumMember && ['administrator', 'poster'].includes(selectedForumMember.role) && (
             <CreatePostDialog
               forumId={selectedForumId}
               forumName={selectedForum?.name || 'Forum'}
@@ -239,8 +241,10 @@ export function Forums() {
           ) : (
             <ForumOverview
               forum={selectedForum || null}
+              memberRole={selectedForumMember?.role}
               posts={postsToDisplay}
               onSelectPost={handlePostSelect}
+              onSelectForum={setSelectedForumId}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}
