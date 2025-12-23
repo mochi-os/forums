@@ -1,16 +1,5 @@
-import {
-  Card,
-  CardContent,
-  FacelessAvatar,
-  Badge,
-} from '@mochi/common'
-import {
-  MessageSquare,
-  ThumbsUp,
-  ThumbsDown,
-  ChevronRight,
-  Hash,
-} from 'lucide-react'
+import { Card, CardContent } from '@mochi/common'
+import { MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
@@ -25,57 +14,47 @@ interface PostCardProps {
 export function PostCard({ post, forumName, showForumBadge, onSelect }: PostCardProps) {
   return (
     <Card
-      className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30"
+      className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30 py-0"
       onClick={() => onSelect(post.forum, post.id)}
     >
-      <CardContent className="p-5">
-        <div className="flex flex-col gap-3">
-          {/* Forum tag (only show when viewing all forums) */}
-          {showForumBadge && (
-            <Badge variant="secondary" className="w-fit text-xs">
-              <Hash className="size-3 mr-1" />
-              {forumName}
-            </Badge>
-          )}
+      <CardContent className="p-4 space-y-2">
+      {/* Title row with optional forum name */}
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-base font-semibold leading-tight">
+          {post.title}
+        </h3>
+        {showForumBadge && (
+          <span className="text-xs text-muted-foreground whitespace-nowrap">
+            {forumName}
+          </span>
+        )}
+      </div>
 
-          {/* Title */}
-          <h3 className="text-lg font-semibold leading-tight group-hover:underline transition-all decoration-primary/50 underline-offset-4">
-            {post.title}
-          </h3>
+      {/* Body */}
+      <p className="text-sm text-foreground line-clamp-2">{post.body}</p>
 
-          {/* Body excerpt */}
-          <p className="text-sm text-muted-foreground line-clamp-2">{post.body}</p>
+      {/* Attachments */}
+      <PostAttachments attachments={post.attachments || []} forumId={post.forum} />
 
-          {/* Attachments */}
-          <PostAttachments attachments={post.attachments || []} forumId={post.forum} />
-
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-2 border-t border-border/50">
-            <div className="flex items-center gap-3">
-              <FacelessAvatar name={post.name} size={32} className="text-xs" />
-              <div>
-                <p className="text-sm font-medium">{post.name}</p>
-                <p className="text-xs text-muted-foreground">{post.created_local}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <MessageSquare className="size-4" />
-                <span>{getCommentCount(post.comments)}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <ThumbsUp className="size-4" />
-                <span>{post.up}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <ThumbsDown className="size-4" />
-                <span>{post.down}</span>
-              </div>
-              <ChevronRight className="size-4" />
-            </div>
-          </div>
-        </div>
+      {/* Stats row */}
+      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+        {post.up > 0 && (
+          <span className="flex items-center gap-1">
+            <ThumbsUp className="size-3" />
+            {post.up}
+          </span>
+        )}
+        {post.down > 0 && (
+          <span className="flex items-center gap-1">
+            <ThumbsDown className="size-3" />
+            {post.down}
+          </span>
+        )}
+        <span className="flex items-center gap-1">
+          <MessageSquare className="size-3" />
+          {getCommentCount(post.comments)}
+        </span>
+      </div>
       </CardContent>
     </Card>
   )

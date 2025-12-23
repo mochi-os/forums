@@ -251,6 +251,16 @@ def action_view(a):
 
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
+            # Get attachments for this post
+            p["attachments"] = mochi.attachment.list(p["id"])
+            # Fetch attachments from forum owner if we don't have them locally
+            forum = None
+            for f in forums:
+                if f["id"] == p["forum"]:
+                    forum = f
+                    break
+            if not p["attachments"] and forum and not mochi.entity.get(forum["id"]):
+                p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
             # Get comments for this post
             p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
                 p["forum"], p["id"])
