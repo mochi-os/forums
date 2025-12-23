@@ -21,7 +21,7 @@ ROLE_TO_ACCESS = {
 def database_create():
     mochi.db.execute("create table settings ( name text not null primary key, value text not null )")
 
-    mochi.db.execute("create table forums ( id text not null primary key, fingerprint text not null, name text not null, access text not null default 'view', members integer not null default 0, updated integer not null )")
+    mochi.db.execute("create table forums ( id text not null primary key, fingerprint text not null, name text not null, members integer not null default 0, updated integer not null )")
     mochi.db.execute("create index forums_fingerprint on forums( fingerprint )")
     mochi.db.execute("create index forums_name on forums( name )")
     mochi.db.execute("create index forums_updated on forums( updated )")
@@ -72,8 +72,8 @@ def database_upgrade(version):
 
                 # Map role to access level
                 access_level = ROLE_TO_ACCESS.get(role)
-                if access_level:
-                    mochi.access.grant(member_id, resource, access_level)
+                if access_level and owner_id:
+                    mochi.access.allow(member_id, resource, access_level, owner_id)
 
         # Step 2: Rename forums.role to forums.access
         mochi.db.execute("alter table forums rename column role to access")
@@ -89,6 +89,41 @@ def database_upgrade(version):
         # Add edited timestamp to posts and comments for edit tracking
         mochi.db.execute("alter table posts add column edited integer not null default 0")
         mochi.db.execute("alter table comments add column edited integer not null default 0")
+
+    if version == 4:
+        # Remove access column - access is now handled entirely by mochi.access rules
+        mochi.db.execute("create table forums_new ( id text not null primary key, fingerprint text not null, name text not null, members integer not null default 0, updated integer not null )")
+        mochi.db.execute("insert into forums_new ( id, fingerprint, name, members, updated ) select id, fingerprint, name, members, updated from forums")
+        mochi.db.execute("drop table forums")
+        mochi.db.execute("alter table forums_new rename to forums")
+        mochi.db.execute("create index forums_fingerprint on forums( fingerprint )")
+        mochi.db.execute("create index forums_name on forums( name )")
+        mochi.db.execute("create index forums_updated on forums( updated )")
+
+    if version == 5:
+        # Previously ran but mochi.entity.info() didn't include creator
+        # Re-run in version 6
+        pass
+
+    if version == 6:
+        # Add default access rules for existing forums
+        # Previously these were implicit in code, now they're explicit in the access system
+        forums = mochi.db.rows("select id from forums")
+        for forum in forums:
+            forum_id = forum["id"]
+            resource = "forum/" + forum_id
+
+            # Get forum owner (entity creator)
+            entity = mochi.entity.info(forum_id)
+            owner_id = entity.get("creator") if entity else None
+
+            if owner_id:
+                # Owner has full access
+                mochi.access.allow(owner_id, resource, "*", owner_id)
+                # Authenticated users can post
+                mochi.access.allow("+", resource, "post", owner_id)
+                # Anyone can view
+                mochi.access.allow("*", resource, "view", owner_id)
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -170,9 +205,56 @@ def broadcast_event(forum_id, event, data, exclude=None):
 # View a forum or list all forums
 def action_view(a):
     forum_id = a.input("forum")
+    server = a.input("server")
+    user_id = a.user.identity.id if a.user else None
 
     if forum_id:
         forum = get_forum(forum_id)
+
+        # Determine if we need to fetch remotely
+        # Remote if: forum not found locally (will use server param or directory lookup)
+        is_remote = forum_id and not forum
+
+        # For remote forums, fetch via P2P
+        if is_remote:
+            if not user_id:
+                a.error(401, "Not logged in")
+                return
+
+            # Connect to specified server, or use directory lookup
+            peer = mochi.remote.peer(server) if server else None
+            if server and not peer:
+                a.error(502, "Unable to connect to server")
+                return
+
+            # Request forum data via P2P
+            response = mochi.remote.request(forum_id, "view", {"forum": forum_id}, peer)
+            if response.get("error"):
+                a.error(response.get("code", 403), response["error"])
+                return
+
+            # Return remote data in same format as local view
+            return {
+                "data": {
+                    "forum": {
+                        "id": forum_id,
+                        "name": response.get("name", ""),
+                        "fingerprint": response.get("fingerprint", mochi.entity.fingerprint(forum_id)),
+                        "members": 0,
+                        "updated": 0,
+                        "can_manage": False,
+                        "can_post": response.get("can_post", False),
+                    },
+                    "posts": response.get("posts", []),
+                    "member": None,
+                    "can_manage": False,
+                    "hasMore": False,
+                    "nextCursor": None,
+                    "remote": True,
+                    "server": server,
+                }
+            }
+
         if not forum:
             a.error(404, "Forum not found")
             return
@@ -283,26 +365,28 @@ def action_create(a):
         a.error(400, "Invalid name")
         return
 
-    # Default access level for new subscribers (must be valid)
-    access = a.input("access")
-    if not access or access not in ACCESS_LEVELS:
-        access = "view"
-
     # Create entity for the forum
     entity_id = mochi.entity.create("forum", name, "public", "")
     if not entity_id:
         a.error(500, "Failed to create forum entity")
         return
 
-    # Create forum record with default access level for new subscribers
+    # Create forum record
     entity_fp = mochi.entity.fingerprint(entity_id)
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, fingerprint, name, access, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
-        entity_id, entity_fp, name, access, 1, now)
+    mochi.db.execute("replace into forums ( id, fingerprint, name, members, updated ) values ( ?, ?, ?, ?, ? )",
+        entity_id, entity_fp, name, 1, now)
 
     # Add creator as subscriber (they have implicit manage access as entity owner)
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
         entity_id, a.user.identity.id, a.user.identity.name, now)
+
+    # Set default access rules
+    resource = "forum/" + entity_id
+    creator = a.user.identity.id
+    mochi.access.allow(creator, resource, "*", creator)  # Creator has full access
+    mochi.access.allow("+", resource, "post", creator)   # Authenticated users can post
+    mochi.access.allow("*", resource, "view", creator)   # Anyone can view
 
     return {
         "data": {"id": entity_id, "fingerprint": entity_fp}
@@ -411,6 +495,93 @@ def action_search(a):
         "data": {"results": results}
     }
 
+# Probe a remote forum by URL
+def action_probe(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    user_id = a.user.identity.id
+
+    url = a.input("url")
+    if not url:
+        a.error(400, "No URL provided")
+        return
+
+    # Parse URL to extract server and forum ID
+    # Expected formats:
+    #   https://example.com/forums/ENTITY_ID
+    #   https://example.com/forums/?forum=ENTITY_ID
+    #   http://example.com/forums/ENTITY_ID
+    #   example.com/forums/ENTITY_ID
+    server = ""
+    forum_id = ""
+    protocol = "https://"
+
+    # Extract and preserve protocol prefix
+    if url.startswith("https://"):
+        protocol = "https://"
+        url = url[8:]
+    elif url.startswith("http://"):
+        protocol = "http://"
+        url = url[7:]
+
+    # Split by /forums/ to get server and forum ID
+    if "/forums/" in url:
+        parts = url.split("/forums/", 1)
+        server = protocol + parts[0]
+        # Forum ID is everything after /forums/ up to next / or end
+        forum_path = parts[1]
+
+        # Handle query parameter format: ?forum=ENTITY_ID
+        if forum_path.startswith("?forum="):
+            forum_id = forum_path[7:]  # Remove "?forum="
+            # Strip any additional query params or fragments
+            if "&" in forum_id:
+                forum_id = forum_id.split("&")[0]
+            if "#" in forum_id:
+                forum_id = forum_id.split("#")[0]
+        elif "/" in forum_path:
+            forum_id = forum_path.split("/")[0]
+        else:
+            forum_id = forum_path
+            # Strip any query params or fragments from path format
+            if "?" in forum_id:
+                forum_id = forum_id.split("?")[0]
+            if "#" in forum_id:
+                forum_id = forum_id.split("#")[0]
+    else:
+        a.error(400, "Invalid URL format. Expected: https://server/forums/FORUM_ID")
+        return
+
+    if not server or server == protocol:
+        a.error(400, "Could not extract server from URL")
+        return
+
+    if not forum_id or not mochi.valid(forum_id, "entity"):
+        a.error(400, "Could not extract valid forum ID from URL")
+        return
+
+    # Connect to server and query forum info
+    peer = mochi.remote.peer(server)
+    if not peer:
+        a.error(502, "Unable to connect to server")
+        return
+
+    response = mochi.remote.request(forum_id, "info", {"forum": forum_id}, peer)
+    if response.get("error"):
+        a.error(404, response.get("error", "Forum not found"))
+        return
+
+    # Return forum info as a directory-like entry
+    return {"data": {
+        "id": forum_id,
+        "name": response.get("name", ""),
+        "fingerprint": response.get("fingerprint", ""),
+        "class": "forum",
+        "server": server,
+    }}
+
 # Edit forum members
 def action_members_edit(a):
     if not a.user:
@@ -490,10 +661,10 @@ def action_subscribe(a):
             "data": {"already_subscribed": True}
         }
 
-    # Create local forum record with default access level
+    # Create local forum record
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, fingerprint, name, access, members, updated ) values ( ?, ?, ?, ?, ?, ? )",
-        forum_id, forum["fingerprint"], forum["name"], "view", 0, now)
+    mochi.db.execute("replace into forums ( id, fingerprint, name, members, updated ) values ( ?, ?, ?, ?, ? )",
+        forum_id, forum["fingerprint"], forum["name"], 0, now)
 
     # Add self as subscriber
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
@@ -539,10 +710,72 @@ def action_unsubscribe(a):
         "data": {}
     }
 
+# Delete a forum (owner only)
+def action_delete(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    # Only owner can delete
+    if not mochi.entity.get(forum["id"]):
+        a.error(403, "Only the owner can delete this forum")
+        return
+
+    # Delete all local data
+    mochi.db.execute("delete from votes where forum=?", forum["id"])
+    mochi.db.execute("delete from comments where forum=?", forum["id"])
+    mochi.db.execute("delete from posts where forum=?", forum["id"])
+    mochi.db.execute("delete from members where forum=?", forum["id"])
+    mochi.db.execute("delete from forums where id=?", forum["id"])
+
+    # Revoke all access rules
+    resource = "forum/" + forum["id"]
+    for op in ACCESS_LEVELS + ["manage", "*"]:
+        mochi.access.revoke("*", resource, op)
+
+    # Delete the entity
+    mochi.entity.delete(forum["id"])
+
+    return {
+        "data": {}
+    }
+
 # View a post with comments
 def action_post_view(a):
     post_id = a.input("post")
+    forum_id = a.input("forum")
+    server = a.input("server")
+    user_id = a.user.identity.id if a.user else None
+
     post = mochi.db.row("select * from posts where id=?", post_id)
+
+    # If post not found locally, fetch remotely (via server param or directory lookup)
+    if not post and forum_id:
+        if not user_id:
+            a.error(401, "Not logged in")
+            return
+
+        # Connect to specified server, or use directory lookup
+        peer = mochi.remote.peer(server) if server else None
+        if server and not peer:
+            a.error(502, "Unable to connect to server")
+            return
+
+        # Request post data via P2P
+        response = mochi.remote.request(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer)
+        if response.get("error"):
+            a.error(response.get("code", 403), response["error"])
+            return
+
+        # Return remote data
+        return {"data": response}
+
     if not post:
         a.error(404, "Post not found")
         return
@@ -1128,21 +1361,11 @@ def action_attachment_view(a):
         a.error(400, "Invalid forum ID")
         return
 
-    # Check directory for the forum if not local
-    if not forum:
-        directory = mochi.directory.get(forum_id)
-        if not directory:
-            a.error(404, "Forum not found")
-            return
-
     # Create stream to forum owner and request attachment
-    s = mochi.stream(
-        {"from": user_id, "to": forum_id, "service": "forums", "event": "attachment/view"},
-        {}
-    )
-
-    # Write the attachment request
-    s.write({"attachment": attachment_id})
+    s = mochi.remote.stream(forum_id, "attachment/view", {"attachment": attachment_id})
+    if not s:
+        a.error(502, "Unable to connect to forum")
+        return
 
     # Read status response
     response = s.read()
@@ -1166,6 +1389,7 @@ def action_attachment_thumbnail(a):
 
     forum_id = a.input("forum")
     attachment_id = a.input("attachment")
+    server = a.input("server")
 
     if not attachment_id:
         a.error(400, "Missing attachment")
@@ -1204,21 +1428,17 @@ def action_attachment_thumbnail(a):
         a.error(400, "Invalid forum ID")
         return
 
-    # Check directory for the forum if not local
-    if not forum:
-        directory = mochi.directory.get(forum_id)
-        if not directory:
-            a.error(404, "Forum not found")
-            return
+    # Connect to server if provided
+    peer = mochi.remote.peer(server) if server else None
+    if server and not peer:
+        a.error(502, "Unable to connect to server")
+        return
 
     # Create stream to forum owner and request thumbnail
-    s = mochi.stream(
-        {"from": user_id, "to": forum_id, "service": "forums", "event": "attachment/view"},
-        {}
-    )
-
-    # Write the attachment request with thumbnail flag
-    s.write({"attachment": attachment_id, "thumbnail": True})
+    s = mochi.remote.stream(forum_id, "attachment/view", {"attachment": attachment_id, "thumbnail": True}, peer)
+    if not s:
+        a.error(502, "Unable to connect to forum")
+        return
 
     # Read status response
     response = s.read()
@@ -1254,26 +1474,45 @@ def action_access(a):
         a.error(403, "Not authorized")
         return
 
+    # Get owner - if we own this entity, use current user's info
+    owner = None
+    if mochi.entity.get(forum["id"]):
+        if a.user and a.user.identity:
+            owner = {"id": a.user.identity.id, "name": a.user.identity.name}
+
     resource = "forum/" + forum["id"]
+    rules = mochi.access.list.resource(resource)
 
-    # Build access list with current levels for each member
-    members = mochi.db.rows("select id, name from members where forum=?", forum["id"])
+    # Filter and resolve names for rules
     access_list = []
+    for rule in rules:
+        subject = rule.get("subject", "")
 
-    for m in members:
-        # Determine current access level
-        current_level = None
-        for op in ACCESS_LEVELS + ["*"]:
-            if mochi.access.check(m["id"], resource, op):
-                current_level = op
-                break
-        if mochi.access.check(m["id"], resource, "manage"):
-            current_level = "manage"
+        # Resolve names for subjects
+        name = ""
+        if subject and subject not in ("*", "+") and not subject.startswith("#"):
+            if subject.startswith("@"):
+                # Look up group name
+                group_id = subject[1:]  # Remove @ prefix
+                group = mochi.group.get(group_id)
+                if group:
+                    name = group.get("name", group_id)
+            elif mochi.valid(subject, "entity"):
+                # Try directory first (for user identities), then local entities
+                entry = mochi.directory.get(subject)
+                if entry:
+                    name = entry.get("name", "")
+                else:
+                    entity = mochi.entity.info(subject)
+                    if entity:
+                        name = entity.get("name", "")
 
+        is_owner = owner and subject == owner.get("id")
         access_list.append({
-            "id": m["id"],
-            "name": m["name"],
-            "level": current_level
+            "id": subject,
+            "name": name,
+            "level": rule.get("operation"),
+            "isOwner": is_owner
         })
 
     return {
@@ -1300,7 +1539,8 @@ def action_access_set(a):
         return
 
     target = a.input("target")
-    if not mochi.valid(target, "entity"):
+    # Allow special subjects (*, +), groups (@name), and valid entity IDs
+    if target not in ["*", "+"] and not target.startswith("@") and not mochi.valid(target, "entity"):
         a.error(400, "Invalid target")
         return
 
@@ -1310,13 +1550,14 @@ def action_access_set(a):
         return
 
     resource = "forum/" + forum["id"]
+    granter = a.user.identity.id
 
     # Revoke all existing access levels first
     for op in ACCESS_LEVELS + ["manage", "*"]:
         mochi.access.revoke(target, resource, op)
 
     # Grant the new level
-    mochi.access.grant(target, resource, level)
+    mochi.access.allow(target, resource, level, granter)
 
     return {
         "data": {"forum": forum["id"], "target": target, "level": level}
@@ -1338,7 +1579,8 @@ def action_access_revoke(a):
         return
 
     target = a.input("target")
-    if not mochi.valid(target, "entity"):
+    # Allow special subjects (*, +), groups (@name), and valid entity IDs
+    if target not in ["*", "+"] and not target.startswith("@") and not mochi.valid(target, "entity"):
         a.error(400, "Invalid target")
         return
 
@@ -1373,11 +1615,14 @@ def event_attachment_view(e):
         e.stream.write({"status": "404", "error": "Forum not found"})
         return
 
-    # Check access for the requester
-    requester = e.header("from")
-    if not check_event_access(requester, forum_id, "view"):
-        e.stream.write({"status": "403", "error": "Not authorized to view this forum"})
-        return
+    # Check access for private forums only (public forums allow anyone to view attachments)
+    entity = mochi.entity.info(forum_id)
+    forum_privacy = entity.get("privacy", "public") if entity else "public"
+    if forum_privacy == "private":
+        requester = e.header("from")
+        if not check_event_access(requester, forum_id, "view"):
+            e.stream.write({"status": "403", "error": "Not authorized to view this forum"})
+            return
 
     # Find the attachment by searching through posts in this forum
     posts = mochi.db.rows("select id from posts where forum=?", forum_id)
@@ -1873,12 +2118,6 @@ def event_subscribe_event(e):
         mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
             forum["id"], member_id, name, now)
 
-        # Grant default access level based on forum settings
-        resource = "forum/" + forum["id"]
-        default_access = forum.get("access", "view")
-        if default_access and default_access in ACCESS_LEVELS:
-            mochi.access.grant(member_id, resource, default_access)
-
         # Update member count
         members = mochi.db.rows("select id from members where forum=?", forum["id"])
         mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), now, forum["id"])
@@ -1929,12 +2168,143 @@ def event_update_event(e):
     forum = get_forum(e.content("from"))
     if not forum:
         return
-    
+
     members = e.content("members")
     if type(members) != "int" or members < 0:
         return
 
     mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
+
+# Handle info request for a forum (used by probe for remote forum lookup)
+def event_info(e):
+    forum_id = e.header("to")
+
+    # Get entity info
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    e.stream.write({
+        "id": entity["id"],
+        "name": entity["name"],
+        "fingerprint": entity.get("fingerprint", mochi.entity.fingerprint(forum_id)),
+        "privacy": entity.get("privacy", "public"),
+    })
+
+# Handle view request for a forum (used for remote forum viewing)
+def event_view(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+
+    # Get entity info - must be a forum we own
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    # Get forum from database
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    forum_name = entity.get("name", forum.get("name", ""))
+    forum_fingerprint = entity.get("fingerprint", mochi.entity.fingerprint(forum_id))
+    forum_privacy = entity.get("privacy", "public")
+
+    # Check access for private forums
+    if forum_privacy == "private":
+        can_view = check_event_access(requester, forum_id, "view")
+        if not can_view:
+            e.stream.write({"error": "Not authorized to view this forum"})
+            return
+
+    can_post = check_event_access(requester, forum_id, "post")
+
+    # Get posts for this forum
+    posts = mochi.db.rows("select * from posts where forum=? order by updated desc limit 100", forum_id)
+
+    # Format posts with comments
+    formatted_posts = []
+    for post in posts:
+        post_data = dict(post)
+        post_data["created_local"] = mochi.time.local(post["created"])
+        post_data["attachments"] = mochi.attachment.list(post["id"])
+        post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+            forum_id, post["id"])
+        formatted_posts.append(post_data)
+
+    e.stream.write({
+        "name": forum_name,
+        "fingerprint": forum_fingerprint,
+        "posts": formatted_posts,
+        "can_post": can_post,
+    })
+
+# Handle post view request for remote viewing
+def event_post_view(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+    post_id = e.content("post")
+
+    if not post_id:
+        e.stream.write({"error": "Post ID required"})
+        return
+
+    # Get entity info - must be a forum we own
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    # Get forum from database
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    forum_privacy = entity.get("privacy", "public")
+
+    # Check access for private forums
+    if forum_privacy == "private":
+        can_view = check_event_access(requester, forum_id, "view")
+        if not can_view:
+            e.stream.write({"error": "Not authorized to view this forum"})
+            return
+
+    # Get post
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum_id)
+    if not post:
+        e.stream.write({"error": "Post not found"})
+        return
+
+    can_vote = check_event_access(requester, forum_id, "vote")
+    can_comment = check_event_access(requester, forum_id, "comment")
+
+    post_data = dict(post)
+    post_data["created_local"] = mochi.time.local(post["created"])
+    post_data["user_vote"] = ""
+    post_data["attachments"] = mochi.attachment.list(post_id)
+
+    # Get top-level comments (simplified - no recursion for remote view)
+    comments = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+        forum_id, post_id)
+    for c in comments:
+        c["created_local"] = mochi.time.local(c["created"])
+        c["children"] = []
+        c["can_vote"] = can_vote
+        c["can_comment"] = can_comment
+        c["user_vote"] = ""
+
+    e.stream.write({
+        "forum": forum,
+        "post": post_data,
+        "comments": comments,
+        "member": None,
+        "can_vote": can_vote,
+        "can_comment": can_comment,
+    })
 
 # CROSS-APP PROXY ACTIONS
 
@@ -1943,8 +2313,8 @@ def action_users_search(a):
     if not a.user:
         a.error(401, "Not logged in")
         return
-    query = a.input("query", "")
-    results = mochi.service.call("people", "users/search", query)
+    query = a.input("search", "")
+    results = mochi.service.call("friends", "users/search", query)
     return {"data": {"results": results}}
 
 # Proxy groups list to people app
@@ -1952,5 +2322,5 @@ def action_groups(a):
     if not a.user:
         a.error(401, "Not logged in")
         return
-    groups = mochi.service.call("people", "groups/list")
+    groups = mochi.service.call("friends", "groups/list")
     return {"data": {"groups": groups}}
