@@ -112,7 +112,7 @@ function ForumPage() {
   }
 
   return (
-    <Main fixed>
+    <Main>
       {isLoadingForum ? (
         <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
           <div className="flex flex-col items-center gap-2">
