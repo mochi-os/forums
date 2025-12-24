@@ -100,7 +100,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
 
   if (isLoading) {
     return (
-      <Main fixed>
+      <Main>
         <div className="text-center py-12 text-muted-foreground">
           Loading post...
         </div>
@@ -110,7 +110,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
 
   if (!postData?.data?.post) {
     return (
-      <Main fixed>
+      <Main>
         <Button
           variant="ghost"
           className="mb-6 h-auto px-0 text-muted-foreground hover:text-foreground"
@@ -145,7 +145,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
   }
 
   return (
-    <Main fixed>
+    <Main>
       {/* Post Content with Voting */}
       <div className="space-y-4">
         <ThreadContent

@@ -36,7 +36,7 @@ export function Forums() {
   }, [allPosts, forums])
 
   return (
-    <Main fixed>
+    <Main>
       <ForumOverview
         forum={null}
         posts={postsToDisplay}
