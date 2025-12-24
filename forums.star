@@ -893,23 +893,9 @@ def action_post_edit(a):
         a.error(401, "Not logged in")
         return
 
+    forum_id = a.input("forum")
     post_id = a.input("post")
-    post = mochi.db.row("select * from posts where id=?", post_id)
-    if not post:
-        a.error(404, "Post not found")
-        return
-
-    forum = get_forum(post["forum"])
-    if not forum:
-        a.error(404, "Forum not found")
-        return
-
-    # Check authorization: post author or forum manager
-    is_author = a.user.identity.id == post["member"]
-    is_manager = check_access(a, forum["id"], "manage")
-    if not is_author and not is_manager:
-        a.error(403, "Not authorized to edit this post")
-        return
+    user_id = a.user.identity.id
 
     title = a.input("title")
     if not mochi.valid(title, "name"):
@@ -921,67 +907,100 @@ def action_post_edit(a):
         a.error(400, "Invalid body")
         return
 
-    now = mochi.time.now()
+    post = mochi.db.row("select * from posts where id=?", post_id)
+    forum = get_forum(forum_id)
 
-    # Handle attachment changes
-    # order_json is a JSON array of attachment IDs (existing) and "new:N" placeholders
-    order_json = a.input("order")
-    if order_json:
-        order = json.decode(order_json)
-    else:
-        order = []
+    # Check if we have the post locally
+    if post and forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
 
-    # Get current attachments to determine which to delete
-    current_attachments = mochi.attachment.list(post_id)
-    current_ids = [att["id"] for att in current_attachments]
+        if is_owner:
+            # Owner processes locally - full edit with attachments
+            is_author = user_id == post["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
+                a.error(403, "Not authorized to edit this post")
+                return
 
-    # Get members for attachment notifications
-    members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
+            now = mochi.time.now()
 
-    # Save new attachments first (if any files were uploaded)
-    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], members)
+            # Handle attachment changes
+            order_json = a.input("order")
+            if order_json:
+                order = json.decode(order_json)
+            else:
+                order = []
 
-    # Build final order by replacing "new:N" placeholders with actual IDs
-    final_order = []
-    for item in order:
-        if item.startswith("new:"):
-            idx = int(item[4:])
-            if idx < len(new_attachments):
-                final_order.append(new_attachments[idx]["id"])
+            current_attachments = mochi.attachment.list(post_id)
+            current_ids = [att["id"] for att in current_attachments]
+            members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], members)
+
+            final_order = []
+            for item in order:
+                if item.startswith("new:"):
+                    idx = int(item[4:])
+                    if idx < len(new_attachments):
+                        final_order.append(new_attachments[idx]["id"])
+                else:
+                    final_order.append(item)
+
+            if final_order:
+                for att_id in current_ids:
+                    if att_id not in final_order:
+                        mochi.attachment.delete(att_id, members)
+                for i, att_id in enumerate(final_order):
+                    mochi.attachment.move(att_id, i + 1, members)
+            else:
+                for att_id in current_ids:
+                    mochi.attachment.delete(att_id, members)
+
+            mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
+                title, body, now, now, post_id)
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            post_data = {
+                "id": post_id,
+                "title": title,
+                "body": body,
+                "edited": now
+            }
+            broadcast_event(forum["id"], "post/edit", post_data, user_id)
         else:
-            final_order.append(item)
+            # Subscriber - must be author to edit
+            if user_id != post["member"]:
+                a.error(403, "Not authorized to edit this post")
+                return
 
-    if final_order:
-        # Delete attachments not in the final order
-        for att_id in current_ids:
-            if att_id not in final_order:
-                mochi.attachment.delete(att_id, members)
+            # Send edit request to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/edit/submit"},
+                {"id": post_id, "title": title, "body": body}
+            )
 
-        # Reorder all attachments according to final order (positions start at 1)
-        for i, att_id in enumerate(final_order):
-            mochi.attachment.move(att_id, i + 1, members)
-    else:
-        # No attachments in order - delete all existing
-        for att_id in current_ids:
-            mochi.attachment.delete(att_id, members)
+            # Update locally for optimistic UI
+            now = mochi.time.now()
+            mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
+                title, body, now, now, post_id)
 
-    # Update the post
-    mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
-        title, body, now, now, post_id)
+        return {
+            "data": {"forum": forum_id, "post": post_id}
+        }
 
-    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+    # Post not found locally - send edit to remote forum
+    if not mochi.valid(forum_id, "entity"):
+        a.error(404, "Forum not found")
+        return
 
-    # Broadcast update to members
-    post_data = {
-        "id": post_id,
-        "title": title,
-        "body": body,
-        "edited": now
-    }
-    broadcast_event(forum["id"], "post/edit", post_data, a.user.identity.id)
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "post/edit/submit"},
+        {"id": post_id, "title": title, "body": body}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": post_id}
+        "data": {"forum": forum_id, "post": post_id}
     }
 
 # Delete a post
@@ -990,46 +1009,79 @@ def action_post_delete(a):
         a.error(401, "Not logged in")
         return
 
+    forum_id = a.input("forum")
     post_id = a.input("post")
-    post = mochi.db.row("select * from posts where id=?", post_id)
-    if not post:
-        a.error(404, "Post not found")
-        return
+    user_id = a.user.identity.id
 
-    forum = get_forum(post["forum"])
-    if not forum:
+    post = mochi.db.row("select * from posts where id=?", post_id)
+    forum = get_forum(forum_id)
+
+    # Check if we have the post locally
+    if post and forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
+
+        if is_owner:
+            # Owner processes locally
+            is_author = user_id == post["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
+                a.error(403, "Not authorized to delete this post")
+                return
+
+            # Delete all attachments for this post
+            attachments = mochi.attachment.list(post_id)
+            for att in attachments:
+                mochi.attachment.delete(att["id"])
+
+            # Delete votes for all comments on this post
+            mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
+
+            # Delete all comments on this post
+            mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
+
+            # Delete the post
+            mochi.db.execute("delete from posts where id=?", post_id)
+
+            now = mochi.time.now()
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            # Broadcast delete to members
+            broadcast_event(forum["id"], "post/delete", {"id": post_id}, user_id)
+        else:
+            # Subscriber - must be author to delete
+            if user_id != post["member"]:
+                a.error(403, "Not authorized to delete this post")
+                return
+
+            # Send delete request to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/delete/submit"},
+                {"id": post_id}
+            )
+
+            # Delete locally for optimistic UI
+            mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
+            mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
+            mochi.db.execute("delete from posts where id=?", post_id)
+
+        return {
+            "data": {"forum": forum_id}
+        }
+
+    # Post not found locally - send delete to remote forum
+    if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
         return
 
-    # Check authorization: post author or forum manager
-    is_author = a.user.identity.id == post["member"]
-    is_manager = check_access(a, forum["id"], "manage")
-    if not is_author and not is_manager:
-        a.error(403, "Not authorized to delete this post")
-        return
-
-    # Delete all attachments for this post
-    attachments = mochi.attachment.list(post_id)
-    for att in attachments:
-        mochi.attachment.delete(att["id"])
-
-    # Delete votes for all comments on this post
-    mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
-
-    # Delete all comments on this post
-    mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
-
-    # Delete the post
-    mochi.db.execute("delete from posts where id=?", post_id)
-
-    now = mochi.time.now()
-    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-
-    # Broadcast delete to members
-    broadcast_event(forum["id"], "post/delete", {"id": post_id}, a.user.identity.id)
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "post/delete/submit"},
+        {"id": post_id}
+    )
 
     return {
-        "data": {"forum": forum["id"]}
+        "data": {"forum": forum_id}
     }
 
 # Form for new comment
@@ -1148,47 +1200,78 @@ def action_comment_edit(a):
         a.error(401, "Not logged in")
         return
 
+    forum_id = a.input("forum")
+    post_id = a.input("post")
     comment_id = a.input("comment")
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
-    if not comment:
-        a.error(404, "Comment not found")
-        return
-
-    forum = get_forum(comment["forum"])
-    if not forum:
-        a.error(404, "Forum not found")
-        return
-
-    # Check authorization: comment author or forum manager
-    is_author = a.user.identity.id == comment["member"]
-    is_manager = check_access(a, forum["id"], "manage")
-    if not is_author and not is_manager:
-        a.error(403, "Not authorized to edit this comment")
-        return
+    user_id = a.user.identity.id
 
     body = a.input("body")
     if not mochi.valid(body, "text"):
         a.error(400, "Invalid body")
         return
 
-    now = mochi.time.now()
+    comment = mochi.db.row("select * from comments where id=?", comment_id)
+    forum = get_forum(forum_id)
 
-    # Update the comment
-    mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
-    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
-    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+    # Check if we have the comment locally
+    if comment and forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
 
-    # Broadcast update to members
-    comment_data = {
-        "id": comment_id,
-        "post": comment["post"],
-        "body": body,
-        "edited": now
-    }
-    broadcast_event(forum["id"], "comment/edit", comment_data, a.user.identity.id)
+        if is_owner:
+            # Owner processes locally
+            is_author = user_id == comment["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
+                a.error(403, "Not authorized to edit this comment")
+                return
+
+            now = mochi.time.now()
+
+            mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
+            mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            comment_data = {
+                "id": comment_id,
+                "post": comment["post"],
+                "body": body,
+                "edited": now
+            }
+            broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
+        else:
+            # Subscriber - must be author to edit
+            if user_id != comment["member"]:
+                a.error(403, "Not authorized to edit this comment")
+                return
+
+            # Send edit request to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/edit/submit"},
+                {"id": comment_id, "body": body}
+            )
+
+            # Update locally for optimistic UI
+            now = mochi.time.now()
+            mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
+
+        return {
+            "data": {"forum": forum_id, "post": post_id, "comment": comment_id}
+        }
+
+    # Comment not found locally - send edit to remote forum
+    if not mochi.valid(forum_id, "entity"):
+        a.error(404, "Forum not found")
+        return
+
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/edit/submit"},
+        {"id": comment_id, "body": body}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": comment["post"], "comment": comment_id}
+        "data": {"forum": forum_id, "post": post_id, "comment": comment_id}
     }
 
 # Delete a comment (and all children)
@@ -1197,59 +1280,92 @@ def action_comment_delete(a):
         a.error(401, "Not logged in")
         return
 
+    forum_id = a.input("forum")
+    post_id = a.input("post")
     comment_id = a.input("comment")
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
-    if not comment:
-        a.error(404, "Comment not found")
-        return
+    user_id = a.user.identity.id
 
-    forum = get_forum(comment["forum"])
-    if not forum:
+    comment = mochi.db.row("select * from comments where id=?", comment_id)
+    forum = get_forum(forum_id)
+
+    # Helper to recursively collect descendant comment IDs
+    def collect_descendants(forum_id, post_id, parent_id):
+        ids = []
+        children = mochi.db.rows("select id from comments where forum=? and post=? and parent=?",
+            forum_id, post_id, parent_id)
+        for child in children:
+            ids.append(child["id"])
+            ids.extend(collect_descendants(forum_id, post_id, child["id"]))
+        return ids
+
+    # Check if we have the comment locally
+    if comment and forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
+
+        if is_owner:
+            # Owner processes locally
+            is_author = user_id == comment["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
+                a.error(403, "Not authorized to delete this comment")
+                return
+
+            comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
+            deleted_count = len(comment_ids)
+
+            for cid in comment_ids:
+                mochi.db.execute("delete from votes where comment=?", cid)
+            for cid in comment_ids:
+                mochi.db.execute("delete from comments where id=?", cid)
+
+            now = mochi.time.now()
+            mochi.db.execute("update posts set updated=?, comments=comments-? where id=?",
+                now, deleted_count, comment["post"])
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            broadcast_event(forum["id"], "comment/delete",
+                {"ids": comment_ids, "post": comment["post"]}, user_id)
+        else:
+            # Subscriber - must be author to delete
+            if user_id != comment["member"]:
+                a.error(403, "Not authorized to delete this comment")
+                return
+
+            # Send delete request to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/delete/submit"},
+                {"id": comment_id}
+            )
+
+            # Delete locally for optimistic UI
+            comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
+            deleted_count = len(comment_ids)
+
+            for cid in comment_ids:
+                mochi.db.execute("delete from votes where comment=?", cid)
+            for cid in comment_ids:
+                mochi.db.execute("delete from comments where id=?", cid)
+
+            mochi.db.execute("update posts set comments=comments-? where id=?", deleted_count, comment["post"])
+
+        return {
+            "data": {"forum": forum_id, "post": post_id}
+        }
+
+    # Comment not found locally - send delete to remote forum
+    if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
         return
 
-    # Check authorization: comment author or forum manager
-    is_author = a.user.identity.id == comment["member"]
-    is_manager = check_access(a, forum["id"], "manage")
-    if not is_author and not is_manager:
-        a.error(403, "Not authorized to delete this comment")
-        return
-
-    # Recursively collect all descendant comment IDs
-    def collect_descendants(parent_id):
-        ids = []
-        children = mochi.db.rows("select id from comments where forum=? and post=? and parent=?",
-            forum["id"], comment["post"], parent_id)
-        for child in children:
-            ids.append(child["id"])
-            ids.extend(collect_descendants(child["id"]))
-        return ids
-
-    # Get all comment IDs to delete (this comment + descendants)
-    comment_ids = [comment_id] + collect_descendants(comment_id)
-    deleted_count = len(comment_ids)
-
-    # Delete votes for all affected comments
-    for cid in comment_ids:
-        mochi.db.execute("delete from votes where comment=?", cid)
-
-    # Delete all affected comments
-    for cid in comment_ids:
-        mochi.db.execute("delete from comments where id=?", cid)
-
-    now = mochi.time.now()
-
-    # Update comment count on post
-    mochi.db.execute("update posts set updated=?, comments=comments-? where id=?",
-        now, deleted_count, comment["post"])
-    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-
-    # Broadcast delete to members (include all deleted IDs)
-    broadcast_event(forum["id"], "comment/delete",
-        {"ids": comment_ids, "post": comment["post"]}, a.user.identity.id)
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/delete/submit"},
+        {"id": comment_id}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": comment["post"]}
+        "data": {"forum": forum_id, "post": post_id}
     }
 
 # Vote on a post
@@ -1900,6 +2016,93 @@ def event_comment_submit_event(e):
 
     broadcast_event(forum["id"], "comment/create", comment_data, sender_id)
 
+# Received a comment edit request from member (we are forum owner)
+def event_comment_edit_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender_id = e.header("from")
+    comment_id = e.content("id")
+    if not mochi.valid(comment_id, "id"):
+        return
+
+    comment = mochi.db.row("select * from comments where forum=? and id=?", forum["id"], comment_id)
+    if not comment:
+        return
+
+    # Check authorization: must be comment author
+    if sender_id != comment["member"]:
+        return
+
+    body = e.content("body")
+    if not mochi.valid(body, "text"):
+        return
+
+    now = mochi.time.now()
+
+    # Update the comment
+    mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+    # Broadcast update to all members
+    comment_data = {
+        "id": comment_id,
+        "post": comment["post"],
+        "body": body,
+        "edited": now
+    }
+    broadcast_event(forum["id"], "comment/edit", comment_data)
+
+# Received a comment delete request from member (we are forum owner)
+def event_comment_delete_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender_id = e.header("from")
+    comment_id = e.content("id")
+    if not mochi.valid(comment_id, "id"):
+        return
+
+    comment = mochi.db.row("select * from comments where forum=? and id=?", forum["id"], comment_id)
+    if not comment:
+        return
+
+    # Check authorization: must be comment author
+    if sender_id != comment["member"]:
+        return
+
+    # Recursively collect all descendant comment IDs
+    def collect_descendants(parent_id):
+        ids = []
+        children = mochi.db.rows("select id from comments where forum=? and post=? and parent=?",
+            forum["id"], comment["post"], parent_id)
+        for child in children:
+            ids.append(child["id"])
+            ids.extend(collect_descendants(child["id"]))
+        return ids
+
+    # Get all comment IDs to delete (this comment + descendants)
+    comment_ids = [comment_id] + collect_descendants(comment_id)
+    deleted_count = len(comment_ids)
+
+    # Delete votes for these comments
+    for cid in comment_ids:
+        mochi.db.execute("delete from votes where comment=?", cid)
+
+    # Delete the comments
+    for cid in comment_ids:
+        mochi.db.execute("delete from comments where id=?", cid)
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set updated=?, comments=comments-? where id=?", now, deleted_count, comment["post"])
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+    # Broadcast delete to all members (they will recursively delete descendants)
+    broadcast_event(forum["id"], "comment/delete", {"id": comment_id, "post": comment["post"]})
+
 # Received a comment update from forum owner
 def event_comment_update_event(e):
     id = e.content("id")
@@ -2120,6 +2323,87 @@ def event_post_submit_event(e):
     }
 
     broadcast_event(forum["id"], "post/create", post_data, sender_id)
+
+# Received a post edit request from member (we are forum owner)
+def event_post_edit_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender_id = e.header("from")
+    post_id = e.content("id")
+    if not mochi.valid(post_id, "id"):
+        return
+
+    post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
+    if not post:
+        return
+
+    # Check authorization: must be post author
+    if sender_id != post["member"]:
+        return
+
+    title = e.content("title")
+    if not mochi.valid(title, "name"):
+        return
+
+    body = e.content("body")
+    if not mochi.valid(body, "text"):
+        return
+
+    now = mochi.time.now()
+
+    # Update the post
+    mochi.db.execute("update posts set title=?, body=?, updated=? where id=?", title, body, now, post_id)
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+    # Broadcast update to all members
+    post_data = {
+        "id": post_id,
+        "title": title,
+        "body": body,
+        "updated": now
+    }
+    broadcast_event(forum["id"], "post/update", post_data)
+
+# Received a post delete request from member (we are forum owner)
+def event_post_delete_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender_id = e.header("from")
+    post_id = e.content("id")
+    if not mochi.valid(post_id, "id"):
+        return
+
+    post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
+    if not post:
+        return
+
+    # Check authorization: must be post author
+    if sender_id != post["member"]:
+        return
+
+    # Delete all attachments for this post
+    attachments = mochi.attachment.list(post_id)
+    for att in attachments:
+        mochi.attachment.delete(att["id"])
+
+    # Delete votes for all comments on this post
+    mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
+
+    # Delete all comments on this post
+    mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
+
+    # Delete the post
+    mochi.db.execute("delete from posts where id=?", post_id)
+
+    now = mochi.time.now()
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+    # Broadcast delete to all members
+    broadcast_event(forum["id"], "post/delete", {"id": post_id})
 
 # Received a post update from forum owner
 def event_post_update_event(e):
