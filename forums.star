@@ -205,7 +205,7 @@ def check_event_access(user_id, forum_id, operation):
                 # User-specific rule doesn't grant access, but continue to check member fallback
                 break
 
-    # No user-specific rule or it didn't grant access - use normal access checks
+    # No user-specific rule - check normal access levels
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
@@ -340,8 +340,18 @@ def action_view(a):
             next_cursor = posts[-1]["updated"]
 
         # Add access flags to forum object
-        forum["can_manage"] = check_access(a, forum["id"], "manage")
-        forum["can_post"] = check_access(a, forum["id"], "post")
+        # For owned forums, check locally. For subscribed forums, query owner.
+        is_owner = mochi.entity.get(forum["id"])
+        if is_owner:
+            forum["can_manage"] = check_access(a, forum["id"], "manage")
+            forum["can_post"] = check_access(a, forum["id"], "post")
+        else:
+            forum["can_manage"] = False  # Subscribers can never manage
+            # Query owner for post access
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["post"]
+            })
+            forum["can_post"] = access_response.get("post", False)
 
         return {
             "data": {
@@ -359,9 +369,19 @@ def action_view(a):
         posts = mochi.db.rows("select * from posts order by updated desc")
 
         # Add access flags to each forum
+        # For owned forums, check locally. For subscribed forums, query owner.
         for f in forums:
-            f["can_manage"] = check_access(a, f["id"], "manage")
-            f["can_post"] = check_access(a, f["id"], "post")
+            is_owner = mochi.entity.get(f["id"])
+            if is_owner:
+                f["can_manage"] = check_access(a, f["id"], "manage")
+                f["can_post"] = check_access(a, f["id"], "post")
+            else:
+                f["can_manage"] = False  # Subscribers can never manage
+                # Query owner for post access
+                access_response = mochi.remote.request(f["id"], "access/check", {
+                    "operations": ["post"]
+                })
+                f["can_post"] = access_response.get("post", False)
 
         for p in posts:
             p["created_local"] = mochi.time.local(p["created"])
@@ -2101,6 +2121,11 @@ def event_comment_create_event(e):
     if not mochi.valid(body, "text"):
         return
 
+    # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
+    now = mochi.time.now()
+    if created > now + 86400 or created < now - 31536000:
+        return
+
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, up, down, created)
 
@@ -2426,6 +2451,11 @@ def event_post_create_event(e):
     if not mochi.valid(title, "name"):
         return
     if not mochi.valid(body, "text"):
+        return
+
+    # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
+    now = mochi.time.now()
+    if created > now + 86400 or created < now - 31536000:
         return
 
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
@@ -2892,6 +2922,25 @@ def event_view(e):
         "posts": formatted_posts,
         "can_post": can_post,
     })
+
+# Handle access check request from subscribers
+def event_access_check(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+    operations = e.content("operations") or []
+
+    # Get entity info - must be a forum we own
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    # Check each requested operation
+    result = {}
+    for op in operations:
+        result[op] = check_event_access(requester, forum_id, op)
+
+    e.stream.write(result)
 
 # Handle post view request for remote viewing
 def event_post_view(e):
