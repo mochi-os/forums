@@ -2414,12 +2414,16 @@ def event_post_edit_submit_event(e):
 
     # Handle attachment changes
     order = e.content("order") or []
-    delete_ids = e.content("delete") or []
     members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
 
-    # Delete specified attachments
-    for att_id in delete_ids:
-        mochi.attachment.delete(att_id, members)
+    # Get current attachments and delete any not in the order list
+    current_attachments = mochi.attachment.list(post_id)
+    current_ids = [att["id"] for att in current_attachments]
+
+    # Delete attachments not in order (those being removed)
+    for att_id in current_ids:
+        if att_id not in order:
+            mochi.attachment.delete(att_id, members)
 
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
