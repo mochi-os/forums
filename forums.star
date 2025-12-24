@@ -1258,15 +1258,8 @@ def action_post_vote(a):
         a.error(401, "Not logged in")
         return
 
-    post = mochi.db.row("select * from posts where id=?", a.input("post"))
-    if not post:
-        a.error(404, "Post not found")
-        return
-
-    forum = get_forum(post["forum"])
-    if not forum:
-        a.error(404, "Forum not found")
-        return
+    post_id = a.input("post")
+    forum_id = a.input("forum")
 
     vote = a.input("vote")
     # "none" in URL path means remove vote
@@ -1278,61 +1271,84 @@ def action_post_vote(a):
 
     user_id = a.user.identity.id
 
-    # Check if we own this forum (entity.get returns list, check if non-empty)
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    # Try to find post locally
+    post = mochi.db.row("select * from posts where id=?", post_id)
 
-    if is_owner:
-        # Owner checks access locally
-        if not check_access(a, forum["id"], "vote"):
-            a.error(403, "Not authorized to vote")
+    if post:
+        forum = get_forum(post["forum"])
+        if not forum:
+            a.error(404, "Forum not found")
             return
-        # We own the forum - process locally and broadcast to members
-        # Remove old vote if exists
-        old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
-        if old_vote:
-            if old_vote["vote"] == "up":
-                mochi.db.execute("update posts set up=up-1 where id=?", post["id"])
-            elif old_vote["vote"] == "down":
-                mochi.db.execute("update posts set down=down-1 where id=?", post["id"])
 
-        # Add new vote or remove if empty
-        if vote == "":
-            mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
+
+        if is_owner:
+            # Owner checks access locally
+            if not check_access(a, forum["id"], "vote"):
+                a.error(403, "Not authorized to vote")
+                return
+            # We own the forum - process locally and broadcast to members
+            # Remove old vote if exists
+            old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
+            if old_vote:
+                if old_vote["vote"] == "up":
+                    mochi.db.execute("update posts set up=up-1 where id=?", post["id"])
+                elif old_vote["vote"] == "down":
+                    mochi.db.execute("update posts set down=down-1 where id=?", post["id"])
+
+            # Add new vote or remove if empty
+            if vote == "":
+                mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
+            else:
+                mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
+                    forum["id"], post["id"], user_id, vote)
+
+                if vote == "up":
+                    mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
+                elif vote == "down":
+                    mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
+
+            now = mochi.time.now()
+            mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            # Broadcast update to members
+            updated_post = mochi.db.row("select up, down from posts where id=?", post["id"])
+            broadcast_event(forum["id"], "post/update",
+                {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"]},
+                user_id)
         else:
-            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
-                forum["id"], post["id"], user_id, vote)
+            # We're a subscriber - send vote to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/vote"},
+                {"post": post["id"], "vote": vote if vote else "none"}
+            )
 
-            if vote == "up":
-                mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
-            elif vote == "down":
-                mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
+            # Save vote locally for optimistic UI
+            if vote == "":
+                mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
+            else:
+                mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
+                    forum["id"], post["id"], user_id, vote)
 
-        now = mochi.time.now()
-        mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
-        mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+        return {
+            "data": {"forum": forum["id"], "post": post["id"]}
+        }
 
-        # Broadcast update to members
-        updated_post = mochi.db.row("select up, down from posts where id=?", post["id"])
-        broadcast_event(forum["id"], "post/update",
-            {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"]},
-            user_id)
-    else:
-        # We're a subscriber - send vote to forum owner
-        mochi.message.send(
-            {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/vote"},
-            {"post": post["id"], "vote": vote if vote else "none"}
-        )
+    # Post not found locally - send vote to remote forum
+    if not forum_id or not mochi.valid(forum_id, "entity"):
+        a.error(404, "Post not found")
+        return
 
-        # Save vote locally for optimistic UI
-        if vote == "":
-            mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
-        else:
-            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
-                forum["id"], post["id"], user_id, vote)
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "post/vote"},
+        {"post": post_id, "vote": vote if vote else "none"}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": post["id"]}
+        "data": {"forum": forum_id, "post": post_id}
     }
 
 # Vote on a comment
@@ -1341,15 +1357,8 @@ def action_comment_vote(a):
         a.error(401, "Not logged in")
         return
 
-    comment = mochi.db.row("select * from comments where id=?", a.input("comment"))
-    if not comment:
-        a.error(404, "Comment not found")
-        return
-
-    forum = get_forum(comment["forum"])
-    if not forum:
-        a.error(404, "Forum not found")
-        return
+    comment_id = a.input("comment")
+    forum_id = a.input("forum")
 
     vote = a.input("vote")
     # "none" in URL path means remove vote
@@ -1361,61 +1370,84 @@ def action_comment_vote(a):
 
     user_id = a.user.identity.id
 
-    # Check if we own this forum (entity.get returns list, check if non-empty)
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    # Try to find comment locally
+    comment = mochi.db.row("select * from comments where id=?", comment_id)
 
-    if is_owner:
-        # Owner checks access locally
-        if not check_access(a, forum["id"], "vote"):
-            a.error(403, "Not authorized to vote")
+    if comment:
+        forum = get_forum(comment["forum"])
+        if not forum:
+            a.error(404, "Forum not found")
             return
-        # We own the forum - process locally and broadcast to members
-        # Remove old vote if exists
-        old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], user_id)
-        if old_vote:
-            if old_vote["vote"] == "up":
-                mochi.db.execute("update comments set up=up-1 where id=?", comment["id"])
-            elif old_vote["vote"] == "down":
-                mochi.db.execute("update comments set down=down-1 where id=?", comment["id"])
 
-        # Add new vote or remove if empty
-        if vote == "":
-            mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
+
+        if is_owner:
+            # Owner checks access locally
+            if not check_access(a, forum["id"], "vote"):
+                a.error(403, "Not authorized to vote")
+                return
+            # We own the forum - process locally and broadcast to members
+            # Remove old vote if exists
+            old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], user_id)
+            if old_vote:
+                if old_vote["vote"] == "up":
+                    mochi.db.execute("update comments set up=up-1 where id=?", comment["id"])
+                elif old_vote["vote"] == "down":
+                    mochi.db.execute("update comments set down=down-1 where id=?", comment["id"])
+
+            # Add new vote or remove if empty
+            if vote == "":
+                mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
+            else:
+                mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+                    forum["id"], comment["post"], comment["id"], user_id, vote)
+
+                if vote == "up":
+                    mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
+                elif vote == "down":
+                    mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
+
+            now = mochi.time.now()
+            mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            # Broadcast update to members
+            updated_comment = mochi.db.row("select up, down from comments where id=?", comment["id"])
+            broadcast_event(forum["id"], "comment/update",
+                {"id": comment["id"], "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
+                user_id)
         else:
-            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
-                forum["id"], comment["post"], comment["id"], user_id, vote)
+            # We're a subscriber - send vote to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/vote"},
+                {"comment": comment["id"], "vote": vote if vote else "none"}
+            )
 
-            if vote == "up":
-                mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
-            elif vote == "down":
-                mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
+            # Save vote locally for optimistic UI
+            if vote == "":
+                mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
+            else:
+                mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+                    forum["id"], comment["post"], comment["id"], user_id, vote)
 
-        now = mochi.time.now()
-        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
-        mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+        return {
+            "data": {"forum": forum["id"], "post": comment["post"]}
+        }
 
-        # Broadcast update to members
-        updated_comment = mochi.db.row("select up, down from comments where id=?", comment["id"])
-        broadcast_event(forum["id"], "comment/update",
-            {"id": comment["id"], "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
-            user_id)
-    else:
-        # We're a subscriber - send vote to forum owner
-        mochi.message.send(
-            {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/vote"},
-            {"comment": comment["id"], "vote": vote if vote else "none"}
-        )
+    # Comment not found locally - send vote to remote forum
+    if not forum_id or not mochi.valid(forum_id, "entity"):
+        a.error(404, "Comment not found")
+        return
 
-        # Save vote locally for optimistic UI
-        if vote == "":
-            mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
-        else:
-            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
-                forum["id"], comment["post"], comment["id"], user_id, vote)
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/vote"},
+        {"comment": comment_id, "vote": vote if vote else "none"}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": comment["post"]}
+        "data": {"forum": forum_id, "comment": comment_id}
     }
 
 
@@ -2398,8 +2430,11 @@ def event_post_view(e):
 
     post_data = dict(post)
     post_data["created_local"] = mochi.time.local(post["created"])
-    post_data["user_vote"] = ""
     post_data["attachments"] = mochi.attachment.list(post_id)
+
+    # Get requester's vote on the post
+    post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
+    post_data["user_vote"] = post_vote["vote"] if post_vote else ""
 
     # Get comments recursively
     def get_comments(parent_id, depth):
@@ -2414,7 +2449,9 @@ def event_post_view(e):
             c["children"] = get_comments(c["id"], depth + 1)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
-            c["user_vote"] = ""
+            # Get requester's vote on this comment
+            comment_vote = mochi.db.row("select vote from votes where comment=? and voter=?", c["id"], requester)
+            c["user_vote"] = comment_vote["vote"] if comment_vote else ""
 
         return comments
 
