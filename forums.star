@@ -1818,8 +1818,13 @@ def event_comment_create_event(e):
     if not mochi.valid(id, "id"):
         return
 
+    up = e.content("up") or 0
+    down = e.content("down") or 0
+
+    # If comment exists, just update vote counts (for subscription sync)
     if mochi.db.exists("select id from comments where id=?", id):
-        return  # Duplicate
+        mochi.db.execute("update comments set up=?, down=? where id=?", up, down, id)
+        return
 
     post = e.content("post")
     parent = e.content("parent") or ""
@@ -1835,17 +1840,10 @@ def event_comment_create_event(e):
     if not mochi.valid(body, "text"):
         return
 
-    up = e.content("up") or 0
-    down = e.content("down") or 0
-
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, up, down, created)
 
-    # Only increment comment count if this is a new comment (not a sync with existing count)
-    if not e.content("up") and not e.content("down"):
-        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
-    else:
-        mochi.db.execute("update posts set updated=? where id=?", created, post)
+    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
 # Received a comment submission from member (we are forum owner)
@@ -2044,8 +2042,14 @@ def event_post_create_event(e):
     if not mochi.valid(id, "id"):
         return
 
+    up = e.content("up") or 0
+    down = e.content("down") or 0
+    comments_count = e.content("comments") or 0
+
+    # If post exists, just update vote counts (for subscription sync)
     if mochi.db.exists("select id from posts where id=?", id):
-        return  # Duplicate
+        mochi.db.execute("update posts set up=?, down=?, comments=? where id=?", up, down, comments_count, id)
+        return
 
     member = e.content("member")
     name = e.content("name")
@@ -2062,12 +2066,8 @@ def event_post_create_event(e):
     if not mochi.valid(body, "text"):
         return
 
-    up = e.content("up") or 0
-    down = e.content("down") or 0
-    comments = e.content("comments") or 0
-
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, up, down, comments, created, created)
+        id, forum["id"], member, name, title, body, up, down, comments_count, created, created)
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
