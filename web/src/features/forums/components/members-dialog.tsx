@@ -96,7 +96,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   const handleAdd = async (subject: string, subjectName: string, level: string) => {
     try {
       await requestHelpers.post(endpoints.forums.accessSet(forumId), {
-        user: subject,
+        target: subject,
         level: level as AccessLevel,
       })
       toast.success(`Access set for ${subjectName}`)
@@ -110,7 +110,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   const handleLevelChange = async (subject: string, level: string) => {
     try {
       await requestHelpers.post(endpoints.forums.accessSet(forumId), {
-        user: subject,
+        target: subject,
         level: level as AccessLevel,
       })
       toast.success('Access updated')
@@ -124,7 +124,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   const handleRevoke = async (subject: string) => {
     try {
       await requestHelpers.post(endpoints.forums.accessRevoke(forumId), {
-        user: subject,
+        target: subject,
       })
       toast.success('Access removed')
       void loadRules()

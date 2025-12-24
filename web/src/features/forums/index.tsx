@@ -37,17 +37,19 @@ export function Forums() {
 
   return (
     <Main fixed>
-      <ForumOverview
-        forum={null}
-        posts={postsToDisplay}
-        onSelectPost={handlePostSelect}
-        onCreatePost={() => {}}
-        isCreatingPost={false}
-        isPostCreated={false}
-        hasNextPage={false}
-        isFetchingNextPage={false}
-        onLoadMore={undefined}
-      />
+      <div className="flex-1 overflow-y-auto">
+        <ForumOverview
+          forum={null}
+          posts={postsToDisplay}
+          onSelectPost={handlePostSelect}
+          onCreatePost={() => {}}
+          isCreatingPost={false}
+          isPostCreated={false}
+          hasNextPage={false}
+          isFetchingNextPage={false}
+          onLoadMore={undefined}
+        />
+      </div>
     </Main>
   )
 }

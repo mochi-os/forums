@@ -138,8 +138,9 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
 
   return (
     <Main fixed>
-      {/* Post Content with Voting */}
-      <div className="space-y-4">
+      <div className="flex-1 overflow-y-auto">
+        {/* Post Content with Voting */}
+        <div className="space-y-4">
         <ThreadContent
             post={post}
             attachments={post.attachments}
@@ -232,6 +233,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
             ) : null}
           </div>
         </div>
+      </div>
 
       {/* Edit Post Dialog */}
       <EditPostDialog

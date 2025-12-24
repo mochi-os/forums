@@ -113,41 +113,43 @@ function ForumPage() {
 
   return (
     <Main fixed>
-      {isLoadingForum ? (
-        <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-          <div className="flex flex-col items-center gap-2">
-            <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-            <p className="text-sm">Loading forum...</p>
+      <div className="flex-1 overflow-y-auto">
+        {isLoadingForum ? (
+          <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
+            <div className="flex flex-col items-center gap-2">
+              <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              <p className="text-sm">Loading forum...</p>
+            </div>
           </div>
-        </div>
-      ) : isForumError ? (
-        <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-sm">Forum not found or not accessible</p>
-            <button
-              type="button"
-              onClick={() => subscribeMutation.mutate(forumId)}
-              disabled={subscribeMutation.isPending}
-              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
-            >
-              {subscribeMutation.isPending ? 'Subscribing...' : 'Subscribe to forum'}
-            </button>
+        ) : isForumError ? (
+          <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
+            <div className="flex flex-col items-center gap-3">
+              <p className="text-sm">Forum not found or not accessible</p>
+              <button
+                type="button"
+                onClick={() => subscribeMutation.mutate(forumId)}
+                disabled={subscribeMutation.isPending}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              >
+                {subscribeMutation.isPending ? 'Subscribing...' : 'Subscribe to forum'}
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <ForumOverview
-          forum={selectedForum || null}
-          posts={selectedForumPosts}
-          server={server}
-          onSelectPost={handlePostSelect}
-          onCreatePost={handleCreatePost}
-          isCreatingPost={createPostMutation.isPending}
-          isPostCreated={createPostMutation.isSuccess}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          onLoadMore={fetchNextPage}
-        />
-      )}
+        ) : (
+          <ForumOverview
+            forum={selectedForum || null}
+            posts={selectedForumPosts}
+            server={server}
+            onSelectPost={handlePostSelect}
+            onCreatePost={handleCreatePost}
+            isCreatingPost={createPostMutation.isPending}
+            isPostCreated={createPostMutation.isSuccess}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            onLoadMore={fetchNextPage}
+          />
+        )}
+      </div>
     </Main>
   )
 }
