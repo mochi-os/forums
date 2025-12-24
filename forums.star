@@ -150,27 +150,28 @@ def check_access(a, forum_id, operation):
         return True
 
     # Check if user has a user-specific access rule
-    # If so, use ONLY that rule (ignore wildcards like "+" which grant broader access)
+    # If so, prioritize that rule over wildcards
     if user:
         rules = mochi.access.list.resource(resource)
         for rule in rules:
             if rule.get("subject") == user:
-                # Found user-specific rule - use only this level
+                # Found user-specific rule - check if it grants access
                 user_level = rule.get("operation")
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
-                    # User has access if their level >= required level
-                    return ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation)
-                return False
+                    if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
+                        return True
+                # User-specific rule doesn't grant access, but continue to check member fallback
+                break
 
-    # No user-specific rule - use normal access checks (includes wildcards)
+    # No user-specific rule or it didn't grant access - use normal access checks
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
             if mochi.access.check(user, resource, level):
                 return True
 
-    # Member fallback for view, vote, comment (only if no explicit rules matched above)
-    if operation in ["view", "vote", "comment"] and user:
+    # Member fallback for view only (vote/comment require explicit access rules)
+    if operation == "view" and user:
         if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user):
             return True
 
@@ -191,27 +192,28 @@ def check_event_access(user_id, forum_id, operation):
         return True
 
     # Check if user has a user-specific access rule
-    # If so, use ONLY that rule (ignore wildcards like "+" which grant broader access)
+    # If so, prioritize that rule over wildcards
     if user_id:
         rules = mochi.access.list.resource(resource)
         for rule in rules:
             if rule.get("subject") == user_id:
-                # Found user-specific rule - use only this level
+                # Found user-specific rule - check if it grants access
                 user_level = rule.get("operation")
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
-                    # User has access if their level >= required level
-                    return ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation)
-                return False
+                    if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
+                        return True
+                # User-specific rule doesn't grant access, but continue to check member fallback
+                break
 
-    # No user-specific rule - use normal access checks (includes wildcards)
+    # No user-specific rule or it didn't grant access - use normal access checks
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
             if mochi.access.check(user_id, resource, level):
                 return True
 
-    # Member fallback for view, vote, comment (only if no explicit rules matched above)
-    if operation in ["view", "vote", "comment"]:
+    # Member fallback for view only (vote/comment require explicit access rules)
+    if operation == "view":
         if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id):
             return True
 
@@ -1006,8 +1008,10 @@ def action_post_edit(a):
             }
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
         else:
-            # Subscriber - must be author to edit
-            if user_id != post["member"]:
+            # Subscriber - must be author or have manage access to edit
+            is_author = user_id == post["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
                 a.error(403, "Not authorized to edit this post")
                 return
 
@@ -1140,8 +1144,10 @@ def action_post_delete(a):
             # Broadcast delete to members
             broadcast_event(forum["id"], "post/delete", {"id": post_id}, user_id)
         else:
-            # Subscriber - must be author to delete
-            if user_id != post["member"]:
+            # Subscriber - must be author or have manage access to delete
+            is_author = user_id == post["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
                 a.error(403, "Not authorized to delete this post")
                 return
 
@@ -1331,8 +1337,10 @@ def action_comment_edit(a):
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
         else:
-            # Subscriber - must be author to edit
-            if user_id != comment["member"]:
+            # Subscriber - must be author or have manage access to edit
+            is_author = user_id == comment["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
                 a.error(403, "Not authorized to edit this comment")
                 return
 
@@ -1424,8 +1432,10 @@ def action_comment_delete(a):
             broadcast_event(forum["id"], "comment/delete",
                 {"ids": comment_ids, "post": comment["post"]}, user_id)
         else:
-            # Subscriber - must be author to delete
-            if user_id != comment["member"]:
+            # Subscriber - must be author or have manage access to delete
+            is_author = user_id == comment["member"]
+            is_manager = check_access(a, forum["id"], "manage")
+            if not is_author and not is_manager:
                 a.error(403, "Not authorized to delete this comment")
                 return
 
@@ -2332,19 +2342,20 @@ def event_comment_vote_event(e):
     if vote not in ["up", "down", ""]:
         return
 
-    # Remove old vote if exists
+    # Delete old vote first to minimize race window, then adjust counts
     old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment_id, sender_id)
+    mochi.db.execute("delete from votes where comment=? and voter=?", comment_id, sender_id)
+
+    # Adjust count for removed vote (with guards to prevent negative)
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.execute("update comments set up=up-1 where id=?", comment_id)
+            mochi.db.execute("update comments set up=up-1 where id=? and up>0", comment_id)
         elif old_vote["vote"] == "down":
-            mochi.db.execute("update comments set down=down-1 where id=?", comment_id)
+            mochi.db.execute("update comments set down=down-1 where id=? and down>0", comment_id)
 
-    # Add new vote or remove if empty
-    if vote == "":
-        mochi.db.execute("delete from votes where comment=? and voter=?", comment_id, sender_id)
-    else:
-        mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+    # Add new vote if not empty
+    if vote != "":
+        mochi.db.execute("insert or replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
             forum["id"], comment["post"], comment_id, sender_id, vote)
 
         if vote == "up":
