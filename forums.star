@@ -175,11 +175,6 @@ def check_access(a, forum_id, operation):
             if mochi.access.check(user, resource, level):
                 return True
 
-    # Member fallback for view only (vote/comment require explicit access rules)
-    if operation == "view" and user:
-        if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user):
-            return True
-
     return False
 
 # Helper: Check if remote user (from event header) has access to perform an operation
@@ -221,11 +216,6 @@ def check_event_access(user_id, forum_id, operation):
         for level in ACCESS_LEVELS[op_index:]:
             if mochi.access.check(user_id, resource, level):
                 return True
-
-    # Member fallback for view only (vote/comment require explicit access rules)
-    if operation == "view":
-        if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id):
-            return True
 
     return False
 
@@ -302,7 +292,17 @@ def action_view(a):
             return
 
         # Check if user can view this forum
-        if not check_access(a, forum["id"], "view"):
+        # For owned forums, check locally. For subscribed forums, query owner.
+        is_owner = mochi.entity.get(forum["id"])
+        if is_owner:
+            can_view = check_access(a, forum["id"], "view")
+        else:
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["view"]
+            })
+            can_view = access_response.get("view", False)
+
+        if not can_view:
             a.error(404, "Forum not found")
             return
 
@@ -349,9 +349,7 @@ def action_view(a):
         if has_more and len(posts) > 0:
             next_cursor = posts[-1]["updated"]
 
-        # Add access flags to forum object
-        # For owned forums, check locally. For subscribed forums, query owner.
-        is_owner = mochi.entity.get(forum["id"])
+        # Add access flags to forum object (is_owner already set above)
         if is_owner:
             forum["can_manage"] = check_access(a, forum["id"], "manage")
             forum["can_post"] = check_access(a, forum["id"], "post")
@@ -894,8 +892,17 @@ def action_post_view(a):
         a.error(404, "Forum not found")
         return
 
-    # Check view access
-    if not check_access(a, forum["id"], "view"):
+    # Check view access - for owned forums, check locally; for subscribed, query owner
+    is_owner = mochi.entity.get(forum["id"])
+    if is_owner:
+        can_view = check_access(a, forum["id"], "view")
+    else:
+        access_response = mochi.remote.request(forum["id"], "access/check", {
+            "operations": ["view"]
+        })
+        can_view = access_response.get("view", False)
+
+    if not can_view:
         a.error(404, "Forum not found")
         return
 
@@ -903,9 +910,7 @@ def action_post_view(a):
     if a.user:
         member = mochi.db.row("select * from members where forum=? and id=?", forum["id"], a.user.identity.id)
 
-    # Check access levels for UI permissions
-    # For owned forums, check locally. For subscribed forums, query owner.
-    is_owner = mochi.entity.get(forum["id"])
+    # Check access levels for UI permissions (is_owner already set above)
     if is_owner:
         can_vote = check_access(a, forum["id"], "vote")
         can_comment = check_access(a, forum["id"], "comment")
