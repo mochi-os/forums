@@ -77,10 +77,11 @@ export function useCreatePost(forumId: string | null) {
   return useMutation({
     mutationFn: forumsApi.createPost,
     onSuccess: () => {
-      toast.success('Post created successfully!')
+      toast.success('Post published.')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       if (forumId) {
         queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+        queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       }
     },
     onError: handleServerError,
@@ -198,6 +199,7 @@ export function useEditPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success('Post updated')
     },
     onError: handleServerError,
@@ -212,6 +214,7 @@ export function useDeletePost(forumId: string, onDeleted?: () => void) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success('Post deleted')
       onDeleted?.()
     },

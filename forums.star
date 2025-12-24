@@ -1835,10 +1835,17 @@ def event_comment_create_event(e):
     if not mochi.valid(body, "text"):
         return
 
-    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post, parent, member, name, body, created)
+    up = e.content("up") or 0
+    down = e.content("down") or 0
 
-    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], post, parent, member, name, body, up, down, created)
+
+    # Only increment comment count if this is a new comment (not a sync with existing count)
+    if not e.content("up") and not e.content("down"):
+        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
+    else:
+        mochi.db.execute("update posts set updated=? where id=?", created, post)
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
 # Received a comment submission from member (we are forum owner)
@@ -2055,8 +2062,12 @@ def event_post_create_event(e):
     if not mochi.valid(body, "text"):
         return
 
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, created, created)
+    up = e.content("up") or 0
+    down = e.content("down") or 0
+    comments = e.content("comments") or 0
+
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, up, down, comments, created, created)
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
@@ -2277,12 +2288,34 @@ def event_subscribe_event(e):
                 "name": p["name"],
                 "title": p["title"],
                 "body": p["body"],
+                "up": p["up"],
+                "down": p["down"],
+                "comments": p["comments"],
                 "created": p["created"]
             }
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
                 post_data
             )
+
+            # Send comments for this post
+            comments = mochi.db.rows("select * from comments where forum=? and post=? order by created asc", forum["id"], p["id"])
+            for c in comments:
+                comment_data = {
+                    "id": c["id"],
+                    "post": c["post"],
+                    "parent": c["parent"],
+                    "member": c["member"],
+                    "name": c["name"],
+                    "body": c["body"],
+                    "up": c["up"],
+                    "down": c["down"],
+                    "created": c["created"]
+                }
+                mochi.message.send(
+                    {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
+                    comment_data
+                )
 
         # Notify all members of new subscription
         broadcast_event(forum["id"], "update", {"members": len(members)}, member_id)
