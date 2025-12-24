@@ -2031,9 +2031,12 @@ def event_comment_submit_event(e):
     if not check_event_access(sender_id, forum["id"], "comment"):
         return
 
-    # Get sender name from members table
+    # Get sender name from members table, fall back to directory lookup
     member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], sender_id)
-    sender_name = member["name"] if member else ""
+    sender_name = member["name"] if member and member["name"] else ""
+    if not sender_name:
+        entity = mochi.directory.get(sender_id)
+        sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
 
     id = e.content("id")
     if not mochi.valid(id, "id"):
@@ -2073,7 +2076,7 @@ def event_comment_submit_event(e):
         "created": now
     }
 
-    broadcast_event(forum["id"], "comment/create", comment_data, sender_id)
+    broadcast_event(forum["id"], "comment/create", comment_data)
 
 # Received a comment edit request from member (we are forum owner)
 def event_comment_edit_submit_event(e):
@@ -2344,9 +2347,12 @@ def event_post_submit_event(e):
     if not check_event_access(sender_id, forum["id"], "post"):
         return
 
-    # Get sender name from members table
+    # Get sender name from members table, fall back to directory lookup
     member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], sender_id)
-    sender_name = member["name"] if member else ""
+    sender_name = member["name"] if member and member["name"] else ""
+    if not sender_name:
+        entity = mochi.directory.get(sender_id)
+        sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
 
     id = e.content("id")
     if not mochi.valid(id, "id"):
@@ -2381,7 +2387,7 @@ def event_post_submit_event(e):
         "created": now
     }
 
-    broadcast_event(forum["id"], "post/create", post_data, sender_id)
+    broadcast_event(forum["id"], "post/create", post_data)
 
 # Received a post edit request from member (we are forum owner)
 def event_post_edit_submit_event(e):

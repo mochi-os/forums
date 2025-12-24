@@ -65,7 +65,7 @@ export function useCreateForum() {
   return useMutation({
     mutationFn: forumsApi.create,
     onSuccess: () => {
-      toast.success('Forum created successfully!')
+      toast.success('Forum created')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
     },
     onError: handleServerError,
@@ -96,7 +96,7 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
       if (data.data.already_subscribed) {
         toast.info('You are already subscribed to this forum')
       } else {
-        toast.success('Subscribed successfully!')
+        toast.success('Subscribed to forum')
         queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
         onSubscribed?.(forumId)
       }
@@ -110,7 +110,7 @@ export function useUnsubscribeForum(onUnsubscribed?: () => void) {
   return useMutation({
     mutationFn: (forumId: string) => forumsApi.unsubscribe(forumId),
     onSuccess: () => {
-      toast.success('Unsubscribed successfully')
+      toast.success('Unsubscribed from forum')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       onUnsubscribed?.()
     },
