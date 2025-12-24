@@ -84,9 +84,9 @@ function ForumPage() {
     // Update subscription state for sidebar
     const forum = forums.find(f => f.id === forumId)
     setSubscription({
-      remote: !forum,
-      subscribed: !!forum,
-      can_unsubscribe: !!forum && !forum.can_manage,
+      isRemote: !forum,
+      isSubscribed: !!forum,
+      canUnsubscribe: !!forum && !forum.can_manage,
     })
 
     return () => {

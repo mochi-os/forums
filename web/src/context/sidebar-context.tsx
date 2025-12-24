@@ -1,9 +1,9 @@
 import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react'
 
 type SubscriptionState = {
-  remote: boolean
-  subscribed: boolean
-  can_unsubscribe: boolean
+  isRemote: boolean
+  isSubscribed: boolean
+  canUnsubscribe: boolean
 }
 
 type SidebarContextValue = {
@@ -17,13 +17,13 @@ type SidebarContextValue = {
   setPost: (id: string | null, title: string | null) => void
 
   // New post dialog
-  post_dialog_open: boolean
-  post_dialog_forum: string | null
+  postDialogOpen: boolean
+  postDialogForum: string | null
   openPostDialog: (forum: string) => void
   closePostDialog: () => void
 
   // New forum dialog
-  forum_dialog_open: boolean
+  forumDialogOpen: boolean
   openForumDialog: () => void
   closeForumDialog: () => void
 
@@ -40,9 +40,9 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [forum, setForum] = useState<string | null>(null)
   const [post, setPostId] = useState<string | null>(null)
   const [postTitle, setPostTitle] = useState<string | null>(null)
-  const [post_dialog_open, setPostDialogOpen] = useState(false)
-  const [post_dialog_forum, setPostDialogForum] = useState<string | null>(null)
-  const [forum_dialog_open, setForumDialogOpen] = useState(false)
+  const [postDialogOpen, setPostDialogOpen] = useState(false)
+  const [postDialogForum, setPostDialogForum] = useState<string | null>(null)
+  const [forumDialogOpen, setForumDialogOpen] = useState(false)
   const [subscription, setSubscription] = useState<SubscriptionState | null>(null)
   const subscribeHandler = useRef<(() => void) | null>(null)
   const unsubscribeHandler = useRef<(() => void) | null>(null)
@@ -77,11 +77,11 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
       post,
       postTitle,
       setPost,
-      post_dialog_open,
-      post_dialog_forum,
+      postDialogOpen,
+      postDialogForum,
       openPostDialog,
       closePostDialog,
-      forum_dialog_open,
+      forumDialogOpen,
       openForumDialog,
       closeForumDialog,
       subscription,

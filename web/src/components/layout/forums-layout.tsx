@@ -18,11 +18,11 @@ function ForumsLayoutInner() {
     forum,
     post,
     postTitle,
-    post_dialog_open,
-    post_dialog_forum,
+    postDialogOpen,
+    postDialogForum,
     openPostDialog,
     closePostDialog,
-    forum_dialog_open,
+    forumDialogOpen,
     openForumDialog,
     closeForumDialog,
     subscription,
@@ -32,12 +32,12 @@ function ForumsLayoutInner() {
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
-    if (!post_dialog_forum) return null
-    return forums.find((f) => f.id === post_dialog_forum) ?? null
-  }, [forums, post_dialog_forum])
+    if (!postDialogForum) return null
+    return forums.find((f) => f.id === postDialogForum) ?? null
+  }, [forums, postDialogForum])
 
   // Create post mutation
-  const createPostMutation = useCreatePost(post_dialog_forum)
+  const createPostMutation = useCreatePost(postDialogForum)
 
   const handleCreatePost = useCallback(
     (data: { forum: string; title: string; body: string; attachments?: File[] }) => {
@@ -104,7 +104,7 @@ function ForumsLayoutInner() {
       }
 
       // Unsubscribe for non-owned current forums
-      if (isCurrentForum && !f.can_manage && subscription?.can_unsubscribe && unsubscribeHandler.current) {
+      if (isCurrentForum && !f.can_manage && subscription?.canUnsubscribe && unsubscribeHandler.current) {
         const handler = unsubscribeHandler.current
         subItems.push({
           title: 'Unsubscribe',
@@ -144,7 +144,7 @@ function ForumsLayoutInner() {
     ]
 
     // Add subscribe action when viewing remote unsubscribed forum
-    if (subscription?.remote && !subscription?.subscribed && subscribeHandler.current) {
+    if (subscription?.isRemote && !subscription?.isSubscribed && subscribeHandler.current) {
       const handler = subscribeHandler.current
       bottomItems.push({
         title: 'Subscribe to forum',
@@ -196,7 +196,7 @@ function ForumsLayoutInner() {
           onCreate={handleCreatePost}
           isPending={createPostMutation.isPending}
           isSuccess={createPostMutation.isSuccess}
-          open={post_dialog_open}
+          open={postDialogOpen}
           onOpenChange={(open) => {
             if (!open) closePostDialog()
           }}
@@ -207,7 +207,7 @@ function ForumsLayoutInner() {
       {/* Create Forum Dialog - controlled from sidebar */}
       <CreateForumDialog
         onCreate={handleCreateForum}
-        open={forum_dialog_open}
+        open={forumDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeForumDialog()
         }}
