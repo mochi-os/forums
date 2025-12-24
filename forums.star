@@ -1910,11 +1910,25 @@ def action_access(a):
     resource = "forum/" + forum["id"]
     rules = mochi.access.list.resource(resource)
 
-    # Filter and resolve names for rules
-    access_list = []
+    # Group rules by subject to handle deny rules correctly
+    subjects = {}
     for rule in rules:
         subject = rule.get("subject", "")
+        grant = rule.get("grant", 1)
+        operation = rule.get("operation", "")
 
+        if subject not in subjects:
+            subjects[subject] = {"grant": grant, "operation": operation}
+        elif grant == 0:
+            # Deny rule takes precedence
+            subjects[subject] = {"grant": 0, "operation": "none"}
+        elif subjects[subject]["grant"] == 1:
+            # Keep the allow rule (they're equivalent since we store one level)
+            pass
+
+    # Build access list with resolved names
+    access_list = []
+    for subject, info in subjects.items():
         # Resolve names for subjects
         name = ""
         if subject and subject not in ("*", "+") and not subject.startswith("#"):
@@ -1935,10 +1949,11 @@ def action_access(a):
                         name = entity.get("name", "")
 
         is_owner = owner and subject == owner.get("id")
+        level = "none" if info["grant"] == 0 else info["operation"]
         access_list.append({
             "id": subject,
             "name": name,
-            "level": rule.get("operation"),
+            "level": level,
             "isOwner": is_owner
         })
 
@@ -1972,7 +1987,7 @@ def action_access_set(a):
         return
 
     level = a.input("level")
-    if level not in ACCESS_LEVELS:
+    if level not in ACCESS_LEVELS + ["none"]:
         a.error(400, "Invalid access level")
         return
 
@@ -1983,8 +1998,14 @@ def action_access_set(a):
     for op in ACCESS_LEVELS + ["manage", "*"]:
         mochi.access.revoke(target, resource, op)
 
-    # Grant the new level
-    mochi.access.allow(target, resource, level, granter)
+    # Set the new level
+    if level == "none":
+        # Store deny rules for all levels to block access
+        for op in ACCESS_LEVELS:
+            mochi.access.deny(target, resource, op, granter)
+    else:
+        # Grant the new level
+        mochi.access.allow(target, resource, level, granter)
 
     return {
         "data": {"forum": forum["id"], "target": target, "level": level}

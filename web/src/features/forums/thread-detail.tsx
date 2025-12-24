@@ -53,7 +53,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
     return () => setPost(null, null)
   }, [postId, postData?.data?.post?.title, setPost])
 
-  usePageTitle(postData?.data?.post?.title ? `${postData.data.post.title} - Mochi` : 'Thread - Mochi')
+  usePageTitle(postData?.data?.post?.title ?? 'Thread')
 
   // Mutations
   const votePostMutation = useVotePost(forum, postId)
