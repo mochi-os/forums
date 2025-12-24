@@ -478,6 +478,9 @@ def action_post_create(a):
             broadcast_event(forum["id"], "post/create", post_data, user_id)
         else:
             # Subscriber sends post to forum owner
+            # Save attachments and send to forum owner
+            attachments = mochi.attachment.save(id, "attachments", [], [], [forum["id"]])
+
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
                 {"id": id, "title": title, "body": body}
@@ -495,6 +498,9 @@ def action_post_create(a):
     if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
         return
+
+    # Save attachments and send to forum owner
+    attachments = mochi.attachment.save(id, "attachments", [], [], [forum_id])
 
     # Send post to remote forum owner
     mochi.message.send(
@@ -974,29 +980,82 @@ def action_post_edit(a):
                 a.error(403, "Not authorized to edit this post")
                 return
 
-            # Send edit request to forum owner
+            now = mochi.time.now()
+
+            # Handle attachments - save new ones and send to owner
+            order_json = a.input("order")
+            if order_json:
+                order = json.decode(order_json)
+            else:
+                order = []
+
+            current_attachments = mochi.attachment.list(post_id)
+            current_ids = [att["id"] for att in current_attachments]
+
+            # Save new attachments and send to forum owner
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [forum["id"]])
+
+            # Build final order
+            final_order = []
+            for item in order:
+                if item.startswith("new:"):
+                    idx = int(item[4:])
+                    if idx < len(new_attachments):
+                        final_order.append(new_attachments[idx]["id"])
+                else:
+                    final_order.append(item)
+
+            # Determine which attachments to delete
+            delete_ids = [att_id for att_id in current_ids if att_id not in final_order]
+
+            # Send edit request to forum owner with attachment info
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/edit/submit"},
-                {"id": post_id, "title": title, "body": body}
+                {"id": post_id, "title": title, "body": body, "order": final_order, "delete": delete_ids}
             )
 
             # Update locally for optimistic UI
-            now = mochi.time.now()
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
+
+            # Handle local attachment changes for optimistic UI
+            for att_id in delete_ids:
+                mochi.attachment.delete(att_id)
+            for i, att_id in enumerate(final_order):
+                mochi.attachment.move(att_id, i + 1)
 
         return {
             "data": {"forum": forum_id, "post": post_id}
         }
 
-    # Post not found locally - send edit to remote forum
+    # Post not found locally - remote forum edit (no local attachments to handle)
     if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
         return
 
+    # For remote forums, we can still send new attachments
+    order_json = a.input("order")
+    if order_json:
+        order = json.decode(order_json)
+    else:
+        order = []
+
+    # Save new attachments and send to forum owner
+    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [forum_id])
+
+    # Build final order (only new attachments, no existing ones locally)
+    final_order = []
+    for item in order:
+        if item.startswith("new:"):
+            idx = int(item[4:])
+            if idx < len(new_attachments):
+                final_order.append(new_attachments[idx]["id"])
+        else:
+            final_order.append(item)
+
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/edit/submit"},
-        {"id": post_id, "title": title, "body": body}
+        {"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}
     )
 
     return {
@@ -2353,8 +2412,21 @@ def event_post_edit_submit_event(e):
 
     now = mochi.time.now()
 
+    # Handle attachment changes
+    order = e.content("order") or []
+    delete_ids = e.content("delete") or []
+    members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
+
+    # Delete specified attachments
+    for att_id in delete_ids:
+        mochi.attachment.delete(att_id, members)
+
+    # Reorder attachments according to order
+    for i, att_id in enumerate(order):
+        mochi.attachment.move(att_id, i + 1, members)
+
     # Update the post
-    mochi.db.execute("update posts set title=?, body=?, updated=? where id=?", title, body, now, post_id)
+    mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Broadcast update to all members
@@ -2362,9 +2434,9 @@ def event_post_edit_submit_event(e):
         "id": post_id,
         "title": title,
         "body": body,
-        "updated": now
+        "edited": now
     }
-    broadcast_event(forum["id"], "post/update", post_data)
+    broadcast_event(forum["id"], "post/edit", post_data)
 
 # Received a post delete request from member (we are forum owner)
 def event_post_delete_submit_event(e):
