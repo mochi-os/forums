@@ -155,7 +155,12 @@ def check_access(a, forum_id, operation):
         rules = mochi.access.list.resource(resource)
         for rule in rules:
             if rule.get("subject") == user:
-                # Found user-specific rule - check if it grants access
+                # Found user-specific rule - check grant field first
+                grant = rule.get("grant", 1)
+                if grant == 0:
+                    # Explicit deny - block access immediately
+                    return False
+                # Check if it grants the requested access level
                 user_level = rule.get("operation")
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
                     if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
@@ -197,7 +202,12 @@ def check_event_access(user_id, forum_id, operation):
         rules = mochi.access.list.resource(resource)
         for rule in rules:
             if rule.get("subject") == user_id:
-                # Found user-specific rule - check if it grants access
+                # Found user-specific rule - check grant field first
+                grant = rule.get("grant", 1)
+                if grant == 0:
+                    # Explicit deny - block access immediately
+                    return False
+                # Check if it grants the requested access level
                 user_level = rule.get("operation")
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
                     if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
