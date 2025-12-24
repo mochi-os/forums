@@ -6,6 +6,7 @@ export const ACCESS_LEVELS = [
   { value: 'comment', label: 'Comment', description: 'Can comment and vote' },
   { value: 'post', label: 'Post', description: 'Can create posts, comment, and vote' },
   { value: 'manage', label: 'Manage', description: 'Full access including member management' },
+  { value: 'none', label: 'No access', description: 'Blocked from accessing the forum' },
 ] as const
 
 // Legacy: Member roles (deprecated - use ACCESS_LEVELS instead)

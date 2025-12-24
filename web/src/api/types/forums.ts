@@ -2,7 +2,7 @@
 
 // Access levels in hierarchical order (higher grants all lower)
 // Only owners have full management permissions (no separate "manage" level)
-export type AccessLevel = 'view' | 'vote' | 'comment' | 'post'
+export type AccessLevel = 'view' | 'vote' | 'comment' | 'post' | 'none'
 
 export interface Forum {
   id: string

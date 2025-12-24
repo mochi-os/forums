@@ -67,6 +67,7 @@ const FORUMS_ACCESS_LEVELS: AccessLevel[] = [
   { value: 'comment', label: 'Comment, vote, and view' },
   { value: 'vote', label: 'Vote and view' },
   { value: 'view', label: 'View only' },
+  { value: 'none', label: 'No access' },
 ]
 
 function ForumSettingsPage() {
@@ -394,7 +395,7 @@ function AccessTab({ forumId }: AccessTabProps) {
 
   const handleAdd = async (subject: string, subjectName: string, level: string) => {
     try {
-      await forumsApi.setAccess({ forum: forumId, user: subject, level: level as 'view' | 'vote' | 'comment' | 'post' })
+      await forumsApi.setAccess({ forum: forumId, user: subject, level: level as 'view' | 'vote' | 'comment' | 'post' | 'none' })
       toast.success(`Access set for ${subjectName}`)
       void loadRules()
     } catch (err) {
@@ -417,7 +418,7 @@ function AccessTab({ forumId }: AccessTabProps) {
 
   const handleLevelChange = async (subject: string, newLevel: string) => {
     try {
-      await forumsApi.setAccess({ forum: forumId, user: subject, level: newLevel as 'view' | 'vote' | 'comment' | 'post' })
+      await forumsApi.setAccess({ forum: forumId, user: subject, level: newLevel as 'view' | 'vote' | 'comment' | 'post' | 'none' })
       toast.success('Access level updated')
       void loadRules()
     } catch (err) {
@@ -441,7 +442,7 @@ function AccessTab({ forumId }: AccessTabProps) {
           open={dialogOpen}
           onOpenChange={setDialogOpen}
           onAdd={handleAdd}
-          levels={FORUMS_ACCESS_LEVELS}
+          levels={FORUMS_ACCESS_LEVELS.filter(l => l.value !== 'none')}
           defaultLevel="post"
           userSearchResults={userSearchData?.data?.results ?? []}
           userSearchLoading={userSearchLoading}

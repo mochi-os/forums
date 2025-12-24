@@ -1,32 +1,12 @@
 import { useState } from 'react'
-import { File, FileText, Image, Loader2, Play } from 'lucide-react'
-import { ImageLightbox, type LightboxMedia, useVideoThumbnailCached, formatVideoDuration } from '@mochi/common'
+import { Loader2, Play } from 'lucide-react'
+import { ImageLightbox, type LightboxMedia, useVideoThumbnailCached, formatVideoDuration, formatFileSize, getFileIcon, isImage, isVideo } from '@mochi/common'
 import type { Attachment } from '@/api/types/posts'
 
 interface PostAttachmentsProps {
   attachments: Attachment[]
   forumId: string
   server?: string
-}
-
-function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}
-
-function getFileIcon(type: string) {
-  if (type.startsWith('image/')) return Image
-  if (type.startsWith('text/')) return FileText
-  return File
-}
-
-function isImage(type: string): boolean {
-  return type.startsWith('image/')
-}
-
-function isVideo(type: string): boolean {
-  return type.startsWith('video/')
 }
 
 // Component to render video thumbnail using the hook
