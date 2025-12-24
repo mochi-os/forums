@@ -149,16 +149,27 @@ def check_access(a, forum_id, operation):
     if mochi.access.check(user, resource, "manage") or mochi.access.check(user, resource, "*"):
         return True
 
-    # For hierarchical levels, check if user has the required level or higher
-    # ACCESS_LEVELS is ordered lowest to highest: ["view", "vote", "comment", "post"]
+    # Check if user has a user-specific access rule
+    # If so, use ONLY that rule (ignore wildcards like "+" which grant broader access)
+    if user:
+        rules = mochi.access.list.resource(resource)
+        for rule in rules:
+            if rule.get("subject") == user:
+                # Found user-specific rule - use only this level
+                user_level = rule.get("operation")
+                if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
+                    # User has access if their level >= required level
+                    return ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation)
+                return False
+
+    # No user-specific rule - use normal access checks (includes wildcards)
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
             if mochi.access.check(user, resource, level):
                 return True
 
-    # For view, vote, and comment operations, also check if user is a member
-    # Members can view, vote, and comment by default (posting requires explicit access)
+    # Member fallback for view, vote, comment (only if no explicit rules matched above)
     if operation in ["view", "vote", "comment"] and user:
         if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user):
             return True
@@ -179,15 +190,27 @@ def check_event_access(user_id, forum_id, operation):
     if mochi.access.check(user_id, resource, "manage") or mochi.access.check(user_id, resource, "*"):
         return True
 
-    # For hierarchical levels, check if user has the required level or higher
+    # Check if user has a user-specific access rule
+    # If so, use ONLY that rule (ignore wildcards like "+" which grant broader access)
+    if user_id:
+        rules = mochi.access.list.resource(resource)
+        for rule in rules:
+            if rule.get("subject") == user_id:
+                # Found user-specific rule - use only this level
+                user_level = rule.get("operation")
+                if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
+                    # User has access if their level >= required level
+                    return ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation)
+                return False
+
+    # No user-specific rule - use normal access checks (includes wildcards)
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
             if mochi.access.check(user_id, resource, level):
                 return True
 
-    # For view, vote, and comment operations, also check if user is a member
-    # Members can view, vote, and comment by default (posting requires explicit access)
+    # Member fallback for view, vote, comment (only if no explicit rules matched above)
     if operation in ["view", "vote", "comment"]:
         if mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id):
             return True
@@ -1483,9 +1506,9 @@ def action_post_vote(a):
             old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
             if old_vote:
                 if old_vote["vote"] == "up":
-                    mochi.db.execute("update posts set up=up-1 where id=?", post["id"])
+                    mochi.db.execute("update posts set up=up-1 where id=? and up>0", post["id"])
                 elif old_vote["vote"] == "down":
-                    mochi.db.execute("update posts set down=down-1 where id=?", post["id"])
+                    mochi.db.execute("update posts set down=down-1 where id=? and down>0", post["id"])
 
             # Add new vote or remove if empty
             if vote == "":
@@ -1516,11 +1539,24 @@ def action_post_vote(a):
             )
 
             # Save vote locally for optimistic UI
+            # Remove old vote count if exists
+            old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
+            if old_vote:
+                if old_vote["vote"] == "up":
+                    mochi.db.execute("update posts set up=up-1 where id=? and up>0", post["id"])
+                elif old_vote["vote"] == "down":
+                    mochi.db.execute("update posts set down=down-1 where id=? and down>0", post["id"])
+
+            # Add new vote or remove if empty
             if vote == "":
                 mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
                     forum["id"], post["id"], user_id, vote)
+                if vote == "up":
+                    mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
+                elif vote == "down":
+                    mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
 
         return {
             "data": {"forum": forum["id"], "post": post["id"]}
@@ -1615,11 +1651,24 @@ def action_comment_vote(a):
             )
 
             # Save vote locally for optimistic UI
+            # Remove old vote count if exists
+            old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], user_id)
+            if old_vote:
+                if old_vote["vote"] == "up":
+                    mochi.db.execute("update comments set up=up-1 where id=? and up>0", comment["id"])
+                elif old_vote["vote"] == "down":
+                    mochi.db.execute("update comments set down=down-1 where id=? and down>0", comment["id"])
+
+            # Add new vote or remove if empty
             if vote == "":
                 mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
                     forum["id"], comment["post"], comment["id"], user_id, vote)
+                if vote == "up":
+                    mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
+                elif vote == "down":
+                    mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
 
         return {
             "data": {"forum": forum["id"], "post": comment["post"]}
@@ -2016,6 +2065,9 @@ def event_comment_create_event(e):
         return
 
     post = e.content("post")
+    if not mochi.db.exists("select id from posts where forum=? and id=?", forum["id"], post):
+        return
+
     parent = e.content("parent") or ""
     member = e.content("member")
     name = e.content("name")
@@ -2618,9 +2670,9 @@ def event_post_vote_event(e):
     old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, sender_id)
     if old_vote:
         if old_vote["vote"] == "up":
-            mochi.db.execute("update posts set up=up-1 where id=?", post_id)
+            mochi.db.execute("update posts set up=up-1 where id=? and up>0", post_id)
         elif old_vote["vote"] == "down":
-            mochi.db.execute("update posts set down=down-1 where id=?", post_id)
+            mochi.db.execute("update posts set down=down-1 where id=? and down>0", post_id)
 
     # Add new vote or remove if empty
     if vote == "":
