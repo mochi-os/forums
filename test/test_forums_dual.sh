@@ -143,6 +143,129 @@ else
 fi
 
 # ============================================================================
+# TEST: Subscriber creates post with attachment
+# ============================================================================
+
+echo ""
+echo "--- Subscriber Post with Attachment Test ---"
+
+# Create a test image file
+TEST_IMG="/tmp/test_attachment_$$.png"
+echo -n 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==' | base64 -d > "$TEST_IMG"
+
+RESULT=$("$CURL" -i 2 -a admin -X POST \
+    -F "forum=$FORUM_ID" -F "title=Post With Attachment" -F "body=This post has an attachment" \
+    -F "attachments=@$TEST_IMG" \
+    "/forums/post/create")
+ATT_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+
+if [ -n "$ATT_POST_ID" ]; then
+    pass "Subscriber creates post with attachment (id: $ATT_POST_ID)"
+else
+    fail "Subscriber creates post with attachment" "$RESULT"
+fi
+
+sleep 3  # Wait for P2P (attachments may take longer)
+
+# Check if owner received the post with attachment
+RESULT=$("$CURL" -i 1 -a admin -X GET "/forums/$FORUM_ID/-/$ATT_POST_ID")
+if echo "$RESULT" | grep -q '"attachments":\[{'; then
+    pass "Owner received post with attachment"
+    # Extract attachment ID for later tests
+    ATT_ID=$(echo "$RESULT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d['data']['post']['attachments'][0]['id'])" 2>/dev/null)
+    echo "    Attachment ID: $ATT_ID"
+else
+    fail "Owner received post with attachment" "$RESULT"
+fi
+
+# ============================================================================
+# TEST: Subscriber edits post adding another attachment
+# ============================================================================
+
+echo ""
+echo "--- Subscriber Edit Post Add Attachment Test ---"
+
+# Create another test image
+TEST_IMG2="/tmp/test_attachment2_$$.png"
+echo -n 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==' | base64 -d > "$TEST_IMG2"
+
+# Edit with existing attachment + new one
+if [ -n "$ATT_ID" ]; then
+    ORDER_JSON="[\"$ATT_ID\",\"new:0\"]"
+else
+    ORDER_JSON="[\"new:0\"]"
+fi
+
+RESULT=$("$CURL" -i 2 -a admin -X POST \
+    -F "title=Post With Two Attachments" -F "body=This post now has two attachments" \
+    -F "order=$ORDER_JSON" \
+    -F "attachments=@$TEST_IMG2" \
+    "/forums/$FORUM_ID/-/$ATT_POST_ID/edit")
+
+if echo "$RESULT" | grep -q '"post"'; then
+    pass "Subscriber edits post adding attachment"
+else
+    fail "Subscriber edits post adding attachment" "$RESULT"
+fi
+
+sleep 3
+
+# Check if owner has both attachments
+RESULT=$("$CURL" -i 1 -a admin -X GET "/forums/$FORUM_ID/-/$ATT_POST_ID")
+ATT_COUNT=$(echo "$RESULT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(len(d['data']['post'].get('attachments', [])))" 2>/dev/null)
+
+if [ "$ATT_COUNT" = "2" ]; then
+    pass "Owner has both attachments (count: 2)"
+    # Get attachment IDs for delete test
+    ATT_IDS=$(echo "$RESULT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(' '.join([a['id'] for a in d['data']['post'].get('attachments', [])]))" 2>/dev/null)
+    ATT_ID1=$(echo "$ATT_IDS" | cut -d' ' -f1)
+    ATT_ID2=$(echo "$ATT_IDS" | cut -d' ' -f2)
+    echo "    Attachment IDs: $ATT_ID1, $ATT_ID2"
+else
+    fail "Owner has both attachments" "Expected 2, got $ATT_COUNT - $RESULT"
+fi
+
+# ============================================================================
+# TEST: Subscriber edits post deleting an attachment
+# ============================================================================
+
+echo ""
+echo "--- Subscriber Edit Post Delete Attachment Test ---"
+
+# Keep only the second attachment
+if [ -n "$ATT_ID2" ]; then
+    ORDER_JSON="[\"$ATT_ID2\"]"
+
+    RESULT=$("$CURL" -i 2 -a admin -X POST \
+        -F "title=Post With One Attachment" -F "body=One attachment was deleted" \
+        -F "order=$ORDER_JSON" \
+        "/forums/$FORUM_ID/-/$ATT_POST_ID/edit")
+
+    if echo "$RESULT" | grep -q '"post"'; then
+        pass "Subscriber edits post deleting attachment"
+    else
+        fail "Subscriber edits post deleting attachment" "$RESULT"
+    fi
+
+    sleep 3
+
+    # Check if owner has only one attachment
+    RESULT=$("$CURL" -i 1 -a admin -X GET "/forums/$FORUM_ID/-/$ATT_POST_ID")
+    ATT_COUNT=$(echo "$RESULT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(len(d['data']['post'].get('attachments', [])))" 2>/dev/null)
+
+    if [ "$ATT_COUNT" = "1" ]; then
+        pass "Owner has one attachment after delete (count: 1)"
+    else
+        fail "Owner has one attachment after delete" "Expected 1, got $ATT_COUNT"
+    fi
+else
+    echo "[SKIP] Attachment delete test - no attachment IDs available"
+fi
+
+# Cleanup temp files
+rm -f "$TEST_IMG" "$TEST_IMG2"
+
+# ============================================================================
 # TEST: Subscriber votes on owner's post
 # ============================================================================
 
