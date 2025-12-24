@@ -22,7 +22,7 @@ import {
   useGroups,
 } from '@/hooks/use-forums-queries'
 import endpoints from '@/api/endpoints'
-import type { MemberAccess, AccessLevelWithManage } from '@/api/types/forums'
+import type { MemberAccess, AccessLevel } from '@/api/types/forums'
 
 interface MembersDialogProps {
   forumId: string
@@ -35,7 +35,6 @@ const FORUM_ACCESS_LEVELS: CommonAccessLevel[] = [
   { value: 'vote', label: 'Vote' },
   { value: 'comment', label: 'Comment' },
   { value: 'post', label: 'Post' },
-  { value: 'manage', label: 'Manage' },
   { value: 'none', label: 'No access' },
 ]
 
@@ -98,7 +97,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
     try {
       await requestHelpers.post(endpoints.forums.accessSet(forumId), {
         user: subject,
-        level: level as AccessLevelWithManage,
+        level: level as AccessLevel,
       })
       toast.success(`Access set for ${subjectName}`)
       void loadRules()
@@ -112,7 +111,7 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
     try {
       await requestHelpers.post(endpoints.forums.accessSet(forumId), {
         user: subject,
-        level: level as AccessLevelWithManage,
+        level: level as AccessLevel,
       })
       toast.success('Access updated')
       void loadRules()

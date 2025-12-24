@@ -1,8 +1,8 @@
 // Forum Types - Based on forums.yaml specification
 
 // Access levels in hierarchical order (higher grants all lower)
+// Only owners have full management permissions (no separate "manage" level)
 export type AccessLevel = 'view' | 'vote' | 'comment' | 'post'
-export type AccessLevelWithManage = AccessLevel | 'manage'
 
 export interface Forum {
   id: string
@@ -33,7 +33,7 @@ export interface Member {
 export interface MemberAccess {
   id: string
   name: string
-  level: AccessLevelWithManage | null  // null = owner (implicit full access)
+  level: AccessLevel | null  // null = owner (implicit full access)
   isOwner?: boolean  // True if this is the resource owner
 }
 
@@ -159,7 +159,7 @@ export interface GetAccessResponse {
   data: {
     forum: Forum
     access: MemberAccess[]
-    levels: AccessLevelWithManage[]
+    levels: AccessLevel[]
     owner?: { id: string; name?: string } | null
   }
 }
@@ -167,13 +167,13 @@ export interface GetAccessResponse {
 export interface SetAccessRequest {
   forum: string
   user: string
-  level: AccessLevelWithManage
+  level: AccessLevel
 }
 
 export interface SetAccessResponse {
   data: {
     user: string
-    level: AccessLevelWithManage
+    level: AccessLevel
   }
 }
 

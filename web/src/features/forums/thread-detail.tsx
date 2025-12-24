@@ -128,14 +128,14 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
   const commentCount = comments.length
   const currentUserId = member?.id
 
-  // Check if user can edit/delete post (author or forum manager)
+  // Check if user can edit/delete post (author with comment access, or forum manager)
   const isPostAuthor = currentUserId === post.member
   const isForumManager = forumData?.can_manage === true
-  const canEditPost = isPostAuthor || isForumManager
+  const canEditPost = isForumManager || (can_comment && isPostAuthor)
 
-  // Helper to check if user can edit a comment
+  // Helper to check if user can edit a comment (author with comment access, or manager)
   const canEditComment = (commentMember: string) => {
-    return currentUserId === commentMember || isForumManager
+    return isForumManager || (can_comment && currentUserId === commentMember)
   }
 
   const handleEditPost = (data: { title: string; body: string; order: string[]; attachments: File[] }) => {

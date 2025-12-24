@@ -3,7 +3,7 @@
 
 # Access level hierarchy: post > comment > vote > view
 # Each level grants access to that operation and all operations below it.
-# "manage" is separate and grants all permissions (owner/admin only).
+# Only owners (with "*" access) have full management permissions.
 # "none" means no access (user has no rules or explicit deny).
 ACCESS_LEVELS = ["view", "vote", "comment", "post"]
 
@@ -14,7 +14,7 @@ ROLE_TO_ACCESS = {
     "voter": "vote",
     "commenter": "comment",
     "poster": "post",
-    "administrator": "manage"
+    "administrator": None  # Admins migrated to owner role, not access rules
 }
 
 # Create database
@@ -134,7 +134,7 @@ def get_forum(forum_id):
 
 # Helper: Check if current user has access to perform an operation
 # Uses hierarchical access levels: post grants comment+vote+view, etc.
-# Users with "manage" or "*" permission automatically have all permissions.
+# Only owners (with "*" access) have full permissions.
 def check_access(a, forum_id, operation):
     resource = "forum/" + forum_id
     user = None
@@ -145,8 +145,8 @@ def check_access(a, forum_id, operation):
     if mochi.entity.get(forum_id):
         return True
 
-    # Manage or wildcard grants full access
-    if mochi.access.check(user, resource, "manage") or mochi.access.check(user, resource, "*"):
+    # Wildcard grants full access (owner only)
+    if mochi.access.check(user, resource, "*"):
         return True
 
     # Check if user has a user-specific access rule
@@ -187,8 +187,8 @@ def check_event_access(user_id, forum_id, operation):
     if entity and entity.get("creator") == user_id:
         return True
 
-    # Manage or wildcard grants full access
-    if mochi.access.check(user_id, resource, "manage") or mochi.access.check(user_id, resource, "*"):
+    # Wildcard grants full access (owner only)
+    if mochi.access.check(user_id, resource, "*"):
         return True
 
     # Check if user has a user-specific access rule
@@ -874,8 +874,18 @@ def action_post_view(a):
         member = mochi.db.row("select * from members where forum=? and id=?", forum["id"], a.user.identity.id)
 
     # Check access levels for UI permissions
-    can_vote = check_access(a, forum["id"], "vote")
-    can_comment = check_access(a, forum["id"], "comment")
+    # For owned forums, check locally. For subscribed forums, query owner.
+    is_owner = mochi.entity.get(forum["id"])
+    if is_owner:
+        can_vote = check_access(a, forum["id"], "vote")
+        can_comment = check_access(a, forum["id"], "comment")
+    else:
+        # Query owner for access permissions
+        access_response = mochi.remote.request(forum["id"], "access/check", {
+            "operations": ["vote", "comment"]
+        })
+        can_vote = access_response.get("vote", False)
+        can_comment = access_response.get("comment", False)
 
     # Get user's vote on post
     user_post_vote = ""
@@ -1916,7 +1926,7 @@ def action_access(a):
         "data": {
             "forum": forum,
             "access": access_list,
-            "levels": ACCESS_LEVELS + ["manage"]
+            "levels": ACCESS_LEVELS
         }
     }
 
@@ -1942,7 +1952,7 @@ def action_access_set(a):
         return
 
     level = a.input("level")
-    if level not in ACCESS_LEVELS + ["manage"]:
+    if level not in ACCESS_LEVELS:
         a.error(400, "Invalid access level")
         return
 
