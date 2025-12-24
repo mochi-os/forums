@@ -424,10 +424,8 @@ def action_post_create(a):
         a.error(401, "Not logged in")
         return
 
-    forum = get_forum(a.input("forum"))
-    if not forum:
-        a.error(404, "Forum not found")
-        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
 
     title = a.input("title")
     if not mochi.valid(title, "name"):
@@ -444,51 +442,68 @@ def action_post_create(a):
     id = mochi.uid()
     now = mochi.time.now()
 
-    # Check if we own this forum
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    # Check if forum exists locally
+    if forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
 
-    if is_owner:
-        # Owner processes locally
-        if not check_access(a, forum["id"], "post"):
-            a.error(403, "Not authorized to post")
-            return
+        if is_owner:
+            # Owner processes locally
+            if not check_access(a, forum["id"], "post"):
+                a.error(403, "Not authorized to post")
+                return
 
-        mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-            id, forum["id"], user_id, user_name, title, body, now, now)
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, now, now)
 
-        mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-        # Get members for notification (excluding sender)
-        members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
+            # Get members for notification (excluding sender)
+            members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
-        # Save any uploaded attachments and notify members via _attachment/create events
-        attachments = mochi.attachment.save(id, "attachments", [], [], members)
+            # Save any uploaded attachments and notify members via _attachment/create events
+            attachments = mochi.attachment.save(id, "attachments", [], [], members)
 
-        # Broadcast post to members (attachments sent separately via federation)
-        post_data = {
-            "id": id,
-            "member": user_id,
-            "name": user_name,
-            "title": title,
-            "body": body,
-            "created": now
+            # Broadcast post to members (attachments sent separately via federation)
+            post_data = {
+                "id": id,
+                "member": user_id,
+                "name": user_name,
+                "title": title,
+                "body": body,
+                "created": now
+            }
+
+            broadcast_event(forum["id"], "post/create", post_data, user_id)
+        else:
+            # Subscriber sends post to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
+                {"id": id, "title": title, "body": body}
+            )
+
+            # Save locally for optimistic UI
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, now, now)
+
+        return {
+            "data": {"forum": forum["id"], "post": id}
         }
 
-        broadcast_event(forum["id"], "post/create", post_data, user_id)
-    else:
-        # Subscriber sends post to forum owner
-        mochi.message.send(
-            {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
-            {"id": id, "title": title, "body": body}
-        )
+    # Forum not found locally - send to remote forum
+    if not mochi.valid(forum_id, "entity"):
+        a.error(404, "Forum not found")
+        return
 
-        # Save locally for optimistic UI
-        mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-            id, forum["id"], user_id, user_name, title, body, now, now)
+    # Send post to remote forum owner
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
+        {"id": id, "title": title, "body": body}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": id}
+        "data": {"forum": forum_id, "post": id}
     }
 
 # Form for new post
@@ -1042,22 +1057,13 @@ def action_comment_create(a):
         a.error(401, "Not logged in")
         return
 
-    forum = get_forum(a.input("forum"))
-    if not forum:
-        a.error(404, "Forum not found")
-        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
 
     post_id = a.input("post")
-    if not mochi.db.exists("select id from posts where id=? and forum=?", post_id, forum["id"]):
-        a.error(404, "Post not found")
-        return
-
     parent_id = a.input("parent")
-    if parent_id and not mochi.db.exists("select id from comments where id=? and post=?", parent_id, post_id):
-        a.error(404, "Parent comment not found")
-        return
-
     body = a.input("body")
+
     if not mochi.valid(body, "text"):
         a.error(400, "Invalid body")
         return
@@ -1067,48 +1073,73 @@ def action_comment_create(a):
     id = mochi.uid()
     now = mochi.time.now()
 
-    # Check if we own this forum
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    # Check if forum exists locally
+    if forum:
+        # Check if we own this forum
+        entity = mochi.entity.get(forum["id"])
+        is_owner = len(entity) > 0 if entity else False
 
-    if is_owner:
-        # Owner processes locally
-        if not check_access(a, forum["id"], "comment"):
-            a.error(403, "Not authorized to comment")
-            return
+        if is_owner:
+            # Owner processes locally
+            if not check_access(a, forum["id"], "comment"):
+                a.error(403, "Not authorized to comment")
+                return
 
-        mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-            id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+            if not mochi.db.exists("select id from posts where id=? and forum=?", post_id, forum["id"]):
+                a.error(404, "Post not found")
+                return
 
-        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
-        mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+            if parent_id and not mochi.db.exists("select id from comments where id=? and post=?", parent_id, post_id):
+                a.error(404, "Parent comment not found")
+                return
 
-        # Broadcast to members
-        comment_data = {
-            "id": id,
-            "post": post_id,
-            "parent": parent_id or "",
-            "member": user_id,
-            "name": user_name,
-            "body": body,
-            "created": now
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+
+            mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+            mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+            # Broadcast to members
+            comment_data = {
+                "id": id,
+                "post": post_id,
+                "parent": parent_id or "",
+                "member": user_id,
+                "name": user_name,
+                "body": body,
+                "created": now
+            }
+
+            broadcast_event(forum["id"], "comment/create", comment_data, user_id)
+        else:
+            # Subscriber sends comment to forum owner
+            mochi.message.send(
+                {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
+                {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+            )
+
+            # Save locally for optimistic UI
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+            mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+
+        return {
+            "data": {"forum": forum["id"], "post": post_id, "comment": id}
         }
 
-        broadcast_event(forum["id"], "comment/create", comment_data, user_id)
-    else:
-        # Subscriber sends comment to forum owner
-        mochi.message.send(
-            {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
-            {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
-        )
+    # Forum not found locally - send to remote forum
+    if not mochi.valid(forum_id, "entity"):
+        a.error(404, "Forum not found")
+        return
 
-        # Save locally for optimistic UI
-        mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-            id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
-        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+    # Send comment to remote forum owner
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/submit"},
+        {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+    )
 
     return {
-        "data": {"forum": forum["id"], "post": post_id, "comment": id}
+        "data": {"forum": forum_id, "post": post_id, "comment": id}
     }
 
 # Edit a comment
@@ -2370,15 +2401,24 @@ def event_post_view(e):
     post_data["user_vote"] = ""
     post_data["attachments"] = mochi.attachment.list(post_id)
 
-    # Get top-level comments (simplified - no recursion for remote view)
-    comments = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
-        forum_id, post_id)
-    for c in comments:
-        c["created_local"] = mochi.time.local(c["created"])
-        c["children"] = []
-        c["can_vote"] = can_vote
-        c["can_comment"] = can_comment
-        c["user_vote"] = ""
+    # Get comments recursively
+    def get_comments(parent_id, depth):
+        if depth > 100:
+            return []
+
+        comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
+            forum_id, post_id, parent_id)
+
+        for c in comments:
+            c["created_local"] = mochi.time.local(c["created"])
+            c["children"] = get_comments(c["id"], depth + 1)
+            c["can_vote"] = can_vote
+            c["can_comment"] = can_comment
+            c["user_vote"] = ""
+
+        return comments
+
+    comments = get_comments("", 0)
 
     e.stream.write({
         "forum": forum,
