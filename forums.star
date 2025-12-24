@@ -671,6 +671,14 @@ def action_members_save(a):
     # Handle member removal
     remove_id = a.input("remove")
     if remove_id and remove_id != a.user.identity.id:
+        # Clean up member's votes and adjust comment vote counts
+        votes = mochi.db.rows("select comment, vote from votes where forum=? and voter=?", forum["id"], remove_id)
+        for v in votes:
+            if v["vote"] == "up":
+                mochi.db.execute("update comments set up=up-1 where id=? and up>0", v["comment"])
+            elif v["vote"] == "down":
+                mochi.db.execute("update comments set down=down-1 where id=? and down>0", v["comment"])
+        mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], remove_id)
         # Remove from members table
         mochi.db.execute("delete from members where forum=? and id=?", forum["id"], remove_id)
         # Revoke all access
@@ -1373,6 +1381,12 @@ def action_comment_delete(a):
 
             comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
             deleted_count = len(comment_ids)
+
+            # Delete attachments for all comments being deleted
+            for cid in comment_ids:
+                attachments = mochi.attachment.list(cid)
+                for att in attachments:
+                    mochi.attachment.delete(att["id"])
 
             for cid in comment_ids:
                 mochi.db.execute("delete from votes where comment=?", cid)
@@ -2150,6 +2164,12 @@ def event_comment_delete_submit_event(e):
     comment_ids = [comment_id] + collect_descendants(comment_id)
     deleted_count = len(comment_ids)
 
+    # Delete attachments for these comments
+    for cid in comment_ids:
+        attachments = mochi.attachment.list(cid)
+        for att in attachments:
+            mochi.attachment.delete(att["id"])
+
     # Delete votes for these comments
     for cid in comment_ids:
         mochi.db.execute("delete from votes where comment=?", cid)
@@ -2163,7 +2183,7 @@ def event_comment_delete_submit_event(e):
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Broadcast delete to all members (they will recursively delete descendants)
-    broadcast_event(forum["id"], "comment/delete", {"id": comment_id, "post": comment["post"]})
+    broadcast_event(forum["id"], "comment/delete", {"ids": [comment_id], "post": comment["post"]})
 
 # Received a comment update from forum owner
 def event_comment_update_event(e):
@@ -2219,6 +2239,10 @@ def event_comment_delete_event(e):
     for comment_id in comment_ids:
         # Verify this comment belongs to this forum
         if mochi.db.exists("select id from comments where id=? and forum=?", comment_id, forum_id):
+            # Delete attachments for this comment
+            attachments = mochi.attachment.list(comment_id)
+            for att in attachments:
+                mochi.attachment.delete(att["id"])
             # Delete votes for this comment
             mochi.db.execute("delete from votes where comment=?", comment_id)
             # Delete the comment
@@ -2693,6 +2717,15 @@ def event_unsubscribe_event(e):
         return
 
     member_id = e.header("from")
+
+    # Clean up member's votes and adjust comment vote counts
+    votes = mochi.db.rows("select comment, vote from votes where forum=? and voter=?", forum["id"], member_id)
+    for v in votes:
+        if v["vote"] == "up":
+            mochi.db.execute("update comments set up=up-1 where id=? and up>0", v["comment"])
+        elif v["vote"] == "down":
+            mochi.db.execute("update comments set down=down-1 where id=? and down>0", v["comment"])
+    mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], member_id)
 
     # Remove from members table
     mochi.db.execute("delete from members where forum=? and id=?", forum["id"], member_id)

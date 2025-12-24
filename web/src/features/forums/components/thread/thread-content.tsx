@@ -24,7 +24,7 @@ export function ThreadContent({
   server,
   onVote,
   isVotePending: _isVotePending,
-  canVote: _canVote = true,
+  canVote = true,
   canReply = true,
   onReply,
   canEdit = false,
@@ -96,30 +96,34 @@ export function ThreadContent({
             {localDown}
           </span>
         )}
-        <button
-          type="button"
-          className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
-          style={localVote === 'up' ? { color: 'hsl(var(--primary))' } : undefined}
-          onClick={(e) => {
-            e.stopPropagation()
-            handleVote(localVote === 'up' ? '' : 'up')
-          }}
-        >
-          <ThumbsUp className="size-3" />
-          <span>Upvote</span>
-        </button>
-        <button
-          type="button"
-          className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
-          style={localVote === 'down' ? { color: 'hsl(var(--primary))' } : undefined}
-          onClick={(e) => {
-            e.stopPropagation()
-            handleVote(localVote === 'down' ? '' : 'down')
-          }}
-        >
-          <ThumbsDown className="size-3" />
-          <span>Downvote</span>
-        </button>
+        {canVote && (
+          <>
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+              style={localVote === 'up' ? { color: 'hsl(var(--primary))' } : undefined}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleVote(localVote === 'up' ? '' : 'up')
+              }}
+            >
+              <ThumbsUp className="size-3" />
+              <span>Upvote</span>
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+              style={localVote === 'down' ? { color: 'hsl(var(--primary))' } : undefined}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleVote(localVote === 'down' ? '' : 'down')
+              }}
+            >
+              <ThumbsDown className="size-3" />
+              <span>Downvote</span>
+            </button>
+          </>
+        )}
         {canReply && onReply && (
           <button
             type="button"
