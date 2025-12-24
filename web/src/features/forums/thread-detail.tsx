@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { ArrowLeft, Send, X } from 'lucide-react'
+import { Send, X } from 'lucide-react'
 import { toast } from 'sonner'
 import {
   Main,
@@ -44,7 +44,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
   }, [forum, setForum])
 
   // Queries
-  const { data: postData, isLoading } = usePostDetail(forum, postId, server)
+  const { data: postData, isLoading, isError } = usePostDetail(forum, postId, server)
 
   // Sync post title to sidebar
   useEffect(() => {
@@ -108,17 +108,9 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
     )
   }
 
-  if (!postData?.data?.post) {
+  if (isError || !postData?.data?.post) {
     return (
       <Main fixed>
-        <Button
-          variant="ghost"
-          className="mb-6 h-auto px-0 text-muted-foreground hover:text-foreground"
-          onClick={handleBack}
-        >
-          <ArrowLeft className="mr-2 size-4" />
-          Back to forum
-        </Button>
         <EmptyThreadState onBack={handleBack} />
       </Main>
     )

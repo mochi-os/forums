@@ -192,7 +192,7 @@ def check_event_access(user_id, forum_id, operation):
         return True
 
     # Check if user has a user-specific access rule
-    # If so, prioritize that rule over wildcards
+    # If so, that rule takes precedence - don't check wildcard rules
     if user_id:
         rules = mochi.access.list.resource(resource)
         for rule in rules:
@@ -207,10 +207,11 @@ def check_event_access(user_id, forum_id, operation):
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
                     if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
                         return True
-                # User-specific rule doesn't grant access, but continue to check member fallback
-                break
+                # User-specific rule exists but doesn't grant this operation
+                # Return false - don't fall through to wildcard checks
+                return False
 
-    # No user-specific rule - check normal access levels
+    # No user-specific rule - check normal access levels (including + and * wildcards)
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
@@ -291,20 +292,7 @@ def action_view(a):
             a.error(404, "Forum not found")
             return
 
-        # Check if user can view this forum
-        # For owned forums, check locally. For subscribed forums, query owner.
         is_owner = mochi.entity.get(forum["id"])
-        if is_owner:
-            can_view = check_access(a, forum["id"], "view")
-        else:
-            access_response = mochi.remote.request(forum["id"], "access/check", {
-                "operations": ["view"]
-            })
-            can_view = access_response.get("view", False)
-
-        if not can_view:
-            a.error(404, "Forum not found")
-            return
 
         # Get member info if user is logged in
         member = None
@@ -357,7 +345,8 @@ def action_view(a):
             forum["can_manage"] = False  # Subscribers can never manage
             # Query owner for post access
             access_response = mochi.remote.request(forum["id"], "access/check", {
-                "operations": ["post"]
+                "operations": ["post"],
+                "user": user_id,
             })
             forum["can_post"] = access_response.get("post", False)
 
@@ -387,7 +376,8 @@ def action_view(a):
                 f["can_manage"] = False  # Subscribers can never manage
                 # Query owner for post access
                 access_response = mochi.remote.request(f["id"], "access/check", {
-                    "operations": ["post"]
+                    "operations": ["post"],
+                    "user": user_id,
                 })
                 f["can_post"] = access_response.get("post", False)
 
@@ -892,19 +882,7 @@ def action_post_view(a):
         a.error(404, "Forum not found")
         return
 
-    # Check view access - for owned forums, check locally; for subscribed, query owner
     is_owner = mochi.entity.get(forum["id"])
-    if is_owner:
-        can_view = check_access(a, forum["id"], "view")
-    else:
-        access_response = mochi.remote.request(forum["id"], "access/check", {
-            "operations": ["view"]
-        })
-        can_view = access_response.get("view", False)
-
-    if not can_view:
-        a.error(404, "Forum not found")
-        return
 
     member = None
     if a.user:
@@ -917,7 +895,8 @@ def action_post_view(a):
     else:
         # Query owner for access permissions
         access_response = mochi.remote.request(forum["id"], "access/check", {
-            "operations": ["vote", "comment"]
+            "operations": ["vote", "comment"],
+            "user": user_id,
         })
         can_vote = access_response.get("vote", False)
         can_comment = access_response.get("comment", False)
@@ -2962,7 +2941,8 @@ def event_view(e):
 # Handle access check request from subscribers
 def event_access_check(e):
     forum_id = e.header("to")
-    requester = e.header("from")
+    # Use user from content if provided, otherwise fall back to P2P header
+    requester = e.content("user") or e.header("from")
     operations = e.content("operations") or []
 
     # Get entity info - must be a forum we own

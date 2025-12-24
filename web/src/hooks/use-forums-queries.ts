@@ -150,7 +150,7 @@ export function usePostDetail(forumId: string, postId: string, server?: string) 
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId, server }),
     enabled: !!forumId && !!postId,
     refetchOnWindowFocus: false,
-    placeholderData: (previousData) => previousData,
+    retry: false,
   })
 }
 
