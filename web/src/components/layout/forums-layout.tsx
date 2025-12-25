@@ -13,9 +13,6 @@ import {
   MessageSquare,
   Plus,
   Search,
-  Settings,
-  SquarePen,
-  UserMinus,
 } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
@@ -39,14 +36,10 @@ function ForumsLayoutInner() {
     postTitle,
     postDialogOpen,
     postDialogForum,
-    openPostDialog,
     closePostDialog,
     forumDialogOpen,
     openForumDialog,
     closeForumDialog,
-    subscription,
-    subscribeHandler,
-    unsubscribeHandler,
   } = useSidebarContext()
 
   // Find forums for dialog
@@ -109,39 +102,6 @@ function ForumsLayoutInner() {
         })
       }
 
-      // New post for forums where user can post
-      if (f.can_post) {
-        subItems.push({
-          title: 'New post',
-          icon: SquarePen,
-          onClick: () => openPostDialog(f.id),
-        })
-      }
-
-      // Settings for forum owners
-      if (f.can_manage) {
-        subItems.push({
-          title: 'Settings',
-          icon: Settings,
-          url: `/${f.id}/settings`,
-        })
-      }
-
-      // Unsubscribe for non-owned current forums
-      if (
-        isCurrentForum &&
-        !f.can_manage &&
-        subscription?.canUnsubscribe &&
-        unsubscribeHandler.current
-      ) {
-        const handler = unsubscribeHandler.current
-        subItems.push({
-          title: 'Unsubscribe',
-          icon: UserMinus,
-          onClick: () => handler(),
-        })
-      }
-
       // NavCollapsible when there are sub-items, NavLink otherwise
       if (subItems.length > 0) {
         return {
@@ -170,27 +130,8 @@ function ForumsLayoutInner() {
     // Build bottom items
     const bottomItems: NavItem[] = [
       { title: 'Search for forums', url: APP_ROUTES.SEARCH, icon: Search },
+      { title: 'New forum', icon: Plus, onClick: openForumDialog },
     ]
-
-    // Add subscribe action when viewing remote unsubscribed forum
-    if (
-      subscription?.isRemote &&
-      !subscription?.isSubscribed &&
-      subscribeHandler.current
-    ) {
-      const handler = subscribeHandler.current
-      bottomItems.push({
-        title: 'Subscribe to forum',
-        icon: Plus,
-        onClick: () => handler(),
-      })
-    }
-
-    bottomItems.push({
-      title: 'New forum',
-      icon: Plus,
-      onClick: openForumDialog,
-    })
 
     const groups: SidebarData['navGroups'] = [
       {
@@ -205,17 +146,7 @@ function ForumsLayoutInner() {
     ]
 
     return { navGroups: groups }
-  }, [
-    forums,
-    forum,
-    post,
-    postTitle,
-    openPostDialog,
-    openForumDialog,
-    subscription,
-    subscribeHandler,
-    unsubscribeHandler,
-  ])
+  }, [forums, forum, post, postTitle, openForumDialog])
 
   return (
     <>

@@ -1,8 +1,9 @@
 import { useEffect, useMemo } from 'react'
 import { z } from 'zod'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Main, usePageTitle } from '@mochi/common'
+import { Button, Main, usePageTitle } from '@mochi/common'
+import { Loader2, Settings, SquarePen } from 'lucide-react'
 import { useForumsStore } from '@/stores/forums-store'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -39,7 +40,7 @@ function ForumPage() {
   const server = serverFromUrl ?? cachedForum?.server
 
   // Sidebar context for state sync
-  const { setForum, setSubscription, subscribeHandler, unsubscribeHandler } =
+  const { setForum, setSubscription, subscribeHandler, unsubscribeHandler, openPostDialog } =
     useSidebarContext()
 
   // Sync forum ID to sidebar context
@@ -115,8 +116,57 @@ function ForumPage() {
     })
   }
 
+  // Determine if user can post (from forum data)
+  const canPost = selectedForum?.can_post ?? false
+  const canManage = selectedForum?.can_manage ?? false
+  const isRemoteForum = !forums.find((f) => f.id === forumId)
+  const isSubscribed = !!forums.find((f) => f.id === forumId)
+  const canUnsubscribe = isSubscribed && !canManage
+
   return (
     <Main fixed>
+      {/* Action buttons */}
+      <div className="-mt-1 flex justify-end gap-2 mb-4">
+        {canPost && (
+          <Button onClick={() => openPostDialog(forumId)}>
+            <SquarePen className="size-4" />
+            New post
+          </Button>
+        )}
+        {isRemoteForum && !isSubscribed && (
+          <Button onClick={() => subscribeMutation.mutate(forumId)} disabled={subscribeMutation.isPending}>
+            {subscribeMutation.isPending ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Subscribing...
+              </>
+            ) : (
+              'Subscribe'
+            )}
+          </Button>
+        )}
+        {canUnsubscribe && (
+          <Button variant="outline" onClick={() => unsubscribeMutation.mutate(forumId)} disabled={unsubscribeMutation.isPending}>
+            {unsubscribeMutation.isPending ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Unsubscribing...
+              </>
+            ) : (
+              'Unsubscribe'
+            )}
+          </Button>
+        )}
+        {canManage && (
+          <Button variant="outline" asChild>
+            <Link to="/$forum/settings" params={{ forum: forumId }}>
+              <Settings className="size-4" />
+              Settings
+            </Link>
+          </Button>
+        )}
+      </div>
+
       <div className='flex-1 overflow-y-auto'>
         {isLoadingForum ? (
           <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
