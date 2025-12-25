@@ -100,7 +100,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
 
   if (isLoading) {
     return (
-      <Main fixed>
+      <Main>
         <div className="text-center py-12 text-muted-foreground">
           Loading post...
         </div>
@@ -111,7 +111,17 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
   if (isError || !postData?.data?.post) {
     return (
       <Main fixed>
-        <EmptyThreadState onBack={handleBack} />
+        <div className="flex-1 overflow-y-auto">
+          <Button
+            variant="ghost"
+            className="mb-6 h-auto px-0 text-muted-foreground hover:text-foreground"
+            onClick={handleBack}
+          >
+            <ArrowLeft className="mr-2 size-4" />
+            Back to forum
+          </Button>
+          <EmptyThreadState onBack={handleBack} />
+        </div>
       </Main>
     )
   }
@@ -141,7 +151,7 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
       <div className="flex-1 overflow-y-auto">
         {/* Post Content with Voting */}
         <div className="space-y-4">
-        <ThreadContent
+          <ThreadContent
             post={post}
             attachments={post.attachments}
             server={server}
