@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { Send, X } from 'lucide-react'
+import { ArrowLeft, Send, X } from 'lucide-react'
 import { toast } from 'sonner'
 import {
   Main,

@@ -591,15 +591,85 @@ def action_post_new(a):
         "data": {"forum": forum}
     }
 
-# Search forums
+# Search for forums
+# Supports searching by name, entity ID, fingerprint (with or without hyphens), or URL
 def action_search(a):
-    search = a.input("search")
+    search = a.input("search", "").strip()
+    if not search:
+        return {"data": {"results": []}}
+
     results = []
-    if search:
-        results = mochi.directory.search("forum", search, True)
-    return {
-        "data": {"results": results}
-    }
+
+    # Check if search term is an entity ID (49-51 word characters)
+    if mochi.valid(search, "entity"):
+        entry = mochi.directory.get(search)
+        if entry and entry.get("class") == "forum":
+            results.append(entry)
+
+    # Check if search term is a fingerprint (9 alphanumeric, with or without hyphens)
+    fingerprint = search.replace("-", "")
+    if mochi.valid(fingerprint, "fingerprint"):
+        all_forums = mochi.directory.search("forum", "", True)
+        for entry in all_forums:
+            entry_fp = entry.get("fingerprint", "").replace("-", "")
+            if entry_fp == fingerprint:
+                # Avoid duplicates
+                found = False
+                for r in results:
+                    if r.get("id") == entry.get("id"):
+                        found = True
+                        break
+                if not found:
+                    results.append(entry)
+                break
+
+    # Check if search term is a URL (e.g., https://example.com/forums/ENTITY_ID)
+    if search.startswith("http://") or search.startswith("https://"):
+        # Extract entity ID from URL
+        url = search
+        if "/forums/" in url:
+            parts = url.split("/forums/", 1)
+            forum_path = parts[1]
+            # Handle query parameter format: ?forum=ENTITY_ID
+            if forum_path.startswith("?forum="):
+                forum_id = forum_path[7:]
+                if "&" in forum_id:
+                    forum_id = forum_id.split("&")[0]
+                if "#" in forum_id:
+                    forum_id = forum_id.split("#")[0]
+            else:
+                # Path format: /forums/ENTITY_ID or /forums/ENTITY_ID/...
+                forum_id = forum_path.split("/")[0] if "/" in forum_path else forum_path
+                if "?" in forum_id:
+                    forum_id = forum_id.split("?")[0]
+                if "#" in forum_id:
+                    forum_id = forum_id.split("#")[0]
+
+            if mochi.valid(forum_id, "entity"):
+                entry = mochi.directory.get(forum_id)
+                if entry and entry.get("class") == "forum":
+                    # Avoid duplicates
+                    found = False
+                    for r in results:
+                        if r.get("id") == entry.get("id"):
+                            found = True
+                            break
+                    if not found:
+                        results.append(entry)
+
+    # Also search by name
+    name_results = mochi.directory.search("forum", search, True)
+    for entry in name_results:
+        # Avoid duplicates
+        found = False
+        for r in results:
+            if r.get("id") == entry.get("id"):
+                found = True
+                break
+        if not found:
+            results.append(entry)
+
+    return {"data": {"results": results}}
 
 # Probe a remote forum by URL
 def action_probe(a):
