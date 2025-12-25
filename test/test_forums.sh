@@ -224,7 +224,7 @@ echo ""
 echo "--- Search Tests ---"
 
 # Test: Search forums
-RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/search?search=Test")
+RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/directory/search?search=Test")
 if echo "$RESULT" | grep -q '"results":\['; then
     pass "Search forums"
 else

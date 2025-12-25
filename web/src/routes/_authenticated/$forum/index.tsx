@@ -1,7 +1,9 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useMemo } from 'react'
 import { z } from 'zod'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { APP_ROUTES } from '@/config/routes'
 import { Main, usePageTitle } from '@mochi/common'
+import { useForumsStore } from '@/stores/forums-store'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
@@ -11,9 +13,7 @@ import {
   selectForums,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
-import { useForumsStore } from '@/stores/forums-store'
 import { ForumOverview } from '@/features/forums/components/forum-overview'
-import { APP_ROUTES } from '@/config/routes'
 
 const searchSchema = z.object({
   server: z.string().optional(),
@@ -30,19 +30,17 @@ function ForumPage() {
   const { server: serverFromUrl } = Route.useSearch()
 
   // Get cached forum info (from probe/search results) as fallback
-  const getCachedRemoteForum = useForumsStore((state) => state.getCachedRemoteForum)
+  const getCachedRemoteForum = useForumsStore(
+    (state) => state.getCachedRemoteForum
+  )
   const cachedForum = getCachedRemoteForum(forumId)
 
   // Use server from URL if available, otherwise fall back to cached
   const server = serverFromUrl ?? cachedForum?.server
 
   // Sidebar context for state sync
-  const {
-    setForum,
-    setSubscription,
-    subscribeHandler,
-    unsubscribeHandler,
-  } = useSidebarContext()
+  const { setForum, setSubscription, subscribeHandler, unsubscribeHandler } =
+    useSidebarContext()
 
   // Sync forum ID to sidebar context
   useEffect(() => {
@@ -64,7 +62,9 @@ function ForumPage() {
     isFetchingNextPage,
     fetchNextPage,
   } = useInfinitePosts({ forum: forumId, server })
-  const selectedForumPosts = infinitePosts.filter(p => 'title' in p && p.title)
+  const selectedForumPosts = infinitePosts.filter(
+    (p) => 'title' in p && p.title
+  )
 
   // Set page title
   usePageTitle(selectedForum?.name ?? 'Forum')
@@ -82,7 +82,7 @@ function ForumPage() {
     unsubscribeHandler.current = () => unsubscribeMutation.mutate(forumId)
 
     // Update subscription state for sidebar
-    const forum = forums.find(f => f.id === forumId)
+    const forum = forums.find((f) => f.id === forumId)
     setSubscription({
       isRemote: !forum,
       isSubscribed: !!forum,
@@ -96,7 +96,11 @@ function ForumPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forumId, forums, setSubscription])
 
-  const handleCreatePost = (data: { title: string; body: string; attachments?: File[] }) => {
+  const handleCreatePost = (data: {
+    title: string
+    body: string
+    attachments?: File[]
+  }) => {
     createPostMutation.mutate({
       forum: forumId,
       ...data,
@@ -113,25 +117,27 @@ function ForumPage() {
 
   return (
     <Main fixed>
-      <div className="flex-1 overflow-y-auto">
+      <div className='flex-1 overflow-y-auto'>
         {isLoadingForum ? (
-          <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-            <div className="flex flex-col items-center gap-2">
-              <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-              <p className="text-sm">Loading forum...</p>
+          <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
+            <div className='flex flex-col items-center gap-2'>
+              <div className='border-primary size-4 animate-spin rounded-full border-2 border-t-transparent' />
+              <p className='text-sm'>Loading forum...</p>
             </div>
           </div>
         ) : isForumError ? (
-          <div className="flex h-40 items-center justify-center rounded-xl border bg-card text-muted-foreground shadow-sm">
-            <div className="flex flex-col items-center gap-3">
-              <p className="text-sm">Forum not found or not accessible</p>
+          <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
+            <div className='flex flex-col items-center gap-3'>
+              <p className='text-sm'>Forum not found or not accessible</p>
               <button
-                type="button"
+                type='button'
                 onClick={() => subscribeMutation.mutate(forumId)}
                 disabled={subscribeMutation.isPending}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50'
               >
-                {subscribeMutation.isPending ? 'Subscribing...' : 'Subscribe to forum'}
+                {subscribeMutation.isPending
+                  ? 'Subscribing...'
+                  : 'Subscribe to forum'}
               </button>
             </div>
           </div>

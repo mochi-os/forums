@@ -26,7 +26,7 @@ export function Forums() {
 
   // Show all posts from the list endpoint, with forum names added
   const postsToDisplay = useMemo(() => {
-    return allPosts.map(post => {
+    return allPosts.map((post) => {
       const forum = forums.find((f) => f.id === post.forum)
       return {
         ...post,
@@ -37,7 +37,7 @@ export function Forums() {
 
   return (
     <Main fixed>
-      <div className="flex-1 overflow-y-auto">
+      <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
           posts={postsToDisplay}

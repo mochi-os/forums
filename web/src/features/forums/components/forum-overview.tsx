@@ -1,19 +1,20 @@
-import {
-  Card,
-  CardContent,
-  LoadMoreTrigger,
-} from '@mochi/common'
+import { Card, CardContent, LoadMoreTrigger } from '@mochi/common'
 import { MessageSquare, FileEdit } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
-import { PostCard } from './post-card'
 import { CreatePostDialog } from './create-post-dialog'
+import { PostCard } from './post-card'
 
 interface ForumOverviewProps {
   forum: Forum | null
   posts: Post[]
   server?: string
   onSelectPost: (forumId: string, postId: string) => void
-  onCreatePost: (data: { forum: string; title: string; body: string; attachments?: File[] }) => void
+  onCreatePost: (data: {
+    forum: string
+    title: string
+    body: string
+    attachments?: File[]
+  }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
   hasNextPage?: boolean
@@ -36,7 +37,7 @@ export function ForumOverview({
   if (!forum) {
     // All forums view - use forumName from post object (set by parent)
     return (
-      <div className="space-y-6">
+      <div className='space-y-6'>
         {posts.length > 0 ? (
           posts.map((post) => (
             <PostCard
@@ -49,13 +50,13 @@ export function ForumOverview({
             />
           ))
         ) : (
-          <Card className="shadow-md">
-            <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">
-              <div className="rounded-full bg-primary/10 p-4">
-                <MessageSquare className="size-10 text-primary" />
+          <Card className='shadow-md'>
+            <CardContent className='flex flex-col items-center justify-center space-y-3 p-12 text-center'>
+              <div className='bg-primary/10 rounded-full p-4'>
+                <MessageSquare className='text-primary size-10' />
               </div>
-              <p className="text-sm font-semibold">No posts yet</p>
-              <p className="text-sm text-muted-foreground">
+              <p className='text-sm font-semibold'>No posts yet</p>
+              <p className='text-muted-foreground text-sm'>
                 Subscribe to forums or create your own to see posts
               </p>
             </CardContent>
@@ -67,7 +68,7 @@ export function ForumOverview({
 
   // Selected forum view
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {posts.length > 0 ? (
         <>
           {posts.map((post) => (
@@ -89,19 +90,19 @@ export function ForumOverview({
           )}
         </>
       ) : (
-        <Card className="shadow-md">
-          <CardContent className="flex flex-col items-center justify-center space-y-3 p-12 text-center">
-            <div className="rounded-full bg-primary/10 p-4">
-              <FileEdit className="size-10 text-primary" />
+        <Card className='shadow-md'>
+          <CardContent className='flex flex-col items-center justify-center space-y-3 p-12 text-center'>
+            <div className='bg-primary/10 rounded-full p-4'>
+              <FileEdit className='text-primary size-10' />
             </div>
-            <p className="text-sm font-semibold">No posts in this forum yet</p>
-            <p className="text-sm text-muted-foreground">
+            <p className='text-sm font-semibold'>No posts in this forum yet</p>
+            <p className='text-muted-foreground text-sm'>
               {forum.can_post
                 ? 'Be the first to start a conversation'
                 : 'Check back later for new content'}
             </p>
             {forum.can_post && (
-              <div className="mt-2">
+              <div className='mt-2'>
                 <CreatePostDialog
                   forumId={forum.id}
                   forumName={forum.name}

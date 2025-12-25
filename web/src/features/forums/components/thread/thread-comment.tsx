@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Button, ConfirmDialog } from '@mochi/common'
-import { ThumbsUp, ThumbsDown, MessageSquare, Pencil, Trash2, Send, X } from 'lucide-react'
+import {
+  ThumbsUp,
+  ThumbsDown,
+  MessageSquare,
+  Pencil,
+  Trash2,
+  Send,
+  X,
+} from 'lucide-react'
 
 // Reddit-style rainbow colors for nested comment threads
 const THREAD_COLORS = [
@@ -92,10 +100,10 @@ export function ThreadComment({
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
     const prevVote = localVote
-    if (prevVote === 'up') setLocalUp(v => v - 1)
-    if (prevVote === 'down') setLocalDown(v => v - 1)
-    if (newVote === 'up') setLocalUp(v => v + 1)
-    if (newVote === 'down') setLocalDown(v => v + 1)
+    if (prevVote === 'up') setLocalUp((v) => v - 1)
+    if (prevVote === 'down') setLocalDown((v) => v - 1)
+    if (newVote === 'up') setLocalUp((v) => v + 1)
+    if (newVote === 'down') setLocalDown((v) => v + 1)
     setLocalVote(newVote)
     onVote(comment.id, newVote)
   }
@@ -107,25 +115,31 @@ export function ThreadComment({
   const hasVotes = localUp > 0 || localDown > 0
 
   return (
-    <div className="flex">
+    <div className='flex'>
       {/* Colored thread line */}
       <button
-        type="button"
+        type='button'
         onClick={() => setCollapsed(!collapsed)}
-        className="group flex-shrink-0 w-5 flex justify-center cursor-pointer"
+        className='group flex w-5 flex-shrink-0 cursor-pointer justify-center'
         aria-label={collapsed ? 'Expand thread' : 'Collapse thread'}
       >
-        <div className={`w-0.5 h-full ${lineColor} opacity-40 group-hover:opacity-100 transition-opacity`} />
+        <div
+          className={`h-full w-0.5 ${lineColor} opacity-40 transition-opacity group-hover:opacity-100`}
+        />
       </button>
 
       {/* Content */}
-      <div className="flex-1 min-w-0 py-2 pl-2">
+      <div className='min-w-0 flex-1 py-2 pl-2'>
         {/* Collapsed state */}
         {collapsed && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span>{comment.name} · {comment.created_local}</span>
-            <span className="text-primary">
-              {hasReplies ? `(${comment.children.length} replies hidden)` : '(collapsed)'}
+          <div className='text-muted-foreground flex items-center gap-2 text-xs'>
+            <span>
+              {comment.name} · {comment.created_local}
+            </span>
+            <span className='text-primary'>
+              {hasReplies
+                ? `(${comment.children.length} replies hidden)`
+                : '(collapsed)'}
             </span>
           </div>
         )}
@@ -133,24 +147,29 @@ export function ThreadComment({
         {!collapsed && (
           <>
             {/* Comment's own content - hover target excludes nested replies */}
-            <div className="comment-content space-y-2">
+            <div className='comment-content space-y-2'>
               {/* Comment body - show edit form if editing */}
               {editing === comment.id ? (
-                <div className="space-y-2">
+                <div className='space-y-2'>
                   <textarea
                     value={editBody}
                     onChange={(e) => setEditBody(e.target.value)}
-                    className="w-full border rounded-md px-3 py-2 text-sm resize-none min-h-16"
+                    className='min-h-16 w-full resize-none rounded-md border px-3 py-2 text-sm'
                     rows={3}
                     autoFocus
                   />
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => setEditing(null)}>
+                  <div className='flex justify-end gap-2'>
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      className='h-7 text-xs'
+                      onClick={() => setEditing(null)}
+                    >
                       Cancel
                     </Button>
                     <Button
-                      size="sm"
-                      className="h-7 text-xs"
+                      size='sm'
+                      className='h-7 text-xs'
                       disabled={!editBody.trim()}
                       onClick={() => {
                         onEdit?.(comment.id, editBody.trim())
@@ -162,10 +181,12 @@ export function ThreadComment({
                   </div>
                 </div>
               ) : (
-                <div className="relative">
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap pr-32">{comment.body}</p>
+                <div className='relative'>
+                  <p className='pr-32 text-sm leading-relaxed whitespace-pre-wrap'>
+                    {comment.body}
+                  </p>
                   {/* Author and timestamp - hidden until hover */}
-                  <span className="comment-meta absolute top-0 right-0 text-xs text-muted-foreground transition-opacity">
+                  <span className='comment-meta text-muted-foreground absolute top-0 right-0 text-xs transition-opacity'>
                     {comment.name} · {comment.created_local}
                     {comment.edited ? ' (edited)' : ''}
                   </span>
@@ -174,74 +195,94 @@ export function ThreadComment({
 
               {/* Votes and actions row */}
               {(canVote || canReply || commentCanEdit) && (
-                <div className={`comment-actions-row flex items-center gap-3 text-xs text-muted-foreground pt-1 ${hasVotes ? 'has-votes' : ''}`}>
+                <div
+                  className={`comment-actions-row text-muted-foreground flex items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
+                >
                   {/* Vote counts */}
                   {localUp > 0 && (
-                    <span className="flex items-center gap-1">
-                      <ThumbsUp className="size-3" />
+                    <span className='flex items-center gap-1'>
+                      <ThumbsUp className='size-3' />
                       {localUp}
                     </span>
                   )}
                   {localDown > 0 && (
-                    <span className="flex items-center gap-1">
-                      <ThumbsDown className="size-3" />
+                    <span className='flex items-center gap-1'>
+                      <ThumbsDown className='size-3' />
                       {localDown}
                     </span>
                   )}
                   {/* Action buttons - visible on hover */}
-                  <div className="comment-actions flex items-center gap-3">
+                  <div className='comment-actions flex items-center gap-3'>
                     {canVote && (
                       <>
                         <button
-                          type="button"
-                          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
-                          style={localVote === 'up' ? { color: 'hsl(var(--primary))', fontWeight: 500 } : undefined}
-                          onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
+                          type='button'
+                          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
+                          style={
+                            localVote === 'up'
+                              ? {
+                                  color: 'hsl(var(--primary))',
+                                  fontWeight: 500,
+                                }
+                              : undefined
+                          }
+                          onClick={() =>
+                            handleVote(localVote === 'up' ? '' : 'up')
+                          }
                         >
-                          <ThumbsUp className="size-3" />
+                          <ThumbsUp className='size-3' />
                           <span>Upvote</span>
                         </button>
                         <button
-                          type="button"
-                          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
-                          style={localVote === 'down' ? { color: 'hsl(var(--primary))', fontWeight: 500 } : undefined}
-                          onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
+                          type='button'
+                          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
+                          style={
+                            localVote === 'down'
+                              ? {
+                                  color: 'hsl(var(--primary))',
+                                  fontWeight: 500,
+                                }
+                              : undefined
+                          }
+                          onClick={() =>
+                            handleVote(localVote === 'down' ? '' : 'down')
+                          }
                         >
-                          <ThumbsDown className="size-3" />
+                          <ThumbsDown className='size-3' />
                           <span>Downvote</span>
                         </button>
                       </>
                     )}
                     {canReply && onReply && (
                       <button
-                        type="button"
-                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                        type='button'
+                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
                         onClick={() => onReply(comment.id)}
                       >
-                        <MessageSquare className="size-3" />
+                        <MessageSquare className='size-3' />
                         Reply
                       </button>
                     )}
                     {commentCanEdit && onEdit && (
                       <button
-                        type="button"
-                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                        type='button'
+                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
                         onClick={() => {
                           setEditing(comment.id)
                           setEditBody(comment.body)
                         }}
                       >
-                        <Pencil className="size-3" />
+                        <Pencil className='size-3' />
                         Edit
                       </button>
                     )}
                     {commentCanEdit && onDelete && (
                       <button
-                        type="button"
-                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                        type='button'
+                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
                         onClick={() => setDeleting(true)}
                       >
-                        <Trash2 className="size-3" />
+                        <Trash2 className='size-3' />
                         Delete
                       </button>
                     )}
@@ -253,9 +294,9 @@ export function ThreadComment({
               <ConfirmDialog
                 open={deleting}
                 onOpenChange={setDeleting}
-                title="Delete comment"
-                desc="Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
-                confirmText="Delete"
+                title='Delete comment'
+                desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
+                confirmText='Delete'
                 handleConfirm={() => {
                   onDelete?.(comment.id)
                   setDeleting(false)
@@ -264,7 +305,7 @@ export function ThreadComment({
 
               {/* Reply input */}
               {isReplying && (
-                <div className="flex items-end gap-2 mt-2">
+                <div className='mt-2 flex items-end gap-2'>
                   <textarea
                     placeholder={`Reply to ${comment.name}...`}
                     value={replyValue}
@@ -279,29 +320,29 @@ export function ThreadComment({
                         onReplyCancel?.()
                       }
                     }}
-                    className="flex-1 border rounded-md px-3 py-2 text-sm resize-none"
+                    className='flex-1 resize-none rounded-md border px-3 py-2 text-sm'
                     rows={2}
                     autoFocus
                   />
                   <Button
-                    type="button"
-                    size="icon"
-                    variant="ghost"
-                    className="size-8"
+                    type='button'
+                    size='icon'
+                    variant='ghost'
+                    className='size-8'
                     onClick={onReplyCancel}
-                    aria-label="Cancel reply"
+                    aria-label='Cancel reply'
                   >
-                    <X className="size-4" />
+                    <X className='size-4' />
                   </Button>
                   <Button
-                    type="button"
-                    size="icon"
-                    className="size-8"
+                    type='button'
+                    size='icon'
+                    className='size-8'
                     disabled={!replyValue.trim() || isReplyPending}
                     onClick={() => onReplySubmit?.(comment.id)}
-                    aria-label="Submit reply"
+                    aria-label='Submit reply'
                   >
-                    <Send className="size-4" />
+                    <Send className='size-4' />
                   </Button>
                 </div>
               )}
@@ -309,7 +350,7 @@ export function ThreadComment({
 
             {/* Nested replies */}
             {hasReplies && (
-              <div className="mt-1 space-y-1">
+              <div className='mt-1 space-y-1'>
                 {comment.children.map((reply) => (
                   <ThreadComment
                     key={reply.id}

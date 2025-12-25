@@ -31,22 +31,32 @@ const endpoints = {
 
     // Post endpoints
     post: {
-      view: (forumId: string, postId: string) => `${appBase}/${forumId}/-/${postId}`,
-      edit: (forumId: string, postId: string) => `${appBase}/${forumId}/-/${postId}/edit`,
-      delete: (forumId: string, postId: string) => `${appBase}/${forumId}/-/${postId}/delete`,
+      view: (forumId: string, postId: string) =>
+        `${appBase}/${forumId}/-/${postId}`,
+      edit: (forumId: string, postId: string) =>
+        `${appBase}/${forumId}/-/${postId}/edit`,
+      delete: (forumId: string, postId: string) =>
+        `${appBase}/${forumId}/-/${postId}/delete`,
       vote: (forumId: string, postId: string, vote: 'up' | 'down' | '') =>
         `${appBase}/${forumId}/-/${postId}/vote/${vote || 'none'}`,
     },
 
     // Comment endpoints
     comment: {
-      new: (forumId: string, postId: string) => `${appBase}/${forumId}/-/${postId}/comment`,
-      create: (forumId: string, postId: string) => `${appBase}/${forumId}/-/${postId}/create`,
+      new: (forumId: string, postId: string) =>
+        `${appBase}/${forumId}/-/${postId}/comment`,
+      create: (forumId: string, postId: string) =>
+        `${appBase}/${forumId}/-/${postId}/create`,
       edit: (forumId: string, postId: string, commentId: string) =>
         `${appBase}/${forumId}/-/${postId}/${commentId}/edit`,
       delete: (forumId: string, postId: string, commentId: string) =>
         `${appBase}/${forumId}/-/${postId}/${commentId}/delete`,
-      vote: (forumId: string, postId: string, commentId: string, vote: 'up' | 'down' | '') =>
+      vote: (
+        forumId: string,
+        postId: string,
+        commentId: string,
+        vote: 'up' | 'down' | ''
+      ) =>
         `${appBase}/${forumId}/-/${postId}/${commentId}/vote/${vote || 'none'}`,
     },
 

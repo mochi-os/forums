@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import {
   Button,
   ResponsiveDialog,
@@ -20,6 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@mochi/common'
+import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
@@ -47,7 +47,12 @@ type EditPostDialogProps = {
   post: Post
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSave: (data: { title: string; body: string; order: string[]; attachments: File[] }) => void
+  onSave: (data: {
+    title: string
+    body: string
+    order: string[]
+    attachments: File[]
+  }) => void
   isPending?: boolean
 }
 
@@ -78,10 +83,12 @@ export function EditPostDialog({
         body: post.body,
       })
       // Initialize attachment items from existing attachments
-      const existingItems: EditingAttachment[] = (post.attachments || []).map((att) => ({
-        kind: 'existing' as const,
-        attachment: att,
-      }))
+      const existingItems: EditingAttachment[] = (post.attachments || []).map(
+        (att) => ({
+          kind: 'existing' as const,
+          attachment: att,
+        })
+      )
       setItems(existingItems)
     }
   }, [open, post, form])
@@ -126,7 +133,10 @@ export function EditPostDialog({
       const newIndex = direction === 'left' ? index - 1 : index + 1
       if (newIndex < 0 || newIndex >= prev.length) return prev
       const newItems = [...prev]
-      ;[newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]]
+      ;[newItems[index], newItems[newIndex]] = [
+        newItems[newIndex],
+        newItems[index],
+      ]
       return newItems
     })
   }
@@ -137,7 +147,7 @@ export function EditPostDialog({
 
   return (
     <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
-      <ResponsiveDialogContent className="sm:max-w-[600px]">
+      <ResponsiveDialogContent className='sm:max-w-[600px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Edit post</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
@@ -145,16 +155,16 @@ export function EditPostDialog({
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="title"
+              name='title'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="What would you like to discuss?"
+                      placeholder='What would you like to discuss?'
                       disabled={isPending}
                       {...field}
                     />
@@ -166,14 +176,14 @@ export function EditPostDialog({
 
             <FormField
               control={form.control}
-              name="body"
+              name='body'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Content</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="min-h-[180px]"
-                      placeholder="Share your thoughts..."
+                      className='min-h-[180px]'
+                      placeholder='Share your thoughts...'
                       disabled={isPending}
                       {...field}
                     />
@@ -185,20 +195,22 @@ export function EditPostDialog({
 
             {/* Attachments grid */}
             {items.length > 0 && (
-              <div className="space-y-2">
-                <div className="text-sm font-medium">Attachments</div>
-                <div className="flex flex-wrap gap-2">
+              <div className='space-y-2'>
+                <div className='text-sm font-medium'>Attachments</div>
+                <div className='flex flex-wrap gap-2'>
                   {items.map((item, index, arr) => {
                     const isExisting = item.kind === 'existing'
                     const isImage = isExisting
                       ? item.attachment.type?.startsWith('image/')
                       : item.file.type?.startsWith('image/')
-                    const thumbnailUrl = isExisting && isImage
-                      ? `${appBase}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
-                      : undefined
-                    const previewUrl = !isExisting && isImage
-                      ? URL.createObjectURL(item.file)
-                      : undefined
+                    const thumbnailUrl =
+                      isExisting && isImage
+                        ? `${appBase}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
+                        : undefined
+                    const previewUrl =
+                      !isExisting && isImage
+                        ? URL.createObjectURL(item.file)
+                        : undefined
                     const itemKey = isExisting
                       ? item.attachment.id
                       : `new-${item.file.name}-${item.file.size}-${item.file.lastModified}`
@@ -208,57 +220,65 @@ export function EditPostDialog({
                     return (
                       <div
                         key={itemKey}
-                        className={`group/att relative overflow-hidden rounded-lg flex items-center justify-center ${
-                          isExisting ? 'border bg-muted' : 'border-2 border-dashed border-primary/30 bg-muted/50'
+                        className={`group/att relative flex items-center justify-center overflow-hidden rounded-lg ${
+                          isExisting
+                            ? 'bg-muted border'
+                            : 'border-primary/30 bg-muted/50 border-2 border-dashed'
                         }`}
                       >
                         {isImage && (thumbnailUrl || previewUrl) ? (
                           <img
                             src={thumbnailUrl || previewUrl}
-                            alt={isExisting ? item.attachment.name : item.file.name}
-                            className="max-h-[120px] max-w-[160px] object-cover"
+                            alt={
+                              isExisting ? item.attachment.name : item.file.name
+                            }
+                            className='max-h-[120px] max-w-[160px] object-cover'
                           />
                         ) : (
-                          <div className="flex h-[80px] w-[120px] flex-col items-center justify-center gap-1 px-2">
-                            <Paperclip className="size-5 text-muted-foreground" />
-                            <span className="text-xs text-muted-foreground text-center line-clamp-2 break-all">
-                              {isExisting ? item.attachment.name : item.file.name}
+                          <div className='flex h-[80px] w-[120px] flex-col items-center justify-center gap-1 px-2'>
+                            <Paperclip className='text-muted-foreground size-5' />
+                            <span className='text-muted-foreground line-clamp-2 text-center text-xs break-all'>
+                              {isExisting
+                                ? item.attachment.name
+                                : item.file.name}
                             </span>
                           </div>
                         )}
                         {/* Hover overlay with controls */}
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/att:opacity-100 transition-opacity flex items-center justify-center gap-1">
+                        <div className='absolute inset-0 flex items-center justify-center gap-1 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
                           <button
-                            type="button"
-                            className="size-7 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                            type='button'
+                            className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                             disabled={isFirst || isPending}
                             onClick={() => moveItem(index, 'left')}
                           >
-                            <ArrowLeft className="size-4" />
+                            <ArrowLeft className='size-4' />
                           </button>
                           <button
-                            type="button"
-                            className="size-7 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                            type='button'
+                            className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                             disabled={isLast || isPending}
                             onClick={() => moveItem(index, 'right')}
                           >
-                            <ArrowRight className="size-4" />
+                            <ArrowRight className='size-4' />
                           </button>
                           <button
-                            type="button"
-                            className="size-7 rounded-full bg-white/20 text-white hover:bg-white/30 flex items-center justify-center"
+                            type='button'
+                            className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
                             disabled={isPending}
                             onClick={() => removeItem(index)}
                           >
-                            <X className="size-4" />
+                            <X className='size-4' />
                           </button>
                         </div>
                         {/* Position indicator or New badge */}
-                        <div className={`absolute top-1 left-1 ${
-                          isExisting
-                            ? 'size-5 rounded-full bg-black/60 text-white text-xs font-medium flex items-center justify-center'
-                            : 'px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-medium'
-                        }`}>
+                        <div
+                          className={`absolute top-1 left-1 ${
+                            isExisting
+                              ? 'flex size-5 items-center justify-center rounded-full bg-black/60 text-xs font-medium text-white'
+                              : 'bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium'
+                          }`}
+                        >
                           {isExisting ? index + 1 : 'New'}
                         </div>
                       </div>
@@ -271,42 +291,45 @@ export function EditPostDialog({
             {/* Hidden file input */}
             <input
               ref={fileInputRef}
-              type="file"
+              type='file'
               multiple
-              className="hidden"
+              className='hidden'
               onChange={handleFileChange}
               disabled={isPending}
             />
 
-            <ResponsiveDialogFooter className="gap-2">
+            <ResponsiveDialogFooter className='gap-2'>
               <Button
-                type="button"
-                variant="outline"
-                size="sm"
+                type='button'
+                variant='outline'
+                size='sm'
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isPending}
               >
-                <Paperclip className="size-4" />
+                <Paperclip className='size-4' />
                 Add files
               </Button>
-              <div className="flex-1" />
+              <div className='flex-1' />
               <Button
-                type="button"
-                variant="outline"
+                type='button'
+                variant='outline'
                 onClick={() => onOpenChange(false)}
                 disabled={isPending}
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={!form.formState.isValid || isPending}>
+              <Button
+                type='submit'
+                disabled={!form.formState.isValid || isPending}
+              >
                 {isPending ? (
                   <>
-                    <Save className="size-4" />
+                    <Save className='size-4' />
                     Saving...
                   </>
                 ) : (
                   <>
-                    <Save className="size-4" />
+                    <Save className='size-4' />
                     Save changes
                   </>
                 )}

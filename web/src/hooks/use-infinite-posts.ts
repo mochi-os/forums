@@ -1,8 +1,8 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { forumsApi } from '@/api/forums'
-import type { Post } from '@/api/types/posts'
 import type { Forum, Member } from '@/api/types/forums'
+import type { Post } from '@/api/types/posts'
 
 const DEFAULT_LIMIT = 20
 

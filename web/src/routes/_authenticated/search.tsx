@@ -1,13 +1,20 @@
-import { createFileRoute } from '@tanstack/react-router'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { z } from 'zod'
-import { Header, Main, Input, Card, CardContent, usePageTitle } from '@mochi/common'
+import { createFileRoute } from '@tanstack/react-router'
+import {
+  Header,
+  Main,
+  Input,
+  Card,
+  CardContent,
+  usePageTitle,
+} from '@mochi/common'
+import { Loader2, Search as SearchIcon, Hash } from 'lucide-react'
 import { forumsApi } from '@/api/forums'
 import type { DirectoryEntry, ProbeForumResponse } from '@/api/types/forums'
+import { useForumsStore, type CachedForum } from '@/stores/forums-store'
 import { useForumsList, useSubscribeForum } from '@/hooks/use-forums-queries'
 import { ForumGrid } from '@/features/forums/components/forum-grid'
-import { useForumsStore, type CachedForum } from '@/stores/forums-store'
-import { Loader2, Search as SearchIcon, Hash } from 'lucide-react'
 
 const searchSchema = z.object({
   search: z.string().optional(),
@@ -26,7 +33,9 @@ const isForumUrl = (input: string): boolean => {
 }
 
 // Map probe response to DirectoryEntry format for display
-const mapProbeToDirectoryEntry = (probe: ProbeForumResponse['data']): DirectoryEntry => ({
+const mapProbeToDirectoryEntry = (
+  probe: ProbeForumResponse['data']
+): DirectoryEntry => ({
   id: probe.id,
   fingerprint: probe.fingerprint,
   fingerprint_hyphens: probe.fingerprint,
@@ -43,7 +52,9 @@ function SearchForumsPage() {
   const navigate = Route.useNavigate()
 
   const [searchTerm, setSearchTerm] = useState(search || '')
-  const [searchResults, setSearchResults] = useState<(DirectoryEntry & { isSubscribed?: boolean })[]>([])
+  const [searchResults, setSearchResults] = useState<
+    (DirectoryEntry & { isSubscribed?: boolean })[]
+  >([])
   const [isSearching, setIsSearching] = useState(false)
   const [subscribingId, setSubscribingId] = useState<string | null>(null)
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
@@ -73,47 +84,49 @@ function SearchForumsPage() {
     }
   }, [])
 
-  const performSearch = useCallback(async (term: string) => {
-    const trimmedSearch = term.trim()
+  const performSearch = useCallback(
+    async (term: string) => {
+      const trimmedSearch = term.trim()
 
-    if (!trimmedSearch) {
-      setSearchResults([])
-      setIsSearching(false)
-      return
-    }
-
-    setIsSearching(true)
-    try {
-      // Check if input is a URL
-      if (isForumUrl(trimmedSearch)) {
-        // Probe remote forum by URL
-        const response = await forumsApi.probe({ url: trimmedSearch })
-        if (!mountedRef.current) return
-
-        if (response.data) {
-          const entry = mapProbeToDirectoryEntry(response.data)
-          // Cache the probe result for later use when viewing the forum
-          cacheRemoteForum(entry as CachedForum)
-          setSearchResults([entry])
-        } else {
-          setSearchResults([])
-        }
-      } else {
-        // Regular search (handles name, ID, and fingerprint on backend)
-        const response = await forumsApi.search({ search: trimmedSearch })
-        if (!mountedRef.current) return
-
-        setSearchResults(response.data?.results ?? [])
-      }
-    } catch (error) {
-      console.error('[SearchForums] Failed to search forums', error)
-      setSearchResults([])
-    } finally {
-      if (mountedRef.current) {
+      if (!trimmedSearch) {
+        setSearchResults([])
         setIsSearching(false)
+        return
       }
-    }
-  }, [cacheRemoteForum])
+
+      setIsSearching(true)
+      try {
+        // Check if input is a URL
+        if (isForumUrl(trimmedSearch)) {
+          // Probe remote forum by URL
+          const response = await forumsApi.probe({ url: trimmedSearch })
+          if (!mountedRef.current) return
+
+          if (response.data) {
+            const entry = mapProbeToDirectoryEntry(response.data)
+            // Cache the probe result for later use when viewing the forum
+            cacheRemoteForum(entry as CachedForum)
+            setSearchResults([entry])
+          } else {
+            setSearchResults([])
+          }
+        } else {
+          // Regular search (handles name, ID, and fingerprint on backend)
+          const response = await forumsApi.search({ search: trimmedSearch })
+          if (!mountedRef.current) return
+
+          setSearchResults(response.data?.results ?? [])
+        }
+      } catch {
+        setSearchResults([])
+      } finally {
+        if (mountedRef.current) {
+          setIsSearching(false)
+        }
+      }
+    },
+    [cacheRemoteForum]
+  )
 
   useEffect(() => {
     if (debounceTimerRef.current) {
@@ -122,7 +135,10 @@ function SearchForumsPage() {
 
     debounceTimerRef.current = setTimeout(() => {
       void performSearch(searchTerm)
-      void navigate({ search: { search: searchTerm || undefined }, replace: true })
+      void navigate({
+        search: { search: searchTerm || undefined },
+        replace: true,
+      })
     }, SEARCH_DEBOUNCE_MS)
 
     return () => {
@@ -158,43 +174,45 @@ function SearchForumsPage() {
   return (
     <>
       <Header>
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <SearchIcon className="size-5" />
-            <h1 className="text-lg font-semibold">Search forums</h1>
+        <div className='flex flex-col gap-1'>
+          <div className='flex items-center gap-2'>
+            <SearchIcon className='size-5' />
+            <h1 className='text-lg font-semibold'>Search forums</h1>
           </div>
-          <p className="text-sm text-muted-foreground">Private forums may only be added by URL.</p>
+          <p className='text-muted-foreground text-sm'>
+            Private forums may only be added by URL.
+          </p>
         </div>
       </Header>
-      <Main className="space-y-6">
-        <div className="relative">
+      <Main className='space-y-6'>
+        <div className='relative'>
           {isSearching ? (
-            <Loader2 className="absolute left-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+            <Loader2 className='text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2 animate-spin' />
           ) : (
-            <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className='text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2' />
           )}
           <Input
-            placeholder="Forum name, ID, fingerprint, or URL..."
+            placeholder='Forum name, ID, fingerprint, or URL...'
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            className="pl-10"
+            className='pl-10'
             autoFocus
           />
         </div>
 
         {isSearching ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <Loader2 className="mx-auto size-6 animate-spin text-muted-foreground" />
-              <p className="mt-2 text-sm text-muted-foreground">Searching...</p>
+          <div className='flex items-center justify-center py-12'>
+            <div className='text-center'>
+              <Loader2 className='text-muted-foreground mx-auto size-6 animate-spin' />
+              <p className='text-muted-foreground mt-2 text-sm'>Searching...</p>
             </div>
           </div>
         ) : hasSearchTerm && !hasResults ? (
           <Card>
-            <CardContent className="py-12 text-center">
-              <Hash className="mx-auto mb-4 size-12 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">No forums found</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+            <CardContent className='py-12 text-center'>
+              <Hash className='text-muted-foreground mx-auto mb-4 size-12' />
+              <h2 className='text-lg font-semibold'>No forums found</h2>
+              <p className='text-muted-foreground mt-1 text-sm'>
                 Try a different search term or create a new forum.
               </p>
             </CardContent>
@@ -207,10 +225,10 @@ function SearchForumsPage() {
           />
         ) : (
           <Card>
-            <CardContent className="py-12 text-center">
-              <SearchIcon className="mx-auto mb-4 size-12 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Search for forums</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+            <CardContent className='py-12 text-center'>
+              <SearchIcon className='text-muted-foreground mx-auto mb-4 size-12' />
+              <h2 className='text-lg font-semibold'>Search for forums</h2>
+              <p className='text-muted-foreground mt-1 text-sm'>
                 Enter a search term to find forums across the network.
               </p>
             </CardContent>

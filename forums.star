@@ -506,7 +506,7 @@ def action_post_create(a):
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
             # Save any uploaded attachments and notify members via _attachment/create events
-            attachments = mochi.attachment.save(id, "attachments", [], [], members)
+            mochi.attachment.save(id, "attachments", [], [], members)
 
             # Broadcast post to members (attachments sent separately via federation)
             post_data = {
@@ -530,7 +530,7 @@ def action_post_create(a):
                 return
 
             # Save attachments and send to forum owner
-            attachments = mochi.attachment.save(id, "attachments", [], [], [forum["id"]])
+            mochi.attachment.save(id, "attachments", [], [], [forum["id"]])
 
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
@@ -560,7 +560,7 @@ def action_post_create(a):
         return
 
     # Save attachments and send to forum owner
-    attachments = mochi.attachment.save(id, "attachments", [], [], [forum_id])
+    mochi.attachment.save(id, "attachments", [], [], [forum_id])
 
     # Send post to remote forum owner
     mochi.message.send(
@@ -3097,8 +3097,6 @@ def event_access_check(e):
     for op in operations:
         result[op] = check_event_access(requester, forum_id, op)
 
-    # DEBUG
-    result["_debug"] = {"requester": requester, "operations": operations, "forum": forum_id}
     e.stream.write(result)
 
 # Handle post view request for remote viewing

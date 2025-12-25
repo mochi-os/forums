@@ -7,13 +7,13 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { toast } from 'sonner'
 import {
   useAuthStore,
   ThemeProvider,
   SearchProvider,
   CommandMenu,
 } from '@mochi/common'
+import { toast } from 'sonner'
 import { sidebarData } from './components/layout/data/sidebar-data'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
@@ -67,10 +67,10 @@ const queryClient = new QueryClient({
 })
 
 const getBasepath = () => {
-  const pathname = window.location.pathname;
-  const match = pathname.match(/^(\/[^/]+)/);
-  return match ? match[1] : '/';
-};
+  const pathname = window.location.pathname
+  const match = pathname.match(/^(\/[^/]+)/)
+  return match ? match[1] : '/'
+}
 
 const router = createRouter({
   routeTree,

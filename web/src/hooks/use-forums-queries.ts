@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
 import { handleServerError, requestHelpers } from '@mochi/common'
-import { forumsApi } from '@/api/forums'
+import { toast } from 'sonner'
 import endpoints from '@/api/endpoints'
+import { forumsApi } from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
 // Query keys for consistency
@@ -12,7 +12,8 @@ export const forumsKeys = {
   detail: (forumId: string) => [...forumsKeys.all, 'detail', forumId] as const,
   search: (term: string) => [...forumsKeys.all, 'search', term] as const,
   access: (forumId: string) => [...forumsKeys.all, 'access', forumId] as const,
-  post: (forumId: string, postId: string) => [...forumsKeys.all, 'post', forumId, postId] as const,
+  post: (forumId: string, postId: string) =>
+    [...forumsKeys.all, 'post', forumId, postId] as const,
 }
 
 // ============================================================================
@@ -46,7 +47,10 @@ export function useForumSearch(searchTerm: string) {
   })
 }
 
-export function useForumAccess(forumId: string, options?: { enabled?: boolean }) {
+export function useForumAccess(
+  forumId: string,
+  options?: { enabled?: boolean }
+) {
   return useQuery({
     queryKey: forumsKeys.access(forumId),
     queryFn: () => forumsApi.getAccess({ forum: forumId }),
@@ -144,9 +148,13 @@ export function useRevokeAccess(forumId: string) {
 // Thread/Post Queries
 // ============================================================================
 
-export function usePostDetail(forumId: string, postId: string, server?: string) {
+export function usePostDetail(
+  forumId: string,
+  postId: string,
+  server?: string
+) {
   return useQuery({
-    queryKey: forumsKeys.post(forumId, postId),
+    queryKey: [...forumsKeys.post(forumId, postId), server],
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId, server }),
     enabled: !!forumId && !!postId,
     refetchOnWindowFocus: false,
@@ -164,8 +172,19 @@ export function useVotePost(forumId: string, postId: string) {
 
 export function useVoteComment(forumId: string, postId: string) {
   return useMutation({
-    mutationFn: ({ commentId, vote }: { commentId: string; vote: 'up' | 'down' | '' }) =>
-      forumsApi.voteComment({ forum: forumId, post: postId, comment: commentId, vote }),
+    mutationFn: ({
+      commentId,
+      vote,
+    }: {
+      commentId: string
+      vote: 'up' | 'down' | ''
+    }) =>
+      forumsApi.voteComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+        vote,
+      }),
     onError: handleServerError,
   })
 }
@@ -176,7 +195,9 @@ export function useCreateComment(forumId: string, postId: string) {
     mutationFn: ({ body, parent }: { body: string; parent?: string }) =>
       forumsApi.createComment({ forum: forumId, post: postId, body, parent }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success('Comment posted')
     },
     onError: handleServerError,
@@ -186,7 +207,12 @@ export function useCreateComment(forumId: string, postId: string) {
 export function useEditPost(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: { title: string; body: string; order?: string[]; attachments?: File[] }) =>
+    mutationFn: (data: {
+      title: string
+      body: string
+      order?: string[]
+      attachments?: File[]
+    }) =>
       forumsApi.editPost({
         forum: forumId,
         post: postId,
@@ -196,7 +222,9 @@ export function useEditPost(forumId: string, postId: string) {
         attachments: data.attachments,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
@@ -226,9 +254,16 @@ export function useEditComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ commentId, body }: { commentId: string; body: string }) =>
-      forumsApi.editComment({ forum: forumId, post: postId, comment: commentId, body }),
+      forumsApi.editComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+        body,
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success('Comment updated')
     },
     onError: handleServerError,
@@ -239,9 +274,15 @@ export function useDeleteComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
-      forumsApi.deleteComment({ forum: forumId, post: postId, comment: commentId }),
+      forumsApi.deleteComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success('Comment deleted')
     },
     onError: handleServerError,
@@ -252,15 +293,23 @@ export function useDeleteComment(forumId: string, postId: string) {
 // Selector helpers
 // ============================================================================
 
-export function selectForums(data: Awaited<ReturnType<typeof forumsApi.list>> | undefined): Forum[] {
+export function selectForums(
+  data: Awaited<ReturnType<typeof forumsApi.list>> | undefined
+): Forum[] {
   return data?.data?.forums || []
 }
 
-export function selectPosts(data: Awaited<ReturnType<typeof forumsApi.list>> | undefined): Post[] {
-  return (data?.data?.posts || []).filter((p): p is Post => 'title' in p && !!p.title)
+export function selectPosts(
+  data: Awaited<ReturnType<typeof forumsApi.list>> | undefined
+): Post[] {
+  return (data?.data?.posts || []).filter(
+    (p): p is Post => 'title' in p && !!p.title
+  )
 }
 
-export function selectSearchResults(data: Awaited<ReturnType<typeof forumsApi.search>> | undefined): DirectoryEntry[] {
+export function selectSearchResults(
+  data: Awaited<ReturnType<typeof forumsApi.search>> | undefined
+): DirectoryEntry[] {
   return data?.data?.results || []
 }
 

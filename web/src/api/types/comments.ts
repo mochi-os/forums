@@ -1,5 +1,4 @@
 // Comment Types - Based on forums.yaml specification
-
 import type { Forum } from './forums'
 
 export interface Comment {

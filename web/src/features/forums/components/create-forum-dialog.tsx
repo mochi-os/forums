@@ -1,8 +1,7 @@
 import { useState } from 'react'
+import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { MessageSquarePlus, Check } from 'lucide-react'
 import {
   Button,
   ResponsiveDialog,
@@ -22,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@mochi/common'
+import { MessageSquarePlus, Check } from 'lucide-react'
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
@@ -46,7 +46,12 @@ type CreateForumDialogProps = {
   hideTrigger?: boolean
 }
 
-export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }: CreateForumDialogProps) {
+export function CreateForumDialog({
+  onCreate,
+  open,
+  onOpenChange,
+  hideTrigger,
+}: CreateForumDialogProps) {
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
@@ -76,13 +81,13 @@ export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }:
     <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
       {!hideTrigger && (
         <ResponsiveDialogTrigger asChild>
-          <Button size="sm" className="text-sm">
-            <MessageSquarePlus className="size-4" />
+          <Button size='sm' className='text-sm'>
+            <MessageSquarePlus className='size-4' />
             Create forum
           </Button>
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className="sm:max-w-[520px]">
+      <ResponsiveDialogContent className='sm:max-w-[520px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>New forum</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
@@ -90,15 +95,15 @@ export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }:
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name='name'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Forum name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Forum name" {...field} />
+                    <Input placeholder='Forum name' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,26 +111,29 @@ export function CreateForumDialog({ onCreate, open, onOpenChange, hideTrigger }:
             />
             <FormField
               control={form.control}
-              name="allowSearch"
+              name='allowSearch'
               render={({ field }) => (
-                <FormItem className="flex items-center justify-between rounded-lg border px-4 py-3">
-                  <FormLabel className="text-sm font-medium">
+                <FormItem className='flex items-center justify-between rounded-lg border px-4 py-3'>
+                  <FormLabel className='text-sm font-medium'>
                     Allow anyone to search for forum
                   </FormLabel>
                   <FormControl>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <ResponsiveDialogFooter className="gap-2">
+            <ResponsiveDialogFooter className='gap-2'>
               <ResponsiveDialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type='button' variant='outline'>
                   Cancel
                 </Button>
               </ResponsiveDialogClose>
-              <Button type="submit" disabled={!form.formState.isValid}>
-                <Check className="size-4" />
+              <Button type='submit' disabled={!form.formState.isValid}>
+                <Check className='size-4' />
                 Create
               </Button>
             </ResponsiveDialogFooter>

@@ -1,13 +1,32 @@
 import { useCallback, useMemo } from 'react'
-import { AuthenticatedLayout, type SidebarData, type NavItem, type NavSubItem } from '@mochi/common'
-import { FileText, Hash, MessageSquare, Plus, Search, Settings, SquarePen, UserMinus } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
-import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
-import { useForumsList, useCreatePost, useCreateForum, forumsKeys } from '@/hooks/use-forums-queries'
 import { APP_ROUTES } from '@/config/routes'
-import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
-import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
+import {
+  AuthenticatedLayout,
+  type SidebarData,
+  type NavItem,
+  type NavSubItem,
+} from '@mochi/common'
+import {
+  FileText,
+  Hash,
+  MessageSquare,
+  Plus,
+  Search,
+  Settings,
+  SquarePen,
+  UserMinus,
+} from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
+import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
+import {
+  useForumsList,
+  useCreatePost,
+  useCreateForum,
+  forumsKeys,
+} from '@/hooks/use-forums-queries'
+import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
+import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 
 function ForumsLayoutInner() {
   const { data } = useForumsList()
@@ -40,7 +59,12 @@ function ForumsLayoutInner() {
   const createPostMutation = useCreatePost(postDialogForum)
 
   const handleCreatePost = useCallback(
-    (data: { forum: string; title: string; body: string; attachments?: File[] }) => {
+    (data: {
+      forum: string
+      title: string
+      body: string
+      attachments?: File[]
+    }) => {
       createPostMutation.mutate(data)
     },
     [createPostMutation]
@@ -104,7 +128,12 @@ function ForumsLayoutInner() {
       }
 
       // Unsubscribe for non-owned current forums
-      if (isCurrentForum && !f.can_manage && subscription?.canUnsubscribe && unsubscribeHandler.current) {
+      if (
+        isCurrentForum &&
+        !f.can_manage &&
+        subscription?.canUnsubscribe &&
+        unsubscribeHandler.current
+      ) {
         const handler = unsubscribeHandler.current
         subItems.push({
           title: 'Unsubscribe',
@@ -144,7 +173,11 @@ function ForumsLayoutInner() {
     ]
 
     // Add subscribe action when viewing remote unsubscribed forum
-    if (subscription?.isRemote && !subscription?.isSubscribed && subscribeHandler.current) {
+    if (
+      subscription?.isRemote &&
+      !subscription?.isSubscribed &&
+      subscribeHandler.current
+    ) {
       const handler = subscribeHandler.current
       bottomItems.push({
         title: 'Subscribe to forum',

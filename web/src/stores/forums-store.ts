@@ -69,6 +69,7 @@ export const useForumsStore = create<ForumsUIState>()((set, get) => ({
 }))
 
 // Selector hooks for common use cases
-export const useSelectedForumId = () => useForumsStore((state) => state.selectedForumId)
+export const useSelectedForumId = () =>
+  useForumsStore((state) => state.selectedForumId)
 export const useSearchTerm = () => useForumsStore((state) => state.searchTerm)
 export const useViewMode = () => useForumsStore((state) => state.viewMode)

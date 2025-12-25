@@ -1,5 +1,4 @@
 // Post Types - Based on forums.yaml specification
-
 import type { Forum, Member } from './forums'
 
 // Attachment interface based on API response
@@ -43,7 +42,9 @@ export interface Post {
 }
 
 // Helper to safely get comment count
-export function getCommentCount(comments: number | unknown[] | undefined): number {
+export function getCommentCount(
+  comments: number | unknown[] | undefined
+): number {
   if (typeof comments === 'number') return comments
   if (Array.isArray(comments)) return comments.length
   return 0
@@ -128,8 +129,8 @@ export interface EditPostRequest {
   post: string
   title: string
   body: string
-  order?: string[]  // Array of attachment IDs (existing) or "new:N" placeholders
-  attachments?: File[]  // New files to upload
+  order?: string[] // Array of attachment IDs (existing) or "new:N" placeholders
+  attachments?: File[] // New files to upload
 }
 
 export interface EditPostResponse {

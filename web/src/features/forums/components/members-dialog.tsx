@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react'
-import { toast } from 'sonner'
 import {
   Button,
   ResponsiveDialog,
@@ -17,12 +16,10 @@ import {
   requestHelpers,
 } from '@mochi/common'
 import { Users, Plus } from 'lucide-react'
-import {
-  useUserSearch,
-  useGroups,
-} from '@/hooks/use-forums-queries'
+import { toast } from 'sonner'
 import endpoints from '@/api/endpoints'
 import type { MemberAccess, AccessLevel } from '@/api/types/forums'
+import { useUserSearch, useGroups } from '@/hooks/use-forums-queries'
 
 interface MembersDialogProps {
   forumId: string
@@ -54,7 +51,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
 
   // User search for AccessDialog
   const [userSearchQuery, setUserSearchQuery] = useState('')
-  const { data: userSearchData, isLoading: userSearchLoading } = useUserSearch(userSearchQuery)
+  const { data: userSearchData, isLoading: userSearchLoading } =
+    useUserSearch(userSearchQuery)
   const { data: groupsData } = useGroups()
 
   // Load access rules
@@ -79,7 +77,9 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
 
       setRules(accessRules)
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to load access rules'))
+      setError(
+        err instanceof Error ? err : new Error('Failed to load access rules')
+      )
     } finally {
       setIsLoading(false)
     }
@@ -93,7 +93,11 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   }, [isOpen, loadRules])
 
   // Add access handler
-  const handleAdd = async (subject: string, subjectName: string, level: string) => {
+  const handleAdd = async (
+    subject: string,
+    subjectName: string,
+    level: string
+  ) => {
     try {
       await requestHelpers.post(endpoints.forums.accessSet(forumId), {
         target: subject,
@@ -136,12 +140,12 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   return (
     <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
       <ResponsiveDialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <Users className="size-4" />
+        <Button variant='outline' size='sm' className='gap-2'>
+          <Users className='size-4' />
           Manage members
         </Button>
       </ResponsiveDialogTrigger>
-      <ResponsiveDialogContent className="sm:max-w-[700px] max-h-[85vh] flex flex-col">
+      <ResponsiveDialogContent className='flex max-h-[85vh] flex-col sm:max-w-[700px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Manage members</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
@@ -149,11 +153,11 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
-        <div className="flex-1 overflow-auto py-4 space-y-4">
+        <div className='flex-1 space-y-4 overflow-auto py-4'>
           {/* Add button */}
-          <div className="flex justify-end">
-            <Button onClick={() => setAddDialogOpen(true)} size="sm">
-              <Plus className="size-4 mr-2" />
+          <div className='flex justify-end'>
+            <Button onClick={() => setAddDialogOpen(true)} size='sm'>
+              <Plus className='mr-2 size-4' />
               Add
             </Button>
           </div>
@@ -163,8 +167,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
             open={addDialogOpen}
             onOpenChange={setAddDialogOpen}
             onAdd={handleAdd}
-            levels={FORUM_ACCESS_LEVELS.filter(l => l.value !== 'none')}
-            defaultLevel="post"
+            levels={FORUM_ACCESS_LEVELS.filter((l) => l.value !== 'none')}
+            defaultLevel='post'
             userSearchResults={userSearchData?.results ?? []}
             userSearchLoading={userSearchLoading}
             onUserSearch={setUserSearchQuery}
@@ -183,12 +187,14 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
           />
         </div>
 
-        <ResponsiveDialogFooter className="gap-2 sm:justify-between">
-          <div className="text-xs text-muted-foreground self-center hidden sm:block">
+        <ResponsiveDialogFooter className='gap-2 sm:justify-between'>
+          <div className='text-muted-foreground hidden self-center text-xs sm:block'>
             {rules.length} member{rules.length !== 1 ? 's' : ''}
           </div>
           <ResponsiveDialogClose asChild>
-            <Button variant="outline" size="sm">Close</Button>
+            <Button variant='outline' size='sm'>
+              Close
+            </Button>
           </ResponsiveDialogClose>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

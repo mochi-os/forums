@@ -1,3 +1,6 @@
+// API Request/Response Types
+import type { Post } from './posts'
+
 // Forum Types - Based on forums.yaml specification
 
 // Access levels in hierarchical order (higher grants all lower)
@@ -11,12 +14,14 @@ export interface Forum {
   // API may return either a count (number) or an array of member objects
   members: number | unknown[]
   updated: number
-  can_manage?: boolean  // True if current user can manage this forum
-  can_post?: boolean    // True if current user can create posts
+  can_manage?: boolean // True if current user can manage this forum
+  can_post?: boolean // True if current user can create posts
 }
 
 // Helper to safely get member count
-export function getMemberCount(members: number | unknown[] | undefined): number {
+export function getMemberCount(
+  members: number | unknown[] | undefined
+): number {
   if (typeof members === 'number') return members
   if (Array.isArray(members)) return members.length
   return 0
@@ -26,15 +31,15 @@ export interface Member {
   forum: string
   id: string
   name: string
-  subscribed: number  // Timestamp when subscribed
+  subscribed: number // Timestamp when subscribed
 }
 
 // Access rule for a member (from mochi.access system)
 export interface MemberAccess {
   id: string
   name: string
-  level: AccessLevel | null  // null = owner (implicit full access)
-  isOwner?: boolean  // True if this is the resource owner
+  level: AccessLevel | null // null = owner (implicit full access)
+  isOwner?: boolean // True if this is the resource owner
 }
 
 export interface DirectoryEntry {
@@ -49,10 +54,6 @@ export interface DirectoryEntry {
   updated: number
 }
 
-// API Request/Response Types
-
-
-import type { Post } from './posts'
 export type { Post }
 
 export interface ListForumsResponse {
@@ -141,7 +142,7 @@ export interface GetMembersResponse {
 
 export interface SaveMembersRequest {
   forum: string
-  [key: `role_${string}`]: string  // Legacy - may need update for access system
+  [key: `role_${string}`]: string // Legacy - may need update for access system
 }
 
 export interface SaveMembersResponse {

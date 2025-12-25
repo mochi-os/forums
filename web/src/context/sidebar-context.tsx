@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useRef,
+  type ReactNode,
+} from 'react'
 
 type SubscriptionState = {
   isRemote: boolean
@@ -43,7 +50,9 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [postDialogOpen, setPostDialogOpen] = useState(false)
   const [postDialogForum, setPostDialogForum] = useState<string | null>(null)
   const [forumDialogOpen, setForumDialogOpen] = useState(false)
-  const [subscription, setSubscription] = useState<SubscriptionState | null>(null)
+  const [subscription, setSubscription] = useState<SubscriptionState | null>(
+    null
+  )
   const subscribeHandler = useRef<(() => void) | null>(null)
   const unsubscribeHandler = useRef<(() => void) | null>(null)
 
@@ -71,24 +80,26 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <SidebarContext.Provider value={{
-      forum,
-      setForum,
-      post,
-      postTitle,
-      setPost,
-      postDialogOpen,
-      postDialogForum,
-      openPostDialog,
-      closePostDialog,
-      forumDialogOpen,
-      openForumDialog,
-      closeForumDialog,
-      subscription,
-      setSubscription,
-      subscribeHandler,
-      unsubscribeHandler,
-    }}>
+    <SidebarContext.Provider
+      value={{
+        forum,
+        setForum,
+        post,
+        postTitle,
+        setPost,
+        postDialogOpen,
+        postDialogForum,
+        openPostDialog,
+        closePostDialog,
+        forumDialogOpen,
+        openForumDialog,
+        closeForumDialog,
+        subscription,
+        setSubscription,
+        subscribeHandler,
+        unsubscribeHandler,
+      }}
+    >
       {children}
     </SidebarContext.Provider>
   )

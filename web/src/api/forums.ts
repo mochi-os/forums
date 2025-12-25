@@ -1,4 +1,17 @@
+import { requestHelpers } from '@mochi/common'
 import endpoints from '@/api/endpoints'
+import type {
+  CreateCommentRequest,
+  CreateCommentResponse,
+  DeleteCommentRequest,
+  DeleteCommentResponse,
+  EditCommentRequest,
+  EditCommentResponse,
+  GetNewCommentParams,
+  GetNewCommentResponse,
+  VoteCommentRequest,
+  VoteCommentResponse,
+} from '@/api/types/comments'
 import type {
   CreateForumRequest,
   CreateForumResponse,
@@ -38,19 +51,6 @@ import type {
   VotePostRequest,
   VotePostResponse,
 } from '@/api/types/posts'
-import type {
-  CreateCommentRequest,
-  CreateCommentResponse,
-  DeleteCommentRequest,
-  DeleteCommentResponse,
-  EditCommentRequest,
-  EditCommentResponse,
-  GetNewCommentParams,
-  GetNewCommentResponse,
-  VoteCommentRequest,
-  VoteCommentResponse,
-} from '@/api/types/comments'
-import { requestHelpers } from '@mochi/common'
 
 type DataEnvelope<T> = { data: T }
 type MaybeWrapped<T> = T | DataEnvelope<T>
@@ -111,7 +111,9 @@ const listForums = async (): Promise<ListForumsResponse> => {
   return toDataResponse<ListForumsResponse['data']>(response, 'list forums')
 }
 
-const viewForum = async (params: ViewForumParams): Promise<ViewForumResponse> => {
+const viewForum = async (
+  params: ViewForumParams
+): Promise<ViewForumResponse> => {
   const response = await requestHelpers.get<
     ViewForumResponse | ViewForumResponse['data']
   >(endpoints.forums.posts(params.forum), {
@@ -153,10 +155,7 @@ const searchForums = async (
     params: { search: params.search },
   })
 
-  return toDataResponse<SearchForumsResponse['data']>(
-    response,
-    'search forums'
-  )
+  return toDataResponse<SearchForumsResponse['data']>(response, 'search forums')
 }
 
 const probeForum = async (
@@ -167,10 +166,7 @@ const probeForum = async (
     { url: string }
   >(endpoints.forums.probe, { url: params.url })
 
-  return toDataResponse<ProbeForumResponse['data']>(
-    response,
-    'probe forum'
-  )
+  return toDataResponse<ProbeForumResponse['data']>(response, 'probe forum')
 }
 
 const getNewForum = async (): Promise<GetNewForumResponse> => {
@@ -178,10 +174,7 @@ const getNewForum = async (): Promise<GetNewForumResponse> => {
     GetNewForumResponse | GetNewForumResponse['data']
   >(endpoints.forums.new)
 
-  return toDataResponse<GetNewForumResponse['data']>(
-    response,
-    'new forum form'
-  )
+  return toDataResponse<GetNewForumResponse['data']>(response, 'new forum form')
 }
 
 const subscribeForum = async (
@@ -284,9 +277,7 @@ const createPost = async (
   return toDataResponse<CreatePostResponse['data']>(response, 'create post')
 }
 
-const viewPost = async (
-  params: ViewPostParams
-): Promise<ViewPostResponse> => {
+const viewPost = async (params: ViewPostParams): Promise<ViewPostResponse> => {
   // GET /forums/{forumId}/-/{postId}
   const response = await requestHelpers.get<
     ViewPostResponse | ViewPostResponse['data']
@@ -306,10 +297,17 @@ const votePost = async (
   const response = await requestHelpers.post<
     VotePostResponse | VotePostResponse['data'],
     { post: string; vote: 'up' | 'down' | '' }
-  >(endpoints.forums.post.vote(payload.forum, payload.post, payload.vote || 'up'), {
-    post: payload.post,
-    vote: payload.vote,
-  })
+  >(
+    endpoints.forums.post.vote(
+      payload.forum,
+      payload.post,
+      payload.vote || 'up'
+    ),
+    {
+      post: payload.post,
+      vote: payload.vote,
+    }
+  )
 
   return toDataResponse<VotePostResponse['data']>(response, 'vote post')
 }
@@ -403,12 +401,17 @@ const voteComment = async (
   const response = await requestHelpers.post<
     VoteCommentResponse | VoteCommentResponse['data'],
     Record<string, never>
-  >(endpoints.forums.comment.vote(payload.forum, payload.post, payload.comment, payload.vote), {})
-
-  return toDataResponse<VoteCommentResponse['data']>(
-    response,
-    'vote comment'
+  >(
+    endpoints.forums.comment.vote(
+      payload.forum,
+      payload.post,
+      payload.comment,
+      payload.vote
+    ),
+    {}
   )
+
+  return toDataResponse<VoteCommentResponse['data']>(response, 'vote comment')
 }
 
 const editComment = async (
@@ -417,9 +420,12 @@ const editComment = async (
   const response = await requestHelpers.post<
     EditCommentResponse | EditCommentResponse['data'],
     { body: string }
-  >(endpoints.forums.comment.edit(payload.forum, payload.post, payload.comment), {
-    body: payload.body,
-  })
+  >(
+    endpoints.forums.comment.edit(payload.forum, payload.post, payload.comment),
+    {
+      body: payload.body,
+    }
+  )
 
   return toDataResponse<EditCommentResponse['data']>(response, 'edit comment')
 }
@@ -430,9 +436,19 @@ const deleteComment = async (
   const response = await requestHelpers.post<
     DeleteCommentResponse | DeleteCommentResponse['data'],
     Record<string, never>
-  >(endpoints.forums.comment.delete(payload.forum, payload.post, payload.comment), {})
+  >(
+    endpoints.forums.comment.delete(
+      payload.forum,
+      payload.post,
+      payload.comment
+    ),
+    {}
+  )
 
-  return toDataResponse<DeleteCommentResponse['data']>(response, 'delete comment')
+  return toDataResponse<DeleteCommentResponse['data']>(
+    response,
+    'delete comment'
+  )
 }
 
 // ============================================================================
@@ -480,7 +496,9 @@ const revokeAccess = async (
 // Forum Delete API
 // ============================================================================
 
-const deleteForum = async (forumId: string): Promise<{ data: Record<string, never> }> => {
+const deleteForum = async (
+  forumId: string
+): Promise<{ data: Record<string, never> }> => {
   const response = await requestHelpers.post<
     { data: Record<string, never> } | Record<string, never>,
     Record<string, never>
@@ -493,21 +511,25 @@ const deleteForum = async (forumId: string): Promise<{ data: Record<string, neve
 // User/Group Search APIs
 // ============================================================================
 
-const searchUsers = async (query: string): Promise<{ data: { results: Array<{ id: string; name: string }> } }> => {
+const searchUsers = async (
+  query: string
+): Promise<{ data: { results: Array<{ id: string; name: string }> } }> => {
   const formData = new URLSearchParams()
   formData.append('search', query)
-  const response = await requestHelpers.post<
-    { results: Array<{ id: string; name: string }> }
-  >(endpoints.users.search, formData.toString(), {
+  const response = await requestHelpers.post<{
+    results: Array<{ id: string; name: string }>
+  }>(endpoints.users.search, formData.toString(), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   })
   return { data: response }
 }
 
-const listGroups = async (): Promise<{ data: { groups: Array<{ id: string; name: string; description?: string }> } }> => {
-  const response = await requestHelpers.get<
-    { groups: Array<{ id: string; name: string; description?: string }> }
-  >(endpoints.groups.list)
+const listGroups = async (): Promise<{
+  data: { groups: Array<{ id: string; name: string; description?: string }> }
+}> => {
+  const response = await requestHelpers.get<{
+    groups: Array<{ id: string; name: string; description?: string }>
+  }>(endpoints.groups.list)
   return { data: response }
 }
 
