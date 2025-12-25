@@ -520,7 +520,15 @@ def action_post_create(a):
 
             broadcast_event(forum["id"], "post/create", post_data, user_id)
         else:
-            # Subscriber sends post to forum owner
+            # We're a subscriber - check access with owner first
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["post"],
+                "user": user_id,
+            })
+            if not access_response.get("post", False):
+                a.error(403, "Not authorized to post")
+                return
+
             # Save attachments and send to forum owner
             attachments = mochi.attachment.save(id, "attachments", [], [], [forum["id"]])
 
@@ -540,6 +548,15 @@ def action_post_create(a):
     # Forum not found locally - send to remote forum
     if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
+        return
+
+    # Check access with remote forum owner
+    access_response = mochi.remote.request(forum_id, "access/check", {
+        "operations": ["post"],
+        "user": user_id,
+    })
+    if not access_response.get("post", False):
+        a.error(403, "Not authorized to post")
         return
 
     # Save attachments and send to forum owner
@@ -1284,7 +1301,16 @@ def action_comment_create(a):
 
             broadcast_event(forum["id"], "comment/create", comment_data, user_id)
         else:
-            # Subscriber sends comment to forum owner
+            # We're a subscriber - check access with owner first
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["comment"],
+                "user": user_id,
+            })
+            if not access_response.get("comment", False):
+                a.error(403, "Not authorized to comment")
+                return
+
+            # Send comment to forum owner
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
                 {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
@@ -1302,6 +1328,15 @@ def action_comment_create(a):
     # Forum not found locally - send to remote forum
     if not mochi.valid(forum_id, "entity"):
         a.error(404, "Forum not found")
+        return
+
+    # Check access with remote forum owner
+    access_response = mochi.remote.request(forum_id, "access/check", {
+        "operations": ["comment"],
+        "user": user_id,
+    })
+    if not access_response.get("comment", False):
+        a.error(403, "Not authorized to comment")
         return
 
     # Send comment to remote forum owner
@@ -1566,7 +1601,16 @@ def action_post_vote(a):
                 {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"]},
                 user_id)
         else:
-            # We're a subscriber - send vote to forum owner
+            # We're a subscriber - check access with owner first
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["vote"],
+                "user": user_id,
+            })
+            if not access_response.get("vote", False):
+                a.error(403, "Not authorized to vote")
+                return
+
+            # Send vote to forum owner
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/vote"},
                 {"post": post["id"], "vote": vote if vote else "none"}
@@ -1599,6 +1643,15 @@ def action_post_vote(a):
     # Post not found locally - send vote to remote forum
     if not forum_id or not mochi.valid(forum_id, "entity"):
         a.error(404, "Post not found")
+        return
+
+    # Check access with remote forum owner
+    access_response = mochi.remote.request(forum_id, "access/check", {
+        "operations": ["vote"],
+        "user": user_id,
+    })
+    if not access_response.get("vote", False):
+        a.error(403, "Not authorized to vote")
         return
 
     mochi.message.send(
@@ -1678,7 +1731,16 @@ def action_comment_vote(a):
                 {"id": comment["id"], "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
                 user_id)
         else:
-            # We're a subscriber - send vote to forum owner
+            # We're a subscriber - check access with owner first
+            access_response = mochi.remote.request(forum["id"], "access/check", {
+                "operations": ["vote"],
+                "user": user_id,
+            })
+            if not access_response.get("vote", False):
+                a.error(403, "Not authorized to vote")
+                return
+
+            # Send vote to forum owner
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/vote"},
                 {"comment": comment["id"], "vote": vote if vote else "none"}
@@ -1711,6 +1773,15 @@ def action_comment_vote(a):
     # Comment not found locally - send vote to remote forum
     if not forum_id or not mochi.valid(forum_id, "entity"):
         a.error(404, "Comment not found")
+        return
+
+    # Check access with remote forum owner
+    access_response = mochi.remote.request(forum_id, "access/check", {
+        "operations": ["vote"],
+        "user": user_id,
+    })
+    if not access_response.get("vote", False):
+        a.error(403, "Not authorized to vote")
         return
 
     mochi.message.send(
@@ -2956,6 +3027,8 @@ def event_access_check(e):
     for op in operations:
         result[op] = check_event_access(requester, forum_id, op)
 
+    # DEBUG
+    result["_debug"] = {"requester": requester, "operations": operations, "forum": forum_id}
     e.stream.write(result)
 
 # Handle post view request for remote viewing
