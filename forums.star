@@ -19,31 +19,31 @@ ROLE_TO_ACCESS = {
 
 # Create database
 def database_create():
-    mochi.db.execute("create table settings ( name text not null primary key, value text not null )")
+    mochi.db.execute("create table if not exists settings ( name text not null primary key, value text not null )")
 
-    mochi.db.execute("create table forums ( id text not null primary key, fingerprint text not null, name text not null, members integer not null default 0, updated integer not null )")
-    mochi.db.execute("create index forums_fingerprint on forums( fingerprint )")
-    mochi.db.execute("create index forums_name on forums( name )")
-    mochi.db.execute("create index forums_updated on forums( updated )")
+    mochi.db.execute("create table if not exists forums ( id text not null primary key, fingerprint text not null, name text not null, members integer not null default 0, updated integer not null )")
+    mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
+    mochi.db.execute("create index if not exists forums_name on forums( name )")
+    mochi.db.execute("create index if not exists forums_updated on forums( updated )")
 
-    mochi.db.execute("create table members ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null, primary key ( forum, id ) )")
-    mochi.db.execute("create index members_id on members( id )")
+    mochi.db.execute("create table if not exists members ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null, primary key ( forum, id ) )")
+    mochi.db.execute("create index if not exists members_id on members( id )")
 
-    mochi.db.execute("create table posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null, edited integer not null default 0 )")
-    mochi.db.execute("create index posts_forum on posts( forum )")
-    mochi.db.execute("create index posts_created on posts( created )")
-    mochi.db.execute("create index posts_updated on posts( updated )")
+    mochi.db.execute("create table if not exists posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null, edited integer not null default 0 )")
+    mochi.db.execute("create index if not exists posts_forum on posts( forum )")
+    mochi.db.execute("create index if not exists posts_created on posts( created )")
+    mochi.db.execute("create index if not exists posts_updated on posts( updated )")
 
-    mochi.db.execute("create table comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null, edited integer not null default 0 )")
-    mochi.db.execute("create index comments_forum on comments( forum )")
-    mochi.db.execute("create index comments_post on comments( post )")
-    mochi.db.execute("create index comments_parent on comments( parent )")
-    mochi.db.execute("create index comments_created on comments( created )")
+    mochi.db.execute("create table if not exists comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null, edited integer not null default 0 )")
+    mochi.db.execute("create index if not exists comments_forum on comments( forum )")
+    mochi.db.execute("create index if not exists comments_post on comments( post )")
+    mochi.db.execute("create index if not exists comments_parent on comments( parent )")
+    mochi.db.execute("create index if not exists comments_created on comments( created )")
 
-    mochi.db.execute("create table votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
-    mochi.db.execute("create index votes_post on votes( post )")
-    mochi.db.execute("create index votes_comment on votes( comment )")
-    mochi.db.execute("create index votes_voter on votes( voter )")
+    mochi.db.execute("create table if not exists votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
+    mochi.db.execute("create index if not exists votes_post on votes( post )")
+    mochi.db.execute("create index if not exists votes_comment on votes( comment )")
+    mochi.db.execute("create index if not exists votes_voter on votes( voter )")
 
 # Database upgrade
 def database_upgrade(version):
