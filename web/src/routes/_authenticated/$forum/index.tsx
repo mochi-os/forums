@@ -159,7 +159,7 @@ function ForumPage() {
         )}
         {canManage && (
           <Button variant="outline" asChild>
-            <Link to="/$forum/settings" params={{ forum: forumId }}>
+            <Link to="/$forum/settings" params={{ forum: selectedForum?.fingerprint ?? forumId }}>
               <Settings className="size-4" />
               Settings
             </Link>

@@ -88,9 +88,10 @@ function ForumsLayoutInner() {
       a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
     )
 
-    // Build forum items
+    // Build forum items - use fingerprint for shorter URLs
     const forumItems = sortedForums.map((f: Forum) => {
-      const isCurrentForum = forum === f.id
+      const isCurrentForum = forum === f.id || forum === f.fingerprint
+      const forumUrl = f.fingerprint ?? f.id
       const subItems: NavSubItem[] = []
 
       // Current post title
@@ -98,7 +99,7 @@ function ForumsLayoutInner() {
         subItems.push({
           title: postTitle,
           icon: FileText,
-          url: `/${f.id}/${post}`,
+          url: `/${forumUrl}/${post}`,
         })
       }
 
@@ -106,7 +107,7 @@ function ForumsLayoutInner() {
       if (subItems.length > 0) {
         return {
           title: f.name,
-          url: `/${f.id}`,
+          url: `/${forumUrl}`,
           icon: Hash,
           items: subItems,
           open: isCurrentForum,
@@ -115,7 +116,7 @@ function ForumsLayoutInner() {
 
       return {
         title: f.name,
-        url: `/${f.id}`,
+        url: `/${forumUrl}`,
         icon: Hash,
       }
     })

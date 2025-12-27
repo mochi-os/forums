@@ -196,7 +196,7 @@ function EntityForumPage({
         )}
         {canManage && (
           <Button variant="outline" asChild>
-            <Link to="/$forum/settings" params={{ forum: forum.id }}>
+            <Link to="/$forum/settings" params={{ forum: forum.fingerprint ?? forum.id }}>
               <Settings className="size-4" />
               Settings
             </Link>
