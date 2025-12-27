@@ -11,6 +11,7 @@ const endpoints = {
   forums: {
     // Class-level endpoints (no entity context)
     // Must be absolute paths to avoid entity basepath interference
+    info: `${appBase}/info`,
     list: `${appBase}/list`,
     create: `${appBase}/create`,
     find: `${appBase}/find`,

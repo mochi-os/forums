@@ -56,6 +56,34 @@ export interface DirectoryEntry {
 
 export type { Post }
 
+// Permissions returned by the info endpoint
+export interface ForumPermissions {
+  view: boolean
+  post: boolean
+  manage: boolean
+}
+
+// Info endpoint response (entity context)
+export interface InfoEntityResponse {
+  data: {
+    entity: true
+    forum: Forum
+    permissions: ForumPermissions
+    fingerprint: string
+  }
+}
+
+// Info endpoint response (class context)
+export interface InfoClassResponse {
+  data: {
+    entity: false
+    forums: Forum[]
+  }
+}
+
+// Union type for info response
+export type InfoResponse = InfoEntityResponse | InfoClassResponse
+
 export interface ListForumsResponse {
   data: {
     forums: Forum[]

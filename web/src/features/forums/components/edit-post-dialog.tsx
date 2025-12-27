@@ -18,6 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  getAppPath,
 } from '@mochi/common'
 import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
@@ -63,7 +64,7 @@ export function EditPostDialog({
   onSave,
   isPending = false,
 }: EditPostDialogProps) {
-  const appBase = import.meta.env.VITE_APP_BASE_URL || '/forums'
+  const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -205,7 +206,7 @@ export function EditPostDialog({
                       : item.file.type?.startsWith('image/')
                     const thumbnailUrl =
                       isExisting && isImage
-                        ? `${appBase}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
+                        ? `${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
                         : undefined
                     const previewUrl =
                       !isExisting && isImage

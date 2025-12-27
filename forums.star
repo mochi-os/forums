@@ -235,6 +235,53 @@ def broadcast_event(forum_id, event, data, exclude=None):
 
 # ACTIONS
 
+# Info endpoint for class context - returns list of forums
+def action_info_class(a):
+    forums = mochi.db.rows("select * from forums order by updated desc")
+    return {"data": {"entity": False, "forums": forums}}
+
+# Info endpoint for entity context - returns forum info with permissions
+def action_info_entity(a):
+    forum_id = a.input("forum")
+    if not forum_id:
+        a.error(400, "Forum ID required")
+        return
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    is_owner = mochi.entity.get(forum["id"])
+    user_id = a.user.identity.id if a.user else None
+
+    # Determine permissions for current user
+    if is_owner:
+        can_manage = check_access(a, forum["id"], "manage")
+        can_post = check_access(a, forum["id"], "post")
+    else:
+        can_manage = False
+        # Query owner for post access
+        access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
+            "operations": ["post"],
+            "user": user_id,
+        })
+        can_post = access_response.get("post", False)
+
+    permissions = {
+        "view": True,
+        "post": can_post,
+        "manage": can_manage,
+    }
+
+    fp = mochi.entity.fingerprint(forum["id"], True)
+    return {"data": {
+        "entity": True,
+        "forum": forum,
+        "permissions": permissions,
+        "fingerprint": fp
+    }}
+
 # View a forum or list all forums
 def action_view(a):
     forum_id = a.input("forum")
@@ -261,7 +308,7 @@ def action_view(a):
                 return
 
             # Request forum data via P2P
-            response = mochi.remote.request(forum_id, "view", {"forum": forum_id}, peer)
+            response = mochi.remote.request(forum_id, "forums", "view", {"forum": forum_id}, peer)
             if response.get("error"):
                 a.error(response.get("code", 403), response["error"])
                 return
@@ -344,7 +391,7 @@ def action_view(a):
         else:
             forum["can_manage"] = False  # Subscribers can never manage
             # Query owner for post access
-            access_response = mochi.remote.request(forum["id"], "access/check", {
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["post"],
                 "user": user_id,
             })
@@ -375,7 +422,7 @@ def action_view(a):
             else:
                 f["can_manage"] = False  # Subscribers can never manage
                 # Query owner for post access
-                access_response = mochi.remote.request(f["id"], "access/check", {
+                access_response = mochi.remote.request(f["id"], "forums", "access/check", {
                     "operations": ["post"],
                     "user": user_id,
                 })
@@ -521,7 +568,7 @@ def action_post_create(a):
             broadcast_event(forum["id"], "post/create", post_data, user_id)
         else:
             # We're a subscriber - check access with owner first
-            access_response = mochi.remote.request(forum["id"], "access/check", {
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["post"],
                 "user": user_id,
             })
@@ -551,7 +598,7 @@ def action_post_create(a):
         return
 
     # Check access with remote forum owner
-    access_response = mochi.remote.request(forum_id, "access/check", {
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["post"],
         "user": user_id,
     })
@@ -744,7 +791,7 @@ def action_probe(a):
         a.error(502, "Unable to connect to server")
         return
 
-    response = mochi.remote.request(forum_id, "info", {"forum": forum_id}, peer)
+    response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
     if response.get("error"):
         a.error(404, response.get("error", "Forum not found"))
         return
@@ -952,7 +999,7 @@ def action_post_view(a):
             return
 
         # Request post data via P2P
-        response = mochi.remote.request(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer)
+        response = mochi.remote.request(forum_id, "forums", "post/view", {"forum": forum_id, "post": post_id}, peer)
         if response.get("error"):
             a.error(response.get("code", 403), response["error"])
             return
@@ -981,7 +1028,7 @@ def action_post_view(a):
         can_comment = check_access(a, forum["id"], "comment")
     else:
         # Query owner for access permissions
-        access_response = mochi.remote.request(forum["id"], "access/check", {
+        access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
             "operations": ["vote", "comment"],
             "user": user_id,
         })
@@ -1372,7 +1419,7 @@ def action_comment_create(a):
             broadcast_event(forum["id"], "comment/create", comment_data, user_id)
         else:
             # We're a subscriber - check access with owner first
-            access_response = mochi.remote.request(forum["id"], "access/check", {
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["comment"],
                 "user": user_id,
             })
@@ -1401,7 +1448,7 @@ def action_comment_create(a):
         return
 
     # Check access with remote forum owner
-    access_response = mochi.remote.request(forum_id, "access/check", {
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["comment"],
         "user": user_id,
     })
@@ -1672,7 +1719,7 @@ def action_post_vote(a):
                 user_id)
         else:
             # We're a subscriber - check access with owner first
-            access_response = mochi.remote.request(forum["id"], "access/check", {
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["vote"],
                 "user": user_id,
             })
@@ -1716,7 +1763,7 @@ def action_post_vote(a):
         return
 
     # Check access with remote forum owner
-    access_response = mochi.remote.request(forum_id, "access/check", {
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["vote"],
         "user": user_id,
     })
@@ -1802,7 +1849,7 @@ def action_comment_vote(a):
                 user_id)
         else:
             # We're a subscriber - check access with owner first
-            access_response = mochi.remote.request(forum["id"], "access/check", {
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["vote"],
                 "user": user_id,
             })
@@ -1846,7 +1893,7 @@ def action_comment_vote(a):
         return
 
     # Check access with remote forum owner
-    access_response = mochi.remote.request(forum_id, "access/check", {
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["vote"],
         "user": user_id,
     })

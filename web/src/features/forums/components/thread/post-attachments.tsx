@@ -6,6 +6,7 @@ import {
   formatVideoDuration,
   formatFileSize,
   getFileIcon,
+  getAppPath,
   isImage,
   isVideo,
 } from '@mochi/common'
@@ -69,17 +70,17 @@ export function PostAttachments({
   forumId,
   server,
 }: PostAttachmentsProps) {
-  const appBase = import.meta.env.VITE_APP_BASE_URL || '/forums'
+  const appPath = getAppPath()
   const serverParam = server ? `?server=${encodeURIComponent(server)}` : ''
 
-  // Unified attachment URL - backend handles local vs remote
+  // Attachment URL includes forum ID for proper routing
   const getAttachmentUrl = (id: string) => {
-    return `${appBase}/${forumId}/-/attachments/${id}${serverParam}`
+    return `${appPath}/${forumId}/-/attachments/${id}${serverParam}`
   }
 
   // Thumbnail URL for images
   const getThumbnailUrl = (id: string) => {
-    return `${appBase}/${forumId}/-/attachments/${id}/thumbnail${serverParam}`
+    return `${appPath}/${forumId}/-/attachments/${id}/thumbnail${serverParam}`
   }
 
   // Separate media (images + videos) from other files

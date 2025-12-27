@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { requestHelpers, getApiBasepath } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
 import type { Forum, Member } from '@/api/types/forums'
 import type { Post } from '@/api/types/posts'
@@ -11,6 +12,8 @@ interface UseInfinitePostsOptions {
   limit?: number
   enabled?: boolean
   server?: string
+  /** When true, uses getApiBasepath() for entity context (domain routing) */
+  entityContext?: boolean
 }
 
 interface UseInfinitePostsResult {
@@ -32,20 +35,48 @@ export function useInfinitePosts({
   limit = DEFAULT_LIMIT,
   enabled = true,
   server,
+  entityContext = false,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
   const query = useInfiniteQuery({
-    queryKey: ['forum-posts', forum, { limit, server }],
+    queryKey: ['forum-posts', forum, { limit, server, entityContext }],
     queryFn: async ({ pageParam }) => {
       if (!forum) throw new Error('Forum ID required')
 
-      const response = await forumsApi.view({
-        forum,
-        limit,
-        before: pageParam as number | undefined,
-        server,
-      })
+      let data: {
+        posts?: Post[]
+        forum?: Forum
+        member?: Member
+        can_manage?: boolean
+        hasMore?: boolean
+        nextCursor?: number | null
+      }
 
-      const data = response.data ?? {}
+      if (entityContext) {
+        // In entity context (domain routing), use getApiBasepath() which returns /-/
+        const params = new URLSearchParams()
+        if (limit) params.set('limit', limit.toString())
+        if (pageParam) params.set('before', pageParam.toString())
+        if (server) params.set('server', server)
+        const queryString = params.toString()
+        const url = getApiBasepath() + 'posts' + (queryString ? `?${queryString}` : '')
+        const response = await requestHelpers.get<{
+          posts?: Post[]
+          forum?: Forum
+          member?: Member
+          can_manage?: boolean
+          hasMore?: boolean
+          nextCursor?: number | null
+        }>(url)
+        data = response ?? {}
+      } else {
+        const response = await forumsApi.view({
+          forum,
+          limit,
+          before: pageParam as number | undefined,
+          server,
+        })
+        data = response.data ?? {}
+      }
 
       return {
         posts: data.posts ?? [],
@@ -53,7 +84,7 @@ export function useInfinitePosts({
         member: data.member,
         can_manage: data.can_manage ?? false,
         hasMore: data.hasMore ?? false,
-        nextCursor: data.nextCursor,
+        nextCursor: data.nextCursor ?? undefined,
       }
     },
     initialPageParam: undefined as number | undefined,
