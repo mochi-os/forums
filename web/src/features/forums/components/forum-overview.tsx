@@ -96,11 +96,11 @@ export function ForumOverview({
               <FileEdit className='text-primary size-10' />
             </div>
             <p className='text-sm font-semibold'>No posts in this forum yet</p>
-            <p className='text-muted-foreground text-sm'>
-              {forum.can_post
-                ? 'Be the first to start a conversation'
-                : 'Check back later for new content'}
-            </p>
+            {!forum.can_post && (
+              <p className='text-muted-foreground text-sm'>
+                Check back later for new content
+              </p>
+            )}
             {forum.can_post && (
               <div className='mt-2'>
                 <CreatePostDialog
