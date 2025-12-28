@@ -23,6 +23,7 @@ import {
   AccessList,
   type AccessLevel,
   type AccessRule,
+  getErrorMessage,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -118,8 +119,8 @@ function ForumSettingsPage() {
       toast.success('Unsubscribed')
       void refreshForums()
       void navigate({ to: '/' })
-    } catch {
-      toast.error('Failed to unsubscribe')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to unsubscribe'))
     } finally {
       setIsUnsubscribing(false)
     }
@@ -134,8 +135,8 @@ function ForumSettingsPage() {
       toast.success('Forum deleted')
       void refreshForums()
       void navigate({ to: '/' })
-    } catch {
-      toast.error('Failed to delete forum')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to delete forum'))
     } finally {
       setIsDeleting(false)
     }
@@ -411,9 +412,9 @@ function AccessTab({ forumId }: AccessTabProps) {
       })
       toast.success(`Access set for ${subjectName}`)
       void loadRules()
-    } catch (err) {
-      toast.error('Failed to set access level')
-      throw err // Re-throw so the dialog knows it failed
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to set access level'))
+      throw error // Re-throw so the dialog knows it failed
     }
   }
 
@@ -422,8 +423,8 @@ function AccessTab({ forumId }: AccessTabProps) {
       await forumsApi.revokeAccess({ forum: forumId, user: subject })
       toast.success('Access removed')
       void loadRules()
-    } catch {
-      toast.error('Failed to remove access')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to remove access'))
     }
   }
 
@@ -436,8 +437,8 @@ function AccessTab({ forumId }: AccessTabProps) {
       })
       toast.success('Access level updated')
       void loadRules()
-    } catch {
-      toast.error('Failed to update access level')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to update access level'))
     }
   }
 

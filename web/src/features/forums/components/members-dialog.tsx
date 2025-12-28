@@ -14,6 +14,7 @@ import {
   type AccessLevel as CommonAccessLevel,
   type AccessRule,
   requestHelpers,
+  getErrorMessage,
 } from '@mochi/common'
 import { Users, Plus } from 'lucide-react'
 import { toast } from 'sonner'
@@ -105,8 +106,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
       })
       toast.success(`Access set for ${subjectName}`)
       void loadRules()
-    } catch {
-      toast.error('Failed to set access')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to set access'))
     }
   }
 
@@ -119,8 +120,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
       })
       toast.success('Access updated')
       void loadRules()
-    } catch {
-      toast.error('Failed to update access')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to update access'))
     }
   }
 
@@ -132,8 +133,8 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
       })
       toast.success('Access removed')
       void loadRules()
-    } catch {
-      toast.error('Failed to remove access')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to remove access'))
     }
   }
 
