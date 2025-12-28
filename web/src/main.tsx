@@ -9,6 +9,7 @@ import {
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import {
   useAuthStore,
+  useDomainContextStore,
   ThemeProvider,
   SearchProvider,
   CommandMenu,
@@ -91,20 +92,28 @@ declare module '@tanstack/react-router' {
 // This ensures cookies are synced before any route guards run
 useAuthStore.getState().initialize()
 
-// Render the app
-const rootElement = document.getElementById('root')!
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement)
-  root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <SearchProvider>
-            <RouterProvider router={router} />
-            <CommandMenu sidebarData={sidebarData} />
-          </SearchProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </StrictMode>
-  )
+// Initialize domain context and render app
+async function init() {
+  // Fetch domain routing context (entity info for domain-routed requests)
+  await useDomainContextStore.getState().initialize()
+
+  // Render the app
+  const rootElement = document.getElementById('root')!
+  if (!rootElement.innerHTML) {
+    const root = ReactDOM.createRoot(rootElement)
+    root.render(
+      <StrictMode>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <SearchProvider>
+              <RouterProvider router={router} />
+              <CommandMenu sidebarData={sidebarData} />
+            </SearchProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </StrictMode>
+    )
+  }
 }
+
+void init()

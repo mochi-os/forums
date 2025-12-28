@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { z } from 'zod'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Button, Main, usePageTitle } from '@mochi/common'
+import { Button, Main, usePageTitle, isDomainEntityContext, getDomainEntityFingerprint } from '@mochi/common'
 import { Loader2, Settings, SquarePen } from 'lucide-react'
 import { useForumsStore } from '@/stores/forums-store'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -27,8 +27,27 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
 
 function ForumPage() {
   const navigate = useNavigate()
-  const { forum: forumId } = Route.useParams()
+  const { forum: urlForumId } = Route.useParams()
   const { server: serverFromUrl } = Route.useSearch()
+
+  // In domain entity routing, use the domain fingerprint as forum ID
+  const domainFingerprint = getDomainEntityFingerprint()
+  const inDomainContext = isDomainEntityContext('forum')
+
+  // If in domain context and the URL param looks like a post ID (UUIDv7 hex format),
+  // navigate to the single post view
+  useEffect(() => {
+    if (inDomainContext && domainFingerprint && urlForumId && /^[0-9a-f]{32}$/.test(urlForumId)) {
+      navigate({
+        to: '/$forum/$post',
+        params: { forum: domainFingerprint, post: urlForumId },
+        replace: true,
+      })
+    }
+  }, [inDomainContext, domainFingerprint, urlForumId, navigate])
+
+  // Use domain entity fingerprint if available, otherwise use URL param
+  const forumId = (inDomainContext && domainFingerprint) ? domainFingerprint : urlForumId
 
   // Get cached forum info (from probe/search results) as fallback
   const getCachedRemoteForum = useForumsStore(
@@ -109,11 +128,19 @@ function ForumPage() {
   }
 
   const handlePostSelect = (forum: string, post: string) => {
-    navigate({
-      to: '/$forum/$post',
-      params: { forum, post },
-      search: server ? { server } : undefined,
-    })
+    // In domain context, use single-segment URL (/postId)
+    if (inDomainContext) {
+      navigate({
+        to: '/$forum',
+        params: { forum: post },
+      })
+    } else {
+      navigate({
+        to: '/$forum/$post',
+        params: { forum, post },
+        search: server ? { server } : undefined,
+      })
+    }
   }
 
   // Determine if user can post (from forum data)

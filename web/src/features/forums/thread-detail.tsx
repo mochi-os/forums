@@ -21,14 +21,18 @@ import { ThreadContent } from './components/thread/thread-content'
 
 interface ThreadDetailProps {
   server?: string
+  forumOverride?: string
+  inDomainContext?: boolean
 }
 
-export function ThreadDetail({ server }: ThreadDetailProps) {
+export function ThreadDetail({ server, forumOverride, inDomainContext = false }: ThreadDetailProps) {
   const navigate = useNavigate()
-  const { forum = '', post: postId = '' } = useParams({ strict: false }) as {
+  const { forum: urlForum = '', post: postId = '' } = useParams({ strict: false }) as {
     forum?: string
     post?: string
   }
+  // Use forumOverride if provided (from domain context), otherwise use URL param
+  const forum = forumOverride || urlForum
   const [commentBody, setCommentBody] = useState('')
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -67,7 +71,11 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
   const editPostMutation = useEditPost(forum, postId)
   const deletePostMutation = useDeletePost(forum, () => {
     // Navigate back to forum after deletion
-    navigate({ to: '/', search: forum ? { forum } : undefined })
+    if (inDomainContext) {
+      navigate({ to: '/' })
+    } else {
+      navigate({ to: '/', search: forum ? { forum } : undefined })
+    }
   })
   const editCommentMutation = useEditComment(forum, postId)
   const deleteCommentMutation = useDeleteComment(forum, postId)
@@ -106,7 +114,11 @@ export function ThreadDetail({ server }: ThreadDetailProps) {
 
   const handleBack = () => {
     // Navigate back to the forum
-    navigate({ to: '/', search: forum ? { forum } : undefined })
+    if (inDomainContext) {
+      navigate({ to: '/' })
+    } else {
+      navigate({ to: '/', search: forum ? { forum } : undefined })
+    }
   }
 
   if (isLoading) {

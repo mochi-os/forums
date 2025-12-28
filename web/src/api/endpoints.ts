@@ -1,4 +1,16 @@
+import { isDomainEntityContext, getDomainEntityFingerprint } from '@mochi/common'
+
 const appBase = import.meta.env.VITE_APP_BASE_URL || '/forums'
+
+// Get the base path for entity-level API calls
+// In domain context, use '' (relative to root); otherwise use /forums/{forumId}
+function getEntityBase(forumId: string): string {
+  const domainFingerprint = getDomainEntityFingerprint()
+  if (isDomainEntityContext('forum') && domainFingerprint === forumId) {
+    return ''
+  }
+  return `${appBase}/${forumId}`
+}
 
 const endpoints = {
   // Cross-app endpoints (proxied via forums backend)
@@ -22,49 +34,49 @@ const endpoints = {
     postCreate: `${appBase}/post/create`,
 
     // Entity-level endpoints (use /-/ separator)
-    // Must be absolute paths to avoid entity basepath interference
-    posts: (forumId: string) => `${appBase}/${forumId}/-/posts`,
-    subscribe: (forumId: string) => `${appBase}/${forumId}/-/subscribe`,
-    unsubscribe: (forumId: string) => `${appBase}/${forumId}/-/unsubscribe`,
-    delete: (forumId: string) => `${appBase}/${forumId}/-/delete`,
-    membersEdit: (forumId: string) => `${appBase}/${forumId}/-/members`,
-    membersSave: (forumId: string) => `${appBase}/${forumId}/-/members/save`,
+    // Use getEntityBase for domain-aware paths
+    posts: (forumId: string) => `${getEntityBase(forumId)}/-/posts`,
+    subscribe: (forumId: string) => `${getEntityBase(forumId)}/-/subscribe`,
+    unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,
+    delete: (forumId: string) => `${getEntityBase(forumId)}/-/delete`,
+    membersEdit: (forumId: string) => `${getEntityBase(forumId)}/-/members`,
+    membersSave: (forumId: string) => `${getEntityBase(forumId)}/-/members/save`,
 
     // Post endpoints
     post: {
       view: (forumId: string, postId: string) =>
-        `${appBase}/${forumId}/-/${postId}`,
+        `${getEntityBase(forumId)}/-/${postId}`,
       edit: (forumId: string, postId: string) =>
-        `${appBase}/${forumId}/-/${postId}/edit`,
+        `${getEntityBase(forumId)}/-/${postId}/edit`,
       delete: (forumId: string, postId: string) =>
-        `${appBase}/${forumId}/-/${postId}/delete`,
+        `${getEntityBase(forumId)}/-/${postId}/delete`,
       vote: (forumId: string, postId: string, vote: 'up' | 'down' | '') =>
-        `${appBase}/${forumId}/-/${postId}/vote/${vote || 'none'}`,
+        `${getEntityBase(forumId)}/-/${postId}/vote/${vote || 'none'}`,
     },
 
     // Comment endpoints
     comment: {
       new: (forumId: string, postId: string) =>
-        `${appBase}/${forumId}/-/${postId}/comment`,
+        `${getEntityBase(forumId)}/-/${postId}/comment`,
       create: (forumId: string, postId: string) =>
-        `${appBase}/${forumId}/-/${postId}/create`,
+        `${getEntityBase(forumId)}/-/${postId}/create`,
       edit: (forumId: string, postId: string, commentId: string) =>
-        `${appBase}/${forumId}/-/${postId}/${commentId}/edit`,
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/edit`,
       delete: (forumId: string, postId: string, commentId: string) =>
-        `${appBase}/${forumId}/-/${postId}/${commentId}/delete`,
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/delete`,
       vote: (
         forumId: string,
         postId: string,
         commentId: string,
         vote: 'up' | 'down' | ''
       ) =>
-        `${appBase}/${forumId}/-/${postId}/${commentId}/vote/${vote || 'none'}`,
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/vote/${vote || 'none'}`,
     },
 
     // Access control endpoints
-    access: (forumId: string) => `${appBase}/${forumId}/-/access`,
-    accessSet: (forumId: string) => `${appBase}/${forumId}/-/access/set`,
-    accessRevoke: (forumId: string) => `${appBase}/${forumId}/-/access/revoke`,
+    access: (forumId: string) => `${getEntityBase(forumId)}/-/access`,
+    accessSet: (forumId: string) => `${getEntityBase(forumId)}/-/access/set`,
+    accessRevoke: (forumId: string) => `${getEntityBase(forumId)}/-/access/revoke`,
   },
 } as const
 
