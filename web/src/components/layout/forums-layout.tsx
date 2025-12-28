@@ -45,7 +45,7 @@ function ForumsLayoutInner() {
   // Find forums for dialog
   const dialogForum = useMemo(() => {
     if (!postDialogForum) return null
-    return forums.find((f) => f.id === postDialogForum) ?? null
+    return forums.find((f) => f.id === postDialogForum || f.fingerprint === postDialogForum) ?? null
   }, [forums, postDialogForum])
 
   // Create post mutation

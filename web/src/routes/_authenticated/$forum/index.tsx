@@ -83,7 +83,7 @@ function ForumPage() {
     unsubscribeHandler.current = () => unsubscribeMutation.mutate(forumId)
 
     // Update subscription state for sidebar
-    const forum = forums.find((f) => f.id === forumId)
+    const forum = forums.find((f) => f.id === forumId || f.fingerprint === forumId)
     setSubscription({
       isRemote: !forum,
       isSubscribed: !!forum,
@@ -119,8 +119,8 @@ function ForumPage() {
   // Determine if user can post (from forum data)
   const canPost = selectedForum?.can_post ?? false
   const canManage = selectedForum?.can_manage ?? false
-  const isRemoteForum = !forums.find((f) => f.id === forumId)
-  const isSubscribed = !!forums.find((f) => f.id === forumId)
+  const isRemoteForum = !forums.find((f) => f.id === forumId || f.fingerprint === forumId)
+  const isSubscribed = !!forums.find((f) => f.id === forumId || f.fingerprint === forumId)
   const canUnsubscribe = isSubscribed && !canManage
 
   return (

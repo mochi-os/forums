@@ -84,7 +84,7 @@ function ForumSettingsPage() {
     [forumsData?.data?.forums]
   )
   const forum = useMemo(
-    () => forums.find((f) => f.id === forumId) ?? null,
+    () => forums.find((f) => f.id === forumId || f.fingerprint === forumId) ?? null,
     [forums, forumId]
   )
   // Cast to ForumData with required fields
