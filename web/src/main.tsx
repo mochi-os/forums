@@ -13,8 +13,8 @@ import {
   ThemeProvider,
   SearchProvider,
   CommandMenu,
+  toast,
 } from '@mochi/common'
-import { toast } from 'sonner'
 import { sidebarData } from './components/layout/data/sidebar-data'
 // Generated Routes
 import { routeTree } from './routeTree.gen'

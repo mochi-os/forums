@@ -15,9 +15,9 @@ import {
   type AccessRule,
   requestHelpers,
   getErrorMessage,
+  toast,
 } from '@mochi/common'
 import { Users, Plus } from 'lucide-react'
-import { toast } from 'sonner'
 import endpoints from '@/api/endpoints'
 import type { MemberAccess, AccessLevel } from '@/api/types/forums'
 import { useUserSearch, useGroups } from '@/hooks/use-forums-queries'

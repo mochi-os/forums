@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { handleServerError, requestHelpers } from '@mochi/common'
-import { toast } from 'sonner'
+import { handleServerError, requestHelpers, toast } from '@mochi/common'
 import endpoints from '@/api/endpoints'
 import { forumsApi } from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'

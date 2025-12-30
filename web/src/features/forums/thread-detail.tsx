@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { Main, Button, usePageTitle } from '@mochi/common'
+import { Main, Button, usePageTitle, toast } from '@mochi/common'
 import { ArrowLeft, Send, X } from 'lucide-react'
-import { toast } from 'sonner'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   usePostDetail,

@@ -24,9 +24,9 @@ import {
   type AccessLevel,
   type AccessRule,
   getErrorMessage,
+  toast,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2 } from 'lucide-react'
-import { toast } from 'sonner'
 import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList } from '@/hooks/use-forums-queries'
