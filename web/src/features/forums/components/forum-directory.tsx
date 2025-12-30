@@ -160,7 +160,7 @@ export function ForumDirectory({
             >
               <TabsList className='grid w-full grid-cols-2'>
                 <TabsTrigger value='all' className='gap-1.5 text-xs'>
-                  <span>All Forums</span>
+                  <span>All forums</span>
                   <Badge
                     variant='secondary'
                     className='px-1.5 py-0 text-[10px]'
@@ -169,7 +169,7 @@ export function ForumDirectory({
                   </Badge>
                 </TabsTrigger>
                 <TabsTrigger value='my' className='gap-1.5 text-xs'>
-                  <span>My Forums</span>
+                  <span>My forums</span>
                   <Badge
                     variant='secondary'
                     className='px-1.5 py-0 text-[10px]'

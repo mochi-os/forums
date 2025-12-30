@@ -165,7 +165,7 @@ export function CreatePostDialog({
       )}
       <ResponsiveDialogContent className='sm:max-w-[600px]'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>Create new post</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>New post</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             Share your thoughts, questions, or insights with{' '}
             <span className='text-foreground font-medium'>{forumName}</span>

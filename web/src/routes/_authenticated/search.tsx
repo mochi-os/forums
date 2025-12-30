@@ -39,7 +39,7 @@ const mapProbeToDirectoryEntry = (
   id: probe.id,
   fingerprint: probe.fingerprint,
   fingerprint_hyphens: probe.fingerprint,
-  name: probe.name || 'Remote Forum',
+  name: probe.name || 'Remote forum',
   class: probe.class,
   data: '',
   location: probe.server,
