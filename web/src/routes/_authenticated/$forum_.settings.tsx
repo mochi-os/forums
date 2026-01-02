@@ -31,7 +31,16 @@ import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList } from '@/hooks/use-forums-queries'
 
+type TabId = 'general' | 'access'
+
+type SettingsSearch = {
+  tab?: TabId
+}
+
 export const Route = createFileRoute('/_authenticated/$forum_/settings')({
+  validateSearch: (search: Record<string, unknown>): SettingsSearch => ({
+    tab: (search.tab === 'general' || search.tab === 'access') ? search.tab : undefined,
+  }),
   component: ForumSettingsPage,
 })
 
@@ -41,8 +50,6 @@ interface ForumData {
   fingerprint: string
   can_manage: boolean
 }
-
-type TabId = 'general' | 'access'
 
 interface Tab {
   id: TabId
@@ -68,8 +75,13 @@ function ForumSettingsPage() {
   const params = Route.useParams()
   const forumId = 'forum' in params ? params.forum : ''
   const navigate = useNavigate()
+  const navigateSettings = Route.useNavigate()
+  const { tab } = Route.useSearch()
+  const activeTab = tab ?? 'general'
 
-  const [activeTab, setActiveTab] = useState<TabId>('general')
+  const setActiveTab = (newTab: TabId) => {
+    void navigateSettings({ search: { tab: newTab }, replace: true })
+  }
   const [isUnsubscribing, setIsUnsubscribing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
