@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { z } from 'zod'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Button, Main, usePageTitle, isDomainEntityContext, getDomainEntityFingerprint } from '@mochi/common'
+import { Button, Header, Main, usePageTitle, isDomainEntityContext, getDomainEntityFingerprint } from '@mochi/common'
 import { Loader2, Settings, SquarePen } from 'lucide-react'
 import { useForumsStore } from '@/stores/forums-store'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -151,50 +151,54 @@ function ForumPage() {
   const canUnsubscribe = isSubscribed && !canManage
 
   return (
-    <Main fixed>
-      {/* Action buttons */}
-      <div className="-mt-1 flex justify-end gap-2 mb-4">
-        {canPost && (
-          <Button onClick={() => openPostDialog(forumId)}>
-            <SquarePen className="size-4" />
-            New post
-          </Button>
-        )}
-        {isRemoteForum && !isSubscribed && (
-          <Button onClick={() => subscribeMutation.mutate(forumId)} disabled={subscribeMutation.isPending}>
-            {subscribeMutation.isPending ? (
-              <>
-                <Loader2 className="size-4 animate-spin" />
-                Subscribing...
-              </>
-            ) : (
-              'Subscribe'
+    <>
+      <Header>
+        <div className="flex w-full items-center justify-between">
+          <h1 className="text-lg font-semibold">{selectedForum?.name ?? 'Forum'}</h1>
+          <div className="flex gap-2">
+            {canPost && (
+              <Button onClick={() => openPostDialog(forumId)}>
+                <SquarePen className="size-4" />
+                New post
+              </Button>
             )}
-          </Button>
-        )}
-        {canUnsubscribe && (
-          <Button variant="outline" onClick={() => unsubscribeMutation.mutate(forumId)} disabled={unsubscribeMutation.isPending}>
-            {unsubscribeMutation.isPending ? (
-              <>
-                <Loader2 className="size-4 animate-spin" />
-                Unsubscribing...
-              </>
-            ) : (
-              'Unsubscribe'
+            {isRemoteForum && !isSubscribed && (
+              <Button onClick={() => subscribeMutation.mutate(forumId)} disabled={subscribeMutation.isPending}>
+                {subscribeMutation.isPending ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    Subscribing...
+                  </>
+                ) : (
+                  'Subscribe'
+                )}
+              </Button>
             )}
-          </Button>
-        )}
-        {canManage && (
-          <Button variant="outline" asChild>
-            <Link to="/$forum/settings" params={{ forum: selectedForum?.fingerprint ?? forumId }}>
-              <Settings className="size-4" />
-              Settings
-            </Link>
-          </Button>
-        )}
-      </div>
-
-      <div className='flex-1 overflow-y-auto'>
+            {canUnsubscribe && (
+              <Button variant="outline" onClick={() => unsubscribeMutation.mutate(forumId)} disabled={unsubscribeMutation.isPending}>
+                {unsubscribeMutation.isPending ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    Unsubscribing...
+                  </>
+                ) : (
+                  'Unsubscribe'
+                )}
+              </Button>
+            )}
+            {canManage && (
+              <Button variant="outline" asChild>
+                <Link to="/$forum/settings" params={{ forum: selectedForum?.fingerprint ?? forumId }}>
+                  <Settings className="size-4" />
+                  Settings
+                </Link>
+              </Button>
+            )}
+          </div>
+        </div>
+      </Header>
+      <Main fixed>
+        <div className='flex-1 overflow-y-auto'>
         {isLoadingForum ? (
           <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
             <div className='flex flex-col items-center gap-2'>
@@ -232,7 +236,8 @@ function ForumPage() {
             onLoadMore={fetchNextPage}
           />
         )}
-      </div>
-    </Main>
+        </div>
+      </Main>
+    </>
   )
 }
