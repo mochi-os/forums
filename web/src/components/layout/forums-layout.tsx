@@ -12,7 +12,6 @@ import {
   Hash,
   MessageSquare,
   Plus,
-  Search,
 } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
@@ -134,7 +133,6 @@ function ForumsLayoutInner() {
 
     // Build bottom items
     const bottomItems: NavItem[] = [
-      { title: 'Search forums', icon: Search, onClick: openSearchDialog },
       { title: 'New forum', icon: Plus, onClick: openForumDialog },
     ]
 

@@ -130,9 +130,9 @@ export function SearchForumsDialog({
                         <Hash className="text-muted-foreground size-5" />
                         <div>
                           <div className="font-medium">{forum.name}</div>
-                          <div className="text-muted-foreground text-xs">
+                          {/* <div className="text-muted-foreground text-xs">
                             {forum.location || 'Unknown location'}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                       <Button

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { createFileRoute, useNavigate, Link } from '@tanstack/react-router'
 import {
   Main,
@@ -6,9 +6,8 @@ import {
   requestHelpers,
   GeneralError,
   Button,
-  Input,
 } from '@mochi/common'
-import { Loader2, Settings, SquarePen, Plus } from 'lucide-react'
+import { Loader2, Settings, SquarePen, Plus, Search } from 'lucide-react'
 import endpoints from '@/api/endpoints'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -251,8 +250,7 @@ function EntityForumPage({
 function ForumsListPage({ forums: _initialForums }: { forums?: Forum[] }) {
   usePageTitle('Forums')
   const navigate = useNavigate()
-  const [search, setSearch] = useState('')
-  const { openForumDialog } = useSidebarContext()
+  const { openForumDialog, openSearchDialog } = useSidebarContext()
 
   // Queries
   const { data: forumsData } = useForumsList()
@@ -268,36 +266,29 @@ function ForumsListPage({ forums: _initialForums }: { forums?: Forum[] }) {
 
   // Show all posts from the list endpoint, with forum names added
   const postsToDisplay = useMemo(() => {
-    return allPosts
-      .map((post) => {
-        const forum = forums.find((f) => f.id === post.forum)
-        return {
-          ...post,
-          forumName: forum?.name ?? 'Unknown',
-        }
-      })
-      .filter((post) => {
-        if (!search) return true
-        const searchLower = search.toLowerCase()
-        return (
-          post.title?.toLowerCase().includes(searchLower) ||
-          post.forumName.toLowerCase().includes(searchLower)
-        )
-      })
-  }, [allPosts, forums, search])
+    return allPosts.map((post) => {
+      const forum = forums.find((f) => f.id === post.forum)
+      return {
+        ...post,
+        forumName: forum?.name ?? 'Unknown',
+      }
+    })
+  }, [allPosts, forums])
 
   return (
     <Main fixed>
       <div className='mb-6 flex items-center justify-between'>
         <h1 className='text-2xl font-bold tracking-tight'>All forums</h1>
         <div className='flex items-center gap-2'>
-          <Input
-            type='text'
-            placeholder='Search...'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className='w-48'
-          />
+          <Button
+            variant='outline'
+            size='sm'
+            className='w-full justify-start text-muted-foreground sm:w-64'
+            onClick={openSearchDialog}
+          >
+            <Search className='mr-2 size-4' />
+            Search forums...
+          </Button>
           <Button size='sm' onClick={openForumDialog}>
             <Plus className='mr-2 size-4' />
             New forum
