@@ -12,6 +12,7 @@ import {
   Hash,
   MessageSquare,
   Plus,
+  Search,
 } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
@@ -23,6 +24,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
+import { SearchForumsDialog } from '@/features/forums/components/search-forums-dialog'
 
 function ForumsLayoutInner() {
   const { data } = useForumsList()
@@ -39,6 +41,9 @@ function ForumsLayoutInner() {
     forumDialogOpen,
     openForumDialog,
     closeForumDialog,
+    searchDialogOpen,
+    openSearchDialog,
+    closeSearchDialog,
   } = useSidebarContext()
 
   // Find forums for dialog
@@ -129,6 +134,7 @@ function ForumsLayoutInner() {
 
     // Build bottom items
     const bottomItems: NavItem[] = [
+      { title: 'Search forums', icon: Search, onClick: openSearchDialog },
       { title: 'New forum', icon: Plus, onClick: openForumDialog },
     ]
 
@@ -145,7 +151,7 @@ function ForumsLayoutInner() {
     ]
 
     return { navGroups: groups }
-  }, [forums, forum, post, postTitle, openForumDialog])
+  }, [forums, forum, post, postTitle, openForumDialog, openSearchDialog])
 
   return (
     <>
@@ -173,6 +179,15 @@ function ForumsLayoutInner() {
         open={forumDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeForumDialog()
+        }}
+        hideTrigger
+      />
+
+      {/* Search Forums Dialog - controlled from sidebar */}
+      <SearchForumsDialog
+        open={searchDialogOpen}
+        onOpenChange={(open) => {
+          if (!open) closeSearchDialog()
         }}
         hideTrigger
       />
