@@ -139,7 +139,11 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
   }
 
   return (
-    <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
+    <ResponsiveDialog
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      shouldCloseOnInteractOutside={false}
+    >
       <ResponsiveDialogTrigger asChild>
         <Button variant='outline' size='sm' className='gap-2'>
           <Users className='size-4' />

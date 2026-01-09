@@ -59,7 +59,11 @@ export function SearchForumsDialog({
   }
 
   return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
+    <ResponsiveDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      shouldCloseOnInteractOutside={false}
+    >
       {!hideTrigger && (
         <ResponsiveDialogTrigger asChild>
           <Button variant="outline" size="sm" className="gap-2">

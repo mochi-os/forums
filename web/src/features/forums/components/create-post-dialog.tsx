@@ -147,7 +147,11 @@ export function CreatePostDialog({
   }
 
   return (
-    <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
+    <ResponsiveDialog
+      open={isOpen}
+      onOpenChange={handleOpenChange}
+      shouldCloseOnInteractOutside={false}
+    >
       {!hideTrigger && (
         <ResponsiveDialogTrigger asChild>
           {triggerVariant === 'icon' ? (

@@ -78,7 +78,11 @@ export function CreateForumDialog({
   }
 
   return (
-    <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
+    <ResponsiveDialog
+      open={isOpen}
+      onOpenChange={handleOpenChange}
+      shouldCloseOnInteractOutside={false}
+    >
       {!hideTrigger && (
         <ResponsiveDialogTrigger asChild>
           <Button size='sm' className='text-sm'>

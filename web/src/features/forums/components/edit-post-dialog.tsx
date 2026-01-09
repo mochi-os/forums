@@ -147,7 +147,11 @@ export function EditPostDialog({
   }
 
   return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
+    <ResponsiveDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      shouldCloseOnInteractOutside={false}
+    >
       <ResponsiveDialogContent className='sm:max-w-[600px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Edit post</ResponsiveDialogTitle>
