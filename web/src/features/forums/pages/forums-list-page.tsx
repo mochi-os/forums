@@ -15,7 +15,9 @@ interface ForumsListPageProps {
   forums?: Forum[]
 }
 
-export function ForumsListPage({ forums: _initialForums }: ForumsListPageProps) {
+export function ForumsListPage({
+  forums: _initialForums,
+}: ForumsListPageProps) {
   usePageTitle('Forums')
   const navigate = useNavigate()
   const { openForumDialog, openSearchDialog } = useSidebarContext()
