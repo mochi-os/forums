@@ -10,6 +10,7 @@ import {
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
+import { PageHeader } from '../components/page-header'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -46,20 +47,23 @@ export function ForumsListPage({
   }, [allPosts, forums])
 
   return (
-    <Main fixed>
-      <div className='mb-6 flex items-center justify-between'>
-        <h1 className='text-2xl font-bold tracking-tight'>All forums</h1>
-        <div className='flex items-center gap-2'>
-          <Button variant='outline' onClick={openSearchDialog}>
-            <Search className='mr-2 size-4' />
-            Search
-          </Button>
-          <Button onClick={openForumDialog}>
-            <Plus className='mr-2 size-4' />
-            New forum
-          </Button>
-        </div>
-      </div>
+    <>
+      <PageHeader
+        title="All forums"
+        actions={
+          <>
+            <Button variant='outline' onClick={openSearchDialog}>
+              <Search className='mr-2 size-4' />
+              Search
+            </Button>
+            <Button onClick={openForumDialog}>
+              <Plus className='mr-2 size-4' />
+              New forum
+            </Button>
+          </>
+        }
+      />
+      <Main fixed>
       <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
@@ -74,5 +78,6 @@ export function ForumsListPage({
         />
       </div>
     </Main>
+    </>
   )
 }

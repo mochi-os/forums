@@ -14,6 +14,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { ForumOverview } from '../components/forum-overview'
+import { PageHeader } from '../components/page-header'
 
 interface EntityForumPageProps {
   forum: Forum
@@ -113,58 +114,63 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
   const canUnsubscribe = isSubscribed && !canManage
 
   return (
-    <Main fixed>
-      {/* Action buttons */}
-      <div className='-mt-1 mb-4 flex justify-end gap-2'>
-        {canPost && (
-          <Button onClick={() => openPostDialog(forum.id)}>
-            <SquarePen className='size-4' />
-            New post
-          </Button>
-        )}
-        {isRemoteForum && !isSubscribed && (
-          <Button
-            onClick={() => subscribeMutation.mutate(forum.id)}
-            disabled={subscribeMutation.isPending}
-          >
-            {subscribeMutation.isPending ? (
-              <>
-                <Loader2 className='size-4 animate-spin' />
-                Subscribing...
-              </>
-            ) : (
-              'Subscribe'
+    <>
+      <PageHeader
+        title={forum.name || 'Forum'}
+        actions={
+          <>
+            {canPost && (
+              <Button onClick={() => openPostDialog(forum.id)}>
+                <SquarePen className='size-4' />
+                New post
+              </Button>
             )}
-          </Button>
-        )}
-        {canUnsubscribe && (
-          <Button
-            variant='outline'
-            onClick={() => unsubscribeMutation.mutate(forum.id)}
-            disabled={unsubscribeMutation.isPending}
-          >
-            {unsubscribeMutation.isPending ? (
-              <>
-                <Loader2 className='size-4 animate-spin' />
-                Unsubscribing...
-              </>
-            ) : (
-              'Unsubscribe'
+            {isRemoteForum && !isSubscribed && (
+              <Button
+                onClick={() => subscribeMutation.mutate(forum.id)}
+                disabled={subscribeMutation.isPending}
+              >
+                {subscribeMutation.isPending ? (
+                  <>
+                    <Loader2 className='size-4 animate-spin' />
+                    Subscribing...
+                  </>
+                ) : (
+                  'Subscribe'
+                )}
+              </Button>
             )}
-          </Button>
-        )}
-        {canManage && (
-          <Button variant='outline' asChild>
-            <Link
-              to='/$forum/settings'
-              params={{ forum: forum.fingerprint ?? forum.id }}
-            >
-              <Settings className='size-4' />
-              Settings
-            </Link>
-          </Button>
-        )}
-      </div>
+            {canUnsubscribe && (
+              <Button
+                variant='outline'
+                onClick={() => unsubscribeMutation.mutate(forum.id)}
+                disabled={unsubscribeMutation.isPending}
+              >
+                {unsubscribeMutation.isPending ? (
+                  <>
+                    <Loader2 className='size-4 animate-spin' />
+                    Unsubscribing...
+                  </>
+                ) : (
+                  'Unsubscribe'
+                )}
+              </Button>
+            )}
+            {canManage && (
+              <Button variant='outline' asChild>
+                <Link
+                  to='/$forum/settings'
+                  params={{ forum: forum.fingerprint ?? forum.id }}
+                >
+                  <Settings className='size-4' />
+                  Settings
+                </Link>
+              </Button>
+            )}
+          </>
+        }
+      />
+      <Main fixed>
 
       <div className='flex-1 overflow-y-auto'>
         {isLoadingForum ? (
@@ -205,5 +211,6 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
         )}
       </div>
     </Main>
+    </>
   )
 }
