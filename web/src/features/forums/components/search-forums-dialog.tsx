@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   ResponsiveDialog,
@@ -44,6 +44,13 @@ export function SearchForumsDialog({
     queryFn: () => forumsApi.search({ search: debouncedSearch }),
     enabled: debouncedSearch.length > 0,
   })
+
+  // Clear search when dialog closes
+  useEffect(() => {
+    if (!open) {
+      setSearchQuery('')
+    }
+  }, [open])
 
   const results = data?.data?.results || []
 
