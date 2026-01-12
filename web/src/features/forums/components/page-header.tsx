@@ -14,7 +14,7 @@ export function PageHeader({ icon, title, actions, searchBar }: PageHeaderProps)
   const { isMobile } = useScreenSize()
 
   return (
-    <header className='border-border bg-background sticky top-0 z-10 mb-6 border-b'>
+    <header className='border-border bg-background sticky top-0 z-10 border-b'>
       {/* Search bar on mobile - full width row */}
       {isMobile && searchBar && (
         <div className='border-b px-4 py-2'>
