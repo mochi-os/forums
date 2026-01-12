@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Main, usePageTitle, Button } from '@mochi/common'
+import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
 import { Loader2, Settings, SquarePen } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -23,6 +23,7 @@ interface EntityForumPageProps {
 
 export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
   const navigate = useNavigate()
+  const { isMobile } = useScreenSize()
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -121,7 +122,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
           <>
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
-                <SquarePen className='size-4' />
+                <SquarePen className='mr-2 size-4' />
                 New post
               </Button>
             )}
@@ -133,7 +134,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
                 {subscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    Subscribing...
+                    {!isMobile && <span className='ml-2'>Subscribing...</span>}
                   </>
                 ) : (
                   'Subscribe'
@@ -149,7 +150,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
                 {unsubscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    Unsubscribing...
+                    {!isMobile && <span className='ml-2'>Unsubscribing...</span>}
                   </>
                 ) : (
                   'Unsubscribe'
@@ -162,8 +163,8 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
                   to='/$forum/settings'
                   params={{ forum: forum.fingerprint ?? forum.id }}
                 >
-                  <Settings className='size-4' />
-                  Settings
+                  <Settings className={isMobile ? 'size-4' : 'mr-2 size-4'} />
+                  {!isMobile && 'Settings'}
                 </Link>
               </Button>
             )}
