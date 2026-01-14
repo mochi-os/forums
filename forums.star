@@ -21,8 +21,7 @@ ROLE_TO_ACCESS = {
 def database_create():
     mochi.db.execute("create table if not exists settings ( name text not null primary key, value text not null )")
 
-    mochi.db.execute("create table if not exists forums ( id text not null primary key, fingerprint text not null, name text not null, members integer not null default 0, updated integer not null )")
-    mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
+    mochi.db.execute("create table if not exists forums ( id text not null primary key, name text not null, members integer not null default 0, updated integer not null )")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
 
@@ -45,11 +44,27 @@ def database_create():
     mochi.db.execute("create index if not exists votes_comment on votes( comment )")
     mochi.db.execute("create index if not exists votes_voter on votes( voter )")
 
+# Upgrade database schema
+def database_upgrade(to_version):
+    if to_version == 7:
+        # Remove fingerprint column - fingerprints are computed from entity ID
+        # SQLite doesn't support DROP COLUMN, so recreate the table
+        mochi.db.execute("create table forums_new ( id text not null primary key, name text not null, members integer not null default 0, updated integer not null )")
+        mochi.db.execute("insert into forums_new (id, name, members, updated) select id, name, members, updated from forums")
+        mochi.db.execute("drop table forums")
+        mochi.db.execute("alter table forums_new rename to forums")
+        mochi.db.execute("create index if not exists forums_name on forums( name )")
+        mochi.db.execute("create index if not exists forums_updated on forums( updated )")
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
     if not forum:
-        forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
+        # Try to find by fingerprint - check all forums
+        rows = mochi.db.rows("select * from forums")
+        for r in rows:
+            if mochi.entity.fingerprint(r["id"]) == forum_id or mochi.entity.fingerprint(r["id"], True) == forum_id:
+                return r
     return forum
 
 # Helper: Check if current user has access to perform an operation
@@ -389,10 +404,9 @@ def action_create(a):
         return
 
     # Create forum record
-    entity_fp = mochi.entity.fingerprint(entity_id)
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, fingerprint, name, members, updated ) values ( ?, ?, ?, ?, ? )",
-        entity_id, entity_fp, name, 1, now)
+    mochi.db.execute("replace into forums ( id, name, members, updated ) values ( ?, ?, ?, ? )",
+        entity_id, name, 1, now)
 
     # Add creator as subscriber (they have implicit manage access as entity owner)
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
@@ -406,7 +420,7 @@ def action_create(a):
     mochi.access.allow("*", resource, "view", creator)   # Anyone can view
 
     return {
-        "data": {"id": entity_id, "fingerprint": entity_fp}
+        "data": {"id": entity_id, "fingerprint": mochi.entity.fingerprint(entity_id)}
     }
 
 # Find forums by searching
@@ -814,8 +828,8 @@ def action_subscribe(a):
 
     # Create local forum record
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, fingerprint, name, members, updated ) values ( ?, ?, ?, ?, ? )",
-        forum_id, forum["fingerprint"], forum["name"], 0, now)
+    mochi.db.execute("replace into forums ( id, name, members, updated ) values ( ?, ?, ?, ? )",
+        forum_id, forum["name"], 0, now)
 
     # Add self as subscriber
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
