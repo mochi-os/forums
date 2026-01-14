@@ -15,7 +15,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  Header,
+  PageHeader,
   Main,
   cn,
   usePageTitle,
@@ -160,7 +160,7 @@ function ForumSettingsPage() {
   if (isLoadingForums && !selectedForum) {
     return (
       <>
-        <Header />
+        <PageHeader title="Settings" />
         <Main>
           <div className='flex items-center justify-center py-12'>
             <Loader2 className='text-muted-foreground size-6 animate-spin' />
@@ -173,7 +173,7 @@ function ForumSettingsPage() {
   if (!selectedForum) {
     return (
       <>
-        <Header />
+        <PageHeader title="Settings" />
         <Main>
           <Card>
             <CardContent className='py-12 text-center'>
@@ -191,7 +191,7 @@ function ForumSettingsPage() {
 
   return (
     <>
-      <Header />
+      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} />
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (

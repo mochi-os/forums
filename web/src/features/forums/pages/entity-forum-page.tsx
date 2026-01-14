@@ -14,7 +14,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { ForumOverview } from '../components/forum-overview'
-import { PageHeader } from '../components/page-header'
+import { PageHeader } from '@mochi/common'
 
 interface EntityForumPageProps {
   forum: Forum

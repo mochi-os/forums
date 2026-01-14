@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Plus, Search } from 'lucide-react'
+import { Plus, Search, Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -10,7 +10,7 @@ import {
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
-import { PageHeader } from '../components/page-header'
+import { PageHeader } from '@mochi/common'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -51,6 +51,7 @@ export function ForumsListPage({
     <>
       <PageHeader
         title="All forums"
+        icon={<Rss className='size-4 md:size-5' />}
         searchBar={
           <Button 
             variant='outline' 
