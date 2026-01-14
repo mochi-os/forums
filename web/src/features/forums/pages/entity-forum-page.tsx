@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Loader2, Settings, SquarePen } from 'lucide-react'
+import { Loader2, Rss, Settings, SquarePen } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -118,6 +118,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     <>
       <PageHeader
         title={forum.name || 'Forum'}
+        icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
             {canPost && (
