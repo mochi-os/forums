@@ -56,11 +56,8 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    can_manage: canManage,
   } = useInfinitePosts({ forum: forum.id, entityContext: true })
-
-  const selectedForumPosts = infinitePosts.filter(
-    (p) => 'title' in p && p.title
-  )
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -79,7 +76,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     setSubscription({
       isRemote: !localForum,
       isSubscribed: !!localForum,
-      canUnsubscribe: !!localForum && !localForum.can_manage,
+      canUnsubscribe: !!localForum && !canManage,
     })
 
     return () => {
@@ -87,7 +84,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
       unsubscribeHandler.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forum.id, forums, setSubscription])
+  }, [forum.id, forums, setSubscription, canManage])
 
   const handleCreatePost = (data: {
     title: string
@@ -107,9 +104,8 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     })
   }
 
-  // Use permissions from loader, fall back to forum data
-  const canPost = permissions?.post ?? forumData?.can_post ?? false
-  const canManage = permissions?.manage ?? forumData?.can_manage ?? false
+  // Use values from hook
+  const canPost = forumData?.can_post ?? permissions?.post ?? false
   const isSubscribed = !!forums.find((f) => f.id === forum.id)
   const isRemoteForum = !isSubscribed
   const canUnsubscribe = isSubscribed && !canManage
@@ -201,7 +197,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
         ) : (
           <ForumOverview
             forum={forumData || forum}
-            posts={selectedForumPosts}
+            posts={infinitePosts}
             onSelectPost={handlePostSelect}
             onCreatePost={handleCreatePost}
             isCreatingPost={createPostMutation.isPending}

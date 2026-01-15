@@ -191,7 +191,7 @@ function ForumSettingsPage() {
 
   return (
     <>
-      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} />
+      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} icon={<Settings className="size-4 md:size-5" />} />
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (
