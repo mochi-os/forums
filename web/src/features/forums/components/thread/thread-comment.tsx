@@ -212,12 +212,13 @@ export function ThreadComment({
             </span>
           )}
           {/* Action buttons - visible on hover */}
-          <div className='comment-actions flex items-center gap-3'>
+          {/* Action buttons - always visible */}
+          <div className='comment-actions flex items-center gap-1'>
             {canVote && (
               <>
                 <button
                   type='button'
-                  className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
+                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
                   style={
                     localVote === 'up'
                       ? {
@@ -233,7 +234,7 @@ export function ThreadComment({
                 </button>
                 <button
                   type='button'
-                  className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
+                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
                   style={
                     localVote === 'down'
                       ? {
@@ -254,34 +255,34 @@ export function ThreadComment({
             {canReply && onReply && (
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+                className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
                 onClick={() => onReply(comment.id)}
               >
                 <MessageSquare className='size-3' />
-                Reply
+                <span>Reply</span>
               </button>
             )}
             {commentCanEdit && onEdit && (
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+                className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
                 onClick={() => {
                   setEditing(comment.id)
                   setEditBody(comment.body)
                 }}
               >
                 <Pencil className='size-3' />
-                Edit
+                <span>Edit</span>
               </button>
             )}
             {commentCanEdit && onDelete && (
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+                className='text-muted-foreground hover:bg-destructive/10 hover:text-destructive inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
                 onClick={() => setDeleting(true)}
               >
                 <Trash2 className='size-3' />
-                Delete
+                <span>Delete</span>
               </button>
             )}
           </div>
