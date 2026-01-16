@@ -857,6 +857,11 @@ def action_unsubscribe(a):
         a.error(404, "Forum not found")
         return
 
+    # Cannot unsubscribe from own forum
+    if mochi.entity.get(forum["id"]):
+        a.error(400, "Cannot unsubscribe from your own forum")
+        return
+
     # Delete all local data for this forum
     mochi.db.execute("delete from votes where forum=?", forum["id"])
     mochi.db.execute("delete from comments where forum=?", forum["id"])
