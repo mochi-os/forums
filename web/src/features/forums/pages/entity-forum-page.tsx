@@ -171,7 +171,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
       <Main fixed>
 
       <div className='flex-1 overflow-y-auto'>
-        {isLoadingForum ? (
+        {(isLoadingForum || !forumData) ? (
           <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
             <div className='flex flex-col items-center gap-2'>
               <div className='border-primary size-4 animate-spin rounded-full border-2 border-t-transparent' />

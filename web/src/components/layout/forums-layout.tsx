@@ -153,7 +153,6 @@ function ForumsLayoutInner() {
           url: `/${forumUrl}`,
           icon: Hash,
           items: subItems,
-          open: isCurrentForum,
         }
       }
 
