@@ -147,7 +147,17 @@ export function ThreadComment({
   )
 
   const content = (
-    <div className='comment-content space-y-2'>
+    <div className='comment-content group/row space-y-1.5'>
+      {/* Header row - always visible like Feeds */}
+      <div className='flex h-5 items-center gap-2 text-xs'>
+        <span className='text-foreground font-medium'>{comment.name}</span>
+        <span className='text-muted-foreground'>·</span>
+        <span className='text-muted-foreground'>
+          {comment.created_local}
+          {comment.edited ? ' (edited)' : ''}
+        </span>
+      </div>
+
       {/* Comment body - show edit form if editing */}
       {editing === comment.id ? (
         <div className='space-y-2'>
@@ -181,24 +191,17 @@ export function ThreadComment({
           </div>
         </div>
       ) : (
-        <div className='relative'>
-          <p className='pr-32 text-sm leading-relaxed whitespace-pre-wrap'>
-            {comment.body}
-          </p>
-          {/* Author and timestamp - hidden until hover */}
-          <span className='comment-meta text-muted-foreground absolute top-0 right-0 text-xs transition-opacity'>
-            {comment.name} · {comment.created_local}
-            {comment.edited ? ' (edited)' : ''}
-          </span>
-        </div>
+        <p className='text-foreground text-sm leading-relaxed whitespace-pre-wrap'>
+          {comment.body}
+        </p>
       )}
 
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit) && (
         <div
-          className={`comment-actions-row text-muted-foreground flex items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
+          className={`comment-actions-row text-muted-foreground flex min-h-[28px] items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
         >
-          {/* Vote counts */}
+          {/* Vote counts - always visible */}
           {localUp > 0 && (
             <span className='flex items-center gap-1'>
               <ThumbsUp className='size-3' />
@@ -211,9 +214,8 @@ export function ThreadComment({
               {localDown}
             </span>
           )}
-          {/* Action buttons - visible on hover */}
-          {/* Action buttons - always visible */}
-          <div className='comment-actions flex items-center gap-1'>
+          {/* Action buttons - visible on hover only */}
+          <div className='comment-actions flex items-center gap-1 opacity-0 transition-opacity pointer-events-none group-hover/row:opacity-100 group-hover/row:pointer-events-auto'>
             {canVote && (
               <>
                 <button

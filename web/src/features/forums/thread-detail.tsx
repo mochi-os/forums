@@ -24,9 +24,15 @@ interface ThreadDetailProps {
   inDomainContext?: boolean
 }
 
-export function ThreadDetail({ server, forumOverride, inDomainContext = false }: ThreadDetailProps) {
+export function ThreadDetail({
+  server,
+  forumOverride,
+  inDomainContext = false,
+}: ThreadDetailProps) {
   const navigate = useNavigate()
-  const { forum: urlForum = '', post: postId = '' } = useParams({ strict: false }) as {
+  const { forum: urlForum = '', post: postId = '' } = useParams({
+    strict: false,
+  }) as {
     forum?: string
     post?: string
   }
