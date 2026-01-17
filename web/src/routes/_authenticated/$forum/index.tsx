@@ -15,6 +15,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { ForumOverview } from '@/features/forums/components/forum-overview'
+import { setLastForum } from '@/hooks/use-forums-storage'
 
 const searchSchema = z.object({
   server: z.string().optional(),
@@ -67,6 +68,11 @@ function ForumPage() {
     setForum(forumId)
     return () => setForum(null)
   }, [forumId, setForum])
+
+  // Store last visited forum for restoration on next entry
+  useEffect(() => {
+    setLastForum(forumId)
+  }, [forumId])
 
   // Queries
   const { data: forumsData } = useForumsList()

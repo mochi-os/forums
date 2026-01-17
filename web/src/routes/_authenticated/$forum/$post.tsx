@@ -21,5 +21,5 @@ function ThreadDetailWrapper() {
   const inDomainContext = isDomainEntityContext('forum')
   const forum = (inDomainContext && domainFingerprint) ? domainFingerprint : urlForum
 
-  return <ThreadDetail server={server} forumOverride={forum} inDomainContext={inDomainContext} />
+  return <ThreadDetail server={server} forumOverride={forum} />
 }

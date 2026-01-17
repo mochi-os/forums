@@ -1,8 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { requestHelpers, GeneralError } from '@mochi/common'
 import endpoints from '@/api/endpoints'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
+import { getLastForum, clearLastForum } from '@/hooks/use-forums-storage'
 
 // Response type for info endpoint
 interface InfoResponse {
@@ -13,9 +14,35 @@ interface InfoResponse {
   fingerprint?: string
 }
 
+// Module-level flag to track if we've already done initial redirect check (resets on page refresh)
+let hasCheckedRedirect = false
+
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {
-    return requestHelpers.get<InfoResponse>(endpoints.forums.info)
+    const info = await requestHelpers.get<InfoResponse>(endpoints.forums.info)
+
+    // Only redirect on first load, not on subsequent navigations
+    if (hasCheckedRedirect) {
+      // Already checked this session - just return without redirect or clearing
+      return info
+    }
+    hasCheckedRedirect = true
+
+    // In class context, check for last visited forum and redirect if it still exists
+    if (!info.entity) {
+      const lastForumId = getLastForum()
+      if (lastForumId) {
+        const forums = info.forums || []
+        const forumExists = forums.some(f => f.id === lastForumId || f.fingerprint === lastForumId)
+        if (forumExists) {
+          throw redirect({ to: '/$forum', params: { forum: lastForumId } })
+        } else {
+          clearLastForum()
+        }
+      }
+    }
+
+    return info
   },
   component: IndexPage,
   errorComponent: ({ error }) => <GeneralError error={error} />,

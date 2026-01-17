@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { APP_ROUTES } from '@/config/routes'
 import {
   AuthenticatedLayout,
   type SidebarData,
@@ -124,10 +123,9 @@ function ForumsLayoutInner() {
       }
     })
 
-    // Build "All forums" item
     const allForumsItem: NavItem = {
       title: 'All forums',
-      url: APP_ROUTES.HOME,
+      url: '/',
       icon: MessageSquare,
     }
 

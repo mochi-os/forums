@@ -21,10 +21,9 @@ import { ThreadContent } from './components/thread/thread-content'
 interface ThreadDetailProps {
   server?: string
   forumOverride?: string
-  inDomainContext?: boolean
 }
 
-export function ThreadDetail({ server, forumOverride, inDomainContext = false }: ThreadDetailProps) {
+export function ThreadDetail({ server, forumOverride }: ThreadDetailProps) {
   const navigate = useNavigate()
   const { forum: urlForum = '', post: postId = '' } = useParams({ strict: false }) as {
     forum?: string
@@ -70,11 +69,7 @@ export function ThreadDetail({ server, forumOverride, inDomainContext = false }:
   const editPostMutation = useEditPost(forum, postId)
   const deletePostMutation = useDeletePost(forum, () => {
     // Navigate back to forum after deletion
-    if (inDomainContext) {
-      navigate({ to: '/' })
-    } else {
-      navigate({ to: '/', search: forum ? { forum } : undefined })
-    }
+    navigate({ to: '/' })
   })
   const editCommentMutation = useEditComment(forum, postId)
   const deleteCommentMutation = useDeleteComment(forum, postId)
@@ -113,11 +108,7 @@ export function ThreadDetail({ server, forumOverride, inDomainContext = false }:
 
   const handleBack = () => {
     // Navigate back to the forum
-    if (inDomainContext) {
-      navigate({ to: '/' })
-    } else {
-      navigate({ to: '/', search: forum ? { forum } : undefined })
-    }
+    navigate({ to: '/' })
   }
 
   if (isLoading) {

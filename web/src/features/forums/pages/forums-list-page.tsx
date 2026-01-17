@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
 import { Plus, Search, Rss } from 'lucide-react'
@@ -11,6 +11,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
 import { PageHeader } from '@mochi/common'
+import { setLastForum } from '@/hooks/use-forums-storage'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -20,6 +21,12 @@ export function ForumsListPage({
   forums: _initialForums,
 }: ForumsListPageProps) {
   usePageTitle('Forums')
+
+  // Store "all forums" as the last location
+  useEffect(() => {
+    setLastForum(null)
+  }, [])
+
   const navigate = useNavigate()
   const { openForumDialog, openSearchDialog } = useSidebarContext()
   const { isMobile } = useScreenSize()
