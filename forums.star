@@ -639,6 +639,20 @@ def action_search(a):
                             break
                     if not found:
                         results.append(entry)
+            # Try as fingerprint
+            elif mochi.valid(forum_id, "fingerprint"):
+                all_forums = mochi.directory.search("forum", "", True)
+                for entry in all_forums:
+                    entry_fp = entry.get("fingerprint", "").replace("-", "")
+                    if entry_fp == forum_id.replace("-", ""):
+                        found = False
+                        for r in results:
+                            if r.get("id") == entry.get("id"):
+                                found = True
+                                break
+                        if not found:
+                            results.append(entry)
+                        break
 
     # Also search by name
     name_results = mochi.directory.search("forum", search, True)
