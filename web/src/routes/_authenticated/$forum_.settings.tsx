@@ -25,8 +25,12 @@ import {
   type AccessRule,
   getErrorMessage,
   toast,
+  Input,
 } from '@mochi/common'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2 } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X } from 'lucide-react'
+
+// Characters disallowed in forum names (matches backend validation)
+const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
 import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList } from '@/hooks/use-forums-queries'
@@ -154,6 +158,19 @@ function ForumSettingsPage() {
     }
   }, [selectedForum, isDeleting, refreshForums, navigate])
 
+  const handleRename = useCallback(async (name: string) => {
+    if (!selectedForum || !selectedForum.can_manage) return
+
+    try {
+      await forumsApi.rename(selectedForum.id, name)
+      void refreshForums()
+      toast.success('Forum renamed')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to rename forum'))
+      throw error
+    }
+  }, [selectedForum, refreshForums])
+
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)
 
@@ -227,6 +244,7 @@ function ForumSettingsPage() {
               setShowDeleteDialog={setShowDeleteDialog}
               onUnsubscribe={handleUnsubscribe}
               onDelete={handleDelete}
+              onRename={handleRename}
             />
           )}
           {activeTab === 'access' && selectedForum.can_manage && (
@@ -247,6 +265,7 @@ interface GeneralTabProps {
   setShowDeleteDialog: (show: boolean) => void
   onUnsubscribe: () => void
   onDelete: () => void
+  onRename: (name: string) => Promise<void>
 }
 
 function GeneralTab({
@@ -258,7 +277,52 @@ function GeneralTab({
   setShowDeleteDialog,
   onUnsubscribe,
   onDelete,
+  onRename,
 }: GeneralTabProps) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [editName, setEditName] = useState(forum.name)
+  const [isRenaming, setIsRenaming] = useState(false)
+  const [nameError, setNameError] = useState<string | null>(null)
+
+  const validateName = (name: string): string | null => {
+    if (!name.trim()) return 'Forum name is required'
+    if (name.length > 1000) return 'Name must be 1000 characters or less'
+    if (DISALLOWED_NAME_CHARS.test(name)) return 'Name cannot contain < > \\ ; " \' or ` characters'
+    return null
+  }
+
+  const handleStartEdit = () => {
+    setEditName(forum.name)
+    setNameError(null)
+    setIsEditing(true)
+  }
+
+  const handleCancelEdit = () => {
+    setIsEditing(false)
+    setEditName(forum.name)
+    setNameError(null)
+  }
+
+  const handleSaveEdit = async () => {
+    const trimmedName = editName.trim()
+    const error = validateName(trimmedName)
+    if (error) {
+      setNameError(error)
+      return
+    }
+    if (trimmedName === forum.name) {
+      setIsEditing(false)
+      return
+    }
+    setIsRenaming(true)
+    try {
+      await onRename(trimmedName)
+      setIsEditing(false)
+    } finally {
+      setIsRenaming(false)
+    }
+  }
+
   return (
     <div className='space-y-6'>
       <Card>
@@ -266,9 +330,67 @@ function GeneralTab({
           <CardTitle>Identity</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-2'>
+          <div className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 items-center'>
             <span className='text-muted-foreground'>Name:</span>
-            <span>{forum.name}</span>
+            {forum.can_manage && isEditing ? (
+              <div className='flex flex-col gap-1'>
+                <div className='flex items-center gap-2'>
+                  <Input
+                    value={editName}
+                    onChange={(e) => {
+                      setEditName(e.target.value)
+                      setNameError(null)
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') void handleSaveEdit()
+                      if (e.key === 'Escape') handleCancelEdit()
+                    }}
+                    className='h-8'
+                    disabled={isRenaming}
+                    autoFocus
+                  />
+                  <Button
+                    size='sm'
+                    variant='ghost'
+                    onClick={() => void handleSaveEdit()}
+                    disabled={isRenaming}
+                    className='h-8 w-8 p-0'
+                  >
+                    {isRenaming ? (
+                      <Loader2 className='size-4 animate-spin' />
+                    ) : (
+                      <Check className='size-4' />
+                    )}
+                  </Button>
+                  <Button
+                    size='sm'
+                    variant='ghost'
+                    onClick={handleCancelEdit}
+                    disabled={isRenaming}
+                    className='h-8 w-8 p-0'
+                  >
+                    <X className='size-4' />
+                  </Button>
+                </div>
+                {nameError && (
+                  <span className='text-sm text-destructive'>{nameError}</span>
+                )}
+              </div>
+            ) : (
+              <div className='flex items-center gap-2'>
+                <span>{forum.name}</span>
+                {forum.can_manage && (
+                  <Button
+                    size='sm'
+                    variant='ghost'
+                    onClick={handleStartEdit}
+                    className='h-6 w-6 p-0'
+                  >
+                    <Pencil className='size-3' />
+                  </Button>
+                )}
+              </div>
+            )}
 
             <span className='text-muted-foreground'>Entity:</span>
             <span className='font-mono text-xs break-all'>{forum.id}</span>

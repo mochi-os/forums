@@ -39,6 +39,7 @@ const endpoints = {
     subscribe: (forumId: string) => `${getEntityBase(forumId)}/-/subscribe`,
     unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,
     delete: (forumId: string) => `${getEntityBase(forumId)}/-/delete`,
+    rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
     membersEdit: (forumId: string) => `${getEntityBase(forumId)}/-/members`,
     membersSave: (forumId: string) => `${getEntityBase(forumId)}/-/members/save`,
 

@@ -275,6 +275,7 @@ def action_view(a):
             return
 
         is_owner = mochi.entity.get(forum["id"])
+        forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
 
         # Get member info if user is logged in
         member = None
@@ -347,9 +348,10 @@ def action_view(a):
         forums = mochi.db.rows("select * from forums order by updated desc")
         posts = mochi.db.rows("select * from posts order by updated desc")
 
-        # Add access flags to each forum
+        # Add fingerprint and access flags to each forum
         # For owned forums, check locally. For subscribed forums, query owner.
         for f in forums:
+            f["fingerprint"] = mochi.entity.fingerprint(f["id"])
             is_owner = mochi.entity.get(f["id"])
             if is_owner:
                 f["can_manage"] = check_access(a, f["id"], "manage")
@@ -915,6 +917,40 @@ def action_delete(a):
     return {
         "data": {}
     }
+
+# Rename a forum
+def action_rename(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum_id = a.input("forum")
+    if not mochi.valid(forum_id, "entity"):
+        a.error(400, "Invalid forum ID")
+        return
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    # Only owner can rename
+    if not mochi.entity.get(forum["id"]):
+        a.error(403, "Not forum owner")
+        return
+
+    name = a.input("name")
+    if not name or not mochi.valid(name, "name"):
+        a.error(400, "Invalid name")
+        return
+
+    # Update entity (triggers directory update and timestamp reset for public forums)
+    mochi.entity.update(forum_id, name=name)
+
+    # Update local forums table
+    mochi.db.execute("update forums set name=?, updated=? where id=?", name, mochi.time.now(), forum_id)
+
+    return {"data": {"success": True}}
 
 # View a post with comments
 def action_post_view(a):

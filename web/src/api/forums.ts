@@ -507,6 +507,22 @@ const deleteForum = async (
   return toDataResponse<Record<string, never>>(response, 'delete forum')
 }
 
+interface RenameForumResponse {
+  data: { success: boolean }
+}
+
+const renameForum = async (
+  forumId: string,
+  name: string
+): Promise<RenameForumResponse> => {
+  const response = await requestHelpers.post<
+    RenameForumResponse | RenameForumResponse['data'],
+    { forum: string; name: string }
+  >(endpoints.forums.rename(forumId), { forum: forumId, name })
+
+  return toDataResponse<RenameForumResponse['data']>(response, 'rename forum')
+}
+
 // ============================================================================
 // User/Group Search APIs
 // ============================================================================
@@ -548,6 +564,7 @@ export const forumsApi = {
   subscribe: subscribeForum,
   unsubscribe: unsubscribeForum,
   delete: deleteForum,
+  rename: renameForum,
   getMembers,
   saveMembers,
   getNewPost,
