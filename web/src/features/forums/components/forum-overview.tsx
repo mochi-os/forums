@@ -1,6 +1,6 @@
+import { Link } from '@tanstack/react-router'
 import { Card, CardContent, LoadMoreTrigger } from '@mochi/common'
 import { MessageSquare, FileEdit, Hash } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
@@ -57,11 +57,11 @@ export function ForumOverview({
         {posts.length > 0 ? (
           Object.entries(groupedPosts).map(([forumId, group]) => (
             <Card key={forumId} className='group relative overflow-hidden'>
-              <div className='flex items-center gap-2 px-4 pt-4 text-sm text-muted-foreground'>
+              <div className='text-muted-foreground flex items-center gap-2 px-4 text-sm'>
                 <Link
                   to='/$forum'
                   params={{ forum: forumId }}
-                  className='inline-flex items-center gap-1.5 hover:text-foreground transition-colors'
+                  className='hover:text-foreground inline-flex items-center gap-1.5 transition-colors'
                 >
                   <Hash className='size-3.5' />
                   <span className='font-medium'>{group.name}</span>
