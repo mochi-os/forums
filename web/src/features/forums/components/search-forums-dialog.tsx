@@ -75,17 +75,17 @@ export function SearchForumsDialog({
         <ResponsiveDialogTrigger asChild>
           <Button variant="outline" size="sm" className="gap-2">
             <Search className="size-4" />
-            Search forums
+            Find forums
           </Button>
         </ResponsiveDialogTrigger>
       )}
       <ResponsiveDialogContent className="flex max-h-[85vh] flex-col gap-0 p-0 sm:max-w-[600px] overflow-hidden border-none shadow-2xl">
         <ResponsiveDialogHeader className="border-b px-4 py-4 bg-muted/30">
           <ResponsiveDialogTitle className="text-xl font-semibold tracking-tight">
-            Search forums
+            Find forums
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="text-xs">
-            Search for public forums to subscribe to
+            Find public forums to subscribe to
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
@@ -94,7 +94,7 @@ export function SearchForumsDialog({
           <div className="relative">
             <Search className="text-muted-foreground absolute left-3 top-1/2 size-4 -translate-y-1/2" />
             <Input
-              placeholder="Search forums..."
+              placeholder="Find forums..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 bg-muted/50 border-transparent focus:bg-background focus:border-input transition-all"
