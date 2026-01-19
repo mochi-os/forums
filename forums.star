@@ -950,6 +950,9 @@ def action_rename(a):
     # Update local forums table
     mochi.db.execute("update forums set name=?, updated=? where id=?", name, mochi.time.now(), forum_id)
 
+    # Broadcast to members
+    broadcast_event(forum_id, "update", {"name": name})
+
     return {"data": {"success": True}}
 
 # View a post with comments
@@ -3024,15 +3027,27 @@ def event_unsubscribe_event(e):
 
 # Received a forum update from forum owner
 def event_update_event(e):
-    forum = get_forum(e.header("from"))
+    forum_id = e.header("from")
+    forum = get_forum(forum_id)
     if not forum:
         return
 
+    # Don't update forums we own
+    if mochi.entity.get(forum_id):
+        return
+
+    # Handle name update
+    name = e.content("name")
+    if name:
+        mochi.db.execute("update forums set name=?, updated=? where id=?", name, mochi.time.now(), forum_id)
+        return
+
+    # Handle member count update
     members = e.content("members")
     if type(members) != "int" or members < 0:
         return
 
-    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum["id"])
+    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum_id)
 
 # Handle info request for a forum (used by probe for remote forum lookup)
 def event_info(e):

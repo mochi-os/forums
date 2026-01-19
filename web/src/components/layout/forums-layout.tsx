@@ -5,6 +5,7 @@ import {
   type SidebarData,
   type NavItem,
   type NavSubItem,
+  SearchEntityDialog,
 } from '@mochi/common'
 import {
   FileText,
@@ -22,7 +23,8 @@ import {
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
-import { SearchForumsDialog } from '@/features/forums/components/search-forums-dialog'
+import { forumsApi } from '@/api/forums'
+import endpoints from '@/api/endpoints'
 
 function ForumsLayoutInner() {
   const { data } = useForumsList()
@@ -64,6 +66,18 @@ function ForumsLayoutInner() {
     },
     [createPostMutation]
   )
+
+  // Set of subscribed forum IDs for search dialog
+  const subscribedForumIds = useMemo(
+    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
+    [forums]
+  )
+
+  // Handle subscribe from search dialog
+  const handleSubscribe = useCallback(async (forumId: string) => {
+    await forumsApi.subscribe(forumId)
+    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+  }, [queryClient])
 
   // Create forum mutation
   const createForumMutation = useCreateForum()
@@ -180,12 +194,21 @@ function ForumsLayoutInner() {
       />
 
       {/* Search Forums Dialog - controlled from sidebar */}
-      <SearchForumsDialog
+      <SearchEntityDialog
         open={searchDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeSearchDialog()
         }}
-        hideTrigger
+        onSubscribe={handleSubscribe}
+        subscribedIds={subscribedForumIds}
+        entityClass="forum"
+        searchEndpoint={endpoints.forums.search}
+        icon={Hash}
+        iconClassName="bg-blue-500/10 text-blue-600"
+        title="Search forums"
+        description="Search for public forums to subscribe to"
+        placeholder="Search by name, ID, fingerprint, or URL..."
+        emptyMessage="No forums found"
       />
     </>
   )
