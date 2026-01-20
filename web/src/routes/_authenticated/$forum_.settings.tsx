@@ -208,7 +208,7 @@ function ForumSettingsPage() {
 
   return (
     <>
-      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} />
+      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} icon={<Settings className="size-4 md:size-5" />} />
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (
@@ -420,7 +420,7 @@ function GeneralTab({
                   </p>
                 </div>
                 <Button
-                  variant='outline'
+                  variant='warning'
                   onClick={onUnsubscribe}
                   disabled={isUnsubscribing}
                 >
@@ -446,7 +446,7 @@ function GeneralTab({
                   </p>
                 </div>
                 <Button
-                  variant='outline'
+                  variant='destructive'
                   onClick={() => setShowDeleteDialog(true)}
                   disabled={isDeleting}
                 >
@@ -470,7 +470,7 @@ function GeneralTab({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={onDelete}>Delete</AlertDialogAction>
+            <AlertDialogAction variant='destructive' onClick={onDelete}>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

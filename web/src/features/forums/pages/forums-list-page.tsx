@@ -74,7 +74,7 @@ export function ForumsListPage({
             {!isMobile && (
               <Button variant='outline' onClick={openSearchDialog}>
                 <Search className='mr-2 size-4' />
-                Search
+                Find forums
               </Button>
             )}
             <Button onClick={openForumDialog}>

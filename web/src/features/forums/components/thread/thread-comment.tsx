@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, ConfirmDialog } from '@mochi/common'
+import { Button, CommentTreeLayout, ConfirmDialog } from '@mochi/common'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -8,19 +8,8 @@ import {
   Trash2,
   Send,
   X,
+  Plus,
 } from 'lucide-react'
-
-// Reddit-style rainbow colors for nested comment threads
-const THREAD_COLORS = [
-  'bg-blue-500',
-  'bg-cyan-500',
-  'bg-green-500',
-  'bg-yellow-500',
-  'bg-orange-500',
-  'bg-red-500',
-  'bg-pink-500',
-  'bg-purple-500',
-]
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -60,6 +49,7 @@ interface ThreadCommentProps {
   onDelete?: (commentId: string) => void
   editPendingId?: string | null
   depth?: number
+  isLastChild?: boolean
 }
 
 export function ThreadComment({
@@ -80,6 +70,7 @@ export function ThreadComment({
   onDelete,
   editPendingId = null,
   depth = 0,
+  isLastChild = true,
 }: ThreadCommentProps) {
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -111,273 +102,296 @@ export function ThreadComment({
   const isReplying = replyingToId === comment.id
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
-  const lineColor = THREAD_COLORS[depth % THREAD_COLORS.length]
   const hasVotes = localUp > 0 || localDown > 0
 
-  return (
-    <div className='flex'>
-      {/* Colored thread line */}
-      <button
-        type='button'
-        onClick={() => setCollapsed(!collapsed)}
-        className='group flex w-5 flex-shrink-0 cursor-pointer justify-center'
-        aria-label={collapsed ? 'Expand thread' : 'Collapse thread'}
-      >
-        <div
-          className={`h-full w-0.5 ${lineColor} opacity-40 transition-opacity group-hover:opacity-100`}
-        />
-      </button>
+  const getTotalReplyCount = (c: ThreadCommentType): number => {
+    if (!c.children) return 0
+    return (
+      c.children.length +
+      c.children.reduce((acc, reply) => acc + getTotalReplyCount(reply), 0)
+    )
+  }
+  const totalDescendants = getTotalReplyCount(comment)
 
-      {/* Content */}
-      <div className='min-w-0 flex-1 py-2 pl-2'>
-        {/* Collapsed state */}
-        {collapsed && (
-          <div className='text-muted-foreground flex items-center gap-2 text-xs'>
-            <span>
-              {comment.name} · {comment.created_local}
-            </span>
-            <span className='text-primary'>
-              {hasReplies
-                ? `(${comment.children.length} replies hidden)`
-                : '(collapsed)'}
-            </span>
-          </div>
-        )}
-
-        {!collapsed && (
-          <>
-            {/* Comment's own content - hover target excludes nested replies */}
-            <div className='comment-content space-y-2'>
-              {/* Comment body - show edit form if editing */}
-              {editing === comment.id ? (
-                <div className='space-y-2'>
-                  <textarea
-                    value={editBody}
-                    onChange={(e) => setEditBody(e.target.value)}
-                    className='min-h-16 w-full resize-none rounded-md border px-3 py-2 text-sm'
-                    rows={3}
-                    autoFocus
-                  />
-                  <div className='flex justify-end gap-2'>
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      className='h-7 text-xs'
-                      onClick={() => setEditing(null)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      size='sm'
-                      className='h-7 text-xs'
-                      disabled={!editBody.trim()}
-                      onClick={() => {
-                        onEdit?.(comment.id, editBody.trim())
-                        setEditing(null)
-                      }}
-                    >
-                      Save
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className='relative'>
-                  <p className='pr-32 text-sm leading-relaxed whitespace-pre-wrap'>
-                    {comment.body}
-                  </p>
-                  {/* Author and timestamp - hidden until hover */}
-                  <span className='comment-meta text-muted-foreground absolute top-0 right-0 text-xs transition-opacity'>
-                    {comment.name} · {comment.created_local}
-                    {comment.edited ? ' (edited)' : ''}
-                  </span>
-                </div>
-              )}
-
-              {/* Votes and actions row */}
-              {(canVote || canReply || commentCanEdit) && (
-                <div
-                  className={`comment-actions-row text-muted-foreground flex items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
-                >
-                  {/* Vote counts */}
-                  {localUp > 0 && (
-                    <span className='flex items-center gap-1'>
-                      <ThumbsUp className='size-3' />
-                      {localUp}
-                    </span>
-                  )}
-                  {localDown > 0 && (
-                    <span className='flex items-center gap-1'>
-                      <ThumbsDown className='size-3' />
-                      {localDown}
-                    </span>
-                  )}
-                  {/* Action buttons - visible on hover */}
-                  <div className='comment-actions flex items-center gap-3'>
-                    {canVote && (
-                      <>
-                        <button
-                          type='button'
-                          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
-                          style={
-                            localVote === 'up'
-                              ? {
-                                  color: 'hsl(var(--primary))',
-                                  fontWeight: 500,
-                                }
-                              : undefined
-                          }
-                          onClick={() =>
-                            handleVote(localVote === 'up' ? '' : 'up')
-                          }
-                        >
-                          <ThumbsUp className='size-3' />
-                          <span>Upvote</span>
-                        </button>
-                        <button
-                          type='button'
-                          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs'
-                          style={
-                            localVote === 'down'
-                              ? {
-                                  color: 'hsl(var(--primary))',
-                                  fontWeight: 500,
-                                }
-                              : undefined
-                          }
-                          onClick={() =>
-                            handleVote(localVote === 'down' ? '' : 'down')
-                          }
-                        >
-                          <ThumbsDown className='size-3' />
-                          <span>Downvote</span>
-                        </button>
-                      </>
-                    )}
-                    {canReply && onReply && (
-                      <button
-                        type='button'
-                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
-                        onClick={() => onReply(comment.id)}
-                      >
-                        <MessageSquare className='size-3' />
-                        Reply
-                      </button>
-                    )}
-                    {commentCanEdit && onEdit && (
-                      <button
-                        type='button'
-                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
-                        onClick={() => {
-                          setEditing(comment.id)
-                          setEditBody(comment.body)
-                        }}
-                      >
-                        <Pencil className='size-3' />
-                        Edit
-                      </button>
-                    )}
-                    {commentCanEdit && onDelete && (
-                      <button
-                        type='button'
-                        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
-                        onClick={() => setDeleting(true)}
-                      >
-                        <Trash2 className='size-3' />
-                        Delete
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Delete confirmation dialog */}
-              <ConfirmDialog
-                open={deleting}
-                onOpenChange={setDeleting}
-                title='Delete comment'
-                desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
-                confirmText='Delete'
-                handleConfirm={() => {
-                  onDelete?.(comment.id)
-                  setDeleting(false)
-                }}
-              />
-
-              {/* Reply input */}
-              {isReplying && (
-                <div className='mt-2 flex items-end gap-2'>
-                  <textarea
-                    placeholder={`Reply to ${comment.name}...`}
-                    value={replyValue}
-                    onChange={(e) => onReplyChange?.(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                        e.preventDefault()
-                        if (replyValue.trim()) {
-                          onReplySubmit?.(comment.id)
-                        }
-                      } else if (e.key === 'Escape') {
-                        onReplyCancel?.()
-                      }
-                    }}
-                    className='flex-1 resize-none rounded-md border px-3 py-2 text-sm'
-                    rows={2}
-                    autoFocus
-                  />
-                  <Button
-                    type='button'
-                    size='icon'
-                    variant='ghost'
-                    className='size-8'
-                    onClick={onReplyCancel}
-                    aria-label='Cancel reply'
-                  >
-                    <X className='size-4' />
-                  </Button>
-                  <Button
-                    type='button'
-                    size='icon'
-                    className='size-8'
-                    disabled={!replyValue.trim() || isReplyPending}
-                    onClick={() => onReplySubmit?.(comment.id)}
-                    aria-label='Submit reply'
-                  >
-                    <Send className='size-4' />
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            {/* Nested replies */}
-            {hasReplies && (
-              <div className='mt-1 space-y-1'>
-                {comment.children.map((reply) => (
-                  <ThreadComment
-                    key={reply.id}
-                    comment={reply}
-                    onVote={onVote}
-                    canVote={canVote}
-                    votePendingId={votePendingId}
-                    canReply={canReply}
-                    onReply={onReply}
-                    replyingToId={replyingToId}
-                    replyValue={replyValue}
-                    onReplyChange={onReplyChange}
-                    onReplySubmit={onReplySubmit}
-                    onReplyCancel={onReplyCancel}
-                    isReplyPending={isReplyPending}
-                    canEdit={canEdit}
-                    onEdit={onEdit}
-                    onDelete={onDelete}
-                    editPendingId={editPendingId}
-                    depth={depth + 1}
-                  />
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+  const avatar = (
+    <div className='bg-primary text-primary-foreground flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold'>
+      {comment.name.charAt(0).toUpperCase()}
     </div>
   )
+
+  const collapsedContent = (
+    <div className='flex h-5 items-center gap-2 py-0.5 text-xs select-none'>
+      <span className='text-muted-foreground font-medium'>{comment.name}</span>
+      <span className='text-muted-foreground'>·</span>
+      <span className='text-muted-foreground'>{comment.created_local}</span>
+      <button
+        onClick={() => setCollapsed(false)}
+        className='text-primary ml-2 flex cursor-pointer items-center gap-1 hover:underline'
+      >
+        {totalDescendants > 0 ? (
+          <>
+            {totalDescendants === 1 ? (
+              <span>1 reply</span>
+            ) : (
+              <span className='flex items-center gap-1'>
+                <Plus className='size-3' />
+                {totalDescendants} more replies
+              </span>
+            )}
+          </>
+        ) : (
+          <span className='text-muted-foreground italic'>(collapsed)</span>
+        )}
+      </button>
+    </div>
+  )
+
+  const content = (
+    <div className='comment-content group/row space-y-1.5'>
+      {/* Header row - always visible like Feeds */}
+      <div className='flex h-5 items-center gap-2 text-xs'>
+        <span className='text-foreground font-medium'>{comment.name}</span>
+        <span className='text-muted-foreground'>·</span>
+        <span className='text-muted-foreground'>
+          {comment.created_local}
+          {comment.edited ? ' (edited)' : ''}
+        </span>
+      </div>
+
+      {/* Comment body - show edit form if editing */}
+      {editing === comment.id ? (
+        <div className='space-y-2'>
+          <textarea
+            value={editBody}
+            onChange={(e) => setEditBody(e.target.value)}
+            className='min-h-16 w-full resize-none rounded-md border px-3 py-2 text-sm'
+            rows={3}
+            autoFocus
+          />
+          <div className='flex justify-end gap-2'>
+            <Button
+              variant='outline'
+              size='sm'
+              className='h-7 text-xs'
+              onClick={() => setEditing(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              size='sm'
+              className='h-7 text-xs'
+              disabled={!editBody.trim()}
+              onClick={() => {
+                onEdit?.(comment.id, editBody.trim())
+                setEditing(null)
+              }}
+            >
+              Save
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <p className='text-foreground text-sm leading-relaxed whitespace-pre-wrap'>
+          {comment.body}
+        </p>
+      )}
+
+      {/* Votes and actions row */}
+      {(canVote || canReply || commentCanEdit) && (
+        <div
+          className={`comment-actions-row text-muted-foreground flex min-h-[28px] items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
+        >
+          {/* Vote counts - always visible */}
+          {localUp > 0 && (
+            <span className='flex items-center gap-1'>
+              <ThumbsUp className='size-3' />
+              {localUp}
+            </span>
+          )}
+          {localDown > 0 && (
+            <span className='flex items-center gap-1'>
+              <ThumbsDown className='size-3' />
+              {localDown}
+            </span>
+          )}
+          {/* Action buttons - visible on hover only */}
+          <div className='comment-actions flex items-center gap-1 opacity-0 transition-opacity pointer-events-none group-hover/row:opacity-100 group-hover/row:pointer-events-auto'>
+            {canVote && (
+              <>
+                <button
+                  type='button'
+                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                  style={
+                    localVote === 'up'
+                      ? {
+                          color: 'hsl(var(--primary))',
+                          fontWeight: 500,
+                        }
+                      : undefined
+                  }
+                  onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
+                >
+                  <ThumbsUp className='size-3' />
+                  <span>Upvote</span>
+                </button>
+                <button
+                  type='button'
+                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                  style={
+                    localVote === 'down'
+                      ? {
+                          color: 'hsl(var(--primary))',
+                          fontWeight: 500,
+                        }
+                      : undefined
+                  }
+                  onClick={() =>
+                    handleVote(localVote === 'down' ? '' : 'down')
+                  }
+                >
+                  <ThumbsDown className='size-3' />
+                  <span>Downvote</span>
+                </button>
+              </>
+            )}
+            {canReply && onReply && (
+              <button
+                type='button'
+                className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                onClick={() => onReply(comment.id)}
+              >
+                <MessageSquare className='size-3' />
+                <span>Reply</span>
+              </button>
+            )}
+            {commentCanEdit && onEdit && (
+              <button
+                type='button'
+                className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                onClick={() => {
+                  setEditing(comment.id)
+                  setEditBody(comment.body)
+                }}
+              >
+                <Pencil className='size-3' />
+                <span>Edit</span>
+              </button>
+            )}
+            {commentCanEdit && onDelete && (
+              <button
+                type='button'
+                className='text-muted-foreground hover:bg-destructive/10 hover:text-destructive inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                onClick={() => setDeleting(true)}
+              >
+                <Trash2 className='size-3' />
+                <span>Delete</span>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Delete confirmation dialog */}
+      <ConfirmDialog
+        open={deleting}
+        onOpenChange={setDeleting}
+        title='Delete comment'
+        desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
+        confirmText='Delete'
+        destructive={true}
+        handleConfirm={() => {
+          onDelete?.(comment.id)
+          setDeleting(false)
+        }}
+      />
+
+      {/* Reply input */}
+      {isReplying && (
+        <div className='mt-2 flex items-end gap-2'>
+          <textarea
+            placeholder={`Reply to ${comment.name}...`}
+            value={replyValue}
+            onChange={(e) => onReplyChange?.(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault()
+                if (replyValue.trim()) {
+                  onReplySubmit?.(comment.id)
+                }
+              } else if (e.key === 'Escape') {
+                onReplyCancel?.()
+              }
+            }}
+            className='flex-1 resize-none rounded-md border px-3 py-2 text-sm'
+            rows={2}
+            autoFocus
+          />
+          <Button
+            type='button'
+            size='icon'
+            variant='ghost'
+            className='size-8'
+            onClick={onReplyCancel}
+            aria-label='Cancel reply'
+          >
+            <X className='size-4' />
+          </Button>
+          <Button
+            type='button'
+            size='icon'
+            className='size-8'
+            disabled={!replyValue.trim() || isReplyPending}
+            onClick={() => onReplySubmit?.(comment.id)}
+            aria-label='Submit reply'
+          >
+            <Send className='size-4' />
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+
+  const children = hasReplies ? (
+    <>
+      {comment.children.map((reply, index) => (
+        <ThreadComment
+          key={reply.id}
+          comment={reply}
+          onVote={onVote}
+          canVote={canVote}
+          votePendingId={votePendingId}
+          canReply={canReply}
+          onReply={onReply}
+          replyingToId={replyingToId}
+          replyValue={replyValue}
+          onReplyChange={onReplyChange}
+          onReplySubmit={onReplySubmit}
+          onReplyCancel={onReplyCancel}
+          isReplyPending={isReplyPending}
+          canEdit={canEdit}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          editPendingId={editPendingId}
+          depth={depth + 1}
+          isLastChild={index === comment.children.length - 1}
+        />
+      ))}
+    </>
+  ) : null
+
+  return (
+    <CommentTreeLayout
+      depth={depth}
+      isLastChild={isLastChild}
+      isCollapsed={collapsed}
+      onToggleCollapse={() => setCollapsed(!collapsed)}
+      hasChildren={hasReplies}
+      avatar={avatar}
+      content={content}
+      collapsedContent={collapsedContent}
+    >
+      {children}
+    </CommentTreeLayout>
+  )
 }
+

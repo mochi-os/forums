@@ -92,7 +92,7 @@ export function ThreadContent({
       />
 
       {/* Actions row */}
-      <div className='text-muted-foreground flex items-center gap-3 text-xs'>
+      <div className='text-muted-foreground flex items-center gap-1 text-xs'>
         {/* Vote counts */}
         {localUp > 0 && (
           <span className='inline-flex items-center gap-1'>
@@ -110,7 +110,7 @@ export function ThreadContent({
           <>
             <button
               type='button'
-              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1'
+              className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
               style={
                 localVote === 'up'
                   ? { color: 'hsl(var(--primary))' }
@@ -126,7 +126,7 @@ export function ThreadContent({
             </button>
             <button
               type='button'
-              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1'
+              className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
               style={
                 localVote === 'down'
                   ? { color: 'hsl(var(--primary))' }
@@ -145,7 +145,7 @@ export function ThreadContent({
         {canReply && onReply && (
           <button
             type='button'
-            className='hover:text-foreground inline-flex items-center gap-1 transition-colors'
+            className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
             onClick={(e) => {
               e.stopPropagation()
               onReply()
@@ -159,7 +159,7 @@ export function ThreadContent({
           <>
             <button
               type='button'
-              className='hover:text-foreground inline-flex items-center gap-1 transition-colors'
+              className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
               onClick={(e) => {
                 e.stopPropagation()
                 onEdit()
@@ -170,7 +170,7 @@ export function ThreadContent({
             </button>
             <button
               type='button'
-              className='hover:text-foreground inline-flex items-center gap-1 transition-colors'
+              className='text-foreground bg-muted hover:bg-destructive/10 hover:text-destructive inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors'
               onClick={(e) => {
                 e.stopPropagation()
                 setDeleteDialogOpen(true)
@@ -190,6 +190,7 @@ export function ThreadContent({
         title='Delete post'
         desc='Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.'
         confirmText='Delete'
+        destructive={true}
         handleConfirm={() => {
           setDeleteDialogOpen(false)
           onDelete?.()

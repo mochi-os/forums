@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Loader2, Settings, SquarePen } from 'lucide-react'
+import { Loader2, Rss, Settings, SquarePen } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -56,11 +56,8 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    can_manage: canManage,
   } = useInfinitePosts({ forum: forum.id, entityContext: true })
-
-  const selectedForumPosts = infinitePosts.filter(
-    (p) => 'title' in p && p.title
-  )
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -79,7 +76,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     setSubscription({
       isRemote: !localForum,
       isSubscribed: !!localForum,
-      canUnsubscribe: !!localForum && !localForum.can_manage,
+      canUnsubscribe: !!localForum && !canManage,
     })
 
     return () => {
@@ -87,7 +84,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
       unsubscribeHandler.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forum.id, forums, setSubscription])
+  }, [forum.id, forums, setSubscription, canManage])
 
   const handleCreatePost = (data: {
     title: string
@@ -107,9 +104,8 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     })
   }
 
-  // Use permissions from loader, fall back to forum data
-  const canPost = permissions?.post ?? forumData?.can_post ?? false
-  const canManage = permissions?.manage ?? forumData?.can_manage ?? false
+  // Use values from hook
+  const canPost = forumData?.can_post ?? permissions?.post ?? false
   const isSubscribed = !!forums.find((f) => f.id === forum.id)
   const isRemoteForum = !isSubscribed
   const canUnsubscribe = isSubscribed && !canManage
@@ -118,6 +114,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     <>
       <PageHeader
         title={forum.name || 'Forum'}
+        icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
             {canPost && (
@@ -174,7 +171,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
       <Main fixed>
 
       <div className='flex-1 overflow-y-auto'>
-        {isLoadingForum ? (
+        {(isLoadingForum || !forumData) ? (
           <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
             <div className='flex flex-col items-center gap-2'>
               <div className='border-primary size-4 animate-spin rounded-full border-2 border-t-transparent' />
@@ -200,7 +197,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
         ) : (
           <ForumOverview
             forum={forumData || forum}
-            posts={selectedForumPosts}
+            posts={infinitePosts}
             onSelectPost={handlePostSelect}
             onCreatePost={handleCreatePost}
             isCreatingPost={createPostMutation.isPending}

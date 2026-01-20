@@ -1,5 +1,6 @@
+import { Link } from '@tanstack/react-router'
 import { Card, CardContent, LoadMoreTrigger } from '@mochi/common'
-import { MessageSquare, FileEdit } from 'lucide-react'
+import { MessageSquare, FileEdit, Hash } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
@@ -35,19 +36,51 @@ export function ForumOverview({
   onLoadMore,
 }: ForumOverviewProps) {
   if (!forum) {
-    // All forums view - use forumName from post object (set by parent)
+    // All forums view - group posts by forum
+    const groupedPosts = posts.reduce(
+      (acc, post) => {
+        const forumId = post.forum
+        if (!acc[forumId]) {
+          acc[forumId] = {
+            name: post.forumName || 'Unknown',
+            posts: [],
+          }
+        }
+        acc[forumId].posts.push(post)
+        return acc
+      },
+      {} as Record<string, { name: string; posts: typeof posts }>
+    )
+
     return (
       <div className='space-y-6'>
         {posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={post.forumName || 'Unknown'}
-              showForumBadge={true}
-              server={server}
-              onSelect={onSelectPost}
-            />
+          Object.entries(groupedPosts).map(([forumId, group]) => (
+            <Card key={forumId} className='group relative overflow-hidden'>
+              <div className='text-muted-foreground flex items-center gap-2 px-4 text-sm'>
+                <Link
+                  to='/$forum'
+                  params={{ forum: forumId }}
+                  className='hover:text-foreground inline-flex items-center gap-1.5 transition-colors'
+                >
+                  <Hash className='size-3.5' />
+                  <span className='font-medium'>{group.name}</span>
+                </Link>
+              </div>
+              <div className='flex flex-col divide-y'>
+                {group.posts.map((post) => (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    forumName={group.name}
+                    showForumBadge={false}
+                    server={server}
+                    onSelect={onSelectPost}
+                    variant='list-item'
+                  />
+                ))}
+              </div>
+            </Card>
           ))
         ) : (
           <Card className='shadow-md'>

@@ -20,17 +20,16 @@ import {
   useCreatePost,
   useCreateForum,
   forumsKeys,
+  selectPosts,
+  useForumDetail,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 import { forumsApi } from '@/api/forums'
 import endpoints from '@/api/endpoints'
+import type { Post } from '@/api/types/forums'
 
 function ForumsLayoutInner() {
-  const { data } = useForumsList()
-  const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
-  const queryClient = useQueryClient()
-
   const {
     forum,
     post,
@@ -46,10 +45,33 @@ function ForumsLayoutInner() {
     closeSearchDialog,
   } = useSidebarContext()
 
+  const { data } = useForumsList()
+  // Fetch details for the current forum to populate sidebar with all its posts
+  const { data: detailData } = useForumDetail(forum)
+
+  const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
+  const allPosts = useMemo(() => {
+    const listPosts = selectPosts(data)
+    const detailPosts = detailData?.data?.posts || []
+    
+    // Merge posts ensuring uniqueness by ID
+    const map = new Map<string, Post>()
+    listPosts.forEach((p) => map.set(p.id, p))
+    detailPosts.forEach((p) => map.set(p.id, p))
+    
+    return Array.from(map.values())
+  }, [data, detailData])
+
+  const queryClient = useQueryClient()
+
   // Find forums for dialog
   const dialogForum = useMemo(() => {
     if (!postDialogForum) return null
-    return forums.find((f) => f.id === postDialogForum || f.fingerprint === postDialogForum) ?? null
+    return (
+      forums.find(
+        (f) => f.id === postDialogForum || f.fingerprint === postDialogForum
+      ) ?? null
+    )
   }, [forums, postDialogForum])
 
   // Create post mutation
@@ -110,8 +132,26 @@ function ForumsLayoutInner() {
       const forumUrl = f.fingerprint ?? f.id
       const subItems: NavSubItem[] = []
 
-      // Current post title
-      if (isCurrentForum && postTitle && post) {
+      // Get posts for this forum
+      const forumPosts = allPosts.filter((p) => p.forum === f.id)
+      const listedPostIds = new Set(forumPosts.map((p) => p.id))
+
+      // Add all known posts
+      forumPosts.forEach((p) => {
+        subItems.push({
+          title: p.title,
+          icon: FileText,
+          url: `/${forumUrl}/${p.id}`,
+        })
+      })
+
+      // If current post is not in the list (e.g. loaded individually), add it
+      if (
+        isCurrentForum &&
+        postTitle &&
+        post &&
+        !listedPostIds.has(post)
+      ) {
         subItems.push({
           title: postTitle,
           icon: FileText,
@@ -126,7 +166,6 @@ function ForumsLayoutInner() {
           url: `/${forumUrl}`,
           icon: Hash,
           items: subItems,
-          open: isCurrentForum,
         }
       }
 
@@ -145,7 +184,7 @@ function ForumsLayoutInner() {
 
     // Build bottom items
     const bottomItems: NavItem[] = [
-      { title: 'New forum', icon: Plus, onClick: openForumDialog },
+      { title: 'New forum', icon: Plus, onClick: openForumDialog, variant: 'primary' },
     ]
 
     const groups: SidebarData['navGroups'] = [
