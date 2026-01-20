@@ -298,6 +298,7 @@ export function ThreadComment({
         title='Delete comment'
         desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
         confirmText='Delete'
+        destructive={true}
         handleConfirm={() => {
           onDelete?.(comment.id)
           setDeleting(false)
