@@ -348,3 +348,167 @@ export function useGroups() {
     staleTime: 60000,
   })
 }
+
+// ============================================================================
+// Post Moderation Mutations
+// ============================================================================
+
+export function useRemovePost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (reason?: string) =>
+      forumsApi.removePost({ forum: forumId, post: postId, reason }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
+      toast.success('Post removed')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useRestorePost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => forumsApi.restorePost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
+      toast.success('Post restored')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useLockPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => forumsApi.lockPost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Post locked')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useUnlockPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => forumsApi.unlockPost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Post unlocked')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function usePinPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => forumsApi.pinPost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
+      toast.success('Post pinned')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useUnpinPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => forumsApi.unpinPost({ forum: forumId, post: postId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
+      toast.success('Post unpinned')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useReportPost(forumId: string, postId: string) {
+  return useMutation({
+    mutationFn: ({ reason, details }: { reason: string; details?: string }) =>
+      forumsApi.reportPost({ forum: forumId, post: postId, reason, details }),
+    onSuccess: () => {
+      toast.success('Report submitted')
+    },
+    onError: handleServerError,
+  })
+}
+
+// ============================================================================
+// Comment Moderation Mutations
+// ============================================================================
+
+export function useRemoveComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ commentId, reason }: { commentId: string; reason?: string }) =>
+      forumsApi.removeComment({ forum: forumId, post: postId, comment: commentId, reason }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Comment removed')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useRestoreComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (commentId: string) =>
+      forumsApi.restoreComment({ forum: forumId, post: postId, comment: commentId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Comment restored')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useApproveComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (commentId: string) =>
+      forumsApi.approveComment({ forum: forumId, post: postId, comment: commentId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      toast.success('Comment approved')
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useReportComment(forumId: string, postId: string) {
+  return useMutation({
+    mutationFn: ({
+      commentId,
+      reason,
+      details,
+    }: {
+      commentId: string
+      reason: string
+      details?: string
+    }) =>
+      forumsApi.reportComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+        reason,
+        details,
+      }),
+    onSuccess: () => {
+      toast.success('Report submitted')
+    },
+    onError: handleServerError,
+  })
+}

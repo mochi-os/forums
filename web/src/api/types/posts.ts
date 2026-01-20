@@ -39,6 +39,12 @@ export interface Post {
   user_vote?: 'up' | 'down' | ''
   attachments?: Attachment[]
   forumName?: string
+  // Moderation fields
+  status?: 'approved' | 'pending' | 'removed'
+  locked?: boolean
+  pinned?: boolean
+  remover?: string
+  reason?: string
 }
 
 // Helper to safely get comment count
@@ -98,6 +104,10 @@ export interface ViewPostComment {
   children: ViewPostComment[]
   can_vote: boolean
   can_comment: boolean
+  // Moderation fields
+  status?: 'approved' | 'pending' | 'removed'
+  remover?: string
+  reason?: string
 }
 
 export interface ViewPostResponse {
@@ -108,6 +118,7 @@ export interface ViewPostResponse {
     member: Member
     can_vote: boolean
     can_comment: boolean
+    can_moderate: boolean
   }
 }
 

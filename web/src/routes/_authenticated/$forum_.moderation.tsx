@@ -1,0 +1,774 @@
+import { useCallback, useEffect, useState } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
+import {
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  PageHeader,
+  Main,
+  cn,
+  getErrorMessage,
+  toast,
+  usePageTitle,
+} from '@mochi/common'
+import {
+  Loader2,
+  CheckCircle,
+  XCircle,
+  Clock,
+  FileText,
+  MessageSquare,
+  Flag,
+  History,
+  Users,
+} from 'lucide-react'
+
+import { forumsApi } from '@/api/forums'
+import type { Post, ViewPostComment } from '@/api/types/posts'
+import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
+import { useSidebarContext } from '@/context/sidebar-context'
+
+type TabId = 'queue' | 'reports' | 'log' | 'restrictions'
+
+type ModerationSearch = {
+  tab?: TabId
+}
+
+export const Route = createFileRoute('/_authenticated/$forum_/moderation')({
+  validateSearch: (search: Record<string, unknown>): ModerationSearch => ({
+    tab:
+      search.tab === 'queue' ||
+      search.tab === 'reports' ||
+      search.tab === 'log' ||
+      search.tab === 'restrictions'
+        ? search.tab
+        : undefined,
+  }),
+  component: ModerationPage,
+})
+
+interface Tab {
+  id: TabId
+  label: string
+  icon: React.ReactNode
+}
+
+const tabs: Tab[] = [
+  { id: 'queue', label: 'Queue', icon: <Clock className='h-4 w-4' /> },
+  { id: 'reports', label: 'Reports', icon: <Flag className='h-4 w-4' /> },
+  { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
+  { id: 'restrictions', label: 'Restrictions', icon: <Users className='h-4 w-4' /> },
+]
+
+function ModerationPage() {
+  const params = Route.useParams()
+  const forumId = 'forum' in params ? params.forum : ''
+  const navigateModeration = Route.useNavigate()
+  const { tab } = Route.useSearch()
+  const activeTab = tab ?? 'queue'
+
+  const setActiveTab = (newTab: TabId) => {
+    void navigateModeration({ search: { tab: newTab }, replace: true })
+  }
+
+  usePageTitle('Moderation')
+
+  // Register with sidebar context
+  const { setForum } = useSidebarContext()
+  useEffect(() => {
+    setForum(forumId)
+    return () => setForum(null)
+  }, [forumId, setForum])
+
+  return (
+    <>
+      <PageHeader title='Moderation' />
+      <Main className='space-y-6'>
+        {/* Tabs */}
+        <div className='flex gap-1 border-b'>
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors',
+                '-mb-px border-b-2',
+                activeTab === t.id
+                  ? 'border-primary text-foreground'
+                  : 'text-muted-foreground hover:text-foreground border-transparent'
+              )}
+            >
+              {t.icon}
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab content */}
+        <div className='pt-2'>
+          {activeTab === 'queue' && <QueueTab forumId={forumId} />}
+          {activeTab === 'reports' && <ReportsTab forumId={forumId} />}
+          {activeTab === 'log' && <LogTab forumId={forumId} />}
+          {activeTab === 'restrictions' && <RestrictionsTab forumId={forumId} />}
+        </div>
+      </Main>
+    </>
+  )
+}
+
+interface QueueTabProps {
+  forumId: string
+}
+
+function QueueTab({ forumId }: QueueTabProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [pendingPosts, setPendingPosts] = useState<Post[]>([])
+  const [pendingComments, setPendingComments] = useState<ViewPostComment[]>([])
+  const [actionInProgress, setActionInProgress] = useState<string | null>(null)
+  const [selectedPosts, setSelectedPosts] = useState<Set<string>>(new Set())
+  const [selectedComments, setSelectedComments] = useState<Set<string>>(new Set())
+
+  const loadQueue = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const response = await forumsApi.getModerationQueue({ forum: forumId })
+      setPendingPosts(response.data?.posts ?? [])
+      setPendingComments(response.data?.comments ?? [])
+      setSelectedPosts(new Set())
+      setSelectedComments(new Set())
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load moderation queue'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId])
+
+  useEffect(() => {
+    void loadQueue()
+  }, [loadQueue])
+
+  // Selection helpers
+  const togglePostSelection = (postId: string) => {
+    setSelectedPosts((prev) => {
+      const next = new Set(prev)
+      if (next.has(postId)) {
+        next.delete(postId)
+      } else {
+        next.add(postId)
+      }
+      return next
+    })
+  }
+
+  const toggleCommentSelection = (commentId: string) => {
+    setSelectedComments((prev) => {
+      const next = new Set(prev)
+      if (next.has(commentId)) {
+        next.delete(commentId)
+      } else {
+        next.add(commentId)
+      }
+      return next
+    })
+  }
+
+  const allPostsSelected = pendingPosts.length === 0 || selectedPosts.size === pendingPosts.length
+  const allCommentsSelected = pendingComments.length === 0 || selectedComments.size === pendingComments.length
+  const allSelected = allPostsSelected && allCommentsSelected && (pendingPosts.length > 0 || pendingComments.length > 0)
+  const hasSelection = selectedPosts.size > 0 || selectedComments.size > 0
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      setSelectedPosts(new Set())
+      setSelectedComments(new Set())
+    } else {
+      setSelectedPosts(new Set(pendingPosts.map((p) => p.id)))
+      setSelectedComments(new Set(pendingComments.map((c) => c.id)))
+    }
+  }
+
+  // Bulk actions
+  const handleBulkApprove = async () => {
+    if (!hasSelection) return
+    setActionInProgress('bulk')
+    try {
+      // Approve selected posts
+      for (const postId of selectedPosts) {
+        await forumsApi.approvePost({ forum: forumId, post: postId })
+      }
+      // Approve selected comments
+      for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
+        await forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
+      }
+      const count = selectedPosts.size + selectedComments.size
+      toast.success(`Approved ${count} item${count !== 1 ? 's' : ''}`)
+      void loadQueue()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to approve items'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  const handleBulkReject = async () => {
+    if (!hasSelection) return
+    setActionInProgress('bulk')
+    try {
+      // Remove selected posts
+      for (const postId of selectedPosts) {
+        await forumsApi.removePost({ forum: forumId, post: postId, reason: 'Rejected' })
+      }
+      // Remove selected comments
+      for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
+        await forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: 'Rejected' })
+      }
+      const count = selectedPosts.size + selectedComments.size
+      toast.success(`Rejected ${count} item${count !== 1 ? 's' : ''}`)
+      void loadQueue()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to reject items'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  // Get unique authors from selected items
+  const getSelectedAuthors = () => {
+    const authors = new Set<string>()
+    for (const post of pendingPosts.filter((p) => selectedPosts.has(p.id))) {
+      if (post.member) authors.add(post.member)
+    }
+    for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
+      if (comment.member) authors.add(comment.member)
+    }
+    return authors
+  }
+
+  const handleBulkMute = async () => {
+    const authors = getSelectedAuthors()
+    if (authors.size === 0) return
+    setActionInProgress('mute')
+    try {
+      for (const userId of authors) {
+        await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'muted' })
+      }
+      toast.success(`Muted ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
+      void loadQueue()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to mute users'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  const handleBulkBan = async () => {
+    const authors = getSelectedAuthors()
+    if (authors.size === 0) return
+    setActionInProgress('ban')
+    try {
+      for (const userId of authors) {
+        await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'banned' })
+      }
+      toast.success(`Banned ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
+      void loadQueue()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to ban users'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      </div>
+    )
+  }
+
+  const hasItems = pendingPosts.length > 0 || pendingComments.length > 0
+
+  if (!hasItems) {
+    return (
+      <Card>
+        <CardContent className='py-12 text-center'>
+          <CheckCircle className='text-muted-foreground mx-auto mb-4 size-12' />
+          <h2 className='text-lg font-semibold'>Moderation queue is empty</h2>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <div className='space-y-6'>
+      {/* Pending posts */}
+      {pendingPosts.length > 0 && (
+        <section>
+          <h2 className='text-muted-foreground mb-3 flex items-center gap-2 text-sm font-medium'>
+            <FileText className='size-4' />
+            Pending posts ({pendingPosts.length})
+          </h2>
+          <div className='divide-y rounded-lg border'>
+            {pendingPosts.map((post) => (
+              <div
+                key={post.id}
+                className={cn(
+                  'flex gap-4 p-4',
+                  selectedPosts.has(post.id) && 'bg-muted/50'
+                )}
+              >
+                <div className='flex items-start pt-0.5'>
+                  <Checkbox
+                    checked={selectedPosts.has(post.id)}
+                    onCheckedChange={() => togglePostSelection(post.id)}
+                  />
+                </div>
+                <div className='min-w-0 flex-1 space-y-1'>
+                  <div className='flex items-start justify-between gap-4'>
+                    <h3 className='font-medium'>{post.title}</h3>
+                    <span className='text-muted-foreground whitespace-nowrap text-xs'>
+                      {post.name} · {post.created_local}
+                    </span>
+                  </div>
+                  <p className='text-muted-foreground line-clamp-2 text-sm'>
+                    {post.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Pending comments */}
+      {pendingComments.length > 0 && (
+        <section>
+          <h2 className='text-muted-foreground mb-3 flex items-center gap-2 text-sm font-medium'>
+            <MessageSquare className='size-4' />
+            Pending comments ({pendingComments.length})
+          </h2>
+          <div className='divide-y rounded-lg border'>
+            {pendingComments.map((comment) => (
+              <div
+                key={comment.id}
+                className={cn(
+                  'flex gap-4 p-4',
+                  selectedComments.has(comment.id) && 'bg-muted/50'
+                )}
+              >
+                <div className='flex items-start pt-0.5'>
+                  <Checkbox
+                    checked={selectedComments.has(comment.id)}
+                    onCheckedChange={() => toggleCommentSelection(comment.id)}
+                  />
+                </div>
+                <div className='min-w-0 flex-1'>
+                  <div className='flex items-start justify-between gap-4'>
+                    <p className='line-clamp-3 text-sm'>{comment.body}</p>
+                    <span className='text-muted-foreground whitespace-nowrap text-xs'>
+                      {comment.name} · {comment.created_local}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Bulk action toolbar */}
+      <div className='bg-background sticky bottom-0 flex items-center gap-4 border-t py-4'>
+        <Button
+          variant='outline'
+          size='sm'
+          onClick={toggleSelectAll}
+        >
+          {allSelected ? 'Select none' : 'Select all'}
+        </Button>
+        <div className='flex gap-2'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => void handleBulkReject()}
+            disabled={!hasSelection || !!actionInProgress}
+          >
+            {actionInProgress === 'bulk' ? (
+              <Loader2 className='mr-1 size-4 animate-spin' />
+            ) : (
+              <XCircle className='mr-1 size-4' />
+            )}
+            Reject
+          </Button>
+          <Button
+            size='sm'
+            onClick={() => void handleBulkApprove()}
+            disabled={!hasSelection || !!actionInProgress}
+          >
+            {actionInProgress === 'bulk' ? (
+              <Loader2 className='mr-1 size-4 animate-spin' />
+            ) : (
+              <CheckCircle className='mr-1 size-4' />
+            )}
+            Approve
+          </Button>
+        </div>
+        <div className='bg-border h-6 w-px' />
+        <div className='flex gap-2'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => void handleBulkMute()}
+            disabled={!hasSelection || !!actionInProgress}
+          >
+            {actionInProgress === 'mute' ? (
+              <Loader2 className='size-4 animate-spin' />
+            ) : (
+              'Mute'
+            )}
+          </Button>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => void handleBulkBan()}
+            disabled={!hasSelection || !!actionInProgress}
+          >
+            {actionInProgress === 'ban' ? (
+              <Loader2 className='size-4 animate-spin' />
+            ) : (
+              'Ban'
+            )}
+          </Button>
+        </div>
+        {hasSelection && (
+          <span className='text-muted-foreground text-sm'>
+            {selectedPosts.size + selectedComments.size} selected
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
+
+interface ReportsTabProps {
+  forumId: string
+}
+
+function ReportsTab({ forumId }: ReportsTabProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [reports, setReports] = useState<Report[]>([])
+  const [statusFilter, setStatusFilter] = useState<'pending' | 'resolved' | 'all'>('pending')
+  const [actionInProgress, setActionInProgress] = useState<string | null>(null)
+
+  const loadReports = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const response = await forumsApi.getReports({ forum: forumId, status: statusFilter })
+      setReports(response.data?.reports ?? [])
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load reports'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId, statusFilter])
+
+  useEffect(() => {
+    void loadReports()
+  }, [loadReports])
+
+  const handleResolve = async (reportId: string, action: string) => {
+    setActionInProgress(reportId)
+    try {
+      await forumsApi.resolveReport({ forum: forumId, report: reportId, action })
+      toast.success('Report resolved')
+      void loadReports()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to resolve report'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      </div>
+    )
+  }
+
+  return (
+    <div className='space-y-4'>
+      {/* Filter */}
+      <div className='flex gap-2'>
+        {(['pending', 'resolved', 'all'] as const).map((status) => (
+          <Button
+            key={status}
+            size='sm'
+            variant={statusFilter === status ? 'default' : 'outline'}
+            onClick={() => setStatusFilter(status)}
+          >
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </Button>
+        ))}
+      </div>
+
+      {reports.length === 0 ? (
+        <Card>
+          <CardContent className='py-12 text-center'>
+            <Flag className='text-muted-foreground mx-auto mb-4 size-12' />
+            <h2 className='text-lg font-semibold'>No reports</h2>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardContent className='divide-y pt-4'>
+            {reports.map((report) => (
+              <div key={report.id} className='py-4 first:pt-0 last:pb-0'>
+                <div className='flex items-start justify-between gap-4'>
+                  <div className='min-w-0 flex-1'>
+                    <div className='flex items-center gap-2'>
+                      <span
+                        className={cn(
+                          'rounded-full px-2 py-0.5 text-xs font-medium',
+                          report.status === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                            : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        )}
+                      >
+                        {report.status}
+                      </span>
+                      <span className='text-muted-foreground text-xs'>
+                        {report.type}
+                      </span>
+                    </div>
+                    <p className='mt-2 font-medium'>{report.reason}</p>
+                    {report.details && (
+                      <p className='text-muted-foreground mt-1 text-sm'>
+                        {report.details}
+                      </p>
+                    )}
+                    <p className='text-muted-foreground mt-2 text-xs'>
+                      Reported by {report.reporter_name ?? report.reporter}
+                    </p>
+                  </div>
+                  {report.status === 'pending' && (
+                    <div className='flex gap-2'>
+                      <Button
+                        size='sm'
+                        variant='outline'
+                        onClick={() => void handleResolve(report.id, 'dismissed')}
+                        disabled={actionInProgress === report.id}
+                      >
+                        Dismiss
+                      </Button>
+                      <Button
+                        size='sm'
+                        onClick={() => void handleResolve(report.id, 'actioned')}
+                        disabled={actionInProgress === report.id}
+                      >
+                        {actionInProgress === report.id ? (
+                          <Loader2 className='size-4 animate-spin' />
+                        ) : (
+                          'Take action'
+                        )}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}
+
+interface LogTabProps {
+  forumId: string
+}
+
+function LogTab({ forumId }: LogTabProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [entries, setEntries] = useState<ModerationLogEntry[]>([])
+
+  const loadLog = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const response = await forumsApi.getModerationLog({ forum: forumId, limit: 50 })
+      setEntries(response.data?.entries ?? [])
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load moderation log'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId])
+
+  useEffect(() => {
+    void loadLog()
+  }, [loadLog])
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      </div>
+    )
+  }
+
+  if (entries.length === 0) {
+    return (
+      <Card>
+        <CardContent className='py-12 text-center'>
+          <History className='text-muted-foreground mx-auto mb-4 size-12' />
+          <h2 className='text-lg font-semibold'>No moderation activity</h2>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <Card>
+      <CardContent className='divide-y pt-4'>
+        {entries.map((entry) => (
+          <div key={entry.id} className='flex items-center gap-4 py-3 first:pt-0 last:pb-0'>
+            <div className='min-w-0 flex-1'>
+              <p className='text-sm'>
+                <span className='font-medium'>
+                  {entry.moderator_name ?? entry.moderator}
+                </span>{' '}
+                <span className='text-muted-foreground'>{entry.action}</span>{' '}
+                <span className='text-muted-foreground'>
+                  {entry.type} {entry.target.slice(0, 8)}...
+                </span>
+              </p>
+              {entry.reason && (
+                <p className='text-muted-foreground mt-0.5 text-xs'>
+                  Reason: {entry.reason}
+                </p>
+              )}
+            </div>
+            <span className='text-muted-foreground whitespace-nowrap text-xs'>
+              {new Date(entry.created * 1000).toLocaleString()}
+            </span>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface RestrictionsTabProps {
+  forumId: string
+}
+
+function RestrictionsTab({ forumId }: RestrictionsTabProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [restrictions, setRestrictions] = useState<Restriction[]>([])
+  const [actionInProgress, setActionInProgress] = useState<string | null>(null)
+
+  const loadRestrictions = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const response = await forumsApi.getRestrictions({ forum: forumId })
+      setRestrictions(response.data?.restrictions ?? [])
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load restrictions'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId])
+
+  useEffect(() => {
+    void loadRestrictions()
+  }, [loadRestrictions])
+
+  const handleUnrestrict = async (userId: string) => {
+    setActionInProgress(userId)
+    try {
+      await forumsApi.unrestrictUser({ forum: forumId, user: userId })
+      toast.success('Restriction removed')
+      void loadRestrictions()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to remove restriction'))
+    } finally {
+      setActionInProgress(null)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      </div>
+    )
+  }
+
+  if (restrictions.length === 0) {
+    return (
+      <Card>
+        <CardContent className='py-12 text-center'>
+          <Users className='text-muted-foreground mx-auto mb-4 size-12' />
+          <h2 className='text-lg font-semibold'>No restrictions</h2>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <Card>
+      <CardContent className='divide-y pt-4'>
+        {restrictions.map((restriction) => (
+          <div
+            key={restriction.user}
+            className='flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0'
+          >
+            <div className='min-w-0 flex-1'>
+              <div className='flex items-center gap-2'>
+                <span className='font-medium'>
+                  {restriction.name ?? restriction.user}
+                </span>
+                <span
+                  className={cn(
+                    'rounded-full px-2 py-0.5 text-xs font-medium',
+                    restriction.type === 'banned'
+                      ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                      : restriction.type === 'muted'
+                        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                        : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+                  )}
+                >
+                  {restriction.type}
+                </span>
+              </div>
+              {restriction.reason && (
+                <p className='text-muted-foreground mt-0.5 text-sm'>
+                  {restriction.reason}
+                </p>
+              )}
+              <p className='text-muted-foreground mt-1 text-xs'>
+                By {restriction.moderator_name ?? restriction.moderator}
+                {restriction.expires
+                  ? ` · Expires ${new Date(restriction.expires * 1000).toLocaleDateString()}`
+                  : ' · Permanent'}
+              </p>
+            </div>
+            <Button
+              size='sm'
+              variant='outline'
+              onClick={() => void handleUnrestrict(restriction.user)}
+              disabled={actionInProgress === restriction.user}
+            >
+              {actionInProgress === restriction.user ? (
+                <Loader2 className='size-4 animate-spin' />
+              ) : (
+                'Remove'
+              )}
+            </Button>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  )
+}

@@ -78,6 +78,59 @@ const endpoints = {
     access: (forumId: string) => `${getEntityBase(forumId)}/-/access`,
     accessSet: (forumId: string) => `${getEntityBase(forumId)}/-/access/set`,
     accessRevoke: (forumId: string) => `${getEntityBase(forumId)}/-/access/revoke`,
+
+    // Moderation endpoints
+    moderation: {
+      settings: (forumId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/settings`,
+      settingsSave: (forumId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/settings/save`,
+      queue: (forumId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/queue`,
+      log: (forumId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/log`,
+      reports: (forumId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/reports`,
+      resolveReport: (forumId: string, reportId: string) =>
+        `${getEntityBase(forumId)}/-/moderation/reports/${reportId}/resolve`,
+    },
+
+    // User restrictions
+    restrict: (forumId: string) => `${getEntityBase(forumId)}/-/restrict`,
+    unrestrict: (forumId: string) => `${getEntityBase(forumId)}/-/unrestrict`,
+    restrictions: (forumId: string) => `${getEntityBase(forumId)}/-/restrictions`,
+
+    // Post moderation actions
+    postModeration: {
+      remove: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/remove`,
+      restore: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/restore`,
+      approve: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/approve`,
+      lock: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/lock`,
+      unlock: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/unlock`,
+      pin: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/pin`,
+      unpin: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/unpin`,
+      report: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/report`,
+    },
+
+    // Comment moderation actions
+    commentModeration: {
+      remove: (forumId: string, postId: string, commentId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/remove`,
+      restore: (forumId: string, postId: string, commentId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/restore`,
+      approve: (forumId: string, postId: string, commentId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/approve`,
+      report: (forumId: string, postId: string, commentId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/${commentId}/report`,
+    },
   },
 } as const
 

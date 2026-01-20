@@ -61,6 +61,7 @@ export interface ForumPermissions {
   view: boolean
   post: boolean
   manage: boolean
+  moderate: boolean
 }
 
 // Info endpoint response (entity context)
@@ -104,6 +105,7 @@ export interface ViewForumResponse {
     posts: Post[]
     member: Member
     can_manage: boolean
+    can_moderate: boolean
     hasMore: boolean
     nextCursor: number | null
   }

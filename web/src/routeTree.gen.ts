@@ -19,6 +19,7 @@ import { Route as errors401RouteImport } from './routes/(errors)/401'
 import { Route as AuthenticatedForumIndexRouteImport } from './routes/_authenticated/$forum/index'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedForumSettingsRouteImport } from './routes/_authenticated/$forum_.settings'
+import { Route as AuthenticatedForumModerationRouteImport } from './routes/_authenticated/$forum_.moderation'
 import { Route as AuthenticatedForumPostRouteImport } from './routes/_authenticated/$forum/$post'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -72,6 +73,12 @@ const AuthenticatedForumSettingsRoute =
     path: '/$forum/settings',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedForumModerationRoute =
+  AuthenticatedForumModerationRouteImport.update({
+    id: '/$forum_/moderation',
+    path: '/$forum/moderation',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedForumPostRoute = AuthenticatedForumPostRouteImport.update({
   id: '/$forum/$post',
   path: '/$forum/$post',
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/$forum/moderation': typeof AuthenticatedForumModerationRoute
   '/$forum/settings': typeof AuthenticatedForumSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/$forum': typeof AuthenticatedForumIndexRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/$forum/moderation': typeof AuthenticatedForumModerationRoute
   '/$forum/settings': typeof AuthenticatedForumSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/$forum': typeof AuthenticatedForumIndexRoute
@@ -112,6 +121,7 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/$forum/$post': typeof AuthenticatedForumPostRoute
+  '/_authenticated/$forum_/moderation': typeof AuthenticatedForumModerationRoute
   '/_authenticated/$forum_/settings': typeof AuthenticatedForumSettingsRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/$forum/': typeof AuthenticatedForumIndexRoute
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/$forum/$post'
+    | '/$forum/moderation'
     | '/$forum/settings'
     | '/errors/$error'
     | '/$forum'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/$forum/$post'
+    | '/$forum/moderation'
     | '/$forum/settings'
     | '/errors/$error'
     | '/$forum'
@@ -151,6 +163,7 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/$forum/$post'
+    | '/_authenticated/$forum_/moderation'
     | '/_authenticated/$forum_/settings'
     | '/_authenticated/errors/$error'
     | '/_authenticated/$forum/'
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedForumSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/$forum_/moderation': {
+      id: '/_authenticated/$forum_/moderation'
+      path: '/$forum/moderation'
+      fullPath: '/$forum/moderation'
+      preLoaderRoute: typeof AuthenticatedForumModerationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/$forum/$post': {
       id: '/_authenticated/$forum/$post'
       path: '/$forum/$post'
@@ -250,6 +270,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedForumPostRoute: typeof AuthenticatedForumPostRoute
+  AuthenticatedForumModerationRoute: typeof AuthenticatedForumModerationRoute
   AuthenticatedForumSettingsRoute: typeof AuthenticatedForumSettingsRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedForumIndexRoute: typeof AuthenticatedForumIndexRoute
@@ -258,6 +279,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedForumPostRoute: AuthenticatedForumPostRoute,
+  AuthenticatedForumModerationRoute: AuthenticatedForumModerationRoute,
   AuthenticatedForumSettingsRoute: AuthenticatedForumSettingsRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedForumIndexRoute: AuthenticatedForumIndexRoute,

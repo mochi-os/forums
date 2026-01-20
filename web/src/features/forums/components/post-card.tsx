@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@mochi/common'
-import { MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react'
-import { type Post } from '@/api/types/forums'
+import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
+import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
 import { cn } from '@mochi/common'
@@ -25,21 +25,49 @@ export function PostCard({
 }: PostCardProps) {
   const dateParams = { addSuffix: true }
   const timeAgo = formatDistanceToNow(new Date(post.created * 1000), dateParams)
+
   const content = (
     <div className='space-y-2 p-4'>
-      {/* Meta row: Date & Forum Name */}
-      <div className='text-muted-foreground flex items-center gap-2 text-xs'>
-        <span className='capitalize'>{timeAgo}</span>
-        {showForumBadge && (
-          <>
-            <span>•</span>
-            <span>{forumName}</span>
-          </>
-        )}
+      {/* Title row with badges */}
+      <div className='flex items-start justify-between gap-4'>
+        <h3 className='text-base leading-tight font-semibold'>
+          {post.title}
+        </h3>
+        <div className='flex items-center gap-2'>
+          {post.status === 'pending' && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
+              <Clock className='size-3' />
+              Pending
+            </span>
+          )}
+          {post.status === 'removed' && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+              <EyeOff className='size-3' />
+              Removed
+            </span>
+          )}
+          {!!post.locked && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200'>
+              <Lock className='size-3' />
+            </span>
+          )}
+          {!!post.pinned && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+              <Pin className='size-3' />
+            </span>
+          )}
+          {showForumBadge && (
+            <span className='text-muted-foreground text-xs whitespace-nowrap'>
+              {forumName}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Title */}
-      <h3 className='text-base leading-tight font-semibold'>{post.title}</h3>
+      {/* Meta row: Date */}
+      <div className='text-muted-foreground flex items-center gap-2 text-xs'>
+        <span className='capitalize'>{timeAgo}</span>
+      </div>
 
       {/* Body */}
       <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>

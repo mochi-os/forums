@@ -26,8 +26,9 @@ import {
   getErrorMessage,
   toast,
   Input,
+  Switch,
 } from '@mochi/common'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
@@ -35,7 +36,7 @@ import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumsList } from '@/hooks/use-forums-queries'
 
-type TabId = 'general' | 'access'
+type TabId = 'general' | 'access' | 'moderation'
 
 type SettingsSearch = {
   tab?: TabId
@@ -43,7 +44,7 @@ type SettingsSearch = {
 
 export const Route = createFileRoute('/_authenticated/$forum_/settings')({
   validateSearch: (search: Record<string, unknown>): SettingsSearch => ({
-    tab: (search.tab === 'general' || search.tab === 'access') ? search.tab : undefined,
+    tab: (search.tab === 'general' || search.tab === 'access' || search.tab === 'moderation') ? search.tab : undefined,
   }),
   component: ForumSettingsPage,
 })
@@ -64,6 +65,7 @@ interface Tab {
 const tabs: Tab[] = [
   { id: 'general', label: 'Settings', icon: <Settings className='h-4 w-4' /> },
   { id: 'access', label: 'Access', icon: <Shield className='h-4 w-4' /> },
+  { id: 'moderation', label: 'Moderation', icon: <Gavel className='h-4 w-4' /> },
 ]
 
 // Access levels for forums (without manage)
@@ -249,6 +251,9 @@ function ForumSettingsPage() {
           )}
           {activeTab === 'access' && selectedForum.can_manage && (
             <AccessTab forumId={selectedForum.id} />
+          )}
+          {activeTab === 'moderation' && selectedForum.can_manage && (
+            <ModerationTab forumId={selectedForum.id} />
           )}
         </div>
       </Main>
@@ -609,5 +614,179 @@ function AccessTab({ forumId }: AccessTabProps) {
         />
       </CardContent>
     </Card>
+  )
+}
+
+interface ModerationTabProps {
+  forumId: string
+}
+
+function ModerationTab({ forumId }: ModerationTabProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [settings, setSettings] = useState({
+    moderation_posts: false,
+    moderation_comments: false,
+    moderation_new: false,
+    new_user_days: 0,
+    post_limit: 0,
+    comment_limit: 0,
+    limit_window: 3600,
+  })
+
+  const loadSettings = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const response = await forumsApi.getModerationSettings({ forum: forumId })
+      if (response.data?.settings) {
+        setSettings(response.data.settings)
+      }
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load moderation settings'))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [forumId])
+
+  useEffect(() => {
+    void loadSettings()
+  }, [loadSettings])
+
+  // Auto-save settings when they change
+  const saveSettings = useCallback(async (newSettings: typeof settings) => {
+    try {
+      await forumsApi.saveModerationSettings({
+        forum: forumId,
+        ...newSettings,
+      })
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to save moderation settings'))
+    }
+  }, [forumId])
+
+  // Update a setting and auto-save
+  const updateSetting = <K extends keyof typeof settings>(key: K, value: typeof settings[K]) => {
+    setSettings((s) => {
+      const newSettings = { ...s, [key]: value }
+      void saveSettings(newSettings)
+      return newSettings
+    })
+  }
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      </div>
+    )
+  }
+
+  return (
+    <div className='space-y-6'>
+      {/* Pre-moderation settings */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Pre-moderation</CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-4'>
+          <p className='text-muted-foreground text-sm'>
+            When enabled, content must be approved by a moderator before becoming visible.
+          </p>
+
+          <label className='flex items-center gap-3'>
+            <Switch
+              checked={settings.moderation_posts}
+              onCheckedChange={(checked) => updateSetting('moderation_posts', checked)}
+            />
+            <span>Require approval for new posts</span>
+          </label>
+
+          <label className='flex items-center gap-3'>
+            <Switch
+              checked={settings.moderation_comments}
+              onCheckedChange={(checked) => updateSetting('moderation_comments', checked)}
+            />
+            <span>Require approval for new comments</span>
+          </label>
+
+          <label className='flex items-center gap-3'>
+            <Switch
+              checked={settings.moderation_new}
+              onCheckedChange={(checked) => updateSetting('moderation_new', checked)}
+            />
+            <span>Require approval for new users</span>
+          </label>
+
+          {!!settings.moderation_new && (
+            <div className='ml-7 flex items-center gap-2'>
+              <span className='text-sm'>New user threshold:</span>
+              <Input
+                type='number'
+                min={0}
+                value={settings.new_user_days}
+                onChange={(e) =>
+                  setSettings((s) => ({ ...s, new_user_days: parseInt(e.target.value) || 0 }))
+                }
+                onBlur={(e) => updateSetting('new_user_days', parseInt(e.target.value) || 0)}
+                className='h-8 w-20'
+              />
+              <span className='text-muted-foreground text-sm'>days</span>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Rate limiting */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Rate limiting</CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-4'>
+          <p className='text-muted-foreground text-sm'>
+            Limit how frequently users can post. Set to 0 to disable.
+          </p>
+
+          <div className='grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 items-center'>
+            <span className='text-sm'>Posts per window:</span>
+            <Input
+              type='number'
+              min={0}
+              value={settings.post_limit}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))
+              }
+              onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
+              className='h-8 w-24'
+            />
+
+            <span className='text-sm'>Comments per window:</span>
+            <Input
+              type='number'
+              min={0}
+              value={settings.comment_limit}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))
+              }
+              onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
+              className='h-8 w-24'
+            />
+
+            <span className='text-sm'>Window duration:</span>
+            <div className='flex items-center gap-2'>
+              <Input
+                type='number'
+                min={60}
+                value={Math.floor(settings.limit_window / 60)}
+                onChange={(e) =>
+                  setSettings((s) => ({ ...s, limit_window: (parseInt(e.target.value) || 60) * 60 }))
+                }
+                onBlur={(e) => updateSetting('limit_window', (parseInt(e.target.value) || 60) * 60)}
+                className='h-8 w-24'
+              />
+              <span className='text-muted-foreground text-sm'>minutes</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

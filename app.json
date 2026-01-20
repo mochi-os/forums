@@ -2,7 +2,7 @@
 // Copyright Alistair Cunningham 2025
 
 {
-	"version": "1.9",
+	"version": "2.0",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -19,7 +19,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 7,
+		"schema": 8,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -61,6 +61,27 @@
 		":forum/-/:post/:comment/edit": {"function": "action_comment_edit"},
 		":forum/-/:post/:comment/delete": {"function": "action_comment_delete"},
 		":forum/-/:post/:comment/vote/:vote": {"function": "action_comment_vote"},
+		":forum/-/:post/:comment/remove": {"function": "action_comment_remove"},
+		":forum/-/:post/:comment/restore": {"function": "action_comment_restore"},
+		":forum/-/:post/:comment/approve": {"function": "action_comment_approve"},
+		":forum/-/:post/:comment/report": {"function": "action_comment_report"},
+		":forum/-/:post/remove": {"function": "action_post_remove"},
+		":forum/-/:post/restore": {"function": "action_post_restore"},
+		":forum/-/:post/approve": {"function": "action_post_approve"},
+		":forum/-/:post/lock": {"function": "action_post_lock"},
+		":forum/-/:post/unlock": {"function": "action_post_unlock"},
+		":forum/-/:post/pin": {"function": "action_post_pin"},
+		":forum/-/:post/unpin": {"function": "action_post_unpin"},
+		":forum/-/:post/report": {"function": "action_post_report"},
+		":forum/-/restrict": {"function": "action_restrict"},
+		":forum/-/unrestrict": {"function": "action_unrestrict"},
+		":forum/-/restrictions": {"function": "action_restrictions"},
+		":forum/-/moderation/queue": {"function": "action_moderation_queue"},
+		":forum/-/moderation/log": {"function": "action_moderation_log"},
+		":forum/-/moderation/reports": {"function": "action_moderation_reports"},
+		":forum/-/moderation/reports/:report/resolve": {"function": "action_report_resolve"},
+		":forum/-/moderation/settings": {"function": "action_moderation_settings"},
+		":forum/-/moderation/settings/save": {"function": "action_moderation_settings_save"},
 		":forum/-/attachments/:id": {"feature": "attachment", "public": true},
 		":forum/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail", "public": true},
 		":forum/-/access": {"function": "action_access"},
@@ -95,6 +116,28 @@
 		"post/vote": {"function": "event_post_vote_event"},
 		"subscribe": {"function": "event_subscribe_event"},
 		"unsubscribe": {"function": "event_unsubscribe_event"},
-		"update": {"function": "event_update_event"}
+		"update": {"function": "event_update_event"},
+		"post/remove": {"function": "event_post_remove_event"},
+		"post/remove/submit": {"function": "event_post_remove_submit_event"},
+		"post/restore": {"function": "event_post_restore_event"},
+		"post/restore/submit": {"function": "event_post_restore_submit_event"},
+		"post/approve/submit": {"function": "event_post_approve_submit_event"},
+		"post/lock": {"function": "event_post_lock_event"},
+		"post/lock/submit": {"function": "event_post_lock_submit_event"},
+		"post/unlock/submit": {"function": "event_post_unlock_submit_event"},
+		"post/pin": {"function": "event_post_pin_event"},
+		"post/pin/submit": {"function": "event_post_pin_submit_event"},
+		"post/unpin/submit": {"function": "event_post_unpin_submit_event"},
+		"comment/remove": {"function": "event_comment_remove_event"},
+		"comment/remove/submit": {"function": "event_comment_remove_submit_event"},
+		"comment/restore": {"function": "event_comment_restore_event"},
+		"comment/restore/submit": {"function": "event_comment_restore_submit_event"},
+		"comment/approve/submit": {"function": "event_comment_approve_submit_event"},
+		"user/restrict": {"function": "event_user_restrict_event"},
+		"restrict/submit": {"function": "event_restrict_submit_event"},
+		"user/unrestrict": {"function": "event_user_unrestrict_event"},
+		"unrestrict/submit": {"function": "event_unrestrict_submit_event"},
+		"report/submit": {"function": "event_report_submit_event"},
+		"report/resolve/submit": {"function": "event_report_resolve_submit_event"}
 	}
 }

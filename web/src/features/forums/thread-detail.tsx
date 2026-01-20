@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { Main, Button, usePageTitle, toast } from '@mochi/common'
+import { Main, Button, usePageTitle, toast, getErrorMessage } from '@mochi/common'
 import { ArrowLeft, Send, X } from 'lucide-react'
+import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   usePostDetail,
@@ -12,6 +13,15 @@ import {
   useDeletePost,
   useEditComment,
   useDeleteComment,
+  useRemovePost,
+  useRestorePost,
+  useLockPost,
+  useUnlockPost,
+  usePinPost,
+  useUnpinPost,
+  useRemoveComment,
+  useRestoreComment,
+  useApproveComment,
 } from '@/hooks/use-forums-queries'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
@@ -80,6 +90,17 @@ export function ThreadDetail({
   })
   const editCommentMutation = useEditComment(forum, postId)
   const deleteCommentMutation = useDeleteComment(forum, postId)
+  // Post moderation mutations
+  const removePostMutation = useRemovePost(forum, postId)
+  const restorePostMutation = useRestorePost(forum, postId)
+  const lockPostMutation = useLockPost(forum, postId)
+  const unlockPostMutation = useUnlockPost(forum, postId)
+  const pinPostMutation = usePinPost(forum, postId)
+  const unpinPostMutation = useUnpinPost(forum, postId)
+  // Comment moderation mutations
+  const removeCommentMutation = useRemoveComment(forum, postId)
+  const restoreCommentMutation = useRestoreComment(forum, postId)
+  const approveCommentMutation = useApproveComment(forum, postId)
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
@@ -151,6 +172,7 @@ export function ThreadDetail({
     comments = [],
     can_vote,
     can_comment,
+    can_moderate = false,
     member,
     forum: forumData,
   } = postData.data
@@ -178,6 +200,24 @@ export function ThreadDetail({
     })
   }
 
+  const handleMuteAuthor = async (userId: string) => {
+    try {
+      await forumsApi.restrictUser({ forum, user: userId, type: 'muted' })
+      toast.success('User muted')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to mute user'))
+    }
+  }
+
+  const handleBanAuthor = async (userId: string) => {
+    try {
+      await forumsApi.restrictUser({ forum, user: userId, type: 'banned' })
+      toast.success('User banned')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to ban user'))
+    }
+  }
+
   return (
     <Main fixed>
       <div className='flex-1 overflow-y-auto'>
@@ -190,11 +230,20 @@ export function ThreadDetail({
             onVote={(vote) => votePostMutation.mutate(vote)}
             isVotePending={votePostMutation.isPending}
             canVote={can_vote}
-            canReply={can_comment}
+            canReply={can_comment && !post.locked}
             onReply={() => setShowReplyForm(true)}
             canEdit={canEditPost}
             onEdit={() => setEditPostDialogOpen(true)}
             onDelete={() => deletePostMutation.mutate(postId)}
+            canModerate={can_moderate || isForumManager}
+            onRemove={() => removePostMutation.mutate(undefined)}
+            onRestore={() => restorePostMutation.mutate()}
+            onLock={() => lockPostMutation.mutate()}
+            onUnlock={() => unlockPostMutation.mutate()}
+            onPin={() => pinPostMutation.mutate()}
+            onUnpin={() => unpinPostMutation.mutate()}
+            onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
+            onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
           />
 
           {/* Divider */}
@@ -285,6 +334,18 @@ export function ThreadDetail({
                         ? (editCommentMutation.variables?.commentId ?? null)
                         : null
                     }
+                    canModerate={can_moderate || isForumManager}
+                    onRemove={(commentId) =>
+                      removeCommentMutation.mutate({ commentId })
+                    }
+                    onRestore={(commentId) =>
+                      restoreCommentMutation.mutate(commentId)
+                    }
+                    onApprove={(commentId) =>
+                      approveCommentMutation.mutate(commentId)
+                    }
+                    onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
+                    onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
                   />
                 ))}
               </div>

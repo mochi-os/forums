@@ -1,11 +1,11 @@
 # Mochi Forums app
 # Copyright Alistair Cunningham 2024-2025
 
-# Access level hierarchy: post > comment > vote > view
+# Access level hierarchy: moderate > post > comment > vote > view
 # Each level grants access to that operation and all operations below it.
 # Only owners (with "*" access) have full management permissions.
 # "none" means no access (user has no rules or explicit deny).
-ACCESS_LEVELS = ["view", "vote", "comment", "post"]
+ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 
 # Map old role names to new access levels for migration
 ROLE_TO_ACCESS = {
@@ -21,19 +21,35 @@ ROLE_TO_ACCESS = {
 def database_create():
     mochi.db.execute("create table if not exists settings ( name text not null primary key, value text not null )")
 
-    mochi.db.execute("create table if not exists forums ( id text not null primary key, name text not null, members integer not null default 0, updated integer not null )")
+    mochi.db.execute("""create table if not exists forums (
+        id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
+        moderation_posts integer not null default 0, moderation_comments integer not null default 0,
+        moderation_new integer not null default 0, new_user_days integer not null default 0,
+        post_limit integer not null default 0, comment_limit integer not null default 0,
+        limit_window integer not null default 3600 )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
 
     mochi.db.execute("create table if not exists members ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null, primary key ( forum, id ) )")
     mochi.db.execute("create index if not exists members_id on members( id )")
 
-    mochi.db.execute("create table if not exists posts ( id text not null primary key, forum references forums( id ), member text not null, name text not null, title text not null, body text not null, comments integer not null default 0, up integer not null default 0, down integer not null default 0, created integer not null, updated integer not null, edited integer not null default 0 )")
+    mochi.db.execute("""create table if not exists posts (
+        id text not null primary key, forum references forums( id ), member text not null, name text not null,
+        title text not null, body text not null, comments integer not null default 0,
+        up integer not null default 0, down integer not null default 0,
+        created integer not null, updated integer not null, edited integer not null default 0,
+        status text not null default 'approved', remover text, reason text not null default '',
+        locked integer not null default 0, pinned integer not null default 0 )""")
     mochi.db.execute("create index if not exists posts_forum on posts( forum )")
     mochi.db.execute("create index if not exists posts_created on posts( created )")
     mochi.db.execute("create index if not exists posts_updated on posts( updated )")
 
-    mochi.db.execute("create table if not exists comments ( id text not null primary key, forum references forums( id ), post text not null, parent text not null, member text not null, name text not null, body text not null, up integer not null default 0, down integer not null default 0, created integer not null, edited integer not null default 0 )")
+    mochi.db.execute("""create table if not exists comments (
+        id text not null primary key, forum references forums( id ), post text not null, parent text not null,
+        member text not null, name text not null, body text not null,
+        up integer not null default 0, down integer not null default 0,
+        created integer not null, edited integer not null default 0,
+        status text not null default 'approved', remover text, reason text not null default '' )""")
     mochi.db.execute("create index if not exists comments_forum on comments( forum )")
     mochi.db.execute("create index if not exists comments_post on comments( post )")
     mochi.db.execute("create index if not exists comments_parent on comments( parent )")
@@ -43,6 +59,29 @@ def database_create():
     mochi.db.execute("create index if not exists votes_post on votes( post )")
     mochi.db.execute("create index if not exists votes_comment on votes( comment )")
     mochi.db.execute("create index if not exists votes_voter on votes( voter )")
+
+    # Moderation tables
+    mochi.db.execute("""create table if not exists moderation (
+        id text primary key, forum text not null, moderator text not null, action text not null,
+        type text not null, target text not null, author text, reason text not null default '',
+        created integer not null )""")
+    mochi.db.execute("create index if not exists moderation_forum on moderation( forum )")
+    mochi.db.execute("create index if not exists moderation_created on moderation( created )")
+
+    mochi.db.execute("""create table if not exists restrictions (
+        forum text not null, user text not null, type text not null, reason text not null default '',
+        moderator text not null, expires integer, created integer not null,
+        primary key ( forum, user ) )""")
+    mochi.db.execute("create index if not exists restrictions_user on restrictions( user )")
+
+    mochi.db.execute("""create table if not exists reports (
+        id text primary key, forum text not null, reporter text not null, type text not null,
+        target text not null, author text not null, reason text not null,
+        details text not null default '', status text not null default 'pending',
+        resolver text, action text, created integer not null, resolved integer )""")
+    mochi.db.execute("create index if not exists reports_forum on reports( forum )")
+    mochi.db.execute("create index if not exists reports_status on reports( status )")
+    mochi.db.execute("create index if not exists reports_target on reports( type, target )")
 
 # Upgrade database schema
 def database_upgrade(to_version):
@@ -55,6 +94,52 @@ def database_upgrade(to_version):
         mochi.db.execute("alter table forums_new rename to forums")
         mochi.db.execute("create index if not exists forums_name on forums( name )")
         mochi.db.execute("create index if not exists forums_updated on forums( updated )")
+
+    if to_version == 8:
+        # Moderation tables
+        mochi.db.execute("""create table if not exists moderation (
+            id text primary key, forum text not null, moderator text not null,
+            action text not null, type text not null, target text not null,
+            author text, reason text not null default '', created integer not null)""")
+        mochi.db.execute("create index if not exists moderation_forum on moderation(forum)")
+        mochi.db.execute("create index if not exists moderation_created on moderation(created)")
+
+        mochi.db.execute("""create table if not exists restrictions (
+            forum text not null, user text not null, type text not null,
+            reason text not null default '', moderator text not null,
+            expires integer, created integer not null, primary key (forum, user))""")
+        mochi.db.execute("create index if not exists restrictions_user on restrictions(user)")
+
+        mochi.db.execute("""create table if not exists reports (
+            id text primary key, forum text not null, reporter text not null,
+            type text not null, target text not null, author text not null,
+            reason text not null, details text not null default '',
+            status text not null default 'pending', resolver text, action text,
+            created integer not null, resolved integer)""")
+        mochi.db.execute("create index if not exists reports_forum on reports(forum)")
+        mochi.db.execute("create index if not exists reports_status on reports(status)")
+        mochi.db.execute("create index if not exists reports_target on reports(type, target)")
+
+        # Forums: moderation settings
+        mochi.db.execute("alter table forums add column moderation_posts integer not null default 0")
+        mochi.db.execute("alter table forums add column moderation_comments integer not null default 0")
+        mochi.db.execute("alter table forums add column moderation_new integer not null default 0")
+        mochi.db.execute("alter table forums add column new_user_days integer not null default 0")
+        mochi.db.execute("alter table forums add column post_limit integer not null default 0")
+        mochi.db.execute("alter table forums add column comment_limit integer not null default 0")
+        mochi.db.execute("alter table forums add column limit_window integer not null default 3600")
+
+        # Posts: status, removal info, lock/pin
+        mochi.db.execute("alter table posts add column status text not null default 'approved'")
+        mochi.db.execute("alter table posts add column remover text")
+        mochi.db.execute("alter table posts add column reason text not null default ''")
+        mochi.db.execute("alter table posts add column locked integer not null default 0")
+        mochi.db.execute("alter table posts add column pinned integer not null default 0")
+
+        # Comments: status, removal info
+        mochi.db.execute("alter table comments add column status text not null default 'approved'")
+        mochi.db.execute("alter table comments add column remover text")
+        mochi.db.execute("alter table comments add column reason text not null default ''")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -167,6 +252,121 @@ def broadcast_event(forum_id, event, data, exclude=None):
             {"from": forum_id, "to": m["id"], "service": "forums", "event": event},
             data
         )
+
+# Helper: Check if user is restricted from a forum
+# Returns error message if restricted, None if allowed
+def check_restriction(forum_id, user_id, operation):
+    restriction = mochi.db.row(
+        "select * from restrictions where forum=? and user=? and (expires is null or expires > ?)",
+        forum_id, user_id, mochi.time.now())
+
+    if not restriction:
+        return None
+
+    if restriction["type"] == "banned":
+        return "You are banned from this forum"
+
+    if restriction["type"] == "muted" and operation in ["post", "comment"]:
+        return "You are muted in this forum"
+
+    # Shadowban returns None but content will be auto-removed
+    return None
+
+# Helper: Check if user is shadowbanned
+def is_shadowbanned(forum_id, user_id):
+    return mochi.db.exists(
+        "select 1 from restrictions where forum=? and user=? and type='shadowban' and (expires is null or expires > ?)",
+        forum_id, user_id, mochi.time.now())
+
+# Helper: Log a moderation action for audit trail
+def log_moderation(forum_id, moderator_id, action, target_type, target_id, author_id, reason):
+    mochi.db.execute(
+        "insert into moderation (id, forum, moderator, action, type, target, author, reason, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        mochi.uid(), forum_id, moderator_id, action, target_type, target_id, author_id, reason, mochi.time.now())
+
+# Helper: Check if user's content requires pre-moderation
+def requires_premoderation(forum, user_id, kind):
+    # Check content-specific pre-moderation setting
+    if kind == "post" and forum.get("moderation_posts"):
+        return True
+    if kind == "comment" and forum.get("moderation_comments"):
+        return True
+
+    # Check new user pre-moderation
+    if not forum.get("moderation_new"):
+        return False
+
+    # If new_user_days is 0, require first approved content
+    if forum.get("new_user_days", 0) == 0:
+        approved = mochi.db.exists(
+            "select 1 from posts where forum=? and member=? and status='approved' union select 1 from comments where forum=? and member=? and status='approved'",
+            forum["id"], user_id, forum["id"], user_id)
+        return not approved
+
+    # Check membership age
+    member = mochi.db.row("select subscribed from members where forum=? and id=?", forum["id"], user_id)
+    if not member:
+        return True
+    days = (mochi.time.now() - member["subscribed"]) / 86400
+    return days < forum.get("new_user_days", 0)
+
+# Helper: Check rate limit for posting/commenting
+# Returns error message if rate limited, None if allowed
+def check_rate_limit(forum, user_id, kind):
+    if kind == "post":
+        limit = forum.get("post_limit", 0)
+    elif kind == "comment":
+        limit = forum.get("comment_limit", 0)
+    else:
+        return None
+
+    if limit == 0:
+        return None
+
+    window = forum.get("limit_window", 3600)
+    since = mochi.time.now() - window
+
+    if kind == "post":
+        row = mochi.db.row(
+            "select count(*) as count from posts where forum=? and member=? and created > ?",
+            forum["id"], user_id, since)
+    else:
+        row = mochi.db.row(
+            "select count(*) as count from comments where forum=? and member=? and created > ?",
+            forum["id"], user_id, since)
+
+    count = row["count"] if row else 0
+    if count >= limit:
+        minutes = window // 60
+        return "Rate limit exceeded. You can only create " + str(limit) + " " + kind + "s per " + str(minutes) + " minutes."
+
+    return None
+
+# Helper: Send moderation notification to a user
+def notify_moderation_action(forum_id, user_id, action, target_type, reason):
+    forum = get_forum(forum_id)
+    forum_name = forum["name"] if forum else "Unknown forum"
+
+    if action == "remove":
+        title = "Content removed in " + forum_name
+        body = "Your " + target_type + " was removed"
+        if reason:
+            body = body + ": " + reason
+    elif action == "approve":
+        title = "Content approved in " + forum_name
+        body = "Your " + target_type + " has been approved and is now visible"
+    elif action == "restrict":
+        title = "Restricted in " + forum_name
+        body = "You have been restricted"
+        if reason:
+            body = body + ": " + reason
+    elif action == "unrestrict":
+        title = "Restriction lifted in " + forum_name
+        body = "Your restriction has been removed"
+    else:
+        return
+
+    mochi.service.call("notifications", "send", "moderation", title, body, forum_id, "/forums/" + forum_id)
 
 # ACTIONS
 
@@ -292,13 +492,26 @@ def action_view(a):
         if before_str and mochi.valid(before_str, "natural"):
             before = int(before_str)
 
+        # Determine if user can see all content (moderators and owners)
+        can_moderate = is_owner or check_access(a, forum["id"], "moderate")
+
         # Get posts for this forum with pagination
-        if before:
-            posts = mochi.db.rows("select * from posts where forum=? and updated<? order by updated desc limit ?",
-                forum["id"], before, limit + 1)
+        # Moderators see all posts; regular users see only approved or their own pending
+        if can_moderate:
+            if before:
+                posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, updated desc limit ?",
+                    forum["id"], before, limit + 1)
+            else:
+                posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, updated desc limit ?",
+                    forum["id"], limit + 1)
         else:
-            posts = mochi.db.rows("select * from posts where forum=? order by updated desc limit ?",
-                forum["id"], limit + 1)
+            # Regular users see approved posts or their own pending posts
+            if before:
+                posts = mochi.db.rows("select * from posts where forum=? and updated<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit ?",
+                    forum["id"], before, user_id or "", limit + 1)
+            else:
+                posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit ?",
+                    forum["id"], user_id or "", limit + 1)
 
         # Check if there are more posts (we fetched limit+1)
         has_more = len(posts) > limit
@@ -311,9 +524,13 @@ def action_view(a):
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
-            # Get comment count for this post
-            p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
-                forum["id"], p["id"])
+            # Get comments for this post (filter by status for non-moderators)
+            if can_moderate:
+                p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+                    forum["id"], p["id"])
+            else:
+                p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                    forum["id"], p["id"], user_id or "")
 
         # Calculate next cursor
         next_cursor = None
@@ -346,14 +563,18 @@ def action_view(a):
     else:
         # List all forums
         forums = mochi.db.rows("select * from forums order by updated desc")
-        posts = mochi.db.rows("select * from posts order by updated desc")
+        # Only show approved posts or user's own pending posts
+        if user_id:
+            posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by updated desc", user_id)
+        else:
+            posts = mochi.db.rows("select * from posts where status='approved' order by updated desc")
 
         # Add fingerprint and access flags to each forum
         # For owned forums, check locally. For subscribed forums, query owner.
         for f in forums:
             f["fingerprint"] = mochi.entity.fingerprint(f["id"])
-            is_owner = mochi.entity.get(f["id"])
-            if is_owner:
+            f_is_owner = mochi.entity.get(f["id"])
+            if f_is_owner:
                 f["can_manage"] = check_access(a, f["id"], "manage")
                 f["can_post"] = check_access(a, f["id"], "post")
             else:
@@ -377,9 +598,13 @@ def action_view(a):
                     break
             if not p["attachments"] and forum and not mochi.entity.get(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
-            # Get comments for this post
-            p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
-                p["forum"], p["id"])
+            # Get comments for this post (only approved or user's own pending)
+            if user_id:
+                p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                    p["forum"], p["id"], user_id)
+            else:
+                p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? and status='approved' order by created desc",
+                    p["forum"], p["id"])
 
         return {
             "data": {
@@ -477,11 +702,31 @@ def action_post_create(a):
         if is_owner:
             # Owner processes locally
             if not check_access(a, forum["id"], "post"):
-                a.error(403, "Not authorized to post")
+                a.error(403, "Not allowed to post")
                 return
 
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, now, now)
+            # Check for restrictions
+            restriction_error = check_restriction(forum["id"], user_id, "post")
+            if restriction_error:
+                a.error(403, restriction_error)
+                return
+
+            # Check rate limit (skip for moderators)
+            if not check_access(a, forum["id"], "moderate"):
+                rate_error = check_rate_limit(forum, user_id, "post")
+                if rate_error:
+                    a.error(429, rate_error)
+                    return
+
+            # Determine initial status
+            status = "approved"
+            if is_shadowbanned(forum["id"], user_id):
+                status = "removed"
+            elif requires_premoderation(forum, user_id, "post"):
+                status = "pending"
+
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, status, now, now)
 
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -491,17 +736,18 @@ def action_post_create(a):
             # Save any uploaded attachments and notify members via _attachment/create events
             mochi.attachment.save(id, "attachments", [], [], members)
 
-            # Broadcast post to members (attachments sent separately via federation)
-            post_data = {
-                "id": id,
-                "member": user_id,
-                "name": user_name,
-                "title": title,
-                "body": body,
-                "created": now
-            }
+            # Only broadcast if approved
+            if status == "approved":
+                post_data = {
+                    "id": id,
+                    "member": user_id,
+                    "name": user_name,
+                    "title": title,
+                    "body": body,
+                    "created": now
+                }
 
-            broadcast_event(forum["id"], "post/create", post_data, user_id)
+                broadcast_event(forum["id"], "post/create", post_data, user_id)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -509,7 +755,7 @@ def action_post_create(a):
                 "user": user_id,
             })
             if not access_response.get("post", False):
-                a.error(403, "Not authorized to post")
+                a.error(403, access_response.get("error", "Not allowed to post"))
                 return
 
             # Save attachments and send to forum owner
@@ -520,8 +766,8 @@ def action_post_create(a):
                 {"id": id, "title": title, "body": body}
             )
 
-            # Save locally for optimistic UI
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+            # Save locally for optimistic UI (status pending until owner confirms)
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
                 id, forum["id"], user_id, user_name, title, body, now, now)
 
         return {
@@ -539,7 +785,7 @@ def action_post_create(a):
         "user": user_id,
     })
     if not access_response.get("post", False):
-        a.error(403, "Not authorized to post")
+        a.error(403, access_response.get("error", "Not allowed to post"))
         return
 
     # Save attachments and send to forum owner
@@ -567,7 +813,7 @@ def action_post_new(a):
         return
 
     if not check_access(a, forum["id"], "post"):
-        a.error(403, "Not authorized to post")
+        a.error(403, "Not allowed to post")
         return
 
     return {
@@ -767,7 +1013,7 @@ def action_members_edit(a):
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
 
     members = mochi.db.rows("select * from members where forum=? order by name", forum["id"])
@@ -792,7 +1038,7 @@ def action_members_save(a):
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
 
     # Handle member removal
@@ -1018,14 +1264,16 @@ def action_post_view(a):
     if is_owner:
         can_vote = check_access(a, forum["id"], "vote")
         can_comment = check_access(a, forum["id"], "comment")
+        can_moderate = check_access(a, forum["id"], "moderate")
     else:
         # Query owner for access permissions
         access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-            "operations": ["vote", "comment"],
+            "operations": ["vote", "comment", "moderate"],
             "user": user_id,
         })
         can_vote = access_response.get("vote", False)
         can_comment = access_response.get("comment", False)
+        can_moderate = access_response.get("moderate", False)
 
     # Get user's vote on post
     user_post_vote = ""
@@ -1039,8 +1287,13 @@ def action_post_view(a):
         if depth > 100:  # Prevent infinite recursion
             return []
 
-        comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
-            forum["id"], post_id, parent_id)
+        # Filter out removed comments for non-moderators
+        if can_moderate:
+            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
+                forum["id"], post_id, parent_id)
+        else:
+            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and status!='removed' order by created desc",
+                forum["id"], post_id, parent_id)
 
         for c in comments:
             c["created_local"] = mochi.time.local(c["created"])
@@ -1072,7 +1325,8 @@ def action_post_view(a):
             "comments": comments,
             "member": member,
             "can_vote": can_vote,
-            "can_comment": can_comment
+            "can_comment": can_comment,
+            "can_moderate": can_moderate
         }
     }
 
@@ -1110,7 +1364,12 @@ def action_post_edit(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to edit this post")
+                a.error(403, "Not allowed to edit this post")
+                return
+
+            # Check if post has been removed
+            if post.get("status") == "removed":
+                a.error(403, "This post has been removed")
                 return
 
             now = mochi.time.now()
@@ -1162,7 +1421,7 @@ def action_post_edit(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to edit this post")
+                a.error(403, "Not allowed to edit this post")
                 return
 
             now = mochi.time.now()
@@ -1271,7 +1530,7 @@ def action_post_delete(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to delete this post")
+                a.error(403, "Not allowed to delete this post")
                 return
 
             # Delete all attachments for this post
@@ -1298,7 +1557,7 @@ def action_post_delete(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to delete this post")
+                a.error(403, "Not allowed to delete this post")
                 return
 
             # Send delete request to forum owner
@@ -1380,35 +1639,62 @@ def action_comment_create(a):
         if is_owner:
             # Owner processes locally
             if not check_access(a, forum["id"], "comment"):
-                a.error(403, "Not authorized to comment")
+                a.error(403, "Not allowed to comment")
                 return
 
-            if not mochi.db.exists("select id from posts where id=? and forum=?", post_id, forum["id"]):
+            # Check for restrictions
+            restriction_error = check_restriction(forum["id"], user_id, "comment")
+            if restriction_error:
+                a.error(403, restriction_error)
+                return
+
+            # Check rate limit (skip for moderators)
+            if not check_access(a, forum["id"], "moderate"):
+                rate_error = check_rate_limit(forum, user_id, "comment")
+                if rate_error:
+                    a.error(429, rate_error)
+                    return
+
+            post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+            if not post:
                 a.error(404, "Post not found")
+                return
+
+            # Check if post is locked
+            if post.get("locked"):
+                a.error(403, "This post is locked")
                 return
 
             if parent_id and not mochi.db.exists("select id from comments where id=? and post=?", parent_id, post_id):
                 a.error(404, "Parent comment not found")
                 return
 
-            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+            # Determine initial status
+            status = "approved"
+            if is_shadowbanned(forum["id"], user_id):
+                status = "removed"
+            elif requires_premoderation(forum, user_id, "comment"):
+                status = "pending"
+
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
 
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-            # Broadcast to members
-            comment_data = {
-                "id": id,
-                "post": post_id,
-                "parent": parent_id or "",
-                "member": user_id,
-                "name": user_name,
-                "body": body,
-                "created": now
-            }
+            # Only broadcast if approved
+            if status == "approved":
+                comment_data = {
+                    "id": id,
+                    "post": post_id,
+                    "parent": parent_id or "",
+                    "member": user_id,
+                    "name": user_name,
+                    "body": body,
+                    "created": now
+                }
 
-            broadcast_event(forum["id"], "comment/create", comment_data, user_id)
+                broadcast_event(forum["id"], "comment/create", comment_data, user_id)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -1416,7 +1702,7 @@ def action_comment_create(a):
                 "user": user_id,
             })
             if not access_response.get("comment", False):
-                a.error(403, "Not authorized to comment")
+                a.error(403, access_response.get("error", "Not allowed to comment"))
                 return
 
             # Send comment to forum owner
@@ -1425,8 +1711,8 @@ def action_comment_create(a):
                 {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
             )
 
-            # Save locally for optimistic UI
-            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
+            # Save locally for optimistic UI (status pending until owner confirms)
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
 
@@ -1445,7 +1731,7 @@ def action_comment_create(a):
         "user": user_id,
     })
     if not access_response.get("comment", False):
-        a.error(403, "Not authorized to comment")
+        a.error(403, access_response.get("error", "Not allowed to comment"))
         return
 
     # Send comment to remote forum owner
@@ -1488,7 +1774,12 @@ def action_comment_edit(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to edit this comment")
+                a.error(403, "Not allowed to edit this comment")
+                return
+
+            # Check if comment has been removed
+            if comment.get("status") == "removed":
+                a.error(403, "This comment has been removed")
                 return
 
             now = mochi.time.now()
@@ -1509,7 +1800,7 @@ def action_comment_edit(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to edit this comment")
+                a.error(403, "Not allowed to edit this comment")
                 return
 
             # Send edit request to forum owner
@@ -1575,7 +1866,7 @@ def action_comment_delete(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to delete this comment")
+                a.error(403, "Not allowed to delete this comment")
                 return
 
             comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
@@ -1604,7 +1895,7 @@ def action_comment_delete(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error(403, "Not authorized to delete this comment")
+                a.error(403, "Not allowed to delete this comment")
                 return
 
             # Send delete request to forum owner
@@ -1642,6 +1933,1038 @@ def action_comment_delete(a):
         "data": {"forum": forum_id, "post": post_id}
     }
 
+# MODERATION ACTIONS
+
+# Remove a post (moderator action)
+def action_post_remove(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if post.get("status") == "removed":
+        a.error(400, "Post already removed")
+        return
+
+    user = a.user.identity.id
+    reason = a.input("reason", "")
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
+            user, reason, now, post_id)
+
+        log_moderation(forum["id"], user, "remove", "post", post_id, post["member"], reason)
+        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+
+        broadcast_event(forum["id"], "post/remove", {
+            "id": post_id,
+            "remover": user,
+            "reason": reason
+        })
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/remove/submit"},
+            {"id": post_id, "reason": reason}
+        )
+        # Optimistic local update
+        mochi.db.execute(
+            "update posts set status='removed', remover=?, reason=? where id=?",
+            user, reason, post_id)
+
+    return {"data": {"success": True}}
+
+# Restore a removed post (moderator action)
+def action_post_restore(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if post.get("status") != "removed":
+        a.error(400, "Post is not removed")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "update posts set status='approved', remover=null, reason='', updated=? where id=?",
+            now, post_id)
+
+        log_moderation(forum["id"], user, "restore", "post", post_id, post["member"], "")
+
+        broadcast_event(forum["id"], "post/restore", {"id": post_id})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/restore/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute(
+            "update posts set status='approved', remover=null, reason='' where id=?",
+            post_id)
+
+    return {"data": {"success": True}}
+
+# Approve a pending post (moderator action)
+def action_post_approve(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if post.get("status") != "pending":
+        a.error(400, "Post is not pending")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "update posts set status='approved', updated=? where id=?",
+            now, post_id)
+
+        log_moderation(forum["id"], user, "approve", "post", post_id, post["member"], "")
+        notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+
+        # Now broadcast the post to members
+        post_data = {
+            "id": post_id,
+            "member": post["member"],
+            "name": post["name"],
+            "title": post["title"],
+            "body": post["body"],
+            "created": post["created"]
+        }
+        broadcast_event(forum["id"], "post/create", post_data)
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/approve/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set status='approved' where id=?", post_id)
+
+    return {"data": {"success": True}}
+
+# Lock a post (prevent new comments)
+def action_post_lock(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if post.get("locked"):
+        a.error(400, "Post already locked")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute("update posts set locked=1, updated=? where id=?", now, post_id)
+        log_moderation(forum["id"], user, "lock", "post", post_id, post["member"], "")
+        broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": True})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/lock/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set locked=1 where id=?", post_id)
+
+    return {"data": {"success": True}}
+
+# Unlock a post (allow new comments)
+def action_post_unlock(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if not post.get("locked"):
+        a.error(400, "Post is not locked")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute("update posts set locked=0, updated=? where id=?", now, post_id)
+        log_moderation(forum["id"], user, "unlock", "post", post_id, post["member"], "")
+        broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": False})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/unlock/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set locked=0 where id=?", post_id)
+
+    return {"data": {"success": True}}
+
+# Pin a post (sticky to top)
+def action_post_pin(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if post.get("pinned"):
+        a.error(400, "Post already pinned")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute("update posts set pinned=1, updated=? where id=?", now, post_id)
+        log_moderation(forum["id"], user, "pin", "post", post_id, post["member"], "")
+        broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": True})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/pin/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set pinned=1 where id=?", post_id)
+
+    return {"data": {"success": True}}
+
+# Unpin a post
+def action_post_unpin(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if not post.get("pinned"):
+        a.error(400, "Post is not pinned")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute("update posts set pinned=0, updated=? where id=?", now, post_id)
+        log_moderation(forum["id"], user, "unpin", "post", post_id, post["member"], "")
+        broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": False})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/unpin/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set pinned=0 where id=?", post_id)
+
+    return {"data": {"success": True}}
+
+# Remove a comment (moderator action)
+def action_comment_remove(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    comment_id = a.input("comment")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment:
+        a.error(404, "Comment not found")
+        return
+
+    if comment.get("status") == "removed":
+        a.error(400, "Comment already removed")
+        return
+
+    user = a.user.identity.id
+    reason = a.input("reason", "")
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "update comments set status='removed', remover=?, reason=? where id=?",
+            user, reason, comment_id)
+        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+        log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
+        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+
+        broadcast_event(forum["id"], "comment/remove", {
+            "id": comment_id,
+            "post": comment["post"],
+            "remover": user,
+            "reason": reason
+        })
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/remove/submit"},
+            {"id": comment_id, "reason": reason}
+        )
+        mochi.db.execute(
+            "update comments set status='removed', remover=?, reason=? where id=?",
+            user, reason, comment_id)
+
+    return {"data": {"success": True}}
+
+# Restore a removed comment (moderator action)
+def action_comment_restore(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    comment_id = a.input("comment")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment:
+        a.error(404, "Comment not found")
+        return
+
+    if comment.get("status") != "removed":
+        a.error(400, "Comment is not removed")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "update comments set status='approved', remover=null, reason='' where id=?",
+            comment_id)
+        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+        log_moderation(forum["id"], user, "restore", "comment", comment_id, comment["member"], "")
+
+        broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/restore/submit"},
+            {"id": comment_id}
+        )
+        mochi.db.execute(
+            "update comments set status='approved', remover=null, reason='' where id=?",
+            comment_id)
+
+    return {"data": {"success": True}}
+
+# Approve a pending comment (moderator action)
+def action_comment_approve(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    comment_id = a.input("comment")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment:
+        a.error(404, "Comment not found")
+        return
+
+    if comment.get("status") != "pending":
+        a.error(400, "Comment is not pending")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute("update comments set status='approved' where id=?", comment_id)
+        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+        log_moderation(forum["id"], user, "approve", "comment", comment_id, comment["member"], "")
+        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+
+        # Now broadcast the comment to members
+        comment_data = {
+            "id": comment_id,
+            "post": comment["post"],
+            "parent": comment["parent"],
+            "member": comment["member"],
+            "name": comment["name"],
+            "body": comment["body"],
+            "created": comment["created"]
+        }
+        broadcast_event(forum["id"], "comment/create", comment_data)
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/approve/submit"},
+            {"id": comment_id}
+        )
+        mochi.db.execute("update comments set status='approved' where id=?", comment_id)
+
+    return {"data": {"success": True}}
+
+# RESTRICTION ACTIONS
+
+# Restrict a user from a forum (mute/ban/shadowban)
+def action_restrict(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    target_user = a.input("user")
+    if not mochi.valid(target_user, "entity"):
+        a.error(400, "Invalid user")
+        return
+
+    restriction_type = a.input("type")
+    if restriction_type not in ["muted", "banned", "shadowban"]:
+        a.error(400, "Invalid restriction type")
+        return
+
+    reason = a.input("reason", "")
+    duration = a.input("duration")  # In seconds, None for permanent
+    expires = None
+    if duration:
+        if not mochi.valid(duration, "natural"):
+            a.error(400, "Invalid duration")
+            return
+        expires = mochi.time.now() + int(duration)
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        now = mochi.time.now()
+        mochi.db.execute(
+            "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, ?, ?, ?, ?)",
+            forum["id"], target_user, restriction_type, reason, user, expires, now)
+
+        log_moderation(forum["id"], user, "restrict", "user", target_user, None, reason)
+        notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+
+        broadcast_event(forum["id"], "user/restrict", {
+            "user": target_user,
+            "type": restriction_type,
+            "expires": expires
+        })
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "restrict/submit"},
+            {"user": target_user, "type": restriction_type, "reason": reason, "expires": expires}
+        )
+
+    return {"data": {"success": True}}
+
+# Remove a restriction from a user
+def action_unrestrict(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    target_user = a.input("user")
+    if not mochi.valid(target_user, "entity"):
+        a.error(400, "Invalid user")
+        return
+
+    restriction = mochi.db.row("select * from restrictions where forum=? and user=?", forum["id"], target_user)
+    if not restriction:
+        a.error(404, "Restriction not found")
+        return
+
+    user = a.user.identity.id
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
+
+        log_moderation(forum["id"], user, "unrestrict", "user", target_user, None, "")
+        notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+
+        broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "unrestrict/submit"},
+            {"user": target_user}
+        )
+        mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
+
+    return {"data": {"success": True}}
+
+# List restrictions for a forum
+def action_restrictions(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
+    return {"data": {"restrictions": restrictions}}
+
+# REPORTING ACTIONS
+
+# Report a post
+def action_post_report(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    post_id = a.input("post")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    user = a.user.identity.id
+
+    if post["member"] == user:
+        a.error(400, "Cannot report your own content")
+        return
+
+    reason = a.input("reason")
+    if reason not in ["spam", "harassment", "hate", "violence", "misinformation", "offtopic", "other"]:
+        a.error(400, "Invalid reason")
+        return
+
+    details = a.input("details", "")
+    if reason == "other" and not details:
+        a.error(400, "Details required for 'other' reason")
+        return
+
+    # Check for duplicate pending report
+    if mochi.db.exists(
+        "select 1 from reports where forum=? and type='post' and target=? and reporter=? and status='pending'",
+        forum["id"], post_id, user):
+        a.error(400, "You have already reported this post")
+        return
+
+    # Rate limit: 5 reports per hour
+    one_hour_ago = mochi.time.now() - 3600
+    report_count = mochi.db.row(
+        "select count(*) as count from reports where forum=? and reporter=? and created > ?",
+        forum["id"], user, one_hour_ago)
+    if report_count and report_count["count"] >= 5:
+        a.error(429, "Report limit exceeded. Try again later.")
+        return
+
+    report_id = mochi.uid()
+    now = mochi.time.now()
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        mochi.db.execute(
+            "insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, 'post', ?, ?, ?, ?, ?)",
+            report_id, forum["id"], user, post_id, post["member"], reason, details, now)
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "report/submit"},
+            {"id": report_id, "type": "post", "target": post_id, "reason": reason, "details": details}
+        )
+
+    return {"data": {"success": True}}
+
+# Report a comment
+def action_comment_report(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    comment_id = a.input("comment")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment:
+        a.error(404, "Comment not found")
+        return
+
+    user = a.user.identity.id
+
+    if comment["member"] == user:
+        a.error(400, "Cannot report your own content")
+        return
+
+    reason = a.input("reason")
+    if reason not in ["spam", "harassment", "hate", "violence", "misinformation", "offtopic", "other"]:
+        a.error(400, "Invalid reason")
+        return
+
+    details = a.input("details", "")
+    if reason == "other" and not details:
+        a.error(400, "Details required for 'other' reason")
+        return
+
+    # Check for duplicate pending report
+    if mochi.db.exists(
+        "select 1 from reports where forum=? and type='comment' and target=? and reporter=? and status='pending'",
+        forum["id"], comment_id, user):
+        a.error(400, "You have already reported this comment")
+        return
+
+    # Rate limit: 5 reports per hour
+    one_hour_ago = mochi.time.now() - 3600
+    report_count = mochi.db.row(
+        "select count(*) as count from reports where forum=? and reporter=? and created > ?",
+        forum["id"], user, one_hour_ago)
+    if report_count and report_count["count"] >= 5:
+        a.error(429, "Report limit exceeded. Try again later.")
+        return
+
+    report_id = mochi.uid()
+    now = mochi.time.now()
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        mochi.db.execute(
+            "insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, 'comment', ?, ?, ?, ?, ?)",
+            report_id, forum["id"], user, comment_id, comment["member"], reason, details, now)
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "report/submit"},
+            {"id": report_id, "type": "comment", "target": comment_id, "reason": reason, "details": details}
+        )
+
+    return {"data": {"success": True}}
+
+# List reports for a forum (moderator view)
+def action_moderation_reports(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    status = a.input("status", "pending")
+    if status not in ["pending", "resolved", "all"]:
+        a.error(400, "Invalid status")
+        return
+
+    if status == "all":
+        reports = mochi.db.rows(
+            "select * from reports where forum=? order by created desc limit 100",
+            forum["id"])
+    else:
+        reports = mochi.db.rows(
+            "select * from reports where forum=? and status=? order by created desc limit 100",
+            forum["id"], status)
+
+    return {"data": {"reports": reports}}
+
+# Resolve a report
+def action_report_resolve(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    report_id = a.input("report")
+    report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum["id"])
+    if not report:
+        a.error(404, "Report not found")
+        return
+
+    if report.get("status") != "pending":
+        a.error(400, "Report already resolved")
+        return
+
+    action = a.input("action")
+    if action not in ["removed", "ignored", "warned"]:
+        a.error(400, "Invalid action")
+        return
+
+    user = a.user.identity.id
+    now = mochi.time.now()
+    entity = mochi.entity.get(forum["id"])
+    is_owner = len(entity) > 0 if entity else False
+
+    if is_owner:
+        mochi.db.execute(
+            "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
+            user, action, now, report_id)
+
+        log_moderation(forum["id"], user, "resolve_report", "report", report_id, report["author"], action)
+    else:
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "report/resolve/submit"},
+            {"id": report_id, "action": action}
+        )
+        mochi.db.execute(
+            "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
+            user, action, now, report_id)
+
+    return {"data": {"success": True}}
+
+# MODERATION QUEUE ACTION
+
+# Get the moderation queue (pending posts, comments, and reports)
+def action_moderation_queue(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    posts = mochi.db.rows(
+        "select id, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
+        forum["id"])
+    for p in posts:
+        p["created_local"] = mochi.time.local(p["created"])
+
+    comments = mochi.db.rows(
+        "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
+        forum["id"])
+    for c in comments:
+        c["created_local"] = mochi.time.local(c["created"])
+
+    reports = mochi.db.rows("""
+        select type, target, author, reason, min(id) as id, min(details) as details,
+               min(reporter) as reporter, min(created) as created, count(*) as count
+        from reports
+        where forum=? and status='pending'
+        group by type, target
+        order by count desc, created asc
+    """, forum["id"])
+
+    return {
+        "data": {
+            "posts": posts,
+            "comments": comments,
+            "reports": reports,
+            "counts": {
+                "posts": len(posts),
+                "comments": len(comments),
+                "reports": len(reports),
+                "total": len(posts) + len(comments) + len(reports)
+            }
+        }
+    }
+
+# MODERATION SETTINGS ACTIONS
+
+# Get moderation settings for a forum (owner only)
+def action_moderation_settings(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    # Only owner can view/modify settings
+    entity = mochi.entity.get(forum["id"])
+    if not entity:
+        a.error(403, "Not allowed")
+        return
+
+    return {
+        "data": {
+            "settings": {
+                "moderation_posts": forum.get("moderation_posts", 0),
+                "moderation_comments": forum.get("moderation_comments", 0),
+                "moderation_new": forum.get("moderation_new", 0),
+                "new_user_days": forum.get("new_user_days", 0),
+                "post_limit": forum.get("post_limit", 0),
+                "comment_limit": forum.get("comment_limit", 0),
+                "limit_window": forum.get("limit_window", 3600)
+            }
+        }
+    }
+
+# Save moderation settings for a forum (owner only)
+def action_moderation_settings_save(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    # Only owner can modify settings
+    entity = mochi.entity.get(forum["id"])
+    if not entity:
+        a.error(403, "Not allowed")
+        return
+
+    # Get and validate settings
+    moderation_posts = a.input("moderation_posts")
+    moderation_comments = a.input("moderation_comments")
+    moderation_new = a.input("moderation_new")
+    new_user_days = a.input("new_user_days")
+    post_limit = a.input("post_limit")
+    comment_limit = a.input("comment_limit")
+    limit_window = a.input("limit_window")
+
+    updates = []
+    params = []
+
+    if moderation_posts != None:
+        updates.append("moderation_posts=?")
+        params.append(1 if moderation_posts in ["1", "true", True] else 0)
+
+    if moderation_comments != None:
+        updates.append("moderation_comments=?")
+        params.append(1 if moderation_comments in ["1", "true", True] else 0)
+
+    if moderation_new != None:
+        updates.append("moderation_new=?")
+        params.append(1 if moderation_new in ["1", "true", True] else 0)
+
+    if new_user_days != None:
+        if not mochi.valid(new_user_days, "natural"):
+            a.error(400, "Invalid new_user_days")
+            return
+        updates.append("new_user_days=?")
+        params.append(int(new_user_days))
+
+    if post_limit != None:
+        if not mochi.valid(post_limit, "natural"):
+            a.error(400, "Invalid post_limit")
+            return
+        updates.append("post_limit=?")
+        params.append(int(post_limit))
+
+    if comment_limit != None:
+        if not mochi.valid(comment_limit, "natural"):
+            a.error(400, "Invalid comment_limit")
+            return
+        updates.append("comment_limit=?")
+        params.append(int(comment_limit))
+
+    if limit_window != None:
+        if not mochi.valid(limit_window, "natural"):
+            a.error(400, "Invalid limit_window")
+            return
+        val = int(limit_window)
+        if val < 60:
+            a.error(400, "limit_window must be at least 60 seconds")
+            return
+        updates.append("limit_window=?")
+        params.append(val)
+
+    if updates:
+        params.append(forum["id"])
+        mochi.db.execute("update forums set " + ", ".join(updates) + " where id=?", *params)
+
+    return {"data": {"success": True}}
+
+# View moderation log
+def action_moderation_log(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    if not check_access(a, forum["id"], "moderate"):
+        a.error(403, "Not allowed to moderate")
+        return
+
+    limit_str = a.input("limit")
+    limit = 50
+    if limit_str and mochi.valid(limit_str, "natural"):
+        limit = min(int(limit_str), 200)
+
+    logs = mochi.db.rows(
+        "select * from moderation where forum=? order by created desc limit ?",
+        forum["id"], limit)
+
+    return {"data": {"logs": logs}}
+
 # Vote on a post
 def action_post_vote(a):
     if not a.user:
@@ -1677,7 +3000,7 @@ def action_post_vote(a):
         if is_owner:
             # Owner checks access locally
             if not check_access(a, forum["id"], "vote"):
-                a.error(403, "Not authorized to vote")
+                a.error(403, "Not allowed to vote")
                 return
             # We own the forum - process locally and broadcast to members
             # Remove old vote if exists
@@ -1716,7 +3039,7 @@ def action_post_vote(a):
                 "user": user_id,
             })
             if not access_response.get("vote", False):
-                a.error(403, "Not authorized to vote")
+                a.error(403, "Not allowed to vote")
                 return
 
             # Send vote to forum owner
@@ -1760,7 +3083,7 @@ def action_post_vote(a):
         "user": user_id,
     })
     if not access_response.get("vote", False):
-        a.error(403, "Not authorized to vote")
+        a.error(403, "Not allowed to vote")
         return
 
     mochi.message.send(
@@ -1807,7 +3130,7 @@ def action_comment_vote(a):
         if is_owner:
             # Owner checks access locally
             if not check_access(a, forum["id"], "vote"):
-                a.error(403, "Not authorized to vote")
+                a.error(403, "Not allowed to vote")
                 return
             # We own the forum - process locally and broadcast to members
             # Remove old vote if exists
@@ -1846,7 +3169,7 @@ def action_comment_vote(a):
                 "user": user_id,
             })
             if not access_response.get("vote", False):
-                a.error(403, "Not authorized to vote")
+                a.error(403, "Not allowed to vote")
                 return
 
             # Send vote to forum owner
@@ -1890,7 +3213,7 @@ def action_comment_vote(a):
         "user": user_id,
     })
     if not access_response.get("vote", False):
-        a.error(403, "Not authorized to vote")
+        a.error(403, "Not allowed to vote")
         return
 
     mochi.message.send(
@@ -2072,7 +3395,7 @@ def action_access(a):
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
 
     # Get owner - if we own this entity, use current user's info
@@ -2151,7 +3474,7 @@ def action_access_set(a):
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
 
     target = a.input("target")
@@ -2197,7 +3520,7 @@ def action_access_revoke(a):
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
 
     target = a.input("target")
@@ -2243,7 +3566,7 @@ def event_attachment_view(e):
     if forum_privacy == "private":
         requester = e.header("from")
         if not check_event_access(requester, forum_id, "view"):
-            e.stream.write({"status": "403", "error": "Not authorized to view this forum"})
+            e.stream.write({"status": "403", "error": "Not allowed to view this forum"})
             return
 
     # Find the attachment by searching through posts in this forum
@@ -2337,6 +3660,17 @@ def event_comment_submit_event(e):
     if not check_event_access(sender_id, forum["id"], "comment"):
         return
 
+    # Check for restrictions
+    restriction_error = check_restriction(forum["id"], sender_id, "comment")
+    if restriction_error:
+        return
+
+    # Check rate limit (skip for moderators)
+    if not check_event_access(sender_id, forum["id"], "moderate"):
+        rate_error = check_rate_limit(forum, sender_id, "comment")
+        if rate_error:
+            return
+
     # Get sender name from members table, fall back to directory lookup
     member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], sender_id)
     sender_name = member["name"] if member and member["name"] else ""
@@ -2351,12 +3685,17 @@ def event_comment_submit_event(e):
     if mochi.db.exists("select id from comments where id=?", id):
         return  # Duplicate
 
-    post = e.content("post")
-    if not mochi.db.exists("select id from posts where forum=? and id=?", forum["id"], post):
+    post_id = e.content("post")
+    post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
+    if not post:
+        return
+
+    # Check if post is locked
+    if post.get("locked"):
         return
 
     parent = e.content("parent") or ""
-    if parent and not mochi.db.exists("select id from comments where forum=? and post=? and id=?", forum["id"], post, parent):
+    if parent and not mochi.db.exists("select id from comments where forum=? and post=? and id=?", forum["id"], post_id, parent):
         return
 
     body = e.content("body")
@@ -2365,24 +3704,32 @@ def event_comment_submit_event(e):
 
     now = mochi.time.now()
 
-    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, created ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post, parent, sender_id, sender_name, body, now)
+    # Determine initial status
+    status = "approved"
+    if is_shadowbanned(forum["id"], sender_id):
+        status = "removed"
+    elif requires_premoderation(forum, sender_id, "comment"):
+        status = "pending"
 
-    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post)
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], post_id, parent, sender_id, sender_name, body, status, now)
+
+    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-    # Broadcast to all members except sender
-    comment_data = {
-        "id": id,
-        "post": post,
-        "parent": parent,
-        "member": sender_id,
-        "name": sender_name,
-        "body": body,
-        "created": now
-    }
+    # Only broadcast if approved
+    if status == "approved":
+        comment_data = {
+            "id": id,
+            "post": post_id,
+            "parent": parent,
+            "member": sender_id,
+            "name": sender_name,
+            "body": body,
+            "created": now
+        }
 
-    broadcast_event(forum["id"], "comment/create", comment_data)
+        broadcast_event(forum["id"], "comment/create", comment_data)
 
 # Received a comment edit request from member (we are forum owner)
 def event_comment_edit_submit_event(e):
@@ -2628,9 +3975,9 @@ def event_post_create_event(e):
     down = e.content("down") or 0
     comments_count = e.content("comments") or 0
 
-    # If post exists, just update vote counts (for subscription sync)
+    # If post exists, update vote counts and status (for subscription sync and approval)
     if mochi.db.exists("select id from posts where id=?", id):
-        mochi.db.execute("update posts set up=?, down=?, comments=? where id=?", up, down, comments_count, id)
+        mochi.db.execute("update posts set up=?, down=?, comments=?, status='approved' where id=?", up, down, comments_count, id)
         return
 
     member = e.content("member")
@@ -2669,6 +4016,17 @@ def event_post_submit_event(e):
     if not check_event_access(sender_id, forum["id"], "post"):
         return
 
+    # Check for restrictions
+    restriction_error = check_restriction(forum["id"], sender_id, "post")
+    if restriction_error:
+        return
+
+    # Check rate limit (skip for moderators)
+    if not check_event_access(sender_id, forum["id"], "moderate"):
+        rate_error = check_rate_limit(forum, sender_id, "post")
+        if rate_error:
+            return
+
     # Get sender name from members table, fall back to directory lookup
     member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], sender_id)
     sender_name = member["name"] if member and member["name"] else ""
@@ -2693,23 +4051,31 @@ def event_post_submit_event(e):
 
     now = mochi.time.now()
 
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], sender_id, sender_name, title, body, now, now)
+    # Determine initial status
+    status = "approved"
+    if is_shadowbanned(forum["id"], sender_id):
+        status = "removed"
+    elif requires_premoderation(forum, sender_id, "post"):
+        status = "pending"
+
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], sender_id, sender_name, title, body, status, now, now)
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
     # Attachments arrive via _attachment/create events and are saved automatically
 
-    # Broadcast to all members except sender (attachments fetched on-demand)
-    post_data = {
-        "id": id,
-        "member": sender_id,
-        "name": sender_name,
-        "title": title,
-        "body": body,
-        "created": now
-    }
+    # Only broadcast if approved
+    if status == "approved":
+        post_data = {
+            "id": id,
+            "member": sender_id,
+            "name": sender_name,
+            "title": title,
+            "body": body,
+            "created": now
+        }
 
-    broadcast_event(forum["id"], "post/create", post_data)
+        broadcast_event(forum["id"], "post/create", post_data)
 
 # Received a post edit request from member (we are forum owner)
 def event_post_edit_submit_event(e):
@@ -3063,6 +4429,499 @@ def event_update_event(e):
 
     mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum_id)
 
+# MODERATION EVENTS
+
+# Received a post removal request from moderator (we are forum owner)
+def event_post_remove_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or post.get("status") == "removed":
+        return
+
+    reason = e.content("reason") or ""
+    now = mochi.time.now()
+
+    mochi.db.execute(
+        "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
+        sender, reason, now, post_id)
+
+    log_moderation(forum["id"], sender, "remove", "post", post_id, post["member"], reason)
+    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+
+    broadcast_event(forum["id"], "post/remove", {"id": post_id, "remover": sender, "reason": reason})
+
+# Received a post removal from forum owner
+def event_post_remove_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    # Don't update forums we own
+    if mochi.entity.get(forum["id"]):
+        return
+
+    post_id = e.content("id")
+    remover = e.content("remover")
+    reason = e.content("reason") or ""
+
+    mochi.db.execute(
+        "update posts set status='removed', remover=?, reason=? where id=? and forum=?",
+        remover, reason, post_id, forum["id"])
+
+# Received a post restoration request from moderator (we are forum owner)
+def event_post_restore_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or post.get("status") != "removed":
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute(
+        "update posts set status='approved', remover=null, reason='', updated=? where id=?",
+        now, post_id)
+
+    log_moderation(forum["id"], sender, "restore", "post", post_id, post["member"], "")
+    broadcast_event(forum["id"], "post/restore", {"id": post_id})
+
+# Received a post restoration from forum owner
+def event_post_restore_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    post_id = e.content("id")
+    mochi.db.execute(
+        "update posts set status='approved', remover=null, reason='' where id=? and forum=?",
+        post_id, forum["id"])
+
+# Received a post approval request from moderator (we are forum owner)
+def event_post_approve_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or post.get("status") != "pending":
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set status='approved', updated=? where id=?", now, post_id)
+
+    log_moderation(forum["id"], sender, "approve", "post", post_id, post["member"], "")
+    notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+
+    # Broadcast the post to members
+    post_data = {
+        "id": post_id,
+        "member": post["member"],
+        "name": post["name"],
+        "title": post["title"],
+        "body": post["body"],
+        "created": post["created"]
+    }
+    broadcast_event(forum["id"], "post/create", post_data)
+
+# Received a post lock request from moderator (we are forum owner)
+def event_post_lock_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or post.get("locked"):
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set locked=1, updated=? where id=?", now, post_id)
+    log_moderation(forum["id"], sender, "lock", "post", post_id, post["member"], "")
+    broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": True})
+
+# Received a post unlock request from moderator (we are forum owner)
+def event_post_unlock_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or not post.get("locked"):
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set locked=0, updated=? where id=?", now, post_id)
+    log_moderation(forum["id"], sender, "unlock", "post", post_id, post["member"], "")
+    broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": False})
+
+# Received a post lock/unlock from forum owner
+def event_post_lock_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    post_id = e.content("id")
+    locked = e.content("locked")
+    mochi.db.execute("update posts set locked=? where id=? and forum=?", 1 if locked else 0, post_id, forum["id"])
+
+# Received a post pin request from moderator (we are forum owner)
+def event_post_pin_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or post.get("pinned"):
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set pinned=1, updated=? where id=?", now, post_id)
+    log_moderation(forum["id"], sender, "pin", "post", post_id, post["member"], "")
+    broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": True})
+
+# Received a post unpin request from moderator (we are forum owner)
+def event_post_unpin_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    post_id = e.content("id")
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or not post.get("pinned"):
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update posts set pinned=0, updated=? where id=?", now, post_id)
+    log_moderation(forum["id"], sender, "unpin", "post", post_id, post["member"], "")
+    broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": False})
+
+# Received a post pin/unpin from forum owner
+def event_post_pin_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    post_id = e.content("id")
+    pinned = e.content("pinned")
+    mochi.db.execute("update posts set pinned=? where id=? and forum=?", 1 if pinned else 0, post_id, forum["id"])
+
+# Received a comment removal request from moderator (we are forum owner)
+def event_comment_remove_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    comment_id = e.content("id")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment or comment.get("status") == "removed":
+        return
+
+    reason = e.content("reason") or ""
+    now = mochi.time.now()
+
+    mochi.db.execute(
+        "update comments set status='removed', remover=?, reason=? where id=?",
+        sender, reason, comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+    log_moderation(forum["id"], sender, "remove", "comment", comment_id, comment["member"], reason)
+    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+
+    broadcast_event(forum["id"], "comment/remove", {
+        "id": comment_id, "post": comment["post"], "remover": sender, "reason": reason
+    })
+
+# Received a comment removal from forum owner
+def event_comment_remove_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    comment_id = e.content("id")
+    remover = e.content("remover")
+    reason = e.content("reason") or ""
+
+    mochi.db.execute(
+        "update comments set status='removed', remover=?, reason=? where id=? and forum=?",
+        remover, reason, comment_id, forum["id"])
+
+# Received a comment restoration request from moderator (we are forum owner)
+def event_comment_restore_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    comment_id = e.content("id")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment or comment.get("status") != "removed":
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update comments set status='approved', remover=null, reason='' where id=?", comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+    log_moderation(forum["id"], sender, "restore", "comment", comment_id, comment["member"], "")
+    broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]})
+
+# Received a comment restoration from forum owner
+def event_comment_restore_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    comment_id = e.content("id")
+    mochi.db.execute(
+        "update comments set status='approved', remover=null, reason='' where id=? and forum=?",
+        comment_id, forum["id"])
+
+# Received a comment approval request from moderator (we are forum owner)
+def event_comment_approve_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    comment_id = e.content("id")
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment or comment.get("status") != "pending":
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("update comments set status='approved' where id=?", comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+    log_moderation(forum["id"], sender, "approve", "comment", comment_id, comment["member"], "")
+    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+
+    # Broadcast the comment to members
+    comment_data = {
+        "id": comment_id,
+        "post": comment["post"],
+        "parent": comment["parent"],
+        "member": comment["member"],
+        "name": comment["name"],
+        "body": comment["body"],
+        "created": comment["created"]
+    }
+    broadcast_event(forum["id"], "comment/create", comment_data)
+
+# Received a user restriction request from moderator (we are forum owner)
+def event_restrict_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    target_user = e.content("user")
+    restriction_type = e.content("type")
+    if restriction_type not in ["muted", "banned", "shadowban"]:
+        return
+
+    reason = e.content("reason") or ""
+    expires = e.content("expires")
+    now = mochi.time.now()
+
+    mochi.db.execute(
+        "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, ?, ?, ?, ?)",
+        forum["id"], target_user, restriction_type, reason, sender, expires, now)
+
+    log_moderation(forum["id"], sender, "restrict", "user", target_user, None, reason)
+    notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+
+    broadcast_event(forum["id"], "user/restrict", {
+        "user": target_user, "type": restriction_type, "expires": expires
+    })
+
+# Received a user restriction from forum owner
+def event_user_restrict_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    target_user = e.content("user")
+    restriction_type = e.content("type")
+    expires = e.content("expires")
+    now = mochi.time.now()
+
+    mochi.db.execute(
+        "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, '', '', ?, ?)",
+        forum["id"], target_user, restriction_type, expires, now)
+
+# Received a user unrestriction request from moderator (we are forum owner)
+def event_unrestrict_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    target_user = e.content("user")
+    restriction = mochi.db.row("select * from restrictions where forum=? and user=?", forum["id"], target_user)
+    if not restriction:
+        return
+
+    mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
+    log_moderation(forum["id"], sender, "unrestrict", "user", target_user, None, "")
+    notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+
+    broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
+
+# Received a user unrestriction from forum owner
+def event_user_unrestrict_event(e):
+    forum = get_forum(e.header("from"))
+    if not forum:
+        return
+
+    if mochi.entity.get(forum["id"]):
+        return
+
+    target_user = e.content("user")
+    mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
+
+# Received a report submission from user (we are forum owner)
+def event_report_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    report_id = e.content("id")
+    report_type = e.content("type")
+    target = e.content("target")
+    reason = e.content("reason")
+    details = e.content("details") or ""
+
+    if report_type not in ["post", "comment"]:
+        return
+
+    if reason not in ["spam", "harassment", "hate", "violence", "misinformation", "offtopic", "other"]:
+        return
+
+    # Get author
+    author = None
+    if report_type == "post":
+        item = mochi.db.row("select member from posts where id=? and forum=?", target, forum["id"])
+        if item:
+            author = item["member"]
+    else:
+        item = mochi.db.row("select member from comments where id=? and forum=?", target, forum["id"])
+        if item:
+            author = item["member"]
+
+    if not author:
+        return
+
+    # Check rate limit
+    one_hour_ago = mochi.time.now() - 3600
+    report_count = mochi.db.row(
+        "select count(*) as count from reports where forum=? and reporter=? and created > ?",
+        forum["id"], sender, one_hour_ago)
+    if report_count and report_count["count"] >= 5:
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute(
+        "insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        report_id, forum["id"], sender, report_type, target, author, reason, details, now)
+
+# Received a report resolution request from moderator (we are forum owner)
+def event_report_resolve_submit_event(e):
+    forum = get_forum(e.header("to"))
+    if not forum:
+        return
+
+    sender = e.header("from")
+    if not check_event_access(sender, forum["id"], "moderate"):
+        return
+
+    report_id = e.content("id")
+    action = e.content("action")
+
+    if action not in ["removed", "ignored", "warned"]:
+        return
+
+    report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum["id"])
+    if not report or report.get("status") != "pending":
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute(
+        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
+        sender, action, now, report_id)
+
+    log_moderation(forum["id"], sender, "resolve_report", "report", report_id, report["author"], action)
+
 # Handle info request for a forum (used by probe for remote forum lookup)
 def event_info(e):
     forum_id = e.header("to")
@@ -3105,7 +4964,7 @@ def event_view(e):
     if forum_privacy == "private":
         can_view = check_event_access(requester, forum_id, "view")
         if not can_view:
-            e.stream.write({"error": "Not authorized to view this forum"})
+            e.stream.write({"error": "Not allowed to view this forum"})
             return
 
     can_post = check_event_access(requester, forum_id, "post")
@@ -3146,7 +5005,14 @@ def event_access_check(e):
     # Check each requested operation
     result = {}
     for op in operations:
-        result[op] = check_event_access(requester, forum_id, op)
+        has_access = check_event_access(requester, forum_id, op)
+        if has_access and op in ["post", "comment"]:
+            # Also check for restrictions (muted/banned)
+            restriction_error = check_restriction(forum_id, requester, op)
+            if restriction_error:
+                has_access = False
+                result["error"] = restriction_error
+        result[op] = has_access
 
     e.stream.write(result)
 
@@ -3178,7 +5044,7 @@ def event_post_view(e):
     if forum_privacy == "private":
         can_view = check_event_access(requester, forum_id, "view")
         if not can_view:
-            e.stream.write({"error": "Not authorized to view this forum"})
+            e.stream.write({"error": "Not allowed to view this forum"})
             return
 
     # Get post

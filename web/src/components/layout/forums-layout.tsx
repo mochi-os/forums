@@ -12,6 +12,8 @@ import {
   Hash,
   MessageSquare,
   Plus,
+  Settings,
+  Gavel,
 } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
@@ -156,6 +158,20 @@ function ForumsLayoutInner() {
           title: postTitle,
           icon: FileText,
           url: `/${forumUrl}/${post}`,
+        })
+      }
+
+      // Settings and moderation links for forum managers
+      if (isCurrentForum && f.can_manage) {
+        subItems.push({
+          title: 'Settings',
+          icon: Settings,
+          url: `/${forumUrl}/settings`,
+        })
+        subItems.push({
+          title: 'Moderation',
+          icon: Gavel,
+          url: `/${forumUrl}/moderation`,
         })
       }
 

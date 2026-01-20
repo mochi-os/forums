@@ -1,11 +1,30 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog } from '@mochi/common'
+import {
+  ConfirmDialog,
+  cn,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@mochi/common'
 import {
   ThumbsUp,
   ThumbsDown,
   MessageSquare,
   Pencil,
   Trash2,
+  Lock,
+  Unlock,
+  Pin,
+  PinOff,
+  Flag,
+  EyeOff,
+  Eye,
+  Clock,
+  VolumeX,
+  Ban,
+  MoreHorizontal,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
@@ -22,6 +41,17 @@ interface ThreadContentProps {
   canEdit?: boolean
   onEdit?: () => void
   onDelete?: () => void
+  // Moderation
+  canModerate?: boolean
+  onRemove?: () => void
+  onRestore?: () => void
+  onLock?: () => void
+  onUnlock?: () => void
+  onPin?: () => void
+  onUnpin?: () => void
+  onReport?: () => void
+  onMuteAuthor?: () => void
+  onBanAuthor?: () => void
 }
 
 export function ThreadContent({
@@ -36,8 +66,19 @@ export function ThreadContent({
   canEdit = false,
   onEdit,
   onDelete,
+  canModerate = false,
+  onRemove,
+  onRestore,
+  onLock,
+  onUnlock,
+  onPin,
+  onUnpin,
+  onReport,
+  onMuteAuthor,
+  onBanAuthor,
 }: ThreadContentProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
 
   // Local vote state to prevent re-render flicker
   const [localVote, setLocalVote] = useState(post.user_vote || '')
@@ -64,11 +105,49 @@ export function ThreadContent({
     onVote(newVote)
   }
 
+  const isPending = post.status === 'pending'
+  const isRemoved = post.status === 'removed'
+  const isLocked = !!post.locked
+  const isPinned = !!post.pinned
+
   return (
     <div className='group/post space-y-4'>
+      {/* Status badges */}
+      {(isPending || isRemoved || isLocked || isPinned) && (
+        <div className='flex flex-wrap gap-2'>
+          {isPending && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
+              <Clock className='size-3' />
+              Pending approval
+            </span>
+          )}
+          {isRemoved && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+              <EyeOff className='size-3' />
+              Removed
+            </span>
+          )}
+          {isLocked && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200'>
+              <Lock className='size-3' />
+              Locked
+            </span>
+          )}
+          {isPinned && (
+            <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+              <Pin className='size-3' />
+              Pinned
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Header: Title and author/timestamp */}
       <div className='flex items-start justify-between gap-4'>
-        <h1 className='text-foreground text-xl leading-tight font-semibold'>
+        <h1 className={cn(
+          'text-foreground text-xl leading-tight font-semibold',
+          isRemoved && 'opacity-60'
+        )}>
           {post.title}
         </h1>
         <span className='text-muted-foreground text-xs whitespace-nowrap'>
@@ -155,31 +234,97 @@ export function ThreadContent({
             Reply
           </button>
         )}
-        {canEdit && onEdit && onDelete && (
-          <>
-            <button
-              type='button'
-              className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
-              onClick={(e) => {
-                e.stopPropagation()
-                onEdit()
-              }}
-            >
-              <Pencil className='size-3' />
-              Edit
-            </button>
-            <button
-              type='button'
-              className='text-foreground bg-muted hover:bg-destructive/10 hover:text-destructive inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors'
-              onClick={(e) => {
-                e.stopPropagation()
-                setDeleteDialogOpen(true)
-              }}
-            >
-              <Trash2 className='size-3' />
-              Delete
-            </button>
-          </>
+        {/* More menu (edit, delete, moderation, report) */}
+        {(canEdit || canModerate || onReport) && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type='button'
+                className='text-foreground bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+                onClick={(e) => e.stopPropagation()}
+              >
+                <MoreHorizontal className='size-4' />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='start'>
+              {canEdit && onEdit && (
+                <DropdownMenuItem onClick={onEdit}>
+                  <Pencil className='mr-2 size-4' />
+                  Edit
+                </DropdownMenuItem>
+              )}
+              {canEdit && onDelete && (
+                <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+                  <Trash2 className='mr-2 size-4' />
+                  Delete
+                </DropdownMenuItem>
+              )}
+              {canEdit && (onReport || canModerate) && <DropdownMenuSeparator />}
+              {onReport && (
+                <DropdownMenuItem onClick={onReport}>
+                  <Flag className='mr-2 size-4' />
+                  Report
+                </DropdownMenuItem>
+              )}
+              {canModerate && onReport && <DropdownMenuSeparator />}
+              {canModerate && (
+                <>
+                  {isRemoved
+                    ? onRestore && (
+                        <DropdownMenuItem onClick={onRestore}>
+                          <Eye className='mr-2 size-4' />
+                          Restore
+                        </DropdownMenuItem>
+                      )
+                    : onRemove && (
+                        <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
+                          <EyeOff className='mr-2 size-4' />
+                          Remove
+                        </DropdownMenuItem>
+                      )}
+                  {isLocked
+                    ? onUnlock && (
+                        <DropdownMenuItem onClick={onUnlock}>
+                          <Unlock className='mr-2 size-4' />
+                          Unlock
+                        </DropdownMenuItem>
+                      )
+                    : onLock && (
+                        <DropdownMenuItem onClick={onLock}>
+                          <Lock className='mr-2 size-4' />
+                          Lock
+                        </DropdownMenuItem>
+                      )}
+                  {isPinned
+                    ? onUnpin && (
+                        <DropdownMenuItem onClick={onUnpin}>
+                          <PinOff className='mr-2 size-4' />
+                          Unpin
+                        </DropdownMenuItem>
+                      )
+                    : onPin && (
+                        <DropdownMenuItem onClick={onPin}>
+                          <Pin className='mr-2 size-4' />
+                          Pin
+                        </DropdownMenuItem>
+                      )}
+                  {(onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+                  {onMuteAuthor && (
+                    <DropdownMenuItem onClick={onMuteAuthor}>
+                      <VolumeX className='mr-2 size-4' />
+                      Mute author
+                    </DropdownMenuItem>
+                  )}
+                  {onBanAuthor && (
+                    <DropdownMenuItem onClick={onBanAuthor}>
+                      <Ban className='mr-2 size-4' />
+                      Ban author
+                    </DropdownMenuItem>
+                  )}
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
 
@@ -194,6 +339,19 @@ export function ThreadContent({
         handleConfirm={() => {
           setDeleteDialogOpen(false)
           onDelete?.()
+        }}
+      />
+
+      {/* Remove confirmation dialog */}
+      <ConfirmDialog
+        open={removeDialogOpen}
+        onOpenChange={setRemoveDialogOpen}
+        title='Remove post'
+        desc='This will hide the post from regular users. Moderators can still see it and restore it later.'
+        confirmText='Remove'
+        handleConfirm={() => {
+          setRemoveDialogOpen(false)
+          onRemove?.()
         }}
       />
     </div>
