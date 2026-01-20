@@ -2562,6 +2562,9 @@ def action_restrictions(a):
         member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["user"])
         if member:
             r["name"] = member["name"]
+        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["moderator"])
+        if moderator:
+            r["moderator_name"] = moderator["name"]
 
     return {"data": {"restrictions": restrictions}}
 
@@ -2970,7 +2973,23 @@ def action_moderation_log(a):
         "select * from moderation where forum=? order by created desc limit ?",
         forum["id"], limit)
 
-    return {"data": {"logs": logs}}
+    # Look up names from members table
+    for entry in logs:
+        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["moderator"])
+        if moderator:
+            entry["moderator_name"] = moderator["name"]
+        # Look up author/target name
+        if entry["author"]:
+            author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["author"])
+            if author:
+                entry["author_name"] = author["name"]
+        elif entry["type"] == "user":
+            # For user restrictions, target is the user ID
+            target = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["target"])
+            if target:
+                entry["author_name"] = target["name"]
+
+    return {"data": {"entries": logs}}
 
 # Vote on a post
 def action_post_vote(a):

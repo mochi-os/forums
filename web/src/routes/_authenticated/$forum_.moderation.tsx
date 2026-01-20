@@ -631,16 +631,19 @@ function LogTab({ forumId }: LogTabProps) {
   return (
     <Card>
       <CardContent className='divide-y pt-4'>
-        {entries.map((entry) => (
-          <div key={entry.id} className='flex items-center gap-4 py-3 first:pt-0 last:pb-0'>
-            <div className='min-w-0 flex-1'>
+        {entries.map((entry) => {
+          const date = new Date(entry.created * 1000)
+          const timestamp = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`
+          return (
+            <div key={entry.id} className='py-3 first:pt-0 last:pb-0'>
               <p className='text-sm'>
+                <span className='text-muted-foreground'>{timestamp}</span>{' '}
+                {entry.action}{' '}
                 <span className='font-medium'>
-                  {entry.moderator_name ?? entry.moderator}
+                  {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
                 </span>{' '}
-                <span className='text-muted-foreground'>{entry.action}</span>{' '}
                 <span className='text-muted-foreground'>
-                  {entry.type} {entry.target.slice(0, 8)}...
+                  · {entry.moderator_name ?? entry.moderator}
                 </span>
               </p>
               {entry.reason && (
@@ -649,11 +652,8 @@ function LogTab({ forumId }: LogTabProps) {
                 </p>
               )}
             </div>
-            <span className='text-muted-foreground whitespace-nowrap text-xs'>
-              {new Date(entry.created * 1000).toLocaleString()}
-            </span>
-          </div>
-        ))}
+          )
+        })}
       </CardContent>
     </Card>
   )
