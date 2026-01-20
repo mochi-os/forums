@@ -37,7 +37,7 @@ interface ThreadDetailProps {
 export function ThreadDetail({
   server,
   forumOverride,
-  inDomainContext = false,
+  inDomainContext: _inDomainContext = false,
 }: ThreadDetailProps) {
   const navigate = useNavigate()
   const { forum: urlForum = '', post: postId = '' } = useParams({

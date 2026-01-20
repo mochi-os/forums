@@ -2556,6 +2556,13 @@ def action_restrictions(a):
         return
 
     restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
+
+    # Look up names from members table
+    for r in restrictions:
+        member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["user"])
+        if member:
+            r["name"] = member["name"]
+
     return {"data": {"restrictions": restrictions}}
 
 # REPORTING ACTIONS
