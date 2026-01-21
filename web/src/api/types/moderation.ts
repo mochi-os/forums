@@ -52,6 +52,8 @@ export interface Report {
   action?: string
   created: number
   resolved?: number
+  content_title?: string
+  content_preview?: string
 }
 
 // Moderation log entry

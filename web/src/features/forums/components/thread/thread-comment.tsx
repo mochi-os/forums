@@ -18,7 +18,6 @@ import {
   Trash2,
   Send,
   X,
-  Plus,
   EyeOff,
   Eye,
   Check,
@@ -80,6 +79,7 @@ interface ThreadCommentProps {
   onReport?: (commentId: string) => void
   onMuteAuthor?: (userId: string) => void
   onBanAuthor?: (userId: string) => void
+  currentUserId?: string
 }
 
 export function ThreadComment({
@@ -108,6 +108,7 @@ export function ThreadComment({
   onReport,
   onMuteAuthor,
   onBanAuthor,
+  currentUserId,
 }: ThreadCommentProps) {
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -166,25 +167,11 @@ export function ThreadComment({
       <span className='text-muted-foreground font-medium'>{comment.name}</span>
       <span className='text-muted-foreground'>·</span>
       <span className='text-muted-foreground'>{comment.created_local}</span>
-      <button
-        onClick={() => setCollapsed(false)}
-        className='text-primary ml-2 flex cursor-pointer items-center gap-1 hover:underline'
-      >
-        {totalDescendants > 0 ? (
-          <>
-            {totalDescendants === 1 ? (
-              <span>1 reply</span>
-            ) : (
-              <span className='flex items-center gap-1'>
-                <Plus className='size-3' />
-                {totalDescendants} more replies
-              </span>
-            )}
-          </>
-        ) : (
-          <span className='text-muted-foreground italic'>(collapsed)</span>
-        )}
-      </button>
+      {totalDescendants > 0 && (
+        <span className='text-muted-foreground ml-2'>
+          {totalDescendants} {totalDescendants === 1 ? 'reply' : 'replies'}
+        </span>
+      )}
     </div>
   )
 
@@ -350,13 +337,6 @@ export function ThreadComment({
                     </DropdownMenuItem>
                   )}
                   {commentCanEdit && (onReport || canModerate) && <DropdownMenuSeparator />}
-                  {onReport && (
-                    <DropdownMenuItem onClick={() => onReport(comment.id)}>
-                      <Flag className='mr-2 size-4' />
-                      Report
-                    </DropdownMenuItem>
-                  )}
-                  {canModerate && onReport && <DropdownMenuSeparator />}
                   {canModerate && (
                     <>
                       {isPending && onApprove && (
@@ -378,20 +358,26 @@ export function ThreadComment({
                               Remove
                             </DropdownMenuItem>
                           )}
-                      {(onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
-                      {onMuteAuthor && (
-                        <DropdownMenuItem onClick={() => onMuteAuthor(comment.member)}>
-                          <VolumeX className='mr-2 size-4' />
-                          Mute author
-                        </DropdownMenuItem>
-                      )}
-                      {onBanAuthor && (
-                        <DropdownMenuItem onClick={() => onBanAuthor(comment.member)}>
-                          <Ban className='mr-2 size-4' />
-                          Ban author
-                        </DropdownMenuItem>
-                      )}
                     </>
+                  )}
+                  {onReport && currentUserId !== comment.member && (
+                    <DropdownMenuItem onClick={() => onReport(comment.id)}>
+                      <Flag className='mr-2 size-4' />
+                      Report
+                    </DropdownMenuItem>
+                  )}
+                  {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+                  {canModerate && onMuteAuthor && (
+                    <DropdownMenuItem onClick={() => onMuteAuthor(comment.member)}>
+                      <VolumeX className='mr-2 size-4' />
+                      Mute author
+                    </DropdownMenuItem>
+                  )}
+                  {canModerate && onBanAuthor && (
+                    <DropdownMenuItem onClick={() => onBanAuthor(comment.member)}>
+                      <Ban className='mr-2 size-4' />
+                      Ban author
+                    </DropdownMenuItem>
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -503,6 +489,7 @@ export function ThreadComment({
           onReport={onReport}
           onMuteAuthor={onMuteAuthor}
           onBanAuthor={onBanAuthor}
+          currentUserId={currentUserId}
         />
       ))}
     </>

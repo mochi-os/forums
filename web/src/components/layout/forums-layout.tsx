@@ -161,13 +161,16 @@ function ForumsLayoutInner() {
         })
       }
 
-      // Settings and moderation links for forum managers
+      // Settings link for forum managers only
       if (isCurrentForum && f.can_manage) {
         subItems.push({
           title: 'Settings',
           icon: Settings,
           url: `/${forumUrl}/settings`,
         })
+      }
+      // Moderation link for managers and moderators
+      if (isCurrentForum && (f.can_manage || f.can_moderate)) {
         subItems.push({
           title: 'Moderation',
           icon: Gavel,

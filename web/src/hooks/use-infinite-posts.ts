@@ -21,6 +21,7 @@ interface UseInfinitePostsResult {
   forum: Forum | undefined
   member: Member | undefined
   can_manage: boolean
+  can_moderate: boolean
   isLoading: boolean
   isError: boolean
   isFetchingNextPage: boolean
@@ -47,6 +48,7 @@ export function useInfinitePosts({
         forum?: Forum
         member?: Member
         can_manage?: boolean
+        can_moderate?: boolean
         hasMore?: boolean
         nextCursor?: number | null
       }
@@ -64,6 +66,7 @@ export function useInfinitePosts({
           forum?: Forum
           member?: Member
           can_manage?: boolean
+          can_moderate?: boolean
           hasMore?: boolean
           nextCursor?: number | null
         }>(url)
@@ -83,6 +86,7 @@ export function useInfinitePosts({
         forum: data.forum,
         member: data.member,
         can_manage: data.can_manage ?? false,
+        can_moderate: data.can_moderate ?? false,
         hasMore: data.hasMore ?? false,
         nextCursor: data.nextCursor ?? undefined,
       }
@@ -107,12 +111,14 @@ export function useInfinitePosts({
   const forumData = query.data?.pages?.[0]?.forum
   const memberData = query.data?.pages?.[0]?.member
   const can_manage = query.data?.pages?.[0]?.can_manage ?? false
+  const can_moderate = query.data?.pages?.[0]?.can_moderate ?? false
 
   return {
     posts,
     forum: forumData,
     member: memberData,
     can_manage,
+    can_moderate,
     isLoading: query.isLoading,
     isError: query.isError,
     isFetchingNextPage: query.isFetchingNextPage,

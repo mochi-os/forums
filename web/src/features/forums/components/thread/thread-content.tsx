@@ -259,14 +259,7 @@ export function ThreadContent({
                   Delete
                 </DropdownMenuItem>
               )}
-              {canEdit && (onReport || canModerate) && <DropdownMenuSeparator />}
-              {onReport && (
-                <DropdownMenuItem onClick={onReport}>
-                  <Flag className='mr-2 size-4' />
-                  Report
-                </DropdownMenuItem>
-              )}
-              {canModerate && onReport && <DropdownMenuSeparator />}
+              {canEdit && (canModerate || onReport) && <DropdownMenuSeparator />}
               {canModerate && (
                 <>
                   {isRemoved
@@ -308,20 +301,26 @@ export function ThreadContent({
                           Pin
                         </DropdownMenuItem>
                       )}
-                  {(onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
-                  {onMuteAuthor && (
-                    <DropdownMenuItem onClick={onMuteAuthor}>
-                      <VolumeX className='mr-2 size-4' />
-                      Mute author
-                    </DropdownMenuItem>
-                  )}
-                  {onBanAuthor && (
-                    <DropdownMenuItem onClick={onBanAuthor}>
-                      <Ban className='mr-2 size-4' />
-                      Ban author
-                    </DropdownMenuItem>
-                  )}
                 </>
+              )}
+              {onReport && (
+                <DropdownMenuItem onClick={onReport}>
+                  <Flag className='mr-2 size-4' />
+                  Report
+                </DropdownMenuItem>
+              )}
+              {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+              {canModerate && onMuteAuthor && (
+                <DropdownMenuItem onClick={onMuteAuthor}>
+                  <VolumeX className='mr-2 size-4' />
+                  Mute author
+                </DropdownMenuItem>
+              )}
+              {canModerate && onBanAuthor && (
+                <DropdownMenuItem onClick={onBanAuthor}>
+                  <Ban className='mr-2 size-4' />
+                  Ban author
+                </DropdownMenuItem>
               )}
             </DropdownMenuContent>
           </DropdownMenu>

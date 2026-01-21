@@ -58,8 +58,8 @@ interface Tab {
 const tabs: Tab[] = [
   { id: 'queue', label: 'Queue', icon: <Clock className='h-4 w-4' /> },
   { id: 'reports', label: 'Reports', icon: <Flag className='h-4 w-4' /> },
-  { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
   { id: 'restrictions', label: 'Restrictions', icon: <Users className='h-4 w-4' /> },
+  { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
 ]
 
 function ModerationPage() {
@@ -552,8 +552,25 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                       <span className='text-muted-foreground text-xs'>
                         {report.type}
                       </span>
+                      <span className='text-muted-foreground text-xs'>
+                        by {report.author_name ?? 'Unknown'}
+                      </span>
                     </div>
-                    <p className='mt-2 font-medium'>{report.reason}</p>
+                    {/* Reported content */}
+                    <div className='bg-muted/50 mt-2 rounded-md p-3'>
+                      {report.content_title && (
+                        <p className='font-medium'>{report.content_title}</p>
+                      )}
+                      {report.content_preview && (
+                        <p className='text-muted-foreground mt-1 text-sm'>
+                          {report.content_preview}
+                        </p>
+                      )}
+                    </div>
+                    {/* Report reason */}
+                    <p className='mt-2 text-sm'>
+                      <span className='font-medium'>Reason:</span> {report.reason}
+                    </p>
                     {report.details && (
                       <p className='text-muted-foreground mt-1 text-sm'>
                         {report.details}
@@ -568,20 +585,21 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                       <Button
                         size='sm'
                         variant='outline'
-                        onClick={() => void handleResolve(report.id, 'dismissed')}
+                        onClick={() => void handleResolve(report.id, 'ignored')}
                         disabled={actionInProgress === report.id}
                       >
                         Dismiss
                       </Button>
                       <Button
                         size='sm'
-                        onClick={() => void handleResolve(report.id, 'actioned')}
+                        variant='outline'
+                        onClick={() => void handleResolve(report.id, 'removed')}
                         disabled={actionInProgress === report.id}
                       >
                         {actionInProgress === report.id ? (
                           <Loader2 className='size-4 animate-spin' />
                         ) : (
-                          'Take action'
+                          'Remove'
                         )}
                       </Button>
                     </div>
@@ -598,6 +616,10 @@ function ReportsTab({ forumId }: ReportsTabProps) {
 
 interface LogTabProps {
   forumId: string
+}
+
+function formatAction(action: string): string {
+  return action.replace(/_/g, ' ')
 }
 
 function LogTab({ forumId }: LogTabProps) {
@@ -654,7 +676,7 @@ function LogTab({ forumId }: LogTabProps) {
             <div key={entry.id} className='py-3 first:pt-0 last:pb-0'>
               <p className='text-sm'>
                 <span className='text-muted-foreground'>{timestamp}</span>{' '}
-                {entry.action}{' '}
+                {formatAction(entry.action)}{' '}
                 <span className='font-medium'>
                   {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
                 </span>{' '}

@@ -23,6 +23,7 @@ export interface Attachment {
 export interface Post {
   id: string
   forum: string
+  fingerprint?: string
   member: string
   name: string
   title: string

@@ -150,7 +150,7 @@ export function PostCard({
         className={cn(
           'hover:bg-accent/50 cursor-pointer transition-colors'
         )}
-        onClick={() => onSelect(post.forum, post.id)}
+        onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
       >
         {content}
       </div>
@@ -160,7 +160,7 @@ export function PostCard({
   return (
     <Card
       className='hover:border-primary/30 cursor-pointer py-0 transition-all hover:shadow-md'
-      onClick={() => onSelect(post.forum, post.id)}
+      onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <CardContent className='p-0'>{content}</CardContent>
     </Card>

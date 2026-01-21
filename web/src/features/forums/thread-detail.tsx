@@ -22,8 +22,11 @@ import {
   useRemoveComment,
   useRestoreComment,
   useApproveComment,
+  useReportPost,
+  useReportComment,
 } from '@/hooks/use-forums-queries'
 import { EditPostDialog } from './components/edit-post-dialog'
+import { ReportDialog } from './components/report-dialog'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadComment } from './components/thread/thread-comment'
 import { ThreadContent } from './components/thread/thread-content'
@@ -55,6 +58,8 @@ export function ThreadDetail({
     null
   )
   const [commentReplyBody, setCommentReplyBody] = useState('')
+  const [reportPostDialogOpen, setReportPostDialogOpen] = useState(false)
+  const [reportingCommentId, setReportingCommentId] = useState<string | null>(null)
 
   // Sync forum and post to sidebar context
   const { setForum, setPost } = useSidebarContext()
@@ -101,6 +106,9 @@ export function ThreadDetail({
   const removeCommentMutation = useRemoveComment(forum, postId)
   const restoreCommentMutation = useRestoreComment(forum, postId)
   const approveCommentMutation = useApproveComment(forum, postId)
+  // Report mutations
+  const reportPostMutation = useReportPost(forum, postId)
+  const reportCommentMutation = useReportComment(forum, postId)
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
@@ -244,6 +252,7 @@ export function ThreadDetail({
             onUnpin={() => unpinPostMutation.mutate()}
             onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
             onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
+            onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
           />
 
           {/* Divider */}
@@ -252,8 +261,7 @@ export function ThreadDetail({
             {showReplyForm && (
               <div className='mb-4 flex items-end gap-2'>
                 <textarea
-                  placeholder='Write a reply...'
-                  value={commentBody}
+                                    value={commentBody}
                   onChange={(e) => setCommentBody(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -346,6 +354,8 @@ export function ThreadDetail({
                     }
                     onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
                     onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
+                    onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
+                    currentUserId={currentUserId}
                   />
                 ))}
               </div>
@@ -361,6 +371,36 @@ export function ThreadDetail({
         onOpenChange={setEditPostDialogOpen}
         onSave={handleEditPost}
         isPending={editPostMutation.isPending}
+      />
+
+      {/* Report Post Dialog */}
+      <ReportDialog
+        open={reportPostDialogOpen}
+        onOpenChange={setReportPostDialogOpen}
+        onSubmit={(reason, details) => {
+          reportPostMutation.mutate(
+            { reason, details },
+            { onSuccess: () => setReportPostDialogOpen(false) }
+          )
+        }}
+        isPending={reportPostMutation.isPending}
+        contentType='post'
+      />
+
+      {/* Report Comment Dialog */}
+      <ReportDialog
+        open={!!reportingCommentId}
+        onOpenChange={(open) => !open && setReportingCommentId(null)}
+        onSubmit={(reason, details) => {
+          if (reportingCommentId) {
+            reportCommentMutation.mutate(
+              { commentId: reportingCommentId, reason, details },
+              { onSuccess: () => setReportingCommentId(null) }
+            )
+          }
+        }}
+        isPending={reportCommentMutation.isPending}
+        contentType='comment'
       />
     </Main>
   )

@@ -71,6 +71,7 @@ const tabs: Tab[] = [
 
 // Access levels for forums (without manage)
 const FORUMS_ACCESS_LEVELS: AccessLevel[] = [
+  { value: 'moderate', label: 'Moderate, post, comment, vote, and view' },
   { value: 'post', label: 'Post, comment, vote, and view' },
   { value: 'comment', label: 'Comment, vote, and view' },
   { value: 'vote', label: 'Vote and view' },

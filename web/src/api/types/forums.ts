@@ -5,7 +5,7 @@ import type { Post } from './posts'
 
 // Access levels in hierarchical order (higher grants all lower)
 // Only owners have full management permissions (no separate "manage" level)
-export type AccessLevel = 'view' | 'vote' | 'comment' | 'post' | 'none'
+export type AccessLevel = 'view' | 'vote' | 'comment' | 'post' | 'moderate' | 'none'
 
 export interface Forum {
   id: string
@@ -16,6 +16,7 @@ export interface Forum {
   updated: number
   can_manage?: boolean // True if current user can manage this forum
   can_post?: boolean // True if current user can create posts
+  can_moderate?: boolean // True if current user can moderate this forum
 }
 
 // Helper to safely get member count
