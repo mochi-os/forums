@@ -27,6 +27,7 @@ import {
   toast,
   Input,
   Switch,
+  EmptyState,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
@@ -194,15 +195,11 @@ function ForumSettingsPage() {
       <>
         <PageHeader title="Settings" />
         <Main>
-          <Card>
-            <CardContent className='py-12 text-center'>
-              <Hash className='text-muted-foreground mx-auto mb-4 size-12' />
-              <h2 className='text-lg font-semibold'>Forum not found</h2>
-              <p className='text-muted-foreground mt-1 text-sm'>
-                This forum may have been deleted or you don't have access to it.
-              </p>
-            </CardContent>
-          </Card>
+          <EmptyState
+            icon={Hash}
+            title="Forum not found"
+            description="This forum may have been deleted or you don't have access to it."
+          />
         </Main>
       </>
     )

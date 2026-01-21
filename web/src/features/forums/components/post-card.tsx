@@ -1,5 +1,6 @@
+import { Link } from '@tanstack/react-router'
 import { Card, CardContent } from '@mochi/common'
-import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
+import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
@@ -27,7 +28,23 @@ export function PostCard({
   const timeAgo = formatDistanceToNow(new Date(post.created * 1000), dateParams)
 
   const content = (
-    <div className='space-y-2 p-4'>
+    <div className='space-y-3 p-4'>
+      {/* Header: Forum name and Date */}
+      <div className='flex items-center gap-2 text-xs'>
+        {showForumBadge && (
+          <Link
+            to='/$forum'
+            params={{ forum: post.forum }}
+            className='bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-medium transition-colors'
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Hash className='size-3' />
+            <span>{forumName}</span>
+          </Link>
+        )}
+        <span className='text-muted-foreground capitalize'>{timeAgo}</span>
+      </div>
+
       {/* Title row with badges */}
       <div className='flex items-start justify-between gap-4'>
         <h3 className='text-base leading-tight font-semibold'>
@@ -56,17 +73,7 @@ export function PostCard({
               <Pin className='size-3' />
             </span>
           )}
-          {showForumBadge && (
-            <span className='text-muted-foreground text-xs whitespace-nowrap'>
-              {forumName}
-            </span>
-          )}
         </div>
-      </div>
-
-      {/* Meta row: Date */}
-      <div className='text-muted-foreground flex items-center gap-2 text-xs'>
-        <span className='capitalize'>{timeAgo}</span>
       </div>
 
       {/* Body */}
@@ -79,24 +86,60 @@ export function PostCard({
         server={server}
       />
 
-      {/* Stats row */}
-      <div className='text-muted-foreground flex items-center gap-4 text-xs'>
+      {/* Action buttons row - interactive */}
+      <div className='text-muted-foreground flex items-center gap-1 text-xs'>
+        {/* Upvote/Downvote counts - display only */}
         {post.up > 0 && (
-          <span className='flex items-center gap-1'>
+          <span className='inline-flex items-center gap-1'>
             <ThumbsUp className='size-3' />
             {post.up}
           </span>
         )}
         {post.down > 0 && (
-          <span className='flex items-center gap-1'>
+          <span className='inline-flex items-center gap-1'>
             <ThumbsDown className='size-3' />
             {post.down}
           </span>
         )}
-        <span className='flex items-center gap-1'>
+        
+        {/* Upvote button */}
+        <button
+          type='button'
+          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          onClick={(e) => {
+            e.stopPropagation()
+            // TODO: Implement vote functionality
+            console.log('Upvote clicked')
+          }}
+        >
+          <ThumbsUp className='size-3' />
+          <span>Upvote</span>
+        </button>
+        
+        {/* Downvote button */}
+        <button
+          type='button'
+          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          onClick={(e) => {
+            e.stopPropagation()
+            // TODO: Implement vote functionality
+            console.log('Downvote clicked')
+          }}
+        >
+          <ThumbsDown className='size-3' />
+          <span>Downvote</span>
+        </button>
+        
+        {/* Comments navigation link */}
+        <Link
+          to='/$forum/$post'
+          params={{ forum: post.forum, post: post.id }}
+          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          onClick={(e) => e.stopPropagation()}
+        >
           <MessageSquare className='size-3' />
-          {getCommentCount(post.comments)}
-        </span>
+          <span>{getCommentCount(post.comments)}</span>
+        </Link>
       </div>
     </div>
   )

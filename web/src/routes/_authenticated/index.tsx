@@ -53,7 +53,7 @@ function IndexPage() {
 
   // If we're in entity context, show the forum page directly
   if (data.entity && data.forum) {
-    return <EntityForumPage forum={data.forum} permissions={data.permissions} />
+    return <EntityForumPage forum={data.forum} permissions={data.permissions} entityContext={true} />
   }
 
   // Class context - show forums list

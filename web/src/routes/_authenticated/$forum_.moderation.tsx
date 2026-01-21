@@ -11,6 +11,7 @@ import {
   getErrorMessage,
   toast,
   usePageTitle,
+  EmptyState,
 } from '@mochi/common'
 import {
   Loader2,
@@ -281,8 +282,12 @@ function QueueTab({ forumId }: QueueTabProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      <div className='py-12'>
+        <EmptyState
+          icon={Loader2}
+          title="Loading moderation queue..."
+          className="animate-pulse opacity-70"
+        />
       </div>
     )
   }
@@ -291,12 +296,13 @@ function QueueTab({ forumId }: QueueTabProps) {
 
   if (!hasItems) {
     return (
-      <Card>
-        <CardContent className='py-12 text-center'>
-          <CheckCircle className='text-muted-foreground mx-auto mb-4 size-12' />
-          <h2 className='text-lg font-semibold'>Moderation queue is empty</h2>
-        </CardContent>
-      </Card>
+      <div className='py-12'>
+        <EmptyState
+          icon={CheckCircle}
+          title="Moderation queue is empty"
+          description="All posts and comments have been reviewed"
+        />
+      </div>
     )
   }
 
@@ -491,8 +497,12 @@ function ReportsTab({ forumId }: ReportsTabProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      <div className='py-12'>
+        <EmptyState
+          icon={Loader2}
+          title="Loading reports..."
+          className="animate-pulse opacity-70"
+        />
       </div>
     )
   }
@@ -514,12 +524,13 @@ function ReportsTab({ forumId }: ReportsTabProps) {
       </div>
 
       {reports.length === 0 ? (
-        <Card>
-          <CardContent className='py-12 text-center'>
-            <Flag className='text-muted-foreground mx-auto mb-4 size-12' />
-            <h2 className='text-lg font-semibold'>No reports</h2>
-          </CardContent>
-        </Card>
+        <div className='py-12'>
+          <EmptyState
+            icon={Flag}
+            title="No reports"
+            description={`No ${statusFilter} reports found`}
+          />
+        </div>
       ) : (
         <Card>
           <CardContent className='divide-y pt-4'>
@@ -611,20 +622,25 @@ function LogTab({ forumId }: LogTabProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      <div className='py-12'>
+        <EmptyState
+          icon={Loader2}
+          title="Loading moderation log..."
+          className="animate-pulse opacity-70"
+        />
       </div>
     )
   }
 
   if (entries.length === 0) {
     return (
-      <Card>
-        <CardContent className='py-12 text-center'>
-          <History className='text-muted-foreground mx-auto mb-4 size-12' />
-          <h2 className='text-lg font-semibold'>No moderation activity</h2>
-        </CardContent>
-      </Card>
+      <div className='py-12'>
+        <EmptyState
+          icon={History}
+          title="No moderation activity"
+          description="There are no moderation actions recorded yet"
+        />
+      </div>
     )
   }
 
@@ -699,20 +715,25 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      <div className='py-12'>
+        <EmptyState
+          icon={Loader2}
+          title="Loading restrictions..."
+          className="animate-pulse opacity-70"
+        />
       </div>
     )
   }
 
   if (restrictions.length === 0) {
     return (
-      <Card>
-        <CardContent className='py-12 text-center'>
-          <Users className='text-muted-foreground mx-auto mb-4 size-12' />
-          <h2 className='text-lg font-semibold'>No restrictions</h2>
-        </CardContent>
-      </Card>
+      <div className='py-12'>
+        <EmptyState
+          icon={Users}
+          title="No restrictions"
+          description="No users have been muted or banned"
+        />
+      </div>
     )
   }
 

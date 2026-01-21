@@ -205,7 +205,7 @@ function ForumsLayoutInner() {
 
     const groups: SidebarData['navGroups'] = [
       {
-        title: '',
+        title: 'Forums',
         items: [allForumsItem, ...forumItems],
       },
       {

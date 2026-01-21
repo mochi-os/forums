@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Loader2, Rss, Settings, SquarePen } from 'lucide-react'
+import { Main, usePageTitle, Button, useScreenSize, EmptyState } from '@mochi/common'
+import { Loader2, Rss, Settings, SquarePen, AlertCircle } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -19,9 +19,14 @@ import { PageHeader } from '@mochi/common'
 interface EntityForumPageProps {
   forum: Forum
   permissions?: ForumPermissions
+  entityContext?: boolean
 }
 
-export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
+export function EntityForumPage({
+  forum,
+  permissions,
+  entityContext = false,
+}: EntityForumPageProps) {
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
 
@@ -57,7 +62,7 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
-  } = useInfinitePosts({ forum: forum.id, entityContext: true })
+  } = useInfinitePosts({ forum: forum.id, entityContext })
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -172,28 +177,26 @@ export function EntityForumPage({ forum, permissions }: EntityForumPageProps) {
 
       <div className='flex-1 overflow-y-auto'>
         {(isLoadingForum || !forumData) ? (
-          <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
-            <div className='flex flex-col items-center gap-2'>
-              <div className='border-primary size-4 animate-spin rounded-full border-2 border-t-transparent' />
-              <p className='text-sm'>Loading forum...</p>
-            </div>
-          </div>
+          <EmptyState
+            icon={Loader2}
+            title="Loading forum..."
+            className="h-64 animate-pulse opacity-70"
+          />
         ) : isForumError ? (
-          <div className='bg-card text-muted-foreground flex h-40 items-center justify-center rounded-xl border shadow-sm'>
-            <div className='flex flex-col items-center gap-3'>
-              <p className='text-sm'>Forum not found or not accessible</p>
-              <button
-                type='button'
-                onClick={() => subscribeMutation.mutate(forum.id)}
-                disabled={subscribeMutation.isPending}
-                className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50'
-              >
-                {subscribeMutation.isPending
-                  ? 'Subscribing...'
-                  : 'Subscribe to forum'}
-              </button>
-            </div>
-          </div>
+          <EmptyState
+            icon={AlertCircle}
+            title="Forum not found or not accessible"
+            description="You might need to subscribe to access this forum"
+          >
+            <Button
+              onClick={() => subscribeMutation.mutate(forum.id)}
+              disabled={subscribeMutation.isPending}
+            >
+              {subscribeMutation.isPending
+                ? 'Subscribing...'
+                : 'Subscribe to forum'}
+            </Button>
+          </EmptyState>
         ) : (
           <ForumOverview
             forum={forumData || forum}
