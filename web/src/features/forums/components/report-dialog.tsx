@@ -44,9 +44,8 @@ export function ReportDialog({
 
   const handleSubmit = () => {
     if (!reason) return
-    // Send the label (e.g., "Hate speech") not the value (e.g., "hate")
-    const reasonLabel = REPORT_REASONS.find((r) => r.value === reason)?.label ?? reason
-    onSubmit(reasonLabel, details || undefined)
+    // Send the value (e.g., "hate") which the backend validates
+    onSubmit(reason, details || undefined)
   }
 
   const handleOpenChange = (newOpen: boolean) => {

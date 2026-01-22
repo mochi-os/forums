@@ -29,6 +29,7 @@ import { forumsApi } from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
 
 type TabId = 'queue' | 'reports' | 'log' | 'restrictions'
 
@@ -340,6 +341,12 @@ function QueueTab({ forumId }: QueueTabProps) {
                   <p className='text-muted-foreground line-clamp-2 text-sm'>
                     {post.body}
                   </p>
+                  {post.attachments && post.attachments.length > 0 && (
+                    <PostAttachments
+                      attachments={post.attachments}
+                      forumId={post.forum}
+                    />
+                  )}
                 </div>
               </div>
             ))}
@@ -566,10 +573,18 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                           {report.content_preview}
                         </p>
                       )}
+                      {report.attachments && report.attachments.length > 0 && (
+                        <div className='mt-2'>
+                          <PostAttachments
+                            attachments={report.attachments}
+                            forumId={report.forum}
+                          />
+                        </div>
+                      )}
                     </div>
                     {/* Report reason */}
                     <p className='mt-2 text-sm'>
-                      <span className='font-medium'>Reason:</span> {report.reason}
+                      <span className='font-medium'>Reason:</span> {formatReason(report.reason)}
                     </p>
                     {report.details && (
                       <p className='text-muted-foreground mt-1 text-sm'>
@@ -620,6 +635,20 @@ interface LogTabProps {
 
 function formatAction(action: string): string {
   return action.replace(/_/g, ' ')
+}
+
+const REASON_LABELS: Record<string, string> = {
+  spam: 'Spam',
+  harassment: 'Harassment',
+  hate: 'Hate speech',
+  violence: 'Violence',
+  misinformation: 'Misinformation',
+  offtopic: 'Off-topic',
+  other: 'Other',
+}
+
+function formatReason(reason: string): string {
+  return REASON_LABELS[reason] ?? reason
 }
 
 function LogTab({ forumId }: LogTabProps) {

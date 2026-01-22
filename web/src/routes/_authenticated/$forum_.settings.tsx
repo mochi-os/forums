@@ -65,8 +65,8 @@ interface Tab {
 
 const tabs: Tab[] = [
   { id: 'general', label: 'Settings', icon: <Settings className='h-4 w-4' /> },
-  { id: 'access', label: 'Access', icon: <Shield className='h-4 w-4' /> },
   { id: 'moderation', label: 'Moderation', icon: <Gavel className='h-4 w-4' /> },
+  { id: 'access', label: 'Access', icon: <Shield className='h-4 w-4' /> },
 ]
 
 // Access levels for forums (without manage)

@@ -152,6 +152,24 @@ def get_forum(forum_id):
                 return r
     return forum
 
+# Helper: Check if current user has access (queries remote owner if not local owner)
+# Use this for actions that need to work for both owners and delegated moderators
+def check_access_remote(a, forum_id, operation):
+    # If we own the forum, check locally
+    if mochi.entity.get(forum_id):
+        return check_access(a, forum_id, operation)
+
+    # Query owner for access
+    user_id = a.user.identity.id if a.user and a.user.identity else None
+    if not user_id:
+        return False
+
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
+        "operations": [operation],
+        "user": user_id,
+    })
+    return access_response.get(operation, False)
+
 # Helper: Check if current user has access to perform an operation
 # Uses hierarchical access levels: post grants comment+vote+view, etc.
 # Only owners (with "*" access) have full permissions.
@@ -494,7 +512,7 @@ def action_view(a):
             before = int(before_str)
 
         # Determine if user can see all content (moderators and owners)
-        can_moderate = is_owner or check_access(a, forum["id"], "moderate")
+        can_moderate = is_owner or check_access_remote(a, forum["id"], "moderate")
 
         # Get posts for this forum with pagination
         # Moderators see all posts; regular users see only approved or their own pending
@@ -722,7 +740,7 @@ def action_post_create(a):
                 return
 
             # Check rate limit (skip for moderators)
-            if not check_access(a, forum["id"], "moderate"):
+            if not check_access_remote(a, forum["id"], "moderate"):
                 rate_error = check_rate_limit(forum, user_id, "post")
                 if rate_error:
                     a.error(429, rate_error)
@@ -1274,7 +1292,7 @@ def action_post_view(a):
     if is_owner:
         can_vote = check_access(a, forum["id"], "vote")
         can_comment = check_access(a, forum["id"], "comment")
-        can_moderate = check_access(a, forum["id"], "moderate")
+        can_moderate = check_access_remote(a, forum["id"], "moderate")
         # Check restrictions for vote/comment (banned users can't do either, muted can vote)
         if user_id:
             if can_vote and check_restriction(forum["id"], user_id, "vote"):
@@ -1665,7 +1683,7 @@ def action_comment_create(a):
                 return
 
             # Check rate limit (skip for moderators)
-            if not check_access(a, forum["id"], "moderate"):
+            if not check_access_remote(a, forum["id"], "moderate"):
                 rate_error = check_rate_limit(forum, user_id, "comment")
                 if rate_error:
                     a.error(429, rate_error)
@@ -1962,7 +1980,7 @@ def action_post_remove(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2018,7 +2036,7 @@ def action_post_restore(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2067,7 +2085,7 @@ def action_post_approve(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2124,7 +2142,7 @@ def action_post_lock(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2167,7 +2185,7 @@ def action_post_unlock(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2210,7 +2228,7 @@ def action_post_pin(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2252,7 +2270,7 @@ def action_post_unpin(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2294,7 +2312,7 @@ def action_comment_remove(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2351,7 +2369,7 @@ def action_comment_restore(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2401,7 +2419,7 @@ def action_comment_approve(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2460,7 +2478,7 @@ def action_restrict(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2520,7 +2538,7 @@ def action_unrestrict(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
@@ -2565,9 +2583,17 @@ def action_restrictions(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
+
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not mochi.entity.get(forum["id"]):
+        response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
+        if response and response.get("error"):
+            a.error(403, response["error"])
+            return
+        return {"data": response}
 
     restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
 
@@ -2727,9 +2753,18 @@ def action_moderation_reports(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
+
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not mochi.entity.get(forum["id"]):
+        status = a.input("status", "pending")
+        response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
+        if response and response.get("error"):
+            a.error(403, response["error"])
+            return
+        return {"data": response}
 
     status = a.input("status", "pending")
     if status not in ["pending", "resolved", "all"]:
@@ -2772,12 +2807,13 @@ def action_moderation_reports(a):
             if post:
                 r["content_title"] = post["title"]
                 r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
+                r["attachments"] = mochi.attachment.list(r["target"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
                 r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
 
-    return {"data": {"reports": reports}}
+    return {"data": {"forum": forum, "reports": reports}}
 
 # Resolve a report
 def action_report_resolve(a):
@@ -2790,9 +2826,19 @@ def action_report_resolve(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
+
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not mochi.entity.get(forum["id"]):
+        report_id = a.input("report")
+        action = a.input("action")
+        response = mochi.remote.request(forum["id"], "forums", "moderation/report/resolve", {"report": report_id, "action": action})
+        if response and response.get("error"):
+            a.error(400, response["error"])
+            return
+        return {"data": {"success": True}}
 
     report_id = a.input("report")
     report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum["id"])
@@ -2889,15 +2935,24 @@ def action_moderation_queue(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
 
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not mochi.entity.get(forum["id"]):
+        response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
+        if response and response.get("error"):
+            a.error(403, response["error"])
+            return
+        return {"data": response}
+
     posts = mochi.db.rows(
-        "select id, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
+        "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
         p["created_local"] = mochi.time.local(p["created"])
+        p["attachments"] = mochi.attachment.list(p["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
@@ -2916,6 +2971,7 @@ def action_moderation_queue(a):
 
     return {
         "data": {
+            "forum": forum,
             "posts": posts,
             "comments": comments,
             "reports": reports,
@@ -3051,9 +3107,18 @@ def action_moderation_log(a):
         a.error(404, "Forum not found")
         return
 
-    if not check_access(a, forum["id"], "moderate"):
+    if not check_access_remote(a, forum["id"], "moderate"):
         a.error(403, "Not allowed to moderate")
         return
+
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not mochi.entity.get(forum["id"]):
+        limit_str = a.input("limit")
+        response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit_str or "50"})
+        if response and response.get("error"):
+            a.error(403, response["error"])
+            return
+        return {"data": response}
 
     limit_str = a.input("limit")
     limit = 50
@@ -5279,6 +5344,255 @@ def event_post_view(e):
         "can_comment": can_comment,
         "can_moderate": can_moderate,
     })
+
+# MODERATION EVENT HANDLERS (for delegated moderators)
+
+# Handle moderation queue request from delegated moderators
+def event_moderation_queue(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    if not check_event_access(requester, forum_id, "moderate"):
+        e.stream.write({"error": "Not allowed to moderate"})
+        return
+
+    posts = mochi.db.rows(
+        "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
+        forum["id"])
+    for p in posts:
+        p["created_local"] = mochi.time.local(p["created"])
+        p["attachments"] = mochi.attachment.list(p["id"])
+
+    comments = mochi.db.rows(
+        "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
+        forum["id"])
+    for c in comments:
+        c["created_local"] = mochi.time.local(c["created"])
+
+    reports = mochi.db.rows("""
+        select type, target, author, reason, min(id) as id, min(details) as details,
+               min(reporter) as reporter, min(created) as created, count(*) as count
+        from reports
+        where forum=? and status='pending'
+        group by type, target
+        order by count desc, created asc
+    """, forum["id"])
+
+    e.stream.write({
+        "forum": forum,
+        "posts": posts,
+        "comments": comments,
+        "reports": reports,
+        "counts": {
+            "posts": len(posts),
+            "comments": len(comments),
+            "reports": len(reports),
+            "total": len(posts) + len(comments) + len(reports)
+        }
+    })
+
+# Handle moderation reports request from delegated moderators
+def event_moderation_reports(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+    status = e.content("status") or "pending"
+
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    if not check_event_access(requester, forum_id, "moderate"):
+        e.stream.write({"error": "Not allowed to moderate"})
+        return
+
+    if status not in ["pending", "resolved", "all"]:
+        e.stream.write({"error": "Invalid status"})
+        return
+
+    if status == "all":
+        reports = mochi.db.rows(
+            "select * from reports where forum=? order by created desc limit 100",
+            forum["id"])
+    else:
+        reports = mochi.db.rows(
+            "select * from reports where forum=? and status=? order by created desc limit 100",
+            forum["id"], status)
+
+    for r in reports:
+        reporter = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["reporter"])
+        if reporter:
+            r["reporter_name"] = reporter["name"]
+        else:
+            r["reporter_name"] = mochi.entity.name(r["reporter"]) or r["reporter"]
+        author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["author"])
+        if author:
+            r["author_name"] = author["name"]
+        else:
+            r["author_name"] = mochi.entity.name(r["author"]) or r["author"]
+        if r["resolver"]:
+            resolver = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["resolver"])
+            if resolver:
+                r["resolver_name"] = resolver["name"]
+            else:
+                r["resolver_name"] = mochi.entity.name(r["resolver"]) or r["resolver"]
+        if r["type"] == "post":
+            post = mochi.db.row("select title, body from posts where id=?", r["target"])
+            if post:
+                r["content_title"] = post["title"]
+                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
+                r["attachments"] = mochi.attachment.list(r["target"])
+        elif r["type"] == "comment":
+            comment = mochi.db.row("select body from comments where id=?", r["target"])
+            if comment:
+                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
+
+    e.stream.write({"forum": forum, "reports": reports})
+
+# Handle moderation log request from delegated moderators
+def event_moderation_log(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+    limit_str = e.content("limit")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    if not check_event_access(requester, forum_id, "moderate"):
+        e.stream.write({"error": "Not allowed to moderate"})
+        return
+
+    limit = 50
+    if limit_str and mochi.valid(str(limit_str), "natural"):
+        limit = min(int(limit_str), 200)
+
+    logs = mochi.db.rows(
+        "select * from moderation where forum=? order by created desc limit ?",
+        forum["id"], limit)
+
+    for entry in logs:
+        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["moderator"])
+        if moderator:
+            entry["moderator_name"] = moderator["name"]
+        if entry.get("author"):
+            author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["author"])
+            if author:
+                entry["author_name"] = author["name"]
+        if entry.get("target"):
+            target = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["target"])
+            if target:
+                entry["target_name"] = target["name"]
+
+    e.stream.write({"entries": logs})
+
+# Handle restrictions list request from delegated moderators
+def event_restrictions(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    if not check_event_access(requester, forum_id, "moderate"):
+        e.stream.write({"error": "Not allowed to moderate"})
+        return
+
+    restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
+
+    for r in restrictions:
+        member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["user"])
+        if member:
+            r["name"] = member["name"]
+        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["moderator"])
+        if moderator:
+            r["moderator_name"] = moderator["name"]
+
+    e.stream.write({"restrictions": restrictions})
+
+# Handle report resolution request from delegated moderators
+def event_report_resolve_action(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+    report_id = e.content("report")
+    action = e.content("action")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    if not check_event_access(requester, forum_id, "moderate"):
+        e.stream.write({"error": "Not allowed to moderate"})
+        return
+
+    if not report_id:
+        e.stream.write({"error": "Report ID required"})
+        return
+
+    report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum_id)
+    if not report:
+        e.stream.write({"error": "Report not found"})
+        return
+
+    if report.get("status") != "pending":
+        e.stream.write({"error": "Report already resolved"})
+        return
+
+    if action not in ["removed", "ignored"]:
+        e.stream.write({"error": "Invalid action"})
+        return
+
+    now = mochi.time.now()
+
+    # Perform the actual action
+    if action == "removed":
+        if report["type"] == "post":
+            post = mochi.db.row("select * from posts where id=?", report["target"])
+            if post and post.get("status") != "removed":
+                mochi.db.execute(
+                    "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
+                    requester, report["reason"], now, report["target"])
+                log_moderation(forum_id, requester, "remove", "post", report["target"], report["author"], report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"])
+                broadcast_event(forum_id, "post/remove", {
+                    "id": report["target"], "remover": requester, "reason": report["reason"]
+                })
+        elif report["type"] == "comment":
+            comment = mochi.db.row("select * from comments where id=?", report["target"])
+            if comment and comment.get("status") != "removed":
+                mochi.db.execute(
+                    "update comments set status='removed', remover=?, reason=? where id=?",
+                    requester, report["reason"], report["target"])
+                log_moderation(forum_id, requester, "remove", "comment", report["target"], report["author"], report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"])
+                broadcast_event(forum_id, "comment/remove", {
+                    "id": report["target"], "post": comment["post"], "remover": requester, "reason": report["reason"]
+                })
+
+    # Mark report as resolved
+    mochi.db.execute(
+        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
+        requester, action, now, report_id)
+
+    log_moderation(forum_id, requester, "resolve_report", "report", report_id, report["author"], action)
+
+    # Broadcast resolution to all members
+    broadcast_event(forum_id, "report/resolve", {
+        "id": report_id,
+        "action": action,
+        "resolver": requester
+    })
+
+    e.stream.write({"success": True})
 
 # CROSS-APP PROXY ACTIONS
 

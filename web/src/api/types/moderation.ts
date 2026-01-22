@@ -1,7 +1,7 @@
 // Moderation Types for Forums
 
 import type { Forum } from './forums'
-import type { Post } from './posts'
+import type { Post, Attachment } from './posts'
 import type { Comment } from './comments'
 
 // Content status
@@ -54,6 +54,7 @@ export interface Report {
   resolved?: number
   content_title?: string
   content_preview?: string
+  attachments?: Attachment[]
 }
 
 // Moderation log entry
