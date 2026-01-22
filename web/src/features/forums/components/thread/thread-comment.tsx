@@ -336,7 +336,7 @@ export function ThreadComment({
                       Delete
                     </DropdownMenuItem>
                   )}
-                  {commentCanEdit && (onReport || canModerate) && <DropdownMenuSeparator />}
+                  {commentCanEdit && (canModerate || (onReport && currentUserId !== comment.member)) && <DropdownMenuSeparator />}
                   {canModerate && (
                     <>
                       {isPending && onApprove && (
