@@ -176,13 +176,7 @@ export function EntityForumPage({
       <Main fixed>
 
       <div className='flex-1 overflow-y-auto'>
-        {(isLoadingForum || !forumData) ? (
-          <EmptyState
-            icon={Loader2}
-            title="Loading forum..."
-            className="h-64 animate-pulse opacity-70"
-          />
-        ) : isForumError ? (
+        {isForumError ? (
           <EmptyState
             icon={AlertCircle}
             title="Forum not found or not accessible"
@@ -208,6 +202,7 @@ export function EntityForumPage({
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
             onLoadMore={fetchNextPage}
+            isLoading={isLoadingForum}
           />
         )}
       </div>

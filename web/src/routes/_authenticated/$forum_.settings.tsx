@@ -449,7 +449,7 @@ function GeneralTab({
                   </p>
                 </div>
                 <Button
-                  variant='destructive'
+                  variant='outline'
                   onClick={() => setShowDeleteDialog(true)}
                   disabled={isDeleting}
                 >

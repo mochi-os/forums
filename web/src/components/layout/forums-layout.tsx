@@ -15,7 +15,7 @@ import {
   Settings,
   Gavel,
 } from 'lucide-react'
-import type { Forum } from '@/api/types/forums'
+import type { Forum, Post } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
@@ -29,7 +29,6 @@ import { CreateForumDialog } from '@/features/forums/components/create-forum-dia
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 import { forumsApi } from '@/api/forums'
 import endpoints from '@/api/endpoints'
-import type { Post } from '@/api/types/forums'
 
 function ForumsLayoutInner() {
   const {
@@ -47,7 +46,7 @@ function ForumsLayoutInner() {
     closeSearchDialog,
   } = useSidebarContext()
 
-  const { data } = useForumsList()
+  const { data, isLoading } = useForumsList()
   // Fetch details for the current forum to populate sidebar with all its posts
   const { data: detailData } = useForumDetail(forum)
 
@@ -219,11 +218,11 @@ function ForumsLayoutInner() {
     ]
 
     return { navGroups: groups }
-  }, [forums, forum, post, postTitle, openForumDialog, openSearchDialog])
+  }, [forums, forum, post, postTitle, openForumDialog, openSearchDialog, allPosts])
 
   return (
     <>
-      <AuthenticatedLayout sidebarData={sidebarData} />
+      <AuthenticatedLayout sidebarData={sidebarData} isLoadingSidebar={isLoading && forums.length === 0} />
 
       {/* Create Post Dialog - controlled from sidebar */}
       {dialogForum && (

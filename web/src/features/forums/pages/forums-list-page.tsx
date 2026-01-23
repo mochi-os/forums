@@ -32,7 +32,7 @@ export function ForumsListPage({
   const { isMobile } = useScreenSize()
 
   // Queries
-  const { data: forumsData } = useForumsList()
+  const { data: forumsData, isLoading } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -96,6 +96,7 @@ export function ForumsListPage({
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}
+          isLoading={isLoading}
         />
       </div>
     </Main>

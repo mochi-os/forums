@@ -1,4 +1,4 @@
-import { LoadMoreTrigger, EmptyState } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent } from '@mochi/common'
 import { MessageSquare, FileEdit } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
@@ -20,6 +20,7 @@ interface ForumOverviewProps {
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
+  isLoading?: boolean
 }
 
 export function ForumOverview({
@@ -33,12 +34,28 @@ export function ForumOverview({
   hasNextPage = false,
   isFetchingNextPage = false,
   onLoadMore,
+  isLoading = false,
 }: ForumOverviewProps) {
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
       <div className='space-y-3'>
-        {posts.length > 0 ? (
+        {isLoading ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <Card key={i}>
+              <CardContent className='p-4'>
+                <div className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <Skeleton className='h-5 w-1/3' />
+                    <Skeleton className='h-4 w-20' />
+                  </div>
+                  <Skeleton className='h-4 w-full' />
+                  <Skeleton className='h-4 w-2/3' />
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : posts.length > 0 ? (
           posts.map((post) => (
             <PostCard
               key={post.id}
@@ -64,7 +81,26 @@ export function ForumOverview({
   // Selected forum view
   return (
     <div className='space-y-6'>
-      {posts.length > 0 ? (
+      {isLoading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+             <div key={i} className="flex gap-4 p-4 border rounded-lg">
+                <div className="flex-col flex items-center gap-2">
+                   <Skeleton className="h-4 w-8" /> 
+                   <Skeleton className="h-4 w-8" />
+                </div>
+                 <div className="flex-1 space-y-2">
+                    <Skeleton className="h-5 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <div className="flex gap-2 pt-2">
+                       <Skeleton className="h-6 w-20" />
+                       <Skeleton className="h-6 w-20" />
+                    </div>
+                 </div>
+             </div>
+          ))}
+        </div>
+      ) : posts.length > 0 ? (
         <>
           {posts.map((post) => (
             <PostCard
