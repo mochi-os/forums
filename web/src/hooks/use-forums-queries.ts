@@ -123,7 +123,7 @@ export function useUnsubscribeForum(onUnsubscribed?: () => void) {
   return useMutation({
     mutationFn: (forumId: string) => forumsApi.unsubscribe(forumId),
     onSuccess: () => {
-      toast.success('Unsubscribed from forum')
+      toast.success('Unsubscribed')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       onUnsubscribed?.()
     },

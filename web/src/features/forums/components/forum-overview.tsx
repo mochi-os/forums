@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { LoadMoreTrigger, EmptyState, Button, toast } from '@mochi/common'
 import { FileEdit, Rss, Plus, Hash, Loader2 } from 'lucide-react'
@@ -11,6 +12,7 @@ import { InlineForumSearch } from './inline-forum-search'
 
 interface ForumOverviewProps {
   forum: Forum | null
+  forums?: Forum[]
   posts: Post[]
   server?: string
   onSelectPost: (forumId: string, postId: string) => void
@@ -22,6 +24,7 @@ interface ForumOverviewProps {
   }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
+  isLoading?: boolean
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
@@ -34,12 +37,14 @@ interface ForumOverviewProps {
 
 export function ForumOverview({
   forum,
+  forums = [],
   posts,
   server,
   onSelectPost,
   onCreatePost,
   isCreatingPost = false,
   isPostCreated = false,
+  isLoading = false,
   hasNextPage = false,
   isFetchingNextPage = false,
   onLoadMore,
@@ -49,38 +54,33 @@ export function ForumOverview({
   isLoadingRecommendations = false,
   isRecommendationsError = false,
 }: ForumOverviewProps) {
-  const queryClient = useQueryClient()
-  const [subscribedThisSession, setSubscribedThisSession] = useState<Set<string>>(new Set())
   const [pendingForumId, setPendingForumId] = useState<string | null>(null)
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const handleSubscribeRecommendation = async (forum: RecommendedForum) => {
     setPendingForumId(forum.id)
     try {
       await forumsApi.subscribe(forum.id)
-      setSubscribedThisSession((prev) => new Set(prev).add(forum.id))
-      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-      toast.success('Subscribed', {
-        description: `You are now subscribed to ${forum.name}.`,
-      })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {
       toast.error('Failed to subscribe', {
         description: error instanceof Error ? error.message : 'Unknown error',
       })
-    } finally {
       setPendingForumId(null)
     }
   }
-
-  // Filter out recommendations that user has already subscribed to this session
-  const filteredRecommendations = recommendations.filter(
-    (r) => !subscribedThisSession.has(r.id)
-  )
 
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
       <div className='space-y-3'>
-        {posts.length > 0 ? (
+        {isLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
+          </div>
+        ) : posts.length > 0 ? (
           posts.map((post) => (
             <PostCard
               key={post.id}
@@ -92,7 +92,16 @@ export function ForumOverview({
               variant='card'
             />
           ))
+        ) : forums.length > 0 ? (
+          // Has forums but no posts
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <Rss className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
+            <p className="text-muted-foreground text-sm">
+              No recent posts
+            </p>
+          </div>
         ) : (
+          // No forums at all
           <div className="flex flex-col items-center justify-center p-8 text-center">
             <Rss className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
             <p className="text-muted-foreground mb-1 text-sm font-medium">Forums</p>
@@ -121,47 +130,49 @@ export function ForumOverview({
                 <p className="text-muted-foreground text-sm">
                   Unable to connect to the recommendations service
                 </p>
-              ) : filteredRecommendations.length === 0 ? (
+              ) : recommendations.length === 0 ? (
                 <p className="text-muted-foreground text-sm">
                   No recommendations available
                 </p>
               ) : (
                 <div className="divide-border divide-y rounded-lg border text-left">
-                  {filteredRecommendations.map((rec) => {
-                    const isPending = pendingForumId === rec.id
+                  {recommendations
+                    .filter((rec) => !subscribedIds.has(rec.id))
+                    .map((rec) => {
+                      const isPending = pendingForumId === rec.id
 
-                    return (
-                      <div
-                        key={rec.id}
-                        className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/50 transition-colors"
-                      >
-                        <div className="flex min-w-0 flex-1 items-center gap-3">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
-                            <Hash className="h-4 w-4 text-blue-600" />
-                          </div>
-                          <div className="flex min-w-0 flex-1 flex-col">
-                            <span className="truncate text-sm font-medium">{rec.name}</span>
-                            {rec.blurb && (
-                              <span className="text-muted-foreground truncate text-xs">
-                                {rec.blurb}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <Button
-                          size="sm"
-                          onClick={() => handleSubscribeRecommendation(rec)}
-                          disabled={isPending}
+                      return (
+                        <div
+                          key={rec.id}
+                          className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/50"
                         >
-                          {isPending ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            'Subscribe'
-                          )}
-                        </Button>
-                      </div>
-                    )
-                  })}
+                          <div className="flex min-w-0 flex-1 items-center gap-3">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
+                              <Hash className="h-4 w-4 text-blue-600" />
+                            </div>
+                            <div className="flex min-w-0 flex-1 flex-col">
+                              <span className="truncate text-sm font-medium">{rec.name}</span>
+                              {rec.blurb && (
+                                <span className="text-muted-foreground truncate text-xs">
+                                  {rec.blurb}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            onClick={() => handleSubscribeRecommendation(rec)}
+                            disabled={isPending}
+                          >
+                            {isPending ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              'Subscribe'
+                            )}
+                          </Button>
+                        </div>
+                      )
+                    })}
                 </div>
               )}
             </div>

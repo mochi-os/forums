@@ -7,7 +7,6 @@ import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
   useForumRecommendations,
-  selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
@@ -31,10 +30,20 @@ export function ForumsListPage({
   const navigate = useNavigate()
   const { openForumDialog } = useSidebarContext()
 
-  // Queries
-  const { data: forumsData } = useForumsList()
-  const forums = useMemo(() => selectForums(forumsData), [forumsData])
+  // Queries - use initialForums as fallback until query returns data
+  const { data: forumsData, isLoading, isFetching } = useForumsList()
+  const queryHasData = !!forumsData?.data
+  const forums = useMemo(() => {
+    // If query has returned data, use it (even if empty - that's the real state)
+    if (forumsData?.data?.forums) {
+      return forumsData.data.forums
+    }
+    // Otherwise use initialForums from loader as fallback
+    return _initialForums || []
+  }, [forumsData, _initialForums])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
+  // Show loading state if we're fetching and don't have data yet
+  const showLoading = (isLoading || isFetching) && !queryHasData
 
   // Recommendations query
   const {
@@ -78,11 +87,13 @@ export function ForumsListPage({
       <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
+          forums={forums}
           posts={postsToDisplay}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
           isCreatingPost={false}
           isPostCreated={false}
+          isLoading={showLoading}
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
-import { Search, Loader2, Hash, Check } from 'lucide-react'
-import { cn, toast } from '@mochi/common'
-import { Button } from '@mochi/common'
-import { Input } from '@mochi/common'
+import { Search, Loader2, Hash } from 'lucide-react'
+import { Button, Input, toast } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
-import { forumsKeys } from '@/hooks/use-forums-queries'
 import type { DirectoryEntry } from '@/api/types/forums'
+import { forumsKeys } from '@/hooks/use-forums-queries'
 
 interface InlineForumSearchProps {
   subscribedIds: Set<string>
@@ -17,8 +16,8 @@ export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [results, setResults] = useState<DirectoryEntry[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [subscribedThisSession, setSubscribedThisSession] = useState<Set<string>>(new Set())
   const [pendingForumId, setPendingForumId] = useState<string | null>(null)
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   // Debounce search query
@@ -55,16 +54,12 @@ export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
     setPendingForumId(forum.id)
     try {
       await forumsApi.subscribe(forum.id)
-      setSubscribedThisSession((prev) => new Set(prev).add(forum.id))
-      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-      toast.success('Subscribed', {
-        description: `You are now subscribed to ${forum.name}.`,
-      })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {
       toast.error('Failed to subscribe', {
         description: error instanceof Error ? error.message : 'Unknown error',
       })
-    } finally {
       setPendingForumId(null)
     }
   }
@@ -101,48 +96,41 @@ export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
 
       {!isLoading && results.length > 0 && (
         <div className="divide-border divide-y rounded-lg border">
-          {results.map((forum) => {
-            const isSubscribed = subscribedIds.has(forum.id) ||
-                                 subscribedIds.has(forum.fingerprint) ||
-                                 subscribedThisSession.has(forum.id)
-            const isPending = pendingForumId === forum.id
+          {results
+            .filter((forum) => !subscribedIds.has(forum.id) && !subscribedIds.has(forum.fingerprint))
+            .map((forum) => {
+              const isPending = pendingForumId === forum.id
 
-            return (
-              <div
-                key={forum.id}
-                className={cn(
-                  'flex items-center justify-between gap-3 px-4 py-3 transition-colors',
-                  !isSubscribed && 'hover:bg-muted/50'
-                )}
-              >
-                <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
-                    <Hash className="h-4 w-4 text-blue-600" />
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col text-left">
-                    <span className="truncate text-sm font-medium">{forum.name}</span>
-                    <span className="text-muted-foreground truncate text-xs">
-                      {forum.fingerprint_hyphens}
-                    </span>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  variant={isSubscribed ? 'secondary' : 'default'}
-                  onClick={() => handleSubscribe(forum)}
-                  disabled={isSubscribed || isPending}
+              return (
+                <div
+                  key={forum.id}
+                  className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/50"
                 >
-                  {isPending ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : isSubscribed ? (
-                    <Check className="h-4 w-4" />
-                  ) : (
-                    'Subscribe'
-                  )}
-                </Button>
-              </div>
-            )
-          })}
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
+                      <Hash className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col text-left">
+                      <span className="truncate text-sm font-medium">{forum.name}</span>
+                      <span className="text-muted-foreground truncate text-xs">
+                        {forum.fingerprint_hyphens}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={() => handleSubscribe(forum)}
+                    disabled={isPending}
+                  >
+                    {isPending ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      'Subscribe'
+                    )}
+                  </Button>
+                </div>
+              )
+            })}
         </div>
       )}
     </div>

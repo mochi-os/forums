@@ -444,14 +444,24 @@ def action_view(a):
     if forum_id:
         forum = get_forum(forum_id)
 
+        # Use the full entity ID from the database if we found the forum
+        entity_id = forum["id"] if forum else forum_id
+
         # Determine if we need to fetch remotely
-        # Remote if: forum not found locally (will use server param or directory lookup)
-        is_remote = forum_id and not forum
+        # Remote if: forum not found locally, OR found but we're not the owner (just subscribed)
+        is_owner = mochi.entity.get(entity_id) if forum else False
+        is_remote = not is_owner
 
         # For remote forums, fetch via P2P
         if is_remote:
             if not user_id:
                 a.error(401, "Not logged in")
+                return
+
+            # Can only fetch remote forums if we have a full entity ID (49-51 chars)
+            # Fingerprints (9 chars) can't be used for P2P addressing
+            if len(entity_id) < 49:
+                a.error(404, "Forum not found")
                 return
 
             # Connect to specified server, or use directory lookup
@@ -461,7 +471,7 @@ def action_view(a):
                 return
 
             # Request forum data via P2P
-            response = mochi.remote.request(forum_id, "forums", "view", {"forum": forum_id}, peer)
+            response = mochi.remote.request(entity_id, "forums", "view", {"forum": entity_id}, peer)
             if response.get("error"):
                 a.error(response.get("code", 403), response["error"])
                 return
@@ -470,9 +480,9 @@ def action_view(a):
             return {
                 "data": {
                     "forum": {
-                        "id": forum_id,
-                        "name": response.get("name", ""),
-                        "fingerprint": response.get("fingerprint", mochi.entity.fingerprint(forum_id)),
+                        "id": entity_id,
+                        "name": response.get("name", forum["name"] if forum else ""),
+                        "fingerprint": response.get("fingerprint", mochi.entity.fingerprint(entity_id)),
                         "members": 0,
                         "updated": 0,
                         "can_manage": False,
@@ -652,8 +662,13 @@ def action_create(a):
         a.error(400, "Invalid name")
         return
 
+    privacy = a.input("privacy") or "public"
+    if privacy not in ["public", "private"]:
+        a.error(400, "Invalid privacy setting")
+        return
+
     # Create entity for the forum
-    entity_id = mochi.entity.create("forum", name, "public", "")
+    entity_id = mochi.entity.create("forum", name, privacy, "")
     if not entity_id:
         a.error(500, "Failed to create forum entity")
         return
@@ -4561,7 +4576,8 @@ def event_subscribe_event(e):
                 "up": p["up"],
                 "down": p["down"],
                 "comments": p["comments"],
-                "created": p["created"]
+                "created": p["created"],
+                "sync": True
             }
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
@@ -4580,7 +4596,8 @@ def event_subscribe_event(e):
                     "body": c["body"],
                     "up": c["up"],
                     "down": c["down"],
-                    "created": c["created"]
+                    "created": c["created"],
+                    "sync": True
                 }
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},

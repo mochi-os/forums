@@ -115,11 +115,13 @@ export interface ViewForumResponse {
 
 export interface CreateForumRequest {
   name: string
+  privacy?: 'public' | 'private'
 }
 
 export interface CreateForumResponse {
   data: {
     id: string
+    fingerprint?: string
   }
 }
 

@@ -125,7 +125,7 @@ export function EntityForumPage({
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='mr-2 size-4' />
-                New post
+                Create post
               </Button>
             )}
             {isRemoteForum && !isSubscribed && (

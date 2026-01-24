@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { requestHelpers, GeneralError } from '@mochi/common'
+import { GeneralError } from '@mochi/common'
 import endpoints from '@/api/endpoints'
+import { forumsRequest } from '@/api/request'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
 import { getLastForum, clearLastForum } from '@/hooks/use-forums-storage'
@@ -19,7 +20,7 @@ let hasCheckedRedirect = false
 
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {
-    const info = await requestHelpers.get<InfoResponse>(endpoints.forums.info)
+    const info = await forumsRequest.get<InfoResponse>(endpoints.forums.info)
 
     // Only redirect on first load, not on subsequent navigations
     if (hasCheckedRedirect) {

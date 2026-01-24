@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { useLocation, useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import {
   AuthenticatedLayout,
@@ -21,7 +22,6 @@ import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
   useCreatePost,
-  useCreateForum,
   forumsKeys,
   selectPosts,
   useForumDetail,
@@ -74,6 +74,14 @@ function ForumsLayoutInner() {
   }, [data, detailData])
 
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // Handle "All forums" click - navigate and refresh the list
+  const handleAllForumsClick = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+    navigate({ to: '/' })
+  }, [queryClient, navigate])
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
@@ -110,25 +118,9 @@ function ForumsLayoutInner() {
   const handleSubscribe = useCallback(async (forumId: string) => {
     await forumsApi.subscribe(forumId)
     queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-  }, [queryClient])
-
-  // Create forum mutation
-  const createForumMutation = useCreateForum()
-
-  const handleCreateForum = useCallback(
-    (data: { name: string }) => {
-      createForumMutation.mutate(
-        { name: data.name },
-        {
-          onSuccess: () => {
-            closeForumDialog()
-            queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-          },
-        }
-      )
-    },
-    [createForumMutation, closeForumDialog, queryClient]
-  )
+    // Navigate to the forum to show its posts (fetched remotely)
+    void navigate({ to: '/$forum', params: { forum: forumId } })
+  }, [queryClient, navigate])
 
   // Build sidebar data
   const sidebarData: SidebarData = useMemo(() => {
@@ -206,8 +198,9 @@ function ForumsLayoutInner() {
 
     const allForumsItem: NavItem = {
       title: 'All forums',
-      url: '/',
+      onClick: handleAllForumsClick,
       icon: MessageSquare,
+      isActive: location.pathname === '/',
     }
 
     // Build bottom items
@@ -229,7 +222,7 @@ function ForumsLayoutInner() {
     ]
 
     return { navGroups: groups }
-  }, [forums, forum, post, postTitle, openForumDialog, openSearchDialog])
+  }, [forums, forum, post, postTitle, allPosts, handleAllForumsClick, openForumDialog, openSearchDialog, location.pathname])
 
   return (
     <>
@@ -253,7 +246,6 @@ function ForumsLayoutInner() {
 
       {/* Create Forum Dialog - controlled from sidebar */}
       <CreateForumDialog
-        onCreate={handleCreateForum}
         open={forumDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeForumDialog()
