@@ -94,8 +94,8 @@ export function CreateForumDialog({
       <ResponsiveDialogContent className='sm:max-w-[520px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>New forum</ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
-            Create a new forum space for your community.
+          <ResponsiveDialogDescription className="sr-only">
+            Create a new forum
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
@@ -107,7 +107,7 @@ export function CreateForumDialog({
                 <FormItem>
                   <FormLabel>Forum name</FormLabel>
                   <FormControl>
-                    <Input placeholder='Forum name' {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

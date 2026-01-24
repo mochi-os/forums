@@ -18,6 +18,7 @@ import type {
   FindForumsResponse,
   GetNewForumResponse,
   ListForumsResponse,
+  RecommendationsResponse,
   SearchForumsParams,
   SearchForumsResponse,
   SubscribeForumResponse,
@@ -200,6 +201,14 @@ const searchForums = async (
   })
 
   return toDataResponse<SearchForumsResponse['data']>(response, 'search forums')
+}
+
+const getRecommendations = async (): Promise<RecommendationsResponse> => {
+  const response = await requestHelpers.get<
+    RecommendationsResponse | RecommendationsResponse['data']
+  >(endpoints.forums.recommendations)
+
+  return toDataResponse<RecommendationsResponse['data']>(response, 'get recommendations')
 }
 
 const probeForum = async (
@@ -918,6 +927,7 @@ export const forumsApi = {
   create: createForum,
   find: findForums,
   search: searchForums,
+  recommendations: getRecommendations,
   probe: probeForum,
   getNewForum,
   subscribe: subscribeForum,

@@ -12,6 +12,7 @@ import {
   Hash,
   MessageSquare,
   Plus,
+  Search,
   Settings,
   Gavel,
 } from 'lucide-react'
@@ -24,6 +25,7 @@ import {
   forumsKeys,
   selectPosts,
   useForumDetail,
+  useForumRecommendations,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
@@ -50,6 +52,13 @@ function ForumsLayoutInner() {
   const { data } = useForumsList()
   // Fetch details for the current forum to populate sidebar with all its posts
   const { data: detailData } = useForumDetail(forum)
+  // Recommendations for the search dialog
+  const {
+    data: recommendationsData,
+    isLoading: isLoadingRecommendations,
+    isError: isRecommendationsError,
+  } = useForumRecommendations()
+  const recommendations = recommendationsData?.data?.forums ?? []
 
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
   const allPosts = useMemo(() => {
@@ -203,7 +212,8 @@ function ForumsLayoutInner() {
 
     // Build bottom items
     const bottomItems: NavItem[] = [
-      { title: 'New forum', icon: Plus, onClick: openForumDialog, variant: 'primary' },
+      { title: 'Find forums', icon: Search, onClick: openSearchDialog },
+      { title: 'Create forum', icon: Plus, onClick: openForumDialog },
     ]
 
     const groups: SidebarData['navGroups'] = [
@@ -263,10 +273,12 @@ function ForumsLayoutInner() {
         searchEndpoint={endpoints.forums.search}
         icon={Hash}
         iconClassName="bg-blue-500/10 text-blue-600"
-        title="Search forums"
-        description="Search for public forums to subscribe to"
+        title="Find forums"
         placeholder="Search by name, ID, fingerprint, or URL..."
         emptyMessage="No forums found"
+        recommendations={recommendations}
+        isLoadingRecommendations={isLoadingRecommendations}
+        isRecommendationsError={isRecommendationsError}
       />
     </>
   )

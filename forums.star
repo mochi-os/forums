@@ -942,6 +942,40 @@ def action_search(a):
 
     return {"data": {"results": results}}
 
+# Get recommended forums from the recommendations service
+def action_recommendations(a):
+    # Get user's existing forums (owned or subscribed)
+    existing_ids = set()
+    forums = mochi.db.rows("select id from forums")
+    for f in forums:
+        existing_ids.add(f["id"])
+
+    # Connect to recommendations service
+    s = mochi.remote.stream("1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P", "recommendations", "list", {"type": "forum", "language": "en"})
+    if not s:
+        return {"status": 500, "error": "Unable to connect to the recommendations service", "data": {"forums": []}}
+
+    r = s.read()
+    if r.get("status") != "200":
+        return {"status": 500, "error": "Unable to connect to the recommendations service", "data": {"forums": []}}
+
+    recommendations = []
+    items = s.read()
+    if type(items) not in ["list", "tuple"]:
+        return {"data": {"forums": []}}
+
+    for item in items:
+        entity_id = item.get("entity", "")
+        if entity_id and entity_id not in existing_ids:
+            recommendations.append({
+                "id": entity_id,
+                "name": item.get("name", ""),
+                "blurb": item.get("blurb", ""),
+                "fingerprint": mochi.entity.fingerprint(entity_id),
+            })
+
+    return {"data": {"forums": recommendations}}
+
 # Probe a remote forum by URL
 def action_probe(a):
     if not a.user:

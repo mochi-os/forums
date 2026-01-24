@@ -29,6 +29,7 @@ const endpoints = {
     find: `${appBase}/find`,
     new: `${appBase}/new`,
     search: `${appBase}/directory/search`,
+    recommendations: `${appBase}/recommendations`,
     probe: `${appBase}/probe`,
     postNew: `${appBase}/post/new`,
     postCreate: `${appBase}/post/create`,

@@ -139,6 +139,19 @@ export interface FindForumsResponse {
   }
 }
 
+export interface RecommendedForum {
+  id: string
+  name: string
+  blurb: string
+  fingerprint: string
+}
+
+export interface RecommendationsResponse {
+  data: {
+    forums: RecommendedForum[]
+  }
+}
+
 export interface SubscribeForumRequest {
   forum: string
 }

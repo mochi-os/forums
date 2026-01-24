@@ -1,11 +1,12 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Plus, Search, Rss } from 'lucide-react'
+import { Main, usePageTitle } from '@mochi/common'
+import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
+  useForumRecommendations,
   selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
@@ -28,13 +29,26 @@ export function ForumsListPage({
   }, [])
 
   const navigate = useNavigate()
-  const { openForumDialog, openSearchDialog } = useSidebarContext()
-  const { isMobile } = useScreenSize()
+  const { openForumDialog } = useSidebarContext()
 
   // Queries
   const { data: forumsData } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
+
+  // Recommendations query
+  const {
+    data: recommendationsData,
+    isLoading: isLoadingRecommendations,
+    isError: isRecommendationsError,
+  } = useForumRecommendations()
+  const recommendations = recommendationsData?.data?.forums ?? []
+
+  // Set of subscribed forum IDs for inline search
+  const subscribedIds = useMemo(
+    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
+    [forums]
+  )
 
   const handlePostSelect = (forum: string, post: string) => {
     navigate({
@@ -59,30 +73,6 @@ export function ForumsListPage({
       <PageHeader
         title="All forums"
         icon={<Rss className='size-4 md:size-5' />}
-        searchBar={
-          <Button 
-            variant='outline' 
-            className='w-full justify-start'
-            onClick={openSearchDialog}
-          >
-            <Search className='mr-2 size-4' />
-            Search forums
-          </Button>
-        }
-        actions={
-          <>
-            {!isMobile && (
-              <Button variant='outline' onClick={openSearchDialog}>
-                <Search className='mr-2 size-4' />
-                Find forums
-              </Button>
-            )}
-            <Button onClick={openForumDialog}>
-              <Plus className='mr-2 size-4' />
-              New forum
-            </Button>
-          </>
-        }
       />
       <Main fixed>
       <div className='flex-1 overflow-y-auto'>
@@ -96,6 +86,11 @@ export function ForumsListPage({
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}
+          onOpenCreate={openForumDialog}
+          subscribedIds={subscribedIds}
+          recommendations={recommendations}
+          isLoadingRecommendations={isLoadingRecommendations}
+          isRecommendationsError={isRecommendationsError}
         />
       </div>
     </Main>

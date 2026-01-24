@@ -155,8 +155,8 @@ export function EditPostDialog({
       <ResponsiveDialogContent className='sm:max-w-[600px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Edit post</ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
-            Make changes to your post
+          <ResponsiveDialogDescription className="sr-only">
+            Edit post
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>

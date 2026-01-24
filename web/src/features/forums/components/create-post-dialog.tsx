@@ -66,7 +66,7 @@ type CreatePostDialogProps = {
 
 export function CreatePostDialog({
   forumId,
-  forumName,
+  forumName: _forumName,
   onCreate,
   isPending = false,
   isSuccess = false,
@@ -170,9 +170,8 @@ export function CreatePostDialog({
       <ResponsiveDialogContent className='sm:max-w-[600px]'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>New post</ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
-            Share your thoughts, questions, or insights with{' '}
-            <span className='text-foreground font-medium'>{forumName}</span>
+          <ResponsiveDialogDescription className="sr-only">
+            Create a new post
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
