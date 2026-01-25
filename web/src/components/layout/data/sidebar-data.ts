@@ -7,7 +7,7 @@ export const sidebarData: SidebarData = {
     {
       title: '',
       items: [
-        { title: 'All forums', url: '/', icon: MessageSquare },
+        { title: 'Forums', url: '/', icon: MessageSquare },
         { title: 'New forum', url: '/new', icon: Plus },
       ],
     },

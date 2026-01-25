@@ -197,7 +197,7 @@ function ForumsLayoutInner() {
     })
 
     const allForumsItem: NavItem = {
-      title: 'All forums',
+      title: 'Forums',
       onClick: handleAllForumsClick,
       icon: MessageSquare,
       isActive: location.pathname === '/',
