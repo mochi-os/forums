@@ -31,7 +31,6 @@ interface ForumOverviewProps {
   onOpenCreate?: () => void
   subscribedIds?: Set<string>
   recommendations?: RecommendedForum[]
-  isLoadingRecommendations?: boolean
   isRecommendationsError?: boolean
 }
 
@@ -51,7 +50,6 @@ export function ForumOverview({
   onOpenCreate,
   subscribedIds = new Set(),
   recommendations = [],
-  isLoadingRecommendations = false,
   isRecommendationsError = false,
 }: ForumOverviewProps) {
   const [pendingForumId, setPendingForumId] = useState<string | null>(null)

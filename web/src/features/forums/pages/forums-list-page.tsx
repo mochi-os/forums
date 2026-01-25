@@ -48,7 +48,6 @@ export function ForumsListPage({
   // Recommendations query
   const {
     data: recommendationsData,
-    isLoading: isLoadingRecommendations,
     isError: isRecommendationsError,
   } = useForumRecommendations()
   const recommendations = recommendationsData?.data?.forums ?? []
@@ -100,7 +99,6 @@ export function ForumsListPage({
           onOpenCreate={openForumDialog}
           subscribedIds={subscribedIds}
           recommendations={recommendations}
-          isLoadingRecommendations={isLoadingRecommendations}
           isRecommendationsError={isRecommendationsError}
         />
       </div>
