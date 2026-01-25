@@ -231,13 +231,13 @@ const getNewForum = async (): Promise<GetNewForumResponse> => {
 }
 
 const subscribeForum = async (
-  forumId: string
+  forumId: string,
+  server?: string
 ): Promise<SubscribeForumResponse> => {
-  // POST /forums/{forumId}/subscribe - no body required
   const response = await requestHelpers.post<
     SubscribeForumResponse | SubscribeForumResponse['data'],
-    Record<string, never>
-  >(endpoints.forums.subscribe(forumId), {})
+    { forum: string; server?: string }
+  >(endpoints.forums.subscribe(forumId), { forum: forumId, server })
 
   return toDataResponse<SubscribeForumResponse['data']>(
     response,
@@ -258,6 +258,38 @@ const unsubscribeForum = async (
     response,
     'unsubscribe from forum'
   )
+}
+
+// Bookmark types
+interface BookmarkAddResponse {
+  data: { id: string; name: string; existing?: boolean }
+}
+
+interface BookmarkRemoveResponse {
+  data: { removed: string }
+}
+
+const addBookmark = async (
+  target: string,
+  server?: string
+): Promise<BookmarkAddResponse> => {
+  const response = await requestHelpers.post<
+    BookmarkAddResponse | BookmarkAddResponse['data'],
+    { target: string; server?: string }
+  >(endpoints.forums.bookmarkAdd, { target, server })
+
+  return toDataResponse<BookmarkAddResponse['data']>(response, 'add bookmark')
+}
+
+const removeBookmark = async (
+  target: string
+): Promise<BookmarkRemoveResponse> => {
+  const response = await requestHelpers.post<
+    BookmarkRemoveResponse | BookmarkRemoveResponse['data'],
+    { target: string }
+  >(endpoints.forums.bookmarkRemove, { target })
+
+  return toDataResponse<BookmarkRemoveResponse['data']>(response, 'remove bookmark')
 }
 
 const getMembers = async (
@@ -932,6 +964,8 @@ export const forumsApi = {
   getNewForum,
   subscribe: subscribeForum,
   unsubscribe: unsubscribeForum,
+  addBookmark,
+  removeBookmark,
   delete: deleteForum,
   rename: renameForum,
   getMembers,

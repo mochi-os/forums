@@ -19,7 +19,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 8,
+		"schema": 10,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -42,6 +42,8 @@
 		"directory/search": {"function": "action_search"},
 		"recommendations": {"function": "action_recommendations"},
 		"probe": {"function": "action_probe"},
+		"bookmark/add": {"function": "action_bookmark_add"},
+		"bookmark/remove": {"function": "action_bookmark_remove"},
 		":forum": {"file": "web/dist/index.html"},
 		":forum/assets": {"files": "web/dist/assets"},
 		":forum/images": {"files": "web/dist/images"},

@@ -9,6 +9,7 @@ import {
   SearchEntityDialog,
 } from '@mochi/common'
 import {
+  Bookmark,
   FileText,
   Hash,
   MessageSquare,
@@ -17,7 +18,7 @@ import {
   Settings,
   Gavel,
 } from 'lucide-react'
-import type { Forum } from '@/api/types/forums'
+import type { Forum, Post } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
@@ -31,7 +32,6 @@ import { CreateForumDialog } from '@/features/forums/components/create-forum-dia
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 import { forumsApi } from '@/api/forums'
 import endpoints from '@/api/endpoints'
-import type { Post } from '@/api/types/forums'
 
 function ForumsLayoutInner() {
   const {
@@ -61,6 +61,7 @@ function ForumsLayoutInner() {
   const recommendations = recommendationsData?.data?.forums ?? []
 
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
+  const bookmarks = useMemo(() => data?.data?.bookmarks ?? [], [data?.data?.bookmarks])
   const allPosts = useMemo(() => {
     const listPosts = selectPosts(data)
     const detailPosts = detailData?.data?.posts || []
@@ -108,17 +109,28 @@ function ForumsLayoutInner() {
     [createPostMutation]
   )
 
-  // Set of subscribed forum IDs for search dialog
+  // Set of subscribed and bookmarked forum IDs for search dialog
   const subscribedForumIds = useMemo(
-    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
-    [forums]
+    () => new Set([
+      ...forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x)),
+      ...bookmarks.flatMap((b: { id: string; fingerprint?: string }) => [b.id, b.fingerprint].filter((x): x is string => !!x)),
+    ]),
+    [forums, bookmarks]
   )
 
   // Handle subscribe from search dialog
-  const handleSubscribe = useCallback(async (forumId: string) => {
-    await forumsApi.subscribe(forumId)
+  const handleSubscribe = useCallback(async (forumId: string, entity?: { location?: string }) => {
+    await forumsApi.subscribe(forumId, entity?.location || undefined)
     queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
     // Navigate to the forum to show its posts (fetched remotely)
+    void navigate({ to: '/$forum', params: { forum: forumId } })
+  }, [queryClient, navigate])
+
+  // Handle bookmark from search dialog
+  const handleBookmark = useCallback(async (forumId: string, server?: string) => {
+    await forumsApi.addBookmark(forumId, server)
+    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+    // Navigate to the forum to show its posts
     void navigate({ to: '/$forum', params: { forum: forumId } })
   }, [queryClient, navigate])
 
@@ -203,6 +215,16 @@ function ForumsLayoutInner() {
       isActive: location.pathname === '/',
     }
 
+    // Build bookmark items
+    const bookmarkItems = bookmarks.map((b: { id: string; name: string; fingerprint?: string }) => {
+      const forumUrl = b.fingerprint ?? b.id
+      return {
+        title: b.name,
+        url: `/${forumUrl}`,
+        icon: Bookmark,
+      }
+    })
+
     // Build bottom items
     const bottomItems: NavItem[] = [
       { title: 'Find forums', icon: Search, onClick: openSearchDialog },
@@ -214,6 +236,14 @@ function ForumsLayoutInner() {
         title: 'Forums',
         items: [allForumsItem, ...forumItems],
       },
+      ...(bookmarkItems.length > 0
+        ? [
+            {
+              title: 'Bookmarks',
+              items: bookmarkItems,
+            },
+          ]
+        : []),
       {
         title: '',
         separator: true,
@@ -222,7 +252,7 @@ function ForumsLayoutInner() {
     ]
 
     return { navGroups: groups }
-  }, [forums, forum, post, postTitle, allPosts, handleAllForumsClick, openForumDialog, openSearchDialog, location.pathname])
+  }, [forums, bookmarks, forum, post, postTitle, allPosts, handleAllForumsClick, openForumDialog, openSearchDialog, location.pathname])
 
   return (
     <>
@@ -260,6 +290,7 @@ function ForumsLayoutInner() {
           if (!open) closeSearchDialog()
         }}
         onSubscribe={handleSubscribe}
+        onBookmark={handleBookmark}
         subscribedIds={subscribedForumIds}
         entityClass="forum"
         searchEndpoint={endpoints.forums.search}

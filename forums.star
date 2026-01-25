@@ -23,6 +23,7 @@ def database_create():
 
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
+        server text not null default '',
         moderation_posts integer not null default 0, moderation_comments integer not null default 0,
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
@@ -83,6 +84,10 @@ def database_create():
     mochi.db.execute("create index if not exists reports_status on reports( status )")
     mochi.db.execute("create index if not exists reports_target on reports( type, target )")
 
+    # Bookmarks table - for following external forums without subscribing
+    mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
+    mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
+
 # Upgrade database schema
 def database_upgrade(to_version):
     if to_version == 7:
@@ -140,6 +145,15 @@ def database_upgrade(to_version):
         mochi.db.execute("alter table comments add column status text not null default 'approved'")
         mochi.db.execute("alter table comments add column remover text")
         mochi.db.execute("alter table comments add column reason text not null default ''")
+
+    if to_version == 9:
+        # Add server column for remote forum subscriptions
+        mochi.db.execute("alter table forums add column server text not null default ''")
+
+    if to_version == 10:
+        # Add bookmarks table for following external forums without subscribing
+        mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
+        mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -391,7 +405,12 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 # Info endpoint for class context - returns list of forums
 def action_info_class(a):
     forums = mochi.db.rows("select * from forums order by updated desc")
-    return {"data": {"entity": False, "forums": forums}}
+
+    # Get bookmarks
+    bookmarks = mochi.db.rows("select id, name, server, added from bookmarks order by name")
+    bookmarks = [dict(b, fingerprint=mochi.entity.fingerprint(b["id"], False)) for b in bookmarks]
+
+    return {"data": {"entity": False, "forums": forums, "bookmarks": bookmarks}}
 
 # Info endpoint for entity context - returns forum info with permissions
 def action_info_entity(a):
@@ -959,11 +978,14 @@ def action_search(a):
 
 # Get recommended forums from the recommendations service
 def action_recommendations(a):
-    # Get user's existing forums (owned or subscribed)
+    # Get user's existing forums (owned, subscribed, or bookmarked)
     existing_ids = set()
     forums = mochi.db.rows("select id from forums")
     for f in forums:
         existing_ids.add(f["id"])
+    bookmarks = mochi.db.rows("select id from bookmarks")
+    for b in bookmarks:
+        existing_ids.add(b["id"])
 
     # Connect to recommendations service
     s = mochi.remote.stream("1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P", "recommendations", "list", {"type": "forum", "language": "en"})
@@ -1154,9 +1176,10 @@ def action_subscribe(a):
         return
 
     forum_id = a.input("forum")
-    forum = mochi.directory.get(forum_id)
-    if not forum:
-        a.error(404, "Forum not found")
+    server = a.input("server")
+
+    if not mochi.valid(forum_id, "entity"):
+        a.error(400, "Invalid ID")
         return
 
     # Check if already subscribed
@@ -1165,10 +1188,29 @@ def action_subscribe(a):
             "data": {"already_subscribed": True}
         }
 
+    # Get forum info from remote server or directory
+    if server:
+        peer = mochi.remote.peer(server)
+        if not peer:
+            a.error(502, "Unable to connect to server")
+            return
+        response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
+        if response.get("error"):
+            a.error(response.get("code", 404), response["error"])
+            return
+        forum_name = response.get("name", "")
+    else:
+        # Use directory lookup when no server specified
+        directory = mochi.directory.get(forum_id)
+        if not directory:
+            a.error(404, "Forum not found in directory")
+            return
+        forum_name = directory["name"]
+
     # Create local forum record
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, name, members, updated ) values ( ?, ?, ?, ? )",
-        forum_id, forum["name"], 0, now)
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server ) values ( ?, ?, ?, ?, ? )""",
+        forum_id, forum_name, 0, now, server or "")
 
     # Add self as subscriber
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
@@ -1182,7 +1224,7 @@ def action_subscribe(a):
     )
 
     return {
-        "data": {}
+        "data": {"fingerprint": mochi.entity.fingerprint(forum_id)}
     }
 
 # Unsubscribe from forum
@@ -5644,6 +5686,54 @@ def event_report_resolve_action(e):
     })
 
     e.stream.write({"success": True})
+
+# BOOKMARKS
+
+# Add a bookmark to a remote forum
+def action_bookmark_add(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    target = a.input("target")
+    server = a.input("server")
+
+    if not target:
+        a.error(400, "Target forum ID is required")
+        return
+
+    # Check not already bookmarked
+    if mochi.db.exists("select 1 from bookmarks where id=?", target):
+        return {"data": {"existing": True}}
+
+    # Fetch name from remote
+    peer = mochi.remote.peer(server) if server else None
+    info = mochi.remote.request(target, "forums", "info", {}, peer)
+    name = info.get("name", "Unknown")
+
+    mochi.db.execute(
+        "insert into bookmarks (id, name, server, added) values (?, ?, ?, ?)",
+        target, name, server or "", mochi.time.now())
+
+    return {"data": {"id": target, "name": name}}
+
+# Remove a bookmark
+def action_bookmark_remove(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+
+    target = a.input("target")
+    if not target:
+        a.error(400, "Target forum ID is required")
+        return
+
+    if not mochi.db.exists("select 1 from bookmarks where id=?", target):
+        a.error(404, "Bookmark not found")
+        return
+
+    mochi.db.execute("delete from bookmarks where id=?", target)
+    return {"data": {"removed": target}}
 
 # CROSS-APP PROXY ACTIONS
 

@@ -104,8 +104,9 @@ export function useCreatePost(forumId: string | null) {
 export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (forumId: string) => forumsApi.subscribe(forumId),
-    onSuccess: (data, forumId) => {
+    mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
+      forumsApi.subscribe(forumId, server),
+    onSuccess: (data, { forumId }) => {
       if (data.data.already_subscribed) {
         toast.info('You are already subscribed to this forum')
       } else {

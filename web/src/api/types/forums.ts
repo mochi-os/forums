@@ -87,10 +87,19 @@ export interface InfoClassResponse {
 // Union type for info response
 export type InfoResponse = InfoEntityResponse | InfoClassResponse
 
+export interface Bookmark {
+  id: string
+  name: string
+  server: string
+  added: number
+  fingerprint?: string
+}
+
 export interface ListForumsResponse {
   data: {
     forums: Forum[]
     posts: Post[]
+    bookmarks?: Bookmark[]
   }
 }
 
@@ -156,6 +165,7 @@ export interface RecommendationsResponse {
 
 export interface SubscribeForumRequest {
   forum: string
+  server?: string
 }
 
 export interface SubscribeForumResponse {

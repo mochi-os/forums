@@ -31,6 +31,8 @@ const endpoints = {
     search: `${appBase}/directory/search`,
     recommendations: `${appBase}/recommendations`,
     probe: `${appBase}/probe`,
+    bookmarkAdd: `${appBase}/bookmark/add`,
+    bookmarkRemove: `${appBase}/bookmark/remove`,
     postNew: `${appBase}/post/new`,
     postCreate: `${appBase}/post/create`,
 
