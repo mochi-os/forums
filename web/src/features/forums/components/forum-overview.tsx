@@ -1,18 +1,13 @@
-import { useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
-import { useQueryClient } from '@tanstack/react-query'
-import { LoadMoreTrigger, EmptyState, Button, toast } from '@mochi/common'
-import { FileEdit, Rss, Plus, Hash, Loader2 } from 'lucide-react'
-import { type Forum, type Post, type RecommendedForum } from '@/api/types/forums'
-import { forumsApi } from '@/api/forums'
-import { forumsKeys } from '@/hooks/use-forums-queries'
+import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, Button } from '@mochi/common'
+import { MessageSquare, FileEdit, PanelTop, Rows } from 'lucide-react'
+import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
-import { InlineForumSearch } from './inline-forum-search'
+import { PostCardRow } from './post-card-row'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 
 interface ForumOverviewProps {
   forum: Forum | null
-  forums?: Forum[]
   posts: Post[]
   server?: string
   onSelectPost: (forumId: string, postId: string) => void
@@ -24,147 +19,102 @@ interface ForumOverviewProps {
   }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
-  isLoading?: boolean
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
-  onOpenCreate?: () => void
-  subscribedIds?: Set<string>
-  recommendations?: RecommendedForum[]
-  isRecommendationsError?: boolean
+  isLoading?: boolean
 }
 
 export function ForumOverview({
   forum,
-  forums = [],
   posts,
   server,
   onSelectPost,
   onCreatePost,
   isCreatingPost = false,
   isPostCreated = false,
-  isLoading = false,
   hasNextPage = false,
   isFetchingNextPage = false,
   onLoadMore,
-  onOpenCreate,
-  subscribedIds = new Set(),
-  recommendations = [],
-  isRecommendationsError = false,
+  isLoading = false,
 }: ForumOverviewProps) {
-  const [pendingForumId, setPendingForumId] = useState<string | null>(null)
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-
-  const handleSubscribeRecommendation = async (forum: RecommendedForum) => {
-    setPendingForumId(forum.id)
-    try {
-      await forumsApi.subscribe(forum.id)
-      void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-      void navigate({ to: '/$forum', params: { forum: forum.id } })
-    } catch (error) {
-      toast.error('Failed to subscribe', {
-        description: error instanceof Error ? error.message : 'Unknown error',
-      })
-      setPendingForumId(null)
-    }
-  }
+  // View mode state
+  const [viewMode, setViewMode] = useLocalStorage<'card' | 'compact'>(
+    'forums-view-mode',
+    'card'
+  )
 
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
-      <div className='space-y-3'>
-        {isLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
+      <div className='space-y-4'>
+         {/* View Toggle */}
+         <div className='flex justify-end'>
+          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
+            <Button
+              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('card')}
+            >
+              <PanelTop className='size-4' />
+            </Button>
+            <Button
+              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('compact')}
+            >
+              <Rows className='size-4' />
+            </Button>
           </div>
-        ) : posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={post.forumName || 'Unknown'}
-              showForumBadge={true}
-              server={server}
-              onSelect={onSelectPost}
-              variant='card'
-            />
+        </div>
+
+        {isLoading ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <Card key={i}>
+              <CardContent className='p-4'>
+                <div className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <Skeleton className='h-5 w-1/3' />
+                    <Skeleton className='h-4 w-20' />
+                  </div>
+                  <Skeleton className='h-4 w-full' />
+                  <Skeleton className='h-4 w-2/3' />
+                </div>
+              </CardContent>
+            </Card>
           ))
-        ) : forums.length > 0 ? (
-          // Has forums but no posts
-          <div className="flex flex-col items-center justify-center p-8 text-center">
-            <Rss className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
-            <p className="text-muted-foreground text-sm">
-              No recent posts
-            </p>
+        ) : posts.length > 0 ? (
+          <div className='space-y-3'>
+            {posts.map((post) =>
+              viewMode === 'card' ? (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  forumName={post.forumName || 'Unknown'}
+                  showForumBadge={true}
+                  server={server}
+                  onSelect={onSelectPost}
+                  variant='card'
+                />
+              ) : (
+                <PostCardRow
+                  key={post.id}
+                  post={post}
+                  forumName={post.forumName || 'Unknown'}
+                  showForumBadge={true}
+                  onSelect={onSelectPost}
+                />
+              )
+            )}
           </div>
         ) : (
-          // No forums at all
-          <div className="flex flex-col items-center justify-center p-8 text-center">
-            <Rss className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
-            <p className="text-muted-foreground mb-1 text-sm font-medium">Forums</p>
-            <p className="text-muted-foreground mb-4 max-w-sm text-xs">
-              You have no forums yet.
-            </p>
-            <InlineForumSearch subscribedIds={subscribedIds} />
-            {onOpenCreate && (
-              <Button variant="outline" onClick={onOpenCreate} className="mt-4">
-                <Plus className="mr-2 h-4 w-4" />
-                Create a new forum
-              </Button>
-            )}
-
-            {/* Recommendations Section */}
-            {!isRecommendationsError && recommendations.filter((rec) => !subscribedIds.has(rec.id)).length > 0 && (
-              <>
-                <hr className="my-6 w-full max-w-md border-t" />
-                <div className="w-full max-w-md">
-                  <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
-                    Recommended forums
-                  </p>
-                  <div className="divide-border divide-y rounded-lg border text-left">
-                    {recommendations
-                      .filter((rec) => !subscribedIds.has(rec.id))
-                      .map((rec) => {
-                        const isPending = pendingForumId === rec.id
-
-                        return (
-                          <div
-                            key={rec.id}
-                            className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/50"
-                          >
-                            <div className="flex min-w-0 flex-1 items-center gap-3">
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
-                                <Hash className="h-4 w-4 text-blue-600" />
-                              </div>
-                              <div className="flex min-w-0 flex-1 flex-col">
-                                <span className="truncate text-sm font-medium">{rec.name}</span>
-                                {rec.blurb && (
-                                  <span className="text-muted-foreground truncate text-xs">
-                                    {rec.blurb}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSubscribeRecommendation(rec)}
-                              disabled={isPending}
-                            >
-                              {isPending ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                'Subscribe'
-                              )}
-                            </Button>
-                          </div>
-                        )
-                      })}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+          <EmptyState
+            icon={MessageSquare}
+            title="No posts yet"
+            description="Subscribe to forums or create your own to see posts"
+          />
         )}
       </div>
     )
@@ -173,18 +123,71 @@ export function ForumOverview({
   // Selected forum view
   return (
     <div className='space-y-6'>
-      {posts.length > 0 ? (
-        <>
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={forum.name}
-              showForumBadge={false}
-              server={server}
-              onSelect={onSelectPost}
-            />
+       {/* View Toggle */}
+       <div className='flex justify-end'>
+          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
+            <Button
+              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('card')}
+            >
+              <PanelTop className='size-4' />
+            </Button>
+            <Button
+              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('compact')}
+            >
+              <Rows className='size-4' />
+            </Button>
+          </div>
+        </div>
+
+      {isLoading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+             <div key={i} className="flex gap-4 p-4 border rounded-lg">
+                <div className="flex-col flex items-center gap-2">
+                   <Skeleton className="h-4 w-8" /> 
+                   <Skeleton className="h-4 w-8" />
+                </div>
+                 <div className="flex-1 space-y-2">
+                    <Skeleton className="h-5 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <div className="flex gap-2 pt-2">
+                       <Skeleton className="h-6 w-20" />
+                       <Skeleton className="h-6 w-20" />
+                    </div>
+                 </div>
+             </div>
           ))}
+        </div>
+      ) : posts.length > 0 ? (
+        <>
+          <div className='space-y-3'>
+            {posts.map((post) =>
+              viewMode === 'card' ? (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  forumName={forum.name}
+                  showForumBadge={false}
+                  server={server}
+                  onSelect={onSelectPost}
+                />
+              ) : (
+                <PostCardRow
+                  key={post.id}
+                  post={post}
+                  forumName={forum.name}
+                  showForumBadge={false}
+                  onSelect={onSelectPost}
+                />
+              )
+            )}
+          </div>
           {onLoadMore && (
             <LoadMoreTrigger
               hasMore={hasNextPage}

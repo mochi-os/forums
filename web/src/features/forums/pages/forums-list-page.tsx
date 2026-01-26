@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle } from '@mochi/common'
-import { Rss } from 'lucide-react'
+import { Main, usePageTitle, Button } from '@mochi/common'
+import { Search, Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
-  useForumRecommendations,
+  selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
@@ -28,35 +28,12 @@ export function ForumsListPage({
   }, [])
 
   const navigate = useNavigate()
-  const { openForumDialog } = useSidebarContext()
+  const { openSearchDialog } = useSidebarContext()
 
-  // Queries - use initialForums as fallback until query returns data
-  const { data: forumsData, isLoading, isFetching } = useForumsList()
-  const queryHasData = !!forumsData?.data
-  const forums = useMemo(() => {
-    // If query has returned data, use it (even if empty - that's the real state)
-    if (forumsData?.data?.forums) {
-      return forumsData.data.forums
-    }
-    // Otherwise use initialForums from loader as fallback
-    return _initialForums || []
-  }, [forumsData, _initialForums])
+  // Queries
+  const { data: forumsData, isLoading } = useForumsList()
+  const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
-  // Show loading state if we're fetching and don't have data yet
-  const showLoading = (isLoading || isFetching) && !queryHasData
-
-  // Recommendations query
-  const {
-    data: recommendationsData,
-    isError: isRecommendationsError,
-  } = useForumRecommendations()
-  const recommendations = recommendationsData?.data?.forums ?? []
-
-  // Set of subscribed forum IDs for inline search
-  const subscribedIds = useMemo(
-    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
-    [forums]
-  )
 
   const handlePostSelect = (forum: string, post: string) => {
     navigate({
@@ -79,27 +56,32 @@ export function ForumsListPage({
   return (
     <>
       <PageHeader
-        title="Forums"
+        title="All forums"
         icon={<Rss className='size-4 md:size-5' />}
+        searchBar={
+          <Button 
+            variant='outline' 
+            className='w-full justify-start'
+            onClick={openSearchDialog}
+          >
+            <Search className='mr-2 size-4' />
+            Search forums
+          </Button>
+        }
       />
       <Main fixed>
       <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
-          forums={forums}
           posts={postsToDisplay}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
           isCreatingPost={false}
           isPostCreated={false}
-          isLoading={showLoading}
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}
-          onOpenCreate={openForumDialog}
-          subscribedIds={subscribedIds}
-          recommendations={recommendations}
-          isRecommendationsError={isRecommendationsError}
+          isLoading={isLoading}
         />
       </div>
     </Main>

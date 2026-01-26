@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from '@tanstack/react-router'
-import { Main, Button, usePageTitle, toast, getErrorMessage } from '@mochi/common'
+import { useNavigate, useParams, Link } from '@tanstack/react-router'
+import { Main, Button, usePageTitle, toast, getErrorMessage, Skeleton, Card, CardContent } from '@mochi/common'
 import { ArrowLeft, Send, X } from 'lucide-react'
 import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -149,28 +149,82 @@ export function ThreadDetail({
 
   if (isLoading) {
     return (
-      <Main>
-        <div className='text-muted-foreground py-12 text-center'>
-          Loading post...
-        </div>
+      <Main className="space-y-4">
+        <Card className="shadow-md">
+          <CardContent className="p-6">
+            <div className='flex gap-4'>
+              {/* Vote buttons */}
+              <div className='flex flex-col items-center gap-1 pt-1'>
+                <Skeleton className='h-8 w-8 rounded-md' />
+                <Skeleton className='h-4 w-4' />
+                <Skeleton className='h-8 w-8 rounded-md' />
+              </div>
+              
+              <div className='flex-1 space-y-2'>
+                {/* Title */}
+                <Skeleton className='h-6 w-3/4' />
+                {/* Meta */}
+                <div className='flex items-center gap-2'>
+                  <Skeleton className='h-4 w-24' />
+                  <Skeleton className='h-4 w-4 rounded-full' />
+                  <Skeleton className='h-4 w-32' />
+                </div>
+                {/* Body */}
+                <div className='space-y-2 pt-2'>
+                  <Skeleton className='h-4 w-full' />
+                  <Skeleton className='h-4 w-full' />
+                  <Skeleton className='h-4 w-5/6' />
+                </div>
+              </div>
+            </div>
+            
+            {/* Divider */}
+            <div className='border-t pt-4 mt-6'>
+              {/* Comments Skeletons */}
+              <div className='space-y-6'>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className='flex gap-4'>
+                    <div className='flex flex-col items-center gap-1'>
+                      <Skeleton className='h-6 w-6 rounded-md' />
+                      <Skeleton className='h-8 w-px mx-auto' />
+                    </div>
+                    <div className='flex-1 space-y-2'>
+                      <div className='flex items-center gap-2'>
+                        <Skeleton className='h-4 w-24' />
+                        <Skeleton className='h-3 w-16' />
+                      </div>
+                      <Skeleton className='h-4 w-full' />
+                      <Skeleton className='h-4 w-2/3' />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </Main>
     )
   }
 
   if (isError || !postData?.data?.post) {
     return (
-      <Main fixed>
-        <div className='flex-1 overflow-y-auto'>
-          <Button
-            variant='ghost'
-            className='text-muted-foreground hover:text-foreground mb-6 h-auto px-0'
+      <Main className="space-y-4">
+        {/* Back link */}
+        <div className="-mt-1">
+          <button
             onClick={handleBack}
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            <ArrowLeft className='mr-2 size-4' />
+            <ArrowLeft className="size-4" />
             Back to forum
-          </Button>
-          <EmptyThreadState onBack={handleBack} />
+          </button>
         </div>
+
+        <Card className="shadow-md">
+          <CardContent className="py-12 text-center">
+            <EmptyThreadState onBack={handleBack} />
+          </CardContent>
+        </Card>
       </Main>
     )
   }
@@ -227,142 +281,155 @@ export function ThreadDetail({
   }
 
   return (
-    <Main fixed>
-      <div className='flex-1 overflow-y-auto'>
-        {/* Post Content with Voting */}
-        <div className='space-y-4'>
-          <ThreadContent
-            post={post}
-            attachments={post.attachments}
-            server={server}
-            onVote={(vote) => votePostMutation.mutate(vote)}
-            isVotePending={votePostMutation.isPending}
-            canVote={can_vote}
-            canReply={can_comment && !post.locked}
-            onReply={() => setShowReplyForm(true)}
-            canEdit={canEditPost}
-            onEdit={() => setEditPostDialogOpen(true)}
-            onDelete={() => deletePostMutation.mutate(postId)}
-            canModerate={can_moderate || isForumManager}
-            onRemove={() => removePostMutation.mutate(undefined)}
-            onRestore={() => restorePostMutation.mutate()}
-            onLock={() => lockPostMutation.mutate()}
-            onUnlock={() => unlockPostMutation.mutate()}
-            onPin={() => pinPostMutation.mutate()}
-            onUnpin={() => unpinPostMutation.mutate()}
-            onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
-            onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
-            onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
-          />
-
-          {/* Divider */}
-          <div className='border-border/60 mt-6 border-t pt-4'>
-            {/* Reply Form - shown above comments */}
-            {showReplyForm && (
-              <div className='mb-4 flex items-end gap-2'>
-                <textarea
-                                    value={commentBody}
-                  onChange={(e) => setCommentBody(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                      e.preventDefault()
-                      if (commentBody.trim()) {
-                        handleCommentSubmit()
-                      }
-                    } else if (e.key === 'Escape') {
-                      setShowReplyForm(false)
-                    }
-                  }}
-                  className='min-h-20 flex-1 resize-none rounded-md border px-3 py-2 text-sm'
-                  rows={3}
-                  autoFocus
-                  disabled={createCommentMutation.isPending}
-                />
-                <Button
-                  type='button'
-                  size='icon'
-                  variant='ghost'
-                  className='size-8'
-                  onClick={() => setShowReplyForm(false)}
-                  aria-label='Cancel reply'
-                  disabled={createCommentMutation.isPending}
-                >
-                  <X className='size-4' />
-                </Button>
-                <Button
-                  size='icon'
-                  className='size-8'
-                  disabled={
-                    !commentBody.trim() || createCommentMutation.isPending
-                  }
-                  onClick={handleCommentSubmit}
-                  aria-label='Submit reply'
-                >
-                  <Send className='size-4' />
-                </Button>
-              </div>
-            )}
-
-            {/* Comments List */}
-            {commentCount > 0 ? (
-              <div className='divide-y-0'>
-                {comments.map((comment) => (
-                  <ThreadComment
-                    key={comment.id}
-                    comment={comment}
-                    onVote={(commentId, vote) =>
-                      voteCommentMutation.mutate({ commentId, vote })
-                    }
-                    canVote={can_vote}
-                    votePendingId={
-                      voteCommentMutation.isPending
-                        ? (voteCommentMutation.variables?.commentId ?? null)
-                        : null
-                    }
-                    canReply={can_comment}
-                    onReply={(commentId) => {
-                      setReplyingToComment(commentId)
-                      setCommentReplyBody('')
-                    }}
-                    replyingToId={replyingToComment}
-                    replyValue={commentReplyBody}
-                    onReplyChange={setCommentReplyBody}
-                    onReplySubmit={handleCommentReplySubmit}
-                    onReplyCancel={() => setReplyingToComment(null)}
-                    isReplyPending={createCommentMutation.isPending}
-                    canEdit={canEditComment}
-                    onEdit={(commentId, body) =>
-                      editCommentMutation.mutate({ commentId, body })
-                    }
-                    onDelete={(commentId) =>
-                      deleteCommentMutation.mutate(commentId)
-                    }
-                    editPendingId={
-                      editCommentMutation.isPending
-                        ? (editCommentMutation.variables?.commentId ?? null)
-                        : null
-                    }
-                    canModerate={can_moderate || isForumManager}
-                    onRemove={(commentId) =>
-                      removeCommentMutation.mutate({ commentId })
-                    }
-                    onRestore={(commentId) =>
-                      restoreCommentMutation.mutate(commentId)
-                    }
-                    onApprove={(commentId) =>
-                      approveCommentMutation.mutate(commentId)
-                    }
-                    onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
-                    onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
-                    onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
-                    currentUserId={currentUserId}
-                  />
-                ))}
-              </div>
-            ) : null}
-          </div>
-        </div>
+    <Main className="space-y-4">
+      {/* Back link */}
+      <div className="-mt-1">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="size-4" />
+          {forumData?.name || 'Back to forum'}
+        </Link>
       </div>
+
+      {/* Single post */}
+      <Card className="shadow-md">
+        <CardContent className="p-6">
+          <div className='space-y-4'>
+            <ThreadContent
+              post={post}
+              attachments={post.attachments}
+              server={server}
+              onVote={(vote) => votePostMutation.mutate(vote)}
+              isVotePending={votePostMutation.isPending}
+              canVote={can_vote}
+              canReply={can_comment && !post.locked}
+              onReply={() => setShowReplyForm(true)}
+              canEdit={canEditPost}
+              onEdit={() => setEditPostDialogOpen(true)}
+              onDelete={() => deletePostMutation.mutate(postId)}
+              canModerate={can_moderate || isForumManager}
+              onRemove={() => removePostMutation.mutate(undefined)}
+              onRestore={() => restorePostMutation.mutate()}
+              onLock={() => lockPostMutation.mutate()}
+              onUnlock={() => unlockPostMutation.mutate()}
+              onPin={() => pinPostMutation.mutate()}
+              onUnpin={() => unpinPostMutation.mutate()}
+              onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
+              onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
+              onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
+            />
+
+            {/* Divider */}
+            <div className='border-border/60 mt-6 border-t pt-4'>
+              {/* Reply Form - shown above comments */}
+              {showReplyForm && (
+                <div className='mb-4 flex items-end gap-2'>
+                  <textarea
+                                      value={commentBody}
+                    onChange={(e) => setCommentBody(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                        e.preventDefault()
+                        if (commentBody.trim()) {
+                          handleCommentSubmit()
+                        }
+                      } else if (e.key === 'Escape') {
+                        setShowReplyForm(false)
+                      }
+                    }}
+                    className='min-h-20 flex-1 resize-none rounded-md border px-3 py-2 text-sm'
+                    rows={3}
+                    autoFocus
+                    disabled={createCommentMutation.isPending}
+                  />
+                  <Button
+                    type='button'
+                    size='icon'
+                    variant='ghost'
+                    className='size-8'
+                    onClick={() => setShowReplyForm(false)}
+                    aria-label='Cancel reply'
+                    disabled={createCommentMutation.isPending}
+                  >
+                    <X className='size-4' />
+                  </Button>
+                  <Button
+                    size='icon'
+                    className='size-8'
+                    disabled={
+                      !commentBody.trim() || createCommentMutation.isPending
+                    }
+                    onClick={handleCommentSubmit}
+                    aria-label='Submit reply'
+                  >
+                    <Send className='size-4' />
+                  </Button>
+                </div>
+              )}
+
+              {/* Comments List */}
+              {commentCount > 0 ? (
+                <div className='divide-y-0'>
+                  {comments.map((comment) => (
+                    <ThreadComment
+                      key={comment.id}
+                      comment={comment}
+                      onVote={(commentId, vote) =>
+                        voteCommentMutation.mutate({ commentId, vote })
+                      }
+                      canVote={can_vote}
+                      votePendingId={
+                        voteCommentMutation.isPending
+                          ? (voteCommentMutation.variables?.commentId ?? null)
+                          : null
+                      }
+                      canReply={can_comment}
+                      onReply={(commentId) => {
+                        setReplyingToComment(commentId)
+                        setCommentReplyBody('')
+                      }}
+                      replyingToId={replyingToComment}
+                      replyValue={commentReplyBody}
+                      onReplyChange={setCommentReplyBody}
+                      onReplySubmit={handleCommentReplySubmit}
+                      onReplyCancel={() => setReplyingToComment(null)}
+                      isReplyPending={createCommentMutation.isPending}
+                      canEdit={canEditComment}
+                      onEdit={(commentId, body) =>
+                        editCommentMutation.mutate({ commentId, body })
+                      }
+                      onDelete={(commentId) =>
+                        deleteCommentMutation.mutate(commentId)
+                      }
+                      editPendingId={
+                        editCommentMutation.isPending
+                          ? (editCommentMutation.variables?.commentId ?? null)
+                          : null
+                      }
+                      canModerate={can_moderate || isForumManager}
+                      onRemove={(commentId) =>
+                        removeCommentMutation.mutate({ commentId })
+                      }
+                      onRestore={(commentId) =>
+                        restoreCommentMutation.mutate(commentId)
+                      }
+                      onApprove={(commentId) =>
+                        approveCommentMutation.mutate(commentId)
+                      }
+                      onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
+                      onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
+                      onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
+                      currentUserId={currentUserId}
+                    />
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Edit Post Dialog */}
       <EditPostDialog

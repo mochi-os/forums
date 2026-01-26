@@ -28,6 +28,7 @@ import {
   Input,
   Switch,
   EmptyState,
+  Skeleton,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
@@ -181,11 +182,41 @@ function ForumSettingsPage() {
   if (isLoadingForums && !selectedForum) {
     return (
       <>
-        <PageHeader title="Settings" />
-        <Main>
-          <div className='flex items-center justify-center py-12'>
-            <Loader2 className='text-muted-foreground size-6 animate-spin' />
+        <PageHeader 
+          title={<Skeleton className='h-8 w-48' />} 
+          icon={<Skeleton className='size-4 md:size-5 rounded-md' />}
+        />
+        <Main className='space-y-6'>
+          {/* Tabs skeleton */}
+          <div className='flex gap-1 border-b'>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className='px-4 py-2'>
+                <Skeleton className='h-5 w-24' />
+              </div>
+            ))}
           </div>
+
+          {/* Content skeleton */}
+          <Card>
+            <CardHeader>
+              <Skeleton className='h-6 w-32 mb-2' />
+            </CardHeader>
+            <CardContent>
+              <div className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 items-center'>
+                 <Skeleton className='h-4 w-16' />
+                 <div className='flex items-center gap-2'>
+                    <Skeleton className='h-4 w-32' />
+                    <Skeleton className='h-6 w-6' />
+                 </div>
+                 
+                 <Skeleton className='h-4 w-16' />
+                 <Skeleton className='h-3 w-48' />
+                 
+                 <Skeleton className='h-4 w-24' />
+                 <Skeleton className='h-3 w-32' />
+              </div>
+            </CardContent>
+          </Card>
         </Main>
       </>
     )
@@ -449,7 +480,7 @@ function GeneralTab({
                   </p>
                 </div>
                 <Button
-                  variant='destructive'
+                  variant='outline'
                   onClick={() => setShowDeleteDialog(true)}
                   disabled={isDeleting}
                 >
@@ -672,8 +703,43 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-12'>
-        <Loader2 className='text-muted-foreground size-6 animate-spin' />
+      <div className='space-y-6'>
+        <Card>
+          <CardHeader>
+             <Skeleton className='h-6 w-32' />
+          </CardHeader>
+          <CardContent className='space-y-4'>
+            <Skeleton className='h-4 w-full' />
+            <div className='space-y-4 pt-2'>
+               {Array.from({ length: 3 }).map((_, i) => (
+                 <div key={i} className='flex items-center gap-3'>
+                    <Skeleton className='h-5 w-9 rounded-full' />
+                    <Skeleton className='h-4 w-48' />
+                 </div>
+               ))}
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+             <Skeleton className='h-6 w-32' />
+          </CardHeader>
+          <CardContent className='space-y-4'>
+             <Skeleton className='h-4 w-full' />
+             <div className='grid grid-cols-[auto_1fr] gap-x-4 gap-y-4 items-center pt-2'>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className='contents'>
+                     <Skeleton className='h-4 w-32' />
+                     <div className='flex items-center gap-2'>
+                        <Skeleton className='h-8 w-24 rounded-md' />
+                        {i === 2 && <Skeleton className='h-4 w-12' />}
+                     </div>
+                  </div>
+                ))}
+             </div>
+          </CardContent>
+        </Card>
       </div>
     )
   }

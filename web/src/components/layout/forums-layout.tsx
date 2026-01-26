@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react'
-import { useLocation, useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import {
   AuthenticatedLayout,
@@ -9,29 +8,28 @@ import {
   SearchEntityDialog,
 } from '@mochi/common'
 import {
-  Bookmark,
   FileText,
   Hash,
   MessageSquare,
   Plus,
-  Search,
   Settings,
   Gavel,
+  Search,
 } from 'lucide-react'
+import endpoints from '@/api/endpoints'
+import { forumsApi } from '@/api/forums'
 import type { Forum, Post } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
   useCreatePost,
+  useCreateForum,
   forumsKeys,
   selectPosts,
   useForumDetail,
-  useForumRecommendations,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
-import { forumsApi } from '@/api/forums'
-import endpoints from '@/api/endpoints'
 
 function ForumsLayoutInner() {
   const {
@@ -49,40 +47,24 @@ function ForumsLayoutInner() {
     closeSearchDialog,
   } = useSidebarContext()
 
-  const { data } = useForumsList()
+  const { data, isLoading } = useForumsList()
   // Fetch details for the current forum to populate sidebar with all its posts
   const { data: detailData } = useForumDetail(forum)
-  // Recommendations for the search dialog
-  const {
-    data: recommendationsData,
-    isLoading: isLoadingRecommendations,
-    isError: isRecommendationsError,
-  } = useForumRecommendations()
-  const recommendations = recommendationsData?.data?.forums ?? []
 
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
-  const bookmarks = useMemo(() => data?.data?.bookmarks ?? [], [data?.data?.bookmarks])
   const allPosts = useMemo(() => {
     const listPosts = selectPosts(data)
     const detailPosts = detailData?.data?.posts || []
-    
+
     // Merge posts ensuring uniqueness by ID
     const map = new Map<string, Post>()
     listPosts.forEach((p) => map.set(p.id, p))
     detailPosts.forEach((p) => map.set(p.id, p))
-    
+
     return Array.from(map.values())
   }, [data, detailData])
 
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  // Handle "All forums" click - navigate and refresh the list
-  const handleAllForumsClick = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-    navigate({ to: '/' })
-  }, [queryClient, navigate])
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
@@ -109,30 +91,38 @@ function ForumsLayoutInner() {
     [createPostMutation]
   )
 
-  // Set of subscribed and bookmarked forum IDs for search dialog
+  // Set of subscribed forum IDs for search dialog
   const subscribedForumIds = useMemo(
-    () => new Set([
-      ...forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x)),
-      ...bookmarks.flatMap((b: { id: string; fingerprint?: string }) => [b.id, b.fingerprint].filter((x): x is string => !!x)),
-    ]),
-    [forums, bookmarks]
+    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
+    [forums]
   )
 
   // Handle subscribe from search dialog
-  const handleSubscribe = useCallback(async (forumId: string, entity?: { location?: string }) => {
-    await forumsApi.subscribe(forumId, entity?.location || undefined)
-    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-    // Navigate to the forum to show its posts (fetched remotely)
-    void navigate({ to: '/$forum', params: { forum: forumId } })
-  }, [queryClient, navigate])
+  const handleSubscribe = useCallback(
+    async (forumId: string) => {
+      await forumsApi.subscribe(forumId)
+      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+    },
+    [queryClient]
+  )
 
-  // Handle bookmark from search dialog
-  const handleBookmark = useCallback(async (forumId: string, server?: string) => {
-    await forumsApi.addBookmark(forumId, server)
-    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-    // Navigate to the forum to show its posts
-    void navigate({ to: '/$forum', params: { forum: forumId } })
-  }, [queryClient, navigate])
+  // Create forum mutation
+  const createForumMutation = useCreateForum()
+
+  const handleCreateForum = useCallback(
+    (data: { name: string }) => {
+      createForumMutation.mutate(
+        { name: data.name },
+        {
+          onSuccess: () => {
+            closeForumDialog()
+            queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+          },
+        }
+      )
+    },
+    [createForumMutation, closeForumDialog, queryClient]
+  )
 
   // Build sidebar data
   const sidebarData: SidebarData = useMemo(() => {
@@ -151,9 +141,12 @@ function ForumsLayoutInner() {
       const forumPosts = allPosts.filter((p) => p.forum === f.id)
       const listedPostIds = new Set(forumPosts.map((p) => p.id))
 
+      // Build posts array
+      const postItems: { title: string; icon: typeof FileText; url: string }[] = []
+      
       // Add all known posts
       forumPosts.forEach((p) => {
-        subItems.push({
+        postItems.push({
           title: p.title,
           icon: FileText,
           url: `/${forumUrl}/${p.id}`,
@@ -161,22 +154,20 @@ function ForumsLayoutInner() {
       })
 
       // If current post is not in the list (e.g. loaded individually), add it
-      if (
-        isCurrentForum &&
-        postTitle &&
-        post &&
-        !listedPostIds.has(post)
-      ) {
-        subItems.push({
+      if (isCurrentForum && postTitle && post && !listedPostIds.has(post)) {
+        postItems.push({
           title: postTitle,
           icon: FileText,
           url: `/${forumUrl}/${post}`,
         })
       }
 
+      // Build manage items
+      const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
+      
       // Settings link for forum managers only
       if (isCurrentForum && f.can_manage) {
-        subItems.push({
+        manageItems.push({
           title: 'Settings',
           icon: Settings,
           url: `/${forumUrl}/settings`,
@@ -184,11 +175,27 @@ function ForumsLayoutInner() {
       }
       // Moderation link for managers and moderators
       if (isCurrentForum && (f.can_manage || f.can_moderate)) {
-        subItems.push({
+        manageItems.push({
           title: 'Moderation',
           icon: Gavel,
           url: `/${forumUrl}/moderation`,
         })
+      }
+
+      // Group posts under "Posts" section if there are any
+      if (postItems.length > 0) {
+        subItems.push({
+          title: 'Posts',
+          items: postItems,
+        } as NavSubItem)
+      }
+
+      // Group manage items under "Manage" section if there are any
+      if (manageItems.length > 0) {
+        subItems.push({
+          title: 'Manage',
+          items: manageItems,
+        } as NavSubItem)
       }
 
       // NavCollapsible when there are sub-items, NavLink otherwise
@@ -210,53 +217,49 @@ function ForumsLayoutInner() {
 
     const allForumsItem: NavItem = {
       title: 'All forums',
-      onClick: handleAllForumsClick,
+      url: '/',
       icon: MessageSquare,
-      isActive: location.pathname === '/',
     }
 
-    // Build bookmark items
-    const bookmarkItems = bookmarks.map((b: { id: string; name: string; fingerprint?: string }) => {
-      const forumUrl = b.fingerprint ?? b.id
-      return {
-        title: b.name,
-        url: `/${forumUrl}`,
-        icon: Bookmark,
-      }
-    })
-
-    // Build bottom items
-    const bottomItems: NavItem[] = [
+    // Build top action items
+    const topItems: NavItem[] = [
+      {
+        title: 'New forum',
+        icon: Plus,
+        onClick: openForumDialog,
+        variant: 'primary',
+      },
       { title: 'Find forums', icon: Search, onClick: openSearchDialog },
-      { title: 'Create forum', icon: Plus, onClick: openForumDialog },
     ]
 
     const groups: SidebarData['navGroups'] = [
       {
+        title: '',
+        items: topItems,
+      },
+      {
         title: 'Forums',
         items: [allForumsItem, ...forumItems],
-      },
-      ...(bookmarkItems.length > 0
-        ? [
-            {
-              title: 'Bookmarks',
-              items: bookmarkItems,
-            },
-          ]
-        : []),
-      {
-        title: '',
-        separator: true,
-        items: bottomItems,
       },
     ]
 
     return { navGroups: groups }
-  }, [forums, bookmarks, forum, post, postTitle, allPosts, handleAllForumsClick, openForumDialog, openSearchDialog, location.pathname])
+  }, [
+    forums,
+    forum,
+    post,
+    postTitle,
+    openForumDialog,
+    openSearchDialog,
+    allPosts,
+  ])
 
   return (
     <>
-      <AuthenticatedLayout sidebarData={sidebarData} />
+      <AuthenticatedLayout
+        sidebarData={sidebarData}
+        isLoadingSidebar={isLoading && forums.length === 0}
+      />
 
       {/* Create Post Dialog - controlled from sidebar */}
       {dialogForum && (
@@ -276,6 +279,7 @@ function ForumsLayoutInner() {
 
       {/* Create Forum Dialog - controlled from sidebar */}
       <CreateForumDialog
+        onCreate={handleCreateForum}
         open={forumDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeForumDialog()
@@ -290,18 +294,15 @@ function ForumsLayoutInner() {
           if (!open) closeSearchDialog()
         }}
         onSubscribe={handleSubscribe}
-        onBookmark={handleBookmark}
         subscribedIds={subscribedForumIds}
-        entityClass="forum"
+        entityClass='forum'
         searchEndpoint={endpoints.forums.search}
         icon={Hash}
-        iconClassName="bg-blue-500/10 text-blue-600"
-        title="Find forums"
-        placeholder="Search by name, ID, fingerprint, or URL..."
-        emptyMessage="No forums found"
-        recommendations={recommendations}
-        isLoadingRecommendations={isLoadingRecommendations}
-        isRecommendationsError={isRecommendationsError}
+        iconClassName='bg-blue-500/10 text-blue-600'
+        title='Search forums'
+        description='Search for public forums to subscribe to'
+        placeholder='Search by name, ID, fingerprint, or URL...'
+        emptyMessage='No forums found'
       />
     </>
   )
