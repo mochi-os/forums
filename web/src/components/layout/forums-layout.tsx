@@ -141,9 +141,12 @@ function ForumsLayoutInner() {
       const forumPosts = allPosts.filter((p) => p.forum === f.id)
       const listedPostIds = new Set(forumPosts.map((p) => p.id))
 
+      // Build posts array
+      const postItems: { title: string; icon: typeof FileText; url: string }[] = []
+      
       // Add all known posts
       forumPosts.forEach((p) => {
-        subItems.push({
+        postItems.push({
           title: p.title,
           icon: FileText,
           url: `/${forumUrl}/${p.id}`,
@@ -152,16 +155,19 @@ function ForumsLayoutInner() {
 
       // If current post is not in the list (e.g. loaded individually), add it
       if (isCurrentForum && postTitle && post && !listedPostIds.has(post)) {
-        subItems.push({
+        postItems.push({
           title: postTitle,
           icon: FileText,
           url: `/${forumUrl}/${post}`,
         })
       }
 
+      // Build manage items
+      const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
+      
       // Settings link for forum managers only
       if (isCurrentForum && f.can_manage) {
-        subItems.push({
+        manageItems.push({
           title: 'Settings',
           icon: Settings,
           url: `/${forumUrl}/settings`,
@@ -169,11 +175,27 @@ function ForumsLayoutInner() {
       }
       // Moderation link for managers and moderators
       if (isCurrentForum && (f.can_manage || f.can_moderate)) {
-        subItems.push({
+        manageItems.push({
           title: 'Moderation',
           icon: Gavel,
           url: `/${forumUrl}/moderation`,
         })
+      }
+
+      // Group posts under "Posts" section if there are any
+      if (postItems.length > 0) {
+        subItems.push({
+          title: 'Posts',
+          items: postItems,
+        } as NavSubItem)
+      }
+
+      // Group manage items under "Manage" section if there are any
+      if (manageItems.length > 0) {
+        subItems.push({
+          title: 'Manage',
+          items: manageItems,
+        } as NavSubItem)
       }
 
       // NavCollapsible when there are sub-items, NavLink otherwise

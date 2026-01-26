@@ -1,8 +1,10 @@
-import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent } from '@mochi/common'
-import { MessageSquare, FileEdit } from 'lucide-react'
+import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, Button } from '@mochi/common'
+import { MessageSquare, FileEdit, PanelTop, Rows } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
+import { PostCardRow } from './post-card-row'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 
 interface ForumOverviewProps {
   forum: Forum | null
@@ -36,10 +38,38 @@ export function ForumOverview({
   onLoadMore,
   isLoading = false,
 }: ForumOverviewProps) {
+  // View mode state
+  const [viewMode, setViewMode] = useLocalStorage<'card' | 'compact'>(
+    'forums-view-mode',
+    'card'
+  )
+
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
-      <div className='space-y-3'>
+      <div className='space-y-4'>
+         {/* View Toggle */}
+         <div className='flex justify-end'>
+          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
+            <Button
+              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('card')}
+            >
+              <PanelTop className='size-4' />
+            </Button>
+            <Button
+              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('compact')}
+            >
+              <Rows className='size-4' />
+            </Button>
+          </div>
+        </div>
+
         {isLoading ? (
           Array.from({ length: 3 }).map((_, i) => (
             <Card key={i}>
@@ -56,17 +86,29 @@ export function ForumOverview({
             </Card>
           ))
         ) : posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={post.forumName || 'Unknown'}
-              showForumBadge={true}
-              server={server}
-              onSelect={onSelectPost}
-              variant='card'
-            />
-          ))
+          <div className='space-y-3'>
+            {posts.map((post) =>
+              viewMode === 'card' ? (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  forumName={post.forumName || 'Unknown'}
+                  showForumBadge={true}
+                  server={server}
+                  onSelect={onSelectPost}
+                  variant='card'
+                />
+              ) : (
+                <PostCardRow
+                  key={post.id}
+                  post={post}
+                  forumName={post.forumName || 'Unknown'}
+                  showForumBadge={true}
+                  onSelect={onSelectPost}
+                />
+              )
+            )}
+          </div>
         ) : (
           <EmptyState
             icon={MessageSquare}
@@ -81,6 +123,28 @@ export function ForumOverview({
   // Selected forum view
   return (
     <div className='space-y-6'>
+       {/* View Toggle */}
+       <div className='flex justify-end'>
+          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
+            <Button
+              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('card')}
+            >
+              <PanelTop className='size-4' />
+            </Button>
+            <Button
+              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
+              size='sm'
+              className='h-7 px-2'
+              onClick={() => setViewMode('compact')}
+            >
+              <Rows className='size-4' />
+            </Button>
+          </div>
+        </div>
+
       {isLoading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -102,16 +166,28 @@ export function ForumOverview({
         </div>
       ) : posts.length > 0 ? (
         <>
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              forumName={forum.name}
-              showForumBadge={false}
-              server={server}
-              onSelect={onSelectPost}
-            />
-          ))}
+          <div className='space-y-3'>
+            {posts.map((post) =>
+              viewMode === 'card' ? (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  forumName={forum.name}
+                  showForumBadge={false}
+                  server={server}
+                  onSelect={onSelectPost}
+                />
+              ) : (
+                <PostCardRow
+                  key={post.id}
+                  post={post}
+                  forumName={forum.name}
+                  showForumBadge={false}
+                  onSelect={onSelectPost}
+                />
+              )
+            )}
+          </div>
           {onLoadMore && (
             <LoadMoreTrigger
               hasMore={hasNextPage}
