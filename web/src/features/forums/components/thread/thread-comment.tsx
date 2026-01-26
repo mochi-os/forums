@@ -70,7 +70,6 @@ interface ThreadCommentProps {
   onDelete?: (commentId: string) => void
   editPendingId?: string | null
   depth?: number
-  isLastChild?: boolean
   // Moderation
   canModerate?: boolean
   onRemove?: (commentId: string) => void
@@ -100,7 +99,6 @@ export function ThreadComment({
   onDelete,
   editPendingId = null,
   depth = 0,
-  isLastChild = true,
   canModerate = false,
   onRemove,
   onRestore,
@@ -157,7 +155,7 @@ export function ThreadComment({
   const totalDescendants = getTotalReplyCount(comment)
 
   const avatar = (
-    <div className='bg-primary text-primary-foreground flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold'>
+    <div className='bg-primary text-primary-foreground z-10 flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold'>
       {comment.name.charAt(0).toUpperCase()}
     </div>
   )
@@ -233,10 +231,12 @@ export function ThreadComment({
           </div>
         </div>
       ) : (
-        <p className={cn(
-          'text-foreground text-sm leading-relaxed whitespace-pre-wrap',
-          isRemoved && 'opacity-60'
-        )}>
+        <p
+          className={cn(
+            'text-foreground text-sm leading-relaxed whitespace-pre-wrap',
+            isRemoved && 'opacity-60'
+          )}
+        >
           {comment.body}
         </p>
       )}
@@ -260,7 +260,7 @@ export function ThreadComment({
             </span>
           )}
           {/* Action buttons - visible on hover only */}
-          <div className='comment-actions flex items-center gap-1 opacity-0 transition-opacity pointer-events-none group-hover/row:opacity-100 group-hover/row:pointer-events-auto'>
+          <div className='comment-actions pointer-events-none flex items-center gap-1 opacity-0 transition-opacity group-hover/row:pointer-events-auto group-hover/row:opacity-100'>
             {canVote && (
               <>
                 <button
@@ -290,9 +290,7 @@ export function ThreadComment({
                         }
                       : undefined
                   }
-                  onClick={() =>
-                    handleVote(localVote === 'down' ? '' : 'down')
-                  }
+                  onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
                 >
                   <ThumbsDown className='size-3' />
                   <span>Downvote</span>
@@ -322,10 +320,12 @@ export function ThreadComment({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='start'>
                   {commentCanEdit && onEdit && (
-                    <DropdownMenuItem onClick={() => {
-                      setEditing(comment.id)
-                      setEditBody(comment.body)
-                    }}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setEditing(comment.id)
+                        setEditBody(comment.body)
+                      }}
+                    >
                       <Pencil className='mr-2 size-4' />
                       Edit
                     </DropdownMenuItem>
@@ -336,7 +336,11 @@ export function ThreadComment({
                       Delete
                     </DropdownMenuItem>
                   )}
-                  {commentCanEdit && (canModerate || (onReport && currentUserId !== comment.member)) && <DropdownMenuSeparator />}
+                  {commentCanEdit &&
+                    (canModerate ||
+                      (onReport && currentUserId !== comment.member)) && (
+                      <DropdownMenuSeparator />
+                    )}
                   {canModerate && (
                     <>
                       {isPending && onApprove && (
@@ -347,7 +351,9 @@ export function ThreadComment({
                       )}
                       {isRemoved
                         ? onRestore && (
-                            <DropdownMenuItem onClick={() => onRestore(comment.id)}>
+                            <DropdownMenuItem
+                              onClick={() => onRestore(comment.id)}
+                            >
                               <Eye className='mr-2 size-4' />
                               Restore
                             </DropdownMenuItem>
@@ -366,15 +372,21 @@ export function ThreadComment({
                       Report
                     </DropdownMenuItem>
                   )}
-                  {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+                  {canModerate && (onMuteAuthor || onBanAuthor) && (
+                    <DropdownMenuSeparator />
+                  )}
                   {canModerate && onMuteAuthor && (
-                    <DropdownMenuItem onClick={() => onMuteAuthor(comment.member)}>
+                    <DropdownMenuItem
+                      onClick={() => onMuteAuthor(comment.member)}
+                    >
                       <VolumeX className='mr-2 size-4' />
                       Mute author
                     </DropdownMenuItem>
                   )}
                   {canModerate && onBanAuthor && (
-                    <DropdownMenuItem onClick={() => onBanAuthor(comment.member)}>
+                    <DropdownMenuItem
+                      onClick={() => onBanAuthor(comment.member)}
+                    >
                       <Ban className='mr-2 size-4' />
                       Ban author
                     </DropdownMenuItem>
@@ -461,7 +473,7 @@ export function ThreadComment({
 
   const children = hasReplies ? (
     <>
-      {comment.children.map((reply, index) => (
+      {comment.children.map((reply) => (
         <ThreadComment
           key={reply.id}
           comment={reply}
@@ -481,7 +493,6 @@ export function ThreadComment({
           onDelete={onDelete}
           editPendingId={editPendingId}
           depth={depth + 1}
-          isLastChild={index === comment.children.length - 1}
           canModerate={canModerate}
           onRemove={onRemove}
           onRestore={onRestore}
@@ -498,7 +509,6 @@ export function ThreadComment({
   return (
     <CommentTreeLayout
       depth={depth}
-      isLastChild={isLastChild}
       isCollapsed={collapsed}
       onToggleCollapse={() => setCollapsed(!collapsed)}
       hasChildren={hasReplies}
