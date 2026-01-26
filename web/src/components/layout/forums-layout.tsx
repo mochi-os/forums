@@ -14,7 +14,10 @@ import {
   Plus,
   Settings,
   Gavel,
+  Search,
 } from 'lucide-react'
+import endpoints from '@/api/endpoints'
+import { forumsApi } from '@/api/forums'
 import type { Forum, Post } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -27,8 +30,6 @@ import {
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
-import { forumsApi } from '@/api/forums'
-import endpoints from '@/api/endpoints'
 
 function ForumsLayoutInner() {
   const {
@@ -54,12 +55,12 @@ function ForumsLayoutInner() {
   const allPosts = useMemo(() => {
     const listPosts = selectPosts(data)
     const detailPosts = detailData?.data?.posts || []
-    
+
     // Merge posts ensuring uniqueness by ID
     const map = new Map<string, Post>()
     listPosts.forEach((p) => map.set(p.id, p))
     detailPosts.forEach((p) => map.set(p.id, p))
-    
+
     return Array.from(map.values())
   }, [data, detailData])
 
@@ -97,10 +98,13 @@ function ForumsLayoutInner() {
   )
 
   // Handle subscribe from search dialog
-  const handleSubscribe = useCallback(async (forumId: string) => {
-    await forumsApi.subscribe(forumId)
-    queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-  }, [queryClient])
+  const handleSubscribe = useCallback(
+    async (forumId: string) => {
+      await forumsApi.subscribe(forumId)
+      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+    },
+    [queryClient]
+  )
 
   // Create forum mutation
   const createForumMutation = useCreateForum()
@@ -147,12 +151,7 @@ function ForumsLayoutInner() {
       })
 
       // If current post is not in the list (e.g. loaded individually), add it
-      if (
-        isCurrentForum &&
-        postTitle &&
-        post &&
-        !listedPostIds.has(post)
-      ) {
+      if (isCurrentForum && postTitle && post && !listedPostIds.has(post)) {
         subItems.push({
           title: postTitle,
           icon: FileText,
@@ -200,29 +199,45 @@ function ForumsLayoutInner() {
       icon: MessageSquare,
     }
 
-    // Build bottom items
-    const bottomItems: NavItem[] = [
-      { title: 'New forum', icon: Plus, onClick: openForumDialog, variant: 'primary' },
+    // Build top action items
+    const topItems: NavItem[] = [
+      {
+        title: 'New forum',
+        icon: Plus,
+        onClick: openForumDialog,
+        variant: 'primary',
+      },
+      { title: 'Find forums', icon: Search, onClick: openSearchDialog },
     ]
 
     const groups: SidebarData['navGroups'] = [
       {
-        title: 'Forums',
-        items: [allForumsItem, ...forumItems],
+        title: '',
+        items: topItems,
       },
       {
-        title: '',
-        separator: true,
-        items: bottomItems,
+        title: 'Forums',
+        items: [allForumsItem, ...forumItems],
       },
     ]
 
     return { navGroups: groups }
-  }, [forums, forum, post, postTitle, openForumDialog, openSearchDialog, allPosts])
+  }, [
+    forums,
+    forum,
+    post,
+    postTitle,
+    openForumDialog,
+    openSearchDialog,
+    allPosts,
+  ])
 
   return (
     <>
-      <AuthenticatedLayout sidebarData={sidebarData} isLoadingSidebar={isLoading && forums.length === 0} />
+      <AuthenticatedLayout
+        sidebarData={sidebarData}
+        isLoadingSidebar={isLoading && forums.length === 0}
+      />
 
       {/* Create Post Dialog - controlled from sidebar */}
       {dialogForum && (
@@ -258,14 +273,14 @@ function ForumsLayoutInner() {
         }}
         onSubscribe={handleSubscribe}
         subscribedIds={subscribedForumIds}
-        entityClass="forum"
+        entityClass='forum'
         searchEndpoint={endpoints.forums.search}
         icon={Hash}
-        iconClassName="bg-blue-500/10 text-blue-600"
-        title="Search forums"
-        description="Search for public forums to subscribe to"
-        placeholder="Search by name, ID, fingerprint, or URL..."
-        emptyMessage="No forums found"
+        iconClassName='bg-blue-500/10 text-blue-600'
+        title='Search forums'
+        description='Search for public forums to subscribe to'
+        placeholder='Search by name, ID, fingerprint, or URL...'
+        emptyMessage='No forums found'
       />
     </>
   )

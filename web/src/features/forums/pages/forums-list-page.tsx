@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, Button, useScreenSize } from '@mochi/common'
-import { Plus, Search, Rss } from 'lucide-react'
+import { Main, usePageTitle, Button } from '@mochi/common'
+import { Search, Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -28,8 +28,7 @@ export function ForumsListPage({
   }, [])
 
   const navigate = useNavigate()
-  const { openForumDialog, openSearchDialog } = useSidebarContext()
-  const { isMobile } = useScreenSize()
+  const { openSearchDialog } = useSidebarContext()
 
   // Queries
   const { data: forumsData, isLoading } = useForumsList()
@@ -68,20 +67,6 @@ export function ForumsListPage({
             <Search className='mr-2 size-4' />
             Search forums
           </Button>
-        }
-        actions={
-          <>
-            {!isMobile && (
-              <Button variant='outline' onClick={openSearchDialog}>
-                <Search className='mr-2 size-4' />
-                Find forums
-              </Button>
-            )}
-            <Button onClick={openForumDialog}>
-              <Plus className='mr-2 size-4' />
-              New forum
-            </Button>
-          </>
         }
       />
       <Main fixed>
