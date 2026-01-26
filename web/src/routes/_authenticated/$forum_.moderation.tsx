@@ -12,6 +12,7 @@ import {
   toast,
   usePageTitle,
   EmptyState,
+  Skeleton,
 } from '@mochi/common'
 import {
   Loader2,
@@ -283,12 +284,25 @@ function QueueTab({ forumId }: QueueTabProps) {
 
   if (isLoading) {
     return (
-      <div className='py-12'>
-        <EmptyState
-          icon={Loader2}
-          title="Loading moderation queue..."
-          className="animate-pulse opacity-70"
-        />
+      <div className='space-y-6'>
+         <section> 
+           <Skeleton className='h-5 w-32 mb-3' />
+           <div className='divide-y rounded-lg border'>
+             {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className='flex gap-4 p-4'>
+                   <Skeleton className='h-4 w-4 rounded-sm mt-0.5' />
+                   <div className='flex-1 space-y-2'>
+                      <div className='flex justify-between'>
+                         <Skeleton className='h-5 w-48' />
+                         <Skeleton className='h-4 w-24' />
+                      </div>
+                      <Skeleton className='h-4 w-full' />
+                      <Skeleton className='h-4 w-3/4' />
+                   </div>
+                </div>
+             ))}
+           </div>
+         </section>
       </div>
     )
   }
@@ -504,12 +518,40 @@ function ReportsTab({ forumId }: ReportsTabProps) {
 
   if (isLoading) {
     return (
-      <div className='py-12'>
-        <EmptyState
-          icon={Loader2}
-          title="Loading reports..."
-          className="animate-pulse opacity-70"
-        />
+      <div className='space-y-4'>
+         {/* Filter skeleton */}
+         <div className='flex gap-2'>
+            <Skeleton className='h-8 w-16' />
+            <Skeleton className='h-8 w-20' />
+            <Skeleton className='h-8 w-12' />
+         </div>
+         
+         <Card>
+            <CardContent className='divide-y pt-4'>
+               {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className='py-4'>
+                     <div className='flex justify-between gap-4'> 
+                        <div className='flex-1 space-y-3'>
+                           <div className='flex items-center gap-2'>
+                              <Skeleton className='h-5 w-16 rounded-full' />
+                              <Skeleton className='h-4 w-24' />
+                              <Skeleton className='h-4 w-32' />
+                           </div>
+                           <div className='bg-muted/50 rounded-md p-3 space-y-2'>
+                              <Skeleton className='h-5 w-48' />
+                              <Skeleton className='h-4 w-full' />
+                           </div>
+                           <Skeleton className='h-4 w-32' />
+                        </div>
+                        <div className='flex gap-2'>
+                            <Skeleton className='h-8 w-16' />
+                            <Skeleton className='h-8 w-16' />
+                        </div>
+                     </div>
+                  </div>
+               ))}
+            </CardContent>
+         </Card>
       </div>
     )
   }
@@ -673,13 +715,20 @@ function LogTab({ forumId }: LogTabProps) {
 
   if (isLoading) {
     return (
-      <div className='py-12'>
-        <EmptyState
-          icon={Loader2}
-          title="Loading moderation log..."
-          className="animate-pulse opacity-70"
-        />
-      </div>
+      <Card>
+         <CardContent className='divide-y pt-4'>
+            {Array.from({ length: 5 }).map((_, i) => (
+               <div key={i} className='py-3 space-y-1'>
+                  <div className='flex items-center gap-2'>
+                     <Skeleton className='h-4 w-32' />
+                     <Skeleton className='h-4 w-24' />
+                     <Skeleton className='h-4 w-32' />
+                  </div>
+                  <Skeleton className='h-3 w-48' />
+               </div>
+            ))}
+         </CardContent>
+      </Card>
     )
   }
 
@@ -766,13 +815,22 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
 
   if (isLoading) {
     return (
-      <div className='py-12'>
-        <EmptyState
-          icon={Loader2}
-          title="Loading restrictions..."
-          className="animate-pulse opacity-70"
-        />
-      </div>
+      <Card>
+         <CardContent className='divide-y pt-4'>
+            {Array.from({ length: 3 }).map((_, i) => (
+               <div key={i} className='flex justify-between items-center py-3'>
+                  <div className='flex items-center gap-2'>
+                      <Skeleton className='h-8 w-8 rounded-full' />
+                      <div className='space-y-1'>
+                         <Skeleton className='h-4 w-32' />
+                         <Skeleton className='h-3 w-24' />
+                      </div>
+                  </div>
+                  <Skeleton className='h-8 w-24' />
+               </div>
+            ))}
+         </CardContent>
+      </Card>
     )
   }
 
