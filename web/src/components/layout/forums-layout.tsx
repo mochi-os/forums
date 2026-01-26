@@ -23,7 +23,6 @@ import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
   useCreatePost,
-  useCreateForum,
   forumsKeys,
   selectPosts,
   useForumDetail,
@@ -106,23 +105,6 @@ function ForumsLayoutInner() {
     [queryClient]
   )
 
-  // Create forum mutation
-  const createForumMutation = useCreateForum()
-
-  const handleCreateForum = useCallback(
-    (data: { name: string }) => {
-      createForumMutation.mutate(
-        { name: data.name },
-        {
-          onSuccess: () => {
-            closeForumDialog()
-            queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-          },
-        }
-      )
-    },
-    [createForumMutation, closeForumDialog, queryClient]
-  )
 
   // Build sidebar data
   const sidebarData: SidebarData = useMemo(() => {
@@ -279,7 +261,6 @@ function ForumsLayoutInner() {
 
       {/* Create Forum Dialog - controlled from sidebar */}
       <CreateForumDialog
-        onCreate={handleCreateForum}
         open={forumDialogOpen}
         onOpenChange={(open) => {
           if (!open) closeForumDialog()

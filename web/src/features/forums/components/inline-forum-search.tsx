@@ -53,7 +53,7 @@ export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
   const handleSubscribe = async (forum: DirectoryEntry) => {
     setPendingForumId(forum.id)
     try {
-      await forumsApi.subscribe(forum.id)
+      await forumsApi.subscribe(forum.id, forum.location || undefined)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {

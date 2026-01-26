@@ -73,7 +73,7 @@ export function EntityForumPage({
 
   // Register subscribe/unsubscribe handlers with sidebar
   useEffect(() => {
-    subscribeHandler.current = () => subscribeMutation.mutate(forum.id)
+    subscribeHandler.current = () => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })
     unsubscribeHandler.current = () => unsubscribeMutation.mutate(forum.id)
 
     // Update subscription state for sidebar
@@ -130,7 +130,7 @@ export function EntityForumPage({
             )}
             {isRemoteForum && !isSubscribed && (
               <Button
-                onClick={() => subscribeMutation.mutate(forum.id)}
+                onClick={() => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })}
                 disabled={subscribeMutation.isPending}
               >
                 {subscribeMutation.isPending ? (
@@ -183,7 +183,7 @@ export function EntityForumPage({
             description="You might need to subscribe to access this forum"
           >
             <Button
-              onClick={() => subscribeMutation.mutate(forum.id)}
+              onClick={() => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })}
               disabled={subscribeMutation.isPending}
             >
               {subscribeMutation.isPending
