@@ -19,8 +19,6 @@ ROLE_TO_ACCESS = {
 
 # Create database
 def database_create():
-    mochi.db.execute("create table if not exists settings ( name text not null primary key, value text not null )")
-
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
         server text not null default '',
@@ -154,6 +152,10 @@ def database_upgrade(to_version):
         # Add bookmarks table for following external forums without subscribing
         mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
         mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
+
+    if to_version == 11:
+        # Remove unused settings table (schema version is tracked by the platform)
+        mochi.db.execute("drop table if exists settings")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
