@@ -11,10 +11,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
   PageHeader,
   Main,
   cn,
@@ -29,6 +25,9 @@ import {
   Switch,
   EmptyState,
   Skeleton,
+  Section,
+  FieldRow,
+  DataChip,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
@@ -109,7 +108,7 @@ function ForumSettingsPage() {
     () => forums.find((f) => f.id === forumId || f.fingerprint === forumId) ?? null,
     [forums, forumId]
   )
-  // Cast to ForumData with required fields
+  
   const selectedForum: ForumData | null = forum
     ? {
         id: forum.id,
@@ -187,36 +186,8 @@ function ForumSettingsPage() {
           icon={<Skeleton className='size-4 md:size-5 rounded-md' />}
         />
         <Main className='space-y-6'>
-          {/* Tabs skeleton */}
-          <div className='flex gap-1 border-b'>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className='px-4 py-2'>
-                <Skeleton className='h-5 w-24' />
-              </div>
-            ))}
-          </div>
-
-          {/* Content skeleton */}
-          <Card>
-            <CardHeader>
-              <Skeleton className='h-6 w-32 mb-2' />
-            </CardHeader>
-            <CardContent>
-              <div className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 items-center'>
-                 <Skeleton className='h-4 w-16' />
-                 <div className='flex items-center gap-2'>
-                    <Skeleton className='h-4 w-32' />
-                    <Skeleton className='h-6 w-6' />
-                 </div>
-                 
-                 <Skeleton className='h-4 w-16' />
-                 <Skeleton className='h-3 w-48' />
-                 
-                 <Skeleton className='h-4 w-24' />
-                 <Skeleton className='h-3 w-32' />
-              </div>
-            </CardContent>
-          </Card>
+          <Skeleton className='h-12 w-full rounded-md' />
+          <Skeleton className='h-64 w-full rounded-xl' />
         </Main>
       </>
     )
@@ -359,15 +330,14 @@ function GeneralTab({
 
   return (
     <div className='space-y-6'>
-      <Card>
-        <CardHeader>
-          <CardTitle>Identity</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 items-center'>
-            <span className='text-muted-foreground'>Name:</span>
+      <Section
+        title="Identity"
+        description="Core information about this forum"
+      >
+        <div className="divide-y-0">
+          <FieldRow label="Name">
             {forum.can_manage && isEditing ? (
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col gap-1 w-full max-w-md'>
                 <div className='flex items-center gap-2'>
                   <Input
                     value={editName}
@@ -379,7 +349,7 @@ function GeneralTab({
                       if (e.key === 'Enter') void handleSaveEdit()
                       if (e.key === 'Escape') handleCancelEdit()
                     }}
-                    className='h-8'
+                    className='h-9'
                     disabled={isRenaming}
                     autoFocus
                   />
@@ -388,12 +358,12 @@ function GeneralTab({
                     variant='ghost'
                     onClick={() => void handleSaveEdit()}
                     disabled={isRenaming}
-                    className='h-8 w-8 p-0'
+                    className='h-9 w-9 p-0'
                   >
                     {isRenaming ? (
                       <Loader2 className='size-4 animate-spin' />
                     ) : (
-                      <Check className='size-4' />
+                      <Check className='size-4 text-green-600' />
                     )}
                   </Button>
                   <Button
@@ -401,9 +371,9 @@ function GeneralTab({
                     variant='ghost'
                     onClick={handleCancelEdit}
                     disabled={isRenaming}
-                    className='h-8 w-8 p-0'
+                    className='h-9 w-9 p-0'
                   >
-                    <X className='size-4' />
+                    <X className='size-4 text-destructive' />
                   </Button>
                 </div>
                 {nameError && (
@@ -412,57 +382,56 @@ function GeneralTab({
               </div>
             ) : (
               <div className='flex items-center gap-2'>
-                <span>{forum.name}</span>
+                <span className="text-base font-semibold">{forum.name}</span>
                 {forum.can_manage && (
                   <Button
                     size='sm'
                     variant='ghost'
                     onClick={handleStartEdit}
-                    className='h-6 w-6 p-0'
+                    className='h-6 w-6 p-0 hover:bg-muted'
                   >
-                    <Pencil className='size-3' />
+                    <Pencil className='size-3.5 text-muted-foreground' />
                   </Button>
                 )}
               </div>
             )}
+          </FieldRow>
 
-            <span className='text-muted-foreground'>Entity:</span>
-            <span className='font-mono text-xs break-all'>{forum.id}</span>
+          <FieldRow label="Entity ID">
+            <DataChip value={forum.id} />
+          </FieldRow>
 
-            {forum.fingerprint && (
-              <>
-                <span className='text-muted-foreground'>Fingerprint:</span>
-                <span className='font-mono text-xs break-all'>
-                  {forum.fingerprint.match(/.{1,3}/g)?.join('-')}
-                </span>
-              </>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+          {forum.fingerprint && (
+            <FieldRow label="Fingerprint">
+              <DataChip value={forum.fingerprint} />
+            </FieldRow>
+          )}
+        </div>
+      </Section>
 
       {(canUnsubscribe || forum.can_manage) && (
-        <Card>
-          <CardContent className='space-y-4 pt-6'>
+        <Section
+          title="Danger Zone"
+          description="Irreversible actions for this forum"
+          className="border-destructive/20"
+        >
+          <div className='space-y-6 py-2'>
             {canUnsubscribe && (
               <div className='flex items-center justify-between'>
-                <div>
+                <div className="space-y-0.5">
                   <p className='font-medium'>Unsubscribe from forum</p>
                   <p className='text-muted-foreground text-sm'>
-                    Remove this forum from your sidebar. You can resubscribe
-                    later.
+                    Remove this forum from your sidebar.
                   </p>
                 </div>
                 <Button
                   variant='warning'
                   onClick={onUnsubscribe}
                   disabled={isUnsubscribing}
+                  size="sm"
                 >
                   {isUnsubscribing ? (
-                    <>
-                      <Loader2 className='mr-2 size-4 animate-spin' />
-                      Unsubscribing...
-                    </>
+                    <Loader2 className='mr-2 size-4 animate-spin' />
                   ) : (
                     'Unsubscribe'
                   )}
@@ -472,25 +441,25 @@ function GeneralTab({
 
             {forum.can_manage && (
               <div className='flex items-center justify-between'>
-                <div>
-                  <p className='font-medium'>Delete forum</p>
+                <div className="space-y-0.5">
+                  <p className='font-medium text-destructive'>Delete forum</p>
                   <p className='text-muted-foreground text-sm'>
-                    Permanently delete this forum and all its posts. This cannot
-                    be undone.
+                    Permanently delete this forum and all its content.
                   </p>
                 </div>
                 <Button
-                  variant='outline'
+                  variant='destructive'
                   onClick={() => setShowDeleteDialog(true)}
                   disabled={isDeleting}
+                  size="sm"
                 >
-                  <Trash2 className='size-4' />
-                  Delete forum
+                  <Trash2 className='size-4 mr-2' />
+                  Delete
                 </Button>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </Section>
       )}
 
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
@@ -504,7 +473,7 @@ function GeneralTab({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction variant='destructive' onClick={onDelete}>Delete</AlertDialogAction>
+            <AlertDialogAction variant='destructive' onClick={onDelete}>Delete Forum</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -542,7 +511,6 @@ function AccessTab({ forumId }: AccessTabProps) {
     setError(null)
     try {
       const response = await forumsApi.getAccess({ forum: forumId })
-      // Transform backend response to AccessRule format
       const accessList = response.data?.access ?? []
       const transformedRules: AccessRule[] = accessList
         .filter((item) => item.level !== null || item.isOwner)
@@ -582,7 +550,7 @@ function AccessTab({ forumId }: AccessTabProps) {
       void loadRules()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to set access level'))
-      throw error // Re-throw so the dialog knows it failed
+      throw error
     }
   }
 
@@ -611,13 +579,15 @@ function AccessTab({ forumId }: AccessTabProps) {
   }
 
   return (
-    <Card>
-      <CardContent className='space-y-4 pt-6'>
-        {/* Add access button - right aligned */}
+    <Section
+      title="Access Management"
+      description="Control who can view and interact with this forum"
+    >
+      <div className='space-y-4'>
         <div className='flex justify-end'>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} size="sm">
             <Plus className='mr-2 h-4 w-4' />
-            Add
+            Add Rule
           </Button>
         </div>
 
@@ -641,8 +611,8 @@ function AccessTab({ forumId }: AccessTabProps) {
           isLoading={isLoading}
           error={error}
         />
-      </CardContent>
-    </Card>
+      </div>
+    </Section>
   )
 }
 
@@ -680,7 +650,6 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     void loadSettings()
   }, [loadSettings])
 
-  // Auto-save settings when they change
   const saveSettings = useCallback(async (newSettings: typeof settings) => {
     try {
       await forumsApi.saveModerationSettings({
@@ -692,7 +661,6 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     }
   }, [forumId])
 
-  // Update a setting and auto-save
   const updateSetting = <K extends keyof typeof settings>(key: K, value: typeof settings[K]) => {
     setSettings((s) => {
       const newSettings = { ...s, [key]: value }
@@ -704,153 +672,124 @@ function ModerationTab({ forumId }: ModerationTabProps) {
   if (isLoading) {
     return (
       <div className='space-y-6'>
-        <Card>
-          <CardHeader>
-             <Skeleton className='h-6 w-32' />
-          </CardHeader>
-          <CardContent className='space-y-4'>
-            <Skeleton className='h-4 w-full' />
-            <div className='space-y-4 pt-2'>
-               {Array.from({ length: 3 }).map((_, i) => (
-                 <div key={i} className='flex items-center gap-3'>
-                    <Skeleton className='h-5 w-9 rounded-full' />
-                    <Skeleton className='h-4 w-48' />
-                 </div>
-               ))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-             <Skeleton className='h-6 w-32' />
-          </CardHeader>
-          <CardContent className='space-y-4'>
-             <Skeleton className='h-4 w-full' />
-             <div className='grid grid-cols-[auto_1fr] gap-x-4 gap-y-4 items-center pt-2'>
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className='contents'>
-                     <Skeleton className='h-4 w-32' />
-                     <div className='flex items-center gap-2'>
-                        <Skeleton className='h-8 w-24 rounded-md' />
-                        {i === 2 && <Skeleton className='h-4 w-12' />}
-                     </div>
-                  </div>
-                ))}
-             </div>
-          </CardContent>
-        </Card>
+        <Skeleton className='h-48 w-full rounded-xl' />
+        <Skeleton className='h-48 w-full rounded-xl' />
       </div>
     )
   }
 
   return (
     <div className='space-y-6'>
-      {/* Pre-moderation settings */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Pre-moderation</CardTitle>
-        </CardHeader>
-        <CardContent className='space-y-4'>
-          <p className='text-muted-foreground text-sm'>
-            When enabled, content must be approved by a moderator before becoming visible.
-          </p>
-
-          <label className='flex items-center gap-3'>
+      <Section
+        title="Pre-moderation"
+        description="Require approval before content becomes visible"
+      >
+        <div className='space-y-4 py-2 text-sm'>
+          <label className='flex items-center justify-between py-2 border-b border-border/40'>
+            <div className="space-y-0.5">
+              <span className="font-medium">Require approval for new posts</span>
+              <p className="text-muted-foreground text-xs">New threads must be approved</p>
+            </div>
             <Switch
               checked={settings.moderation_posts}
               onCheckedChange={(checked) => updateSetting('moderation_posts', checked)}
             />
-            <span>Require approval for new posts</span>
           </label>
 
-          <label className='flex items-center gap-3'>
+          <label className='flex items-center justify-between py-2 border-b border-border/40'>
+            <div className="space-y-0.5">
+              <span className="font-medium">Require approval for new comments</span>
+              <p className="text-muted-foreground text-xs">Replies must be approved</p>
+            </div>
             <Switch
               checked={settings.moderation_comments}
               onCheckedChange={(checked) => updateSetting('moderation_comments', checked)}
             />
-            <span>Require approval for new comments</span>
           </label>
 
-          <label className='flex items-center gap-3'>
+          <label className='flex items-center justify-between py-2'>
+            <div className="space-y-0.5">
+              <span className="font-medium">Require approval for new users</span>
+              <p className="text-muted-foreground text-xs">Content from users below a threshold must be approved</p>
+            </div>
             <Switch
               checked={settings.moderation_new}
               onCheckedChange={(checked) => updateSetting('moderation_new', checked)}
             />
-            <span>Require approval for new users</span>
           </label>
 
           {!!settings.moderation_new && (
-            <div className='ml-7 flex items-center gap-2'>
-              <span className='text-sm'>New user threshold:</span>
-              <Input
-                type='number'
-                min={0}
-                value={settings.new_user_days}
-                onChange={(e) =>
-                  setSettings((s) => ({ ...s, new_user_days: parseInt(e.target.value) || 0 }))
-                }
-                onBlur={(e) => updateSetting('new_user_days', parseInt(e.target.value) || 0)}
-                className='h-8 w-20'
-              />
-              <span className='text-muted-foreground text-sm'>days</span>
+            <div className='mt-4 flex items-center gap-3 bg-muted/40 p-4 rounded-lg'>
+              <span className='text-sm font-medium'>New user threshold:</span>
+              <div className="flex items-center gap-2">
+                <Input
+                  type='number'
+                  min={0}
+                  value={settings.new_user_days}
+                  onChange={(e) =>
+                    setSettings((s) => ({ ...s, new_user_days: parseInt(e.target.value) || 0 }))
+                  }
+                  onBlur={(e) => updateSetting('new_user_days', parseInt(e.target.value) || 0)}
+                  className='h-8 w-16 text-center'
+                />
+                <span className='text-muted-foreground text-xs font-medium'>days</span>
+              </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </Section>
 
-      {/* Rate limiting */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Rate limiting</CardTitle>
-        </CardHeader>
-        <CardContent className='space-y-4'>
-          <p className='text-muted-foreground text-sm'>
-            Limit how frequently users can post. Set to 0 to disable.
-          </p>
-
-          <div className='grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 items-center'>
-            <span className='text-sm'>Posts per window:</span>
-            <Input
-              type='number'
-              min={0}
-              value={settings.post_limit}
-              onChange={(e) =>
-                setSettings((s) => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))
-              }
-              onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
-              className='h-8 w-24'
-            />
-
-            <span className='text-sm'>Comments per window:</span>
-            <Input
-              type='number'
-              min={0}
-              value={settings.comment_limit}
-              onChange={(e) =>
-                setSettings((s) => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))
-              }
-              onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
-              className='h-8 w-24'
-            />
-
-            <span className='text-sm'>Window duration:</span>
-            <div className='flex items-center gap-2'>
-              <Input
-                type='number'
-                min={60}
-                value={Math.floor(settings.limit_window / 60)}
-                onChange={(e) =>
-                  setSettings((s) => ({ ...s, limit_window: (parseInt(e.target.value) || 60) * 60 }))
-                }
-                onBlur={(e) => updateSetting('limit_window', (parseInt(e.target.value) || 60) * 60)}
-                className='h-8 w-24'
-              />
-              <span className='text-muted-foreground text-sm'>minutes</span>
+      <Section
+        title="Rate Limiting"
+        description="Prevent spam by limiting how often users can post"
+      >
+        <div className='space-y-4 py-2 text-sm'>
+           <div className='flex items-center justify-between py-2 border-b border-border/40'>
+            <span className="font-medium">Post limit</span>
+            <div className="flex items-center gap-2">
+               <Input
+                  type='number'
+                  min={0}
+                  value={settings.post_limit}
+                  onChange={(e) => setSettings(s => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))}
+                  onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
+                  className='h-8 w-16 text-center'
+                />
+                <span className='text-muted-foreground text-xs'>posts</span>
             </div>
           </div>
-        </CardContent>
-      </Card>
+
+          <div className='flex items-center justify-between py-2 border-b border-border/40'>
+            <span className="font-medium">Comment limit</span>
+            <div className="flex items-center gap-2">
+               <Input
+                  type='number'
+                  min={0}
+                  value={settings.comment_limit}
+                  onChange={(e) => setSettings(s => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))}
+                  onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
+                  className='h-8 w-16 text-center'
+                />
+                <span className='text-muted-foreground text-xs'>replies</span>
+            </div>
+          </div>
+
+          <div className='flex items-center justify-between py-2'>
+            <span className="font-medium">Window duration</span>
+            <div className="flex items-center gap-2">
+               <Input
+                  type='number'
+                  min={0}
+                  value={settings.limit_window}
+                  onChange={(e) => setSettings(s => ({ ...s, limit_window: parseInt(e.target.value) || 0 }))}
+                  onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}
+                  className='h-8 w-24 text-center'
+                />
+                <span className='text-muted-foreground text-xs'>seconds</span>
+            </div>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }
