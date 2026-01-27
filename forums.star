@@ -797,7 +797,7 @@ def action_post_create(a):
             # Get members for notification (excluding sender)
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
-            # Save any uploaded attachments and notify members via _attachment/create events
+            # Save any uploaded attachments and notify members via attachment/create events
             mochi.attachment.save(id, "attachments", [], [], members)
 
             # Only broadcast if approved
@@ -3607,7 +3607,7 @@ def action_attachment_thumbnail(a):
             return
 
         # Get thumbnail path (creates thumbnail if needed)
-        path = mochi.attachment.thumbnail_path(attachment_id)
+        path = mochi.attachment.thumbnail.path(attachment_id)
         if not path:
             # Fall back to original if no thumbnail available
             path = mochi.attachment.path(attachment_id)
@@ -3862,7 +3862,7 @@ def event_attachment_view(e):
 
     # Get the file path (thumbnail or original)
     if want_thumbnail:
-        path = mochi.attachment.thumbnail_path(attachment_id)
+        path = mochi.attachment.thumbnail.path(attachment_id)
         if not path:
             path = mochi.attachment.path(attachment_id)
     else:
@@ -4279,7 +4279,7 @@ def event_post_create_event(e):
         id, forum["id"], member, name, title, body, up, down, comments_count, created, created)
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
-    # Attachments arrive via _attachment/create events and are saved automatically
+    # Attachments arrive via attachment/create events and are saved automatically
 
 # Received a post submission from member (we are forum owner)
 def event_post_submit_event(e):
@@ -4337,7 +4337,7 @@ def event_post_submit_event(e):
         id, forum["id"], sender_id, sender_name, title, body, status, now, now)
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-    # Attachments arrive via _attachment/create events and are saved automatically
+    # Attachments arrive via attachment/create events and are saved automatically
 
     # Only broadcast if approved
     if status == "approved":
