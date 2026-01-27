@@ -56,7 +56,7 @@ export function ForumsListPage({
   return (
     <>
       <PageHeader
-        title="All forums"
+        title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
         searchBar={
           <Button 
