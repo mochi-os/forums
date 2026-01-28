@@ -260,38 +260,6 @@ const unsubscribeForum = async (
   )
 }
 
-// Bookmark types
-interface BookmarkAddResponse {
-  data: { id: string; name: string; existing?: boolean }
-}
-
-interface BookmarkRemoveResponse {
-  data: { removed: string }
-}
-
-const addBookmark = async (
-  target: string,
-  server?: string
-): Promise<BookmarkAddResponse> => {
-  const response = await requestHelpers.post<
-    BookmarkAddResponse | BookmarkAddResponse['data'],
-    { target: string; server?: string }
-  >(endpoints.forums.bookmarkAdd, { target, server })
-
-  return toDataResponse<BookmarkAddResponse['data']>(response, 'add bookmark')
-}
-
-const removeBookmark = async (
-  target: string
-): Promise<BookmarkRemoveResponse> => {
-  const response = await requestHelpers.post<
-    BookmarkRemoveResponse | BookmarkRemoveResponse['data'],
-    { target: string }
-  >(endpoints.forums.bookmarkRemove, { target })
-
-  return toDataResponse<BookmarkRemoveResponse['data']>(response, 'remove bookmark')
-}
-
 const getMembers = async (
   params: GetMembersParams
 ): Promise<GetMembersResponse> => {
@@ -964,8 +932,6 @@ export const forumsApi = {
   getNewForum,
   subscribe: subscribeForum,
   unsubscribe: unsubscribeForum,
-  addBookmark,
-  removeBookmark,
   delete: deleteForum,
   rename: renameForum,
   getMembers,

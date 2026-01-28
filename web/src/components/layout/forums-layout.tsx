@@ -92,7 +92,9 @@ function ForumsLayoutInner() {
 
   // Set of subscribed forum IDs for search dialog
   const subscribedForumIds = useMemo(
-    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter(Boolean))),
+    () => new Set(
+      forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))
+    ),
     [forums]
   )
 
