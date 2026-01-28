@@ -123,17 +123,17 @@ export function ForumOverview({
               </div>
 
               <div className="flex items-center justify-center gap-4">
-                <Button onClick={onCreateForum} className="rounded-full pl-3 pr-5">
-                  <Plus className='mr-2 size-5' />
+                <Button onClick={onCreateForum} className="rounded-full">
+                  <Plus className='size-5' />
                   Create forum
                 </Button>
 
                 <Button
                   variant="outline"
                   onClick={onFindForums}
-                  className="rounded-full pl-3 pr-5 text-muted-foreground hover:text-foreground shadow-sm"
+                  className="rounded-full text-muted-foreground hover:text-foreground shadow-sm"
                 >
-                  <Search className='mr-2 size-4' />
+                  <Search className='size-4' />
                   Find forums
                 </Button>
               </div>
