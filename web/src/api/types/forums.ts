@@ -108,6 +108,7 @@ export interface ViewForumParams {
   limit?: number
   before?: number
   server?: string
+  sort?: string
 }
 
 export interface ViewForumResponse {

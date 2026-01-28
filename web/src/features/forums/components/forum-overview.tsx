@@ -1,5 +1,5 @@
-import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, Button } from '@mochi/common'
-import { MessageSquare, FileEdit, PanelTop, Rows } from 'lucide-react'
+import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, SortSelector, type SortType, ViewSelector, type ViewMode } from '@mochi/common'
+import { MessageSquare, FileEdit } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
@@ -23,6 +23,8 @@ interface ForumOverviewProps {
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
   isLoading?: boolean
+  sort?: SortType
+  onSortChange?: (sort: SortType) => void
 }
 
 export function ForumOverview({
@@ -37,9 +39,11 @@ export function ForumOverview({
   isFetchingNextPage = false,
   onLoadMore,
   isLoading = false,
+  sort,
+  onSortChange,
 }: ForumOverviewProps) {
   // View mode state
-  const [viewMode, setViewMode] = useLocalStorage<'card' | 'compact'>(
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'forums-view-mode',
     'card'
   )
@@ -48,26 +52,12 @@ export function ForumOverview({
     // All forums view - show each post in its own card with forum badge
     return (
       <div className='space-y-4'>
-         {/* View Toggle */}
-         <div className='flex justify-end'>
-          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
-            <Button
-              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
-              size='sm'
-              className='h-7 px-2'
-              onClick={() => setViewMode('card')}
-            >
-              <PanelTop className='size-4' />
-            </Button>
-            <Button
-              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
-              size='sm'
-              className='h-7 px-2'
-              onClick={() => setViewMode('compact')}
-            >
-              <Rows className='size-4' />
-            </Button>
-          </div>
+        {/* View Toggle */}
+        <div className='flex items-center justify-end gap-2'>
+          {sort && onSortChange && (
+            <SortSelector value={sort} onValueChange={onSortChange} />
+          )}
+          <ViewSelector value={viewMode} onValueChange={setViewMode} />
         </div>
 
         {isLoading ? (
@@ -124,25 +114,11 @@ export function ForumOverview({
   return (
     <div className='space-y-6'>
        {/* View Toggle */}
-       <div className='flex justify-end'>
-          <div className='bg-muted inline-flex items-center rounded-lg p-1'>
-            <Button
-              variant={viewMode === 'card' ? 'secondary' : 'ghost'}
-              size='sm'
-              className='h-7 px-2'
-              onClick={() => setViewMode('card')}
-            >
-              <PanelTop className='size-4' />
-            </Button>
-            <Button
-              variant={viewMode === 'compact' ? 'secondary' : 'ghost'}
-              size='sm'
-              className='h-7 px-2'
-              onClick={() => setViewMode('compact')}
-            >
-              <Rows className='size-4' />
-            </Button>
-          </div>
+       <div className='flex items-center justify-end gap-2'>
+          {sort && onSortChange && (
+            <SortSelector value={sort} onValueChange={onSortChange} />
+          )}
+          <ViewSelector value={viewMode} onValueChange={setViewMode} />
         </div>
 
       {isLoading ? (

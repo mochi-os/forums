@@ -1,7 +1,15 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Main, usePageTitle, Button, useScreenSize, EmptyState } from '@mochi/common'
+import {
+  Main,
+  usePageTitle,
+  Button,
+  useScreenSize,
+  EmptyState,
+  PageHeader,
+  type SortType,
+} from '@mochi/common'
 import { Loader2, Rss, Settings, SquarePen, AlertCircle } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -14,7 +22,6 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { ForumOverview } from '../components/forum-overview'
-import { PageHeader } from '@mochi/common'
 
 interface EntityForumPageProps {
   forum: Forum
@@ -29,6 +36,7 @@ export function EntityForumPage({
 }: EntityForumPageProps) {
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
+  const [sort, setSort] = useState<SortType>('new')
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -62,7 +70,7 @@ export function EntityForumPage({
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
-  } = useInfinitePosts({ forum: forum.id, entityContext })
+  } = useInfinitePosts({ forum: forum.id, entityContext, sort })
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -73,7 +81,8 @@ export function EntityForumPage({
 
   // Register subscribe/unsubscribe handlers with sidebar
   useEffect(() => {
-    subscribeHandler.current = () => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })
+    subscribeHandler.current = () =>
+      subscribeMutation.mutate({ forumId: forum.id, server: forum.server })
     unsubscribeHandler.current = () => unsubscribeMutation.mutate(forum.id)
 
     // Update subscription state for sidebar
@@ -130,7 +139,12 @@ export function EntityForumPage({
             )}
             {isRemoteForum && !isSubscribed && (
               <Button
-                onClick={() => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })}
+                onClick={() =>
+                  subscribeMutation.mutate({
+                    forumId: forum.id,
+                    server: forum.server,
+                  })
+                }
                 disabled={subscribeMutation.isPending}
               >
                 {subscribeMutation.isPending ? (
@@ -152,7 +166,9 @@ export function EntityForumPage({
                 {unsubscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && <span className='ml-2'>Unsubscribing...</span>}
+                    {!isMobile && (
+                      <span className='ml-2'>Unsubscribing...</span>
+                    )}
                   </>
                 ) : (
                   'Unsubscribe'
@@ -174,39 +190,45 @@ export function EntityForumPage({
         }
       />
       <Main fixed>
-
-      <div className='flex-1 overflow-y-auto'>
-        {isForumError ? (
-          <EmptyState
-            icon={AlertCircle}
-            title="Forum not found or not accessible"
-            description="You might need to subscribe to access this forum"
-          >
-            <Button
-              onClick={() => subscribeMutation.mutate({ forumId: forum.id, server: forum.server })}
-              disabled={subscribeMutation.isPending}
+        <div className='flex-1 overflow-y-auto'>
+          {isForumError ? (
+            <EmptyState
+              icon={AlertCircle}
+              title='Forum not found or not accessible'
+              description='You might need to subscribe to access this forum'
             >
-              {subscribeMutation.isPending
-                ? 'Subscribing...'
-                : 'Subscribe to forum'}
-            </Button>
-          </EmptyState>
-        ) : (
-          <ForumOverview
-            forum={forumData || forum}
-            posts={infinitePosts}
-            onSelectPost={handlePostSelect}
-            onCreatePost={handleCreatePost}
-            isCreatingPost={createPostMutation.isPending}
-            isPostCreated={createPostMutation.isSuccess}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            onLoadMore={fetchNextPage}
-            isLoading={isLoadingForum}
-          />
-        )}
-      </div>
-    </Main>
+              <Button
+                onClick={() =>
+                  subscribeMutation.mutate({
+                    forumId: forum.id,
+                    server: forum.server,
+                  })
+                }
+                disabled={subscribeMutation.isPending}
+              >
+                {subscribeMutation.isPending
+                  ? 'Subscribing...'
+                  : 'Subscribe to forum'}
+              </Button>
+            </EmptyState>
+          ) : (
+            <ForumOverview
+              forum={forumData || forum}
+              posts={infinitePosts}
+              sort={sort}
+              onSortChange={setSort}
+              onSelectPost={handlePostSelect}
+              onCreatePost={handleCreatePost}
+              isCreatingPost={createPostMutation.isPending}
+              isPostCreated={createPostMutation.isSuccess}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              onLoadMore={fetchNextPage}
+              isLoading={isLoadingForum}
+            />
+          )}
+        </div>
+      </Main>
     </>
   )
 }
