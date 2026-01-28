@@ -148,10 +148,12 @@ const omitUndefined = (
 // Forum APIs
 // ============================================================================
 
-const listForums = async (): Promise<ListForumsResponse> => {
+const listForums = async (sort?: string): Promise<ListForumsResponse> => {
   const response = await requestHelpers.get<
     ListForumsResponse | ListForumsResponse['data']
-  >(endpoints.forums.list)
+  >(endpoints.forums.list, {
+    params: sort ? { sort } : undefined,
+  })
 
   return toDataResponse<ListForumsResponse['data']>(response, 'list forums')
 }
@@ -166,6 +168,7 @@ const viewForum = async (
       limit: params.limit?.toString(),
       before: params.before?.toString(),
       server: params.server,
+      sort: params.sort,
     }),
   })
 

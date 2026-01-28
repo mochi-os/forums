@@ -1,17 +1,17 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, Button } from '@mochi/common'
-import { Search, Rss } from 'lucide-react'
+import { Main, usePageTitle, PageHeader, type SortType } from '@mochi/common'
+import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
-import { useSidebarContext } from '@/context/sidebar-context'
+
 import {
   useForumsList,
   selectForums,
   selectPosts,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
-import { PageHeader } from '@mochi/common'
 import { setLastForum } from '@/hooks/use-forums-storage'
+import { useSidebarContext } from '@/context/sidebar-context'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -27,11 +27,13 @@ export function ForumsListPage({
     setLastForum(null)
   }, [])
 
+  const { openSearchDialog, openForumDialog } = useSidebarContext()
+
   const navigate = useNavigate()
-  const { openSearchDialog } = useSidebarContext()
+  const [sort, setSort] = useState<SortType>('new')
 
   // Queries
-  const { data: forumsData, isLoading } = useForumsList()
+  const { data: forumsData, isLoading } = useForumsList(sort)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -58,30 +60,25 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        searchBar={
-          <Button 
-            variant='outline' 
-            className='w-full justify-start'
-            onClick={openSearchDialog}
-          >
-            <Search className='mr-2 size-4' />
-            Search forums
-          </Button>
-        }
       />
       <Main fixed>
       <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
           posts={postsToDisplay}
+          sort={sort}
+          onSortChange={setSort}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
+          onFindForums={openSearchDialog}
+          onCreateForum={openForumDialog}
           isCreatingPost={false}
           isPostCreated={false}
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}
           isLoading={isLoading}
+          subscribedIds={useMemo(() => new Set(forums.map(f => f.id)), [forums])}
         />
       </div>
     </Main>

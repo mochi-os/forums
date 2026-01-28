@@ -149,11 +149,13 @@ def database_upgrade(to_version):
         pass
 
     if to_version == 11:
-        # Remove unused settings table (schema version is tracked by the platform)
+        # Remove unused settings table and create bookmarks table
         mochi.db.execute("drop table if exists settings")
+        mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
+        mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
 
     if to_version == 12:
-        mochi.db.execute("drop table if exists bookmarks")
+        pass
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -402,6 +404,21 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 
     mochi.service.call("notifications", "send", "moderation", title, body, forum_id, "/forums/" + forum_id)
 
+# Helper: Get post sort order based on sort type
+def get_post_order(sort):
+    if sort == "top":
+        return "(up - down) desc, created desc"
+    if sort == "hot" or sort == "best":
+        # score / (age_in_hours + 2)
+        # We use string formatting because mochi.time.now() is a variable value at runtime
+        # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
+        return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 3600) + 2, 1) desc, created desc"
+    if sort == "rising":
+        # Rising focuses on newer content with rapid growth
+        return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 1800) + 2, 1) desc, created desc"
+    # Default is "new"
+    return "created desc"
+
 # ACTIONS
 
 # Info endpoint for class context - returns list of forums
@@ -460,6 +477,7 @@ def action_view(a):
 
     if forum_id:
         forum = get_forum(forum_id)
+        sort = a.input("sort") or "new"
 
         # Use the full entity ID from the database if we found the forum
         entity_id = forum["id"] if forum else forum_id
@@ -488,7 +506,7 @@ def action_view(a):
                 return
 
             # Request forum data via P2P
-            response = mochi.remote.request(entity_id, "forums", "view", {"forum": entity_id}, peer)
+            response = mochi.remote.request(entity_id, "forums", "view", {"forum": entity_id, "sort": sort}, peer)
             if response.get("error"):
                 a.error(response.get("code", 403), response["error"])
                 return
@@ -541,22 +559,25 @@ def action_view(a):
         # Determine if user can see all content (moderators and owners)
         can_moderate = is_owner or check_access_remote(a, forum["id"], "moderate")
 
+        # Get posts order
+        order_by = get_post_order(sort)
+
         # Get posts for this forum with pagination
         # Moderators see all posts; regular users see only approved or their own pending
         if can_moderate:
             if before:
-                posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, updated desc limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, " + order_by + " limit ?",
                     forum["id"], before, limit + 1)
             else:
-                posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, updated desc limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, " + order_by + " limit ?",
                     forum["id"], limit + 1)
         else:
             # Regular users see approved posts or their own pending posts
             if before:
-                posts = mochi.db.rows("select * from posts where forum=? and updated<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? and updated<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
                     forum["id"], before, user_id or "", limit + 1)
             else:
-                posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
                     forum["id"], user_id or "", limit + 1)
 
         # Check if there are more posts (we fetched limit+1)
@@ -613,12 +634,15 @@ def action_view(a):
         }
     else:
         # List all forums
+        sort = a.input("sort") or "new"
+        order_by = get_post_order(sort)
+
         forums = mochi.db.rows("select * from forums order by updated desc")
         # Only show approved posts or user's own pending posts
         if user_id:
-            posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by updated desc", user_id)
+            posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by, user_id)
         else:
-            posts = mochi.db.rows("select * from posts where status='approved' order by updated desc")
+            posts = mochi.db.rows("select * from posts where status='approved' order by pinned desc, " + order_by)
 
         # Add fingerprint and access flags to each forum
         # For owned forums, check locally. For subscribed forums, query owner.
@@ -976,7 +1000,11 @@ def action_search(a):
 
 # Get recommended forums from the recommendations service
 def action_recommendations(a):
-    # Get user's existing forums (owned or subscribed)
+    # Failsafe: Ensure bookmarks table exists
+    mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
+    mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
+
+    # Get user's existing forums (owned, subscribed, or bookmarked)
     existing_ids = set()
     forums = mochi.db.rows("select id from forums")
     for f in forums:

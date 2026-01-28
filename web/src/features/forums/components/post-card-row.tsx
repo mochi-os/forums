@@ -81,7 +81,7 @@ export function PostCardRow({
       <div className='flex min-h-[120px]'>
          {/* Left: Thumbnail (Fixed Width + Padding) */}
          <div className='w-[140px] shrink-0 p-3 flex flex-col'>
-            <div className="h-20 w-full overflow-hidden rounded-md border bg-muted">
+            <div className="h-20 w-full overflow-hidden rounded-[8px] border bg-muted">
                 {renderThumbnail()}
             </div>
         </div>

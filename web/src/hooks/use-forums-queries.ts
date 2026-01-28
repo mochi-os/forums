@@ -20,18 +20,18 @@ export const forumsKeys = {
 // Queries
 // ============================================================================
 
-export function useForumsList() {
+export function useForumsList(sort?: string) {
   return useQuery({
-    queryKey: forumsKeys.list(),
-    queryFn: () => forumsApi.list(),
+    queryKey: [...forumsKeys.list(), sort],
+    queryFn: () => forumsApi.list(sort),
     refetchOnWindowFocus: false,
   })
 }
 
-export function useForumDetail(forumId: string | null) {
+export function useForumDetail(forumId: string | null, sort?: string) {
   return useQuery({
-    queryKey: forumsKeys.detail(forumId!),
-    queryFn: () => forumsApi.view({ forum: forumId! }),
+    queryKey: [...forumsKeys.detail(forumId!), sort],
+    queryFn: () => forumsApi.view({ forum: forumId!, sort }),
     enabled: !!forumId,
     staleTime: 0,
     refetchOnWindowFocus: false,
