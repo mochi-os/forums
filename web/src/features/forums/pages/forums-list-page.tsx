@@ -11,6 +11,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
+import { useSidebarContext } from '@/context/sidebar-context'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -25,6 +26,8 @@ export function ForumsListPage({
   useEffect(() => {
     setLastForum(null)
   }, [])
+
+  const { openSearchDialog, openForumDialog } = useSidebarContext()
 
   const navigate = useNavigate()
   const [sort, setSort] = useState<SortType>('new')
@@ -67,12 +70,15 @@ export function ForumsListPage({
           onSortChange={setSort}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
+          onFindForums={openSearchDialog}
+          onCreateForum={openForumDialog}
           isCreatingPost={false}
           isPostCreated={false}
           hasNextPage={false}
           isFetchingNextPage={false}
           onLoadMore={undefined}
           isLoading={isLoading}
+          subscribedIds={useMemo(() => new Set(forums.map(f => f.id)), [forums])}
         />
       </div>
     </Main>

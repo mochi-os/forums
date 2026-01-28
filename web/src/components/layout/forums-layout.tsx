@@ -203,25 +203,25 @@ function ForumsLayoutInner() {
       icon: MessageSquare,
     }
 
-    // Build top action items
-    const topItems: NavItem[] = [
+    // Build action items (moved to bottom)
+    const actionItems: NavItem[] = [
+      { title: 'Find forums', icon: Search, onClick: openSearchDialog },
       {
-        title: 'New forum',
+        title: 'Create forum',
         icon: Plus,
         onClick: openForumDialog,
-        variant: 'primary',
       },
-      { title: 'Find forums', icon: Search, onClick: openSearchDialog },
     ]
 
     const groups: SidebarData['navGroups'] = [
       {
-        title: '',
-        items: topItems,
-      },
-      {
         title: 'Forums',
         items: [allForumsItem, ...forumItems],
+      },
+      {
+        title: '',
+        items: actionItems,
+        separator: true,
       },
     ]
 
@@ -280,8 +280,8 @@ function ForumsLayoutInner() {
         searchEndpoint={endpoints.forums.search}
         icon={Hash}
         iconClassName='bg-blue-500/10 text-blue-600'
-        title='Search forums'
-        description='Search for public forums to subscribe to'
+        title='Find forums'
+        description='Find public forums to subscribe to'
         placeholder='Search by name, ID, fingerprint, or URL...'
         emptyMessage='No forums found'
       />
