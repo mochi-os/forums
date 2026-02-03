@@ -27,7 +27,7 @@ export function ForumsListPage({
     setLastForum(null)
   }, [])
 
-  const { openSearchDialog, openForumDialog } = useSidebarContext()
+  const { openForumDialog } = useSidebarContext()
 
   const navigate = useNavigate()
   const [sort, setSort] = useState<SortType>('new')
@@ -70,7 +70,6 @@ export function ForumsListPage({
           onSortChange={setSort}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
-          onFindForums={openSearchDialog}
           onCreateForum={openForumDialog}
           isCreatingPost={false}
           isPostCreated={false}
@@ -78,7 +77,7 @@ export function ForumsListPage({
           isFetchingNextPage={false}
           onLoadMore={undefined}
           isLoading={isLoading}
-          subscribedIds={useMemo(() => new Set(forums.map(f => f.id)), [forums])}
+          subscribedIds={useMemo(() => new Set(forums.flatMap(f => [f.id, f.fingerprint].filter((x): x is string => !!x))), [forums])}
         />
       </div>
     </Main>

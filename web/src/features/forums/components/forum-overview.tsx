@@ -1,11 +1,11 @@
 import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, SortSelector, type SortType, ViewSelector, type ViewMode, Button } from '@mochi/common'
-import { MessageSquare, FileEdit, Plus, Search } from 'lucide-react'
+import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
 import { PostCardRow } from './post-card-row'
 import { useLocalStorage } from '@/hooks/use-local-storage'
-
+import { InlineForumSearch } from './inline-forum-search'
 import { RecommendedForums } from './recommended-forums'
 
 interface ForumOverviewProps {
@@ -28,7 +28,6 @@ interface ForumOverviewProps {
   isLoading?: boolean
   sort?: SortType
   onSortChange?: (sort: SortType) => void
-  onFindForums?: () => void
   onCreateForum?: () => void
 }
 
@@ -46,9 +45,8 @@ export function ForumOverview({
   isLoading = false,
   sort,
   onSortChange,
-  onFindForums,
   onCreateForum,
-  subscribedIds: _subscribedIds = new Set(),
+  subscribedIds = new Set(),
 }: ForumOverviewProps) {
   // View mode state
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
@@ -122,24 +120,14 @@ export function ForumOverview({
                 </p>
               </div>
 
-              <div className="flex items-center justify-center gap-4">
-                <Button onClick={onCreateForum} className="rounded-full">
-                  <Plus className='size-5' />
-                  Create forum
-                </Button>
-
-                <Button
-                  variant="outline"
-                  onClick={onFindForums}
-                  className="rounded-full text-muted-foreground hover:text-foreground shadow-sm"
-                >
-                  <Search className='size-4' />
-                  Find forums
-                </Button>
-              </div>
+              <InlineForumSearch subscribedIds={subscribedIds} />
+              <Button variant="outline" onClick={onCreateForum}>
+                <Plus className='size-4' />
+                Create a new forum
+              </Button>
             </div>
 
-            <RecommendedForums onSubscribe={onFindForums} />
+            <RecommendedForums />
           </div>
         )}
       </div>
