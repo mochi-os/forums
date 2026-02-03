@@ -409,57 +409,43 @@ function GeneralTab({
         </div>
       </Section>
 
-      {(canUnsubscribe || forum.can_manage) && (
+      {canUnsubscribe && (
         <Section
-          title="Danger Zone"
-          description="Irreversible actions for this forum"
-          className="border-destructive/20"
-        >
-          <div className='space-y-6 py-2'>
-            {canUnsubscribe && (
-              <div className='flex items-center justify-between'>
-                <div className="space-y-0.5">
-                  <p className='font-medium'>Unsubscribe from forum</p>
-                  <p className='text-muted-foreground text-sm'>
-                    Remove this forum from your sidebar.
-                  </p>
-                </div>
-                <Button
-                  variant='warning'
-                  onClick={onUnsubscribe}
-                  disabled={isUnsubscribing}
-                  size="sm"
-                >
-                  {isUnsubscribing ? (
-                    <Loader2 className='mr-2 size-4 animate-spin' />
-                  ) : (
-                    'Unsubscribe'
-                  )}
-                </Button>
-              </div>
-            )}
+          title="Unsubscribe from forum"
+          description="Remove this forum from your sidebar."
+          action={
+            <Button
+              variant="outline"
+              onClick={onUnsubscribe}
+              disabled={isUnsubscribing}
+              size="sm"
+            >
+              {isUnsubscribing ? (
+                <Loader2 className="mr-2 size-4 animate-spin" />
+              ) : (
+                'Unsubscribe'
+              )}
+            </Button>
+          }
+        />
+      )}
 
-            {forum.can_manage && (
-              <div className='flex items-center justify-between'>
-                <div className="space-y-0.5">
-                  <p className='font-medium text-destructive'>Delete forum</p>
-                  <p className='text-muted-foreground text-sm'>
-                    Permanently delete this forum and all its content.
-                  </p>
-                </div>
-                <Button
-                  variant='destructive'
-                  onClick={() => setShowDeleteDialog(true)}
-                  disabled={isDeleting}
-                  size="sm"
-                >
-                  <Trash2 className='size-4 mr-2' />
-                  Delete
-                </Button>
-              </div>
-            )}
-          </div>
-        </Section>
+      {forum.can_manage && (
+        <Section
+          title="Delete forum"
+          description="Permanently delete this forum and all its content."
+          action={
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(true)}
+              disabled={isDeleting}
+              size="sm"
+            >
+              <Trash2 className="size-4 mr-2" />
+              Delete
+            </Button>
+          }
+        />
       )}
 
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
