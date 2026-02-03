@@ -108,26 +108,18 @@ export function ForumOverview({
             )}
           </div>
         ) : (
-          <div className='flex flex-col gap-12 max-w-4xl mx-auto w-full pt-8'>
-            <div className="text-center space-y-6">
-              <div className="space-y-2">
-                <div className="mx-auto bg-muted/30 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                  <MessageSquare className="w-8 h-8 text-muted-foreground" />
-                </div>
-                <h2 className="text-2xl font-semibold tracking-tight">No forums yet</h2>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Search for forums to subscribe to, or create your own to get started.
-                </p>
-              </div>
-
-              <InlineForumSearch subscribedIds={subscribedIds} />
-              <Button variant="outline" onClick={onCreateForum}>
-                <Plus className='size-4' />
-                Create a new forum
-              </Button>
-            </div>
-
-            <RecommendedForums />
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <MessageSquare className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
+            <p className="text-muted-foreground mb-1 text-sm font-medium">Forums</p>
+            <p className="text-muted-foreground mb-4 max-w-sm text-xs">
+              You have no forums yet.
+            </p>
+            <InlineForumSearch subscribedIds={subscribedIds} />
+            <Button variant="outline" onClick={onCreateForum} className="mt-4">
+              <Plus className="mr-2 h-4 w-4" />
+              Create a new forum
+            </Button>
+            <RecommendedForums subscribedIds={subscribedIds} />
           </div>
         )}
       </div>

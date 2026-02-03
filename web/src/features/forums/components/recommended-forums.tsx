@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Card, CardContent, Button, Skeleton, toast } from '@mochi/common'
+import { Button, Skeleton, toast } from '@mochi/common'
 import { Hash, Loader2 } from 'lucide-react'
 import { forumsApi } from '@/api/forums'
 import type { RecommendedForum } from '@/api/types/forums'
@@ -7,10 +7,11 @@ import { useQueryClient } from '@tanstack/react-query'
 import { forumsKeys } from '@/hooks/use-forums-queries'
 
 interface RecommendedForumsProps {
+  subscribedIds: Set<string>
   onSubscribe?: () => void
 }
 
-export function RecommendedForums({ onSubscribe }: RecommendedForumsProps) {
+export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedForumsProps) {
   const [recommendations, setRecommendations] = useState<RecommendedForum[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [pendingId, setPendingId] = useState<string | null>(null)
@@ -38,7 +39,6 @@ export function RecommendedForums({ onSubscribe }: RecommendedForumsProps) {
       void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       onSubscribe?.()
       toast.success(`Subscribed to ${forum.name}`)
-      // Remove from list
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
     } catch (error) {
       toast.error('Failed to subscribe', {
@@ -49,72 +49,83 @@ export function RecommendedForums({ onSubscribe }: RecommendedForumsProps) {
     }
   }
 
+  // Filter out already subscribed
+  const filteredRecommendations = recommendations.filter(
+    (rec) => !subscribedIds.has(rec.id) && !subscribedIds.has(rec.fingerprint)
+  )
+
   if (isLoading) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Card key={i} className="h-full">
-            <CardContent className="p-4 space-y-3">
-              <div className="flex items-start justify-between">
+      <>
+        <hr className="my-6 w-full max-w-md border-t" />
+        <div className="w-full max-w-md">
+          <Skeleton className="h-4 w-32 mb-3" />
+          <div className="divide-border divide-y rounded-lg border">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-3 px-4 py-3">
                 <Skeleton className="h-8 w-8 rounded-md" />
-                <Skeleton className="h-8 w-20 rounded-md" />
+                <div className="flex-1 space-y-1">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+                <Skeleton className="h-8 w-20" />
               </div>
-              <div className="space-y-2">
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-2/3" />
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            ))}
+          </div>
+        </div>
+      </>
     )
   }
 
-  if (recommendations.length === 0) {
+  if (filteredRecommendations.length === 0) {
     return null
   }
 
   return (
-    <div className="space-y-4">
-      <h3 className="font-semibold text-lg">Recommended for you</h3>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {recommendations.slice(0, 6).map((forum) => (
-          <Card key={forum.id} className="h-full flex flex-col hover:shadow-md transition-shadow">
-            <CardContent className="p-4 flex flex-col gap-3 flex-1">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
-                  <Hash className="h-5 w-5" />
+    <>
+      <hr className="my-6 w-full max-w-md border-t" />
+      <div className="w-full max-w-md">
+        <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
+          Recommended forums
+        </p>
+        <div className="divide-border divide-y rounded-lg border text-left">
+          {filteredRecommendations.map((forum) => {
+            const isPending = pendingId === forum.id
+
+            return (
+              <div
+                key={forum.id}
+                className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/50"
+              >
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
+                    <Hash className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate text-sm font-medium">{forum.name}</span>
+                    {forum.blurb && (
+                      <span className="text-muted-foreground truncate text-xs">
+                        {forum.blurb}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <Button
                   size="sm"
-                  variant={pendingId === forum.id ? "ghost" : "default"}
-                  className={pendingId === forum.id ? "pointer-events-none" : "bg-blue-600 hover:bg-blue-700 text-white shadow-sm"}
                   onClick={() => handleSubscribe(forum)}
-                  disabled={!!pendingId}
+                  disabled={isPending}
                 >
-                  {pendingId === forum.id ? (
+                  {isPending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    "Subscribe"
+                    'Subscribe'
                   )}
                 </Button>
               </div>
-              
-              <div className="space-y-1 flex-1">
-                <h4 className="font-semibold line-clamp-1" title={forum.name}>
-                  {forum.name}
-                </h4>
-                {forum.blurb && (
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {forum.blurb}
-                  </p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
