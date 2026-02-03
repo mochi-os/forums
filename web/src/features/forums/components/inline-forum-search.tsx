@@ -9,9 +9,10 @@ import { forumsKeys } from '@/hooks/use-forums-queries'
 
 interface InlineForumSearchProps {
   subscribedIds: Set<string>
+  onRefresh?: () => void
 }
 
-export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
+export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearchProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [results, setResults] = useState<DirectoryEntry[]>([])
@@ -55,6 +56,7 @@ export function InlineForumSearch({ subscribedIds }: InlineForumSearchProps) {
     try {
       await forumsApi.subscribe(forum.id, forum.location || undefined)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {
       toast.error('Failed to subscribe', {
