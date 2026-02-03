@@ -425,6 +425,15 @@ def get_post_order(sort):
 def action_info_class(a):
     forums = mochi.db.rows("select * from forums order by updated desc")
 
+    # Add fingerprints and permissions for owned forums (no P2P calls)
+    for f in forums:
+        f["fingerprint"] = mochi.entity.fingerprint(f["id"])
+        is_owner = mochi.entity.get(f["id"])
+        if is_owner:
+            f["can_manage"] = check_access(a, f["id"], "manage")
+            f["can_moderate"] = check_access(a, f["id"], "moderate")
+        # For subscribed forums, permissions require P2P - skip here for speed
+
     return {"data": {"entity": False, "forums": forums}}
 
 # Info endpoint for entity context - returns forum info with permissions

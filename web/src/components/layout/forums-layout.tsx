@@ -18,13 +18,13 @@ import {
 } from 'lucide-react'
 import endpoints from '@/api/endpoints'
 import { forumsApi } from '@/api/forums'
-import type { Forum, Post } from '@/api/types/forums'
+import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
-  useForumsList,
+  useForumsInfo,
+  useForumInfo,
   useCreatePost,
   forumsKeys,
-  selectPosts,
   useForumDetail,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
@@ -46,22 +46,18 @@ function ForumsLayoutInner() {
     closeSearchDialog,
   } = useSidebarContext()
 
-  const { data, isLoading } = useForumsList()
-  // Fetch details for the current forum to populate sidebar with all its posts
+  // Use lightweight info endpoint for forum list (no P2P calls)
+  const { data, isLoading } = useForumsInfo()
+  // Fetch current forum permissions (at most 1 P2P call)
+  const { data: currentForumInfo } = useForumInfo(forum)
+  // Fetch details for the current forum to populate sidebar with posts
   const { data: detailData } = useForumDetail(forum)
 
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
   const allPosts = useMemo(() => {
-    const listPosts = selectPosts(data)
     const detailPosts = detailData?.data?.posts || []
-
-    // Merge posts ensuring uniqueness by ID
-    const map = new Map<string, Post>()
-    listPosts.forEach((p) => map.set(p.id, p))
-    detailPosts.forEach((p) => map.set(p.id, p))
-
-    return Array.from(map.values())
-  }, [data, detailData])
+    return detailPosts
+  }, [detailData])
 
   const queryClient = useQueryClient()
 
@@ -121,13 +117,13 @@ function ForumsLayoutInner() {
       const forumUrl = f.fingerprint ?? f.id
       const subItems: NavSubItem[] = []
 
-      // Get posts for this forum
-      const forumPosts = allPosts.filter((p) => p.forum === f.id)
+      // Get posts for this forum (only for current forum)
+      const forumPosts = isCurrentForum ? allPosts.filter((p) => p.forum === f.id) : []
       const listedPostIds = new Set(forumPosts.map((p) => p.id))
 
       // Build posts array
       const postItems: { title: string; icon: typeof FileText; url: string }[] = []
-      
+
       // Add all known posts
       forumPosts.forEach((p) => {
         postItems.push({
@@ -146,11 +142,17 @@ function ForumsLayoutInner() {
         })
       }
 
-      // Build manage items
+      // Build manage items - use currentForumInfo for permissions (handles P2P for subscribed forums)
       const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
-      
+      const canManage = isCurrentForum
+        ? (currentForumInfo?.data?.permissions.manage ?? f.can_manage)
+        : f.can_manage
+      const canModerate = isCurrentForum
+        ? (currentForumInfo?.data?.permissions.moderate ?? f.can_moderate)
+        : f.can_moderate
+
       // Settings link for forum managers only
-      if (isCurrentForum && f.can_manage) {
+      if (isCurrentForum && canManage) {
         manageItems.push({
           title: 'Settings',
           icon: Settings,
@@ -158,7 +160,7 @@ function ForumsLayoutInner() {
         })
       }
       // Moderation link for managers and moderators
-      if (isCurrentForum && (f.can_manage || f.can_moderate)) {
+      if (isCurrentForum && (canManage || canModerate)) {
         manageItems.push({
           title: 'Moderation',
           icon: Gavel,
@@ -236,6 +238,7 @@ function ForumsLayoutInner() {
     openForumDialog,
     openSearchDialog,
     allPosts,
+    currentForumInfo,
   ])
 
   return (

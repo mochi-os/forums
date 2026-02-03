@@ -17,6 +17,8 @@ import type {
   CreateForumResponse,
   FindForumsResponse,
   GetNewForumResponse,
+  InfoClassResponse,
+  InfoEntityResponse,
   ListForumsResponse,
   RecommendationsResponse,
   SearchForumsParams,
@@ -156,6 +158,22 @@ const listForums = async (sort?: string): Promise<ListForumsResponse> => {
   })
 
   return toDataResponse<ListForumsResponse['data']>(response, 'list forums')
+}
+
+const getForumInfo = async (forumId: string): Promise<InfoEntityResponse> => {
+  const response = await requestHelpers.get<
+    InfoEntityResponse | InfoEntityResponse['data']
+  >(endpoints.forums.forumInfo(forumId))
+
+  return toDataResponse<InfoEntityResponse['data']>(response, 'get forum info')
+}
+
+const getForumsInfo = async (): Promise<InfoClassResponse> => {
+  const response = await requestHelpers.get<
+    InfoClassResponse | InfoClassResponse['data']
+  >(endpoints.forums.info)
+
+  return toDataResponse<InfoClassResponse['data']>(response, 'get forums info')
 }
 
 const viewForum = async (
@@ -926,6 +944,8 @@ const reportComment = async (
 
 export const forumsApi = {
   list: listForums,
+  getInfo: getForumInfo,
+  getForumsInfo: getForumsInfo,
   view: viewForum,
   create: createForum,
   find: findForums,
@@ -1002,6 +1022,8 @@ export type {
   GetNewForumResponse,
   GetNewPostParams,
   GetNewPostResponse,
+  InfoClassResponse,
+  InfoEntityResponse,
   ListForumsResponse,
   ProbeForumRequest,
   ProbeForumResponse,

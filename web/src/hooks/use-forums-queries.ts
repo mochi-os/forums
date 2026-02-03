@@ -8,6 +8,7 @@ import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 export const forumsKeys = {
   all: ['forums'] as const,
   list: () => [...forumsKeys.all, 'list'] as const,
+  info: (forumId: string) => [...forumsKeys.all, 'info', forumId] as const,
   detail: (forumId: string) => [...forumsKeys.all, 'detail', forumId] as const,
   search: (term: string) => [...forumsKeys.all, 'search', term] as const,
   access: (forumId: string) => [...forumsKeys.all, 'access', forumId] as const,
@@ -24,6 +25,24 @@ export function useForumsList(sort?: string) {
   return useQuery({
     queryKey: [...forumsKeys.list(), sort],
     queryFn: () => forumsApi.list(sort),
+    refetchOnWindowFocus: false,
+  })
+}
+
+export function useForumInfo(forumId: string | null) {
+  return useQuery({
+    queryKey: forumsKeys.info(forumId!),
+    queryFn: () => forumsApi.getInfo(forumId!),
+    enabled: !!forumId,
+    staleTime: 0,
+    refetchOnWindowFocus: false,
+  })
+}
+
+export function useForumsInfo() {
+  return useQuery({
+    queryKey: [...forumsKeys.all, 'info-list'],
+    queryFn: () => forumsApi.getForumsInfo(),
     refetchOnWindowFocus: false,
   })
 }

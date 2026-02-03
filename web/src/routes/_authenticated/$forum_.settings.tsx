@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
@@ -35,7 +35,7 @@ import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel 
 const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
 import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { useForumsList } from '@/hooks/use-forums-queries'
+import { useForumInfo, useForumsList } from '@/hooks/use-forums-queries'
 
 type TabId = 'general' | 'access' | 'moderation'
 
@@ -94,27 +94,22 @@ function ForumSettingsPage() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
-  // Get forum from list query
+  // Get forum info (lightweight, single-forum query)
   const {
-    data: forumsData,
-    isLoading: isLoadingForums,
-    refetch: refreshForums,
-  } = useForumsList()
-  const forums = useMemo(
-    () => forumsData?.data?.forums ?? [],
-    [forumsData?.data?.forums]
-  )
-  const forum = useMemo(
-    () => forums.find((f) => f.id === forumId || f.fingerprint === forumId) ?? null,
-    [forums, forumId]
-  )
-  
-  const selectedForum: ForumData | null = forum
+    data: forumInfoData,
+    isLoading: isLoadingForum,
+    refetch: refreshForumInfo,
+  } = useForumInfo(forumId)
+
+  // Keep forums list refetch for sidebar updates after changes
+  const { refetch: refreshForums } = useForumsList()
+
+  const selectedForum: ForumData | null = forumInfoData?.data
     ? {
-        id: forum.id,
-        name: forum.name,
-        fingerprint: forum.fingerprint,
-        can_manage: forum.can_manage ?? false,
+        id: forumInfoData.data.forum.id,
+        name: forumInfoData.data.forum.name,
+        fingerprint: forumInfoData.data.fingerprint,
+        can_manage: forumInfoData.data.permissions.manage,
       }
     : null
 
@@ -167,18 +162,19 @@ function ForumSettingsPage() {
 
     try {
       await forumsApi.rename(selectedForum.id, name)
+      void refreshForumInfo()
       void refreshForums()
       toast.success('Forum renamed')
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to rename forum'))
       throw error
     }
-  }, [selectedForum, refreshForums])
+  }, [selectedForum, refreshForumInfo, refreshForums])
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)
 
-  if (isLoadingForums && !selectedForum) {
+  if (isLoadingForum && !selectedForum) {
     return (
       <>
         <PageHeader 

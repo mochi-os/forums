@@ -36,6 +36,7 @@ const endpoints = {
 
     // Entity-level endpoints (use /-/ separator)
     // Use getEntityBase for domain-aware paths
+    forumInfo: (forumId: string) => `${getEntityBase(forumId)}/-/info`,
     posts: (forumId: string) => `${getEntityBase(forumId)}/-/posts`,
     subscribe: (forumId: string) => `${getEntityBase(forumId)}/-/subscribe`,
     unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,
