@@ -85,10 +85,23 @@ export function PostCardRow({
         </div>
 
         {/* Right: Content */}
-        <div className='flex min-w-0 flex-1 flex-col justify-between p-3 pl-0'>
+        <div className='relative flex min-w-0 flex-1 flex-col justify-between p-3 pl-0'>
+          {/* Metadata - top right, visible on hover */}
+          <span className='text-muted-foreground absolute right-3 top-3 text-xs opacity-0 transition-opacity group-hover/card:opacity-100'>
+            {showForumBadge ? (
+              <>
+                {forumName}
+                <span> · </span>
+              </>
+            ) : null}
+            {post.name}
+            <span> · </span>
+            {timestamp}
+          </span>
+
           <div className='space-y-1.5'>
             {/* Row 1: Forum Name + Date */}
-            <div className='flex items-center gap-2 text-xs'>
+            <div className='flex items-center gap-2 text-xs opacity-100 transition-opacity group-hover/card:opacity-0'>
               {showForumBadge && (
                 <Link
                   to='/$forum'
