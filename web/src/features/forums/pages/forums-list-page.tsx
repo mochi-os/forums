@@ -33,7 +33,7 @@ export function ForumsListPage({
   const [sort, setSort] = useState<SortType>('new')
 
   // Queries
-  const { data: forumsData, isLoading } = useForumsList(sort)
+  const { data: forumsData, isLoading, ErrorComponent } = useForumsList(sort)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -55,33 +55,40 @@ export function ForumsListPage({
     })
   }, [allPosts, forums])
 
+  const subscribedIds = useMemo(
+    () => new Set(forums.map((f) => f.id)),
+    [forums]
+  )
+
   return (
     <>
       <PageHeader
         title="Forums"
-        icon={<Rss className='size-4 md:size-5' />}
+        icon={<Rss className="size-4 md:size-5" />}
       />
       <Main fixed>
-      <div className='flex-1 overflow-y-auto'>
-        <ForumOverview
-          forum={null}
-          posts={postsToDisplay}
-          sort={sort}
-          onSortChange={setSort}
-          onSelectPost={handlePostSelect}
-          onCreatePost={() => {}}
-          onFindForums={openSearchDialog}
-          onCreateForum={openForumDialog}
-          isCreatingPost={false}
-          isPostCreated={false}
-          hasNextPage={false}
-          isFetchingNextPage={false}
-          onLoadMore={undefined}
-          isLoading={isLoading}
-          subscribedIds={useMemo(() => new Set(forums.map(f => f.id)), [forums])}
-        />
-      </div>
-    </Main>
+        {ErrorComponent || (
+          <div className="flex-1 overflow-y-auto">
+            <ForumOverview
+              forum={null}
+              posts={postsToDisplay}
+              sort={sort}
+              onSortChange={setSort}
+              onSelectPost={handlePostSelect}
+              onCreatePost={() => {}}
+              onFindForums={openSearchDialog}
+              onCreateForum={openForumDialog}
+              isCreatingPost={false}
+              isPostCreated={false}
+              hasNextPage={false}
+              isFetchingNextPage={false}
+              onLoadMore={undefined}
+              isLoading={isLoading}
+              subscribedIds={subscribedIds}
+            />
+          </div>
+        )}
+      </Main>
     </>
   )
 }

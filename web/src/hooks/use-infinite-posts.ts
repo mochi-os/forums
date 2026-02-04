@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { requestHelpers, getApiBasepath } from '@mochi/common'
-import { forumsApi } from '@/api/forums'
+import { useInfiniteQueryWithError, getApiBasepath, requestHelpers } from '@mochi/common'
+import forumsApi from '@/api/forums'
 import type { Forum, Member } from '@/api/types/forums'
 import type { Post } from '@/api/types/posts'
+import type { QueryKey } from '@tanstack/react-query'
 
 const DEFAULT_LIMIT = 20
 
@@ -30,6 +30,17 @@ interface UseInfinitePostsResult {
   fetchNextPage: () => void
   error: Error | null
   refetch: () => void
+  ErrorComponent: React.ReactNode
+}
+
+interface PageData {
+  posts: Post[]
+  forum: Forum | undefined
+  member: Member | undefined
+  can_manage: boolean
+  can_moderate: boolean
+  hasMore: boolean
+  nextCursor: number | undefined
 }
 
 export function useInfinitePosts({
@@ -40,9 +51,9 @@ export function useInfinitePosts({
   entityContext = false,
   sort,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
-  const query = useInfiniteQuery({
+  const query = useInfiniteQueryWithError<PageData, Error, PageData, QueryKey, number | undefined>({
     queryKey: ['forum-posts', forum, { limit, server, entityContext, sort }],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
       if (!forum) throw new Error('Forum ID required')
 
       let data: {
@@ -75,10 +86,10 @@ export function useInfinitePosts({
         }>(url)
         data = response ?? {}
       } else {
-        const response = await forumsApi.view({
+        const response = await forumsApi.viewForum({
           forum,
           limit,
-          before: pageParam as number | undefined,
+          before: pageParam,
           server,
           sort,
         })
@@ -96,7 +107,7 @@ export function useInfinitePosts({
       }
     },
     initialPageParam: undefined as number | undefined,
-    getNextPageParam: (lastPage) =>
+    getNextPageParam: (lastPage: PageData) =>
       lastPage.hasMore ? lastPage.nextCursor : undefined,
     enabled: enabled && !!forum,
     staleTime: 0,
@@ -130,5 +141,6 @@ export function useInfinitePosts({
     fetchNextPage: query.fetchNextPage,
     error: query.error,
     refetch: query.refetch,
+    ErrorComponent: query.ErrorComponent,
   }
 }

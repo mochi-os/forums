@@ -1,4 +1,4 @@
-import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, SortSelector, type SortType, ViewSelector, type ViewMode, Button } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, SortSelector, type SortType, ViewSelector, type ViewMode, Button, CardSkeleton, ListSkeleton } from '@mochi/common'
 import { MessageSquare, FileEdit, Plus, Search } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
@@ -63,28 +63,21 @@ export function ForumOverview({
         {/* View Toggle */}
         {posts.length > 0 && (
           <div className='flex items-center justify-end gap-2'>
-            {sort && onSortChange && (
-              <SortSelector value={sort} onValueChange={onSortChange} />
-            )}
+            <div className='hidden'>
+              {sort && onSortChange && (
+                <SortSelector value={sort} onValueChange={onSortChange} />
+              )}
+            </div>
             <ViewSelector value={viewMode} onValueChange={setViewMode} />
           </div>
         )}
 
         {isLoading ? (
-          Array.from({ length: 3 }).map((_, i) => (
-            <Card key={i}>
-              <CardContent className='p-4'>
-                <div className='space-y-2'>
-                  <div className='flex items-center justify-between'>
-                    <Skeleton className='h-5 w-1/3' />
-                    <Skeleton className='h-4 w-20' />
-                  </div>
-                  <Skeleton className='h-4 w-full' />
-                  <Skeleton className='h-4 w-2/3' />
-                </div>
-              </CardContent>
-            </Card>
-          ))
+          viewMode === 'card' ? (
+            <CardSkeleton count={3} />
+          ) : (
+            <ListSkeleton count={5} />
+          )
         ) : posts.length > 0 ? (
           <div className='space-y-3'>
             {posts.map((post) =>
@@ -151,31 +144,20 @@ export function ForumOverview({
     <div className='space-y-6'>
       {/* View Toggle */}
       <div className='flex items-center justify-end gap-2'>
-        {sort && onSortChange && (
-          <SortSelector value={sort} onValueChange={onSortChange} />
-        )}
+        <div className='hidden'>
+          {sort && onSortChange && (
+            <SortSelector value={sort} onValueChange={onSortChange} />
+          )}
+        </div>
         <ViewSelector value={viewMode} onValueChange={setViewMode} />
       </div>
 
       {isLoading ? (
-        <div className="space-y-4">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="flex gap-4 p-4 border rounded-lg">
-              <div className="flex-col flex items-center gap-2">
-                <Skeleton className="h-4 w-8" />
-                <Skeleton className="h-4 w-8" />
-              </div>
-              <div className="flex-1 space-y-2">
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-full" />
-                <div className="flex gap-2 pt-2">
-                  <Skeleton className="h-6 w-20" />
-                  <Skeleton className="h-6 w-20" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        viewMode === 'card' ? (
+          <CardSkeleton count={3} />
+        ) : (
+          <ListSkeleton count={5} />
+        )
       ) : posts.length > 0 ? (
         <>
           <div className='space-y-3'>
