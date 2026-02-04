@@ -1,11 +1,10 @@
 import { Link } from '@tanstack/react-router'
 import { Card, CardContent } from '@mochi/common'
-import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash } from 'lucide-react'
+import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
-import { cn } from '@mochi/common'
-import { formatDistanceToNow } from 'date-fns'
+import { cn, formatTimestamp } from '@mochi/common'
 
 interface PostCardProps {
   post: Post
@@ -24,30 +23,26 @@ export function PostCard({
   onSelect,
   variant = 'card',
 }: PostCardProps) {
-  const dateParams = { addSuffix: true }
-  const timeAgo = formatDistanceToNow(new Date(post.created * 1000), dateParams)
+  const timestamp = formatTimestamp(post.created)
 
   const content = (
-    <div className='space-y-3 p-4'>
-      {/* Header: Forum name and Date */}
-      <div className='flex items-center gap-2 text-xs'>
-        {showForumBadge && (
-          <Link
-            to='/$forum'
-            params={{ forum: post.forum }}
-            className='bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-medium transition-colors'
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Hash className='size-3' />
-            <span>{forumName}</span>
-          </Link>
-        )}
-        <span className='text-muted-foreground capitalize'>{timeAgo}</span>
-      </div>
+    <div className='relative space-y-3 p-4'>
+      {/* Metadata - top right, visible on hover */}
+      <span className='text-muted-foreground absolute right-4 top-4 text-xs opacity-0 transition-opacity group-hover/card:opacity-100'>
+        {showForumBadge ? (
+          <>
+            {forumName}
+            <span> · </span>
+          </>
+        ) : null}
+        {post.name}
+        <span> · </span>
+        {timestamp}
+      </span>
 
       {/* Title row with badges */}
       <div className='flex items-start justify-between gap-4'>
-        <h3 className='text-base leading-tight font-semibold'>
+        <h3 className='pr-32 text-base leading-tight font-semibold'>
           {post.title}
         </h3>
         <div className='flex items-center gap-2'>
@@ -148,7 +143,7 @@ export function PostCard({
     return (
       <div
         className={cn(
-          'hover:bg-accent/50 cursor-pointer transition-colors'
+          'group/card hover:bg-accent/50 cursor-pointer transition-colors'
         )}
         onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
       >
@@ -159,7 +154,7 @@ export function PostCard({
 
   return (
     <Card
-      className='hover:border-primary/30 cursor-pointer py-0 transition-all hover:shadow-md'
+      className='group/card hover:border-primary/30 cursor-pointer py-0 transition-all hover:shadow-md'
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <CardContent className='p-0'>{content}</CardContent>

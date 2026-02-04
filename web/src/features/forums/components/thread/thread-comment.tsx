@@ -27,6 +27,7 @@ import {
   Ban,
   MoreHorizontal,
 } from 'lucide-react'
+import { formatTimestamp } from '@mochi/common'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -164,7 +165,7 @@ export function ThreadComment({
     <div className='flex h-5 items-center gap-2 py-0.5 text-xs select-none'>
       <span className='text-muted-foreground font-medium'>{comment.name}</span>
       <span className='text-muted-foreground'>·</span>
-      <span className='text-muted-foreground'>{comment.created_local}</span>
+      <span className='text-muted-foreground'>{formatTimestamp(comment.created)}</span>
       {totalDescendants > 0 && (
         <span className='text-muted-foreground ml-2'>
           {totalDescendants} {totalDescendants === 1 ? 'reply' : 'replies'}
@@ -180,7 +181,7 @@ export function ThreadComment({
         <span className='text-foreground font-medium'>{comment.name}</span>
         <span className='text-muted-foreground'>·</span>
         <span className='text-muted-foreground'>
-          {comment.created_local}
+          {formatTimestamp(comment.created)}
           {comment.edited ? ' (edited)' : ''}
         </span>
         {/* Status badges */}

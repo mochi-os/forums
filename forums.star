@@ -595,7 +595,6 @@ def action_view(a):
             posts = posts[:limit]
 
         for p in posts:
-            p["created_local"] = mochi.time.local(p["created"])
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["attachments"] = mochi.attachment.list(p["id"])
             # Fetch attachments from forum owner if we don't have them locally
@@ -673,7 +672,6 @@ def action_view(a):
                 f["can_moderate"] = access_response.get("moderate", False)
 
         for p in posts:
-            p["created_local"] = mochi.time.local(p["created"])
             # Get attachments for this post
             p["attachments"] = mochi.attachment.list(p["id"])
             # Find the forum for this post and add fingerprint
@@ -1453,7 +1451,6 @@ def action_post_view(a):
                 forum["id"], post_id, parent_id)
 
         for c in comments:
-            c["created_local"] = mochi.time.local(c["created"])
             c["children"] = get_comments(c["id"], depth + 1)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
@@ -1466,7 +1463,6 @@ def action_post_view(a):
 
         return comments
 
-    post["created_local"] = mochi.time.local(post["created"])
     post["user_vote"] = user_post_vote
     post["attachments"] = mochi.attachment.list(post_id)
     # Fetch attachments from forum owner if we don't have them locally
@@ -3074,15 +3070,11 @@ def action_moderation_queue(a):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["created_local"] = mochi.time.local(p["created"])
         p["attachments"] = mochi.attachment.list(p["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
         forum["id"])
-    for c in comments:
-        c["created_local"] = mochi.time.local(c["created"])
-
     reports = mochi.db.rows("""
         select type, target, author, reason, min(id) as id, min(details) as details,
                min(reporter) as reporter, min(created) as created, count(*) as count
@@ -5339,7 +5331,6 @@ def event_view(e):
     formatted_posts = []
     for post in posts:
         post_data = dict(post)
-        post_data["created_local"] = mochi.time.local(post["created"])
         post_data["attachments"] = mochi.attachment.list(post["id"])
         # Filter comments for non-moderators
         if can_moderate:
@@ -5427,7 +5418,6 @@ def event_post_view(e):
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
     post_data = dict(post)
-    post_data["created_local"] = mochi.time.local(post["created"])
     post_data["attachments"] = mochi.attachment.list(post_id)
 
     # Get requester's vote on the post
@@ -5448,7 +5438,6 @@ def event_post_view(e):
                 forum_id, post_id, parent_id)
 
         for c in comments:
-            c["created_local"] = mochi.time.local(c["created"])
             c["children"] = get_comments(c["id"], depth + 1)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
@@ -5490,15 +5479,11 @@ def event_moderation_queue(e):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["created_local"] = mochi.time.local(p["created"])
         p["attachments"] = mochi.attachment.list(p["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
         forum["id"])
-    for c in comments:
-        c["created_local"] = mochi.time.local(c["created"])
-
     reports = mochi.db.rows("""
         select type, target, author, reason, min(id) as id, min(details) as details,
                min(reporter) as reporter, min(created) as created, count(*) as count

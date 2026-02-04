@@ -28,6 +28,7 @@ import {
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
+import { formatTimestamp } from '@mochi/common'
 
 interface ThreadContentProps {
   post: Post
@@ -143,17 +144,18 @@ export function ThreadContent({
       )}
 
       {/* Header: Title and author/timestamp */}
-      <div className='flex items-start justify-between gap-4'>
+      <div className='relative'>
+        {/* Metadata - top right, visible on hover */}
+        <span className='text-muted-foreground absolute right-0 top-0 text-xs whitespace-nowrap opacity-0 transition-opacity group-hover/post:opacity-100'>
+          {post.name} · {formatTimestamp(post.created)}
+          {post.edited ? ' (edited)' : ''}
+        </span>
         <h1 className={cn(
-          'text-foreground text-xl leading-tight font-semibold',
+          'text-foreground pr-36 text-xl leading-tight font-semibold',
           isRemoved && 'opacity-60'
         )}>
           {post.title}
         </h1>
-        <span className='text-muted-foreground text-xs whitespace-nowrap'>
-          {post.name} · {post.created_local}
-          {post.edited ? ' (edited)' : ''}
-        </span>
       </div>
 
       {/* Post Body */}

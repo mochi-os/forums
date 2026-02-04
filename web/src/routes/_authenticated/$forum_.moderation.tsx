@@ -28,6 +28,7 @@ import {
 
 import { forumsApi } from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
+import { formatTimestamp } from '@mochi/common'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
@@ -349,7 +350,7 @@ function QueueTab({ forumId }: QueueTabProps) {
                   <div className='flex items-start justify-between gap-4'>
                     <h3 className='font-medium'>{post.title}</h3>
                     <span className='text-muted-foreground whitespace-nowrap text-xs'>
-                      {post.name} · {post.created_local}
+                      {post.name} · {formatTimestamp(post.created)}
                     </span>
                   </div>
                   <p className='text-muted-foreground line-clamp-2 text-sm'>
@@ -394,7 +395,7 @@ function QueueTab({ forumId }: QueueTabProps) {
                   <div className='flex items-start justify-between gap-4'>
                     <p className='line-clamp-3 text-sm'>{comment.body}</p>
                     <span className='text-muted-foreground whitespace-nowrap text-xs'>
-                      {comment.name} · {comment.created_local}
+                      {comment.name} · {formatTimestamp(comment.created)}
                     </span>
                   </div>
                 </div>

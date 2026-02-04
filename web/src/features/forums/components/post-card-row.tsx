@@ -4,7 +4,7 @@ import { Card, getAppPath } from '@mochi/common'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, FileText, Maximize2, X } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
-import { formatDistanceToNow } from 'date-fns'
+import { formatTimestamp } from '@mochi/common'
 
 interface PostCardRowProps {
   post: Post
@@ -20,9 +20,7 @@ export function PostCardRow({
   onSelect,
 }: PostCardRowProps) {
   const [isExpanded, setIsExpanded] = useState(false)
-  
-  const dateParams = { addSuffix: true }
-  const timeAgo = formatDistanceToNow(new Date(post.created * 1000), dateParams)
+  const timestamp = formatTimestamp(post.created)
 
 
 
@@ -102,7 +100,7 @@ export function PostCardRow({
                   <span>{forumName}</span>
                 </Link>
               )}
-              <span className='text-muted-foreground capitalize'>{timeAgo}</span>
+              <span className='text-muted-foreground'>{timestamp}</span>
             </div>
 
             {/* Row 2: Title & Badges */}
