@@ -169,7 +169,6 @@ export function EditPostDialog({
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='What would you like to discuss?'
                       disabled={isPending}
                       {...field}
                     />
@@ -188,7 +187,6 @@ export function EditPostDialog({
                   <FormControl>
                     <Textarea
                       className='min-h-[180px]'
-                      placeholder='Share your thoughts...'
                       disabled={isPending}
                       {...field}
                     />

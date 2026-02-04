@@ -184,7 +184,6 @@ export function CreatePostDialog({
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='What would you like to discuss?'
                       disabled={isPending}
                       {...field}
                     />
@@ -203,7 +202,6 @@ export function CreatePostDialog({
                   <FormControl>
                     <Textarea
                       className='min-h-[180px]'
-                      placeholder='Share your context, steps you tried, and what kind of help you need...'
                       disabled={isPending}
                       {...field}
                     />

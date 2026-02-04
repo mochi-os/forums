@@ -57,7 +57,7 @@ export function EntityForumPage({
   }, [forum.id, setForum])
 
   // Queries for subscription status
-  const { data: forumsData } = useForumsList()
+  const { data: forumsData, isLoading: isLoadingForums } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
 
   // Infinite posts query - use entityContext for domain routing
@@ -137,7 +137,7 @@ export function EntityForumPage({
                 Create post
               </Button>
             )}
-            {isRemoteForum && !isSubscribed && (
+            {!isLoadingForums && isRemoteForum && !isSubscribed && (
               <Button
                 onClick={() =>
                   subscribeMutation.mutate({
