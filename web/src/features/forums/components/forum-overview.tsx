@@ -1,10 +1,9 @@
-import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, SortSelector, type SortType, ViewSelector, type ViewMode, Button } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, Skeleton, Card, CardContent, type ViewMode, Button } from '@mochi/common'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
 import { PostCardRow } from './post-card-row'
-import { useLocalStorage } from '@/hooks/use-local-storage'
 import { InlineForumSearch } from './inline-forum-search'
 import { RecommendedForums } from './recommended-forums'
 
@@ -13,6 +12,7 @@ interface ForumOverviewProps {
   posts: Post[]
   server?: string
   subscribedIds?: Set<string>
+  viewMode?: ViewMode
   onSelectPost: (forumId: string, postId: string) => void
   onCreatePost: (data: {
     forum: string
@@ -26,8 +26,6 @@ interface ForumOverviewProps {
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
   isLoading?: boolean
-  sort?: SortType
-  onSortChange?: (sort: SortType) => void
   onCreateForum?: () => void
 }
 
@@ -43,31 +41,15 @@ export function ForumOverview({
   isFetchingNextPage = false,
   onLoadMore,
   isLoading = false,
-  sort,
-  onSortChange,
   onCreateForum,
   subscribedIds = new Set(),
+  viewMode = 'card',
 }: ForumOverviewProps) {
-  // View mode state
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'forums-view-mode',
-    'card'
-  )
 
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
       <div className='space-y-4'>
-        {/* View Toggle */}
-        {posts.length > 0 && (
-          <div className='flex items-center justify-end gap-2'>
-            {sort && onSortChange && (
-              <SortSelector value={sort} onValueChange={onSortChange} />
-            )}
-            <ViewSelector value={viewMode} onValueChange={setViewMode} />
-          </div>
-        )}
-
         {isLoading ? (
           Array.from({ length: 3 }).map((_, i) => (
             <Card key={i}>
@@ -129,14 +111,6 @@ export function ForumOverview({
   // Selected forum view
   return (
     <div className='space-y-6'>
-      {/* View Toggle */}
-      <div className='flex items-center justify-end gap-2'>
-        {sort && onSortChange && (
-          <SortSelector value={sort} onValueChange={onSortChange} />
-        )}
-        <ViewSelector value={viewMode} onValueChange={setViewMode} />
-      </div>
-
       {isLoading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, i) => (

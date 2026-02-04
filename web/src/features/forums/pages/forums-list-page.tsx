@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader, type SortType } from '@mochi/common'
+import { Main, usePageTitle, PageHeader, ViewSelector, type ViewMode } from '@mochi/common'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 
@@ -12,6 +12,7 @@ import {
 import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -22,6 +23,11 @@ export function ForumsListPage({
 }: ForumsListPageProps) {
   usePageTitle('Forums')
 
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
+    'forums-view-mode',
+    'card'
+  )
+
   // Store "all forums" as the last location
   useEffect(() => {
     setLastForum(null)
@@ -30,10 +36,9 @@ export function ForumsListPage({
   const { openForumDialog } = useSidebarContext()
 
   const navigate = useNavigate()
-  const [sort, setSort] = useState<SortType>('new')
 
   // Queries
-  const { data: forumsData, isLoading } = useForumsList(sort)
+  const { data: forumsData, isLoading } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -61,14 +66,14 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
+        actions={<ViewSelector value={viewMode} onValueChange={setViewMode} />}
       />
       <Main fixed>
       <div className='flex-1 overflow-y-auto'>
         <ForumOverview
           forum={null}
           posts={postsToDisplay}
-          sort={sort}
-          onSortChange={setSort}
+          viewMode={viewMode}
           onSelectPost={handlePostSelect}
           onCreatePost={() => {}}
           onCreateForum={openForumDialog}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
@@ -8,7 +8,8 @@ import {
   useScreenSize,
   EmptyState,
   PageHeader,
-  type SortType,
+  ViewSelector,
+  type ViewMode,
 } from '@mochi/common'
 import { Loader2, Rss, Settings, SquarePen, AlertCircle } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -21,6 +22,7 @@ import {
   selectForums,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import { ForumOverview } from '../components/forum-overview'
 
 interface EntityForumPageProps {
@@ -36,7 +38,10 @@ export function EntityForumPage({
 }: EntityForumPageProps) {
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
-  const [sort, setSort] = useState<SortType>('new')
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
+    'forums-view-mode',
+    'card'
+  )
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -70,7 +75,7 @@ export function EntityForumPage({
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
-  } = useInfinitePosts({ forum: forum.id, entityContext, sort })
+  } = useInfinitePosts({ forum: forum.id, entityContext })
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -186,6 +191,7 @@ export function EntityForumPage({
                 </Link>
               </Button>
             )}
+            <ViewSelector value={viewMode} onValueChange={setViewMode} />
           </>
         }
       />
@@ -215,8 +221,7 @@ export function EntityForumPage({
             <ForumOverview
               forum={forumData || forum}
               posts={infinitePosts}
-              sort={sort}
-              onSortChange={setSort}
+              viewMode={viewMode}
               onSelectPost={handlePostSelect}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
