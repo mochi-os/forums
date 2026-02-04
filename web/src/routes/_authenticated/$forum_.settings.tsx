@@ -33,7 +33,7 @@ import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel 
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumInfo, useForumsList } from '@/hooks/use-forums-queries'
 
@@ -130,7 +130,7 @@ function ForumSettingsPage() {
 
     setIsUnsubscribing(true)
     try {
-      await forumsApi.unsubscribe(selectedForum.id)
+      await forumsApi.unsubscribeForum(selectedForum.id)
       toast.success('Unsubscribed')
       void refreshForums()
       void navigate({ to: '/' })
@@ -146,7 +146,7 @@ function ForumSettingsPage() {
 
     setIsDeleting(true)
     try {
-      await forumsApi.delete(selectedForum.id)
+      await forumsApi.deleteForum(selectedForum.id)
       toast.success('Forum deleted')
       void refreshForums()
       void navigate({ to: '/' })
@@ -161,7 +161,7 @@ function ForumSettingsPage() {
     if (!selectedForum || !selectedForum.can_manage) return
 
     try {
-      await forumsApi.rename(selectedForum.id, name)
+      await forumsApi.renameForum(selectedForum.id, name)
       void refreshForumInfo()
       void refreshForums()
       toast.success('Forum renamed')

@@ -3,7 +3,7 @@ import { useInfiniteQueryWithError, getApiBasepath, requestHelpers } from '@moch
 import forumsApi from '@/api/forums'
 import type { Forum, Member } from '@/api/types/forums'
 import type { Post } from '@/api/types/posts'
-import type { QueryKey } from '@tanstack/react-query'
+import type { QueryKey, InfiniteData } from '@tanstack/react-query'
 
 const DEFAULT_LIMIT = 20
 
@@ -51,7 +51,7 @@ export function useInfinitePosts({
   entityContext = false,
   sort,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
-  const query = useInfiniteQueryWithError<PageData, Error, PageData, QueryKey, number | undefined>({
+  const query = useInfiniteQueryWithError<PageData, Error, InfiniteData<PageData, number | undefined>, QueryKey, number | undefined>({
     queryKey: ['forum-posts', forum, { limit, server, entityContext, sort }],
     queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
       if (!forum) throw new Error('Forum ID required')
@@ -119,7 +119,7 @@ export function useInfinitePosts({
   // Flatten all pages into a single array of posts
   const posts = useMemo(() => {
     if (!query.data?.pages) return []
-    return query.data.pages.flatMap((page) => page.posts)
+    return query.data.pages.flatMap((page: PageData) => page.posts)
   }, [query.data?.pages])
 
   // Get forum/member/permissions from first page (they don't change between pages)

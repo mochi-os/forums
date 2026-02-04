@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { Main, Button, usePageTitle, toast, getErrorMessage, Card, CardContent } from '@mochi/common'
 import { Send, X } from 'lucide-react'
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   usePostDetail,

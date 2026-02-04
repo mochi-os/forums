@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Button, Skeleton, toast } from '@mochi/common'
 import { Hash, Loader2 } from 'lucide-react'
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import type { RecommendedForum } from '@/api/types/forums'
 import { useQueryClient } from '@tanstack/react-query'
 import { forumsKeys } from '@/hooks/use-forums-queries'
@@ -20,7 +20,7 @@ export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedFor
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await forumsApi.recommendations()
+        const response = await forumsApi.getRecommendations()
         setRecommendations(response.data.forums ?? [])
       } catch {
         // Silently fail for recommendations
@@ -35,7 +35,7 @@ export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedFor
   const handleSubscribe = async (forum: RecommendedForum) => {
     setPendingId(forum.id)
     try {
-      await forumsApi.subscribe(forum.id)
+      await forumsApi.subscribeForum(forum.id)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       onSubscribe?.()
       toast.success(`Subscribed to ${forum.name}`)

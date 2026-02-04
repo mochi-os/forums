@@ -174,10 +174,10 @@ export function MembersDialog({ forumId, forumName }: MembersDialogProps) {
             onAdd={handleAdd}
             levels={FORUM_ACCESS_LEVELS.filter((l) => l.value !== 'none')}
             defaultLevel='post'
-            userSearchResults={userSearchData?.results ?? []}
+            userSearchResults={userSearchData?.data.results ?? []}
             userSearchLoading={userSearchLoading}
             onUserSearch={setUserSearchQuery}
-            groups={groupsData?.groups ?? []}
+            groups={groupsData?.data.groups ?? []}
           />
 
           {/* Access list */}

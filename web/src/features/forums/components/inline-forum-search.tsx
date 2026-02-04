@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { Search, Loader2, Hash } from 'lucide-react'
 import { Button, Input, toast } from '@mochi/common'
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
 
@@ -39,7 +39,7 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
     const search = async () => {
       setIsLoading(true)
       try {
-        const response = await forumsApi.search({ search: debouncedQuery })
+        const response = await forumsApi.searchForums({ search: debouncedQuery })
         setResults(response.data.results ?? [])
       } catch {
         setResults([])
@@ -54,7 +54,7 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
   const handleSubscribe = async (forum: DirectoryEntry) => {
     setPendingForumId(forum.id)
     try {
-      await forumsApi.subscribe(forum.id, forum.location || undefined)
+      await forumsApi.subscribeForum(forum.id, forum.location || undefined)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })

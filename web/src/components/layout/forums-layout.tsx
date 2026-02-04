@@ -17,7 +17,7 @@ import {
   Search,
 } from 'lucide-react'
 import endpoints from '@/api/endpoints'
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -97,7 +97,7 @@ function ForumsLayoutInner() {
   // Handle subscribe from search dialog
   const handleSubscribe = useCallback(
     async (forumId: string) => {
-      await forumsApi.subscribe(forumId)
+      await forumsApi.subscribeForum(forumId)
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
     },
     [queryClient]

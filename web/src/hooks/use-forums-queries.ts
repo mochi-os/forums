@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { handleServerError, toast, useQueryWithError } from '@mochi/common'
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
 // Query keys for consistency

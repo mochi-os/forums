@@ -26,7 +26,7 @@ import {
   Users,
 } from 'lucide-react'
 
-import { forumsApi } from '@/api/forums'
+import forumsApi from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import { formatTimestamp } from '@mochi/common'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'

@@ -62,11 +62,6 @@ export function ForumsListPage({
     })
   }, [allPosts, forums])
 
-  const subscribedIds = useMemo(
-    () => new Set(forums.map((f) => f.id)),
-    [forums]
-  )
-
   return (
     <>
       <PageHeader
