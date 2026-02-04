@@ -8,7 +8,6 @@ import {
   useScreenSize,
   EmptyState,
   PageHeader,
-  ViewSelector,
   type ViewMode,
 } from '@mochi/common'
 import { Loader2, Rss, Settings, SquarePen, AlertCircle } from 'lucide-react'
@@ -23,6 +22,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { useLocalStorage } from '@/hooks/use-local-storage'
+import { OptionsMenu } from '@/components/options-menu'
 import { ForumOverview } from '../components/forum-overview'
 
 interface EntityForumPageProps {
@@ -191,7 +191,7 @@ export function EntityForumPage({
                 </Link>
               </Button>
             )}
-            <ViewSelector value={viewMode} onValueChange={setViewMode} />
+            <OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} />
           </>
         }
       />

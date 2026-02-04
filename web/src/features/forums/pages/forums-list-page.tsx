@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader, ViewSelector, type ViewMode } from '@mochi/common'
+import { Main, usePageTitle, PageHeader, type ViewMode } from '@mochi/common'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 
@@ -13,6 +13,7 @@ import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useLocalStorage } from '@/hooks/use-local-storage'
+import { OptionsMenu } from '@/components/options-menu'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -66,7 +67,7 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<ViewSelector value={viewMode} onValueChange={setViewMode} />}
+        actions={<OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} />}
       />
       <Main fixed>
       <div className='flex-1 overflow-y-auto'>
