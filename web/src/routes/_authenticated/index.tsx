@@ -20,6 +20,8 @@ let hasCheckedRedirect = false
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {
     const response = await forumsApi.getForumsInfo()
+    // Backend returns { data: { entity, forums/forum, ... } }
+    // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
     const info = response.data as InfoResponse
 
     // Only redirect on first load, not on subsequent navigations
@@ -30,7 +32,7 @@ export const Route = createFileRoute('/_authenticated/')({
     hasCheckedRedirect = true
 
     // In class context, check for last visited forum and redirect if it still exists
-    if (!info.entity) {
+    if (info && !info.entity) {
       const lastForumId = getLastForum()
       if (lastForumId) {
         const forums = info.forums || []
