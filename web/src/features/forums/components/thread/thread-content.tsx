@@ -159,11 +159,18 @@ export function ThreadContent({
       </div>
 
       {/* Post Body */}
-      <div className='prose prose-sm dark:prose-invert max-w-none'>
-        <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
-          {post.body}
-        </p>
-      </div>
+      {post.body_markdown ? (
+        <div
+          className='prose prose-sm dark:prose-invert max-w-none'
+          dangerouslySetInnerHTML={{ __html: post.body_markdown }}
+        />
+      ) : (
+        <div className='prose prose-sm dark:prose-invert max-w-none'>
+          <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
+            {post.body}
+          </p>
+        </div>
+      )}
 
       {/* Attachments */}
       <PostAttachments

@@ -202,6 +202,7 @@ export function CreatePostDialog({
                   <FormControl>
                     <Textarea
                       className='min-h-[180px]'
+                      placeholder='Markdown supported'
                       disabled={isPending}
                       {...field}
                     />

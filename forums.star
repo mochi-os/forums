@@ -596,6 +596,7 @@ def action_view(a):
 
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
+            p["body_markdown"] = mochi.markdown.render(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
@@ -674,6 +675,7 @@ def action_view(a):
         for p in posts:
             # Get attachments for this post
             p["attachments"] = mochi.attachment.list(p["id"])
+            p["body_markdown"] = mochi.markdown.render(p["body"])
             # Find the forum for this post and add fingerprint
             forum = None
             for f in forums:
@@ -1464,6 +1466,7 @@ def action_post_view(a):
         return comments
 
     post["user_vote"] = user_post_vote
+    post["body_markdown"] = mochi.markdown.render(post["body"])
     post["attachments"] = mochi.attachment.list(post_id)
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and not mochi.entity.get(forum["id"]):
@@ -5331,6 +5334,7 @@ def event_view(e):
     formatted_posts = []
     for post in posts:
         post_data = dict(post)
+        post_data["body_markdown"] = mochi.markdown.render(post["body"])
         post_data["attachments"] = mochi.attachment.list(post["id"])
         # Filter comments for non-moderators
         if can_moderate:
@@ -5418,6 +5422,7 @@ def event_post_view(e):
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
     post_data = dict(post)
+    post_data["body_markdown"] = mochi.markdown.render(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id)
 
     # Get requester's vote on the post

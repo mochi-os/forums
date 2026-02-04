@@ -28,6 +28,7 @@ export interface Post {
   name: string
   title: string
   body: string
+  body_markdown?: string
   // API may return either a count (number) or an array of comment objects
   comments: number | unknown[]
   comment_list?: unknown[] // API returns comment objects here
