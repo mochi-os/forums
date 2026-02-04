@@ -34,6 +34,8 @@ interface ThreadContentProps {
   post: Post
   attachments?: Attachment[]
   server?: string
+  forumName?: string
+  showForumBadge?: boolean
   onVote: (vote: 'up' | 'down' | '') => void
   isVotePending: boolean
   canVote?: boolean
@@ -59,6 +61,8 @@ export function ThreadContent({
   post,
   attachments,
   server,
+  forumName,
+  showForumBadge = false,
   onVote,
   isVotePending: _isVotePending,
   canVote = true,
@@ -147,6 +151,7 @@ export function ThreadContent({
       <div className='relative'>
         {/* Metadata - top right, visible on hover */}
         <span className='text-muted-foreground absolute right-0 top-0 text-xs whitespace-nowrap opacity-0 transition-opacity group-hover/post:opacity-100'>
+          {showForumBadge && forumName && <>{forumName} · </>}
           {post.name} · {formatTimestamp(post.created)}
           {post.edited ? ' (edited)' : ''}
         </span>

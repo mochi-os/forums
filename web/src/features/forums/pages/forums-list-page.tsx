@@ -41,6 +41,7 @@ export function ForumsListPage({
     navigate({
       to: '/$forum/$post',
       params: { forum, post },
+      search: { from: 'all' },
     })
   }
 

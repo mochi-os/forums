@@ -5,6 +5,7 @@ import { ThreadDetail } from '@/features/forums/thread-detail'
 
 const searchSchema = z.object({
   server: z.string().optional(),
+  from: z.string().optional(),
 })
 
 export const Route = createFileRoute('/_authenticated/$forum/$post')({
@@ -13,7 +14,7 @@ export const Route = createFileRoute('/_authenticated/$forum/$post')({
 })
 
 function ThreadDetailWrapper() {
-  const { server } = Route.useSearch()
+  const { server, from } = Route.useSearch()
   const { forum: urlForum } = Route.useParams()
 
   // In domain entity routing, use the domain fingerprint as forum ID
@@ -21,5 +22,5 @@ function ThreadDetailWrapper() {
   const inDomainContext = isDomainEntityContext('forum')
   const forum = (inDomainContext && domainFingerprint) ? domainFingerprint : urlForum
 
-  return <ThreadDetail server={server} forumOverride={forum} />
+  return <ThreadDetail server={server} forumOverride={forum} fromAllForums={from === 'all'} />
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams, Link } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { Main, Button, usePageTitle, toast, getErrorMessage, Skeleton, Card, CardContent } from '@mochi/common'
-import { ArrowLeft, Send, X } from 'lucide-react'
+import { Send, X } from 'lucide-react'
 import { forumsApi } from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -35,12 +35,14 @@ interface ThreadDetailProps {
   server?: string
   forumOverride?: string
   inDomainContext?: boolean
+  fromAllForums?: boolean
 }
 
 export function ThreadDetail({
   server,
   forumOverride,
   inDomainContext: _inDomainContext = false,
+  fromAllForums = false,
 }: ThreadDetailProps) {
   const navigate = useNavigate()
   const { forum: urlForum = '', post: postId = '' } = useParams({
@@ -209,17 +211,6 @@ export function ThreadDetail({
   if (isError || !postData?.data?.post) {
     return (
       <Main className="space-y-4">
-        {/* Back link */}
-        <div className="-mt-1">
-          <button
-            onClick={handleBack}
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="size-4" />
-            Back to forum
-          </button>
-        </div>
-
         <Card className="shadow-md">
           <CardContent className="py-12 text-center">
             <EmptyThreadState onBack={handleBack} />
@@ -282,17 +273,6 @@ export function ThreadDetail({
 
   return (
     <Main className="space-y-4">
-      {/* Back link */}
-      <div className="-mt-1">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="size-4" />
-          {forumData?.name || 'Back to forum'}
-        </Link>
-      </div>
-
       {/* Single post */}
       <Card className="shadow-md">
         <CardContent className="p-6">
@@ -301,6 +281,8 @@ export function ThreadDetail({
               post={post}
               attachments={post.attachments}
               server={server}
+              forumName={forumData?.name}
+              showForumBadge={fromAllForums}
               onVote={(vote) => votePostMutation.mutate(vote)}
               isVotePending={votePostMutation.isPending}
               canVote={can_vote}
