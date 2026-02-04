@@ -104,33 +104,24 @@ export function ForumOverview({
           </div>
         ) : (
           <div className='flex flex-col gap-12 max-w-4xl mx-auto w-full pt-8'>
-            <div className="text-center space-y-6">
-              <div className="space-y-2">
-                <div className="mx-auto bg-muted/30 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                  <MessageSquare className="w-8 h-8 text-muted-foreground" />
-                </div>
-                <h2 className="text-2xl font-semibold tracking-tight">No forums yet</h2>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Search for forums to subscribe to, or create your own to get started.
-                </p>
-              </div>
-
-              <div className="flex items-center justify-center gap-4">
-                <Button onClick={onCreateForum} className="rounded-full">
-                  <Plus className='size-5' />
-                  Create forum
-                </Button>
-
-                <Button
-                  variant="outline"
-                  onClick={onFindForums}
-                  className="rounded-full text-muted-foreground hover:text-foreground shadow-sm"
-                >
-                  <Search className='size-4' />
-                  Find forums
-                </Button>
-              </div>
-            </div>
+            <EmptyState
+              icon={MessageSquare}
+              title="No forums yet"
+              description="Search for forums to subscribe to, or create your own to get started."
+            >
+              <Button onClick={onCreateForum} className="rounded-full">
+                <Plus className='size-5' />
+                Create forum
+              </Button>
+              <Button
+                variant="outline"
+                onClick={onFindForums}
+                className="rounded-full text-muted-foreground hover:text-foreground shadow-sm"
+              >
+                <Search className='size-4' />
+                Find forums
+              </Button>
+            </EmptyState>
 
             <RecommendedForums onSubscribe={onFindForums} />
           </div>
