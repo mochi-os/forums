@@ -39,7 +39,7 @@ export function ForumsListPage({
   const navigate = useNavigate()
 
   // Queries
-  const { data: forumsData, isLoading } = useForumsList()
+  const { data: forumsData, isLoading, ErrorComponent } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -62,6 +62,11 @@ export function ForumsListPage({
     })
   }, [allPosts, forums])
 
+  const subscribedIds = useMemo(
+    () => new Set(forums.map((f) => f.id)),
+    [forums]
+  )
+
   return (
     <>
       <PageHeader
@@ -70,24 +75,26 @@ export function ForumsListPage({
         actions={<OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} />}
       />
       <Main fixed>
-      <div className='flex-1 overflow-y-auto'>
-        <ForumOverview
-          forum={null}
-          posts={postsToDisplay}
-          viewMode={viewMode}
-          onSelectPost={handlePostSelect}
-          onCreatePost={() => {}}
-          onCreateForum={openForumDialog}
-          isCreatingPost={false}
-          isPostCreated={false}
-          hasNextPage={false}
-          isFetchingNextPage={false}
-          onLoadMore={undefined}
-          isLoading={isLoading}
-          subscribedIds={useMemo(() => new Set(forums.flatMap(f => [f.id, f.fingerprint].filter((x): x is string => !!x))), [forums])}
-        />
-      </div>
-    </Main>
+        {ErrorComponent || (
+          <div className='flex-1 overflow-y-auto'>
+            <ForumOverview
+              forum={null}
+              posts={postsToDisplay}
+              viewMode={viewMode}
+              onSelectPost={handlePostSelect}
+              onCreatePost={() => {}}
+              onCreateForum={openForumDialog}
+              isCreatingPost={false}
+              isPostCreated={false}
+              hasNextPage={false}
+              isFetchingNextPage={false}
+              onLoadMore={undefined}
+              isLoading={isLoading}
+              subscribedIds={useMemo(() => new Set(forums.flatMap(f => [f.id, f.fingerprint].filter((x): x is string => !!x))), [forums])}
+            />
+          </div>
+        )}
+      </Main>
     </>
   )
 }

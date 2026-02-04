@@ -6,11 +6,10 @@ import {
   usePageTitle,
   Button,
   useScreenSize,
-  EmptyState,
   PageHeader,
   type ViewMode,
 } from '@mochi/common'
-import { Loader2, Rss, Settings, SquarePen, AlertCircle } from 'lucide-react'
+import { Loader2, Rss, Settings, SquarePen } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -70,11 +69,11 @@ export function EntityForumPage({
     posts: infinitePosts,
     forum: forumData,
     isLoading: isLoadingForum,
-    isError: isForumError,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
+    ErrorComponent,
   } = useInfinitePosts({ forum: forum.id, entityContext })
 
   // Mutations
@@ -196,28 +195,8 @@ export function EntityForumPage({
         }
       />
       <Main fixed>
-        <div className='flex-1 overflow-y-auto'>
-          {isForumError ? (
-            <EmptyState
-              icon={AlertCircle}
-              title='Forum not found or not accessible'
-              description='You might need to subscribe to access this forum'
-            >
-              <Button
-                onClick={() =>
-                  subscribeMutation.mutate({
-                    forumId: forum.id,
-                    server: forum.server,
-                  })
-                }
-                disabled={subscribeMutation.isPending}
-              >
-                {subscribeMutation.isPending
-                  ? 'Subscribing...'
-                  : 'Subscribe to forum'}
-              </Button>
-            </EmptyState>
-          ) : (
+        <div className="flex-1 overflow-y-auto">
+          {ErrorComponent || (
             <ForumOverview
               forum={forumData || forum}
               posts={infinitePosts}

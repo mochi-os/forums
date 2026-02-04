@@ -1,6 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { handleServerError, requestHelpers, toast } from '@mochi/common'
-import endpoints from '@/api/endpoints'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { handleServerError, toast, useQueryWithError } from '@mochi/common'
 import { forumsApi } from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
@@ -22,17 +21,17 @@ export const forumsKeys = {
 // ============================================================================
 
 export function useForumsList(sort?: string) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: [...forumsKeys.list(), sort],
-    queryFn: () => forumsApi.list(sort),
+    queryFn: () => forumsApi.listForums(sort),
     refetchOnWindowFocus: false,
   })
 }
 
 export function useForumInfo(forumId: string | null) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: forumsKeys.info(forumId!),
-    queryFn: () => forumsApi.getInfo(forumId!),
+    queryFn: () => forumsApi.getForumInfo(forumId!),
     enabled: !!forumId,
     staleTime: 0,
     refetchOnWindowFocus: false,
@@ -40,7 +39,7 @@ export function useForumInfo(forumId: string | null) {
 }
 
 export function useForumsInfo() {
-  return useQuery({
+  return useQueryWithError({
     queryKey: [...forumsKeys.all, 'info-list'],
     queryFn: () => forumsApi.getForumsInfo(),
     refetchOnWindowFocus: false,
@@ -48,9 +47,9 @@ export function useForumsInfo() {
 }
 
 export function useForumDetail(forumId: string | null, sort?: string) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: [...forumsKeys.detail(forumId!), sort],
-    queryFn: () => forumsApi.view({ forum: forumId!, sort }),
+    queryFn: () => forumsApi.viewForum({ forum: forumId!, sort }),
     enabled: !!forumId,
     staleTime: 0,
     refetchOnWindowFocus: false,
@@ -58,9 +57,9 @@ export function useForumDetail(forumId: string | null, sort?: string) {
 }
 
 export function useForumSearch(searchTerm: string) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: forumsKeys.search(searchTerm),
-    queryFn: () => forumsApi.search({ search: searchTerm }),
+    queryFn: () => forumsApi.searchForums({ search: searchTerm }),
     enabled: searchTerm.trim().length > 0,
     refetchOnWindowFocus: false,
   })
@@ -70,7 +69,7 @@ export function useForumAccess(
   forumId: string,
   options?: { enabled?: boolean }
 ) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: forumsKeys.access(forumId),
     queryFn: () => forumsApi.getAccess({ forum: forumId }),
     staleTime: 0,
@@ -80,9 +79,9 @@ export function useForumAccess(
 }
 
 export function useForumRecommendations() {
-  return useQuery({
+  return useQueryWithError({
     queryKey: forumsKeys.recommendations(),
-    queryFn: () => forumsApi.recommendations(),
+    queryFn: () => forumsApi.getRecommendations(),
     retry: false,
     refetchOnWindowFocus: false,
   })
@@ -95,7 +94,7 @@ export function useForumRecommendations() {
 export function useCreateForum() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: forumsApi.create,
+    mutationFn: forumsApi.createForum,
     onSuccess: () => {
       toast.success('Forum created')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
@@ -124,7 +123,7 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
-      forumsApi.subscribe(forumId, server),
+      forumsApi.subscribeForum(forumId, server),
     onSuccess: (data, { forumId }) => {
       if (data.data.already_subscribed) {
         toast.info('You are already subscribed to this forum')
@@ -141,7 +140,7 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
 export function useUnsubscribeForum(onUnsubscribed?: () => void) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (forumId: string) => forumsApi.unsubscribe(forumId),
+    mutationFn: (forumId: string) => forumsApi.unsubscribeForum(forumId),
     onSuccess: () => {
       toast.success('Unsubscribed')
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
@@ -182,7 +181,7 @@ export function usePostDetail(
   postId: string,
   server?: string
 ) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: [...forumsKeys.post(forumId, postId), server],
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId, server }),
     enabled: !!forumId && !!postId,
@@ -323,13 +322,13 @@ export function useDeleteComment(forumId: string, postId: string) {
 // ============================================================================
 
 export function selectForums(
-  data: Awaited<ReturnType<typeof forumsApi.list>> | undefined
+  data: Awaited<ReturnType<typeof forumsApi.listForums>> | undefined
 ): Forum[] {
   return data?.data?.forums || []
 }
 
 export function selectPosts(
-  data: Awaited<ReturnType<typeof forumsApi.list>> | undefined
+  data: Awaited<ReturnType<typeof forumsApi.listForums>> | undefined
 ): Post[] {
   return (data?.data?.posts || []).filter(
     (p): p is Post => 'title' in p && !!p.title
@@ -337,7 +336,7 @@ export function selectPosts(
 }
 
 export function selectSearchResults(
-  data: Awaited<ReturnType<typeof forumsApi.search>> | undefined
+  data: Awaited<ReturnType<typeof forumsApi.searchForums>> | undefined
 ): DirectoryEntry[] {
   return data?.data?.results || []
 }
@@ -346,35 +345,19 @@ export function selectSearchResults(
 // User/Group queries (cross-app, via people app)
 // ============================================================================
 
-interface UserSearchResponse {
-  results: Array<{ id: string; name: string }>
-}
-
-interface GroupListResponse {
-  groups: Array<{ id: string; name: string; description?: string }>
-}
-
 export function useUserSearch(query: string) {
-  return useQuery({
+  return useQueryWithError({
     queryKey: ['users', 'search', query],
-    queryFn: async () => {
-      const formData = new URLSearchParams()
-      formData.append('search', query)
-      return requestHelpers.post<UserSearchResponse>(
-        endpoints.users.search,
-        formData.toString(),
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-      )
-    },
+    queryFn: () => forumsApi.searchUsers(query),
     enabled: query.length >= 1,
     staleTime: 30000,
   })
 }
 
 export function useGroups() {
-  return useQuery({
+  return useQueryWithError({
     queryKey: ['groups', 'list'],
-    queryFn: () => requestHelpers.get<GroupListResponse>(endpoints.groups.list),
+    queryFn: () => forumsApi.listGroups(),
     staleTime: 60000,
   })
 }
