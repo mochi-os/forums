@@ -596,18 +596,18 @@ def action_view(a):
 
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
-            p["body_markdown"] = mochi.markdown.render(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and not mochi.entity.get(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
-            # Get comments for this post (filter by status for non-moderators)
+            # Get comment COUNT for post list (full comments loaded on thread view)
             if can_moderate:
-                p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=?",
                     forum["id"], p["id"])
             else:
-                p["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
+            p["comments"] = row["cnt"] if row else 0
 
         # Calculate next cursor
         next_cursor = None
@@ -654,7 +654,8 @@ def action_view(a):
             posts = mochi.db.rows("select * from posts where status='approved' order by pinned desc, " + order_by)
 
         # Add fingerprint and access flags to each forum
-        # For owned forums, check locally. For subscribed forums, query owner.
+        # For owned forums, check locally. For subscribed forums, skip remote
+        # access check (too slow for list view) - permissions checked on forum view
         for f in forums:
             f["fingerprint"] = mochi.entity.fingerprint(f["id"])
             f_is_owner = mochi.entity.get(f["id"])
@@ -663,36 +664,28 @@ def action_view(a):
                 f["can_post"] = check_access(a, f["id"], "post")
                 f["can_moderate"] = check_access(a, f["id"], "moderate")
             else:
-                f["can_manage"] = False  # Subscribers can never manage
-                # Query owner for post and moderate access
-                access_response = mochi.remote.request(f["id"], "forums", "access/check", {
-                    "operations": ["post", "moderate"],
-                    "user": user_id,
-                })
-                f["can_post"] = access_response.get("post", False)
-                f["can_moderate"] = access_response.get("moderate", False)
+                # Subscribers can never manage; defer post/moderate checks to forum view
+                f["can_manage"] = False
+                f["can_post"] = False
+                f["can_moderate"] = False
+
+        # Build forum lookup map for O(1) access
+        forum_map = {f["id"]: f for f in forums}
 
         for p in posts:
-            # Get attachments for this post
+            # Get attachments for this post (local only - skip remote fetch for speed)
             p["attachments"] = mochi.attachment.list(p["id"])
-            p["body_markdown"] = mochi.markdown.render(p["body"])
             # Find the forum for this post and add fingerprint
-            forum = None
-            for f in forums:
-                if f["id"] == p["forum"]:
-                    forum = f
-                    break
+            forum = forum_map.get(p["forum"])
             p["fingerprint"] = forum["fingerprint"] if forum else mochi.entity.fingerprint(p["forum"])
-            # Fetch attachments from forum owner if we don't have them locally
-            if not p["attachments"] and forum and not mochi.entity.get(forum["id"]):
-                p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
-            # Get comments for this post (only approved or user's own pending)
+            # Get comment COUNT only for list view (not full comments)
             if user_id:
-                p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     p["forum"], p["id"], user_id)
             else:
-                p["comment_list"] = mochi.db.rows("select * from comments where forum=? and post=? and status='approved' order by created desc",
+                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
+            p["comments"] = row["cnt"] if row else 0
 
         return {
             "data": {
