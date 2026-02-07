@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Skeleton, toast } from '@mochi/common'
+import { Button, Skeleton, toast, getErrorMessage } from '@mochi/common'
 import { Hash, Loader2 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { RecommendedForum } from '@/api/types/forums'
@@ -41,9 +41,7 @@ export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedFor
       toast.success(`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
     } catch (error) {
-      toast.error('Failed to subscribe', {
-        description: error instanceof Error ? error.message : 'Unknown error',
-      })
+      toast.error(getErrorMessage(error, 'Failed to subscribe'))
     } finally {
       setPendingId(null)
     }

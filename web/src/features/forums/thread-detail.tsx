@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { Main, Button, usePageTitle, toast, getErrorMessage, Card, CardContent } from '@mochi/common'
-import { Send, X } from 'lucide-react'
+import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -55,6 +55,8 @@ export function ThreadDetail({
   // Use forumOverride if provided (from domain context), otherwise use URL param
   const forum = forumOverride || urlForum
   const [commentBody, setCommentBody] = useState('')
+  const [commentFiles, setCommentFiles] = useState<File[]>([])
+  const commentFileRef = useRef<HTMLInputElement>(null)
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [replyingToComment, setReplyingToComment] = useState<string | null>(
@@ -119,23 +121,24 @@ export function ThreadDetail({
       return
     }
     createCommentMutation.mutate(
-      { body: commentBody },
+      { body: commentBody, files: commentFiles.length > 0 ? commentFiles : undefined },
       {
         onSuccess: () => {
           setCommentBody('')
+          setCommentFiles([])
           setShowReplyForm(false)
         },
       }
     )
   }
 
-  const handleCommentReplySubmit = (parentId: string) => {
+  const handleCommentReplySubmit = (parentId: string, files?: File[]) => {
     if (!commentReplyBody.trim()) {
       toast.error('Please enter a reply')
       return
     }
     createCommentMutation.mutate(
-      { body: commentReplyBody, parent: parentId },
+      { body: commentReplyBody, parent: parentId, files },
       {
         onSuccess: () => {
           setCommentReplyBody('')
@@ -253,9 +256,9 @@ export function ThreadDetail({
             <div className='border-border/60 mt-6 border-t pt-4'>
               {/* Reply Form - shown above comments */}
               {showReplyForm && (
-                <div className='mb-4 flex items-end gap-2'>
+                <div className='mb-4 space-y-2'>
                   <textarea
-                                      value={commentBody}
+                    value={commentBody}
                     onChange={(e) => setCommentBody(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -267,33 +270,61 @@ export function ThreadDetail({
                         setShowReplyForm(false)
                       }
                     }}
-                    className='min-h-20 flex-1 resize-none rounded-md border px-3 py-2 text-sm'
+                    className='min-h-20 w-full resize-none rounded-md border px-3 py-2 text-sm'
                     rows={3}
                     autoFocus
                     disabled={createCommentMutation.isPending}
                   />
-                  <Button
-                    type='button'
-                    size='icon'
-                    variant='ghost'
-                    className='size-8'
-                    onClick={() => setShowReplyForm(false)}
-                    aria-label='Cancel reply'
-                    disabled={createCommentMutation.isPending}
-                  >
-                    <X className='size-4' />
-                  </Button>
-                  <Button
-                    size='icon'
-                    className='size-8'
-                    disabled={
-                      !commentBody.trim() || createCommentMutation.isPending
-                    }
-                    onClick={handleCommentSubmit}
-                    aria-label='Submit reply'
-                  >
-                    <Send className='size-4' />
-                  </Button>
+                  {commentFiles.length > 0 && (
+                    <div className='flex flex-wrap gap-2'>
+                      {commentFiles.map((file, i) => (
+                        <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
+                          {file.type.startsWith('image/') && (
+                            <img src={URL.createObjectURL(file)} alt={file.name} className='h-8 w-8 rounded object-cover' />
+                          )}
+                          <Paperclip className='text-muted-foreground size-3 shrink-0' />
+                          <span className='max-w-40 truncate'>{file.name}</span>
+                          <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
+                            <X className='size-3.5' />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className='flex items-center justify-end gap-2'>
+                    <input
+                      ref={commentFileRef}
+                      type='file'
+                      multiple
+                      onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
+                      className='hidden'
+                    />
+                    <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()}>
+                      <Paperclip className='size-4' />
+                    </Button>
+                    <Button
+                      type='button'
+                      size='icon'
+                      variant='ghost'
+                      className='size-8'
+                      onClick={() => setShowReplyForm(false)}
+                      aria-label='Cancel reply'
+                      disabled={createCommentMutation.isPending}
+                    >
+                      <X className='size-4' />
+                    </Button>
+                    <Button
+                      size='icon'
+                      className='size-8'
+                      disabled={
+                        !commentBody.trim() || createCommentMutation.isPending
+                      }
+                      onClick={handleCommentSubmit}
+                      aria-label='Submit reply'
+                    >
+                      <Send className='size-4' />
+                    </Button>
+                  </div>
                 </div>
               )}
 

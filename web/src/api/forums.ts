@@ -248,11 +248,23 @@ const forumsApi = {
       }
     ),
 
-  createComment: (payload: CreateCommentRequest) =>
-    client.post<CreateCommentResponse>(
+  createComment: (payload: CreateCommentRequest & { files?: File[] }) => {
+    const formData = new FormData()
+    formData.append('forum', payload.forum)
+    formData.append('post', payload.post)
+    formData.append('body', payload.body)
+    if (payload.parent) formData.append('parent', payload.parent)
+    if (payload.files) {
+      for (const file of payload.files) {
+        formData.append('files', file)
+      }
+    }
+    return client.post<CreateCommentResponse>(
       endpoints.forums.comment.create(payload.forum, payload.post),
-      { body: payload.body, parent: payload.parent }
-    ),
+      formData,
+      { headers: { 'Content-Type': undefined } }
+    )
+  },
 
   voteComment: (payload: VoteCommentRequest) =>
     client.post<VoteCommentResponse>(

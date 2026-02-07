@@ -804,11 +804,11 @@ def action_post_create(a):
                     a.error(429, rate_error)
                     return
 
-            # Determine initial status
+            # Determine initial status (moderators skip pre-moderation)
             status = "approved"
             if is_shadowbanned(forum["id"], user_id):
                 status = "removed"
-            elif requires_premoderation(forum, user_id, "post"):
+            elif not check_access(a, forum["id"], "moderate") and requires_premoderation(forum, user_id, "post"):
                 status = "pending"
 
             mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
@@ -1447,6 +1447,7 @@ def action_post_view(a):
 
         for c in comments:
             c["children"] = get_comments(c["id"], depth + 1)
+            c["attachments"] = mochi.attachment.list(c["id"], forum["id"])
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
             # Get user's vote on this comment
@@ -1818,15 +1819,20 @@ def action_comment_create(a):
                 a.error(404, "Parent comment not found")
                 return
 
-            # Determine initial status
+            # Determine initial status (moderators skip pre-moderation)
             status = "approved"
             if is_shadowbanned(forum["id"], user_id):
                 status = "removed"
-            elif requires_premoderation(forum, user_id, "comment"):
+            elif not check_access(a, forum["id"], "moderate") and requires_premoderation(forum, user_id, "comment"):
                 status = "pending"
 
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
+
+            # Save comment attachments and notify members
+            member_rows = mochi.db.rows("select id from members where forum=?", forum["id"])
+            notify = [m["id"] for m in (member_rows or [])]
+            mochi.attachment.save(id, "files", [], [], notify)
 
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -1863,6 +1869,11 @@ def action_comment_create(a):
             # Save locally for optimistic UI (status pending until owner confirms)
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+
+            # Save comment attachments (entity routing means files save in forum owner's context;
+            # event_comment_submit_event will sync to other members via mochi.attachment.sync)
+            mochi.attachment.save(id, "files")
+
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
 
         return {
@@ -4009,6 +4020,12 @@ def event_comment_submit_event(e):
 
     mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+
+    # Sync comment attachments from subscriber to other members
+    member_rows = mochi.db.rows("select id from members where forum=?", forum["id"])
+    other_members = [m["id"] for m in (member_rows or []) if m["id"] != sender_id]
+    if other_members:
+        mochi.attachment.sync(id, other_members)
 
     # Only broadcast if approved
     if status == "approved":

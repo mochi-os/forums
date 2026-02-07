@@ -220,8 +220,8 @@ export function useVoteComment(forumId: string, postId: string) {
 export function useCreateComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ body, parent }: { body: string; parent?: string }) =>
-      forumsApi.createComment({ forum: forumId, post: postId, body, parent }),
+    mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) =>
+      forumsApi.createComment({ forum: forumId, post: postId, body, parent, files }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),

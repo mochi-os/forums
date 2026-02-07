@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { Search, Loader2, Hash } from 'lucide-react'
-import { Button, Input, toast } from '@mochi/common'
+import { Button, Input, toast, getErrorMessage } from '@mochi/common'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
@@ -59,9 +59,7 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {
-      toast.error('Failed to subscribe', {
-        description: error instanceof Error ? error.message : 'Unknown error',
-      })
+      toast.error(getErrorMessage(error, 'Failed to subscribe'))
       setPendingForumId(null)
     }
   }

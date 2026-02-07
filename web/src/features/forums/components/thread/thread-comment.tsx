@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import {
   Button,
   CommentTreeLayout,
@@ -26,8 +26,11 @@ import {
   VolumeX,
   Ban,
   MoreHorizontal,
+  Paperclip,
 } from 'lucide-react'
 import { formatTimestamp } from '@mochi/common'
+import type { Attachment } from '@/api/types/posts'
+import { CommentAttachments } from '../comment-attachments'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -45,6 +48,7 @@ export interface ThreadCommentType {
   edited?: number
   user_vote?: 'up' | 'down' | ''
   children: ThreadCommentType[]
+  attachments?: Attachment[]
   can_vote: boolean
   can_comment: boolean
   // Moderation fields
@@ -63,7 +67,7 @@ interface ThreadCommentProps {
   replyingToId?: string | null
   replyValue?: string
   onReplyChange?: (value: string) => void
-  onReplySubmit?: (commentId: string) => void
+  onReplySubmit?: (commentId: string, files?: File[]) => void
   onReplyCancel?: () => void
   isReplyPending?: boolean
   canEdit?: (commentMember: string) => boolean
@@ -114,6 +118,8 @@ export function ThreadComment({
   const [editBody, setEditBody] = useState('')
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
+  const [replyFiles, setReplyFiles] = useState<File[]>([])
+  const replyFileRef = useRef<HTMLInputElement>(null)
 
   // Moderation status
   const isPending = comment.status === 'pending'
@@ -241,6 +247,8 @@ export function ThreadComment({
           {comment.body}
         </p>
       )}
+
+      <CommentAttachments attachments={comment.attachments} />
 
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
@@ -428,7 +436,7 @@ export function ThreadComment({
 
       {/* Reply input */}
       {isReplying && (
-        <div className='mt-2 flex items-end gap-2'>
+        <div className='mt-2 space-y-2 border-t pt-2'>
           <textarea
             placeholder={`Reply to ${comment.name}...`}
             value={replyValue}
@@ -437,7 +445,7 @@ export function ThreadComment({
               if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault()
                 if (replyValue.trim()) {
-                  onReplySubmit?.(comment.id)
+                  onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)
                 }
               } else if (e.key === 'Escape') {
                 onReplyCancel?.()
@@ -447,26 +455,54 @@ export function ThreadComment({
             rows={2}
             autoFocus
           />
-          <Button
-            type='button'
-            size='icon'
-            variant='ghost'
-            className='size-8'
-            onClick={onReplyCancel}
-            aria-label='Cancel reply'
-          >
-            <X className='size-4' />
-          </Button>
-          <Button
-            type='button'
-            size='icon'
-            className='size-8'
-            disabled={!replyValue.trim() || isReplyPending}
-            onClick={() => onReplySubmit?.(comment.id)}
-            aria-label='Submit reply'
-          >
-            <Send className='size-4' />
-          </Button>
+          {replyFiles.length > 0 && (
+            <div className='flex flex-wrap gap-2'>
+              {replyFiles.map((file, i) => (
+                <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
+                  {file.type.startsWith('image/') && (
+                    <img src={URL.createObjectURL(file)} alt={file.name} className='h-8 w-8 rounded object-cover' />
+                  )}
+                  <Paperclip className='text-muted-foreground size-3 shrink-0' />
+                  <span className='max-w-40 truncate'>{file.name}</span>
+                  <button type='button' onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
+                    <X className='size-3.5' />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className='flex items-center justify-end gap-2'>
+            <input
+              ref={replyFileRef}
+              type='file'
+              multiple
+              onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setReplyFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
+              className='hidden'
+            />
+            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()}>
+              <Paperclip className='size-4' />
+            </Button>
+            <Button
+              type='button'
+              size='icon'
+              variant='ghost'
+              className='size-8'
+              onClick={onReplyCancel}
+              aria-label='Cancel reply'
+            >
+              <X className='size-4' />
+            </Button>
+            <Button
+              type='button'
+              size='icon'
+              className='size-8'
+              disabled={!replyValue.trim() || isReplyPending}
+              onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
+              aria-label='Submit reply'
+            >
+              <Send className='size-4' />
+            </Button>
+          </div>
         </div>
       )}
     </div>
