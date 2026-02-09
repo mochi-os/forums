@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Card, getAppPath } from '@mochi/common'
-import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, FileText, Maximize2, X } from 'lucide-react'
+import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, Maximize2, X } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { formatTimestamp } from '@mochi/common'
@@ -41,13 +41,11 @@ export function PostCardRow({
       )
     }
 
-    // Default: Text Icon
-    return (
-      <div className='bg-muted flex h-full w-full items-center justify-center'>
-        <FileText className='text-muted-foreground size-8' />
-      </div>
-    )
+    // Default: No specific thumbnail
+    return null
   }
+
+  const thumbnail = renderThumbnail()
 
   // Render Full Content (Image) for Expanded View
   const renderExpandedContent = () => {
@@ -77,31 +75,11 @@ export function PostCardRow({
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <div className='flex min-h-[120px]'>
-         {/* Left: Thumbnail (Fixed Width + Padding) */}
-         <div className='w-[140px] shrink-0 p-3 flex flex-col'>
-            <div className="h-20 w-full overflow-hidden rounded-[8px] border bg-muted">
-                {renderThumbnail()}
-            </div>
-        </div>
-
-        {/* Right: Content */}
-        <div className='relative flex min-w-0 flex-1 flex-col justify-between p-3 pl-0'>
-          {/* Metadata - top right, visible on hover */}
-          <span className='text-muted-foreground absolute right-3 top-3 text-xs opacity-0 transition-opacity group-hover/card:opacity-100'>
-            {showForumBadge ? (
-              <>
-                {forumName}
-                <span> · </span>
-              </>
-            ) : null}
-            {post.name}
-            <span> · </span>
-            {timestamp}
-          </span>
-
+        {/* Left: Content */}
+        <div className='relative flex min-w-0 flex-1 flex-col justify-between p-3'>
           <div className='space-y-1.5'>
             {/* Row 1: Forum Name + Date */}
-            <div className='flex items-center gap-2 text-xs opacity-100 transition-opacity group-hover/card:opacity-0'>
+            <div className='flex items-center gap-2 text-xs'>
               {showForumBadge && (
                 <Link
                   to='/$forum'
@@ -152,19 +130,6 @@ export function PostCardRow({
 
           {/* Row 3: Actions */}
            <div className='text-muted-foreground flex items-center gap-1 text-xs mt-2'>
-                {/* Expand Toggle */}
-                <button
-                    type='button'
-                    className='text-foreground bg-muted hover:bg-muted/80 inline-flex size-7 items-center justify-center rounded-full transition-colors mr-1'
-                    onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setIsExpanded(!isExpanded)
-                    }}
-                >
-                    {isExpanded ? <X className="size-4" /> : <Maximize2 className="size-3.5" />}
-                </button>
-
                 {/* Upvote button */}
                 <button
                 type='button'
@@ -204,6 +169,28 @@ export function PostCardRow({
              {/* Expanded Content */}
              {isExpanded && renderExpandedContent()}
         </div>
+
+        {/* Right: Thumbnail (Fixed Width + Padding) */}
+        {thumbnail && (
+            <div className='w-[140px] shrink-0 p-3 pl-0 flex flex-col'>
+                <div className="h-20 w-full overflow-hidden rounded-[8px] border bg-muted">
+                    {thumbnail}
+                </div>
+                
+                {/* Expand Toggle */}
+                <button
+                    type='button'
+                    className='text-foreground bg-muted hover:bg-muted/80 mt-2 ml-auto inline-flex size-7 items-center justify-center rounded-full transition-colors'
+                    onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setIsExpanded(!isExpanded)
+                    }}
+                >
+                    {isExpanded ? <X className="size-4" /> : <Maximize2 className="size-3.5" />}
+                </button>
+            </div>
+        )}
       </div>
     </Card>
   )
