@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import {
-  useAuthStore,
   useDomainContextStore,
   ThemeProvider,
   SearchProvider,
@@ -41,9 +40,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-// Initialize auth state from cookie on app start BEFORE router loads
-// This ensures cookies are synced before any route guards run
-useAuthStore.getState().initialize()
 
 // Initialize domain context and render app
 async function init() {
