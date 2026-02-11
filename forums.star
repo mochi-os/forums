@@ -21,7 +21,7 @@ ROLE_TO_ACCESS = {
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
-        server text not null default '',
+        owner integer not null default 0, server text not null default '',
         moderation_posts integer not null default 0, moderation_comments integer not null default 0,
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
@@ -165,6 +165,15 @@ def database_upgrade(to_version):
         mochi.db.execute("create table if not exists rss ( token text not null primary key, entity text not null, mode text not null, created integer not null, unique(entity, mode) )")
         mochi.db.execute("create index if not exists rss_entity on rss( entity )")
 
+    if to_version == 14:
+        # Add owner column to forums table
+        mochi.db.execute("alter table forums add column owner integer not null default 0")
+        # Set owner=1 for locally owned forums
+        forums = mochi.db.rows("select id from forums")
+        for f in forums:
+            if mochi.entity.get(f["id"]):
+                mochi.db.execute("update forums set owner=1 where id=?", f["id"])
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -182,7 +191,8 @@ def get_forum(forum_id):
 # Use this for actions that need to work for both owners and delegated moderators
 def check_access_remote(a, forum_id, operation):
     # If we own the forum, check locally
-    if mochi.entity.get(forum_id):
+    row = mochi.db.row("select owner from forums where id=?", forum_id)
+    if row and row["owner"] == 1:
         return check_access(a, forum_id, operation)
 
     # Query owner for access
@@ -205,8 +215,9 @@ def check_access(a, forum_id, operation):
     if a.user and a.user.identity:
         user = a.user.identity.id
 
-    # Owner has full access (mochi.entity.get returns entity only if current user owns it)
-    if mochi.entity.get(forum_id):
+    # Owner has full access
+    row = mochi.db.row("select owner from forums where id=?", forum_id)
+    if row and row["owner"] == 1:
         return True
 
     # Wildcard grants full access (owner only)
@@ -436,7 +447,7 @@ def action_info_class(a):
     # Add fingerprints and permissions for owned forums (no P2P calls)
     for f in forums:
         f["fingerprint"] = mochi.entity.fingerprint(f["id"])
-        is_owner = mochi.entity.get(f["id"])
+        is_owner = f.get("owner") == 1
         if is_owner:
             f["can_manage"] = check_access(a, f["id"], "manage")
             f["can_moderate"] = check_access(a, f["id"], "moderate")
@@ -456,7 +467,7 @@ def action_info_entity(a):
         a.error(404, "Forum not found")
         return
 
-    is_owner = mochi.entity.get(forum["id"])
+    is_owner = forum.get("owner") == 1
     user_id = a.user.identity.id if a.user else None
 
     # Determine permissions for current user
@@ -501,7 +512,7 @@ def action_view(a):
 
         # Determine if we need to fetch remotely
         # Remote if: forum not found locally, OR found but we're not the owner (just subscribed)
-        is_owner = mochi.entity.get(entity_id) if forum else False
+        is_owner = forum.get("owner") == 1 if forum else False
         is_remote = not is_owner
 
         # For remote forums, fetch via P2P
@@ -555,7 +566,7 @@ def action_view(a):
             a.error(404, "Forum not found")
             return
 
-        is_owner = mochi.entity.get(forum["id"])
+        is_owner = forum.get("owner") == 1
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
 
         # Get member info if user is logged in
@@ -606,7 +617,7 @@ def action_view(a):
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["attachments"] = mochi.attachment.list(p["id"])
             # Fetch attachments from forum owner if we don't have them locally
-            if not p["attachments"] and not mochi.entity.get(forum["id"]):
+            if not p["attachments"] and forum.get("owner") != 1:
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
             # Get comment COUNT for post list (full comments loaded on thread view)
             if can_moderate:
@@ -666,7 +677,7 @@ def action_view(a):
         # access check (too slow for list view) - permissions checked on forum view
         for f in forums:
             f["fingerprint"] = mochi.entity.fingerprint(f["id"])
-            f_is_owner = mochi.entity.get(f["id"])
+            f_is_owner = f.get("owner") == 1
             if f_is_owner:
                 f["can_manage"] = check_access(a, f["id"], "manage")
                 f["can_post"] = check_access(a, f["id"], "post")
@@ -726,7 +737,7 @@ def action_create(a):
 
     # Create forum record
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, name, members, updated ) values ( ?, ?, ?, ? )",
+    mochi.db.execute("replace into forums ( id, name, members, updated, owner ) values ( ?, ?, ?, ?, 1 )",
         entity_id, name, 1, now)
 
     # Add creator as subscriber (they have implicit manage access as entity owner)
@@ -790,8 +801,7 @@ def action_post_create(a):
     # Check if forum exists locally
     if forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally
@@ -1272,7 +1282,7 @@ def action_unsubscribe(a):
         return
 
     # Cannot unsubscribe from own forum
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         a.error(400, "Cannot unsubscribe from your own forum")
         return
 
@@ -1307,7 +1317,7 @@ def action_delete(a):
         return
 
     # Only owner can delete
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         a.error(403, "Only the owner can delete this forum")
         return
 
@@ -1347,7 +1357,7 @@ def action_rename(a):
         return
 
     # Only owner can rename
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         a.error(403, "Not forum owner")
         return
 
@@ -1406,7 +1416,7 @@ def action_post_view(a):
         a.error(404, "Forum not found")
         return
 
-    is_owner = mochi.entity.get(forum["id"])
+    is_owner = forum.get("owner") == 1
 
     member = None
     if a.user:
@@ -1471,7 +1481,7 @@ def action_post_view(a):
     post["body_markdown"] = mochi.markdown.render(post["body"])
     post["attachments"] = mochi.attachment.list(post_id)
     # Fetch attachments from forum owner if we don't have them locally
-    if not post["attachments"] and not mochi.entity.get(forum["id"]):
+    if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
 
     comments = get_comments("", 0)
@@ -1514,8 +1524,7 @@ def action_post_edit(a):
     # Check if we have the post locally
     if post and forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally - full edit with attachments
@@ -1680,8 +1689,7 @@ def action_post_delete(a):
     # Check if we have the post locally
     if post and forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally
@@ -1791,8 +1799,7 @@ def action_comment_create(a):
     # Check if forum exists locally
     if forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally
@@ -1934,8 +1941,7 @@ def action_comment_edit(a):
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally
@@ -2026,8 +2032,7 @@ def action_comment_delete(a):
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner processes locally
@@ -2130,8 +2135,7 @@ def action_post_remove(a):
 
     user = a.user.identity.id
     reason = a.input("reason", "")
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2185,8 +2189,7 @@ def action_post_restore(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2234,8 +2237,7 @@ def action_post_approve(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2291,8 +2293,7 @@ def action_post_lock(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2334,8 +2335,7 @@ def action_post_unlock(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2377,8 +2377,7 @@ def action_post_pin(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         mochi.db.execute("update posts set pinned=1 where id=?", post_id)
@@ -2419,8 +2418,7 @@ def action_post_unpin(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         mochi.db.execute("update posts set pinned=0 where id=?", post_id)
@@ -2462,8 +2460,7 @@ def action_comment_remove(a):
 
     user = a.user.identity.id
     reason = a.input("reason", "")
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2518,8 +2515,7 @@ def action_comment_restore(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2568,8 +2564,7 @@ def action_comment_approve(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2636,8 +2631,7 @@ def action_restrict(a):
         expires = mochi.time.now() + int(duration)
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         now = mochi.time.now()
@@ -2687,8 +2681,7 @@ def action_unrestrict(a):
         return
 
     user = a.user.identity.id
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
@@ -2722,7 +2715,7 @@ def action_restrictions(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
         if response and response.get("error"):
             a.error(403, response["error"])
@@ -2795,8 +2788,7 @@ def action_post_report(a):
 
     report_id = mochi.uid()
     now = mochi.time.now()
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         mochi.db.execute(
@@ -2861,8 +2853,7 @@ def action_comment_report(a):
 
     report_id = mochi.uid()
     now = mochi.time.now()
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         mochi.db.execute(
@@ -2892,7 +2883,7 @@ def action_moderation_reports(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         status = a.input("status", "pending")
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
@@ -2965,7 +2956,7 @@ def action_report_resolve(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         report_id = a.input("report")
         action = a.input("action")
         response = mochi.remote.request(forum["id"], "forums", "moderation/report/resolve", {"report": report_id, "action": action})
@@ -2991,8 +2982,7 @@ def action_report_resolve(a):
 
     user = a.user.identity.id
     now = mochi.time.now()
-    entity = mochi.entity.get(forum["id"])
-    is_owner = len(entity) > 0 if entity else False
+    is_owner = forum.get("owner") == 1
 
     if is_owner:
         # Perform the actual action
@@ -3074,7 +3064,7 @@ def action_moderation_queue(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
         if response and response.get("error"):
             a.error(403, response["error"])
@@ -3128,8 +3118,7 @@ def action_moderation_settings(a):
         return
 
     # Only owner can view/modify settings
-    entity = mochi.entity.get(forum["id"])
-    if not entity:
+    if forum.get("owner") != 1:
         a.error(403, "Not allowed")
         return
 
@@ -3159,8 +3148,7 @@ def action_moderation_settings_save(a):
         return
 
     # Only owner can modify settings
-    entity = mochi.entity.get(forum["id"])
-    if not entity:
+    if forum.get("owner") != 1:
         a.error(403, "Not allowed")
         return
 
@@ -3242,7 +3230,7 @@ def action_moderation_log(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if not mochi.entity.get(forum["id"]):
+    if forum.get("owner") != 1:
         limit_str = a.input("limit")
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit_str or "50"})
         if response and response.get("error"):
@@ -3306,8 +3294,7 @@ def action_post_vote(a):
             return
 
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner checks access locally
@@ -3436,8 +3423,7 @@ def action_comment_vote(a):
             return
 
         # Check if we own this forum
-        entity = mochi.entity.get(forum["id"])
-        is_owner = len(entity) > 0 if entity else False
+        is_owner = forum.get("owner") == 1
 
         if is_owner:
             # Owner checks access locally
@@ -3557,7 +3543,7 @@ def action_attachment_view(a):
         forum = get_forum(forum_id)
 
     # If forum is local and we own it, serve directly
-    if forum and mochi.entity.get(forum["id"]):
+    if forum and forum.get("owner") == 1:
         # Check view access
         if not check_access(a, forum["id"], "view"):
             a.error(403, "Access denied")
@@ -3637,7 +3623,7 @@ def action_attachment_thumbnail(a):
         forum = get_forum(forum_id)
 
     # If forum is local and we own it, serve thumbnail directly
-    if forum and mochi.entity.get(forum["id"]):
+    if forum and forum.get("owner") == 1:
         # Check view access
         if not check_access(a, forum["id"], "view"):
             a.error(403, "Access denied")
@@ -3712,7 +3698,7 @@ def action_access(a):
 
     # Get owner - if we own this entity, use current user's info
     owner = None
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         if a.user and a.user.identity:
             owner = {"id": a.user.identity.id, "name": a.user.identity.name}
 
@@ -4733,7 +4719,7 @@ def event_update_event(e):
         return
 
     # Don't update forums we own
-    if mochi.entity.get(forum_id):
+    if forum.get("owner") == 1:
         return
 
     # Handle name update
@@ -4785,7 +4771,7 @@ def event_post_remove_event(e):
         return
 
     # Don't update forums we own
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     post_id = e.content("id")
@@ -4825,7 +4811,7 @@ def event_post_restore_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     post_id = e.content("id")
@@ -4911,7 +4897,7 @@ def event_post_lock_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     post_id = e.content("id")
@@ -4962,7 +4948,7 @@ def event_post_pin_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     post_id = e.content("id")
@@ -5005,7 +4991,7 @@ def event_comment_remove_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     comment_id = e.content("id")
@@ -5044,7 +5030,7 @@ def event_comment_restore_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     comment_id = e.content("id")
@@ -5122,7 +5108,7 @@ def event_user_restrict_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     target_user = e.content("user")
@@ -5161,7 +5147,7 @@ def event_user_unrestrict_event(e):
     if not forum:
         return
 
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     target_user = e.content("user")
@@ -5282,7 +5268,7 @@ def event_report_resolve_event(e):
         return
 
     # Don't update forums we own
-    if mochi.entity.get(forum["id"]):
+    if forum.get("owner") == 1:
         return
 
     report_id = e.content("id")
