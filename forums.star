@@ -82,6 +82,9 @@ def database_create():
     mochi.db.execute("create index if not exists reports_status on reports( status )")
     mochi.db.execute("create index if not exists reports_target on reports( type, target )")
 
+    mochi.db.execute("create table if not exists rss ( token text not null primary key, entity text not null, mode text not null, created integer not null, unique(entity, mode) )")
+    mochi.db.execute("create index if not exists rss_entity on rss( entity )")
+
 
 # Upgrade database schema
 def database_upgrade(to_version):
@@ -156,6 +159,11 @@ def database_upgrade(to_version):
 
     if to_version == 12:
         pass
+
+    if to_version == 13:
+        # Add RSS token table
+        mochi.db.execute("create table if not exists rss ( token text not null primary key, entity text not null, mode text not null, created integer not null, unique(entity, mode) )")
+        mochi.db.execute("create index if not exists rss_entity on rss( entity )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -5737,3 +5745,246 @@ def action_groups(a):
         return
     groups = mochi.service.call("friends", "groups/list")
     return {"data": {"groups": groups}}
+
+# RSS
+
+# Escape special XML characters
+def escape_xml(s):
+    if not s:
+        return ""
+    s = s.replace("&", "&amp;")
+    s = s.replace("<", "&lt;")
+    s = s.replace(">", "&gt;")
+    s = s.replace('"', "&quot;")
+    return s
+
+# Get or create an RSS token for an entity+mode combination
+def action_rss_token(a):
+    if not a.user:
+        a.error(401, "Authentication required")
+        return
+
+    entity = a.input("entity")
+    mode = a.input("mode")
+    if not entity or not mode:
+        a.error(400, "Missing entity or mode")
+        return
+    if mode != "posts" and mode != "all":
+        a.error(400, "Mode must be 'posts' or 'all'")
+        return
+
+    if entity == "*":
+        forum_id = "*"
+    else:
+        forum = get_forum(entity)
+        if not forum:
+            a.error(404, "Forum not found")
+            return
+        forum_id = forum["id"]
+
+    # Check existing token
+    existing = mochi.db.row("select token from rss where entity=? and mode=?", forum_id, mode)
+    if existing:
+        return {"data": {"token": existing["token"]}}
+
+    # Create new token
+    token = mochi.token.create("rss", ["rss"])
+    if not token:
+        a.error(500, "Failed to create token")
+        return
+
+    now = mochi.time.now()
+    mochi.db.execute("insert into rss (token, entity, mode, created) values (?, ?, ?, ?)", token, forum_id, mode, now)
+    return {"data": {"token": token}}
+
+# Serve RSS feed for all subscribed forums
+def action_rss_all(a):
+    if not a.user:
+        a.error(401, "Authentication required")
+        return
+
+    user_id = a.user.identity.id
+
+    # Look up mode from token
+    token = a.input("token")
+    mode = "posts"
+    if token:
+        rss_row = mochi.db.row("select mode from rss where token=? and entity='*'", token)
+        if rss_row:
+            mode = rss_row["mode"]
+
+    a.header("Content-Type", "application/rss+xml; charset=utf-8")
+    a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
+    a.print('<rss version="2.0">\n')
+    a.print('<channel>\n')
+    a.print('<title>All forums</title>\n')
+    a.print('<link>/forums</link>\n')
+    a.print('<description>All subscribed forums</description>\n')
+
+    # Build forum name lookup
+    forum_names = {}
+    all_forums = mochi.db.rows("select id, name from forums")
+    for f in all_forums:
+        forum_names[f["id"]] = f["name"]
+
+    if mode == "all":
+        rows = mochi.db.rows("""
+            select 'post' as type, p.id, p.forum, p.name as author, p.title, p.body, p.created
+            from posts p inner join members m on p.forum = m.forum
+            where m.id = ? and p.status = 'approved'
+            union all
+            select 'comment' as type, c.id, c.forum, c.name as author, '' as title, c.body, c.created
+            from comments c inner join members m on c.forum = m.forum
+            where m.id = ? and c.status = 'approved'
+            order by created desc limit 100
+        """, user_id, user_id)
+    else:
+        rows = mochi.db.rows("""
+            select 'post' as type, p.id, p.forum, p.name as author, p.title, p.body, p.created
+            from posts p inner join members m on p.forum = m.forum
+            where m.id = ? and p.status = 'approved'
+            order by p.created desc limit 50
+        """, user_id)
+
+    if rows:
+        a.print('<lastBuildDate>' + mochi.time.local(rows[0]["created"], "rfc822") + '</lastBuildDate>\n')
+
+    # Build post title lookup for comment "Re: title" format
+    post_titles = {}
+    if mode == "all":
+        comment_ids = [row["id"] for row in rows if row["type"] == "comment"]
+        if comment_ids:
+            for cid in comment_ids:
+                comment_row = mochi.db.row("select post from comments where id=?", cid)
+                if comment_row:
+                    post_row = mochi.db.row("select title from posts where id=?", comment_row["post"])
+                    if post_row:
+                        post_titles[cid] = post_row["title"]
+
+    for row in rows:
+        item_id = row["id"]
+        forum_id = row["forum"]
+        forum_fp = mochi.entity.fingerprint(forum_id) if mochi.valid(forum_id, "entity") else forum_id
+        item_fp = mochi.entity.fingerprint(item_id) if mochi.valid(item_id, "entity") else item_id
+        forum_name = forum_names.get(forum_id, "Forum")
+        body = row["body"]
+        if len(body) > 500:
+            body = body[:500] + "..."
+
+        if row["type"] == "comment":
+            parent_title = post_titles.get(item_id, "")
+            if parent_title:
+                title = forum_name + ": Re: " + parent_title
+            else:
+                title = forum_name + ": Comment by " + row["author"]
+        else:
+            title = forum_name + ": " + row["title"] if row["title"] else forum_name
+
+        link = "/forums/" + forum_fp + "/" + item_fp
+
+        a.print('<item>\n')
+        a.print('<title>' + escape_xml(title) + '</title>\n')
+        a.print('<link>' + escape_xml(link) + '</link>\n')
+        a.print('<description>' + escape_xml(body) + '</description>\n')
+        a.print('<pubDate>' + mochi.time.local(row["created"], "rfc822") + '</pubDate>\n')
+        a.print('<guid isPermaLink="false">' + escape_xml(item_id) + '</guid>\n')
+        a.print('</item>\n')
+
+    a.print('</channel>\n')
+    a.print('</rss>')
+
+# Serve RSS feed for a forum entity
+def action_rss(a):
+    if not a.user:
+        a.error(401, "Authentication required")
+        return
+
+    forum_id = a.input("forum")
+    if not forum_id:
+        a.error(400, "No forum specified")
+        return
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    forum_id = forum["id"]
+    if not check_access(a, forum_id, "view"):
+        a.error(403, "Not authorized to view this forum")
+        return
+
+    # Look up mode from token
+    token = a.input("token")
+    mode = "posts"
+    if token:
+        rss_row = mochi.db.row("select mode from rss where token=? and entity=?", token, forum_id)
+        if rss_row:
+            mode = rss_row["mode"]
+
+    forum_name = forum.get("name", "Forum")
+    fingerprint = mochi.entity.fingerprint(forum_id)
+
+    a.header("Content-Type", "application/rss+xml; charset=utf-8")
+    a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
+    a.print('<rss version="2.0">\n')
+    a.print('<channel>\n')
+    a.print('<title>' + escape_xml(forum_name) + '</title>\n')
+    a.print('<link>/forums/' + escape_xml(fingerprint) + '</link>\n')
+    a.print('<description>' + escape_xml(forum_name) + ' RSS feed</description>\n')
+
+    if mode == "all":
+        # Interleave posts and comments by date, only approved content
+        rows = mochi.db.rows("""
+            select 'post' as type, id, name as author, title, body, created from posts where forum=? and status='approved'
+            union all
+            select 'comment' as type, id, name as author, '' as title, body, created from comments where forum=? and status='approved'
+            order by created desc limit 100
+        """, forum_id, forum_id)
+    else:
+        rows = mochi.db.rows("select 'post' as type, id, name as author, title, body, created from posts where forum=? and status='approved' order by created desc limit 50", forum_id)
+
+    if rows:
+        a.print('<lastBuildDate>' + mochi.time.local(rows[0]["created"], "rfc822") + '</lastBuildDate>\n')
+
+    # Build post title lookup for comment "Re: title" format
+    post_titles = {}
+    if mode == "all":
+        comment_ids = [row["id"] for row in rows if row["type"] == "comment"]
+        if comment_ids:
+            # Get parent post IDs for these comments
+            for cid in comment_ids:
+                comment_row = mochi.db.row("select post from comments where id=?", cid)
+                if comment_row:
+                    post_row = mochi.db.row("select title from posts where id=?", comment_row["post"])
+                    if post_row:
+                        post_titles[cid] = post_row["title"]
+
+    for row in rows:
+        item_id = row["id"]
+        item_fp = mochi.entity.fingerprint(item_id) if mochi.valid(item_id, "entity") else item_id
+        body = row["body"]
+        if len(body) > 500:
+            body = body[:500] + "..."
+
+        if row["type"] == "comment":
+            parent_title = post_titles.get(item_id, "")
+            if parent_title:
+                title = "Re: " + parent_title
+            else:
+                title = "Comment by " + row["author"]
+        else:
+            title = row["title"] if row["title"] else forum_name
+
+        link = "/forums/" + fingerprint + "/" + item_fp
+
+        a.print('<item>\n')
+        a.print('<title>' + escape_xml(title) + '</title>\n')
+        a.print('<link>' + escape_xml(link) + '</link>\n')
+        a.print('<description>' + escape_xml(body) + '</description>\n')
+        a.print('<pubDate>' + mochi.time.local(row["created"], "rfc822") + '</pubDate>\n')
+        a.print('<guid isPermaLink="false">' + escape_xml(item_id) + '</guid>\n')
+        a.print('</item>\n')
+
+    a.print('</channel>\n')
+    a.print('</rss>')

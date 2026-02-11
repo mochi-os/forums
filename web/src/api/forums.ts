@@ -487,7 +487,10 @@ const forumsApi = {
     client.post<ReportCommentResponse>(
       endpoints.forums.commentModeration.report(payload.forum, payload.post, payload.comment),
       { reason: payload.reason }
-    )
+    ),
+
+  getRssToken: (entity: string, mode: 'posts' | 'all') =>
+    client.post<{ data: { token: string } }>(endpoints.forums.rssToken, { entity, mode }),
 }
 
 export type {

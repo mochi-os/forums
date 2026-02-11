@@ -1,20 +1,45 @@
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal, Rss } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   Switch,
+  toast,
+  getErrorMessage,
   type ViewMode,
 } from '@mochi/common'
+import forumsApi from '@/api/forums'
 
 interface OptionsMenuProps {
   viewMode: ViewMode
   onViewModeChange: (mode: ViewMode) => void
+  entityId?: string
+  showRss?: boolean
 }
 
-export function OptionsMenu({ viewMode, onViewModeChange }: OptionsMenuProps) {
+export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss }: OptionsMenuProps) {
   const isCompact = viewMode === 'compact'
+  const rssEntity = entityId || (showRss ? '*' : null)
+
+  const handleCopyRssUrl = async (mode: 'posts' | 'all') => {
+    if (!rssEntity) return
+    try {
+      const response = await forumsApi.getRssToken(rssEntity, mode)
+      const token = response.data.token
+      const url = rssEntity === '*'
+        ? `${window.location.origin}/forums/-/rss?token=${token}`
+        : `${window.location.origin}/forums/${rssEntity}/-/rss?token=${token}`
+      await navigator.clipboard.writeText(url)
+      toast.success('RSS URL copied to clipboard')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to get RSS token'))
+    }
+  }
 
   return (
     <DropdownMenu>
@@ -42,6 +67,25 @@ export function OptionsMenu({ viewMode, onViewModeChange }: OptionsMenuProps) {
             />
           </div>
         </DropdownMenuItem>
+        {rssEntity && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <Rss className="mr-2 size-4" />
+                RSS feed
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem onSelect={() => void handleCopyRssUrl('posts')}>
+                  Posts
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => void handleCopyRssUrl('all')}>
+                  Posts and comments
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

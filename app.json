@@ -16,7 +16,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 12,
+		"schema": 13,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -85,6 +85,9 @@
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},
+		"-/rss": {"function": "action_rss_all", "public": true},
+		":forum/-/rss": {"function": "action_rss", "public": true},
+		"-/rss/token": {"function": "action_rss_token"},
 		"users/search": {"function": "action_users_search"},
 		"groups": {"function": "action_groups"}
 	},

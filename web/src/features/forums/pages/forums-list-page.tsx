@@ -67,7 +67,7 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} />}
+        actions={<OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} showRss />}
       />
       <Main fixed>
         {ErrorComponent || (

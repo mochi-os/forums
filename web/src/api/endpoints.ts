@@ -96,6 +96,9 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/moderation/reports/${reportId}/resolve`,
     },
 
+    // RSS
+    rssToken: '-/rss/token',
+
     // User restrictions
     restrict: (forumId: string) => `${getEntityBase(forumId)}/-/restrict`,
     unrestrict: (forumId: string) => `${getEntityBase(forumId)}/-/unrestrict`,
