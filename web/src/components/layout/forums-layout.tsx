@@ -1,11 +1,9 @@
 import { useCallback, useMemo } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
 import {
   AuthenticatedLayout,
   type SidebarData,
   type NavItem,
   type NavSubItem,
-  SearchEntityDialog,
 } from '@mochi/common'
 import {
   FileText,
@@ -16,15 +14,12 @@ import {
   Gavel,
   Search,
 } from 'lucide-react'
-import endpoints from '@/api/endpoints'
-import forumsApi from '@/api/forums'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsInfo,
   useForumInfo,
   useCreatePost,
-  forumsKeys,
   useForumDetail,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
@@ -41,9 +36,6 @@ function ForumsLayoutInner() {
     forumDialogOpen,
     openForumDialog,
     closeForumDialog,
-    searchDialogOpen,
-    openSearchDialog,
-    closeSearchDialog,
   } = useSidebarContext()
 
   // Use lightweight info endpoint for forum list (no P2P calls)
@@ -58,8 +50,6 @@ function ForumsLayoutInner() {
     const detailPosts = detailData?.data?.posts || []
     return detailPosts
   }, [detailData])
-
-  const queryClient = useQueryClient()
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
@@ -85,24 +75,6 @@ function ForumsLayoutInner() {
     },
     [createPostMutation]
   )
-
-  // Set of subscribed forum IDs for search dialog
-  const subscribedForumIds = useMemo(
-    () => new Set(
-      forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))
-    ),
-    [forums]
-  )
-
-  // Handle subscribe from search dialog
-  const handleSubscribe = useCallback(
-    async (forumId: string) => {
-      await forumsApi.subscribeForum(forumId)
-      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-    },
-    [queryClient]
-  )
-
 
   // Build sidebar data
   const sidebarData: SidebarData = useMemo(() => {
@@ -209,7 +181,7 @@ function ForumsLayoutInner() {
 
     // Build action items (moved to bottom)
     const actionItems: NavItem[] = [
-      { title: 'Find forums', icon: Search, onClick: openSearchDialog },
+      { title: 'Find forums', icon: Search, url: '/find' },
       {
         title: 'Create forum',
         icon: Plus,
@@ -236,7 +208,6 @@ function ForumsLayoutInner() {
     post,
     postTitle,
     openForumDialog,
-    openSearchDialog,
     allPosts,
     currentForumInfo,
   ])
@@ -271,24 +242,6 @@ function ForumsLayoutInner() {
           if (!open) closeForumDialog()
         }}
         hideTrigger
-      />
-
-      {/* Search Forums Dialog - controlled from sidebar */}
-      <SearchEntityDialog
-        open={searchDialogOpen}
-        onOpenChange={(open) => {
-          if (!open) closeSearchDialog()
-        }}
-        onSubscribe={handleSubscribe}
-        subscribedIds={subscribedForumIds}
-        entityClass='forum'
-        searchEndpoint={endpoints.forums.search}
-        icon={Hash}
-        iconClassName='bg-blue-500/10 text-blue-600'
-        title='Find forums'
-        description='Find public forums to subscribe to'
-        placeholder='Search by name, ID, fingerprint, or URL...'
-        emptyMessage='No forums found'
       />
     </>
   )

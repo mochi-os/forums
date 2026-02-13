@@ -1,34 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
-import { GeneralError, requestHelpers } from '@mochi/common'
-import type { Forum, ForumPermissions } from '@/api/types/forums'
+import { GeneralError } from '@mochi/common'
 import { EntityForumPage } from '@/features/forums/pages'
-import endpoints from '@/api/endpoints'
+import forumsApi from '@/api/forums'
 
 const searchSchema = z.object({
   server: z.string().optional(),
 })
 
-// Response type for posts endpoint - includes forum data
-interface PostsResponse {
-  forum?: Forum
-  permissions?: ForumPermissions
-  posts: unknown[]
-  hasMore: boolean
-  cursor?: number
-}
-
 export const Route = createFileRoute('/_authenticated/$forum/')({
   validateSearch: searchSchema,
   loader: async ({ params }) => {
     const { forum: forumId } = params
-    // Use the posts endpoint to get forum info (it returns forum data + posts)
-    const response = await requestHelpers.get<PostsResponse>(
-      endpoints.forums.posts(forumId)
-    )
+    const response = await forumsApi.viewForum({ forum: forumId })
     return {
-      forum: response.forum,
-      permissions: response.permissions,
+      forum: response.data?.forum,
+      permissions: response.data ? {
+        view: true,
+        post: response.data.forum?.can_post ?? false,
+        manage: response.data.can_manage ?? false,
+        moderate: response.data.can_moderate ?? false,
+      } : undefined,
     }
   },
   component: ForumPage,

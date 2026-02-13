@@ -34,11 +34,6 @@ type SidebarContextValue = {
   openForumDialog: () => void
   closeForumDialog: () => void
 
-  // Search forums dialog
-  searchDialogOpen: boolean
-  openSearchDialog: () => void
-  closeSearchDialog: () => void
-
   // Subscription state and handlers for current forum
   subscription: SubscriptionState | null
   setSubscription: (state: SubscriptionState | null) => void
@@ -55,7 +50,6 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [postDialogOpen, setPostDialogOpen] = useState(false)
   const [postDialogForum, setPostDialogForum] = useState<string | null>(null)
   const [forumDialogOpen, setForumDialogOpen] = useState(false)
-  const [searchDialogOpen, setSearchDialogOpen] = useState(false)
   const [subscription, setSubscription] = useState<SubscriptionState | null>(
     null
   )
@@ -85,14 +79,6 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     setForumDialogOpen(false)
   }, [])
 
-  const openSearchDialog = useCallback(() => {
-    setSearchDialogOpen(true)
-  }, [])
-
-  const closeSearchDialog = useCallback(() => {
-    setSearchDialogOpen(false)
-  }, [])
-
   return (
     <SidebarContext.Provider
       value={{
@@ -108,9 +94,6 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         forumDialogOpen,
         openForumDialog,
         closeForumDialog,
-        searchDialogOpen,
-        openSearchDialog,
-        closeSearchDialog,
         subscription,
         setSubscription,
         subscribeHandler,
