@@ -90,6 +90,7 @@ function ForumSettingsPage() {
   const setActiveTab = (newTab: TabId) => {
     void navigateSettings({ search: { tab: newTab }, replace: true })
   }
+  const goBackToForum = () => navigate({ to: '/$forum', params: { forum: forumId } })
   const [isUnsubscribing, setIsUnsubscribing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
@@ -180,6 +181,7 @@ function ForumSettingsPage() {
         <PageHeader 
           title={<Skeleton className='h-8 w-48' />} 
           icon={<Skeleton className='size-4 md:size-5 rounded-md' />}
+          back={{ label: 'Back to forum', onFallback: goBackToForum }}
         />
         <Main className='space-y-6'>
           <Skeleton className='h-12 w-full rounded-md' />
@@ -192,7 +194,7 @@ function ForumSettingsPage() {
   if (!selectedForum) {
     return (
       <>
-        <PageHeader title="Settings" />
+        <PageHeader title="Settings" back={{ label: 'Back to forum', onFallback: goBackToForum }} />
         <Main>
           <EmptyState
             icon={Hash}
@@ -206,7 +208,11 @@ function ForumSettingsPage() {
 
   return (
     <>
-      <PageHeader title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'} icon={<Settings className="size-4 md:size-5" />} />
+      <PageHeader
+        title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'}
+        icon={<Settings className="size-4 md:size-5" />}
+        back={{ label: 'Back to forum', onFallback: goBackToForum }}
+      />
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (

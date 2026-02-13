@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Card, getAppPath } from '@mochi/common'
+import { Card, getAppPath, formatTimestamp } from '@mochi/common'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, Maximize2, X } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
-import { formatTimestamp } from '@mochi/common'
-
 interface PostCardRowProps {
   post: Post
   forumName: string
@@ -158,6 +156,7 @@ export function PostCardRow({
                 <Link
                 to='/$forum/$post'
                 params={{ forum: post.forum, post: post.id }}
+                search={showForumBadge ? { from: 'all' } : undefined}
                 className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
                 onClick={(e) => e.stopPropagation()}
                 >

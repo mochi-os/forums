@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   Button,
   Card,
@@ -68,9 +68,11 @@ const tabs: Tab[] = [
 function ModerationPage() {
   const params = Route.useParams()
   const forumId = 'forum' in params ? params.forum : ''
+  const navigate = useNavigate()
   const navigateModeration = Route.useNavigate()
   const { tab } = Route.useSearch()
   const activeTab = tab ?? 'queue'
+  const goBackToForum = () => navigate({ to: '/$forum', params: { forum: forumId } })
 
   const setActiveTab = (newTab: TabId) => {
     void navigateModeration({ search: { tab: newTab }, replace: true })
@@ -87,7 +89,7 @@ function ModerationPage() {
 
   return (
     <>
-      <PageHeader title='Moderation' />
+      <PageHeader title='Moderation' back={{ label: 'Back to forum', onFallback: goBackToForum }} />
       <Main className='space-y-6'>
         {/* Tabs */}
         <div className='flex gap-1 border-b'>
