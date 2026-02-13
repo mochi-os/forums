@@ -1232,6 +1232,7 @@ def action_subscribe(a):
         }
 
     # Get forum info from remote server or directory
+    schema = None
     if server:
         peer = mochi.remote.peer(server)
         if not peer:
@@ -1242,6 +1243,7 @@ def action_subscribe(a):
             a.error(response.get("code", 404), response["error"])
             return
         forum_name = response.get("name", "")
+        schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
     else:
         # Use directory lookup when no server specified
         directory = mochi.directory.get(forum_id)
@@ -1249,6 +1251,11 @@ def action_subscribe(a):
             a.error(404, "Forum not found in directory")
             return
         forum_name = directory["name"]
+        server = directory.get("location", "")
+        if server:
+            peer = mochi.remote.peer(server)
+            if peer:
+                schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
 
     # Create local forum record
     now = mochi.time.now()
@@ -1258,6 +1265,10 @@ def action_subscribe(a):
     # Add self as subscriber
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
         forum_id, a.user.identity.id, a.user.identity.name, now)
+
+    # Insert schema data so posts/comments are available immediately
+    if schema and not schema.get("error"):
+        insert_forum_schema(forum_id, schema)
 
     # Send subscribe message to forum owner
     mochi.message.send(
@@ -5296,6 +5307,52 @@ def event_info(e):
         "fingerprint": entity.get("fingerprint", mochi.entity.fingerprint(forum_id)),
         "privacy": entity.get("privacy", "public"),
     })
+
+# Return full forum content for reliable subscription sync
+def event_schema(e):
+    forum_id = e.header("to")
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "Forum not found"})
+        return
+
+    posts = mochi.db.rows(
+        "select id, member, name, title, body, up, down, comments, created, updated from posts where forum=? order by created desc limit 100",
+        forum_id
+    ) or []
+
+    # Fetch comments for all returned posts
+    post_ids = [p["id"] for p in posts]
+    comments = []
+    for pid in post_ids:
+        rows = mochi.db.rows(
+            "select id, post, parent, member, name, body, up, down, created from comments where forum=? and post=? order by created",
+            forum_id, pid
+        ) or []
+        for r in rows:
+            comments.append(r)
+
+    e.stream.write({
+        "posts": posts,
+        "comments": comments,
+    })
+
+# Insert forum schema data into local database
+def insert_forum_schema(forum_id, schema):
+    for p in (schema.get("posts") or []):
+        mochi.db.execute(
+            "replace into posts (id, forum, member, name, title, body, up, down, comments, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
+            p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
+            p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
+        )
+    for c in (schema.get("comments") or []):
+        mochi.db.execute(
+            "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
+            c.get("member", ""), c.get("name", ""), c.get("body", ""),
+            c.get("up", 0), c.get("down", 0), c.get("created", 0)
+        )
 
 # Handle view request for a forum (used for remote forum viewing)
 def event_view(e):
