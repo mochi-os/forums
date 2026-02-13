@@ -1,11 +1,9 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent } from '@mochi/common'
+import { Card, CardContent, cn, formatTimestamp } from '@mochi/common'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
-import { cn, formatTimestamp } from '@mochi/common'
-
 interface PostCardProps {
   post: Post
   forumName: string
@@ -103,8 +101,6 @@ export function PostCard({
           className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
           onClick={(e) => {
             e.stopPropagation()
-            // TODO: Implement vote functionality
-            console.log('Upvote clicked')
           }}
         >
           <ThumbsUp className='size-3' />
@@ -117,8 +113,6 @@ export function PostCard({
           className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
           onClick={(e) => {
             e.stopPropagation()
-            // TODO: Implement vote functionality
-            console.log('Downvote clicked')
           }}
         >
           <ThumbsDown className='size-3' />
@@ -129,6 +123,7 @@ export function PostCard({
         <Link
           to='/$forum/$post'
           params={{ forum: post.forum, post: post.id }}
+          search={showForumBadge ? { from: 'all' } : undefined}
           className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
           onClick={(e) => e.stopPropagation()}
         >

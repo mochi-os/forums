@@ -1,6 +1,15 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { Main, Button, usePageTitle, toast, getErrorMessage, Card, CardContent } from '@mochi/common'
+import {
+  Main,
+  Button,
+  usePageTitle,
+  toast,
+  getErrorMessage,
+  Card,
+  CardContent,
+  PageHeader,
+} from '@mochi/common'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -89,14 +98,22 @@ export function ThreadDetail({
 
   usePageTitle(postData?.data?.post?.title ?? 'Thread')
 
+  const forumTitle = postData?.data?.forum?.name || 'Forum'
+  const goBackToForumContext = () => {
+    if (fromAllForums || !forum) {
+      return navigate({ to: '/' })
+    }
+    return navigate({ to: '/$forum', params: { forum } })
+  }
+
   // Mutations
   const votePostMutation = useVotePost(forum, postId)
   const voteCommentMutation = useVoteComment(forum, postId)
   const createCommentMutation = useCreateComment(forum, postId)
   const editPostMutation = useEditPost(forum, postId)
   const deletePostMutation = useDeletePost(forum, () => {
-    // Navigate back to forum after deletion
-    navigate({ to: '/' })
+    // Navigate back to previous forum context after deletion.
+    void goBackToForumContext()
   })
   const editCommentMutation = useEditComment(forum, postId)
   const deleteCommentMutation = useDeleteComment(forum, postId)
@@ -149,23 +166,36 @@ export function ThreadDetail({
   }
 
   const handleBack = () => {
-    // Navigate back to the forum
-    navigate({ to: '/' })
+    void goBackToForumContext()
   }
 
   if (isLoading) {
-    return <ThreadDetailSkeleton />
+    return (
+      <>
+        <PageHeader
+          title={forumTitle}
+          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+        />
+        <ThreadDetailSkeleton />
+      </>
+    )
   }
 
   if (isError || !postData?.data?.post) {
     return (
-      <Main className="space-y-4">
-        <Card className="shadow-md">
-          <CardContent className="py-12 text-center">
-            <EmptyThreadState onBack={handleBack} />
-          </CardContent>
-        </Card>
-      </Main>
+      <>
+        <PageHeader
+          title={forumTitle}
+          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+        />
+        <Main className="space-y-4">
+          <Card className="shadow-md">
+            <CardContent className="py-12 text-center">
+              <EmptyThreadState onBack={handleBack} />
+            </CardContent>
+          </Card>
+        </Main>
+      </>
     )
   }
 
@@ -221,43 +251,48 @@ export function ThreadDetail({
   }
 
   return (
-    <Main className="space-y-4">
-      {/* Single post */}
-      <Card className="shadow-md">
-        <CardContent className="p-6">
-          <div className='space-y-4'>
-            <ThreadContent
-              post={post}
-              attachments={post.attachments}
-              server={server}
-              forumName={forumData?.name}
-              showForumBadge={fromAllForums}
-              onVote={(vote) => votePostMutation.mutate(vote)}
-              isVotePending={votePostMutation.isPending}
-              canVote={can_vote}
-              canReply={can_comment && !post.locked}
-              onReply={() => setShowReplyForm(true)}
-              canEdit={canEditPost}
-              onEdit={() => setEditPostDialogOpen(true)}
-              onDelete={() => deletePostMutation.mutate(postId)}
-              canModerate={can_moderate || isForumManager}
-              onRemove={() => removePostMutation.mutate(undefined)}
-              onRestore={() => restorePostMutation.mutate()}
-              onLock={() => lockPostMutation.mutate()}
-              onUnlock={() => unlockPostMutation.mutate()}
-              onPin={() => pinPostMutation.mutate()}
-              onUnpin={() => unpinPostMutation.mutate()}
-              onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
-              onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
-              onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
-            />
+    <>
+      <PageHeader
+        title={forumTitle}
+        back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+      />
+      <Main className="space-y-4">
+        {/* Single post */}
+        <Card className="shadow-md">
+          <CardContent className="p-6">
+            <div className='space-y-4'>
+              <ThreadContent
+                post={post}
+                attachments={post.attachments}
+                server={server}
+                forumName={forumData?.name}
+                showForumBadge={fromAllForums}
+                onVote={(vote) => votePostMutation.mutate(vote)}
+                isVotePending={votePostMutation.isPending}
+                canVote={can_vote}
+                canReply={can_comment && !post.locked}
+                onReply={() => setShowReplyForm(true)}
+                canEdit={canEditPost}
+                onEdit={() => setEditPostDialogOpen(true)}
+                onDelete={() => deletePostMutation.mutate(postId)}
+                canModerate={can_moderate || isForumManager}
+                onRemove={() => removePostMutation.mutate(undefined)}
+                onRestore={() => restorePostMutation.mutate()}
+                onLock={() => lockPostMutation.mutate()}
+                onUnlock={() => unlockPostMutation.mutate()}
+                onPin={() => pinPostMutation.mutate()}
+                onUnpin={() => unpinPostMutation.mutate()}
+                onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
+                onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
+                onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
+              />
 
-            {/* Divider */}
-            <div className='border-border/60 mt-6 border-t pt-4'>
-              {/* Reply Form - shown above comments */}
-              {showReplyForm && (
-                <div className='mb-4 space-y-2'>
-                  <textarea
+              {/* Divider */}
+              <div className='border-border/60 mt-6 border-t pt-4'>
+                {/* Reply Form - shown above comments */}
+                {showReplyForm && (
+                  <div className='mb-4 space-y-2'>
+                    <textarea
                     value={commentBody}
                     onChange={(e) => setCommentBody(e.target.value)}
                     onKeyDown={(e) => {
@@ -328,11 +363,11 @@ export function ThreadDetail({
                 </div>
               )}
 
-              {/* Comments List */}
-              {commentCount > 0 ? (
-                <div className='divide-y-0'>
-                  {comments.map((comment) => (
-                    <ThreadComment
+                {/* Comments List */}
+                {commentCount > 0 ? (
+                  <div className='divide-y-0'>
+                    {comments.map((comment) => (
+                      <ThreadComment
                       key={comment.id}
                       comment={comment}
                       onVote={(commentId, vote) =>
@@ -381,43 +416,43 @@ export function ThreadDetail({
                       onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
                       onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
                       currentUserId={currentUserId}
-                    />
-                  ))}
-                </div>
-              ) : null}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Edit Post Dialog */}
-      <EditPostDialog
-        post={post}
-        open={editPostDialogOpen}
-        onOpenChange={setEditPostDialogOpen}
-        onSave={handleEditPost}
-        isPending={editPostMutation.isPending}
-      />
+        {/* Edit Post Dialog */}
+        <EditPostDialog
+          post={post}
+          open={editPostDialogOpen}
+          onOpenChange={setEditPostDialogOpen}
+          onSave={handleEditPost}
+          isPending={editPostMutation.isPending}
+        />
 
-      {/* Report Post Dialog */}
-      <ReportDialog
-        open={reportPostDialogOpen}
-        onOpenChange={setReportPostDialogOpen}
-        onSubmit={(reason, details) => {
-          reportPostMutation.mutate(
-            { reason, details },
-            { onSuccess: () => setReportPostDialogOpen(false) }
-          )
-        }}
-        isPending={reportPostMutation.isPending}
-        contentType='post'
-      />
+        {/* Report Post Dialog */}
+        <ReportDialog
+          open={reportPostDialogOpen}
+          onOpenChange={setReportPostDialogOpen}
+          onSubmit={(reason, details) => {
+            reportPostMutation.mutate(
+              { reason, details },
+              { onSuccess: () => setReportPostDialogOpen(false) }
+            )
+          }}
+          isPending={reportPostMutation.isPending}
+          contentType='post'
+        />
 
-      {/* Report Comment Dialog */}
-      <ReportDialog
-        open={!!reportingCommentId}
-        onOpenChange={(open) => !open && setReportingCommentId(null)}
-        onSubmit={(reason, details) => {
+        {/* Report Comment Dialog */}
+        <ReportDialog
+          open={!!reportingCommentId}
+          onOpenChange={(open) => !open && setReportingCommentId(null)}
+          onSubmit={(reason, details) => {
           if (reportingCommentId) {
             reportCommentMutation.mutate(
               { commentId: reportingCommentId, reason, details },
@@ -425,9 +460,10 @@ export function ThreadDetail({
             )
           }
         }}
-        isPending={reportCommentMutation.isPending}
-        contentType='comment'
-      />
-    </Main>
+          isPending={reportCommentMutation.isPending}
+          contentType='comment'
+        />
+      </Main>
+    </>
   )
 }
