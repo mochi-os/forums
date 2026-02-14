@@ -11,6 +11,7 @@ import {
   Switch,
   toast,
   getErrorMessage,
+  getAppPath,
   type ViewMode,
 } from '@mochi/common'
 import forumsApi from '@/api/forums'
@@ -32,8 +33,8 @@ export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss }: O
       const response = await forumsApi.getRssToken(rssEntity, mode)
       const token = response.data.token
       const url = rssEntity === '*'
-        ? `${window.location.origin}/forums/-/rss?token=${token}`
-        : `${window.location.origin}/forums/${rssEntity}/-/rss?token=${token}`
+        ? `${window.location.origin}${getAppPath()}/-/rss?token=${token}`
+        : `${window.location.origin}${getAppPath()}/${rssEntity}/-/rss?token=${token}`
       await navigator.clipboard.writeText(url)
       toast.success('RSS URL copied to clipboard')
     } catch (error) {
