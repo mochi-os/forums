@@ -1,11 +1,10 @@
-import { isDomainEntityContext, getDomainEntityFingerprint } from '@mochi/common'
+import { isDomainEntityRouting, getEntityFingerprint } from '@mochi/common'
 
 // Get the base path for entity-level API calls
 // In domain context, use '' (relative to root); otherwise use /{forumId}
 // Note: createAppClient already adds /forums/ prefix via appName
 function getEntityBase(forumId: string): string {
-  const domainFingerprint = getDomainEntityFingerprint()
-  if (isDomainEntityContext('forum') && domainFingerprint === forumId) {
+  if (isDomainEntityRouting() && getEntityFingerprint() === forumId) {
     return ''
   }
   return `/${forumId}`
@@ -14,24 +13,24 @@ function getEntityBase(forumId: string): string {
 const endpoints = {
   // Cross-app endpoints (proxied via forums backend)
   users: {
-    search: 'users/search',
+    search: '-/users/search',
   },
   groups: {
-    list: 'groups',
+    list: '-/groups',
   },
   forums: {
     // Class-level endpoints (no entity context)
     // These are relative - createAppClient adds /forums/ prefix
-    info: 'info',
-    list: 'list',
-    create: 'create',
+    info: '-/info',
+    list: '-/list',
+    create: '-/create',
     find: 'find',
-    new: 'new',
-    search: 'directory/search',
-    recommendations: 'recommendations',
-    probe: 'probe',
-    postNew: 'post/new',
-    postCreate: 'post/create',
+    new: '-/new',
+    search: '-/directory/search',
+    recommendations: '-/recommendations',
+    probe: '-/probe',
+    postNew: '-/post/new',
+    postCreate: '-/post/create',
 
     // Entity-level endpoints (use /-/ separator)
     // Use getEntityBase for domain-aware paths
