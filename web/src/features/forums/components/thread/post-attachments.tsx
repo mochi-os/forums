@@ -73,14 +73,14 @@ export function PostAttachments({
   const appPath = getAppPath()
   const serverParam = server ? `?server=${encodeURIComponent(server)}` : ''
 
-  // Attachment URL includes forum ID for proper routing
-  const getAttachmentUrl = (id: string) => {
-    return `${appPath}/${forumId}/-/attachments/${id}${serverParam}`
+  // Attachment URL - prefer API-provided URL, fall back to constructed URL
+  const getAttachmentUrl = (att: Attachment) => {
+    return att.url ?? `${appPath}/${forumId}/-/attachments/${att.id}${serverParam}`
   }
 
-  // Thumbnail URL for images
-  const getThumbnailUrl = (id: string) => {
-    return `${appPath}/${forumId}/-/attachments/${id}/thumbnail${serverParam}`
+  // Thumbnail URL - prefer API-provided URL, fall back to constructed URL
+  const getThumbnailUrl = (att: Attachment) => {
+    return att.thumbnail_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/thumbnail${serverParam}`
   }
 
   // Separate media (images + videos) from other files
@@ -95,7 +95,7 @@ export function PostAttachments({
   const lightboxMedia: LightboxMedia[] = media.map((att) => ({
     id: att.id,
     name: att.name,
-    url: getAttachmentUrl(att.id),
+    url: getAttachmentUrl(att),
     type: isVideo(att.type) ? 'video' : 'image',
   }))
 
@@ -119,10 +119,10 @@ export function PostAttachments({
       className='group/thumb relative overflow-hidden rounded-[8px] border'
     >
       {isVideo(attachment.type) ? (
-        <VideoThumbnail url={getAttachmentUrl(attachment.id)} />
+        <VideoThumbnail url={getAttachmentUrl(attachment)} />
       ) : (
         <img
-          src={getThumbnailUrl(attachment.id)}
+          src={getThumbnailUrl(attachment)}
           alt={attachment.name}
           className='block max-h-[250px] transition-transform group-hover/thumb:scale-105'
         />
@@ -136,7 +136,7 @@ export function PostAttachments({
     return (
       <a
         key={attachment.id}
-        href={getAttachmentUrl(attachment.id)}
+        href={getAttachmentUrl(attachment)}
         onClick={(e) => e.stopPropagation()}
         className='hover:bg-muted flex items-center gap-2 rounded-[8px] border p-2 text-sm transition-colors'
       >

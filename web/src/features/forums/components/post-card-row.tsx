@@ -32,7 +32,7 @@ export function PostCardRow({
     if (imageAttachment) {
       return (
         <img
-          src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/attachments/${imageAttachment.id}/thumbnail`}
+          src={imageAttachment.thumbnail_url ?? `${getAppPath()}/${post.fingerprint ?? post.forum}/-/attachments/${imageAttachment.id}/thumbnail`}
           alt={imageAttachment.name}
           className='h-full w-full object-cover'
         />
@@ -55,7 +55,7 @@ export function PostCardRow({
                 {images.map(att => (
                      <img
                      key={att.id}
-                     src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/attachments/${att.id}/original`}
+                     src={att.url ?? `${getAppPath()}/${post.fingerprint ?? post.forum}/-/attachments/${att.id}`}
                      alt={att.name}
                      className='w-full rounded-md object-contain max-h-[500px] bg-black/5'
                    />

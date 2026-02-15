@@ -837,8 +837,8 @@ def action_post_create(a):
             # Get members for notification (excluding sender)
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
-            # Save any uploaded attachments and notify members via attachment/create events
-            mochi.attachment.save(id, "attachments", [], [], members)
+            # Save any uploaded attachments locally
+            attachments = mochi.attachment.save(id, "attachments", [], [], [])
 
             # Only broadcast if approved
             if status == "approved":
@@ -850,6 +850,8 @@ def action_post_create(a):
                     "body": body,
                     "created": now
                 }
+                if attachments:
+                    post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
         else:
@@ -862,12 +864,16 @@ def action_post_create(a):
                 a.error(403, access_response.get("error", "Not allowed to post"))
                 return
 
-            # Save attachments and send to forum owner
-            mochi.attachment.save(id, "attachments", [], [], [forum["id"]])
+            # Save attachments locally
+            attachments = mochi.attachment.save(id, "attachments", [], [], [])
+
+            submit_data = {"id": id, "title": title, "body": body}
+            if attachments:
+                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
-                {"id": id, "title": title, "body": body}
+                submit_data
             )
 
             # Save locally for optimistic UI (status pending until owner confirms)
@@ -892,13 +898,17 @@ def action_post_create(a):
         a.error(403, access_response.get("error", "Not allowed to post"))
         return
 
-    # Save attachments and send to forum owner
-    mochi.attachment.save(id, "attachments", [], [], [forum_id])
+    # Save attachments locally
+    attachments = mochi.attachment.save(id, "attachments", [], [], [])
 
-    # Send post to remote forum owner
+    # Send post to remote forum owner with attachment metadata
+    submit_data = {"id": id, "title": title, "body": body}
+    if attachments:
+        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
-        {"id": id, "title": title, "body": body}
+        submit_data
     )
 
     return {
@@ -1561,8 +1571,7 @@ def action_post_edit(a):
 
             current_attachments = mochi.attachment.list(post_id)
             current_ids = [att["id"] for att in current_attachments]
-            members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], members)
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
 
             final_order = []
             for item in order:
@@ -1576,12 +1585,12 @@ def action_post_edit(a):
             if final_order:
                 for att_id in current_ids:
                     if att_id not in final_order:
-                        mochi.attachment.delete(att_id, members)
+                        mochi.attachment.delete(att_id, [])
                 for i, att_id in enumerate(final_order):
-                    mochi.attachment.move(att_id, i + 1, members)
+                    mochi.attachment.move(att_id, i + 1, [])
             else:
                 for att_id in current_ids:
-                    mochi.attachment.delete(att_id, members)
+                    mochi.attachment.delete(att_id, [])
 
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
@@ -1593,6 +1602,7 @@ def action_post_edit(a):
                 "body": body,
                 "edited": now
             }
+            post_data["attachments"] = mochi.attachment.list(post_id)
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
         else:
             # Subscriber - must be author or have manage access to edit
@@ -1614,8 +1624,8 @@ def action_post_edit(a):
             current_attachments = mochi.attachment.list(post_id)
             current_ids = [att["id"] for att in current_attachments]
 
-            # Save new attachments and send to forum owner
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [forum["id"]])
+            # Save new attachments locally
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
 
             # Build final order
             final_order = []
@@ -1630,10 +1640,13 @@ def action_post_edit(a):
             # Determine which attachments to delete
             delete_ids = [att_id for att_id in current_ids if att_id not in final_order]
 
-            # Send edit request to forum owner with attachment info
+            # Send edit request to forum owner with attachment metadata
+            submit_data = {"id": post_id, "title": title, "body": body, "order": final_order, "delete": delete_ids}
+            if new_attachments:
+                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/edit/submit"},
-                {"id": post_id, "title": title, "body": body, "order": final_order, "delete": delete_ids}
+                submit_data
             )
 
             # Update locally for optimistic UI
@@ -1662,8 +1675,8 @@ def action_post_edit(a):
     else:
         order = []
 
-    # Save new attachments and send to forum owner
-    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [forum_id])
+    # Save new attachments locally
+    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
 
     # Build final order (only new attachments, no existing ones locally)
     final_order = []
@@ -1675,9 +1688,12 @@ def action_post_edit(a):
         else:
             final_order.append(item)
 
+    submit_data = {"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}
+    if new_attachments:
+        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/edit/submit"},
-        {"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}
+        submit_data
     )
 
     return {
@@ -1855,10 +1871,8 @@ def action_comment_create(a):
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
 
-            # Save comment attachments and notify members
-            member_rows = mochi.db.rows("select id from members where forum=?", forum["id"])
-            notify = [m["id"] for m in (member_rows or [])]
-            mochi.attachment.save(id, "files", [], [], notify)
+            # Save comment attachments locally
+            attachments = mochi.attachment.save(id, "files", [], [], [])
 
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -1874,6 +1888,8 @@ def action_comment_create(a):
                     "body": body,
                     "created": now
                 }
+                if attachments:
+                    comment_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
         else:
@@ -1886,19 +1902,21 @@ def action_comment_create(a):
                 a.error(403, access_response.get("error", "Not allowed to comment"))
                 return
 
-            # Send comment to forum owner
+            # Save comment attachments locally
+            attachments = mochi.attachment.save(id, "files", [], [], [])
+
+            # Send comment to forum owner with attachment metadata
+            submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+            if attachments:
+                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
-                {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+                submit_data
             )
 
             # Save locally for optimistic UI (status pending until owner confirms)
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
-
-            # Save comment attachments (entity routing means files save in forum owner's context;
-            # event_comment_submit_event will sync to other members via mochi.attachment.sync)
-            mochi.attachment.save(id, "files")
 
             mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
 
@@ -1920,10 +1938,16 @@ def action_comment_create(a):
         a.error(403, access_response.get("error", "Not allowed to comment"))
         return
 
-    # Send comment to remote forum owner
+    # Save comment attachments locally
+    attachments = mochi.attachment.save(id, "files", [], [], [])
+
+    # Send comment to remote forum owner with attachment metadata
+    submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+    if attachments:
+        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/submit"},
-        {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+        submit_data
     )
 
     return {
@@ -3956,6 +3980,11 @@ def event_comment_create_event(e):
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, up, down, created)
 
+    # Store attachment metadata from the event
+    attachments = e.content("attachments") or []
+    if attachments:
+        mochi.attachment.store(attachments, e.header("from"), id)
+
     mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
@@ -4023,14 +4052,13 @@ def event_comment_submit_event(e):
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post_id, parent, sender_id, sender_name, body, status, now)
 
+    # Store attachment metadata from the subscriber's event
+    attachments = e.content("attachments") or []
+    if attachments:
+        mochi.attachment.store(attachments, sender_id, id)
+
     mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-
-    # Sync comment attachments from subscriber to other members
-    member_rows = mochi.db.rows("select id from members where forum=?", forum["id"])
-    other_members = [m["id"] for m in (member_rows or []) if m["id"] != sender_id]
-    if other_members:
-        mochi.attachment.sync(id, other_members)
 
     # Only broadcast if approved
     if status == "approved":
@@ -4043,6 +4071,8 @@ def event_comment_submit_event(e):
             "body": body,
             "created": now
         }
+        if attachments:
+            comment_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "comment/create", comment_data)
 
@@ -4318,8 +4348,12 @@ def event_post_create_event(e):
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], member, name, title, body, up, down, comments_count, created, created)
 
+    # Store attachment metadata from the event
+    attachments = e.content("attachments") or []
+    if attachments:
+        mochi.attachment.store(attachments, e.header("from"), id)
+
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
-    # Attachments arrive via attachment/create events and are saved automatically
 
 # Received a post submission from member (we are forum owner)
 def event_post_submit_event(e):
@@ -4376,8 +4410,12 @@ def event_post_submit_event(e):
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], sender_id, sender_name, title, body, status, now, now)
 
+    # Store attachment metadata from the subscriber's event
+    attachments = e.content("attachments") or []
+    if attachments:
+        mochi.attachment.store(attachments, sender_id, id)
+
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-    # Attachments arrive via attachment/create events and are saved automatically
 
     # Only broadcast if approved
     if status == "approved":
@@ -4389,6 +4427,8 @@ def event_post_submit_event(e):
             "body": body,
             "created": now
         }
+        if attachments:
+            post_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "post/create", post_data)
 
@@ -4421,9 +4461,13 @@ def event_post_edit_submit_event(e):
 
     now = mochi.time.now()
 
+    # Store new attachment metadata from the subscriber's event
+    new_attachments = e.content("attachments") or []
+    if new_attachments:
+        mochi.attachment.store(new_attachments, sender_id, post_id)
+
     # Handle attachment changes
     order = e.content("order") or []
-    members = [m["id"] for m in mochi.db.rows("select id from members where forum=?", forum["id"])]
 
     # Get current attachments and delete any not in the order list
     current_attachments = mochi.attachment.list(post_id)
@@ -4432,23 +4476,24 @@ def event_post_edit_submit_event(e):
     # Delete attachments not in order (those being removed)
     for att_id in current_ids:
         if att_id not in order:
-            mochi.attachment.delete(att_id, members)
+            mochi.attachment.delete(att_id, [])
 
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
-        mochi.attachment.move(att_id, i + 1, members)
+        mochi.attachment.move(att_id, i + 1, [])
 
     # Update the post
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-    # Broadcast update to all members
+    # Broadcast update to all members with attachment metadata
     post_data = {
         "id": post_id,
         "title": title,
         "body": body,
         "edited": now
     }
+    post_data["attachments"] = mochi.attachment.list(post_id)
     broadcast_event(forum["id"], "post/edit", post_data)
 
 # Received a post delete request from member (we are forum owner)
@@ -4536,6 +4581,14 @@ def event_post_edit_event(e):
     now = mochi.time.now()
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
         title, body, now, edited, id)
+
+    # Update attachments from event
+    attachments = e.content("attachments")
+    if attachments != None:
+        mochi.attachment.clear(id, [])
+        if attachments:
+            mochi.attachment.store(attachments, e.header("from"), id)
+
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
 # Received a post delete from forum owner
@@ -4647,7 +4700,7 @@ def event_subscribe_event(e):
         members = mochi.db.rows("select id from members where forum=?", forum["id"])
         mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), now, forum["id"])
 
-        # Send recent posts to new member (attachments fetched on-demand)
+        # Send recent posts to new member with attachment metadata
         posts = mochi.db.rows("select * from posts where forum=? order by created desc limit 20", forum["id"])
         mochi.log.info("event_subscribe: sending %v posts to %v", len(posts), member_id)
         for p in posts:
@@ -4663,12 +4716,13 @@ def event_subscribe_event(e):
                 "created": p["created"],
                 "sync": True
             }
+            post_data["attachments"] = mochi.attachment.list(p["id"])
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
                 post_data
             )
 
-            # Send comments for this post
+            # Send comments for this post with attachment metadata
             comments = mochi.db.rows("select * from comments where forum=? and post=? order by created asc", forum["id"], p["id"])
             for c in comments:
                 comment_data = {
@@ -4683,6 +4737,7 @@ def event_subscribe_event(e):
                     "created": c["created"],
                     "sync": True
                 }
+                comment_data["attachments"] = mochi.attachment.list(c["id"])
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
                     comment_data
