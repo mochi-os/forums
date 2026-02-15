@@ -25,9 +25,10 @@ def database_create():
         moderation_posts integer not null default 0, moderation_comments integer not null default 0,
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
-        limit_window integer not null default 3600 )""")
+        limit_window integer not null default 3600, fingerprint text not null default '' )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
+    mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
 
     mochi.db.execute("create table if not exists members ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null, primary key ( forum, id ) )")
     mochi.db.execute("create index if not exists members_id on members( id )")
@@ -174,18 +175,23 @@ def database_upgrade(to_version):
             if mochi.entity.get(f["id"]):
                 mochi.db.execute("update forums set owner=1 where id=?", f["id"])
 
+    if to_version == 15:
+        # Add fingerprint column for O(1) lookups by fingerprint
+        mochi.db.execute("alter table forums add column fingerprint text not null default ''")
+        mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
+        # Populate fingerprints for existing forums
+        forums = mochi.db.rows("select id from forums")
+        for f in forums:
+            fp = mochi.entity.fingerprint(f["id"]) or ""
+            mochi.db.execute("update forums set fingerprint=? where id=?", fp, f["id"])
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
     if not forum:
-        # Try to find by fingerprint - check all forums
-        rows = mochi.db.rows("select * from forums")
-        for r in rows:
-            if mochi.entity.fingerprint(r["id"]) == forum_id or mochi.entity.fingerprint(r["id"], True) == forum_id:
-                return r
-    if forum:
-        return forum
-    return None
+        # Try to find by fingerprint
+        forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
+    return forum
 
 # Helper: Check if current user has access (queries remote owner if not local owner)
 # Use this for actions that need to work for both owners and delegated moderators
@@ -737,8 +743,9 @@ def action_create(a):
 
     # Create forum record
     now = mochi.time.now()
-    mochi.db.execute("replace into forums ( id, name, members, updated, owner ) values ( ?, ?, ?, ?, 1 )",
-        entity_id, name, 1, now)
+    fp = mochi.entity.fingerprint(entity_id) or ""
+    mochi.db.execute("replace into forums ( id, name, members, updated, owner, fingerprint ) values ( ?, ?, ?, ?, 1, ? )",
+        entity_id, name, 1, now, fp)
 
     # Add creator as subscriber (they have implicit manage access as entity owner)
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
@@ -1269,8 +1276,9 @@ def action_subscribe(a):
 
     # Create local forum record
     now = mochi.time.now()
-    mochi.db.execute("""replace into forums ( id, name, members, updated, server ) values ( ?, ?, ?, ?, ? )""",
-        forum_id, forum_name, 0, now, server or "")
+    fp = mochi.entity.fingerprint(forum_id) or ""
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint ) values ( ?, ?, ?, ?, ?, ? )""",
+        forum_id, forum_name, 0, now, server or "", fp)
 
     # Add self as subscriber
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
