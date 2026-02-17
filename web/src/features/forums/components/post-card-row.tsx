@@ -109,7 +109,7 @@ export function PostCardRow({
                     </span>
                 )}
                 {!!post.locked && (
-                    <span className='inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200'>
+                    <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium'>
                     <Lock className='size-3' />
                     </span>
                 )}
@@ -131,7 +131,7 @@ export function PostCardRow({
                 {/* Upvote button */}
                 <button
                 type='button'
-                className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
                 onClick={(e) => {
                     e.stopPropagation()
                 }}
@@ -143,7 +143,7 @@ export function PostCardRow({
                 {/* Downvote button */}
                 <button
                 type='button'
-                className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
                 onClick={(e) => {
                     e.stopPropagation()
                 }}
@@ -157,7 +157,7 @@ export function PostCardRow({
                 to='/$forum/$post'
                 params={{ forum: post.forum, post: post.id }}
                 search={showForumBadge ? { from: 'all' } : undefined}
-                className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
                 onClick={(e) => e.stopPropagation()}
                 >
                 <MessageSquare className='size-3' />
@@ -172,14 +172,14 @@ export function PostCardRow({
         {/* Right: Thumbnail (Fixed Width + Padding) */}
         {thumbnail && (
             <div className='w-[140px] shrink-0 p-3 pl-0 flex flex-col'>
-                <div className="h-20 w-full overflow-hidden rounded-[8px] border bg-muted">
+                <div className="bg-surface-2 h-20 w-full overflow-hidden rounded-[8px] border">
                     {thumbnail}
                 </div>
                 
                 {/* Expand Toggle */}
                 <button
                     type='button'
-                    className='text-foreground bg-muted hover:bg-muted/80 mt-2 ml-auto inline-flex size-7 items-center justify-center rounded-full transition-colors'
+                    className='text-foreground bg-surface-2 mt-2 ml-auto inline-flex size-7 items-center justify-center rounded-full transition-colors hover:bg-interactive-hover active:bg-interactive-active'
                     onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
