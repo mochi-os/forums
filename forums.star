@@ -4945,6 +4945,14 @@ def event_subscribe_event(e):
                     comment_data
                 )
 
+            # Send tags for this post
+            post_tags = mochi.db.rows("select id, object, label from tags where object=?", p["id"]) or []
+            for t in post_tags:
+                mochi.message.send(
+                    {"from": forum["id"], "to": member_id, "service": "forums", "event": "tag/add"},
+                    {"id": t["id"], "object": t["object"], "label": t["label"]}
+                )
+
         # Notify all members of new subscription
         broadcast_event(forum["id"], "update", {"members": len(members)}, member_id)
 

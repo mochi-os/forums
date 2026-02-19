@@ -32,7 +32,7 @@ import {
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
 // Characters disallowed in forum names (matches backend validation)
-const DISALLOWED_NAME_CHARS = /[<>\r\n\\;"'`]/
+const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumInfo, useForumsList } from '@/hooks/use-forums-queries'
@@ -294,7 +294,7 @@ function GeneralTab({
   const validateName = (name: string): string | null => {
     if (!name.trim()) return 'Forum name is required'
     if (name.length > 1000) return 'Name must be 1000 characters or less'
-    if (DISALLOWED_NAME_CHARS.test(name)) return 'Name cannot contain < > \\ ; " \' or ` characters'
+    if (DISALLOWED_NAME_CHARS.test(name)) return 'Name cannot contain < or > characters'
     return null
   }
 
