@@ -1,5 +1,5 @@
 {
-	"version": "6.6",
+	"version": "6.7",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -16,7 +16,7 @@
 		"forums.star"
 	],
 	"database": {
-		"schema": 15,
+		"schema": 16,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -51,6 +51,9 @@
 		":forum/-/delete": {"function": "action_delete"},
 		":forum/-/rename": {"function": "action_rename"},
 		":forum/-/:post": {"function": "action_post_view"},
+		":forum/-/:post/tags": {"function": "action_tags_list"},
+		":forum/-/:post/tags/add": {"function": "action_tags_add"},
+		":forum/-/:post/tags/remove": {"function": "action_tags_remove"},
 		":forum/-/:post/comment": {"function": "action_comment_new"},
 		":forum/-/:post/create": {"function": "action_comment_create"},
 		":forum/-/:post/edit": {"function": "action_post_edit"},
@@ -82,6 +85,7 @@
 		":forum/-/moderation/settings/save": {"function": "action_moderation_settings_save"},
 		":forum/-/attachments/:id": {"feature": "attachment", "public": true},
 		":forum/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail", "public": true},
+		":forum/-/tags": {"function": "action_forum_tags"},
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},
@@ -116,6 +120,8 @@
 		"post/submit": {"function": "event_post_submit_event"},
 		"post/update": {"function": "event_post_update_event"},
 		"post/vote": {"function": "event_post_vote_event"},
+		"tag/add": {"function": "event_tag_add"},
+		"tag/remove": {"function": "event_tag_remove"},
 		"subscribe": {"function": "event_subscribe_event"},
 		"unsubscribe": {"function": "event_unsubscribe_event"},
 		"update": {"function": "event_update_event"},

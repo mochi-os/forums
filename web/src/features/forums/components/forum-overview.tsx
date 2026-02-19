@@ -14,6 +14,7 @@ interface ForumOverviewProps {
   subscribedIds?: Set<string>
   viewMode?: ViewMode
   onSelectPost: (forumId: string, postId: string) => void
+  onTagFilter?: (label: string) => void
   onCreatePost: (data: {
     forum: string
     title: string
@@ -44,6 +45,7 @@ export function ForumOverview({
   onCreateForum,
   subscribedIds = new Set(),
   viewMode = 'card',
+  onTagFilter,
 }: ForumOverviewProps) {
 
   if (!forum) {
@@ -67,6 +69,7 @@ export function ForumOverview({
                   showForumBadge={true}
                   server={server}
                   onSelect={onSelectPost}
+                  onTagFilter={onTagFilter}
                   variant='card'
                 />
               ) : (
@@ -76,6 +79,7 @@ export function ForumOverview({
                   forumName={post.forumName || 'Unknown'}
                   showForumBadge={true}
                   onSelect={onSelectPost}
+                  onTagFilter={onTagFilter}
                 />
               )
             )}
@@ -120,6 +124,7 @@ export function ForumOverview({
                   showForumBadge={false}
                   server={server}
                   onSelect={onSelectPost}
+                  onTagFilter={onTagFilter}
                 />
               ) : (
                 <PostCardRow
@@ -128,6 +133,7 @@ export function ForumOverview({
                   forumName={forum.name}
                   showForumBadge={false}
                   onSelect={onSelectPost}
+                  onTagFilter={onTagFilter}
                 />
               )
             )}

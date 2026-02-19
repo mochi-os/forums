@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate, Link } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
@@ -9,7 +9,7 @@ import {
   PageHeader,
   type ViewMode,
 } from '@mochi/common'
-import { Loader2, Rss, Settings, SquarePen } from 'lucide-react'
+import { Loader2, Rss, Settings, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -41,6 +41,7 @@ export function EntityForumPage({
     'forums-view-mode',
     'card'
   )
+  const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -74,7 +75,7 @@ export function EntityForumPage({
     fetchNextPage,
     can_manage: canManage,
     ErrorComponent,
-  } = useInfinitePosts({ forum: forum.id, entityContext })
+  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag })
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -114,6 +115,10 @@ export function EntityForumPage({
       ...data,
     })
   }
+
+  const handleTagFilter = useCallback((label: string) => {
+    setActiveTag((current) => (current === label ? undefined : label))
+  }, [])
 
   const handlePostSelect = (forumId: string, post: string) => {
     navigate({
@@ -196,12 +201,26 @@ export function EntityForumPage({
       />
       <Main fixed>
         <div className="flex-1 overflow-y-auto">
+          {activeTag && (
+            <div className='flex items-center gap-2 mb-4'>
+              <span className='text-muted-foreground text-sm'>Filtered by tag:</span>
+              <button
+                type='button'
+                className='bg-primary/10 text-primary inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium'
+                onClick={() => setActiveTag(undefined)}
+              >
+                {activeTag}
+                <X className='size-3.5' />
+              </button>
+            </div>
+          )}
           {ErrorComponent || (
             <ForumOverview
               forum={forumData || forum}
               posts={infinitePosts}
               viewMode={viewMode}
               onSelectPost={handlePostSelect}
+              onTagFilter={handleTagFilter}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}

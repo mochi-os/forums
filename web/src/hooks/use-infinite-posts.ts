@@ -15,6 +15,7 @@ interface UseInfinitePostsOptions {
   /** When true, uses getApiBasepath() for entity context (domain routing) */
   entityContext?: boolean
   sort?: string
+  tag?: string
 }
 
 interface UseInfinitePostsResult {
@@ -50,9 +51,10 @@ export function useInfinitePosts({
   server,
   entityContext = false,
   sort,
+  tag,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
   const query = useInfiniteQueryWithError<PageData, Error, InfiniteData<PageData, number | undefined>, QueryKey, number | undefined>({
-    queryKey: ['forum-posts', forum, { limit, server, entityContext, sort }],
+    queryKey: ['forum-posts', forum, { limit, server, entityContext, sort, tag }],
     queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
       if (!forum) throw new Error('Forum ID required')
 
@@ -73,6 +75,7 @@ export function useInfinitePosts({
         if (pageParam) params.set('before', pageParam.toString())
         if (server) params.set('server', server)
         if (sort) params.set('sort', sort)
+        if (tag) params.set('tag', tag)
         const queryString = params.toString()
         const url = getApiBasepath() + 'posts' + (queryString ? `?${queryString}` : '')
         const response = await requestHelpers.get<{
@@ -92,6 +95,7 @@ export function useInfinitePosts({
           before: pageParam,
           server,
           sort,
+          tag,
         })
         data = response.data ?? {}
       }

@@ -100,6 +100,7 @@ export interface ViewForumParams {
   before?: number
   server?: string
   sort?: string
+  tag?: string
 }
 
 export interface ViewForumResponse {
