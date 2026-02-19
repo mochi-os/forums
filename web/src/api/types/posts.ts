@@ -1,6 +1,11 @@
 // Post Types - Based on forums.yaml specification
 import type { Forum, Member } from './forums'
 
+export interface Tag {
+  id: string
+  label: string
+}
+
 // Attachment interface based on API response
 export interface Attachment {
   id: string
@@ -41,6 +46,7 @@ export interface Post {
   user_vote?: 'up' | 'down' | ''
   attachments?: Attachment[]
   forumName?: string
+  tags?: Tag[]
   // Moderation fields
   status?: 'approved' | 'pending' | 'removed'
   locked?: boolean

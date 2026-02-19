@@ -55,6 +55,15 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/${postId}/vote/${vote || 'none'}`,
     },
 
+    // Tag endpoints
+    tags: (forumId: string) => `${getEntityBase(forumId)}/-/tags`,
+    postTags: (forumId: string, postId: string) =>
+      `${getEntityBase(forumId)}/-/${postId}/tags`,
+    postTagsAdd: (forumId: string, postId: string) =>
+      `${getEntityBase(forumId)}/-/${postId}/tags/add`,
+    postTagsRemove: (forumId: string, postId: string) =>
+      `${getEntityBase(forumId)}/-/${postId}/tags/remove`,
+
     // Comment endpoints
     comment: {
       new: (forumId: string, postId: string) =>

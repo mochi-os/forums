@@ -131,6 +131,7 @@ const forumsApi = {
         before: params.before,
         server: params.server,
         sort: params.sort,
+        tag: params.tag,
       }),
     }),
 
@@ -491,6 +492,25 @@ const forumsApi = {
 
   getRssToken: (entity: string, mode: 'posts' | 'all') =>
     client.post<{ data: { token: string } }>(endpoints.forums.rssToken, { entity, mode }),
+
+  // Tags
+  addPostTag: async (forumId: string, postId: string, label: string) => {
+    const res = await client.post<{ data: { tag: { id: string; label: string } } }>(
+      endpoints.forums.postTagsAdd(forumId, postId),
+      { label }
+    )
+    return res.data.tag
+  },
+
+  removePostTag: (forumId: string, postId: string, tagId: string) =>
+    client.post(endpoints.forums.postTagsRemove(forumId, postId), { tag: tagId }),
+
+  getForumTags: async (forumId: string) => {
+    const res = await client.get<{ data: { tags: { label: string; count: number }[] } }>(
+      endpoints.forums.tags(forumId)
+    )
+    return res.data.tags ?? []
+  },
 }
 
 export type {

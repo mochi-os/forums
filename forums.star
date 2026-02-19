@@ -86,6 +86,11 @@ def database_create():
     mochi.db.execute("create table if not exists rss ( token text not null primary key, entity text not null, mode text not null, created integer not null, unique(entity, mode) )")
     mochi.db.execute("create index if not exists rss_entity on rss( entity )")
 
+    mochi.db.execute("create table if not exists tags ( id text not null primary key, object text not null, label text not null, qid text not null default '', relevance real not null default 0.0, source text not null default 'manual' )")
+    mochi.db.execute("create index if not exists tags_object on tags( object )")
+    mochi.db.execute("create index if not exists tags_label on tags( label )")
+    mochi.db.execute("create index if not exists tags_qid on tags( qid )")
+
 
 # Upgrade database schema
 def database_upgrade(to_version):
@@ -184,6 +189,13 @@ def database_upgrade(to_version):
         for f in forums:
             fp = mochi.entity.fingerprint(f["id"]) or ""
             mochi.db.execute("update forums set fingerprint=? where id=?", fp, f["id"])
+
+    if to_version == 16:
+        # Add tags table for manual and AI tagging
+        mochi.db.execute("create table if not exists tags ( id text not null primary key, object text not null, label text not null, qid text not null default '', relevance real not null default 0.0, source text not null default 'manual' )")
+        mochi.db.execute("create index if not exists tags_object on tags( object )")
+        mochi.db.execute("create index if not exists tags_label on tags( label )")
+        mochi.db.execute("create index if not exists tags_qid on tags( qid )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -444,6 +456,125 @@ def get_post_order(sort):
     # Default is "new"
     return "created desc"
 
+# Validate and clean a tag label
+def validate_tag(label):
+    if not label:
+        return None
+    label = label.strip().lower()
+    if not label or len(label) > 50:
+        return None
+    for ch in label.elems():
+        if not (ch.isalpha() or ch.isdigit() or ch == " " or ch == "-" or ch == "/"):
+            return None
+    return label
+
+# Check if a user can tag a post in a forum
+def can_tag_post(user_id, forum, post):
+    if forum.get("owner") == 1:
+        return True
+    if post.get("member") == user_id:
+        return True
+    if check_event_access(user_id, forum["id"], "moderate"):
+        return True
+    return False
+
+# List tags for a post
+def action_tags_list(a):
+    post_id = a.input("post")
+    if not post_id:
+        a.error(400, "Missing post")
+        return
+    tags = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
+    return {"data": {"tags": tags}}
+
+# Add a tag to a post
+def action_tags_add(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    user_id = a.user.identity.id
+    forum_id = a.input("forum")
+    post_id = a.input("post")
+    label = a.input("label")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if not can_tag_post(user_id, forum, post):
+        a.error(403, "Not authorized to tag posts")
+        return
+
+    label = validate_tag(label)
+    if not label:
+        a.error(400, "Invalid tag")
+        return
+
+    # Deduplicate
+    existing = mochi.db.row("select id, label from tags where object=? and label=?", post_id, label)
+    if existing:
+        return {"data": existing}
+
+    tag_id = mochi.uid()
+    mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, post_id, label)
+
+    # Broadcast to members
+    broadcast_event(forum["id"], "tag/add", {"id": tag_id, "object": post_id, "label": label})
+
+    return {"data": {"id": tag_id, "label": label}}
+
+# Remove a tag from a post
+def action_tags_remove(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    user_id = a.user.identity.id
+    forum_id = a.input("forum")
+    post_id = a.input("post")
+    tag_id = a.input("tag")
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error(404, "Post not found")
+        return
+
+    if not can_tag_post(user_id, forum, post):
+        a.error(403, "Not authorized to remove tags")
+        return
+
+    mochi.db.execute("delete from tags where id=? and object=?", tag_id, post_id)
+
+    # Broadcast to members
+    broadcast_event(forum["id"], "tag/remove", {"id": tag_id, "object": post_id})
+
+    return {"data": {"ok": True}}
+
+# List all tags used in a forum with counts
+def action_forum_tags(a):
+    forum_id = a.input("forum")
+    if not forum_id:
+        a.error(400, "Missing forum")
+        return
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+
+    tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) and source='manual' group by label order by count desc", forum["id"]) or []
+    return {"data": {"tags": tags}}
+
 # ACTIONS
 
 # Info endpoint for class context - returns list of forums
@@ -512,6 +643,7 @@ def action_view(a):
     if forum_id:
         forum = get_forum(forum_id)
         sort = a.input("sort") or "new"
+        tags = a.inputs("tag")
 
         # Use the full entity ID from the database if we found the forum
         entity_id = forum["id"] if forum else forum_id
@@ -598,7 +730,34 @@ def action_view(a):
 
         # Get posts for this forum with pagination
         # Moderators see all posts; regular users see only approved or their own pending
-        if can_moderate:
+        if len(tags) > 0:
+            # Tag-filtered queries (AND logic — posts must have all specified tags)
+            valid_tags = []
+            for t in tags:
+                vt = validate_tag(t)
+                if vt:
+                    valid_tags.append(vt)
+            if len(valid_tags) == 0:
+                posts = []
+            else:
+                p_order = order_by.replace("created", "p.created").replace("updated", "p.updated").replace("pinned", "p.pinned").replace("up", "p.up").replace("down", "p.down")
+                quoted = ", ".join(["'" + t + "'" for t in valid_tags])
+                tag_filter = "(select count(*) from tags t where t.object = p.id and t.label in (" + quoted + ")) = " + str(len(valid_tags))
+                if can_moderate:
+                    if before:
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? order by p.pinned desc, " + p_order + " limit ?",
+                            forum["id"], before, limit + 1)
+                    else:
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " order by p.pinned desc, " + p_order + " limit ?",
+                            forum["id"], limit + 1)
+                else:
+                    if before:
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
+                            forum["id"], before, user_id or "", limit + 1)
+                    else:
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
+                            forum["id"], user_id or "", limit + 1)
+        elif can_moderate:
             if before:
                 posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, " + order_by + " limit ?",
                     forum["id"], before, limit + 1)
@@ -633,6 +792,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
+            p["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", p["id"]) or []
 
         # Calculate next cursor
         next_cursor = None
@@ -1512,6 +1672,7 @@ def action_post_view(a):
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
+    post["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
 
     comments = get_comments("", 0)
 
@@ -1733,6 +1894,9 @@ def action_post_delete(a):
             if not is_author and not is_manager:
                 a.error(403, "Not allowed to delete this post")
                 return
+
+            # Delete tags for this post
+            mochi.db.execute("delete from tags where object=?", post_id)
 
             # Delete all attachments for this post
             attachments = mochi.attachment.list(post_id)
@@ -4523,6 +4687,9 @@ def event_post_delete_submit_event(e):
     if sender_id != post["member"]:
         return
 
+    # Delete tags for this post
+    mochi.db.execute("delete from tags where object=?", post_id)
+
     # Delete all attachments for this post
     attachments = mochi.attachment.list(post_id)
     for att in attachments:
@@ -4612,6 +4779,9 @@ def event_post_delete_event(e):
 
     forum_id = old_post["forum"]
 
+    # Delete tags for this post
+    mochi.db.execute("delete from tags where object=?", id)
+
     # Delete all attachments for this post
     attachments = mochi.attachment.list(id)
     for att in attachments:
@@ -4684,6 +4854,30 @@ def event_post_vote_event(e):
         {"id": post_id, "up": updated_post["up"], "down": updated_post["down"]},
         sender_id)
 
+# Handle tag add event from forum owner
+def event_tag_add(e):
+    forum_id = e.header("from")
+    forum = get_forum(forum_id)
+    if not forum:
+        return
+    tag_id = e.content("id")
+    object_id = e.content("object")
+    label = e.content("label")
+    if not tag_id or not object_id or not label:
+        return
+    mochi.db.execute("insert or ignore into tags (id, object, label) values (?, ?, ?)", tag_id, object_id, label)
+
+# Handle tag remove event from forum owner
+def event_tag_remove(e):
+    forum_id = e.header("from")
+    forum = get_forum(forum_id)
+    if not forum:
+        return
+    tag_id = e.content("id")
+    if not tag_id:
+        return
+    mochi.db.execute("delete from tags where id=?", tag_id)
+
 # Received a subscribe request from member (we are forum owner)
 def event_subscribe_event(e):
     forum = get_forum(e.header("to"))
@@ -4749,6 +4943,14 @@ def event_subscribe_event(e):
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
                     comment_data
+                )
+
+            # Send tags for this post
+            post_tags = mochi.db.rows("select id, object, label from tags where object=?", p["id"]) or []
+            for t in post_tags:
+                mochi.message.send(
+                    {"from": forum["id"], "to": member_id, "service": "forums", "event": "tag/add"},
+                    {"id": t["id"], "object": t["object"], "label": t["label"]}
                 )
 
         # Notify all members of new subscription
@@ -5395,9 +5597,12 @@ def event_schema(e):
         for r in rows:
             comments.append(r)
 
+    tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=?)", forum_id) or []
+
     e.stream.write({
         "posts": posts,
         "comments": comments,
+        "tags": tags,
     })
 
 # Insert forum schema data into local database
@@ -5415,6 +5620,12 @@ def insert_forum_schema(forum_id, schema):
             c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
             c.get("up", 0), c.get("down", 0), c.get("created", 0)
+        )
+    for t in (schema.get("tags") or []):
+        mochi.db.execute(
+            "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)",
+            t.get("id", ""), t.get("object", ""), t.get("label", ""),
+            t.get("qid", ""), t.get("relevance", 0.0), t.get("source", "manual")
         )
 
 # Handle view request for a forum (used for remote forum viewing)
@@ -5994,6 +6205,10 @@ def action_rss_all(a):
         a.print('<description>' + escape_xml(body) + '</description>\n')
         a.print('<pubDate>' + mochi.time.local(row["created"], "rfc822") + '</pubDate>\n')
         a.print('<guid isPermaLink="false">' + escape_xml(item_id) + '</guid>\n')
+        if row["type"] == "post":
+            item_tags = mochi.db.rows("select label from tags where object=?", item_id) or []
+            for it in item_tags:
+                a.print('<category>' + escape_xml(it["label"]) + '</category>\n')
         a.print('</item>\n')
 
     a.print('</channel>\n')
@@ -6090,6 +6305,10 @@ def action_rss(a):
         a.print('<description>' + escape_xml(body) + '</description>\n')
         a.print('<pubDate>' + mochi.time.local(row["created"], "rfc822") + '</pubDate>\n')
         a.print('<guid isPermaLink="false">' + escape_xml(item_id) + '</guid>\n')
+        if row["type"] == "post":
+            item_tags = mochi.db.rows("select label from tags where object=?", item_id) or []
+            for it in item_tags:
+                a.print('<category>' + escape_xml(it["label"]) + '</category>\n')
         a.print('</item>\n')
 
     a.print('</channel>\n')

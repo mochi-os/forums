@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useCallback, useRef, useState, useEffect } from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   Main,
@@ -12,6 +12,7 @@ import {
 } from '@mochi/common'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
+import type { Tag } from '@/api/types/posts'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   usePostDetail,
@@ -131,6 +132,33 @@ export function ThreadDetail({
   // Report mutations
   const reportPostMutation = useReportPost(forum, postId)
   const reportCommentMutation = useReportComment(forum, postId)
+
+  // Tag state (local optimistic updates since post detail isn't using react-query for tags)
+  const [localTags, setLocalTags] = useState<Tag[] | null>(null)
+
+  // Reset local tags when post changes
+  useEffect(() => {
+    setLocalTags(null)
+  }, [postId])
+
+  const handleTagAdded = useCallback((tag: Tag) => {
+    setLocalTags((prev) => {
+      const current = prev ?? postData?.data?.post?.tags ?? []
+      return [...current, tag]
+    })
+  }, [postData?.data?.post?.tags])
+
+  const handleTagRemoved = useCallback(async (tagId: string) => {
+    try {
+      await forumsApi.removePostTag(forum, postId, tagId)
+      setLocalTags((prev) => {
+        const current = prev ?? postData?.data?.post?.tags ?? []
+        return current.filter((t) => t.id !== tagId)
+      })
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to remove tag'))
+    }
+  }, [forum, postId, postData?.data?.post?.tags])
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
@@ -262,7 +290,7 @@ export function ThreadDetail({
           <CardContent className="p-6">
             <div className='space-y-4'>
               <ThreadContent
-                post={post}
+                post={{ ...post, tags: localTags ?? post.tags }}
                 attachments={post.attachments}
                 server={server}
                 forumName={forumData?.name}
@@ -272,6 +300,9 @@ export function ThreadDetail({
                 canVote={can_vote}
                 canReply={can_comment && !post.locked}
                 onReply={() => setShowReplyForm(true)}
+                canTag={isForumManager || can_moderate || isPostAuthor}
+                onTagAdded={handleTagAdded}
+                onTagRemoved={handleTagRemoved}
                 canEdit={canEditPost}
                 onEdit={() => setEditPostDialogOpen(true)}
                 onDelete={() => deletePostMutation.mutate(postId)}

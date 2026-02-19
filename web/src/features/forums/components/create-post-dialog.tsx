@@ -31,7 +31,7 @@ import {
 } from 'lucide-react'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
-const DISALLOWED_CHARS = /[<>\r\n\\;"'`]/
+const DISALLOWED_CHARS = /[<>\r\n]/
 
 const createPostSchema = z.object({
   title: z
@@ -39,7 +39,7 @@ const createPostSchema = z.object({
     .min(1, 'Title is required')
     .max(1000, 'Title must be 1000 characters or less')
     .refine((val) => !DISALLOWED_CHARS.test(val), {
-      message: 'Title cannot contain < > \\ ; " \' or ` characters',
+      message: 'Title cannot contain < or > characters',
     }),
   body: z.string().min(1, 'Content is required'),
 })

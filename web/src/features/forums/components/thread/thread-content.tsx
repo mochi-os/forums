@@ -26,8 +26,10 @@ import {
   Ban,
   MoreHorizontal,
 } from 'lucide-react'
-import type { Post, Attachment } from '@/api/types/posts'
+import type { Post, Attachment, Tag } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
+import { PostTags } from '../post-tags'
+import { TagInput } from '../tag-input'
 import { formatTimestamp } from '@mochi/common'
 
 interface ThreadContentProps {
@@ -44,6 +46,11 @@ interface ThreadContentProps {
   canEdit?: boolean
   onEdit?: () => void
   onDelete?: () => void
+  // Tags
+  canTag?: boolean
+  onTagAdded?: (tag: Tag) => void
+  onTagRemoved?: (tagId: string) => void
+  onTagFilter?: (label: string) => void
   // Moderation
   canModerate?: boolean
   onRemove?: () => void
@@ -71,6 +78,10 @@ export function ThreadContent({
   canEdit = false,
   onEdit,
   onDelete,
+  canTag = false,
+  onTagAdded,
+  onTagRemoved,
+  onTagFilter,
   canModerate = false,
   onRemove,
   onRestore,
@@ -183,6 +194,26 @@ export function ThreadContent({
         forumId={post.forum}
         server={server}
       />
+
+      {/* Tags */}
+      {((post.tags && post.tags.length > 0) || canTag) && (
+        <div className='flex flex-wrap items-center gap-1.5'>
+          <PostTags
+            tags={post.tags || []}
+            canManage={canTag}
+            onRemove={onTagRemoved}
+            onFilter={onTagFilter}
+          />
+          {canTag && onTagAdded && (
+            <TagInput
+              forumId={post.fingerprint ?? post.forum}
+              postId={post.id}
+              existingLabels={(post.tags || []).map((t) => t.label)}
+              onAdded={onTagAdded}
+            />
+          )}
+        </div>
+      )}
 
       {/* Actions row */}
       <div className='text-muted-foreground flex items-center gap-1 text-xs'>

@@ -4,11 +4,14 @@ import { Card, getAppPath, formatTimestamp } from '@mochi/common'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, Maximize2, X } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { PostTags } from './post-tags'
+
 interface PostCardRowProps {
   post: Post
   forumName: string
   showForumBadge: boolean
   onSelect: (forumId: string, postId: string) => void
+  onTagFilter?: (label: string) => void
 }
 
 export function PostCardRow({
@@ -16,6 +19,7 @@ export function PostCardRow({
   forumName,
   showForumBadge,
   onSelect,
+  onTagFilter,
 }: PostCardRowProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const timestamp = formatTimestamp(post.created)
@@ -123,6 +127,11 @@ export function PostCardRow({
              <p className='text-muted-foreground truncate text-xs'>
                 {post.body}
             </p>
+
+            {/* Tags */}
+            {post.tags && post.tags.length > 0 && (
+              <PostTags tags={post.tags} onFilter={onTagFilter} />
+            )}
 
           </div>
 

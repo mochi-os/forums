@@ -4,12 +4,15 @@ import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'l
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
+import { PostTags } from './post-tags'
+
 interface PostCardProps {
   post: Post
   forumName: string
   showForumBadge: boolean
   server?: string
   onSelect: (forumId: string, postId: string) => void
+  onTagFilter?: (label: string) => void
   variant?: 'card' | 'list-item'
 }
 
@@ -19,6 +22,7 @@ export function PostCard({
   showForumBadge,
   server,
   onSelect,
+  onTagFilter,
   variant = 'card',
 }: PostCardProps) {
   const timestamp = formatTimestamp(post.created)
@@ -78,6 +82,11 @@ export function PostCard({
         forumId={post.forum}
         server={server}
       />
+
+      {/* Tags */}
+      {post.tags && post.tags.length > 0 && (
+        <PostTags tags={post.tags} onFilter={onTagFilter} />
+      )}
 
       {/* Action buttons row - interactive */}
       <div className='text-muted-foreground flex items-center gap-1 text-xs'>
