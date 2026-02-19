@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
@@ -105,14 +105,14 @@ function ForumSettingsPage() {
   // Keep forums list refetch for sidebar updates after changes
   const { refetch: refreshForums } = useForumsList()
 
-  const selectedForum: ForumData | null = forumInfoData?.data
+  const selectedForum: ForumData | null = useMemo(() => forumInfoData?.data
     ? {
-        id: forumInfoData.data.forum.id,
-        name: forumInfoData.data.forum.name,
-        fingerprint: forumInfoData.data.fingerprint,
-        can_manage: forumInfoData.data.permissions.manage,
-      }
-    : null
+      id: forumInfoData.data.forum.id,
+      name: forumInfoData.data.forum.name,
+      fingerprint: forumInfoData.data.fingerprint,
+      can_manage: forumInfoData.data.permissions.manage,
+    }
+    : null, [forumInfoData])
 
   // Update page title when forum is loaded
   usePageTitle(
@@ -178,8 +178,8 @@ function ForumSettingsPage() {
   if (isLoadingForum && !selectedForum) {
     return (
       <>
-        <PageHeader 
-          title={<Skeleton className='h-8 w-48' />} 
+        <PageHeader
+          title={<Skeleton className='h-8 w-48' />}
           icon={<Skeleton className='size-4 md:size-5 rounded-md' />}
           back={{ label: 'Back to forum', onFallback: goBackToForum }}
         />
@@ -400,12 +400,12 @@ function GeneralTab({
           </FieldRow>
 
           <FieldRow label="Entity ID">
-            <DataChip value={forum.id} />
+            <DataChip value={forum.id} truncate='middle' />
           </FieldRow>
 
           {forum.fingerprint && (
             <FieldRow label="Fingerprint">
-              <DataChip value={forum.fingerprint} />
+              <DataChip value={forum.fingerprint} truncate='middle' />
             </FieldRow>
           )}
         </div>
@@ -732,48 +732,48 @@ function ModerationTab({ forumId }: ModerationTabProps) {
         description="Prevent spam by limiting how often users can post"
       >
         <div className='space-y-4 py-2 text-sm'>
-           <div className='flex items-center justify-between py-2 border-b border-border/40'>
+          <div className='flex items-center justify-between py-2 border-b border-border/40'>
             <span className="font-medium">Post limit</span>
             <div className="flex items-center gap-2">
-               <Input
-                  type='number'
-                  min={0}
-                  value={settings.post_limit}
-                  onChange={(e) => setSettings(s => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))}
-                  onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
-                  className='h-8 w-16 text-center'
-                />
-                <span className='text-muted-foreground text-xs'>posts</span>
+              <Input
+                type='number'
+                min={0}
+                value={settings.post_limit}
+                onChange={(e) => setSettings(s => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))}
+                onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
+                className='h-8 w-16 text-center'
+              />
+              <span className='text-muted-foreground text-xs'>posts</span>
             </div>
           </div>
 
           <div className='flex items-center justify-between py-2 border-b border-border/40'>
             <span className="font-medium">Comment limit</span>
             <div className="flex items-center gap-2">
-               <Input
-                  type='number'
-                  min={0}
-                  value={settings.comment_limit}
-                  onChange={(e) => setSettings(s => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))}
-                  onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
-                  className='h-8 w-16 text-center'
-                />
-                <span className='text-muted-foreground text-xs'>replies</span>
+              <Input
+                type='number'
+                min={0}
+                value={settings.comment_limit}
+                onChange={(e) => setSettings(s => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))}
+                onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
+                className='h-8 w-16 text-center'
+              />
+              <span className='text-muted-foreground text-xs'>replies</span>
             </div>
           </div>
 
           <div className='flex items-center justify-between py-2'>
             <span className="font-medium">Window duration</span>
             <div className="flex items-center gap-2">
-               <Input
-                  type='number'
-                  min={0}
-                  value={settings.limit_window}
-                  onChange={(e) => setSettings(s => ({ ...s, limit_window: parseInt(e.target.value) || 0 }))}
-                  onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}
-                  className='h-8 w-24 text-center'
-                />
-                <span className='text-muted-foreground text-xs'>seconds</span>
+              <Input
+                type='number'
+                min={0}
+                value={settings.limit_window}
+                onChange={(e) => setSettings(s => ({ ...s, limit_window: parseInt(e.target.value) || 0 }))}
+                onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}
+                className='h-8 w-24 text-center'
+              />
+              <span className='text-muted-foreground text-xs'>seconds</span>
             </div>
           </div>
         </div>

@@ -61,7 +61,7 @@ export function PostCard({
             </span>
           )}
           {!!post.locked && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200'>
+            <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
               <Lock className='size-3' />
             </span>
           )}
@@ -107,7 +107,7 @@ export function PostCard({
         {/* Upvote button */}
         <button
           type='button'
-          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -119,7 +119,7 @@ export function PostCard({
         {/* Downvote button */}
         <button
           type='button'
-          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -133,7 +133,7 @@ export function PostCard({
           to='/$forum/$post'
           params={{ forum: post.forum, post: post.id }}
           search={showForumBadge ? { from: 'all' } : undefined}
-          className='text-foreground bg-muted inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
           onClick={(e) => e.stopPropagation()}
         >
           <MessageSquare className='size-3' />

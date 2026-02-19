@@ -1,4 +1,4 @@
-import { LoadMoreTrigger, EmptyState, type ViewMode, Button, CardSkeleton, ListSkeleton } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, type ViewMode, Button, CardSkeleton, ListSkeleton, EntityOnboardingEmptyState } from '@mochi/common'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
@@ -85,19 +85,19 @@ export function ForumOverview({
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center p-8 text-center">
-            <MessageSquare className="text-muted-foreground mx-auto mb-3 h-10 w-10 opacity-50" />
-            <p className="text-muted-foreground mb-1 text-sm font-medium">Forums</p>
-            <p className="text-muted-foreground mb-4 max-w-sm text-xs">
-              You have no forums yet.
-            </p>
-            <InlineForumSearch subscribedIds={subscribedIds} />
-            <Button variant="outline" onClick={onCreateForum} className="mt-4">
-              <Plus className="mr-2 h-4 w-4" />
-              Create a new forum
-            </Button>
-            <RecommendedForums subscribedIds={subscribedIds} />
-          </div>
+          <EntityOnboardingEmptyState
+            icon={MessageSquare}
+            title='Forums'
+            description='You have no forums yet.'
+            searchSlot={<InlineForumSearch subscribedIds={subscribedIds} />}
+            primaryActionSlot={(
+              <Button variant="outline" onClick={onCreateForum}>
+                <Plus className="mr-2 h-4 w-4" />
+                Create a new forum
+              </Button>
+            )}
+            secondarySlot={<RecommendedForums subscribedIds={subscribedIds} />}
+          />
         )}
       </div>
     )
