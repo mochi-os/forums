@@ -871,6 +871,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
+            p["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", p["id"]) or []
 
         return {
             "data": {
@@ -5678,6 +5679,7 @@ def event_view(e):
         else:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
                 forum_id, post["id"])
+        post_data["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post["id"]) or []
         formatted_posts.append(post_data)
 
     e.stream.write({
@@ -5759,6 +5761,7 @@ def event_post_view(e):
     post_data = dict(post)
     post_data["body_markdown"] = mochi.markdown.render(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id)
+    post_data["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
 
     # Get requester's vote on the post
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
