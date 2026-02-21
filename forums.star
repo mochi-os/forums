@@ -510,13 +510,15 @@ def ai_tag_post(forum_id, post_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
     if not forum or forum.get("tag_account", 0) == 0:
         return
-    post = mochi.db.row("select id, body from posts where id=?", post_id)
+    post = mochi.db.row("select id, title, body from posts where id=?", post_id)
     if not post:
         return
     body = post["body"]
     if len(body) < 20:
         return
-    prompt = "Analyse the following post and extract the key entities and topics. For each, provide:\n- name: the canonical English name of the entity or topic (e.g. \"Germany\", \"European Space Agency\")\n- relevance: how central this entity/topic is to the post (0 to 100)\n\nReturn JSON only, no other text:\n[{\"name\": \"Germany\", \"relevance\": 90}]\n\nLimit to the 10 most relevant entities/topics.\n\nPost:\n" + body
+    title = post.get("title", "")
+    text = (title + "\n\n" + body).strip() if title else body
+    prompt = "Analyse the following post and extract the key entities and topics. For each, provide:\n- name: the canonical English name of the entity or topic (e.g. \"Germany\", \"European Space Agency\")\n- relevance: how central this entity/topic is to the post (0 to 100)\n\nReturn JSON only, no other text:\n[{\"name\": \"Germany\", \"relevance\": 90}]\n\nLimit to the 10 most relevant entities/topics.\n\nPost:\n" + text
     result = mochi.ai.prompt(prompt, account=forum["tag_account"])
     if result["status"] != 200:
         return
@@ -525,11 +527,11 @@ def ai_tag_post(forum_id, post_id):
         return
     # Resolve each name to a Wikidata QID via search
     for item in items:
+        label = item["name"].lower()
+        qid = ""
         results = mochi.qid.search(item["name"], "en")
-        if not results:
-            continue
-        qid = results[0]["qid"]
-        label = results[0]["label"]
+        if results:
+            qid = results[0]["qid"]
         tag_id = mochi.uid()
         mochi.db.execute(
             "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, 'ai')",
@@ -580,7 +582,7 @@ def action_tags_list(a):
     if not post_id:
         a.error(400, "Missing post")
         return
-    tags = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
+    tags = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
     return {"data": {"tags": tags}}
 
 # Add a tag to a post
@@ -838,7 +840,7 @@ def action_view(a):
             else:
                 p_order = order_by.replace("created", "p.created").replace("updated", "p.updated").replace("pinned", "p.pinned").replace("up", "p.up").replace("down", "p.down")
                 quoted = ", ".join(["'" + t + "'" for t in valid_tags])
-                tag_filter = "(select count(*) from tags t where t.object = p.id and t.label in (" + quoted + ")) = " + str(len(valid_tags))
+                tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + quoted + ")) = " + str(len(valid_tags))
                 if can_moderate:
                     if before:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? order by p.pinned desc, " + p_order + " limit ?",
@@ -888,7 +890,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
 
         # Calculate next cursor
         next_cursor = None
@@ -967,7 +969,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
 
         return {
             "data": {
@@ -1773,7 +1775,7 @@ def action_post_view(a):
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
-    post["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
+    post["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
 
     comments = get_comments("", 0)
 
@@ -5796,7 +5798,7 @@ def event_view(e):
         else:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
                 forum_id, post["id"])
-        post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post["id"]) or []
+        post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post["id"]) or []
         formatted_posts.append(post_data)
 
     e.stream.write({
@@ -5878,7 +5880,7 @@ def event_post_view(e):
     post_data = dict(post)
     post_data["body_markdown"] = mochi.markdown.render(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id)
-    post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
+    post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
 
     # Get requester's vote on the post
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
