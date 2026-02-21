@@ -12,6 +12,7 @@ interface PostCardProps {
   showForumBadge: boolean
   server?: string
   onSelect: (forumId: string, postId: string) => void
+  onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
   variant?: 'card' | 'list-item'
 }
@@ -22,6 +23,7 @@ export function PostCard({
   showForumBadge,
   server,
   onSelect,
+  onTagRemoved,
   onTagFilter,
   variant = 'card',
 }: PostCardProps) {
@@ -85,7 +87,7 @@ export function PostCard({
 
       {/* Tags */}
       {post.tags && post.tags.length > 0 && (
-        <PostTags tags={post.tags} onFilter={onTagFilter} />
+        <PostTags tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
       )}
 
       {/* Action buttons row - interactive */}

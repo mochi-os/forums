@@ -200,7 +200,6 @@ export function ThreadContent({
         <div className='flex flex-wrap items-center gap-1.5'>
           <PostTags
             tags={post.tags || []}
-            canManage={canTag}
             onRemove={onTagRemoved}
             onFilter={onTagFilter}
           />

@@ -11,6 +11,7 @@ interface PostCardRowProps {
   forumName: string
   showForumBadge: boolean
   onSelect: (forumId: string, postId: string) => void
+  onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
 }
 
@@ -19,6 +20,7 @@ export function PostCardRow({
   forumName,
   showForumBadge,
   onSelect,
+  onTagRemoved,
   onTagFilter,
 }: PostCardRowProps) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -130,7 +132,7 @@ export function PostCardRow({
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
-              <PostTags tags={post.tags} onFilter={onTagFilter} />
+              <PostTags tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
             )}
 
           </div>

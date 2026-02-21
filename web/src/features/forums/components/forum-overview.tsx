@@ -14,6 +14,7 @@ interface ForumOverviewProps {
   subscribedIds?: Set<string>
   viewMode?: ViewMode
   onSelectPost: (forumId: string, postId: string) => void
+  onTagRemoved?: (forumId: string, postId: string, tagId: string) => void
   onTagFilter?: (label: string) => void
   onCreatePost: (data: {
     forum: string
@@ -45,6 +46,7 @@ export function ForumOverview({
   onCreateForum,
   subscribedIds = new Set(),
   viewMode = 'card',
+  onTagRemoved,
   onTagFilter,
 }: ForumOverviewProps) {
 
@@ -69,6 +71,7 @@ export function ForumOverview({
                   showForumBadge={true}
                   server={server}
                   onSelect={onSelectPost}
+                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
                   variant='card'
                 />
@@ -79,6 +82,7 @@ export function ForumOverview({
                   forumName={post.forumName || 'Unknown'}
                   showForumBadge={true}
                   onSelect={onSelectPost}
+                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
                 />
               )
@@ -124,6 +128,7 @@ export function ForumOverview({
                   showForumBadge={false}
                   server={server}
                   onSelect={onSelectPost}
+                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
                 />
               ) : (
@@ -133,6 +138,7 @@ export function ForumOverview({
                   forumName={forum.name}
                   showForumBadge={false}
                   onSelect={onSelectPost}
+                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
                 />
               )

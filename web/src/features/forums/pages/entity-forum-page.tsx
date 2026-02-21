@@ -23,6 +23,8 @@ import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumOverview } from '../components/forum-overview'
+import forumsApi from '@/api/forums'
+import { toast, getErrorMessage } from '@mochi/common'
 
 interface EntityForumPageProps {
   forum: Forum
@@ -75,6 +77,7 @@ export function EntityForumPage({
     fetchNextPage,
     can_manage: canManage,
     ErrorComponent,
+    refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag })
 
   // Mutations
@@ -115,6 +118,15 @@ export function EntityForumPage({
       ...data,
     })
   }
+
+  const handleTagRemoved = useCallback(async (_forumId: string, postId: string, tagId: string) => {
+    try {
+      await forumsApi.removePostTag(forum.id, postId, tagId)
+      refetch()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to remove tag'))
+    }
+  }, [forum.id, refetch])
 
   const handleTagFilter = useCallback((label: string) => {
     setActiveTag((current) => (current === label ? undefined : label))
@@ -214,6 +226,7 @@ export function EntityForumPage({
               posts={infinitePosts}
               viewMode={viewMode}
               onSelectPost={handlePostSelect}
+              onTagRemoved={handleTagRemoved}
               onTagFilter={handleTagFilter}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
