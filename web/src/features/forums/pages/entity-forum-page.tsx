@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigate, Link } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
   Main,
@@ -9,7 +9,7 @@ import {
   PageHeader,
   type ViewMode,
 } from '@mochi/common'
-import { Loader2, Rss, Settings, SquarePen, X } from 'lucide-react'
+import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -143,7 +143,7 @@ export function EntityForumPage({
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='mr-2 size-4' />
-                Create post
+                New post
               </Button>
             )}
             {!isLoadingForums && isRemoteForum && !isSubscribed && (
@@ -184,18 +184,12 @@ export function EntityForumPage({
                 )}
               </Button>
             )}
-            {canManage && (
-              <Button variant='outline' asChild>
-                <Link
-                  to='/$forum/settings'
-                  params={{ forum: forum.fingerprint ?? forum.id }}
-                >
-                  <Settings className={isMobile ? 'size-4' : 'mr-2 size-4'} />
-                  {!isMobile && 'Settings'}
-                </Link>
-              </Button>
-            )}
-            <OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} entityId={forum.fingerprint} />
+            <OptionsMenu
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+              entityId={forum.fingerprint}
+              settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
+            />
           </>
         }
       />

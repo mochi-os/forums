@@ -1,9 +1,9 @@
-import { MoreHorizontal, Rss } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+import { MoreHorizontal, Rss, Settings } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -21,9 +21,11 @@ interface OptionsMenuProps {
   onViewModeChange: (mode: ViewMode) => void
   entityId?: string
   showRss?: boolean
+  settingsUrl?: string
 }
 
-export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss }: OptionsMenuProps) {
+export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss, settingsUrl }: OptionsMenuProps) {
+  const navigate = useNavigate()
   const isCompact = viewMode === 'compact'
   const rssEntity = entityId || (showRss ? '*' : null)
 
@@ -69,23 +71,26 @@ export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss }: O
           </div>
         </DropdownMenuItem>
         {rssEntity && (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <Rss className="mr-2 size-4" />
-                RSS feed
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem onSelect={() => void handleCopyRssUrl('posts')}>
-                  Posts
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => void handleCopyRssUrl('all')}>
-                  Posts and comments
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-          </>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Rss className="mr-2 size-4" />
+              RSS feed
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onSelect={() => void handleCopyRssUrl('posts')}>
+                Posts
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => void handleCopyRssUrl('all')}>
+                Posts and comments
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        )}
+        {settingsUrl && (
+          <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
+            <Settings className="mr-2 size-4" />
+            Settings
+          </DropdownMenuItem>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

@@ -512,8 +512,13 @@ const forumsApi = {
     return res.data.tags ?? []
   },
 
-  setAiTagger: (forumId: string, account: number) =>
-    client.post(endpoints.forums.ai(forumId), { forum: forumId, account }),
+  setAiTagger: (forumId: string, account: number) => {
+    const formData = new URLSearchParams()
+    formData.append('account', String(account))
+    return client.post(endpoints.forums.ai(forumId), formData.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+  },
 }
 
 export type {

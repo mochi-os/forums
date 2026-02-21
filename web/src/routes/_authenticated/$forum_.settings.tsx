@@ -28,10 +28,14 @@ import {
   Section,
   FieldRow,
   DataChip,
-  AccountPicker,
   useAccounts,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@mochi/common'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel, AlertTriangle } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n]/
@@ -253,6 +257,7 @@ function ForumSettingsPage() {
               onUnsubscribe={handleUnsubscribe}
               onDelete={handleDelete}
               onRename={handleRename}
+              onRefresh={refreshForumInfo}
             />
           )}
           {activeTab === 'access' && selectedForum.can_manage && (
@@ -277,6 +282,7 @@ interface GeneralTabProps {
   onUnsubscribe: () => void
   onDelete: () => void
   onRename: (name: string) => Promise<void>
+  onRefresh: () => void
 }
 
 function GeneralTab({
@@ -289,6 +295,7 @@ function GeneralTab({
   onUnsubscribe,
   onDelete,
   onRename,
+  onRefresh,
 }: GeneralTabProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(forum.name)
@@ -338,7 +345,6 @@ function GeneralTab({
     <div className='space-y-6'>
       <Section
         title="Identity"
-        description="Core information about this forum"
       >
         <div className="divide-y-0">
           <FieldRow label="Name">
@@ -416,7 +422,7 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
-        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} />
+        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} onSave={onRefresh} />
       )}
 
       {canUnsubscribe && (
@@ -477,74 +483,37 @@ function GeneralTab({
   )
 }
 
-function AiTaggingSection({ forumId, tagAccount }: { forumId: string; tagAccount: number }) {
+function AiTaggingSection({ forumId, tagAccount, onSave }: { forumId: string; tagAccount: number; onSave: () => void }) {
   const [value, setValue] = useState(tagAccount)
-  const [isSaving, setIsSaving] = useState(false)
-  const { accounts, isLoading } = useAccounts('/settings/', 'ai')
+  const { accounts, isLoading } = useAccounts('/settings', 'ai')
 
-  const accountMissing = !isLoading && value > 0 && !accounts.some((a) => a.id === value)
-
-  const handleChange = async (accountId: number | undefined) => {
-    const newValue = accountId ?? 0
-    setIsSaving(true)
+  const handleChange = async (val: string) => {
+    const newValue = parseInt(val, 10)
     try {
       await forumsApi.setAiTagger(forumId, newValue)
       setValue(newValue)
-      toast.success(newValue > 0 ? 'AI tagging enabled' : 'AI tagging disabled')
+      onSave()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to update AI tagging'))
-    } finally {
-      setIsSaving(false)
     }
   }
 
   return (
-    <Section title="AI tagging">
-      <FieldRow label="AI account">
-        <div className="w-full max-w-xs">
-          {value > 0 ? (
-            <div className="flex items-center gap-2">
-              <div className="flex-1">
-                <AccountPicker
-                  appBase="/settings/"
-                  capability="ai"
-                  value={value}
-                  onChange={handleChange}
-                  allowAdd={true}
-                />
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => void handleChange(0)}
-                disabled={isSaving}
-                className="h-9 px-2"
-              >
-                {isSaving ? <Loader2 className="size-4 animate-spin" /> : <X className="size-4" />}
-              </Button>
-            </div>
-          ) : (
-            <AccountPicker
-              appBase="/settings/"
-              capability="ai"
-              value={undefined}
-              onChange={handleChange}
-              placeholder="Disabled"
-              allowAdd={true}
-            />
-          )}
-          {accountMissing && (
-            <p className="mt-1.5 flex items-center gap-1.5 text-sm text-amber-600 dark:text-amber-400">
-              <AlertTriangle className="size-3.5 shrink-0" />
-              Selected account no longer exists. Posts will not be tagged.
-            </p>
-          )}
-          {!isLoading && accounts.length === 0 && value === 0 && (
-            <p className="mt-1.5 text-sm text-muted-foreground">
-              Add an AI account in <a href="/settings/accounts" className="underline">account settings</a> to enable automatic tagging.
-            </p>
-          )}
-        </div>
+    <Section title="Forum settings">
+      <FieldRow label="AI tag posts">
+        <Select value={value.toString()} onValueChange={handleChange} disabled={isLoading}>
+          <SelectTrigger className="w-full max-w-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Disabled</SelectItem>
+            {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((account) => (
+              <SelectItem key={account.id} value={account.id.toString()}>
+                {account.label || account.identifier}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </FieldRow>
     </Section>
   )

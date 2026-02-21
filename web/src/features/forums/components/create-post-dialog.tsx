@@ -157,12 +157,12 @@ export function CreatePostDialog({
           {triggerVariant === 'icon' ? (
             <Button variant='outline' size='sm'>
               <FileEdit className='size-4' />
-              Create post
+              New post
             </Button>
           ) : (
             <Button size='sm' className='text-sm'>
               <FileEdit className='size-4' />
-              Create post
+              New post
             </Button>
           )}
         </ResponsiveDialogTrigger>
