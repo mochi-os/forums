@@ -28,8 +28,10 @@ import {
   Section,
   FieldRow,
   DataChip,
+  AccountPicker,
+  useAccounts,
 } from '@mochi/common'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel, AlertTriangle } from 'lucide-react'
 
 // Characters disallowed in forum names (matches backend validation)
 const DISALLOWED_NAME_CHARS = /[<>\r\n]/
@@ -55,6 +57,7 @@ interface ForumData {
   name: string
   fingerprint: string
   can_manage: boolean
+  tag_account: number
 }
 
 interface Tab {
@@ -111,6 +114,7 @@ function ForumSettingsPage() {
       name: forumInfoData.data.forum.name,
       fingerprint: forumInfoData.data.fingerprint,
       can_manage: forumInfoData.data.permissions.manage,
+      tag_account: forumInfoData.data.forum.tag_account ?? 0,
     }
     : null, [forumInfoData])
 
@@ -411,6 +415,10 @@ function GeneralTab({
         </div>
       </Section>
 
+      {forum.can_manage && (
+        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} />
+      )}
+
       {canUnsubscribe && (
         <Section
           title="Unsubscribe from forum"
@@ -466,6 +474,79 @@ function GeneralTab({
         </AlertDialogContent>
       </AlertDialog>
     </div>
+  )
+}
+
+function AiTaggingSection({ forumId, tagAccount }: { forumId: string; tagAccount: number }) {
+  const [value, setValue] = useState(tagAccount)
+  const [isSaving, setIsSaving] = useState(false)
+  const { accounts, isLoading } = useAccounts('/settings/', 'ai')
+
+  const accountMissing = !isLoading && value > 0 && !accounts.some((a) => a.id === value)
+
+  const handleChange = async (accountId: number | undefined) => {
+    const newValue = accountId ?? 0
+    setIsSaving(true)
+    try {
+      await forumsApi.setAiTagger(forumId, newValue)
+      setValue(newValue)
+      toast.success(newValue > 0 ? 'AI tagging enabled' : 'AI tagging disabled')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to update AI tagging'))
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  return (
+    <Section title="AI tagging">
+      <FieldRow label="AI account">
+        <div className="w-full max-w-xs">
+          {value > 0 ? (
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <AccountPicker
+                  appBase="/settings/"
+                  capability="ai"
+                  value={value}
+                  onChange={handleChange}
+                  allowAdd={true}
+                />
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => void handleChange(0)}
+                disabled={isSaving}
+                className="h-9 px-2"
+              >
+                {isSaving ? <Loader2 className="size-4 animate-spin" /> : <X className="size-4" />}
+              </Button>
+            </div>
+          ) : (
+            <AccountPicker
+              appBase="/settings/"
+              capability="ai"
+              value={undefined}
+              onChange={handleChange}
+              placeholder="Disabled"
+              allowAdd={true}
+            />
+          )}
+          {accountMissing && (
+            <p className="mt-1.5 flex items-center gap-1.5 text-sm text-amber-600 dark:text-amber-400">
+              <AlertTriangle className="size-3.5 shrink-0" />
+              Selected account no longer exists. Posts will not be tagged.
+            </p>
+          )}
+          {!isLoading && accounts.length === 0 && value === 0 && (
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              Add an AI account in <a href="/settings/accounts" className="underline">account settings</a> to enable automatic tagging.
+            </p>
+          )}
+        </div>
+      </FieldRow>
+    </Section>
   )
 }
 

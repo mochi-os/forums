@@ -55,6 +55,9 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/${postId}/vote/${vote || 'none'}`,
     },
 
+    // AI tagging
+    ai: (forumId: string) => `${getEntityBase(forumId)}/-/ai`,
+
     // Tag endpoints
     tags: (forumId: string) => `${getEntityBase(forumId)}/-/tags`,
     postTags: (forumId: string, postId: string) =>

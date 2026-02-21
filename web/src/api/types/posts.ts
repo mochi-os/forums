@@ -4,6 +4,8 @@ import type { Forum, Member } from './forums'
 export interface Tag {
   id: string
   label: string
+  source?: string
+  relevance?: number
 }
 
 // Attachment interface based on API response

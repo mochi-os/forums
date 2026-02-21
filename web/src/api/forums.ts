@@ -511,6 +511,9 @@ const forumsApi = {
     )
     return res.data.tags ?? []
   },
+
+  setAiTagger: (forumId: string, account: number) =>
+    client.post(endpoints.forums.ai(forumId), { forum: forumId, account }),
 }
 
 export type {

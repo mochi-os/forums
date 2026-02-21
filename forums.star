@@ -197,6 +197,10 @@ def database_upgrade(to_version):
         mochi.db.execute("create index if not exists tags_label on tags( label )")
         mochi.db.execute("create index if not exists tags_qid on tags( qid )")
 
+    if to_version == 17:
+        # Add AI tagger account column to forums
+        mochi.db.execute("alter table forums add column tag_account integer not null default 0")
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -478,13 +482,105 @@ def can_tag_post(user_id, forum, post):
         return True
     return False
 
+# Parse AI tag response into validated list of {qid, relevance} dicts
+def parse_ai_tags(text):
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.split("\n")
+        text = "\n".join(lines[1:-1])
+    items = json.decode(text)
+    if not items:
+        return []
+    valid = []
+    for item in items:
+        name = item.get("name", "")
+        relevance = item.get("relevance", 0)
+        if not name or type(name) != "string":
+            continue
+        if type(relevance) not in ("int", "float"):
+            continue
+        relevance = int(relevance)
+        if relevance < 0 or relevance > 100:
+            continue
+        valid.append({"name": name, "relevance": relevance})
+    return valid[:10]
+
+# Tag a post using AI, storing results as AI tags
+def ai_tag_post(forum_id, post_id):
+    forum = mochi.db.row("select * from forums where id=?", forum_id)
+    if not forum or forum.get("tag_account", 0) == 0:
+        return
+    post = mochi.db.row("select id, body from posts where id=?", post_id)
+    if not post:
+        return
+    body = post["body"]
+    if len(body) < 20:
+        return
+    prompt = "Analyse the following post and extract the key entities and topics. For each, provide:\n- name: the canonical English name of the entity or topic (e.g. \"Germany\", \"European Space Agency\")\n- relevance: how central this entity/topic is to the post (0 to 100)\n\nReturn JSON only, no other text:\n[{\"name\": \"Germany\", \"relevance\": 90}]\n\nLimit to the 10 most relevant entities/topics.\n\nPost:\n" + body
+    result = mochi.ai.prompt(prompt, account=forum["tag_account"])
+    if result["status"] != 200:
+        return
+    items = parse_ai_tags(result["text"])
+    if not items:
+        return
+    # Resolve each name to a Wikidata QID via search
+    for item in items:
+        results = mochi.qid.search(item["name"], "en")
+        if not results:
+            continue
+        qid = results[0]["qid"]
+        label = results[0]["label"]
+        tag_id = mochi.uid()
+        mochi.db.execute(
+            "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, 'ai')",
+            tag_id, post_id, label, qid, item["relevance"]
+        )
+        broadcast_event(forum_id, "tag/add", {"id": tag_id, "object": post_id, "label": label, "qid": qid, "relevance": item["relevance"], "source": "ai"})
+
+# Scheduled event handler for AI tagging
+def event_ai_tag(e):
+    if e.source != "schedule":
+        return
+    forum_id = e.data.get("forum", "")
+    post_id = e.data.get("post", "")
+    if forum_id and post_id:
+        ai_tag_post(forum_id, post_id)
+
+# Enable or disable AI tagging on a forum
+def action_ai_toggle(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    user_id = a.user.identity.id
+    forum_id = a.input("forum")
+    account = int(a.input("account", "0"))
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not authorized")
+        return
+    if account > 0:
+        accounts = mochi.account.list("ai")
+        found = False
+        for acc in accounts:
+            if acc["id"] == account:
+                found = True
+                break
+        if not found:
+            a.error(400, "AI account not found")
+            return
+    mochi.db.execute("update forums set tag_account=? where id=?", account, forum["id"])
+    return {"data": {"ok": True}}
+
 # List tags for a post
 def action_tags_list(a):
     post_id = a.input("post")
     if not post_id:
         a.error(400, "Missing post")
         return
-    tags = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
+    tags = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
     return {"data": {"tags": tags}}
 
 # Add a tag to a post
@@ -525,9 +621,9 @@ def action_tags_add(a):
     mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, post_id, label)
 
     # Broadcast to members
-    broadcast_event(forum["id"], "tag/add", {"id": tag_id, "object": post_id, "label": label})
+    broadcast_event(forum["id"], "tag/add", {"id": tag_id, "object": post_id, "label": label, "source": "manual"})
 
-    return {"data": {"id": tag_id, "label": label}}
+    return {"data": {"id": tag_id, "label": label, "source": "manual"}}
 
 # Remove a tag from a post
 def action_tags_remove(a):
@@ -572,7 +668,7 @@ def action_forum_tags(a):
         a.error(404, "Forum not found")
         return
 
-    tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) and source='manual' group by label order by count desc", forum["id"]) or []
+    tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) group by label order by count desc", forum["id"]) or []
     return {"data": {"tags": tags}}
 
 # ACTIONS
@@ -792,7 +888,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", p["id"]) or []
 
         # Calculate next cursor
         next_cursor = None
@@ -871,7 +967,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", p["id"]) or []
 
         return {
             "data": {
@@ -1022,6 +1118,10 @@ def action_post_create(a):
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
+
+                # Schedule AI tagging
+                if forum.get("tag_account", 0) > 0:
+                    mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -1673,7 +1773,7 @@ def action_post_view(a):
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
-    post["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
+    post["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
 
     comments = get_comments("", 0)
 
@@ -1774,6 +1874,11 @@ def action_post_edit(a):
             }
             post_data["attachments"] = mochi.attachment.list(post_id)
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
+
+            # Re-tag with AI if enabled
+            if forum.get("tag_account", 0) > 0:
+                mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
+                mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
         else:
             # Subscriber - must be author or have manage access to edit
             is_author = user_id == post["member"]
@@ -4605,6 +4710,10 @@ def event_post_submit_event(e):
 
         broadcast_event(forum["id"], "post/create", post_data)
 
+        # Schedule AI tagging
+        if forum.get("tag_account", 0) > 0:
+            mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
+
 # Received a post edit request from member (we are forum owner)
 def event_post_edit_submit_event(e):
     forum = get_forum(e.header("to"))
@@ -4668,6 +4777,11 @@ def event_post_edit_submit_event(e):
     }
     post_data["attachments"] = mochi.attachment.list(post_id)
     broadcast_event(forum["id"], "post/edit", post_data)
+
+    # Re-tag with AI if enabled
+    if forum.get("tag_account", 0) > 0:
+        mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
+        mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
 
 # Received a post delete request from member (we are forum owner)
 def event_post_delete_submit_event(e):
@@ -4866,7 +4980,10 @@ def event_tag_add(e):
     label = e.content("label")
     if not tag_id or not object_id or not label:
         return
-    mochi.db.execute("insert or ignore into tags (id, object, label) values (?, ?, ?)", tag_id, object_id, label)
+    qid = e.content("qid") or ""
+    relevance = e.content("relevance") or 0
+    source = e.content("source") or "manual"
+    mochi.db.execute("insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)", tag_id, object_id, label, qid, relevance, source)
 
 # Handle tag remove event from forum owner
 def event_tag_remove(e):
@@ -4947,11 +5064,11 @@ def event_subscribe_event(e):
                 )
 
             # Send tags for this post
-            post_tags = mochi.db.rows("select id, object, label from tags where object=?", p["id"]) or []
+            post_tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object=?", p["id"]) or []
             for t in post_tags:
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "tag/add"},
-                    {"id": t["id"], "object": t["object"], "label": t["label"]}
+                    {"id": t["id"], "object": t["object"], "label": t["label"], "qid": t.get("qid", ""), "relevance": t.get("relevance", 0), "source": t.get("source", "manual")}
                 )
 
         # Notify all members of new subscription
@@ -5679,7 +5796,7 @@ def event_view(e):
         else:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
                 forum_id, post["id"])
-        post_data["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post["id"]) or []
+        post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post["id"]) or []
         formatted_posts.append(post_data)
 
     e.stream.write({
@@ -5761,7 +5878,7 @@ def event_post_view(e):
     post_data = dict(post)
     post_data["body_markdown"] = mochi.markdown.render(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id)
-    post_data["tags"] = mochi.db.rows("select id, label from tags where object=? and source='manual' order by label", post_id) or []
+    post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label", post_id) or []
 
     # Get requester's vote on the post
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
