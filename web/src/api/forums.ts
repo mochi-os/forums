@@ -210,12 +210,8 @@ const forumsApi = {
 
   votePost: (payload: VotePostRequest) =>
     client.post<VotePostResponse>(
-      endpoints.forums.post.vote(
-        payload.forum,
-        payload.post,
-        payload.vote || 'up'
-      ),
-      { post: payload.post, vote: payload.vote }
+      endpoints.forums.post.vote(payload.forum, payload.post, payload.vote),
+      {}
     ),
 
   editPost: (payload: EditPostRequest) => {
