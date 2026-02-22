@@ -67,6 +67,10 @@ const endpoints = {
     postTagsRemove: (forumId: string, postId: string) =>
       `${getEntityBase(forumId)}/-/${postId}/tags/remove`,
 
+    // Interest/scoring endpoints
+    tagInterest: (forumId: string) => `${getEntityBase(forumId)}/-/tags/interest`,
+    scoring: (forumId: string) => `${getEntityBase(forumId)}/-/scoring`,
+
     // Comment endpoints
     comment: {
       new: (forumId: string, postId: string) =>

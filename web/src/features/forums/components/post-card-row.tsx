@@ -13,6 +13,8 @@ interface PostCardRowProps {
   onSelect: (forumId: string, postId: string) => void
   onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
+  onInterestUp?: (qid: string) => void
+  onInterestDown?: (qid: string) => void
 }
 
 export function PostCardRow({
@@ -22,6 +24,8 @@ export function PostCardRow({
   onSelect,
   onTagRemoved,
   onTagFilter,
+  onInterestUp,
+  onInterestDown,
 }: PostCardRowProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const timestamp = formatTimestamp(post.created)
@@ -139,7 +143,7 @@ export function PostCardRow({
             <div className='text-muted-foreground mt-2 flex items-center gap-3 text-xs'>
               {/* Tags */}
               {post.tags && post.tags.length > 0 && (
-                <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
+                <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} />
               )}
 
               {/* Upvote count */}

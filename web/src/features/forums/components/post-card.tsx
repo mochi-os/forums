@@ -14,6 +14,8 @@ interface PostCardProps {
   onSelect: (forumId: string, postId: string) => void
   onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
+  onInterestUp?: (qid: string) => void
+  onInterestDown?: (qid: string) => void
   variant?: 'card' | 'list-item'
 }
 
@@ -25,6 +27,8 @@ export function PostCard({
   onSelect,
   onTagRemoved,
   onTagFilter,
+  onInterestUp,
+  onInterestDown,
   variant = 'card',
 }: PostCardProps) {
   const timestamp = formatTimestamp(post.created)
@@ -92,7 +96,7 @@ export function PostCard({
         <div className='text-muted-foreground flex items-center gap-3 text-xs'>
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
+            <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} />
           )}
 
           {/* Upvote count */}

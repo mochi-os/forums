@@ -515,6 +515,13 @@ const forumsApi = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
   },
+
+  // Interest/scoring
+  adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down') =>
+    client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
+
+  setScoringAccount: (forumId: string, account: number) =>
+    client.post(endpoints.forums.scoring(forumId), { forum: forumId, account }),
 }
 
 export type {

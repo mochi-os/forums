@@ -201,6 +201,13 @@ def database_upgrade(to_version):
         # Add AI tagger account column to forums
         mochi.db.execute("alter table forums add column tag_account integer not null default 0")
 
+    if to_version == 18:
+        # Add scoring account column to forums for AI re-ranking
+        mochi.db.execute("alter table forums add column score_account integer not null default 0")
+        # Add score cache table for caching relevance scores
+        mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
+        mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -449,15 +456,12 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 def get_post_order(sort):
     if sort == "top":
         return "(up - down) desc, created desc"
-    if sort == "hot" or sort == "best":
+    if sort == "hot":
         # score / (age_in_hours + 2)
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
         return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 3600) + 2, 1) desc, created desc"
-    if sort == "rising":
-        # Rising focuses on newer content with rapid growth
-        return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 1800) + 2, 1) desc, created desc"
-    # Default is "new"
+    # Default is "new" (also used as fallback for "relevant" which does post-query sorting)
     return "created desc"
 
 # Validate and clean a tag label
@@ -582,7 +586,7 @@ def action_tags_list(a):
     if not post_id:
         a.error(400, "Missing post")
         return
-    tags = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    tags = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
     return {"data": {"tags": tags}}
 
 # Add a tag to a post
@@ -624,6 +628,9 @@ def action_tags_add(a):
 
     # Broadcast to members
     broadcast_event(forum["id"], "tag/add", {"id": tag_id, "object": post_id, "label": label, "source": "manual"})
+
+    # Update user interests from the manually added tag
+    update_interests_from_manual_tag(label)
 
     return {"data": {"id": tag_id, "label": label, "source": "manual"}}
 
@@ -890,7 +897,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -900,6 +907,18 @@ def action_view(a):
         next_cursor = None
         if has_more and len(posts) > 0:
             next_cursor = posts[-1]["updated"]
+
+        # Re-rank by relevance if requested
+        matches_info = []
+        if sort == "relevant" and user_id:
+            posts, matches_info = score_posts_relevant(posts)
+
+        # Clean up internal scoring fields and extract match info
+        for p in posts:
+            if "_matches" in p:
+                p["matches"] = p.pop("_matches")
+            if "_score" in p:
+                p.pop("_score")
 
         # Add access flags to forum object (is_owner already set above)
         if is_owner:
@@ -917,7 +936,7 @@ def action_view(a):
             can_moderate = access_response.get("moderate", False)
             forum["can_moderate"] = can_moderate
 
-        return {
+        result = {
             "data": {
                 "forum": forum,
                 "posts": posts,
@@ -928,6 +947,12 @@ def action_view(a):
                 "nextCursor": next_cursor
             }
         }
+
+        # Add hint if relevant sort was requested but no interests exist
+        if sort == "relevant" and not matches_info:
+            result["data"]["relevantFallback"] = True
+
+        return result
     else:
         # List all forums
         sort = a.input("sort") or "new"
@@ -973,7 +998,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            p["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -1783,7 +1808,7 @@ def action_post_view(a):
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
-    post["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    post["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
 
     comments = get_comments("", 0)
 
@@ -3654,6 +3679,10 @@ def action_post_vote(a):
             broadcast_event(forum["id"], "post/update",
                 {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"]},
                 user_id)
+
+            # Update user interests from vote
+            if vote:
+                update_interests_from_vote(post["id"], vote == "up")
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -5806,7 +5835,7 @@ def event_view(e):
         else:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
                 forum_id, post["id"])
-        post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post["id"]) or []
+        post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post["id"]) or []
         formatted_posts.append(post_data)
 
     e.stream.write({
@@ -5888,7 +5917,7 @@ def event_post_view(e):
     post_data = dict(post)
     post_data["body_markdown"] = mochi.markdown.render(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id)
-    post_data["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
 
     # Get requester's vote on the post
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
@@ -6342,7 +6371,7 @@ def action_rss_all(a):
         a.print('</item>\n')
 
     a.print('</channel>\n')
-    a.print('</rss>')
+    a.print('</rss>\n')
 
 # Serve RSS feed for a forum entity
 def action_rss(a):
@@ -6443,3 +6472,122 @@ def action_rss(a):
 
     a.print('</channel>\n')
     a.print('</rss>')
+
+# Update user interests based on a vote on a post
+def update_interests_from_vote(post_id, positive):
+    tags = mochi.db.rows("select qid from tags where object=? and source='ai' and qid != ''", post_id)
+    if not tags:
+        return
+    qids = [t["qid"] for t in tags]
+    delta = 5 if positive else -10
+    mochi.interests.adjust(qids, delta)
+
+# Update user interests based on a manually added tag
+def update_interests_from_manual_tag(label):
+    results = mochi.qid.search(label, "en")
+    if results and len(results) > 0:
+        top = results[0]
+        if top["label"].lower() == label.lower():
+            mochi.interests.adjust(top["qid"], 10)
+
+# Adjust interest weight for a specific tag QID
+def action_tag_interest(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    qid = a.input("qid")
+    direction = a.input("direction")
+    if not qid:
+        a.error(400, "QID required")
+        return
+    if direction == "up":
+        mochi.interests.adjust(qid, 15)
+    elif direction == "down":
+        mochi.interests.adjust(qid, -20)
+    else:
+        a.error(400, "Direction must be 'up' or 'down'")
+        return
+    return {"data": {"ok": True}}
+
+# Toggle scoring mode for a forum
+def action_scoring_toggle(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    user_id = a.user.identity.id
+    forum_id = a.input("forum")
+    account = int(a.input("account", "0"))
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not authorized")
+        return
+    if account > 0:
+        accounts = mochi.account.list("ai")
+        found = False
+        for acc in accounts:
+            if acc["id"] == account:
+                found = True
+                break
+        if not found:
+            a.error(400, "AI account not found")
+            return
+    mochi.db.execute("update forums set score_account=? where id=?", account, forum["id"])
+    return {"data": {"ok": True}}
+
+# Score posts by relevance to user interests
+def score_posts_relevant(posts):
+    interests = mochi.interests.top(30)
+    if not interests:
+        return posts, []
+
+    # Build interest map: qid -> weight
+    interest_map = {}
+    for i in interests:
+        interest_map[i["qid"]] = i["weight"]
+
+    # Get all post IDs
+    post_ids = [p["id"] for p in posts]
+    if not post_ids:
+        return posts, []
+
+    # Batch-load AI tags for all posts
+    post_tags = {}
+    for pid in post_ids:
+        tags = mochi.db.rows("select qid, relevance from tags where object=? and source='ai' and qid != ''", pid) or []
+        post_tags[pid] = tags
+
+    # Score each post
+    now_ts = mochi.time.now()
+    scored = []
+    for p in posts:
+        pid = p["id"]
+        tags = post_tags.get(pid, [])
+        best_score = 0
+        matches = []
+        for t in tags:
+            qid = t["qid"]
+            relevance = t["relevance"] if t["relevance"] else 0.5
+            weight = interest_map.get(qid, 0)
+            if weight > 0:
+                tag_score = weight * relevance
+                if tag_score > best_score:
+                    best_score = tag_score
+                matches.append({"qid": qid, "score": tag_score})
+
+        # Time decay: halve score every 7 days
+        age_hours = max((now_ts - p["created"]) / 3600, 1)
+        decay = 168.0 / (age_hours + 168.0)
+        score = best_score * decay
+
+        # Sort matches by score descending
+        matches.sort(key=lambda m: -m["score"])
+        p["_score"] = score
+        p["_matches"] = matches[:3]
+        scored.append(p)
+
+    # Sort by score descending, then created descending
+    scored.sort(key=lambda p: (-p["_score"], -p["created"]))
+    return scored, interests

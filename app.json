@@ -1,5 +1,5 @@
 {
-	"version": "6.10",
+	"version": "6.11",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -15,8 +15,9 @@
 	"execute": [
 		"forums.star"
 	],
+	"permissions": ["interests/read", "interests/write"],
 	"database": {
-		"schema": 17,
+		"schema": 18,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -87,6 +88,8 @@
 		":forum/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail", "public": true},
 		":forum/-/ai": {"function": "action_ai_toggle"},
 		":forum/-/tags": {"function": "action_forum_tags"},
+		":forum/-/tags/interest": {"function": "action_tag_interest"},
+		":forum/-/scoring": {"function": "action_scoring_toggle"},
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},

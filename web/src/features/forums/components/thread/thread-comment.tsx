@@ -296,11 +296,10 @@ export function ThreadComment({
             {canReply && onReply && (
               <button
                 type='button'
-                className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                className='text-muted-foreground hover:text-foreground transition-colors'
                 onClick={() => onReply(comment.id)}
               >
-                <MessageSquare className='size-3' />
-                <span>Reply</span>
+                <MessageSquare className='size-4' />
               </button>
             )}
             {/* More menu (edit, delete, moderation, report) */}
@@ -309,7 +308,7 @@ export function ThreadComment({
                 <DropdownMenuTrigger asChild>
                   <button
                     type='button'
-                    className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
+                    className='text-muted-foreground hover:text-foreground transition-colors'
                   >
                     <MoreHorizontal className='size-4' />
                   </button>

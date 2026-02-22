@@ -16,6 +16,8 @@ interface ForumOverviewProps {
   onSelectPost: (forumId: string, postId: string) => void
   onTagRemoved?: (forumId: string, postId: string, tagId: string) => void
   onTagFilter?: (label: string) => void
+  onInterestUp?: (qid: string) => void
+  onInterestDown?: (qid: string) => void
   onCreatePost: (data: {
     forum: string
     title: string
@@ -48,6 +50,8 @@ export function ForumOverview({
   viewMode = 'card',
   onTagRemoved,
   onTagFilter,
+  onInterestUp,
+  onInterestDown,
 }: ForumOverviewProps) {
 
   if (!forum) {
@@ -73,7 +77,8 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
-
+                  onInterestUp={onInterestUp}
+                  onInterestDown={onInterestDown}
                   variant='card'
                 />
               ) : (
@@ -85,7 +90,8 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
-
+                  onInterestUp={onInterestUp}
+                  onInterestDown={onInterestDown}
                 />
               )
             )}
@@ -132,7 +138,8 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
-
+                  onInterestUp={onInterestUp}
+                  onInterestDown={onInterestDown}
                 />
               ) : (
                 <PostCardRow
@@ -143,7 +150,8 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
-
+                  onInterestUp={onInterestUp}
+                  onInterestDown={onInterestDown}
                 />
               )
             )}

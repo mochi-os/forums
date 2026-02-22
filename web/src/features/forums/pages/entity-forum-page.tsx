@@ -7,7 +7,11 @@ import {
   Button,
   useScreenSize,
   PageHeader,
+  SortSelector,
+  type SortType,
   type ViewMode,
+  toast,
+  getErrorMessage,
 } from '@mochi/common'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -24,7 +28,6 @@ import { useLocalStorage } from '@/hooks/use-local-storage'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumOverview } from '../components/forum-overview'
 import forumsApi from '@/api/forums'
-import { toast, getErrorMessage } from '@mochi/common'
 
 interface EntityForumPageProps {
   forum: Forum
@@ -44,6 +47,7 @@ export function EntityForumPage({
     'card'
   )
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
+  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -78,7 +82,7 @@ export function EntityForumPage({
     can_manage: canManage,
     ErrorComponent,
     refetch,
-  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag })
+  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -132,6 +136,28 @@ export function EntityForumPage({
     setActiveTag((current) => (current === label ? undefined : label))
   }, [])
 
+  const handleInterestUp = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'up')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum.id, forum.fingerprint]
+  )
+
+  const handleInterestDown = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'down')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum.id, forum.fingerprint]
+  )
+
   const handlePostSelect = (forumId: string, post: string) => {
     navigate({
       to: '/$forum/$post',
@@ -152,6 +178,7 @@ export function EntityForumPage({
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
+            <SortSelector value={sort} onValueChange={setSort} />
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='mr-2 size-4' />
@@ -228,6 +255,8 @@ export function EntityForumPage({
               onSelectPost={handlePostSelect}
               onTagRemoved={handleTagRemoved}
               onTagFilter={handleTagFilter}
+              onInterestUp={handleInterestUp}
+              onInterestDown={handleInterestDown}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}
