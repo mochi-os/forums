@@ -255,57 +255,44 @@ export function ThreadComment({
         <div
           className={`comment-actions-row text-muted-foreground flex min-h-[28px] items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
         >
-          {/* Vote counts - always visible */}
-          {localUp > 0 && (
-            <span className='flex items-center gap-1'>
-              <ThumbsUp className='size-3' />
-              {localUp}
-            </span>
-          )}
-          {localDown > 0 && (
-            <span className='flex items-center gap-1'>
-              <ThumbsDown className='size-3' />
-              {localDown}
-            </span>
+          {/* Votes */}
+          {canVote ? (
+            <>
+              <button
+                type='button'
+                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+                onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
+              >
+                {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
+                {localUp > 0 && localUp}
+              </button>
+              <button
+                type='button'
+                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+                onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
+              >
+                {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
+                {localDown > 0 && localDown}
+              </button>
+            </>
+          ) : (
+            <>
+              {localUp > 0 && (
+                <span className='flex items-center gap-1'>
+                  <ThumbsUp className='size-4' />
+                  {localUp}
+                </span>
+              )}
+              {localDown > 0 && (
+                <span className='flex items-center gap-1'>
+                  <ThumbsDown className='size-4' />
+                  {localDown}
+                </span>
+              )}
+            </>
           )}
           {/* Action buttons - visible on hover only */}
           <div className='comment-actions pointer-events-none flex items-center gap-1 opacity-0 transition-opacity group-hover/row:pointer-events-auto group-hover/row:opacity-100'>
-            {canVote && (
-              <>
-                <button
-                  type='button'
-                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
-                  style={
-                    localVote === 'up'
-                      ? {
-                          color: 'hsl(var(--primary))',
-                          fontWeight: 500,
-                        }
-                      : undefined
-                  }
-                  onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
-                >
-                  <ThumbsUp className='size-3' />
-                  <span>Upvote</span>
-                </button>
-                <button
-                  type='button'
-                  className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs transition-colors'
-                  style={
-                    localVote === 'down'
-                      ? {
-                          color: 'hsl(var(--primary))',
-                          fontWeight: 500,
-                        }
-                      : undefined
-                  }
-                  onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
-                >
-                  <ThumbsDown className='size-3' />
-                  <span>Downvote</span>
-                </button>
-              </>
-            )}
             {canReply && onReply && (
               <button
                 type='button'

@@ -26,10 +26,9 @@ import {
   Ban,
   MoreHorizontal,
 } from 'lucide-react'
-import type { Post, Attachment, Tag } from '@/api/types/posts'
+import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
-import { PostTags } from '../post-tags'
-import { TagInput } from '../tag-input'
+import { PostTagsTooltip } from '../post-tags'
 import { formatTimestamp } from '@mochi/common'
 
 interface ThreadContentProps {
@@ -48,7 +47,7 @@ interface ThreadContentProps {
   onDelete?: () => void
   // Tags
   canTag?: boolean
-  onTagAdded?: (tag: Tag) => void
+  onTagAdded?: (label: string) => Promise<void>
   onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
   // Moderation
@@ -195,87 +194,75 @@ export function ThreadContent({
         server={server}
       />
 
-      {/* Tags */}
-      {((post.tags && post.tags.length > 0) || canTag) && (
-        <div className='flex flex-wrap items-center gap-1.5'>
-          <PostTags
-            tags={post.tags || []}
-            onRemove={onTagRemoved}
-            onFilter={onTagFilter}
-          />
-          {canTag && onTagAdded && (
-            <TagInput
-              forumId={post.fingerprint ?? post.forum}
-              postId={post.id}
-              existingLabels={(post.tags || []).map((t) => t.label)}
-              onAdded={onTagAdded}
-            />
-          )}
-        </div>
-      )}
-
       {/* Actions row */}
-      <div className='text-muted-foreground flex items-center gap-1 text-xs'>
-        {/* Vote counts */}
-        {localUp > 0 && (
-          <span className='inline-flex items-center gap-1'>
-            <ThumbsUp className='size-3' />
-            {localUp}
-          </span>
-        )}
-        {localDown > 0 && (
-          <span className='inline-flex items-center gap-1'>
-            <ThumbsDown className='size-3' />
-            {localDown}
-          </span>
-        )}
-        {canVote && (
+      <div className='text-muted-foreground flex items-center gap-3 text-sm'>
+        {/* Tags */}
+        <PostTagsTooltip
+          tags={post.tags || []}
+          onRemove={onTagRemoved}
+          onFilter={onTagFilter}
+          onAdd={canTag && onTagAdded ? onTagAdded : undefined}
+        />
+        {/* Votes */}
+        {canVote ? (
           <>
             <button
               type='button'
-              className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-              style={
-                localVote === 'up'
-                  ? { color: 'hsl(var(--primary))' }
-                  : undefined
-              }
+              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
               onClick={(e) => {
                 e.stopPropagation()
                 handleVote(localVote === 'up' ? '' : 'up')
               }}
             >
-              <ThumbsUp className='size-3' />
-              <span>Upvote</span>
+              {localVote === 'up' ? (
+                <span className='text-sm'>👍</span>
+              ) : (
+                <ThumbsUp className='size-4' />
+              )}
+              {localUp > 0 && localUp}
             </button>
             <button
               type='button'
-              className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-              style={
-                localVote === 'down'
-                  ? { color: 'hsl(var(--primary))' }
-                  : undefined
-              }
+              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
               onClick={(e) => {
                 e.stopPropagation()
                 handleVote(localVote === 'down' ? '' : 'down')
               }}
             >
-              <ThumbsDown className='size-3' />
-              <span>Downvote</span>
+              {localVote === 'down' ? (
+                <span className='text-sm'>👎</span>
+              ) : (
+                <ThumbsDown className='size-4' />
+              )}
+              {localDown > 0 && localDown}
             </button>
+          </>
+        ) : (
+          <>
+            {localUp > 0 && (
+              <span className='inline-flex items-center gap-1'>
+                <ThumbsUp className='size-4' />
+                {localUp}
+              </span>
+            )}
+            {localDown > 0 && (
+              <span className='inline-flex items-center gap-1'>
+                <ThumbsDown className='size-4' />
+                {localDown}
+              </span>
+            )}
           </>
         )}
         {canReply && onReply && (
           <button
             type='button'
-            className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
+            className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
             onClick={(e) => {
               e.stopPropagation()
               onReply()
             }}
           >
-            <MessageSquare className='size-3' />
-            Reply
+            <MessageSquare className='size-4' />
           </button>
         )}
         {/* More menu (edit, delete, moderation, report) */}
@@ -284,7 +271,7 @@ export function ThreadContent({
             <DropdownMenuTrigger asChild>
               <button
                 type='button'
-                className='text-foreground bg-surface-2 hover:text-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
+                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
                 onClick={(e) => e.stopPropagation()}
               >
                 <MoreHorizontal className='size-4' />

@@ -4,7 +4,7 @@ import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'l
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { PostAttachments } from './thread/post-attachments'
-import { PostTags } from './post-tags'
+import { PostTagsTooltip } from './post-tags'
 
 interface PostCardProps {
   post: Post
@@ -32,17 +32,19 @@ export function PostCard({
   const content = (
     <div className='relative space-y-3 p-4'>
       {/* Metadata - top right, visible on hover */}
-      <span className='text-muted-foreground absolute right-4 top-4 text-xs opacity-0 transition-opacity group-hover/card:opacity-100'>
-        {showForumBadge ? (
-          <>
-            {forumName}
-            <span> · </span>
-          </>
-        ) : null}
-        {post.name}
-        <span> · </span>
-        {timestamp}
-      </span>
+      <div className='absolute right-4 top-4 opacity-0 transition-opacity group-hover/card:opacity-100'>
+        <span className='text-muted-foreground text-xs'>
+          {showForumBadge ? (
+            <>
+              {forumName}
+              <span> · </span>
+            </>
+          ) : null}
+          {post.name}
+          <span> · </span>
+          {timestamp}
+        </span>
+      </div>
 
       {/* Title row with badges */}
       <div className='flex items-start justify-between gap-4'>
@@ -85,63 +87,45 @@ export function PostCard({
         server={server}
       />
 
-      {/* Tags */}
-      {post.tags && post.tags.length > 0 && (
-        <PostTags tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
-      )}
-
       {/* Action buttons row - interactive */}
-      <div className='text-muted-foreground flex items-center gap-1 text-xs'>
-        {/* Upvote/Downvote counts - display only */}
-        {post.up > 0 && (
-          <span className='inline-flex items-center gap-1'>
-            <ThumbsUp className='size-3' />
-            {post.up}
-          </span>
-        )}
-        {post.down > 0 && (
-          <span className='inline-flex items-center gap-1'>
-            <ThumbsDown className='size-3' />
-            {post.down}
-          </span>
-        )}
-        
-        {/* Upvote button */}
-        <button
-          type='button'
-          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-          onClick={(e) => {
-            e.stopPropagation()
-          }}
-        >
-          <ThumbsUp className='size-3' />
-          <span>Upvote</span>
-        </button>
-        
-        {/* Downvote button */}
-        <button
-          type='button'
-          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-          onClick={(e) => {
-            e.stopPropagation()
-          }}
-        >
-          <ThumbsDown className='size-3' />
-          <span>Downvote</span>
-        </button>
-        
-        {/* Comments navigation link */}
-        <Link
-          to='/$forum/$post'
-          params={{ forum: post.forum, post: post.id }}
-          search={showForumBadge ? { from: 'all' } : undefined}
-          className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-          onClick={(e) => e.stopPropagation()}
-        >
-          <MessageSquare className='size-3' />
-          <span>{getCommentCount(post.comments)}</span>
-        </Link>
-      </div>
+      {((post.tags && post.tags.length > 0) || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
+        <div className='text-muted-foreground flex items-center gap-3 text-xs'>
+          {/* Tags */}
+          {post.tags && post.tags.length > 0 && (
+            <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
+          )}
+
+          {/* Upvote count */}
+          {(post.up > 0 || post.user_vote === 'up') && (
+            <span className='inline-flex items-center gap-1'>
+              {post.user_vote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
+              {post.up > 0 && post.up}
+            </span>
+          )}
+
+          {/* Downvote count */}
+          {(post.down > 0 || post.user_vote === 'down') && (
+            <span className='inline-flex items-center gap-1'>
+              {post.user_vote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
+              {post.down > 0 && post.down}
+            </span>
+          )}
+
+          {/* Comments navigation link */}
+          {getCommentCount(post.comments) > 0 && (
+            <Link
+              to='/$forum/$post'
+              params={{ forum: post.forum, post: post.id }}
+              search={showForumBadge ? { from: 'all' } : undefined}
+              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MessageSquare className='size-3' />
+              <span>{getCommentCount(post.comments)}</span>
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   )
 

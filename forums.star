@@ -891,6 +891,10 @@ def action_view(a):
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
             p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            # Get user's vote on this post
+            if user_id:
+                pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
+                p["user_vote"] = pv["vote"] if pv else ""
 
         # Calculate next cursor
         next_cursor = None
@@ -970,6 +974,10 @@ def action_view(a):
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
             p["tags"] = mochi.db.rows("select id, label, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            # Get user's vote on this post
+            if user_id:
+                pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
+                p["user_vote"] = pv["vote"] if pv else ""
 
         return {
             "data": {

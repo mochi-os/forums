@@ -73,6 +73,7 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
+
                   variant='card'
                 />
               ) : (
@@ -84,6 +85,7 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
+
                 />
               )
             )}
@@ -130,6 +132,7 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
+
                 />
               ) : (
                 <PostCardRow
@@ -140,6 +143,7 @@ export function ForumOverview({
                   onSelect={onSelectPost}
                   onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                   onTagFilter={onTagFilter}
+
                 />
               )
             )}

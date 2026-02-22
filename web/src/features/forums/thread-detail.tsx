@@ -141,12 +141,18 @@ export function ThreadDetail({
     setLocalTags(null)
   }, [postId])
 
-  const handleTagAdded = useCallback((tag: Tag) => {
-    setLocalTags((prev) => {
-      const current = prev ?? postData?.data?.post?.tags ?? []
-      return [...current, tag]
-    })
-  }, [postData?.data?.post?.tags])
+  const handleTagAdded = useCallback(async (label: string) => {
+    try {
+      const tag = await forumsApi.addPostTag(forum, postId, label)
+      setLocalTags((prev) => {
+        const current = prev ?? postData?.data?.post?.tags ?? []
+        return [...current, tag]
+      })
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to add tag'))
+      throw error
+    }
+  }, [forum, postId, postData?.data?.post?.tags])
 
   const handleTagRemoved = useCallback(async (tagId: string) => {
     try {

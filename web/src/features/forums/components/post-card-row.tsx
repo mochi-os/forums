@@ -4,7 +4,7 @@ import { Card, getAppPath, formatTimestamp } from '@mochi/common'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin, Hash, Maximize2, X } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
-import { PostTags } from './post-tags'
+import { PostTagsTooltip } from './post-tags'
 
 interface PostCardRowProps {
   post: Post
@@ -78,24 +78,26 @@ export function PostCardRow({
       className='group/card hover:border-primary/30 overflow-hidden transition-all hover:shadow-md cursor-pointer'
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
-      <div className='flex min-h-[120px]'>
+      <div className={`flex${thumbnail ? ' min-h-[120px]' : ''}`}>
         {/* Left: Content */}
-        <div className='relative flex min-w-0 flex-1 flex-col justify-between p-3'>
+        <div className='relative flex min-w-0 flex-1 flex-col p-3'>
           <div className='space-y-1.5'>
-            {/* Row 1: Forum Name + Date */}
-            <div className='flex items-center gap-2 text-xs'>
-              {showForumBadge && (
-                <Link
-                  to='/$forum'
-                  params={{ forum: post.forum }}
-                  className='bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-medium transition-colors'
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Hash className='size-3' />
-                  <span>{forumName}</span>
-                </Link>
-              )}
-              <span className='text-muted-foreground'>{timestamp}</span>
+            {/* Row 1: Forum Name + Date + Tags (on hover) */}
+            <div className='flex items-start justify-between'>
+              <div className='flex items-center gap-2 text-xs'>
+                {showForumBadge && (
+                  <Link
+                    to='/$forum'
+                    params={{ forum: post.forum }}
+                    className='bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-medium transition-colors'
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Hash className='size-3' />
+                    <span>{forumName}</span>
+                  </Link>
+                )}
+                <span className='text-muted-foreground'>{timestamp}</span>
+              </div>
             </div>
 
             {/* Row 2: Title & Badges */}
@@ -130,51 +132,47 @@ export function PostCardRow({
                 {post.body}
             </p>
 
-            {/* Tags */}
-            {post.tags && post.tags.length > 0 && (
-              <PostTags tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
-            )}
-
           </div>
 
           {/* Row 3: Actions */}
-           <div className='text-muted-foreground flex items-center gap-1 text-xs mt-2'>
-                {/* Upvote button */}
-                <button
-                type='button'
-                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-                onClick={(e) => {
-                    e.stopPropagation()
-                }}
-                >
-                <ThumbsUp className='size-3' />
-                <span>{post.up > 0 ? post.up : 'Upvote'}</span>
-                </button>
-                
-                {/* Downvote button */}
-                <button
-                type='button'
-                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-                onClick={(e) => {
-                    e.stopPropagation()
-                }}
-                >
-                <ThumbsDown className='size-3' />
-                 <span>{post.down > 0 ? post.down : 'Downvote'}</span>
-                </button>
-                
-                {/* Comments navigation link */}
+          {((post.tags && post.tags.length > 0) || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
+            <div className='text-muted-foreground mt-2 flex items-center gap-3 text-xs'>
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} />
+              )}
+
+              {/* Upvote count */}
+              {(post.up > 0 || post.user_vote === 'up') && (
+                <span className='inline-flex items-center gap-1'>
+                  {post.user_vote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
+                  <span>{post.up > 0 && post.up}</span>
+                </span>
+              )}
+
+              {/* Downvote count */}
+              {(post.down > 0 || post.user_vote === 'down') && (
+                <span className='inline-flex items-center gap-1'>
+                  {post.user_vote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
+                  <span>{post.down > 0 && post.down}</span>
+                </span>
+              )}
+
+              {/* Comments navigation link */}
+              {getCommentCount(post.comments) > 0 && (
                 <Link
-                to='/$forum/$post'
-                params={{ forum: post.forum, post: post.id }}
-                search={showForumBadge ? { from: 'all' } : undefined}
-                className='text-foreground bg-surface-2 inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium transition-colors hover:bg-interactive-hover active:bg-interactive-active'
-                onClick={(e) => e.stopPropagation()}
+                  to='/$forum/$post'
+                  params={{ forum: post.forum, post: post.id }}
+                  search={showForumBadge ? { from: 'all' } : undefined}
+                  className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+                  onClick={(e) => e.stopPropagation()}
                 >
-                <MessageSquare className='size-3' />
-                <span>{getCommentCount(post.comments)} Comments</span>
+                  <MessageSquare className='size-3' />
+                  <span>{getCommentCount(post.comments)}</span>
                 </Link>
+              )}
             </div>
+          )}
 
              {/* Expanded Content */}
              {isExpanded && renderExpandedContent()}
