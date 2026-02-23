@@ -337,6 +337,16 @@ def broadcast_event(forum_id, event, data, exclude=None):
             data
         )
 
+# Helper: Broadcast WebSocket notification to forum subscribers
+# Uses fingerprint as key since that's what frontend connects with (from URL)
+def broadcast_websocket(forum_id, data):
+    if not forum_id:
+        return
+    fingerprint = mochi.entity.fingerprint(forum_id)
+    if not fingerprint:
+        return
+    mochi.websocket.write(fingerprint, data)
+
 # Helper: Check if user is restricted from a forum
 # Returns error message if restricted, None if allowed
 def check_restriction(forum_id, user_id, operation):
@@ -626,8 +636,8 @@ def action_tags_add(a):
     tag_id = mochi.uid()
     mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, post_id, label)
 
-    # Broadcast to members
-    broadcast_event(forum["id"], "tag/add", {"id": tag_id, "object": post_id, "label": label, "source": "manual"})
+    # Broadcast to subscribers via WebSocket (not P2P, which requires entity ownership)
+    broadcast_websocket(forum["id"], {"type": "tag/add", "forum": forum["id"], "post": post_id, "tag": {"id": tag_id, "label": label, "source": "manual"}, "sender": user_id})
 
     # Update user interests from the manually added tag
     update_interests_from_manual_tag(label)
@@ -660,8 +670,8 @@ def action_tags_remove(a):
 
     mochi.db.execute("delete from tags where id=? and object=?", tag_id, post_id)
 
-    # Broadcast to members
-    broadcast_event(forum["id"], "tag/remove", {"id": tag_id, "object": post_id})
+    # Broadcast to subscribers via WebSocket (not P2P, which requires entity ownership)
+    broadcast_websocket(forum["id"], {"type": "tag/remove", "forum": forum["id"], "post": post_id, "tag": tag_id, "sender": user_id})
 
     return {"data": {"ok": True}}
 
