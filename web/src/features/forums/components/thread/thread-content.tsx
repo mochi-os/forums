@@ -50,6 +50,8 @@ interface ThreadContentProps {
   onTagAdded?: (label: string) => Promise<void>
   onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
+  onInterestUp?: (qid: string) => void
+  onInterestDown?: (qid: string) => void
   // Moderation
   canModerate?: boolean
   onRemove?: () => void
@@ -81,6 +83,8 @@ export function ThreadContent({
   onTagAdded,
   onTagRemoved,
   onTagFilter,
+  onInterestUp,
+  onInterestDown,
   canModerate = false,
   onRemove,
   onRestore,
@@ -202,6 +206,8 @@ export function ThreadContent({
           onRemove={onTagRemoved}
           onFilter={onTagFilter}
           onAdd={canTag && onTagAdded ? onTagAdded : undefined}
+          onInterestUp={onInterestUp}
+          onInterestDown={onInterestDown}
         />
         {/* Votes */}
         {canVote ? (

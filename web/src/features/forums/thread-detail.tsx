@@ -166,6 +166,30 @@ export function ThreadDetail({
     }
   }, [forum, postId, postData?.data?.post?.tags])
 
+  const handleInterestUp = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum, qid, 'up')
+        toast.success('Interest boosted')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum]
+  )
+
+  const handleInterestDown = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum, qid, 'down')
+        toast.success('Interest reduced')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum]
+  )
+
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
       toast.error('Please enter a comment')
@@ -309,6 +333,8 @@ export function ThreadDetail({
                 canTag={isForumManager || can_moderate || isPostAuthor}
                 onTagAdded={handleTagAdded}
                 onTagRemoved={handleTagRemoved}
+                onInterestUp={handleInterestUp}
+                onInterestDown={handleInterestDown}
                 canEdit={canEditPost}
                 onEdit={() => setEditPostDialogOpen(true)}
                 onDelete={() => deletePostMutation.mutate(postId)}

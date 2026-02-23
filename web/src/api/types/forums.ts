@@ -19,6 +19,7 @@ export interface Forum {
   can_moderate?: boolean // True if current user can moderate this forum
   server?: string // Server URL for remote forums (when accessing as delegated moderator)
   tag_account?: number
+  score_account?: number
 }
 
 // Helper to safely get member count

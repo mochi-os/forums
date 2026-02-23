@@ -911,12 +911,23 @@ def action_view(a):
         # Re-rank by relevance if requested
         matches_info = []
         if sort == "relevant" and user_id:
-            posts, matches_info = score_posts_relevant(posts)
+            posts, matches_info = score_posts_relevant(posts, forum)
 
         # Clean up internal scoring fields and extract match info
+        # Collect all match QIDs to resolve labels in one batch
+        all_match_qids = []
         for p in posts:
             if "_matches" in p:
-                p["matches"] = p.pop("_matches")
+                for m in p["_matches"]:
+                    if m["qid"] not in all_match_qids:
+                        all_match_qids.append(m["qid"])
+        match_labels = mochi.qid.lookup(all_match_qids, "en") if all_match_qids else {}
+        for p in posts:
+            if "_matches" in p:
+                matches = p.pop("_matches")
+                for m in matches:
+                    m["label"] = match_labels.get(m["qid"], m["qid"]) if type(match_labels) == type({}) else m["qid"]
+                p["matches"] = matches
             if "_score" in p:
                 p.pop("_score")
 
@@ -1432,7 +1443,7 @@ def action_probe(a):
         a.error(400, "Could not extract server from URL")
         return
 
-    if not forum_id or not mochi.valid(forum_id, "entity"):
+    if not forum_id or (not mochi.valid(forum_id, "entity") and not mochi.valid(forum_id, "fingerprint")):
         a.error(400, "Could not extract valid forum ID from URL")
         return
 
@@ -6538,7 +6549,7 @@ def action_scoring_toggle(a):
     return {"data": {"ok": True}}
 
 # Score posts by relevance to user interests
-def score_posts_relevant(posts):
+def score_posts_relevant(posts, forum_data):
     interests = mochi.interests.top(30)
     if not interests:
         return posts, []
@@ -6583,11 +6594,99 @@ def score_posts_relevant(posts):
         score = best_score * decay
 
         # Sort matches by score descending
-        matches.sort(key=lambda m: -m["score"])
+        matches = sorted(matches, key=lambda m: -m["score"])
         p["_score"] = score
         p["_matches"] = matches[:3]
         scored.append(p)
 
     # Sort by score descending, then created descending
-    scored.sort(key=lambda p: (-p["_score"], -p["created"]))
+    scored = sorted(scored, key=lambda p: (-p["_score"], -p["created"]))
+
+    # AI re-ranking if forum has a scoring account
+    if forum_data.get("score_account", 0) > 0:
+        scored = ai_rerank(forum_data, scored, interests)
+
     return scored, interests
+
+# AI re-ranking: re-score top candidates using LLM
+def ai_rerank(forum_data, posts, interests):
+    if not posts:
+        return posts
+    account = forum_data.get("score_account", 0)
+    if account == 0:
+        return posts
+
+    # Only re-rank top 50 candidates
+    candidates = posts[:50]
+    rest = posts[50:]
+
+    # Check cache freshness — skip if all candidates have fresh scores (< 1 hour)
+    now_ts = mochi.time.now()
+    cache_cutoff = now_ts - 3600
+    cached = {}
+    all_fresh = True
+    for p in candidates:
+        row = mochi.db.row("select score, computed from score_cache where forum=? and post=?", forum_data["id"], p["id"])
+        if row and row["computed"] > cache_cutoff:
+            cached[p["id"]] = row["score"]
+        else:
+            all_fresh = False
+
+    if all_fresh and len(cached) == len(candidates):
+        # Use cached scores
+        for p in candidates:
+            p["_score"] = cached.get(p["id"], 0)
+        candidates = sorted(candidates, key=lambda p: (-p["_score"], -p["created"]))
+        return candidates + rest
+
+    # Build interest summary
+    summary = mochi.interests.summary()
+    if not summary:
+        interest_labels = []
+        for i in interests:
+            interest_labels.append(i["qid"])
+        summary = ", ".join(interest_labels[:15])
+
+    # Build post summaries for the prompt
+    post_lines = []
+    for i, p in enumerate(candidates):
+        title = p.get("title", "")
+        body = p.get("body", "")
+        if len(body) > 200:
+            body = body[:200]
+        text = (title + ": " + body).strip() if title else body
+        tags = [m["qid"] for m in p.get("_matches", [])]
+        tag_str = ", ".join(tags) if tags else "none"
+        post_lines.append(str(i) + ". [" + tag_str + "] " + text.replace("\n", " "))
+
+    prompt = "You are a content ranking system. Given a user's interests and a list of posts, score each post 0-100 based on relevance to the user.\n\nUser interests: " + summary + "\n\nPosts:\n" + "\n".join(post_lines) + "\n\nReturn JSON only, one score per post in order:\n[{\"index\": 0, \"score\": 85}, ...]"
+
+    result = mochi.ai.prompt(prompt, account=account)
+    if result["status"] != 200:
+        return candidates + rest
+
+    # Parse scores
+    text = result["text"].strip()
+    if text.startswith("```"):
+        lines = text.split("\n")
+        text = "\n".join(lines[1:-1])
+    scores = json.decode(text)
+    if not scores:
+        return candidates + rest
+
+    # Apply scores and update cache
+    score_map = {}
+    for s in scores:
+        idx = s.get("index", -1)
+        sc = s.get("score", 0)
+        if type(idx) == "int" and idx >= 0 and idx < len(candidates):
+            score_map[idx] = sc
+
+    for i, p in enumerate(candidates):
+        ai_score = score_map.get(i, 0)
+        p["_score"] = ai_score
+        mochi.db.execute("insert or replace into score_cache (forum, post, score, computed) values (?, ?, ?, ?)",
+            forum_data["id"], p["id"], ai_score, now_ts)
+
+    candidates = sorted(candidates, key=lambda p: (-p["_score"], -p["created"]))
+    return candidates + rest

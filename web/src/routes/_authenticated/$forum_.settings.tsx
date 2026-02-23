@@ -62,6 +62,7 @@ interface ForumData {
   fingerprint: string
   can_manage: boolean
   tag_account: number
+  score_account: number
 }
 
 interface Tab {
@@ -119,6 +120,7 @@ function ForumSettingsPage() {
       fingerprint: forumInfoData.data.fingerprint,
       can_manage: forumInfoData.data.permissions.manage,
       tag_account: forumInfoData.data.forum.tag_account ?? 0,
+      score_account: forumInfoData.data.forum.score_account ?? 0,
     }
     : null, [forumInfoData])
 
@@ -422,7 +424,7 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
-        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} onSave={onRefresh} />
+        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} scoreAccount={forum.score_account} onSave={onRefresh} />
       )}
 
       {canUnsubscribe && (
@@ -483,25 +485,37 @@ function GeneralTab({
   )
 }
 
-function AiTaggingSection({ forumId, tagAccount, onSave }: { forumId: string; tagAccount: number; onSave: () => void }) {
-  const [value, setValue] = useState(tagAccount)
+function AiTaggingSection({ forumId, tagAccount, scoreAccount, onSave }: { forumId: string; tagAccount: number; scoreAccount: number; onSave: () => void }) {
+  const [tagValue, setTagValue] = useState(tagAccount)
+  const [scoreValue, setScoreValue] = useState(scoreAccount)
   const { accounts, isLoading } = useAccounts('/settings', 'ai')
 
-  const handleChange = async (val: string) => {
+  const handleTagChange = async (val: string) => {
     const newValue = parseInt(val, 10)
     try {
       await forumsApi.setAiTagger(forumId, newValue)
-      setValue(newValue)
+      setTagValue(newValue)
       onSave()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to update AI tagging'))
     }
   }
 
+  const handleScoreChange = async (val: string) => {
+    const newValue = parseInt(val, 10)
+    try {
+      await forumsApi.setScoringAccount(forumId, newValue)
+      setScoreValue(newValue)
+      onSave()
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to update scoring'))
+    }
+  }
+
   return (
     <Section title="Forum settings">
       <FieldRow label="AI tag posts">
-        <Select value={value.toString()} onValueChange={handleChange} disabled={isLoading}>
+        <Select value={tagValue.toString()} onValueChange={handleTagChange} disabled={isLoading}>
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
           </SelectTrigger>
@@ -509,6 +523,21 @@ function AiTaggingSection({ forumId, tagAccount, onSave }: { forumId: string; ta
             <SelectItem value="0">Disabled</SelectItem>
             {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((account) => (
               <SelectItem key={account.id} value={account.id.toString()}>
+                {account.label || account.identifier}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </FieldRow>
+      <FieldRow label="AI scoring">
+        <Select value={scoreValue.toString()} onValueChange={handleScoreChange} disabled={isLoading}>
+          <SelectTrigger className="w-full max-w-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Disabled</SelectItem>
+            {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((account) => (
+              <SelectItem key={`score-${account.id}`} value={account.id.toString()}>
                 {account.label || account.identifier}
               </SelectItem>
             ))}

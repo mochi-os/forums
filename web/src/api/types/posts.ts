@@ -9,6 +9,13 @@ export interface Tag {
   relevance?: number
 }
 
+// Match info for relevance scoring
+export interface RelevanceMatch {
+  qid: string
+  label: string
+  score: number
+}
+
 // Attachment interface based on API response
 export interface Attachment {
   id: string
@@ -50,6 +57,7 @@ export interface Post {
   attachments?: Attachment[]
   forumName?: string
   tags?: Tag[]
+  matches?: RelevanceMatch[]
   // Moderation fields
   status?: 'approved' | 'pending' | 'removed'
   locked?: boolean

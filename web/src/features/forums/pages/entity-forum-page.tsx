@@ -80,6 +80,7 @@ export function EntityForumPage({
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
+    relevantFallback,
     ErrorComponent,
     refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
@@ -245,6 +246,11 @@ export function EntityForumPage({
                 {activeTag}
                 <X className='size-3.5' />
               </button>
+            </div>
+          )}
+          {sort === 'relevant' && relevantFallback && (
+            <div className='bg-muted/50 text-muted-foreground rounded-[10px] px-4 py-3 text-sm mb-4'>
+              No interests configured yet. Posts are shown in chronological order. Add interests in Settings to enable personalised ranking.
             </div>
           )}
           {ErrorComponent || (

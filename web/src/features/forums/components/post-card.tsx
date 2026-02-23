@@ -92,11 +92,22 @@ export function PostCard({
       />
 
       {/* Action buttons row - interactive */}
-      {((post.tags && post.tags.length > 0) || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
+      {((post.tags && post.tags.length > 0) || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
         <div className='text-muted-foreground flex items-center gap-3 text-xs'>
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
             <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} />
+          )}
+
+          {/* Relevance match indicators */}
+          {post.matches && post.matches.length > 0 && (
+            <span className='inline-flex items-center gap-1'>
+              {post.matches.map((m) => (
+                <span key={m.qid} className='bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 rounded-full px-1.5 py-0.5 text-xs font-medium'>
+                  {m.label || m.qid}
+                </span>
+              ))}
+            </span>
           )}
 
           {/* Upvote count */}

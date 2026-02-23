@@ -24,6 +24,7 @@ interface UseInfinitePostsResult {
   member: Member | undefined
   can_manage: boolean
   can_moderate: boolean
+  relevantFallback: boolean
   isLoading: boolean
   isError: boolean
   isFetchingNextPage: boolean
@@ -40,6 +41,7 @@ interface PageData {
   member: Member | undefined
   can_manage: boolean
   can_moderate: boolean
+  relevantFallback: boolean
   hasMore: boolean
   nextCursor: number | undefined
 }
@@ -64,6 +66,7 @@ export function useInfinitePosts({
         member?: Member
         can_manage?: boolean
         can_moderate?: boolean
+        relevantFallback?: boolean
         hasMore?: boolean
         nextCursor?: number | null
       }
@@ -106,6 +109,7 @@ export function useInfinitePosts({
         member: data.member,
         can_manage: data.can_manage ?? false,
         can_moderate: data.can_moderate ?? false,
+        relevantFallback: data.relevantFallback ?? false,
         hasMore: data.hasMore ?? false,
         nextCursor: data.nextCursor ?? undefined,
       }
@@ -131,6 +135,7 @@ export function useInfinitePosts({
   const memberData = query.data?.pages?.[0]?.member
   const can_manage = query.data?.pages?.[0]?.can_manage ?? false
   const can_moderate = query.data?.pages?.[0]?.can_moderate ?? false
+  const relevantFallback = query.data?.pages?.[0]?.relevantFallback ?? false
 
   return {
     posts,
@@ -138,6 +143,7 @@ export function useInfinitePosts({
     member: memberData,
     can_manage,
     can_moderate,
+    relevantFallback,
     isLoading: query.isLoading,
     isError: query.isError,
     isFetchingNextPage: query.isFetchingNextPage,
