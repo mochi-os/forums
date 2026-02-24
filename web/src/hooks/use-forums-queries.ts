@@ -129,7 +129,7 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
         toast.info('You are already subscribed to this forum')
       } else {
         toast.success('Subscribed to forum')
-        queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+        queryClient.invalidateQueries({ queryKey: forumsKeys.all })
         onSubscribed?.(forumId)
       }
     },
@@ -143,7 +143,7 @@ export function useUnsubscribeForum(onUnsubscribed?: () => void) {
     mutationFn: (forumId: string) => forumsApi.unsubscribeForum(forumId),
     onSuccess: () => {
       toast.success('Unsubscribed')
-      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onUnsubscribed?.()
     },
     onError: handleServerError,
