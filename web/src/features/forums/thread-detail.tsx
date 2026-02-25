@@ -445,7 +445,13 @@ export function ThreadDetail({
                       canReply={can_comment}
                       onReply={(commentId) => {
                         setReplyingToComment(commentId)
-                        setCommentReplyBody('')
+                        const selected = window.getSelection()?.toString().trim()
+                        if (selected) {
+                          const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
+                          setCommentReplyBody(quoted)
+                        } else {
+                          setCommentReplyBody('')
+                        }
                       }}
                       replyingToId={replyingToComment}
                       replyValue={commentReplyBody}

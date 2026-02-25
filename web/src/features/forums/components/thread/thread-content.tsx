@@ -30,6 +30,7 @@ import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
 import { formatTimestamp } from '@mochi/common'
+import { embedVideos } from '../../utils'
 
 interface ThreadContentProps {
   post: Post
@@ -181,7 +182,7 @@ export function ThreadContent({
       {post.body_markdown ? (
         <div
           className='prose prose-sm dark:prose-invert max-w-none'
-          dangerouslySetInnerHTML={{ __html: post.body_markdown }}
+          dangerouslySetInnerHTML={{ __html: embedVideos(post.body_markdown) }}
         />
       ) : (
         <div className='prose prose-sm dark:prose-invert max-w-none'>
