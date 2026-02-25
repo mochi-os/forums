@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader, type ViewMode } from '@mochi/common'
+import { Main, usePageTitle, PageHeader } from '@mochi/common'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 
@@ -12,7 +12,6 @@ import {
 import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { useLocalStorage } from '@/hooks/use-local-storage'
 import { OptionsMenu } from '@/components/options-menu'
 
 interface ForumsListPageProps {
@@ -23,11 +22,6 @@ export function ForumsListPage({
   forums: _initialForums,
 }: ForumsListPageProps) {
   usePageTitle('Forums')
-
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'forums-view-mode',
-    'card'
-  )
 
   // Store "all forums" as the last location
   useEffect(() => {
@@ -67,7 +61,7 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<OptionsMenu viewMode={viewMode} onViewModeChange={setViewMode} showRss />}
+        actions={<OptionsMenu showRss />}
       />
       <Main fixed>
         {ErrorComponent || (
@@ -75,7 +69,6 @@ export function ForumsListPage({
             <ForumOverview
               forum={null}
               posts={postsToDisplay}
-              viewMode={viewMode}
               onSelectPost={handlePostSelect}
               onCreatePost={() => {}}
               onCreateForum={openForumDialog}

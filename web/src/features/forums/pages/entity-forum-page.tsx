@@ -9,7 +9,6 @@ import {
   PageHeader,
   SortSelector,
   type SortType,
-  type ViewMode,
   toast,
   getErrorMessage,
 } from '@mochi/common'
@@ -42,10 +41,6 @@ export function EntityForumPage({
 }: EntityForumPageProps) {
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'forums-view-mode',
-    'card'
-  )
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
   const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
 
@@ -225,8 +220,6 @@ export function EntityForumPage({
               </Button>
             )}
             <OptionsMenu
-              viewMode={viewMode}
-              onViewModeChange={setViewMode}
               entityId={forum.fingerprint}
               settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
             />
@@ -257,7 +250,6 @@ export function EntityForumPage({
             <ForumOverview
               forum={forumData || forum}
               posts={infinitePosts}
-              viewMode={viewMode}
               onSelectPost={handlePostSelect}
               onTagRemoved={handleTagRemoved}
               onTagFilter={handleTagFilter}

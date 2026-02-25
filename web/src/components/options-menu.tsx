@@ -8,25 +8,20 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-  Switch,
   toast,
   getErrorMessage,
   getAppPath,
-  type ViewMode,
 } from '@mochi/common'
 import forumsApi from '@/api/forums'
 
 interface OptionsMenuProps {
-  viewMode: ViewMode
-  onViewModeChange: (mode: ViewMode) => void
   entityId?: string
   showRss?: boolean
   settingsUrl?: string
 }
 
-export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss, settingsUrl }: OptionsMenuProps) {
+export function OptionsMenu({ entityId, showRss, settingsUrl }: OptionsMenuProps) {
   const navigate = useNavigate()
-  const isCompact = viewMode === 'compact'
   const rssEntity = entityId || (showRss ? '*' : null)
 
   const handleCopyRssUrl = async (mode: 'posts' | 'all') => {
@@ -55,21 +50,6 @@ export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss, set
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onSelect={(e) => {
-            e.preventDefault()
-            onViewModeChange(isCompact ? 'card' : 'compact')
-          }}
-        >
-          <div className="flex items-center justify-between w-full gap-4">
-            <span>Compact view</span>
-            <Switch
-              checked={isCompact}
-              onCheckedChange={(checked) => onViewModeChange(checked ? 'compact' : 'card')}
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        </DropdownMenuItem>
         {rssEntity && (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -88,7 +68,7 @@ export function OptionsMenu({ viewMode, onViewModeChange, entityId, showRss, set
         )}
         {settingsUrl && (
           <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
-            <Settings className="mr-2 size-4" />
+            <Settings className="size-4" />
             Settings
           </DropdownMenuItem>
         )}

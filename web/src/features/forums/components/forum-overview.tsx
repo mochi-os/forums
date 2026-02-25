@@ -1,9 +1,8 @@
-import { LoadMoreTrigger, EmptyState, type ViewMode, Button, CardSkeleton, ListSkeleton, EntityOnboardingEmptyState } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState } from '@mochi/common'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
-import { PostCardRow } from './post-card-row'
 import { InlineForumSearch } from './inline-forum-search'
 import { RecommendedForums } from './recommended-forums'
 
@@ -12,7 +11,6 @@ interface ForumOverviewProps {
   posts: Post[]
   server?: string
   subscribedIds?: Set<string>
-  viewMode?: ViewMode
   onSelectPost: (forumId: string, postId: string) => void
   onTagRemoved?: (forumId: string, postId: string, tagId: string) => void
   onTagFilter?: (label: string) => void
@@ -47,7 +45,6 @@ export function ForumOverview({
   isLoading = false,
   onCreateForum,
   subscribedIds = new Set(),
-  viewMode = 'card',
   onTagRemoved,
   onTagFilter,
   onInterestUp,
@@ -59,42 +56,24 @@ export function ForumOverview({
     return (
       <div className='space-y-4'>
         {isLoading ? (
-          viewMode === 'card' ? (
-            <CardSkeleton count={3} />
-          ) : (
-            <ListSkeleton count={5} />
-          )
+          <CardSkeleton count={3} />
         ) : posts.length > 0 ? (
           <div className='space-y-3'>
-            {posts.map((post) =>
-              viewMode === 'card' ? (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  forumName={post.forumName || 'Unknown'}
-                  showForumBadge={true}
-                  server={server}
-                  onSelect={onSelectPost}
-                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
-                  onTagFilter={onTagFilter}
-                  onInterestUp={onInterestUp}
-                  onInterestDown={onInterestDown}
-                  variant='card'
-                />
-              ) : (
-                <PostCardRow
-                  key={post.id}
-                  post={post}
-                  forumName={post.forumName || 'Unknown'}
-                  showForumBadge={true}
-                  onSelect={onSelectPost}
-                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
-                  onTagFilter={onTagFilter}
-                  onInterestUp={onInterestUp}
-                  onInterestDown={onInterestDown}
-                />
-              )
-            )}
+            {posts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                forumName={post.forumName || 'Unknown'}
+                showForumBadge={true}
+                server={server}
+                onSelect={onSelectPost}
+                onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
+                onTagFilter={onTagFilter}
+                onInterestUp={onInterestUp}
+                onInterestDown={onInterestDown}
+                variant='card'
+              />
+            ))}
           </div>
         ) : (
           <EntityOnboardingEmptyState
@@ -119,42 +98,24 @@ export function ForumOverview({
   return (
     <div className='space-y-6'>
       {isLoading ? (
-        viewMode === 'card' ? (
-          <CardSkeleton count={3} />
-        ) : (
-          <ListSkeleton count={5} />
-        )
+        <CardSkeleton count={3} />
       ) : posts.length > 0 ? (
         <>
           <div className='space-y-3'>
-            {posts.map((post) =>
-              viewMode === 'card' ? (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  forumName={forum.name}
-                  showForumBadge={false}
-                  server={server}
-                  onSelect={onSelectPost}
-                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
-                  onTagFilter={onTagFilter}
-                  onInterestUp={onInterestUp}
-                  onInterestDown={onInterestDown}
-                />
-              ) : (
-                <PostCardRow
-                  key={post.id}
-                  post={post}
-                  forumName={forum.name}
-                  showForumBadge={false}
-                  onSelect={onSelectPost}
-                  onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
-                  onTagFilter={onTagFilter}
-                  onInterestUp={onInterestUp}
-                  onInterestDown={onInterestDown}
-                />
-              )
-            )}
+            {posts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                forumName={forum.name}
+                showForumBadge={false}
+                server={server}
+                onSelect={onSelectPost}
+                onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
+                onTagFilter={onTagFilter}
+                onInterestUp={onInterestUp}
+                onInterestDown={onInterestDown}
+              />
+            ))}
           </div>
           {onLoadMore && (
             <LoadMoreTrigger
