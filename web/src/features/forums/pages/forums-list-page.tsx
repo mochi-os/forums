@@ -1,6 +1,13 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader, SortSelector, type SortType } from '@mochi/common'
+import {
+  GeneralError,
+  Main,
+  usePageTitle,
+  PageHeader,
+  SortSelector,
+  type SortType,
+} from '@mochi/common'
 import { Rss } from 'lucide-react'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Forum } from '@/api/types/forums'
@@ -17,10 +24,14 @@ import { OptionsMenu } from '@/components/options-menu'
 
 interface ForumsListPageProps {
   forums?: Forum[]
+  loaderError?: string | null
+  onRetryLoader?: () => void
 }
 
 export function ForumsListPage({
   forums: _initialForums,
+  loaderError,
+  onRetryLoader,
 }: ForumsListPageProps) {
   usePageTitle('Forums')
   const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
@@ -35,9 +46,18 @@ export function ForumsListPage({
   const navigate = useNavigate()
 
   // Queries
-  const { data: forumsData, isLoading, ErrorComponent } = useForumsList(sort)
+  const {
+    data: forumsData,
+    isLoading,
+    error: forumsError,
+    refetch: refetchForums,
+  } = useForumsList(sort)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
+  const loaderOwnedError = useMemo(
+    () => (loaderError ? new Error(loaderError) : null),
+    [loaderError]
+  )
 
   const handlePostSelect = (forum: string, post: string) => {
     navigate({
@@ -58,6 +78,16 @@ export function ForumsListPage({
     })
   }, [allPosts, forums])
 
+  const subscribedIds = useMemo(
+    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))),
+    [forums]
+  )
+  const hasUsableData = forums.length > 0 || postsToDisplay.length > 0
+  const showLoaderError =
+    !!loaderOwnedError &&
+    !forumsError &&
+    (!isLoading || hasUsableData)
+
   return (
     <>
       <PageHeader
@@ -66,7 +96,24 @@ export function ForumsListPage({
         actions={<><SortSelector value={sort} onValueChange={setSort} /><OptionsMenu showRss /></>}
       />
       <Main fixed>
-        {ErrorComponent || (
+        {showLoaderError && (
+          <GeneralError
+            error={loaderOwnedError}
+            minimal
+            mode='inline'
+            reset={onRetryLoader}
+          />
+        )}
+        {forumsError ? (
+          <GeneralError
+            error={forumsError}
+            minimal
+            mode='inline'
+            reset={() => {
+              void refetchForums()
+            }}
+          />
+        ) : (
           <div className='flex-1 overflow-y-auto'>
             <ForumOverview
               forum={null}
@@ -80,7 +127,7 @@ export function ForumsListPage({
               isFetchingNextPage={false}
               onLoadMore={undefined}
               isLoading={isLoading}
-              subscribedIds={useMemo(() => new Set(forums.flatMap(f => [f.id, f.fingerprint].filter((x): x is string => !!x))), [forums])}
+              subscribedIds={subscribedIds}
             />
           </div>
         )}

@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { handleServerError, toast, useQueryWithError } from '@mochi/common'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { handleServerError, toast } from '@mochi/common'
 import forumsApi from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
@@ -21,7 +21,7 @@ export const forumsKeys = {
 // ============================================================================
 
 export function useForumsList(sort?: string) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: [...forumsKeys.list(), sort],
     queryFn: () => forumsApi.listForums(sort),
     refetchOnWindowFocus: false,
@@ -29,7 +29,7 @@ export function useForumsList(sort?: string) {
 }
 
 export function useForumInfo(forumId: string | null) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: forumsKeys.info(forumId!),
     queryFn: () => forumsApi.getForumInfo(forumId!),
     enabled: !!forumId,
@@ -39,7 +39,7 @@ export function useForumInfo(forumId: string | null) {
 }
 
 export function useForumsInfo() {
-  return useQueryWithError({
+  return useQuery({
     queryKey: [...forumsKeys.all, 'info-list'],
     queryFn: () => forumsApi.getForumsInfo(),
     refetchOnWindowFocus: false,
@@ -47,7 +47,7 @@ export function useForumsInfo() {
 }
 
 export function useForumDetail(forumId: string | null, sort?: string) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: [...forumsKeys.detail(forumId!), sort],
     queryFn: () => forumsApi.viewForum({ forum: forumId!, sort }),
     enabled: !!forumId,
@@ -57,7 +57,7 @@ export function useForumDetail(forumId: string | null, sort?: string) {
 }
 
 export function useForumSearch(searchTerm: string) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: forumsKeys.search(searchTerm),
     queryFn: () => forumsApi.searchForums({ search: searchTerm }),
     enabled: searchTerm.trim().length > 0,
@@ -69,7 +69,7 @@ export function useForumAccess(
   forumId: string,
   options?: { enabled?: boolean }
 ) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: forumsKeys.access(forumId),
     queryFn: () => forumsApi.getAccess({ forum: forumId }),
     staleTime: 0,
@@ -79,7 +79,7 @@ export function useForumAccess(
 }
 
 export function useForumRecommendations() {
-  return useQueryWithError({
+  return useQuery({
     queryKey: forumsKeys.recommendations(),
     queryFn: () => forumsApi.getRecommendations(),
     retry: false,
@@ -181,7 +181,7 @@ export function usePostDetail(
   postId: string,
   server?: string
 ) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: [...forumsKeys.post(forumId, postId), server],
     queryFn: () => forumsApi.viewPost({ forum: forumId, post: postId, server }),
     enabled: !!forumId && !!postId,
@@ -346,7 +346,7 @@ export function selectSearchResults(
 // ============================================================================
 
 export function useUserSearch(query: string) {
-  return useQueryWithError({
+  return useQuery({
     queryKey: ['users', 'search', query],
     queryFn: () => forumsApi.searchUsers(query),
     enabled: query.length >= 1,
@@ -355,7 +355,7 @@ export function useUserSearch(query: string) {
 }
 
 export function useGroups() {
-  return useQueryWithError({
+  return useQuery({
     queryKey: ['groups', 'list'],
     queryFn: () => forumsApi.listGroups(),
     staleTime: 60000,

@@ -22,6 +22,8 @@ function FindForumsPage() {
     data: recommendationsData,
     isLoading: isLoadingRecommendations,
     isError: isRecommendationsError,
+    error: recommendationsError,
+    refetch: refetchRecommendations,
   } = useQuery({
     queryKey: forumsKeys.recommendations(),
     queryFn: () => forumsApi.getRecommendations(),
@@ -59,6 +61,10 @@ function FindForumsPage() {
       recommendations={recommendations}
       isLoadingRecommendations={isLoadingRecommendations}
       isRecommendationsError={isRecommendationsError}
+      recommendationsError={recommendationsError}
+      onRetryRecommendations={() => {
+        void refetchRecommendations()
+      }}
     />
   )
 }

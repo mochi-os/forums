@@ -1,5 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
-import { GeneralError } from '@mochi/common'
+import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
@@ -19,47 +18,65 @@ let hasCheckedRedirect = false
 
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {
-    const response = await forumsApi.getForumsInfo()
-    // Backend returns { data: { entity, forums/forum, ... } }
-    // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
-    const info = response.data as InfoResponse
+    let info: InfoResponse | null = null
+    let loaderError: string | null = null
+
+    try {
+      const response = await forumsApi.getForumsInfo()
+      // Backend returns { data: { entity, forums/forum, ... } }
+      // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
+      info = response.data as InfoResponse
+    } catch (error) {
+      loaderError =
+        error instanceof Error ? error.message : 'Failed to load forums'
+    }
 
     // Only redirect on first load, not on subsequent navigations
-    if (hasCheckedRedirect) {
-      // Already checked this session - just return without redirect or clearing
-      return info
-    }
-    hasCheckedRedirect = true
+    if (info && !hasCheckedRedirect) {
+      hasCheckedRedirect = true
 
-    // In class context, check for last visited forum and redirect if it still exists
-    if (info && !info.entity) {
-      const lastForumId = getLastForum()
-      if (lastForumId) {
-        const forums = info.forums || []
-        const forumExists = forums.some(f => f.id === lastForumId || f.fingerprint === lastForumId)
-        if (forumExists) {
-          throw redirect({ to: '/$forum', params: { forum: lastForumId } })
-        } else {
+      // In class context, check for last visited forum and redirect if it still exists
+      if (!info.entity) {
+        const lastForumId = getLastForum()
+        if (lastForumId) {
+          const forums = info.forums || []
+          const forumExists = forums.some(
+            (f) => f.id === lastForumId || f.fingerprint === lastForumId
+          )
+          if (forumExists) {
+            throw redirect({ to: '/$forum', params: { forum: lastForumId } })
+          }
           clearLastForum()
         }
       }
     }
 
-    return info
+    return { info, loaderError }
   },
   component: IndexPage,
-  errorComponent: ({ error }) => <GeneralError error={error} />,
 })
 
 function IndexPage() {
-  const data = Route.useLoaderData()
+  const { info, loaderError } = Route.useLoaderData()
+  const router = useRouter()
 
   // If we're in entity context, show the forum page directly
-  if (data.entity && data.forum) {
-    return <EntityForumPage forum={data.forum} permissions={data.permissions} entityContext={true} />
+  if (info?.entity && info.forum) {
+    return (
+      <EntityForumPage
+        forum={info.forum}
+        permissions={info.permissions}
+        entityContext={true}
+      />
+    )
   }
 
   // Class context - show forums list
-  return <ForumsListPage forums={data.forums} />
+  return (
+    <ForumsListPage
+      forums={info?.forums}
+      loaderError={loaderError}
+      onRetryLoader={() => void router.invalidate()}
+    />
+  )
 }
-

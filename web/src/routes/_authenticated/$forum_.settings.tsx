@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   AlertDialog,
@@ -29,6 +28,8 @@ import {
   FieldRow,
   DataChip,
   useAccounts,
+  GeneralError,
+  ApiError,
   Select,
   SelectContent,
   SelectItem,
@@ -41,7 +42,29 @@ import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel 
 const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { useForumInfo, useForumsList } from '@/hooks/use-forums-queries'
+import {
+  useForumAccess,
+  useForumInfo,
+  useForumsList,
+  useGroups,
+  useUserSearch,
+} from '@/hooks/use-forums-queries'
+
+function toError(error: unknown, fallback: string): Error {
+  if (error instanceof Error) return error
+  return new Error(fallback)
+}
+
+function getErrorStatus(error: unknown): number | undefined {
+  if (error instanceof ApiError) {
+    return error.status
+  }
+  if (error && typeof error === 'object') {
+    const anyError = error as { status?: number; response?: { status?: number } }
+    return anyError.status ?? anyError.response?.status
+  }
+  return undefined
+}
 
 type TabId = 'general' | 'access' | 'moderation'
 
@@ -107,6 +130,7 @@ function ForumSettingsPage() {
   const {
     data: forumInfoData,
     isLoading: isLoadingForum,
+    error: forumInfoErrorRaw,
     refetch: refreshForumInfo,
   } = useForumInfo(forumId)
 
@@ -123,6 +147,17 @@ function ForumSettingsPage() {
       score_account: forumInfoData.data.forum.score_account ?? 0,
     }
     : null, [forumInfoData])
+
+  const forumInfoStatus = getErrorStatus(forumInfoErrorRaw)
+  const forumLookupError =
+    forumInfoErrorRaw && forumInfoStatus !== 403 && forumInfoStatus !== 404
+      ? toError(forumInfoErrorRaw, 'Failed to load forum settings')
+      : null
+  const forumNotFound =
+    !selectedForum &&
+    (forumInfoStatus === 403 ||
+      forumInfoStatus === 404 ||
+      (!isLoadingForum && !forumInfoErrorRaw))
 
   // Update page title when forum is loaded
   usePageTitle(
@@ -206,11 +241,26 @@ function ForumSettingsPage() {
       <>
         <PageHeader title="Settings" back={{ label: 'Back to forum', onFallback: goBackToForum }} />
         <Main>
-          <EmptyState
-            icon={Hash}
-            title="Forum not found"
-            description="This forum may have been deleted or you don't have access to it."
-          />
+          {forumLookupError ? (
+            <GeneralError
+              error={forumLookupError}
+              minimal
+              mode='inline'
+              reset={() => {
+                void refreshForumInfo()
+              }}
+            />
+          ) : (
+            <EmptyState
+              icon={Hash}
+              title={forumNotFound ? 'Forum not found' : 'Forum unavailable'}
+              description={
+                forumNotFound
+                  ? 'This forum may have been deleted or you don\'t have access to it.'
+                  : 'This forum could not be loaded right now.'
+              }
+            />
+          )}
         </Main>
       </>
     )
@@ -488,7 +538,18 @@ function GeneralTab({
 function AiTaggingSection({ forumId, tagAccount, scoreAccount, onSave }: { forumId: string; tagAccount: number; scoreAccount: number; onSave: () => void }) {
   const [tagValue, setTagValue] = useState(tagAccount)
   const [scoreValue, setScoreValue] = useState(scoreAccount)
-  const { accounts, isLoading } = useAccounts('/settings', 'ai')
+  const {
+    accounts,
+    isLoading,
+    providersError,
+    accountsError,
+    refetch: refetchAccounts,
+  } = useAccounts('/settings', 'ai')
+  const accountsLoadError = providersError ?? accountsError
+  const resolvedAccountsError = accountsLoadError
+    ? toError(accountsLoadError, 'Failed to load AI accounts')
+    : null
+  const isSelectDisabled = isLoading || !!resolvedAccountsError
 
   const handleTagChange = async (val: string) => {
     const newValue = parseInt(val, 10)
@@ -514,8 +575,22 @@ function AiTaggingSection({ forumId, tagAccount, scoreAccount, onSave }: { forum
 
   return (
     <Section title="Forum settings">
+      {resolvedAccountsError && (
+        <GeneralError
+          error={resolvedAccountsError}
+          minimal
+          mode='inline'
+          reset={() => {
+            void refetchAccounts()
+          }}
+        />
+      )}
       <FieldRow label="AI tag posts">
-        <Select value={tagValue.toString()} onValueChange={handleTagChange} disabled={isLoading}>
+        <Select
+          value={tagValue.toString()}
+          onValueChange={handleTagChange}
+          disabled={isSelectDisabled}
+        >
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
           </SelectTrigger>
@@ -530,7 +605,11 @@ function AiTaggingSection({ forumId, tagAccount, scoreAccount, onSave }: { forum
         </Select>
       </FieldRow>
       <FieldRow label="AI scoring">
-        <Select value={scoreValue.toString()} onValueChange={handleScoreChange} disabled={isLoading}>
+        <Select
+          value={scoreValue.toString()}
+          onValueChange={handleScoreChange}
+          disabled={isSelectDisabled}
+        >
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
           </SelectTrigger>
@@ -553,60 +632,59 @@ interface AccessTabProps {
 }
 
 function AccessTab({ forumId }: AccessTabProps) {
-  const [rules, setRules] = useState<AccessRule[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
   const [dialogOpen, setDialogOpen] = useState(false)
   const [userSearchQuery, setUserSearchQuery] = useState('')
 
-  // User search query
-  const { data: userSearchData, isLoading: userSearchLoading } = useQuery({
-    queryKey: ['users', 'search', userSearchQuery],
-    queryFn: () => forumsApi.searchUsers(userSearchQuery),
-    enabled: userSearchQuery.length >= 1,
-  })
+  const {
+    data: accessData,
+    isLoading: isLoadingRules,
+    error: rulesErrorRaw,
+    refetch: refetchRules,
+  } = useForumAccess(forumId)
 
-  // Groups query
-  const { data: groupsData } = useQuery({
-    queryKey: ['groups', 'list'],
-    queryFn: () => forumsApi.listGroups(),
-  })
+  const {
+    data: userSearchData,
+    isLoading: userSearchLoading,
+    error: userSearchErrorRaw,
+    refetch: refetchUserSearch,
+  } = useUserSearch(userSearchQuery)
 
-  const loadRules = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const response = await forumsApi.getAccess({ forum: forumId })
-      const accessList = response.data?.access ?? []
-      const transformedRules: AccessRule[] = accessList
-        .filter((item) => item.level !== null || item.isOwner)
-        .map((item) => ({
-          subject: item.id,
-          operation: item.level ?? '*',
-          grant: 1,
-          name: item.name,
-          isOwner: item.isOwner,
-        }))
-      setRules(transformedRules)
-    } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error('Failed to load access rules')
-      )
-    } finally {
-      setIsLoading(false)
-    }
-  }, [forumId])
+  const {
+    data: groupsData,
+    error: groupsErrorRaw,
+    refetch: refetchGroups,
+  } = useGroups()
 
-  useEffect(() => {
-    void loadRules()
-  }, [loadRules])
+  const rules = useMemo<AccessRule[]>(() => {
+    const accessList = accessData?.data?.access ?? []
+    return accessList
+      .filter((item) => item.level !== null || item.isOwner)
+      .map((item) => ({
+        subject: item.id,
+        operation: item.level ?? '*',
+        grant: 1,
+        name: item.name,
+        isOwner: item.isOwner,
+      }))
+  }, [accessData])
+  const rulesError = rulesErrorRaw
+    ? toError(rulesErrorRaw, 'Failed to load access rules')
+    : null
+  const userSearchError =
+    userSearchQuery.length >= 1 && userSearchErrorRaw
+      ? toError(userSearchErrorRaw, 'Failed to search users')
+      : null
+  const groupsError = groupsErrorRaw
+    ? toError(groupsErrorRaw, 'Failed to load groups')
+    : null
+  const canManageRules = !rulesError && !isLoadingRules && !!accessData
 
   const handleAdd = async (
     subject: string,
     subjectName: string,
     level: string
   ) => {
+    if (!canManageRules) return
     try {
       await forumsApi.setAccess({
         forum: forumId,
@@ -614,7 +692,7 @@ function AccessTab({ forumId }: AccessTabProps) {
         level: level as 'view' | 'vote' | 'comment' | 'post' | 'none',
       })
       toast.success(`Access set for ${subjectName}`)
-      void loadRules()
+      await refetchRules()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to set access level'))
       throw error
@@ -622,16 +700,18 @@ function AccessTab({ forumId }: AccessTabProps) {
   }
 
   const handleRevoke = async (subject: string) => {
+    if (!canManageRules) return
     try {
       await forumsApi.revokeAccess({ forum: forumId, user: subject })
       toast.success('Access removed')
-      void loadRules()
+      await refetchRules()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to remove access'))
     }
   }
 
   const handleLevelChange = async (subject: string, newLevel: string) => {
+    if (!canManageRules) return
     try {
       await forumsApi.setAccess({
         forum: forumId,
@@ -639,7 +719,7 @@ function AccessTab({ forumId }: AccessTabProps) {
         level: newLevel as 'view' | 'vote' | 'comment' | 'post' | 'none',
       })
       toast.success('Access level updated')
-      void loadRules()
+      await refetchRules()
     } catch (error) {
       toast.error(getErrorMessage(error, 'Failed to update access level'))
     }
@@ -652,7 +732,11 @@ function AccessTab({ forumId }: AccessTabProps) {
     >
       <div className='space-y-4'>
         <div className='flex justify-end'>
-          <Button onClick={() => setDialogOpen(true)} size="sm">
+          <Button
+            onClick={() => setDialogOpen(true)}
+            size="sm"
+            disabled={!canManageRules}
+          >
             <Plus className='mr-2 h-4 w-4' />
             Add Rule
           </Button>
@@ -666,18 +750,37 @@ function AccessTab({ forumId }: AccessTabProps) {
           defaultLevel='post'
           userSearchResults={userSearchData?.data?.results ?? []}
           userSearchLoading={userSearchLoading}
+          userSearchError={userSearchError}
+          onRetryUserSearch={() => {
+            void refetchUserSearch()
+          }}
           onUserSearch={setUserSearchQuery}
           groups={groupsData?.data?.groups ?? []}
+          groupsError={groupsError}
+          onRetryGroups={() => {
+            void refetchGroups()
+          }}
         />
 
-        <AccessList
-          rules={rules}
-          levels={FORUMS_ACCESS_LEVELS}
-          onLevelChange={handleLevelChange}
-          onRevoke={handleRevoke}
-          isLoading={isLoading}
-          error={error}
-        />
+        {rulesError ? (
+          <GeneralError
+            error={rulesError}
+            minimal
+            mode='inline'
+            reset={() => {
+              void refetchRules()
+            }}
+          />
+        ) : (
+          <AccessList
+            rules={rules}
+            levels={FORUMS_ACCESS_LEVELS}
+            onLevelChange={handleLevelChange}
+            onRevoke={handleRevoke}
+            isLoading={isLoadingRules}
+            error={null}
+          />
+        )}
       </div>
     </Section>
   )
@@ -689,6 +792,7 @@ interface ModerationTabProps {
 
 function ModerationTab({ forumId }: ModerationTabProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<Error | null>(null)
   const [settings, setSettings] = useState({
     moderation_posts: false,
     moderation_comments: false,
@@ -701,13 +805,14 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
   const loadSettings = useCallback(async () => {
     setIsLoading(true)
+    setLoadError(null)
     try {
       const response = await forumsApi.getModerationSettings({ forum: forumId })
       if (response.data?.settings) {
         setSettings(response.data.settings)
       }
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load moderation settings'))
+      setLoadError(toError(error, 'Failed to load moderation settings'))
     } finally {
       setIsLoading(false)
     }
@@ -742,6 +847,19 @@ function ModerationTab({ forumId }: ModerationTabProps) {
         <Skeleton className='h-48 w-full rounded-xl' />
         <Skeleton className='h-48 w-full rounded-xl' />
       </div>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <GeneralError
+        error={loadError}
+        minimal
+        mode='inline'
+        reset={() => {
+          void loadSettings()
+        }}
+      />
     )
   }
 

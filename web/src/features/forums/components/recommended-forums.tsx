@@ -1,5 +1,11 @@
-import { useEffect, useState } from 'react'
-import { Button, Skeleton, toast, getErrorMessage } from '@mochi/common'
+import { useCallback, useEffect, useState } from 'react'
+import {
+  Button,
+  GeneralError,
+  Skeleton,
+  toast,
+  getErrorMessage,
+} from '@mochi/common'
 import { Hash, Loader2 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { RecommendedForum } from '@/api/types/forums'
@@ -11,26 +17,37 @@ interface RecommendedForumsProps {
   onSubscribe?: () => void
 }
 
-export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedForumsProps) {
+export function RecommendedForums({
+  subscribedIds,
+  onSubscribe,
+}: RecommendedForumsProps) {
   const [recommendations, setRecommendations] = useState<RecommendedForum[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
   const queryClient = useQueryClient()
 
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const response = await forumsApi.getRecommendations()
-        setRecommendations(response.data.forums ?? [])
-      } catch {
-        // Silently fail for recommendations
-      } finally {
-        setIsLoading(false)
-      }
+  const fetchRecommendations = useCallback(async () => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await forumsApi.getRecommendations()
+      setRecommendations(response.data.forums ?? [])
+    } catch (loadError) {
+      setRecommendations([])
+      setError(
+        loadError instanceof Error
+          ? loadError
+          : new Error('Failed to load recommended forums')
+      )
+    } finally {
+      setIsLoading(false)
     }
-
-    void fetchRecommendations()
   }, [])
+
+  useEffect(() => {
+    void fetchRecommendations()
+  }, [fetchRecommendations])
 
   const handleSubscribe = async (forum: RecommendedForum) => {
     setPendingId(forum.id)
@@ -40,14 +57,13 @@ export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedFor
       onSubscribe?.()
       toast.success(`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
-    } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to subscribe'))
+    } catch (subscribeError) {
+      toast.error(getErrorMessage(subscribeError, 'Failed to subscribe'))
     } finally {
       setPendingId(null)
     }
   }
 
-  // Filter out already subscribed
   const filteredRecommendations = recommendations.filter(
     (rec) => !subscribedIds.has(rec.id) && !subscribedIds.has(rec.fingerprint)
   )
@@ -70,6 +86,25 @@ export function RecommendedForums({ subscribedIds, onSubscribe }: RecommendedFor
               </div>
             ))}
           </div>
+        </div>
+      </>
+    )
+  }
+
+  if (error) {
+    return (
+      <>
+        <hr className="my-6 w-full max-w-md border-t" />
+        <div className="w-full max-w-md">
+          <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
+            Recommended forums
+          </p>
+          <GeneralError
+            error={error}
+            minimal
+            mode='inline'
+            reset={fetchRecommendations}
+          />
         </div>
       </>
     )

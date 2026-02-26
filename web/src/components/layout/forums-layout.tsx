@@ -10,6 +10,7 @@ import {
   Hash,
   MessageSquare,
   Plus,
+  RefreshCw,
   Settings,
   Gavel,
   Search,
@@ -39,11 +40,25 @@ function ForumsLayoutInner() {
   } = useSidebarContext()
 
   // Use lightweight info endpoint for forum list (no P2P calls)
-  const { data, isLoading } = useForumsInfo()
+  const {
+    data,
+    isLoading,
+    error: forumsInfoError,
+    refetch: refetchForumsInfo,
+  } = useForumsInfo()
   // Fetch current forum permissions (at most 1 P2P call)
-  const { data: currentForumInfo } = useForumInfo(forum)
+  const {
+    data: currentForumInfo,
+    error: currentForumInfoError,
+    isLoading: isLoadingCurrentForumInfo,
+    refetch: refetchCurrentForumInfo,
+  } = useForumInfo(forum)
   // Fetch details for the current forum to populate sidebar with posts
-  const { data: detailData } = useForumDetail(forum)
+  const {
+    data: detailData,
+    error: forumDetailError,
+    refetch: refetchForumDetail,
+  } = useForumDetail(forum)
 
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
   const allPosts = useMemo(() => {
@@ -116,11 +131,19 @@ function ForumsLayoutInner() {
 
       // Build manage items - use currentForumInfo for permissions (handles P2P for subscribed forums)
       const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
+      const hasResolvedCurrentPermissions = Boolean(currentForumInfo?.data?.permissions)
+      const hasCurrentPermissionsError = isCurrentForum && !!currentForumInfoError
       const canManage = isCurrentForum
-        ? (currentForumInfo?.data?.permissions.manage ?? f.can_manage)
+        ? hasResolvedCurrentPermissions &&
+          !isLoadingCurrentForumInfo &&
+          !hasCurrentPermissionsError &&
+          (currentForumInfo?.data?.permissions.manage ?? false)
         : f.can_manage
       const canModerate = isCurrentForum
-        ? (currentForumInfo?.data?.permissions.moderate ?? f.can_moderate)
+        ? hasResolvedCurrentPermissions &&
+          !isLoadingCurrentForumInfo &&
+          !hasCurrentPermissionsError &&
+          (currentForumInfo?.data?.permissions.moderate ?? false)
         : f.can_moderate
 
       // Settings link for forum managers only
@@ -140,11 +163,44 @@ function ForumsLayoutInner() {
         })
       }
 
+      // Show retry affordance instead of silently dropping current forum posts.
+      if (isCurrentForum && forumDetailError) {
+        subItems.push({
+          title: 'Posts',
+          items: [
+            {
+              title: 'Retry posts load',
+              icon: RefreshCw,
+              onClick: () => {
+                void refetchForumDetail()
+              },
+              className: 'text-destructive',
+            },
+          ],
+        } as NavSubItem)
+      }
+
       // Group posts under "Posts" section if there are any
-      if (postItems.length > 0) {
+      if (postItems.length > 0 && !(isCurrentForum && forumDetailError)) {
         subItems.push({
           title: 'Posts',
           items: postItems,
+        } as NavSubItem)
+      }
+
+      if (isCurrentForum && hasCurrentPermissionsError) {
+        subItems.push({
+          title: 'Manage',
+          items: [
+            {
+              title: 'Retry permissions load',
+              icon: RefreshCw,
+              onClick: () => {
+                void refetchCurrentForumInfo()
+              },
+              className: 'text-destructive',
+            },
+          ],
         } as NavSubItem)
       }
 
@@ -192,7 +248,19 @@ function ForumsLayoutInner() {
     const groups: SidebarData['navGroups'] = [
       {
         title: 'Forums',
-        items: [allForumsItem, ...forumItems],
+        items: forumsInfoError
+          ? [
+            allForumsItem,
+            {
+              title: 'Retry forums load',
+              icon: RefreshCw,
+              onClick: () => {
+                void refetchForumsInfo()
+              },
+              className: 'text-destructive',
+            },
+          ]
+          : [allForumsItem, ...forumItems],
       },
       {
         title: '',
@@ -210,6 +278,13 @@ function ForumsLayoutInner() {
     openForumDialog,
     allPosts,
     currentForumInfo,
+    currentForumInfoError,
+    isLoadingCurrentForumInfo,
+    forumDetailError,
+    forumsInfoError,
+    refetchForumDetail,
+    refetchForumsInfo,
+    refetchCurrentForumInfo,
   ])
 
   return (

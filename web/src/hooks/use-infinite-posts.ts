@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { useInfiniteQueryWithError, getApiBasepath, requestHelpers } from '@mochi/common'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { getApiBasepath, requestHelpers } from '@mochi/common'
 import forumsApi from '@/api/forums'
 import type { Forum, Member } from '@/api/types/forums'
 import type { Post } from '@/api/types/posts'
-import type { QueryKey, InfiniteData } from '@tanstack/react-query'
 
 const DEFAULT_LIMIT = 20
 
@@ -32,7 +32,6 @@ interface UseInfinitePostsResult {
   fetchNextPage: () => void
   error: Error | null
   refetch: () => void
-  ErrorComponent: React.ReactNode
 }
 
 interface PageData {
@@ -55,7 +54,7 @@ export function useInfinitePosts({
   sort,
   tag,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
-  const query = useInfiniteQueryWithError<PageData, Error, InfiniteData<PageData, number | undefined>, QueryKey, number | undefined>({
+  const query = useInfiniteQuery({
     queryKey: ['forum-posts', forum, { limit, server, entityContext, sort, tag }],
     queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
       if (!forum) throw new Error('Forum ID required')
@@ -87,6 +86,7 @@ export function useInfinitePosts({
           member?: Member
           can_manage?: boolean
           can_moderate?: boolean
+          relevantFallback?: boolean
           hasMore?: boolean
           nextCursor?: number | null
         }>(url)
@@ -112,7 +112,7 @@ export function useInfinitePosts({
         relevantFallback: data.relevantFallback ?? false,
         hasMore: data.hasMore ?? false,
         nextCursor: data.nextCursor ?? undefined,
-      }
+      } as PageData
     },
     initialPageParam: undefined as number | undefined,
     getNextPageParam: (lastPage: PageData) =>
@@ -147,10 +147,13 @@ export function useInfinitePosts({
     isLoading: query.isLoading,
     isError: query.isError,
     isFetchingNextPage: query.isFetchingNextPage,
-    hasNextPage: query.hasNextPage,
-    fetchNextPage: query.fetchNextPage,
-    error: query.error,
-    refetch: query.refetch,
-    ErrorComponent: query.ErrorComponent,
+    hasNextPage: !!query.hasNextPage,
+    fetchNextPage: () => {
+      void query.fetchNextPage()
+    },
+    error: (query.error as Error | null) ?? null,
+    refetch: () => {
+      void query.refetch()
+    },
   }
 }

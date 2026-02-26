@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader } from '@mochi/common'
+import { GeneralError, Main, usePageTitle, PageHeader } from '@mochi/common'
 import { MessageSquare } from 'lucide-react'
 import {
   useForumsList,
@@ -14,7 +14,12 @@ export function Forums() {
   const navigate = useNavigate()
 
   // Queries
-  const { data: forumsData, isLoading, ErrorComponent } = useForumsList()
+  const {
+    data: forumsData,
+    isLoading,
+    error,
+    refetch,
+  } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -38,12 +43,19 @@ export function Forums() {
   }, [allPosts, forums])
 
   // Handle error state
-  if (ErrorComponent) {
+  if (error) {
     return (
       <>
         <PageHeader title="Forums" icon={<MessageSquare className='size-4 md:size-5' />} />
         <Main>
-          {ErrorComponent}
+          <GeneralError
+            error={error}
+            minimal
+            mode='inline'
+            reset={() => {
+              void refetch()
+            }}
+          />
         </Main>
       </>
     )

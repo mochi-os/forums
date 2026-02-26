@@ -11,6 +11,7 @@ import {
   type SortType,
   toast,
   getErrorMessage,
+  GeneralError,
 } from '@mochi/common'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -76,7 +77,7 @@ export function EntityForumPage({
     fetchNextPage,
     can_manage: canManage,
     relevantFallback,
-    ErrorComponent,
+    error: postsError,
     refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
 
@@ -246,7 +247,14 @@ export function EntityForumPage({
               No interests configured yet. Posts are shown in chronological order. Add interests in Settings to enable personalised ranking.
             </div>
           )}
-          {ErrorComponent || (
+          {postsError ? (
+            <GeneralError
+              error={postsError}
+              minimal
+              mode='inline'
+              reset={refetch}
+            />
+          ) : (
             <ForumOverview
               forum={forumData || forum}
               posts={infinitePosts}

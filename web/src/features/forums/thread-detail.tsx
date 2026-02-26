@@ -9,6 +9,7 @@ import {
   Card,
   CardContent,
   PageHeader,
+  GeneralError,
 } from '@mochi/common'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -87,7 +88,8 @@ export function ThreadDetail({
   const {
     data: postData,
     isLoading,
-    isError,
+    error: postError,
+    refetch: refetchPost,
   } = usePostDetail(forum, postId, server)
 
   // Sync post title to sidebar
@@ -239,7 +241,28 @@ export function ThreadDetail({
     )
   }
 
-  if (isError || !postData?.data?.post) {
+  if (postError) {
+    return (
+      <>
+        <PageHeader
+          title={forumTitle}
+          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+        />
+        <Main className="space-y-4">
+          <GeneralError
+            error={postError}
+            minimal
+            mode='inline'
+            reset={() => {
+              void refetchPost()
+            }}
+          />
+        </Main>
+      </>
+    )
+  }
+
+  if (!postData?.data?.post) {
     return (
       <>
         <PageHeader

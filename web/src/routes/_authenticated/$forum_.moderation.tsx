@@ -13,6 +13,8 @@ import {
   usePageTitle,
   EmptyState,
   Skeleton,
+  GeneralError,
+  formatTimestamp,
 } from '@mochi/common'
 import {
   Loader2,
@@ -28,7 +30,6 @@ import {
 
 import forumsApi from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
-import { formatTimestamp } from '@mochi/common'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
@@ -64,6 +65,11 @@ const tabs: Tab[] = [
   { id: 'restrictions', label: 'Restrictions', icon: <Users className='h-4 w-4' /> },
   { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
 ]
+
+function toError(error: unknown, fallback: string): Error {
+  if (error instanceof Error) return error
+  return new Error(fallback)
+}
 
 function ModerationPage() {
   const params = Route.useParams()
@@ -129,6 +135,7 @@ interface QueueTabProps {
 
 function QueueTab({ forumId }: QueueTabProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<Error | null>(null)
   const [pendingPosts, setPendingPosts] = useState<Post[]>([])
   const [pendingComments, setPendingComments] = useState<ViewPostComment[]>([])
   const [actionInProgress, setActionInProgress] = useState<string | null>(null)
@@ -137,6 +144,7 @@ function QueueTab({ forumId }: QueueTabProps) {
 
   const loadQueue = useCallback(async () => {
     setIsLoading(true)
+    setLoadError(null)
     try {
       const response = await forumsApi.getModerationQueue({ forum: forumId })
       setPendingPosts(response.data?.posts ?? [])
@@ -144,7 +152,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       setSelectedPosts(new Set())
       setSelectedComments(new Set())
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load moderation queue'))
+      setLoadError(toError(error, 'Failed to load moderation queue'))
     } finally {
       setIsLoading(false)
     }
@@ -307,6 +315,19 @@ function QueueTab({ forumId }: QueueTabProps) {
            </div>
          </section>
       </div>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <GeneralError
+        error={loadError}
+        minimal
+        mode='inline'
+        reset={() => {
+          void loadQueue()
+        }}
+      />
     )
   }
 
@@ -486,17 +507,19 @@ interface ReportsTabProps {
 
 function ReportsTab({ forumId }: ReportsTabProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
   const [statusFilter, setStatusFilter] = useState<'pending' | 'resolved' | 'all'>('pending')
   const [actionInProgress, setActionInProgress] = useState<string | null>(null)
 
   const loadReports = useCallback(async () => {
     setIsLoading(true)
+    setLoadError(null)
     try {
       const response = await forumsApi.getReports({ forum: forumId, status: statusFilter })
       setReports(response.data?.reports ?? [])
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load reports'))
+      setLoadError(toError(error, 'Failed to load reports'))
     } finally {
       setIsLoading(false)
     }
@@ -556,6 +579,19 @@ function ReportsTab({ forumId }: ReportsTabProps) {
             </CardContent>
          </Card>
       </div>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <GeneralError
+        error={loadError}
+        minimal
+        mode='inline'
+        reset={() => {
+          void loadReports()
+        }}
+      />
     )
   }
 
@@ -698,15 +734,17 @@ function formatReason(reason: string): string {
 
 function LogTab({ forumId }: LogTabProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<Error | null>(null)
   const [entries, setEntries] = useState<ModerationLogEntry[]>([])
 
   const loadLog = useCallback(async () => {
     setIsLoading(true)
+    setLoadError(null)
     try {
       const response = await forumsApi.getModerationLog({ forum: forumId, limit: 50 })
       setEntries(response.data?.entries ?? [])
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load moderation log'))
+      setLoadError(toError(error, 'Failed to load moderation log'))
     } finally {
       setIsLoading(false)
     }
@@ -732,6 +770,19 @@ function LogTab({ forumId }: LogTabProps) {
             ))}
          </CardContent>
       </Card>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <GeneralError
+        error={loadError}
+        minimal
+        mode='inline'
+        reset={() => {
+          void loadLog()
+        }}
+      />
     )
   }
 
@@ -784,16 +835,18 @@ interface RestrictionsTabProps {
 
 function RestrictionsTab({ forumId }: RestrictionsTabProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<Error | null>(null)
   const [restrictions, setRestrictions] = useState<Restriction[]>([])
   const [actionInProgress, setActionInProgress] = useState<string | null>(null)
 
   const loadRestrictions = useCallback(async () => {
     setIsLoading(true)
+    setLoadError(null)
     try {
       const response = await forumsApi.getRestrictions({ forum: forumId })
       setRestrictions(response.data?.restrictions ?? [])
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load restrictions'))
+      setLoadError(toError(error, 'Failed to load restrictions'))
     } finally {
       setIsLoading(false)
     }
@@ -834,6 +887,19 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
             ))}
          </CardContent>
       </Card>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <GeneralError
+        error={loadError}
+        minimal
+        mode='inline'
+        reset={() => {
+          void loadRestrictions()
+        }}
+      />
     )
   }
 

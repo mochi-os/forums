@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { Search, Loader2, Hash } from 'lucide-react'
-import { Button, Input, toast, getErrorMessage } from '@mochi/common'
+import {
+  Button,
+  GeneralError,
+  Input,
+  toast,
+  getErrorMessage,
+} from '@mochi/common'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
@@ -12,16 +18,41 @@ interface InlineForumSearchProps {
   onRefresh?: () => void
 }
 
-export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearchProps) {
+export function InlineForumSearch({
+  subscribedIds,
+  onRefresh,
+}: InlineForumSearchProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [results, setResults] = useState<DirectoryEntry[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [searchError, setSearchError] = useState<Error | null>(null)
   const [pendingForumId, setPendingForumId] = useState<string | null>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  // Debounce search query
+  const runSearch = useCallback(async (query: string) => {
+    if (query.length === 0) {
+      setResults([])
+      setSearchError(null)
+      return
+    }
+
+    setIsLoading(true)
+    setSearchError(null)
+    try {
+      const response = await forumsApi.searchForums({ search: query })
+      setResults(response.data.results ?? [])
+    } catch (error) {
+      setResults([])
+      setSearchError(
+        error instanceof Error ? error : new Error('Failed to search forums')
+      )
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery)
@@ -29,27 +60,19 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
     return () => clearTimeout(timer)
   }, [searchQuery])
 
-  // Search when debounced query changes
   useEffect(() => {
     if (debouncedQuery.length === 0) {
       setResults([])
+      setSearchError(null)
       return
     }
 
-    const search = async () => {
-      setIsLoading(true)
-      try {
-        const response = await forumsApi.searchForums({ search: debouncedQuery })
-        setResults(response.data.results ?? [])
-      } catch {
-        setResults([])
-      } finally {
-        setIsLoading(false)
-      }
-    }
+    void runSearch(debouncedQuery)
+  }, [debouncedQuery, runSearch])
 
-    void search()
-  }, [debouncedQuery])
+  const retrySearch = useCallback(() => {
+    void runSearch(debouncedQuery)
+  }, [debouncedQuery, runSearch])
 
   const handleSubscribe = async (forum: DirectoryEntry) => {
     setPendingForumId(forum.id)
@@ -69,7 +92,6 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
 
   return (
     <div className="w-full max-w-md mx-auto">
-      {/* Search Input */}
       <div className="relative mb-4">
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
@@ -81,20 +103,28 @@ export function InlineForumSearch({ subscribedIds, onRefresh }: InlineForumSearc
         />
       </div>
 
-      {/* Results */}
       {showLoading && (
         <div className="flex items-center justify-center py-8">
           <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
         </div>
       )}
 
-      {!isLoading && showResults && results.length === 0 && (
+      {!isLoading && showResults && searchError && (
+        <GeneralError
+          error={searchError}
+          minimal
+          mode='inline'
+          reset={retrySearch}
+        />
+      )}
+
+      {!isLoading && showResults && !searchError && results.length === 0 && (
         <p className="text-muted-foreground text-sm text-center py-4">
           No forums found
         </p>
       )}
 
-      {!isLoading && results.length > 0 && (
+      {!isLoading && !searchError && results.length > 0 && (
         <div className="divide-border divide-y rounded-lg border">
           {results
             .filter((forum) => !subscribedIds.has(forum.id) && !subscribedIds.has(forum.fingerprint))
