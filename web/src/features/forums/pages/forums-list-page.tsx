@@ -1,7 +1,8 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Main, usePageTitle, PageHeader } from '@mochi/common'
+import { Main, usePageTitle, PageHeader, SortSelector, type SortType } from '@mochi/common'
 import { Rss } from 'lucide-react'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Forum } from '@/api/types/forums'
 
 import {
@@ -22,6 +23,7 @@ export function ForumsListPage({
   forums: _initialForums,
 }: ForumsListPageProps) {
   usePageTitle('Forums')
+  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
 
   // Store "all forums" as the last location
   useEffect(() => {
@@ -33,7 +35,7 @@ export function ForumsListPage({
   const navigate = useNavigate()
 
   // Queries
-  const { data: forumsData, isLoading, ErrorComponent } = useForumsList()
+  const { data: forumsData, isLoading, ErrorComponent } = useForumsList(sort)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
 
@@ -61,7 +63,7 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<OptionsMenu showRss />}
+        actions={<><SortSelector value={sort} onValueChange={setSort} /><OptionsMenu showRss /></>}
       />
       <Main fixed>
         {ErrorComponent || (
