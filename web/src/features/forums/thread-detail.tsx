@@ -368,7 +368,7 @@ export function ThreadDetail({
                         setShowReplyForm(false)
                       }
                     }}
-                    className='min-h-20 w-full resize-none rounded-md border px-3 py-2 text-sm'
+                    className='min-h-20 w-full rounded-md border px-3 py-2 text-sm'
                     rows={3}
                     autoFocus
                     disabled={createCommentMutation.isPending}

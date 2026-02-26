@@ -211,7 +211,7 @@ export function ThreadComment({
           <textarea
             value={editBody}
             onChange={(e) => setEditBody(e.target.value)}
-            className='min-h-16 w-full resize-none rounded-md border px-3 py-2 text-sm'
+            className='min-h-16 w-full rounded-md border px-3 py-2 text-sm'
             rows={3}
             autoFocus
           />
@@ -437,7 +437,7 @@ export function ThreadComment({
                 onReplyCancel?.()
               }
             }}
-            className='flex-1 resize-none rounded-md border px-3 py-2 text-sm'
+            className='flex-1 rounded-md border px-3 py-2 text-sm'
             rows={2}
             autoFocus
           />
