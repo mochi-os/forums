@@ -508,10 +508,11 @@ const forumsApi = {
     return res.data.tags ?? []
   },
 
-  setAiTagger: (forumId: string, account: number) => {
+  setAiSettings: (forumId: string, mode: string, account: number) => {
     const formData = new URLSearchParams()
+    formData.append('mode', mode)
     formData.append('account', String(account))
-    return client.post(endpoints.forums.ai(forumId), formData.toString(), {
+    return client.post(endpoints.forums.aiSettings(forumId), formData.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
   },
@@ -519,9 +520,6 @@ const forumsApi = {
   // Interest/scoring
   adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down') =>
     client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
-
-  setScoringAccount: (forumId: string, account: number) =>
-    client.post(endpoints.forums.scoring(forumId), { forum: forumId, account }),
 }
 
 export type {

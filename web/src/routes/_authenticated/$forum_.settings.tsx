@@ -84,8 +84,8 @@ interface ForumData {
   name: string
   fingerprint: string
   can_manage: boolean
-  tag_account: number
-  score_account: number
+  ai_mode: string
+  ai_account: number
 }
 
 interface Tab {
@@ -143,8 +143,8 @@ function ForumSettingsPage() {
       name: forumInfoData.data.forum.name,
       fingerprint: forumInfoData.data.fingerprint,
       can_manage: forumInfoData.data.permissions.manage,
-      tag_account: forumInfoData.data.forum.tag_account ?? 0,
-      score_account: forumInfoData.data.forum.score_account ?? 0,
+      ai_mode: forumInfoData.data.forum.ai_mode ?? '',
+      ai_account: forumInfoData.data.forum.ai_account ?? 0,
     }
     : null, [forumInfoData])
 
@@ -474,7 +474,7 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
-        <AiTaggingSection forumId={forum.id} tagAccount={forum.tag_account} scoreAccount={forum.score_account} onSave={onRefresh} />
+        <AiSettingsSection forumId={forum.id} aiMode={forum.ai_mode} aiAccount={forum.ai_account} onSave={onRefresh} />
       )}
 
       {canUnsubscribe && (
@@ -535,94 +535,67 @@ function GeneralTab({
   )
 }
 
-function AiTaggingSection({ forumId, tagAccount, scoreAccount, onSave }: { forumId: string; tagAccount: number; scoreAccount: number; onSave: () => void }) {
-  const [tagValue, setTagValue] = useState(tagAccount)
-  const [scoreValue, setScoreValue] = useState(scoreAccount)
-  const {
-    accounts,
-    isLoading,
-    providersError,
-    accountsError,
-    refetch: refetchAccounts,
-  } = useAccounts('/settings', 'ai')
-  const accountsLoadError = providersError ?? accountsError
-  const resolvedAccountsError = accountsLoadError
-    ? toError(accountsLoadError, 'Failed to load AI accounts')
-    : null
-  const isSelectDisabled = isLoading || !!resolvedAccountsError
+function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: number; onSave: () => void }) {
+  const [mode, setMode] = useState(aiMode || 'off')
+  const [account, setAccount] = useState(aiAccount)
+  const { accounts, isLoading } = useAccounts('/settings', 'ai')
 
-  const handleTagChange = async (val: string) => {
-    const newValue = parseInt(val, 10)
+  if (!isLoading && accounts.length === 0) return null
+
+  const handleModeChange = async (val: string) => {
+    const apiMode = val === 'off' ? '' : val
     try {
-      await forumsApi.setAiTagger(forumId, newValue)
-      setTagValue(newValue)
+      await forumsApi.setAiSettings(forumId, apiMode, account)
+      setMode(val)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update AI tagging'))
+      toast.error(getErrorMessage(error, 'Failed to update AI settings'))
     }
   }
 
-  const handleScoreChange = async (val: string) => {
-    const newValue = parseInt(val, 10)
+  const handleAccountChange = async (val: string) => {
+    const newAccount = parseInt(val, 10)
+    const apiMode = mode === 'off' ? '' : mode
     try {
-      await forumsApi.setScoringAccount(forumId, newValue)
-      setScoreValue(newValue)
+      await forumsApi.setAiSettings(forumId, apiMode, newAccount)
+      setAccount(newAccount)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update scoring'))
+      toast.error(getErrorMessage(error, 'Failed to update AI settings'))
     }
   }
 
   return (
-    <Section title="Forum settings">
-      {resolvedAccountsError && (
-        <GeneralError
-          error={resolvedAccountsError}
-          minimal
-          mode='inline'
-          reset={() => {
-            void refetchAccounts()
-          }}
-        />
+    <Section title="AI">
+      <FieldRow label="Mode">
+        <Select value={mode} onValueChange={handleModeChange} disabled={isLoading}>
+          <SelectTrigger className="w-full max-w-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="off">Disabled</SelectItem>
+            <SelectItem value="tag">Tag posts</SelectItem>
+            <SelectItem value="score">Tag + score</SelectItem>
+          </SelectContent>
+        </Select>
+      </FieldRow>
+      {mode !== 'off' && (
+        <FieldRow label="Account">
+          <Select value={account.toString()} onValueChange={handleAccountChange} disabled={isLoading}>
+            <SelectTrigger className="w-full max-w-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="0">Default account</SelectItem>
+              {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((acc) => (
+                <SelectItem key={acc.id} value={acc.id.toString()}>
+                  {acc.label || acc.identifier}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </FieldRow>
       )}
-      <FieldRow label="AI tag posts">
-        <Select
-          value={tagValue.toString()}
-          onValueChange={handleTagChange}
-          disabled={isSelectDisabled}
-        >
-          <SelectTrigger className="w-full max-w-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="0">Disabled</SelectItem>
-            {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((account) => (
-              <SelectItem key={account.id} value={account.id.toString()}>
-                {account.label || account.identifier}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </FieldRow>
-      <FieldRow label="AI scoring">
-        <Select
-          value={scoreValue.toString()}
-          onValueChange={handleScoreChange}
-          disabled={isSelectDisabled}
-        >
-          <SelectTrigger className="w-full max-w-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="0">Disabled</SelectItem>
-            {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((account) => (
-              <SelectItem key={`score-${account.id}`} value={account.id.toString()}>
-                {account.label || account.identifier}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </FieldRow>
     </Section>
   )
 }
