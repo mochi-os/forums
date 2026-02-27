@@ -208,6 +208,56 @@ def database_upgrade(to_version):
         mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
         mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
 
+    if to_version == 19:
+        # Merge tag_account + score_account into ai_mode + ai_account
+        forums = mochi.db.rows("select id, tag_account, score_account from forums")
+        migrations = []
+        for f in forums:
+            tag = f.get("tag_account", 0)
+            score = f.get("score_account", 0)
+            if score > 0:
+                migrations.append({"id": f["id"], "mode": "score", "account": score})
+            elif tag > 0:
+                migrations.append({"id": f["id"], "mode": "tag", "account": tag})
+
+        # Add new columns
+        mochi.db.execute("alter table forums add column ai_mode text not null default ''")
+        mochi.db.execute("alter table forums add column ai_account integer not null default 0")
+
+        # Apply migrations
+        for m in migrations:
+            mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", m["mode"], m["account"], m["id"])
+
+    if to_version == 20:
+        pass
+
+    if to_version == 21:
+        # Re-run v19 migration safely — check which columns exist first
+        cols = [c["name"] for c in mochi.db.rows("pragma table_info(forums)")]
+        if "ai_mode" not in cols:
+            # Migrate data from old columns if they exist
+            has_tag = "tag_account" in cols
+            has_score = "score_account" in cols
+            migrations = []
+            if has_tag or has_score:
+                select_cols = ["id"]
+                if has_tag:
+                    select_cols.append("tag_account")
+                if has_score:
+                    select_cols.append("score_account")
+                forums = mochi.db.rows("select " + ", ".join(select_cols) + " from forums")
+                for f in forums:
+                    tag = f.get("tag_account", 0)
+                    score = f.get("score_account", 0)
+                    if score > 0:
+                        migrations.append({"id": f["id"], "mode": "score", "account": score})
+                    elif tag > 0:
+                        migrations.append({"id": f["id"], "mode": "tag", "account": tag})
+            mochi.db.execute("alter table forums add column ai_mode text not null default ''")
+            mochi.db.execute("alter table forums add column ai_account integer not null default 0")
+            for m in migrations:
+                mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", m["mode"], m["account"], m["id"])
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -471,7 +521,7 @@ def get_post_order(sort):
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
         return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 3600) + 2, 1) desc, created desc"
-    # Default is "new" (also used as fallback for "relevant" which does post-query sorting)
+    # Default is "new" (also used as fallback for ai/interests/relevant which do post-query sorting)
     return "created desc"
 
 # Validate and clean a tag label
@@ -519,10 +569,22 @@ def parse_ai_tags(text):
         valid.append({"name": name, "relevance": relevance})
     return valid[:10]
 
+# Resolve AI account: 0 means use default AI account
+def resolve_ai_account(ai_account):
+    if ai_account > 0:
+        return ai_account
+    accounts = mochi.account.list("ai")
+    if accounts:
+        return accounts[0]["id"]
+    return 0
+
 # Tag a post using AI, storing results as AI tags
 def ai_tag_post(forum_id, post_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
-    if not forum or forum.get("tag_account", 0) == 0:
+    if not forum or forum.get("ai_mode", "") == "":
+        return
+    account = resolve_ai_account(forum.get("ai_account", 0))
+    if account == 0:
         return
     post = mochi.db.row("select id, title, body from posts where id=?", post_id)
     if not post:
@@ -533,7 +595,7 @@ def ai_tag_post(forum_id, post_id):
     title = post.get("title", "")
     text = (title + "\n\n" + body).strip() if title else body
     prompt = "Analyse the following post and extract the key entities and topics. For each, provide:\n- name: the canonical English name of the entity or topic (e.g. \"Germany\", \"European Space Agency\")\n- relevance: how central this entity/topic is to the post (0 to 100)\n\nReturn JSON only, no other text:\n[{\"name\": \"Germany\", \"relevance\": 90}]\n\nLimit to the 10 most relevant entities/topics.\n\nPost:\n" + text
-    result = mochi.ai.prompt(prompt, account=forum["tag_account"])
+    result = mochi.ai.prompt(prompt, account=account)
     if result["status"] != 200:
         return
     items = parse_ai_tags(result["text"])
@@ -562,13 +624,14 @@ def event_ai_tag(e):
     if forum_id and post_id:
         ai_tag_post(forum_id, post_id)
 
-# Enable or disable AI tagging on a forum
-def action_ai_toggle(a):
+# Set AI mode and account for a forum
+def action_ai_settings(a):
     if not a.user:
         a.error(401, "Not logged in")
         return
     user_id = a.user.identity.id
     forum_id = a.input("forum")
+    mode = a.input("mode", "")
     account = int(a.input("account", "0"))
     forum = get_forum(forum_id)
     if not forum:
@@ -576,6 +639,9 @@ def action_ai_toggle(a):
         return
     if forum.get("owner") != 1:
         a.error(403, "Not authorized")
+        return
+    if mode not in ("", "tag", "score"):
+        a.error(400, "Invalid AI mode")
         return
     if account > 0:
         accounts = mochi.account.list("ai")
@@ -587,7 +653,7 @@ def action_ai_toggle(a):
         if not found:
             a.error(400, "AI account not found")
             return
-    mochi.db.execute("update forums set tag_account=? where id=?", account, forum["id"])
+    mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", mode, account, forum["id"])
     return {"data": {"ok": True}}
 
 # List tags for a post
@@ -918,10 +984,10 @@ def action_view(a):
         if has_more and len(posts) > 0:
             next_cursor = posts[-1]["updated"]
 
-        # Re-rank by relevance if requested
+        # Re-rank by relevance if requested (ai = with AI reranking, interests = formula only)
         matches_info = []
-        if sort == "relevant" and user_id:
-            posts, matches_info = score_posts_relevant(posts, forum)
+        if sort in ("relevant", "ai", "interests") and user_id:
+            posts, matches_info = score_posts_relevant(posts, forum, sort)
 
         # Clean up internal scoring fields and extract match info
         # Collect all match QIDs to resolve labels in one batch
@@ -969,8 +1035,8 @@ def action_view(a):
             }
         }
 
-        # Add hint if relevant sort was requested but no interests exist
-        if sort == "relevant" and not matches_info:
+        # Add hint if relevance sort was requested but no interests exist
+        if sort in ("relevant", "ai", "interests") and not matches_info:
             result["data"]["relevantFallback"] = True
 
         return result
@@ -1176,7 +1242,7 @@ def action_post_create(a):
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
 
                 # Schedule AI tagging
-                if forum.get("tag_account", 0) > 0:
+                if forum.get("ai_mode", ""):
                     mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
         else:
             # We're a subscriber - check access with owner first
@@ -1932,7 +1998,7 @@ def action_post_edit(a):
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
 
             # Re-tag with AI if enabled
-            if forum.get("tag_account", 0) > 0:
+            if forum.get("ai_mode", ""):
                 mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
                 mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
         else:
@@ -4771,7 +4837,7 @@ def event_post_submit_event(e):
         broadcast_event(forum["id"], "post/create", post_data)
 
         # Schedule AI tagging
-        if forum.get("tag_account", 0) > 0:
+        if forum.get("ai_mode", ""):
             mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
 
 # Received a post edit request from member (we are forum owner)
@@ -4839,7 +4905,7 @@ def event_post_edit_submit_event(e):
     broadcast_event(forum["id"], "post/edit", post_data)
 
     # Re-tag with AI if enabled
-    if forum.get("tag_account", 0) > 0:
+    if forum.get("ai_mode", ""):
         mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
         mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
 
@@ -6530,36 +6596,9 @@ def action_tag_interest(a):
         return
     return {"data": {"ok": True}}
 
-# Toggle scoring mode for a forum
-def action_scoring_toggle(a):
-    if not a.user:
-        a.error(401, "Not logged in")
-        return
-    user_id = a.user.identity.id
-    forum_id = a.input("forum")
-    account = int(a.input("account", "0"))
-    forum = get_forum(forum_id)
-    if not forum:
-        a.error(404, "Forum not found")
-        return
-    if forum.get("owner") != 1:
-        a.error(403, "Not authorized")
-        return
-    if account > 0:
-        accounts = mochi.account.list("ai")
-        found = False
-        for acc in accounts:
-            if acc["id"] == account:
-                found = True
-                break
-        if not found:
-            a.error(400, "AI account not found")
-            return
-    mochi.db.execute("update forums set score_account=? where id=?", account, forum["id"])
-    return {"data": {"ok": True}}
 
 # Score posts by relevance to user interests
-def score_posts_relevant(posts, forum_data):
+def score_posts_relevant(posts, forum_data, sort="ai"):
     interests = mochi.interests.top(30)
     if not interests:
         return posts, []
@@ -6612,8 +6651,9 @@ def score_posts_relevant(posts, forum_data):
     # Sort by score descending, then created descending
     scored = sorted(scored, key=lambda p: (-p["_score"], -p["created"]))
 
-    # AI re-ranking if forum has a scoring account
-    if forum_data.get("score_account", 0) > 0:
+    # AI re-ranking only for sort=ai (or legacy sort=relevant) when forum has scoring enabled
+    ai_mode = forum_data.get("ai_mode", "") if forum_data else ""
+    if sort in ("ai", "relevant") and ai_mode == "score":
         scored = ai_rerank(forum_data, scored, interests)
 
     return scored, interests
@@ -6622,7 +6662,7 @@ def score_posts_relevant(posts, forum_data):
 def ai_rerank(forum_data, posts, interests):
     if not posts:
         return posts
-    account = forum_data.get("score_account", 0)
+    account = resolve_ai_account(forum_data.get("ai_account", 0))
     if account == 0:
         return posts
 

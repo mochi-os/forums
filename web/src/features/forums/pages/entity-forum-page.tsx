@@ -42,7 +42,9 @@ export function EntityForumPage({
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
-  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
+  const hasAiScoring = forum.ai_mode === 'score'
+  const defaultSort: SortType = hasAiScoring ? 'ai' : 'interests'
+  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', defaultSort)
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -241,7 +243,7 @@ export function EntityForumPage({
               </button>
             </div>
           )}
-          {sort === 'relevant' && relevantFallback && (
+          {(sort === 'relevant' || sort === 'ai' || sort === 'interests') && relevantFallback && (
             <div className='bg-muted/50 text-muted-foreground rounded-[10px] px-4 py-3 text-sm mb-4'>
               No interests configured yet. Posts are shown in chronological order. Add interests in Settings to enable personalised ranking.
             </div>

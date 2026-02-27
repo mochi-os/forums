@@ -55,8 +55,8 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/${postId}/vote/${vote || 'none'}`,
     },
 
-    // AI tagging
-    ai: (forumId: string) => `${getEntityBase(forumId)}/-/ai`,
+    // AI settings
+    aiSettings: (forumId: string) => `${getEntityBase(forumId)}/-/ai/settings`,
 
     // Tag endpoints
     tags: (forumId: string) => `${getEntityBase(forumId)}/-/tags`,
@@ -69,7 +69,6 @@ const endpoints = {
 
     // Interest/scoring endpoints
     tagInterest: (forumId: string) => `${getEntityBase(forumId)}/-/tags/interest`,
-    scoring: (forumId: string) => `${getEntityBase(forumId)}/-/scoring`,
 
     // Comment endpoints
     comment: {
