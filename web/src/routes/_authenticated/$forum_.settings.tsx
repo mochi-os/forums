@@ -29,7 +29,6 @@ import {
   DataChip,
   useAccounts,
   GeneralError,
-  ApiError,
   Select,
   SelectContent,
   SelectItem,
@@ -37,11 +36,9 @@ import {
   SelectValue,
 } from '@mochi/common'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
-
-// Characters disallowed in forum names (matches backend validation)
-const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { toError, getErrorStatus } from '@/lib/errors'
 import {
   useForumAccess,
   useForumInfo,
@@ -50,21 +47,8 @@ import {
   useUserSearch,
 } from '@/hooks/use-forums-queries'
 
-function toError(error: unknown, fallback: string): Error {
-  if (error instanceof Error) return error
-  return new Error(fallback)
-}
-
-function getErrorStatus(error: unknown): number | undefined {
-  if (error instanceof ApiError) {
-    return error.status
-  }
-  if (error && typeof error === 'object') {
-    const anyError = error as { status?: number; response?: { status?: number } }
-    return anyError.status ?? anyError.response?.status
-  }
-  return undefined
-}
+// Characters disallowed in forum names (matches backend validation)
+const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 
 type TabId = 'general' | 'access' | 'moderation'
 

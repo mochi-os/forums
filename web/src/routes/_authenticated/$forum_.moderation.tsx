@@ -33,6 +33,7 @@ import type { Post, ViewPostComment } from '@/api/types/posts'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
+import { toError } from '@/lib/errors'
 
 type TabId = 'queue' | 'reports' | 'log' | 'restrictions'
 
@@ -65,11 +66,6 @@ const tabs: Tab[] = [
   { id: 'restrictions', label: 'Restrictions', icon: <Users className='h-4 w-4' /> },
   { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
 ]
-
-function toError(error: unknown, fallback: string): Error {
-  if (error instanceof Error) return error
-  return new Error(fallback)
-}
 
 function ModerationPage() {
   const params = Route.useParams()

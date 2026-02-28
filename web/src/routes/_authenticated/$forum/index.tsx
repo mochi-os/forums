@@ -5,7 +5,8 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 import { z } from 'zod'
-import { ApiError, GeneralError, Main, PageHeader } from '@mochi/common'
+import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/common'
+import { getErrorStatus } from '@/lib/errors'
 import { EntityForumPage } from '@/features/forums/pages'
 import forumsApi from '@/api/forums'
 
@@ -29,7 +30,7 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
         forum: null,
         permissions: undefined,
         loaderError:
-          error instanceof Error ? error.message : 'Failed to load forum',
+          getErrorMessage(error, 'Failed to load forum'),
       }
     }
 
@@ -78,13 +79,3 @@ function ForumPage() {
   return <EntityForumPage forum={data.forum} permissions={data.permissions} />
 }
 
-function getErrorStatus(error: unknown): number | undefined {
-  if (error instanceof ApiError) {
-    return error.status
-  }
-  if (error && typeof error === 'object') {
-    const maybeError = error as { status?: number; response?: { status?: number } }
-    return maybeError.status ?? maybeError.response?.status
-  }
-  return undefined
-}

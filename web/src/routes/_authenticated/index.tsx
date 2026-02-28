@@ -1,4 +1,5 @@
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
+import { getErrorMessage } from '@mochi/common'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
@@ -27,8 +28,7 @@ export const Route = createFileRoute('/_authenticated/')({
       // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
       info = response.data as InfoResponse
     } catch (error) {
-      loaderError =
-        error instanceof Error ? error.message : 'Failed to load forums'
+      loaderError = getErrorMessage(error, 'Failed to load forums')
     }
 
     // Only redirect on first load, not on subsequent navigations
