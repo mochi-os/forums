@@ -46,7 +46,7 @@ export function InlineForumSearch({
     } catch (error) {
       setResults([])
       setSearchError(
-        error instanceof Error ? error : new Error('Failed to search forums')
+        new Error(getErrorMessage(error, 'Failed to search forums'))
       )
     } finally {
       setIsLoading(false)

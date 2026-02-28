@@ -25,7 +25,8 @@ def database_create():
         moderation_posts integer not null default 0, moderation_comments integer not null default 0,
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
-        limit_window integer not null default 3600, fingerprint text not null default '' )""")
+        limit_window integer not null default 3600, fingerprint text not null default '',
+        ai_mode text not null default '', ai_account integer not null default 0 )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -41,6 +42,7 @@ def database_create():
         status text not null default 'approved', remover text, reason text not null default '',
         locked integer not null default 0, pinned integer not null default 0 )""")
     mochi.db.execute("create index if not exists posts_forum on posts( forum )")
+    mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
     mochi.db.execute("create index if not exists posts_created on posts( created )")
     mochi.db.execute("create index if not exists posts_updated on posts( updated )")
 
@@ -90,6 +92,12 @@ def database_create():
     mochi.db.execute("create index if not exists tags_object on tags( object )")
     mochi.db.execute("create index if not exists tags_label on tags( label )")
     mochi.db.execute("create index if not exists tags_qid on tags( qid )")
+
+    mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
+    mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
+
+    mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
+    mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
 
 
 # Upgrade database schema
@@ -257,6 +265,9 @@ def database_upgrade(to_version):
             mochi.db.execute("alter table forums add column ai_account integer not null default 0")
             for m in migrations:
                 mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", m["mode"], m["account"], m["id"])
+
+    if to_version == 22:
+        mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -922,22 +933,22 @@ def action_view(a):
                 posts = []
             else:
                 p_order = order_by.replace("created", "p.created").replace("updated", "p.updated").replace("pinned", "p.pinned").replace("up", "p.up").replace("down", "p.down")
-                quoted = ", ".join(["'" + t + "'" for t in valid_tags])
-                tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + quoted + ")) = " + str(len(valid_tags))
+                placeholders = ", ".join(["?" for _ in valid_tags])
+                tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
                 if can_moderate:
                     if before:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], before, limit + 1)
+                            forum["id"], valid_tags, before, limit + 1)
                     else:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], limit + 1)
+                            forum["id"], valid_tags, limit + 1)
                 else:
                     if before:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], before, user_id or "", limit + 1)
+                            forum["id"], valid_tags, before, user_id or "", limit + 1)
                     else:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], user_id or "", limit + 1)
+                            forum["id"], valid_tags, user_id or "", limit + 1)
         elif can_moderate:
             if before:
                 posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, " + order_by + " limit ?",
@@ -1139,16 +1150,6 @@ def action_create(a):
 
     return {
         "data": {"id": entity_id, "fingerprint": mochi.entity.fingerprint(entity_id)}
-    }
-
-# Find forums by searching
-def action_find(a):
-    search = a.input("search")
-    forums = []
-    if search:
-        forums = mochi.directory.search("forum", search, False)
-    return {
-        "data": {"forums": forums}
     }
 
 # Form for new forum
@@ -1420,10 +1421,6 @@ def action_search(a):
 
 # Get recommended forums from the recommendations service
 def action_recommendations(a):
-    # Failsafe: Ensure bookmarks table exists
-    mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
-    mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
-
     # Get user's existing forums (owned, subscribed, or bookmarked)
     existing_ids = set()
     forums = mochi.db.rows("select id from forums")
@@ -3963,161 +3960,6 @@ def action_comment_vote(a):
     }
 
 
-# ATTACHMENT VIEWING
-
-# Unified attachment view - handles both local and remote forums
-def action_attachment_view(a):
-    user_id = a.user.identity.id if a.user and a.user.identity else None
-
-    forum_id = a.input("forum")
-    attachment_id = a.input("attachment")
-
-    if not attachment_id:
-        a.error(400, "Missing attachment")
-        return
-
-    # Get local forum data if available
-    forum = None
-    if forum_id and (mochi.valid(forum_id, "entity") or mochi.valid(forum_id, "fingerprint")):
-        forum = get_forum(forum_id)
-
-    # If forum is local and we own it, serve directly
-    if forum and forum.get("owner") == 1:
-        # Check view access
-        if not check_access(a, forum["id"], "view"):
-            a.error(403, "Access denied")
-            return
-
-        # Find the attachment by searching through posts in this forum
-        posts = mochi.db.rows("select id from posts where forum=?", forum["id"])
-        found = None
-        for post in posts:
-            attachments = mochi.attachment.list(post["id"])
-            for att in attachments:
-                if att.get("id") == attachment_id:
-                    found = att
-                    break
-            if found:
-                break
-
-        if not found:
-            a.error(404, "Attachment not found")
-            return
-
-        # Get attachment file path and serve directly
-        path = mochi.attachment.path(attachment_id)
-        if not path:
-            a.error(404, "Attachment file not found")
-            return
-
-        a.write_from_file(path)
-        return
-
-    # Remote forum - stream via P2P
-    if not user_id:
-        a.error(401, "Not logged in")
-        return
-
-    if not mochi.valid(forum_id, "entity") and not mochi.valid(forum_id, "fingerprint"):
-        a.error(400, "Invalid forum ID")
-        return
-
-    # Create stream to forum owner and request attachment
-    s = mochi.remote.stream(forum_id, "attachment/view", {"attachment": attachment_id})
-    if not s:
-        a.error(502, "Unable to connect to forum")
-        return
-
-    # Read status response
-    response = s.read()
-    if not response or response.get("status") != "200":
-        s.close()
-        error = response.get("error", "Attachment not found") if response else "No response"
-        a.error(404, error)
-        return
-
-    # Set Content-Type header before streaming
-    content_type = response.get("content_type", "application/octet-stream")
-    a.header("Content-Type", content_type)
-
-    # Stream file directly to HTTP response
-    a.write_from_stream(s)
-    s.close()
-
-# Unified thumbnail view - handles both local and remote forums
-def action_attachment_thumbnail(a):
-    user_id = a.user.identity.id if a.user and a.user.identity else None
-
-    forum_id = a.input("forum")
-    attachment_id = a.input("attachment")
-    server = a.input("server")
-
-    if not attachment_id:
-        a.error(400, "Missing attachment")
-        return
-
-    # Get local forum data if available
-    forum = None
-    if forum_id and (mochi.valid(forum_id, "entity") or mochi.valid(forum_id, "fingerprint")):
-        forum = get_forum(forum_id)
-
-    # If forum is local and we own it, serve thumbnail directly
-    if forum and forum.get("owner") == 1:
-        # Check view access
-        if not check_access(a, forum["id"], "view"):
-            a.error(403, "Access denied")
-            return
-
-        # Get thumbnail path (creates thumbnail if needed)
-        path = mochi.attachment.thumbnail.path(attachment_id)
-        if not path:
-            # Fall back to original if no thumbnail available
-            path = mochi.attachment.path(attachment_id)
-        if not path:
-            a.error(404, "Attachment not found")
-            return
-
-        a.write_from_file(path)
-        return
-
-    # Remote forum - stream via P2P (request thumbnail)
-    if not user_id:
-        a.error(401, "Not logged in")
-        return
-
-    if not mochi.valid(forum_id, "entity") and not mochi.valid(forum_id, "fingerprint"):
-        a.error(400, "Invalid forum ID")
-        return
-
-    # Connect to server if provided
-    peer = mochi.remote.peer(server) if server else None
-    if server and not peer:
-        a.error(502, "Unable to connect to server")
-        return
-
-    # Create stream to forum owner and request thumbnail
-    s = mochi.remote.stream(forum_id, "attachment/view", {"attachment": attachment_id, "thumbnail": True}, peer)
-    if not s:
-        a.error(502, "Unable to connect to forum")
-        return
-
-    # Read status response
-    response = s.read()
-    if not response or response.get("status") != "200":
-        s.close()
-        error = response.get("error", "Thumbnail not found") if response else "No response"
-        a.error(404, error)
-        return
-
-    # Set Content-Type header before streaming
-    content_type = response.get("content_type", "image/jpeg")
-    a.header("Content-Type", content_type)
-
-    # Stream file directly to HTTP response
-    a.write_from_stream(s)
-    s.close()
-
-
 # ACCESS MANAGEMENT
 
 # Get access rules for a forum
@@ -4306,19 +4148,8 @@ def event_attachment_view(e):
             e.stream.write({"status": "403", "error": "Not allowed to view this forum"})
             return
 
-    # Find the attachment by searching through posts in this forum
-    posts = mochi.db.rows("select id from posts where forum=?", forum_id)
-    found = None
-    for post in posts:
-        attachments = mochi.attachment.list(post["id"])
-        for att in attachments:
-            if att.get("id") == attachment_id:
-                found = att
-                break
-        if found:
-            break
-
-    if not found:
+    # Verify attachment exists
+    if not mochi.attachment.exists(attachment_id):
         e.stream.write({"status": "404", "error": "Attachment not found"})
         return
 
@@ -4327,17 +4158,14 @@ def event_attachment_view(e):
         path = mochi.attachment.thumbnail.path(attachment_id)
         if not path:
             path = mochi.attachment.path(attachment_id)
+        content_type = "image/jpeg"  # Thumbnails are always JPEG
     else:
         path = mochi.attachment.path(attachment_id)
+        content_type = "application/octet-stream"
 
     if not path:
         e.stream.write({"status": "404", "error": "Attachment file not found"})
         return
-
-    # Send success status with content type, then stream the file
-    content_type = found.get("type", "application/octet-stream")
-    if want_thumbnail:
-        content_type = "image/jpeg"  # Thumbnails are always JPEG
     e.stream.write({"status": "200", "content_type": content_type})
     e.stream.write_from_file(path)
 
