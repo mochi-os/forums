@@ -1,5 +1,5 @@
 # Mochi Forums app
-# Copyright Alistair Cunningham 2024-2025
+# Copyright Alistair Cunningham 2024-2026
 
 # Access level hierarchy: moderate > post > comment > vote > view
 # Each level grants access to that operation and all operations below it.
@@ -1343,19 +1343,15 @@ def action_search(a):
     # Check if search term is a fingerprint (9 alphanumeric, with or without hyphens)
     fingerprint = search.replace("-", "")
     if mochi.valid(fingerprint, "fingerprint"):
-        all_forums = mochi.directory.search("forum", "", True)
-        for entry in all_forums:
-            entry_fp = entry.get("fingerprint", "").replace("-", "")
-            if entry_fp == fingerprint:
-                # Avoid duplicates
-                found = False
-                for r in results:
-                    if r.get("id") == entry.get("id"):
-                        found = True
-                        break
-                if not found:
-                    results.append(entry)
-                break
+        matches = mochi.directory.search("forum", "", True, fingerprint=fingerprint)
+        for entry in matches:
+            found = False
+            for r in results:
+                if r.get("id") == entry.get("id"):
+                    found = True
+                    break
+            if not found:
+                results.append(entry)
 
     # Check if search term is a URL (e.g., https://example.com/forums/ENTITY_ID)
     if search.startswith("http://") or search.startswith("https://"):
