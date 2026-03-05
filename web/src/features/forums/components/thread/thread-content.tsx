@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  ConfirmDialog,
-  cn,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@mochi/common'
+import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/common'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -29,7 +21,6 @@ import {
 import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
-import { formatTimestamp } from '@mochi/common'
 import { embedVideos } from '../../utils'
 
 interface ThreadContentProps {

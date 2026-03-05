@@ -1,15 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import {
-  Button,
-  CommentTreeLayout,
-  ConfirmDialog,
-  cn,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@mochi/common'
+import { Button, CommentTreeLayout, ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/common'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -28,7 +18,6 @@ import {
   MoreHorizontal,
   Paperclip,
 } from 'lucide-react'
-import { formatTimestamp } from '@mochi/common'
 import type { Attachment } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
 
