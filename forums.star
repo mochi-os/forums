@@ -93,9 +93,6 @@ def database_create():
     mochi.db.execute("create index if not exists tags_label on tags( label )")
     mochi.db.execute("create index if not exists tags_qid on tags( qid )")
 
-    mochi.db.execute("create table if not exists bookmarks (id text primary key, name text not null, server text not null default '', added integer not null)")
-    mochi.db.execute("create index if not exists bookmarks_added on bookmarks(added)")
-
     mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
     mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
 
@@ -272,6 +269,9 @@ def database_upgrade(to_version):
     if to_version == 23:
         mochi.db.execute("alter table forums add column ai_prompt_tag text not null default ''")
         mochi.db.execute("alter table forums add column ai_prompt_score text not null default ''")
+
+    if to_version == 24:
+        mochi.db.execute("drop table if exists bookmarks")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -1524,7 +1524,7 @@ def action_search(a):
 
 # Get recommended forums from the recommendations service
 def action_recommendations(a):
-    # Get user's existing forums (owned, subscribed, or bookmarked)
+    # Get user's existing forums (owned or subscribed)
     existing_ids = set()
     forums = mochi.db.rows("select id from forums")
     for f in forums:
