@@ -947,10 +947,9 @@ def action_view(a):
         # Use the full entity ID from the database if we found the forum
         entity_id = forum["id"] if forum else forum_id
 
-        # Determine if we need to fetch remotely
-        # Remote if: forum not found locally, OR found but we're not the owner (just subscribed)
-        is_owner = forum.get("owner") == 1 if forum else False
-        is_remote = not is_owner
+        # Only fetch remotely if we don't have the forum locally at all
+        # Subscribed forums have local data via push sync
+        is_remote = not forum
 
         # For remote forums, fetch via P2P
         if is_remote:
@@ -1021,8 +1020,19 @@ def action_view(a):
         if before_str and mochi.valid(before_str, "natural"):
             before = int(before_str)
 
-        # Determine if user can see all content (moderators and owners)
-        can_moderate = is_owner or check_access_remote(a, forum["id"], "moderate")
+        # Determine access permissions
+        # For subscribed forums, do one P2P round-trip to check all permissions at once
+        can_post = False
+        can_moderate = False
+        if is_owner:
+            can_moderate = check_access(a, forum["id"], "moderate")
+        elif user_id:
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
+                "operations": ["post", "moderate"],
+                "user": user_id,
+            })
+            can_post = access_response.get("post", False)
+            can_moderate = access_response.get("moderate", False)
 
         # Get posts order
         order_by = get_post_order(sort)
@@ -1131,14 +1141,8 @@ def action_view(a):
             forum["can_post"] = check_access(a, forum["id"], "post")
             forum["can_moderate"] = can_moderate
         else:
-            forum["can_manage"] = False  # Subscribers can never manage
-            # Query owner for post and moderate access
-            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-                "operations": ["post", "moderate"],
-                "user": user_id,
-            })
-            forum["can_post"] = access_response.get("post", False)
-            can_moderate = access_response.get("moderate", False)
+            forum["can_manage"] = False
+            forum["can_post"] = can_post
             forum["can_moderate"] = can_moderate
 
         result = {
