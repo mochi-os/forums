@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   AlertDialog,
@@ -549,6 +549,9 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
     }
   }
 
+  const showTag = mode !== 'off'
+  const showScore = mode === 'score'
+
   return (
     <Section title="AI">
       <FieldRow label="Mode">
@@ -580,7 +583,148 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
           </Select>
         </FieldRow>
       )}
+      {mode !== 'off' && (
+        <AiPromptsEditor
+          forumId={forumId}
+          showTag={showTag}
+          showScore={showScore}
+        />
+      )}
     </Section>
+  )
+}
+
+const PROMPT_VARIABLES: Record<string, string> = {
+  tag: '{{posts}}',
+  score: '{{interests}}, {{posts}}',
+}
+
+const PROMPT_LABELS: Record<string, string> = {
+  tag: 'Tag prompt',
+  score: 'Score prompt',
+}
+
+function AiPromptsEditor({ forumId, showTag, showScore }: { forumId: string; showTag: boolean; showScore: boolean }) {
+  const [prompts, setPrompts] = useState<Record<string, string>>({})
+  const [defaults, setDefaults] = useState<Record<string, string>>({})
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    forumsApi.getAiPrompts(forumId).then((data) => {
+      setPrompts(data.prompts || {})
+      setDefaults(data.defaults || {})
+      setLoaded(true)
+    }).catch(() => {
+      setLoaded(true)
+    })
+  }, [forumId])
+
+  if (!loaded) return null
+
+  const types: string[] = []
+  if (showTag) types.push('tag')
+  if (showScore) types.push('score')
+
+  return (
+    <>
+      {types.map((type) => (
+        <PromptEditor
+          key={type}
+          forumId={forumId}
+          type={type}
+          label={PROMPT_LABELS[type]}
+          variables={PROMPT_VARIABLES[type]}
+          customPrompt={prompts[type] || ''}
+          defaultPrompt={defaults[type] || ''}
+          onSave={(text) => setPrompts((prev) => {
+            const next = { ...prev }
+            if (text) {
+              next[type] = text
+            } else {
+              delete next[type]
+            }
+            return next
+          })}
+        />
+      ))}
+    </>
+  )
+}
+
+function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPrompt, onSave }: {
+  forumId: string
+  type: string
+  label: string
+  variables: string
+  customPrompt: string
+  defaultPrompt: string
+  onSave: (text: string) => void
+}) {
+  const isCustom = customPrompt !== ''
+  const [custom, setCustom] = useState(isCustom)
+  const [text, setText] = useState(customPrompt || defaultPrompt)
+  const [saving, setSaving] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const handleToggle = (val: string) => {
+    if (val === 'default' && custom) {
+      setSaving(true)
+      forumsApi.setAiPrompt(forumId, type, '').then(() => {
+        setCustom(false)
+        setText(defaultPrompt)
+        onSave('')
+      }).catch((error) => {
+        toast.error(getErrorMessage(error, 'Failed to reset prompt'))
+      }).finally(() => setSaving(false))
+    } else if (val === 'custom' && !custom) {
+      setCustom(true)
+      setText(customPrompt || defaultPrompt)
+    }
+  }
+
+  const handleSave = () => {
+    setSaving(true)
+    forumsApi.setAiPrompt(forumId, type, text).then(() => {
+      onSave(text)
+      toast.success('Prompt saved')
+    }).catch((error) => {
+      toast.error(getErrorMessage(error, 'Failed to save prompt'))
+    }).finally(() => setSaving(false))
+  }
+
+  return (
+    <FieldRow label={label} className="sm:items-start">
+      <div className="w-full space-y-2">
+        <Select value={custom ? 'custom' : 'default'} onValueChange={handleToggle} disabled={saving}>
+          <SelectTrigger className="w-full max-w-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="default">Default</SelectItem>
+            <SelectItem value="custom">Custom</SelectItem>
+          </SelectContent>
+        </Select>
+        {custom && (
+          <div className="space-y-2">
+            <textarea
+              ref={textareaRef}
+              className="w-full min-h-[240px] rounded-md border border-input bg-background px-3 py-2 text-sm font-mono resize-y"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              disabled={saving}
+            />
+            <div className="flex items-center gap-2">
+              <Button size="sm" onClick={handleSave} disabled={saving}>
+                {saving ? 'Saving...' : 'Save'}
+              </Button>
+              <span className="text-xs text-muted-foreground">
+                Variables: {variables}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    </FieldRow>
   )
 }
 

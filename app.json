@@ -17,7 +17,7 @@
 	],
 	"permissions": ["interests/read", "interests/write", "account/ai"],
 	"database": {
-		"schema": 22,
+		"schema": 23,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -87,6 +87,8 @@
 		":forum/-/attachments/:id": {"feature": "attachment", "public": true},
 		":forum/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail", "public": true},
 		":forum/-/ai/settings": {"function": "action_ai_settings"},
+		":forum/-/ai/prompts/get": {"function": "action_ai_prompts_get"},
+		":forum/-/ai/prompts/set": {"function": "action_ai_prompts_set"},
 		":forum/-/tags": {"function": "action_forum_tags"},
 		":forum/-/tags/interest": {"function": "action_tag_interest"},
 		":forum/-/access": {"function": "action_access"},

@@ -517,6 +517,22 @@ const forumsApi = {
     })
   },
 
+  getAiPrompts: async (forumId: string): Promise<{ prompts: Record<string, string>; defaults: Record<string, string> }> => {
+    const res = await client.get<{ data: { prompts: Record<string, string>; defaults: Record<string, string> } }>(
+      endpoints.forums.aiPromptsGet(forumId)
+    )
+    return res.data
+  },
+
+  setAiPrompt: (forumId: string, type: string, prompt: string) => {
+    const formData = new URLSearchParams()
+    formData.append('type', type)
+    formData.append('prompt', prompt)
+    return client.post(endpoints.forums.aiPromptsSet(forumId), formData.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+  },
+
   // Interest/scoring
   adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down') =>
     client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),

@@ -269,6 +269,10 @@ def database_upgrade(to_version):
     if to_version == 22:
         mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
 
+    if to_version == 23:
+        mochi.db.execute("alter table forums add column ai_prompt_tag text not null default ''")
+        mochi.db.execute("alter table forums add column ai_prompt_score text not null default ''")
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -557,6 +561,58 @@ def can_tag_post(user_id, forum, post):
         return True
     return False
 
+# Default AI prompts
+AI_PROMPT_TAG = "For each post:\n1. Extract the key entities and topics (up to 10), with canonical English names and relevance scores (0-100).\n2. Assign a novelty score (0-100) where 100 means unique and lower scores mean the post is a near-duplicate of a better version covering the same story.\n\nReturn JSON only:\n[{\"index\": 0, \"novelty\": 100, \"entities\": [{\"name\": \"Germany\", \"relevance\": 90}]}, ...]\n\nPosts:\n{{posts}}"
+AI_PROMPT_SCORE = "Given a user's interests and a list of posts, score each post 0-100 based on relevance to the user.\n\nUser interests: {{interests}}\n\nPosts:\n{{posts}}\n\nReturn JSON only, one score per post in order:\n[{\"index\": 0, \"score\": 85}, ...]"
+
+AI_PROMPT_DEFAULTS = {
+    "tag": AI_PROMPT_TAG,
+    "score": AI_PROMPT_SCORE,
+}
+
+# Get custom AI prompt for a forum entity, or return default
+def get_ai_prompt(forum_id, prompt_type):
+    col = "ai_prompt_" + prompt_type
+    row = mochi.db.row("select " + col + " from forums where id=?", forum_id)
+    if row and row.get(col, ""):
+        return row[col]
+    return AI_PROMPT_DEFAULTS.get(prompt_type, "")
+
+# Parse unified tag response: [{"index": N, "novelty": N, "entities": [{"name": "...", "relevance": N}]}]
+def parse_unified_tag_response(text):
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.split("\n")
+        text = "\n".join(lines[1:-1])
+    items = json.decode(text)
+    if not items:
+        return []
+    result = []
+    for item in items:
+        idx = item.get("index", 0)
+        novelty = item.get("novelty", 100)
+        if type(novelty) not in ("int", "float"):
+            novelty = 100
+        novelty = int(novelty)
+        if novelty < 0:
+            novelty = 0
+        if novelty > 100:
+            novelty = 100
+        entities = []
+        for e in item.get("entities", []):
+            name = e.get("name", "")
+            relevance = e.get("relevance", 0)
+            if not name or type(name) != "string":
+                continue
+            if type(relevance) not in ("int", "float"):
+                continue
+            relevance = int(relevance)
+            if relevance < 0 or relevance > 100:
+                continue
+            entities.append({"name": name, "relevance": relevance})
+        result.append({"index": idx, "novelty": novelty, "entities": entities[:10]})
+    return result
+
 # Parse AI tag response into validated list of {qid, relevance} dicts
 def parse_ai_tags(text):
     text = text.strip()
@@ -589,7 +645,7 @@ def resolve_ai_account(ai_account):
         return accounts[0]["id"]
     return 0
 
-# Tag a post using AI, storing results as AI tags
+# Tag a post using AI, storing results as AI tags (unified prompt)
 def ai_tag_post(forum_id, post_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
     if not forum or forum.get("ai_mode", "") == "":
@@ -604,16 +660,25 @@ def ai_tag_post(forum_id, post_id):
     if len(body) < 20:
         return
     title = post.get("title", "")
-    text = (title + "\n\n" + body).strip() if title else body
-    prompt = "Analyse the following post and extract the key entities and topics. For each, provide:\n- name: the canonical English name of the entity or topic (e.g. \"Germany\", \"European Space Agency\")\n- relevance: how central this entity/topic is to the post (0 to 100)\n\nReturn JSON only, no other text:\n[{\"name\": \"Germany\", \"relevance\": 90}]\n\nLimit to the 10 most relevant entities/topics.\n\nPost:\n" + text
+    text = (title + ": " + body).strip() if title else body
+    if len(text) > 500:
+        text = text[:500]
+    post_text = "0. " + text.replace("\n", " ")
+    prompt = get_ai_prompt(forum_id, "tag").replace("{{posts}}", post_text)
     result = mochi.ai.prompt(prompt, account=account)
     if result["status"] != 200:
         return
-    items = parse_ai_tags(result["text"])
+    items = parse_unified_tag_response(result["text"])
     if not items:
         return
+    entry = items[0] if items else None
+    if not entry:
+        return
+    entities = entry.get("entities", [])
+    if not entities:
+        return
     # Resolve each name to a Wikidata QID via search
-    for item in items:
+    for item in entities:
         label = item["name"].lower()
         qid = ""
         results = mochi.qid.search(item["name"], "en")
@@ -665,6 +730,48 @@ def action_ai_settings(a):
             a.error(400, "AI account not found")
             return
     mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", mode, account, forum["id"])
+    return {"data": {"ok": True}}
+
+# Get custom AI prompts for a forum
+def action_ai_prompts_get(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not authorized")
+        return
+    prompts = {}
+    if forum.get("ai_prompt_tag", ""):
+        prompts["tag"] = forum["ai_prompt_tag"]
+    if forum.get("ai_prompt_score", ""):
+        prompts["score"] = forum["ai_prompt_score"]
+    return {"data": {"prompts": prompts, "defaults": AI_PROMPT_DEFAULTS}}
+
+# Set custom AI prompts for a forum
+def action_ai_prompts_set(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not authorized")
+        return
+    prompt_type = a.input("type")
+    prompt_text = a.input("prompt", "")
+    if prompt_type not in ("tag", "score"):
+        a.error(400, "Invalid prompt type")
+        return
+    col = "ai_prompt_" + prompt_type
+    mochi.db.execute("update forums set " + col + "=? where id=?", prompt_text, forum["id"])
     return {"data": {"ok": True}}
 
 # List tags for a post
@@ -6533,7 +6640,7 @@ def ai_rerank(forum_data, posts, interests):
         tag_str = ", ".join(tags) if tags else "none"
         post_lines.append(str(i) + ". [" + tag_str + "] " + text.replace("\n", " "))
 
-    prompt = "You are a content ranking system. Given a user's interests and a list of posts, score each post 0-100 based on relevance to the user.\n\nUser interests: " + summary + "\n\nPosts:\n" + "\n".join(post_lines) + "\n\nReturn JSON only, one score per post in order:\n[{\"index\": 0, \"score\": 85}, ...]"
+    prompt = get_ai_prompt(forum_data["id"], "score").replace("{{interests}}", summary).replace("{{posts}}", "\n".join(post_lines))
 
     result = mochi.ai.prompt(prompt, account=account)
     if result["status"] != 200:

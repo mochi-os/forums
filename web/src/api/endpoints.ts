@@ -57,6 +57,8 @@ const endpoints = {
 
     // AI settings
     aiSettings: (forumId: string) => `${getEntityBase(forumId)}/-/ai/settings`,
+    aiPromptsGet: (forumId: string) => `${getEntityBase(forumId)}/-/ai/prompts/get`,
+    aiPromptsSet: (forumId: string) => `${getEntityBase(forumId)}/-/ai/prompts/set`,
 
     // Tag endpoints
     tags: (forumId: string) => `${getEntityBase(forumId)}/-/tags`,
