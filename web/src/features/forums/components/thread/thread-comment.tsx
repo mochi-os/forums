@@ -124,7 +124,7 @@ export function ThreadComment({
     setLocalVote(comment.user_vote || '')
     setLocalUp(comment.up)
     setLocalDown(comment.down)
-  }, [comment.id])
+  }, [comment.id, comment.user_vote, comment.up, comment.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
     const prevVote = localVote
