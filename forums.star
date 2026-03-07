@@ -6543,6 +6543,12 @@ def score_posts_relevant(posts, forum_data, sort="ai"):
     for i in interests:
         interest_map[i["qid"]] = i["weight"]
 
+    # Build negative interest map for penalties
+    negative_interests = mochi.interests.bottom(30)
+    negative_map = {}
+    for i in negative_interests:
+        negative_map[i["qid"]] = i["weight"]
+
     # Get all post IDs
     post_ids = [p["id"] for p in posts]
     if not post_ids:
@@ -6572,10 +6578,23 @@ def score_posts_relevant(posts, forum_data, sort="ai"):
                     best_score = tag_score
                 matches.append({"qid": qid, "score": tag_score})
 
+        # Penalty from negative interests
+        worst_penalty = 0
+        for t in tags:
+            qid = t["qid"]
+            relevance = t["relevance"] if t["relevance"] else 0.5
+            neg_weight = negative_map.get(qid, 0)
+            if neg_weight < 0:
+                penalty = neg_weight * relevance / 100
+                if penalty < worst_penalty:
+                    worst_penalty = penalty
+
         # Time decay: halve score every 7 days
         age_hours = max((now_ts - p["created"]) / 3600, 1)
         decay = 168.0 / (age_hours + 168.0)
         score = best_score * decay
+        if worst_penalty < 0:
+            score = score * max(0, 1 + worst_penalty)
 
         # Sort matches by score descending
         matches = sorted(matches, key=lambda m: -m["score"])

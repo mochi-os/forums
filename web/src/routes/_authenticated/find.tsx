@@ -42,7 +42,7 @@ function FindForumsPage() {
   const handleSubscribe = useCallback(
     async (forumId: string) => {
       await forumsApi.subscribeForum(forumId)
-      queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     },
     [queryClient]
   )
