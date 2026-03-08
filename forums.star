@@ -273,6 +273,11 @@ def database_upgrade(to_version):
     if to_version == 24:
         mochi.db.execute("drop table if exists bookmarks")
 
+    if to_version == 25:
+        mochi.db.execute("update forums set ai_mode='tag' where ai_mode='score'")
+        mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
+        mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
+
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -716,7 +721,7 @@ def action_ai_settings(a):
     if forum.get("owner") != 1:
         a.error(403, "Not authorized")
         return
-    if mode not in ("", "tag", "score"):
+    if mode not in ("", "tag"):
         a.error(400, "Invalid AI mode")
         return
     if account > 0:
@@ -6605,9 +6610,8 @@ def score_posts_relevant(posts, forum_data, sort="ai"):
     # Sort by score descending, then created descending
     scored = sorted(scored, key=lambda p: (-p["_score"], -p["created"]))
 
-    # AI re-ranking only for sort=ai (or legacy sort=relevant) when forum has scoring enabled
-    ai_mode = forum_data.get("ai_mode", "") if forum_data else ""
-    if sort in ("ai", "relevant") and ai_mode == "score":
+    # AI re-ranking for sort=ai (or legacy sort=relevant) when forum has an AI account
+    if sort in ("ai", "relevant"):
         scored = ai_rerank(forum_data, scored, interests)
 
     return scored, interests

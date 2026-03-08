@@ -43,8 +43,7 @@ export function EntityForumPage({
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
-  const hasAiScoring = forum.ai_mode === 'score'
-  const defaultSort: SortType = hasAiScoring ? 'ai' : 'interests'
+  const defaultSort: SortType = 'interests'
   const [sort, setSort] = useLocalStorage<SortType>('forums-sort', defaultSort)
 
   // Set page title to forum name

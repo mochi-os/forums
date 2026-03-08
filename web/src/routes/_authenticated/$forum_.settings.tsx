@@ -520,7 +520,11 @@ function GeneralTab({
 }
 
 function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: number; onSave: () => void }) {
-  const [mode, setMode] = useState(aiMode || 'off')
+  const normalizeMode = (m: string) => {
+    if (m === 'score') return 'tag'
+    return m || 'off'
+  }
+  const [mode, setMode] = useState(normalizeMode(aiMode))
   const [account, setAccount] = useState(aiAccount)
   const { accounts, isLoading } = useAccounts('/settings', 'ai')
 
@@ -550,19 +554,18 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   }
 
   const showTag = mode !== 'off'
-  const showScore = mode === 'score'
+  const showScore = mode !== 'off'
 
   return (
     <Section title="AI">
-      <FieldRow label="Mode">
+      <FieldRow label="AI actions on posts">
         <Select value={mode} onValueChange={handleModeChange} disabled={isLoading}>
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="off">Disabled</SelectItem>
-            <SelectItem value="tag">Tag posts</SelectItem>
-            <SelectItem value="score">Tag + score</SelectItem>
+            <SelectItem value="tag">Tag</SelectItem>
           </SelectContent>
         </Select>
       </FieldRow>
