@@ -28,6 +28,7 @@ import {
   FieldRow,
   DataChip,
   useAccounts,
+  getAppPath,
   GeneralError,
   Select,
   SelectContent,
@@ -526,7 +527,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   }
   const [mode, setMode] = useState(normalizeMode(aiMode))
   const [account, setAccount] = useState(aiAccount)
-  const { accounts, isLoading } = useAccounts('/settings', 'ai')
+  const { accounts, isLoading } = useAccounts(getAppPath(), 'ai')
 
   if (!isLoading && accounts.length === 0) return null
 

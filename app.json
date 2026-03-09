@@ -1,5 +1,5 @@
 {
-	"version": "6.27",
+	"version": "6.29",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -13,7 +13,8 @@
 		"version": 4
 	},
 	"execute": [
-		"forums.star"
+		"forums.star",
+		"accounts.star"
 	],
 	"permissions": ["interests/read", "interests/write", "account/ai"],
 	"database": {
@@ -98,7 +99,10 @@
 		":forum/-/rss": {"function": "action_rss", "public": true},
 		"-/rss/token": {"function": "action_rss_token"},
 		"-/users/search": {"function": "action_users_search"},
-		"-/groups": {"function": "action_groups"}
+		"-/groups": {"function": "action_groups"},
+
+		"-/accounts/providers": {"function": "action_accounts_providers"},
+		"-/accounts/list": {"function": "action_accounts_list"}
 	},
 
 	"events": {
