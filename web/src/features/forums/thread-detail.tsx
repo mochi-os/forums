@@ -10,6 +10,7 @@ import {
   CardContent,
   PageHeader,
   GeneralError,
+  useImageObjectUrls,
 } from '@mochi/common'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -67,6 +68,7 @@ export function ThreadDetail({
   const forum = forumOverride || urlForum
   const [commentBody, setCommentBody] = useState('')
   const [commentFiles, setCommentFiles] = useState<File[]>([])
+  const commentFilePreviewUrls = useImageObjectUrls(commentFiles)
   const commentFileRef = useRef<HTMLInputElement>(null)
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -401,7 +403,7 @@ export function ThreadDetail({
                       {commentFiles.map((file, i) => (
                         <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
                           {file.type.startsWith('image/') && (
-                            <img src={URL.createObjectURL(file)} alt={file.name} className='h-8 w-8 rounded object-cover' />
+                            <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} className='h-8 w-8 rounded object-cover' />
                           )}
                           <Paperclip className='text-muted-foreground size-3 shrink-0' />
                           <span className='max-w-40 truncate'>{file.name}</span>
