@@ -19,6 +19,7 @@ import {
   FormLabel,
   FormMessage,
   getAppPath,
+  authenticatedUrl,
 } from '@mochi/common'
 import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
@@ -208,7 +209,7 @@ export function EditPostDialog({
                       : item.file.type?.startsWith('image/')
                     const thumbnailUrl =
                       isExisting && isImage
-                        ? `${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`
+                        ? authenticatedUrl(`${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`)
                         : undefined
                     const previewUrl =
                       !isExisting && isImage

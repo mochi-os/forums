@@ -646,9 +646,12 @@ def resolve_ai_account(ai_account):
     if ai_account > 0:
         return ai_account
     accounts = mochi.account.list("ai")
-    if accounts:
-        return accounts[0]["id"]
-    return 0
+    if not accounts:
+        return 0
+    for acc in accounts:
+        if "ai" in acc.get("default", "").split(","):
+            return acc["id"]
+    return accounts[0]["id"]
 
 # Tag a post using AI, storing results as AI tags (unified prompt)
 def ai_tag_post(forum_id, post_id):
