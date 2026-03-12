@@ -37,7 +37,7 @@ export const Route = createFileRoute('/_authenticated/')({
 
       // In class context, check for last visited forum and redirect if it still exists
       if (!info.entity) {
-        const lastForumId = getLastForum()
+        const lastForumId = await getLastForum()
         if (lastForumId) {
           const forums = info.forums || []
           const forumExists = forums.some(
