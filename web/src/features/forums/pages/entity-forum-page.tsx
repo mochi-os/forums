@@ -12,6 +12,8 @@ import {
   toast,
   getErrorMessage,
   GeneralError,
+  useShellStorage,
+  useAuthStore,
 } from '@mochi/common'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -24,7 +26,6 @@ import {
   selectForums,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
-import { useLocalStorage } from '@/hooks/use-local-storage'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumOverview } from '../components/forum-overview'
 import forumsApi from '@/api/forums'
@@ -42,9 +43,10 @@ export function EntityForumPage({
 }: EntityForumPageProps) {
   const navigate = useNavigate()
   const { isMobile } = useScreenSize()
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
-  const defaultSort: SortType = 'interests'
-  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', defaultSort)
+  const [savedSort, setSort] = useShellStorage<SortType>('forums-sort', 'new')
+  const sort = isLoggedIn ? savedSort : 'new'
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -77,10 +79,16 @@ export function EntityForumPage({
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
-    relevantFallback,
+    hasAi,
     error: postsError,
     refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
+  const sortOptions: SortType[] = useMemo(() => {
+    const opts: SortType[] = []
+    if (hasAi) opts.push('ai')
+    opts.push('interests', 'new', 'hot', 'top')
+    return opts
+  }, [hasAi])
 
   // Mutations
   const createPostMutation = useCreatePost(forum.id)
@@ -176,7 +184,7 @@ export function EntityForumPage({
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
-            <SortSelector value={sort} onValueChange={setSort} />
+            {isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='mr-2 size-4' />
@@ -241,11 +249,6 @@ export function EntityForumPage({
                 {activeTag}
                 <X className='size-3.5' />
               </button>
-            </div>
-          )}
-          {(sort === 'relevant' || sort === 'ai' || sort === 'interests') && relevantFallback && (
-            <div className='bg-muted/50 text-muted-foreground rounded-[10px] px-4 py-3 text-sm mb-4'>
-              No interests configured yet. Posts are shown in chronological order. Add interests in Settings to enable personalised ranking.
             </div>
           )}
           {postsError ? (

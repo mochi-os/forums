@@ -1153,6 +1153,8 @@ def action_view(a):
             forum["can_post"] = can_post
             forum["can_moderate"] = can_moderate
 
+        has_ai = resolve_ai_account(0) > 0 if user_id else False
+
         result = {
             "data": {
                 "forum": forum,
@@ -1161,7 +1163,8 @@ def action_view(a):
                 "can_manage": forum["can_manage"],
                 "can_moderate": can_moderate,
                 "hasMore": has_more,
-                "nextCursor": next_cursor
+                "nextCursor": next_cursor,
+                "hasAi": has_ai,
             }
         }
 
@@ -1221,10 +1224,13 @@ def action_view(a):
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
                 p["user_vote"] = pv["vote"] if pv else ""
 
+        has_ai = resolve_ai_account(0) > 0 if user_id else False
+
         return {
             "data": {
                 "forums": forums,
-                "posts": posts
+                "posts": posts,
+                "hasAi": has_ai,
             }
         }
 

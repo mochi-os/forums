@@ -7,9 +7,10 @@ import {
   PageHeader,
   SortSelector,
   type SortType,
+  useShellStorage,
+  useAuthStore,
 } from '@mochi/common'
 import { Rss } from 'lucide-react'
-import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Forum } from '@/api/types/forums'
 
 import {
@@ -34,7 +35,9 @@ export function ForumsListPage({
   onRetryLoader,
 }: ForumsListPageProps) {
   usePageTitle('Forums')
-  const [sort, setSort] = useLocalStorage<SortType>('forums-sort', 'new')
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
+  const [savedSort, setSort] = useShellStorage<SortType>('forums-sort', 'new')
+  const sort = isLoggedIn ? savedSort : 'new'
 
   // Store "all forums" as the last location
   useEffect(() => {
@@ -54,6 +57,13 @@ export function ForumsListPage({
   } = useForumsList(sort)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
+  const hasAi = !!(forumsData?.data as Record<string, unknown> | undefined)?.hasAi
+  const sortOptions: SortType[] = useMemo(() => {
+    const opts: SortType[] = []
+    if (hasAi) opts.push('ai')
+    opts.push('interests', 'new', 'hot', 'top')
+    return opts
+  }, [hasAi])
   const loaderOwnedError = useMemo(
     () => (loaderError ? new Error(loaderError) : null),
     [loaderError]
@@ -93,7 +103,7 @@ export function ForumsListPage({
       <PageHeader
         title="Forums"
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<><SortSelector value={sort} onValueChange={setSort} /><OptionsMenu showRss /></>}
+        actions={<>{isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}<OptionsMenu showRss /></>}
       />
       <Main fixed>
         {showLoaderError && (
