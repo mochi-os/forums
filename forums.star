@@ -567,7 +567,7 @@ def can_tag_post(user_id, forum, post):
     return False
 
 # Default AI prompts
-AI_PROMPT_TAG = "For each post:\n1. Extract the key entities and topics (up to 10), with canonical English names and relevance scores (0-100).\n2. Assign a novelty score (0-100) where 100 means unique and lower scores mean the post is a near-duplicate of a better version covering the same story.\n\nReturn JSON only:\n[{\"index\": 0, \"novelty\": 100, \"entities\": [{\"name\": \"Germany\", \"relevance\": 90}]}, ...]\n\nPosts:\n{{posts}}"
+AI_PROMPT_TAG = "For each post:\n1. Extract the key entities and topics (up to 10), with canonical English names and relevance scores (0-100). Prefer broad categories and general topics (e.g. 'technology', 'sport', 'football') over specific names like teams, players, or minor entities. Include specific names only when they are the central subject.\n2. Assign a novelty score (0-100) where 100 means unique and lower scores mean the post is a near-duplicate of a better version covering the same story.\n\nReturn JSON only:\n[{\"index\": 0, \"novelty\": 100, \"entities\": [{\"name\": \"Germany\", \"relevance\": 90}]}, ...]\n\nPosts:\n{{posts}}"
 AI_PROMPT_SCORE = "Given a user's interests and a list of posts, score each post 0-100 based on relevance to the user.\n\nUser interests: {{interests}}\n\nPosts:\n{{posts}}\n\nReturn JSON only, one score per post in order:\n[{\"index\": 0, \"score\": 85}, ...]"
 
 AI_PROMPT_DEFAULTS = {

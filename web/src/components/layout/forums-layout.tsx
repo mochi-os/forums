@@ -6,7 +6,6 @@ import {
   type NavSubItem,
 } from '@mochi/common'
 import {
-  FileText,
   Hash,
   MessageSquare,
   Plus,
@@ -21,7 +20,6 @@ import {
   useForumsInfo,
   useForumInfo,
   useCreatePost,
-  useForumDetail,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
@@ -29,8 +27,6 @@ import { CreatePostDialog } from '@/features/forums/components/create-post-dialo
 function ForumsLayoutInner() {
   const {
     forum,
-    post,
-    postTitle,
     postDialogOpen,
     postDialogForum,
     closePostDialog,
@@ -53,18 +49,7 @@ function ForumsLayoutInner() {
     isLoading: isLoadingCurrentForumInfo,
     refetch: refetchCurrentForumInfo,
   } = useForumInfo(forum)
-  // Fetch details for the current forum to populate sidebar with posts
-  const {
-    data: detailData,
-    error: forumDetailError,
-    refetch: refetchForumDetail,
-  } = useForumDetail(forum)
-
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
-  const allPosts = useMemo(() => {
-    const detailPosts = detailData?.data?.posts || []
-    return detailPosts
-  }, [detailData])
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
@@ -104,31 +89,6 @@ function ForumsLayoutInner() {
       const forumUrl = f.fingerprint ?? f.id
       const subItems: NavSubItem[] = []
 
-      // Get posts for this forum (only for current forum)
-      const forumPosts = isCurrentForum ? allPosts.filter((p) => p.forum === f.id) : []
-      const listedPostIds = new Set(forumPosts.map((p) => p.id))
-
-      // Build posts array
-      const postItems: { title: string; icon: typeof FileText; url: string }[] = []
-
-      // Add all known posts
-      forumPosts.forEach((p) => {
-        postItems.push({
-          title: p.title,
-          icon: FileText,
-          url: `/${forumUrl}/${p.id}`,
-        })
-      })
-
-      // If current post is not in the list (e.g. loaded individually), add it
-      if (isCurrentForum && postTitle && post && !listedPostIds.has(post)) {
-        postItems.push({
-          title: postTitle,
-          icon: FileText,
-          url: `/${forumUrl}/${post}`,
-        })
-      }
-
       // Build manage items - use currentForumInfo for permissions (handles P2P for subscribed forums)
       const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
       const hasResolvedCurrentPermissions = Boolean(currentForumInfo?.data?.permissions)
@@ -161,31 +121,6 @@ function ForumsLayoutInner() {
           icon: Gavel,
           url: `/${forumUrl}/moderation`,
         })
-      }
-
-      // Show retry affordance instead of silently dropping current forum posts.
-      if (isCurrentForum && forumDetailError) {
-        subItems.push({
-          title: 'Posts',
-          items: [
-            {
-              title: 'Retry posts load',
-              icon: RefreshCw,
-              onClick: () => {
-                void refetchForumDetail()
-              },
-              className: 'text-destructive',
-            },
-          ],
-        } as NavSubItem)
-      }
-
-      // Group posts under "Posts" section if there are any
-      if (postItems.length > 0 && !(isCurrentForum && forumDetailError)) {
-        subItems.push({
-          title: 'Posts',
-          items: postItems,
-        } as NavSubItem)
       }
 
       if (isCurrentForum && hasCurrentPermissionsError) {
@@ -273,16 +208,11 @@ function ForumsLayoutInner() {
   }, [
     forums,
     forum,
-    post,
-    postTitle,
     openForumDialog,
-    allPosts,
     currentForumInfo,
     currentForumInfoError,
     isLoadingCurrentForumInfo,
-    forumDetailError,
     forumsInfoError,
-    refetchForumDetail,
     refetchForumsInfo,
     refetchCurrentForumInfo,
   ])
