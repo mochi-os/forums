@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, cn, formatTimestamp } from '@mochi/common'
+import { Card, CardContent, cn, formatTimestamp } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'

@@ -9,7 +9,7 @@ import {
   type SortType,
   useShellStorage,
   useAuthStore,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 

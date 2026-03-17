@@ -14,7 +14,7 @@ import {
   GeneralError,
   useShellStorage,
   useAuthStore,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'

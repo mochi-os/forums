@@ -5,7 +5,7 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 import { z } from 'zod'
-import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/common'
+import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
 import { getErrorStatus } from '@/lib/errors'
 import { EntityForumPage } from '@/features/forums/pages'
 import forumsApi from '@/api/forums'

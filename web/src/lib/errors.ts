@@ -1,4 +1,4 @@
-import { ApiError } from '@mochi/common'
+import { ApiError } from '@mochi/web'
 
 export function toError(error: unknown, fallback: string): Error {
   if (error instanceof Error) return error

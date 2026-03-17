@@ -1,5 +1,5 @@
 import { useNavigate } from '@tanstack/react-router'
-import { CreateEntityDialog, type CreateEntityValues } from '@mochi/common'
+import { CreateEntityDialog, type CreateEntityValues } from '@mochi/web'
 import { MessageSquare } from 'lucide-react'
 import { useCreateForum } from '@/hooks/use-forums-queries'
 

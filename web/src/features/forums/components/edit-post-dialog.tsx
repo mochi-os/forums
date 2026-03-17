@@ -20,7 +20,7 @@ import {
   FormMessage,
   getAppPath,
   authenticatedUrl,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 

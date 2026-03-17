@@ -11,7 +11,7 @@ import {
   toast,
   getErrorMessage,
   getAppPath,
-} from '@mochi/common'
+} from '@mochi/web'
 import forumsApi from '@/api/forums'
 
 interface OptionsMenuProps {

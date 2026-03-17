@@ -15,7 +15,7 @@ import {
   Skeleton,
   GeneralError,
   formatTimestamp,
-} from '@mochi/common'
+} from '@mochi/web'
 import {
   Loader2,
   CheckCircle,

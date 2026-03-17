@@ -4,7 +4,7 @@ import {
   type SidebarData,
   type NavItem,
   type NavSubItem,
-} from '@mochi/common'
+} from '@mochi/web'
 import {
   Hash,
   MessageSquare,

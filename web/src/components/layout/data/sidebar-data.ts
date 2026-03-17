@@ -1,4 +1,4 @@
-import { type SidebarData } from '@mochi/common'
+import { type SidebarData } from '@mochi/web'
 import { MessageSquare, Plus } from 'lucide-react'
 
 // Static sidebar data for CommandMenu (Cmd+K)

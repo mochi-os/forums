@@ -1,4 +1,4 @@
-import { isDomainEntityRouting, getEntityFingerprint } from '@mochi/common'
+import { isDomainEntityRouting, getEntityFingerprint } from '@mochi/web'
 
 // Get the base path for entity-level API calls
 // In domain context, use '' (relative to root); otherwise use /{forumId}

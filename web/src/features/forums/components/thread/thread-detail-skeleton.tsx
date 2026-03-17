@@ -1,4 +1,4 @@
-import { Skeleton, Card, CardContent, Main } from '@mochi/common'
+import { Skeleton, Card, CardContent, Main } from '@mochi/web'
 
 export function ThreadDetailSkeleton() {
   return (

@@ -11,7 +11,7 @@ import {
   PageHeader,
   GeneralError,
   useImageObjectUrls,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'

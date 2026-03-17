@@ -35,7 +35,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'

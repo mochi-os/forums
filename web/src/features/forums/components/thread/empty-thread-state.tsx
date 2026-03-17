@@ -1,4 +1,4 @@
-import { Button, EmptyState } from '@mochi/common'
+import { Button, EmptyState } from '@mochi/web'
 import { FileQuestion } from 'lucide-react'
 
 export function EmptyThreadState({ onBack }: { onBack: () => void }) {
