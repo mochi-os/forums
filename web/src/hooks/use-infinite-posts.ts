@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { getApiBasepath, requestHelpers } from '@mochi/common'
+import { getApiBasepath, requestHelpers } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, Member } from '@/api/types/forums'
 import type { Post } from '@/api/types/posts'

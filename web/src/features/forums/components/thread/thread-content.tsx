@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/common'
+import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,

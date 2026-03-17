@@ -1,5 +1,5 @@
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
-import { getErrorMessage } from '@mochi/common'
+import { getErrorMessage } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'

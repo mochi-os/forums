@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createFileRoute } from '@tanstack/react-router'
-import { getEntityFingerprint, isDomainEntityRouting } from '@mochi/common'
+import { getEntityFingerprint, isDomainEntityRouting } from '@mochi/web'
 import { ThreadDetail } from '@/features/forums/thread-detail'
 
 const searchSchema = z.object({

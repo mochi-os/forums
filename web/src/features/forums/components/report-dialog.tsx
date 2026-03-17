@@ -11,7 +11,7 @@ import {
   RadioGroup,
   RadioGroupItem,
   Textarea,
-} from '@mochi/common'
+} from '@mochi/web'
 
 const REPORT_REASONS = [
   { value: 'spam', label: 'Spam' },

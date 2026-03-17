@@ -8,7 +8,7 @@ import {
   Input,
   toast,
   getErrorMessage,
-} from '@mochi/common'
+} from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'

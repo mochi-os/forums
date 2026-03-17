@@ -1,4 +1,4 @@
-import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState } from '@mochi/common'
+import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState } from '@mochi/web'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'

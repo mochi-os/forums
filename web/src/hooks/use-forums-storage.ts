@@ -1,7 +1,7 @@
 // Shell storage utilities for forums app - stores last visited forum
 // null means "All Forums" view, a forum ID means a specific forum
 
-import { shellStorage } from '@mochi/common'
+import { shellStorage } from '@mochi/web'
 
 const STORAGE_KEY = 'mochi-forums-last'
 

@@ -5,7 +5,7 @@ import {
   Skeleton,
   toast,
   getErrorMessage,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Hash, Loader2 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { RecommendedForum } from '@/api/types/forums'

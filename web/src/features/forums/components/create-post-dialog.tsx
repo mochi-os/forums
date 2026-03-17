@@ -20,7 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@mochi/common'
+} from '@mochi/web'
 import {
   ArrowLeft,
   ArrowRight,
