@@ -35,8 +35,8 @@ export function PostCard({
 
   const content = (
     <div className='relative space-y-3 p-4'>
-      {/* Metadata - top right, visible on hover */}
-      <div className='absolute right-4 top-4 opacity-0 transition-opacity group-hover/card:opacity-100'>
+      {/* Metadata - top right, always visible on mobile, hover-reveal on desktop */}
+      <div className='absolute right-4 top-4 transition-opacity opacity-100 md:opacity-0 md:group-hover/card:opacity-100'>
         <span className='text-muted-foreground text-xs'>
           {showForumBadge ? (
             <>
