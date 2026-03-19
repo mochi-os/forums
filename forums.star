@@ -741,7 +741,7 @@ def action_info_entity(a):
     if is_owner:
         can_manage = check_access(a, forum["id"], "manage")
         can_post = check_access(a, forum["id"], "post")
-    else:
+    elif user_id:
         can_manage = False
         # Query owner for post access
         access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -749,6 +749,9 @@ def action_info_entity(a):
             "user": user_id,
         })
         can_post = access_response.get("post", False)
+    else:
+        can_manage = False
+        can_post = False
 
     permissions = {
         "view": True,

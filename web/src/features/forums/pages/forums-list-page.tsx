@@ -39,10 +39,10 @@ export function ForumsListPage({
   const [savedSort, setSort] = useShellStorage<SortType>('forums-sort', 'new')
   const sort = isLoggedIn ? savedSort : 'new'
 
-  // Store "all forums" as the last location
+  // Store "all forums" as the last location (authenticated users only)
   useEffect(() => {
-    setLastForum(null)
-  }, [])
+    if (isLoggedIn) setLastForum(null)
+  }, [isLoggedIn])
 
   const { openForumDialog } = useSidebarContext()
 
