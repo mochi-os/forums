@@ -1,5 +1,5 @@
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
-import { getErrorMessage } from '@mochi/web'
+import { getErrorMessage, useAuthStore } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
@@ -36,7 +36,8 @@ export const Route = createFileRoute('/_authenticated/')({
       hasCheckedRedirect = true
 
       // In class context, check for last visited forum and redirect if it still exists
-      if (!info.entity) {
+      // Only for authenticated users — unauthenticated users should always see the listing
+      if (!info.entity && useAuthStore.getState().isAuthenticated) {
         const lastForumId = await getLastForum()
         if (lastForumId) {
           const forums = info.forums || []
