@@ -759,11 +759,11 @@ def action_info_entity(a):
         "manage": can_manage,
     }
 
+    fp = mochi.entity.fingerprint(forum["id"], True)
+
     # Clear notifications for this forum
     if user_id:
         mochi.service.call("notifications", "clear/object", "forums", forum["id"])
-
-    fp = mochi.entity.fingerprint(forum["id"], True)
     return {"data": {
         "entity": True,
         "forum": forum,
