@@ -761,9 +761,6 @@ def action_info_entity(a):
 
     fp = mochi.entity.fingerprint(forum["id"], True)
 
-    # Clear notifications for this forum
-    if user_id:
-        mochi.service.call("notifications", "clear/object", "forums", forum["id"])
     return {"data": {
         "entity": True,
         "forum": forum,
@@ -1559,6 +1556,14 @@ def action_members_save(a):
     return {
         "data": {"forum": forum}
     }
+
+# Clear notifications for a specific forum
+def action_notifications_clear(a):
+    if not a.user:
+        return
+    forum = get_forum(a.input("forum"))
+    if forum:
+        mochi.service.call("notifications", "clear/object", "forums", forum["id"])
 
 # Subscribe to a forum
 def action_subscribe(a):

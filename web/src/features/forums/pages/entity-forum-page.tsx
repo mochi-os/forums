@@ -66,6 +66,13 @@ export function EntityForumPage({
     return () => setForum(null)
   }, [forum.id, setForum])
 
+  // Clear notifications for this forum
+  useEffect(() => {
+    if (isLoggedIn) {
+      forumsApi.clearNotifications(forum.fingerprint ?? forum.id)
+    }
+  }, [forum.id, forum.fingerprint, isLoggedIn])
+
   // Queries for subscription status
   const { data: forumsData, isLoading: isLoadingForums } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
