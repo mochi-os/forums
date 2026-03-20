@@ -491,7 +491,7 @@ const forumsApi = {
 
   // Tags
   addPostTag: async (forumId: string, postId: string, label: string) => {
-    const res = await client.post<{ data: { id: string; label: string } }>(
+    const res = await client.post<{ data: { id: string; label: string; qid?: string } }>(
       endpoints.forums.postTagsAdd(forumId, postId),
       { label }
     )
