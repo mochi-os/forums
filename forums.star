@@ -3083,7 +3083,6 @@ def action_unrestrict(a):
             {"from": user, "to": forum["id"], "service": "forums", "event": "unrestrict/submit"},
             {"user": target_user}
         )
-        mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
 
     return {"data": {"success": True}}
 
