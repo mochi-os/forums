@@ -16,6 +16,7 @@ import {
   usePageTitle,
   AccessDialog,
   AccessList,
+  coerceObjectArray,
   type AccessLevel,
   type AccessRule,
   getErrorMessage,
@@ -761,7 +762,12 @@ function AccessTab({ forumId }: AccessTabProps) {
   } = useGroups()
 
   const rules = useMemo<AccessRule[]>(() => {
-    const accessList = accessData?.data?.access ?? []
+    const accessList = coerceObjectArray<{
+      id: string
+      level: string | null
+      name?: string
+      isOwner?: boolean
+    }>(accessData?.data?.access)
     return accessList
       .filter((item) => item.level !== null || item.isOwner)
       .map((item) => ({
@@ -783,6 +789,12 @@ function AccessTab({ forumId }: AccessTabProps) {
     ? toError(groupsErrorRaw, 'Failed to load groups')
     : null
   const canManageRules = !rulesError && !isLoadingRules && !!accessData
+  const userSearchResults = coerceObjectArray<{ id: string; name: string }>(
+    userSearchData?.data?.results,
+  )
+  const groups = coerceObjectArray<{ id: string; name: string; description?: string }>(
+    groupsData?.data?.groups,
+  )
 
   const handleAdd = async (
     subject: string,
@@ -853,14 +865,14 @@ function AccessTab({ forumId }: AccessTabProps) {
           onAdd={handleAdd}
           levels={FORUMS_ACCESS_LEVELS.filter((l) => l.value !== 'none')}
           defaultLevel='post'
-          userSearchResults={userSearchData?.data?.results ?? []}
+          userSearchResults={userSearchResults}
           userSearchLoading={userSearchLoading}
           userSearchError={userSearchError}
           onRetryUserSearch={() => {
             void refetchUserSearch()
           }}
           onUserSearch={setUserSearchQuery}
-          groups={groupsData?.data?.groups ?? []}
+          groups={groups}
           groupsError={groupsError}
           onRetryGroups={() => {
             void refetchGroups()

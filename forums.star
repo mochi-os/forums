@@ -1565,6 +1565,14 @@ def action_notifications_clear(a):
     if forum:
         mochi.service.call("notifications", "clear/object", "forums", forum["id"])
 
+def action_notifications_check(a):
+	"""Check if a notification subscription exists for this app."""
+	result = mochi.service.call("notifications", "subscriptions")
+	if result == None:
+		return {"data": {"exists": False, "types": []}}
+	types = [sub.get("type", "") for sub in result if sub.get("type")]
+	return {"data": {"exists": len(result) > 0, "types": types}}
+
 # Subscribe to a forum
 def action_subscribe(a):
     if not a.user:
@@ -2155,6 +2163,30 @@ def action_comment_new(a):
     }
 
 # Create new comment
+def notify_mentions(forum_id, post_id, body, author_id, author_name):
+	"""Notify forum members who are @mentioned in a comment."""
+	body_lower = body.lower()
+	members = mochi.db.rows(
+		"select id, name from members where forum=? and id!=?",
+		forum_id, author_id)
+	if not members:
+		return
+	mentioned = False
+	for m in members:
+		name = m.get("name")
+		if name and ("@[" + name + "]").lower() in body_lower:
+			mentioned = True
+			break
+	if not mentioned:
+		return
+	post = mochi.db.row("select title from posts where id=?", post_id)
+	post_title = (post.get("title") or "") if post else ""
+	excerpt = body.strip()[:80]
+	fp = mochi.entity.fingerprint(forum_id)
+	url = "/forums/" + fp if fp else "/forums"
+	mochi.service.call("notifications", "send", "mention",
+		post_title, author_name + " mentioned you: " + excerpt, post_id, url)
+
 def action_comment_create(a):
     if not a.user:
         a.error(401, "Not logged in")
@@ -2245,6 +2277,7 @@ def action_comment_create(a):
                     comment_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
+                notify_mentions(forum["id"], post_id, body, user_id, user_name)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {

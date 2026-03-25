@@ -11,6 +11,7 @@ import {
   PageHeader,
   GeneralError,
   useImageObjectUrls,
+  MentionTextarea,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -380,24 +381,26 @@ export function ThreadDetail({
                 {/* Reply Form - shown above comments */}
                 {showReplyForm && (
                   <div className='mb-4 space-y-2'>
-                    <textarea
-                    value={commentBody}
-                    onChange={(e) => setCommentBody(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                        e.preventDefault()
-                        if (commentBody.trim()) {
-                          handleCommentSubmit()
-                        }
-                      } else if (e.key === 'Escape') {
-                        setShowReplyForm(false)
+                    <MentionTextarea
+                      value={commentBody}
+                      onValueChange={setCommentBody}
+                      onSearchPeople={(q) =>
+                        forumsApi.searchUsers(q).then((r) => r.data.results)
                       }
-                    }}
-                    className='min-h-20 w-full rounded-md border px-3 py-2 text-sm'
-                    rows={3}
-                    autoFocus
-                    disabled={createCommentMutation.isPending}
-                  />
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                          e.preventDefault()
+                          if (commentBody.trim()) {
+                            handleCommentSubmit()
+                          }
+                        } else if (e.key === 'Escape') {
+                          setShowReplyForm(false)
+                        }
+                      }}
+                      rows={3}
+                      autoFocus
+                      disabled={createCommentMutation.isPending}
+                    />
                   {commentFiles.length > 0 && (
                     <div className='flex flex-wrap gap-2'>
                       {commentFiles.map((file, i) => (
@@ -458,6 +461,9 @@ export function ThreadDetail({
                       <ThreadComment
                       key={comment.id}
                       comment={comment}
+                      onSearchPeople={(q) =>
+                        forumsApi.searchUsers(q).then((r) => r.data.results)
+                      }
                       onVote={(commentId, vote) =>
                         voteCommentMutation.mutate({ commentId, vote })
                       }

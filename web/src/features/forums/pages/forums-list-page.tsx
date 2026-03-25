@@ -1,5 +1,6 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import {
   GeneralError,
   Main,
@@ -9,9 +10,11 @@ import {
   type SortType,
   useShellStorage,
   useAuthStore,
+  shellSubscribeNotifications,
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
+import forumsApi from '@/api/forums'
 
 import {
   useForumsList,
@@ -43,6 +46,33 @@ export function ForumsListPage({
   useEffect(() => {
     if (isLoggedIn) setLastForum(null)
   }, [isLoggedIn])
+
+  // Notification subscription prompt
+  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
+    queryKey: ['subscription-check', 'forums'],
+    queryFn: () => forumsApi.checkSubscription(),
+    staleTime: Infinity,
+    enabled: isLoggedIn,
+  })
+  const promptedNotifications = useRef(false)
+  useEffect(() => {
+    if (promptedNotifications.current) return
+    if (!subscriptionData?.data) return
+    const { exists, types } = subscriptionData.data
+    if (!exists) {
+      promptedNotifications.current = true
+      shellSubscribeNotifications('forums', [
+        { label: 'New posts', type: 'post', defaultEnabled: true },
+        { label: 'New comments', type: 'comment', defaultEnabled: true },
+        { label: 'Mentions', type: 'mention', defaultEnabled: true },
+      ]).then(() => refetchSubscription())
+    } else if (!types.includes('mention')) {
+      promptedNotifications.current = true
+      shellSubscribeNotifications('forums', [
+        { label: 'Mentions', type: 'mention', defaultEnabled: true },
+      ]).then(() => refetchSubscription())
+    }
+  }, [subscriptionData?.data, refetchSubscription])
 
   const { openForumDialog } = useSidebarContext()
 

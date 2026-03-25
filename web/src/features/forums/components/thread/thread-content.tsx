@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/web'
+import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, highlightMentions, renderMentions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -174,12 +174,12 @@ export function ThreadContent({
       {post.body_markdown ? (
         <div
           className='prose prose-sm dark:prose-invert max-w-none'
-          dangerouslySetInnerHTML={{ __html: embedVideos(post.body_markdown) }}
+          dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(post.body_markdown)) }}
         />
       ) : (
         <div className='prose prose-sm dark:prose-invert max-w-none'>
           <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
-            {post.body}
+            {renderMentions(post.body)}
           </p>
         </div>
       )}

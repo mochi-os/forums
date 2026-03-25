@@ -112,6 +112,9 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/moderation/reports/${reportId}/resolve`,
     },
 
+    // Notifications
+    notificationsCheck: '-/notifications/check',
+
     // RSS
     rssToken: '-/rss/token',
 

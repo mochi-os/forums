@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, CommentTreeLayout, ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, renderMentions, useImageObjectUrls, type Person } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -73,6 +73,7 @@ interface ThreadCommentProps {
   onMuteAuthor?: (userId: string) => void
   onBanAuthor?: (userId: string) => void
   currentUserId?: string
+  onSearchPeople?: (query: string) => Promise<Person[]>
 }
 
 export function ThreadComment({
@@ -101,6 +102,7 @@ export function ThreadComment({
   onMuteAuthor,
   onBanAuthor,
   currentUserId,
+  onSearchPeople,
 }: ThreadCommentProps) {
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -108,6 +110,7 @@ export function ThreadComment({
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
   const [replyFiles, setReplyFiles] = useState<File[]>([])
+  const replyPreviewUrls = useImageObjectUrls(replyFiles)
   const replyFileRef = useRef<HTMLInputElement>(null)
 
   // Moderation status
@@ -198,10 +201,10 @@ export function ThreadComment({
       {/* Comment body - show edit form if editing */}
       {editing === comment.id ? (
         <div className='space-y-2'>
-          <textarea
+          <MentionTextarea
             value={editBody}
-            onChange={(e) => setEditBody(e.target.value)}
-            className='min-h-16 w-full rounded-md border px-3 py-2 text-sm'
+            onValueChange={setEditBody}
+            onSearchPeople={onSearchPeople}
             rows={3}
             autoFocus
           />
@@ -234,7 +237,7 @@ export function ThreadComment({
             isRemoved && 'opacity-60'
           )}
         >
-          {comment.body}
+          {renderMentions(comment.body)}
         </p>
       )}
 
@@ -413,10 +416,11 @@ export function ThreadComment({
       {/* Reply input */}
       {isReplying && (
         <div className='mt-2 space-y-2 border-t pt-2'>
-          <textarea
+          <MentionTextarea
             placeholder={`Reply to ${comment.name}...`}
             value={replyValue}
-            onChange={(e) => onReplyChange?.(e.target.value)}
+            onValueChange={(v) => onReplyChange?.(v)}
+            onSearchPeople={onSearchPeople}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault()
@@ -427,7 +431,7 @@ export function ThreadComment({
                 onReplyCancel?.()
               }
             }}
-            className='flex-1 rounded-md border px-3 py-2 text-sm'
+            className='min-h-0'
             rows={2}
             autoFocus
           />
@@ -436,7 +440,7 @@ export function ThreadComment({
               {replyFiles.map((file, i) => (
                 <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
                   {file.type.startsWith('image/') && (
-                    <img src={URL.createObjectURL(file)} alt={file.name} className='h-8 w-8 rounded object-cover' />
+                    <img src={replyPreviewUrls[i] ?? undefined} alt={file.name} className='h-8 w-8 rounded object-cover' />
                   )}
                   <Paperclip className='text-muted-foreground size-3 shrink-0' />
                   <span className='max-w-40 truncate'>{file.name}</span>
@@ -514,6 +518,7 @@ export function ThreadComment({
           onMuteAuthor={onMuteAuthor}
           onBanAuthor={onBanAuthor}
           currentUserId={currentUserId}
+          onSearchPeople={onSearchPeople}
         />
       ))}
     </>

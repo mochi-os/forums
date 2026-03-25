@@ -327,14 +327,17 @@ const forumsApi = {
   searchUsers: async (query: string) => {
     const formData = new URLSearchParams()
     formData.append('search', query)
-    const results = await client.post<Array<{ id: string; name: string }>>(
+    return client.post<{ data: { results: Array<{ id: string; name: string }> } }>(
       endpoints.users.search,
       formData,
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }
     )
-    return { data: { results } }
+  },
+
+  checkSubscription: async (): Promise<{ data: { exists: boolean; types: string[] } }> => {
+    return client.get(endpoints.forums.notificationsCheck)
   },
 
   listGroups: async () => {
