@@ -385,7 +385,7 @@ export function ThreadDetail({
                       value={commentBody}
                       onValueChange={setCommentBody}
                       onSearchPeople={(q) =>
-                        forumsApi.searchUsers(q).then((r) => r.data.results)
+                        forumsApi.searchMembers(forum, q)
                       }
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -462,7 +462,7 @@ export function ThreadDetail({
                       key={comment.id}
                       comment={comment}
                       onSearchPeople={(q) =>
-                        forumsApi.searchUsers(q).then((r) => r.data.results)
+                        forumsApi.searchMembers(forum, q)
                       }
                       onVote={(commentId, vote) =>
                         voteCommentMutation.mutate({ commentId, vote })

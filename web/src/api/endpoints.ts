@@ -41,6 +41,7 @@ const endpoints = {
     delete: (forumId: string) => `${getEntityBase(forumId)}/-/delete`,
     rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
     membersEdit: (forumId: string) => `${getEntityBase(forumId)}/-/members`,
+    membersSearch: (forumId: string) => `${getEntityBase(forumId)}/-/members/search`,
     membersSave: (forumId: string) => `${getEntityBase(forumId)}/-/members/save`,
 
     // Post endpoints

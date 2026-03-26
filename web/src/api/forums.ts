@@ -336,6 +336,20 @@ const forumsApi = {
     )
   },
 
+  searchMembers: async (
+    forumId: string,
+    query: string,
+  ): Promise<Array<{ id: string; name: string }>> => {
+    const formData = new URLSearchParams()
+    formData.append('q', query)
+    const result = await client.post<{
+      data: { members: Array<{ id: string; name: string }> }
+    }>(endpoints.forums.membersSearch(forumId), formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+    return result.data.members
+  },
+
   checkSubscription: async (): Promise<{ data: { exists: boolean; types: string[] } }> => {
     return client.get(endpoints.forums.notificationsCheck)
   },

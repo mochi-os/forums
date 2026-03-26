@@ -1193,6 +1193,7 @@ def action_post_create(a):
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
+                notify_mentions(forum["id"], id, body, user_id, user_name)
 
                 # Schedule AI tagging
                 if forum.get("ai_mode", ""):
@@ -1511,6 +1512,23 @@ def action_members_edit(a):
             "members": members
         }
     }
+
+def action_member_search(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    query = (a.input("q") or "").lower().strip()
+    if query:
+        members = mochi.db.rows(
+            "select id, name from members where forum=? and lower(name) like ?",
+            forum["id"], "%" + query + "%")
+    else:
+        members = mochi.db.rows("select id, name from members where forum=? order by name", forum["id"])
+    return {"data": {"members": members[:20]}}
 
 # Save forum members (deprecated - use access endpoints instead)
 # Kept for removing members from the forum
@@ -2164,28 +2182,25 @@ def action_comment_new(a):
 
 # Create new comment
 def notify_mentions(forum_id, post_id, body, author_id, author_name):
-	"""Notify forum members who are @mentioned in a comment."""
+	"""Notify only the @mentioned forum members via P2P."""
 	body_lower = body.lower()
 	members = mochi.db.rows(
 		"select id, name from members where forum=? and id!=?",
 		forum_id, author_id)
 	if not members:
 		return
-	mentioned = False
-	for m in members:
-		name = m.get("name")
-		if name and ("@[" + name + "]").lower() in body_lower:
-			mentioned = True
-			break
-	if not mentioned:
-		return
 	post = mochi.db.row("select title from posts where id=?", post_id)
 	post_title = (post.get("title") or "") if post else ""
 	excerpt = body.strip()[:80]
 	fp = mochi.entity.fingerprint(forum_id)
 	url = "/forums/" + fp if fp else "/forums"
-	mochi.service.call("notifications", "send", "mention",
-		post_title, author_name + " mentioned you: " + excerpt, post_id, url)
+	for m in members:
+		name = m.get("name")
+		if name and ("@[" + name + "]").lower() in body_lower:
+			mochi.message.send(
+				{"from": forum_id, "to": m["id"], "service": "forums", "event": "mention/notify"},
+				{"post": post_id, "title": post_title, "excerpt": excerpt, "author": author_name, "url": url}
+			)
 
 def action_comment_create(a):
     if not a.user:
@@ -4158,6 +4173,16 @@ def event_attachment_view(e):
     e.stream.write_from_file(path)
 
 # Received a comment from forum owner
+def event_mention_notify(e):
+	"""Member receives a mention notification from a forum owner."""
+	title = e.content("title") or ""
+	excerpt = e.content("excerpt") or ""
+	author = e.content("author") or "Someone"
+	post_id = e.content("post") or ""
+	url = e.content("url") or "/forums"
+	mochi.service.call("notifications", "send",
+		"mention", title, author + " mentioned you: " + excerpt, post_id, url)
+
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
@@ -4295,6 +4320,7 @@ def event_comment_submit_event(e):
             comment_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "comment/create", comment_data)
+        notify_mentions(forum["id"], post_id, body, sender_id, sender_name)
 
 # Received a comment edit request from member (we are forum owner)
 def event_comment_edit_submit_event(e):
@@ -4651,6 +4677,7 @@ def event_post_submit_event(e):
             post_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "post/create", post_data)
+        notify_mentions(forum["id"], id, body, sender_id, sender_name)
 
         # Schedule AI tagging
         if forum.get("ai_mode", ""):
