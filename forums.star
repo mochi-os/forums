@@ -1602,12 +1602,12 @@ def action_notifications_clear(a):
         mochi.service.call("notifications", "clear/object", "forums", forum["id"])
 
 def action_notifications_check(a):
-	"""Check if a notification subscription exists for this app."""
-	result = mochi.service.call("notifications", "subscriptions")
-	if result == None:
-		return {"data": {"exists": False, "types": []}}
-	types = [sub.get("type", "") for sub in result if sub.get("type")]
-	return {"data": {"exists": len(result) > 0, "types": types}}
+    """Check if a notification subscription exists for this app."""
+    result = mochi.service.call("notifications", "subscriptions")
+    if result == None:
+        return {"data": {"exists": False, "types": []}}
+    types = [sub.get("type", "") for sub in result if sub.get("type")]
+    return {"data": {"exists": len(result) > 0, "types": types}}
 
 # Subscribe to a forum
 def action_subscribe(a):
@@ -2200,25 +2200,25 @@ def action_comment_new(a):
 
 # Create new comment
 def notify_mentions(forum_id, post_id, body, author_id, author_name):
-	"""Notify only the @mentioned forum members via P2P."""
-	body_lower = body.lower()
-	members = mochi.db.rows(
-		"select id, name from members where forum=? and id!=?",
-		forum_id, author_id)
-	if not members:
-		return
-	post = mochi.db.row("select title from posts where id=?", post_id)
-	post_title = (post.get("title") or "") if post else ""
-	excerpt = body.strip()[:80]
-	fp = mochi.entity.fingerprint(forum_id)
-	url = "/forums/" + fp if fp else "/forums"
-	for m in members:
-		name = m.get("name")
-		if name and ("@[" + name + "]").lower() in body_lower:
-			mochi.message.send(
-				{"from": forum_id, "to": m["id"], "service": "forums", "event": "mention/notify"},
-				{"post": post_id, "title": post_title, "excerpt": excerpt, "author": author_name, "url": url}
-			)
+    """Notify only the @mentioned forum members via P2P."""
+    body_lower = body.lower()
+    members = mochi.db.rows(
+        "select id, name from members where forum=? and id!=?",
+        forum_id, author_id)
+    if not members:
+        return
+    post = mochi.db.row("select title from posts where id=?", post_id)
+    post_title = (post.get("title") or "") if post else ""
+    excerpt = body.strip()[:80]
+    fp = mochi.entity.fingerprint(forum_id)
+    url = "/forums/" + fp if fp else "/forums"
+    for m in members:
+        name = m.get("name")
+        if name and ("@[" + name + "]").lower() in body_lower:
+            mochi.message.send(
+                {"from": forum_id, "to": m["id"], "service": "forums", "event": "mention/notify"},
+                {"post": post_id, "title": post_title, "excerpt": excerpt, "author": author_name, "url": url}
+            )
 
 def action_comment_create(a):
     if not a.user:
