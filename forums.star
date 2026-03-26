@@ -1,6 +1,22 @@
 # Mochi Forums app
 # Copyright Alistair Cunningham 2024-2026
 
+# Helper: Build a map of qid -> weight from user interests
+def get_interest_map():
+	interests = mochi.interests.list()
+	m = {}
+	for i in interests:
+		m[i["qid"]] = i["weight"]
+	return m
+
+# Helper: Annotate tags that match a user interest with the interest weight
+def enrich_tags(tags, interest_map):
+	for t in tags:
+		qid = t.get("qid", "")
+		if qid and qid in interest_map:
+			t["interest"] = interest_map[qid]
+	return tags
+
 # Access level hierarchy: moderate > post > comment > vote > view
 # Each level grants access to that operation and all operations below it.
 # Only owners (with "*" access) have full management permissions.
@@ -611,7 +627,7 @@ def action_tags_list(a):
     if not post_id:
         a.error(400, "Missing post")
         return
-    tags = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or [], get_interest_map())
     return {"data": {"tags": tags}}
 
 # Add a tag to a post
@@ -922,6 +938,7 @@ def action_view(a):
         if has_more:
             posts = posts[:limit]
 
+        im = get_interest_map()
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["attachments"] = mochi.attachment.list(p["id"])
@@ -936,7 +953,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or [], im)
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -1031,6 +1048,7 @@ def action_view(a):
         # Build forum lookup map for O(1) access
         forum_map = {f["id"]: f for f in forums}
 
+        im = get_interest_map()
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
             p["attachments"] = mochi.attachment.list(p["id"])
@@ -1045,7 +1063,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or []
+            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or [], im)
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -1874,7 +1892,7 @@ def action_post_view(a):
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
-    post["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or [], get_interest_map())
 
     comments = get_comments("", 0)
 
