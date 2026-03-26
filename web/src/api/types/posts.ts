@@ -7,6 +7,7 @@ export interface Tag {
   qid?: string
   source?: string
   relevance?: number
+  interest?: number
 }
 
 // Match info for relevance scoring
