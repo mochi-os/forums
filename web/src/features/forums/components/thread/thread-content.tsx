@@ -173,11 +173,11 @@ export function ThreadContent({
       {/* Post Body */}
       {post.body_markdown ? (
         <div
-          className='prose prose-sm dark:prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-6 prose-li:my-1'
+          className='text-foreground max-w-none text-sm leading-relaxed [&_p]:my-3 [&_ul]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1'
           dangerouslySetInnerHTML={{ __html: embedVideos(post.body_markdown) }}
         />
       ) : (
-        <div className='prose prose-sm dark:prose-invert max-w-none'>
+        <div className='text-foreground max-w-none text-sm leading-relaxed'>
           <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
             {post.body}
           </p>

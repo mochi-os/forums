@@ -84,7 +84,7 @@ export function PostCard({
       {/* Body */}
       {post.body_markdown ? (
         <div
-          className='prose prose-sm dark:prose-invert max-w-none line-clamp-2 prose-p:my-0 prose-p:leading-normal prose-ul:my-0 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-0 prose-ol:list-decimal prose-ol:pl-6 prose-li:my-0'
+          className='text-foreground max-w-none text-sm leading-normal line-clamp-2 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-0'
           dangerouslySetInnerHTML={{ __html: post.body_markdown }}
         />
       ) : (
