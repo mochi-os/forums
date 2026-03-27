@@ -1,3 +1,41 @@
+import DOMPurify from 'dompurify'
+
+const ALLOWED_IFRAME_HOSTS = [
+  'www.youtube.com',
+  'www.youtube-nocookie.com',
+  'player.vimeo.com',
+]
+
+export const sanitizeHtml = (html: string): string => {
+  const preStripped = html.replace(
+    /<iframe\s[^>]*src=["']([^"']*)["'][^>]*>[\s\S]*?<\/iframe>/gi,
+    (match, src: string) => {
+      try {
+        const host = new URL(src).hostname
+        return ALLOWED_IFRAME_HOSTS.includes(host) ? match : ''
+      } catch {
+        return ''
+      }
+    },
+  )
+
+  return DOMPurify.sanitize(preStripped, {
+    ALLOWED_TAGS: [
+      'b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
+      'code', 'pre', 'blockquote', 'img', 'figure', 'figcaption',
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'iframe', 'div', 'span',
+      'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'del', 'sup',
+      'sub', 'details', 'summary',
+    ],
+    ALLOWED_ATTR: [
+      'href', 'target', 'rel', 'class', 'src', 'alt', 'title',
+      'width', 'height', 'allow', 'allowfullscreen', 'frameborder',
+      'style', 'id', 'colspan', 'rowspan',
+    ],
+    ADD_ATTR: ['target'],
+  })
+}
+
 /**
  * Convert standalone YouTube/Vimeo links in HTML to responsive iframe embeds.
  * Only replaces <a> tags that are the sole content of their <p> tag.

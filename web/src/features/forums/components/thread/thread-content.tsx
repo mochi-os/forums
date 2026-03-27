@@ -21,7 +21,7 @@ import {
 import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
-import { embedVideos } from '../../utils'
+import { embedVideos, sanitizeHtml } from '../../utils'
 
 interface ThreadContentProps {
   post: Post
@@ -174,7 +174,7 @@ export function ThreadContent({
       {post.body_markdown ? (
         <div
           className='prose prose-sm dark:prose-invert max-w-none'
-          dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(post.body_markdown)) }}
+          dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(sanitizeHtml(post.body_markdown))) }}
         />
       ) : (
         <div className='text-foreground max-w-none text-sm leading-relaxed'>

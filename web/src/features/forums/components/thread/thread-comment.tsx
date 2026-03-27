@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, renderMentions, useImageObjectUrls, type Person } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -73,7 +73,7 @@ interface ThreadCommentProps {
   onMuteAuthor?: (userId: string) => void
   onBanAuthor?: (userId: string) => void
   currentUserId?: string
-  onSearchPeople?: (query: string) => Promise<Person[]>
+  onSearchPeople?: (query: string) => Promise<MentionUser[]>
 }
 
 export function ThreadComment({

@@ -3,6 +3,7 @@ import { Card, CardContent, cn, formatTimestamp } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { sanitizeHtml } from '../utils'
 import { PostAttachments } from './thread/post-attachments'
 import { PostTagsTooltip } from './post-tags'
 
@@ -85,7 +86,7 @@ export function PostCard({
       {post.body_markdown ? (
         <div
           className='text-foreground max-w-none text-sm leading-normal line-clamp-2 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-0'
-          dangerouslySetInnerHTML={{ __html: post.body_markdown }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_markdown) }}
         />
       ) : (
         <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
