@@ -941,6 +941,7 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
+            p["body_markdown"] = mochi.markdown.render(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and forum.get("owner") != 1:
@@ -1051,6 +1052,7 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
+            p["body_markdown"] = mochi.markdown.render(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], p["forum"])
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])

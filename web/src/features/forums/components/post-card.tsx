@@ -82,7 +82,14 @@ export function PostCard({
       </div>
 
       {/* Body */}
-      <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
+      {post.body_markdown ? (
+        <div
+          className='prose prose-sm dark:prose-invert max-w-none line-clamp-2 prose-p:my-0 prose-p:leading-normal prose-ul:my-0 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-0 prose-ol:list-decimal prose-ol:pl-6 prose-li:my-0'
+          dangerouslySetInnerHTML={{ __html: post.body_markdown }}
+        />
+      ) : (
+        <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
+      )}
 
       {/* Attachments */}
       <PostAttachments
