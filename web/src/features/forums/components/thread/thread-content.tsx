@@ -177,7 +177,7 @@ export function ThreadContent({
           dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(post.body_markdown)) }}
         />
       ) : (
-        <div className='prose prose-sm dark:prose-invert max-w-none'>
+        <div className='text-foreground max-w-none text-sm leading-relaxed'>
           <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
             {renderMentions(post.body)}
           </p>

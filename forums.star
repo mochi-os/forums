@@ -941,7 +941,8 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
-            p["attachments"] = mochi.attachment.list(p["id"])
+            p["body_markdown"] = mochi.markdown.render(p["body"])
+            p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and forum.get("owner") != 1:
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
@@ -1051,7 +1052,8 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
-            p["attachments"] = mochi.attachment.list(p["id"])
+            p["body_markdown"] = mochi.markdown.render(p["body"])
+            p["attachments"] = mochi.attachment.list(p["id"], p["forum"])
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
             p["fingerprint"] = forum["fingerprint"] if forum else mochi.entity.fingerprint(p["forum"])
@@ -1888,7 +1890,7 @@ def action_post_view(a):
 
     post["user_vote"] = user_post_vote
     post["body_markdown"] = mochi.markdown.render(post["body"])
-    post["attachments"] = mochi.attachment.list(post_id)
+    post["attachments"] = mochi.attachment.list(post_id, forum["id"])
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
@@ -1958,7 +1960,7 @@ def action_post_edit(a):
             else:
                 order = []
 
-            current_attachments = mochi.attachment.list(post_id)
+            current_attachments = mochi.attachment.list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
             new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
 
@@ -1991,7 +1993,7 @@ def action_post_edit(a):
                 "body": body,
                 "edited": now
             }
-            post_data["attachments"] = mochi.attachment.list(post_id)
+            post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
 
             # Re-tag with AI if enabled
@@ -2015,7 +2017,7 @@ def action_post_edit(a):
             else:
                 order = []
 
-            current_attachments = mochi.attachment.list(post_id)
+            current_attachments = mochi.attachment.list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
 
             # Save new attachments locally
@@ -2124,7 +2126,7 @@ def action_post_delete(a):
             mochi.db.execute("delete from tags where object=?", post_id)
 
             # Delete all attachments for this post
-            attachments = mochi.attachment.list(post_id)
+            attachments = mochi.attachment.list(post_id, forum["id"])
             for att in attachments:
                 mochi.attachment.delete(att["id"])
 
@@ -2501,7 +2503,7 @@ def action_comment_delete(a):
 
             # Delete attachments for all comments being deleted
             for cid in comment_ids:
-                attachments = mochi.attachment.list(cid)
+                attachments = mochi.attachment.list(cid, forum["id"])
                 for att in attachments:
                     mochi.attachment.delete(att["id"])
 
@@ -3385,7 +3387,7 @@ def action_moderation_reports(a):
             if post:
                 r["content_title"] = post["title"]
                 r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = mochi.attachment.list(r["target"])
+                r["attachments"] = mochi.attachment.list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
@@ -3528,7 +3530,7 @@ def action_moderation_queue(a):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["attachments"] = mochi.attachment.list(p["id"])
+        p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
@@ -4414,7 +4416,7 @@ def event_comment_delete_submit_event(e):
 
     # Delete attachments for these comments
     for cid in comment_ids:
-        attachments = mochi.attachment.list(cid)
+        attachments = mochi.attachment.list(cid, forum["id"])
         for att in attachments:
             mochi.attachment.delete(att["id"])
 
@@ -4488,7 +4490,7 @@ def event_comment_delete_event(e):
         # Verify this comment belongs to this forum
         if mochi.db.exists("select id from comments where id=? and forum=?", comment_id, forum_id):
             # Delete attachments for this comment
-            attachments = mochi.attachment.list(comment_id)
+            attachments = mochi.attachment.list(comment_id, forum_id)
             for att in attachments:
                 mochi.attachment.delete(att["id"])
             # Delete votes for this comment
@@ -4739,7 +4741,7 @@ def event_post_edit_submit_event(e):
     order = e.content("order") or []
 
     # Get current attachments and delete any not in the order list
-    current_attachments = mochi.attachment.list(post_id)
+    current_attachments = mochi.attachment.list(post_id, forum["id"])
     current_ids = [att["id"] for att in current_attachments]
 
     # Delete attachments not in order (those being removed)
@@ -4762,7 +4764,7 @@ def event_post_edit_submit_event(e):
         "body": body,
         "edited": now
     }
-    post_data["attachments"] = mochi.attachment.list(post_id)
+    post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
     broadcast_event(forum["id"], "post/edit", post_data)
 
     # Re-tag with AI if enabled
@@ -4793,7 +4795,7 @@ def event_post_delete_submit_event(e):
     mochi.db.execute("delete from tags where object=?", post_id)
 
     # Delete all attachments for this post
-    attachments = mochi.attachment.list(post_id)
+    attachments = mochi.attachment.list(post_id, forum["id"])
     for att in attachments:
         mochi.attachment.delete(att["id"])
 
@@ -4885,7 +4887,7 @@ def event_post_delete_event(e):
     mochi.db.execute("delete from tags where object=?", id)
 
     # Delete all attachments for this post
-    attachments = mochi.attachment.list(id)
+    attachments = mochi.attachment.list(id, forum_id)
     for att in attachments:
         mochi.attachment.delete(att["id"])
 
@@ -5023,7 +5025,7 @@ def event_subscribe_event(e):
                 "created": p["created"],
                 "sync": True
             }
-            post_data["attachments"] = mochi.attachment.list(p["id"])
+            post_data["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
                 post_data
@@ -5044,7 +5046,7 @@ def event_subscribe_event(e):
                     "created": c["created"],
                     "sync": True
                 }
-                comment_data["attachments"] = mochi.attachment.list(c["id"])
+                comment_data["attachments"] = mochi.attachment.list(c["id"], forum["id"])
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
                     comment_data
@@ -5775,7 +5777,7 @@ def event_view(e):
     for post in posts:
         post_data = dict(post)
         post_data["body_markdown"] = mochi.markdown.render(post["body"])
-        post_data["attachments"] = mochi.attachment.list(post["id"])
+        post_data["attachments"] = mochi.attachment.list(post["id"], forum_id)
         # Filter comments for non-moderators
         if can_moderate:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
@@ -5864,7 +5866,7 @@ def event_post_view(e):
 
     post_data = dict(post)
     post_data["body_markdown"] = mochi.markdown.render(post["body"])
-    post_data["attachments"] = mochi.attachment.list(post_id)
+    post_data["attachments"] = mochi.attachment.list(post_id, forum_id)
     post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
 
     # Get requester's vote on the post
@@ -5926,7 +5928,7 @@ def event_moderation_queue(e):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["attachments"] = mochi.attachment.list(p["id"])
+        p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
@@ -6003,7 +6005,7 @@ def event_moderation_reports(e):
             if post:
                 r["content_title"] = post["title"]
                 r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = mochi.attachment.list(r["target"])
+                r["attachments"] = mochi.attachment.list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
