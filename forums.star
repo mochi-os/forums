@@ -4195,13 +4195,13 @@ def event_attachment_view(e):
 # Received a comment from forum owner
 def event_mention_notify(e):
 	"""Member receives a mention notification from a forum owner."""
+	forum_id = e.header("from")
 	title = e.content("title") or ""
 	excerpt = e.content("excerpt") or ""
 	author = e.content("author") or "Someone"
-	post_id = e.content("post") or ""
 	url = e.content("url") or "/forums"
 	mochi.service.call("notifications", "send",
-		"mention", title, author + " mentioned you: " + excerpt, post_id, url)
+		"mention", title, author + " mentioned you: " + excerpt, forum_id, url)
 
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
