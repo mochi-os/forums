@@ -167,7 +167,7 @@ export function CreatePostDialog({
           )}
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className='sm:max-w-[600px]'>
+      <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>New post</ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
@@ -175,7 +175,8 @@ export function CreatePostDialog({
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)}>
+            <div className='space-y-4 overflow-y-auto flex-1 min-h-0'>
             <FormField
               control={form.control}
               name='title'
@@ -201,7 +202,7 @@ export function CreatePostDialog({
                   <FormLabel>Content</FormLabel>
                   <FormControl>
                     <Textarea
-                      className='min-h-[180px]'
+                      className='min-h-[180px] max-h-[50vh]'
                       placeholder='Markdown supported'
                       disabled={isPending}
                       {...field}
@@ -317,7 +318,8 @@ export function CreatePostDialog({
               </Button>
             </div>
 
-            <ResponsiveDialogFooter className='gap-2'>
+            </div>
+            <ResponsiveDialogFooter className='gap-2 pt-4'>
               <ResponsiveDialogClose asChild>
                 <Button type='button' variant='outline' disabled={isPending}>
                   Cancel

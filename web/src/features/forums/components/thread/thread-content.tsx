@@ -173,7 +173,7 @@ export function ThreadContent({
       {/* Post Body */}
       {post.body_markdown ? (
         <div
-          className='prose prose-sm dark:prose-invert max-w-none'
+          className='prose prose-sm dark:prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-6 prose-li:my-1'
           dangerouslySetInnerHTML={{ __html: embedVideos(post.body_markdown) }}
         />
       ) : (
