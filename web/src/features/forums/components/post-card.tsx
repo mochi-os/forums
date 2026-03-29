@@ -12,10 +12,10 @@ interface PostCardProps {
   showForumBadge: boolean
   server?: string
   onSelect: (forumId: string, postId: string) => void
-  onTagRemoved?: (tagId: string) => void
   onTagFilter?: (label: string) => void
   onInterestUp?: (qid: string) => void
   onInterestDown?: (qid: string) => void
+  onInterestRemove?: (qid: string) => void
   variant?: 'card' | 'list-item'
 }
 
@@ -25,10 +25,10 @@ export function PostCard({
   showForumBadge,
   server,
   onSelect,
-  onTagRemoved,
   onTagFilter,
   onInterestUp,
   onInterestDown,
+  onInterestRemove,
   variant = 'card',
 }: PostCardProps) {
   const timestamp = formatTimestamp(post.created)
@@ -103,7 +103,7 @@ export function PostCard({
         <div className='text-muted-foreground flex items-center gap-3 text-xs'>
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <PostTagsTooltip tags={post.tags} onRemove={onTagRemoved} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} />
+            <PostTagsTooltip tags={post.tags} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} onInterestRemove={onInterestRemove} />
           )}
 
           {/* Relevance match indicators */}

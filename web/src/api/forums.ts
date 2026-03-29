@@ -534,7 +534,7 @@ const forumsApi = {
   },
 
   // Interest/scoring
-  adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down') =>
+  adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down' | 'remove') =>
     client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
 
   clearNotifications: (forumId: string) =>

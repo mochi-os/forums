@@ -136,15 +136,6 @@ export function EntityForumPage({
     })
   }
 
-  const handleTagRemoved = useCallback(async (_forumId: string, postId: string, tagId: string) => {
-    try {
-      await forumsApi.removePostTag(forum.id, postId, tagId)
-      refetch()
-    } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to remove tag'))
-    }
-  }, [forum.id, refetch])
-
   const handleTagFilter = useCallback((label: string) => {
     setActiveTag((current) => (current === label ? undefined : label))
   }, [])
@@ -166,6 +157,18 @@ export function EntityForumPage({
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'down')
       } catch (error) {
         toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum.id, forum.fingerprint]
+  )
+
+  const handleInterestRemove = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'remove')
+        toast.success('Interest removed')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to remove interest'))
       }
     },
     [forum.id, forum.fingerprint]
@@ -270,10 +273,10 @@ export function EntityForumPage({
               forum={forumData || forum}
               posts={infinitePosts}
               onSelectPost={handlePostSelect}
-              onTagRemoved={handleTagRemoved}
               onTagFilter={handleTagFilter}
               onInterestUp={handleInterestUp}
               onInterestDown={handleInterestDown}
+              onInterestRemove={handleInterestRemove}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}

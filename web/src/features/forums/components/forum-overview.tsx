@@ -12,10 +12,10 @@ interface ForumOverviewProps {
   server?: string
   subscribedIds?: Set<string>
   onSelectPost: (forumId: string, postId: string) => void
-  onTagRemoved?: (forumId: string, postId: string, tagId: string) => void
   onTagFilter?: (label: string) => void
   onInterestUp?: (qid: string) => void
   onInterestDown?: (qid: string) => void
+  onInterestRemove?: (qid: string) => void
   onCreatePost: (data: {
     forum: string
     title: string
@@ -45,10 +45,10 @@ export function ForumOverview({
   isLoading = false,
   onCreateForum,
   subscribedIds = new Set(),
-  onTagRemoved,
   onTagFilter,
   onInterestUp,
   onInterestDown,
+  onInterestRemove,
 }: ForumOverviewProps) {
 
   if (!forum) {
@@ -67,10 +67,10 @@ export function ForumOverview({
                 showForumBadge={true}
                 server={server}
                 onSelect={onSelectPost}
-                onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                 onTagFilter={onTagFilter}
                 onInterestUp={onInterestUp}
                 onInterestDown={onInterestDown}
+                onInterestRemove={onInterestRemove}
                 variant='card'
               />
             ))}
@@ -110,10 +110,10 @@ export function ForumOverview({
                 showForumBadge={false}
                 server={server}
                 onSelect={onSelectPost}
-                onTagRemoved={(tagId) => onTagRemoved?.(post.forum, post.id, tagId)}
                 onTagFilter={onTagFilter}
                 onInterestUp={onInterestUp}
                 onInterestDown={onInterestDown}
+                onInterestRemove={onInterestRemove}
               />
             ))}
           </div>

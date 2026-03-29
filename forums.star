@@ -6394,8 +6394,10 @@ def action_tag_interest(a):
         mochi.interests.adjust(qid, 15)
     elif direction == "down":
         mochi.interests.adjust(qid, -20)
+    elif direction == "remove":
+        mochi.interests.remove(qid)
     else:
-        a.error(400, "Direction must be 'up' or 'down'")
+        a.error(400, "Invalid direction")
         return
     return {"data": {"ok": True}}
 
