@@ -159,17 +159,7 @@ export function ThreadDetail({
     }
   }, [forum, postId, postData?.data?.post?.tags])
 
-  const handleTagRemoved = useCallback(async (tagId: string) => {
-    try {
-      await forumsApi.removePostTag(forum, postId, tagId)
-      setLocalTags((prev) => {
-        const current = prev ?? postData?.data?.post?.tags ?? []
-        return current.filter((t) => t.id !== tagId)
-      })
-    } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to remove tag'))
-    }
-  }, [forum, postId, postData?.data?.post?.tags])
+
 
   const handleInterestUp = useCallback(
     async (qid: string) => {
@@ -190,6 +180,18 @@ export function ThreadDetail({
         toast.success('Interest reduced')
       } catch (error) {
         toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+      }
+    },
+    [forum]
+  )
+
+  const handleInterestRemove = useCallback(
+    async (qid: string) => {
+      try {
+        await forumsApi.adjustTagInterest(forum, qid, 'remove')
+        toast.success('Interest removed')
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to remove interest'))
       }
     },
     [forum]
@@ -358,9 +360,9 @@ export function ThreadDetail({
                 onReply={() => setShowReplyForm(true)}
                 canTag={isForumManager || can_moderate || isPostAuthor}
                 onTagAdded={handleTagAdded}
-                onTagRemoved={handleTagRemoved}
                 onInterestUp={handleInterestUp}
                 onInterestDown={handleInterestDown}
+                onInterestRemove={handleInterestRemove}
                 canEdit={canEditPost}
                 onEdit={() => setEditPostDialogOpen(true)}
                 onDelete={() => deletePostMutation.mutate(postId)}
