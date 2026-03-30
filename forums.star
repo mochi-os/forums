@@ -1543,9 +1543,10 @@ def action_member_search(a):
         return
     query = (a.input("q") or "").lower().strip()
     if query:
+        escaped = query.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
         members = mochi.db.rows(
-            "select id, name from members where forum=? and lower(name) like ?",
-            forum["id"], "%" + query + "%")
+            "select id, name from members where forum=? and lower(name) like ? escape '\\'",
+            forum["id"], "%" + escaped + "%")
     else:
         members = mochi.db.rows("select id, name from members where forum=? order by name", forum["id"])
     return {"data": {"members": members[:20]}}
