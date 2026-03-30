@@ -250,7 +250,7 @@ export function ThreadComment({
             <>
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+                className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
                 onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
               >
                 {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
@@ -258,7 +258,7 @@ export function ThreadComment({
               </button>
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+                className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
                 onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
               >
                 {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}

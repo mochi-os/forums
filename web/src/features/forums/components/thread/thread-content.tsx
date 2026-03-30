@@ -207,7 +207,7 @@ export function ThreadContent({
           <>
             <button
               type='button'
-              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+              className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
               onClick={(e) => {
                 e.stopPropagation()
                 handleVote(localVote === 'up' ? '' : 'up')
@@ -222,7 +222,7 @@ export function ThreadContent({
             </button>
             <button
               type='button'
-              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+              className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
               onClick={(e) => {
                 e.stopPropagation()
                 handleVote(localVote === 'down' ? '' : 'down')
@@ -255,7 +255,7 @@ export function ThreadContent({
         {canReply && onReply && (
           <button
             type='button'
-            className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+            className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
             onClick={(e) => {
               e.stopPropagation()
               onReply()
@@ -270,7 +270,7 @@ export function ThreadContent({
             <DropdownMenuTrigger asChild>
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors'
+                className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
                 onClick={(e) => e.stopPropagation()}
               >
                 <MoreHorizontal className='size-4' />
