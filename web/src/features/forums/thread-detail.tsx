@@ -163,8 +163,6 @@ export function ThreadDetail({
     }
   }, [forum, postId, postData?.data?.post?.tags])
 
-
-
   const handleInterestUp = useCallback(
     async (qid: string) => {
       try {
