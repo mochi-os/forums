@@ -56,6 +56,7 @@ export interface DirectoryEntry {
   location: string
   created: number
   updated: number
+  subscribed?: boolean
 }
 
 export type { Post }

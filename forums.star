@@ -1214,7 +1214,8 @@ def action_post_create(a):
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
                 broadcast_websocket(forum["id"], {"type": "post/create", "forum": forum["id"], "post": id, "sender": user_id})
-                notify_mentions(forum["id"], id, body, user_id, user_name)
+                if body:
+                    notify_mentions(forum["id"], id, body, user_id, user_name)
 
                 # Schedule AI tagging
                 if forum.get("ai_mode", ""):
@@ -1386,6 +1387,21 @@ def action_search(a):
                 break
         if not found:
             results.append(entry)
+
+    # Annotate results with subscription status from local members table.
+    # Directory entries may be frozen dicts, so copy before adding fields.
+    if a.user and results:
+        user_id = a.user.identity.id
+        annotated = []
+        for entry in results:
+            entry_id = entry.get("id", "")
+            if entry_id and mochi.db.exists("select id from members where forum=? and id=?", entry_id, user_id):
+                e = dict(entry)
+                e["subscribed"] = True
+                annotated.append(e)
+            else:
+                annotated.append(entry)
+        results = annotated
 
     return {"data": {"results": results}}
 
@@ -1628,9 +1644,13 @@ def action_subscribe(a):
 
     # Check if already subscribed
     if mochi.db.exists("select id from members where forum=? and id=?", forum_id, a.user.identity.id):
-        return {
-            "data": {"already_subscribed": True}
-        }
+        # Also verify the forum record exists; a missing forum record (data inconsistency)
+        # means the subscription is broken — remove the stale member entry and re-subscribe.
+        if mochi.db.exists("select id from forums where id=?", forum_id):
+            return {
+                "data": {"already_subscribed": True}
+            }
+        mochi.db.execute("delete from members where forum=? and id=?", forum_id, a.user.identity.id)
 
     # Get forum info from remote server or directory
     schema = None
@@ -2318,7 +2338,8 @@ def action_comment_create(a):
 
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
                 broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": post_id, "comment": id, "sender": user_id})
-                notify_mentions(forum["id"], post_id, body, user_id, user_name)
+                if body:
+                    notify_mentions(forum["id"], post_id, body, user_id, user_name)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -4359,7 +4380,8 @@ def event_comment_submit_event(e):
             comment_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "comment/create", comment_data)
-        notify_mentions(forum["id"], post_id, body, sender_id, sender_name)
+        if body:
+            notify_mentions(forum["id"], post_id, body, sender_id, sender_name)
 
 # Received a comment edit request from member (we are forum owner)
 def event_comment_edit_submit_event(e):
@@ -4716,7 +4738,8 @@ def event_post_submit_event(e):
             post_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "post/create", post_data)
-        notify_mentions(forum["id"], id, body, sender_id, sender_name)
+        if body:
+            notify_mentions(forum["id"], id, body, sender_id, sender_name)
 
         # Schedule AI tagging
         if forum.get("ai_mode", ""):

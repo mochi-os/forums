@@ -127,7 +127,7 @@ export function InlineForumSearch({
       {!isLoading && !searchError && results.length > 0 && (
         <div className="divide-border divide-y rounded-lg border">
           {results
-            .filter((forum) => !subscribedIds.has(forum.id) && !subscribedIds.has(forum.fingerprint))
+            .filter((forum) => !forum.subscribed && !subscribedIds.has(forum.id) && !subscribedIds.has(forum.fingerprint))
             .map((forum) => {
               const isPending = pendingForumId === forum.id
 
