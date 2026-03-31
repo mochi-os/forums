@@ -1213,6 +1213,7 @@ def action_post_create(a):
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
+                broadcast_websocket(forum["id"], {"type": "post/create", "forum": forum["id"], "post": id, "sender": user_id})
                 notify_mentions(forum["id"], id, body, user_id, user_name)
 
                 # Schedule AI tagging
@@ -1943,7 +1944,8 @@ def action_post_edit(a):
             # Owner processes locally - full edit with attachments
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            if not is_author and not is_manager:
+            can_comment = check_access(a, forum["id"], "comment")
+            if not is_manager and (not is_author or not can_comment):
                 a.error(403, "Not allowed to edit this post")
                 return
 
@@ -1996,6 +1998,7 @@ def action_post_edit(a):
             }
             post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
+            broadcast_websocket(forum["id"], {"type": "post/edit", "forum": forum["id"], "post": post_id, "sender": user_id})
 
             # Re-tag with AI if enabled
             if forum.get("ai_mode", ""):
@@ -2145,6 +2148,7 @@ def action_post_delete(a):
 
             # Broadcast delete to members
             broadcast_event(forum["id"], "post/delete", {"id": post_id}, user_id)
+            broadcast_websocket(forum["id"], {"type": "post/delete", "forum": forum["id"], "post": post_id, "sender": user_id})
         else:
             # Subscriber - must be author or have manage access to delete
             is_author = user_id == post["member"]
@@ -2313,6 +2317,7 @@ def action_comment_create(a):
                     comment_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
+                broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": post_id, "comment": id, "sender": user_id})
                 notify_mentions(forum["id"], post_id, body, user_id, user_name)
         else:
             # We're a subscriber - check access with owner first
@@ -2404,7 +2409,8 @@ def action_comment_edit(a):
             # Owner processes locally
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            if not is_author and not is_manager:
+            can_comment = check_access(a, forum["id"], "comment")
+            if not is_manager and (not is_author or not can_comment):
                 a.error(403, "Not allowed to edit this comment")
                 return
 
@@ -2426,6 +2432,7 @@ def action_comment_edit(a):
                 "edited": now
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
+            broadcast_websocket(forum["id"], {"type": "comment/edit", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user_id})
         else:
             # Subscriber - must be author or have manage access to edit
             is_author = user_id == comment["member"]
@@ -2495,7 +2502,8 @@ def action_comment_delete(a):
             # Owner processes locally
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            if not is_author and not is_manager:
+            can_comment = check_access(a, forum["id"], "comment")
+            if not is_manager and (not is_author or not can_comment):
                 a.error(403, "Not allowed to delete this comment")
                 return
 
@@ -2520,6 +2528,7 @@ def action_comment_delete(a):
 
             broadcast_event(forum["id"], "comment/delete",
                 {"ids": comment_ids, "post": comment["post"]}, user_id)
+            broadcast_websocket(forum["id"], {"type": "comment/delete", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user_id})
         else:
             # Subscriber - must be author or have manage access to delete
             is_author = user_id == comment["member"]
@@ -2608,6 +2617,7 @@ def action_post_remove(a):
             "remover": user,
             "reason": reason
         })
+        broadcast_websocket(forum["id"], {"type": "post/remove", "forum": forum["id"], "post": post_id, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/remove/submit"},
@@ -2656,7 +2666,8 @@ def action_post_restore(a):
 
         log_moderation(forum["id"], user, "restore", "post", post_id, post["member"], "")
 
-        broadcast_event(forum["id"], "post/restore", {"id": post_id})
+        broadcast_event(forum["id"], "post/restore", {"id": post_id}, user)
+        broadcast_websocket(forum["id"], {"type": "post/restore", "forum": forum["id"], "post": post_id, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/restore/submit"},
@@ -2757,6 +2768,7 @@ def action_post_lock(a):
         mochi.db.execute("update posts set locked=1, updated=? where id=?", now, post_id)
         log_moderation(forum["id"], user, "lock", "post", post_id, post["member"], "")
         broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": True})
+        broadcast_websocket(forum["id"], {"type": "post/lock", "forum": forum["id"], "post": post_id, "locked": True, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/lock/submit"},
@@ -2799,6 +2811,7 @@ def action_post_unlock(a):
         mochi.db.execute("update posts set locked=0, updated=? where id=?", now, post_id)
         log_moderation(forum["id"], user, "unlock", "post", post_id, post["member"], "")
         broadcast_event(forum["id"], "post/lock", {"id": post_id, "locked": False})
+        broadcast_websocket(forum["id"], {"type": "post/lock", "forum": forum["id"], "post": post_id, "locked": False, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/unlock/submit"},
@@ -2840,6 +2853,7 @@ def action_post_pin(a):
         mochi.db.execute("update posts set pinned=1 where id=?", post_id)
         log_moderation(forum["id"], user, "pin", "post", post_id, post["member"], "")
         broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": True})
+        broadcast_websocket(forum["id"], {"type": "post/pin", "forum": forum["id"], "post": post_id, "pinned": True, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/pin/submit"},
@@ -2881,6 +2895,7 @@ def action_post_unpin(a):
         mochi.db.execute("update posts set pinned=0 where id=?", post_id)
         log_moderation(forum["id"], user, "unpin", "post", post_id, post["member"], "")
         broadcast_event(forum["id"], "post/pin", {"id": post_id, "pinned": False})
+        broadcast_websocket(forum["id"], {"type": "post/pin", "forum": forum["id"], "post": post_id, "pinned": False, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/unpin/submit"},
@@ -2924,7 +2939,7 @@ def action_comment_remove(a):
         mochi.db.execute(
             "update comments set status='removed', remover=?, reason=? where id=?",
             user, reason, comment_id)
-        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+        mochi.db.execute("update posts set updated=?, comments=comments-1 where id=?", now, comment["post"])
 
         log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
         notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
@@ -2935,6 +2950,7 @@ def action_comment_remove(a):
             "remover": user,
             "reason": reason
         })
+        broadcast_websocket(forum["id"], {"type": "comment/remove", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "comment/remove/submit"},
@@ -2979,11 +2995,12 @@ def action_comment_restore(a):
         mochi.db.execute(
             "update comments set status='approved', remover=null, reason='' where id=?",
             comment_id)
-        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, comment["post"])
 
         log_moderation(forum["id"], user, "restore", "comment", comment_id, comment["member"], "")
 
-        broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]})
+        broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]}, user)
+        broadcast_websocket(forum["id"], {"type": "comment/restore", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "comment/restore/submit"},
@@ -3042,6 +3059,7 @@ def action_comment_approve(a):
             "created": comment["created"]
         }
         broadcast_event(forum["id"], "comment/create", comment_data)
+        broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": comment["member"]})
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "comment/approve/submit"},

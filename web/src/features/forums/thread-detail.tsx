@@ -17,6 +17,7 @@ import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import {
   usePostDetail,
   useVotePost,
@@ -103,6 +104,9 @@ export function ThreadDetail({
   }, [postId, postData?.data?.post?.title, setPost])
 
   usePageTitle(postData?.data?.post?.title ?? 'Thread')
+
+  // Real-time updates via WebSocket
+  useForumWebsocket(postData?.data?.forum?.fingerprint, postData?.data?.member?.id)
 
   const forumTitle = postData?.data?.forum?.name || 'Forum'
   const goBackToForumContext = () => {

@@ -347,7 +347,7 @@ const forumsApi = {
     }>(endpoints.forums.membersSearch(forumId), formData, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
-    return result.data.members
+    return result.data?.members ?? []
   },
 
   checkSubscription: async (): Promise<{ data: { exists: boolean; types: string[] } }> => {

@@ -26,6 +26,7 @@ import {
   selectForums,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
+import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumOverview } from '../components/forum-overview'
 import forumsApi from '@/api/forums'
@@ -81,6 +82,7 @@ export function EntityForumPage({
   const {
     posts: infinitePosts,
     forum: forumData,
+    member: forumMember,
     isLoading: isLoadingForum,
     hasNextPage,
     isFetchingNextPage,
@@ -90,6 +92,9 @@ export function EntityForumPage({
     error: postsError,
     refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
+
+  // Real-time updates via WebSocket
+  useForumWebsocket(forum.fingerprint, forumMember?.id)
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')

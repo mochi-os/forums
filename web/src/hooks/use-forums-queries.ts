@@ -125,7 +125,7 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
     mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
       forumsApi.subscribeForum(forumId, server),
     onSuccess: (data, { forumId }) => {
-      if (data.data.already_subscribed) {
+      if (data.data?.already_subscribed) {
         toast.info('You are already subscribed to this forum')
       } else {
         toast.success('Subscribed to forum')
