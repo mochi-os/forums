@@ -53,7 +53,7 @@ export function RecommendedForums({
     setPendingId(forum.id)
     try {
       await forumsApi.subscribeForum(forum.id)
-      void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onSubscribe?.()
       toast.success(`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))

@@ -78,7 +78,7 @@ export function InlineForumSearch({
     setPendingForumId(forum.id)
     try {
       await forumsApi.subscribeForum(forum.id, forum.location || undefined)
-      void queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {

@@ -125,11 +125,11 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
     mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
       forumsApi.subscribeForum(forumId, server),
     onSuccess: (data, { forumId }) => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       if (data.data?.already_subscribed) {
         toast.info('You are already subscribed to this forum')
       } else {
         toast.success('Subscribed to forum')
-        queryClient.invalidateQueries({ queryKey: forumsKeys.all })
         onSubscribed?.(forumId)
       }
     },
