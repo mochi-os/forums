@@ -2015,8 +2015,7 @@ def action_post_edit(a):
             # Owner processes locally - full edit with attachments
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            can_comment = check_access(a, forum["id"], "comment")
-            if not is_manager and (not is_author or not can_comment):
+            if not is_author and not is_manager:
                 a.error(403, "Not allowed to edit this post")
                 return
 
@@ -2481,8 +2480,7 @@ def action_comment_edit(a):
             # Owner processes locally
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            can_comment = check_access(a, forum["id"], "comment")
-            if not is_manager and (not is_author or not can_comment):
+            if not is_author and not is_manager:
                 a.error(403, "Not allowed to edit this comment")
                 return
 
@@ -2574,8 +2572,7 @@ def action_comment_delete(a):
             # Owner processes locally
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
-            can_comment = check_access(a, forum["id"], "comment")
-            if not is_manager and (not is_author or not can_comment):
+            if not is_author and not is_manager:
                 a.error(403, "Not allowed to delete this comment")
                 return
 
