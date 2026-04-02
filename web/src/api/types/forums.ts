@@ -20,6 +20,8 @@ export interface Forum {
   server?: string // Server URL for remote forums (when accessing as delegated moderator)
   ai_mode?: string
   ai_account?: number
+  banner?: string
+  banner_html?: string
 }
 
 // Helper to safely get member count

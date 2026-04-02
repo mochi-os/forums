@@ -39,6 +39,7 @@ import {
   useReportPost,
   useReportComment,
 } from '@/hooks/use-forums-queries'
+import { ForumBanner } from './components/forum-banner'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { ReportDialog } from './components/report-dialog'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
@@ -345,6 +346,9 @@ export function ThreadDetail({
         back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
       />
       <Main className="space-y-4">
+        {forumData?.banner_html && (
+          <ForumBanner bannerHtml={forumData.banner_html} forumId={forum} />
+        )}
         {/* Single post */}
         <Card className="shadow-md">
           <CardContent className="p-6">

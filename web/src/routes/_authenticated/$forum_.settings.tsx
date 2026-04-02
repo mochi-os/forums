@@ -31,6 +31,7 @@ import {
   useAccounts,
   getAppPath,
   GeneralError,
+  Textarea,
   Select,
   SelectContent,
   SelectItem,
@@ -460,6 +461,10 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
+        <BannerSection forumId={forum.id} />
+      )}
+
+      {forum.can_manage && (
         <AiSettingsSection forumId={forum.id} aiMode={forum.ai_mode} aiAccount={forum.ai_account} onSave={onRefresh} />
       )}
 
@@ -518,6 +523,73 @@ function GeneralTab({
         </AlertDialogContent>
       </AlertDialog>
     </div>
+  )
+}
+
+function BannerSection({ forumId }: { forumId: string }) {
+  const [banner, setBannerText] = useState('')
+  const [loaded, setLoaded] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [dirty, setDirty] = useState(false)
+  const savedRef = useRef('')
+
+  useEffect(() => {
+    forumsApi.getBanner(forumId).then((res) => {
+      const text = res.data?.banner ?? ''
+      setBannerText(text)
+      savedRef.current = text
+      setLoaded(true)
+    }).catch(() => setLoaded(true))
+  }, [forumId])
+
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      await forumsApi.setBanner(forumId, banner)
+      savedRef.current = banner
+      setDirty(false)
+      toast.success(banner ? 'Banner updated' : 'Banner removed')
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to update banner'))
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  if (!loaded) return null
+
+  return (
+    <Section title="Banner" description="Optional markdown banner shown at the top of your forum.">
+      <div className="space-y-3 max-w-lg">
+        <Textarea
+          value={banner}
+          onChange={(e) => { setBannerText(e.target.value); setDirty(e.target.value !== savedRef.current) }}
+          placeholder="Enter banner text (markdown supported)..."
+          rows={3}
+          className="font-mono text-sm"
+        />
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            onClick={() => void handleSave()}
+            disabled={saving || !dirty}
+          >
+            {saving && <Loader2 className="mr-2 size-4 animate-spin" />}
+            Save
+          </Button>
+          {banner && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => { setBannerText(''); setDirty('' !== savedRef.current) }}
+              disabled={saving}
+            >
+              Clear
+            </Button>
+          )}
+        </div>
+      </div>
+    </Section>
   )
 }
 

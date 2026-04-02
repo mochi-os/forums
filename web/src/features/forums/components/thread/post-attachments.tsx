@@ -10,6 +10,7 @@ import {
   isImage,
   isVideo,
   authenticatedUrl,
+  normalizeEntityUrl,
 } from '@mochi/web'
 import { Loader2, Play } from 'lucide-react'
 import type { Attachment } from '@/api/types/posts'
@@ -76,12 +77,12 @@ export function PostAttachments({
 
   // Attachment URL - prefer API-provided URL, fall back to constructed URL
   const getAttachmentUrl = (att: Attachment) => {
-    return authenticatedUrl(att.url ?? `${appPath}/${forumId}/-/attachments/${att.id}${serverParam}`)
+    return authenticatedUrl(normalizeEntityUrl(att.url ?? `${appPath}/${forumId}/-/attachments/${att.id}${serverParam}`))
   }
 
   // Thumbnail URL - prefer API-provided URL, fall back to constructed URL
   const getThumbnailUrl = (att: Attachment) => {
-    return authenticatedUrl(att.thumbnail_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/thumbnail${serverParam}`)
+    return authenticatedUrl(normalizeEntityUrl(att.thumbnail_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/thumbnail${serverParam}`))
   }
 
   // Separate media (images + videos) from other files
