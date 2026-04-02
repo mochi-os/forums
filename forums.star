@@ -120,6 +120,8 @@ def database_upgrade(to_version):
         cols = [r["name"] for r in mochi.db.table("forums")]
         if "banner" not in cols:
             mochi.db.execute("alter table forums add column banner text not null default ''")
+    if to_version == 27:
+        mochi.db.execute("delete from members where forum not in (select id from forums)")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -725,61 +727,10 @@ def action_forum_tags(a):
     tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) group by label order by count desc", forum["id"]) or []
     return {"data": {"tags": tags}}
 
-# Best-effort repair for subscriptions that still have a member row but lost the forum record.
-def repair_subscribed_forum(a, forum_id, server):
-    if not mochi.valid(forum_id, "entity"):
-        return None
-
-    forum = get_forum(forum_id)
-    if forum:
-        return forum
-
-    forum_name = ""
-    schema = None
-    resolved_server = server or ""
-
-    if resolved_server:
-        peer = mochi.remote.peer(resolved_server)
-        if not peer:
-            return None
-        response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
-        if response.get("error"):
-            return None
-        forum_name = response.get("name", "")
-        schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
-    else:
-        directory = mochi.directory.get(forum_id)
-        if not directory:
-            return None
-        forum_name = directory.get("name", "")
-        resolved_server = directory.get("location", "")
-        if resolved_server:
-            peer = mochi.remote.peer(resolved_server)
-            if peer:
-                schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
-
-    now = mochi.time.now()
-    fp = mochi.entity.fingerprint(forum_id) or ""
-    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint ) values ( ?, ?, ?, ?, ?, ? )""",
-        forum_id, forum_name or fp or forum_id, 0, now, resolved_server, fp)
-
-    if schema and not schema.get("error"):
-        insert_forum_schema(forum_id, schema)
-
-    return get_forum(forum_id)
-
 # ACTIONS
 
 # Info endpoint for class context - returns list of forums
 def action_info_class(a):
-    if a.user and a.user.identity:
-        orphan_memberships = mochi.db.rows(
-            "select m.forum from members m left join forums f on f.id = m.forum where m.id=? and f.id is null",
-            a.user.identity.id
-        ) or []
-        for membership in orphan_memberships:
-            repair_subscribed_forum(a, membership["forum"], "")
-
     forums = mochi.db.rows("select * from forums order by updated desc")
 
     # Add fingerprints and permissions for owned forums (no P2P calls)
@@ -1710,13 +1661,9 @@ def action_subscribe(a):
 
     # Check if already subscribed
     if mochi.db.exists("select id from members where forum=? and id=?", forum_id, a.user.identity.id):
-        # Also verify the forum record exists; a missing forum record (data inconsistency)
-        # means the subscription is broken — remove the stale member entry and re-subscribe.
-        forum = get_forum(forum_id) or repair_subscribed_forum(a, forum_id, server)
-        data = {"already_subscribed": True}
-        if forum:
-            data["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(forum["id"])
-        return {"data": data}
+        return {
+            "data": {"already_subscribed": True}
+        }
 
     # Get forum info from remote server or directory
     schema = None
