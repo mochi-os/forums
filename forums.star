@@ -42,7 +42,8 @@ def database_create():
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
         limit_window integer not null default 3600, fingerprint text not null default '',
-        ai_mode text not null default '', ai_account integer not null default 0 )""")
+        ai_mode text not null default '', ai_account integer not null default 0,
+        banner text not null default '' )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -115,7 +116,10 @@ def database_create():
 
 # Upgrade database schema
 def database_upgrade(to_version):
-    pass
+    if to_version == 26:
+        cols = [r["name"] for r in mochi.db.table("forums")]
+        if "banner" not in cols:
+            mochi.db.execute("alter table forums add column banner text not null default ''")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -826,6 +830,11 @@ def action_info_entity(a):
         "manage": can_manage,
     }
 
+    # Render banner markdown to HTML
+    banner = forum.get("banner", "")
+    if banner:
+        forum["banner_html"] = mochi.markdown.render(banner)
+
     fp = mochi.entity.fingerprint(forum["id"], True)
 
     return {"data": {
@@ -888,6 +897,8 @@ def action_view(a):
                         "updated": 0,
                         "can_manage": False,
                         "can_post": response.get("can_post", False),
+                        "banner": response.get("banner", ""),
+                        "banner_html": response.get("banner_html", ""),
                     },
                     "posts": response.get("posts", []),
                     "member": None,
@@ -906,6 +917,10 @@ def action_view(a):
 
         is_owner = forum.get("owner") == 1
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
+        # Render banner markdown to HTML
+        banner = forum.get("banner", "")
+        if banner:
+            forum["banner_html"] = mochi.markdown.render(banner)
 
         # Get member info if user is logged in
         member = None
@@ -1861,6 +1876,42 @@ def action_rename(a):
 
     return {"data": {"success": True}}
 
+# Get banner text (owner only, for settings editor)
+def action_banner_get(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not forum owner")
+        return
+    return {"data": {"banner": forum.get("banner", "")}}
+
+# Set banner text (owner only)
+def action_banner_set(a):
+    if not a.user:
+        a.error(401, "Not logged in")
+        return
+    forum_id = a.input("forum")
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    if forum.get("owner") != 1:
+        a.error(403, "Not forum owner")
+        return
+    banner = a.input("banner", "")
+    if len(banner) > 10000:
+        a.error(400, "Banner too long")
+        return
+    mochi.db.execute("update forums set banner=? where id=?", banner, forum["id"])
+    broadcast_event(forum["id"], "update", {"banner": banner})
+    return {"data": {"success": True}}
+
 # View a post with comments
 def action_post_view(a):
     post_id = a.input("post")
@@ -1970,6 +2021,11 @@ def action_post_view(a):
     post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or [], get_interest_map())
 
     comments = get_comments("", 0)
+
+    # Render banner markdown to HTML
+    banner = forum.get("banner", "")
+    if banner:
+        forum["banner_html"] = mochi.markdown.render(banner)
 
     return {
         "data": {
@@ -5201,6 +5257,12 @@ def event_update_event(e):
         mochi.db.execute("update forums set name=?, updated=? where id=?", name, mochi.time.now(), forum_id)
         return
 
+    # Handle banner update
+    banner = e.content("banner")
+    if banner != None:
+        mochi.db.execute("update forums set banner=?, updated=? where id=?", banner, mochi.time.now(), forum_id)
+        return
+
     # Handle member count update
     members = e.content("members")
     if type(members) != "int" or members < 0:
@@ -5878,9 +5940,15 @@ def event_view(e):
         post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post["id"]) or []
         formatted_posts.append(post_data)
 
+    # Get banner for remote viewers
+    banner = forum.get("banner", "")
+    banner_html = mochi.markdown.render(banner) if banner else ""
+
     e.stream.write({
         "name": forum_name,
         "fingerprint": forum_fingerprint,
+        "banner": banner,
+        "banner_html": banner_html,
         "posts": formatted_posts,
         "can_post": can_post,
         "can_moderate": can_moderate,

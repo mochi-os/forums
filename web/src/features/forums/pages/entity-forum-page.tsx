@@ -28,6 +28,7 @@ import {
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import { OptionsMenu } from '@/components/options-menu'
+import { ForumBanner } from '../components/forum-banner'
 import { ForumOverview } from '../components/forum-overview'
 import forumsApi from '@/api/forums'
 
@@ -253,6 +254,9 @@ export function EntityForumPage({
       />
       <Main fixed>
         <div className="flex-1 overflow-y-auto">
+          {forum.banner_html && (
+            <ForumBanner bannerHtml={forum.banner_html} forumId={forum.id} />
+          )}
           {activeTag && (
             <div className='flex items-center gap-2 mb-4'>
               <span className='text-muted-foreground text-sm'>Filtered by tag:</span>

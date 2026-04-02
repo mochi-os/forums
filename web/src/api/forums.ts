@@ -323,6 +323,17 @@ const forumsApi = {
       { forum: forumId, name }
     ),
 
+  getBanner: (forumId: string) =>
+    client.get<{ data: { banner: string } }>(
+      endpoints.forums.bannerGet(forumId)
+    ),
+
+  setBanner: (forumId: string, banner: string) =>
+    client.post<{ data: { success: boolean } }>(
+      endpoints.forums.bannerSet(forumId),
+      { forum: forumId, banner }
+    ),
+
   // Search
   searchUsers: async (query: string) => {
     const formData = new URLSearchParams()
