@@ -36,27 +36,14 @@ export function PostCard({
 
   const content = (
     <div className='relative space-y-3 p-4'>
-      {/* Metadata - top right, always visible on mobile, hover-reveal on desktop */}
-      <div className='absolute right-4 top-4 transition-opacity opacity-100 md:opacity-0 md:group-hover/card:opacity-100'>
-        <span className='text-muted-foreground text-xs'>
-          {showForumBadge ? (
-            <>
-              {forumName}
-              <span> · </span>
-            </>
-          ) : null}
-          {post.name}
-          <span> · </span>
-          {timestamp}
-        </span>
-      </div>
-
-      {/* Title row with badges */}
-      <div className='flex items-start justify-between gap-4'>
-        <h3 className='pr-32 text-base leading-tight font-semibold'>
-          {post.title}
-        </h3>
-        <div className='flex items-center gap-2'>
+      {/* Title bar */}
+      <div className='-mx-4 -mt-4 mb-3 flex items-center rounded-t-[10px] bg-selected px-4 py-1.5'>
+        <div className='min-w-0 flex-1'>
+          <h3 className='text-lg leading-tight font-semibold'>
+            {post.title}
+          </h3>
+        </div>
+        <div className='ml-2 flex shrink-0 items-center gap-2'>
           {post.status === 'pending' && (
             <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
               <Clock className='size-3' />
@@ -79,6 +66,17 @@ export function PostCard({
               <Pin className='size-3' />
             </span>
           )}
+          <span className='text-muted-foreground text-xs opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'>
+            {showForumBadge ? (
+              <>
+                {forumName}
+                <span> · </span>
+              </>
+            ) : null}
+            {post.name}
+            <span> · </span>
+            {timestamp}
+          </span>
         </div>
       </div>
 
@@ -156,7 +154,7 @@ export function PostCard({
     return (
       <div
         className={cn(
-          'group/card hover:bg-accent/50 cursor-pointer transition-colors'
+          'group/card hover:bg-accent/50 cursor-pointer overflow-hidden transition-colors'
         )}
         onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
       >
@@ -167,7 +165,7 @@ export function PostCard({
 
   return (
     <Card
-      className='group/card hover:border-primary/30 cursor-pointer py-0 transition-all hover:shadow-md'
+      className='group/card hover:border-primary/30 cursor-pointer overflow-hidden py-0 transition-all hover:shadow-md'
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <CardContent className='p-0'>{content}</CardContent>
