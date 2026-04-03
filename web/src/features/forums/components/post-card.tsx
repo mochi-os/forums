@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, cn, formatTimestamp } from '@mochi/web'
+import { Card, CardContent, PostTitleBar, cn, formatTimestamp } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
@@ -36,37 +36,36 @@ export function PostCard({
 
   const content = (
     <div className='relative space-y-3 p-4'>
-      {/* Title bar */}
-      <div className='-mx-4 -mt-4 mb-3 flex items-center rounded-t-[10px] bg-selected px-4 py-1.5'>
-        <div className='min-w-0 flex-1'>
-          <h3 className='text-lg leading-tight font-semibold'>
-            {post.title}
-          </h3>
-        </div>
-        <div className='ml-2 flex shrink-0 items-center gap-2'>
-          {post.status === 'pending' && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
-              <Clock className='size-3' />
-              Pending
-            </span>
-          )}
-          {post.status === 'removed' && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
-              <EyeOff className='size-3' />
-              Removed
-            </span>
-          )}
-          {!!post.locked && (
-            <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
-              <Lock className='size-3' />
-            </span>
-          )}
-          {!!post.pinned && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
-              <Pin className='size-3' />
-            </span>
-          )}
-          <span className='text-muted-foreground text-xs opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'>
+      <PostTitleBar
+        title={<h3>{post.title}</h3>}
+        trailing={
+          <>
+            {post.status === 'pending' && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
+                <Clock className='size-3' />
+                Pending
+              </span>
+            )}
+            {post.status === 'removed' && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+                <EyeOff className='size-3' />
+                Removed
+              </span>
+            )}
+            {!!post.locked && (
+              <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
+                <Lock className='size-3' />
+              </span>
+            )}
+            {!!post.pinned && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+                <Pin className='size-3' />
+              </span>
+            )}
+          </>
+        }
+        meta={
+          <>
             {showForumBadge ? (
               <>
                 {forumName}
@@ -76,9 +75,9 @@ export function PostCard({
             {post.name}
             <span> · </span>
             {timestamp}
-          </span>
-        </div>
-      </div>
+          </>
+        }
+      />
 
       {/* Body */}
       {post.body_markdown ? (
@@ -99,7 +98,7 @@ export function PostCard({
 
       {/* Action buttons row - interactive */}
       {((post.tags && post.tags.length > 0) || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
-        <div className='text-muted-foreground flex items-center gap-3 text-xs'>
+        <div className='text-muted-foreground flex items-center gap-4 md:gap-3 text-xs'>
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
             <PostTagsTooltip tags={post.tags} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} onInterestRemove={onInterestRemove} />
