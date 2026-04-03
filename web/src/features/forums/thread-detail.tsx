@@ -351,7 +351,7 @@ export function ThreadDetail({
         )}
         {/* Single post */}
         <Card className="shadow-md">
-          <CardContent className="p-6">
+          <CardContent className="p-4">
             <div className='space-y-4'>
               <ThreadContent
                 post={{ ...post, tags: localTags ?? post.tags }}
@@ -409,121 +409,121 @@ export function ThreadDetail({
                       autoFocus
                       disabled={createCommentMutation.isPending}
                     />
-                  {commentFiles.length > 0 && (
-                    <div className='flex flex-wrap gap-2'>
-                      {commentFiles.map((file, i) => (
-                        <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
-                          {file.type.startsWith('image/') && (
-                            <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} className='h-8 w-8 rounded object-cover' />
-                          )}
-                          <Paperclip className='text-muted-foreground size-3 shrink-0' />
-                          <span className='max-w-40 truncate'>{file.name}</span>
-                          <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
-                            <X className='size-3.5' />
-                          </button>
-                        </div>
-                      ))}
+                    {commentFiles.length > 0 && (
+                      <div className='flex flex-wrap gap-2'>
+                        {commentFiles.map((file, i) => (
+                          <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
+                            {file.type.startsWith('image/') && (
+                              <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} className='h-8 w-8 rounded object-cover' />
+                            )}
+                            <Paperclip className='text-muted-foreground size-3 shrink-0' />
+                            <span className='max-w-40 truncate'>{file.name}</span>
+                            <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
+                              <X className='size-3.5' />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div className='flex items-center justify-end gap-2'>
+                      <input
+                        ref={commentFileRef}
+                        type='file'
+                        multiple
+                        onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
+                        className='hidden'
+                      />
+                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label='Attach reply files'>
+                        <Paperclip className='size-4' />
+                      </Button>
+                      <Button
+                        type='button'
+                        size='icon'
+                        variant='ghost'
+                        className='size-8'
+                        onClick={() => setShowReplyForm(false)}
+                        aria-label='Cancel reply'
+                        disabled={createCommentMutation.isPending}
+                      >
+                        <X className='size-4' />
+                      </Button>
+                      <Button
+                        size='icon'
+                        className='size-8'
+                        disabled={
+                          !commentBody.trim() || createCommentMutation.isPending
+                        }
+                        onClick={handleCommentSubmit}
+                        aria-label='Submit reply'
+                      >
+                        <Send className='size-4' />
+                      </Button>
                     </div>
-                  )}
-                  <div className='flex items-center justify-end gap-2'>
-                    <input
-                      ref={commentFileRef}
-                      type='file'
-                      multiple
-                      onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
-                      className='hidden'
-                    />
-                    <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label='Attach reply files'>
-                      <Paperclip className='size-4' />
-                    </Button>
-                    <Button
-                      type='button'
-                      size='icon'
-                      variant='ghost'
-                      className='size-8'
-                      onClick={() => setShowReplyForm(false)}
-                      aria-label='Cancel reply'
-                      disabled={createCommentMutation.isPending}
-                    >
-                      <X className='size-4' />
-                    </Button>
-                    <Button
-                      size='icon'
-                      className='size-8'
-                      disabled={
-                        !commentBody.trim() || createCommentMutation.isPending
-                      }
-                      onClick={handleCommentSubmit}
-                      aria-label='Submit reply'
-                    >
-                      <Send className='size-4' />
-                    </Button>
                   </div>
-                </div>
-              )}
+                )}
 
                 {/* Comments List */}
                 {commentCount > 0 ? (
                   <div className='divide-y-0'>
                     {comments.map((comment) => (
                       <ThreadComment
-                      key={comment.id}
-                      comment={comment}
-                      onSearchPeople={(q) =>
-                        forumsApi.searchMembers(forum, q)
-                      }
-                      onVote={(commentId, vote) =>
-                        voteCommentMutation.mutate({ commentId, vote })
-                      }
-                      canVote={can_vote}
-                      votePendingId={
-                        voteCommentMutation.isPending
-                          ? (voteCommentMutation.variables?.commentId ?? null)
-                          : null
-                      }
-                      canReply={can_comment}
-                      onReply={(commentId) => {
-                        setReplyingToComment(commentId)
-                        const selected = window.getSelection()?.toString().trim()
-                        if (selected) {
-                          const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
-                          setCommentReplyBody(quoted)
-                        } else {
-                          setCommentReplyBody('')
+                        key={comment.id}
+                        comment={comment}
+                        onSearchPeople={(q) =>
+                          forumsApi.searchMembers(forum, q)
                         }
-                      }}
-                      replyingToId={replyingToComment}
-                      replyValue={commentReplyBody}
-                      onReplyChange={setCommentReplyBody}
-                      onReplySubmit={handleCommentReplySubmit}
-                      onReplyCancel={() => setReplyingToComment(null)}
-                      isReplyPending={createCommentMutation.isPending}
-                      canEdit={canEditComment}
-                      onEdit={(commentId, body) =>
-                        editCommentMutation.mutate({ commentId, body })
-                      }
-                      onDelete={(commentId) =>
-                        deleteCommentMutation.mutate(commentId)
-                      }
-                      editPendingId={
-                        editCommentMutation.isPending
-                          ? (editCommentMutation.variables?.commentId ?? null)
-                          : null
-                      }
-                      canModerate={can_moderate || isForumManager}
-                      onRemove={(commentId) =>
-                        removeCommentMutation.mutate({ commentId })
-                      }
-                      onRestore={(commentId) =>
-                        restoreCommentMutation.mutate(commentId)
-                      }
-                      onApprove={(commentId) =>
-                        approveCommentMutation.mutate(commentId)
-                      }
-                      onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
-                      onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
-                      onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
-                      currentUserId={currentUserId}
+                        onVote={(commentId, vote) =>
+                          voteCommentMutation.mutate({ commentId, vote })
+                        }
+                        canVote={can_vote}
+                        votePendingId={
+                          voteCommentMutation.isPending
+                            ? (voteCommentMutation.variables?.commentId ?? null)
+                            : null
+                        }
+                        canReply={can_comment}
+                        onReply={(commentId) => {
+                          setReplyingToComment(commentId)
+                          const selected = window.getSelection()?.toString().trim()
+                          if (selected) {
+                            const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
+                            setCommentReplyBody(quoted)
+                          } else {
+                            setCommentReplyBody('')
+                          }
+                        }}
+                        replyingToId={replyingToComment}
+                        replyValue={commentReplyBody}
+                        onReplyChange={setCommentReplyBody}
+                        onReplySubmit={handleCommentReplySubmit}
+                        onReplyCancel={() => setReplyingToComment(null)}
+                        isReplyPending={createCommentMutation.isPending}
+                        canEdit={canEditComment}
+                        onEdit={(commentId, body) =>
+                          editCommentMutation.mutate({ commentId, body })
+                        }
+                        onDelete={(commentId) =>
+                          deleteCommentMutation.mutate(commentId)
+                        }
+                        editPendingId={
+                          editCommentMutation.isPending
+                            ? (editCommentMutation.variables?.commentId ?? null)
+                            : null
+                        }
+                        canModerate={can_moderate || isForumManager}
+                        onRemove={(commentId) =>
+                          removeCommentMutation.mutate({ commentId })
+                        }
+                        onRestore={(commentId) =>
+                          restoreCommentMutation.mutate(commentId)
+                        }
+                        onApprove={(commentId) =>
+                          approveCommentMutation.mutate(commentId)
+                        }
+                        onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
+                        onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
+                        onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
+                        currentUserId={currentUserId}
                       />
                     ))}
                   </div>
@@ -561,13 +561,13 @@ export function ThreadDetail({
           open={!!reportingCommentId}
           onOpenChange={(open) => !open && setReportingCommentId(null)}
           onSubmit={(reason, details) => {
-          if (reportingCommentId) {
-            reportCommentMutation.mutate(
-              { commentId: reportingCommentId, reason, details },
-              { onSuccess: () => setReportingCommentId(null) }
-            )
-          }
-        }}
+            if (reportingCommentId) {
+              reportCommentMutation.mutate(
+                { commentId: reportingCommentId, reason, details },
+                { onSuccess: () => setReportingCommentId(null) }
+              )
+            }
+          }}
           isPending={reportCommentMutation.isPending}
           contentType='comment'
         />

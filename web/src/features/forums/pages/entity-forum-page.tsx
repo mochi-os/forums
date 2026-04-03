@@ -245,11 +245,13 @@ export function EntityForumPage({
                 )}
               </Button>
             )}
-            <OptionsMenu
-              entityId={forum.fingerprint}
-              settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
-            />
           </>
+        }
+        menuAction={
+          <OptionsMenu
+            entityId={forum.fingerprint}
+            settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
+          />
         }
       />
       <Main fixed>

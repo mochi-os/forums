@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, highlightMentions, renderMentions } from '@mochi/web'
+import { ConfirmDialog, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, highlightMentions, renderMentions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -121,54 +121,49 @@ export function ThreadContent({
   const isRemoved = post.status === 'removed'
   const isLocked = !!post.locked
   const isPinned = !!post.pinned
+  const timestamp = formatTimestamp(post.created)
 
   return (
     <div className='group/post space-y-4'>
-      {/* Status badges */}
-      {(isPending || isRemoved || isLocked || isPinned) && (
-        <div className='flex flex-wrap gap-2'>
-          {isPending && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
-              <Clock className='size-3' />
-              Pending approval
-            </span>
-          )}
-          {isRemoved && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
-              <EyeOff className='size-3' />
-              Removed
-            </span>
-          )}
-          {isLocked && (
-            <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
-              <Lock className='size-3' />
-              Locked
-            </span>
-          )}
-          {isPinned && (
-            <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
-              <Pin className='size-3' />
-              Pinned
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Header: Title and author/timestamp */}
-      <div className='relative'>
-        {/* Metadata - top right, visible on hover */}
-        <span className='text-muted-foreground absolute right-0 top-0 text-xs whitespace-nowrap opacity-0 transition-opacity group-hover/post:opacity-100'>
-          {showForumBadge && forumName && <>{forumName} · </>}
-          {post.name} · {formatTimestamp(post.created)}
-          {post.edited ? ' (edited)' : ''}
-        </span>
-        <h1 className={cn(
-          'text-foreground pr-36 text-xl leading-tight font-semibold',
-          isRemoved && 'opacity-60'
-        )}>
-          {post.title}
-        </h1>
-      </div>
+      <PostTitleBar
+        title={<h1>{post.title}</h1>}
+        titleClassName={cn(isRemoved && 'opacity-60')}
+        trailing={
+          <>
+            {isPending && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
+                <Clock className='size-3' />
+                Pending approval
+              </span>
+            )}
+            {isRemoved && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+                <EyeOff className='size-3' />
+                Removed
+              </span>
+            )}
+            {isLocked && (
+              <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
+                <Lock className='size-3' />
+                Locked
+              </span>
+            )}
+            {isPinned && (
+              <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+                <Pin className='size-3' />
+                Pinned
+              </span>
+            )}
+          </>
+        }
+        meta={
+          <>
+            {showForumBadge && forumName && <>{forumName} · </>}
+            {post.name} · {timestamp}
+            {post.edited ? ' (edited)' : ''}
+          </>
+        }
+      />
 
       {/* Post Body */}
       {post.body_markdown ? (
