@@ -168,7 +168,7 @@ export function ThreadContent({
       {/* Post Body */}
       {post.body_markdown ? (
         <div
-          className='prose prose-sm dark:prose-invert max-w-none'
+          className='prose prose-sm dark:prose-invert max-w-none text-foreground'
           dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(sanitizeHtml(post.body_markdown))) }}
         />
       ) : (
