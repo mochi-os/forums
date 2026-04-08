@@ -54,7 +54,7 @@ function FindForumsPage() {
       entityClass="forum"
       searchEndpoint={endpoints.forums.search}
       icon={Hash}
-      iconClassName="bg-blue-500/10 text-blue-600"
+      iconClassName="bg-primary/10 text-primary"
       title="Find forums"
       placeholder="Search by name, ID, fingerprint, or URL..."
       emptyMessage="No forums found"

@@ -131,8 +131,8 @@ export function RecommendedForums({
                 className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/50"
               >
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-blue-500/10">
-                    <Hash className="h-4 w-4 text-blue-600" />
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10">
+                    <Hash className="h-4 w-4 text-primary" />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col">
                     <span className="truncate text-sm font-medium">{forum.name}</span>

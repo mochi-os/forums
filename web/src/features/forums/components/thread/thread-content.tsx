@@ -149,7 +149,7 @@ export function ThreadContent({
               </span>
             )}
             {isPinned && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+              <span className='inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary dark:bg-primary/20 dark:text-primary'>
                 <Pin className='size-3' />
                 Pinned
               </span>
