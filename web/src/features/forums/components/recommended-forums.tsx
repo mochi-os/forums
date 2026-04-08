@@ -52,7 +52,7 @@ export function RecommendedForums({
   const handleSubscribe = async (forum: RecommendedForum) => {
     setPendingId(forum.id)
     try {
-      await forumsApi.subscribeForum(forum.id)
+      await forumsApi.subscribeForum(forum.id, forum.server || undefined)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onSubscribe?.()
       toast.success(`Subscribed to ${forum.name}`)

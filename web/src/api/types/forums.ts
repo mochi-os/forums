@@ -153,6 +153,7 @@ export interface RecommendedForum {
   name: string
   blurb: string
   fingerprint: string
+  server: string
 }
 
 export interface RecommendationsResponse {
