@@ -77,6 +77,7 @@ export function PostCard({
             {timestamp}
           </>
         }
+        metaClassName='opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'
       />
 
       {/* Body */}
@@ -164,7 +165,7 @@ export function PostCard({
 
   return (
     <Card
-      className='group/card hover:border-primary/30 cursor-pointer overflow-hidden py-0 transition-all hover:shadow-md'
+      className='group/card hover:border-primary/30 cursor-pointer overflow-hidden gap-0 py-0 md:py-0 transition-all hover:shadow-md'
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <CardContent className='p-0'>{content}</CardContent>

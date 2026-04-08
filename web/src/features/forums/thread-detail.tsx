@@ -350,7 +350,7 @@ export function ThreadDetail({
           <ForumBanner bannerHtml={forumData.banner_html} forumId={forum} />
         )}
         {/* Single post */}
-        <Card className="shadow-md">
+        <Card className="gap-0 py-0 md:py-0 shadow-md">
           <CardContent className="p-4">
             <div className='space-y-4'>
               <ThreadContent
