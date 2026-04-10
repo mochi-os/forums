@@ -4,7 +4,7 @@ import {
   useVideoThumbnailCached,
   useLightboxHash,
   formatVideoDuration,
-  formatFileSize,
+  useFormat,
   getFileIcon,
   getAppPath,
   isImage,
@@ -72,6 +72,7 @@ export function PostAttachments({
   forumId,
   server,
 }: PostAttachmentsProps) {
+  const { formatFileSize } = useFormat()
   const appPath = getAppPath()
   const serverParam = server ? `?server=${encodeURIComponent(server)}` : ''
 

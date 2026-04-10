@@ -12,7 +12,6 @@ export interface Comment {
   up: number
   down: number
   created: number
-  created_local: string
   children: Comment[]
   can_vote: boolean
   can_comment: boolean

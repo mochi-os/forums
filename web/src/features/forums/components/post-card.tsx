@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, PostTitleBar, cn, formatTimestamp } from '@mochi/web'
+import { Card, CardContent, PostTitleBar, cn, useFormat } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
@@ -32,6 +32,7 @@ export function PostCard({
   onInterestRemove,
   variant = 'card',
 }: PostCardProps) {
+  const { formatTimestamp } = useFormat()
   const timestamp = formatTimestamp(post.created)
 
   const content = (

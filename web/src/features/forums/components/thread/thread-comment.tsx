@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -33,7 +33,6 @@ export interface ThreadCommentType {
   up: number
   down: number
   created: number
-  created_local: string
   edited?: number
   user_vote?: 'up' | 'down' | ''
   children: ThreadCommentType[]
@@ -104,6 +103,7 @@ export function ThreadComment({
   currentUserId,
   onSearchPeople,
 }: ThreadCommentProps) {
+  const { formatTimestamp } = useFormat()
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
   const [editBody, setEditBody] = useState('')

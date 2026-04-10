@@ -14,7 +14,7 @@ import {
   EmptyState,
   Skeleton,
   GeneralError,
-  formatTimestamp,
+  useFormat,
 } from '@mochi/web'
 import {
   Loader2,
@@ -130,6 +130,7 @@ interface QueueTabProps {
 }
 
 function QueueTab({ forumId }: QueueTabProps) {
+  const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [pendingPosts, setPendingPosts] = useState<Post[]>([])
@@ -729,6 +730,7 @@ function formatReason(reason: string): string {
 }
 
 function LogTab({ forumId }: LogTabProps) {
+  const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [entries, setEntries] = useState<ModerationLogEntry[]>([])
@@ -798,12 +800,10 @@ function LogTab({ forumId }: LogTabProps) {
     <Card>
       <CardContent className='divide-y pt-4'>
         {entries.map((entry) => {
-          const date = new Date(entry.created * 1000)
-          const timestamp = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`
           return (
             <div key={entry.id} className='py-3 first:pt-0 last:pb-0'>
               <p className='text-sm'>
-                <span className='text-muted-foreground'>{timestamp}</span>{' '}
+                <span className='text-muted-foreground'>{formatTimestamp(entry.created)}</span>{' '}
                 {formatAction(entry.action)}{' '}
                 <span className='font-medium'>
                   {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
@@ -830,6 +830,7 @@ interface RestrictionsTabProps {
 }
 
 function RestrictionsTab({ forumId }: RestrictionsTabProps) {
+  const { formatDate } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [restrictions, setRestrictions] = useState<Restriction[]>([])
@@ -945,7 +946,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
               <p className='text-muted-foreground mt-1 text-xs'>
                 By {restriction.moderator_name ?? restriction.moderator}
                 {restriction.expires
-                  ? ` · Expires ${new Date(restriction.expires * 1000).toLocaleDateString()}`
+                  ? ` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
                   : ' · Permanent'}
               </p>
             </div>

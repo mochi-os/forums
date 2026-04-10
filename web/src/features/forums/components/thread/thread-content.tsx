@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, formatTimestamp, highlightMentions, renderMentions } from '@mochi/web'
+import { ConfirmDialog, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -88,6 +88,7 @@ export function ThreadContent({
   onMuteAuthor,
   onBanAuthor,
 }: ThreadContentProps) {
+  const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
 

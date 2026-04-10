@@ -53,7 +53,6 @@ export interface Post {
   created: number
   updated: number
   edited?: number
-  created_local: string
   user_vote?: 'up' | 'down' | ''
   attachments?: Attachment[]
   forumName?: string
@@ -118,7 +117,6 @@ export interface ViewPostComment {
   up: number
   down: number
   created: number
-  created_local: string
   edited?: number
   user_vote?: 'up' | 'down' | ''
   children: ViewPostComment[]
