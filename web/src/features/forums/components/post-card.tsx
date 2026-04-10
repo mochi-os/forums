@@ -37,6 +37,7 @@ export function PostCard({
   const content = (
     <div className='relative space-y-3 p-4'>
       <PostTitleBar
+        size='card'
         title={<h3>{post.title}</h3>}
         trailing={
           <>
