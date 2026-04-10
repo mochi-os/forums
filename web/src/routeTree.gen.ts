@@ -92,18 +92,18 @@ const AuthenticatedForumPostRoute = AuthenticatedForumPostRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedIndexRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/find': typeof AuthenticatedFindRoute
+  '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
   '/$forum/moderation': typeof AuthenticatedForumModerationRoute
   '/$forum/settings': typeof AuthenticatedForumSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/$forum/': typeof AuthenticatedForumIndexRoute
+  '/$forum': typeof AuthenticatedForumIndexRoute
 }
 export interface FileRoutesByTo {
   '/401': typeof errors401Route
@@ -138,18 +138,18 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/401'
     | '/403'
     | '/404'
     | '/500'
     | '/503'
     | '/find'
+    | '/'
     | '/$forum/$post'
     | '/$forum/moderation'
     | '/$forum/settings'
     | '/errors/$error'
-    | '/$forum/'
+    | '/$forum'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/401'
@@ -195,7 +195,7 @@ declare module '@tanstack/react-router' {
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -251,7 +251,7 @@ declare module '@tanstack/react-router' {
     '/_authenticated/$forum/': {
       id: '/_authenticated/$forum/'
       path: '/$forum'
-      fullPath: '/$forum/'
+      fullPath: '/$forum'
       preLoaderRoute: typeof AuthenticatedForumIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
