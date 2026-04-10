@@ -10,23 +10,25 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Comment meta and actions - shown on hover */
-.comment-meta,
-.comment-actions {
-  opacity: 0;
-}
-.comment-content:hover .comment-meta,
-.comment-content:hover .comment-actions {
-  opacity: 1;
-}
+@media (min-width: 768px) {
+  /* Comment meta and actions - shown on hover */
+  .comment-meta,
+  .comment-actions {
+    opacity: 0;
+  }
+  .comment-content:hover .comment-meta,
+  .comment-content:hover .comment-actions {
+    opacity: 1;
+  }
 
-/* Collapse actions row when no votes and not hovering */
-.comment-actions-row:not(.has-votes) {
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-}
-.comment-content:hover .comment-actions-row:not(.has-votes) {
-  height: auto;
-  padding-top: 0.25rem;
+  /* Collapse actions row when no votes and not hovering */
+  .comment-actions-row:not(.has-votes) {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .comment-content:hover .comment-actions-row:not(.has-votes) {
+    height: auto;
+    padding-top: 0.25rem;
+  }
 }

@@ -144,6 +144,8 @@ export function ThreadComment({
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
+  const voteButtonClass = 'text-muted-foreground hover:text-foreground inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:-m-1 md:min-h-0 md:rounded-none md:px-1 md:py-1'
+  const iconActionButtonClass = 'text-muted-foreground hover:text-foreground inline-flex size-8 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:size-auto md:rounded-none md:p-0'
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
     if (!c.children) return 0
@@ -174,7 +176,7 @@ export function ThreadComment({
   )
 
   const content = (
-    <div className='comment-content group/row space-y-1.5'>
+    <div className='comment-content group/row space-y-2 md:space-y-1.5'>
       {/* Header row with status badges */}
       <div className='flex h-5 items-center gap-2 text-xs'>
         <span className='text-foreground font-medium'>{comment.name}</span>
@@ -246,14 +248,14 @@ export function ThreadComment({
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
         <div
-          className={`comment-actions-row text-muted-foreground flex min-h-[28px] items-center gap-3 pt-1 text-xs ${hasVotes ? 'has-votes' : ''}`}
+          className={`comment-actions-row text-muted-foreground flex min-h-8 items-center gap-2.5 pt-1.5 text-xs md:min-h-[28px] md:gap-3 md:pt-1 ${hasVotes ? 'has-votes' : ''}`}
         >
           {/* Votes */}
           {canVote ? (
             <>
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
+                className={voteButtonClass}
                 onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
               >
                 {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
@@ -261,7 +263,7 @@ export function ThreadComment({
               </button>
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground -m-1 inline-flex items-center gap-1 p-1 transition-colors'
+                className={voteButtonClass}
                 onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
               >
                 {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
@@ -285,11 +287,11 @@ export function ThreadComment({
             </>
           )}
           {/* Action buttons - always visible on mobile, hover-reveal on desktop */}
-          <div className='comment-actions flex items-center gap-1 transition-opacity pointer-events-auto opacity-100 md:pointer-events-none md:opacity-0 md:group-hover/row:pointer-events-auto md:group-hover/row:opacity-100'>
+          <div className='comment-actions flex items-center gap-1.5 transition-opacity pointer-events-auto opacity-100 md:gap-1 md:pointer-events-none md:opacity-0 md:group-hover/row:pointer-events-auto md:group-hover/row:opacity-100'>
             {canReply && onReply && (
               <button
                 type='button'
-                className='text-muted-foreground hover:text-foreground transition-colors'
+                className={iconActionButtonClass}
                 onClick={() => onReply(comment.id)}
               >
                 <MessageSquare className='size-4' />
@@ -301,7 +303,7 @@ export function ThreadComment({
                 <DropdownMenuTrigger asChild>
                   <button
                     type='button'
-                    className='text-muted-foreground hover:text-foreground transition-colors'
+                    className={iconActionButtonClass}
                   >
                     <MoreHorizontal className='size-4' />
                   </button>
@@ -527,6 +529,7 @@ export function ThreadComment({
   return (
     <CommentTreeLayout
       depth={depth}
+      density='comfortable'
       isCollapsed={collapsed}
       onToggleCollapse={() => setCollapsed(!collapsed)}
       hasChildren={hasReplies}
