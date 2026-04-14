@@ -20,6 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  useImageObjectUrls,
 } from '@mochi/web'
 import {
   ArrowLeft,
@@ -146,6 +147,9 @@ export function CreatePostDialog({
     }
   }
 
+  // Tracks object URLs for image previews and revokes them on change/unmount
+  const attachmentPreviewUrls = useImageObjectUrls(attachments)
+
   return (
     <ResponsiveDialog
       open={isOpen}
@@ -222,10 +226,7 @@ export function CreatePostDialog({
                   </div>
                   <div className='flex flex-wrap gap-2'>
                     {attachments.map((file, index) => {
-                      const isImage = file.type?.startsWith('image/')
-                      const previewUrl = isImage
-                        ? URL.createObjectURL(file)
-                        : undefined
+                      const previewUrl = attachmentPreviewUrls[index] ?? undefined
                       const isFirst = index === 0
                       const isLast = index === attachments.length - 1
 
@@ -234,7 +235,7 @@ export function CreatePostDialog({
                           key={`${file.name}-${file.size}-${file.lastModified}`}
                           className='group/att border-primary/30 bg-muted/50 relative flex items-center justify-center overflow-hidden rounded-[8px] border-2 border-dashed'
                         >
-                          {isImage && previewUrl ? (
+                          {previewUrl ? (
                             <img
                               src={previewUrl}
                               alt={file.name}
