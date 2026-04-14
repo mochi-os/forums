@@ -144,8 +144,6 @@ function ModerationPage() {
         <div
           id={`${activeTab}-tabpanel`}
           role="tabpanel"
-          aria-live="polite"
-          aria-atomic="false"
           className='pt-2'
         >
           {activeTab === 'queue' && <QueueTab forumId={forumId} />}
