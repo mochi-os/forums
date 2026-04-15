@@ -62,14 +62,14 @@ export function ForumsListPage({
     if (!exists) {
       promptedNotifications.current = true
       shellSubscribeNotifications('forums', [
-        { label: 'New posts', type: 'post', defaultEnabled: true },
-        { label: 'New comments', type: 'comment', defaultEnabled: true },
-        { label: 'Mentions', type: 'mention', defaultEnabled: true },
+        { label: 'New posts', topic: 'post', defaultEnabled: true },
+        { label: 'New comments', topic: 'comment', defaultEnabled: true },
+        { label: 'Mentions', topic: 'mention', defaultEnabled: true },
       ]).then(() => refetchSubscription())
     } else if (!types.includes('mention')) {
       promptedNotifications.current = true
       shellSubscribeNotifications('forums', [
-        { label: 'Mentions', type: 'mention', defaultEnabled: true },
+        { label: 'Mentions', topic: 'mention', defaultEnabled: true },
       ]).then(() => refetchSubscription())
     }
   }, [subscriptionData?.data, refetchSubscription])
