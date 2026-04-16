@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
 import {
   GeneralError,
   Main,
@@ -14,7 +13,6 @@ import {
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
-import forumsApi from '@/api/forums'
 
 import {
   useForumsList,
@@ -47,32 +45,15 @@ export function ForumsListPage({
     if (isLoggedIn) setLastForum(null)
   }, [isLoggedIn])
 
-  // Notification subscription prompt
-  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
-    queryKey: ['subscription-check', 'forums'],
-    queryFn: () => forumsApi.checkSubscription(),
-    staleTime: Infinity,
-    enabled: isLoggedIn,
-  })
-  const promptedNotifications = useRef(false)
   useEffect(() => {
-    if (promptedNotifications.current) return
-    if (!subscriptionData?.data) return
-    const { exists, types } = subscriptionData.data
-    if (!exists) {
-      promptedNotifications.current = true
-      shellSubscribeNotifications('forums', [
-        { label: 'New posts', type: 'post', defaultEnabled: true },
-        { label: 'New comments', type: 'comment', defaultEnabled: true },
-        { label: 'Mentions', type: 'mention', defaultEnabled: true },
-      ]).then(() => refetchSubscription())
-    } else if (!types.includes('mention')) {
-      promptedNotifications.current = true
-      shellSubscribeNotifications('forums', [
-        { label: 'Mentions', type: 'mention', defaultEnabled: true },
-      ]).then(() => refetchSubscription())
-    }
-  }, [subscriptionData?.data, refetchSubscription])
+    // Forums only sends 'mention' and 'moderation/*' topics today. If per-post
+    // or per-comment notifications get added later, declare them here.
+    void shellSubscribeNotifications('forums', [
+      { label: 'Moderation restrictions', topic: 'moderation/restricted', defaultEnabled: true },
+      { label: 'Moderation lifted', topic: 'moderation/unrestricted', defaultEnabled: true },
+      { label: 'Mentions', topic: 'mention', defaultEnabled: true },
+    ])
+  }, [])
 
   const { openForumDialog } = useSidebarContext()
 
