@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { X } from 'lucide-react'
+import { shellStorage } from '@mochi/web'
 import { sanitizeHtml } from '../utils'
 
 interface ForumBannerProps {
@@ -18,15 +19,19 @@ function hashContent(content: string): string {
 export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
   const storageKey = `forums-banner-dismissed-${forumId}`
   const contentHash = hashContent(bannerHtml)
+  const [dismissed, setDismissed] = useState<boolean | null>(null)
+  const sanitizedBannerHtml = useMemo(() => sanitizeHtml(bannerHtml), [bannerHtml])
 
-  const [dismissed, setDismissed] = useState(
-    () => localStorage.getItem(storageKey) === contentHash
-  )
+  useEffect(() => {
+    shellStorage.getItem(storageKey).then((stored) => {
+      setDismissed(stored === contentHash)
+    })
+  }, [storageKey, contentHash])
 
-  if (!bannerHtml || dismissed) return null
+  if (!bannerHtml || dismissed === null || dismissed) return null
 
   const handleDismiss = () => {
-    localStorage.setItem(storageKey, contentHash)
+    shellStorage.setItem(storageKey, contentHash)
     setDismissed(true)
   }
 
@@ -42,7 +47,7 @@ export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
       </button>
       <div
         className="max-w-none pr-6 text-sm leading-relaxed [&_a]:text-primary [&_a]:underline [&_a:visited]:text-primary/70"
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(bannerHtml) }}
+        dangerouslySetInnerHTML={{ __html: sanitizedBannerHtml }}
       />
     </div>
   )
