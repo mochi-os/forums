@@ -375,7 +375,8 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
     else:
         return
 
-    mochi.service.call("notifications", "send", "moderation", title, body, forum_id, "/forums/" + forum_id)
+    topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
+    mochi.service.call("notifications", "send", topic, title, body, forum_id, "/forums/" + forum_id)
 
 # Helper: Get post sort order based on sort type
 def get_post_order(sort):
