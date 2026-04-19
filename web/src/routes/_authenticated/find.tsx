@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Hash } from 'lucide-react'
-import { FindEntityPage } from '@mochi/web'
+import { FindEntityPage, toast, getErrorMessage } from '@mochi/web'
 import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 import forumsApi from '@/api/forums'
 import endpoints from '@/api/endpoints'
@@ -41,8 +41,13 @@ function FindForumsPage() {
 
   const handleSubscribe = useCallback(
     async (forumId: string) => {
-      await forumsApi.subscribeForum(forumId)
-      await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      try {
+        await forumsApi.subscribeForum(forumId)
+        toast.success('Subscribed')
+        await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      } catch (error) {
+        toast.error(getErrorMessage(error, 'Failed to subscribe'))
+      }
     },
     [queryClient]
   )
