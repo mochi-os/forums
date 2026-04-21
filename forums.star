@@ -43,6 +43,7 @@ def database_create():
         post_limit integer not null default 0, comment_limit integer not null default 0,
         limit_window integer not null default 3600, fingerprint text not null default '',
         ai_mode text not null default '', ai_account integer not null default 0,
+        ai_prompt_tag text not null default '', ai_prompt_score text not null default '',
         banner text not null default '' )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
@@ -122,6 +123,15 @@ def database_upgrade(to_version):
             mochi.db.execute("alter table forums add column banner text not null default ''")
     if to_version == 27:
         mochi.db.execute("delete from members where forum not in (select id from forums)")
+    if to_version == 28:
+        # Re-plant ai_prompt_tag/ai_prompt_score on forums — they were only ever
+        # added by a legacy migration that was later deleted, so fresh installs
+        # lack them and get_ai_prompt() crashes with "no such column".
+        cols = [r["name"] for r in mochi.db.table("forums")]
+        if "ai_prompt_tag" not in cols:
+            mochi.db.execute("alter table forums add column ai_prompt_tag text not null default ''")
+        if "ai_prompt_score" not in cols:
+            mochi.db.execute("alter table forums add column ai_prompt_score text not null default ''")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
