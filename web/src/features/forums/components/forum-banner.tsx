@@ -36,7 +36,7 @@ export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
   }
 
   return (
-    <div className="relative mb-4 rounded-[10px] border bg-muted/50 px-4 py-3">
+    <div className="relative mb-4 rounded-lg border bg-muted/50 px-4 py-3">
       <button
         type="button"
         onClick={handleDismiss}
