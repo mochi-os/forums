@@ -150,6 +150,7 @@ export function ForumsListPage({
               onLoadMore={undefined}
               isLoading={isLoading}
               subscribedIds={subscribedIds}
+              isLoggedIn={isLoggedIn}
             />
           </div>
         )}

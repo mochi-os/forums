@@ -16,6 +16,7 @@ interface ForumOverviewProps {
   onInterestUp?: (qid: string) => void
   onInterestDown?: (qid: string) => void
   onInterestRemove?: (qid: string) => void
+  isLoggedIn?: boolean
   onCreatePost: (data: {
     forum: string
     title: string
@@ -49,6 +50,7 @@ export function ForumOverview({
   onInterestUp,
   onInterestDown,
   onInterestRemove,
+  isLoggedIn = true,
 }: ForumOverviewProps) {
 
   if (!forum) {
@@ -71,6 +73,7 @@ export function ForumOverview({
                 onInterestUp={onInterestUp}
                 onInterestDown={onInterestDown}
                 onInterestRemove={onInterestRemove}
+                isLoggedIn={isLoggedIn}
                 variant='card'
               />
             ))}
@@ -114,6 +117,7 @@ export function ForumOverview({
                 onInterestUp={onInterestUp}
                 onInterestDown={onInterestDown}
                 onInterestRemove={onInterestRemove}
+                isLoggedIn={isLoggedIn}
               />
             ))}
           </div>

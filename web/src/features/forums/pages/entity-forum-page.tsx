@@ -288,6 +288,7 @@ export function EntityForumPage({
               onInterestUp={handleInterestUp}
               onInterestDown={handleInterestDown}
               onInterestRemove={handleInterestRemove}
+              isLoggedIn={isLoggedIn}
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}

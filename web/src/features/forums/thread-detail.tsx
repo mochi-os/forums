@@ -12,6 +12,7 @@ import {
   GeneralError,
   useImageObjectUrls,
   MentionTextarea,
+  useAuthStore,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -61,6 +62,7 @@ export function ThreadDetail({
   fromAllForums = false,
 }: ThreadDetailProps) {
   const navigate = useNavigate()
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
     strict: false,
   }) as {
@@ -365,6 +367,7 @@ export function ThreadDetail({
                 canReply={can_comment && !post.locked}
                 onReply={() => setShowReplyForm(true)}
                 canTag={isForumManager || can_moderate || isPostAuthor}
+                isLoggedIn={isLoggedIn}
                 onTagAdded={handleTagAdded}
                 onInterestUp={handleInterestUp}
                 onInterestDown={handleInterestDown}

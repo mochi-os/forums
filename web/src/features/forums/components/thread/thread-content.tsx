@@ -39,6 +39,7 @@ interface ThreadContentProps {
   onDelete?: () => void
   // Tags
   canTag?: boolean
+  isLoggedIn?: boolean
   onTagAdded?: (label: string) => Promise<void>
   onTagFilter?: (label: string) => void
   onInterestUp?: (qid: string) => void
@@ -72,6 +73,7 @@ export function ThreadContent({
   onEdit,
   onDelete,
   canTag = false,
+  isLoggedIn = true,
   onTagAdded,
   onTagFilter,
   onInterestUp,
@@ -192,14 +194,16 @@ export function ThreadContent({
       {/* Actions row */}
       <div className='text-muted-foreground flex items-center gap-3 text-sm'>
         {/* Tags */}
-        <PostTagsTooltip
-          tags={post.tags || []}
-          onFilter={onTagFilter}
-          onAdd={canTag && onTagAdded ? onTagAdded : undefined}
-          onInterestUp={onInterestUp}
-          onInterestDown={onInterestDown}
-          onInterestRemove={onInterestRemove}
-        />
+        {isLoggedIn && (
+          <PostTagsTooltip
+            tags={post.tags || []}
+            onFilter={onTagFilter}
+            onAdd={canTag && onTagAdded ? onTagAdded : undefined}
+            onInterestUp={onInterestUp}
+            onInterestDown={onInterestDown}
+            onInterestRemove={onInterestRemove}
+          />
+        )}
         <span className='inline-flex items-center gap-4 md:gap-3'>
           {/* Votes */}
           {canVote ? (
