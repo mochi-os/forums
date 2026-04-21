@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ConfirmDialog, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions } from '@mochi/web'
+import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -162,11 +162,13 @@ export function ThreadContent({
           </>
         }
         meta={
-          <>
+          <span className='inline-flex items-center gap-1.5'>
             {showForumBadge && forumName && <>{forumName} · </>}
-            {post.name} · {timestamp}
-            {post.edited ? ' (edited)' : ''}
-          </>
+            <EntityAvatar fingerprint={post.member} name={post.name} size={16} />
+            <span>{post.name}</span>
+            <span> · </span>
+            <span>{timestamp}{post.edited ? ' (edited)' : ''}</span>
+          </span>
         }
       />
 

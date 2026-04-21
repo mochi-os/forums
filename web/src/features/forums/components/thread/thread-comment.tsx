@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, CommentTreeLayout, ConfirmDialog, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -157,9 +157,12 @@ export function ThreadComment({
   const totalDescendants = getTotalReplyCount(comment)
 
   const avatar = (
-    <div className='bg-primary text-primary-foreground z-10 flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold'>
-      {comment.name.charAt(0).toUpperCase()}
-    </div>
+    <EntityAvatar
+      fingerprint={comment.member}
+      name={comment.name}
+      size={20}
+      className='z-10'
+    />
   )
 
   const collapsedContent = (

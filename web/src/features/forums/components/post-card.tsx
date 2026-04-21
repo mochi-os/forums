@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, PostTitleBar, cn, useFormat } from '@mochi/web'
+import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
@@ -69,17 +69,18 @@ export function PostCard({
           </>
         }
         meta={
-          <>
+          <span className='inline-flex items-center gap-1.5'>
             {showForumBadge ? (
               <>
                 {forumName}
                 <span> · </span>
               </>
             ) : null}
-            {post.name}
+            <EntityAvatar fingerprint={post.member} name={post.name} size={16} />
+            <span>{post.name}</span>
             <span> · </span>
-            {timestamp}
-          </>
+            <span>{timestamp}</span>
+          </span>
         }
         metaClassName='opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'
       />
