@@ -1,5 +1,5 @@
 {
-	"version": "6.86",
+	"version": "6.88",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -66,6 +66,8 @@
 		":forum/-/:post/edit": {"function": "action_post_edit"},
 		":forum/-/:post/delete": {"function": "action_post_delete"},
 		":forum/-/:post/vote/:vote": {"function": "action_post_vote"},
+		":forum/-/:post/asset/:asset": {"function": "action_post_asset", "public": true},
+		":forum/-/:post/:comment/asset/:asset": {"function": "action_comment_asset", "public": true},
 		":forum/-/:post/:comment/edit": {"function": "action_comment_edit"},
 		":forum/-/:post/:comment/delete": {"function": "action_comment_delete"},
 		":forum/-/:post/:comment/vote/:vote": {"function": "action_comment_vote"},

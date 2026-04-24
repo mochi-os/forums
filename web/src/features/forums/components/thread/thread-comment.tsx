@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, type MentionUser } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -156,9 +156,13 @@ export function ThreadComment({
   }
   const totalDescendants = getTotalReplyCount(comment)
 
+  const assetUrl = (slot: string) =>
+    `${getAppPath()}/${comment.forum}/-/${comment.post}/${comment.id}/asset/${slot}`
   const avatar = (
     <EntityAvatar
-      fingerprint={comment.member}
+      src={assetUrl('avatar')}
+      styleUrl={assetUrl('style')}
+      seed={comment.member}
       name={comment.name}
       size={20}
       className='z-10'

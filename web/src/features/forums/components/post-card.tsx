@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat } from '@mochi/web'
+import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat, getAppPath } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
@@ -76,7 +76,13 @@ export function PostCard({
                 <span> · </span>
               </>
             ) : null}
-            <EntityAvatar fingerprint={post.member} name={post.name} size={16} />
+            <EntityAvatar
+              src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
+              styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
+              seed={post.member}
+              name={post.name}
+              size={16}
+            />
             <span>{post.name}</span>
             <span> · </span>
             <span>{timestamp}</span>

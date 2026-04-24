@@ -388,6 +388,50 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
     mochi.service.call("notifications", "send", topic, title, body, forum_id, "/forums/" + forum_id)
 
+# Stream an entity's asset from its owning service via a Mochi stream.
+# Location-transparent: mochi.remote.stream() loops back in-process when the
+# entity lives on this server, or goes over P2P otherwise. Handles both binary
+# assets (avatar/banner/favicon — header + bytes) and JSON assets
+# (style/information — single JSON write with a "data" field).
+def stream_asset(a, entity_id, service, asset):
+	if not entity_id:
+		a.error(404, asset + " unavailable")
+		return None
+	s = mochi.remote.stream(entity_id, service, asset, {})
+	if not s:
+		a.error(404, asset + " unavailable")
+		return None
+	header = s.read()
+	if not header or header.get("status") != "200":
+		a.error(404, asset + " not set")
+		return None
+	a.header("Cache-Control", "private, max-age=300")
+	if "data" in header:
+		return {"data": header["data"]}
+	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
+	a.write_from_stream(s)
+	return None
+
+_PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
+
+# Proxy a post author's person asset from the people service.
+def action_post_asset(a):
+	asset = a.input("asset")
+	if asset not in _PERSON_ASSETS:
+		a.error(404, "Unknown asset")
+		return
+	row = mochi.db.row("select member from posts where id=?", a.input("post"))
+	return stream_asset(a, row["member"] if row else "", "people", asset)
+
+# Proxy a comment author's person asset from the people service.
+def action_comment_asset(a):
+	asset = a.input("asset")
+	if asset not in _PERSON_ASSETS:
+		a.error(404, "Unknown asset")
+		return
+	row = mochi.db.row("select member from comments where id=?", a.input("comment"))
+	return stream_asset(a, row["member"] if row else "", "people", asset)
+
 # Helper: Get post sort order based on sort type
 def get_post_order(sort):
     if sort == "top":
