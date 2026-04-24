@@ -578,7 +578,7 @@ def action_ai_settings(a):
         a.error(404, "Forum not found")
         return
     if forum.get("owner") != 1:
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
     if mode not in ("", "tag"):
         a.error(400, "Invalid AI mode")
@@ -607,7 +607,7 @@ def action_ai_prompts_get(a):
         a.error(404, "Forum not found")
         return
     if forum.get("owner") != 1:
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
     prompts = {}
     if forum.get("ai_prompt_tag", ""):
@@ -627,7 +627,7 @@ def action_ai_prompts_set(a):
         a.error(404, "Forum not found")
         return
     if forum.get("owner") != 1:
-        a.error(403, "Not authorized")
+        a.error(403, "Not allowed")
         return
     prompt_type = a.input("type")
     prompt_text = a.input("prompt", "")
@@ -668,7 +668,7 @@ def action_tags_add(a):
         return
 
     if not can_tag_post(user_id, forum, post):
-        a.error(403, "Not authorized to tag posts")
+        a.error(403, "Not allowed to tag posts")
         return
 
     label = validate_tag(label)
@@ -713,7 +713,7 @@ def action_tags_remove(a):
         return
 
     if not can_tag_post(user_id, forum, post):
-        a.error(403, "Not authorized to remove tags")
+        a.error(403, "Not allowed to remove tags")
         return
 
     mochi.db.execute("delete from tags where id=? and object=?", tag_id, post_id)
@@ -6464,7 +6464,7 @@ def action_rss(a):
 
     forum_id = forum["id"]
     if not check_access(a, forum_id, "view"):
-        a.error(403, "Not authorized to view this forum")
+        a.error(403, "Not allowed to view this forum")
         return
 
     # Look up mode from token
