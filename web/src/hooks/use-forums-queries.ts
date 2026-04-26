@@ -97,7 +97,20 @@ export function useCreateForum() {
     mutationFn: forumsApi.createForum,
     onSuccess: () => {
       toast.success('Forum created')
-      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useDeleteForum(onDeleted?: () => void) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (forumId: string) => forumsApi.deleteForum(forumId),
+    onSuccess: () => {
+      toast.success('Forum deleted')
+      queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      onDeleted?.()
     },
     onError: handleServerError,
   })

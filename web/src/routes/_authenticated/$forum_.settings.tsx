@@ -36,6 +36,7 @@ import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { toError, getErrorStatus } from '@/lib/errors'
 import {
+  useDeleteForum,
   useForumAccess,
   useForumInfo,
   useForumsList,
@@ -103,7 +104,6 @@ function ForumSettingsPage() {
   }
   const goBackToForum = () => navigate({ to: '/$forum', params: { forum: forumId } })
   const [isUnsubscribing, setIsUnsubscribing] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   // Get forum info (lightweight, single-forum query)
@@ -116,6 +116,10 @@ function ForumSettingsPage() {
 
   // Keep forums list refetch for sidebar updates after changes
   const { refetch: refreshForums } = useForumsList()
+
+  const deleteForum = useDeleteForum(() => {
+    void navigate({ to: '/' })
+  })
 
   const selectedForum: ForumData | null = useMemo(() => forumInfoData?.data
     ? {
@@ -167,21 +171,10 @@ function ForumSettingsPage() {
     }
   }, [selectedForum, isUnsubscribing, refreshForums, navigate])
 
-  const handleDelete = useCallback(async () => {
-    if (!selectedForum || !selectedForum.can_manage || isDeleting) return
-
-    setIsDeleting(true)
-    try {
-      await forumsApi.deleteForum(selectedForum.id)
-      toast.success('Forum deleted')
-      void refreshForums()
-      void navigate({ to: '/' })
-    } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to delete forum'))
-    } finally {
-      setIsDeleting(false)
-    }
-  }, [selectedForum, isDeleting, refreshForums, navigate])
+  const handleDelete = useCallback(() => {
+    if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending) return
+    deleteForum.mutate(selectedForum.id)
+  }, [selectedForum, deleteForum])
 
   const handleRename = useCallback(async (name: string) => {
     if (!selectedForum || !selectedForum.can_manage) return
@@ -314,7 +307,7 @@ function ForumSettingsPage() {
               forum={selectedForum}
               canUnsubscribe={canUnsubscribe}
               isUnsubscribing={isUnsubscribing}
-              isDeleting={isDeleting}
+              isDeleting={deleteForum.isPending}
               showDeleteDialog={showDeleteDialog}
               setShowDeleteDialog={setShowDeleteDialog}
               onUnsubscribe={handleUnsubscribe}
