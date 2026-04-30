@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   GeneralError,
@@ -21,6 +22,7 @@ export function RecommendedForums({
   subscribedIds,
   onSubscribe,
 }: RecommendedForumsProps) {
+  const { t } = useLingui()
   const [recommendations, setRecommendations] = useState<RecommendedForum[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -58,7 +60,7 @@ export function RecommendedForums({
       toast.success(`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
     } catch (subscribeError) {
-      toast.error(getErrorMessage(subscribeError, 'Failed to subscribe'))
+      toast.error(getErrorMessage(subscribeError, t`Failed to subscribe`))
     } finally {
       setPendingId(null)
     }
@@ -97,7 +99,7 @@ export function RecommendedForums({
         <hr className="my-6 w-full max-w-md border-t" />
         <div className="w-full max-w-md">
           <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
-            Recommended forums
+            <Trans>Recommended forums</Trans>
           </p>
           <GeneralError
             error={error}
@@ -119,7 +121,7 @@ export function RecommendedForums({
       <hr className="my-6 w-full max-w-md border-t" />
       <div className="w-full max-w-md">
         <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
-          Recommended forums
+          <Trans>Recommended forums</Trans>
         </p>
         <div className="divide-border divide-y rounded-lg border text-left">
           {filteredRecommendations.map((forum) => {

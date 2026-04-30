@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
@@ -103,6 +104,7 @@ export function ThreadComment({
   currentUserId,
   onSearchPeople,
 }: ThreadCommentProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -196,13 +198,13 @@ export function ThreadComment({
         {isPending && (
           <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-1.5 py-0.5 text-[10px] font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
             <Clock className='size-2.5' />
-            Pending
+            <Trans>Pending</Trans>
           </span>
         )}
         {isRemoved && (
           <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
             <EyeOff className='size-2.5' />
-            Removed
+            <Trans>Removed</Trans>
           </span>
         )}
       </div>
@@ -224,7 +226,7 @@ export function ThreadComment({
               className='h-7 text-xs'
               onClick={() => setEditing(null)}
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
             <Button
               size='sm'
@@ -235,7 +237,7 @@ export function ThreadComment({
                 setEditing(null)
               }}
             >
-              Save
+              <Trans>Save</Trans>
             </Button>
           </div>
         </div>
@@ -324,13 +326,13 @@ export function ThreadComment({
                       }}
                     >
                       <Pencil className='mr-2 size-4' />
-                      Edit
+                      <Trans>Edit</Trans>
                     </DropdownMenuItem>
                   )}
                   {commentCanEdit && onDelete && (
                     <DropdownMenuItem onClick={() => setDeleting(true)}>
                       <Trash2 className='mr-2 size-4' />
-                      Delete
+                      <Trans>Delete</Trans>
                     </DropdownMenuItem>
                   )}
                   {commentCanEdit &&
@@ -343,7 +345,7 @@ export function ThreadComment({
                       {isPending && onApprove && (
                         <DropdownMenuItem onClick={() => onApprove(comment.id)}>
                           <Check className='mr-2 size-4' />
-                          Approve
+                          <Trans>Approve</Trans>
                         </DropdownMenuItem>
                       )}
                       {isRemoved
@@ -352,13 +354,13 @@ export function ThreadComment({
                               onClick={() => onRestore(comment.id)}
                             >
                               <Eye className='mr-2 size-4' />
-                              Restore
+                              <Trans>Restore</Trans>
                             </DropdownMenuItem>
                           )
                         : onRemove && (
                             <DropdownMenuItem onClick={() => setRemoving(true)}>
                               <EyeOff className='mr-2 size-4' />
-                              Remove
+                              <Trans>Remove</Trans>
                             </DropdownMenuItem>
                           )}
                     </>
@@ -366,7 +368,7 @@ export function ThreadComment({
                   {onReport && currentUserId !== comment.member && (
                     <DropdownMenuItem onClick={() => onReport(comment.id)}>
                       <Flag className='mr-2 size-4' />
-                      Report
+                      <Trans>Report</Trans>
                     </DropdownMenuItem>
                   )}
                   {canModerate && (onMuteAuthor || onBanAuthor) && (
@@ -377,7 +379,7 @@ export function ThreadComment({
                       onClick={() => onMuteAuthor(comment.member)}
                     >
                       <VolumeX className='mr-2 size-4' />
-                      Mute author
+                      <Trans>Mute author</Trans>
                     </DropdownMenuItem>
                   )}
                   {canModerate && onBanAuthor && (
@@ -385,7 +387,7 @@ export function ThreadComment({
                       onClick={() => onBanAuthor(comment.member)}
                     >
                       <Ban className='mr-2 size-4' />
-                      Ban author
+                      <Trans>Ban author</Trans>
                     </DropdownMenuItem>
                   )}
                 </DropdownMenuContent>
@@ -399,7 +401,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={deleting}
         onOpenChange={setDeleting}
-        title='Delete comment'
+        title={t`Delete comment`}
         desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -413,7 +415,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={removing}
         onOpenChange={setRemoving}
-        title='Remove comment'
+        title={t`Remove comment`}
         desc='This will hide the comment from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {
@@ -468,7 +470,7 @@ export function ThreadComment({
               onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setReplyFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
               className='hidden'
             />
-            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label='Attach reply files'>
+            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={t`Attach reply files`}>
               <Paperclip className='size-4' />
             </Button>
             <Button
@@ -477,7 +479,7 @@ export function ThreadComment({
               variant='ghost'
               className='size-8'
               onClick={onReplyCancel}
-              aria-label='Cancel reply'
+              aria-label={t`Cancel reply`}
             >
               <X className='size-4' />
             </Button>
@@ -487,7 +489,7 @@ export function ThreadComment({
               className='size-8'
               disabled={!replyValue.trim() || isReplyPending}
               onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
-              aria-label='Submit reply'
+              aria-label={t`Submit reply`}
             >
               <Send className='size-4' />
             </Button>

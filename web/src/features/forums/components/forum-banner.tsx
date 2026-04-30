@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import { X } from 'lucide-react'
 import { shellStorage } from '@mochi/web'
 import { sanitizeHtml } from '../utils'
@@ -17,6 +18,7 @@ function hashContent(content: string): string {
 }
 
 export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
+  const { t } = useLingui()
   const storageKey = `forums-banner-dismissed-${forumId}`
   const contentHash = hashContent(bannerHtml)
   const [dismissed, setDismissed] = useState<boolean | null>(null)
@@ -41,7 +43,7 @@ export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
         type="button"
         onClick={handleDismiss}
         className="absolute right-2 top-2 rounded-sm p-1 text-muted-foreground hover:text-foreground"
-        aria-label="Dismiss banner"
+        aria-label={t`Dismiss banner`}
       >
         <X className="size-3.5" />
       </button>

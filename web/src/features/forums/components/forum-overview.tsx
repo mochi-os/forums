@@ -1,4 +1,5 @@
 import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState } from '@mochi/web'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
@@ -52,6 +53,7 @@ export function ForumOverview({
   onInterestRemove,
   isLoggedIn = true,
 }: ForumOverviewProps) {
+  const { t } = useLingui()
 
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
@@ -81,13 +83,13 @@ export function ForumOverview({
         ) : (
           <EntityOnboardingEmptyState
             icon={MessageSquare}
-            title='Forums'
-            description='You have no forums yet.'
+            title={t`Forums`}
+            description={t`You have no forums yet.`}
             searchSlot={<InlineForumSearch subscribedIds={subscribedIds} />}
             primaryActionSlot={(
               <Button variant="outline" onClick={onCreateForum}>
                 <Plus className="mr-2 h-4 w-4" />
-                Create a new forum
+                <Trans>Create a new forum</Trans>
               </Button>
             )}
             secondarySlot={<RecommendedForums subscribedIds={subscribedIds} />}
@@ -133,7 +135,7 @@ export function ForumOverview({
 
         <EmptyState
           icon={FileEdit}
-          title="No posts in this forum yet"
+          title={t`No posts in this forum yet`}
           description={!forum.can_post ? "Check back later for new content" : undefined}
         >
           {forum.can_post && (

@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { Trans } from '@lingui/react/macro'
 import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat, getAppPath } from '@mochi/web'
 import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
@@ -47,13 +48,13 @@ export function PostCard({
             {post.status === 'pending' && (
               <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
                 <Clock className='size-3' />
-                Pending
+                <Trans>Pending</Trans>
               </span>
             )}
             {post.status === 'removed' && (
               <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
                 <EyeOff className='size-3' />
-                Removed
+                <Trans>Removed</Trans>
               </span>
             )}
             {!!post.locked && (

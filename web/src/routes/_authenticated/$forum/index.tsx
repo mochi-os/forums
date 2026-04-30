@@ -5,6 +5,7 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 import { z } from 'zod'
+import { useLingui } from '@lingui/react/macro'
 import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
 import { getErrorStatus } from '@/lib/errors'
 import { EntityForumPage } from '@/features/forums/pages'
@@ -30,7 +31,7 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
         forum: null,
         permissions: undefined,
         loaderError:
-          getErrorMessage(error, 'Failed to load forum'),
+          getErrorMessage(error, "Failed to load forum"),
       }
     }
 
@@ -53,6 +54,7 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
 })
 
 function ForumPage() {
+  const { t } = useLingui()
   const data = Route.useLoaderData()
   const router = useRouter()
   const navigate = useNavigate()
@@ -61,7 +63,7 @@ function ForumPage() {
     return (
       <>
         <PageHeader
-          title='Forum'
+          title={t`Forum`}
           back={{ label: 'Back to forums', onFallback: () => navigate({ to: '/' }) }}
         />
         <Main>

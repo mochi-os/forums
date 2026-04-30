@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions, getAppPath } from '@mochi/web'
 import {
   ThumbsUp,
@@ -90,6 +91,7 @@ export function ThreadContent({
   onMuteAuthor,
   onBanAuthor,
 }: ThreadContentProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
@@ -138,25 +140,25 @@ export function ThreadContent({
             {isPending && (
               <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
                 <Clock className='size-3' />
-                Pending approval
+                <Trans>Pending approval</Trans>
               </span>
             )}
             {isRemoved && (
               <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
                 <EyeOff className='size-3' />
-                Removed
+                <Trans>Removed</Trans>
               </span>
             )}
             {isLocked && (
               <span className='bg-surface-2 text-foreground inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
                 <Lock className='size-3' />
-                Locked
+                <Trans>Locked</Trans>
               </span>
             )}
             {isPinned && (
               <span className='inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary dark:bg-primary/20 dark:text-primary'>
                 <Pin className='size-3' />
-                Pinned
+                <Trans>Pinned</Trans>
               </span>
             )}
           </>
@@ -291,13 +293,13 @@ export function ThreadContent({
                 {canEdit && onEdit && (
                   <DropdownMenuItem onClick={onEdit}>
                     <Pencil className='mr-2 size-4' />
-                    Edit
+                    <Trans>Edit</Trans>
                   </DropdownMenuItem>
                 )}
                 {canEdit && onDelete && (
                   <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
                     <Trash2 className='mr-2 size-4' />
-                    Delete
+                    <Trans>Delete</Trans>
                   </DropdownMenuItem>
                 )}
                 {canEdit && (canModerate || onReport) && <DropdownMenuSeparator />}
@@ -307,39 +309,39 @@ export function ThreadContent({
                       ? onRestore && (
                           <DropdownMenuItem onClick={onRestore}>
                             <Eye className='mr-2 size-4' />
-                            Restore
+                            <Trans>Restore</Trans>
                           </DropdownMenuItem>
                         )
                       : onRemove && (
                           <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
                             <EyeOff className='mr-2 size-4' />
-                            Remove
+                            <Trans>Remove</Trans>
                           </DropdownMenuItem>
                         )}
                     {isLocked
                       ? onUnlock && (
                           <DropdownMenuItem onClick={onUnlock}>
                             <Unlock className='mr-2 size-4' />
-                            Unlock
+                            <Trans>Unlock</Trans>
                           </DropdownMenuItem>
                         )
                       : onLock && (
                           <DropdownMenuItem onClick={onLock}>
                             <Lock className='mr-2 size-4' />
-                            Lock
+                            <Trans>Lock</Trans>
                           </DropdownMenuItem>
                         )}
                     {isPinned
                       ? onUnpin && (
                           <DropdownMenuItem onClick={onUnpin}>
                             <PinOff className='mr-2 size-4' />
-                            Unpin
+                            <Trans>Unpin</Trans>
                           </DropdownMenuItem>
                         )
                       : onPin && (
                           <DropdownMenuItem onClick={onPin}>
                             <Pin className='mr-2 size-4' />
-                            Pin
+                            <Trans>Pin</Trans>
                           </DropdownMenuItem>
                         )}
                   </>
@@ -347,20 +349,20 @@ export function ThreadContent({
                 {onReport && (
                   <DropdownMenuItem onClick={onReport}>
                     <Flag className='mr-2 size-4' />
-                    Report
+                    <Trans>Report</Trans>
                   </DropdownMenuItem>
                 )}
                 {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
                 {canModerate && onMuteAuthor && (
                   <DropdownMenuItem onClick={onMuteAuthor}>
                     <VolumeX className='mr-2 size-4' />
-                    Mute author
+                    <Trans>Mute author</Trans>
                   </DropdownMenuItem>
                 )}
                 {canModerate && onBanAuthor && (
                   <DropdownMenuItem onClick={onBanAuthor}>
                     <Ban className='mr-2 size-4' />
-                    Ban author
+                    <Trans>Ban author</Trans>
                   </DropdownMenuItem>
                 )}
               </DropdownMenuContent>
@@ -373,7 +375,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title='Delete post'
+        title={t`Delete post`}
         desc='Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -387,7 +389,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={removeDialogOpen}
         onOpenChange={setRemoveDialogOpen}
-        title='Remove post'
+        title={t`Remove post`}
         desc='This will hide the post from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {

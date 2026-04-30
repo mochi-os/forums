@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   Button,
@@ -92,6 +93,7 @@ const FORUMS_ACCESS_LEVELS: AccessLevel[] = [
 ]
 
 function ForumSettingsPage() {
+  const { t } = useLingui()
   const params = Route.useParams()
   const forumId = 'forum' in params ? params.forum : ''
   const navigate = useNavigate()
@@ -161,11 +163,11 @@ function ForumSettingsPage() {
     setIsUnsubscribing(true)
     try {
       await forumsApi.unsubscribeForum(selectedForum.id)
-      toast.success('Unsubscribed')
+      toast.success(t`Unsubscribed`)
       void refreshForums()
       void navigate({ to: '/' })
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to unsubscribe'))
+      toast.error(getErrorMessage(error, t`Failed to unsubscribe`))
     } finally {
       setIsUnsubscribing(false)
     }
@@ -183,9 +185,9 @@ function ForumSettingsPage() {
       await forumsApi.renameForum(selectedForum.id, name)
       void refreshForumInfo()
       void refreshForums()
-      toast.success('Forum renamed')
+      toast.success(t`Forum renamed`)
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to rename forum'))
+      toast.error(getErrorMessage(error, t`Failed to rename forum`))
       throw error
     }
   }, [selectedForum, refreshForumInfo, refreshForums])
@@ -212,7 +214,7 @@ function ForumSettingsPage() {
   if (!selectedForum) {
     return (
       <>
-        <PageHeader title="Settings" back={{ label: 'Back to forum', onFallback: goBackToForum }} />
+        <PageHeader title={t`Settings`} back={{ label: 'Back to forum', onFallback: goBackToForum }} />
         <Main>
           {forumLookupError ? (
             <GeneralError
@@ -251,7 +253,7 @@ function ForumSettingsPage() {
         {selectedForum.can_manage && (
           <div
             role="tablist"
-            aria-label="Forum settings sections"
+            aria-label={t`Forum settings sections`}
             className='flex gap-1 border-b'
             onKeyDown={(e) => {
               const tabButtons = e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]')
@@ -353,6 +355,7 @@ function GeneralTab({
   onRename,
   onRefresh,
 }: GeneralTabProps) {
+  const { t } = useLingui()
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(forum.name)
   const [isRenaming, setIsRenaming] = useState(false)
@@ -400,10 +403,10 @@ function GeneralTab({
   return (
     <div className='space-y-6'>
       <Section
-        title="Identity"
+        title={t`Identity`}
       >
         <div className="divide-y-0">
-          <FieldRow label="Name">
+          <FieldRow label={t`Name`}>
             {forum.can_manage && isEditing ? (
               <div className='flex flex-col gap-1 w-full max-w-md'>
                 <div className='flex items-center gap-2'>
@@ -465,12 +468,12 @@ function GeneralTab({
             )}
           </FieldRow>
 
-          <FieldRow label="Entity ID">
+          <FieldRow label={t`Entity ID`}>
             <DataChip value={forum.id} truncate='middle' />
           </FieldRow>
 
           {forum.fingerprint && (
-            <FieldRow label="Fingerprint">
+            <FieldRow label={t`Fingerprint`}>
               <DataChip value={forum.fingerprint} truncate='middle' />
             </FieldRow>
           )}
@@ -487,8 +490,8 @@ function GeneralTab({
 
       {canUnsubscribe && (
         <Section
-          title="Unsubscribe from forum"
-          description="Remove this forum from your sidebar."
+          title={t`Unsubscribe from forum`}
+          description={t`Remove this forum from your sidebar.`}
           action={
             <Button
               variant="outline"
@@ -508,8 +511,8 @@ function GeneralTab({
 
       {forum.can_manage && (
         <Section
-          title="Delete forum"
-          description="Permanently delete this forum and all its content."
+          title={t`Delete forum`}
+          description={t`Permanently delete this forum and all its content.`}
           action={
             <Button
               variant="outline"
@@ -518,7 +521,7 @@ function GeneralTab({
               size="sm"
             >
               <Trash2 className="size-4 mr-2" />
-              Delete
+              <Trans>Delete</Trans>
             </Button>
           }
         />
@@ -527,7 +530,7 @@ function GeneralTab({
       <ConfirmDialog
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        title="Delete forum?"
+        title={t`Delete forum?`}
         desc={`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
         confirmText="Delete Forum"
         destructive
@@ -538,6 +541,7 @@ function GeneralTab({
 }
 
 function BannerSection({ forumId }: { forumId: string }) {
+  const { t } = useLingui()
   const [banner, setBannerText] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -561,7 +565,7 @@ function BannerSection({ forumId }: { forumId: string }) {
       setDirty(false)
       toast.success(banner ? 'Banner updated' : 'Banner removed')
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update banner'))
+      toast.error(getErrorMessage(error, t`Failed to update banner`))
     } finally {
       setSaving(false)
     }
@@ -570,12 +574,12 @@ function BannerSection({ forumId }: { forumId: string }) {
   if (!loaded) return null
 
   return (
-    <Section title="Banner" description="Optional markdown banner shown at the top of your forum.">
+    <Section title={t`Banner`} description={t`Optional markdown banner shown at the top of your forum.`}>
       <div className="space-y-3 max-w-lg">
         <Textarea
           value={banner}
           onChange={(e) => { setBannerText(e.target.value); setDirty(e.target.value !== savedRef.current) }}
-          placeholder="Enter banner text (markdown supported)..."
+          placeholder={t`Enter banner text (markdown supported)...`}
           rows={3}
           className="font-mono text-sm"
         />
@@ -595,7 +599,7 @@ function BannerSection({ forumId }: { forumId: string }) {
               onClick={() => { setBannerText(''); setDirty('' !== savedRef.current) }}
               disabled={saving}
             >
-              Clear
+              <Trans>Clear</Trans>
             </Button>
           )}
         </div>
@@ -605,6 +609,7 @@ function BannerSection({ forumId }: { forumId: string }) {
 }
 
 function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: number; onSave: () => void }) {
+  const { t } = useLingui()
   const normalizeMode = (m: string) => {
     if (m === 'score') return 'tag'
     return m || 'off'
@@ -622,7 +627,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       setMode(val)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update AI settings'))
+      toast.error(getErrorMessage(error, t`Failed to update AI settings`))
     }
   }
 
@@ -634,7 +639,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       setAccount(newAccount)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update AI settings'))
+      toast.error(getErrorMessage(error, t`Failed to update AI settings`))
     }
   }
 
@@ -643,25 +648,25 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
 
   return (
     <Section title="AI">
-      <FieldRow label="AI actions on posts">
+      <FieldRow label={t`AI actions on posts`}>
         <Select value={mode} onValueChange={handleModeChange} disabled={isLoading}>
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="off">Disabled</SelectItem>
-            <SelectItem value="tag">Tag</SelectItem>
+            <SelectItem value="off"><Trans>Disabled</Trans></SelectItem>
+            <SelectItem value="tag"><Trans>Tag</Trans></SelectItem>
           </SelectContent>
         </Select>
       </FieldRow>
       {mode !== 'off' && (
-        <FieldRow label="Account">
+        <FieldRow label={t`Account`}>
           <Select value={account.toString()} onValueChange={handleAccountChange} disabled={isLoading}>
             <SelectTrigger className="w-full max-w-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0">Default account</SelectItem>
+              <SelectItem value="0"><Trans>Default account</Trans></SelectItem>
               {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((acc) => (
                 <SelectItem key={acc.id} value={acc.id.toString()}>
                   {acc.label || acc.identifier}
@@ -748,6 +753,7 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
   defaultPrompt: string
   onSave: (text: string) => void
 }) {
+  const { t } = useLingui()
   const isCustom = customPrompt !== ''
   const [custom, setCustom] = useState(isCustom)
   const [text, setText] = useState(customPrompt || defaultPrompt)
@@ -762,7 +768,7 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
         setText(defaultPrompt)
         onSave('')
       }).catch((error) => {
-        toast.error(getErrorMessage(error, 'Failed to reset prompt'))
+        toast.error(getErrorMessage(error, t`Failed to reset prompt`))
       }).finally(() => setSaving(false))
     } else if (val === 'custom' && !custom) {
       setCustom(true)
@@ -774,9 +780,9 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
     setSaving(true)
     forumsApi.setAiPrompt(forumId, type, text).then(() => {
       onSave(text)
-      toast.success('Prompt saved')
+      toast.success(t`Prompt saved`)
     }).catch((error) => {
-      toast.error(getErrorMessage(error, 'Failed to save prompt'))
+      toast.error(getErrorMessage(error, t`Failed to save prompt`))
     }).finally(() => setSaving(false))
   }
 
@@ -788,8 +794,8 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="default">Default</SelectItem>
-            <SelectItem value="custom">Custom</SelectItem>
+            <SelectItem value="default"><Trans>Default</Trans></SelectItem>
+            <SelectItem value="custom"><Trans>Custom</Trans></SelectItem>
           </SelectContent>
         </Select>
         {custom && (
@@ -821,6 +827,7 @@ interface AccessTabProps {
 }
 
 function AccessTab({ forumId }: AccessTabProps) {
+  const { t } = useLingui()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [userSearchQuery, setUserSearchQuery] = useState('')
 
@@ -894,7 +901,7 @@ function AccessTab({ forumId }: AccessTabProps) {
       toast.success(`Access set for ${subjectName}`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to set access level'))
+      toast.error(getErrorMessage(error, t`Failed to set access level`))
       throw error
     }
   }
@@ -903,10 +910,10 @@ function AccessTab({ forumId }: AccessTabProps) {
     if (!canManageRules) return
     try {
       await forumsApi.revokeAccess({ forum: forumId, user: subject })
-      toast.success('Access removed')
+      toast.success(t`Access removed`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to remove access'))
+      toast.error(getErrorMessage(error, t`Failed to remove access`))
     }
   }
 
@@ -918,17 +925,17 @@ function AccessTab({ forumId }: AccessTabProps) {
         user: subject,
         level: newLevel as 'view' | 'vote' | 'comment' | 'post' | 'none',
       })
-      toast.success('Access level updated')
+      toast.success(t`Access level updated`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to update access level'))
+      toast.error(getErrorMessage(error, t`Failed to update access level`))
     }
   }
 
   return (
     <Section
-      title="Access Management"
-      description="Control who can view and interact with this forum"
+      title={t`Access Management`}
+      description={t`Control who can view and interact with this forum`}
     >
       <div className='space-y-4'>
         <div className='flex justify-end'>
@@ -938,7 +945,7 @@ function AccessTab({ forumId }: AccessTabProps) {
             disabled={!canManageRules}
           >
             <Plus className='mr-2 h-4 w-4' />
-            Add Rule
+            <Trans>Add Rule</Trans>
           </Button>
         </div>
 
@@ -991,6 +998,7 @@ interface ModerationTabProps {
 }
 
 function ModerationTab({ forumId }: ModerationTabProps) {
+  const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [settings, setSettings] = useState({
@@ -1029,7 +1037,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
         ...newSettings,
       })
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to save moderation settings'))
+      toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
     }
   }, [forumId])
 
@@ -1067,13 +1075,13 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     <div className='space-y-6'>
       <Section
         title="Pre-moderation"
-        description="Require approval before content becomes visible"
+        description={t`Require approval before content becomes visible`}
       >
         <div className='space-y-4 py-2 text-sm'>
           <label className='flex items-center justify-between py-2 border-b border-border/40'>
             <div className="space-y-0.5">
-              <span className="font-medium">Require approval for new posts</span>
-              <p className="text-muted-foreground text-xs">New threads must be approved</p>
+              <span className="font-medium"><Trans>Require approval for new posts</Trans></span>
+              <p className="text-muted-foreground text-xs"><Trans>New threads must be approved</Trans></p>
             </div>
             <Switch
               checked={settings.moderation_posts}
@@ -1083,8 +1091,8 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
           <label className='flex items-center justify-between py-2 border-b border-border/40'>
             <div className="space-y-0.5">
-              <span className="font-medium">Require approval for new comments</span>
-              <p className="text-muted-foreground text-xs">Replies must be approved</p>
+              <span className="font-medium"><Trans>Require approval for new comments</Trans></span>
+              <p className="text-muted-foreground text-xs"><Trans>Replies must be approved</Trans></p>
             </div>
             <Switch
               checked={settings.moderation_comments}
@@ -1094,8 +1102,8 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
           <label className='flex items-center justify-between py-2'>
             <div className="space-y-0.5">
-              <span className="font-medium">Require approval for new users</span>
-              <p className="text-muted-foreground text-xs">Content from users below a threshold must be approved</p>
+              <span className="font-medium"><Trans>Require approval for new users</Trans></span>
+              <p className="text-muted-foreground text-xs"><Trans>Content from users below a threshold must be approved</Trans></p>
             </div>
             <Switch
               checked={settings.moderation_new}
@@ -1125,12 +1133,12 @@ function ModerationTab({ forumId }: ModerationTabProps) {
       </Section>
 
       <Section
-        title="Rate Limiting"
-        description="Prevent spam by limiting how often users can post"
+        title={t`Rate Limiting`}
+        description={t`Prevent spam by limiting how often users can post`}
       >
         <div className='space-y-4 py-2 text-sm'>
           <div className='flex items-center justify-between py-2 border-b border-border/40'>
-            <span className="font-medium">Post limit</span>
+            <span className="font-medium"><Trans>Post limit</Trans></span>
             <div className="flex items-center gap-2">
               <Input
                 type='number'
@@ -1145,7 +1153,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
           </div>
 
           <div className='flex items-center justify-between py-2 border-b border-border/40'>
-            <span className="font-medium">Comment limit</span>
+            <span className="font-medium"><Trans>Comment limit</Trans></span>
             <div className="flex items-center gap-2">
               <Input
                 type='number'
@@ -1160,7 +1168,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
           </div>
 
           <div className='flex items-center justify-between py-2'>
-            <span className="font-medium">Window duration</span>
+            <span className="font-medium"><Trans>Window duration</Trans></span>
             <div className="flex items-center gap-2">
               <Input
                 type='number'

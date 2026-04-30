@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Hash } from 'lucide-react'
@@ -12,6 +13,7 @@ export const Route = createFileRoute('/_authenticated/find')({
 })
 
 function FindForumsPage() {
+  const { t } = useLingui()
   const { data } = useForumsInfo()
   const queryClient = useQueryClient()
 
@@ -43,10 +45,10 @@ function FindForumsPage() {
     async (forumId: string) => {
       try {
         await forumsApi.subscribeForum(forumId)
-        toast.success('Subscribed')
+        toast.success(t`Subscribed`)
         await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       } catch (error) {
-        toast.error(getErrorMessage(error, 'Failed to subscribe'))
+        toast.error(getErrorMessage(error, t`Failed to subscribe`))
       }
     },
     [queryClient]
@@ -60,8 +62,8 @@ function FindForumsPage() {
       searchEndpoint={endpoints.forums.search}
       icon={Hash}
       iconClassName="bg-primary/10 text-primary"
-      title="Find forums"
-      placeholder="Search by name, ID, fingerprint, or URL..."
+      title={t`Find forums`}
+      placeholder={t`Search by name, ID, fingerprint, or URL...`}
       emptyMessage="No forums found"
       recommendations={recommendations}
       isLoadingRecommendations={isLoadingRecommendations}

@@ -28,7 +28,7 @@ export const Route = createFileRoute('/_authenticated/')({
       // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
       info = response.data as InfoResponse
     } catch (error) {
-      loaderError = getErrorMessage(error, 'Failed to load forums')
+      loaderError = getErrorMessage(error, "Failed to load forums")
     }
 
     // Only redirect on first load, not on subsequent navigations

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -77,6 +78,7 @@ export function CreatePostDialog({
   onOpenChange,
   hideTrigger,
 }: CreatePostDialogProps) {
+  const { t } = useLingui()
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
@@ -161,21 +163,21 @@ export function CreatePostDialog({
           {triggerVariant === 'icon' ? (
             <Button variant='outline' size='sm'>
               <FileEdit className='size-4' />
-              New post
+              <Trans>New post</Trans>
             </Button>
           ) : (
             <Button size='sm' className='text-sm'>
               <FileEdit className='size-4' />
-              New post
+              <Trans>New post</Trans>
             </Button>
           )}
         </ResponsiveDialogTrigger>
       )}
       <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>New post</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle><Trans>New post</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
-            Create a new post
+            <Trans>Create a new post</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
@@ -186,7 +188,7 @@ export function CreatePostDialog({
               name='title'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel><Trans>Title</Trans></FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
@@ -203,11 +205,11 @@ export function CreatePostDialog({
               name='body'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel><Trans>Content</Trans></FormLabel>
                   <FormControl>
                     <Textarea
                       className='min-h-[180px] max-h-[50vh]'
-                      placeholder='Markdown supported'
+                      placeholder={t`Markdown supported`}
                       disabled={isPending}
                       {...field}
                     />
@@ -222,7 +224,7 @@ export function CreatePostDialog({
               {attachments.length > 0 && (
                 <>
                   <div className='text-muted-foreground text-xs font-medium'>
-                    Attachments
+                    <Trans>Attachments</Trans>
                   </div>
                   <div className='flex flex-wrap gap-2'>
                     {attachments.map((file, index) => {
@@ -315,7 +317,7 @@ export function CreatePostDialog({
                 disabled={isPending}
               >
                 <Paperclip className='mr-1 size-4' />
-                Add files
+                <Trans>Add files</Trans>
               </Button>
             </div>
 
@@ -323,7 +325,7 @@ export function CreatePostDialog({
             <ResponsiveDialogFooter className='gap-2 pt-4'>
               <ResponsiveDialogClose asChild>
                 <Button type='button' variant='outline' disabled={isPending}>
-                  Cancel
+                  <Trans>Cancel</Trans>
                 </Button>
               </ResponsiveDialogClose>
               <Button
@@ -333,12 +335,12 @@ export function CreatePostDialog({
                 {isPending ? (
                   <>
                     <Send className='size-4' />
-                    Publishing...
+                    <Trans>Publishing...</Trans>
                   </>
                 ) : (
                   <>
                     <Send className='size-4' />
-                    Publish post
+                    <Trans>Publish post</Trans>
                   </>
                 )}
               </Button>

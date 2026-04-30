@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useLingui } from '@lingui/react/macro'
 import { handleServerError, toast } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
@@ -92,11 +93,12 @@ export function useForumRecommendations() {
 // ============================================================================
 
 export function useCreateForum() {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: forumsApi.createForum,
     onSuccess: () => {
-      toast.success('Forum created')
+      toast.success(t`Forum created`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     },
     onError: handleServerError,
@@ -104,11 +106,12 @@ export function useCreateForum() {
 }
 
 export function useDeleteForum(onDeleted?: () => void) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (forumId: string) => forumsApi.deleteForum(forumId),
     onSuccess: () => {
-      toast.success('Forum deleted')
+      toast.success(t`Forum deleted`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onDeleted?.()
     },
@@ -117,11 +120,12 @@ export function useDeleteForum(onDeleted?: () => void) {
 }
 
 export function useCreatePost(forumId: string | null) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: forumsApi.createPost,
     onSuccess: () => {
-      toast.success('Post published.')
+      toast.success(t`Post published.`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       if (forumId) {
         queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
@@ -133,6 +137,7 @@ export function useCreatePost(forumId: string | null) {
 }
 
 export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
@@ -140,9 +145,9 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
     onSuccess: (data, { forumId }) => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       if (data.data?.already_subscribed) {
-        toast.info('You are already subscribed to this forum')
+        toast.info(t`You are already subscribed to this forum`)
       } else {
-        toast.success('Subscribed to forum')
+        toast.success(t`Subscribed to forum`)
         onSubscribed?.(forumId)
       }
     },
@@ -151,11 +156,12 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
 }
 
 export function useUnsubscribeForum(onUnsubscribed?: () => void) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (forumId: string) => forumsApi.unsubscribeForum(forumId),
     onSuccess: () => {
-      toast.success('Unsubscribed')
+      toast.success(t`Unsubscribed`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onUnsubscribed?.()
     },
@@ -256,6 +262,7 @@ export function useVoteComment(forumId: string, postId: string) {
 }
 
 export function useCreateComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) =>
@@ -264,13 +271,14 @@ export function useCreateComment(forumId: string, postId: string) {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
-      toast.success('Comment posted')
+      toast.success(t`Comment posted`)
     },
     onError: handleServerError,
   })
 }
 
 export function useEditPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (data: {
@@ -294,13 +302,14 @@ export function useEditPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post updated')
+      toast.success(t`Post updated`)
     },
     onError: handleServerError,
   })
 }
 
 export function useDeletePost(forumId: string, onDeleted?: () => void) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (postId: string) =>
@@ -309,7 +318,7 @@ export function useDeletePost(forumId: string, onDeleted?: () => void) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post deleted')
+      toast.success(t`Post deleted`)
       onDeleted?.()
     },
     onError: handleServerError,
@@ -317,6 +326,7 @@ export function useDeletePost(forumId: string, onDeleted?: () => void) {
 }
 
 export function useEditComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ commentId, body }: { commentId: string; body: string }) =>
@@ -330,13 +340,14 @@ export function useEditComment(forumId: string, postId: string) {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
-      toast.success('Comment updated')
+      toast.success(t`Comment updated`)
     },
     onError: handleServerError,
   })
 }
 
 export function useDeleteComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
@@ -349,7 +360,7 @@ export function useDeleteComment(forumId: string, postId: string) {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
-      toast.success('Comment deleted')
+      toast.success(t`Comment deleted`)
     },
     onError: handleServerError,
   })
@@ -411,6 +422,7 @@ export function useGroups() {
 // ============================================================================
 
 export function useRemovePost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (reason?: string) =>
@@ -419,13 +431,14 @@ export function useRemovePost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post removed')
+      toast.success(t`Post removed`)
     },
     onError: handleServerError,
   })
 }
 
 export function useRestorePost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => forumsApi.restorePost({ forum: forumId, post: postId }),
@@ -433,37 +446,40 @@ export function useRestorePost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post restored')
+      toast.success(t`Post restored`)
     },
     onError: handleServerError,
   })
 }
 
 export function useLockPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => forumsApi.lockPost({ forum: forumId, post: postId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Post locked')
+      toast.success(t`Post locked`)
     },
     onError: handleServerError,
   })
 }
 
 export function useUnlockPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => forumsApi.unlockPost({ forum: forumId, post: postId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Post unlocked')
+      toast.success(t`Post unlocked`)
     },
     onError: handleServerError,
   })
 }
 
 export function usePinPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => forumsApi.pinPost({ forum: forumId, post: postId }),
@@ -471,13 +487,14 @@ export function usePinPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post pinned')
+      toast.success(t`Post pinned`)
     },
     onError: handleServerError,
   })
 }
 
 export function useUnpinPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => forumsApi.unpinPost({ forum: forumId, post: postId }),
@@ -485,18 +502,19 @@ export function useUnpinPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
-      toast.success('Post unpinned')
+      toast.success(t`Post unpinned`)
     },
     onError: handleServerError,
   })
 }
 
 export function useReportPost(forumId: string, postId: string) {
+  const { t } = useLingui()
   return useMutation({
     mutationFn: ({ reason, details }: { reason: string; details?: string }) =>
       forumsApi.reportPost({ forum: forumId, post: postId, reason, details }),
     onSuccess: () => {
-      toast.success('Report submitted')
+      toast.success(t`Report submitted`)
     },
     onError: handleServerError,
   })
@@ -507,45 +525,49 @@ export function useReportPost(forumId: string, postId: string) {
 // ============================================================================
 
 export function useRemoveComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ commentId, reason }: { commentId: string; reason?: string }) =>
       forumsApi.removeComment({ forum: forumId, post: postId, comment: commentId, reason }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Comment removed')
+      toast.success(t`Comment removed`)
     },
     onError: handleServerError,
   })
 }
 
 export function useRestoreComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
       forumsApi.restoreComment({ forum: forumId, post: postId, comment: commentId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Comment restored')
+      toast.success(t`Comment restored`)
     },
     onError: handleServerError,
   })
 }
 
 export function useApproveComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
       forumsApi.approveComment({ forum: forumId, post: postId, comment: commentId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
-      toast.success('Comment approved')
+      toast.success(t`Comment approved`)
     },
     onError: handleServerError,
   })
 }
 
 export function useReportComment(forumId: string, postId: string) {
+  const { t } = useLingui()
   return useMutation({
     mutationFn: ({
       commentId,
@@ -564,7 +586,7 @@ export function useReportComment(forumId: string, postId: string) {
         details,
       }),
     onSuccess: () => {
-      toast.success('Report submitted')
+      toast.success(t`Report submitted`)
     },
     onError: handleServerError,
   })

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
@@ -44,6 +45,7 @@ export function EntityForumPage({
   permissions,
   entityContext = false,
 }: EntityForumPageProps) {
+  const { t } = useLingui()
   const navigate = useNavigate()
   const router = useRouter()
   const { isMobile } = useScreenSize()
@@ -183,7 +185,7 @@ export function EntityForumPage({
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'up')
       } catch (error) {
-        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
     [forum.id, forum.fingerprint]
@@ -194,7 +196,7 @@ export function EntityForumPage({
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'down')
       } catch (error) {
-        toast.error(getErrorMessage(error, 'Failed to adjust interest'))
+        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
     [forum.id, forum.fingerprint]
@@ -204,9 +206,9 @@ export function EntityForumPage({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'remove')
-        toast.success('Interest removed')
+        toast.success(t`Interest removed`)
       } catch (error) {
-        toast.error(getErrorMessage(error, 'Failed to remove interest'))
+        toast.error(getErrorMessage(error, t`Failed to remove interest`))
       }
     },
     [forum.id, forum.fingerprint]
@@ -236,7 +238,7 @@ export function EntityForumPage({
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='mr-2 size-4' />
-                New post
+                <Trans>New post</Trans>
               </Button>
             )}
             {!isLoadingForums && isRemoteForum && !isSubscribed && (
@@ -252,7 +254,7 @@ export function EntityForumPage({
                 {subscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && <span className='ml-2'>Subscribing...</span>}
+                    {!isMobile && <span className='ml-2'><Trans>Subscribing...</Trans></span>}
                   </>
                 ) : (
                   'Subscribe'
@@ -269,7 +271,7 @@ export function EntityForumPage({
                   <>
                     <Loader2 className='size-4 animate-spin' />
                     {!isMobile && (
-                      <span className='ml-2'>Unsubscribing...</span>
+                      <span className='ml-2'><Trans>Unsubscribing...</Trans></span>
                     )}
                   </>
                 ) : (

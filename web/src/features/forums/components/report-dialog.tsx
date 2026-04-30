@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent } from 'react'
+import { Trans } from '@lingui/react/macro'
 import {
   ResponsiveDialog,
   ResponsiveDialogContent,
@@ -94,7 +95,7 @@ export function ReportDialog({
 
         <ResponsiveDialogFooter>
           <Button variant='outline' onClick={() => handleOpenChange(false)}>
-            Cancel
+            <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleSubmit} disabled={!isValid || isPending}>
             {isPending ? 'Submitting...' : 'Submit report'}

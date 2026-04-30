@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Trans } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -155,9 +156,9 @@ export function EditPostDialog({
     >
       <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>Edit post</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle><Trans>Edit post</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
-            Edit post
+            <Trans>Edit post</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
@@ -168,7 +169,7 @@ export function EditPostDialog({
               name='title'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel><Trans>Title</Trans></FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
@@ -185,7 +186,7 @@ export function EditPostDialog({
               name='body'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel><Trans>Content</Trans></FormLabel>
                   <FormControl>
                     <Textarea
                       className='min-h-[180px] max-h-[50vh]'
@@ -201,7 +202,7 @@ export function EditPostDialog({
             {/* Attachments grid */}
             {items.length > 0 && (
               <div className='space-y-2'>
-                <div className='text-sm font-medium'>Attachments</div>
+                <div className='text-sm font-medium'><Trans>Attachments</Trans></div>
                 <div className='flex flex-wrap gap-2'>
                   {items.map((item, index, arr) => {
                     const isExisting = item.kind === 'existing'
@@ -313,7 +314,7 @@ export function EditPostDialog({
                 disabled={isPending}
               >
                 <Paperclip className='size-4' />
-                Add files
+                <Trans>Add files</Trans>
               </Button>
               <div className='flex-1' />
               <Button
@@ -322,7 +323,7 @@ export function EditPostDialog({
                 onClick={() => onOpenChange(false)}
                 disabled={isPending}
               >
-                Cancel
+                <Trans>Cancel</Trans>
               </Button>
               <Button
                 type='submit'
@@ -331,12 +332,12 @@ export function EditPostDialog({
                 {isPending ? (
                   <>
                     <Save className='size-4' />
-                    Saving...
+                    <Trans>Saving...</Trans>
                   </>
                 ) : (
                   <>
                     <Save className='size-4' />
-                    Save changes
+                    <Trans>Save changes</Trans>
                   </>
                 )}
               </Button>
