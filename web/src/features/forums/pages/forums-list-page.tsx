@@ -9,7 +9,6 @@ import {
   type SortType,
   useShellStorage,
   useAuthStore,
-  shellSubscribeNotifications,
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
@@ -44,16 +43,6 @@ export function ForumsListPage({
   useEffect(() => {
     if (isLoggedIn) setLastForum(null)
   }, [isLoggedIn])
-
-  useEffect(() => {
-    // Forums only sends 'mention' and 'moderation/*' topics today. If per-post
-    // or per-comment notifications get added later, declare them here.
-    void shellSubscribeNotifications('forums', [
-      { label: 'Moderation restrictions', topic: 'moderation/restricted', defaultEnabled: true },
-      { label: 'Moderation lifted', topic: 'moderation/unrestricted', defaultEnabled: true },
-      { label: 'Mentions', topic: 'mention', defaultEnabled: true },
-    ])
-  }, [])
 
   const { openForumDialog } = useSidebarContext()
 

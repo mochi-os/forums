@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  EntityAvatar,
   PageHeader,
   Main,
   cn,
@@ -835,21 +836,34 @@ function LogTab({ forumId }: LogTabProps) {
         {entries.map((entry) => {
           return (
             <div key={entry.id} className='py-3 first:pt-0 last:pb-0'>
-              <p className='text-sm'>
-                <span className='text-muted-foreground'>{formatTimestamp(entry.created)}</span>{' '}
-                {formatAction(entry.action)}{' '}
-                <span className='font-medium'>
-                  {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
-                </span>{' '}
-                <span className='text-muted-foreground'>
-                  · {entry.moderator_name ?? entry.moderator}
-                </span>
-              </p>
-              {entry.reason && (
-                <p className='text-muted-foreground mt-0.5 text-xs'>
-                  Reason: {entry.reason}
-                </p>
-              )}
+              <div className='flex items-start gap-2 text-sm'>
+                {entry.author && (
+                  <EntityAvatar
+                    src={`/people/${entry.author}/-/avatar`}
+                    styleUrl={`/people/${entry.author}/-/style`}
+                    name={entry.author_name}
+                    size={24}
+                    className='mt-0.5 shrink-0'
+                  />
+                )}
+                <div className='min-w-0 flex-1'>
+                  <p>
+                    <span className='text-muted-foreground'>{formatTimestamp(entry.created)}</span>{' '}
+                    {formatAction(entry.action)}{' '}
+                    <span className='font-medium'>
+                      {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
+                    </span>{' '}
+                    <span className='text-muted-foreground'>
+                      · {entry.moderator_name ?? entry.moderator}
+                    </span>
+                  </p>
+                  {entry.reason && (
+                    <p className='text-muted-foreground mt-0.5 text-xs'>
+                      Reason: {entry.reason}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           )
         })}
@@ -953,7 +967,15 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
             key={restriction.user}
             className='flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0'
           >
-            <div className='min-w-0 flex-1'>
+            <div className='flex min-w-0 flex-1 items-center gap-3'>
+              <EntityAvatar
+                src={`/people/${restriction.user}/-/avatar`}
+                styleUrl={`/people/${restriction.user}/-/style`}
+                name={restriction.name}
+                size="md"
+                className='shrink-0'
+              />
+              <div className='min-w-0 flex-1'>
               <div className='flex items-center gap-2'>
                 <span className='font-medium'>
                   {restriction.name ?? restriction.user}
@@ -982,6 +1004,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                   ? ` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
                   : ' · Permanent'}
               </p>
+            </div>
             </div>
             <Button
               size='sm'

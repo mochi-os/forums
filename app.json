@@ -1,5 +1,5 @@
 {
-	"version": "6.90",
+	"version": "6.94",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -16,7 +16,6 @@
 		"forums.star",
 		"accounts.star"
 	],
-	"permissions": ["interests/read", "interests/write", "accounts/ai"],
 	"database": {
 		"schema": 28,
 		"file": "forums.db",
@@ -49,7 +48,6 @@
 		":forum/-/members": {"function": "action_members_edit"},
 		":forum/-/members/search": {"function": "action_member_search"},
 		":forum/-/members/save": {"function": "action_members_save"},
-		"-/notifications/check": {"function": "action_notifications_check"},
 		":forum/-/notifications/clear": {"function": "action_notifications_clear"},
 		":forum/-/subscribe": {"function": "action_subscribe"},
 		":forum/-/unsubscribe": {"function": "action_unsubscribe"},

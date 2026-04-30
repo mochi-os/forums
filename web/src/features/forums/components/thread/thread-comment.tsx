@@ -164,7 +164,7 @@ export function ThreadComment({
       styleUrl={assetUrl('style')}
       seed={comment.member}
       name={comment.name}
-      size={20}
+      size="xs"
       className='z-10'
     />
   )

@@ -1,6 +1,9 @@
 # Mochi Forums app
 # Copyright Alistair Cunningham 2024-2026
 
+def notify(topic, object="", title="", body="", url=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notification_topic_" + topic.replace("/", "_")))
+
 # Helper: Build a map of qid -> weight from user interests
 def get_interest_map():
 	interests = mochi.interests.list()
@@ -386,7 +389,7 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
         return
 
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
-    mochi.service.call("notifications", "send", topic, title, body, forum_id, "/forums/" + forum_id)
+    notify(topic, forum_id, title, body, "/forums/" + forum_id)
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -1699,14 +1702,6 @@ def action_notifications_clear(a):
     forum = get_forum(a.input("forum"))
     if forum:
         mochi.service.call("notifications", "clear/object", "forums", forum["id"])
-
-def action_notifications_check(a):
-    """Check if a notification subscription exists for this app."""
-    result = mochi.service.call("notifications", "subscriptions")
-    if result == None:
-        return {"data": {"exists": False, "types": []}}
-    types = [sub.get("type", "") for sub in result if sub.get("type")]
-    return {"data": {"exists": len(result) > 0, "types": types}}
 
 # Subscribe to a forum
 def action_subscribe(a):
@@ -4353,8 +4348,7 @@ def event_mention_notify(e):
 	excerpt = e.content("excerpt") or ""
 	author = e.content("author") or "Someone"
 	url = e.content("url") or "/forums"
-	mochi.service.call("notifications", "send",
-		"mention", title, author + " mentioned you: " + excerpt, forum_id, url)
+	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url)
 
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
