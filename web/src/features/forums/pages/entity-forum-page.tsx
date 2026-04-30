@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
   Main,
@@ -12,7 +12,6 @@ import {
   toast,
   getErrorMessage,
   GeneralError,
-  useShellStorage,
   useAuthStore,
 } from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
@@ -24,6 +23,8 @@ import {
   useSubscribeForum,
   useUnsubscribeForum,
   selectForums,
+  selectDefaultSort,
+  useSetForumSort,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
@@ -44,11 +45,21 @@ export function EntityForumPage({
   entityContext = false,
 }: EntityForumPageProps) {
   const navigate = useNavigate()
+  const router = useRouter()
   const { isMobile } = useScreenSize()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
-  const [savedSort, setSort] = useShellStorage<SortType>('forums-sort', 'new')
-  const sort = isLoggedIn ? savedSort : 'new'
+
+  // Per-forum override → falls back to the global default → falls back to 'new'.
+  const [userSort, setUserSort] = useState<SortType | null>(
+    forum.sort ? (forum.sort as SortType) : null
+  )
+  // Re-seed when navigating between forums or when the loader refreshes with
+  // a new saved sort.
+  useEffect(() => {
+    setUserSort(forum.sort ? (forum.sort as SortType) : null)
+  }, [forum.id, forum.sort])
+  const setForumSortMutation = useSetForumSort(forum.id)
 
   // Set page title to forum name
   usePageTitle(forum.name || 'Forum')
@@ -78,6 +89,27 @@ export function EntityForumPage({
   // Queries for subscription status
   const { data: forumsData, isLoading: isLoadingForums } = useForumsList()
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
+  const defaultSort = selectDefaultSort(forumsData)
+
+  // Adopt the global default once it loads, unless the user has overridden
+  // (or this forum already has its own override from forum.sort).
+  useEffect(() => {
+    if (userSort === null && defaultSort && isLoggedIn) {
+      setUserSort(defaultSort as SortType)
+    }
+  }, [defaultSort, userSort, isLoggedIn])
+
+  const sort: SortType = userSort ?? 'new'
+  const setSort = (value: SortType) => {
+    setUserSort(value)
+    setForumSortMutation.mutate(value, {
+      onSuccess: () => {
+        // Bust the route loader so a subsequent navigation back to this forum
+        // sees the freshly-saved forum.sort instead of the cached row.
+        void router.invalidate()
+      },
+    })
+  }
 
   // Infinite posts query - use entityContext for domain routing
   const {

@@ -1,5 +1,5 @@
 {
-	"version": "6.94",
+	"version": "7.0",
 	"label": "app_name",
 	"classes": ["forum"],
 	"paths": [
@@ -17,7 +17,7 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 28,
+		"schema": 30,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -30,6 +30,7 @@
 		"assets": {"files": "web/dist/assets", "public": true},
 		"images": {"files": "web/dist/images", "public": true},
 		"-/info": {"function": "action_info_class"},
+		"-/sort/set": {"function": "action_sort_set_default"},
 		"-/list": {"function": "action_view"},
 		"-/create": {"function": "action_create"},
 		"find": {"file": "web/dist/index.html"},
@@ -49,6 +50,7 @@
 		":forum/-/members/search": {"function": "action_member_search"},
 		":forum/-/members/save": {"function": "action_members_save"},
 		":forum/-/notifications/clear": {"function": "action_notifications_clear"},
+		":forum/-/sort/set": {"function": "action_sort_set_forum"},
 		":forum/-/subscribe": {"function": "action_subscribe"},
 		":forum/-/unsubscribe": {"function": "action_unsubscribe"},
 		":forum/-/delete": {"function": "action_delete"},

@@ -185,6 +185,31 @@ export function useRevokeAccess(forumId: string) {
   })
 }
 
+export function useSetDefaultSort() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (sort: string) => forumsApi.setDefaultSort(sort),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
+      queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'info-list'] })
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useSetForumSort(forumId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (sort: string) => forumsApi.setForumSort(forumId, sort),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: forumsKeys.info(forumId) })
+      queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
+      queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'info-list'] })
+    },
+    onError: handleServerError,
+  })
+}
+
 // ============================================================================
 // Thread/Post Queries
 // ============================================================================
@@ -346,6 +371,12 @@ export function selectPosts(
   return (data?.data?.posts || []).filter(
     (p): p is Post => 'title' in p && !!p.title
   )
+}
+
+export function selectDefaultSort(
+  data: Awaited<ReturnType<typeof forumsApi.listForums>> | undefined
+): string {
+  return data?.data?.settings?.sort ?? ''
 }
 
 export function selectSearchResults(

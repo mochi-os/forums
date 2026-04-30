@@ -118,6 +118,10 @@ const endpoints = {
     // Notifications
     notificationsCheck: '-/notifications/check',
 
+    // Sort persistence
+    sortSet: '-/sort/set',
+    forumSortSet: (forumId: string) => `${getEntityBase(forumId)}/-/sort/set`,
+
     // RSS
     rssToken: '-/rss/token',
 

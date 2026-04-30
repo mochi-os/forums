@@ -567,6 +567,22 @@ const forumsApi = {
 
   clearNotifications: (forumId: string) =>
     client.post(`${forumId}/-/notifications/clear`),
+
+  setDefaultSort: (sort: string) => {
+    const formData = new URLSearchParams()
+    formData.append('sort', sort)
+    return client.post(endpoints.forums.sortSet, formData.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+  },
+
+  setForumSort: (forumId: string, sort: string) => {
+    const formData = new URLSearchParams()
+    formData.append('sort', sort)
+    return client.post(endpoints.forums.forumSortSet(forumId), formData.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+  },
 }
 
 export type {

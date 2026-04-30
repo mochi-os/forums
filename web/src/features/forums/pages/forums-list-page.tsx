@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import {
   GeneralError,
@@ -7,7 +7,6 @@ import {
   PageHeader,
   SortSelector,
   type SortType,
-  useShellStorage,
   useAuthStore,
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
@@ -17,6 +16,8 @@ import {
   useForumsList,
   selectForums,
   selectPosts,
+  selectDefaultSort,
+  useSetDefaultSort,
 } from '@/hooks/use-forums-queries'
 import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
@@ -36,8 +37,6 @@ export function ForumsListPage({
 }: ForumsListPageProps) {
   usePageTitle('Forums')
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
-  const [savedSort, setSort] = useShellStorage<SortType>('forums-sort', 'new')
-  const sort = isLoggedIn ? savedSort : 'new'
 
   // Store "all forums" as the last location (authenticated users only)
   useEffect(() => {
@@ -48,16 +47,36 @@ export function ForumsListPage({
 
   const navigate = useNavigate()
 
+  // The user's session override. Initially null so we adopt the server's
+  // saved default once it loads.
+  const [userSort, setUserSort] = useState<SortType | null>(null)
+
   // Queries
   const {
     data: forumsData,
     isLoading,
     error: forumsError,
     refetch: refetchForums,
-  } = useForumsList(sort)
+  } = useForumsList(userSort ?? undefined)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
   const hasAi = !!(forumsData?.data as Record<string, unknown> | undefined)?.hasAi
+  const defaultSort = selectDefaultSort(forumsData)
+  const setDefaultSortMutation = useSetDefaultSort()
+
+  // Adopt the server's saved default once it arrives, unless the user has
+  // already overridden it this session.
+  useEffect(() => {
+    if (userSort === null && defaultSort && isLoggedIn) {
+      setUserSort(defaultSort as SortType)
+    }
+  }, [defaultSort, userSort, isLoggedIn])
+
+  const sort: SortType = userSort ?? 'new'
+  const setSort = (value: SortType) => {
+    setUserSort(value)
+    setDefaultSortMutation.mutate(value)
+  }
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')

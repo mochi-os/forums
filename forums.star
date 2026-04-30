@@ -47,7 +47,7 @@ def database_create():
         limit_window integer not null default 3600, fingerprint text not null default '',
         ai_mode text not null default '', ai_account integer not null default 0,
         ai_prompt_tag text not null default '', ai_prompt_score text not null default '',
-        banner text not null default '' )""")
+        banner text not null default '', sort text not null default '' )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -117,6 +117,9 @@ def database_create():
     mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
     mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
 
+    mochi.db.execute("create table if not exists settings ( id integer primary key check ( id = 1 ), sort text not null default '' )")
+    mochi.db.execute("insert or ignore into settings ( id, sort ) values ( 1, '' )")
+
 
 # Upgrade database schema
 def database_upgrade(to_version):
@@ -135,6 +138,17 @@ def database_upgrade(to_version):
             mochi.db.execute("alter table forums add column ai_prompt_tag text not null default ''")
         if "ai_prompt_score" not in cols:
             mochi.db.execute("alter table forums add column ai_prompt_score text not null default ''")
+    if to_version == 29:
+        cols = [r["name"] for r in mochi.db.table("forums")]
+        if "sort" not in cols:
+            mochi.db.execute("alter table forums add column sort text not null default ''")
+        mochi.db.execute("create table if not exists settings ( id integer primary key check ( id = 1 ), sort text not null default '' )")
+        mochi.db.execute("insert or ignore into settings ( id, sort ) values ( 1, '' )")
+    if to_version == 30:
+        # score_cache was added to database_create() but never via a migration,
+        # so older forum DBs lack it and any AI/relevance sort path crashes.
+        mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
+        mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -398,15 +412,15 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 # (style/information — single JSON write with a "data" field).
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
-		a.error(404, asset + " unavailable")
+		a.error(404, asset + " unavailable", log=False)
 		return None
 	s = mochi.remote.stream(entity_id, service, asset, {})
 	if not s:
-		a.error(404, asset + " unavailable")
+		a.error(404, asset + " unavailable", log=False)
 		return None
 	header = s.read()
 	if not header or header.get("status") != "200":
-		a.error(404, asset + " not set")
+		a.error(404, asset + " not set", log=False)
 		return None
 	a.header("Cache-Control", "private, max-age=300")
 	if "data" in header:
@@ -434,6 +448,8 @@ def action_comment_asset(a):
 		return
 	row = mochi.db.row("select member from comments where id=?", a.input("comment"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
+
+VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
 
 # Helper: Get post sort order based on sort type
 def get_post_order(sort):
@@ -800,7 +816,9 @@ def action_info_class(a):
             f["can_moderate"] = check_access(a, f["id"], "moderate")
         # For subscribed forums, permissions require P2P - skip here for speed
 
-    return {"data": {"entity": False, "forums": forums}}
+    settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
+
+    return {"data": {"entity": False, "forums": forums, "settings": settings}}
 
 # Info endpoint for entity context - returns forum info with permissions
 def action_info_entity(a):
@@ -1147,12 +1165,14 @@ def action_view(a):
                 p["user_vote"] = pv["vote"] if pv else ""
 
         has_ai = resolve_ai_account(0) > 0 if user_id else False
+        settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
 
         return {
             "data": {
                 "forums": forums,
                 "posts": posts,
                 "hasAi": has_ai,
+                "settings": settings,
             }
         }
 
@@ -1702,6 +1722,34 @@ def action_notifications_clear(a):
     forum = get_forum(a.input("forum"))
     if forum:
         mochi.service.call("notifications", "clear/object", "forums", forum["id"])
+
+def action_sort_set_default(a):
+    """Set the user's default post sort (applied to All forums and to forums with no override)."""
+    if not a.user:
+        a.error(401, "Authentication required")
+        return
+    sort = a.input("sort", "")
+    if sort not in VALID_SORTS:
+        a.error(400, "Invalid sort")
+        return
+    mochi.db.execute("update settings set sort=? where id=1", sort)
+    return {"data": {"sort": sort}}
+
+def action_sort_set_forum(a):
+    """Set the post sort for a specific forum (empty string clears the override)."""
+    if not a.user:
+        a.error(401, "Authentication required")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error(404, "Forum not found")
+        return
+    sort = a.input("sort", "")
+    if sort not in VALID_SORTS:
+        a.error(400, "Invalid sort")
+        return
+    mochi.db.execute("update forums set sort=? where id=?", sort, forum["id"])
+    return {"data": {"sort": sort}}
 
 # Subscribe to a forum
 def action_subscribe(a):

@@ -22,6 +22,7 @@ export interface Forum {
   ai_account?: number
   banner?: string
   banner_html?: string
+  sort?: string // Per-forum override; empty means use default
 }
 
 // Helper to safely get member count
@@ -86,6 +87,7 @@ export interface InfoClassResponse {
   data: {
     entity: false
     forums: Forum[]
+    settings?: { sort: string }
   }
 }
 
@@ -96,6 +98,7 @@ export interface ListForumsResponse {
   data: {
     forums: Forum[]
     posts: Post[]
+    settings?: { sort: string }
   }
 }
 
