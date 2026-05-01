@@ -371,7 +371,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         <EmptyState
           icon={CheckCircle}
           title={t`Moderation queue is empty`}
-          description={"All posts and comments have been reviewed"}
+          description={t`All posts and comments have been reviewed`}
         />
       </div>
     )
@@ -829,7 +829,7 @@ function LogTab({ forumId }: LogTabProps) {
         <EmptyState
           icon={History}
           title={t`No moderation activity`}
-          description={"There are no moderation actions recorded yet"}
+          description={t`There are no moderation actions recorded yet`}
         />
       </div>
     )
@@ -959,7 +959,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
         <EmptyState
           icon={Users}
           title={t`No restrictions`}
-          description={"No users have been muted or banned"}
+          description={t`No users have been muted or banned`}
         />
       </div>
     )

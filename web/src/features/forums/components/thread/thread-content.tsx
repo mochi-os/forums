@@ -23,6 +23,7 @@ import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
 import { embedVideos, sanitizeHtml } from '../../utils'
+import { t } from '@lingui/core/macro'
 
 interface ThreadContentProps {
   post: Post
@@ -374,7 +375,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title={"Delete post"}
+        title={t`Delete post`}
         desc='Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -388,7 +389,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={removeDialogOpen}
         onOpenChange={setRemoveDialogOpen}
-        title={"Remove post"}
+        title={t`Remove post`}
         desc='This will hide the post from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {

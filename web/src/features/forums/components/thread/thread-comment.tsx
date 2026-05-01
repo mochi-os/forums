@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import type { Attachment } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
+import { t } from '@lingui/core/macro'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -400,7 +401,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={deleting}
         onOpenChange={setDeleting}
-        title={"Delete comment"}
+        title={t`Delete comment`}
         desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -414,7 +415,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={removing}
         onOpenChange={setRemoving}
-        title={"Remove comment"}
+        title={t`Remove comment`}
         desc='This will hide the comment from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {
@@ -469,7 +470,7 @@ export function ThreadComment({
               onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setReplyFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
               className='hidden'
             />
-            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={"Attach reply files"}>
+            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={t`Attach reply files`}>
               <Paperclip className='size-4' />
             </Button>
             <Button
@@ -478,7 +479,7 @@ export function ThreadComment({
               variant='ghost'
               className='size-8'
               onClick={onReplyCancel}
-              aria-label={"Cancel reply"}
+              aria-label={t`Cancel reply`}
             >
               <X className='size-4' />
             </Button>
@@ -488,7 +489,7 @@ export function ThreadComment({
               className='size-8'
               disabled={!replyValue.trim() || isReplyPending}
               onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
-              aria-label={"Submit reply"}
+              aria-label={t`Submit reply`}
             >
               <Send className='size-4' />
             </Button>

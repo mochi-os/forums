@@ -70,7 +70,7 @@ msgstr "Add account"
 msgid "Add an account to receive notifications and use services."
 msgstr "Add an account to receive notifications and use services."
 
-#: src/features/forums/components/create-post-dialog.tsx:319
+#: src/features/forums/components/create-post-dialog.tsx:320
 #: src/features/forums/components/edit-post-dialog.tsx:317
 msgid "Add files"
 msgstr "Add files"
@@ -121,7 +121,11 @@ msgstr "All"
 msgid "All forums"
 msgstr "All forums"
 
-#: src/features/forums/components/thread/thread-comment.tsx:347
+#: src/routes/_authenticated/$forum_.moderation.tsx:374
+msgid "All posts and comments have been reviewed"
+msgstr "All posts and comments have been reviewed"
+
+#: src/features/forums/components/thread/thread-comment.tsx:348
 msgid "Approve"
 msgstr "Approve"
 
@@ -129,11 +133,12 @@ msgstr "Approve"
 msgid "Asc"
 msgstr "Asc"
 
+#: src/features/forums/components/thread/thread-comment.tsx:473
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Attach reply files"
 
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:227
 #: src/features/forums/components/edit-post-dialog.tsx:205
 msgid "Attachments"
 msgstr "Attachments"
@@ -142,7 +147,7 @@ msgstr "Attachments"
 msgid "Back"
 msgstr "Back"
 
-#: src/features/forums/components/thread/empty-thread-state.tsx:13
+#: src/features/forums/components/thread/empty-thread-state.tsx:14
 #: src/routes/_authenticated/$forum_.moderation.tsx:97
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 #: src/routes/_authenticated/$forum_.settings.tsx:216
@@ -160,8 +165,8 @@ msgstr "Back to forums"
 msgid "Back to Home"
 msgstr "Back to Home"
 
-#: src/features/forums/components/thread/thread-comment.tsx:389
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/features/forums/components/thread/thread-comment.tsx:390
+#: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Ban author"
 msgstr "Ban author"
 
@@ -179,13 +184,14 @@ msgstr "Boost interest"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/forums/components/create-post-dialog.tsx:327
+#: src/features/forums/components/create-post-dialog.tsx:328
 #: src/features/forums/components/edit-post-dialog.tsx:326
 #: src/features/forums/components/report-dialog.tsx:98
-#: src/features/forums/components/thread/thread-comment.tsx:228
+#: src/features/forums/components/thread/thread-comment.tsx:229
 msgid "Cancel"
 msgstr "Cancel"
 
+#: src/features/forums/components/thread/thread-comment.tsx:482
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Cancel reply"
@@ -303,7 +309,7 @@ msgstr "Compact"
 msgid "Confirm"
 msgstr "Confirm"
 
-#: src/features/forums/components/create-post-dialog.tsx:207
+#: src/features/forums/components/create-post-dialog.tsx:208
 #: src/features/forums/components/edit-post-dialog.tsx:189
 msgid "Content"
 msgstr "Content"
@@ -320,19 +326,24 @@ msgstr "Content not modified"
 msgid "Contextual information and details."
 msgstr "Contextual information and details."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:937
+msgid "Control who can view and interact with this forum"
+msgstr "Control who can view and interact with this forum"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Copy"
 
-#: src/features/forums/components/forum-overview.tsx:90
+#: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Create a new forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:179
+#: src/features/forums/components/create-post-dialog.tsx:180
 msgid "Create a new post"
 msgstr "Create a new post"
 
 #: src/components/layout/forums-layout.tsx:178
+#: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Create forum"
 
@@ -365,19 +376,31 @@ msgstr "Default account"
 msgid "Default AI account"
 msgstr "Default AI account"
 
-#: src/features/forums/components/thread/thread-comment.tsx:334
-#: src/features/forums/components/thread/thread-content.tsx:301
+#: src/features/forums/components/thread/thread-comment.tsx:335
+#: src/features/forums/components/thread/thread-content.tsx:302
 #: src/routes/_authenticated/$forum_.settings.tsx:523
 msgid "Delete"
 msgstr "Delete"
+
+#: src/features/forums/components/thread/thread-comment.tsx:404
+msgid "Delete comment"
+msgstr "Delete comment"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Delete forum"
 msgstr "Delete forum"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:534
+msgid "Delete Forum"
+msgstr "Delete Forum"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:532
 msgid "Delete forum?"
 msgstr "Delete forum?"
+
+#: src/features/forums/components/thread/thread-content.tsx:378
+msgid "Delete post"
+msgstr "Delete post"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
@@ -399,6 +422,10 @@ msgstr "Disabled"
 msgid "Dismiss"
 msgstr "Dismiss"
 
+#: src/features/forums/components/forum-banner.tsx:45
+msgid "Dismiss banner"
+msgstr "Dismiss banner"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Displays the mobile sidebar."
@@ -407,8 +434,8 @@ msgstr "Displays the mobile sidebar."
 msgid "Download"
 msgstr "Download"
 
-#: src/features/forums/components/thread/thread-comment.tsx:328
-#: src/features/forums/components/thread/thread-content.tsx:295
+#: src/features/forums/components/thread/thread-comment.tsx:329
+#: src/features/forums/components/thread/thread-content.tsx:296
 msgid "Edit"
 msgstr "Edit"
 
@@ -594,6 +621,7 @@ msgid "Forum unavailable"
 msgstr "Forum unavailable"
 
 #: src/components/layout/forums-layout.tsx:186
+#: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
 msgid "Forums"
@@ -701,11 +729,11 @@ msgstr "Load more"
 msgid "Loading…"
 msgstr "Loading…"
 
-#: src/features/forums/components/thread/thread-content.tsx:330
+#: src/features/forums/components/thread/thread-content.tsx:331
 msgid "Lock"
 msgstr "Lock"
 
-#: src/features/forums/components/thread/thread-content.tsx:154
+#: src/features/forums/components/thread/thread-content.tsx:155
 msgid "Locked"
 msgstr "Locked"
 
@@ -736,6 +764,10 @@ msgstr "Manage"
 msgid "Mark all as read"
 msgstr "Mark all as read"
 
+#: src/features/forums/components/create-post-dialog.tsx:212
+msgid "Markdown supported"
+msgstr "Markdown supported"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
 msgstr "Menu"
@@ -754,8 +786,8 @@ msgstr "Moderation queue is empty"
 msgid "Moderation sections"
 msgstr "Moderation sections"
 
-#: src/features/forums/components/thread/thread-comment.tsx:381
-#: src/features/forums/components/thread/thread-content.tsx:358
+#: src/features/forums/components/thread/thread-comment.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:359
 msgid "Mute author"
 msgstr "Mute author"
 
@@ -779,9 +811,9 @@ msgstr "New"
 msgid "New forum"
 msgstr "New forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:165
-#: src/features/forums/components/create-post-dialog.tsx:170
-#: src/features/forums/components/create-post-dialog.tsx:177
+#: src/features/forums/components/create-post-dialog.tsx:166
+#: src/features/forums/components/create-post-dialog.tsx:171
+#: src/features/forums/components/create-post-dialog.tsx:178
 #: src/features/forums/pages/entity-forum-page.tsx:241
 msgid "New post"
 msgstr "New post"
@@ -823,6 +855,10 @@ msgstr "No moderation activity"
 msgid "No places found"
 msgstr "No places found"
 
+#: src/features/forums/components/forum-overview.tsx:137
+msgid "No posts in this forum yet"
+msgstr "No posts in this forum yet"
+
 #: ../../../lib/web/src/components/profile-dropdown.tsx:55
 msgid "No profile"
 msgstr "No profile"
@@ -851,6 +887,10 @@ msgstr "No topic record yet — try again after the next notification."
 #: ../../../lib/web/src/features/access/access-dialog.tsx:203
 msgid "No users found"
 msgstr "No users found"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:962
+msgid "No users have been muted or banned"
+msgstr "No users have been muted or banned"
 
 #: ../../../lib/web/src/components/person-picker.tsx:333
 msgid "None"
@@ -884,6 +924,10 @@ msgstr "Open navigation menu"
 msgid "Open theme settings"
 msgstr "Open theme settings"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:576
+msgid "Optional markdown banner shown at the top of your forum."
+msgstr "Optional markdown banner shown at the top of your forum."
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
 msgid "Other"
 msgstr "Other"
@@ -893,19 +937,23 @@ msgid "Owner"
 msgstr "Owner"
 
 #: src/features/forums/components/post-card.tsx:51
-#: src/features/forums/components/thread/thread-comment.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:201
 msgid "Pending"
 msgstr "Pending"
 
-#: src/features/forums/components/thread/thread-content.tsx:142
+#: src/features/forums/components/thread/thread-content.tsx:143
 msgid "Pending approval"
 msgstr "Pending approval"
 
-#: src/features/forums/components/thread/thread-content.tsx:343
+#: src/routes/_authenticated/$forum_.settings.tsx:514
+msgid "Permanently delete this forum and all its content."
+msgstr "Permanently delete this forum and all its content."
+
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:160
+#: src/features/forums/components/thread/thread-content.tsx:161
 msgid "Pinned"
 msgstr "Pinned"
 
@@ -928,6 +976,10 @@ msgstr "Post limit"
 #: src/hooks/use-forums-queries.ts:462
 msgid "Post locked"
 msgstr "Post locked"
+
+#: src/features/forums/components/thread/empty-thread-state.tsx:11
+msgid "Post not found"
+msgstr "Post not found"
 
 #: src/hooks/use-forums-queries.ts:490
 msgid "Post pinned"
@@ -969,6 +1021,10 @@ msgstr "Posts and comments"
 msgid "Pre-moderation"
 msgstr "Pre-moderation"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1136
+msgid "Prevent spam by limiting how often users can post"
+msgstr "Prevent spam by limiting how often users can post"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Previous image"
@@ -982,11 +1038,11 @@ msgstr "Profile"
 msgid "Prompt saved"
 msgstr "Prompt saved"
 
-#: src/features/forums/components/create-post-dialog.tsx:342
+#: src/features/forums/components/create-post-dialog.tsx:343
 msgid "Publish post"
 msgstr "Publish post"
 
-#: src/features/forums/components/create-post-dialog.tsx:337
+#: src/features/forums/components/create-post-dialog.tsx:338
 msgid "Publishing..."
 msgstr "Publishing..."
 
@@ -1014,8 +1070,8 @@ msgstr "Reduce interest"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:362
-#: src/features/forums/components/thread/thread-content.tsx:317
+#: src/features/forums/components/thread/thread-comment.tsx:363
+#: src/features/forums/components/thread/thread-content.tsx:318
 msgid "Remove"
 msgstr "Remove"
 
@@ -1028,13 +1084,25 @@ msgstr "Remove access rule"
 msgid "Remove access?"
 msgstr "Remove access?"
 
+#: src/features/forums/components/thread/thread-comment.tsx:418
+msgid "Remove comment"
+msgstr "Remove comment"
+
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Remove interest"
 
+#: src/features/forums/components/thread/thread-content.tsx:392
+msgid "Remove post"
+msgstr "Remove post"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:493
+msgid "Remove this forum from your sidebar."
+msgstr "Remove this forum from your sidebar."
+
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:206
-#: src/features/forums/components/thread/thread-content.tsx:148
+#: src/features/forums/components/thread/thread-comment.tsx:207
+#: src/features/forums/components/thread/thread-content.tsx:149
 msgid "Removed"
 msgstr "Removed"
 
@@ -1042,8 +1110,8 @@ msgstr "Removed"
 msgid "Replies must be approved"
 msgstr "Replies must be approved"
 
-#: src/features/forums/components/thread/thread-comment.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:351
+#: src/features/forums/components/thread/thread-comment.tsx:371
+#: src/features/forums/components/thread/thread-content.tsx:352
 msgid "Report"
 msgstr "Report"
 
@@ -1055,6 +1123,10 @@ msgstr "Report resolved"
 #: src/hooks/use-forums-queries.ts:589
 msgid "Report submitted"
 msgstr "Report submitted"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1077
+msgid "Require approval before content becomes visible"
+msgstr "Require approval before content becomes visible"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Require approval for new comments"
@@ -1076,8 +1148,8 @@ msgstr "Reset"
 msgid "Reset all settings to default values"
 msgstr "Reset all settings to default values"
 
-#: src/features/forums/components/thread/thread-comment.tsx:356
-#: src/features/forums/components/thread/thread-content.tsx:311
+#: src/features/forums/components/thread/thread-comment.tsx:357
+#: src/features/forums/components/thread/thread-content.tsx:312
 msgid "Restore"
 msgstr "Restore"
 
@@ -1109,7 +1181,7 @@ msgstr "RSS feed"
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL copied to clipboard"
 
-#: src/features/forums/components/thread/thread-comment.tsx:239
+#: src/features/forums/components/thread/thread-comment.tsx:240
 msgid "Save"
 msgstr "Save"
 
@@ -1238,6 +1310,7 @@ msgstr "Stay tuned though!"
 msgid "Subject"
 msgstr "Subject"
 
+#: src/features/forums/components/thread/thread-comment.tsx:492
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Submit reply"
@@ -1275,7 +1348,11 @@ msgstr "Theme"
 msgid "Theme Settings"
 msgstr "Theme Settings"
 
-#: src/features/forums/components/create-post-dialog.tsx:190
+#: src/routes/_authenticated/$forum_.moderation.tsx:832
+msgid "There are no moderation actions recorded yet"
+msgstr "There are no moderation actions recorded yet"
+
+#: src/features/forums/components/create-post-dialog.tsx:191
 #: src/features/forums/components/edit-post-dialog.tsx:172
 msgid "Title"
 msgstr "Title"
@@ -1342,11 +1419,11 @@ msgstr "Unassigned"
 msgid "Unauthorized Access"
 msgstr "Unauthorized Access"
 
-#: src/features/forums/components/thread/thread-content.tsx:324
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Unlock"
 msgstr "Unlock"
 
-#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:338
 msgid "Unpin"
 msgstr "Unpin"
 
@@ -1426,3 +1503,7 @@ msgstr "Window duration"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "You are already subscribed to this forum"
+
+#: src/features/forums/components/forum-overview.tsx:86
+msgid "You have no forums yet."
+msgstr "You have no forums yet."

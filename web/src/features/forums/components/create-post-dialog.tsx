@@ -31,6 +31,7 @@ import {
   Send,
   X,
 } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
 const DISALLOWED_CHARS = /[<>\r\n]/
@@ -208,7 +209,7 @@ export function CreatePostDialog({
                   <FormControl>
                     <Textarea
                       className='min-h-[180px] max-h-[50vh]'
-                      placeholder={"Markdown supported"}
+                      placeholder={t`Markdown supported`}
                       disabled={isPending}
                       {...field}
                     />

@@ -490,7 +490,7 @@ function GeneralTab({
       {canUnsubscribe && (
         <Section
           title={t`Unsubscribe from forum`}
-          description={"Remove this forum from your sidebar."}
+          description={t`Remove this forum from your sidebar.`}
           action={
             <Button
               variant="outline"
@@ -511,7 +511,7 @@ function GeneralTab({
       {forum.can_manage && (
         <Section
           title={t`Delete forum`}
-          description={"Permanently delete this forum and all its content."}
+          description={t`Permanently delete this forum and all its content.`}
           action={
             <Button
               variant="outline"
@@ -531,7 +531,7 @@ function GeneralTab({
         onOpenChange={setShowDeleteDialog}
         title={t`Delete forum?`}
         desc={`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
-        confirmText="Delete Forum"
+        confirmText={t`Delete Forum`}
         destructive
         handleConfirm={onDelete}
       />
@@ -573,7 +573,7 @@ function BannerSection({ forumId }: { forumId: string }) {
   if (!loaded) return null
 
   return (
-    <Section title={t`Banner`} description={"Optional markdown banner shown at the top of your forum."}>
+    <Section title={t`Banner`} description={t`Optional markdown banner shown at the top of your forum.`}>
       <div className="space-y-3 max-w-lg">
         <Textarea
           value={banner}
@@ -934,7 +934,7 @@ function AccessTab({ forumId }: AccessTabProps) {
   return (
     <Section
       title={t`Access Management`}
-      description={"Control who can view and interact with this forum"}
+      description={t`Control who can view and interact with this forum`}
     >
       <div className='space-y-4'>
         <div className='flex justify-end'>
@@ -1074,7 +1074,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     <div className='space-y-6'>
       <Section
         title={t`Pre-moderation`}
-        description={"Require approval before content becomes visible"}
+        description={t`Require approval before content becomes visible`}
       >
         <div className='space-y-4 py-2 text-sm'>
           <label className='flex items-center justify-between py-2 border-b border-border/40'>
@@ -1133,7 +1133,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
       <Section
         title={t`Rate Limiting`}
-        description={"Prevent spam by limiting how often users can post"}
+        description={t`Prevent spam by limiting how often users can post`}
       >
         <div className='space-y-4 py-2 text-sm'>
           <div className='flex items-center justify-between py-2 border-b border-border/40'>

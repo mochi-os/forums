@@ -6,6 +6,7 @@ import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
 import { InlineForumSearch } from './inline-forum-search'
 import { RecommendedForums } from './recommended-forums'
+import { t } from '@lingui/core/macro'
 
 interface ForumOverviewProps {
   forum: Forum | null
@@ -81,8 +82,8 @@ export function ForumOverview({
         ) : (
           <EntityOnboardingEmptyState
             icon={MessageSquare}
-            title={"Forums"}
-            description={"You have no forums yet."}
+            title={t`Forums`}
+            description={t`You have no forums yet.`}
             searchSlot={<InlineForumSearch subscribedIds={subscribedIds} />}
             primaryActionSlot={(
               <Button variant="outline" onClick={onCreateForum}>
@@ -133,7 +134,7 @@ export function ForumOverview({
 
         <EmptyState
           icon={FileEdit}
-          title={"No posts in this forum yet"}
+          title={t`No posts in this forum yet`}
           description={!forum.can_post ? "Check back later for new content" : undefined}
         >
           {forum.can_post && (
