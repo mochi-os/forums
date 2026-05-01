@@ -1068,7 +1068,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
   return (
     <div className='space-y-6'>
       <Section
-        title="Pre-moderation"
+        title={"Pre-moderation"}
         description={"Require approval before content becomes visible"}
       >
         <div className='space-y-4 py-2 text-sm'>

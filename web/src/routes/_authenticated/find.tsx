@@ -64,7 +64,7 @@ function FindForumsPage() {
       iconClassName="bg-primary/10 text-primary"
       title={t`Find forums`}
       placeholder={t`Search by name, ID, fingerprint, or URL...`}
-      emptyMessage="No forums found"
+      emptyMessage={t`No forums found`}
       recommendations={recommendations}
       isLoadingRecommendations={isLoadingRecommendations}
       isRecommendationsError={isRecommendationsError}
