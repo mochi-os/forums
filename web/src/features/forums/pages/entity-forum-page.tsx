@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
@@ -45,7 +45,6 @@ export function EntityForumPage({
   permissions,
   entityContext = false,
 }: EntityForumPageProps) {
-  const { t } = useLingui()
   const navigate = useNavigate()
   const router = useRouter()
   const { isMobile } = useScreenSize()
@@ -185,7 +184,7 @@ export function EntityForumPage({
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'up')
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
+        toast.error(getErrorMessage(error, "Failed to adjust interest"))
       }
     },
     [forum.id, forum.fingerprint]
@@ -196,7 +195,7 @@ export function EntityForumPage({
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'down')
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
+        toast.error(getErrorMessage(error, "Failed to adjust interest"))
       }
     },
     [forum.id, forum.fingerprint]
@@ -206,9 +205,9 @@ export function EntityForumPage({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'remove')
-        toast.success(t`Interest removed`)
+        toast.success("Interest removed")
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to remove interest`))
+        toast.error(getErrorMessage(error, "Failed to remove interest"))
       }
     },
     [forum.id, forum.fingerprint]

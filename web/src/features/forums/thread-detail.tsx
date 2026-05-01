@@ -1,5 +1,4 @@
 import { useCallback, useRef, useState, useEffect } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   Main,
@@ -62,7 +61,6 @@ export function ThreadDetail({
   inDomainContext: _inDomainContext = false,
   fromAllForums = false,
 }: ThreadDetailProps) {
-  const { t } = useLingui()
   const navigate = useNavigate()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
@@ -163,7 +161,7 @@ export function ThreadDetail({
         return [...current, tag]
       })
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to add tag`))
+      toast.error(getErrorMessage(error, "Failed to add tag"))
       throw error
     }
   }, [forum, postId, postData?.data?.post?.tags])
@@ -172,9 +170,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'up')
-        toast.success(t`Interest boosted`)
+        toast.success("Interest boosted")
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
+        toast.error(getErrorMessage(error, "Failed to adjust interest"))
       }
     },
     [forum]
@@ -184,9 +182,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'down')
-        toast.success(t`Interest reduced`)
+        toast.success("Interest reduced")
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
+        toast.error(getErrorMessage(error, "Failed to adjust interest"))
       }
     },
     [forum]
@@ -196,9 +194,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'remove')
-        toast.success(t`Interest removed`)
+        toast.success("Interest removed")
       } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to remove interest`))
+        toast.error(getErrorMessage(error, "Failed to remove interest"))
       }
     },
     [forum]
@@ -206,7 +204,7 @@ export function ThreadDetail({
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
-      toast.error(t`Please enter a comment`)
+      toast.error("Please enter a comment")
       return
     }
     createCommentMutation.mutate(
@@ -223,7 +221,7 @@ export function ThreadDetail({
 
   const handleCommentReplySubmit = (parentId: string, files?: File[]) => {
     if (!commentReplyBody.trim()) {
-      toast.error(t`Please enter a reply`)
+      toast.error("Please enter a reply")
       return
     }
     createCommentMutation.mutate(
@@ -246,7 +244,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
         />
         <ThreadDetailSkeleton />
       </>
@@ -258,7 +256,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
         />
         <Main className="space-y-4">
           <GeneralError
@@ -279,7 +277,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
         />
         <Main className="space-y-4">
           <Card className="shadow-md">
@@ -328,18 +326,18 @@ export function ThreadDetail({
   const handleMuteAuthor = async (userId: string) => {
     try {
       await forumsApi.restrictUser({ forum, user: userId, type: 'muted' })
-      toast.success(t`User muted`)
+      toast.success("User muted")
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to mute user`))
+      toast.error(getErrorMessage(error, "Failed to mute user"))
     }
   }
 
   const handleBanAuthor = async (userId: string) => {
     try {
       await forumsApi.restrictUser({ forum, user: userId, type: 'banned' })
-      toast.success(t`User banned`)
+      toast.success("User banned")
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to ban user`))
+      toast.error(getErrorMessage(error, "Failed to ban user"))
     }
   }
 
@@ -347,7 +345,7 @@ export function ThreadDetail({
     <>
       <PageHeader
         title={forumTitle}
-        back={{ label: 'Back to forum', onFallback: goBackToForumContext }}
+        back={{ label: "Back to forum", onFallback: goBackToForumContext }}
       />
       <Main className="space-y-4">
         {forumData?.banner_html && (
@@ -438,7 +436,7 @@ export function ThreadDetail({
                         onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
                         className='hidden'
                       />
-                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={t`Attach reply files`}>
+                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={"Attach reply files"}>
                         <Paperclip className='size-4' />
                       </Button>
                       <Button
@@ -447,7 +445,7 @@ export function ThreadDetail({
                         variant='ghost'
                         className='size-8'
                         onClick={() => setShowReplyForm(false)}
-                        aria-label={t`Cancel reply`}
+                        aria-label={"Cancel reply"}
                         disabled={createCommentMutation.isPending}
                       >
                         <X className='size-4' />
@@ -459,7 +457,7 @@ export function ThreadDetail({
                           !commentBody.trim() || createCommentMutation.isPending
                         }
                         onClick={handleCommentSubmit}
-                        aria-label={t`Submit reply`}
+                        aria-label={"Submit reply"}
                       >
                         <Send className='size-4' />
                       </Button>

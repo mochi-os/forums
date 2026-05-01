@@ -61,7 +61,7 @@ export function useInfinitePosts({
   const query = useInfiniteQuery({
     queryKey: ['forum-posts', forum, { limit, server, entityContext, sort, tag }],
     queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
-      if (!forum) throw new Error('Forum ID required')
+      if (!forum) throw new Error("Forum ID required")
 
       let data: {
         posts?: Post[]

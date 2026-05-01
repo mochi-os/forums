@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
@@ -104,7 +104,6 @@ export function ThreadComment({
   currentUserId,
   onSearchPeople,
 }: ThreadCommentProps) {
-  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -401,7 +400,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={deleting}
         onOpenChange={setDeleting}
-        title={t`Delete comment`}
+        title={"Delete comment"}
         desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -415,7 +414,7 @@ export function ThreadComment({
       <ConfirmDialog
         open={removing}
         onOpenChange={setRemoving}
-        title={t`Remove comment`}
+        title={"Remove comment"}
         desc='This will hide the comment from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {
@@ -470,7 +469,7 @@ export function ThreadComment({
               onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setReplyFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
               className='hidden'
             />
-            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={t`Attach reply files`}>
+            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={"Attach reply files"}>
               <Paperclip className='size-4' />
             </Button>
             <Button
@@ -479,7 +478,7 @@ export function ThreadComment({
               variant='ghost'
               className='size-8'
               onClick={onReplyCancel}
-              aria-label={t`Cancel reply`}
+              aria-label={"Cancel reply"}
             >
               <X className='size-4' />
             </Button>
@@ -489,7 +488,7 @@ export function ThreadComment({
               className='size-8'
               disabled={!replyValue.trim() || isReplyPending}
               onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
-              aria-label={t`Submit reply`}
+              aria-label={"Submit reply"}
             >
               <Send className='size-4' />
             </Button>

@@ -64,7 +64,7 @@ function ForumPage() {
       <>
         <PageHeader
           title={t`Forum`}
-          back={{ label: 'Back to forums', onFallback: () => navigate({ to: '/' }) }}
+          back={{ label: t`Back to forums`, onFallback: () => navigate({ to: '/' }) }}
         />
         <Main>
           <GeneralError

@@ -63,10 +63,10 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: 'queue', label: 'Queue', icon: <Clock className='h-4 w-4' /> },
-  { id: 'reports', label: 'Reports', icon: <Flag className='h-4 w-4' /> },
-  { id: 'restrictions', label: 'Restrictions', icon: <Users className='h-4 w-4' /> },
-  { id: 'log', label: 'Log', icon: <History className='h-4 w-4' /> },
+  { id: 'queue', label: "Queue", icon: <Clock className='h-4 w-4' /> },
+  { id: 'reports', label: "Reports", icon: <Flag className='h-4 w-4' /> },
+  { id: 'restrictions', label: "Restrictions", icon: <Users className='h-4 w-4' /> },
+  { id: 'log', label: "Log", icon: <History className='h-4 w-4' /> },
 ]
 
 function ModerationPage() {
@@ -94,7 +94,7 @@ function ModerationPage() {
 
   return (
     <>
-      <PageHeader title={t`Moderation`} back={{ label: 'Back to forum', onFallback: goBackToForum }} />
+      <PageHeader title={t`Moderation`} back={{ label: t`Back to forum`, onFallback: goBackToForum }} />
       <Main className='space-y-6'>
         {/* Tabs */}
         <div
@@ -164,7 +164,6 @@ interface QueueTabProps {
 }
 
 function QueueTab({ forumId }: QueueTabProps) {
-  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -251,7 +250,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Approved ${count} item${count !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to approve items`))
+      toast.error(getErrorMessage(error, "Failed to approve items"))
     } finally {
       setActionInProgress(null)
     }
@@ -273,7 +272,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Rejected ${count} item${count !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to reject items`))
+      toast.error(getErrorMessage(error, "Failed to reject items"))
     } finally {
       setActionInProgress(null)
     }
@@ -302,7 +301,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Muted ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to mute users`))
+      toast.error(getErrorMessage(error, "Failed to mute users"))
     } finally {
       setActionInProgress(null)
     }
@@ -319,7 +318,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Banned ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to ban users`))
+      toast.error(getErrorMessage(error, "Failed to ban users"))
     } finally {
       setActionInProgress(null)
     }
@@ -370,8 +369,8 @@ function QueueTab({ forumId }: QueueTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={CheckCircle}
-          title={t`Moderation queue is empty`}
-          description={t`All posts and comments have been reviewed`}
+          title={"Moderation queue is empty"}
+          description={"All posts and comments have been reviewed"}
         />
       </div>
     )
@@ -467,7 +466,7 @@ function QueueTab({ forumId }: QueueTabProps) {
           size='sm'
           onClick={toggleSelectAll}
         >
-          {allSelected ? 'Select none' : 'Select all'}
+          {allSelected ? "Select none" : "Select all"}
         </Button>
         <div className='flex gap-2'>
           <Button
@@ -540,7 +539,6 @@ interface ReportsTabProps {
 }
 
 function ReportsTab({ forumId }: ReportsTabProps) {
-  const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
@@ -568,10 +566,10 @@ function ReportsTab({ forumId }: ReportsTabProps) {
     setActionInProgress(reportId)
     try {
       await forumsApi.resolveReport({ forum: forumId, report: reportId, action })
-      toast.success(t`Report resolved`)
+      toast.success("Report resolved")
       void loadReports()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to resolve report`))
+      toast.error(getErrorMessage(error, "Failed to resolve report"))
     } finally {
       setActionInProgress(null)
     }
@@ -650,7 +648,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
         <div className='py-12'>
           <EmptyState
             icon={Flag}
-            title={t`No reports`}
+            title={"No reports"}
             description={`No ${statusFilter} reports found`}
           />
         </div>
@@ -768,7 +766,6 @@ function formatReason(reason: string): string {
 }
 
 function LogTab({ forumId }: LogTabProps) {
-  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -828,8 +825,8 @@ function LogTab({ forumId }: LogTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={History}
-          title={t`No moderation activity`}
-          description={t`There are no moderation actions recorded yet`}
+          title={"No moderation activity"}
+          description={"There are no moderation actions recorded yet"}
         />
       </div>
     )
@@ -882,7 +879,6 @@ interface RestrictionsTabProps {
 }
 
 function RestrictionsTab({ forumId }: RestrictionsTabProps) {
-  const { t } = useLingui()
   const { formatDate } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -910,10 +906,10 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
     setActionInProgress(userId)
     try {
       await forumsApi.unrestrictUser({ forum: forumId, user: userId })
-      toast.success(t`Restriction removed`)
+      toast.success("Restriction removed")
       void loadRestrictions()
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to remove restriction`))
+      toast.error(getErrorMessage(error, "Failed to remove restriction"))
     } finally {
       setActionInProgress(null)
     }
@@ -958,8 +954,8 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={Users}
-          title={t`No restrictions`}
-          description={t`No users have been muted or banned`}
+          title={"No restrictions"}
+          description={"No users have been muted or banned"}
         />
       </div>
     )

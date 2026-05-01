@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,7 +41,7 @@ const createPostSchema = z.object({
     .min(1, 'Title is required')
     .max(1000, 'Title must be 1000 characters or less')
     .refine((val) => !DISALLOWED_CHARS.test(val), {
-      message: 'Title cannot contain < or > characters',
+      message: "Title cannot contain < or > characters",
     }),
   body: z.string().min(1, 'Content is required'),
 })
@@ -78,7 +78,6 @@ export function CreatePostDialog({
   onOpenChange,
   hideTrigger,
 }: CreatePostDialogProps) {
-  const { t } = useLingui()
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
@@ -209,7 +208,7 @@ export function CreatePostDialog({
                   <FormControl>
                     <Textarea
                       className='min-h-[180px] max-h-[50vh]'
-                      placeholder={t`Markdown supported`}
+                      placeholder={"Markdown supported"}
                       disabled={isPending}
                       {...field}
                     />

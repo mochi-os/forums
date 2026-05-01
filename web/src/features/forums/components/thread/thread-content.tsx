@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions, getAppPath } from '@mochi/web'
 import {
   ThumbsUp,
@@ -91,7 +91,6 @@ export function ThreadContent({
   onMuteAuthor,
   onBanAuthor,
 }: ThreadContentProps) {
-  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
@@ -375,7 +374,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title={t`Delete post`}
+        title={"Delete post"}
         desc='Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.'
         confirmText='Delete'
         destructive={true}
@@ -389,7 +388,7 @@ export function ThreadContent({
       <ConfirmDialog
         open={removeDialogOpen}
         onOpenChange={setRemoveDialogOpen}
-        title={t`Remove post`}
+        title={"Remove post"}
         desc='This will hide the post from regular users. Moderators can still see it and restore it later.'
         confirmText='Remove'
         handleConfirm={() => {

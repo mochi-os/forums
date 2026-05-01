@@ -15,13 +15,13 @@ import {
 } from '@mochi/web'
 
 const REPORT_REASONS = [
-  { value: 'spam', label: 'Spam' },
-  { value: 'harassment', label: 'Harassment' },
-  { value: 'hate', label: 'Hate speech' },
-  { value: 'violence', label: 'Violence' },
-  { value: 'misinformation', label: 'Misinformation' },
-  { value: 'offtopic', label: 'Off-topic' },
-  { value: 'other', label: 'Other' },
+  { value: 'spam', label: "Spam" },
+  { value: 'harassment', label: "Harassment" },
+  { value: 'hate', label: "Hate speech" },
+  { value: 'violence', label: "Violence" },
+  { value: 'misinformation', label: "Misinformation" },
+  { value: 'offtopic', label: "Off-topic" },
+  { value: 'other', label: "Other" },
 ]
 
 interface ReportDialogProps {
@@ -87,7 +87,7 @@ export function ReportDialog({
               id='details'
               value={details}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
-              placeholder={reason === 'other' ? 'Please describe the issue...' : 'Any additional context...'}
+              placeholder={reason === 'other' ? "Please describe the issue..." : "Any additional context..."}
               rows={reason === 'other' ? 3 : 2}
             />
           </div>
@@ -98,7 +98,7 @@ export function ReportDialog({
             <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleSubmit} disabled={!isValid || isPending}>
-            {isPending ? 'Submitting...' : 'Submit report'}
+            {isPending ? "Submitting..." : "Submit report"}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

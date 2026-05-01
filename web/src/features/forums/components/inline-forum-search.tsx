@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { Search, Loader2, Hash } from 'lucide-react'
@@ -23,7 +23,6 @@ export function InlineForumSearch({
   subscribedIds,
   onRefresh,
 }: InlineForumSearchProps) {
-  const { t } = useLingui()
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [results, setResults] = useState<DirectoryEntry[]>([])
@@ -48,7 +47,7 @@ export function InlineForumSearch({
     } catch (error) {
       setResults([])
       setSearchError(
-        new Error(getErrorMessage(error, t`Failed to search forums`))
+        new Error(getErrorMessage(error, "Failed to search forums"))
       )
     } finally {
       setIsLoading(false)
@@ -84,7 +83,7 @@ export function InlineForumSearch({
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to subscribe`))
+      toast.error(getErrorMessage(error, "Failed to subscribe"))
       setPendingForumId(null)
     }
   }
@@ -97,7 +96,7 @@ export function InlineForumSearch({
       <div className="relative mb-4">
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
-          placeholder={t`Search for forums...`}
+          placeholder={"Search for forums..."}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="h-10 pl-9"

@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import {
   AuthenticatedLayout,
   type SidebarData,
@@ -25,6 +26,7 @@ import { CreateForumDialog } from '@/features/forums/components/create-forum-dia
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 
 function ForumsLayoutInner() {
+  const { t } = useLingui()
   const {
     forum,
     postDialogOpen,
@@ -109,7 +111,7 @@ function ForumsLayoutInner() {
       // Settings link for forum managers only
       if (isCurrentForum && canManage) {
         manageItems.push({
-          title: 'Settings',
+          title: t`Settings`,
           icon: Settings,
           url: `/${forumUrl}/settings`,
         })
@@ -117,7 +119,7 @@ function ForumsLayoutInner() {
       // Moderation link for managers and moderators
       if (isCurrentForum && (canManage || canModerate)) {
         manageItems.push({
-          title: 'Moderation',
+          title: t`Moderation`,
           icon: Gavel,
           url: `/${forumUrl}/moderation`,
         })
@@ -125,10 +127,10 @@ function ForumsLayoutInner() {
 
       if (isCurrentForum && hasCurrentPermissionsError) {
         subItems.push({
-          title: 'Manage',
+          title: t`Manage`,
           items: [
             {
-              title: 'Retry permissions load',
+              title: t`Retry permissions load`,
               icon: RefreshCw,
               onClick: () => {
                 void refetchCurrentForumInfo()
@@ -142,7 +144,7 @@ function ForumsLayoutInner() {
       // Group manage items under "Manage" section if there are any
       if (manageItems.length > 0) {
         subItems.push({
-          title: 'Manage',
+          title: t`Manage`,
           items: manageItems,
         } as NavSubItem)
       }
@@ -165,16 +167,16 @@ function ForumsLayoutInner() {
     })
 
     const allForumsItem: NavItem = {
-      title: 'All forums',
+      title: t`All forums`,
       url: '/',
       icon: MessageSquare,
     }
 
     // Build action items (moved to bottom)
     const actionItems: NavItem[] = [
-      { title: 'Find forums', icon: Search, url: '/find' },
+      { title: t`Find forums`, icon: Search, url: '/find' },
       {
-        title: 'Create forum',
+        title: t`Create forum`,
         icon: Plus,
         onClick: openForumDialog,
       },
@@ -182,12 +184,12 @@ function ForumsLayoutInner() {
 
     const groups: SidebarData['navGroups'] = [
       {
-        title: 'Forums',
+        title: t`Forums`,
         items: forumsInfoError
           ? [
             allForumsItem,
             {
-              title: 'Retry forums load',
+              title: t`Retry forums load`,
               icon: RefreshCw,
               onClick: () => {
                 void refetchForumsInfo()
