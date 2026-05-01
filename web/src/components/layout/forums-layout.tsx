@@ -4,8 +4,7 @@ import {
   AuthenticatedLayout,
   type SidebarData,
   type NavItem,
-  type NavSubItem,
-} from '@mochi/web'
+  type NavSubItem, naturalCompare,} from '@mochi/web'
 import {
   Hash,
   MessageSquare,
@@ -82,7 +81,7 @@ function ForumsLayoutInner() {
   const sidebarData: SidebarData = useMemo(() => {
     // Sort forums alphabetically
     const sortedForums = [...forums].sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+      naturalCompare(a.name, b.name)
     )
 
     // Build forum items - use fingerprint for shorter URLs

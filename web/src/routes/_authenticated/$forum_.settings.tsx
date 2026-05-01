@@ -30,8 +30,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@mochi/web'
+  SelectValue, naturalCompare,} from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -667,7 +666,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="0"><Trans>Default account</Trans></SelectItem>
-              {[...accounts].sort((a, b) => (a.label || a.identifier).localeCompare(b.label || b.identifier)).map((acc) => (
+              {[...accounts].sort((a, b) => naturalCompare((a.label || a.identifier), b.label || b.identifier)).map((acc) => (
                 <SelectItem key={acc.id} value={acc.id.toString()}>
                   {acc.label || acc.identifier}
                 </SelectItem>
