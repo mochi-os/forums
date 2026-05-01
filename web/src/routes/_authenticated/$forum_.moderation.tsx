@@ -370,7 +370,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={CheckCircle}
-          title={"Moderation queue is empty"}
+          title={t`Moderation queue is empty`}
           description={"All posts and comments have been reviewed"}
         />
       </div>
@@ -650,7 +650,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
         <div className='py-12'>
           <EmptyState
             icon={Flag}
-            title={"No reports"}
+            title={t`No reports`}
             description={`No ${statusFilter} reports found`}
           />
         </div>
@@ -768,6 +768,7 @@ function formatReason(reason: string): string {
 }
 
 function LogTab({ forumId }: LogTabProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -827,7 +828,7 @@ function LogTab({ forumId }: LogTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={History}
-          title={"No moderation activity"}
+          title={t`No moderation activity`}
           description={"There are no moderation actions recorded yet"}
         />
       </div>
@@ -957,7 +958,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
       <div className='py-12'>
         <EmptyState
           icon={Users}
-          title={"No restrictions"}
+          title={t`No restrictions`}
           description={"No users have been muted or banned"}
         />
       </div>

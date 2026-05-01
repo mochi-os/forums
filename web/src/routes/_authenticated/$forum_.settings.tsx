@@ -355,15 +355,16 @@ function GeneralTab({
   onRename,
   onRefresh,
 }: GeneralTabProps) {
+  const { t } = useLingui()
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(forum.name)
   const [isRenaming, setIsRenaming] = useState(false)
   const [nameError, setNameError] = useState<string | null>(null)
 
   const validateName = (name: string): string | null => {
-    if (!name.trim()) return 'Forum name is required'
-    if (name.length > 1000) return 'Name must be 1000 characters or less'
-    if (DISALLOWED_NAME_CHARS.test(name)) return 'Name cannot contain < or > characters'
+    if (!name.trim()) return t`Forum name is required`
+    if (name.length > 1000) return t`Name must be 1000 characters or less`
+    if (DISALLOWED_NAME_CHARS.test(name)) return t`Name cannot contain < or > characters`
     return null
   }
 
@@ -402,10 +403,10 @@ function GeneralTab({
   return (
     <div className='space-y-6'>
       <Section
-        title={"Identity"}
+        title={t`Identity`}
       >
         <div className="divide-y-0">
-          <FieldRow label={"Name"}>
+          <FieldRow label={t`Name`}>
             {forum.can_manage && isEditing ? (
               <div className='flex flex-col gap-1 w-full max-w-md'>
                 <div className='flex items-center gap-2'>
@@ -467,12 +468,12 @@ function GeneralTab({
             )}
           </FieldRow>
 
-          <FieldRow label={"Entity ID"}>
+          <FieldRow label={t`Entity ID`}>
             <DataChip value={forum.id} truncate='middle' />
           </FieldRow>
 
           {forum.fingerprint && (
-            <FieldRow label={"Fingerprint"}>
+            <FieldRow label={t`Fingerprint`}>
               <DataChip value={forum.fingerprint} truncate='middle' />
             </FieldRow>
           )}
@@ -489,7 +490,7 @@ function GeneralTab({
 
       {canUnsubscribe && (
         <Section
-          title={"Unsubscribe from forum"}
+          title={t`Unsubscribe from forum`}
           description={"Remove this forum from your sidebar."}
           action={
             <Button
@@ -510,7 +511,7 @@ function GeneralTab({
 
       {forum.can_manage && (
         <Section
-          title={"Delete forum"}
+          title={t`Delete forum`}
           description={"Permanently delete this forum and all its content."}
           action={
             <Button
@@ -529,7 +530,7 @@ function GeneralTab({
       <ConfirmDialog
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        title={"Delete forum?"}
+        title={t`Delete forum?`}
         desc={`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
         confirmText="Delete Forum"
         destructive
@@ -573,12 +574,12 @@ function BannerSection({ forumId }: { forumId: string }) {
   if (!loaded) return null
 
   return (
-    <Section title={"Banner"} description={"Optional markdown banner shown at the top of your forum."}>
+    <Section title={t`Banner`} description={"Optional markdown banner shown at the top of your forum."}>
       <div className="space-y-3 max-w-lg">
         <Textarea
           value={banner}
           onChange={(e) => { setBannerText(e.target.value); setDirty(e.target.value !== savedRef.current) }}
-          placeholder={"Enter banner text (markdown supported)..."}
+          placeholder={t`Enter banner text (markdown supported)...`}
           rows={3}
           className="font-mono text-sm"
         />
@@ -646,8 +647,8 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   const showScore = mode !== 'off'
 
   return (
-    <Section title="AI">
-      <FieldRow label={"AI actions on posts"}>
+    <Section title={t`AI`}>
+      <FieldRow label={t`AI actions on posts`}>
         <Select value={mode} onValueChange={handleModeChange} disabled={isLoading}>
           <SelectTrigger className="w-full max-w-xs">
             <SelectValue />
@@ -659,7 +660,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
         </Select>
       </FieldRow>
       {mode !== 'off' && (
-        <FieldRow label={"Account"}>
+        <FieldRow label={t`Account`}>
           <Select value={account.toString()} onValueChange={handleAccountChange} disabled={isLoading}>
             <SelectTrigger className="w-full max-w-xs">
               <SelectValue />
@@ -933,7 +934,7 @@ function AccessTab({ forumId }: AccessTabProps) {
 
   return (
     <Section
-      title={"Access Management"}
+      title={t`Access Management`}
       description={"Control who can view and interact with this forum"}
     >
       <div className='space-y-4'>
@@ -1073,7 +1074,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
   return (
     <div className='space-y-6'>
       <Section
-        title={"Pre-moderation"}
+        title={t`Pre-moderation`}
         description={"Require approval before content becomes visible"}
       >
         <div className='space-y-4 py-2 text-sm'>
@@ -1132,7 +1133,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
       </Section>
 
       <Section
-        title={"Rate Limiting"}
+        title={t`Rate Limiting`}
         description={"Prevent spam by limiting how often users can post"}
       >
         <div className='space-y-4 py-2 text-sm'>

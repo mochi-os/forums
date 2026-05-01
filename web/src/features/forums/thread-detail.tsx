@@ -438,7 +438,7 @@ export function ThreadDetail({
                         onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
                         className='hidden'
                       />
-                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={"Attach reply files"}>
+                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={t`Attach reply files`}>
                         <Paperclip className='size-4' />
                       </Button>
                       <Button
@@ -447,7 +447,7 @@ export function ThreadDetail({
                         variant='ghost'
                         className='size-8'
                         onClick={() => setShowReplyForm(false)}
-                        aria-label={"Cancel reply"}
+                        aria-label={t`Cancel reply`}
                         disabled={createCommentMutation.isPending}
                       >
                         <X className='size-4' />
@@ -459,7 +459,7 @@ export function ThreadDetail({
                           !commentBody.trim() || createCommentMutation.isPending
                         }
                         onClick={handleCommentSubmit}
-                        aria-label={"Submit reply"}
+                        aria-label={t`Submit reply`}
                       >
                         <Send className='size-4' />
                       </Button>

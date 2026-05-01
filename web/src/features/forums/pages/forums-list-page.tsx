@@ -122,7 +122,7 @@ export function ForumsListPage({
   return (
     <>
       <PageHeader
-        title={"Forums"}
+        title={t`Forums`}
         icon={<Rss className='size-4 md:size-5' />}
         actions={<>{isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}</>}
         menuAction={<OptionsMenu showRss />}
