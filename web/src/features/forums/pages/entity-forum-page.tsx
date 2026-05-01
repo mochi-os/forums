@@ -237,7 +237,7 @@ export function EntityForumPage({
             {isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
-                <SquarePen className='mr-2 size-4' />
+                <SquarePen className='me-2 size-4' />
                 <Trans>New post</Trans>
               </Button>
             )}
@@ -254,7 +254,7 @@ export function EntityForumPage({
                 {subscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && <span className='ml-2'><Trans>Subscribing...</Trans></span>}
+                    {!isMobile && <span className='ms-2'><Trans>Subscribing...</Trans></span>}
                   </>
                 ) : (
                   'Subscribe'
@@ -271,7 +271,7 @@ export function EntityForumPage({
                   <>
                     <Loader2 className='size-4 animate-spin' />
                     {!isMobile && (
-                      <span className='ml-2'><Trans>Unsubscribing...</Trans></span>
+                      <span className='ms-2'><Trans>Unsubscribing...</Trans></span>
                     )}
                   </>
                 ) : (

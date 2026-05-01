@@ -292,13 +292,13 @@ export function ThreadContent({
               <DropdownMenuContent align='start'>
                 {canEdit && onEdit && (
                   <DropdownMenuItem onClick={onEdit}>
-                    <Pencil className='mr-2 size-4' />
+                    <Pencil className='me-2 size-4' />
                     <Trans>Edit</Trans>
                   </DropdownMenuItem>
                 )}
                 {canEdit && onDelete && (
                   <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-                    <Trash2 className='mr-2 size-4' />
+                    <Trash2 className='me-2 size-4' />
                     <Trans>Delete</Trans>
                   </DropdownMenuItem>
                 )}
@@ -308,39 +308,39 @@ export function ThreadContent({
                     {isRemoved
                       ? onRestore && (
                           <DropdownMenuItem onClick={onRestore}>
-                            <Eye className='mr-2 size-4' />
+                            <Eye className='me-2 size-4' />
                             <Trans>Restore</Trans>
                           </DropdownMenuItem>
                         )
                       : onRemove && (
                           <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
-                            <EyeOff className='mr-2 size-4' />
+                            <EyeOff className='me-2 size-4' />
                             <Trans>Remove</Trans>
                           </DropdownMenuItem>
                         )}
                     {isLocked
                       ? onUnlock && (
                           <DropdownMenuItem onClick={onUnlock}>
-                            <Unlock className='mr-2 size-4' />
+                            <Unlock className='me-2 size-4' />
                             <Trans>Unlock</Trans>
                           </DropdownMenuItem>
                         )
                       : onLock && (
                           <DropdownMenuItem onClick={onLock}>
-                            <Lock className='mr-2 size-4' />
+                            <Lock className='me-2 size-4' />
                             <Trans>Lock</Trans>
                           </DropdownMenuItem>
                         )}
                     {isPinned
                       ? onUnpin && (
                           <DropdownMenuItem onClick={onUnpin}>
-                            <PinOff className='mr-2 size-4' />
+                            <PinOff className='me-2 size-4' />
                             <Trans>Unpin</Trans>
                           </DropdownMenuItem>
                         )
                       : onPin && (
                           <DropdownMenuItem onClick={onPin}>
-                            <Pin className='mr-2 size-4' />
+                            <Pin className='me-2 size-4' />
                             <Trans>Pin</Trans>
                           </DropdownMenuItem>
                         )}
@@ -348,20 +348,20 @@ export function ThreadContent({
                 )}
                 {onReport && (
                   <DropdownMenuItem onClick={onReport}>
-                    <Flag className='mr-2 size-4' />
+                    <Flag className='me-2 size-4' />
                     <Trans>Report</Trans>
                   </DropdownMenuItem>
                 )}
                 {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
                 {canModerate && onMuteAuthor && (
                   <DropdownMenuItem onClick={onMuteAuthor}>
-                    <VolumeX className='mr-2 size-4' />
+                    <VolumeX className='me-2 size-4' />
                     <Trans>Mute author</Trans>
                   </DropdownMenuItem>
                 )}
                 {canModerate && onBanAuthor && (
                   <DropdownMenuItem onClick={onBanAuthor}>
-                    <Ban className='mr-2 size-4' />
+                    <Ban className='me-2 size-4' />
                     <Trans>Ban author</Trans>
                   </DropdownMenuItem>
                 )}

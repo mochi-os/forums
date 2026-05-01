@@ -177,7 +177,7 @@ export function ThreadComment({
       <span className='text-muted-foreground'>·</span>
       <span className='text-muted-foreground'>{formatTimestamp(comment.created)}</span>
       {totalDescendants > 0 && (
-        <span className='text-muted-foreground ml-2'>
+        <span className='text-muted-foreground ms-2'>
           {totalDescendants} {totalDescendants === 1 ? 'reply' : 'replies'}
         </span>
       )}
@@ -325,13 +325,13 @@ export function ThreadComment({
                         setEditBody(comment.body)
                       }}
                     >
-                      <Pencil className='mr-2 size-4' />
+                      <Pencil className='me-2 size-4' />
                       <Trans>Edit</Trans>
                     </DropdownMenuItem>
                   )}
                   {commentCanEdit && onDelete && (
                     <DropdownMenuItem onClick={() => setDeleting(true)}>
-                      <Trash2 className='mr-2 size-4' />
+                      <Trash2 className='me-2 size-4' />
                       <Trans>Delete</Trans>
                     </DropdownMenuItem>
                   )}
@@ -344,7 +344,7 @@ export function ThreadComment({
                     <>
                       {isPending && onApprove && (
                         <DropdownMenuItem onClick={() => onApprove(comment.id)}>
-                          <Check className='mr-2 size-4' />
+                          <Check className='me-2 size-4' />
                           <Trans>Approve</Trans>
                         </DropdownMenuItem>
                       )}
@@ -353,13 +353,13 @@ export function ThreadComment({
                             <DropdownMenuItem
                               onClick={() => onRestore(comment.id)}
                             >
-                              <Eye className='mr-2 size-4' />
+                              <Eye className='me-2 size-4' />
                               <Trans>Restore</Trans>
                             </DropdownMenuItem>
                           )
                         : onRemove && (
                             <DropdownMenuItem onClick={() => setRemoving(true)}>
-                              <EyeOff className='mr-2 size-4' />
+                              <EyeOff className='me-2 size-4' />
                               <Trans>Remove</Trans>
                             </DropdownMenuItem>
                           )}
@@ -367,7 +367,7 @@ export function ThreadComment({
                   )}
                   {onReport && currentUserId !== comment.member && (
                     <DropdownMenuItem onClick={() => onReport(comment.id)}>
-                      <Flag className='mr-2 size-4' />
+                      <Flag className='me-2 size-4' />
                       <Trans>Report</Trans>
                     </DropdownMenuItem>
                   )}
@@ -378,7 +378,7 @@ export function ThreadComment({
                     <DropdownMenuItem
                       onClick={() => onMuteAuthor(comment.member)}
                     >
-                      <VolumeX className='mr-2 size-4' />
+                      <VolumeX className='me-2 size-4' />
                       <Trans>Mute author</Trans>
                     </DropdownMenuItem>
                   )}
@@ -386,7 +386,7 @@ export function ThreadComment({
                     <DropdownMenuItem
                       onClick={() => onBanAuthor(comment.member)}
                     >
-                      <Ban className='mr-2 size-4' />
+                      <Ban className='me-2 size-4' />
                       <Trans>Ban author</Trans>
                     </DropdownMenuItem>
                   )}
@@ -455,7 +455,7 @@ export function ThreadComment({
                   )}
                   <Paperclip className='text-muted-foreground size-3 shrink-0' />
                   <span className='max-w-40 truncate'>{file.name}</span>
-                  <button type='button' onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
+                  <button type='button' onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
                     <X className='size-3.5' />
                   </button>
                 </div>

@@ -262,7 +262,7 @@ export function CreatePostDialog({
                                 moveAttachment(index, 'left')
                               }}
                             >
-                              <ArrowLeft className='size-5' />
+                              <ArrowLeft className='size-5 rtl:rotate-180' />
                             </button>
                             <button
                               type='button'
@@ -273,7 +273,7 @@ export function CreatePostDialog({
                                 moveAttachment(index, 'right')
                               }}
                             >
-                              <ArrowRight className='size-5' />
+                              <ArrowRight className='size-5 rtl:rotate-180' />
                             </button>
                             <button
                               type='button'
@@ -316,7 +316,7 @@ export function CreatePostDialog({
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isPending}
               >
-                <Paperclip className='mr-1 size-4' />
+                <Paperclip className='me-1 size-4' />
                 <Trans>Add files</Trans>
               </Button>
             </div>

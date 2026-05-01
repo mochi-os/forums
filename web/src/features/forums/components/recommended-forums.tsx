@@ -123,7 +123,7 @@ export function RecommendedForums({
         <p className="text-muted-foreground mb-3 text-xs font-medium uppercase tracking-wide">
           <Trans>Recommended forums</Trans>
         </p>
-        <div className="divide-border divide-y rounded-lg border text-left">
+        <div className="divide-border divide-y rounded-lg border text-start">
           {filteredRecommendations.map((forum) => {
             const isPending = pendingId === forum.id
 

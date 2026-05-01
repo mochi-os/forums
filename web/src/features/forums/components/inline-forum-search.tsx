@@ -100,7 +100,7 @@ export function InlineForumSearch({
           placeholder={t`Search for forums...`}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-10 pl-9"
+          className="h-10 ps-9"
           autoFocus
         />
       </div>
@@ -142,7 +142,7 @@ export function InlineForumSearch({
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10">
                       <Hash className="h-4 w-4 text-primary" />
                     </div>
-                    <div className="flex min-w-0 flex-1 flex-col text-left">
+                    <div className="flex min-w-0 flex-1 flex-col text-start">
                       <span className="truncate text-sm font-medium">{forum.name}</span>
                       <span className="text-muted-foreground truncate text-xs">
                         {forum.fingerprint_hyphens}

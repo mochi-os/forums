@@ -477,9 +477,9 @@ function QueueTab({ forumId }: QueueTabProps) {
             disabled={!hasSelection || !!actionInProgress}
           >
             {actionInProgress === 'bulk' ? (
-              <Loader2 className='mr-1 size-4 animate-spin' />
+              <Loader2 className='me-1 size-4 animate-spin' />
             ) : (
-              <XCircle className='mr-1 size-4' />
+              <XCircle className='me-1 size-4' />
             )}
             Reject
           </Button>
@@ -489,9 +489,9 @@ function QueueTab({ forumId }: QueueTabProps) {
             disabled={!hasSelection || !!actionInProgress}
           >
             {actionInProgress === 'bulk' ? (
-              <Loader2 className='mr-1 size-4 animate-spin' />
+              <Loader2 className='me-1 size-4 animate-spin' />
             ) : (
-              <CheckCircle className='mr-1 size-4' />
+              <CheckCircle className='me-1 size-4' />
             )}
             Approve
           </Button>

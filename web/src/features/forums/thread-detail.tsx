@@ -423,7 +423,7 @@ export function ThreadDetail({
                             )}
                             <Paperclip className='text-muted-foreground size-3 shrink-0' />
                             <span className='max-w-40 truncate'>{file.name}</span>
-                            <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ml-0.5'>
+                            <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
                               <X className='size-3.5' />
                             </button>
                           </div>

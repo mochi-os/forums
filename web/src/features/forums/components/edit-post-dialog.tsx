@@ -258,7 +258,7 @@ export function EditPostDialog({
                             disabled={isFirst || isPending}
                             onClick={() => moveItem(index, 'left')}
                           >
-                            <ArrowLeft className='size-4' />
+                            <ArrowLeft className='size-4 rtl:rotate-180' />
                           </button>
                           <button
                             type='button'
@@ -266,7 +266,7 @@ export function EditPostDialog({
                             disabled={isLast || isPending}
                             onClick={() => moveItem(index, 'right')}
                           >
-                            <ArrowRight className='size-4' />
+                            <ArrowRight className='size-4 rtl:rotate-180' />
                           </button>
                           <button
                             type='button'

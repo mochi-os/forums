@@ -47,7 +47,7 @@ export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
         <X className="size-3.5" />
       </button>
       <div
-        className="max-w-none pr-6 text-sm leading-relaxed [&_a]:text-primary [&_a]:underline [&_a:visited]:text-primary/70"
+        className="max-w-none pe-6 text-sm leading-relaxed [&_a]:text-primary [&_a]:underline [&_a:visited]:text-primary/70"
         dangerouslySetInnerHTML={{ __html: sanitizedBannerHtml }}
       />
     </div>

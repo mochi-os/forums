@@ -499,7 +499,7 @@ function GeneralTab({
               size="sm"
             >
               {isUnsubscribing ? (
-                <Loader2 className="mr-2 size-4 animate-spin" />
+                <Loader2 className="me-2 size-4 animate-spin" />
               ) : (
                 'Unsubscribe'
               )}
@@ -519,7 +519,7 @@ function GeneralTab({
               disabled={isDeleting}
               size="sm"
             >
-              <Trash2 className="size-4 mr-2" />
+              <Trash2 className="size-4 me-2" />
               <Trans>Delete</Trans>
             </Button>
           }
@@ -588,7 +588,7 @@ function BannerSection({ forumId }: { forumId: string }) {
             onClick={() => void handleSave()}
             disabled={saving || !dirty}
           >
-            {saving && <Loader2 className="mr-2 size-4 animate-spin" />}
+            {saving && <Loader2 className="me-2 size-4 animate-spin" />}
             Save
           </Button>
           {banner && (
@@ -943,7 +943,7 @@ function AccessTab({ forumId }: AccessTabProps) {
             size="sm"
             disabled={!canManageRules}
           >
-            <Plus className='mr-2 h-4 w-4' />
+            <Plus className='me-2 h-4 w-4' />
             <Trans>Add Rule</Trans>
           </Button>
         </div>
