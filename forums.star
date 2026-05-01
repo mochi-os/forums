@@ -2,7 +2,7 @@
 # Copyright Alistair Cunningham 2024-2026
 
 def notify(topic, object="", title="", body="", url=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notification_topic_" + topic.replace("/", "_")))
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")))
 
 # Helper: Build a map of qid -> weight from user interests
 def get_interest_map():
@@ -707,7 +707,7 @@ def action_tags_list(a):
     if not post_id:
         a.error_label(400, "errors.missing_post")
         return
-    tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or [], get_interest_map())
+    tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
     return {"data": {"tags": tags}}
 
 # Add a tag to a post
@@ -860,7 +860,7 @@ def action_info_entity(a):
     # Render banner markdown to HTML
     banner = forum.get("banner", "")
     if banner:
-        forum["banner_html"] = mochi.markdown.render(banner)
+        forum["banner_html"] = mochi.text.markdown(banner)
 
     fp = mochi.entity.fingerprint(forum["id"], True)
 
@@ -947,7 +947,7 @@ def action_view(a):
         # Render banner markdown to HTML
         banner = forum.get("banner", "")
         if banner:
-            forum["banner_html"] = mochi.markdown.render(banner)
+            forum["banner_html"] = mochi.text.markdown(banner)
 
         # Get member info if user is logged in
         member = None
@@ -958,10 +958,10 @@ def action_view(a):
         limit_str = a.input("limit")
         before_str = a.input("before")
         limit = 20
-        if limit_str and mochi.valid(limit_str, "natural"):
+        if limit_str and mochi.text.valid(limit_str, "natural"):
             limit = min(int(limit_str), 100)
         before = None
-        if before_str and mochi.valid(before_str, "natural"):
+        if before_str and mochi.text.valid(before_str, "natural"):
             before = int(before_str)
 
         # Determine access permissions
@@ -1034,7 +1034,7 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
-            p["body_markdown"] = mochi.markdown.render(p["body"])
+            p["body_markdown"] = mochi.text.markdown(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             # Fetch attachments from forum owner if we don't have them locally
             if not p["attachments"] and forum.get("owner") != 1:
@@ -1047,7 +1047,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
                     forum["id"], p["id"], user_id or "")
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or [], im)
+            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", p["id"]) or [], im)
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -1145,7 +1145,7 @@ def action_view(a):
         im = get_interest_map()
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
-            p["body_markdown"] = mochi.markdown.render(p["body"])
+            p["body_markdown"] = mochi.text.markdown(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], p["forum"])
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
@@ -1158,7 +1158,7 @@ def action_view(a):
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
                     p["forum"], p["id"])
             p["comments"] = row["cnt"] if row else 0
-            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", p["id"]) or [], im)
+            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", p["id"]) or [], im)
             # Get user's vote on this post
             if user_id:
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
@@ -1183,7 +1183,7 @@ def action_create(a):
         return
 
     name = a.input("name")
-    if not mochi.valid(name, "name"):
+    if not mochi.text.valid(name, "name"):
         a.error_label(400, "errors.invalid_name")
         return
 
@@ -1238,12 +1238,12 @@ def action_post_create(a):
     forum = get_forum(forum_id)
 
     title = a.input("title")
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         a.error_label(400, "errors.invalid_title")
         return
 
     body = a.input("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         a.error_label(400, "errors.invalid_body")
         return
 
@@ -1346,7 +1346,7 @@ def action_post_create(a):
         }
 
     # Forum not found locally - send to remote forum
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -1405,14 +1405,14 @@ def action_search(a):
     results = []
 
     # Check if search term is an entity ID (49-51 word characters)
-    if mochi.valid(search, "entity"):
+    if mochi.text.valid(search, "entity"):
         entry = mochi.directory.get(search)
         if entry and entry.get("class") == "forum":
             results.append(entry)
 
     # Check if search term is a fingerprint (9 alphanumeric, with or without hyphens)
     fingerprint = search.replace("-", "")
-    if mochi.valid(fingerprint, "fingerprint"):
+    if mochi.text.valid(fingerprint, "fingerprint"):
         matches = mochi.directory.search("forum", "", True, fingerprint=fingerprint)
         for entry in matches:
             found = False
@@ -1445,7 +1445,7 @@ def action_search(a):
                 if "#" in forum_id:
                     forum_id = forum_id.split("#")[0]
 
-            if mochi.valid(forum_id, "entity"):
+            if mochi.text.valid(forum_id, "entity"):
                 entry = mochi.directory.get(forum_id)
                 if entry and entry.get("class") == "forum":
                     # Avoid duplicates
@@ -1457,7 +1457,7 @@ def action_search(a):
                     if not found:
                         results.append(entry)
             # Try as fingerprint
-            elif mochi.valid(forum_id, "fingerprint"):
+            elif mochi.text.valid(forum_id, "fingerprint"):
                 all_forums = mochi.directory.search("forum", "", True)
                 for entry in all_forums:
                     entry_fp = entry.get("fingerprint", "").replace("-", "")
@@ -1604,7 +1604,7 @@ def action_probe(a):
         a.error_label(400, "errors.could_not_extract_server_from_url")
         return
 
-    if not forum_id or (not mochi.valid(forum_id, "entity") and not mochi.valid(forum_id, "fingerprint")):
+    if not forum_id or (not mochi.text.valid(forum_id, "entity") and not mochi.text.valid(forum_id, "fingerprint")):
         a.error_label(400, "errors.could_not_extract_valid_forum_id_from_url")
         return
 
@@ -1643,7 +1643,7 @@ def action_members_edit(a):
         a.error_label(403, "errors.not_allowed")
         return
 
-    members = mochi.db.rows("select * from members where forum=? order by name", forum["id"])
+    members = mochi.db.rows("select * from members where forum=?", forum["id"])
 
     return {
         "data": {
@@ -1667,7 +1667,7 @@ def action_member_search(a):
             "select id, name from members where forum=? and lower(name) like ? escape '\\'",
             forum["id"], "%" + escaped + "%")
     else:
-        members = mochi.db.rows("select id, name from members where forum=? order by name", forum["id"])
+        members = mochi.db.rows("select id, name from members where forum=?", forum["id"])
     return {"data": {"members": members[:20]}}
 
 # Save forum members (deprecated - use access endpoints instead)
@@ -1760,7 +1760,7 @@ def action_subscribe(a):
     forum_id = a.input("forum")
     server = a.input("server")
 
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(400, "errors.invalid_id")
         return
 
@@ -1898,7 +1898,7 @@ def action_rename(a):
         return
 
     forum_id = a.input("forum")
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(400, "errors.invalid_forum_id")
         return
 
@@ -1913,7 +1913,7 @@ def action_rename(a):
         return
 
     name = a.input("name")
-    if not name or not mochi.valid(name, "name"):
+    if not name or not mochi.text.valid(name, "name"):
         a.error_label(400, "errors.invalid_name")
         return
 
@@ -2065,19 +2065,19 @@ def action_post_view(a):
         return comments
 
     post["user_vote"] = user_post_vote
-    post["body_markdown"] = mochi.markdown.render(post["body"])
+    post["body_markdown"] = mochi.text.markdown(post["body"])
     post["attachments"] = mochi.attachment.list(post_id, forum["id"])
     # Fetch attachments from forum owner if we don't have them locally
     if not post["attachments"] and forum.get("owner") != 1:
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
-    post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or [], get_interest_map())
+    post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
 
     comments = get_comments("", 0)
 
     # Render banner markdown to HTML
     banner = forum.get("banner", "")
     if banner:
-        forum["banner_html"] = mochi.markdown.render(banner)
+        forum["banner_html"] = mochi.text.markdown(banner)
 
     return {
         "data": {
@@ -2102,12 +2102,12 @@ def action_post_edit(a):
     user_id = a.user.identity.id
 
     title = a.input("title")
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         a.error_label(400, "errors.invalid_title")
         return
 
     body = a.input("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         a.error_label(400, "errors.invalid_body")
         return
 
@@ -2242,7 +2242,7 @@ def action_post_edit(a):
         }
 
     # Post not found locally - remote forum edit (no local attachments to handle)
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -2351,7 +2351,7 @@ def action_post_delete(a):
         }
 
     # Post not found locally - send delete to remote forum
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -2417,7 +2417,7 @@ def action_comment_create(a):
     parent_id = a.input("parent")
     body = a.input("body")
 
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         a.error_label(400, "errors.invalid_body")
         return
 
@@ -2531,7 +2531,7 @@ def action_comment_create(a):
         }
 
     # Forum not found locally - send to remote forum
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -2572,7 +2572,7 @@ def action_comment_edit(a):
     user_id = a.user.identity.id
 
     body = a.input("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         a.error_label(400, "errors.invalid_body")
         return
 
@@ -2634,7 +2634,7 @@ def action_comment_edit(a):
         }
 
     # Comment not found locally - send edit to remote forum
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -2736,7 +2736,7 @@ def action_comment_delete(a):
         }
 
     # Comment not found locally - send delete to remote forum
-    if not mochi.valid(forum_id, "entity"):
+    if not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.forum_not_found")
         return
 
@@ -3264,7 +3264,7 @@ def action_restrict(a):
         return
 
     target_user = a.input("user")
-    if not mochi.valid(target_user, "entity"):
+    if not mochi.text.valid(target_user, "entity"):
         a.error_label(400, "errors.invalid_user")
         return
 
@@ -3277,7 +3277,7 @@ def action_restrict(a):
     duration = a.input("duration")  # In seconds, None for permanent
     expires = None
     if duration:
-        if not mochi.valid(duration, "natural"):
+        if not mochi.text.valid(duration, "natural"):
             a.error_label(400, "errors.invalid_duration")
             return
         expires = mochi.time.now() + int(duration)
@@ -3323,7 +3323,7 @@ def action_unrestrict(a):
         return
 
     target_user = a.input("user")
-    if not mochi.valid(target_user, "entity"):
+    if not mochi.text.valid(target_user, "entity"):
         a.error_label(400, "errors.invalid_user")
         return
 
@@ -3828,28 +3828,28 @@ def action_moderation_settings_save(a):
         params.append(1 if moderation_new in ["1", "true", True] else 0)
 
     if new_user_days != None:
-        if not mochi.valid(new_user_days, "natural"):
+        if not mochi.text.valid(new_user_days, "natural"):
             a.error_label(400, "errors.invalid_new_user_days")
             return
         updates.append("new_user_days=?")
         params.append(int(new_user_days))
 
     if post_limit != None:
-        if not mochi.valid(post_limit, "natural"):
+        if not mochi.text.valid(post_limit, "natural"):
             a.error_label(400, "errors.invalid_post_limit")
             return
         updates.append("post_limit=?")
         params.append(int(post_limit))
 
     if comment_limit != None:
-        if not mochi.valid(comment_limit, "natural"):
+        if not mochi.text.valid(comment_limit, "natural"):
             a.error_label(400, "errors.invalid_comment_limit")
             return
         updates.append("comment_limit=?")
         params.append(int(comment_limit))
 
     if limit_window != None:
-        if not mochi.valid(limit_window, "natural"):
+        if not mochi.text.valid(limit_window, "natural"):
             a.error_label(400, "errors.invalid_limit_window")
             return
         val = int(limit_window)
@@ -3891,7 +3891,7 @@ def action_moderation_log(a):
 
     limit_str = a.input("limit")
     limit = 50
-    if limit_str and mochi.valid(limit_str, "natural"):
+    if limit_str and mochi.text.valid(limit_str, "natural"):
         limit = min(int(limit_str), 200)
 
     logs = mochi.db.rows(
@@ -4027,7 +4027,7 @@ def action_post_vote(a):
         }
 
     # Post not found locally - send vote to remote forum
-    if not forum_id or not mochi.valid(forum_id, "entity"):
+    if not forum_id or not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.post_not_found")
         return
 
@@ -4156,7 +4156,7 @@ def action_comment_vote(a):
         }
 
     # Comment not found locally - send vote to remote forum
-    if not forum_id or not mochi.valid(forum_id, "entity"):
+    if not forum_id or not mochi.text.valid(forum_id, "entity"):
         a.error_label(404, "errors.comment_not_found")
         return
 
@@ -4233,7 +4233,7 @@ def action_access(a):
                 group = mochi.group.get(group_id)
                 if group:
                     name = group.get("name", group_id)
-            elif mochi.valid(subject, "entity"):
+            elif mochi.text.valid(subject, "entity"):
                 # Try directory first (for user identities), then local entities
                 entry = mochi.directory.get(subject)
                 if entry:
@@ -4277,7 +4277,7 @@ def action_access_set(a):
 
     target = a.input("target")
     # Allow special subjects (*, +), groups (@name), and valid entity IDs
-    if target not in ["*", "+"] and not target.startswith("@") and not mochi.valid(target, "entity"):
+    if target not in ["*", "+"] and not target.startswith("@") and not mochi.text.valid(target, "entity"):
         a.error_label(400, "errors.invalid_target")
         return
 
@@ -4323,7 +4323,7 @@ def action_access_revoke(a):
 
     target = a.input("target")
     # Allow special subjects (*, +), groups (@name), and valid entity IDs
-    if target not in ["*", "+"] and not target.startswith("@") and not mochi.valid(target, "entity"):
+    if target not in ["*", "+"] and not target.startswith("@") and not mochi.text.valid(target, "entity"):
         a.error_label(400, "errors.invalid_target")
         return
 
@@ -4404,7 +4404,7 @@ def event_comment_create_event(e):
         return
 
     id = e.content("id")
-    if not mochi.valid(id, "id"):
+    if not mochi.text.valid(id, "id"):
         return
 
     up = e.content("up") or 0
@@ -4425,11 +4425,11 @@ def event_comment_create_event(e):
     body = e.content("body")
     created = e.content("created")
 
-    if not mochi.valid(member, "entity"):
+    if not mochi.text.valid(member, "entity"):
         return
-    if not mochi.valid(name, "name"):
+    if not mochi.text.valid(name, "name"):
         return
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
@@ -4477,7 +4477,7 @@ def event_comment_submit_event(e):
         sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
 
     id = e.content("id")
-    if not mochi.valid(id, "id"):
+    if not mochi.text.valid(id, "id"):
         return
 
     if mochi.db.exists("select id from comments where id=?", id):
@@ -4497,7 +4497,7 @@ def event_comment_submit_event(e):
         return
 
     body = e.content("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -4546,7 +4546,7 @@ def event_comment_edit_submit_event(e):
 
     sender_id = e.header("from")
     comment_id = e.content("id")
-    if not mochi.valid(comment_id, "id"):
+    if not mochi.text.valid(comment_id, "id"):
         return
 
     comment = mochi.db.row("select * from comments where forum=? and id=?", forum["id"], comment_id)
@@ -4558,7 +4558,7 @@ def event_comment_edit_submit_event(e):
         return
 
     body = e.content("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -4585,7 +4585,7 @@ def event_comment_delete_submit_event(e):
 
     sender_id = e.header("from")
     comment_id = e.content("id")
-    if not mochi.valid(comment_id, "id"):
+    if not mochi.text.valid(comment_id, "id"):
         return
 
     comment = mochi.db.row("select * from comments where forum=? and id=?", forum["id"], comment_id)
@@ -4657,7 +4657,7 @@ def event_comment_edit_event(e):
     body = e.content("body")
     edited = e.content("edited")
 
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -4775,7 +4775,7 @@ def event_post_create_event(e):
         return
 
     id = e.content("id")
-    if not mochi.valid(id, "id"):
+    if not mochi.text.valid(id, "id"):
         return
 
     up = e.content("up") or 0
@@ -4793,13 +4793,13 @@ def event_post_create_event(e):
     body = e.content("body")
     created = e.content("created")
 
-    if not mochi.valid(member, "entity"):
+    if not mochi.text.valid(member, "entity"):
         return
-    if not mochi.valid(name, "name"):
+    if not mochi.text.valid(name, "name"):
         return
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         return
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
@@ -4846,18 +4846,18 @@ def event_post_submit_event(e):
         sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
 
     id = e.content("id")
-    if not mochi.valid(id, "id"):
+    if not mochi.text.valid(id, "id"):
         return
 
     if mochi.db.exists("select id from posts where id=?", id):
         return  # Duplicate
 
     title = e.content("title")
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         return
 
     body = e.content("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -4908,7 +4908,7 @@ def event_post_edit_submit_event(e):
 
     sender_id = e.header("from")
     post_id = e.content("id")
-    if not mochi.valid(post_id, "id"):
+    if not mochi.text.valid(post_id, "id"):
         return
 
     post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
@@ -4920,11 +4920,11 @@ def event_post_edit_submit_event(e):
         return
 
     title = e.content("title")
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         return
 
     body = e.content("body")
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -4977,7 +4977,7 @@ def event_post_delete_submit_event(e):
 
     sender_id = e.header("from")
     post_id = e.content("id")
-    if not mochi.valid(post_id, "id"):
+    if not mochi.text.valid(post_id, "id"):
         return
 
     post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
@@ -5049,9 +5049,9 @@ def event_post_edit_event(e):
     body = e.content("body")
     edited = e.content("edited")
 
-    if not mochi.valid(title, "name"):
+    if not mochi.text.valid(title, "name"):
         return
-    if not mochi.valid(body, "text"):
+    if not mochi.text.valid(body, "text"):
         return
 
     now = mochi.time.now()
@@ -5191,9 +5191,9 @@ def event_subscribe_event(e):
     member_id = e.header("from")
     name = e.content("name")
 
-    if not mochi.valid(member_id, "entity"):
+    if not mochi.text.valid(member_id, "entity"):
         return
-    if not mochi.valid(name, "name"):
+    if not mochi.text.valid(name, "name"):
         return
 
     # Add as subscriber if not already a member
@@ -5979,7 +5979,7 @@ def event_view(e):
     formatted_posts = []
     for post in posts:
         post_data = dict(post)
-        post_data["body_markdown"] = mochi.markdown.render(post["body"])
+        post_data["body_markdown"] = mochi.text.markdown(post["body"])
         post_data["attachments"] = mochi.attachment.list(post["id"], forum_id)
         # Filter comments for non-moderators
         if can_moderate:
@@ -5988,12 +5988,12 @@ def event_view(e):
         else:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
                 forum_id, post["id"])
-        post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post["id"]) or []
+        post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post["id"]) or []
         formatted_posts.append(post_data)
 
     # Get banner for remote viewers
     banner = forum.get("banner", "")
-    banner_html = mochi.markdown.render(banner) if banner else ""
+    banner_html = mochi.text.markdown(banner) if banner else ""
 
     e.stream.write({
         "name": forum_name,
@@ -6074,9 +6074,9 @@ def event_post_view(e):
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
     post_data = dict(post)
-    post_data["body_markdown"] = mochi.markdown.render(post["body"])
+    post_data["body_markdown"] = mochi.text.markdown(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id, forum_id)
-    post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=? order by label collate nocase", post_id) or []
+    post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or []
 
     # Get requester's vote on the post
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
@@ -6238,7 +6238,7 @@ def event_moderation_log(e):
         return
 
     limit = 50
-    if limit_str and mochi.valid(str(limit_str), "natural"):
+    if limit_str and mochi.text.valid(str(limit_str), "natural"):
         limit = min(int(limit_str), 200)
 
     logs = mochi.db.rows(
@@ -6499,8 +6499,8 @@ def action_rss_all(a):
     for row in rows:
         item_id = row["id"]
         forum_id = row["forum"]
-        forum_fp = mochi.entity.fingerprint(forum_id) if mochi.valid(forum_id, "entity") else forum_id
-        item_fp = mochi.entity.fingerprint(item_id) if mochi.valid(item_id, "entity") else item_id
+        forum_fp = mochi.entity.fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
+        item_fp = mochi.entity.fingerprint(item_id) if mochi.text.valid(item_id, "entity") else item_id
         forum_name = forum_names.get(forum_id, "Forum")
         body = row["body"]
         if len(body) > 500:
@@ -6601,7 +6601,7 @@ def action_rss(a):
 
     for row in rows:
         item_id = row["id"]
-        item_fp = mochi.entity.fingerprint(item_id) if mochi.valid(item_id, "entity") else item_id
+        item_fp = mochi.entity.fingerprint(item_id) if mochi.text.valid(item_id, "entity") else item_id
         body = row["body"]
         if len(body) > 500:
             body = body[:500] + "..."
