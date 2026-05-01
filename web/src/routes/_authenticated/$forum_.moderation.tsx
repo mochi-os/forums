@@ -164,6 +164,7 @@ interface QueueTabProps {
 }
 
 function QueueTab({ forumId }: QueueTabProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -250,7 +251,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Approved ${count} item${count !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to approve items"))
+      toast.error(getErrorMessage(error, t`Failed to approve items`))
     } finally {
       setActionInProgress(null)
     }
@@ -272,7 +273,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Rejected ${count} item${count !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to reject items"))
+      toast.error(getErrorMessage(error, t`Failed to reject items`))
     } finally {
       setActionInProgress(null)
     }
@@ -301,7 +302,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Muted ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to mute users"))
+      toast.error(getErrorMessage(error, t`Failed to mute users`))
     } finally {
       setActionInProgress(null)
     }
@@ -318,7 +319,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       toast.success(`Banned ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
       void loadQueue()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to ban users"))
+      toast.error(getErrorMessage(error, t`Failed to ban users`))
     } finally {
       setActionInProgress(null)
     }
@@ -539,6 +540,7 @@ interface ReportsTabProps {
 }
 
 function ReportsTab({ forumId }: ReportsTabProps) {
+  const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
@@ -566,10 +568,10 @@ function ReportsTab({ forumId }: ReportsTabProps) {
     setActionInProgress(reportId)
     try {
       await forumsApi.resolveReport({ forum: forumId, report: reportId, action })
-      toast.success("Report resolved")
+      toast.success(t`Report resolved`)
       void loadReports()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to resolve report"))
+      toast.error(getErrorMessage(error, t`Failed to resolve report`))
     } finally {
       setActionInProgress(null)
     }
@@ -879,6 +881,7 @@ interface RestrictionsTabProps {
 }
 
 function RestrictionsTab({ forumId }: RestrictionsTabProps) {
+  const { t } = useLingui()
   const { formatDate } = useFormat()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -906,10 +909,10 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
     setActionInProgress(userId)
     try {
       await forumsApi.unrestrictUser({ forum: forumId, user: userId })
-      toast.success("Restriction removed")
+      toast.success(t`Restriction removed`)
       void loadRestrictions()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to remove restriction"))
+      toast.error(getErrorMessage(error, t`Failed to remove restriction`))
     } finally {
       setActionInProgress(null)
     }

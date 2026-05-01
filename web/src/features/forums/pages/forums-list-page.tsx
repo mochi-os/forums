@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import {
   GeneralError,
@@ -35,7 +36,8 @@ export function ForumsListPage({
   loaderError,
   onRetryLoader,
 }: ForumsListPageProps) {
-  usePageTitle("Forums")
+  const { t } = useLingui()
+  usePageTitle(t`Forums`)
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
 
   // Store "all forums" as the last location (authenticated users only)

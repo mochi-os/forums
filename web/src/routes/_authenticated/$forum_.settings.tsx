@@ -540,6 +540,7 @@ function GeneralTab({
 }
 
 function BannerSection({ forumId }: { forumId: string }) {
+  const { t } = useLingui()
   const [banner, setBannerText] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -563,7 +564,7 @@ function BannerSection({ forumId }: { forumId: string }) {
       setDirty(false)
       toast.success(banner ? "Banner updated" : "Banner removed")
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to update banner"))
+      toast.error(getErrorMessage(error, t`Failed to update banner`))
     } finally {
       setSaving(false)
     }
@@ -607,6 +608,7 @@ function BannerSection({ forumId }: { forumId: string }) {
 }
 
 function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: number; onSave: () => void }) {
+  const { t } = useLingui()
   const normalizeMode = (m: string) => {
     if (m === 'score') return 'tag'
     return m || 'off'
@@ -624,7 +626,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       setMode(val)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to update AI settings"))
+      toast.error(getErrorMessage(error, t`Failed to update AI settings`))
     }
   }
 
@@ -636,7 +638,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       setAccount(newAccount)
       onSave()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to update AI settings"))
+      toast.error(getErrorMessage(error, t`Failed to update AI settings`))
     }
   }
 
@@ -750,6 +752,7 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
   defaultPrompt: string
   onSave: (text: string) => void
 }) {
+  const { t } = useLingui()
   const isCustom = customPrompt !== ''
   const [custom, setCustom] = useState(isCustom)
   const [text, setText] = useState(customPrompt || defaultPrompt)
@@ -764,7 +767,7 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
         setText(defaultPrompt)
         onSave('')
       }).catch((error) => {
-        toast.error(getErrorMessage(error, "Failed to reset prompt"))
+        toast.error(getErrorMessage(error, t`Failed to reset prompt`))
       }).finally(() => setSaving(false))
     } else if (val === 'custom' && !custom) {
       setCustom(true)
@@ -776,9 +779,9 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
     setSaving(true)
     forumsApi.setAiPrompt(forumId, type, text).then(() => {
       onSave(text)
-      toast.success("Prompt saved")
+      toast.success(t`Prompt saved`)
     }).catch((error) => {
-      toast.error(getErrorMessage(error, "Failed to save prompt"))
+      toast.error(getErrorMessage(error, t`Failed to save prompt`))
     }).finally(() => setSaving(false))
   }
 
@@ -823,6 +826,7 @@ interface AccessTabProps {
 }
 
 function AccessTab({ forumId }: AccessTabProps) {
+  const { t } = useLingui()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [userSearchQuery, setUserSearchQuery] = useState('')
 
@@ -896,7 +900,7 @@ function AccessTab({ forumId }: AccessTabProps) {
       toast.success(`Access set for ${subjectName}`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to set access level"))
+      toast.error(getErrorMessage(error, t`Failed to set access level`))
       throw error
     }
   }
@@ -905,10 +909,10 @@ function AccessTab({ forumId }: AccessTabProps) {
     if (!canManageRules) return
     try {
       await forumsApi.revokeAccess({ forum: forumId, user: subject })
-      toast.success("Access removed")
+      toast.success(t`Access removed`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to remove access"))
+      toast.error(getErrorMessage(error, t`Failed to remove access`))
     }
   }
 
@@ -920,10 +924,10 @@ function AccessTab({ forumId }: AccessTabProps) {
         user: subject,
         level: newLevel as 'view' | 'vote' | 'comment' | 'post' | 'none',
       })
-      toast.success("Access level updated")
+      toast.success(t`Access level updated`)
       await refetchRules()
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to update access level"))
+      toast.error(getErrorMessage(error, t`Failed to update access level`))
     }
   }
 
@@ -993,6 +997,7 @@ interface ModerationTabProps {
 }
 
 function ModerationTab({ forumId }: ModerationTabProps) {
+  const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [settings, setSettings] = useState({
@@ -1031,7 +1036,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
         ...newSettings,
       })
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to save moderation settings"))
+      toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
     }
   }, [forumId])
 

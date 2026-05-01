@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState, useEffect } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   Main,
@@ -61,6 +62,7 @@ export function ThreadDetail({
   inDomainContext: _inDomainContext = false,
   fromAllForums = false,
 }: ThreadDetailProps) {
+  const { t } = useLingui()
   const navigate = useNavigate()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
@@ -161,7 +163,7 @@ export function ThreadDetail({
         return [...current, tag]
       })
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to add tag"))
+      toast.error(getErrorMessage(error, t`Failed to add tag`))
       throw error
     }
   }, [forum, postId, postData?.data?.post?.tags])
@@ -170,9 +172,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'up')
-        toast.success("Interest boosted")
+        toast.success(t`Interest boosted`)
       } catch (error) {
-        toast.error(getErrorMessage(error, "Failed to adjust interest"))
+        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
     [forum]
@@ -182,9 +184,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'down')
-        toast.success("Interest reduced")
+        toast.success(t`Interest reduced`)
       } catch (error) {
-        toast.error(getErrorMessage(error, "Failed to adjust interest"))
+        toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
     [forum]
@@ -194,9 +196,9 @@ export function ThreadDetail({
     async (qid: string) => {
       try {
         await forumsApi.adjustTagInterest(forum, qid, 'remove')
-        toast.success("Interest removed")
+        toast.success(t`Interest removed`)
       } catch (error) {
-        toast.error(getErrorMessage(error, "Failed to remove interest"))
+        toast.error(getErrorMessage(error, t`Failed to remove interest`))
       }
     },
     [forum]
@@ -204,7 +206,7 @@ export function ThreadDetail({
 
   const handleCommentSubmit = () => {
     if (!commentBody.trim()) {
-      toast.error("Please enter a comment")
+      toast.error(t`Please enter a comment`)
       return
     }
     createCommentMutation.mutate(
@@ -221,7 +223,7 @@ export function ThreadDetail({
 
   const handleCommentReplySubmit = (parentId: string, files?: File[]) => {
     if (!commentReplyBody.trim()) {
-      toast.error("Please enter a reply")
+      toast.error(t`Please enter a reply`)
       return
     }
     createCommentMutation.mutate(
@@ -326,18 +328,18 @@ export function ThreadDetail({
   const handleMuteAuthor = async (userId: string) => {
     try {
       await forumsApi.restrictUser({ forum, user: userId, type: 'muted' })
-      toast.success("User muted")
+      toast.success(t`User muted`)
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to mute user"))
+      toast.error(getErrorMessage(error, t`Failed to mute user`))
     }
   }
 
   const handleBanAuthor = async (userId: string) => {
     try {
       await forumsApi.restrictUser({ forum, user: userId, type: 'banned' })
-      toast.success("User banned")
+      toast.success(t`User banned`)
     } catch (error) {
-      toast.error(getErrorMessage(error, "Failed to ban user"))
+      toast.error(getErrorMessage(error, t`Failed to ban user`))
     }
   }
 

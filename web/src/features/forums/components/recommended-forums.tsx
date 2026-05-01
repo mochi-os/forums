@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   GeneralError,
@@ -22,6 +22,7 @@ export function RecommendedForums({
   subscribedIds,
   onSubscribe,
 }: RecommendedForumsProps) {
+  const { t } = useLingui()
   const [recommendations, setRecommendations] = useState<RecommendedForum[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -59,7 +60,7 @@ export function RecommendedForums({
       toast.success(`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
     } catch (subscribeError) {
-      toast.error(getErrorMessage(subscribeError, "Failed to subscribe"))
+      toast.error(getErrorMessage(subscribeError, t`Failed to subscribe`))
     } finally {
       setPendingId(null)
     }
