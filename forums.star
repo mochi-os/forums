@@ -4387,7 +4387,7 @@ def event_attachment_view(e):
         e.stream.write({"status": "404", "error": "Attachment file not found"})
         return
     e.stream.write({"status": "200", "content_type": content_type})
-    e.stream.write_from_file(path)
+    e.write.file(path)
 
 # Received a comment from forum owner
 def event_mention_notify(e):
