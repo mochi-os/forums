@@ -4374,7 +4374,7 @@ def event_attachment_view(e):
 
     # Get the file path (thumbnail or original)
     if want_thumbnail:
-        path = mochi.attachment.thumbnail.path(attachment_id)
+        path = mochi.attachment.thumbnail(attachment_id)
         if not path:
             path = mochi.attachment.path(attachment_id)
         content_type = "image/jpeg"  # Thumbnails are always JPEG
