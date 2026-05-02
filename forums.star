@@ -435,7 +435,7 @@ _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
 def action_post_asset(a):
 	asset = a.input("asset")
 	if asset not in _PERSON_ASSETS:
-		a.error_label(404, "errors.unknown_asset")
+		a.error.label(404, "errors.unknown_asset")
 		return
 	row = mochi.db.row("select member from posts where id=?", a.input("post"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
@@ -444,7 +444,7 @@ def action_post_asset(a):
 def action_comment_asset(a):
 	asset = a.input("asset")
 	if asset not in _PERSON_ASSETS:
-		a.error_label(404, "errors.unknown_asset")
+		a.error.label(404, "errors.unknown_asset")
 		return
 	row = mochi.db.row("select member from comments where id=?", a.input("comment"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
@@ -630,7 +630,7 @@ def event_ai_tag(e):
 # Set AI mode and account for a forum
 def action_ai_settings(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     user_id = a.user.identity.id
     forum_id = a.input("forum")
@@ -638,13 +638,13 @@ def action_ai_settings(a):
     account = int(a.input("account", "0"))
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
     if mode not in ("", "tag"):
-        a.error_label(400, "errors.invalid_ai_mode")
+        a.error.label(400, "errors.invalid_ai_mode")
         return
     if account > 0:
         accounts = mochi.account.list("ai")
@@ -654,7 +654,7 @@ def action_ai_settings(a):
                 found = True
                 break
         if not found:
-            a.error_label(400, "errors.ai_account_not_found")
+            a.error.label(400, "errors.ai_account_not_found")
             return
     mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", mode, account, forum["id"])
     return {"data": {"ok": True}}
@@ -662,15 +662,15 @@ def action_ai_settings(a):
 # Get custom AI prompts for a forum
 def action_ai_prompts_get(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
     prompts = {}
     if forum.get("ai_prompt_tag", ""):
@@ -682,20 +682,20 @@ def action_ai_prompts_get(a):
 # Set custom AI prompts for a forum
 def action_ai_prompts_set(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
     prompt_type = a.input("type")
     prompt_text = a.input("prompt", "")
     if prompt_type not in ("tag", "score"):
-        a.error_label(400, "errors.invalid_prompt_type")
+        a.error.label(400, "errors.invalid_prompt_type")
         return
     col = "ai_prompt_" + prompt_type
     mochi.db.execute("update forums set " + col + "=? where id=?", prompt_text, forum["id"])
@@ -705,7 +705,7 @@ def action_ai_prompts_set(a):
 def action_tags_list(a):
     post_id = a.input("post")
     if not post_id:
-        a.error_label(400, "errors.missing_post")
+        a.error.label(400, "errors.missing_post")
         return
     tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
     return {"data": {"tags": tags}}
@@ -713,7 +713,7 @@ def action_tags_list(a):
 # Add a tag to a post
 def action_tags_add(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     user_id = a.user.identity.id
     forum_id = a.input("forum")
@@ -722,21 +722,21 @@ def action_tags_add(a):
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if not can_tag_post(user_id, forum, post):
-        a.error_label(403, "errors.not_allowed_to_tag_posts")
+        a.error.label(403, "errors.not_allowed_to_tag_posts")
         return
 
     label = validate_tag(label)
     if not label:
-        a.error_label(400, "errors.invalid_tag")
+        a.error.label(400, "errors.invalid_tag")
         return
 
     # Deduplicate
@@ -758,7 +758,7 @@ def action_tags_add(a):
 # Remove a tag from a post
 def action_tags_remove(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     user_id = a.user.identity.id
     forum_id = a.input("forum")
@@ -767,16 +767,16 @@ def action_tags_remove(a):
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if not can_tag_post(user_id, forum, post):
-        a.error_label(403, "errors.not_allowed_to_remove_tags")
+        a.error.label(403, "errors.not_allowed_to_remove_tags")
         return
 
     mochi.db.execute("delete from tags where id=? and object=?", tag_id, post_id)
@@ -790,12 +790,12 @@ def action_tags_remove(a):
 def action_forum_tags(a):
     forum_id = a.input("forum")
     if not forum_id:
-        a.error_label(400, "errors.missing_forum")
+        a.error.label(400, "errors.missing_forum")
         return
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) group by label order by count desc", forum["id"]) or []
@@ -824,12 +824,12 @@ def action_info_class(a):
 def action_info_entity(a):
     forum_id = a.input("forum")
     if not forum_id:
-        a.error_label(400, "errors.forum_id_required")
+        a.error.label(400, "errors.forum_id_required")
         return
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     is_owner = forum.get("owner") == 1
@@ -893,19 +893,19 @@ def action_view(a):
         # For remote forums, fetch via P2P
         if is_remote:
             if not user_id:
-                a.error_label(401, "errors.not_logged_in")
+                a.error.label(401, "errors.not_logged_in")
                 return
 
             # Can only fetch remote forums if we have a full entity ID (49-51 chars)
             # Fingerprints (9 chars) can't be used for P2P addressing
             if len(entity_id) < 49:
-                a.error_label(404, "errors.forum_not_found")
+                a.error.label(404, "errors.forum_not_found")
                 return
 
             # Connect to specified server, or use directory lookup
             peer = mochi.remote.peer(server) if server else None
             if server and not peer:
-                a.error_label(502, "errors.unable_to_connect_to_server")
+                a.error.label(502, "errors.unable_to_connect_to_server")
                 return
 
             # Request forum data via P2P
@@ -940,7 +940,7 @@ def action_view(a):
             }
 
         if not forum:
-            a.error_label(404, "errors.forum_not_found")
+            a.error.label(404, "errors.forum_not_found")
             return
 
         is_owner = forum.get("owner") == 1
@@ -1180,23 +1180,23 @@ def action_view(a):
 # Create new forum
 def action_create(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     name = a.input("name")
     if not mochi.text.valid(name, "name"):
-        a.error_label(400, "errors.invalid_name")
+        a.error.label(400, "errors.invalid_name")
         return
 
     privacy = a.input("privacy") or "public"
     if privacy not in ["public", "private"]:
-        a.error_label(400, "errors.invalid_privacy_setting")
+        a.error.label(400, "errors.invalid_privacy_setting")
         return
 
     # Create entity for the forum
     entity_id = mochi.entity.create("forum", name, privacy, "")
     if not entity_id:
-        a.error_label(500, "errors.failed_to_create_forum_entity")
+        a.error.label(500, "errors.failed_to_create_forum_entity")
         return
 
     # Create forum record
@@ -1223,7 +1223,7 @@ def action_create(a):
 # Form for new forum
 def action_new(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     return {
         "data": {}
@@ -1232,7 +1232,7 @@ def action_new(a):
 # Create new post
 def action_post_create(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -1240,12 +1240,12 @@ def action_post_create(a):
 
     title = a.input("title")
     if not mochi.text.valid(title, "name"):
-        a.error_label(400, "errors.invalid_title")
+        a.error.label(400, "errors.invalid_title")
         return
 
     body = a.input("body")
     if not mochi.text.valid(body, "text"):
-        a.error_label(400, "errors.invalid_body")
+        a.error.label(400, "errors.invalid_body")
         return
 
     user_id = a.user.identity.id
@@ -1261,7 +1261,7 @@ def action_post_create(a):
         if is_owner:
             # Owner processes locally
             if not check_access(a, forum["id"], "post"):
-                a.error_label(403, "errors.not_allowed_to_post")
+                a.error.label(403, "errors.not_allowed_to_post")
                 return
 
             # Check for restrictions
@@ -1348,7 +1348,7 @@ def action_post_create(a):
 
     # Forum not found locally - send to remote forum
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Check access with remote forum owner
@@ -1380,16 +1380,16 @@ def action_post_create(a):
 # Form for new post
 def action_post_new(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "post"):
-        a.error_label(403, "errors.not_allowed_to_post")
+        a.error.label(403, "errors.not_allowed_to_post")
         return
 
     return {
@@ -1545,14 +1545,14 @@ def action_recommendations(a):
 # Probe a remote forum by URL
 def action_probe(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     user_id = a.user.identity.id
 
     url = a.input("url")
     if not url:
-        a.error_label(400, "errors.no_url_provided")
+        a.error.label(400, "errors.no_url_provided")
         return
 
     # Parse URL to extract server and forum ID
@@ -1598,21 +1598,21 @@ def action_probe(a):
             if "#" in forum_id:
                 forum_id = forum_id.split("#")[0]
     else:
-        a.error_label(400, "errors.invalid_url_format_expected_https_server_forums_forum_id")
+        a.error.label(400, "errors.invalid_url_format_expected_https_server_forums_forum_id")
         return
 
     if not server or server == protocol:
-        a.error_label(400, "errors.could_not_extract_server_from_url")
+        a.error.label(400, "errors.could_not_extract_server_from_url")
         return
 
     if not forum_id or (not mochi.text.valid(forum_id, "entity") and not mochi.text.valid(forum_id, "fingerprint")):
-        a.error_label(400, "errors.could_not_extract_valid_forum_id_from_url")
+        a.error.label(400, "errors.could_not_extract_valid_forum_id_from_url")
         return
 
     # Connect to server and query forum info
     peer = mochi.remote.peer(server)
     if not peer:
-        a.error_label(502, "errors.unable_to_connect_to_server")
+        a.error.label(502, "errors.unable_to_connect_to_server")
         return
 
     response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
@@ -1632,16 +1632,16 @@ def action_probe(a):
 # Edit forum members
 def action_members_edit(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     members = mochi.db.rows("select * from members where forum=?", forum["id"])
@@ -1655,11 +1655,11 @@ def action_members_edit(a):
 
 def action_member_search(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     query = (a.input("q") or "").lower().strip()
     if query:
@@ -1675,16 +1675,16 @@ def action_member_search(a):
 # Kept for removing members from the forum
 def action_members_save(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     # Handle member removal
@@ -1727,11 +1727,11 @@ def action_notifications_clear(a):
 def action_sort_set_default(a):
     """Set the user's default post sort (applied to All forums and to forums with no override)."""
     if not a.user:
-        a.error_label(401, "errors.authentication_required")
+        a.error.label(401, "errors.authentication_required")
         return
     sort = a.input("sort", "")
     if sort not in VALID_SORTS:
-        a.error_label(400, "errors.invalid_sort")
+        a.error.label(400, "errors.invalid_sort")
         return
     mochi.db.execute("update settings set sort=? where id=1", sort)
     return {"data": {"sort": sort}}
@@ -1739,15 +1739,15 @@ def action_sort_set_default(a):
 def action_sort_set_forum(a):
     """Set the post sort for a specific forum (empty string clears the override)."""
     if not a.user:
-        a.error_label(401, "errors.authentication_required")
+        a.error.label(401, "errors.authentication_required")
         return
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     sort = a.input("sort", "")
     if sort not in VALID_SORTS:
-        a.error_label(400, "errors.invalid_sort")
+        a.error.label(400, "errors.invalid_sort")
         return
     mochi.db.execute("update forums set sort=? where id=?", sort, forum["id"])
     return {"data": {"sort": sort}}
@@ -1755,14 +1755,14 @@ def action_sort_set_forum(a):
 # Subscribe to a forum
 def action_subscribe(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
     server = a.input("server")
 
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(400, "errors.invalid_id")
+        a.error.label(400, "errors.invalid_id")
         return
 
     # Check if already subscribed
@@ -1776,7 +1776,7 @@ def action_subscribe(a):
     if server:
         peer = mochi.remote.peer(server)
         if not peer:
-            a.error_label(502, "errors.unable_to_connect_to_server")
+            a.error.label(502, "errors.unable_to_connect_to_server")
             return
         response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
         if response.get("error"):
@@ -1788,7 +1788,7 @@ def action_subscribe(a):
         # Use directory lookup when no server specified
         directory = mochi.directory.get(forum_id)
         if not directory:
-            a.error_label(404, "errors.forum_not_found_in_directory")
+            a.error.label(404, "errors.forum_not_found_in_directory")
             return
         forum_name = directory["name"]
         server = directory.get("location", "")
@@ -1825,17 +1825,17 @@ def action_subscribe(a):
 # Unsubscribe from forum
 def action_unsubscribe(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Cannot unsubscribe from own forum
     if forum.get("owner") == 1:
-        a.error_label(400, "errors.cannot_unsubscribe_from_your_own_forum")
+        a.error.label(400, "errors.cannot_unsubscribe_from_your_own_forum")
         return
 
     # Delete all local data for this forum
@@ -1859,18 +1859,18 @@ def action_unsubscribe(a):
 # Delete a forum (owner only)
 def action_delete(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Only owner can delete
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.only_the_owner_can_delete_this_forum")
+        a.error.label(403, "errors.only_the_owner_can_delete_this_forum")
         return
 
     # Delete all local data
@@ -1895,27 +1895,27 @@ def action_delete(a):
 # Rename a forum
 def action_rename(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(400, "errors.invalid_forum_id")
+        a.error.label(400, "errors.invalid_forum_id")
         return
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Only owner can rename
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_forum_owner")
+        a.error.label(403, "errors.not_forum_owner")
         return
 
     name = a.input("name")
     if not name or not mochi.text.valid(name, "name"):
-        a.error_label(400, "errors.invalid_name")
+        a.error.label(400, "errors.invalid_name")
         return
 
     # Update entity (triggers directory update and timestamp reset for public forums)
@@ -1932,34 +1932,34 @@ def action_rename(a):
 # Get banner text (owner only, for settings editor)
 def action_banner_get(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_forum_owner")
+        a.error.label(403, "errors.not_forum_owner")
         return
     return {"data": {"banner": forum.get("banner", "")}}
 
 # Set banner text (owner only)
 def action_banner_set(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_forum_owner")
+        a.error.label(403, "errors.not_forum_owner")
         return
     banner = a.input("banner", "")
     if len(banner) > 10000:
-        a.error_label(400, "errors.banner_too_long")
+        a.error.label(400, "errors.banner_too_long")
         return
     mochi.db.execute("update forums set banner=? where id=?", banner, forum["id"])
     broadcast_event(forum["id"], "update", {"banner": banner})
@@ -1977,13 +1977,13 @@ def action_post_view(a):
     # If post not found locally, fetch remotely (via server param or directory lookup)
     if not post and forum_id:
         if not user_id:
-            a.error_label(401, "errors.not_logged_in")
+            a.error.label(401, "errors.not_logged_in")
             return
 
         # Connect to specified server, or use directory lookup
         peer = mochi.remote.peer(server) if server else None
         if server and not peer:
-            a.error_label(502, "errors.unable_to_connect_to_server")
+            a.error.label(502, "errors.unable_to_connect_to_server")
             return
 
         # Request post data via P2P
@@ -1996,12 +1996,12 @@ def action_post_view(a):
         return {"data": response}
 
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     forum = get_forum(post["forum"])
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     is_owner = forum.get("owner") == 1
@@ -2095,7 +2095,7 @@ def action_post_view(a):
 # Edit a post
 def action_post_edit(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -2104,12 +2104,12 @@ def action_post_edit(a):
 
     title = a.input("title")
     if not mochi.text.valid(title, "name"):
-        a.error_label(400, "errors.invalid_title")
+        a.error.label(400, "errors.invalid_title")
         return
 
     body = a.input("body")
     if not mochi.text.valid(body, "text"):
-        a.error_label(400, "errors.invalid_body")
+        a.error.label(400, "errors.invalid_body")
         return
 
     post = mochi.db.row("select * from posts where id=?", post_id)
@@ -2125,12 +2125,12 @@ def action_post_edit(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_edit_this_post")
+                a.error.label(403, "errors.not_allowed_to_edit_this_post")
                 return
 
             # Check if post has been removed
             if post.get("status") == "removed":
-                a.error_label(403, "errors.this_post_has_been_removed")
+                a.error.label(403, "errors.this_post_has_been_removed")
                 return
 
             now = mochi.time.now()
@@ -2188,7 +2188,7 @@ def action_post_edit(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_edit_this_post")
+                a.error.label(403, "errors.not_allowed_to_edit_this_post")
                 return
 
             now = mochi.time.now()
@@ -2244,7 +2244,7 @@ def action_post_edit(a):
 
     # Post not found locally - remote forum edit (no local attachments to handle)
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # For remote forums, we can still send new attachments
@@ -2282,7 +2282,7 @@ def action_post_edit(a):
 # Delete a post
 def action_post_delete(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -2302,7 +2302,7 @@ def action_post_delete(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_delete_this_post")
+                a.error.label(403, "errors.not_allowed_to_delete_this_post")
                 return
 
             # Delete tags for this post
@@ -2333,7 +2333,7 @@ def action_post_delete(a):
             is_author = user_id == post["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_delete_this_post")
+                a.error.label(403, "errors.not_allowed_to_delete_this_post")
                 return
 
             # Send delete request to forum owner
@@ -2353,7 +2353,7 @@ def action_post_delete(a):
 
     # Post not found locally - send delete to remote forum
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     mochi.message.send(
@@ -2368,12 +2368,12 @@ def action_post_delete(a):
 # Form for new comment
 def action_comment_new(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
     
     return {
@@ -2408,7 +2408,7 @@ def notify_mentions(forum_id, post_id, body, author_id, author_name):
 
 def action_comment_create(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -2419,7 +2419,7 @@ def action_comment_create(a):
     body = a.input("body")
 
     if not mochi.text.valid(body, "text"):
-        a.error_label(400, "errors.invalid_body")
+        a.error.label(400, "errors.invalid_body")
         return
 
     user_id = a.user.identity.id
@@ -2435,7 +2435,7 @@ def action_comment_create(a):
         if is_owner:
             # Owner processes locally
             if not check_access(a, forum["id"], "comment"):
-                a.error_label(403, "errors.not_allowed_to_comment")
+                a.error.label(403, "errors.not_allowed_to_comment")
                 return
 
             # Check for restrictions
@@ -2453,16 +2453,16 @@ def action_comment_create(a):
 
             post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
             if not post:
-                a.error_label(404, "errors.post_not_found")
+                a.error.label(404, "errors.post_not_found")
                 return
 
             # Check if post is locked
             if post.get("locked"):
-                a.error_label(403, "errors.this_post_is_locked")
+                a.error.label(403, "errors.this_post_is_locked")
                 return
 
             if parent_id and not mochi.db.exists("select id from comments where id=? and post=?", parent_id, post_id):
-                a.error_label(404, "errors.parent_comment_not_found")
+                a.error.label(404, "errors.parent_comment_not_found")
                 return
 
             # Determine initial status (moderators skip pre-moderation)
@@ -2533,7 +2533,7 @@ def action_comment_create(a):
 
     # Forum not found locally - send to remote forum
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Check access with remote forum owner
@@ -2564,7 +2564,7 @@ def action_comment_create(a):
 # Edit a comment
 def action_comment_edit(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -2574,7 +2574,7 @@ def action_comment_edit(a):
 
     body = a.input("body")
     if not mochi.text.valid(body, "text"):
-        a.error_label(400, "errors.invalid_body")
+        a.error.label(400, "errors.invalid_body")
         return
 
     comment = mochi.db.row("select * from comments where id=?", comment_id)
@@ -2590,12 +2590,12 @@ def action_comment_edit(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_edit_this_comment")
+                a.error.label(403, "errors.not_allowed_to_edit_this_comment")
                 return
 
             # Check if comment has been removed
             if comment.get("status") == "removed":
-                a.error_label(403, "errors.this_comment_has_been_removed")
+                a.error.label(403, "errors.this_comment_has_been_removed")
                 return
 
             now = mochi.time.now()
@@ -2617,7 +2617,7 @@ def action_comment_edit(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_edit_this_comment")
+                a.error.label(403, "errors.not_allowed_to_edit_this_comment")
                 return
 
             # Send edit request to forum owner
@@ -2636,7 +2636,7 @@ def action_comment_edit(a):
 
     # Comment not found locally - send edit to remote forum
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     mochi.message.send(
@@ -2651,7 +2651,7 @@ def action_comment_edit(a):
 # Delete a comment (and all children)
 def action_comment_delete(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum_id = a.input("forum")
@@ -2682,7 +2682,7 @@ def action_comment_delete(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_delete_this_comment")
+                a.error.label(403, "errors.not_allowed_to_delete_this_comment")
                 return
 
             comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
@@ -2712,7 +2712,7 @@ def action_comment_delete(a):
             is_author = user_id == comment["member"]
             is_manager = check_access(a, forum["id"], "manage")
             if not is_author and not is_manager:
-                a.error_label(403, "errors.not_allowed_to_delete_this_comment")
+                a.error.label(403, "errors.not_allowed_to_delete_this_comment")
                 return
 
             # Send delete request to forum owner
@@ -2738,7 +2738,7 @@ def action_comment_delete(a):
 
     # Comment not found locally - send delete to remote forum
     if not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     mochi.message.send(
@@ -2755,26 +2755,26 @@ def action_comment_delete(a):
 # Remove a post (moderator action)
 def action_post_remove(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if post.get("status") == "removed":
-        a.error_label(400, "errors.post_already_removed")
+        a.error.label(400, "errors.post_already_removed")
         return
 
     user = a.user.identity.id
@@ -2811,26 +2811,26 @@ def action_post_remove(a):
 # Restore a removed post (moderator action)
 def action_post_restore(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if post.get("status") != "removed":
-        a.error_label(400, "errors.post_is_not_removed")
+        a.error.label(400, "errors.post_is_not_removed")
         return
 
     user = a.user.identity.id
@@ -2860,26 +2860,26 @@ def action_post_restore(a):
 # Approve a pending post (moderator action)
 def action_post_approve(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if post.get("status") != "pending":
-        a.error_label(400, "errors.post_is_not_pending")
+        a.error.label(400, "errors.post_is_not_pending")
         return
 
     user = a.user.identity.id
@@ -2916,26 +2916,26 @@ def action_post_approve(a):
 # Lock a post (prevent new comments)
 def action_post_lock(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if post.get("locked"):
-        a.error_label(400, "errors.post_already_locked")
+        a.error.label(400, "errors.post_already_locked")
         return
 
     user = a.user.identity.id
@@ -2959,26 +2959,26 @@ def action_post_lock(a):
 # Unlock a post (allow new comments)
 def action_post_unlock(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if not post.get("locked"):
-        a.error_label(400, "errors.post_is_not_locked")
+        a.error.label(400, "errors.post_is_not_locked")
         return
 
     user = a.user.identity.id
@@ -3002,26 +3002,26 @@ def action_post_unlock(a):
 # Pin a post (sticky to top)
 def action_post_pin(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if post.get("pinned"):
-        a.error_label(400, "errors.post_already_pinned")
+        a.error.label(400, "errors.post_already_pinned")
         return
 
     user = a.user.identity.id
@@ -3044,26 +3044,26 @@ def action_post_pin(a):
 # Unpin a post
 def action_post_unpin(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     if not post.get("pinned"):
-        a.error_label(400, "errors.post_is_not_pinned")
+        a.error.label(400, "errors.post_is_not_pinned")
         return
 
     user = a.user.identity.id
@@ -3086,26 +3086,26 @@ def action_post_unpin(a):
 # Remove a comment (moderator action)
 def action_comment_remove(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     comment_id = a.input("comment")
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
-        a.error_label(404, "errors.comment_not_found")
+        a.error.label(404, "errors.comment_not_found")
         return
 
     if comment.get("status") == "removed":
-        a.error_label(400, "errors.comment_already_removed")
+        a.error.label(400, "errors.comment_already_removed")
         return
 
     user = a.user.identity.id
@@ -3143,26 +3143,26 @@ def action_comment_remove(a):
 # Restore a removed comment (moderator action)
 def action_comment_restore(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     comment_id = a.input("comment")
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
-        a.error_label(404, "errors.comment_not_found")
+        a.error.label(404, "errors.comment_not_found")
         return
 
     if comment.get("status") != "removed":
-        a.error_label(400, "errors.comment_is_not_removed")
+        a.error.label(400, "errors.comment_is_not_removed")
         return
 
     user = a.user.identity.id
@@ -3193,26 +3193,26 @@ def action_comment_restore(a):
 # Approve a pending comment (moderator action)
 def action_comment_approve(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     comment_id = a.input("comment")
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
-        a.error_label(404, "errors.comment_not_found")
+        a.error.label(404, "errors.comment_not_found")
         return
 
     if comment.get("status") != "pending":
-        a.error_label(400, "errors.comment_is_not_pending")
+        a.error.label(400, "errors.comment_is_not_pending")
         return
 
     user = a.user.identity.id
@@ -3252,26 +3252,26 @@ def action_comment_approve(a):
 # Restrict a user from a forum (mute/ban/shadowban)
 def action_restrict(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     target_user = a.input("user")
     if not mochi.text.valid(target_user, "entity"):
-        a.error_label(400, "errors.invalid_user")
+        a.error.label(400, "errors.invalid_user")
         return
 
     restriction_type = a.input("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
-        a.error_label(400, "errors.invalid_restriction_type")
+        a.error.label(400, "errors.invalid_restriction_type")
         return
 
     reason = a.input("reason", "")
@@ -3279,7 +3279,7 @@ def action_restrict(a):
     expires = None
     if duration:
         if not mochi.text.valid(duration, "natural"):
-            a.error_label(400, "errors.invalid_duration")
+            a.error.label(400, "errors.invalid_duration")
             return
         expires = mochi.time.now() + int(duration)
 
@@ -3311,26 +3311,26 @@ def action_restrict(a):
 # Remove a restriction from a user
 def action_unrestrict(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     target_user = a.input("user")
     if not mochi.text.valid(target_user, "entity"):
-        a.error_label(400, "errors.invalid_user")
+        a.error.label(400, "errors.invalid_user")
         return
 
     restriction = mochi.db.row("select * from restrictions where forum=? and user=?", forum["id"], target_user)
     if not restriction:
-        a.error_label(404, "errors.restriction_not_found")
+        a.error.label(404, "errors.restriction_not_found")
         return
 
     user = a.user.identity.id
@@ -3354,16 +3354,16 @@ def action_unrestrict(a):
 # List restrictions for a forum
 def action_restrictions(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
@@ -3392,41 +3392,41 @@ def action_restrictions(a):
 # Report a post
 def action_post_report(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     post_id = a.input("post")
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     user = a.user.identity.id
 
     if post["member"] == user:
-        a.error_label(400, "errors.cannot_report_your_own_content")
+        a.error.label(400, "errors.cannot_report_your_own_content")
         return
 
     reason = a.input("reason")
     if reason not in ["spam", "harassment", "hate", "violence", "misinformation", "offtopic", "other"]:
-        a.error_label(400, "errors.invalid_reason")
+        a.error.label(400, "errors.invalid_reason")
         return
 
     details = a.input("details", "")
     if reason == "other" and not details:
-        a.error_label(400, "errors.details_required_for_other_reason")
+        a.error.label(400, "errors.details_required_for_other_reason")
         return
 
     # Check for duplicate pending report
     if mochi.db.exists(
         "select 1 from reports where forum=? and type='post' and target=? and reporter=? and status='pending'",
         forum["id"], post_id, user):
-        a.error_label(400, "errors.you_have_already_reported_this_post")
+        a.error.label(400, "errors.you_have_already_reported_this_post")
         return
 
     # Rate limit: 5 reports per hour
@@ -3435,7 +3435,7 @@ def action_post_report(a):
         "select count(*) as count from reports where forum=? and reporter=? and created > ?",
         forum["id"], user, one_hour_ago)
     if report_count and report_count["count"] >= 5:
-        a.error_label(429, "errors.report_limit_exceeded_try_again_later")
+        a.error.label(429, "errors.report_limit_exceeded_try_again_later")
         return
 
     report_id = mochi.uid()
@@ -3457,41 +3457,41 @@ def action_post_report(a):
 # Report a comment
 def action_comment_report(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     comment_id = a.input("comment")
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
-        a.error_label(404, "errors.comment_not_found")
+        a.error.label(404, "errors.comment_not_found")
         return
 
     user = a.user.identity.id
 
     if comment["member"] == user:
-        a.error_label(400, "errors.cannot_report_your_own_content")
+        a.error.label(400, "errors.cannot_report_your_own_content")
         return
 
     reason = a.input("reason")
     if reason not in ["spam", "harassment", "hate", "violence", "misinformation", "offtopic", "other"]:
-        a.error_label(400, "errors.invalid_reason")
+        a.error.label(400, "errors.invalid_reason")
         return
 
     details = a.input("details", "")
     if reason == "other" and not details:
-        a.error_label(400, "errors.details_required_for_other_reason")
+        a.error.label(400, "errors.details_required_for_other_reason")
         return
 
     # Check for duplicate pending report
     if mochi.db.exists(
         "select 1 from reports where forum=? and type='comment' and target=? and reporter=? and status='pending'",
         forum["id"], comment_id, user):
-        a.error_label(400, "errors.you_have_already_reported_this_comment")
+        a.error.label(400, "errors.you_have_already_reported_this_comment")
         return
 
     # Rate limit: 5 reports per hour
@@ -3500,7 +3500,7 @@ def action_comment_report(a):
         "select count(*) as count from reports where forum=? and reporter=? and created > ?",
         forum["id"], user, one_hour_ago)
     if report_count and report_count["count"] >= 5:
-        a.error_label(429, "errors.report_limit_exceeded_try_again_later")
+        a.error.label(429, "errors.report_limit_exceeded_try_again_later")
         return
 
     report_id = mochi.uid()
@@ -3522,16 +3522,16 @@ def action_comment_report(a):
 # List reports for a forum (moderator view)
 def action_moderation_reports(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
@@ -3545,7 +3545,7 @@ def action_moderation_reports(a):
 
     status = a.input("status", "pending")
     if status not in ["pending", "resolved", "all"]:
-        a.error_label(400, "errors.invalid_status")
+        a.error.label(400, "errors.invalid_status")
         return
 
     if status == "all":
@@ -3595,16 +3595,16 @@ def action_moderation_reports(a):
 # Resolve a report
 def action_report_resolve(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
@@ -3620,16 +3620,16 @@ def action_report_resolve(a):
     report_id = a.input("report")
     report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum["id"])
     if not report:
-        a.error_label(404, "errors.report_not_found")
+        a.error.label(404, "errors.report_not_found")
         return
 
     if report.get("status") != "pending":
-        a.error_label(400, "errors.report_already_resolved")
+        a.error.label(400, "errors.report_already_resolved")
         return
 
     action = a.input("action")
     if action not in ["removed", "ignored"]:
-        a.error_label(400, "errors.invalid_action")
+        a.error.label(400, "errors.invalid_action")
         return
 
     user = a.user.identity.id
@@ -3703,16 +3703,16 @@ def action_report_resolve(a):
 # Get the moderation queue (pending posts, comments, and reports)
 def action_moderation_queue(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
@@ -3761,17 +3761,17 @@ def action_moderation_queue(a):
 # Get moderation settings for a forum (owner only)
 def action_moderation_settings(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Only owner can view/modify settings
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     return {
@@ -3791,17 +3791,17 @@ def action_moderation_settings(a):
 # Save moderation settings for a forum (owner only)
 def action_moderation_settings_save(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     # Only owner can modify settings
     if forum.get("owner") != 1:
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     # Get and validate settings
@@ -3830,32 +3830,32 @@ def action_moderation_settings_save(a):
 
     if new_user_days != None:
         if not mochi.text.valid(new_user_days, "natural"):
-            a.error_label(400, "errors.invalid_new_user_days")
+            a.error.label(400, "errors.invalid_new_user_days")
             return
         updates.append("new_user_days=?")
         params.append(int(new_user_days))
 
     if post_limit != None:
         if not mochi.text.valid(post_limit, "natural"):
-            a.error_label(400, "errors.invalid_post_limit")
+            a.error.label(400, "errors.invalid_post_limit")
             return
         updates.append("post_limit=?")
         params.append(int(post_limit))
 
     if comment_limit != None:
         if not mochi.text.valid(comment_limit, "natural"):
-            a.error_label(400, "errors.invalid_comment_limit")
+            a.error.label(400, "errors.invalid_comment_limit")
             return
         updates.append("comment_limit=?")
         params.append(int(comment_limit))
 
     if limit_window != None:
         if not mochi.text.valid(limit_window, "natural"):
-            a.error_label(400, "errors.invalid_limit_window")
+            a.error.label(400, "errors.invalid_limit_window")
             return
         val = int(limit_window)
         if val < 60:
-            a.error_label(400, "errors.limit_window_must_be_at_least_60_seconds")
+            a.error.label(400, "errors.limit_window_must_be_at_least_60_seconds")
             return
         updates.append("limit_window=?")
         params.append(val)
@@ -3869,16 +3869,16 @@ def action_moderation_settings_save(a):
 # View moderation log
 def action_moderation_log(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access_remote(a, forum["id"], "moderate"):
-        a.error_label(403, "errors.not_allowed_to_moderate")
+        a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
@@ -3920,7 +3920,7 @@ def action_moderation_log(a):
 # Vote on a post
 def action_post_vote(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     post_id = a.input("post")
@@ -3931,7 +3931,7 @@ def action_post_vote(a):
     if vote == "none":
         vote = ""
     if vote not in ["up", "down", ""]:
-        a.error_label(400, "errors.invalid_vote")
+        a.error.label(400, "errors.invalid_vote")
         return
 
     user_id = a.user.identity.id
@@ -3942,7 +3942,7 @@ def action_post_vote(a):
     if post:
         forum = get_forum(post["forum"])
         if not forum:
-            a.error_label(404, "errors.forum_not_found")
+            a.error.label(404, "errors.forum_not_found")
             return
 
         # Check if we own this forum
@@ -3951,7 +3951,7 @@ def action_post_vote(a):
         if is_owner:
             # Owner checks access locally
             if not check_access(a, forum["id"], "vote"):
-                a.error_label(403, "errors.not_allowed_to_vote")
+                a.error.label(403, "errors.not_allowed_to_vote")
                 return
             # We own the forum - process locally and broadcast to members
             # Remove old vote if exists
@@ -3994,7 +3994,7 @@ def action_post_vote(a):
                 "user": user_id,
             })
             if not access_response.get("vote", False):
-                a.error_label(403, "errors.not_allowed_to_vote")
+                a.error.label(403, "errors.not_allowed_to_vote")
                 return
 
             # Send vote to forum owner
@@ -4029,7 +4029,7 @@ def action_post_vote(a):
 
     # Post not found locally - send vote to remote forum
     if not forum_id or not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.post_not_found")
+        a.error.label(404, "errors.post_not_found")
         return
 
     # Check access with remote forum owner
@@ -4038,7 +4038,7 @@ def action_post_vote(a):
         "user": user_id,
     })
     if not access_response.get("vote", False):
-        a.error_label(403, "errors.not_allowed_to_vote")
+        a.error.label(403, "errors.not_allowed_to_vote")
         return
 
     mochi.message.send(
@@ -4053,7 +4053,7 @@ def action_post_vote(a):
 # Vote on a comment
 def action_comment_vote(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     comment_id = a.input("comment")
@@ -4064,7 +4064,7 @@ def action_comment_vote(a):
     if vote == "none":
         vote = ""
     if vote not in ["up", "down", ""]:
-        a.error_label(400, "errors.invalid_vote")
+        a.error.label(400, "errors.invalid_vote")
         return
 
     user_id = a.user.identity.id
@@ -4075,7 +4075,7 @@ def action_comment_vote(a):
     if comment:
         forum = get_forum(comment["forum"])
         if not forum:
-            a.error_label(404, "errors.forum_not_found")
+            a.error.label(404, "errors.forum_not_found")
             return
 
         # Check if we own this forum
@@ -4084,7 +4084,7 @@ def action_comment_vote(a):
         if is_owner:
             # Owner checks access locally
             if not check_access(a, forum["id"], "vote"):
-                a.error_label(403, "errors.not_allowed_to_vote")
+                a.error.label(403, "errors.not_allowed_to_vote")
                 return
             # We own the forum - process locally and broadcast to members
             # Remove old vote if exists
@@ -4123,7 +4123,7 @@ def action_comment_vote(a):
                 "user": user_id,
             })
             if not access_response.get("vote", False):
-                a.error_label(403, "errors.not_allowed_to_vote")
+                a.error.label(403, "errors.not_allowed_to_vote")
                 return
 
             # Send vote to forum owner
@@ -4158,7 +4158,7 @@ def action_comment_vote(a):
 
     # Comment not found locally - send vote to remote forum
     if not forum_id or not mochi.text.valid(forum_id, "entity"):
-        a.error_label(404, "errors.comment_not_found")
+        a.error.label(404, "errors.comment_not_found")
         return
 
     # Check access with remote forum owner
@@ -4167,7 +4167,7 @@ def action_comment_vote(a):
         "user": user_id,
     })
     if not access_response.get("vote", False):
-        a.error_label(403, "errors.not_allowed_to_vote")
+        a.error.label(403, "errors.not_allowed_to_vote")
         return
 
     mochi.message.send(
@@ -4185,16 +4185,16 @@ def action_comment_vote(a):
 # Get access rules for a forum
 def action_access(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     # Get owner - if we own this entity, use current user's info
@@ -4264,27 +4264,27 @@ def action_access(a):
 # Set access level for a user
 def action_access_set(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     target = a.input("target")
     # Allow special subjects (*, +), groups (@name), and valid entity IDs
     if target not in ["*", "+"] and not target.startswith("@") and not mochi.text.valid(target, "entity"):
-        a.error_label(400, "errors.invalid_target")
+        a.error.label(400, "errors.invalid_target")
         return
 
     level = a.input("level")
     if level not in ACCESS_LEVELS + ["none"]:
-        a.error_label(400, "errors.invalid_access_level")
+        a.error.label(400, "errors.invalid_access_level")
         return
 
     resource = "forum/" + forum["id"]
@@ -4310,22 +4310,22 @@ def action_access_set(a):
 # Revoke all access for a user
 def action_access_revoke(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
 
     forum = get_forum(a.input("forum"))
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     if not check_access(a, forum["id"], "manage"):
-        a.error_label(403, "errors.not_allowed")
+        a.error.label(403, "errors.not_allowed")
         return
 
     target = a.input("target")
     # Allow special subjects (*, +), groups (@name), and valid entity IDs
     if target not in ["*", "+"] and not target.startswith("@") and not mochi.text.valid(target, "entity"):
-        a.error_label(400, "errors.invalid_target")
+        a.error.label(400, "errors.invalid_target")
         return
 
     resource = "forum/" + forum["id"]
@@ -6368,7 +6368,7 @@ def event_report_resolve_action(e):
 # Proxy user search to people app
 def action_users_search(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     query = a.input("search", "")
     results = mochi.service.call("people", "users/search", query)
@@ -6377,7 +6377,7 @@ def action_users_search(a):
 # Proxy groups list to people app
 def action_groups(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     groups = mochi.service.call("friends", "groups/list")
     return {"data": {"groups": groups}}
@@ -6397,16 +6397,16 @@ def escape_xml(s):
 # Get or create an RSS token for an entity+mode combination
 def action_rss_token(a):
     if not a.user:
-        a.error_label(401, "errors.authentication_required")
+        a.error.label(401, "errors.authentication_required")
         return
 
     entity = a.input("entity")
     mode = a.input("mode")
     if not entity or not mode:
-        a.error_label(400, "errors.missing_entity_or_mode")
+        a.error.label(400, "errors.missing_entity_or_mode")
         return
     if mode != "posts" and mode != "all":
-        a.error_label(400, "errors.mode_must_be_posts_or_all")
+        a.error.label(400, "errors.mode_must_be_posts_or_all")
         return
 
     if entity == "*":
@@ -6414,7 +6414,7 @@ def action_rss_token(a):
     else:
         forum = get_forum(entity)
         if not forum:
-            a.error_label(404, "errors.forum_not_found")
+            a.error.label(404, "errors.forum_not_found")
             return
         forum_id = forum["id"]
 
@@ -6426,7 +6426,7 @@ def action_rss_token(a):
     # Create new token
     token = mochi.token.create("rss", ["rss"])
     if not token:
-        a.error_label(500, "errors.failed_to_create_token")
+        a.error.label(500, "errors.failed_to_create_token")
         return
 
     now = mochi.time.now()
@@ -6436,7 +6436,7 @@ def action_rss_token(a):
 # Serve RSS feed for all subscribed forums
 def action_rss_all(a):
     if not a.user:
-        a.error_label(401, "errors.authentication_required")
+        a.error.label(401, "errors.authentication_required")
         return
 
     user_id = a.user.identity.id
@@ -6536,22 +6536,22 @@ def action_rss_all(a):
 # Serve RSS feed for a forum entity
 def action_rss(a):
     if not a.user:
-        a.error_label(401, "errors.authentication_required")
+        a.error.label(401, "errors.authentication_required")
         return
 
     forum_id = a.input("forum")
     if not forum_id:
-        a.error_label(400, "errors.no_forum_specified")
+        a.error.label(400, "errors.no_forum_specified")
         return
 
     forum = get_forum(forum_id)
     if not forum:
-        a.error_label(404, "errors.forum_not_found")
+        a.error.label(404, "errors.forum_not_found")
         return
 
     forum_id = forum["id"]
     if not check_access(a, forum_id, "view"):
-        a.error_label(403, "errors.not_allowed_to_view_this_forum")
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
     # Look up mode from token
@@ -6653,12 +6653,12 @@ def update_interests_from_manual_tag(label):
 # Adjust interest weight for a specific tag QID
 def action_tag_interest(a):
     if not a.user:
-        a.error_label(401, "errors.not_logged_in")
+        a.error.label(401, "errors.not_logged_in")
         return
     qid = a.input("qid")
     direction = a.input("direction")
     if not qid:
-        a.error_label(400, "errors.qid_required")
+        a.error.label(400, "errors.qid_required")
         return
     if direction == "up":
         mochi.interests.adjust(qid, 15)
@@ -6667,7 +6667,7 @@ def action_tag_interest(a):
     elif direction == "remove":
         mochi.interests.remove(qid)
     else:
-        a.error_label(400, "errors.invalid_direction")
+        a.error.label(400, "errors.invalid_direction")
         return
     return {"data": {"ok": True}}
 
