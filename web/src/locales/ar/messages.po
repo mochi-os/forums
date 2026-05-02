@@ -11,7 +11,15 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
+msgid "{count, plural, one {Approved 1 item} other {Approved # items}}"
+msgstr "{count, plural, one {تمت الموافقة على عنصر واحد} other {تمت الموافقة على # عناصر}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:274
+msgid "{count, plural, one {Rejected 1 item} other {Rejected # items}}"
+msgstr "{count, plural, one {تم رفض عنصر واحد} other {تم رفض # عناصر}}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -133,7 +141,7 @@ msgstr "الكل"
 msgid "All forums"
 msgstr "جميع المنتديات"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:374
+#: src/routes/_authenticated/$forum_.moderation.tsx:375
 msgid "All posts and comments have been reviewed"
 msgstr "تمت مراجعة جميع المنشورات والتعليقات"
 
@@ -164,7 +172,7 @@ msgid "Back"
 msgstr "رجوع"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:14
-#: src/routes/_authenticated/$forum_.moderation.tsx:97
+#: src/routes/_authenticated/$forum_.moderation.tsx:98
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 #: src/routes/_authenticated/$forum_.settings.tsx:216
 #: src/routes/_authenticated/$forum_.settings.tsx:248
@@ -451,7 +459,7 @@ msgstr "الاتجاه"
 msgid "Disabled"
 msgstr "معطّل"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
+#: src/routes/_authenticated/$forum_.moderation.tsx:723
 msgid "Dismiss"
 msgstr "تجاهل"
 
@@ -504,7 +512,7 @@ msgstr "فشل إضافة الوسم"
 msgid "Failed to adjust interest"
 msgstr "فشل ضبط الاهتمام"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:254
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
 msgid "Failed to approve items"
 msgstr "فشل الموافقة على العناصر"
 
@@ -512,7 +520,7 @@ msgstr "فشل الموافقة على العناصر"
 msgid "Failed to ban user"
 msgstr "فشل حظر المستخدم"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:322
+#: src/routes/_authenticated/$forum_.moderation.tsx:323
 msgid "Failed to ban users"
 msgstr "فشل حظر المستخدمين"
 
@@ -524,11 +532,11 @@ msgstr "فشل الحصول على رمز RSS"
 msgid "Failed to mute user"
 msgstr "فشل كتم المستخدم"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:305
+#: src/routes/_authenticated/$forum_.moderation.tsx:306
 msgid "Failed to mute users"
 msgstr "فشل كتم المستخدمين"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:276
+#: src/routes/_authenticated/$forum_.moderation.tsx:277
 msgid "Failed to reject items"
 msgstr "فشل رفض العناصر"
 
@@ -545,7 +553,7 @@ msgstr "فشل إزالة الحساب"
 msgid "Failed to remove interest"
 msgstr "فشل إزالة الاهتمام"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:917
 msgid "Failed to remove restriction"
 msgstr "فشل إزالة القيد"
 
@@ -557,7 +565,7 @@ msgstr "فشل إعادة تسمية المنتدى"
 msgid "Failed to reset prompt"
 msgstr "فشل إعادة تعيين المطالبة"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:574
+#: src/routes/_authenticated/$forum_.moderation.tsx:575
 msgid "Failed to resolve report"
 msgstr "فشل حل البلاغ"
 
@@ -828,16 +836,16 @@ msgid "Metric"
 msgstr "متري"
 
 #: src/components/layout/forums-layout.tsx:121
-#: src/routes/_authenticated/$forum_.moderation.tsx:86
-#: src/routes/_authenticated/$forum_.moderation.tsx:97
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
+#: src/routes/_authenticated/$forum_.moderation.tsx:98
 msgid "Moderation"
 msgstr "الإشراف"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:373
+#: src/routes/_authenticated/$forum_.moderation.tsx:374
 msgid "Moderation queue is empty"
 msgstr "قائمة الإشراف فارغة"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.moderation.tsx:103
 msgid "Moderation sections"
 msgstr "أقسام الإشراف"
 
@@ -906,7 +914,7 @@ msgstr "لا توجد مجموعات متاحة"
 msgid "No matches."
 msgstr "لا توجد تطابقات."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:831
+#: src/routes/_authenticated/$forum_.moderation.tsx:832
 msgid "No moderation activity"
 msgstr "لا يوجد نشاط إشراف"
 
@@ -922,11 +930,11 @@ msgstr "لا توجد منشورات في هذا المنتدى بعد"
 msgid "No profile"
 msgstr "لا يوجد ملف شخصي"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:653
+#: src/routes/_authenticated/$forum_.moderation.tsx:654
 msgid "No reports"
 msgstr "لا توجد تقارير"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:961
+#: src/routes/_authenticated/$forum_.moderation.tsx:962
 msgid "No restrictions"
 msgstr "لا توجد قيود"
 
@@ -947,7 +955,7 @@ msgstr "لا يوجد سجل موضوع بعد — حاول مرة أخرى بع
 msgid "No users found"
 msgstr "لم يتم العثور على مستخدمين"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:962
+#: src/routes/_authenticated/$forum_.moderation.tsx:963
 msgid "No users have been muted or banned"
 msgstr "لم يتم كتم أو حظر أي مستخدمين"
 
@@ -1182,7 +1190,7 @@ msgstr "يجب الموافقة على الردود"
 msgid "Report"
 msgstr "تقرير"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:571
+#: src/routes/_authenticated/$forum_.moderation.tsx:572
 msgid "Report resolved"
 msgstr "تم حل التقرير"
 
@@ -1220,7 +1228,7 @@ msgstr "إعادة تعيين كل الإعدادات إلى القيم الاف
 msgid "Restore"
 msgstr "استعادة"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:913
+#: src/routes/_authenticated/$forum_.moderation.tsx:914
 msgid "Restriction removed"
 msgstr "تمت إزالة القيد"
 
@@ -1424,7 +1432,7 @@ msgstr "السمة"
 msgid "Theme Settings"
 msgstr "إعدادات السمة"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:832
+#: src/routes/_authenticated/$forum_.moderation.tsx:833
 msgid "There are no moderation actions recorded yet"
 msgstr "لا توجد إجراءات إشراف مسجلة بعد"
 

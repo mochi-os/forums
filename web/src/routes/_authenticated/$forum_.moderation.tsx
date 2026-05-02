@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
+import { plural } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   Button,
@@ -248,7 +249,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         await forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
       }
       const count = selectedPosts.size + selectedComments.size
-      toast.success(`Approved ${count} item${count !== 1 ? 's' : ''}`)
+      toast.success(plural(count, { one: 'Approved 1 item', other: 'Approved # items' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to approve items`))
@@ -270,7 +271,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         await forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: 'Rejected' })
       }
       const count = selectedPosts.size + selectedComments.size
-      toast.success(`Rejected ${count} item${count !== 1 ? 's' : ''}`)
+      toast.success(plural(count, { one: 'Rejected 1 item', other: 'Rejected # items' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to reject items`))
