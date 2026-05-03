@@ -1602,7 +1602,7 @@ def action_probe(a):
         return
 
     if not server or server == protocol:
-        a.error.label(400, "errors.could_not_extract_server_from_url")
+        a.error.label(400, "errors.invalid_url")
         return
 
     if not forum_id or (not mochi.text.valid(forum_id, "entity") and not mochi.text.valid(forum_id, "fingerprint")):
@@ -1835,7 +1835,7 @@ def action_unsubscribe(a):
 
     # Cannot unsubscribe from own forum
     if forum.get("owner") == 1:
-        a.error.label(400, "errors.cannot_unsubscribe_from_your_own_forum")
+        a.error.label(400, "errors.cannot_unsubscribe_own_forum")
         return
 
     # Delete all local data for this forum
@@ -3435,7 +3435,7 @@ def action_post_report(a):
         "select count(*) as count from reports where forum=? and reporter=? and created > ?",
         forum["id"], user, one_hour_ago)
     if report_count and report_count["count"] >= 5:
-        a.error.label(429, "errors.report_limit_exceeded_try_again_later")
+        a.error.label(429, "errors.report_limit_exceeded")
         return
 
     report_id = mochi.uid()
@@ -3500,7 +3500,7 @@ def action_comment_report(a):
         "select count(*) as count from reports where forum=? and reporter=? and created > ?",
         forum["id"], user, one_hour_ago)
     if report_count and report_count["count"] >= 5:
-        a.error.label(429, "errors.report_limit_exceeded_try_again_later")
+        a.error.label(429, "errors.report_limit_exceeded")
         return
 
     report_id = mochi.uid()
@@ -3855,7 +3855,7 @@ def action_moderation_settings_save(a):
             return
         val = int(limit_window)
         if val < 60:
-            a.error.label(400, "errors.limit_window_must_be_at_least_60_seconds")
+            a.error.label(400, "errors.limit_window_too_short")
             return
         updates.append("limit_window=?")
         params.append(val)
@@ -6406,7 +6406,7 @@ def action_rss_token(a):
         a.error.label(400, "errors.missing_entity_or_mode")
         return
     if mode != "posts" and mode != "all":
-        a.error.label(400, "errors.mode_must_be_posts_or_all")
+        a.error.label(400, "errors.invalid_mode")
         return
 
     if entity == "*":

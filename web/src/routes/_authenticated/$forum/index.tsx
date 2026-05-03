@@ -5,6 +5,7 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 import { z } from 'zod'
+import { t } from '@lingui/core/macro'
 import { useLingui } from '@lingui/react/macro'
 import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
 import { getErrorStatus } from '@/lib/errors'
@@ -31,7 +32,7 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
         forum: null,
         permissions: undefined,
         loaderError:
-          getErrorMessage(error, "Failed to load forum"),
+          getErrorMessage(error, t`Failed to load forum`),
       }
     }
 
