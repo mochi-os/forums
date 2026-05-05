@@ -104,10 +104,10 @@ export function ForumsListPage({
       const forum = forums.find((f) => f.id === post.forum)
       return {
         ...post,
-        forumName: forum?.name ?? 'Unknown',
+        forumName: forum?.name ?? t`Unknown`,
       }
     })
-  }, [allPosts, forums])
+  }, [allPosts, forums, t])
 
   const subscribedIds = useMemo(
     () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))),

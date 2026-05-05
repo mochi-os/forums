@@ -53,7 +53,7 @@ export function InlineForumSearch({
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [t])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -157,7 +157,7 @@ export function InlineForumSearch({
                     {isPending ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : (
-                      'Subscribe'
+                      <Trans>Subscribe</Trans>
                     )}
                   </Button>
                 </div>

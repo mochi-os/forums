@@ -13,13 +13,51 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Approved 1 item} other {Approved # items}}"
-msgstr "{count, plural, one {Fọwọ́sí nǹkan 1} other {Fọwọ́sí nǹkan #}}"
+#. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
+#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+msgid " · Expires {0}"
+msgstr " · Ó parí {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:274
-msgid "{count, plural, one {Rejected 1 item} other {Rejected # items}}"
-msgstr "{count, plural, one {Kọ̀ nǹkan 1} other {Kọ̀ nǹkan #}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+msgid " · Permanent"
+msgstr " · Títí láé"
+
+#: src/features/forums/components/thread/thread-comment.tsx:197
+msgid " (edited)"
+msgstr " (a ti ṣe àtúnṣe)"
+
+#. placeholder {0}: selectedPosts.size + selectedComments.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:536
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# yan} other {# yan}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:324
+msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+msgstr "{0, plural, one {A dí olùmúlò # lọ́nà} other {A dí olùmúlò # lọ́nà}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:307
+msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+msgstr "{0, plural, one {A pa olùmúlò # lọ́nà ìró} other {A pa olùmúlò # lọ́nà ìró}}"
+
+#. placeholder {0}: selectedForum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:253
+msgid "{0} settings"
+msgstr "Àwọn ìṣètò {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
+msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+msgstr "{count, plural, one {A fọwọ́ sí nǹkan #} other {A fọwọ́ sí nǹkan #}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:278
+msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr "{count, plural, one {A kọ̀ nǹkan #} other {A kọ̀ nǹkan #}}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:183
+msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
+msgstr "{totalDescendants, plural, one {# ìdáhùn} other {# ìdáhùn}}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -33,6 +71,10 @@ msgstr "Wákàtí 24"
 msgid "Absolute (date and time)"
 msgstr "Pípé (ọjọ́ àti àkókò)"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+msgid "Access"
+msgstr "Ìwọlé"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:12
 msgid "Access Forbidden"
 msgstr "Ìwọlé Léèwọ̀"
@@ -41,19 +83,23 @@ msgstr "Ìwọlé Léèwọ̀"
 msgid "Access level"
 msgstr "Ìpele ìwọlé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:927
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Access level updated"
 msgstr "A ti ṣe àtúnyẹ̀wò ìpele ìwọlé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:950
 msgid "Access Management"
 msgstr "Ìṣàkóso Ìwọlé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:912
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Access removed"
 msgstr "A ti yọ ìwọlé kúrò"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:914
+msgid "Access set for {subjectName}"
+msgstr "A ti ṣètò ìwọlé fún {subjectName}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:669
 msgid "Account"
 msgstr "Àkáǹtì"
 
@@ -90,8 +136,8 @@ msgstr "Fi àkáǹtì kún"
 msgid "Add an account to receive notifications and use services."
 msgstr "Fi àkáǹtì kún láti gba àwọn ìfitónilétí àti láti lo àwọn iṣẹ́."
 
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/create-post-dialog.tsx:322
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Add files"
 msgstr "Fi àwọn fáìlì kún"
 
@@ -99,7 +145,7 @@ msgstr "Fi àwọn fáìlì kún"
 msgid "Add new account"
 msgstr "Fi àkáǹtì tuntun kún"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:947
+#: src/routes/_authenticated/$forum_.settings.tsx:961
 msgid "Add Rule"
 msgstr "Fi Òfin kún"
 
@@ -119,20 +165,25 @@ msgstr "Fi sí àwọn ìfitónilétí tó wà"
 msgid "Add view"
 msgstr "Fi ìran kún"
 
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Additional details (optional)"
+msgstr "Àwọn àlàyé àfikún (àṣàyàn)"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Ṣàtúnṣe ìrísí àti ìtò láti bá ìfẹ́ rẹ mu."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:649
+#: src/routes/_authenticated/$forum_.settings.tsx:656
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:657
 msgid "AI actions on posts"
 msgstr "Ìṣe AI lórí àwọn ìfìránṣẹ́"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "All"
 msgstr "Gbogbo"
 
@@ -141,13 +192,30 @@ msgstr "Gbogbo"
 msgid "All forums"
 msgstr "Gbogbo àwọn forum"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:375
+#: src/routes/_authenticated/$forum_.moderation.tsx:379
 msgid "All posts and comments have been reviewed"
 msgstr "A ti ṣe àyẹ̀wò gbogbo àwọn ìfìránṣẹ́ àti àwọn àlàyé"
 
-#: src/features/forums/components/thread/thread-comment.tsx:348
+#: src/features/forums/components/create-forum-dialog.tsx:49
+msgid "Allow anyone to search for forum"
+msgstr "Jẹ́ kí ẹnikẹ́ni wá apejọ"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Any additional context..."
+msgstr "Èyíkéyìí ìwòye àfikún..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:501
 msgid "Approve"
 msgstr "Fọwọ́sí"
+
+#: src/features/forums/components/thread/thread-comment.tsx:407
+msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
+msgstr "Ṣé o dájú pé o fẹ́ pa àlàyé yìí rẹ́? Èyí yóò tún pa gbogbo ìdáhùn rẹ́. A kò lè yí ìṣe yìí padà."
+
+#: src/features/forums/components/thread/thread-content.tsx:381
+msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
+msgstr "Ṣé ó dájú pé o fẹ́ pa àkọsílẹ̀ yìí rẹ́? Èyí yóò tún pa gbogbo àwọn ìfìwéránṣẹ́ rẹ́. A kò lè dá iṣe yìí padà."
 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
@@ -157,13 +225,13 @@ msgstr "Ṣé o dájú pé o fẹ́ jáde? Wàá nílò láti wọlé lẹ́ẹ�
 msgid "Asc"
 msgstr "Àsc"
 
-#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:475
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "So àwọn fáìlì ìdáhùn pọ̀"
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:229
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "Attachments"
 msgstr "Àwọn ìsomọ́"
 
@@ -172,10 +240,14 @@ msgid "Back"
 msgstr "Padà"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:14
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
-#: src/routes/_authenticated/$forum_.settings.tsx:203
-#: src/routes/_authenticated/$forum_.settings.tsx:216
-#: src/routes/_authenticated/$forum_.settings.tsx:248
+#: src/features/forums/thread-detail.tsx:249
+#: src/features/forums/thread-detail.tsx:261
+#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:210
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Back to forum"
 msgstr "Padà sí forum"
 
@@ -189,18 +261,44 @@ msgstr "Padà sí àwọn forum"
 msgid "Back to Home"
 msgstr "Padà sí Ilé"
 
-#: src/features/forums/components/thread/thread-comment.tsx:390
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/routes/_authenticated/$forum_.moderation.tsx:527
+msgid "Ban"
+msgstr "Fòfin de"
+
+#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Fòfin de òǹkọ̀wé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "banned"
+msgstr "tí a dí lọ́nà"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Banner"
 msgstr "Banner"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner removed"
+msgstr "A ti yọ banner kúrò"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner updated"
+msgstr "A ti ṣe àtúnṣe banner"
 
 #: ../../../lib/web/src/components/post-tags.tsx:160
 msgid "Boost interest"
 msgstr "Mú ìfẹ́ pọ̀"
+
+#. placeholder {0}: report.author_name ?? t`Unknown`
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "by {0}"
+msgstr "látọwọ́ {0}"
+
+#. placeholder {0}: restriction.moderator_name ?? restriction.moderator
+#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+msgid "By {0}"
+msgstr "Látọwọ́ {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
@@ -209,14 +307,14 @@ msgstr "Mú ìfẹ́ pọ̀"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/forums/components/create-post-dialog.tsx:328
-#: src/features/forums/components/edit-post-dialog.tsx:326
-#: src/features/forums/components/report-dialog.tsx:98
-#: src/features/forums/components/thread/thread-comment.tsx:229
+#: src/features/forums/components/create-post-dialog.tsx:330
+#: src/features/forums/components/edit-post-dialog.tsx:329
+#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Fagilé"
 
-#: src/features/forums/components/thread/thread-comment.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:484
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Fagilé ìdáhùn"
@@ -228,6 +326,10 @@ msgstr "Ẹ̀ka fún ìfitónilétí yìí"
 #: ../../../lib/web/src/components/notification-category-button.tsx:115
 msgid "Change notification category"
 msgstr "Yí ẹ̀ka ìfitónilétí padà"
+
+#: src/features/forums/components/forum-overview.tsx:138
+msgid "Check back later for new content"
+msgstr "Wá padà nígbà tí ó bá yá fún àkóónú titun"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:315
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -250,7 +352,7 @@ msgid "Choose language"
 msgstr "Yan èdè"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:304
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:608
 msgid "Clear"
 msgstr "Pa rẹ́"
 
@@ -305,7 +407,7 @@ msgstr "A ti fọwọ́sí àlàyé"
 msgid "Comment deleted"
 msgstr "A ti pa àlàyé rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1155
+#: src/routes/_authenticated/$forum_.settings.tsx:1169
 msgid "Comment limit"
 msgstr "Ààlà àlàyé"
 
@@ -325,6 +427,10 @@ msgstr "A ti dá àlàyé padà"
 msgid "Comment updated"
 msgstr "A ti ṣe àtúnyẹ̀wò àlàyé"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:93
+msgid "Comment, vote, and view"
+msgstr "Ìfìwéránṣẹ́, ìdìbò, àti wíwò"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:302
 msgid "Compact"
 msgstr "Kékeré"
@@ -334,12 +440,12 @@ msgstr "Kékeré"
 msgid "Confirm"
 msgstr "Fọwọ́sí"
 
-#: src/features/forums/components/create-post-dialog.tsx:208
-#: src/features/forums/components/edit-post-dialog.tsx:189
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/edit-post-dialog.tsx:192
 msgid "Content"
 msgstr "Àkóónú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1105
+#: src/routes/_authenticated/$forum_.settings.tsx:1119
 msgid "Content from users below a threshold must be approved"
 msgstr "A gbọ́dọ̀ fọwọ́sí àkóónú láti àwọn olùmúlò tó wà nísàlẹ̀ ìpele kan"
 
@@ -355,7 +461,7 @@ msgstr "Ìròyìn àti ẹ̀kúnrẹ́rẹ́ ipò."
 msgid "Continue"
 msgstr "Tẹ̀síwájú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:937
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "Control who can view and interact with this forum"
 msgstr "Darí ẹni tó lè wò àti bá forum yìí ṣiṣẹ́"
 
@@ -367,7 +473,7 @@ msgstr "Ṣe àdàkọ"
 msgid "Create a new forum"
 msgstr "Dá forum tuntun"
 
-#: src/features/forums/components/create-post-dialog.tsx:180
+#: src/features/forums/components/create-post-dialog.tsx:182
 msgid "Create a new post"
 msgstr "Dá ìfìránṣẹ́ tuntun"
 
@@ -376,7 +482,7 @@ msgstr "Dá ìfìránṣẹ́ tuntun"
 msgid "Create forum"
 msgstr "Dá forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Custom"
 msgstr "Àṣà"
 
@@ -394,11 +500,11 @@ msgid "Dark mode"
 msgstr "Ọ̀nà òkùnkùn"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "Default"
 msgstr "Àìpé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:668
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Default account"
 msgstr "Àkáǹtì àìpé"
 
@@ -406,35 +512,41 @@ msgstr "Àkáǹtì àìpé"
 msgid "Default AI account"
 msgstr "Àkáǹtì AI àìpé"
 
-#: src/features/forums/components/thread/thread-comment.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:302
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-content.tsx:304
+#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/routes/_authenticated/$forum_.settings.tsx:530
 msgid "Delete"
 msgstr "Pa rẹ́"
 
-#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:406
 msgid "Delete comment"
 msgstr "Pa àlàyé rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/routes/_authenticated/$forum_.settings.tsx:520
 msgid "Delete forum"
 msgstr "Pa forum rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:541
 msgid "Delete Forum"
 msgstr "Pa Forum rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:539
 msgid "Delete forum?"
 msgstr "Pa forum rẹ́?"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Delete post"
 msgstr "Pa ìfìránṣẹ́ rẹ́"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Desc"
+
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Details (required)"
+msgstr "Àwọn àlàyé (àdájú)"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:144
 msgid "Details Panel"
@@ -455,11 +567,11 @@ msgstr "Ṣàwárí láti web browser"
 msgid "Direction"
 msgstr "Ìtọ́sọ́nà"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:656
+#: src/routes/_authenticated/$forum_.settings.tsx:663
 msgid "Disabled"
 msgstr "Tí a ti pa"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:723
+#: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Mú kúrò"
 
@@ -475,21 +587,21 @@ msgstr "Ó ń fi sidebar fóònù hàn."
 msgid "Download"
 msgstr "Gbà sílẹ̀"
 
-#: src/features/forums/components/thread/thread-comment.tsx:329
-#: src/features/forums/components/thread/thread-content.tsx:296
+#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Ṣàtúnṣe"
 
-#: src/features/forums/components/edit-post-dialog.tsx:159
-#: src/features/forums/components/edit-post-dialog.tsx:161
+#: src/features/forums/components/edit-post-dialog.tsx:162
+#: src/features/forums/components/edit-post-dialog.tsx:164
 msgid "Edit post"
 msgstr "Ṣàtúnṣe ìfìránṣẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:581
+#: src/routes/_authenticated/$forum_.settings.tsx:588
 msgid "Enter banner text (markdown supported)..."
 msgstr "Tẹ ọ̀rọ̀ banner (a gba markdown)..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Entity ID"
 msgstr "ID Ẹ̀ka"
 
@@ -512,7 +624,7 @@ msgstr "Kò lè fi tag kún"
 msgid "Failed to adjust interest"
 msgstr "Kò lè ṣàtúnṣe ìfẹ́"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:259
 msgid "Failed to approve items"
 msgstr "Kò lè fọwọ́sí àwọn ohun"
 
@@ -520,7 +632,7 @@ msgstr "Kò lè fọwọ́sí àwọn ohun"
 msgid "Failed to ban user"
 msgstr "Kò lè dí oníṣe"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:323
+#: src/routes/_authenticated/$forum_.moderation.tsx:327
 msgid "Failed to ban users"
 msgstr "Kò lè dí àwọn oníṣe"
 
@@ -528,27 +640,63 @@ msgstr "Kò lè dí àwọn oníṣe"
 msgid "Failed to get RSS token"
 msgstr "Kò lè rí token RSS"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:885
+msgid "Failed to load access rules"
+msgstr "Kò lè ṣí àwọn òfin àyè lọ̀"
+
 #: src/routes/_authenticated/$forum/index.tsx:35
 msgid "Failed to load forum"
 msgstr "Kò lè ṣí forum lọ̀"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:146
+msgid "Failed to load forum settings"
+msgstr "Kò ṣeé ṣe láti gbé àwọn àtètèkọ́ṣe apejọ wọlé"
 
 #: src/routes/_authenticated/index.tsx:32
 msgid "Failed to load forums"
 msgstr "Kò lè ṣí àwọn forum lọ̀"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:892
+msgid "Failed to load groups"
+msgstr "Kò ṣeé ṣe láti gbé àwọn ẹgbẹ́ wọlé"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:789
+msgid "Failed to load moderation log"
+msgstr "Kò lè ṣí àkọsílẹ̀ ìṣàkóso lọ̀"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:192
+msgid "Failed to load moderation queue"
+msgstr "Kò ṣeé ṣe láti gbé ìlà ìṣàkóso wọlé"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "Failed to load moderation settings"
+msgstr "Kò ṣeé ṣe láti gbé àtètèkọ́ṣe ìṣàkóso wọlé"
+
+#: src/features/forums/components/recommended-forums.tsx:41
+msgid "Failed to load recommended forums"
+msgstr "Kò ṣeé ṣe láti gbé àwọn apejọ tí a dámọ̀ràn wọlé"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
+msgid "Failed to load reports"
+msgstr "Kò lè ṣí àwọn ìròyìn lọ̀"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:904
+msgid "Failed to load restrictions"
+msgstr "Kò ṣeé ṣe láti gbé àwọn ìfòfindè wọlé"
+
 #: src/features/forums/thread-detail.tsx:333
 msgid "Failed to mute user"
 msgstr "Kò lè pa oníṣe lẹ́nu mọ́"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:306
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "Failed to mute users"
 msgstr "Kò lè pa àwọn oníṣe lẹ́nu mọ́"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:277
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "Failed to reject items"
 msgstr "Kò lè kọ àwọn ohun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:929
 msgid "Failed to remove access"
 msgstr "Kò lè mú àyè kúrò"
 
@@ -561,27 +709,27 @@ msgstr "Kò lè mú àkántì kúrò"
 msgid "Failed to remove interest"
 msgstr "Kò lè mú ìfẹ́ kúrò"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:917
+#: src/routes/_authenticated/$forum_.moderation.tsx:921
 msgid "Failed to remove restriction"
 msgstr "Kò lè mú ìdíwọ́ kúrò"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:189
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Failed to rename forum"
 msgstr "Kò lè tún sọ forum lórúkọ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:770
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Failed to reset prompt"
 msgstr "Kò lè tún prompt ṣe"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:575
+#: src/routes/_authenticated/$forum_.moderation.tsx:580
 msgid "Failed to resolve report"
 msgstr "Kò lè yanjú ìròyìn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1039
+#: src/routes/_authenticated/$forum_.settings.tsx:1053
 msgid "Failed to save moderation settings"
 msgstr "Kò lè fi ètò ìṣàkóso pamọ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:784
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "Failed to save prompt"
 msgstr "Kò lè fi prompt pamọ́"
 
@@ -589,34 +737,38 @@ msgstr "Kò lè fi prompt pamọ́"
 msgid "Failed to search forums"
 msgstr "Kò lè wá àwọn forum"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:889
+msgid "Failed to search users"
+msgstr "Kò ṣeé ṣe láti wá àwọn olùmúlò"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:249
 msgid "Failed to send verification code"
 msgstr "Kò lè firanṣẹ́ kóòdù ìjẹ́rìí"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:917
 msgid "Failed to set access level"
 msgstr "Kò lè gbé ìpele àyè kalẹ̀"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
-#: src/features/forums/components/recommended-forums.tsx:63
+#: src/features/forums/components/recommended-forums.tsx:61
 #: src/routes/_authenticated/find.tsx:51
 msgid "Failed to subscribe"
 msgstr "Kò lè ṣe alábàápín"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:169
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Failed to unsubscribe"
 msgstr "Kò lè yọ alábàápín"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:930
+#: src/routes/_authenticated/$forum_.settings.tsx:944
 msgid "Failed to update access level"
 msgstr "Kò lè mú ìpele àyè dòde"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:629
-#: src/routes/_authenticated/$forum_.settings.tsx:641
+#: src/routes/_authenticated/$forum_.settings.tsx:636
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Failed to update AI settings"
 msgstr "Kò lè mú ètò AI dòde"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:567
+#: src/routes/_authenticated/$forum_.settings.tsx:574
 msgid "Failed to update banner"
 msgstr "Kò lè mú banner dòde"
 
@@ -624,12 +776,16 @@ msgstr "Kò lè mú banner dòde"
 msgid "Failed to update category"
 msgstr "Kò lè mú ẹ̀ka dòde"
 
+#: src/features/forums/pages/entity-forum-page.tsx:298
+msgid "Filtered by tag:"
+msgstr "Tí a yọ́ nípa tag:"
+
 #: src/components/layout/forums-layout.tsx:176
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Wa àwọn forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:475
+#: src/routes/_authenticated/$forum_.settings.tsx:482
 msgid "Fingerprint"
 msgstr "Àmì-ìka"
 
@@ -637,6 +793,10 @@ msgstr "Àmì-ìka"
 msgid "Floating"
 msgstr "Léfòfò"
 
+#: src/features/forums/components/create-forum-dialog.tsx:47
+#: src/features/forums/pages/entity-forum-page.tsx:67
+#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
 msgstr "Forum"
@@ -649,23 +809,23 @@ msgstr "A ti dá forum"
 msgid "Forum deleted"
 msgstr "A ti pa forum rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
 msgstr "Orúkọ forum jẹ́ dandan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum not found"
 msgstr "A kò rí forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:187
+#: src/routes/_authenticated/$forum_.settings.tsx:194
 msgid "Forum renamed"
 msgstr "A ti tún forum sọ lórúkọ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Forum settings sections"
 msgstr "Àwọn apá ètò forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum unavailable"
 msgstr "Forum kò sí"
 
@@ -714,6 +874,16 @@ msgstr "Lọ sí ojú-ewé tí ó ṣáájú"
 msgid "Group"
 msgstr "Àwùjọ"
 
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:766
+msgid "Harassment"
+msgstr "Ìṣẹ̀mí"
+
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Hate speech"
+msgstr "Ọ̀rọ̀ ìkórìíra"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:67
 msgid "Hide"
 msgstr "Fi pamọ́"
@@ -729,7 +899,7 @@ msgstr "Ilé"
 msgid "Hot"
 msgstr "Gbígbóná"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:405
+#: src/routes/_authenticated/$forum_.settings.tsx:412
 msgid "Identity"
 msgstr "Ìdánimọ̀"
 
@@ -787,13 +957,17 @@ msgstr "Ṣí síwájú"
 msgid "Loading…"
 msgstr "Ń ṣí…"
 
-#: src/features/forums/components/thread/thread-content.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:333
 msgid "Lock"
 msgstr "Tì"
 
-#: src/features/forums/components/thread/thread-content.tsx:155
+#: src/features/forums/components/thread/thread-content.tsx:157
 msgid "Locked"
 msgstr "Tí a ti tì"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:72
+msgid "Log"
+msgstr "Àkọsílẹ̀"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -831,7 +1005,7 @@ msgstr "Ṣàkóso"
 msgid "Mark all as read"
 msgstr "Sàmì sí gbogbo gẹ́gẹ́ bí kíkà"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
+#: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown wà ní àtìlẹ́yìn"
 
@@ -843,17 +1017,27 @@ msgstr "Ìtòlẹ́sẹẹsẹ"
 msgid "Metric"
 msgstr "Òṣùwọ̀n"
 
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Misinformation"
+msgstr "Ìròyìn àìtọ́"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+msgid "Moderate, post, comment, vote, and view"
+msgstr "Ṣakoso, fiweránṣẹ́, ìfìwéránṣẹ́, ìdìbò, àti wíwò"
+
 #: src/components/layout/forums-layout.tsx:121
-#: src/routes/_authenticated/$forum_.moderation.tsx:87
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
+#: src/routes/_authenticated/$forum_.moderation.tsx:91
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:82
 msgid "Moderation"
 msgstr "Ìṣàkóso"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:374
+#: src/routes/_authenticated/$forum_.moderation.tsx:378
 msgid "Moderation queue is empty"
 msgstr "Ìlà ìṣàkóso ṣofo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:103
+#: src/routes/_authenticated/$forum_.moderation.tsx:107
 msgid "Moderation sections"
 msgstr "Àwọn ẹ̀ka ìṣàkóso"
 
@@ -861,24 +1045,33 @@ msgstr "Àwọn ẹ̀ka ìṣàkóso"
 msgid "Monday"
 msgstr "Ọjọ́ Ajé"
 
-#: src/features/forums/components/thread/thread-comment.tsx:382
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:515
+msgid "Mute"
+msgstr "Pa ìró"
+
+#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Pa olùkọ lẹ́nu mọ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:408
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "muted"
+msgstr "tí a pa lọ́rọ̀"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:415
 msgid "Name"
 msgstr "Orúkọ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:366
+#: src/routes/_authenticated/$forum_.settings.tsx:373
 msgid "Name cannot contain < or > characters"
 msgstr "Orúkọ kò lè ní àwọn lẹ́tà < tàbí >"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:365
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Name must be 1000 characters or less"
 msgstr "Orúkọ gbọ́dọ̀ jẹ́ lẹ́tà 1000 tàbí kéré"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+#: src/features/forums/components/edit-post-dialog.tsx:291
 msgid "New"
 msgstr "Tuntun"
 
@@ -886,20 +1079,32 @@ msgstr "Tuntun"
 msgid "New forum"
 msgstr "Forum tuntun"
 
-#: src/features/forums/components/create-post-dialog.tsx:166
-#: src/features/forums/components/create-post-dialog.tsx:171
-#: src/features/forums/components/create-post-dialog.tsx:178
+#: src/features/forums/components/create-post-dialog.tsx:168
+#: src/features/forums/components/create-post-dialog.tsx:173
+#: src/features/forums/components/create-post-dialog.tsx:180
 #: src/features/forums/pages/entity-forum-page.tsx:241
 msgid "New post"
 msgstr "Ìfìránṣẹ́ tuntun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1097
 msgid "New threads must be approved"
 msgstr "Àwọn thread tuntun gbọ́dọ̀ jẹ́ àfọwọ́sí"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1129
+msgid "New user threshold:"
+msgstr "Ààlà olùmúlò titun:"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 msgid "Next image"
 msgstr "Àwòrán tó kàn"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
+msgid "No {statusFilter} reports found"
+msgstr "Kò sí ìròyìn {statusFilter} tí a rí"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:96
+msgid "No access"
+msgstr "Kò sí àyè"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
@@ -922,7 +1127,7 @@ msgstr "Kò sí ẹgbẹ́ tó wà"
 msgid "No matches."
 msgstr "Kò sí ìbámu."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:832
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "No moderation activity"
 msgstr "Kò sí iṣẹ́ ìṣàkóso"
 
@@ -938,11 +1143,11 @@ msgstr "Kò sí ìfìránṣẹ́ nínú forum yìí síbẹ̀"
 msgid "No profile"
 msgstr "Kò sí profile"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:654
+#: src/routes/_authenticated/$forum_.moderation.tsx:659
 msgid "No reports"
 msgstr "Kò sí ìròyìn"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:962
+#: src/routes/_authenticated/$forum_.moderation.tsx:966
 msgid "No restrictions"
 msgstr "Kò sí ìdíwọ́"
 
@@ -963,7 +1168,7 @@ msgstr "Kò sí àkọsílẹ̀ kókó síbẹ̀ — gbìyànjú lẹ́ẹ̀kan 
 msgid "No users found"
 msgstr "A kò rí olùlò kankan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:963
+#: src/routes/_authenticated/$forum_.moderation.tsx:967
 msgid "No users have been muted or banned"
 msgstr "A kò pa olùlò kankan lẹ́nu mọ́ tàbí ká rí kúrò"
 
@@ -976,6 +1181,11 @@ msgstr "Kòsí"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
 msgid "Notifications"
 msgstr "Àwọn ìfìtọ́nisí"
+
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:770
+msgid "Off-topic"
+msgstr "Ní òde ìjíròrò"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:12
 msgid "Oops! Page Not Found!"
@@ -999,11 +1209,13 @@ msgstr "Ṣí ìtòlẹ́sẹẹsẹ ìṣàkóso"
 msgid "Open theme settings"
 msgstr "Ṣí àwọn ètò àkórí"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Banner markdown tí kò pọn dandan tó hàn lókè forum rẹ."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:771
 msgid "Other"
 msgstr "Mìíràn"
 
@@ -1012,25 +1224,40 @@ msgid "Owner"
 msgstr "Onílé"
 
 #: src/features/forums/components/post-card.tsx:51
-#: src/features/forums/components/thread/thread-comment.tsx:201
+#: src/features/forums/components/thread/thread-comment.tsx:203
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "Pending"
 msgstr "Ń dúró"
 
-#: src/features/forums/components/thread/thread-content.tsx:143
+#: src/features/forums/components/thread/thread-content.tsx:145
 msgid "Pending approval"
 msgstr "Ń dúró fún àfọwọ́sí"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:514
+#. placeholder {0}: pendingComments.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:437
+msgid "Pending comments ({0})"
+msgstr "Àwọn ìfìwéránṣẹ́ tí ó dúró ({0})"
+
+#. placeholder {0}: pendingPosts.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:392
+msgid "Pending posts ({0})"
+msgstr "Àwọn àkọsílẹ̀ tí ó dúró ({0})"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:521
 msgid "Permanently delete this forum and all its content."
 msgstr "Pa forum yìí àti gbogbo àkóónú rẹ̀ rẹ́ pátápátá."
 
-#: src/features/forums/components/thread/thread-content.tsx:344
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Pin"
 msgstr "Tẹ̀"
 
-#: src/features/forums/components/thread/thread-content.tsx:161
+#: src/features/forums/components/thread/thread-content.tsx:163
 msgid "Pinned"
 msgstr "Ti tẹ̀"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Please describe the issue..."
+msgstr "Jọ̀wọ́ ṣàlàyé ìṣòro náà..."
 
 #: src/features/forums/thread-detail.tsx:209
 msgid "Please enter a comment"
@@ -1044,7 +1271,7 @@ msgstr "Jọ̀wọ́ tẹ ìdáhùn sí"
 msgid "Post deleted"
 msgstr "A ti pa ìfìránṣẹ́ rẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1140
+#: src/routes/_authenticated/$forum_.settings.tsx:1154
 msgid "Post limit"
 msgstr "Ààlà ìfìránṣẹ́"
 
@@ -1084,6 +1311,10 @@ msgstr "A ti yọ ìtẹ̀ ìfìránṣẹ́ kúrò"
 msgid "Post updated"
 msgstr "A ti dojú ìfìránṣẹ́ ìwọ́n"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+msgid "Post, comment, vote, and view"
+msgstr "Fiweránṣẹ́, ìfìwéránṣẹ́, ìdìbò, àti wíwò"
+
 #: src/components/options-menu.tsx:64
 msgid "Posts"
 msgstr "Àwọn ìfìránṣẹ́"
@@ -1092,11 +1323,11 @@ msgstr "Àwọn ìfìránṣẹ́"
 msgid "Posts and comments"
 msgstr "Àwọn ìfìránṣẹ́ àti àlàyé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1076
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Pre-moderation"
 msgstr "Ìṣàkóso ṣáájú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1136
+#: src/routes/_authenticated/$forum_.settings.tsx:1150
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Dí spam dúró nípa fífi ààlà sí bí àwọn olùlò ṣe lè ṣe ìfìránṣẹ́ tó"
 
@@ -1109,29 +1340,42 @@ msgstr "Àwòrán tó kọjá"
 msgid "Profile"
 msgstr "Profile"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:782
+#: src/routes/_authenticated/$forum_.settings.tsx:795
 msgid "Prompt saved"
 msgstr "A ti tọ́jú prompt"
 
-#: src/features/forums/components/create-post-dialog.tsx:343
+#: src/features/forums/components/create-post-dialog.tsx:345
 msgid "Publish post"
 msgstr "Gbé ìfìránṣẹ́ jáde"
 
-#: src/features/forums/components/create-post-dialog.tsx:338
+#: src/features/forums/components/create-post-dialog.tsx:340
 msgid "Publishing..."
 msgstr "Ń gbé jáde..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1135
+#: src/routes/_authenticated/$forum_.moderation.tsx:69
+msgid "Queue"
+msgstr "Ìlà"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1149
 msgid "Rate Limiting"
 msgstr "Ìpinnu Ìwọ̀n"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:709
+msgid "Reason:"
+msgstr "Ìdí:"
+
+#. placeholder {0}: entry.reason
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
+msgid "Reason: {0}"
+msgstr "Ìdí: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
 msgid "Recommended"
 msgstr "Tí a dábàá"
 
-#: src/features/forums/components/recommended-forums.tsx:102
-#: src/features/forums/components/recommended-forums.tsx:124
+#: src/features/forums/components/recommended-forums.tsx:100
+#: src/features/forums/components/recommended-forums.tsx:122
 msgid "Recommended forums"
 msgstr "Àwọn forum tí a dábàá"
 
@@ -1143,6 +1387,15 @@ msgstr "Ń redirect sí ìwọlé."
 msgid "Reduce interest"
 msgstr "Dín ìfẹ́ kù"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:489
+msgid "Reject"
+msgstr "Kọ̀"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:271
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "Rejected"
+msgstr "Ti kọ̀"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Pẹ̀lú ìbáṣepọ̀ (5m, 3h, 2d)"
@@ -1153,8 +1406,12 @@ msgstr "Pẹ̀lú ìbáṣepọ̀ nínú wákàtí 24, bí ó ṣíkù absolute"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:363
-#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-comment.tsx:365
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-content.tsx:320
+#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/routes/_authenticated/$forum_.moderation.tsx:739
+#: src/routes/_authenticated/$forum_.moderation.tsx:1029
 msgid "Remove"
 msgstr "Yọ kúrò"
 
@@ -1167,7 +1424,7 @@ msgstr "Yọ òfin àyè kúrò"
 msgid "Remove access?"
 msgstr "Yọ àyè kúrò?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:420
 msgid "Remove comment"
 msgstr "Yọ àlàyé kúrò"
 
@@ -1175,30 +1432,43 @@ msgstr "Yọ àlàyé kúrò"
 msgid "Remove interest"
 msgstr "Yọ ìfẹ́ kúrò"
 
-#: src/features/forums/components/thread/thread-content.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Remove post"
 msgstr "Yọ ìfìránṣẹ́ kúrò"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:493
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Remove this forum from your sidebar."
 msgstr "Yọ forum yìí kúrò ní sidebar rẹ."
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:207
-#: src/features/forums/components/thread/thread-content.tsx:149
+#: src/features/forums/components/thread/thread-comment.tsx:209
+#: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "Ti yọ kúrò"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1094
+#: src/routes/_authenticated/$forum_.settings.tsx:1108
 msgid "Replies must be approved"
 msgstr "Àwọn ìdáhùn gbọ́dọ̀ jẹ́ àfọwọ́sí"
 
-#: src/features/forums/components/thread/thread-comment.tsx:371
-#: src/features/forums/components/thread/thread-content.tsx:352
+#. placeholder {0}: comment.name
+#: src/features/forums/components/thread/thread-comment.tsx:433
+msgid "Reply to {0}..."
+msgstr "Dáhùn {0}..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Ròyìn"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:572
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report comment"
+msgstr "Ròyìn ìfìwéránṣẹ́"
+
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report post"
+msgstr "Ròyìn àkọsílẹ̀"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:577
 msgid "Report resolved"
 msgstr "A ti yanjú ìròyìn"
 
@@ -1207,19 +1477,28 @@ msgstr "A ti yanjú ìròyìn"
 msgid "Report submitted"
 msgstr "A ti fi ìròyìn ránṣẹ́"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1077
+#. placeholder {0}: report.reporter_name ?? report.reporter
+#: src/routes/_authenticated/$forum_.moderation.tsx:717
+msgid "Reported by {0}"
+msgstr "{0} ròyìn"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:70
+msgid "Reports"
+msgstr "Àwọn ìròyìn"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1091
 msgid "Require approval before content becomes visible"
 msgstr "Nílò àfọwọ́sí kí àkóónú tó hàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1107
 msgid "Require approval for new comments"
 msgstr "Nílò àfọwọ́sí fún àwọn àlàyé tuntun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1082
+#: src/routes/_authenticated/$forum_.settings.tsx:1096
 msgid "Require approval for new posts"
 msgstr "Nílò àfọwọ́sí fún àwọn ìfìránṣẹ́ tuntun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1104
+#: src/routes/_authenticated/$forum_.settings.tsx:1118
 msgid "Require approval for new users"
 msgstr "Nílò àfọwọ́sí fún àwọn olùlò tuntun"
 
@@ -1231,14 +1510,22 @@ msgstr "Pa padà"
 msgid "Reset all settings to default values"
 msgstr "Pa gbogbo ètò padà sí àwọn iye àbùdá"
 
-#: src/features/forums/components/thread/thread-comment.tsx:357
-#: src/features/forums/components/thread/thread-content.tsx:312
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
+msgid "Resolved"
+msgstr "A yanjú"
+
+#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Mú padà"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:914
+#: src/routes/_authenticated/$forum_.moderation.tsx:918
 msgid "Restriction removed"
 msgstr "Ìdídí ti yọ kúrò"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:71
+msgid "Restrictions"
+msgstr "Àwọn ìfòfindè"
 
 #: src/components/layout/forums-layout.tsx:191
 msgid "Retry forums load"
@@ -1268,17 +1555,24 @@ msgstr "A ti ṣàdàkọ URL RSS sí clipboard"
 msgid "Saturday"
 msgstr "Ọjọ́ Àbámẹ́ta"
 
-#: src/features/forums/components/thread/thread-comment.tsx:240
+#: src/features/forums/components/thread/thread-comment.tsx:242
+#: src/routes/_authenticated/$forum_.settings.tsx:599
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Save"
 msgstr "Fi pamọ́"
 
-#: src/features/forums/components/edit-post-dialog.tsx:340
+#: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Fi àwọn àyípadà pamọ́"
 
-#: src/features/forums/components/edit-post-dialog.tsx:335
+#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Saving..."
 msgstr "Ń fi pamọ́..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:707
+msgid "Score prompt"
+msgstr "Ìdarí ìpòlè"
 
 #: src/routes/_authenticated/find.tsx:66
 msgid "Search by name, ID, fingerprint, or URL..."
@@ -1322,6 +1616,14 @@ msgstr "Wá…"
 msgid "Searching..."
 msgstr "Ń wá..."
 
+#: src/features/forums/components/report-dialog.tsx:76
+msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
+msgstr "Yan ìdí kan láti ròyìn ìfìwéránṣẹ́ yìí. Àwọn alábòójútó wo àwọn ìròyìn náà."
+
+#: src/features/forums/components/report-dialog.tsx:74
+msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
+msgstr "Yan ìdí kan láti ròyìn àkọsílẹ̀ yìí. Àwọn alábòójútó wo àwọn ìròyìn náà."
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:147
 msgid "Select a user, group, or other rule to grant access."
 msgstr "Yan user, ẹgbẹ́, tàbí òfin míì láti fún ní ààyè."
@@ -1334,6 +1636,10 @@ msgstr "Yan òfin ààyè"
 msgid "Select account type"
 msgstr "Yan irú account"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select all"
+msgstr "Yan gbogbo"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:228
 msgid "Select group"
 msgstr "Yan ẹgbẹ́"
@@ -1341,6 +1647,10 @@ msgstr "Yan ẹgbẹ́"
 #: ../../../lib/web/src/components/config-drawer.tsx:291
 msgid "Select layout style"
 msgstr "Yan irú ìṣètò"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select none"
+msgstr "Má yan ohunkóhun"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
@@ -1367,7 +1677,10 @@ msgstr "Ṣètò ibi tí o ti wá àti ibi tí o ń lọ"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/layout/forums-layout.tsx:113
 #: src/components/options-menu.tsx:75
-#: src/routes/_authenticated/$forum_.settings.tsx:216
+#: src/routes/_authenticated/$forum_.settings.tsx:81
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "Settings"
 msgstr "Àwọn ìṣètò"
 
@@ -1389,6 +1702,11 @@ msgstr "Ń jáde..."
 msgid "Skip to Main"
 msgstr "Fò sí Olórí"
 
+#: src/features/forums/components/report-dialog.tsx:20
+#: src/routes/_authenticated/$forum_.moderation.tsx:765
+msgid "Spam"
+msgstr "Spam"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:12
 msgid "Stay tuned though!"
 msgstr "Ṣùgbọ́n dúró tì wá!"
@@ -1397,14 +1715,33 @@ msgstr "Ṣùgbọ́n dúró tì wá!"
 msgid "Subject"
 msgstr "Àkòrí"
 
-#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-comment.tsx:494
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Fi ìdáhùn sí ilẹ̀"
 
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submit report"
+msgstr "Fi ìròyìn ránṣẹ́"
+
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submitting..."
+msgstr "Ń fi sí ilẹ̀..."
+
+#: src/features/forums/components/inline-forum-search.tsx:160
+#: src/features/forums/components/recommended-forums.tsx:154
+#: src/features/forums/pages/entity-forum-page.tsx:260
+msgid "Subscribe"
+msgstr "Forúkọsílẹ̀"
+
 #: src/routes/_authenticated/find.tsx:48
 msgid "Subscribed"
 msgstr "Ti forúkọsílẹ̀"
+
+#. placeholder {0}: forum.name
+#: src/features/forums/components/recommended-forums.tsx:58
+msgid "Subscribed to {0}"
+msgstr "Ti forúkọsílẹ̀ sí {0}"
 
 #: src/hooks/use-forums-queries.ts:150
 msgid "Subscribed to forum"
@@ -1424,9 +1761,13 @@ msgid "System"
 msgstr "System"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:657
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Tag"
 msgstr "Tag"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:706
+msgid "Tag prompt"
+msgstr "Ìdarí àmì"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1440,16 +1781,45 @@ msgstr "Theme"
 msgid "Theme Settings"
 msgstr "Àwọn ìṣètò Theme"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:833
+#: src/routes/_authenticated/$forum_.moderation.tsx:837
 msgid "There are no moderation actions recorded yet"
 msgstr "Kò sí àwọn ìṣe moderation tí a kọ sílẹ̀ síbẹ̀"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:241
+msgid "This forum could not be loaded right now."
+msgstr "Apejọ yìí kò ṣeé ṣe láti gbé wọlé báyìí."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+msgid "This forum may have been deleted or you don't have access to it."
+msgstr "Apejọ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí o kò ní ààyè sí."
+
+#: src/features/forums/components/thread/empty-thread-state.tsx:12
+msgid "This post may have been deleted or doesn't exist."
+msgstr "Àkọsílẹ̀ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí kò sí."
+
+#: src/features/forums/components/thread/thread-comment.tsx:421
+msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
+msgstr "Èyí yóò fi ìfìwéránṣẹ́ pamọ́ kúrò lọ́dọ̀ àwọn olùmúlò gbogbogbò. Àwọn alábòójútó ṣì lè rí i kí wọ́n sì padà gbé e dé."
+
+#: src/features/forums/components/thread/thread-content.tsx:395
+msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
+msgstr "Èyí yóò fi àkọsílẹ̀ pamọ́ kúrò lọ́dọ̀ àwọn olùmúlò gbogbogbò. Àwọn alábòójútó ṣì lè rí i kí wọ́n sì padà gbé e dé."
+
+#. placeholder {0}: forum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:540
+msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
+msgstr "Èyí yóò pa \"{0}\" rẹ́ pátápátá pẹ̀lú gbogbo àwọn àkọsílẹ̀ rẹ̀ àti àwọn ìfìwéránṣẹ́. A kò lè dá iṣe yìí padà."
+
+#: src/features/forums/thread-detail.tsx:111
+msgid "Thread"
+msgstr "Òwò ìjíròrò"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Ọjọ́bọ̀"
 
-#: src/features/forums/components/create-post-dialog.tsx:191
-#: src/features/forums/components/edit-post-dialog.tsx:172
+#: src/features/forums/components/create-post-dialog.tsx:193
+#: src/features/forums/components/edit-post-dialog.tsx:175
 msgid "Title"
 msgstr "Àkọlé"
 
@@ -1523,20 +1893,31 @@ msgstr "Ààyè Aláìláyè"
 msgid "United States"
 msgstr "United States"
 
-#: src/features/forums/components/thread/thread-content.tsx:325
+#: src/features/forums/components/forum-overview.tsx:69
+#: src/features/forums/pages/forums-list-page.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "Unknown"
+msgstr "Aláìmọ̀"
+
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Unlock"
 msgstr "Ṣílẹ̀kùn"
 
-#: src/features/forums/components/thread/thread-content.tsx:338
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Unpin"
 msgstr "Yọ pin kúrò"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/routes/_authenticated/$forum_.settings.tsx:511
+msgid "Unsubscribe"
+msgstr "Yọ ìforúkọsílẹ̀ kúrò"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:499
 msgid "Unsubscribe from forum"
 msgstr "Yọ ìforúkọsílẹ̀ kúrò lórí forum"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:165
+#: src/routes/_authenticated/$forum_.settings.tsx:172
 msgid "Unsubscribed"
 msgstr "Ti yọ ìforúkọsílẹ̀ kúrò"
 
@@ -1560,6 +1941,10 @@ msgstr "A ti dá user dúró"
 msgid "User muted"
 msgstr "A ti pa ohùn user mọ́"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:827
+msgid "Variables: {variables}"
+msgstr "Àwọn variables: {variables}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:68
 msgid "Verification code"
 msgstr "Kóòdù ìjẹ́rìísí"
@@ -1580,6 +1965,10 @@ msgstr "Jẹ́rìí sí"
 msgid "Verify email address"
 msgstr "Jẹ́rìí sí àdírẹ́sì email"
 
+#: src/features/forums/components/thread/post-attachments.tsx:57
+msgid "Video thumbnail"
+msgstr "Àwòrán kékeré fídíò"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Wo"
@@ -1591,6 +1980,19 @@ msgstr "Wo gbogbo"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:94
 msgid "View all notifications"
 msgstr "Wo gbogbo àwọn ìfitónilétí"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:95
+msgid "View only"
+msgstr "Wíwò nìkan"
+
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Violence"
+msgstr "Ìwà ipá"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+msgid "Vote and view"
+msgstr "Ìdìbò àti wíwò"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:12
 msgid "We'll be back online shortly."
@@ -1604,7 +2006,7 @@ msgstr "Síìtì wà lábẹ́ ìtọ́jú!"
 msgid "Wednesday"
 msgstr "Ọjọ́rú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1170
+#: src/routes/_authenticated/$forum_.settings.tsx:1184
 msgid "Window duration"
 msgstr "Àkókò Window"
 

@@ -51,7 +51,7 @@ function FindForumsPage() {
         toast.error(getErrorMessage(error, t`Failed to subscribe`))
       }
     },
-    [queryClient]
+    [queryClient, t]
   )
 
   return (

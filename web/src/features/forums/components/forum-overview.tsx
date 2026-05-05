@@ -66,7 +66,7 @@ export function ForumOverview({
               <PostCard
                 key={post.id}
                 post={post}
-                forumName={post.forumName || 'Unknown'}
+                forumName={post.forumName || t`Unknown`}
                 showForumBadge={true}
                 server={server}
                 onSelect={onSelectPost}
@@ -135,7 +135,7 @@ export function ForumOverview({
         <EmptyState
           icon={FileEdit}
           title={t`No posts in this forum yet`}
-          description={!forum.can_post ? "Check back later for new content" : undefined}
+          description={!forum.can_post ? t`Check back later for new content` : undefined}
         >
           {forum.can_post && (
             <CreatePostDialog

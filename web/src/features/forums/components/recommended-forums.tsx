@@ -38,14 +38,12 @@ export function RecommendedForums({
     } catch (loadError) {
       setRecommendations([])
       setError(
-        loadError instanceof Error
-          ? loadError
-          : new Error("Failed to load recommended forums")
+        new Error(getErrorMessage(loadError, t`Failed to load recommended forums`))
       )
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [t])
 
   useEffect(() => {
     void fetchRecommendations()
@@ -57,7 +55,7 @@ export function RecommendedForums({
       await forumsApi.subscribeForum(forum.id, forum.server || undefined)
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onSubscribe?.()
-      toast.success(`Subscribed to ${forum.name}`)
+      toast.success(t`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
     } catch (subscribeError) {
       toast.error(getErrorMessage(subscribeError, t`Failed to subscribe`))
@@ -153,7 +151,7 @@ export function RecommendedForums({
                   {isPending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    'Subscribe'
+                    <Trans>Subscribe</Trans>
                   )}
                 </Button>
               </div>

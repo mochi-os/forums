@@ -64,7 +64,7 @@ export function EntityForumPage({
   const setForumSortMutation = useSetForumSort(forum.id)
 
   // Set page title to forum name
-  usePageTitle(forum.name || 'Forum')
+  usePageTitle(forum.name || t`Forum`)
 
   // Sidebar context for state sync
   const {
@@ -188,7 +188,7 @@ export function EntityForumPage({
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
-    [forum.id, forum.fingerprint]
+    [forum.id, forum.fingerprint, t]
   )
 
   const handleInterestDown = useCallback(
@@ -199,7 +199,7 @@ export function EntityForumPage({
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
-    [forum.id, forum.fingerprint]
+    [forum.id, forum.fingerprint, t]
   )
 
   const handleInterestRemove = useCallback(
@@ -211,7 +211,7 @@ export function EntityForumPage({
         toast.error(getErrorMessage(error, t`Failed to remove interest`))
       }
     },
-    [forum.id, forum.fingerprint]
+    [forum.id, forum.fingerprint, t]
   )
 
   const handlePostSelect = (forumId: string, post: string) => {
@@ -230,7 +230,7 @@ export function EntityForumPage({
   return (
     <>
       <PageHeader
-        title={forum.name || 'Forum'}
+        title={forum.name || t`Forum`}
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
@@ -257,7 +257,7 @@ export function EntityForumPage({
                     {!isMobile && <span className='ms-2'><Trans>Subscribing...</Trans></span>}
                   </>
                 ) : (
-                  'Subscribe'
+                  <Trans>Subscribe</Trans>
                 )}
               </Button>
             )}
@@ -275,7 +275,7 @@ export function EntityForumPage({
                     )}
                   </>
                 ) : (
-                  'Unsubscribe'
+                  <Trans>Unsubscribe</Trans>
                 )}
               </Button>
             )}
@@ -295,7 +295,7 @@ export function EntityForumPage({
           )}
           {activeTag && (
             <div className='flex items-center gap-2 mb-4'>
-              <span className='text-muted-foreground text-sm'>Filtered by tag:</span>
+              <span className='text-muted-foreground text-sm'><Trans>Filtered by tag:</Trans></span>
               <button
                 type='button'
                 className='bg-primary/10 text-primary inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium'

@@ -13,13 +13,51 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Approved 1 item} other {Approved # items}}"
-msgstr "{count, plural, one {Zatwierdzono 1 element} few {Zatwierdzono # elementy} many {Zatwierdzono # elementów} other {Zatwierdzono # elementów}}"
+#. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
+#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+msgid " · Expires {0}"
+msgstr " · Wygasa {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:274
-msgid "{count, plural, one {Rejected 1 item} other {Rejected # items}}"
-msgstr "{count, plural, one {Odrzucono 1 element} few {Odrzucono # elementy} many {Odrzucono # elementów} other {Odrzucono # elementów}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+msgid " · Permanent"
+msgstr " · Stałe"
+
+#: src/features/forums/components/thread/thread-comment.tsx:197
+msgid " (edited)"
+msgstr " (edytowane)"
+
+#. placeholder {0}: selectedPosts.size + selectedComments.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:536
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# wybrany} other {# wybranych}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:324
+msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+msgstr "{0, plural, one {Zbanowano # użytkownika} other {Zbanowano # użytkowników}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:307
+msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+msgstr "{0, plural, one {Wyciszono # użytkownika} other {Wyciszono # użytkowników}}"
+
+#. placeholder {0}: selectedForum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:253
+msgid "{0} settings"
+msgstr "Ustawienia {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
+msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+msgstr "{count, plural, one {Zatwierdzono # element} other {Zatwierdzono # elementów}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:278
+msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr "{count, plural, one {Odrzucono # element} other {Odrzucono # elementów}}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:183
+msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
+msgstr "{totalDescendants, plural, one {# odpowiedź} other {# odpowiedzi}}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -33,6 +71,10 @@ msgstr "24 godziny"
 msgid "Absolute (date and time)"
 msgstr "Bezwzględna (data i godzina)"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+msgid "Access"
+msgstr "Dostęp"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:12
 msgid "Access Forbidden"
 msgstr "Dostęp zabroniony"
@@ -41,19 +83,23 @@ msgstr "Dostęp zabroniony"
 msgid "Access level"
 msgstr "Poziom dostępu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:927
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Access level updated"
 msgstr "Poziom dostępu zaktualizowany"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:950
 msgid "Access Management"
 msgstr "Zarządzanie dostępem"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:912
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Access removed"
 msgstr "Dostęp usunięty"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:914
+msgid "Access set for {subjectName}"
+msgstr "Dostęp ustawiony dla {subjectName}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:669
 msgid "Account"
 msgstr "Konto"
 
@@ -90,8 +136,8 @@ msgstr "Dodaj konto"
 msgid "Add an account to receive notifications and use services."
 msgstr "Dodaj konto, aby otrzymywać powiadomienia i korzystać z usług."
 
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/create-post-dialog.tsx:322
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Add files"
 msgstr "Dodaj pliki"
 
@@ -99,7 +145,7 @@ msgstr "Dodaj pliki"
 msgid "Add new account"
 msgstr "Dodaj nowe konto"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:947
+#: src/routes/_authenticated/$forum_.settings.tsx:961
 msgid "Add Rule"
 msgstr "Dodaj regułę"
 
@@ -119,20 +165,25 @@ msgstr "Dodaj do istniejących powiadomień"
 msgid "Add view"
 msgstr "Dodaj widok"
 
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Additional details (optional)"
+msgstr "Dodatkowe szczegóły (opcjonalnie)"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Dostosuj wygląd i układ do swoich preferencji."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:649
+#: src/routes/_authenticated/$forum_.settings.tsx:656
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:657
 msgid "AI actions on posts"
 msgstr "Akcje AI na postach"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "All"
 msgstr "Wszystko"
 
@@ -141,13 +192,30 @@ msgstr "Wszystko"
 msgid "All forums"
 msgstr "Wszystkie fora"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:375
+#: src/routes/_authenticated/$forum_.moderation.tsx:379
 msgid "All posts and comments have been reviewed"
 msgstr "Wszystkie posty i komentarze zostały sprawdzone"
 
-#: src/features/forums/components/thread/thread-comment.tsx:348
+#: src/features/forums/components/create-forum-dialog.tsx:49
+msgid "Allow anyone to search for forum"
+msgstr "Zezwalaj wszystkim na wyszukiwanie forum"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Any additional context..."
+msgstr "Dowolny dodatkowy kontekst..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:501
 msgid "Approve"
 msgstr "Zatwierdź"
+
+#: src/features/forums/components/thread/thread-comment.tsx:407
+msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
+msgstr "Czy na pewno chcesz usunąć ten komentarz? Spowoduje to również usunięcie wszystkich odpowiedzi. Tej akcji nie można cofnąć."
+
+#: src/features/forums/components/thread/thread-content.tsx:381
+msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
+msgstr "Czy na pewno chcesz usunąć ten wpis? Usunięte zostaną także wszystkie komentarze. Tej operacji nie można cofnąć."
 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
@@ -157,13 +225,13 @@ msgstr "Czy na pewno chcesz się wylogować? Aby uzyskać dostęp do konta, będ
 msgid "Asc"
 msgstr "Rosn."
 
-#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:475
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Dołącz pliki odpowiedzi"
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:229
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "Attachments"
 msgstr "Załączniki"
 
@@ -172,10 +240,14 @@ msgid "Back"
 msgstr "Wstecz"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:14
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
-#: src/routes/_authenticated/$forum_.settings.tsx:203
-#: src/routes/_authenticated/$forum_.settings.tsx:216
-#: src/routes/_authenticated/$forum_.settings.tsx:248
+#: src/features/forums/thread-detail.tsx:249
+#: src/features/forums/thread-detail.tsx:261
+#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:210
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Back to forum"
 msgstr "Powrót do forum"
 
@@ -189,18 +261,44 @@ msgstr "Powrót do forów"
 msgid "Back to Home"
 msgstr "Powrót do strony głównej"
 
-#: src/features/forums/components/thread/thread-comment.tsx:390
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/routes/_authenticated/$forum_.moderation.tsx:527
+msgid "Ban"
+msgstr "Zbanuj"
+
+#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Zbanuj autora"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "banned"
+msgstr "zbanowany"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Banner"
 msgstr "Baner"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner removed"
+msgstr "Banner usunięty"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner updated"
+msgstr "Banner zaktualizowany"
 
 #: ../../../lib/web/src/components/post-tags.tsx:160
 msgid "Boost interest"
 msgstr "Zwiększ zainteresowanie"
+
+#. placeholder {0}: report.author_name ?? t`Unknown`
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "by {0}"
+msgstr "przez {0}"
+
+#. placeholder {0}: restriction.moderator_name ?? restriction.moderator
+#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+msgid "By {0}"
+msgstr "Przez {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
@@ -209,14 +307,14 @@ msgstr "Zwiększ zainteresowanie"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/forums/components/create-post-dialog.tsx:328
-#: src/features/forums/components/edit-post-dialog.tsx:326
-#: src/features/forums/components/report-dialog.tsx:98
-#: src/features/forums/components/thread/thread-comment.tsx:229
+#: src/features/forums/components/create-post-dialog.tsx:330
+#: src/features/forums/components/edit-post-dialog.tsx:329
+#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/features/forums/components/thread/thread-comment.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:484
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Anuluj odpowiedź"
@@ -228,6 +326,10 @@ msgstr "Kategoria tego powiadomienia"
 #: ../../../lib/web/src/components/notification-category-button.tsx:115
 msgid "Change notification category"
 msgstr "Zmień kategorię powiadomienia"
+
+#: src/features/forums/components/forum-overview.tsx:138
+msgid "Check back later for new content"
+msgstr "Wróć później po nową zawartość"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:315
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -250,7 +352,7 @@ msgid "Choose language"
 msgstr "Wybierz język"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:304
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:608
 msgid "Clear"
 msgstr "Wyczyść"
 
@@ -305,7 +407,7 @@ msgstr "Komentarz zatwierdzony"
 msgid "Comment deleted"
 msgstr "Komentarz usunięty"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1155
+#: src/routes/_authenticated/$forum_.settings.tsx:1169
 msgid "Comment limit"
 msgstr "Limit komentarzy"
 
@@ -325,6 +427,10 @@ msgstr "Komentarz przywrócony"
 msgid "Comment updated"
 msgstr "Komentarz zaktualizowany"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:93
+msgid "Comment, vote, and view"
+msgstr "Komentowanie, głosowanie i przeglądanie"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:302
 msgid "Compact"
 msgstr "Kompaktowy"
@@ -334,12 +440,12 @@ msgstr "Kompaktowy"
 msgid "Confirm"
 msgstr "Potwierdź"
 
-#: src/features/forums/components/create-post-dialog.tsx:208
-#: src/features/forums/components/edit-post-dialog.tsx:189
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/edit-post-dialog.tsx:192
 msgid "Content"
 msgstr "Treść"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1105
+#: src/routes/_authenticated/$forum_.settings.tsx:1119
 msgid "Content from users below a threshold must be approved"
 msgstr "Treść od użytkowników poniżej progu musi być zatwierdzona"
 
@@ -355,7 +461,7 @@ msgstr "Informacje kontekstowe i szczegóły."
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:937
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "Control who can view and interact with this forum"
 msgstr "Kontroluj, kto może przeglądać i wchodzić w interakcję z tym forum"
 
@@ -367,7 +473,7 @@ msgstr "Kopiuj"
 msgid "Create a new forum"
 msgstr "Utwórz nowe forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:180
+#: src/features/forums/components/create-post-dialog.tsx:182
 msgid "Create a new post"
 msgstr "Utwórz nowy post"
 
@@ -376,7 +482,7 @@ msgstr "Utwórz nowy post"
 msgid "Create forum"
 msgstr "Utwórz forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Custom"
 msgstr "Niestandardowy"
 
@@ -394,11 +500,11 @@ msgid "Dark mode"
 msgstr "Tryb ciemny"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "Default"
 msgstr "Domyślny"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:668
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Default account"
 msgstr "Domyślne konto"
 
@@ -406,35 +512,41 @@ msgstr "Domyślne konto"
 msgid "Default AI account"
 msgstr "Domyślne konto AI"
 
-#: src/features/forums/components/thread/thread-comment.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:302
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-content.tsx:304
+#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/routes/_authenticated/$forum_.settings.tsx:530
 msgid "Delete"
 msgstr "Usuń"
 
-#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:406
 msgid "Delete comment"
 msgstr "Usuń komentarz"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/routes/_authenticated/$forum_.settings.tsx:520
 msgid "Delete forum"
 msgstr "Usuń forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:541
 msgid "Delete Forum"
 msgstr "Usuń forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:539
 msgid "Delete forum?"
 msgstr "Usunąć forum?"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Delete post"
 msgstr "Usuń post"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Mal."
+
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Details (required)"
+msgstr "Szczegóły (wymagane)"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:144
 msgid "Details Panel"
@@ -455,11 +567,11 @@ msgstr "Wykryj z przeglądarki internetowej"
 msgid "Direction"
 msgstr "Kierunek"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:656
+#: src/routes/_authenticated/$forum_.settings.tsx:663
 msgid "Disabled"
 msgstr "Wyłączone"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:723
+#: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Odrzuć"
 
@@ -475,21 +587,21 @@ msgstr "Wyświetla pasek boczny mobilny."
 msgid "Download"
 msgstr "Pobierz"
 
-#: src/features/forums/components/thread/thread-comment.tsx:329
-#: src/features/forums/components/thread/thread-content.tsx:296
+#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Edytuj"
 
-#: src/features/forums/components/edit-post-dialog.tsx:159
-#: src/features/forums/components/edit-post-dialog.tsx:161
+#: src/features/forums/components/edit-post-dialog.tsx:162
+#: src/features/forums/components/edit-post-dialog.tsx:164
 msgid "Edit post"
 msgstr "Edytuj wpis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:581
+#: src/routes/_authenticated/$forum_.settings.tsx:588
 msgid "Enter banner text (markdown supported)..."
 msgstr "Wprowadź tekst banera (markdown obsługiwany)..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Entity ID"
 msgstr "ID encji"
 
@@ -512,7 +624,7 @@ msgstr "Nie udało się dodać tagu"
 msgid "Failed to adjust interest"
 msgstr "Nie udało się dostosować zainteresowania"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:259
 msgid "Failed to approve items"
 msgstr "Nie udało się zatwierdzić elementów"
 
@@ -520,7 +632,7 @@ msgstr "Nie udało się zatwierdzić elementów"
 msgid "Failed to ban user"
 msgstr "Nie udało się zbanować użytkownika"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:323
+#: src/routes/_authenticated/$forum_.moderation.tsx:327
 msgid "Failed to ban users"
 msgstr "Nie udało się zbanować użytkowników"
 
@@ -528,27 +640,63 @@ msgstr "Nie udało się zbanować użytkowników"
 msgid "Failed to get RSS token"
 msgstr "Nie udało się pobrać tokenu RSS"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:885
+msgid "Failed to load access rules"
+msgstr "Nie udało się załadować reguł dostępu"
+
 #: src/routes/_authenticated/$forum/index.tsx:35
 msgid "Failed to load forum"
 msgstr "Nie udało się załadować forum"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:146
+msgid "Failed to load forum settings"
+msgstr "Nie udało się załadować ustawień forum"
 
 #: src/routes/_authenticated/index.tsx:32
 msgid "Failed to load forums"
 msgstr "Nie udało się załadować forów"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:892
+msgid "Failed to load groups"
+msgstr "Nie udało się załadować grup"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:789
+msgid "Failed to load moderation log"
+msgstr "Nie udało się załadować dziennika moderacji"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:192
+msgid "Failed to load moderation queue"
+msgstr "Nie udało się załadować kolejki moderacji"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "Failed to load moderation settings"
+msgstr "Nie udało się załadować ustawień moderacji"
+
+#: src/features/forums/components/recommended-forums.tsx:41
+msgid "Failed to load recommended forums"
+msgstr "Nie udało się załadować polecanych forów"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
+msgid "Failed to load reports"
+msgstr "Nie udało się załadować zgłoszeń"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:904
+msgid "Failed to load restrictions"
+msgstr "Nie udało się załadować ograniczeń"
+
 #: src/features/forums/thread-detail.tsx:333
 msgid "Failed to mute user"
 msgstr "Nie udało się wyciszyć użytkownika"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:306
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "Failed to mute users"
 msgstr "Nie udało się wyciszyć użytkowników"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:277
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "Failed to reject items"
 msgstr "Nie udało się odrzucić elementów"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:929
 msgid "Failed to remove access"
 msgstr "Nie udało się usunąć dostępu"
 
@@ -561,27 +709,27 @@ msgstr "Nie udało się usunąć konta"
 msgid "Failed to remove interest"
 msgstr "Nie udało się usunąć zainteresowania"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:917
+#: src/routes/_authenticated/$forum_.moderation.tsx:921
 msgid "Failed to remove restriction"
 msgstr "Nie udało się usunąć ograniczenia"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:189
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Failed to rename forum"
 msgstr "Nie udało się zmienić nazwy forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:770
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Failed to reset prompt"
 msgstr "Nie udało się zresetować polecenia"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:575
+#: src/routes/_authenticated/$forum_.moderation.tsx:580
 msgid "Failed to resolve report"
 msgstr "Nie udało się rozwiązać zgłoszenia"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1039
+#: src/routes/_authenticated/$forum_.settings.tsx:1053
 msgid "Failed to save moderation settings"
 msgstr "Nie udało się zapisać ustawień moderacji"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:784
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "Failed to save prompt"
 msgstr "Nie udało się zapisać polecenia"
 
@@ -589,34 +737,38 @@ msgstr "Nie udało się zapisać polecenia"
 msgid "Failed to search forums"
 msgstr "Nie udało się przeszukać forów"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:889
+msgid "Failed to search users"
+msgstr "Nie udało się wyszukać użytkowników"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:249
 msgid "Failed to send verification code"
 msgstr "Nie udało się wysłać kodu weryfikacyjnego"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:917
 msgid "Failed to set access level"
 msgstr "Nie udało się ustawić poziomu dostępu"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
-#: src/features/forums/components/recommended-forums.tsx:63
+#: src/features/forums/components/recommended-forums.tsx:61
 #: src/routes/_authenticated/find.tsx:51
 msgid "Failed to subscribe"
 msgstr "Nie udało się zasubskrybować"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:169
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Failed to unsubscribe"
 msgstr "Nie udało się anulować subskrypcji"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:930
+#: src/routes/_authenticated/$forum_.settings.tsx:944
 msgid "Failed to update access level"
 msgstr "Nie udało się zaktualizować poziomu dostępu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:629
-#: src/routes/_authenticated/$forum_.settings.tsx:641
+#: src/routes/_authenticated/$forum_.settings.tsx:636
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Failed to update AI settings"
 msgstr "Nie udało się zaktualizować ustawień AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:567
+#: src/routes/_authenticated/$forum_.settings.tsx:574
 msgid "Failed to update banner"
 msgstr "Nie udało się zaktualizować banera"
 
@@ -624,12 +776,16 @@ msgstr "Nie udało się zaktualizować banera"
 msgid "Failed to update category"
 msgstr "Nie udało się zaktualizować kategorii"
 
+#: src/features/forums/pages/entity-forum-page.tsx:298
+msgid "Filtered by tag:"
+msgstr "Filtrowane według tagu:"
+
 #: src/components/layout/forums-layout.tsx:176
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Znajdź fora"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:475
+#: src/routes/_authenticated/$forum_.settings.tsx:482
 msgid "Fingerprint"
 msgstr "Odcisk palca"
 
@@ -637,6 +793,10 @@ msgstr "Odcisk palca"
 msgid "Floating"
 msgstr "Przestawne"
 
+#: src/features/forums/components/create-forum-dialog.tsx:47
+#: src/features/forums/pages/entity-forum-page.tsx:67
+#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
 msgstr "Forum"
@@ -649,23 +809,23 @@ msgstr "Forum utworzone"
 msgid "Forum deleted"
 msgstr "Forum usunięte"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
 msgstr "Nazwa forum jest wymagana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum not found"
 msgstr "Nie znaleziono forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:187
+#: src/routes/_authenticated/$forum_.settings.tsx:194
 msgid "Forum renamed"
 msgstr "Zmieniono nazwę forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Forum settings sections"
 msgstr "Sekcje ustawień forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum unavailable"
 msgstr "Forum niedostępne"
 
@@ -714,6 +874,16 @@ msgstr "Przejdź do poprzedniej strony"
 msgid "Group"
 msgstr "Grupa"
 
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:766
+msgid "Harassment"
+msgstr "Nękanie"
+
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Hate speech"
+msgstr "Mowa nienawiści"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:67
 msgid "Hide"
 msgstr "Ukryj"
@@ -729,7 +899,7 @@ msgstr "Główna"
 msgid "Hot"
 msgstr "Popularne"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:405
+#: src/routes/_authenticated/$forum_.settings.tsx:412
 msgid "Identity"
 msgstr "Tożsamość"
 
@@ -787,13 +957,17 @@ msgstr "Załaduj więcej"
 msgid "Loading…"
 msgstr "Ładowanie…"
 
-#: src/features/forums/components/thread/thread-content.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:333
 msgid "Lock"
 msgstr "Zablokuj"
 
-#: src/features/forums/components/thread/thread-content.tsx:155
+#: src/features/forums/components/thread/thread-content.tsx:157
 msgid "Locked"
 msgstr "Zablokowane"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:72
+msgid "Log"
+msgstr "Dziennik"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -831,7 +1005,7 @@ msgstr "Zarządzaj"
 msgid "Mark all as read"
 msgstr "Oznacz wszystkie jako przeczytane"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
+#: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Obsługa formatu Markdown"
 
@@ -843,17 +1017,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metryczny"
 
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Misinformation"
+msgstr "Dezinformacja"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+msgid "Moderate, post, comment, vote, and view"
+msgstr "Moderowanie, publikowanie, komentowanie, głosowanie i przeglądanie"
+
 #: src/components/layout/forums-layout.tsx:121
-#: src/routes/_authenticated/$forum_.moderation.tsx:87
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
+#: src/routes/_authenticated/$forum_.moderation.tsx:91
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:82
 msgid "Moderation"
 msgstr "Moderacja"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:374
+#: src/routes/_authenticated/$forum_.moderation.tsx:378
 msgid "Moderation queue is empty"
 msgstr "Kolejka moderacji jest pusta"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:103
+#: src/routes/_authenticated/$forum_.moderation.tsx:107
 msgid "Moderation sections"
 msgstr "Sekcje moderacji"
 
@@ -861,24 +1045,33 @@ msgstr "Sekcje moderacji"
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: src/features/forums/components/thread/thread-comment.tsx:382
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:515
+msgid "Mute"
+msgstr "Wycisz"
+
+#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Wycisz autora"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:408
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "muted"
+msgstr "wyciszony"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:415
 msgid "Name"
 msgstr "Nazwa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:366
+#: src/routes/_authenticated/$forum_.settings.tsx:373
 msgid "Name cannot contain < or > characters"
 msgstr "Nazwa nie może zawierać znaków < ani >"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:365
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Name must be 1000 characters or less"
 msgstr "Nazwa może mieć maksymalnie 1000 znaków"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+#: src/features/forums/components/edit-post-dialog.tsx:291
 msgid "New"
 msgstr "Nowy"
 
@@ -886,20 +1079,32 @@ msgstr "Nowy"
 msgid "New forum"
 msgstr "Nowe forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:166
-#: src/features/forums/components/create-post-dialog.tsx:171
-#: src/features/forums/components/create-post-dialog.tsx:178
+#: src/features/forums/components/create-post-dialog.tsx:168
+#: src/features/forums/components/create-post-dialog.tsx:173
+#: src/features/forums/components/create-post-dialog.tsx:180
 #: src/features/forums/pages/entity-forum-page.tsx:241
 msgid "New post"
 msgstr "Nowy wpis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1097
 msgid "New threads must be approved"
 msgstr "Nowe wątki wymagają zatwierdzenia"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1129
+msgid "New user threshold:"
+msgstr "Próg nowego użytkownika:"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 msgid "Next image"
 msgstr "Następny obraz"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
+msgid "No {statusFilter} reports found"
+msgstr "Nie znaleziono zgłoszeń {statusFilter}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:96
+msgid "No access"
+msgstr "Brak dostępu"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
@@ -922,7 +1127,7 @@ msgstr "Brak dostępnych grup"
 msgid "No matches."
 msgstr "Brak dopasowań."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:832
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "No moderation activity"
 msgstr "Brak aktywności moderacyjnej"
 
@@ -938,11 +1143,11 @@ msgstr "Brak postów na tym forum"
 msgid "No profile"
 msgstr "Brak profilu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:654
+#: src/routes/_authenticated/$forum_.moderation.tsx:659
 msgid "No reports"
 msgstr "Brak zgłoszeń"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:962
+#: src/routes/_authenticated/$forum_.moderation.tsx:966
 msgid "No restrictions"
 msgstr "Brak ograniczeń"
 
@@ -963,7 +1168,7 @@ msgstr "Brak jeszcze rekordu tematu — spróbuj ponownie po następnym powiadom
 msgid "No users found"
 msgstr "Nie znaleziono użytkowników"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:963
+#: src/routes/_authenticated/$forum_.moderation.tsx:967
 msgid "No users have been muted or banned"
 msgstr "Żaden użytkownik nie został wyciszony ani zbanowany"
 
@@ -976,6 +1181,11 @@ msgstr "Brak"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
 msgid "Notifications"
 msgstr "Powiadomienia"
+
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:770
+msgid "Off-topic"
+msgstr "Nie na temat"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:12
 msgid "Oops! Page Not Found!"
@@ -999,11 +1209,13 @@ msgstr "Otwórz menu nawigacji"
 msgid "Open theme settings"
 msgstr "Otwórz ustawienia motywu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Opcjonalny baner w formacie Markdown wyświetlany u góry Twojego forum."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:771
 msgid "Other"
 msgstr "Inne"
 
@@ -1012,25 +1224,40 @@ msgid "Owner"
 msgstr "Właściciel"
 
 #: src/features/forums/components/post-card.tsx:51
-#: src/features/forums/components/thread/thread-comment.tsx:201
+#: src/features/forums/components/thread/thread-comment.tsx:203
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "Pending"
 msgstr "Oczekujące"
 
-#: src/features/forums/components/thread/thread-content.tsx:143
+#: src/features/forums/components/thread/thread-content.tsx:145
 msgid "Pending approval"
 msgstr "Oczekuje na zatwierdzenie"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:514
+#. placeholder {0}: pendingComments.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:437
+msgid "Pending comments ({0})"
+msgstr "Oczekujące komentarze ({0})"
+
+#. placeholder {0}: pendingPosts.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:392
+msgid "Pending posts ({0})"
+msgstr "Oczekujące wpisy ({0})"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:521
 msgid "Permanently delete this forum and all its content."
 msgstr "Trwale usuń to forum i całą jego zawartość."
 
-#: src/features/forums/components/thread/thread-content.tsx:344
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Pin"
 msgstr "Przypnij"
 
-#: src/features/forums/components/thread/thread-content.tsx:161
+#: src/features/forums/components/thread/thread-content.tsx:163
 msgid "Pinned"
 msgstr "Przypięto"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Please describe the issue..."
+msgstr "Opisz problem..."
 
 #: src/features/forums/thread-detail.tsx:209
 msgid "Please enter a comment"
@@ -1044,7 +1271,7 @@ msgstr "Wprowadź odpowiedź"
 msgid "Post deleted"
 msgstr "Usunięto wpis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1140
+#: src/routes/_authenticated/$forum_.settings.tsx:1154
 msgid "Post limit"
 msgstr "Limit wpisów"
 
@@ -1084,6 +1311,10 @@ msgstr "Odpięto wpis"
 msgid "Post updated"
 msgstr "Zaktualizowano wpis"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+msgid "Post, comment, vote, and view"
+msgstr "Publikowanie, komentowanie, głosowanie i przeglądanie"
+
 #: src/components/options-menu.tsx:64
 msgid "Posts"
 msgstr "Wpisy"
@@ -1092,11 +1323,11 @@ msgstr "Wpisy"
 msgid "Posts and comments"
 msgstr "Wpisy i komentarze"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1076
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Pre-moderation"
 msgstr "Wstępna moderacja"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1136
+#: src/routes/_authenticated/$forum_.settings.tsx:1150
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Zapobiegaj spamowi, ograniczając częstotliwość publikowania przez użytkowników"
 
@@ -1109,29 +1340,42 @@ msgstr "Poprzedni obraz"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:782
+#: src/routes/_authenticated/$forum_.settings.tsx:795
 msgid "Prompt saved"
 msgstr "Zapisano prompt"
 
-#: src/features/forums/components/create-post-dialog.tsx:343
+#: src/features/forums/components/create-post-dialog.tsx:345
 msgid "Publish post"
 msgstr "Opublikuj wpis"
 
-#: src/features/forums/components/create-post-dialog.tsx:338
+#: src/features/forums/components/create-post-dialog.tsx:340
 msgid "Publishing..."
 msgstr "Publikowanie..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1135
+#: src/routes/_authenticated/$forum_.moderation.tsx:69
+msgid "Queue"
+msgstr "Kolejka"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1149
 msgid "Rate Limiting"
 msgstr "Ograniczanie częstotliwości"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:709
+msgid "Reason:"
+msgstr "Powód:"
+
+#. placeholder {0}: entry.reason
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
+msgid "Reason: {0}"
+msgstr "Powód: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
 msgid "Recommended"
 msgstr "Polecane"
 
-#: src/features/forums/components/recommended-forums.tsx:102
-#: src/features/forums/components/recommended-forums.tsx:124
+#: src/features/forums/components/recommended-forums.tsx:100
+#: src/features/forums/components/recommended-forums.tsx:122
 msgid "Recommended forums"
 msgstr "Polecane fora"
 
@@ -1143,6 +1387,15 @@ msgstr "Przekierowywanie do logowania."
 msgid "Reduce interest"
 msgstr "Zmniejsz zainteresowanie"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:489
+msgid "Reject"
+msgstr "Odrzuć"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:271
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "Rejected"
+msgstr "Odrzucono"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Względny (5m, 3h, 2d)"
@@ -1153,8 +1406,12 @@ msgstr "Względny w ciągu 24 godzin, w przeciwnym razie bezwzględny"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:363
-#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-comment.tsx:365
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-content.tsx:320
+#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/routes/_authenticated/$forum_.moderation.tsx:739
+#: src/routes/_authenticated/$forum_.moderation.tsx:1029
 msgid "Remove"
 msgstr "Usuń"
 
@@ -1167,7 +1424,7 @@ msgstr "Usuń regułę dostępu"
 msgid "Remove access?"
 msgstr "Usunąć dostęp?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:420
 msgid "Remove comment"
 msgstr "Usuń komentarz"
 
@@ -1175,30 +1432,43 @@ msgstr "Usuń komentarz"
 msgid "Remove interest"
 msgstr "Usuń zainteresowanie"
 
-#: src/features/forums/components/thread/thread-content.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Remove post"
 msgstr "Usuń wpis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:493
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Remove this forum from your sidebar."
 msgstr "Usuń to forum z paska bocznego."
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:207
-#: src/features/forums/components/thread/thread-content.tsx:149
+#: src/features/forums/components/thread/thread-comment.tsx:209
+#: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "Usunięto"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1094
+#: src/routes/_authenticated/$forum_.settings.tsx:1108
 msgid "Replies must be approved"
 msgstr "Odpowiedzi wymagają zatwierdzenia"
 
-#: src/features/forums/components/thread/thread-comment.tsx:371
-#: src/features/forums/components/thread/thread-content.tsx:352
+#. placeholder {0}: comment.name
+#: src/features/forums/components/thread/thread-comment.tsx:433
+msgid "Reply to {0}..."
+msgstr "Odpowiedz {0}..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Zgłoś"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:572
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report comment"
+msgstr "Zgłoś komentarz"
+
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report post"
+msgstr "Zgłoś wpis"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:577
 msgid "Report resolved"
 msgstr "Zgłoszenie rozwiązane"
 
@@ -1207,19 +1477,28 @@ msgstr "Zgłoszenie rozwiązane"
 msgid "Report submitted"
 msgstr "Zgłoszenie przesłane"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1077
+#. placeholder {0}: report.reporter_name ?? report.reporter
+#: src/routes/_authenticated/$forum_.moderation.tsx:717
+msgid "Reported by {0}"
+msgstr "Zgłoszono przez {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:70
+msgid "Reports"
+msgstr "Zgłoszenia"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1091
 msgid "Require approval before content becomes visible"
 msgstr "Wymagaj zatwierdzenia przed udostępnieniem treści"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1107
 msgid "Require approval for new comments"
 msgstr "Wymagaj zatwierdzenia nowych komentarzy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1082
+#: src/routes/_authenticated/$forum_.settings.tsx:1096
 msgid "Require approval for new posts"
 msgstr "Wymagaj zatwierdzenia nowych wpisów"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1104
+#: src/routes/_authenticated/$forum_.settings.tsx:1118
 msgid "Require approval for new users"
 msgstr "Wymagaj zatwierdzenia nowych użytkowników"
 
@@ -1231,14 +1510,22 @@ msgstr "Zresetuj"
 msgid "Reset all settings to default values"
 msgstr "Zresetuj wszystkie ustawienia do wartości domyślnych"
 
-#: src/features/forums/components/thread/thread-comment.tsx:357
-#: src/features/forums/components/thread/thread-content.tsx:312
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
+msgid "Resolved"
+msgstr "Rozwiązane"
+
+#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Przywróć"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:914
+#: src/routes/_authenticated/$forum_.moderation.tsx:918
 msgid "Restriction removed"
 msgstr "Ograniczenie usunięte"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:71
+msgid "Restrictions"
+msgstr "Ograniczenia"
 
 #: src/components/layout/forums-layout.tsx:191
 msgid "Retry forums load"
@@ -1268,17 +1555,24 @@ msgstr "Skopiowano adres URL RSS do schowka"
 msgid "Saturday"
 msgstr "Sobota"
 
-#: src/features/forums/components/thread/thread-comment.tsx:240
+#: src/features/forums/components/thread/thread-comment.tsx:242
+#: src/routes/_authenticated/$forum_.settings.tsx:599
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/features/forums/components/edit-post-dialog.tsx:340
+#: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
-#: src/features/forums/components/edit-post-dialog.tsx:335
+#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Saving..."
 msgstr "Zapisywanie..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:707
+msgid "Score prompt"
+msgstr "Polecenie oceny"
 
 #: src/routes/_authenticated/find.tsx:66
 msgid "Search by name, ID, fingerprint, or URL..."
@@ -1322,6 +1616,14 @@ msgstr "Szukaj…"
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
 
+#: src/features/forums/components/report-dialog.tsx:76
+msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
+msgstr "Wybierz powód zgłoszenia tego komentarza. Zgłoszenia są sprawdzane przez moderatorów."
+
+#: src/features/forums/components/report-dialog.tsx:74
+msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
+msgstr "Wybierz powód zgłoszenia tego wpisu. Zgłoszenia są sprawdzane przez moderatorów."
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:147
 msgid "Select a user, group, or other rule to grant access."
 msgstr "Wybierz użytkownika, grupę lub inną regułę, aby przyznać dostęp."
@@ -1334,6 +1636,10 @@ msgstr "Wybierz regułę dostępu"
 msgid "Select account type"
 msgstr "Wybierz typ konta"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select all"
+msgstr "Zaznacz wszystko"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:228
 msgid "Select group"
 msgstr "Wybierz grupę"
@@ -1341,6 +1647,10 @@ msgstr "Wybierz grupę"
 #: ../../../lib/web/src/components/config-drawer.tsx:291
 msgid "Select layout style"
 msgstr "Wybierz styl układu"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select none"
+msgstr "Odznacz wszystko"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
@@ -1367,7 +1677,10 @@ msgstr "Ustaw źródło i cel"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/layout/forums-layout.tsx:113
 #: src/components/options-menu.tsx:75
-#: src/routes/_authenticated/$forum_.settings.tsx:216
+#: src/routes/_authenticated/$forum_.settings.tsx:81
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -1389,6 +1702,11 @@ msgstr "Wylogowywanie..."
 msgid "Skip to Main"
 msgstr "Przejdź do głównej"
 
+#: src/features/forums/components/report-dialog.tsx:20
+#: src/routes/_authenticated/$forum_.moderation.tsx:765
+msgid "Spam"
+msgstr "Spam"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:12
 msgid "Stay tuned though!"
 msgstr "Bądź jednak na bieżąco!"
@@ -1397,14 +1715,33 @@ msgstr "Bądź jednak na bieżąco!"
 msgid "Subject"
 msgstr "Temat"
 
-#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-comment.tsx:494
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Wyślij odpowiedź"
 
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submit report"
+msgstr "Wyślij zgłoszenie"
+
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submitting..."
+msgstr "Wysyłanie..."
+
+#: src/features/forums/components/inline-forum-search.tsx:160
+#: src/features/forums/components/recommended-forums.tsx:154
+#: src/features/forums/pages/entity-forum-page.tsx:260
+msgid "Subscribe"
+msgstr "Subskrybuj"
+
 #: src/routes/_authenticated/find.tsx:48
 msgid "Subscribed"
 msgstr "Zasubskrybowano"
+
+#. placeholder {0}: forum.name
+#: src/features/forums/components/recommended-forums.tsx:58
+msgid "Subscribed to {0}"
+msgstr "Zasubskrybowano {0}"
 
 #: src/hooks/use-forums-queries.ts:150
 msgid "Subscribed to forum"
@@ -1424,9 +1761,13 @@ msgid "System"
 msgstr "System"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:657
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Tag"
 msgstr "Tag"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:706
+msgid "Tag prompt"
+msgstr "Polecenie tagu"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1440,16 +1781,45 @@ msgstr "Motyw"
 msgid "Theme Settings"
 msgstr "Ustawienia motywu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:833
+#: src/routes/_authenticated/$forum_.moderation.tsx:837
 msgid "There are no moderation actions recorded yet"
 msgstr "Nie zarejestrowano jeszcze żadnych działań moderacyjnych"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:241
+msgid "This forum could not be loaded right now."
+msgstr "Nie można teraz załadować tego forum."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+msgid "This forum may have been deleted or you don't have access to it."
+msgstr "To forum mogło zostać usunięte lub nie masz do niego dostępu."
+
+#: src/features/forums/components/thread/empty-thread-state.tsx:12
+msgid "This post may have been deleted or doesn't exist."
+msgstr "Ten wpis mógł zostać usunięty lub nie istnieje."
+
+#: src/features/forums/components/thread/thread-comment.tsx:421
+msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
+msgstr "Spowoduje to ukrycie komentarza przed zwykłymi użytkownikami. Moderatorzy nadal mogą go zobaczyć i przywrócić później."
+
+#: src/features/forums/components/thread/thread-content.tsx:395
+msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
+msgstr "Spowoduje to ukrycie wpisu przed zwykłymi użytkownikami. Moderatorzy nadal mogą go zobaczyć i przywrócić później."
+
+#. placeholder {0}: forum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:540
+msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
+msgstr "Spowoduje to trwałe usunięcie \"{0}\" oraz wszystkich jego wpisów i komentarzy. Tej operacji nie można cofnąć."
+
+#: src/features/forums/thread-detail.tsx:111
+msgid "Thread"
+msgstr "Wątek"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: src/features/forums/components/create-post-dialog.tsx:191
-#: src/features/forums/components/edit-post-dialog.tsx:172
+#: src/features/forums/components/create-post-dialog.tsx:193
+#: src/features/forums/components/edit-post-dialog.tsx:175
 msgid "Title"
 msgstr "Tytuł"
 
@@ -1523,20 +1893,31 @@ msgstr "Dostęp nieuprawniony"
 msgid "United States"
 msgstr "Stany Zjednoczone"
 
-#: src/features/forums/components/thread/thread-content.tsx:325
+#: src/features/forums/components/forum-overview.tsx:69
+#: src/features/forums/pages/forums-list-page.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "Unknown"
+msgstr "Nieznany"
+
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Unlock"
 msgstr "Odblokuj"
 
-#: src/features/forums/components/thread/thread-content.tsx:338
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Unpin"
 msgstr "Odepnij"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/routes/_authenticated/$forum_.settings.tsx:511
+msgid "Unsubscribe"
+msgstr "Anuluj subskrypcję"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:499
 msgid "Unsubscribe from forum"
 msgstr "Anuluj subskrypcję forum"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:165
+#: src/routes/_authenticated/$forum_.settings.tsx:172
 msgid "Unsubscribed"
 msgstr "Anulowano subskrypcję"
 
@@ -1560,6 +1941,10 @@ msgstr "Użytkownik zablokowany"
 msgid "User muted"
 msgstr "Użytkownik wyciszony"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:827
+msgid "Variables: {variables}"
+msgstr "Zmienne: {variables}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:68
 msgid "Verification code"
 msgstr "Kod weryfikacyjny"
@@ -1580,6 +1965,10 @@ msgstr "Weryfikuj"
 msgid "Verify email address"
 msgstr "Zweryfikuj adres e-mail"
 
+#: src/features/forums/components/thread/post-attachments.tsx:57
+msgid "Video thumbnail"
+msgstr "Miniatura wideo"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Zobacz"
@@ -1591,6 +1980,19 @@ msgstr "Zobacz wszystko"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:94
 msgid "View all notifications"
 msgstr "Zobacz wszystkie powiadomienia"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:95
+msgid "View only"
+msgstr "Tylko podgląd"
+
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Violence"
+msgstr "Przemoc"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+msgid "Vote and view"
+msgstr "Głosowanie i przeglądanie"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:12
 msgid "We'll be back online shortly."
@@ -1604,7 +2006,7 @@ msgstr "Witryna jest w trakcie konserwacji!"
 msgid "Wednesday"
 msgstr "Środa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1170
+#: src/routes/_authenticated/$forum_.settings.tsx:1184
 msgid "Window duration"
 msgstr "Czas trwania okna"
 

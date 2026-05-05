@@ -108,12 +108,12 @@ export function ThreadDetail({
     return () => setPost(null, null)
   }, [postId, postData?.data?.post?.title, setPost])
 
-  usePageTitle(postData?.data?.post?.title ?? 'Thread')
+  usePageTitle(postData?.data?.post?.title ?? t`Thread`)
 
   // Real-time updates via WebSocket
   useForumWebsocket(postData?.data?.forum?.fingerprint, postData?.data?.member?.id)
 
-  const forumTitle = postData?.data?.forum?.name || 'Forum'
+  const forumTitle = postData?.data?.forum?.name || t`Forum`
   const goBackToForumContext = () => {
     if (fromAllForums || !forum) {
       return navigate({ to: '/' })
@@ -166,7 +166,7 @@ export function ThreadDetail({
       toast.error(getErrorMessage(error, t`Failed to add tag`))
       throw error
     }
-  }, [forum, postId, postData?.data?.post?.tags])
+  }, [forum, postId, postData?.data?.post?.tags, t])
 
   const handleInterestUp = useCallback(
     async (qid: string) => {
@@ -177,7 +177,7 @@ export function ThreadDetail({
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
-    [forum]
+    [forum, t]
   )
 
   const handleInterestDown = useCallback(
@@ -189,7 +189,7 @@ export function ThreadDetail({
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
     },
-    [forum]
+    [forum, t]
   )
 
   const handleInterestRemove = useCallback(
@@ -201,7 +201,7 @@ export function ThreadDetail({
         toast.error(getErrorMessage(error, t`Failed to remove interest`))
       }
     },
-    [forum]
+    [forum, t]
   )
 
   const handleCommentSubmit = () => {
@@ -246,7 +246,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
+          back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
         />
         <ThreadDetailSkeleton />
       </>
@@ -258,7 +258,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
+          back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
         />
         <Main className="space-y-4">
           <GeneralError
@@ -279,7 +279,7 @@ export function ThreadDetail({
       <>
         <PageHeader
           title={forumTitle}
-          back={{ label: "Back to forum", onFallback: goBackToForumContext }}
+          back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
         />
         <Main className="space-y-4">
           <Card className="shadow-md">
@@ -347,7 +347,7 @@ export function ThreadDetail({
     <>
       <PageHeader
         title={forumTitle}
-        back={{ label: "Back to forum", onFallback: goBackToForumContext }}
+        back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
       />
       <Main className="space-y-4">
         {forumData?.banner_html && (

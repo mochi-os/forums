@@ -127,8 +127,10 @@ export function ThreadContent({
   const isLocked = !!post.locked
   const isPinned = !!post.pinned
   const timestamp = formatTimestamp(post.created)
+  /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
   const voteButtonClass = 'text-muted-foreground hover:text-foreground inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:-m-1 md:min-h-0 md:rounded-none md:px-1 md:py-1'
   const iconActionButtonClass = 'text-muted-foreground hover:text-foreground inline-flex size-8 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:-m-1 md:size-auto md:rounded-none md:p-1'
+  /* eslint-enable lingui/no-unlocalized-strings */
 
   return (
     <div className='group/post space-y-4'>
@@ -376,8 +378,8 @@ export function ThreadContent({
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
         title={t`Delete post`}
-        desc='Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.'
-        confirmText='Delete'
+        desc={t`Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone.`}
+        confirmText={t`Delete`}
         destructive={true}
         handleConfirm={() => {
           setDeleteDialogOpen(false)
@@ -390,8 +392,8 @@ export function ThreadContent({
         open={removeDialogOpen}
         onOpenChange={setRemoveDialogOpen}
         title={t`Remove post`}
-        desc='This will hide the post from regular users. Moderators can still see it and restore it later.'
-        confirmText='Remove'
+        desc={t`This will hide the post from regular users. Moderators can still see it and restore it later.`}
+        confirmText={t`Remove`}
         handleConfirm={() => {
           setRemoveDialogOpen(false)
           onRemove?.()

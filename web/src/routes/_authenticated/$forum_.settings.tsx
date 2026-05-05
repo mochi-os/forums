@@ -75,24 +75,31 @@ interface Tab {
   icon: React.ReactNode
 }
 
-const tabs: Tab[] = [
-  { id: 'general', label: "Settings", icon: <Settings className='h-4 w-4' /> },
-  { id: 'moderation', label: "Moderation", icon: <Gavel className='h-4 w-4' /> },
-  { id: 'access', label: "Access", icon: <Shield className='h-4 w-4' /> },
-]
+function useTabs(): Tab[] {
+  const { t } = useLingui()
+  return [
+    { id: 'general', label: t`Settings`, icon: <Settings className='h-4 w-4' /> },
+    { id: 'moderation', label: t`Moderation`, icon: <Gavel className='h-4 w-4' /> },
+    { id: 'access', label: t`Access`, icon: <Shield className='h-4 w-4' /> },
+  ]
+}
 
 // Access levels for forums (without manage)
-const FORUMS_ACCESS_LEVELS: AccessLevel[] = [
-  { value: 'moderate', label: "Moderate, post, comment, vote, and view" },
-  { value: 'post', label: "Post, comment, vote, and view" },
-  { value: 'comment', label: "Comment, vote, and view" },
-  { value: 'vote', label: "Vote and view" },
-  { value: 'view', label: "View only" },
-  { value: 'none', label: "No access" },
-]
+function useForumsAccessLevels(): AccessLevel[] {
+  const { t } = useLingui()
+  return [
+    { value: 'moderate', label: t`Moderate, post, comment, vote, and view` },
+    { value: 'post', label: t`Post, comment, vote, and view` },
+    { value: 'comment', label: t`Comment, vote, and view` },
+    { value: 'vote', label: t`Vote and view` },
+    { value: 'view', label: t`View only` },
+    { value: 'none', label: t`No access` },
+  ]
+}
 
 function ForumSettingsPage() {
   const { t } = useLingui()
+  const tabs = useTabs()
   const params = Route.useParams()
   const forumId = 'forum' in params ? params.forum : ''
   const navigate = useNavigate()
@@ -136,7 +143,7 @@ function ForumSettingsPage() {
   const forumInfoStatus = getErrorStatus(forumInfoErrorRaw)
   const forumLookupError =
     forumInfoErrorRaw && forumInfoStatus !== 403 && forumInfoStatus !== 404
-      ? toError(forumInfoErrorRaw, 'Failed to load forum settings')
+      ? toError(forumInfoErrorRaw, t`Failed to load forum settings`)
       : null
   const forumNotFound =
     !selectedForum &&
@@ -146,7 +153,7 @@ function ForumSettingsPage() {
 
   // Update page title when forum is loaded
   usePageTitle(
-    selectedForum?.name ? `${selectedForum.name} settings` : 'Settings'
+    selectedForum?.name ? t`${selectedForum.name} settings` : t`Settings`
   )
 
   // Register with sidebar context to keep forum expanded in sidebar
@@ -170,7 +177,7 @@ function ForumSettingsPage() {
     } finally {
       setIsUnsubscribing(false)
     }
-  }, [selectedForum, isUnsubscribing, refreshForums, navigate])
+  }, [selectedForum, isUnsubscribing, refreshForums, navigate, t])
 
   const handleDelete = useCallback(() => {
     if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending) return
@@ -189,7 +196,7 @@ function ForumSettingsPage() {
       toast.error(getErrorMessage(error, t`Failed to rename forum`))
       throw error
     }
-  }, [selectedForum, refreshForumInfo, refreshForums])
+  }, [selectedForum, refreshForumInfo, refreshForums, t])
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)
@@ -230,8 +237,8 @@ function ForumSettingsPage() {
               title={forumNotFound ? t`Forum not found` : t`Forum unavailable`}
               description={
                 forumNotFound
-                  ? 'This forum may have been deleted or you don\'t have access to it.'
-                  : 'This forum could not be loaded right now.'
+                  ? t`This forum may have been deleted or you don't have access to it.`
+                  : t`This forum could not be loaded right now.`
               }
             />
           )}
@@ -243,7 +250,7 @@ function ForumSettingsPage() {
   return (
     <>
       <PageHeader
-        title={selectedForum.name ? `${selectedForum.name} settings` : 'Settings'}
+        title={selectedForum.name ? t`${selectedForum.name} settings` : t`Settings`}
         icon={<Settings className="size-4 md:size-5" />}
         back={{ label: t`Back to forum`, onFallback: goBackToForum }}
       />
@@ -501,7 +508,7 @@ function GeneralTab({
               {isUnsubscribing ? (
                 <Loader2 className="me-2 size-4 animate-spin" />
               ) : (
-                'Unsubscribe'
+                <Trans>Unsubscribe</Trans>
               )}
             </Button>
           }
@@ -530,7 +537,7 @@ function GeneralTab({
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         title={t`Delete forum?`}
-        desc={`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
+        desc={t`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
         confirmText={t`Delete Forum`}
         destructive
         handleConfirm={onDelete}
@@ -562,7 +569,7 @@ function BannerSection({ forumId }: { forumId: string }) {
       await forumsApi.setBanner(forumId, banner)
       savedRef.current = banner
       setDirty(false)
-      toast.success(banner ? "Banner updated" : "Banner removed")
+      toast.success(banner ? t`Banner updated` : t`Banner removed`)
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to update banner`))
     } finally {
@@ -589,7 +596,7 @@ function BannerSection({ forumId }: { forumId: string }) {
             disabled={saving || !dirty}
           >
             {saving && <Loader2 className="me-2 size-4 animate-spin" />}
-            Save
+            <Trans>Save</Trans>
           </Button>
           {banner && (
             <Button
@@ -686,17 +693,23 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   )
 }
 
+/* eslint-disable lingui/no-unlocalized-strings -- Template variable names, not UI labels */
 const PROMPT_VARIABLES: Record<string, string> = {
   tag: '{{posts}}',
   score: '{{interests}}, {{posts}}',
 }
+/* eslint-enable lingui/no-unlocalized-strings */
 
-const PROMPT_LABELS: Record<string, string> = {
-  tag: 'Tag prompt',
-  score: 'Score prompt',
+function usePromptLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    tag: t`Tag prompt`,
+    score: t`Score prompt`,
+  }
 }
 
 function AiPromptsEditor({ forumId, showTag, showScore }: { forumId: string; showTag: boolean; showScore: boolean }) {
+  const PROMPT_LABELS = usePromptLabels()
   const [prompts, setPrompts] = useState<Record<string, string>>({})
   const [defaults, setDefaults] = useState<Record<string, string>>({})
   const [loaded, setLoaded] = useState(false)
@@ -808,10 +821,10 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
             />
             <div className="flex items-center gap-2">
               <Button size="sm" onClick={handleSave} disabled={saving}>
-                {saving ? "Saving..." : "Save"}
+                {saving ? <Trans>Saving...</Trans> : <Trans>Save</Trans>}
               </Button>
               <span className="text-xs text-muted-foreground">
-                Variables: {variables}
+                <Trans>Variables: {variables}</Trans>
               </span>
             </div>
           </div>
@@ -827,6 +840,7 @@ interface AccessTabProps {
 
 function AccessTab({ forumId }: AccessTabProps) {
   const { t } = useLingui()
+  const FORUMS_ACCESS_LEVELS = useForumsAccessLevels()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [userSearchQuery, setUserSearchQuery] = useState('')
 
@@ -868,14 +882,14 @@ function AccessTab({ forumId }: AccessTabProps) {
       }))
   }, [accessData])
   const rulesError = rulesErrorRaw
-    ? toError(rulesErrorRaw, 'Failed to load access rules')
+    ? toError(rulesErrorRaw, t`Failed to load access rules`)
     : null
   const userSearchError =
     userSearchQuery.length >= 1 && userSearchErrorRaw
-      ? toError(userSearchErrorRaw, 'Failed to search users')
+      ? toError(userSearchErrorRaw, t`Failed to search users`)
       : null
   const groupsError = groupsErrorRaw
-    ? toError(groupsErrorRaw, 'Failed to load groups')
+    ? toError(groupsErrorRaw, t`Failed to load groups`)
     : null
   const canManageRules = !rulesError && !isLoadingRules && !!accessData
   const userSearchResults = coerceObjectArray<{ id: string; name: string }>(
@@ -897,7 +911,7 @@ function AccessTab({ forumId }: AccessTabProps) {
         user: subject,
         level: level as 'view' | 'vote' | 'comment' | 'post' | 'none',
       })
-      toast.success(`Access set for ${subjectName}`)
+      toast.success(t`Access set for ${subjectName}`)
       await refetchRules()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to set access level`))
@@ -1019,11 +1033,11 @@ function ModerationTab({ forumId }: ModerationTabProps) {
         setSettings(response.data.settings)
       }
     } catch (error) {
-      setLoadError(toError(error, 'Failed to load moderation settings'))
+      setLoadError(toError(error, t`Failed to load moderation settings`))
     } finally {
       setIsLoading(false)
     }
-  }, [forumId])
+  }, [forumId, t])
 
   useEffect(() => {
     void loadSettings()
@@ -1038,7 +1052,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
     }
-  }, [forumId])
+  }, [forumId, t])
 
   const updateSetting = <K extends keyof typeof settings>(key: K, value: typeof settings[K]) => {
     setSettings((s) => {
@@ -1112,7 +1126,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
 
           {!!settings.moderation_new && (
             <div className='mt-4 flex items-center gap-3 bg-muted/40 p-4 rounded-lg'>
-              <span className='text-sm font-medium'>New user threshold:</span>
+              <span className='text-sm font-medium'><Trans>New user threshold:</Trans></span>
               <div className="flex items-center gap-2">
                 <Input
                   type='number'

@@ -44,9 +44,9 @@ export function CreateForumDialog({
       onOpenChange={onOpenChange}
       icon={MessageSquare}
       title={t`Create forum`}
-      entityLabel="Forum"
+      entityLabel={t`Forum`}
       showPrivacyToggle
-      privacyLabel="Allow anyone to search for forum"
+      privacyLabel={t`Allow anyone to search for forum`}
       onSubmit={handleSubmit}
       isPending={createForum.isPending}
       hideTrigger={hideTrigger}

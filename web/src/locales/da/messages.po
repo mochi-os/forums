@@ -13,13 +13,51 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Approved 1 item} other {Approved # items}}"
-msgstr "{count, plural, one {Godkendte 1 element} other {Godkendte # elementer}}"
+#. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
+#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+msgid " · Expires {0}"
+msgstr " · Udløber {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:274
-msgid "{count, plural, one {Rejected 1 item} other {Rejected # items}}"
-msgstr "{count, plural, one {Afviste 1 element} other {Afviste # elementer}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+msgid " · Permanent"
+msgstr " · Permanent"
+
+#: src/features/forums/components/thread/thread-comment.tsx:197
+msgid " (edited)"
+msgstr " (redigeret)"
+
+#. placeholder {0}: selectedPosts.size + selectedComments.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:536
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# valgt} other {# valgt}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:324
+msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+msgstr "{0, plural, one {Bortvist # bruger} other {Bortvist # brugere}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:307
+msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+msgstr "{0, plural, one {Tavsgjort # bruger} other {Tavsgjort # brugere}}"
+
+#. placeholder {0}: selectedForum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:253
+msgid "{0} settings"
+msgstr "{0}-indstillinger"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
+msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+msgstr "{count, plural, one {Godkendt # element} other {Godkendt # elementer}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:278
+msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr "{count, plural, one {Afvist # element} other {Afvist # elementer}}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:183
+msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
+msgstr "{totalDescendants, plural, one {# svar} other {# svar}}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -33,6 +71,10 @@ msgstr "24 timer"
 msgid "Absolute (date and time)"
 msgstr "Absolut (dato og klokkeslæt)"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+msgid "Access"
+msgstr "Adgang"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:12
 msgid "Access Forbidden"
 msgstr "Adgang forbudt"
@@ -41,19 +83,23 @@ msgstr "Adgang forbudt"
 msgid "Access level"
 msgstr "Adgangsniveau"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:927
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Access level updated"
 msgstr "Adgangsniveau opdateret"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:950
 msgid "Access Management"
 msgstr "Adgangsstyring"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:912
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Access removed"
 msgstr "Adgang fjernet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:914
+msgid "Access set for {subjectName}"
+msgstr "Adgang angivet for {subjectName}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:669
 msgid "Account"
 msgstr "Konto"
 
@@ -90,8 +136,8 @@ msgstr "Tilføj konto"
 msgid "Add an account to receive notifications and use services."
 msgstr "Tilføj en konto for at modtage notifikationer og bruge tjenester."
 
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/create-post-dialog.tsx:322
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Add files"
 msgstr "Tilføj filer"
 
@@ -99,7 +145,7 @@ msgstr "Tilføj filer"
 msgid "Add new account"
 msgstr "Tilføj ny konto"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:947
+#: src/routes/_authenticated/$forum_.settings.tsx:961
 msgid "Add Rule"
 msgstr "Tilføj regel"
 
@@ -119,20 +165,25 @@ msgstr "Tilføj til eksisterende notifikationer"
 msgid "Add view"
 msgstr "Tilføj visning"
 
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Additional details (optional)"
+msgstr "Yderligere detaljer (valgfrit)"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Juster udseende og layout efter dine præferencer."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:649
+#: src/routes/_authenticated/$forum_.settings.tsx:656
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:657
 msgid "AI actions on posts"
 msgstr "AI-handlinger på indlæg"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "All"
 msgstr "Alle"
 
@@ -141,13 +192,30 @@ msgstr "Alle"
 msgid "All forums"
 msgstr "Alle fora"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:375
+#: src/routes/_authenticated/$forum_.moderation.tsx:379
 msgid "All posts and comments have been reviewed"
 msgstr "Alle indlæg og kommentarer er gennemgået"
 
-#: src/features/forums/components/thread/thread-comment.tsx:348
+#: src/features/forums/components/create-forum-dialog.tsx:49
+msgid "Allow anyone to search for forum"
+msgstr "Tillad alle at søge efter forummet"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Any additional context..."
+msgstr "Eventuel yderligere kontekst..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:501
 msgid "Approve"
 msgstr "Godkend"
+
+#: src/features/forums/components/thread/thread-comment.tsx:407
+msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
+msgstr "Er du sikker på, at du vil slette denne kommentar? Dette vil også slette alle svar. Denne handling kan ikke fortrydes."
+
+#: src/features/forums/components/thread/thread-content.tsx:381
+msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
+msgstr "Er du sikker på, at du vil slette dette opslag? Dette vil også slette alle kommentarer. Denne handling kan ikke fortrydes."
 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
@@ -157,13 +225,13 @@ msgstr "Er du sikker på, at du vil logge ud? Du skal logge ind igen for at få 
 msgid "Asc"
 msgstr "Stigende"
 
-#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:475
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Vedhæft svarfiler"
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:229
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "Attachments"
 msgstr "Vedhæftninger"
 
@@ -172,10 +240,14 @@ msgid "Back"
 msgstr "Tilbage"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:14
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
-#: src/routes/_authenticated/$forum_.settings.tsx:203
-#: src/routes/_authenticated/$forum_.settings.tsx:216
-#: src/routes/_authenticated/$forum_.settings.tsx:248
+#: src/features/forums/thread-detail.tsx:249
+#: src/features/forums/thread-detail.tsx:261
+#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:210
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Back to forum"
 msgstr "Tilbage til forum"
 
@@ -189,18 +261,44 @@ msgstr "Tilbage til fora"
 msgid "Back to Home"
 msgstr "Tilbage til hjem"
 
-#: src/features/forums/components/thread/thread-comment.tsx:390
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/routes/_authenticated/$forum_.moderation.tsx:527
+msgid "Ban"
+msgstr "Bortvis"
+
+#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Bortvis forfatter"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "banned"
+msgstr "bortvist"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Banner"
 msgstr "Banner"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner removed"
+msgstr "Banner fjernet"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner updated"
+msgstr "Banner opdateret"
 
 #: ../../../lib/web/src/components/post-tags.tsx:160
 msgid "Boost interest"
 msgstr "Fremhæv interesse"
+
+#. placeholder {0}: report.author_name ?? t`Unknown`
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "by {0}"
+msgstr "af {0}"
+
+#. placeholder {0}: restriction.moderator_name ?? restriction.moderator
+#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+msgid "By {0}"
+msgstr "Af {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
@@ -209,14 +307,14 @@ msgstr "Fremhæv interesse"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/forums/components/create-post-dialog.tsx:328
-#: src/features/forums/components/edit-post-dialog.tsx:326
-#: src/features/forums/components/report-dialog.tsx:98
-#: src/features/forums/components/thread/thread-comment.tsx:229
+#: src/features/forums/components/create-post-dialog.tsx:330
+#: src/features/forums/components/edit-post-dialog.tsx:329
+#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Annuller"
 
-#: src/features/forums/components/thread/thread-comment.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:484
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Annuller svar"
@@ -228,6 +326,10 @@ msgstr "Kategori for denne notifikation"
 #: ../../../lib/web/src/components/notification-category-button.tsx:115
 msgid "Change notification category"
 msgstr "Skift notifikationskategori"
+
+#: src/features/forums/components/forum-overview.tsx:138
+msgid "Check back later for new content"
+msgstr "Kom tilbage senere for nyt indhold"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:315
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -250,7 +352,7 @@ msgid "Choose language"
 msgstr "Vælg sprog"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:304
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:608
 msgid "Clear"
 msgstr "Ryd"
 
@@ -305,7 +407,7 @@ msgstr "Kommentar godkendt"
 msgid "Comment deleted"
 msgstr "Kommentar slettet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1155
+#: src/routes/_authenticated/$forum_.settings.tsx:1169
 msgid "Comment limit"
 msgstr "Kommentargrænse"
 
@@ -325,6 +427,10 @@ msgstr "Kommentar gendannet"
 msgid "Comment updated"
 msgstr "Kommentar opdateret"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:93
+msgid "Comment, vote, and view"
+msgstr "Kommentér, stem og se"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:302
 msgid "Compact"
 msgstr "Kompakt"
@@ -334,12 +440,12 @@ msgstr "Kompakt"
 msgid "Confirm"
 msgstr "Bekræft"
 
-#: src/features/forums/components/create-post-dialog.tsx:208
-#: src/features/forums/components/edit-post-dialog.tsx:189
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/edit-post-dialog.tsx:192
 msgid "Content"
 msgstr "Indhold"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1105
+#: src/routes/_authenticated/$forum_.settings.tsx:1119
 msgid "Content from users below a threshold must be approved"
 msgstr "Indhold fra brugere under en tærskel skal godkendes"
 
@@ -355,7 +461,7 @@ msgstr "Kontekstuelle oplysninger og detaljer."
 msgid "Continue"
 msgstr "Fortsæt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:937
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "Control who can view and interact with this forum"
 msgstr "Styr hvem der kan se og interagere med dette forum"
 
@@ -367,7 +473,7 @@ msgstr "Kopier"
 msgid "Create a new forum"
 msgstr "Opret et nyt forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:180
+#: src/features/forums/components/create-post-dialog.tsx:182
 msgid "Create a new post"
 msgstr "Opret et nyt indlæg"
 
@@ -376,7 +482,7 @@ msgstr "Opret et nyt indlæg"
 msgid "Create forum"
 msgstr "Opret forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Custom"
 msgstr "Brugerdefineret"
 
@@ -394,11 +500,11 @@ msgid "Dark mode"
 msgstr "Mørk tilstand"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "Default"
 msgstr "Standard"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:668
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Default account"
 msgstr "Standardkonto"
 
@@ -406,35 +512,41 @@ msgstr "Standardkonto"
 msgid "Default AI account"
 msgstr "Standard AI-konto"
 
-#: src/features/forums/components/thread/thread-comment.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:302
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-content.tsx:304
+#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/routes/_authenticated/$forum_.settings.tsx:530
 msgid "Delete"
 msgstr "Slet"
 
-#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:406
 msgid "Delete comment"
 msgstr "Slet kommentar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/routes/_authenticated/$forum_.settings.tsx:520
 msgid "Delete forum"
 msgstr "Slet forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:541
 msgid "Delete Forum"
 msgstr "Slet forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:539
 msgid "Delete forum?"
 msgstr "Slet forum?"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Delete post"
 msgstr "Slet indlæg"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Faldende"
+
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Details (required)"
+msgstr "Detaljer (påkrævet)"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:144
 msgid "Details Panel"
@@ -455,11 +567,11 @@ msgstr "Registrer fra webbrowser"
 msgid "Direction"
 msgstr "Retning"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:656
+#: src/routes/_authenticated/$forum_.settings.tsx:663
 msgid "Disabled"
 msgstr "Deaktiveret"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:723
+#: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Afvis"
 
@@ -475,21 +587,21 @@ msgstr "Viser mobil-sidebjælken."
 msgid "Download"
 msgstr "Download"
 
-#: src/features/forums/components/thread/thread-comment.tsx:329
-#: src/features/forums/components/thread/thread-content.tsx:296
+#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Redigér"
 
-#: src/features/forums/components/edit-post-dialog.tsx:159
-#: src/features/forums/components/edit-post-dialog.tsx:161
+#: src/features/forums/components/edit-post-dialog.tsx:162
+#: src/features/forums/components/edit-post-dialog.tsx:164
 msgid "Edit post"
 msgstr "Redigér indlæg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:581
+#: src/routes/_authenticated/$forum_.settings.tsx:588
 msgid "Enter banner text (markdown supported)..."
 msgstr "Indtast bannertekst (markdown understøttes)..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Entity ID"
 msgstr "Entitets-ID"
 
@@ -512,7 +624,7 @@ msgstr "Kunne ikke tilføje tag"
 msgid "Failed to adjust interest"
 msgstr "Kunne ikke justere interesse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:259
 msgid "Failed to approve items"
 msgstr "Kunne ikke godkende elementer"
 
@@ -520,7 +632,7 @@ msgstr "Kunne ikke godkende elementer"
 msgid "Failed to ban user"
 msgstr "Kunne ikke udelukke bruger"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:323
+#: src/routes/_authenticated/$forum_.moderation.tsx:327
 msgid "Failed to ban users"
 msgstr "Kunne ikke udelukke brugere"
 
@@ -528,27 +640,63 @@ msgstr "Kunne ikke udelukke brugere"
 msgid "Failed to get RSS token"
 msgstr "Kunne ikke hente RSS-token"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:885
+msgid "Failed to load access rules"
+msgstr "Kunne ikke indlæse adgangsregler"
+
 #: src/routes/_authenticated/$forum/index.tsx:35
 msgid "Failed to load forum"
 msgstr "Kunne ikke indlæse forum"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:146
+msgid "Failed to load forum settings"
+msgstr "Kunne ikke indlæse foruminstillinger"
 
 #: src/routes/_authenticated/index.tsx:32
 msgid "Failed to load forums"
 msgstr "Kunne ikke indlæse fora"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:892
+msgid "Failed to load groups"
+msgstr "Kunne ikke indlæse grupper"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:789
+msgid "Failed to load moderation log"
+msgstr "Kunne ikke indlæse moderationslog"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:192
+msgid "Failed to load moderation queue"
+msgstr "Kunne ikke indlæse moderationskø"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "Failed to load moderation settings"
+msgstr "Kunne ikke indlæse moderationsindstillinger"
+
+#: src/features/forums/components/recommended-forums.tsx:41
+msgid "Failed to load recommended forums"
+msgstr "Kunne ikke indlæse anbefalede fora"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
+msgid "Failed to load reports"
+msgstr "Kunne ikke indlæse anmeldelser"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:904
+msgid "Failed to load restrictions"
+msgstr "Kunne ikke indlæse begrænsninger"
+
 #: src/features/forums/thread-detail.tsx:333
 msgid "Failed to mute user"
 msgstr "Kunne ikke gøre bruger tavs"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:306
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "Failed to mute users"
 msgstr "Kunne ikke gøre brugere tavse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:277
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "Failed to reject items"
 msgstr "Kunne ikke afvise elementer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:929
 msgid "Failed to remove access"
 msgstr "Kunne ikke fjerne adgang"
 
@@ -561,27 +709,27 @@ msgstr "Kunne ikke fjerne konto"
 msgid "Failed to remove interest"
 msgstr "Kunne ikke fjerne interesse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:917
+#: src/routes/_authenticated/$forum_.moderation.tsx:921
 msgid "Failed to remove restriction"
 msgstr "Kunne ikke fjerne begrænsning"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:189
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Failed to rename forum"
 msgstr "Kunne ikke omdøbe forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:770
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Failed to reset prompt"
 msgstr "Kunne ikke nulstille prompt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:575
+#: src/routes/_authenticated/$forum_.moderation.tsx:580
 msgid "Failed to resolve report"
 msgstr "Kunne ikke løse anmeldelse"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1039
+#: src/routes/_authenticated/$forum_.settings.tsx:1053
 msgid "Failed to save moderation settings"
 msgstr "Kunne ikke gemme moderationsindstillinger"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:784
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "Failed to save prompt"
 msgstr "Kunne ikke gemme prompt"
 
@@ -589,34 +737,38 @@ msgstr "Kunne ikke gemme prompt"
 msgid "Failed to search forums"
 msgstr "Kunne ikke søge i fora"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:889
+msgid "Failed to search users"
+msgstr "Kunne ikke søge efter brugere"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:249
 msgid "Failed to send verification code"
 msgstr "Kunne ikke sende verifikationskode"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:917
 msgid "Failed to set access level"
 msgstr "Kunne ikke indstille adgangsniveau"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
-#: src/features/forums/components/recommended-forums.tsx:63
+#: src/features/forums/components/recommended-forums.tsx:61
 #: src/routes/_authenticated/find.tsx:51
 msgid "Failed to subscribe"
 msgstr "Kunne ikke abonnere"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:169
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Failed to unsubscribe"
 msgstr "Kunne ikke afmelde"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:930
+#: src/routes/_authenticated/$forum_.settings.tsx:944
 msgid "Failed to update access level"
 msgstr "Kunne ikke opdatere adgangsniveau"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:629
-#: src/routes/_authenticated/$forum_.settings.tsx:641
+#: src/routes/_authenticated/$forum_.settings.tsx:636
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Failed to update AI settings"
 msgstr "Kunne ikke opdatere AI-indstillinger"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:567
+#: src/routes/_authenticated/$forum_.settings.tsx:574
 msgid "Failed to update banner"
 msgstr "Kunne ikke opdatere banner"
 
@@ -624,12 +776,16 @@ msgstr "Kunne ikke opdatere banner"
 msgid "Failed to update category"
 msgstr "Kunne ikke opdatere kategori"
 
+#: src/features/forums/pages/entity-forum-page.tsx:298
+msgid "Filtered by tag:"
+msgstr "Filtreret efter tag:"
+
 #: src/components/layout/forums-layout.tsx:176
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Find fora"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:475
+#: src/routes/_authenticated/$forum_.settings.tsx:482
 msgid "Fingerprint"
 msgstr "Fingeraftryk"
 
@@ -637,6 +793,10 @@ msgstr "Fingeraftryk"
 msgid "Floating"
 msgstr "Flydende"
 
+#: src/features/forums/components/create-forum-dialog.tsx:47
+#: src/features/forums/pages/entity-forum-page.tsx:67
+#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
 msgstr "Forum"
@@ -649,23 +809,23 @@ msgstr "Forum oprettet"
 msgid "Forum deleted"
 msgstr "Forum slettet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
 msgstr "Forumnavn er påkrævet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum not found"
 msgstr "Forum ikke fundet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:187
+#: src/routes/_authenticated/$forum_.settings.tsx:194
 msgid "Forum renamed"
 msgstr "Forum omdøbt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Forum settings sections"
 msgstr "Forumindstillingssektioner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum unavailable"
 msgstr "Forum ikke tilgængeligt"
 
@@ -714,6 +874,16 @@ msgstr "Gå til forrige side"
 msgid "Group"
 msgstr "Gruppe"
 
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:766
+msgid "Harassment"
+msgstr "Chikane"
+
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Hate speech"
+msgstr "Hadefuld tale"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:67
 msgid "Hide"
 msgstr "Skjul"
@@ -729,7 +899,7 @@ msgstr "Hjem"
 msgid "Hot"
 msgstr "Populære"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:405
+#: src/routes/_authenticated/$forum_.settings.tsx:412
 msgid "Identity"
 msgstr "Identitet"
 
@@ -787,13 +957,17 @@ msgstr "Indlæs flere"
 msgid "Loading…"
 msgstr "Indlæser…"
 
-#: src/features/forums/components/thread/thread-content.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:333
 msgid "Lock"
 msgstr "Lås"
 
-#: src/features/forums/components/thread/thread-content.tsx:155
+#: src/features/forums/components/thread/thread-content.tsx:157
 msgid "Locked"
 msgstr "Låst"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:72
+msgid "Log"
+msgstr "Log"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -831,7 +1005,7 @@ msgstr "Administrer"
 msgid "Mark all as read"
 msgstr "Markér alle som læst"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
+#: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown understøttes"
 
@@ -843,17 +1017,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metrisk"
 
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Misinformation"
+msgstr "Misinformation"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+msgid "Moderate, post, comment, vote, and view"
+msgstr "Moderér, opslå, kommentér, stem og se"
+
 #: src/components/layout/forums-layout.tsx:121
-#: src/routes/_authenticated/$forum_.moderation.tsx:87
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
+#: src/routes/_authenticated/$forum_.moderation.tsx:91
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:82
 msgid "Moderation"
 msgstr "Moderation"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:374
+#: src/routes/_authenticated/$forum_.moderation.tsx:378
 msgid "Moderation queue is empty"
 msgstr "Moderationskøen er tom"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:103
+#: src/routes/_authenticated/$forum_.moderation.tsx:107
 msgid "Moderation sections"
 msgstr "Moderationssektioner"
 
@@ -861,24 +1045,33 @@ msgstr "Moderationssektioner"
 msgid "Monday"
 msgstr "Mandag"
 
-#: src/features/forums/components/thread/thread-comment.tsx:382
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:515
+msgid "Mute"
+msgstr "Tavsgør"
+
+#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Sluk lyd for forfatter"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:408
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "muted"
+msgstr "tavsgjort"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:415
 msgid "Name"
 msgstr "Navn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:366
+#: src/routes/_authenticated/$forum_.settings.tsx:373
 msgid "Name cannot contain < or > characters"
 msgstr "Navn må ikke indeholde tegnene < eller >"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:365
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Name must be 1000 characters or less"
 msgstr "Navn må højst være 1000 tegn"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+#: src/features/forums/components/edit-post-dialog.tsx:291
 msgid "New"
 msgstr "Ny"
 
@@ -886,20 +1079,32 @@ msgstr "Ny"
 msgid "New forum"
 msgstr "Nyt forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:166
-#: src/features/forums/components/create-post-dialog.tsx:171
-#: src/features/forums/components/create-post-dialog.tsx:178
+#: src/features/forums/components/create-post-dialog.tsx:168
+#: src/features/forums/components/create-post-dialog.tsx:173
+#: src/features/forums/components/create-post-dialog.tsx:180
 #: src/features/forums/pages/entity-forum-page.tsx:241
 msgid "New post"
 msgstr "Nyt indlæg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1097
 msgid "New threads must be approved"
 msgstr "Nye tråde skal godkendes"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1129
+msgid "New user threshold:"
+msgstr "Grænse for ny bruger:"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 msgid "Next image"
 msgstr "Næste billede"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
+msgid "No {statusFilter} reports found"
+msgstr "Ingen {statusFilter} anmeldelser fundet"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:96
+msgid "No access"
+msgstr "Ingen adgang"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
@@ -922,7 +1127,7 @@ msgstr "Ingen grupper tilgængelige"
 msgid "No matches."
 msgstr "Ingen match."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:832
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "No moderation activity"
 msgstr "Ingen moderationsaktivitet"
 
@@ -938,11 +1143,11 @@ msgstr "Ingen indlæg i dette forum endnu"
 msgid "No profile"
 msgstr "Ingen profil"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:654
+#: src/routes/_authenticated/$forum_.moderation.tsx:659
 msgid "No reports"
 msgstr "Ingen rapporter"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:962
+#: src/routes/_authenticated/$forum_.moderation.tsx:966
 msgid "No restrictions"
 msgstr "Ingen begrænsninger"
 
@@ -963,7 +1168,7 @@ msgstr "Ingen emnepost endnu — prøv igen efter næste notifikation."
 msgid "No users found"
 msgstr "Ingen brugere fundet"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:963
+#: src/routes/_authenticated/$forum_.moderation.tsx:967
 msgid "No users have been muted or banned"
 msgstr "Ingen brugere er blevet dæmpet eller udelukket"
 
@@ -976,6 +1181,11 @@ msgstr "Ingen"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
 msgid "Notifications"
 msgstr "Notifikationer"
+
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:770
+msgid "Off-topic"
+msgstr "Off-topic"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:12
 msgid "Oops! Page Not Found!"
@@ -999,11 +1209,13 @@ msgstr "Åbn navigationsmenu"
 msgid "Open theme settings"
 msgstr "Åbn temaindstillinger"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Valgfrit markdown-banner vist øverst på dit forum."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:771
 msgid "Other"
 msgstr "Andet"
 
@@ -1012,25 +1224,40 @@ msgid "Owner"
 msgstr "Ejer"
 
 #: src/features/forums/components/post-card.tsx:51
-#: src/features/forums/components/thread/thread-comment.tsx:201
+#: src/features/forums/components/thread/thread-comment.tsx:203
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "Pending"
 msgstr "Afventer"
 
-#: src/features/forums/components/thread/thread-content.tsx:143
+#: src/features/forums/components/thread/thread-content.tsx:145
 msgid "Pending approval"
 msgstr "Afventer godkendelse"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:514
+#. placeholder {0}: pendingComments.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:437
+msgid "Pending comments ({0})"
+msgstr "Afventende kommentarer ({0})"
+
+#. placeholder {0}: pendingPosts.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:392
+msgid "Pending posts ({0})"
+msgstr "Afventende opslag ({0})"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:521
 msgid "Permanently delete this forum and all its content."
 msgstr "Slet dette forum og alt dets indhold permanent."
 
-#: src/features/forums/components/thread/thread-content.tsx:344
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Pin"
 msgstr "Fastgør"
 
-#: src/features/forums/components/thread/thread-content.tsx:161
+#: src/features/forums/components/thread/thread-content.tsx:163
 msgid "Pinned"
 msgstr "Fastgjort"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Please describe the issue..."
+msgstr "Beskriv venligst problemet..."
 
 #: src/features/forums/thread-detail.tsx:209
 msgid "Please enter a comment"
@@ -1044,7 +1271,7 @@ msgstr "Indtast et svar"
 msgid "Post deleted"
 msgstr "Indlæg slettet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1140
+#: src/routes/_authenticated/$forum_.settings.tsx:1154
 msgid "Post limit"
 msgstr "Indlægsgrænse"
 
@@ -1084,6 +1311,10 @@ msgstr "Indlæg ikke længere fastgjort"
 msgid "Post updated"
 msgstr "Indlæg opdateret"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+msgid "Post, comment, vote, and view"
+msgstr "Opslå, kommentér, stem og se"
+
 #: src/components/options-menu.tsx:64
 msgid "Posts"
 msgstr "Indlæg"
@@ -1092,11 +1323,11 @@ msgstr "Indlæg"
 msgid "Posts and comments"
 msgstr "Indlæg og kommentarer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1076
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Pre-moderation"
 msgstr "Forhåndsmoderation"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1136
+#: src/routes/_authenticated/$forum_.settings.tsx:1150
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Forhindr spam ved at begrænse, hvor ofte brugere kan poste"
 
@@ -1109,29 +1340,42 @@ msgstr "Forrige billede"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:782
+#: src/routes/_authenticated/$forum_.settings.tsx:795
 msgid "Prompt saved"
 msgstr "Prompt gemt"
 
-#: src/features/forums/components/create-post-dialog.tsx:343
+#: src/features/forums/components/create-post-dialog.tsx:345
 msgid "Publish post"
 msgstr "Udgiv indlæg"
 
-#: src/features/forums/components/create-post-dialog.tsx:338
+#: src/features/forums/components/create-post-dialog.tsx:340
 msgid "Publishing..."
 msgstr "Udgiver..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1135
+#: src/routes/_authenticated/$forum_.moderation.tsx:69
+msgid "Queue"
+msgstr "Kø"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1149
 msgid "Rate Limiting"
 msgstr "Hastighedsbegrænsning"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:709
+msgid "Reason:"
+msgstr "Årsag:"
+
+#. placeholder {0}: entry.reason
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
+msgid "Reason: {0}"
+msgstr "Årsag: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
 msgid "Recommended"
 msgstr "Anbefalet"
 
-#: src/features/forums/components/recommended-forums.tsx:102
-#: src/features/forums/components/recommended-forums.tsx:124
+#: src/features/forums/components/recommended-forums.tsx:100
+#: src/features/forums/components/recommended-forums.tsx:122
 msgid "Recommended forums"
 msgstr "Anbefalede fora"
 
@@ -1143,6 +1387,15 @@ msgstr "Omdirigerer til logind."
 msgid "Reduce interest"
 msgstr "Reducér interesse"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:489
+msgid "Reject"
+msgstr "Afvis"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:271
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "Rejected"
+msgstr "Afvist"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Relativ (5m, 3t, 2d)"
@@ -1153,8 +1406,12 @@ msgstr "Relativ inden for 24 timer, ellers absolut"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:363
-#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-comment.tsx:365
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-content.tsx:320
+#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/routes/_authenticated/$forum_.moderation.tsx:739
+#: src/routes/_authenticated/$forum_.moderation.tsx:1029
 msgid "Remove"
 msgstr "Fjern"
 
@@ -1167,7 +1424,7 @@ msgstr "Fjern adgangsregel"
 msgid "Remove access?"
 msgstr "Fjern adgang?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:420
 msgid "Remove comment"
 msgstr "Fjern kommentar"
 
@@ -1175,30 +1432,43 @@ msgstr "Fjern kommentar"
 msgid "Remove interest"
 msgstr "Fjern interesse"
 
-#: src/features/forums/components/thread/thread-content.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Remove post"
 msgstr "Fjern indlæg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:493
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Remove this forum from your sidebar."
 msgstr "Fjern dette forum fra din sidebjælke."
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:207
-#: src/features/forums/components/thread/thread-content.tsx:149
+#: src/features/forums/components/thread/thread-comment.tsx:209
+#: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "Fjernet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1094
+#: src/routes/_authenticated/$forum_.settings.tsx:1108
 msgid "Replies must be approved"
 msgstr "Svar skal godkendes"
 
-#: src/features/forums/components/thread/thread-comment.tsx:371
-#: src/features/forums/components/thread/thread-content.tsx:352
+#. placeholder {0}: comment.name
+#: src/features/forums/components/thread/thread-comment.tsx:433
+msgid "Reply to {0}..."
+msgstr "Svar til {0}..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Rapportér"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:572
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report comment"
+msgstr "Anmeld kommentar"
+
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report post"
+msgstr "Anmeld opslag"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:577
 msgid "Report resolved"
 msgstr "Rapport løst"
 
@@ -1207,19 +1477,28 @@ msgstr "Rapport løst"
 msgid "Report submitted"
 msgstr "Rapport indsendt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1077
+#. placeholder {0}: report.reporter_name ?? report.reporter
+#: src/routes/_authenticated/$forum_.moderation.tsx:717
+msgid "Reported by {0}"
+msgstr "Anmeldt af {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:70
+msgid "Reports"
+msgstr "Rapporter"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1091
 msgid "Require approval before content becomes visible"
 msgstr "Kræv godkendelse, før indhold bliver synligt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1107
 msgid "Require approval for new comments"
 msgstr "Kræv godkendelse af nye kommentarer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1082
+#: src/routes/_authenticated/$forum_.settings.tsx:1096
 msgid "Require approval for new posts"
 msgstr "Kræv godkendelse af nye indlæg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1104
+#: src/routes/_authenticated/$forum_.settings.tsx:1118
 msgid "Require approval for new users"
 msgstr "Kræv godkendelse af nye brugere"
 
@@ -1231,14 +1510,22 @@ msgstr "Nulstil"
 msgid "Reset all settings to default values"
 msgstr "Nulstil alle indstillinger til standardværdier"
 
-#: src/features/forums/components/thread/thread-comment.tsx:357
-#: src/features/forums/components/thread/thread-content.tsx:312
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
+msgid "Resolved"
+msgstr "Løst"
+
+#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Gendan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:914
+#: src/routes/_authenticated/$forum_.moderation.tsx:918
 msgid "Restriction removed"
 msgstr "Begrænsning fjernet"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:71
+msgid "Restrictions"
+msgstr "Begrænsninger"
 
 #: src/components/layout/forums-layout.tsx:191
 msgid "Retry forums load"
@@ -1268,17 +1555,24 @@ msgstr "RSS-URL kopieret til udklipsholderen"
 msgid "Saturday"
 msgstr "Lørdag"
 
-#: src/features/forums/components/thread/thread-comment.tsx:240
+#: src/features/forums/components/thread/thread-comment.tsx:242
+#: src/routes/_authenticated/$forum_.settings.tsx:599
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Save"
 msgstr "Gem"
 
-#: src/features/forums/components/edit-post-dialog.tsx:340
+#: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Gem ændringer"
 
-#: src/features/forums/components/edit-post-dialog.tsx:335
+#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Saving..."
 msgstr "Gemmer..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:707
+msgid "Score prompt"
+msgstr "Score-prompt"
 
 #: src/routes/_authenticated/find.tsx:66
 msgid "Search by name, ID, fingerprint, or URL..."
@@ -1322,6 +1616,14 @@ msgstr "Søg…"
 msgid "Searching..."
 msgstr "Søger..."
 
+#: src/features/forums/components/report-dialog.tsx:76
+msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
+msgstr "Vælg en grund til at anmelde denne kommentar. Anmeldelser gennemgås af moderatorer."
+
+#: src/features/forums/components/report-dialog.tsx:74
+msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
+msgstr "Vælg en grund til at anmelde dette opslag. Anmeldelser gennemgås af moderatorer."
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:147
 msgid "Select a user, group, or other rule to grant access."
 msgstr "Vælg en bruger, gruppe eller anden regel for at give adgang."
@@ -1334,6 +1636,10 @@ msgstr "Vælg adgangsregel"
 msgid "Select account type"
 msgstr "Vælg kontotype"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select all"
+msgstr "Vælg alle"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:228
 msgid "Select group"
 msgstr "Vælg gruppe"
@@ -1341,6 +1647,10 @@ msgstr "Vælg gruppe"
 #: ../../../lib/web/src/components/config-drawer.tsx:291
 msgid "Select layout style"
 msgstr "Vælg layoutstil"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select none"
+msgstr "Fravælg alle"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
@@ -1367,7 +1677,10 @@ msgstr "Angiv oprindelse og destination"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/layout/forums-layout.tsx:113
 #: src/components/options-menu.tsx:75
-#: src/routes/_authenticated/$forum_.settings.tsx:216
+#: src/routes/_authenticated/$forum_.settings.tsx:81
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "Settings"
 msgstr "Indstillinger"
 
@@ -1389,6 +1702,11 @@ msgstr "Logger ud..."
 msgid "Skip to Main"
 msgstr "Spring til hovedindhold"
 
+#: src/features/forums/components/report-dialog.tsx:20
+#: src/routes/_authenticated/$forum_.moderation.tsx:765
+msgid "Spam"
+msgstr "Spam"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:12
 msgid "Stay tuned though!"
 msgstr "Hold dig dog opdateret!"
@@ -1397,14 +1715,33 @@ msgstr "Hold dig dog opdateret!"
 msgid "Subject"
 msgstr "Emne"
 
-#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-comment.tsx:494
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Indsend svar"
 
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submit report"
+msgstr "Indsend rapport"
+
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submitting..."
+msgstr "Indsender..."
+
+#: src/features/forums/components/inline-forum-search.tsx:160
+#: src/features/forums/components/recommended-forums.tsx:154
+#: src/features/forums/pages/entity-forum-page.tsx:260
+msgid "Subscribe"
+msgstr "Abonnér"
+
 #: src/routes/_authenticated/find.tsx:48
 msgid "Subscribed"
 msgstr "Abonneret"
+
+#. placeholder {0}: forum.name
+#: src/features/forums/components/recommended-forums.tsx:58
+msgid "Subscribed to {0}"
+msgstr "Abonneret på {0}"
 
 #: src/hooks/use-forums-queries.ts:150
 msgid "Subscribed to forum"
@@ -1424,9 +1761,13 @@ msgid "System"
 msgstr "System"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:657
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Tag"
 msgstr "Tag"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:706
+msgid "Tag prompt"
+msgstr "Tag-prompt"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1440,16 +1781,45 @@ msgstr "Tema"
 msgid "Theme Settings"
 msgstr "Temaindstillinger"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:833
+#: src/routes/_authenticated/$forum_.moderation.tsx:837
 msgid "There are no moderation actions recorded yet"
 msgstr "Der er endnu ikke registreret nogen moderationshandlinger"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:241
+msgid "This forum could not be loaded right now."
+msgstr "Dette forum kunne ikke indlæses lige nu."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+msgid "This forum may have been deleted or you don't have access to it."
+msgstr "Dette forum er muligvis blevet slettet, eller du har ikke adgang til det."
+
+#: src/features/forums/components/thread/empty-thread-state.tsx:12
+msgid "This post may have been deleted or doesn't exist."
+msgstr "Dette opslag er muligvis blevet slettet eller findes ikke."
+
+#: src/features/forums/components/thread/thread-comment.tsx:421
+msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
+msgstr "Dette skjuler kommentaren for almindelige brugere. Moderatorer kan stadig se den og gendanne den senere."
+
+#: src/features/forums/components/thread/thread-content.tsx:395
+msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
+msgstr "Dette skjuler opslaget for almindelige brugere. Moderatorer kan stadig se det og gendanne det senere."
+
+#. placeholder {0}: forum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:540
+msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
+msgstr "Dette vil permanent slette \"{0}\" og alle dets opslag og kommentarer. Denne handling kan ikke fortrydes."
+
+#: src/features/forums/thread-detail.tsx:111
+msgid "Thread"
+msgstr "Tråd"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: src/features/forums/components/create-post-dialog.tsx:191
-#: src/features/forums/components/edit-post-dialog.tsx:172
+#: src/features/forums/components/create-post-dialog.tsx:193
+#: src/features/forums/components/edit-post-dialog.tsx:175
 msgid "Title"
 msgstr "Titel"
 
@@ -1523,20 +1893,31 @@ msgstr "Uautoriseret adgang"
 msgid "United States"
 msgstr "USA"
 
-#: src/features/forums/components/thread/thread-content.tsx:325
+#: src/features/forums/components/forum-overview.tsx:69
+#: src/features/forums/pages/forums-list-page.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "Unknown"
+msgstr "Ukendt"
+
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Unlock"
 msgstr "Lås op"
 
-#: src/features/forums/components/thread/thread-content.tsx:338
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Unpin"
 msgstr "Frigør"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/routes/_authenticated/$forum_.settings.tsx:511
+msgid "Unsubscribe"
+msgstr "Afmeld"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:499
 msgid "Unsubscribe from forum"
 msgstr "Afmeld forum"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:165
+#: src/routes/_authenticated/$forum_.settings.tsx:172
 msgid "Unsubscribed"
 msgstr "Afmeldt"
 
@@ -1560,6 +1941,10 @@ msgstr "Bruger banlyst"
 msgid "User muted"
 msgstr "Bruger gjort lydløs"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:827
+msgid "Variables: {variables}"
+msgstr "Variabler: {variables}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:68
 msgid "Verification code"
 msgstr "Verifikationskode"
@@ -1580,6 +1965,10 @@ msgstr "Verificer"
 msgid "Verify email address"
 msgstr "Verificer e-mailadresse"
 
+#: src/features/forums/components/thread/post-attachments.tsx:57
+msgid "Video thumbnail"
+msgstr "Videominiature"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Vis"
@@ -1591,6 +1980,19 @@ msgstr "Vis alle"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:94
 msgid "View all notifications"
 msgstr "Vis alle notifikationer"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:95
+msgid "View only"
+msgstr "Kun læseadgang"
+
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Violence"
+msgstr "Vold"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+msgid "Vote and view"
+msgstr "Stem og se"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:12
 msgid "We'll be back online shortly."
@@ -1604,7 +2006,7 @@ msgstr "Webstedet er under vedligeholdelse!"
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1170
+#: src/routes/_authenticated/$forum_.settings.tsx:1184
 msgid "Window duration"
 msgstr "Vinduesvarighed"
 

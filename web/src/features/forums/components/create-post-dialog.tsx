@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,23 +31,24 @@ import {
   Send,
   X,
 } from 'lucide-react'
-import { t } from '@lingui/core/macro'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
 const DISALLOWED_CHARS = /[<>\r\n]/
 
-const createPostSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'Title is required')
-    .max(1000, 'Title must be 1000 characters or less')
-    .refine((val) => !DISALLOWED_CHARS.test(val), {
-      message: "Title cannot contain < or > characters",
-    }),
-  body: z.string().min(1, 'Content is required'),
-})
+function buildSchema(t: (descriptor: TemplateStringsArray) => string) {
+  return z.object({
+    title: z
+      .string()
+      .min(1, t`Title is required`)
+      .max(1000, t`Title must be 1000 characters or less`)
+      .refine((val) => !DISALLOWED_CHARS.test(val), {
+        message: t`Title cannot contain < or > characters`,
+      }),
+    body: z.string().min(1, t`Content is required`),
+  })
+}
 
-type CreatePostFormValues = z.infer<typeof createPostSchema>
+type CreatePostFormValues = z.infer<ReturnType<typeof buildSchema>>
 
 type CreatePostDialogProps = {
   forumId: string
@@ -79,6 +80,7 @@ export function CreatePostDialog({
   onOpenChange,
   hideTrigger,
 }: CreatePostDialogProps) {
+  const { t } = useLingui()
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
@@ -87,7 +89,7 @@ export function CreatePostDialog({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<CreatePostFormValues>({
-    resolver: zodResolver(createPostSchema),
+    resolver: zodResolver(buildSchema(t)),
     defaultValues: {
       title: '',
       body: '',

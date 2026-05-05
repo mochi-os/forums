@@ -13,13 +13,51 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Approved 1 item} other {Approved # items}}"
-msgstr "{count, plural, one {An amince da abu 1} other {An amince da abubuwa #}}"
+#. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
+#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+msgid " · Expires {0}"
+msgstr " · Ya ƙare {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:274
-msgid "{count, plural, one {Rejected 1 item} other {Rejected # items}}"
-msgstr "{count, plural, one {An ƙi abu 1} other {An ƙi abubuwa #}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+msgid " · Permanent"
+msgstr " · Na dindindin"
+
+#: src/features/forums/components/thread/thread-comment.tsx:197
+msgid " (edited)"
+msgstr " (an gyara)"
+
+#. placeholder {0}: selectedPosts.size + selectedComments.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:536
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# zaɓaɓɓe} other {# zaɓaɓɓu}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:324
+msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+msgstr "{0, plural, one {An hana # mai amfani} other {An hana # masu amfani}}"
+
+#. placeholder {0}: authors.size
+#: src/routes/_authenticated/$forum_.moderation.tsx:307
+msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+msgstr "{0, plural, one {An yi shiru ga # mai amfani} other {An yi shiru ga # masu amfani}}"
+
+#. placeholder {0}: selectedForum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:253
+msgid "{0} settings"
+msgstr "Saitunan {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
+msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+msgstr "{count, plural, one {An amince da abu #} other {An amince da abubuwa #}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:278
+msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr "{count, plural, one {An ƙi abu #} other {An ƙi abubuwa #}}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:183
+msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
+msgstr "{totalDescendants, plural, one {amsa #} other {amsoshi #}}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -33,6 +71,10 @@ msgstr "Awa 24"
 msgid "Absolute (date and time)"
 msgstr "Cikakke (kwanan wata da lokaci)"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+msgid "Access"
+msgstr "Damar shiga"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:12
 msgid "Access Forbidden"
 msgstr "An hana shiga"
@@ -41,19 +83,23 @@ msgstr "An hana shiga"
 msgid "Access level"
 msgstr "Matakin shiga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:927
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Access level updated"
 msgstr "An sabunta matakin shiga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:950
 msgid "Access Management"
 msgstr "Sarrafa damar shiga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:912
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Access removed"
 msgstr "An cire damar shiga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:914
+msgid "Access set for {subjectName}"
+msgstr "An saita damar shiga don {subjectName}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:669
 msgid "Account"
 msgstr "Asusu"
 
@@ -90,8 +136,8 @@ msgstr "Ƙara asusu"
 msgid "Add an account to receive notifications and use services."
 msgstr "Ƙara asusu don karɓar sanarwa da amfani da ayyuka."
 
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/create-post-dialog.tsx:322
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Add files"
 msgstr "Ƙara fayiloli"
 
@@ -99,7 +145,7 @@ msgstr "Ƙara fayiloli"
 msgid "Add new account"
 msgstr "Ƙara sabon asusu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:947
+#: src/routes/_authenticated/$forum_.settings.tsx:961
 msgid "Add Rule"
 msgstr "Ƙara Doka"
 
@@ -119,20 +165,25 @@ msgstr "Ƙara cikin sanarwar da ake da ita"
 msgid "Add view"
 msgstr "Ƙara view"
 
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Additional details (optional)"
+msgstr "Ƙarin bayani (na zaɓi)"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Daidaita kamannin da tsarin don dacewa da ra'ayinka."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:649
+#: src/routes/_authenticated/$forum_.settings.tsx:656
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:657
 msgid "AI actions on posts"
 msgstr "Ayyukan AI a kan saƙonni"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "All"
 msgstr "Duk"
 
@@ -141,13 +192,30 @@ msgstr "Duk"
 msgid "All forums"
 msgstr "Duk forums"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:375
+#: src/routes/_authenticated/$forum_.moderation.tsx:379
 msgid "All posts and comments have been reviewed"
 msgstr "An sake duba duk saƙonni da sharhi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:348
+#: src/features/forums/components/create-forum-dialog.tsx:49
+msgid "Allow anyone to search for forum"
+msgstr "Bari kowa ya nemi taron tattaunawa"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Any additional context..."
+msgstr "Wani ƙarin mahallin..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:501
 msgid "Approve"
 msgstr "Amince"
+
+#: src/features/forums/components/thread/thread-comment.tsx:407
+msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
+msgstr "Ka tabbata kana son goge wannan sharhi? Wannan zai goge duk amsoshi kuma. Ba za a iya juya wannan aiki ba."
+
+#: src/features/forums/components/thread/thread-content.tsx:381
+msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
+msgstr "Kuna da tabbacin kuna son share wannan saƙon? Wannan kuma zai share dukkan sharhi. Ba za a iya soke wannan aikin ba."
 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
@@ -157,13 +225,13 @@ msgstr "Ka tabbata kana son fita? Za ka buƙaci shiga kuma don shiga asusunka."
 msgid "Asc"
 msgstr "Asc"
 
-#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:475
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Haɗa fayilolin amsa"
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:229
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "Attachments"
 msgstr "Haɗawa"
 
@@ -172,10 +240,14 @@ msgid "Back"
 msgstr "Komawa"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:14
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
-#: src/routes/_authenticated/$forum_.settings.tsx:203
-#: src/routes/_authenticated/$forum_.settings.tsx:216
-#: src/routes/_authenticated/$forum_.settings.tsx:248
+#: src/features/forums/thread-detail.tsx:249
+#: src/features/forums/thread-detail.tsx:261
+#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:350
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:210
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Back to forum"
 msgstr "Komawa ga forum"
 
@@ -189,18 +261,44 @@ msgstr "Komawa ga forums"
 msgid "Back to Home"
 msgstr "Komawa ga Gida"
 
-#: src/features/forums/components/thread/thread-comment.tsx:390
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/routes/_authenticated/$forum_.moderation.tsx:527
+msgid "Ban"
+msgstr "Hana"
+
+#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Hana marubuci"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "banned"
+msgstr "an hana"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Banner"
 msgstr "Banner"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner removed"
+msgstr "An cire banner"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+msgid "Banner updated"
+msgstr "An sabunta banner"
 
 #: ../../../lib/web/src/components/post-tags.tsx:160
 msgid "Boost interest"
 msgstr "Ƙara sha'awa"
+
+#. placeholder {0}: report.author_name ?? t`Unknown`
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "by {0}"
+msgstr "ta hannun {0}"
+
+#. placeholder {0}: restriction.moderator_name ?? restriction.moderator
+#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+msgid "By {0}"
+msgstr "Ta hannun {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
@@ -209,14 +307,14 @@ msgstr "Ƙara sha'awa"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/forums/components/create-post-dialog.tsx:328
-#: src/features/forums/components/edit-post-dialog.tsx:326
-#: src/features/forums/components/report-dialog.tsx:98
-#: src/features/forums/components/thread/thread-comment.tsx:229
+#: src/features/forums/components/create-post-dialog.tsx:330
+#: src/features/forums/components/edit-post-dialog.tsx:329
+#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Soke"
 
-#: src/features/forums/components/thread/thread-comment.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:484
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Soke amsa"
@@ -228,6 +326,10 @@ msgstr "Rukuni don wannan sanarwa"
 #: ../../../lib/web/src/components/notification-category-button.tsx:115
 msgid "Change notification category"
 msgstr "Sauya rukunin sanarwa"
+
+#: src/features/forums/components/forum-overview.tsx:138
+msgid "Check back later for new content"
+msgstr "Sake duba daga baya don sabon abun ciki"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:315
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -250,7 +352,7 @@ msgid "Choose language"
 msgstr "Zaɓi harshe"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:304
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:608
 msgid "Clear"
 msgstr "Share"
 
@@ -305,7 +407,7 @@ msgstr "An amince da sharhi"
 msgid "Comment deleted"
 msgstr "An goge sharhi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1155
+#: src/routes/_authenticated/$forum_.settings.tsx:1169
 msgid "Comment limit"
 msgstr "Iyakar sharhi"
 
@@ -325,6 +427,10 @@ msgstr "An dawo da sharhi"
 msgid "Comment updated"
 msgstr "An sabunta sharhi"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:93
+msgid "Comment, vote, and view"
+msgstr "Sharhi, jefa ƙuri'a, da kallo"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:302
 msgid "Compact"
 msgstr "Ƙanƙane"
@@ -334,12 +440,12 @@ msgstr "Ƙanƙane"
 msgid "Confirm"
 msgstr "Tabbatar"
 
-#: src/features/forums/components/create-post-dialog.tsx:208
-#: src/features/forums/components/edit-post-dialog.tsx:189
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/edit-post-dialog.tsx:192
 msgid "Content"
 msgstr "Abun ciki"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1105
+#: src/routes/_authenticated/$forum_.settings.tsx:1119
 msgid "Content from users below a threshold must be approved"
 msgstr "Dole a amince da abun ciki daga masu amfani a ƙasa da iyaka"
 
@@ -355,7 +461,7 @@ msgstr "Bayanan da suka shafi mahallin da cikakkun bayanai."
 msgid "Continue"
 msgstr "Ci gaba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:937
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "Control who can view and interact with this forum"
 msgstr "Sarrafa wanda zai iya kallo da yin amfani da wannan forum"
 
@@ -367,7 +473,7 @@ msgstr "Kwafi"
 msgid "Create a new forum"
 msgstr "Ƙirƙira sabon forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:180
+#: src/features/forums/components/create-post-dialog.tsx:182
 msgid "Create a new post"
 msgstr "Ƙirƙira sabon saƙo"
 
@@ -376,7 +482,7 @@ msgstr "Ƙirƙira sabon saƙo"
 msgid "Create forum"
 msgstr "Ƙirƙira forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Custom"
 msgstr "Na musamman"
 
@@ -394,11 +500,11 @@ msgid "Dark mode"
 msgstr "Dark mode"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "Default"
 msgstr "Default"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:668
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Default account"
 msgstr "Asusun default"
 
@@ -406,35 +512,41 @@ msgstr "Asusun default"
 msgid "Default AI account"
 msgstr "Default AI asusu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:302
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-content.tsx:304
+#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/routes/_authenticated/$forum_.settings.tsx:530
 msgid "Delete"
 msgstr "Goge"
 
-#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:406
 msgid "Delete comment"
 msgstr "Goge sharhi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/routes/_authenticated/$forum_.settings.tsx:520
 msgid "Delete forum"
 msgstr "Goge forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:541
 msgid "Delete Forum"
 msgstr "Goge Forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:539
 msgid "Delete forum?"
 msgstr "Goge forum?"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Delete post"
 msgstr "Goge saƙo"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Desc"
+
+#: src/features/forums/components/report-dialog.tsx:95
+msgid "Details (required)"
+msgstr "Bayani (wajibi)"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:144
 msgid "Details Panel"
@@ -455,11 +567,11 @@ msgstr "Gano daga web browser"
 msgid "Direction"
 msgstr "Hanya"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:656
+#: src/routes/_authenticated/$forum_.settings.tsx:663
 msgid "Disabled"
 msgstr "An kashe"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:723
+#: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Kau da shi"
 
@@ -475,21 +587,21 @@ msgstr "Yana nuna sidebar na wayar hannu."
 msgid "Download"
 msgstr "Sauke"
 
-#: src/features/forums/components/thread/thread-comment.tsx:329
-#: src/features/forums/components/thread/thread-content.tsx:296
+#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Gyara"
 
-#: src/features/forums/components/edit-post-dialog.tsx:159
-#: src/features/forums/components/edit-post-dialog.tsx:161
+#: src/features/forums/components/edit-post-dialog.tsx:162
+#: src/features/forums/components/edit-post-dialog.tsx:164
 msgid "Edit post"
 msgstr "Gyara post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:581
+#: src/routes/_authenticated/$forum_.settings.tsx:588
 msgid "Enter banner text (markdown supported)..."
 msgstr "Shigar da rubutun banner (markdown ana goyon baya)..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Entity ID"
 msgstr "Entity ID"
 
@@ -512,7 +624,7 @@ msgstr "An gaza ƙara tag"
 msgid "Failed to adjust interest"
 msgstr "An gaza daidaita interest"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:259
 msgid "Failed to approve items"
 msgstr "An gaza yarda da abubuwa"
 
@@ -520,7 +632,7 @@ msgstr "An gaza yarda da abubuwa"
 msgid "Failed to ban user"
 msgstr "An gaza dakatar da mai amfani"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:323
+#: src/routes/_authenticated/$forum_.moderation.tsx:327
 msgid "Failed to ban users"
 msgstr "An gaza dakatar da masu amfani"
 
@@ -528,27 +640,63 @@ msgstr "An gaza dakatar da masu amfani"
 msgid "Failed to get RSS token"
 msgstr "An gaza samun RSS token"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:885
+msgid "Failed to load access rules"
+msgstr "An gaza loading access rules"
+
 #: src/routes/_authenticated/$forum/index.tsx:35
 msgid "Failed to load forum"
 msgstr "An gaza loading forum"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:146
+msgid "Failed to load forum settings"
+msgstr "Loda saitin tarurruka ya gaza"
 
 #: src/routes/_authenticated/index.tsx:32
 msgid "Failed to load forums"
 msgstr "An gaza loading forums"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:892
+msgid "Failed to load groups"
+msgstr "Loda ƙungiyoyi ya gaza"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:789
+msgid "Failed to load moderation log"
+msgstr "An gaza loading log na moderation"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:192
+msgid "Failed to load moderation queue"
+msgstr "Loda layin sa ido ya gaza"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "Failed to load moderation settings"
+msgstr "Loda saitin sa ido ya gaza"
+
+#: src/features/forums/components/recommended-forums.tsx:41
+msgid "Failed to load recommended forums"
+msgstr "Loda tarurrukan da aka ba da shawara ya gaza"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
+msgid "Failed to load reports"
+msgstr "An gaza loading rahotanni"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:904
+msgid "Failed to load restrictions"
+msgstr "Loda hane-hane ya gaza"
+
 #: src/features/forums/thread-detail.tsx:333
 msgid "Failed to mute user"
 msgstr "An gaza mute mai amfani"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:306
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "Failed to mute users"
 msgstr "An gaza mute masu amfani"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:277
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "Failed to reject items"
 msgstr "An gaza ƙin abubuwa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:929
 msgid "Failed to remove access"
 msgstr "An gaza cire izini"
 
@@ -561,27 +709,27 @@ msgstr "An gaza cire account"
 msgid "Failed to remove interest"
 msgstr "An gaza cire interest"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:917
+#: src/routes/_authenticated/$forum_.moderation.tsx:921
 msgid "Failed to remove restriction"
 msgstr "An gaza cire ƙuntatawa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:189
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Failed to rename forum"
 msgstr "An gaza sake suna forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:770
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Failed to reset prompt"
 msgstr "An gaza sake saita prompt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:575
+#: src/routes/_authenticated/$forum_.moderation.tsx:580
 msgid "Failed to resolve report"
 msgstr "An gaza warware rahoto"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1039
+#: src/routes/_authenticated/$forum_.settings.tsx:1053
 msgid "Failed to save moderation settings"
 msgstr "An gaza ajiye saitin moderation"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:784
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "Failed to save prompt"
 msgstr "An gaza ajiye prompt"
 
@@ -589,34 +737,38 @@ msgstr "An gaza ajiye prompt"
 msgid "Failed to search forums"
 msgstr "An gaza bincika forums"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:889
+msgid "Failed to search users"
+msgstr "Nemo masu amfani ya gaza"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:249
 msgid "Failed to send verification code"
 msgstr "An gaza aika verification code"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:917
 msgid "Failed to set access level"
 msgstr "An gaza saita matakin shiga"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
-#: src/features/forums/components/recommended-forums.tsx:63
+#: src/features/forums/components/recommended-forums.tsx:61
 #: src/routes/_authenticated/find.tsx:51
 msgid "Failed to subscribe"
 msgstr "An gaza subscribe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:169
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Failed to unsubscribe"
 msgstr "An gaza unsubscribe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:930
+#: src/routes/_authenticated/$forum_.settings.tsx:944
 msgid "Failed to update access level"
 msgstr "An gaza sabunta matakin shiga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:629
-#: src/routes/_authenticated/$forum_.settings.tsx:641
+#: src/routes/_authenticated/$forum_.settings.tsx:636
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Failed to update AI settings"
 msgstr "An gaza sabunta saitin AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:567
+#: src/routes/_authenticated/$forum_.settings.tsx:574
 msgid "Failed to update banner"
 msgstr "An gaza sabunta banner"
 
@@ -624,12 +776,16 @@ msgstr "An gaza sabunta banner"
 msgid "Failed to update category"
 msgstr "An gaza sabunta category"
 
+#: src/features/forums/pages/entity-forum-page.tsx:298
+msgid "Filtered by tag:"
+msgstr "An tace ta tag:"
+
 #: src/components/layout/forums-layout.tsx:176
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Nemo forums"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:475
+#: src/routes/_authenticated/$forum_.settings.tsx:482
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
@@ -637,6 +793,10 @@ msgstr "Fingerprint"
 msgid "Floating"
 msgstr "Mai yawo"
 
+#: src/features/forums/components/create-forum-dialog.tsx:47
+#: src/features/forums/pages/entity-forum-page.tsx:67
+#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
 msgstr "Forum"
@@ -649,23 +809,23 @@ msgstr "An ƙirƙiri forum"
 msgid "Forum deleted"
 msgstr "An share forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
 msgstr "Ana bukatar sunan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum not found"
 msgstr "Ba a samu forum ba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:187
+#: src/routes/_authenticated/$forum_.settings.tsx:194
 msgid "Forum renamed"
 msgstr "An sake suna forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Forum settings sections"
 msgstr "Sashin saitunan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:237
 msgid "Forum unavailable"
 msgstr "Forum ba ya samuwa"
 
@@ -714,6 +874,16 @@ msgstr "Tafi shafi na baya"
 msgid "Group"
 msgstr "Group"
 
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:766
+msgid "Harassment"
+msgstr "Cin zarafi"
+
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Hate speech"
+msgstr "Maganar ƙiyayya"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:67
 msgid "Hide"
 msgstr "Ɓoye"
@@ -729,7 +899,7 @@ msgstr "Gida"
 msgid "Hot"
 msgstr "Mai zafi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:405
+#: src/routes/_authenticated/$forum_.settings.tsx:412
 msgid "Identity"
 msgstr "Identity"
 
@@ -787,13 +957,17 @@ msgstr "Saukar da ƙari"
 msgid "Loading…"
 msgstr "Ana saukarwa…"
 
-#: src/features/forums/components/thread/thread-content.tsx:331
+#: src/features/forums/components/thread/thread-content.tsx:333
 msgid "Lock"
 msgstr "Kulle"
 
-#: src/features/forums/components/thread/thread-content.tsx:155
+#: src/features/forums/components/thread/thread-content.tsx:157
 msgid "Locked"
 msgstr "An kulle"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:72
+msgid "Log"
+msgstr "Bayanin ayyuka"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -831,7 +1005,7 @@ msgstr "Sarrafa"
 msgid "Mark all as read"
 msgstr "Yi alama duka a matsayin karanta"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
+#: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Ana goyon bayan Markdown"
 
@@ -843,17 +1017,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metric"
 
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Misinformation"
+msgstr "Bayanin ƙarya"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+msgid "Moderate, post, comment, vote, and view"
+msgstr "Sa ido, saƙo, sharhi, jefa ƙuri'a, da kallo"
+
 #: src/components/layout/forums-layout.tsx:121
-#: src/routes/_authenticated/$forum_.moderation.tsx:87
-#: src/routes/_authenticated/$forum_.moderation.tsx:98
+#: src/routes/_authenticated/$forum_.moderation.tsx:91
+#: src/routes/_authenticated/$forum_.moderation.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:82
 msgid "Moderation"
 msgstr "Moderation"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:374
+#: src/routes/_authenticated/$forum_.moderation.tsx:378
 msgid "Moderation queue is empty"
 msgstr "Layin moderation babu kome"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:103
+#: src/routes/_authenticated/$forum_.moderation.tsx:107
 msgid "Moderation sections"
 msgstr "Sashen moderation"
 
@@ -861,24 +1045,33 @@ msgstr "Sashen moderation"
 msgid "Monday"
 msgstr "Litinin"
 
-#: src/features/forums/components/thread/thread-comment.tsx:382
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:515
+msgid "Mute"
+msgstr "Yi shiru"
+
+#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Yi shiru ga marubuci"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:408
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+msgid "muted"
+msgstr "shiru"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:415
 msgid "Name"
 msgstr "Suna"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:366
+#: src/routes/_authenticated/$forum_.settings.tsx:373
 msgid "Name cannot contain < or > characters"
 msgstr "Suna ba zai iya ƙunsar haruffan < ko > ba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:365
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Name must be 1000 characters or less"
 msgstr "Suna dole ya kasance haruffa 1000 ko ƙasa"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+#: src/features/forums/components/edit-post-dialog.tsx:291
 msgid "New"
 msgstr "Sabon"
 
@@ -886,20 +1079,32 @@ msgstr "Sabon"
 msgid "New forum"
 msgstr "Sabon forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:166
-#: src/features/forums/components/create-post-dialog.tsx:171
-#: src/features/forums/components/create-post-dialog.tsx:178
+#: src/features/forums/components/create-post-dialog.tsx:168
+#: src/features/forums/components/create-post-dialog.tsx:173
+#: src/features/forums/components/create-post-dialog.tsx:180
 #: src/features/forums/pages/entity-forum-page.tsx:241
 msgid "New post"
 msgstr "Sabon post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1097
 msgid "New threads must be approved"
 msgstr "Dole ne a amince da sabbin threads"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1129
+msgid "New user threshold:"
+msgstr "Iyakar sabon mai amfani:"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 msgid "Next image"
 msgstr "Hoton na gaba"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
+msgid "No {statusFilter} reports found"
+msgstr "Ba a sami rahotannin {statusFilter} ba"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:96
+msgid "No access"
+msgstr "Babu damar shiga"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
@@ -922,7 +1127,7 @@ msgstr "Babu ƙungiyoyi"
 msgid "No matches."
 msgstr "Babu matches."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:832
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "No moderation activity"
 msgstr "Babu aikin moderation"
 
@@ -938,11 +1143,11 @@ msgstr "Babu posts a wannan forum tukuna"
 msgid "No profile"
 msgstr "Babu profile"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:654
+#: src/routes/_authenticated/$forum_.moderation.tsx:659
 msgid "No reports"
 msgstr "Babu rahotanni"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:962
+#: src/routes/_authenticated/$forum_.moderation.tsx:966
 msgid "No restrictions"
 msgstr "Babu ƙuntatawa"
 
@@ -963,7 +1168,7 @@ msgstr "Babu rikodin topic tukuna — sake gwadawa bayan sanarwa ta gaba."
 msgid "No users found"
 msgstr "Babu masu amfani da aka samu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:963
+#: src/routes/_authenticated/$forum_.moderation.tsx:967
 msgid "No users have been muted or banned"
 msgstr "Ba a yi shiru ko hana wani mai amfani ba"
 
@@ -976,6 +1181,11 @@ msgstr "Babu"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
 msgid "Notifications"
 msgstr "Sanarwa"
+
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:770
+msgid "Off-topic"
+msgstr "Bayan batun"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:12
 msgid "Oops! Page Not Found!"
@@ -999,11 +1209,13 @@ msgstr "Buɗe menu ɗin navigation"
 msgid "Open theme settings"
 msgstr "Buɗe saitunan theme"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Banner na markdown na zaɓi da ake nunawa a saman forum ɗin ka."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:771
 msgid "Other"
 msgstr "Sauran"
 
@@ -1012,25 +1224,40 @@ msgid "Owner"
 msgstr "Mai shi"
 
 #: src/features/forums/components/post-card.tsx:51
-#: src/features/forums/components/thread/thread-comment.tsx:201
+#: src/features/forums/components/thread/thread-comment.tsx:203
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
 msgid "Pending"
 msgstr "Jiran"
 
-#: src/features/forums/components/thread/thread-content.tsx:143
+#: src/features/forums/components/thread/thread-content.tsx:145
 msgid "Pending approval"
 msgstr "Jiran amincewa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:514
+#. placeholder {0}: pendingComments.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:437
+msgid "Pending comments ({0})"
+msgstr "Sharhi masu jiran ({0})"
+
+#. placeholder {0}: pendingPosts.length
+#: src/routes/_authenticated/$forum_.moderation.tsx:392
+msgid "Pending posts ({0})"
+msgstr "Saƙonni masu jiran ({0})"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:521
 msgid "Permanently delete this forum and all its content."
 msgstr "Share wannan forum da duk abin da ke cikinsa har abada."
 
-#: src/features/forums/components/thread/thread-content.tsx:344
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:161
+#: src/features/forums/components/thread/thread-content.tsx:163
 msgid "Pinned"
 msgstr "An pin"
+
+#: src/features/forums/components/report-dialog.tsx:101
+msgid "Please describe the issue..."
+msgstr "Da fatan a bayyana matsalar..."
 
 #: src/features/forums/thread-detail.tsx:209
 msgid "Please enter a comment"
@@ -1044,7 +1271,7 @@ msgstr "Da fatan shigar da amsa"
 msgid "Post deleted"
 msgstr "An share post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1140
+#: src/routes/_authenticated/$forum_.settings.tsx:1154
 msgid "Post limit"
 msgstr "Iyakar post"
 
@@ -1084,6 +1311,10 @@ msgstr "An cire pin daga post"
 msgid "Post updated"
 msgstr "An sabunta post"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+msgid "Post, comment, vote, and view"
+msgstr "Saƙo, sharhi, jefa ƙuri'a, da kallo"
+
 #: src/components/options-menu.tsx:64
 msgid "Posts"
 msgstr "Posts"
@@ -1092,11 +1323,11 @@ msgstr "Posts"
 msgid "Posts and comments"
 msgstr "Posts da sharhi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1076
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Pre-moderation"
 msgstr "Pre-moderation"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1136
+#: src/routes/_authenticated/$forum_.settings.tsx:1150
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Hana spam ta hanyar iyakance yawan posting da masu amfani za su iya yi"
 
@@ -1109,29 +1340,42 @@ msgstr "Hoton da ya gabata"
 msgid "Profile"
 msgstr "Profile"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:782
+#: src/routes/_authenticated/$forum_.settings.tsx:795
 msgid "Prompt saved"
 msgstr "An adana prompt"
 
-#: src/features/forums/components/create-post-dialog.tsx:343
+#: src/features/forums/components/create-post-dialog.tsx:345
 msgid "Publish post"
 msgstr "Buga post"
 
-#: src/features/forums/components/create-post-dialog.tsx:338
+#: src/features/forums/components/create-post-dialog.tsx:340
 msgid "Publishing..."
 msgstr "Ana bugawa..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1135
+#: src/routes/_authenticated/$forum_.moderation.tsx:69
+msgid "Queue"
+msgstr "Layi"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1149
 msgid "Rate Limiting"
 msgstr "Rate Limiting"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:709
+msgid "Reason:"
+msgstr "Dalili:"
+
+#. placeholder {0}: entry.reason
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
+msgid "Reason: {0}"
+msgstr "Dalili: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
 msgid "Recommended"
 msgstr "An ba da shawara"
 
-#: src/features/forums/components/recommended-forums.tsx:102
-#: src/features/forums/components/recommended-forums.tsx:124
+#: src/features/forums/components/recommended-forums.tsx:100
+#: src/features/forums/components/recommended-forums.tsx:122
 msgid "Recommended forums"
 msgstr "Forums da aka ba da shawara"
 
@@ -1143,6 +1387,15 @@ msgstr "Ana redirecting zuwa shiga."
 msgid "Reduce interest"
 msgstr "Rage sha'awa"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:489
+msgid "Reject"
+msgstr "Ƙi"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:271
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "Rejected"
+msgstr "An ƙi"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Relative (5m, 3h, 2d)"
@@ -1153,8 +1406,12 @@ msgstr "Relative cikin sa'o'i 24, in ba haka ba absolute"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:363
-#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-comment.tsx:365
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-content.tsx:320
+#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/routes/_authenticated/$forum_.moderation.tsx:739
+#: src/routes/_authenticated/$forum_.moderation.tsx:1029
 msgid "Remove"
 msgstr "Cire"
 
@@ -1167,7 +1424,7 @@ msgstr "Cire ka'idar shiga"
 msgid "Remove access?"
 msgstr "A cire damar shiga?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:420
 msgid "Remove comment"
 msgstr "Cire sharhi"
 
@@ -1175,30 +1432,43 @@ msgstr "Cire sharhi"
 msgid "Remove interest"
 msgstr "Cire sha'awa"
 
-#: src/features/forums/components/thread/thread-content.tsx:392
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Remove post"
 msgstr "Cire post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:493
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Remove this forum from your sidebar."
 msgstr "Cire wannan forum daga sidebar ɗin ka."
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:207
-#: src/features/forums/components/thread/thread-content.tsx:149
+#: src/features/forums/components/thread/thread-comment.tsx:209
+#: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "An cire"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1094
+#: src/routes/_authenticated/$forum_.settings.tsx:1108
 msgid "Replies must be approved"
 msgstr "Dole ne a amince da amsoshi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:371
-#: src/features/forums/components/thread/thread-content.tsx:352
+#. placeholder {0}: comment.name
+#: src/features/forums/components/thread/thread-comment.tsx:433
+msgid "Reply to {0}..."
+msgstr "Amsa ga {0}..."
+
+#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Rahoto"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:572
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report comment"
+msgstr "Bayar da rahoton sharhi"
+
+#: src/features/forums/components/report-dialog.tsx:70
+msgid "Report post"
+msgstr "Bayar da rahoton saƙo"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:577
 msgid "Report resolved"
 msgstr "An warware rahoto"
 
@@ -1207,19 +1477,28 @@ msgstr "An warware rahoto"
 msgid "Report submitted"
 msgstr "An gabatar da rahoto"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1077
+#. placeholder {0}: report.reporter_name ?? report.reporter
+#: src/routes/_authenticated/$forum_.moderation.tsx:717
+msgid "Reported by {0}"
+msgstr "An ba da rahoto da {0}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:70
+msgid "Reports"
+msgstr "Rahotanni"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1091
 msgid "Require approval before content becomes visible"
 msgstr "Buƙaci amincewa kafin abun ciki ya bayyana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1107
 msgid "Require approval for new comments"
 msgstr "Buƙaci amincewa don sabbin sharhi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1082
+#: src/routes/_authenticated/$forum_.settings.tsx:1096
 msgid "Require approval for new posts"
 msgstr "Buƙaci amincewa don sabbin posts"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1104
+#: src/routes/_authenticated/$forum_.settings.tsx:1118
 msgid "Require approval for new users"
 msgstr "Buƙaci amincewa don sabbin masu amfani"
 
@@ -1231,14 +1510,22 @@ msgstr "Saiti"
 msgid "Reset all settings to default values"
 msgstr "Mayar da duk saituna zuwa ƙimar asali"
 
-#: src/features/forums/components/thread/thread-comment.tsx:357
-#: src/features/forums/components/thread/thread-content.tsx:312
+#: src/routes/_authenticated/$forum_.moderation.tsx:650
+msgid "Resolved"
+msgstr "An warware"
+
+#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Maidowa"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:914
+#: src/routes/_authenticated/$forum_.moderation.tsx:918
 msgid "Restriction removed"
 msgstr "An cire iyakancewa"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:71
+msgid "Restrictions"
+msgstr "Hane-hane"
 
 #: src/components/layout/forums-layout.tsx:191
 msgid "Retry forums load"
@@ -1268,17 +1555,24 @@ msgstr "An kwafi URL ɗin RSS zuwa clipboard"
 msgid "Saturday"
 msgstr "Asabar"
 
-#: src/features/forums/components/thread/thread-comment.tsx:240
+#: src/features/forums/components/thread/thread-comment.tsx:242
+#: src/routes/_authenticated/$forum_.settings.tsx:599
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Save"
 msgstr "Adana"
 
-#: src/features/forums/components/edit-post-dialog.tsx:340
+#: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Adana canje-canje"
 
-#: src/features/forums/components/edit-post-dialog.tsx:335
+#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Saving..."
 msgstr "Ana adanawa..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:707
+msgid "Score prompt"
+msgstr "Umarnin ƙididdiga"
 
 #: src/routes/_authenticated/find.tsx:66
 msgid "Search by name, ID, fingerprint, or URL..."
@@ -1322,6 +1616,14 @@ msgstr "Bincika…"
 msgid "Searching..."
 msgstr "Ana bincike..."
 
+#: src/features/forums/components/report-dialog.tsx:76
+msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
+msgstr "Zaɓi dalili na bayar da rahoton wannan sharhi. Masu sa ido suna duba rahotanni."
+
+#: src/features/forums/components/report-dialog.tsx:74
+msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
+msgstr "Zaɓi dalili na bayar da rahoton wannan saƙon. Masu sa ido suna duba rahotanni."
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:147
 msgid "Select a user, group, or other rule to grant access."
 msgstr "Zaɓi mai amfani, ƙungiya, ko wani tsari don bayar da damar shiga."
@@ -1334,6 +1636,10 @@ msgstr "Zaɓi tsarin damar shiga"
 msgid "Select account type"
 msgstr "Zaɓi nau'in account"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select all"
+msgstr "Zaɓi duka"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:228
 msgid "Select group"
 msgstr "Zaɓi ƙungiya"
@@ -1341,6 +1647,10 @@ msgstr "Zaɓi ƙungiya"
 #: ../../../lib/web/src/components/config-drawer.tsx:291
 msgid "Select layout style"
 msgstr "Zaɓi salon shimfiɗa"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:475
+msgid "Select none"
+msgstr "Kar a zaɓi"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
@@ -1367,7 +1677,10 @@ msgstr "Saita tushe da makoma"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/layout/forums-layout.tsx:113
 #: src/components/options-menu.tsx:75
-#: src/routes/_authenticated/$forum_.settings.tsx:216
+#: src/routes/_authenticated/$forum_.settings.tsx:81
+#: src/routes/_authenticated/$forum_.settings.tsx:156
+#: src/routes/_authenticated/$forum_.settings.tsx:223
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "Settings"
 msgstr "Saitunan"
 
@@ -1389,6 +1702,11 @@ msgstr "Ana fita..."
 msgid "Skip to Main"
 msgstr "Tsallake zuwa Babba"
 
+#: src/features/forums/components/report-dialog.tsx:20
+#: src/routes/_authenticated/$forum_.moderation.tsx:765
+msgid "Spam"
+msgstr "Tarkacen saƙo"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:12
 msgid "Stay tuned though!"
 msgstr "Ku kasance da mu!"
@@ -1397,14 +1715,33 @@ msgstr "Ku kasance da mu!"
 msgid "Subject"
 msgstr "Batu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-comment.tsx:494
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Aika amsa"
 
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submit report"
+msgstr "Aika rahoto"
+
+#: src/features/forums/components/report-dialog.tsx:112
+msgid "Submitting..."
+msgstr "Ana aikawa..."
+
+#: src/features/forums/components/inline-forum-search.tsx:160
+#: src/features/forums/components/recommended-forums.tsx:154
+#: src/features/forums/pages/entity-forum-page.tsx:260
+msgid "Subscribe"
+msgstr "Yi subscribe"
+
 #: src/routes/_authenticated/find.tsx:48
 msgid "Subscribed"
 msgstr "An yi subscribe"
+
+#. placeholder {0}: forum.name
+#: src/features/forums/components/recommended-forums.tsx:58
+msgid "Subscribed to {0}"
+msgstr "An yi subscribe ga {0}"
 
 #: src/hooks/use-forums-queries.ts:150
 msgid "Subscribed to forum"
@@ -1424,9 +1761,13 @@ msgid "System"
 msgstr "System"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:657
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Tag"
 msgstr "Tag"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:706
+msgid "Tag prompt"
+msgstr "Umarnin alama"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1440,16 +1781,45 @@ msgstr "Theme"
 msgid "Theme Settings"
 msgstr "Saitunan Theme"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:833
+#: src/routes/_authenticated/$forum_.moderation.tsx:837
 msgid "There are no moderation actions recorded yet"
 msgstr "Babu ayyukan moderation da aka rubuta tukuna"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:241
+msgid "This forum could not be loaded right now."
+msgstr "Ba a iya loda wannan taro yanzu ba."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+msgid "This forum may have been deleted or you don't have access to it."
+msgstr "Wataƙila an share wannan taron ko ba ku da damar shiga."
+
+#: src/features/forums/components/thread/empty-thread-state.tsx:12
+msgid "This post may have been deleted or doesn't exist."
+msgstr "Wataƙila an share wannan saƙon ko bai wanzu ba."
+
+#: src/features/forums/components/thread/thread-comment.tsx:421
+msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
+msgstr "Wannan zai ɓoye sharhin daga masu amfani na yau da kullum. Masu sa ido za su iya gani da maido da shi daga baya."
+
+#: src/features/forums/components/thread/thread-content.tsx:395
+msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
+msgstr "Wannan zai ɓoye saƙon daga masu amfani na yau da kullum. Masu sa ido za su iya gani da maido da shi daga baya."
+
+#. placeholder {0}: forum.name
+#: src/routes/_authenticated/$forum_.settings.tsx:540
+msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
+msgstr "Wannan zai share \"{0}\" da dukkan saƙonninsa da sharhinsa har abada. Ba za a iya soke wannan aikin ba."
+
+#: src/features/forums/thread-detail.tsx:111
+msgid "Thread"
+msgstr "Tsibi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Alhamis"
 
-#: src/features/forums/components/create-post-dialog.tsx:191
-#: src/features/forums/components/edit-post-dialog.tsx:172
+#: src/features/forums/components/create-post-dialog.tsx:193
+#: src/features/forums/components/edit-post-dialog.tsx:175
 msgid "Title"
 msgstr "Take"
 
@@ -1523,20 +1893,31 @@ msgstr "Damar Shiga Ba Tare Da Izini Ba"
 msgid "United States"
 msgstr "Amurka"
 
-#: src/features/forums/components/thread/thread-content.tsx:325
+#: src/features/forums/components/forum-overview.tsx:69
+#: src/features/forums/pages/forums-list-page.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+msgid "Unknown"
+msgstr "Ba a sani ba"
+
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Unlock"
 msgstr "Buɗewa"
 
-#: src/features/forums/components/thread/thread-content.tsx:338
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Unpin"
 msgstr "Cire pin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/routes/_authenticated/$forum_.settings.tsx:511
+msgid "Unsubscribe"
+msgstr "Cire subscribe"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:499
 msgid "Unsubscribe from forum"
 msgstr "Cire subscribe daga forum"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:165
+#: src/routes/_authenticated/$forum_.settings.tsx:172
 msgid "Unsubscribed"
 msgstr "An cire subscribe"
 
@@ -1560,6 +1941,10 @@ msgstr "An hana mai amfani"
 msgid "User muted"
 msgstr "An kashe mai amfani"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:827
+msgid "Variables: {variables}"
+msgstr "Masu canzawa: {variables}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:68
 msgid "Verification code"
 msgstr "Lambar tabbatarwa"
@@ -1580,6 +1965,10 @@ msgstr "Tabbatar"
 msgid "Verify email address"
 msgstr "Tabbatar da adireshin imel"
 
+#: src/features/forums/components/thread/post-attachments.tsx:57
+msgid "Video thumbnail"
+msgstr "Ƙaramin hoton bidiyo"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Kalla"
@@ -1591,6 +1980,19 @@ msgstr "Kalli duka"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:94
 msgid "View all notifications"
 msgstr "Kalli duk sanarwa"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:95
+msgid "View only"
+msgstr "Kalla kawai"
+
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Violence"
+msgstr "Tashin hankali"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+msgid "Vote and view"
+msgstr "Jefa ƙuri'a da kallo"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:12
 msgid "We'll be back online shortly."
@@ -1604,7 +2006,7 @@ msgstr "Shafin yana cikin kulawa!"
 msgid "Wednesday"
 msgstr "Laraba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1170
+#: src/routes/_authenticated/$forum_.settings.tsx:1184
 msgid "Window duration"
 msgstr "Tsawon window"
 

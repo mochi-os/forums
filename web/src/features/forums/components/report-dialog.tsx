@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   ResponsiveDialog,
   ResponsiveDialogContent,
@@ -14,15 +14,18 @@ import {
   Textarea,
 } from '@mochi/web'
 
-const REPORT_REASONS = [
-  { value: 'spam', label: "Spam" },
-  { value: 'harassment', label: "Harassment" },
-  { value: 'hate', label: "Hate speech" },
-  { value: 'violence', label: "Violence" },
-  { value: 'misinformation', label: "Misinformation" },
-  { value: 'offtopic', label: "Off-topic" },
-  { value: 'other', label: "Other" },
-]
+function useReportReasons() {
+  const { t } = useLingui()
+  return [
+    { value: 'spam', label: t`Spam` },
+    { value: 'harassment', label: t`Harassment` },
+    { value: 'hate', label: t`Hate speech` },
+    { value: 'violence', label: t`Violence` },
+    { value: 'misinformation', label: t`Misinformation` },
+    { value: 'offtopic', label: t`Off-topic` },
+    { value: 'other', label: t`Other` },
+  ]
+}
 
 interface ReportDialogProps {
   open: boolean
@@ -39,6 +42,8 @@ export function ReportDialog({
   isPending,
   contentType,
 }: ReportDialogProps) {
+  const { t } = useLingui()
+  const reasons = useReportReasons()
   const [reason, setReason] = useState('')
   const [details, setDetails] = useState('')
 
@@ -61,15 +66,21 @@ export function ReportDialog({
     <ResponsiveDialog open={open} onOpenChange={handleOpenChange}>
       <ResponsiveDialogContent>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>Report {contentType}</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>
+            {contentType === 'post' ? <Trans>Report post</Trans> : <Trans>Report comment</Trans>}
+          </ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
-            Select a reason for reporting this {contentType}. Reports are reviewed by moderators.
+            {contentType === 'post' ? (
+              <Trans>Select a reason for reporting this post. Reports are reviewed by moderators.</Trans>
+            ) : (
+              <Trans>Select a reason for reporting this comment. Reports are reviewed by moderators.</Trans>
+            )}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
         <div className='space-y-4 py-4'>
           <RadioGroup value={reason} onValueChange={setReason}>
-            {REPORT_REASONS.map((r) => (
+            {reasons.map((r) => (
               <div key={r.value} className='flex items-center space-x-2'>
                 <RadioGroupItem value={r.value} id={r.value} />
                 <Label htmlFor={r.value} className='cursor-pointer'>
@@ -81,13 +92,13 @@ export function ReportDialog({
 
           <div className='space-y-2'>
             <Label htmlFor='details'>
-              {reason === 'other' ? 'Details (required)' : 'Additional details (optional)'}
+              {reason === 'other' ? <Trans>Details (required)</Trans> : <Trans>Additional details (optional)</Trans>}
             </Label>
             <Textarea
               id='details'
               value={details}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
-              placeholder={reason === 'other' ? "Please describe the issue..." : "Any additional context..."}
+              placeholder={reason === 'other' ? t`Please describe the issue...` : t`Any additional context...`}
               rows={reason === 'other' ? 3 : 2}
             />
           </div>
@@ -98,7 +109,7 @@ export function ReportDialog({
             <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleSubmit} disabled={!isValid || isPending}>
-            {isPending ? "Submitting..." : "Submit report"}
+            {isPending ? <Trans>Submitting...</Trans> : <Trans>Submit report</Trans>}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

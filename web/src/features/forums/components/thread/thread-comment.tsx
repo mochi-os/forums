@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui, Plural } from '@lingui/react/macro'
 import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
@@ -21,7 +21,6 @@ import {
 } from 'lucide-react'
 import type { Attachment } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
-import { t } from '@lingui/core/macro'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -105,6 +104,7 @@ export function ThreadComment({
   currentUserId,
   onSearchPeople,
 }: ThreadCommentProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [collapsed, setCollapsed] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
@@ -146,8 +146,10 @@ export function ThreadComment({
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
+  /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
   const voteButtonClass = 'text-muted-foreground hover:text-foreground inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:-m-1 md:min-h-0 md:rounded-none md:px-1 md:py-1'
   const iconActionButtonClass = 'text-muted-foreground hover:text-foreground inline-flex size-8 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:size-auto md:rounded-none md:p-0'
+  /* eslint-enable lingui/no-unlocalized-strings */
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
     if (!c.children) return 0
@@ -178,7 +180,7 @@ export function ThreadComment({
       <span className='text-muted-foreground'>{formatTimestamp(comment.created)}</span>
       {totalDescendants > 0 && (
         <span className='text-muted-foreground ms-2'>
-          {totalDescendants} {totalDescendants === 1 ? 'reply' : 'replies'}
+          <Plural value={totalDescendants} one="# reply" other="# replies" />
         </span>
       )}
     </div>
@@ -192,7 +194,7 @@ export function ThreadComment({
         <span className='text-muted-foreground'>·</span>
         <span className='text-muted-foreground'>
           {formatTimestamp(comment.created)}
-          {comment.edited ? ' (edited)' : ''}
+          {comment.edited ? t` (edited)` : ''}
         </span>
         {/* Status badges */}
         {isPending && (
@@ -402,8 +404,8 @@ export function ThreadComment({
         open={deleting}
         onOpenChange={setDeleting}
         title={t`Delete comment`}
-        desc='Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.'
-        confirmText='Delete'
+        desc={t`Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.`}
+        confirmText={t`Delete`}
         destructive={true}
         handleConfirm={() => {
           onDelete?.(comment.id)
@@ -416,8 +418,8 @@ export function ThreadComment({
         open={removing}
         onOpenChange={setRemoving}
         title={t`Remove comment`}
-        desc='This will hide the comment from regular users. Moderators can still see it and restore it later.'
-        confirmText='Remove'
+        desc={t`This will hide the comment from regular users. Moderators can still see it and restore it later.`}
+        confirmText={t`Remove`}
         handleConfirm={() => {
           onRemove?.(comment.id)
           setRemoving(false)
@@ -428,7 +430,7 @@ export function ThreadComment({
       {isReplying && (
         <div className='mt-2 space-y-2 border-t pt-2'>
           <MentionTextarea
-            placeholder={`Reply to ${comment.name}...`}
+            placeholder={t`Reply to ${comment.name}...`}
             value={replyValue}
             onValueChange={(v) => onReplyChange?.(v)}
             onSearchPeople={onSearchPeople}

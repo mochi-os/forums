@@ -63,15 +63,19 @@ interface Tab {
   icon: React.ReactNode
 }
 
-const tabs: Tab[] = [
-  { id: 'queue', label: "Queue", icon: <Clock className='h-4 w-4' /> },
-  { id: 'reports', label: "Reports", icon: <Flag className='h-4 w-4' /> },
-  { id: 'restrictions', label: "Restrictions", icon: <Users className='h-4 w-4' /> },
-  { id: 'log', label: "Log", icon: <History className='h-4 w-4' /> },
-]
+function useTabs(): Tab[] {
+  const { t } = useLingui()
+  return [
+    { id: 'queue', label: t`Queue`, icon: <Clock className='h-4 w-4' /> },
+    { id: 'reports', label: t`Reports`, icon: <Flag className='h-4 w-4' /> },
+    { id: 'restrictions', label: t`Restrictions`, icon: <Users className='h-4 w-4' /> },
+    { id: 'log', label: t`Log`, icon: <History className='h-4 w-4' /> },
+  ]
+}
 
 function ModerationPage() {
   const { t } = useLingui()
+  const tabs = useTabs()
   const params = Route.useParams()
   const forumId = 'forum' in params ? params.forum : ''
   const navigate = useNavigate()
@@ -122,24 +126,24 @@ function ModerationPage() {
             }
           }}
         >
-          {tabs.map((t) => (
+          {tabs.map((tab) => (
             <button
-              key={t.id}
+              key={tab.id}
               role="tab"
-              aria-selected={activeTab === t.id}
-              aria-controls={`${t.id}-tabpanel`}
-              tabIndex={activeTab === t.id ? 0 : -1}
-              onClick={() => setActiveTab(t.id)}
+              aria-selected={activeTab === tab.id}
+              aria-controls={`${tab.id}-tabpanel`}
+              tabIndex={activeTab === tab.id ? 0 : -1}
+              onClick={() => setActiveTab(tab.id)}
               className={cn(
                 'flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors',
                 '-mb-px border-b-2',
-                activeTab === t.id
+                activeTab === tab.id
                   ? 'border-primary text-foreground'
                   : 'text-muted-foreground hover:text-foreground border-transparent'
               )}
             >
-              {t.icon}
-              {t.label}
+              {tab.icon}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -185,11 +189,11 @@ function QueueTab({ forumId }: QueueTabProps) {
       setSelectedPosts(new Set())
       setSelectedComments(new Set())
     } catch (error) {
-      setLoadError(toError(error, 'Failed to load moderation queue'))
+      setLoadError(toError(error, t`Failed to load moderation queue`))
     } finally {
       setIsLoading(false)
     }
-  }, [forumId])
+  }, [forumId, t])
 
   useEffect(() => {
     void loadQueue()
@@ -249,7 +253,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         await forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
       }
       const count = selectedPosts.size + selectedComments.size
-      toast.success(plural(count, { one: 'Approved 1 item', other: 'Approved # items' }))
+      toast.success(plural(count, { one: 'Approved # item', other: 'Approved # items' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to approve items`))
@@ -264,14 +268,14 @@ function QueueTab({ forumId }: QueueTabProps) {
     try {
       // Remove selected posts
       for (const postId of selectedPosts) {
-        await forumsApi.removePost({ forum: forumId, post: postId, reason: 'Rejected' })
+        await forumsApi.removePost({ forum: forumId, post: postId, reason: t`Rejected` })
       }
       // Remove selected comments
       for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
-        await forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: 'Rejected' })
+        await forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: t`Rejected` })
       }
       const count = selectedPosts.size + selectedComments.size
-      toast.success(plural(count, { one: 'Rejected 1 item', other: 'Rejected # items' }))
+      toast.success(plural(count, { one: 'Rejected # item', other: 'Rejected # items' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to reject items`))
@@ -300,7 +304,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       for (const userId of authors) {
         await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'muted' })
       }
-      toast.success(`Muted ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
+      toast.success(plural(authors.size, { one: 'Muted # user', other: 'Muted # users' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to mute users`))
@@ -317,7 +321,7 @@ function QueueTab({ forumId }: QueueTabProps) {
       for (const userId of authors) {
         await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'banned' })
       }
-      toast.success(`Banned ${authors.size} user${authors.size !== 1 ? 's' : ''}`)
+      toast.success(plural(authors.size, { one: 'Banned # user', other: 'Banned # users' }))
       void loadQueue()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to ban users`))
@@ -385,7 +389,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         <section>
           <h2 className='text-muted-foreground mb-3 flex items-center gap-2 text-sm font-medium'>
             <FileText className='size-4' />
-            Pending posts ({pendingPosts.length})
+            <Trans>Pending posts ({pendingPosts.length})</Trans>
           </h2>
           <div className='divide-y rounded-lg border'>
             {pendingPosts.map((post) => (
@@ -430,7 +434,7 @@ function QueueTab({ forumId }: QueueTabProps) {
         <section>
           <h2 className='text-muted-foreground mb-3 flex items-center gap-2 text-sm font-medium'>
             <MessageSquare className='size-4' />
-            Pending comments ({pendingComments.length})
+            <Trans>Pending comments ({pendingComments.length})</Trans>
           </h2>
           <div className='divide-y rounded-lg border'>
             {pendingComments.map((comment) => (
@@ -468,7 +472,7 @@ function QueueTab({ forumId }: QueueTabProps) {
           size='sm'
           onClick={toggleSelectAll}
         >
-          {allSelected ? "Select none" : "Select all"}
+          {allSelected ? <Trans>Select none</Trans> : <Trans>Select all</Trans>}
         </Button>
         <div className='flex gap-2'>
           <Button
@@ -482,7 +486,7 @@ function QueueTab({ forumId }: QueueTabProps) {
             ) : (
               <XCircle className='me-1 size-4' />
             )}
-            Reject
+            <Trans>Reject</Trans>
           </Button>
           <Button
             size='sm'
@@ -494,7 +498,7 @@ function QueueTab({ forumId }: QueueTabProps) {
             ) : (
               <CheckCircle className='me-1 size-4' />
             )}
-            Approve
+            <Trans>Approve</Trans>
           </Button>
         </div>
         <div className='bg-border h-6 w-px' />
@@ -508,7 +512,7 @@ function QueueTab({ forumId }: QueueTabProps) {
             {actionInProgress === 'mute' ? (
               <Loader2 className='size-4 animate-spin' />
             ) : (
-              'Mute'
+              <Trans>Mute</Trans>
             )}
           </Button>
           <Button
@@ -520,7 +524,7 @@ function QueueTab({ forumId }: QueueTabProps) {
             {actionInProgress === 'ban' ? (
               <Loader2 className='size-4 animate-spin' />
             ) : (
-              'Ban'
+              <Trans>Ban</Trans>
             )}
           </Button>
         </div>
@@ -529,7 +533,7 @@ function QueueTab({ forumId }: QueueTabProps) {
           aria-live="polite"
           aria-atomic="true"
         >
-          {hasSelection ? `${selectedPosts.size + selectedComments.size} selected` : ''}
+          {hasSelection ? plural(selectedPosts.size + selectedComments.size, { one: '# selected', other: '# selected' }) : ''}
         </span>
       </div>
     </div>
@@ -542,6 +546,7 @@ interface ReportsTabProps {
 
 function ReportsTab({ forumId }: ReportsTabProps) {
   const { t } = useLingui()
+  const reasonLabels = useReasonLabels()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
@@ -555,11 +560,11 @@ function ReportsTab({ forumId }: ReportsTabProps) {
       const response = await forumsApi.getReports({ forum: forumId, status: statusFilter })
       setReports(response.data?.reports ?? [])
     } catch (error) {
-      setLoadError(toError(error, 'Failed to load reports'))
+      setLoadError(toError(error, t`Failed to load reports`))
     } finally {
       setIsLoading(false)
     }
-  }, [forumId, statusFilter])
+  }, [forumId, statusFilter, t])
 
   useEffect(() => {
     void loadReports()
@@ -642,7 +647,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
             variant={statusFilter === status ? 'default' : 'outline'}
             onClick={() => setStatusFilter(status)}
           >
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {status === 'pending' ? <Trans>Pending</Trans> : status === 'resolved' ? <Trans>Resolved</Trans> : <Trans>All</Trans>}
           </Button>
         ))}
       </div>
@@ -652,7 +657,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
           <EmptyState
             icon={Flag}
             title={t`No reports`}
-            description={`No ${statusFilter} reports found`}
+            description={t`No ${statusFilter} reports found`}
           />
         </div>
       ) : (
@@ -677,7 +682,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                         {report.type}
                       </span>
                       <span className='text-muted-foreground text-xs'>
-                        by {report.author_name ?? 'Unknown'}
+                        <Trans>by {report.author_name ?? t`Unknown`}</Trans>
                       </span>
                     </div>
                     {/* Reported content */}
@@ -701,7 +706,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                     </div>
                     {/* Report reason */}
                     <p className='mt-2 text-sm'>
-                      <span className='font-medium'>Reason:</span> {formatReason(report.reason)}
+                      <span className='font-medium'><Trans>Reason:</Trans></span> {reasonLabels[report.reason] ?? report.reason}
                     </p>
                     {report.details && (
                       <p className='text-muted-foreground mt-1 text-sm'>
@@ -709,7 +714,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                       </p>
                     )}
                     <p className='text-muted-foreground mt-2 text-xs'>
-                      Reported by {report.reporter_name ?? report.reporter}
+                      <Trans>Reported by {report.reporter_name ?? report.reporter}</Trans>
                     </p>
                   </div>
                   {report.status === 'pending' && (
@@ -731,7 +736,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                         {actionInProgress === report.id ? (
                           <Loader2 className='size-4 animate-spin' />
                         ) : (
-                          'Remove'
+                          <Trans>Remove</Trans>
                         )}
                       </Button>
                     </div>
@@ -754,18 +759,17 @@ function formatAction(action: string): string {
   return action.replace(/_/g, ' ')
 }
 
-const REASON_LABELS: Record<string, string> = {
-  spam: 'Spam',
-  harassment: 'Harassment',
-  hate: 'Hate speech',
-  violence: 'Violence',
-  misinformation: 'Misinformation',
-  offtopic: 'Off-topic',
-  other: 'Other',
-}
-
-function formatReason(reason: string): string {
-  return REASON_LABELS[reason] ?? reason
+function useReasonLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    spam: t`Spam`,
+    harassment: t`Harassment`,
+    hate: t`Hate speech`,
+    violence: t`Violence`,
+    misinformation: t`Misinformation`,
+    offtopic: t`Off-topic`,
+    other: t`Other`,
+  }
 }
 
 function LogTab({ forumId }: LogTabProps) {
@@ -782,11 +786,11 @@ function LogTab({ forumId }: LogTabProps) {
       const response = await forumsApi.getModerationLog({ forum: forumId, limit: 50 })
       setEntries(response.data?.entries ?? [])
     } catch (error) {
-      setLoadError(toError(error, 'Failed to load moderation log'))
+      setLoadError(toError(error, t`Failed to load moderation log`))
     } finally {
       setIsLoading(false)
     }
-  }, [forumId])
+  }, [forumId, t])
 
   useEffect(() => {
     void loadLog()
@@ -865,7 +869,7 @@ function LogTab({ forumId }: LogTabProps) {
                   </p>
                   {entry.reason && (
                     <p className='text-muted-foreground mt-0.5 text-xs'>
-                      Reason: {entry.reason}
+                      <Trans>Reason: {entry.reason}</Trans>
                     </p>
                   )}
                 </div>
@@ -897,11 +901,11 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
       const response = await forumsApi.getRestrictions({ forum: forumId })
       setRestrictions(response.data?.restrictions ?? [])
     } catch (error) {
-      setLoadError(toError(error, 'Failed to load restrictions'))
+      setLoadError(toError(error, t`Failed to load restrictions`))
     } finally {
       setIsLoading(false)
     }
-  }, [forumId])
+  }, [forumId, t])
 
   useEffect(() => {
     void loadRestrictions()
@@ -997,7 +1001,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                         : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
                   )}
                 >
-                  {restriction.type}
+                  {restriction.type === 'banned' ? <Trans>banned</Trans> : restriction.type === 'muted' ? <Trans>muted</Trans> : restriction.type}
                 </span>
               </div>
               {restriction.reason && (
@@ -1006,10 +1010,10 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                 </p>
               )}
               <p className='text-muted-foreground mt-1 text-xs'>
-                By {restriction.moderator_name ?? restriction.moderator}
+                <Trans>By {restriction.moderator_name ?? restriction.moderator}</Trans>
                 {restriction.expires
-                  ? ` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
-                  : ' · Permanent'}
+                  ? t` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
+                  : t` · Permanent`}
               </p>
             </div>
             </div>
@@ -1022,7 +1026,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
               {actionInProgress === restriction.user ? (
                 <Loader2 className='size-4 animate-spin' />
               ) : (
-                'Remove'
+                <Trans>Remove</Trans>
               )}
             </Button>
           </div>

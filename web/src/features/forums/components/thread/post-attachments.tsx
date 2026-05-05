@@ -12,6 +12,7 @@ import {
   authenticatedUrl,
   normalizeEntityUrl,
 } from '@mochi/web'
+import { useLingui } from '@lingui/react/macro'
 import { Loader2, Play } from 'lucide-react'
 import type { Attachment } from '@/api/types/posts'
 
@@ -25,6 +26,7 @@ interface PostAttachmentsProps {
 
 // Component to render video thumbnail using the hook
 function VideoThumbnail({ url }: { url: string }) {
+  const { t } = useLingui()
   const {
     url: thumbnailUrl,
     loading,
@@ -52,7 +54,7 @@ function VideoThumbnail({ url }: { url: string }) {
     <div className='relative'>
       <img
         src={thumbnailUrl}
-        alt='Video thumbnail'
+        alt={t`Video thumbnail`}
         className='h-[150px] w-auto object-cover transition-transform group-hover/thumb:scale-105'
       />
       <div className='absolute inset-0 flex items-center justify-center'>

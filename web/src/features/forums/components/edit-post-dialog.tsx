@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -28,18 +28,20 @@ import type { Post, Attachment } from '@/api/types/posts'
 // Characters disallowed in post titles (matches backend validation for "name" type)
 const DISALLOWED_CHARS = /[<>\r\n]/
 
-const editPostSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'Title is required')
-    .max(1000, 'Title must be 1000 characters or less')
-    .refine((val) => !DISALLOWED_CHARS.test(val), {
-      message: "Title cannot contain < or > characters",
-    }),
-  body: z.string().min(1, 'Content is required'),
-})
+function buildSchema(t: (descriptor: TemplateStringsArray) => string) {
+  return z.object({
+    title: z
+      .string()
+      .min(1, t`Title is required`)
+      .max(1000, t`Title must be 1000 characters or less`)
+      .refine((val) => !DISALLOWED_CHARS.test(val), {
+        message: t`Title cannot contain < or > characters`,
+      }),
+    body: z.string().min(1, t`Content is required`),
+  })
+}
 
-type EditPostFormValues = z.infer<typeof editPostSchema>
+type EditPostFormValues = z.infer<ReturnType<typeof buildSchema>>
 
 // Unified attachment type for editing - can be existing or new
 type EditingAttachment =
@@ -66,12 +68,13 @@ export function EditPostDialog({
   onSave,
   isPending = false,
 }: EditPostDialogProps) {
+  const { t } = useLingui()
   const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<EditPostFormValues>({
-    resolver: zodResolver(editPostSchema),
+    resolver: zodResolver(buildSchema(t)),
     defaultValues: {
       title: post.title,
       body: post.body,
@@ -285,7 +288,7 @@ export function EditPostDialog({
                               : 'bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium'
                           }`}
                         >
-                          {isExisting ? index + 1 : 'New'}
+                          {isExisting ? index + 1 : <Trans>New</Trans>}
                         </div>
                       </div>
                     )

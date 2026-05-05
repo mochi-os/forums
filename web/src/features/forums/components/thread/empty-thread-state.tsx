@@ -9,7 +9,7 @@ export function EmptyThreadState({ onBack }: { onBack: () => void }) {
       <EmptyState
         icon={FileQuestion}
         title={t`Post not found`}
-        description="This post may have been deleted or doesn't exist."
+        description={t`This post may have been deleted or doesn't exist.`}
       >
         <Button onClick={onBack}><Trans>Back to forum</Trans></Button>
       </EmptyState>
