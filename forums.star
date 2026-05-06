@@ -412,15 +412,15 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 # (style/information — single JSON write with a "data" field).
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
-		a.error(404, asset + " unavailable", log=False)
+		a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
 		return None
 	s = mochi.remote.stream(entity_id, service, asset, {})
 	if not s:
-		a.error(404, asset + " unavailable", log=False)
+		a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
 		return None
 	header = s.read()
 	if not header or header.get("status") != "200":
-		a.error(404, asset + " not set", log=False)
+		a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
 		return None
 	a.header("Cache-Control", "private, max-age=300")
 	if "data" in header:
