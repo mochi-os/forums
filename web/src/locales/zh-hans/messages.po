@@ -188,7 +188,7 @@ msgid "All"
 msgstr "全部"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "所有论坛"
 
@@ -347,7 +347,7 @@ msgstr "在从左到右或从右到左的站点方向之间选择"
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "在跟随系统、浅色模式或深色模式之间选择"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "选择语言"
 
@@ -395,6 +395,10 @@ msgstr "关闭搜索"
 msgid "Collapse sidebar"
 msgstr "折叠侧边栏"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "舒适"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "即将推出!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "评论、投票和查看"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "紧凑"
 
@@ -469,6 +474,10 @@ msgstr "控制谁可以查看此论坛并与之互动"
 msgid "Copy"
 msgstr "复制"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "无法加载此文档。请稍后重试。"
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "创建新的论坛"
@@ -477,7 +486,7 @@ msgstr "创建新的论坛"
 msgid "Create a new post"
 msgstr "创建新帖子"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "创建论坛"
@@ -552,7 +561,7 @@ msgstr "详细信息（必填）"
 msgid "Details Panel"
 msgstr "详情面板"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "显示移动端侧边栏。"
 msgid "Download"
 msgstr "下载"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "阅读障碍友好"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "实体 ID"
 msgid "Expand sidebar"
 msgstr "展开侧边栏"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "特大"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "添加账户失败"
@@ -617,8 +634,8 @@ msgstr "添加账户失败"
 msgid "Failed to add tag"
 msgstr "添加标签失败"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "封禁用户失败"
 msgid "Failed to ban users"
 msgstr "封禁用户失败"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "获取 RSS 令牌失败"
 
@@ -704,7 +721,7 @@ msgstr "移除访问权限失败"
 msgid "Failed to remove account"
 msgstr "移除账户失败"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "移除兴趣失败"
@@ -776,11 +793,11 @@ msgstr "更新横幅失败"
 msgid "Failed to update category"
 msgstr "更新分类失败"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "按标签筛选:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "查找论坛"
@@ -795,7 +812,7 @@ msgstr "浮动"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "已创建论坛"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "已删除论坛"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "论坛已不可用"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "论坛设置版块"
 msgid "Forum unavailable"
 msgstr "论坛不可用"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "星期五"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "来自"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "来自主题"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "兴趣已提升"
 msgid "Interest reduced"
 msgstr "兴趣已降低"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "兴趣已移除"
@@ -931,6 +960,11 @@ msgstr "兴趣"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "验证码无效"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "大"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "加载更多"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "加载中…"
 
@@ -993,8 +1028,8 @@ msgstr "正在退出登录…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "管理"
+#~ msgid "Manage"
+#~ msgstr "管理"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "全部标为已读"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "支持 Markdown"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "中"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "错误信息"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "管理、发布、评论、投票和查看"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "新论坛"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "新帖子"
 
@@ -1119,7 +1158,7 @@ msgstr "未找到论坛"
 msgid "No groups available"
 msgstr "无可用群组"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "无匹配项。"
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "没有用户被屏蔽或封禁"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "无"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "标准"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "请输入评论"
 msgid "Please enter a reply"
 msgstr "请输入回复"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "无法保存帖子 — 标题或正文无效"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "无法在论坛服务器上保存帖子"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "帖子已删除"
@@ -1311,11 +1364,11 @@ msgstr "帖子已更新"
 msgid "Post, comment, vote, and view"
 msgstr "发布、评论、投票和查看"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "帖子"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "帖子和评论"
 
@@ -1330,6 +1383,11 @@ msgstr "通过限制用户发帖频率防止垃圾信息"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "上一张图片"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "隐私"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "已移除限制"
 msgid "Restrictions"
 msgstr "限制"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "重试加载论坛"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "重试加载权限"
+#~ msgid "Retry permissions load"
+#~ msgstr "重试加载权限"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "从右到左"
 msgid "Rows per page"
 msgstr "每页行数"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS 订阅源"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL 已复制到剪贴板"
 
@@ -1602,7 +1660,7 @@ msgstr "搜索用户"
 msgid "Search..."
 msgstr "搜索..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "搜索…"
 
@@ -1660,6 +1718,15 @@ msgstr "选择站点方向"
 msgid "Select theme preference"
 msgstr "选择主题偏好"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "衬线体"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "服务器规则"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "会话已过期"
@@ -1671,8 +1738,7 @@ msgstr "设置起点和终点"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "正在退出..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "跳至主内容"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "小"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "宽松"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "正在提交..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "订阅"
 
@@ -1743,7 +1818,7 @@ msgstr "已订阅 {0}"
 msgid "Subscribed to forum"
 msgstr "已订阅论坛"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "正在订阅..."
 
@@ -1753,6 +1828,7 @@ msgstr "星期日"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "系统"
 
@@ -1768,6 +1844,11 @@ msgstr "标签提示"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "团队/应用"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "服务条款"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "此论坛可能已被删除或您没有访问权限。"
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "此帖子可能已被删除或不存在。"
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "此帖子已提交"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "解锁"
 msgid "Unpin"
 msgstr "取消置顶"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "取消订阅"
@@ -1917,7 +2002,7 @@ msgstr "取消订阅论坛"
 msgid "Unsubscribed"
 msgstr "已取消订阅"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "正在取消订阅..."
 
@@ -2009,6 +2094,18 @@ msgstr "窗口时长"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "您已订阅此论坛"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "您发帖太快 — 请稍等再试"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "您被限制在此论坛发帖"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "您没有在此论坛发帖的权限"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

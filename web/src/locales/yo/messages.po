@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Gbogbo"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Gbogbo àwọn forum"
 
@@ -347,7 +347,7 @@ msgstr "Yan láàrin ìṣíkiri ojú-òpó láti òsì sí ọ̀tún tàbí lá
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Yan láàrin ìfẹ́ system, ọ̀nà ìmọ́lẹ̀, tàbí ọ̀nà òkùnkùn"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Yan èdè"
 
@@ -395,6 +395,10 @@ msgstr "Ti àwárí"
 msgid "Collapse sidebar"
 msgstr "Hó sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Itunu"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Yóò Dé Láìpẹ́!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Ìfìwéránṣẹ́, ìdìbò, àti wíwò"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Kékeré"
 
@@ -469,6 +474,10 @@ msgstr "Darí ẹni tó lè wò àti bá forum yìí ṣiṣẹ́"
 msgid "Copy"
 msgstr "Ṣe àdàkọ"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Kò lè kó ìwé yìí. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Dá forum tuntun"
@@ -477,7 +486,7 @@ msgstr "Dá forum tuntun"
 msgid "Create a new post"
 msgstr "Dá ìfìránṣẹ́ tuntun"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Dá forum"
@@ -552,7 +561,7 @@ msgstr "Àwọn àlàyé (àdájú)"
 msgid "Details Panel"
 msgstr "Pánẹ́ẹ̀lì Àwọn Ẹ̀kúnrẹ́rẹ́"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Ó ń fi sidebar fóònù hàn."
 msgid "Download"
 msgstr "Gbà sílẹ̀"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Ẹ̀dá lóàfin fún àìmoọ̀rọ̀"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "ID Ẹ̀ka"
 msgid "Expand sidebar"
 msgstr "Fẹ̀ sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Tóbi gan"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Kò lè fi àkántì kún"
@@ -617,8 +634,8 @@ msgstr "Kò lè fi àkántì kún"
 msgid "Failed to add tag"
 msgstr "Kò lè fi tag kún"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Kò lè dí oníṣe"
 msgid "Failed to ban users"
 msgstr "Kò lè dí àwọn oníṣe"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Kò lè rí token RSS"
 
@@ -704,7 +721,7 @@ msgstr "Kò lè mú àyè kúrò"
 msgid "Failed to remove account"
 msgstr "Kò lè mú àkántì kúrò"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Kò lè mú ìfẹ́ kúrò"
@@ -776,11 +793,11 @@ msgstr "Kò lè mú banner dòde"
 msgid "Failed to update category"
 msgstr "Kò lè mú ẹ̀ka dòde"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Tí a yọ́ nípa tag:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Wa àwọn forum"
@@ -795,7 +812,7 @@ msgstr "Léfòfò"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "A ti dá forum"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "A ti pa forum rẹ́"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Apero ko si mọ́"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Àwọn apá ètò forum"
 msgid "Forum unavailable"
 msgstr "Forum kò sí"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Ọjọ́ Ẹ̀tì"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Láti"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Lát'ọ̀dọ̀ Theme"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "A ti gbé ìfẹ́ sókè"
 msgid "Interest reduced"
 msgstr "A ti dín ìfẹ́ kù"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "A ti mú ìfẹ́ kúrò"
@@ -931,6 +960,11 @@ msgstr "Àwọn ìfẹ́"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Kóòdù ìjẹ́rìí aláìdára"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Tóbi"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Ṣí síwájú"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Ń ṣí…"
 
@@ -993,8 +1028,8 @@ msgstr "Ń jáde…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Ṣàkóso"
+#~ msgid "Manage"
+#~ msgstr "Ṣàkóso"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Sàmì sí gbogbo gẹ́gẹ́ bí kíkà"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown wà ní àtìlẹ́yìn"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Àárín"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Ìròyìn àìtọ́"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Ṣakoso, fiweránṣẹ́, ìfìwéránṣẹ́, ìdìbò, àti wíwò"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Forum tuntun"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Ìfìránṣẹ́ tuntun"
 
@@ -1119,7 +1158,7 @@ msgstr "A kò rí forum kankan"
 msgid "No groups available"
 msgstr "Kò sí ẹgbẹ́ tó wà"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Kò sí ìbámu."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "A kò pa olùlò kankan lẹ́nu mọ́ tàbí ká rí kúrò"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Kòsí"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Déédéé"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Jọ̀wọ́ tẹ àlàyé sí"
 msgid "Please enter a reply"
 msgstr "Jọ̀wọ́ tẹ ìdáhùn sí"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Ifiweranṣẹ ko le wa ni fipamọ — akọle tabi akoonu ko wulo"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Ifiweranṣẹ ko le wa ni fipamọ lori olupin apero"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "A ti pa ìfìránṣẹ́ rẹ́"
@@ -1311,11 +1364,11 @@ msgstr "A ti dojú ìfìránṣẹ́ ìwọ́n"
 msgid "Post, comment, vote, and view"
 msgstr "Fiweránṣẹ́, ìfìwéránṣẹ́, ìdìbò, àti wíwò"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Àwọn ìfìránṣẹ́"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Àwọn ìfìránṣẹ́ àti àlàyé"
 
@@ -1330,6 +1383,11 @@ msgstr "Dí spam dúró nípa fífi ààlà sí bí àwọn olùlò ṣe lè ṣ
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Àwòrán tó kọjá"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Aṣírí"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Ìdídí ti yọ kúrò"
 msgid "Restrictions"
 msgstr "Àwọn ìfòfindè"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Gbìyànjú láti ṣílọ̀ àwọn forums lẹ́ẹ̀kan sí i"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Gbìyànjú láti ṣílọ̀ àwọn ààyè lẹ́ẹ̀kan sí i"
+#~ msgid "Retry permissions load"
+#~ msgstr "Gbìyànjú láti ṣílọ̀ àwọn ààyè lẹ́ẹ̀kan sí i"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Ọ̀tún sí Òsì"
 msgid "Rows per page"
 msgstr "Àwọn ila fún ojú-ìwé kọ̀ọ̀kan"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "Feed RSS"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "A ti ṣàdàkọ URL RSS sí clipboard"
 
@@ -1602,7 +1660,7 @@ msgstr "Wá àwọn user"
 msgid "Search..."
 msgstr "Wá..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Wá…"
 
@@ -1660,6 +1718,15 @@ msgstr "Yan ìtọ́sọ́nà síìtì"
 msgid "Select theme preference"
 msgstr "Yan àfẹ́nilọ́kàn theme"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serif"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Àwọn òfin sáfà"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Session ti parí"
@@ -1671,8 +1738,7 @@ msgstr "Ṣètò ibi tí o ti wá àti ibi tí o ń lọ"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Ń jáde..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Fò sí Olórí"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Kékeré"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Àáyè"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Ń fi sí ilẹ̀..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Forúkọsílẹ̀"
 
@@ -1743,7 +1818,7 @@ msgstr "Ti forúkọsílẹ̀ sí {0}"
 msgid "Subscribed to forum"
 msgstr "Ti forúkọsílẹ̀ sí forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Ń forúkọsílẹ̀..."
 
@@ -1753,6 +1828,7 @@ msgstr "Ọjọ́ Àìkú"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "System"
 
@@ -1768,6 +1844,11 @@ msgstr "Ìdarí àmì"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Àwọn ẹgbẹ́/Apps"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Àwọn ọ̀rọ̀ àti àwọn ipò"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Apejọ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí o kò ní à
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Àkọsílẹ̀ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí kò sí."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Ifiweranṣẹ yii ti firanṣẹ tẹlẹ"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Ṣílẹ̀kùn"
 msgid "Unpin"
 msgstr "Yọ pin kúrò"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Yọ ìforúkọsílẹ̀ kúrò"
@@ -1917,7 +2002,7 @@ msgstr "Yọ ìforúkọsílẹ̀ kúrò lórí forum"
 msgid "Unsubscribed"
 msgstr "Ti yọ ìforúkọsílẹ̀ kúrò"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Ń yọ ìforúkọsílẹ̀ kúrò..."
 
@@ -2009,6 +2094,18 @@ msgstr "Àkókò Window"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "O ti forúkọsílẹ̀ sí forum yìí tẹ́lẹ̀"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "O n fi awọn ifiweranṣẹ ranṣẹ ni iyara pupọ — jọwọ duro ki o tun gbiyanju"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "A ti dawọ ọ duro lati firanṣẹ ninu apero yii"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "O ko ni igbanilaaye lati firanṣẹ ninu apero yii"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Vse"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Vsi forumi"
 
@@ -347,7 +347,7 @@ msgstr "Izberite med smerjo strani z leve proti desni ali z desne proti levi"
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Izberite med sistemskimi nastavitvami, svetlim ali temnim načinom"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Izberite jezik"
 
@@ -395,6 +395,10 @@ msgstr "Zapri iskanje"
 msgid "Collapse sidebar"
 msgstr "Strni stransko vrstico"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Udobno"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Kmalu!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Komentiranje, glasovanje in ogled"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Kompaktno"
 
@@ -469,6 +474,10 @@ msgstr "Nadzorujte, kdo lahko vidi in komunicira s tem forumom"
 msgid "Copy"
 msgstr "Kopiraj"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Tega dokumenta ni bilo mogoče naložiti. Poskusite znova kasneje."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Ustvarite nov forum"
@@ -477,7 +486,7 @@ msgstr "Ustvarite nov forum"
 msgid "Create a new post"
 msgstr "Ustvarite novo objavo"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Ustvari forum"
@@ -552,7 +561,7 @@ msgstr "Podrobnosti (obvezno)"
 msgid "Details Panel"
 msgstr "Plošča s podrobnostmi"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Prikaže mobilno stransko vrstico."
 msgid "Download"
 msgstr "Prenesi"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Prilagojeno disleksiji"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "ID entitete"
 msgid "Expand sidebar"
 msgstr "Razširi stransko vrstico"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Zelo veliko"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Neuspešno dodajanje računa"
@@ -617,8 +634,8 @@ msgstr "Neuspešno dodajanje računa"
 msgid "Failed to add tag"
 msgstr "Neuspešno dodajanje oznake"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Neuspešna prepoved uporabnika"
 msgid "Failed to ban users"
 msgstr "Neuspešna prepoved uporabnikov"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Neuspešno pridobivanje RSS žetona"
 
@@ -704,7 +721,7 @@ msgstr "Neuspešna odstranitev dostopa"
 msgid "Failed to remove account"
 msgstr "Neuspešna odstranitev računa"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Neuspešna odstranitev zanimanja"
@@ -776,11 +793,11 @@ msgstr "Neuspešna posodobitev pasice"
 msgid "Failed to update category"
 msgstr "Neuspešna posodobitev kategorije"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Filtrirano po oznaki:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Najdi forume"
@@ -795,7 +812,7 @@ msgstr "Plavajoče"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Forum ustvarjen"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Forum izbrisan"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Forum ni več na voljo"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Razdelki nastavitev foruma"
 msgid "Forum unavailable"
 msgstr "Forum nedosegljiv"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Petek"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Od"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Iz teme"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "Zanimanje povečano"
 msgid "Interest reduced"
 msgstr "Zanimanje zmanjšano"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Zanimanje odstranjeno"
@@ -931,6 +960,11 @@ msgstr "Zanimanja"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Neveljavna potrditvena koda"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Veliko"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Naloži več"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Nalaganje…"
 
@@ -993,8 +1028,8 @@ msgstr "Odjavljanje…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Upravljaj"
+#~ msgid "Manage"
+#~ msgstr "Upravljaj"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Označi vse kot prebrano"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown podprt"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Srednje"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Dezinformacije"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderiraj, objavljaj, komentiraj, glasuj in si oglej"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Nov forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Nova objava"
 
@@ -1119,7 +1158,7 @@ msgstr "Forumov ni mogoče najti"
 msgid "No groups available"
 msgstr "Ni razpoložljivih skupin"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Brez zadetkov."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "Noben uporabnik ni utišan ali blokiran"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Brez"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Normalno"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Vnesite komentar"
 msgid "Please enter a reply"
 msgstr "Vnesite odgovor"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Objave ni bilo mogoče shraniti — naslov ali vsebina ni veljavna"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Objave ni bilo mogoče shraniti na strežniku foruma"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Objava izbrisana"
@@ -1311,11 +1364,11 @@ msgstr "Objava posodobljena"
 msgid "Post, comment, vote, and view"
 msgstr "Objavljanje, komentiranje, glasovanje in ogled"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Objave"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Objave in komentarji"
 
@@ -1330,6 +1383,11 @@ msgstr "Preprečite neželeno pošto z omejevanjem pogostosti objav uporabnikov"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Prejšnja slika"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Zasebnost"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Omejitev odstranjena"
 msgid "Restrictions"
 msgstr "Omejitve"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Poskusi znova naložiti forume"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Poskusi znova naložiti dovoljenja"
+#~ msgid "Retry permissions load"
+#~ msgstr "Poskusi znova naložiti dovoljenja"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Z desne v levo"
 msgid "Rows per page"
 msgstr "Vrstic na stran"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS vir"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL kopiran v odložišče"
 
@@ -1602,7 +1660,7 @@ msgstr "Iskanje uporabnikov"
 msgid "Search..."
 msgstr "Iskanje..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Iskanje…"
 
@@ -1660,6 +1718,15 @@ msgstr "Izberi smer strani"
 msgid "Select theme preference"
 msgstr "Izberi nastavitve teme"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serifna"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Pravila strežnika"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Seja je potekla"
@@ -1671,8 +1738,7 @@ msgstr "Nastavi izvor in cilj"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Odjavljanje..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Preskoči na glavno"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Majhno"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Prostorno"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Pošiljanje..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Naroči se"
 
@@ -1743,7 +1818,7 @@ msgstr "Naročen na {0}"
 msgid "Subscribed to forum"
 msgstr "Naročen na forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Naročanje..."
 
@@ -1753,6 +1828,7 @@ msgstr "Nedelja"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Sistem"
 
@@ -1768,6 +1844,11 @@ msgstr "Poziv za oznako"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Ekipe/Aplikacije"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Pogoji uporabe"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Ta forum je morda izbrisan ali nimate dostopa."
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Ta objava je morda izbrisana ali ne obstaja."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Ta objava je že bila poslana"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Odkleni"
 msgid "Unpin"
 msgstr "Odpni"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Odjavi se"
@@ -1917,7 +2002,7 @@ msgstr "Odjavi se od foruma"
 msgid "Unsubscribed"
 msgstr "Odjavljeno"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Odjavljanje..."
 
@@ -2009,6 +2094,18 @@ msgstr "Trajanje okna"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Na ta forum si že naročen"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Objavljate prehitro — počakajte in poskusite znova"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Imate omejitev objavljanja v tem forumu"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "Nimate dovoljenja za objavljanje v tem forumu"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

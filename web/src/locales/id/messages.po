@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Semua"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Semua forum"
 
@@ -347,7 +347,7 @@ msgstr "Pilih antara arah situs kiri-ke-kanan atau kanan-ke-kiri"
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Pilih antara preferensi sistem, mode terang, atau mode gelap"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Pilih bahasa"
 
@@ -395,6 +395,10 @@ msgstr "Tutup pencarian"
 msgid "Collapse sidebar"
 msgstr "Ciutkan sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Nyaman"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Segera Hadir!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Komentar, voting, dan lihat"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Kompak"
 
@@ -469,6 +474,10 @@ msgstr "Kontrol siapa yang dapat melihat dan berinteraksi dengan forum ini"
 msgid "Copy"
 msgstr "Salin"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Tidak dapat memuat dokumen ini. Silakan coba lagi nanti."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Buat forum baru"
@@ -477,7 +486,7 @@ msgstr "Buat forum baru"
 msgid "Create a new post"
 msgstr "Buat postingan baru"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Buat forum"
@@ -552,7 +561,7 @@ msgstr "Detail (wajib)"
 msgid "Details Panel"
 msgstr "Panel Detail"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Menampilkan sidebar seluler."
 msgid "Download"
 msgstr "Unduh"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Ramah disleksia"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "ID entitas"
 msgid "Expand sidebar"
 msgstr "Perluas sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Ekstra besar"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Gagal menambahkan akun"
@@ -617,8 +634,8 @@ msgstr "Gagal menambahkan akun"
 msgid "Failed to add tag"
 msgstr "Gagal menambahkan tag"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Gagal memblokir pengguna"
 msgid "Failed to ban users"
 msgstr "Gagal memblokir pengguna"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Gagal mendapatkan token RSS"
 
@@ -704,7 +721,7 @@ msgstr "Gagal menghapus akses"
 msgid "Failed to remove account"
 msgstr "Gagal menghapus akun"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Gagal menghapus minat"
@@ -776,11 +793,11 @@ msgstr "Gagal memperbarui banner"
 msgid "Failed to update category"
 msgstr "Gagal memperbarui kategori"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Disaring berdasarkan tag:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Cari forum"
@@ -795,7 +812,7 @@ msgstr "Mengambang"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Forum dibuat"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Forum dihapus"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Forum tidak lagi tersedia"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Bagian pengaturan forum"
 msgid "Forum unavailable"
 msgstr "Forum tidak tersedia"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Jumat"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Dari"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Dari tema"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "Minat ditingkatkan"
 msgid "Interest reduced"
 msgstr "Minat dikurangi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Minat dihapus"
@@ -931,6 +960,11 @@ msgstr "Minat"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Kode verifikasi tidak valid"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Besar"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Muat lebih banyak"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Memuat…"
 
@@ -993,8 +1028,8 @@ msgstr "Sedang keluar…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Kelola"
+#~ msgid "Manage"
+#~ msgstr "Kelola"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Tandai semua sebagai sudah dibaca"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown didukung"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Sedang"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Informasi salah"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderasi, post, komentar, voting, dan lihat"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Forum baru"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Postingan baru"
 
@@ -1119,7 +1158,7 @@ msgstr "Tidak ada forum yang ditemukan"
 msgid "No groups available"
 msgstr "Tidak ada grup yang tersedia"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Tidak ada kecocokan."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "Tidak ada pengguna yang dibisukan atau diblokir"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Tidak ada"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Normal"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Harap masukkan komentar"
 msgid "Please enter a reply"
 msgstr "Harap masukkan balasan"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Kiriman tidak dapat disimpan — judul atau konten tidak valid"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Kiriman tidak dapat disimpan di server forum"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Postingan dihapus"
@@ -1311,11 +1364,11 @@ msgstr "Postingan diperbarui"
 msgid "Post, comment, vote, and view"
 msgstr "Post, komentar, voting, dan lihat"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Postingan"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Postingan dan komentar"
 
@@ -1330,6 +1383,11 @@ msgstr "Cegah spam dengan membatasi seberapa sering pengguna dapat memposting"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Gambar sebelumnya"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Privasi"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Pembatasan dihapus"
 msgid "Restrictions"
 msgstr "Pembatasan"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Coba lagi muat forum"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Coba lagi muat izin"
+#~ msgid "Retry permissions load"
+#~ msgstr "Coba lagi muat izin"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Kanan ke Kiri"
 msgid "Rows per page"
 msgstr "Baris per halaman"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "Feed RSS"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "URL RSS disalin ke clipboard"
 
@@ -1602,7 +1660,7 @@ msgstr "Cari pengguna"
 msgid "Search..."
 msgstr "Cari..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Cari…"
 
@@ -1660,6 +1718,15 @@ msgstr "Pilih arah situs"
 msgid "Select theme preference"
 msgstr "Pilih preferensi tema"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serif"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Aturan server"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Sesi berakhir"
@@ -1671,8 +1738,7 @@ msgstr "Tetapkan asal dan tujuan"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Keluar..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Lewati ke Utama"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Kecil"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Luas"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Mengirim..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Berlangganan"
 
@@ -1743,7 +1818,7 @@ msgstr "Berlangganan {0}"
 msgid "Subscribed to forum"
 msgstr "Berlangganan forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Berlangganan..."
 
@@ -1753,6 +1828,7 @@ msgstr "Minggu"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Sistem"
 
@@ -1768,6 +1844,11 @@ msgstr "Prompt tag"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Tim/Aplikasi"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Syarat dan ketentuan"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Forum ini mungkin telah dihapus atau Anda tidak memiliki akses ke sana."
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Postingan ini mungkin telah dihapus atau tidak ada."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Kiriman ini sudah dikirim sebelumnya"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Buka kunci"
 msgid "Unpin"
 msgstr "Lepas sematan"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Berhenti berlangganan"
@@ -1917,7 +2002,7 @@ msgstr "Berhenti berlangganan forum"
 msgid "Unsubscribed"
 msgstr "Berhenti berlangganan"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Berhenti berlangganan..."
 
@@ -2009,6 +2094,18 @@ msgstr "Durasi jendela"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Anda sudah berlangganan forum ini"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Anda mengirim terlalu cepat — harap tunggu dan coba lagi"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Anda dibatasi untuk mengirim di forum ini"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "Anda tidak memiliki izin untuk mengirim di forum ini"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

@@ -1,5 +1,5 @@
 {
-	"version": "7.8",
+	"version": "7.11",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -17,7 +17,7 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 30,
+		"schema": 32,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -133,6 +133,7 @@
 		"post/delete/submit": {"function": "event_post_delete_submit_event"},
 		"post/edit": {"function": "event_post_edit_event"},
 		"post/edit/submit": {"function": "event_post_edit_submit_event"},
+		"post/reject": {"function": "event_post_reject_event"},
 		"post/submit": {"function": "event_post_submit_event"},
 		"post/update": {"function": "event_post_update_event"},
 		"post/vote": {"function": "event_post_vote_event"},

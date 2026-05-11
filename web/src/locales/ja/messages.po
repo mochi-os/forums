@@ -188,7 +188,7 @@ msgid "All"
 msgstr "すべて"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "すべてのフォーラム"
 
@@ -347,7 +347,7 @@ msgstr "左から右、または右から左のサイト表示方向から選択
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "システム設定、ライトモード、ダークモードから選択します"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "言語を選択"
 
@@ -395,6 +395,10 @@ msgstr "検索を閉じる"
 msgid "Collapse sidebar"
 msgstr "サイドバーを折りたたむ"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "快適"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "近日公開!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "コメント、投票、閲覧"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "コンパクト"
 
@@ -469,6 +474,10 @@ msgstr "このフォーラムを誰が表示・操作できるかを管理"
 msgid "Copy"
 msgstr "コピー"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "このドキュメントを読み込めませんでした。後ほどもう一度お試しください。"
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "新しいフォーラムを作成"
@@ -477,7 +486,7 @@ msgstr "新しいフォーラムを作成"
 msgid "Create a new post"
 msgstr "新しい投稿を作成"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "フォーラムを作成"
@@ -552,7 +561,7 @@ msgstr "詳細(必須)"
 msgid "Details Panel"
 msgstr "詳細パネル"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "モバイルサイドバーを表示します。"
 msgid "Download"
 msgstr "ダウンロード"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "ディスレクシア対応"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "エンティティ ID"
 msgid "Expand sidebar"
 msgstr "サイドバーを展開"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "特大"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "アカウントの追加に失敗しました"
@@ -617,8 +634,8 @@ msgstr "アカウントの追加に失敗しました"
 msgid "Failed to add tag"
 msgstr "タグの追加に失敗しました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "ユーザーの BAN に失敗しました"
 msgid "Failed to ban users"
 msgstr "ユーザーの BAN に失敗しました"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "RSS トークンの取得に失敗しました"
 
@@ -704,7 +721,7 @@ msgstr "アクセスの削除に失敗しました"
 msgid "Failed to remove account"
 msgstr "アカウントの削除に失敗しました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "興味の削除に失敗しました"
@@ -776,11 +793,11 @@ msgstr "バナーの更新に失敗しました"
 msgid "Failed to update category"
 msgstr "カテゴリの更新に失敗しました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "タグでフィルタリング中:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "フォーラムを検索"
@@ -795,7 +812,7 @@ msgstr "フローティング"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "フォーラムを作成しました"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "フォーラムを削除しました"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "フォーラムは利用できなくなりました"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "フォーラム設定セクション"
 msgid "Forum unavailable"
 msgstr "フォーラムを利用できません"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "金曜日"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "差出元"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "テーマから"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "興味を強めました"
 msgid "Interest reduced"
 msgstr "興味を弱めました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "興味を削除しました"
@@ -931,6 +960,11 @@ msgstr "興味"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "確認コードが無効です"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "大"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "もっと読み込む"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "読み込み中…"
 
@@ -993,8 +1028,8 @@ msgstr "ログアウトしています…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "管理"
+#~ msgid "Manage"
+#~ msgstr "管理"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "すべて既読にする"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown対応"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "中"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "誤情報"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "モデレート、投稿、コメント、投票、閲覧"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "新しいフォーラム"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "新しい投稿"
 
@@ -1119,7 +1158,7 @@ msgstr "フォーラムが見つかりません"
 msgid "No groups available"
 msgstr "利用可能なグループがありません"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "一致するものがありません。"
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "ミュートまたは禁止されたユーザーはいません"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "なし"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "標準"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "コメントを入力してください"
 msgid "Please enter a reply"
 msgstr "返信を入力してください"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "投稿を保存できませんでした — タイトルまたは本文が無効です"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "フォーラムサーバーに投稿を保存できませんでした"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "投稿を削除しました"
@@ -1311,11 +1364,11 @@ msgstr "投稿を更新しました"
 msgid "Post, comment, vote, and view"
 msgstr "投稿、コメント、投票、閲覧"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "投稿"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "投稿とコメント"
 
@@ -1330,6 +1383,11 @@ msgstr "投稿頻度を制限してスパムを防ぎます"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "前の画像"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "プライバシー"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "制限を削除しました"
 msgid "Restrictions"
 msgstr "制限"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "フォーラムの再読み込み"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "権限の再読み込み"
+#~ msgid "Retry permissions load"
+#~ msgstr "権限の再読み込み"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "右から左"
 msgid "Rows per page"
 msgstr "ページあたりの行数"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS フィード"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL をクリップボードにコピーしました"
 
@@ -1602,7 +1660,7 @@ msgstr "ユーザーを検索"
 msgid "Search..."
 msgstr "検索…"
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "検索…"
 
@@ -1660,6 +1718,15 @@ msgstr "サイトの表示方向を選択"
 msgid "Select theme preference"
 msgstr "テーマの設定を選択"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "セリフ"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "サーバーのルール"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "セッションの有効期限が切れました"
@@ -1671,8 +1738,7 @@ msgstr "出発地と目的地を設定"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "サインアウト中..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "メインコンテンツへスキップ"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "小"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "ゆったり"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "送信中..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "購読する"
 
@@ -1743,7 +1818,7 @@ msgstr "{0} を購読しました"
 msgid "Subscribed to forum"
 msgstr "フォーラムを購読しました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "購読中..."
 
@@ -1753,6 +1828,7 @@ msgstr "日曜日"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "システム"
 
@@ -1768,6 +1844,11 @@ msgstr "タグプロンプト"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "チーム/アプリ"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "利用規約"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "このフォーラムは削除されたか、アクセス権がない可
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "この投稿は削除されたか、存在しない可能性があります。"
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "この投稿はすでに送信されています"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "ロック解除"
 msgid "Unpin"
 msgstr "ピン留めを解除"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "購読解除"
@@ -1917,7 +2002,7 @@ msgstr "フォーラムの購読を解除"
 msgid "Unsubscribed"
 msgstr "購読を解除しました"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "購読解除中..."
 
@@ -2009,6 +2094,18 @@ msgstr "ウィンドウの期間"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "このフォーラムにはすでに購読しています"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "投稿が速すぎます — しばらく待ってからもう一度お試しください"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "このフォーラムへの投稿が制限されています"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "このフォーラムに投稿する権限がありません"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

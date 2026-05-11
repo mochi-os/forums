@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Guztiak"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Foro guztiak"
 
@@ -347,7 +347,7 @@ msgstr "Aukeratu ezkerretik eskuinerako edo eskuinetik ezkerrerako gunearen nora
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Aukeratu sistemaren lehentasunaren, modu argiaren edo modu ilunaren artean"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Aukeratu hizkuntza"
 
@@ -395,6 +395,10 @@ msgstr "Itxi bilaketa"
 msgid "Collapse sidebar"
 msgstr "Tolestu alboko barra"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Erosoa"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Laster dator!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Iruzkindu, bozkatu eta ikusi"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Trinkoa"
 
@@ -469,6 +474,10 @@ msgstr "Kontrolatu nork ikus eta interakzio dezakeen foro honekin"
 msgid "Copy"
 msgstr "Kopiatu"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Ezin izan da dokumentu hau kargatu. Saiatu berriro geroago."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Sortu foro berri bat"
@@ -477,7 +486,7 @@ msgstr "Sortu foro berri bat"
 msgid "Create a new post"
 msgstr "Sortu argitalpen berri bat"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Sortu foroa"
@@ -552,7 +561,7 @@ msgstr "Xehetasunak (beharrezkoa)"
 msgid "Details Panel"
 msgstr "Xehetasun panela"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Mugikorraren alboko barra erakusten du."
 msgid "Download"
 msgstr "Deskargatu"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Dislexiarako egokia"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "Entitate IDa"
 msgid "Expand sidebar"
 msgstr "Zabaldu alboko barra"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Oso handia"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Ezin izan da kontua gehitu"
@@ -617,8 +634,8 @@ msgstr "Ezin izan da kontua gehitu"
 msgid "Failed to add tag"
 msgstr "Ezin izan da etiketa gehitu"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Ezin izan da erabiltzailea debekatu"
 msgid "Failed to ban users"
 msgstr "Ezin izan dira erabiltzaileak debekatu"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Ezin izan da RSS tokena lortu"
 
@@ -704,7 +721,7 @@ msgstr "Ezin izan da sarbidea kendu"
 msgid "Failed to remove account"
 msgstr "Ezin izan da kontua kendu"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Ezin izan da interesa kendu"
@@ -776,11 +793,11 @@ msgstr "Ezin izan da iragarkia eguneratu"
 msgid "Failed to update category"
 msgstr "Ezin izan da kategoria eguneratu"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Etiketaren arabera iragazia:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Aurkitu foroak"
@@ -795,7 +812,7 @@ msgstr "Flotatzailea"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Foroa sortuta"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Foroa ezabatuta"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Foroa ez dago jadanik eskuragarri"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Foroaren ezarpenen atalak"
 msgid "Forum unavailable"
 msgstr "Foroa ez dago erabilgarri"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Ostirala"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Nondik"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Gaiatik"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "Interesa handituta"
 msgid "Interest reduced"
 msgstr "Interesa murriztuta"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interesa kenduta"
@@ -931,6 +960,11 @@ msgstr "Interesak"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Egiaztapen-kode baliogabea"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Handia"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Kargatu gehiago"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Kargatzen…"
 
@@ -993,8 +1028,8 @@ msgstr "Saioa amaitzen…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Kudeatu"
+#~ msgid "Manage"
+#~ msgstr "Kudeatu"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Markatu denak irakurritzat"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown onartzen da"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Ertaina"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Desinformazioa"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderatu, argitaratu, iruzkindu, bozkatu eta ikusi"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Foro berria"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Argitalpen berria"
 
@@ -1119,7 +1158,7 @@ msgstr "Ez da fororik aurkitu"
 msgid "No groups available"
 msgstr "Ez dago talde erabilgarririk"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Bat etortzerik ez."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "Ez da erabiltzailerik mututu edo debekatu"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Bat ere ez"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Arrunta"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Mesedez sartu iruzkin bat"
 msgid "Please enter a reply"
 msgstr "Mesedez sartu erantzun bat"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Bidalketa ezin izan da gorde — izenburua edo edukia baliogabea da"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Bidalketa ezin izan da foro-zerbitzarian gorde"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Argitalpena ezabatu da"
@@ -1311,11 +1364,11 @@ msgstr "Argitalpena eguneratu da"
 msgid "Post, comment, vote, and view"
 msgstr "Argitaratu, iruzkindu, bozkatu eta ikusi"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Argitalpenak"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Argitalpenak eta iruzkinak"
 
@@ -1330,6 +1383,11 @@ msgstr "Saihestu spama erabiltzaileek zenbat aldiz argitara dezaketen mugatuz"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Aurreko irudia"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Pribatutasuna"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Murrizketa kendu da"
 msgid "Restrictions"
 msgstr "Murrizketak"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Saiatu berriro foroak kargatzen"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Saiatu berriro baimenak kargatzen"
+#~ msgid "Retry permissions load"
+#~ msgstr "Saiatu berriro baimenak kargatzen"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Eskuinetik ezkerrera"
 msgid "Rows per page"
 msgstr "Errenkada orriko"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS jarioa"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URLa arbelera kopiatu da"
 
@@ -1602,7 +1660,7 @@ msgstr "Bilatu erabiltzaileak"
 msgid "Search..."
 msgstr "Bilatu..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Bilatu…"
 
@@ -1660,6 +1718,15 @@ msgstr "Hautatu gunearen norabidea"
 msgid "Select theme preference"
 msgstr "Hautatu gaiaren hobespena"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serif"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Zerbitzariaren arauak"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Saioa iraungi da"
@@ -1671,8 +1738,7 @@ msgstr "Ezarri jatorria eta helmuga"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Saioa amaitzen..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Saltatu nagusira"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Txikia"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Lasaia"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Bidaltzen..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Harpidetu"
 
@@ -1743,7 +1818,7 @@ msgstr "{0}-(e)ra harpidetuta"
 msgid "Subscribed to forum"
 msgstr "Foroa harpidetuta"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Harpidetzen..."
 
@@ -1753,6 +1828,7 @@ msgstr "Igandea"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Sistema"
 
@@ -1768,6 +1844,11 @@ msgstr "Etiketa-galdera"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Taldeak/Aplikazioak"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Baldintzak"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Foro hau ezabatu da agian edo ez duzu sarbiderik."
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Mezu hau ezabatu da agian edo ez dago."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Bidalketa hau dagoeneko bidali da"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Desblokeatu"
 msgid "Unpin"
 msgstr "Desfinkatu"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Harpidetza kendu"
@@ -1917,7 +2002,7 @@ msgstr "Forotik harpidetza kendu"
 msgid "Unsubscribed"
 msgstr "Harpidetza kenduta"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Harpidetza kentzen..."
 
@@ -2009,6 +2094,18 @@ msgstr "Leihoaren iraupena"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Foro honetara harpidetuta zaude jada"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Azkarregi argitaratzen ari zara — itxaron eta saiatu berriro"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Foro honetan argitaratzea murriztuta duzu"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "Ez duzu baimenik foro honetan argitaratzeko"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

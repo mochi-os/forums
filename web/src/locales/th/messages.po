@@ -188,7 +188,7 @@ msgid "All"
 msgstr "ทั้งหมด"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "ฟอรัมทั้งหมด"
 
@@ -347,7 +347,7 @@ msgstr "เลือกระหว่างทิศทางเว็บไซ
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "เลือกระหว่างการตั้งค่าระบบ โหมดสว่าง หรือโหมดมืด"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "เลือกภาษา"
 
@@ -395,6 +395,10 @@ msgstr "ปิดการค้นหา"
 msgid "Collapse sidebar"
 msgstr "ย่อแถบด้านข้าง"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "สบาย"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "เร็วๆนี้!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "แสดงความคิดเห็น โหวต และดู"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "กะทัดรัด"
 
@@ -469,6 +474,10 @@ msgstr "ควบคุมว่าใครสามารถดูและโ
 msgid "Copy"
 msgstr "คัดลอก"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "ไม่สามารถโหลดเอกสารนี้ได้ โปรดลองอีกครั้งในภายหลัง"
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "สร้างฟอรัมใหม่"
@@ -477,7 +486,7 @@ msgstr "สร้างฟอรัมใหม่"
 msgid "Create a new post"
 msgstr "สร้างโพสต์ใหม่"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "สร้างฟอรัม"
@@ -552,7 +561,7 @@ msgstr "รายละเอียด (จำเป็น)"
 msgid "Details Panel"
 msgstr "แผงรายละเอียด"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "แสดงแถบด้านข้างบนมือถือ"
 msgid "Download"
 msgstr "ดาวน์โหลด"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "เหมาะสำหรับผู้บกพร่องการอ่าน"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "Entity ID"
 msgid "Expand sidebar"
 msgstr "ขยายแถบด้านข้าง"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "ใหญ่พิเศษ"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "ไม่สามารถเพิ่มบัญชีได้"
@@ -617,8 +634,8 @@ msgstr "ไม่สามารถเพิ่มบัญชีได้"
 msgid "Failed to add tag"
 msgstr "ไม่สามารถเพิ่มแท็กได้"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "ไม่สามารถแบนผู้ใช้ได้"
 msgid "Failed to ban users"
 msgstr "ไม่สามารถแบนผู้ใช้ได้"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "ไม่สามารถรับ RSS token ได้"
 
@@ -704,7 +721,7 @@ msgstr "ไม่สามารถเอาการเข้าถึงออ
 msgid "Failed to remove account"
 msgstr "ไม่สามารถเอาบัญชีออกได้"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "ไม่สามารถเอาความสนใจออกได้"
@@ -776,11 +793,11 @@ msgstr "ไม่สามารถอัปเดตแบนเนอร์ไ
 msgid "Failed to update category"
 msgstr "ไม่สามารถอัปเดตหมวดหมู่ได้"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "กรองตามแท็ก:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "ค้นหาฟอรัม"
@@ -795,7 +812,7 @@ msgstr "ลอย"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "สร้างฟอรัมแล้ว"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "ลบฟอรัมแล้ว"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "ฟอรัมไม่พร้อมใช้งานอีกต่อไป"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "ส่วนการตั้งค่าฟอรัม"
 msgid "Forum unavailable"
 msgstr "ฟอรัมไม่พร้อมใช้งาน"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "วันศุกร์"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "จาก"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "จากธีม"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "เพิ่มความสนใจแล้ว"
 msgid "Interest reduced"
 msgstr "ลดความสนใจแล้ว"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "เอาความสนใจออกแล้ว"
@@ -931,6 +960,11 @@ msgstr "ความสนใจ"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "รหัสยืนยันไม่ถูกต้อง"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "ใหญ่"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "โหลดเพิ่ม"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "กำลังโหลด…"
 
@@ -993,8 +1028,8 @@ msgstr "กำลังออกจากระบบ…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "จัดการ"
+#~ msgid "Manage"
+#~ msgstr "จัดการ"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "ทำเครื่องหมายว่าอ่านแล้ว
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "รองรับ Markdown"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "กลาง"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "ข้อมูลที่ผิด"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "ดูแล โพสต์ แสดงความคิดเห็น โหวต และดู"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "ฟอรัมใหม่"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "โพสต์ใหม่"
 
@@ -1119,7 +1158,7 @@ msgstr "ไม่พบฟอรัม"
 msgid "No groups available"
 msgstr "ไม่มีกลุ่มที่ใช้งานได้"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "ไม่พบรายการที่ตรงกัน"
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "ไม่มีผู้ใช้ที่ถูกปิดเสียงหรือแบน"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "ไม่มี"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "ปกติ"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "กรุณาป้อนความคิดเห็น"
 msgid "Please enter a reply"
 msgstr "กรุณาป้อนการตอบกลับ"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "ไม่สามารถบันทึกโพสต์ได้ — ชื่อเรื่องหรือเนื้อหาไม่ถูกต้อง"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "ไม่สามารถบันทึกโพสต์บนเซิร์ฟเวอร์ฟอรัมได้"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "ลบโพสต์แล้ว"
@@ -1311,11 +1364,11 @@ msgstr "อัปเดตโพสต์แล้ว"
 msgid "Post, comment, vote, and view"
 msgstr "โพสต์ แสดงความคิดเห็น โหวต และดู"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "โพสต์"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "โพสต์และความคิดเห็น"
 
@@ -1330,6 +1383,11 @@ msgstr "ป้องกันสแปมโดยจำกัดความถ
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "รูปก่อนหน้า"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "ความเป็นส่วนตัว"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "นำการจำกัดออกแล้ว"
 msgid "Restrictions"
 msgstr "ข้อจำกัด"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "ลองโหลดฟอรัมอีกครั้ง"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "ลองโหลดสิทธิ์อีกครั้ง"
+#~ msgid "Retry permissions load"
+#~ msgstr "ลองโหลดสิทธิ์อีกครั้ง"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "ขวาไปซ้าย"
 msgid "Rows per page"
 msgstr "แถวต่อหน้า"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "ฟีด RSS"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "คัดลอก URL RSS ไปยังคลิปบอร์ดแล้ว"
 
@@ -1602,7 +1660,7 @@ msgstr "ค้นหาผู้ใช้"
 msgid "Search..."
 msgstr "ค้นหา..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "ค้นหา…"
 
@@ -1660,6 +1718,15 @@ msgstr "เลือกทิศทางไซต์"
 msgid "Select theme preference"
 msgstr "เลือกการตั้งค่าธีม"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "เซริฟ"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "กฎของเซิร์ฟเวอร์"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "เซสชันหมดอายุ"
@@ -1671,8 +1738,7 @@ msgstr "ตั้งค่าต้นทางและปลายทาง"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "กำลังออกจากระบบ..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "ข้ามไปยังเนื้อหาหลัก"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "เล็ก"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "กว้างขวาง"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "กำลังส่ง..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "ติดตาม"
 
@@ -1743,7 +1818,7 @@ msgstr "ติดตาม {0} แล้ว"
 msgid "Subscribed to forum"
 msgstr "ติดตามฟอรัมแล้ว"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "กำลังติดตาม..."
 
@@ -1753,6 +1828,7 @@ msgstr "วันอาทิตย์"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "ระบบ"
 
@@ -1768,6 +1844,11 @@ msgstr "พรอมต์แท็ก"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "ทีม/แอป"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "ข้อกำหนดและเงื่อนไข"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "ฟอรัมนี้อาจถูกลบหรือคุณไ
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "โพสต์นี้อาจถูกลบหรือไม่มีอยู่"
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "โพสต์นี้ถูกส่งไปแล้ว"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "ปลดล็อก"
 msgid "Unpin"
 msgstr "ยกเลิกการปักหมุด"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "ยกเลิกการติดตาม"
@@ -1917,7 +2002,7 @@ msgstr "ยกเลิกการติดตามฟอรัม"
 msgid "Unsubscribed"
 msgstr "ยกเลิกการติดตามแล้ว"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "กำลังยกเลิกการติดตาม..."
 
@@ -2009,6 +2094,18 @@ msgstr "ระยะเวลาหน้าต่าง"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "คุณติดตามฟอรัมนี้อยู่แล้ว"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "คุณกำลังโพสต์เร็วเกินไป — โปรดรอและลองอีกครั้ง"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "คุณถูกจำกัดไม่ให้โพสต์ในฟอรัมนี้"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "คุณไม่มีสิทธิ์โพสต์ในฟอรัมนี้"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

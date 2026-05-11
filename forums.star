@@ -40,7 +40,7 @@ ROLE_TO_ACCESS = {
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
-        owner integer not null default 0, server text not null default '',
+        server text not null default '',
         moderation_posts integer not null default 0, moderation_comments integer not null default 0,
         moderation_new integer not null default 0, new_user_days integer not null default 0,
         post_limit integer not null default 0, comment_limit integer not null default 0,
@@ -149,6 +149,59 @@ def database_upgrade(to_version):
         # so older forum DBs lack it and any AI/relevance sort path crashes.
         mochi.db.execute("create table if not exists score_cache (forum text not null, post text not null, score integer not null default 0, computed integer not null default 0, primary key (forum, post))")
         mochi.db.execute("create index if not exists score_cache_forum on score_cache(forum, computed)")
+    if to_version == 31:
+        # Drop the denormalised owner column. Source of truth for ownership is
+        # core/users.db.entities — checked via mochi.entity.get(). The column
+        # was prone to drift because subscribe's `replace into forums (...)`
+        # omitted it and silently reset owner=1 rows to the default 0.
+        cols = [r["name"] for r in mochi.db.table("forums")]
+        if "owner" in cols:
+            mochi.db.execute("alter table forums drop column owner")
+    if to_version == 32:
+        # Rebuild posts/comments/votes if their FK constraint still points at
+        # the singular 'forum' table — a typo in the original 2025-11-29
+        # schema (fixed in source, but `create table if not exists` left it in
+        # place on every DB created before the fix). It was cosmetic under
+        # mattn (foreign_keys defaulted off), then turned fatal when core
+        # moved to ncruces on 2026-05-09 — db_setup_conn runs
+        # PRAGMA foreign_keys=ON on every connection, so every insert into
+        # those tables now fails with "no such table: main.forum".
+        for table in ("posts", "comments", "votes"):
+            row = mochi.db.row("select sql from sqlite_master where type='table' and name=?", table)
+            if not row or "references forum(" not in row["sql"] or "references forums(" in row["sql"]:
+                continue
+            mochi.db.execute("drop table if exists _new_" + table)
+            if table == "posts":
+                mochi.db.execute("""create table _new_posts (
+                    id text not null primary key, forum references forums( id ), member text not null, name text not null,
+                    title text not null, body text not null, comments integer not null default 0,
+                    up integer not null default 0, down integer not null default 0,
+                    created integer not null, updated integer not null, edited integer not null default 0,
+                    status text not null default 'approved', remover text, reason text not null default '',
+                    locked integer not null default 0, pinned integer not null default 0 )""")
+            elif table == "comments":
+                mochi.db.execute("""create table _new_comments (
+                    id text not null primary key, forum references forums( id ), post text not null, parent text not null,
+                    member text not null, name text not null, body text not null,
+                    up integer not null default 0, down integer not null default 0,
+                    created integer not null, edited integer not null default 0,
+                    status text not null default 'approved', remover text, reason text not null default '' )""")
+            elif table == "votes":
+                mochi.db.execute("create table _new_votes ( forum references forums( id ), post text not null, comment text not null default '', voter text not null, vote text not null, primary key ( forum, post, comment, voter ) )")
+            mochi.db.execute("insert into _new_" + table + " select * from " + table)
+            mochi.db.execute("drop table " + table)
+            mochi.db.execute("alter table _new_" + table + " rename to " + table)
+        mochi.db.execute("create index if not exists posts_forum on posts( forum )")
+        mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
+        mochi.db.execute("create index if not exists posts_created on posts( created )")
+        mochi.db.execute("create index if not exists posts_updated on posts( updated )")
+        mochi.db.execute("create index if not exists comments_forum on comments( forum )")
+        mochi.db.execute("create index if not exists comments_post on comments( post )")
+        mochi.db.execute("create index if not exists comments_parent on comments( parent )")
+        mochi.db.execute("create index if not exists comments_created on comments( created )")
+        mochi.db.execute("create index if not exists votes_post on votes( post )")
+        mochi.db.execute("create index if not exists votes_comment on votes( comment )")
+        mochi.db.execute("create index if not exists votes_voter on votes( voter )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -158,12 +211,20 @@ def get_forum(forum_id):
         forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
     return forum
 
+# Helper: Does the current user own this forum's entity?
+# Source of truth is core/users.db.entities — the private key bearer is the owner.
+def owned(forum_id):
+    return len(mochi.entity.get(forum_id)) > 0
+
+# Helper: Build a set of forum IDs the current user owns, for batched checks in list views.
+def owned_set():
+    return {e["id"]: True for e in mochi.entity.owned() if e.get("class") == "forum"}
+
 # Helper: Check if current user has access (queries remote owner if not local owner)
 # Use this for actions that need to work for both owners and delegated moderators
 def check_access_remote(a, forum_id, operation):
     # If we own the forum, check locally
-    row = mochi.db.row("select owner from forums where id=?", forum_id)
-    if row and row["owner"] == 1:
+    if owned(forum_id):
         return check_access(a, forum_id, operation)
 
     # Query owner for access
@@ -187,8 +248,7 @@ def check_access(a, forum_id, operation):
         user = a.user.identity.id
 
     # Owner has full access
-    row = mochi.db.row("select owner from forums where id=?", forum_id)
-    if row and row["owner"] == 1:
+    if owned(forum_id):
         return True
 
     # Wildcard grants full access (owner only)
@@ -278,6 +338,18 @@ def broadcast_event(forum_id, event, data, exclude=None):
             {"from": forum_id, "to": m["id"], "service": "forums", "event": event},
             data
         )
+
+# Helper: Send a rejection back to the original sender of a submit event.
+# Reason is a stable code string (e.g. "access_denied"). The receiver translates
+# it via Lingui on the web. Detail is an optional message-bearing detail (e.g.
+# the rate-limit window for "rate_limited"); kept short.
+def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
+    if not sender_id or not target_id:
+        return
+    mochi.message.send(
+        {"from": forum_id, "to": sender_id, "service": "forums", "event": kind + "/reject"},
+        {"id": target_id, "reason": reason, "detail": detail}
+    )
 
 # Helper: Broadcast WebSocket notification to forum subscribers
 # Uses fingerprint as key since that's what frontend connects with (from URL)
@@ -477,7 +549,7 @@ def validate_tag(label):
 
 # Check if a user can tag a post in a forum
 def can_tag_post(user_id, forum, post):
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return True
     if post.get("member") == user_id:
         return True
@@ -640,7 +712,7 @@ def action_ai_settings(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_allowed")
         return
     if mode not in ("", "tag"):
@@ -669,7 +741,7 @@ def action_ai_prompts_get(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_allowed")
         return
     prompts = {}
@@ -689,7 +761,7 @@ def action_ai_prompts_set(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_allowed")
         return
     prompt_type = a.input("type")
@@ -806,12 +878,12 @@ def action_forum_tags(a):
 # Info endpoint for class context - returns list of forums
 def action_info_class(a):
     forums = mochi.db.rows("select * from forums order by updated desc")
+    owned_ids = owned_set()
 
     # Add fingerprints and permissions for owned forums (no P2P calls)
     for f in forums:
         f["fingerprint"] = mochi.entity.fingerprint(f["id"])
-        is_owner = f.get("owner") == 1
-        if is_owner:
+        if owned_ids.get(f["id"]):
             f["can_manage"] = check_access(a, f["id"], "manage")
             f["can_moderate"] = check_access(a, f["id"], "moderate")
         # For subscribed forums, permissions require P2P - skip here for speed
@@ -832,7 +904,7 @@ def action_info_entity(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
     user_id = a.user.identity.id if a.user else None
 
     # Determine permissions for current user
@@ -943,7 +1015,7 @@ def action_view(a):
             a.error.label(404, "errors.forum_not_found")
             return
 
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
         # Render banner markdown to HTML
         banner = forum.get("banner", "")
@@ -1038,7 +1110,7 @@ def action_view(a):
             p["body_markdown"] = mochi.text.markdown(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             # Fetch attachments from forum owner if we don't have them locally
-            if not p["attachments"] and forum.get("owner") != 1:
+            if not p["attachments"] and not owned(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
             # Get comment COUNT for post list (full comments loaded on thread view)
             if can_moderate:
@@ -1118,6 +1190,7 @@ def action_view(a):
         order_by = get_post_order(sort)
 
         forums = mochi.db.rows("select * from forums order by updated desc")
+        owned_ids = owned_set()
         # Only show approved posts or user's own pending posts
         if user_id:
             posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by, user_id)
@@ -1129,8 +1202,7 @@ def action_view(a):
         # access check (too slow for list view) - permissions checked on forum view
         for f in forums:
             f["fingerprint"] = mochi.entity.fingerprint(f["id"])
-            f_is_owner = f.get("owner") == 1
-            if f_is_owner:
+            if owned_ids.get(f["id"]):
                 f["can_manage"] = check_access(a, f["id"], "manage")
                 f["can_post"] = check_access(a, f["id"], "post")
                 f["can_moderate"] = check_access(a, f["id"], "moderate")
@@ -1202,7 +1274,7 @@ def action_create(a):
     # Create forum record
     now = mochi.time.now()
     fp = mochi.entity.fingerprint(entity_id) or ""
-    mochi.db.execute("replace into forums ( id, name, members, updated, owner, fingerprint ) values ( ?, ?, ?, ?, 1, ? )",
+    mochi.db.execute("replace into forums ( id, name, members, updated, fingerprint ) values ( ?, ?, ?, ?, ? )",
         entity_id, name, 1, now, fp)
 
     # Add creator as subscriber (they have implicit manage access as entity owner)
@@ -1256,7 +1328,7 @@ def action_post_create(a):
     # Check if forum exists locally
     if forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally
@@ -1834,7 +1906,7 @@ def action_unsubscribe(a):
         return
 
     # Cannot unsubscribe from own forum
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         a.error.label(400, "errors.cannot_unsubscribe_own_forum")
         return
 
@@ -1869,7 +1941,7 @@ def action_delete(a):
         return
 
     # Only owner can delete
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.only_the_owner_can_delete_this_forum")
         return
 
@@ -1909,7 +1981,7 @@ def action_rename(a):
         return
 
     # Only owner can rename
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_forum_owner")
         return
 
@@ -1939,7 +2011,7 @@ def action_banner_get(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_forum_owner")
         return
     return {"data": {"banner": forum.get("banner", "")}}
@@ -1954,7 +2026,7 @@ def action_banner_set(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_forum_owner")
         return
     banner = a.input("banner", "")
@@ -2004,7 +2076,7 @@ def action_post_view(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     member = None
     if a.user:
@@ -2069,7 +2141,7 @@ def action_post_view(a):
     post["body_markdown"] = mochi.text.markdown(post["body"])
     post["attachments"] = mochi.attachment.list(post_id, forum["id"])
     # Fetch attachments from forum owner if we don't have them locally
-    if not post["attachments"] and forum.get("owner") != 1:
+    if not post["attachments"] and not owned(forum["id"]):
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
     post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
 
@@ -2118,7 +2190,7 @@ def action_post_edit(a):
     # Check if we have the post locally
     if post and forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally - full edit with attachments
@@ -2295,7 +2367,7 @@ def action_post_delete(a):
     # Check if we have the post locally
     if post and forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally
@@ -2430,7 +2502,7 @@ def action_comment_create(a):
     # Check if forum exists locally
     if forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally
@@ -2583,7 +2655,7 @@ def action_comment_edit(a):
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally
@@ -2675,7 +2747,7 @@ def action_comment_delete(a):
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner processes locally
@@ -2779,7 +2851,7 @@ def action_post_remove(a):
 
     user = a.user.identity.id
     reason = a.input("reason", "")
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -2834,7 +2906,7 @@ def action_post_restore(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -2883,7 +2955,7 @@ def action_post_approve(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -2939,7 +3011,7 @@ def action_post_lock(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -2982,7 +3054,7 @@ def action_post_unlock(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -3025,7 +3097,7 @@ def action_post_pin(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         mochi.db.execute("update posts set pinned=1 where id=?", post_id)
@@ -3067,7 +3139,7 @@ def action_post_unpin(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         mochi.db.execute("update posts set pinned=0 where id=?", post_id)
@@ -3110,7 +3182,7 @@ def action_comment_remove(a):
 
     user = a.user.identity.id
     reason = a.input("reason", "")
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -3166,7 +3238,7 @@ def action_comment_restore(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -3216,7 +3288,7 @@ def action_comment_approve(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -3284,7 +3356,7 @@ def action_restrict(a):
         expires = mochi.time.now() + int(duration)
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         now = mochi.time.now()
@@ -3334,7 +3406,7 @@ def action_unrestrict(a):
         return
 
     user = a.user.identity.id
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
@@ -3367,7 +3439,7 @@ def action_restrictions(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
         if response and response.get("error"):
             a.error(403, response["error"])
@@ -3440,7 +3512,7 @@ def action_post_report(a):
 
     report_id = mochi.uid()
     now = mochi.time.now()
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         mochi.db.execute(
@@ -3505,7 +3577,7 @@ def action_comment_report(a):
 
     report_id = mochi.uid()
     now = mochi.time.now()
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         mochi.db.execute(
@@ -3535,7 +3607,7 @@ def action_moderation_reports(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         status = a.input("status", "pending")
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
@@ -3608,7 +3680,7 @@ def action_report_resolve(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         report_id = a.input("report")
         action = a.input("action")
         response = mochi.remote.request(forum["id"], "forums", "moderation/report/resolve", {"report": report_id, "action": action})
@@ -3634,7 +3706,7 @@ def action_report_resolve(a):
 
     user = a.user.identity.id
     now = mochi.time.now()
-    is_owner = forum.get("owner") == 1
+    is_owner = owned(forum["id"])
 
     if is_owner:
         # Perform the actual action
@@ -3716,7 +3788,7 @@ def action_moderation_queue(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
         if response and response.get("error"):
             a.error(403, response["error"])
@@ -3770,7 +3842,7 @@ def action_moderation_settings(a):
         return
 
     # Only owner can view/modify settings
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_allowed")
         return
 
@@ -3800,7 +3872,7 @@ def action_moderation_settings_save(a):
         return
 
     # Only owner can modify settings
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         a.error.label(403, "errors.not_allowed")
         return
 
@@ -3882,7 +3954,7 @@ def action_moderation_log(a):
         return
 
     # If we don't own the forum, proxy request to owner via P2P event
-    if forum.get("owner") != 1:
+    if not owned(forum["id"]):
         limit_str = a.input("limit")
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit_str or "50"})
         if response and response.get("error"):
@@ -3946,7 +4018,7 @@ def action_post_vote(a):
             return
 
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner checks access locally
@@ -4079,7 +4151,7 @@ def action_comment_vote(a):
             return
 
         # Check if we own this forum
-        is_owner = forum.get("owner") == 1
+        is_owner = owned(forum["id"])
 
         if is_owner:
             # Owner checks access locally
@@ -4199,7 +4271,7 @@ def action_access(a):
 
     # Get owner - if we own this entity, use current user's info
     owner = None
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         if a.user and a.user.identity:
             owner = {"id": a.user.identity.id, "name": a.user.identity.name}
 
@@ -4818,25 +4890,58 @@ def event_post_create_event(e):
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
-# Received a post submission from member (we are forum owner)
-def event_post_submit_event(e):
-    forum = get_forum(e.header("to"))
-    if not forum:
+# Received a rejection from forum owner — our submitted post was refused.
+# Remove the optimistic pending row and signal the web tab to show a toast.
+def event_post_reject_event(e):
+    post_id = e.content("id")
+    if not mochi.text.valid(post_id, "id"):
         return
 
+    # Find the local pending row to know which forum to notify and to clean up.
+    row = mochi.db.row("select forum from posts where id=? and status='pending'", post_id)
+    if not row:
+        return
+
+    forum_id = row["forum"]
+    reason = e.content("reason") or "server_error"
+    detail = e.content("detail") or ""
+
+    mochi.db.execute("delete from posts where id=? and status='pending'", post_id)
+
+    broadcast_websocket(forum_id, {
+        "type": "post/reject",
+        "forum": forum_id,
+        "post": post_id,
+        "reason": reason,
+        "detail": detail,
+    })
+
+# Received a post submission from member (we are forum owner)
+def event_post_submit_event(e):
     sender_id = e.header("from")
+    post_id = e.content("id")
+
+    forum = get_forum(e.header("to"))
+    if not forum:
+        # No local forum row — sender's reference is stale or we never had this forum.
+        send_reject("", sender_id, "post", post_id, "forum_not_found")
+        return
+
     if not check_event_access(sender_id, forum["id"], "post"):
+        send_reject(forum["id"], sender_id, "post", post_id, "access_denied")
         return
 
     # Check for restrictions
     restriction_error = check_restriction(forum["id"], sender_id, "post")
     if restriction_error:
+        send_reject(forum["id"], sender_id, "post", post_id, "restricted", restriction_error)
         return
 
     # Check rate limit (skip for moderators)
     if not check_event_access(sender_id, forum["id"], "moderate"):
         rate_error = check_rate_limit(forum, sender_id, "post")
         if rate_error:
+            send_reject(forum["id"], sender_id, "post", post_id, "rate_limited", rate_error)
             return
 
     # Get sender name from members table, fall back to directory lookup
@@ -4846,19 +4951,23 @@ def event_post_submit_event(e):
         entity = mochi.directory.get(sender_id)
         sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
 
-    id = e.content("id")
-    if not mochi.text.valid(id, "id"):
+    if not mochi.text.valid(post_id, "id"):
+        send_reject(forum["id"], sender_id, "post", post_id, "invalid")
         return
+    id = post_id
 
     if mochi.db.exists("select id from posts where id=?", id):
-        return  # Duplicate
+        send_reject(forum["id"], sender_id, "post", id, "duplicate")
+        return
 
     title = e.content("title")
     if not mochi.text.valid(title, "name"):
+        send_reject(forum["id"], sender_id, "post", id, "invalid")
         return
 
     body = e.content("body")
     if not mochi.text.valid(body, "text"):
+        send_reject(forum["id"], sender_id, "post", id, "invalid")
         return
 
     now = mochi.time.now()
@@ -5300,7 +5409,7 @@ def event_update_event(e):
         return
 
     # Don't update forums we own
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     # Handle name update
@@ -5358,7 +5467,7 @@ def event_post_remove_event(e):
         return
 
     # Don't update forums we own
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     post_id = e.content("id")
@@ -5398,7 +5507,7 @@ def event_post_restore_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     post_id = e.content("id")
@@ -5484,7 +5593,7 @@ def event_post_lock_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     post_id = e.content("id")
@@ -5535,7 +5644,7 @@ def event_post_pin_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     post_id = e.content("id")
@@ -5578,7 +5687,7 @@ def event_comment_remove_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     comment_id = e.content("id")
@@ -5617,7 +5726,7 @@ def event_comment_restore_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     comment_id = e.content("id")
@@ -5695,7 +5804,7 @@ def event_user_restrict_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     target_user = e.content("user")
@@ -5734,7 +5843,7 @@ def event_user_unrestrict_event(e):
     if not forum:
         return
 
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     target_user = e.content("user")
@@ -5855,7 +5964,7 @@ def event_report_resolve_event(e):
         return
 
     # Don't update forums we own
-    if forum.get("owner") == 1:
+    if owned(forum["id"]):
         return
 
     report_id = e.content("id")

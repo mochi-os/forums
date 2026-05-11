@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Lahat"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Lahat ng forum"
 
@@ -347,7 +347,7 @@ msgstr "Pumili sa pagitan ng kaliwa-pakanan o kanan-pakaliwa na direksyon ng sit
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Pumili sa pagitan ng system preference, light mode, o dark mode"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Pumili ng wika"
 
@@ -395,6 +395,10 @@ msgstr "Isara ang paghahanap"
 msgid "Collapse sidebar"
 msgstr "I-collapse ang sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Komportable"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Malapit nang dumating!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Magkomento, bumoto, at tingnan"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Compact"
 
@@ -469,6 +474,10 @@ msgstr "Kontrolin kung sino ang maaaring tumingin at makipag-ugnayan sa forum na
 msgid "Copy"
 msgstr "Kopyahin"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Hindi ma-load ang document na ito. Subukan muli mamaya."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Gumawa ng bagong forum"
@@ -477,7 +486,7 @@ msgstr "Gumawa ng bagong forum"
 msgid "Create a new post"
 msgstr "Gumawa ng bagong post"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Gumawa ng forum"
@@ -552,7 +561,7 @@ msgstr "Detalye (kinakailangan)"
 msgid "Details Panel"
 msgstr "Details Panel"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Ipinapakita ang mobile sidebar."
 msgid "Download"
 msgstr "I-download"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Angkop sa dyslexia"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "Entity ID"
 msgid "Expand sidebar"
 msgstr "I-expand ang sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Sobrang laki"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Nabigong magdagdag ng account"
@@ -617,8 +634,8 @@ msgstr "Nabigong magdagdag ng account"
 msgid "Failed to add tag"
 msgstr "Nabigong magdagdag ng tag"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Nabigong i-ban ang user"
 msgid "Failed to ban users"
 msgstr "Nabigong i-ban ang mga user"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Nabigong makakuha ng RSS token"
 
@@ -704,7 +721,7 @@ msgstr "Nabigong tanggalin ang access"
 msgid "Failed to remove account"
 msgstr "Nabigong tanggalin ang account"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Nabigong tanggalin ang interest"
@@ -776,11 +793,11 @@ msgstr "Nabigong i-update ang banner"
 msgid "Failed to update category"
 msgstr "Nabigong i-update ang category"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Naka-filter sa tag:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Maghanap ng mga forum"
@@ -795,7 +812,7 @@ msgstr "Floating"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Nagawa ang forum"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Nadelete ang forum"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Hindi na magagamit ang forum"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Mga section ng forum settings"
 msgid "Forum unavailable"
 msgstr "Hindi available ang forum"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Biyernes"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Mula sa"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Mula sa tema"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "Na-boost ang interest"
 msgid "Interest reduced"
 msgstr "Nabawasan ang interest"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Natanggal ang interest"
@@ -931,6 +960,11 @@ msgstr "Mga interest"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Invalid na verification code"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Malaki"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Mag-load ng higit pa"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Nilo-load…"
 
@@ -993,8 +1028,8 @@ msgstr "Nagla-log out…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Pamahalaan"
+#~ msgid "Manage"
+#~ msgstr "Pamahalaan"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Markahan lahat bilang nabasa"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Sinusuportahan ang Markdown"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Katamtaman"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Maling impormasyon"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "I-moderate, mag-post, magkomento, bumoto, at tingnan"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Bagong forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Bagong post"
 
@@ -1119,7 +1158,7 @@ msgstr "Walang nakitang forum"
 msgid "No groups available"
 msgstr "Walang available na grupo"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Walang tugma."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "Walang user na na-mute o na-ban"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Wala"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Karaniwan"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Mangyaring maglagay ng komento"
 msgid "Please enter a reply"
 msgstr "Mangyaring maglagay ng tugon"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Hindi ma-save ang post — hindi wasto ang pamagat o nilalaman"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Hindi ma-save ang post sa forum server"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Natanggal ang post"
@@ -1311,11 +1364,11 @@ msgstr "Na-update ang post"
 msgid "Post, comment, vote, and view"
 msgstr "Mag-post, magkomento, bumoto, at tingnan"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Mga Post"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Mga post at komento"
 
@@ -1330,6 +1383,11 @@ msgstr "Maiwasan ang spam sa pamamagitan ng paglilimita kung gaano kadalas makak
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Nakaraang imahe"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Pagkapribado"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Tinanggal ang restriction"
 msgid "Restrictions"
 msgstr "Mga paghihigpit"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Subukang muli i-load ang mga forum"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Subukang muli i-load ang mga permission"
+#~ msgid "Retry permissions load"
+#~ msgstr "Subukang muli i-load ang mga permission"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Kanan papuntang Kaliwa"
 msgid "Rows per page"
 msgstr "Mga row bawat page"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS feed"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "Nakopya ang RSS URL sa clipboard"
 
@@ -1602,7 +1660,7 @@ msgstr "Maghanap ng user"
 msgid "Search..."
 msgstr "Maghanap..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Maghanap…"
 
@@ -1660,6 +1718,15 @@ msgstr "Pumili ng direksyon ng site"
 msgid "Select theme preference"
 msgstr "Pumili ng theme preference"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serif"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Mga patakaran ng server"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Nag-expire na ang session"
@@ -1671,8 +1738,7 @@ msgstr "Itakda ang origin at destination"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Nag-si-sign out..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Laktawan papunta sa Pangunahing Bahagi"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Maliit"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Maluwag"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Ipinapasa..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Mag-subscribe"
 
@@ -1743,7 +1818,7 @@ msgstr "Naka-subscribe sa {0}"
 msgid "Subscribed to forum"
 msgstr "Naka-subscribe sa forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Nag-su-subscribe..."
 
@@ -1753,6 +1828,7 @@ msgstr "Linggo"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "System"
 
@@ -1768,6 +1844,11 @@ msgstr "Tag prompt"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Teams/Apps"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Mga tuntunin at kundisyon"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Maaaring natanggal na ang forum na ito o wala kang access dito."
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Maaaring natanggal na ang post na ito o wala ito."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Naipasa na ang post na ito"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "I-unlock"
 msgid "Unpin"
 msgstr "I-unpin"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Mag-unsubscribe"
@@ -1917,7 +2002,7 @@ msgstr "Mag-unsubscribe sa forum"
 msgid "Unsubscribed"
 msgstr "Hindi na naka-subscribe"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Nag-a-unsubscribe..."
 
@@ -2009,6 +2094,18 @@ msgstr "Tagal ng window"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Naka-subscribe ka na sa forum na ito"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Masyado kang mabilis mag-post — mangyaring maghintay at subukang muli"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Pinaghihigpitan kang mag-post sa forum na ito"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "Wala kang pahintulot na mag-post sa forum na ito"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

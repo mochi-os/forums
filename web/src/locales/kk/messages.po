@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Барлығы"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Барлық форумдар"
 
@@ -347,7 +347,7 @@ msgstr "Солдан-оңға немесе оңнан-солға сайт бағ
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Жүйе қалауы, жарық режим немесе қараңғы режимді таңдаңыз"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Тілді таңдау"
 
@@ -395,6 +395,10 @@ msgstr "Іздеуді жабу"
 msgid "Collapse sidebar"
 msgstr "Бүйір тақтаны жинау"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Ыңғайлы"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Жақын арада!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Пікір қалдыру, дауыс беру және көру"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Ықшам"
 
@@ -469,6 +474,10 @@ msgstr "Бұл форумды кім көре алатынын және оным
 msgid "Copy"
 msgstr "Көшіру"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Бұл құжатты жүктеу мүмкін болмады. Кейінірек қайталап көріңіз."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Жаңа форум құру"
@@ -477,7 +486,7 @@ msgstr "Жаңа форум құру"
 msgid "Create a new post"
 msgstr "Жаңа жазба құру"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Форум құру"
@@ -552,7 +561,7 @@ msgstr "Мәліметтер (қажет)"
 msgid "Details Panel"
 msgstr "Мәліметтер тақтасы"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Мобильді бүйір тақтаны көрсетеді."
 msgid "Download"
 msgstr "Жүктеп алу"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Дислексияға бейімделген"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "Нысан идентификаторы"
 msgid "Expand sidebar"
 msgstr "Бүйір тақтаны кеңейту"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Өте үлкен"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Тіркелгіні қосу сәтсіз аяқталды"
@@ -617,8 +634,8 @@ msgstr "Тіркелгіні қосу сәтсіз аяқталды"
 msgid "Failed to add tag"
 msgstr "Тегті қосу сәтсіз аяқталды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Пайдаланушыға тыйым салу сәтсіз аяқтал
 msgid "Failed to ban users"
 msgstr "Пайдаланушыларға тыйым салу сәтсіз аяқталды"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "RSS токенін алу сәтсіз аяқталды"
 
@@ -704,7 +721,7 @@ msgstr "Кіруді жою сәтсіз аяқталды"
 msgid "Failed to remove account"
 msgstr "Тіркелгіні жою сәтсіз аяқталды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Қызығушылықты жою сәтсіз аяқталды"
@@ -776,11 +793,11 @@ msgstr "Баннерді жаңарту сәтсіз аяқталды"
 msgid "Failed to update category"
 msgstr "Санатты жаңарту сәтсіз аяқталды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Тег бойынша сүзілді:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Форумдарды табу"
@@ -795,7 +812,7 @@ msgstr "Қалқыма"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Форум жасалды"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Форум жойылды"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Форум енді қолжетімді емес"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Форум параметрлері бөлімдері"
 msgid "Forum unavailable"
 msgstr "Форум қол жетімді емес"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Жұма"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Кімнен"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Тақырыптан"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "Қызығушылық арттырылды"
 msgid "Interest reduced"
 msgstr "Қызығушылық азайтылды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Қызығушылық жойылды"
@@ -931,6 +960,11 @@ msgstr "Қызығушылықтар"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Жарамсыз растау коды"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Үлкен"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Көбірек жүктеу"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Жүктелуде…"
 
@@ -993,8 +1028,8 @@ msgstr "Шығу…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Басқару"
+#~ msgid "Manage"
+#~ msgstr "Басқару"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Барлығын оқылды деп белгілеу"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown қолдау көрсетіледі"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Орташа"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Жалған ақпарат"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Модерация, жариялау, пікір қалдыру, дауыс беру және қарау"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Жаңа форум"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Жаңа жазба"
 
@@ -1119,7 +1158,7 @@ msgstr "Форумдар табылмады"
 msgid "No groups available"
 msgstr "Топтар қолжетімсіз"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "Сәйкестіктер жоқ."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "Дауысы өшірілген немесе бұғатталған қолданушылар жоқ"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Жоқ"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Қалыпты"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Пікір енгізіңіз"
 msgid "Please enter a reply"
 msgstr "Жауап енгізіңіз"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Жазбаны сақтау мүмкін болмады — тақырыбы немесе мазмұны жарамсыз"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Жазбаны форум серверінде сақтау мүмкін болмады"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Жазба жойылды"
@@ -1311,11 +1364,11 @@ msgstr "Жазба жаңартылды"
 msgid "Post, comment, vote, and view"
 msgstr "Жариялау, пікір қалдыру, дауыс беру және қарау"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Жазбалар"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Жазбалар мен пікірлер"
 
@@ -1330,6 +1383,11 @@ msgstr "Қолданушылардың жазба жариялау жиіліг�
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Алдыңғы сурет"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Құпиялылық"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Шектеу жойылды"
 msgid "Restrictions"
 msgstr "Шектеулер"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Форумдарды қайта жүктеу"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Рұқсаттарды қайта жүктеу"
+#~ msgid "Retry permissions load"
+#~ msgstr "Рұқсаттарды қайта жүктеу"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Оңнан солға"
 msgid "Rows per page"
 msgstr "Бетке жолдар"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "RSS арнасы"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL алмасу буферіне көшірілді"
 
@@ -1602,7 +1660,7 @@ msgstr "Қолданушыларды іздеу"
 msgid "Search..."
 msgstr "Іздеу..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Іздеу…"
 
@@ -1660,6 +1718,15 @@ msgstr "Сайт бағытын таңдау"
 msgid "Select theme preference"
 msgstr "Тақырып теңшелімін таңдау"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Серифті"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Сервер ережелері"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Сеанс мерзімі аяқталды"
@@ -1671,8 +1738,7 @@ msgstr "Шығу және бару нүктесін орнату"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Шығу..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Негізгіге өту"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Кіші"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Кең"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Жіберілуде..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Жазылу"
 
@@ -1743,7 +1818,7 @@ msgstr "{0}-ке жазылдыңыз"
 msgid "Subscribed to forum"
 msgstr "Форумға жазылдыңыз"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Жазылуда..."
 
@@ -1753,6 +1828,7 @@ msgstr "Жексенбі"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Жүйе"
 
@@ -1768,6 +1844,11 @@ msgstr "Тег ұсынысы"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Командалар/Қолданбалар"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Шарттар мен ережелер"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Бұл форум жойылған болуы мүмкін немесе 
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Бұл жазба жойылған болуы немесе жоқ болуы мүмкін."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Бұл жазба бұрын жіберілген"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Құлпын ашу"
 msgid "Unpin"
 msgstr "Бекітуді жою"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Жазылудан бас тарту"
@@ -1917,7 +2002,7 @@ msgstr "Форумнан жазылудан бас тарту"
 msgid "Unsubscribed"
 msgstr "Жазылудан бас тартылды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Жазылудан бас тартылуда..."
 
@@ -2009,6 +2094,18 @@ msgstr "Терезе ұзақтығы"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Бұл форумға бұрыннан жазылғансыз"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Сіз тым жылдам жариялап жатырсыз — күтіп, қайталап көріңіз"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Сіз бұл форумда жариялауға шектелгенсіз"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "Сізде бұл форумда жариялауға рұқсат жоқ"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."

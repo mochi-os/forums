@@ -188,7 +188,7 @@ msgid "All"
 msgstr "Kollha"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:169
+#: src/components/layout/forums-layout.tsx:91
 msgid "All forums"
 msgstr "Il-forums kollha"
 
@@ -347,7 +347,7 @@ msgstr "Agħżel bejn direzzjoni tas-sit minn xellug-għal-lemin jew minn lemin-
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Agħżel bejn preferenza tas-sistema, modalità ċara, jew modalità skura"
 
-#: ../../../lib/web/src/components/language-picker.tsx:167
+#: ../../../lib/web/src/components/language-picker.tsx:176
 msgid "Choose language"
 msgstr "Agħżel lingwa"
 
@@ -395,6 +395,10 @@ msgstr "Agħlaq it-tiftix"
 msgid "Collapse sidebar"
 msgstr "Iġbed il-barra tal-ġenb"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:93
+msgid "Comfortable"
+msgstr "Komdu"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Dalwaqt!"
@@ -432,6 +436,7 @@ msgid "Comment, vote, and view"
 msgstr "Ikkummenta, ivvota, u ara"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:302
+#: ../../../lib/web/src/lib/preference-utils.ts:92
 msgid "Compact"
 msgstr "Kompatt"
 
@@ -469,6 +474,10 @@ msgstr "Ikkontrolla min jista' jara u jinteraġixxi ma' dan il-forum"
 msgid "Copy"
 msgstr "Ikkupja"
 
+#: ../../../lib/web/src/features/document/document-page.tsx:81
+msgid "Could not load this document. Please try again later."
+msgstr "Ma setax itella' dan id-dokument. Jekk jogħġbok ipprova mill-ġdid iktar tard."
+
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
 msgstr "Oħloq forum ġdid"
@@ -477,7 +486,7 @@ msgstr "Oħloq forum ġdid"
 msgid "Create a new post"
 msgstr "Oħloq post ġdid"
 
-#: src/components/layout/forums-layout.tsx:178
+#: src/components/layout/forums-layout.tsx:100
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Oħloq forum"
@@ -552,7 +561,7 @@ msgstr "Dettalji (meħtieġa)"
 msgid "Details Panel"
 msgstr "Pannell tad-Dettalji"
 
-#: ../../../lib/web/src/components/language-picker.tsx:145
+#: ../../../lib/web/src/components/language-picker.tsx:154
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -587,6 +596,10 @@ msgstr "Juri l-barra tal-ġenb tal-mobile."
 msgid "Download"
 msgstr "Niżżel"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:134
+msgid "Dyslexia-friendly"
+msgstr "Adattat għad-disleksja"
+
 #: src/features/forums/components/thread/thread-comment.tsx:331
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
@@ -609,6 +622,10 @@ msgstr "ID tal-entità"
 msgid "Expand sidebar"
 msgstr "Espandi s-sidebar"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:124
+msgid "Extra large"
+msgstr "Kbir ħafna"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:217
 msgid "Failed to add account"
 msgstr "Ma rnexxiex jiżdied il-kont"
@@ -617,8 +634,8 @@ msgstr "Ma rnexxiex jiżdied il-kont"
 msgid "Failed to add tag"
 msgstr "Ma rnexxiex jiżdied it-tag"
 
-#: src/features/forums/pages/entity-forum-page.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:199
+#: src/features/forums/pages/entity-forum-page.tsx:189
+#: src/features/forums/pages/entity-forum-page.tsx:200
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -636,7 +653,7 @@ msgstr "Ma rnexxiex jiġi pprojbit l-utent"
 msgid "Failed to ban users"
 msgstr "Ma rnexxiex jiġu pprojbiti l-utenti"
 
-#: src/components/options-menu.tsx:41
+#: src/components/options-menu.tsx:42
 msgid "Failed to get RSS token"
 msgstr "Ma rnexxiex jinkiseb it-token tar-RSS"
 
@@ -704,7 +721,7 @@ msgstr "Ma rnexxiex jitneħħa l-aċċess"
 msgid "Failed to remove account"
 msgstr "Ma rnexxiex jitneħħa l-kont"
 
-#: src/features/forums/pages/entity-forum-page.tsx:211
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Ma rnexxiex jitneħħa l-interess"
@@ -776,11 +793,11 @@ msgstr "Ma rnexxiex jiġi aġġornat il-banner"
 msgid "Failed to update category"
 msgstr "Ma rnexxiex tiġi aġġornata l-kategorija"
 
-#: src/features/forums/pages/entity-forum-page.tsx:298
+#: src/features/forums/pages/entity-forum-page.tsx:300
 msgid "Filtered by tag:"
 msgstr "Iffiltrat skont it-tag:"
 
-#: src/components/layout/forums-layout.tsx:176
+#: src/components/layout/forums-layout.tsx:98
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Sib forums"
@@ -795,7 +812,7 @@ msgstr "Galleġġjant"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
 #: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:233
+#: src/features/forums/pages/entity-forum-page.tsx:234
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -808,6 +825,10 @@ msgstr "Inħoloq il-forum"
 #: src/hooks/use-forums-queries.ts:114
 msgid "Forum deleted"
 msgstr "Tħassar il-forum"
+
+#: src/hooks/use-forum-websocket.ts:56
+msgid "Forum is no longer available"
+msgstr "Il-forum m'għadux disponibbli"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Forum name is required"
@@ -829,7 +850,7 @@ msgstr "Sezzjonijiet tas-settings tal-forum"
 msgid "Forum unavailable"
 msgstr "Il-forum mhux disponibbli"
 
-#: src/components/layout/forums-layout.tsx:186
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -843,6 +864,14 @@ msgstr "Il-Ġimgħa"
 #: ../../../lib/web/src/components/travelling-picker.tsx:149
 msgid "From"
 msgstr "Minn"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:91
+#: ../../../lib/web/src/lib/preference-utils.ts:101
+#: ../../../lib/web/src/lib/preference-utils.ts:112
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
+msgid "From theme"
+msgstr "Mit-tema"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:307
 msgid "Full layout"
@@ -919,7 +948,7 @@ msgstr "L-interess żdied"
 msgid "Interest reduced"
 msgstr "L-interess naqas"
 
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:210
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "L-interess tneħħa"
@@ -931,6 +960,11 @@ msgstr "Interessi"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:237
 msgid "Invalid verification code"
 msgstr "Kodiċi tal-verifika invalidu"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:105
+#: ../../../lib/web/src/lib/preference-utils.ts:123
+msgid "Large"
+msgstr "Kbir"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -954,6 +988,7 @@ msgid "Load more"
 msgstr "Tella' aktar"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:32
+#: ../../../lib/web/src/features/document/document-page.tsx:87
 msgid "Loading…"
 msgstr "Qed jitgħabba…"
 
@@ -993,8 +1028,8 @@ msgstr "Qed joħroġ…"
 
 #: src/components/layout/forums-layout.tsx:129
 #: src/components/layout/forums-layout.tsx:146
-msgid "Manage"
-msgstr "Immaniġġja"
+#~ msgid "Manage"
+#~ msgstr "Immaniġġja"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -1004,6 +1039,10 @@ msgstr "Immarka kollox bħala maqru"
 #: src/features/forums/components/create-post-dialog.tsx:214
 msgid "Markdown supported"
 msgstr "Markdown sapportit"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:104
+msgid "Medium"
+msgstr "Medju"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:152
 msgid "Menu"
@@ -1022,7 +1061,7 @@ msgstr "Diżinformazzjoni"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modera, postja, ikkummenta, ivvota, u ara"
 
-#: src/components/layout/forums-layout.tsx:121
+#: src/components/options-menu.tsx:60
 #: src/routes/_authenticated/$forum_.moderation.tsx:91
 #: src/routes/_authenticated/$forum_.moderation.tsx:102
 #: src/routes/_authenticated/$forum_.settings.tsx:82
@@ -1078,7 +1117,7 @@ msgstr "Forum ġdid"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:241
+#: src/features/forums/pages/entity-forum-page.tsx:242
 msgid "New post"
 msgstr "Post ġdid"
 
@@ -1119,7 +1158,7 @@ msgstr "Ma nstabu l-ebda forums"
 msgid "No groups available"
 msgstr "L-ebda gruppi disponibbli"
 
-#: ../../../lib/web/src/components/language-picker.tsx:177
+#: ../../../lib/web/src/components/language-picker.tsx:186
 msgid "No matches."
 msgstr "L-ebda matches."
 
@@ -1169,8 +1208,14 @@ msgid "No users have been muted or banned"
 msgstr "L-ebda utenti ma ġew imsikkta jew ipprojbiti"
 
 #: ../../../lib/web/src/components/person-picker.tsx:349
+#: ../../../lib/web/src/lib/preference-utils.ts:102
+#: ../../../lib/web/src/lib/preference-utils.ts:113
 msgid "None"
 msgstr "Xejn"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:122
+msgid "Normal"
+msgstr "Normali"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1263,6 +1308,14 @@ msgstr "Jekk jogħġbok daħħal kumment"
 msgid "Please enter a reply"
 msgstr "Jekk jogħġbok daħħal tweġiba"
 
+#: src/hooks/use-forum-websocket.ts:52
+msgid "Post couldn't be saved — title or body is invalid"
+msgstr "Il-post ma setax jiġi ssejvjat — it-titlu jew il-kontenut mhuwiex validu"
+
+#: src/hooks/use-forum-websocket.ts:59
+msgid "Post couldn't be saved on the forum server"
+msgstr "Il-post ma setax jiġi ssejvjat fuq is-server tal-forum"
+
 #: src/hooks/use-forums-queries.ts:321
 msgid "Post deleted"
 msgstr "Post tħassar"
@@ -1311,11 +1364,11 @@ msgstr "Post aġġornat"
 msgid "Post, comment, vote, and view"
 msgstr "Posta, ikkummenta, ivvota, u ara"
 
-#: src/components/options-menu.tsx:64
+#: src/components/options-menu.tsx:77
 msgid "Posts"
 msgstr "Posts"
 
-#: src/components/options-menu.tsx:67
+#: src/components/options-menu.tsx:80
 msgid "Posts and comments"
 msgstr "Posts u kummenti"
 
@@ -1330,6 +1383,11 @@ msgstr "Evita spam billi tillimita kemm-il darba l-utenti jistgħu jippostjaw"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
 msgid "Previous image"
 msgstr "Stampa preċedenti"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:24
+#: ../../../lib/web/src/features/document/document-page.tsx:41
+msgid "Privacy"
+msgstr "Privatezza"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:134
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
@@ -1523,13 +1581,13 @@ msgstr "Restrizzjoni mneħħija"
 msgid "Restrictions"
 msgstr "Restrizzjonijiet"
 
-#: src/components/layout/forums-layout.tsx:191
+#: src/components/layout/forums-layout.tsx:113
 msgid "Retry forums load"
 msgstr "Erġa' pprova ttella' l-forums"
 
 #: src/components/layout/forums-layout.tsx:132
-msgid "Retry permissions load"
-msgstr "Erġa' pprova ttella' l-permessi"
+#~ msgid "Retry permissions load"
+#~ msgstr "Erġa' pprova ttella' l-permessi"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:348
 msgid "Right to Left"
@@ -1539,11 +1597,11 @@ msgstr "Lemin għal Xellug"
 msgid "Rows per page"
 msgstr "Ringieli kull paġna"
 
-#: src/components/options-menu.tsx:60
+#: src/components/options-menu.tsx:73
 msgid "RSS feed"
 msgstr "Feed RSS"
 
-#: src/components/options-menu.tsx:39
+#: src/components/options-menu.tsx:40
 msgid "RSS URL copied to clipboard"
 msgstr "URL ta' RSS ikkupjat fil-clipboard"
 
@@ -1602,7 +1660,7 @@ msgstr "Fittex utenti"
 msgid "Search..."
 msgstr "Fittex..."
 
-#: ../../../lib/web/src/components/language-picker.tsx:175
+#: ../../../lib/web/src/components/language-picker.tsx:184
 msgid "Search…"
 msgstr "Fittex…"
 
@@ -1660,6 +1718,15 @@ msgstr "Agħżel direzzjoni tas-sit"
 msgid "Select theme preference"
 msgstr "Agħżel preferenza tat-tema"
 
+#: ../../../lib/web/src/lib/preference-utils.ts:133
+msgid "Serif"
+msgstr "Serif"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:16
+#: ../../../lib/web/src/features/document/document-page.tsx:37
+msgid "Server rules"
+msgstr "Regoli tas-server"
+
 #: ../../../lib/web/src/lib/api-client.ts:224
 msgid "Session expired"
 msgstr "Sessjoni skadiet"
@@ -1671,8 +1738,7 @@ msgstr "Issettja oriġini u destinazzjoni"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:81
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
-#: src/components/layout/forums-layout.tsx:113
-#: src/components/options-menu.tsx:75
+#: src/components/options-menu.tsx:66
 #: src/routes/_authenticated/$forum_.settings.tsx:81
 #: src/routes/_authenticated/$forum_.settings.tsx:156
 #: src/routes/_authenticated/$forum_.settings.tsx:223
@@ -1697,6 +1763,15 @@ msgstr "Qed toħroġ..."
 #: ../../../lib/web/src/components/skip-to-main.tsx:8
 msgid "Skip to Main"
 msgstr "Aqbeż għall-Main"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:103
+#: ../../../lib/web/src/lib/preference-utils.ts:121
+msgid "Small"
+msgstr "Żgħir"
+
+#: ../../../lib/web/src/lib/preference-utils.ts:94
+msgid "Spacious"
+msgstr "Wiesa'"
 
 #: src/features/forums/components/report-dialog.tsx:20
 #: src/routes/_authenticated/$forum_.moderation.tsx:765
@@ -1726,7 +1801,7 @@ msgstr "Qed jissottometti..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:261
 msgid "Subscribe"
 msgstr "Abbona"
 
@@ -1743,7 +1818,7 @@ msgstr "Abbonat għal {0}"
 msgid "Subscribed to forum"
 msgstr "Abbonat għal forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:257
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "Subscribing..."
 msgstr "Qed jabbona..."
 
@@ -1753,6 +1828,7 @@ msgstr "Il-Ħadd"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
 #: ../../../lib/web/src/lib/preference-utils.ts:18
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Sistema"
 
@@ -1768,6 +1844,11 @@ msgstr "Tag prompt"
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
 msgstr "Timijiet/Apps"
+
+#: ../../../lib/web/src/components/server-documents-footer.tsx:20
+#: ../../../lib/web/src/features/document/document-page.tsx:39
+msgid "Terms and conditions"
+msgstr "Termini u kondizzjonijiet"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
@@ -1792,6 +1873,10 @@ msgstr "Dan il-forum jista' jkun ġie mħassar jew m'għandekx aċċess għalih.
 #: src/features/forums/components/thread/empty-thread-state.tsx:12
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Dan il-post jista' jkun ġie mħassar jew ma jeżistix."
+
+#: src/hooks/use-forum-websocket.ts:54
+msgid "This post was already submitted"
+msgstr "Dan il-post diġà ġie sottomess"
 
 #: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -1903,7 +1988,7 @@ msgstr "Iftaħ"
 msgid "Unpin"
 msgstr "Neħħi l-pin"
 
-#: src/features/forums/pages/entity-forum-page.tsx:278
+#: src/features/forums/pages/entity-forum-page.tsx:279
 #: src/routes/_authenticated/$forum_.settings.tsx:511
 msgid "Unsubscribe"
 msgstr "Iddiżabbona"
@@ -1917,7 +2002,7 @@ msgstr "Iddiżabbona minn forum"
 msgid "Unsubscribed"
 msgstr "Diżabbonat"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:275
 msgid "Unsubscribing..."
 msgstr "Qed jiddiżabbona..."
 
@@ -2009,6 +2094,18 @@ msgstr "Tul tat-tieqa"
 #: src/hooks/use-forums-queries.ts:148
 msgid "You are already subscribed to this forum"
 msgstr "Int diġà abbonat ma' dan il-forum"
+
+#: src/hooks/use-forum-websocket.ts:50
+msgid "You are posting too quickly — please wait and try again"
+msgstr "Qiegħed tippostja malajr wisq — jekk jogħġbok stenna u erġa' pprova"
+
+#: src/hooks/use-forum-websocket.ts:48
+msgid "You are restricted from posting in this forum"
+msgstr "Inti ristrett milli tippostja f'dan il-forum"
+
+#: src/hooks/use-forum-websocket.ts:46
+msgid "You don't have permission to post in this forum"
+msgstr "M'għandekx permess tippostja f'dan il-forum"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
