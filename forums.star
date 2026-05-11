@@ -6844,3 +6844,134 @@ def ai_rerank(forum_data, posts, interests):
 
     candidates = sorted(candidates, key=lambda p: (-p["_score"], -p["created"]))
     return candidates + rest
+
+
+# Internal: subscribe `user` to forum `forum_id`. Idempotent.
+# Returns {"fingerprint": fp, "already_subscribed": bool} or {"error": key, "code": N}.
+def _subscribe_to_forum(user, forum_id, server):
+    user_id = user.identity.id
+
+    if not mochi.text.valid(forum_id, "entity"):
+        return {"error": "errors.invalid_id", "code": 400}
+
+    if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
+        fp = mochi.entity.fingerprint(forum_id) or ""
+        return {"fingerprint": fp, "already_subscribed": True}
+
+    schema = None
+    forum_name = ""
+    if server:
+        peer = mochi.remote.peer(server)
+        if not peer:
+            return {"error": "errors.unable_to_connect_to_server", "code": 502}
+        response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
+        if response.get("error"):
+            return {"error": response["error"], "code": response.get("code", 404)}
+        forum_name = response.get("name", "")
+        schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+    else:
+        directory = mochi.directory.get(forum_id)
+        if not directory:
+            return {"error": "errors.forum_not_found_in_directory", "code": 404}
+        forum_name = directory["name"]
+        server = directory.get("location", "")
+        if server:
+            peer = mochi.remote.peer(server)
+            if peer:
+                schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+
+    now = mochi.time.now()
+    fp = mochi.entity.fingerprint(forum_id) or ""
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint ) values ( ?, ?, ?, ?, ?, ? )""",
+        forum_id, forum_name, 0, now, server or "", fp)
+
+    mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",
+        forum_id, user_id, user.identity.name, now)
+
+    if schema and not schema.get("error"):
+        insert_forum_schema(forum_id, schema)
+
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
+        {"name": user.identity.name},
+        []
+    )
+
+    return {"fingerprint": fp, "already_subscribed": False}
+
+
+# Internal: post on `forum_id` on behalf of `user`, subscriber-side path.
+# Returns {"forum", "post", "fingerprint"} or {"error", "code"}.
+def _post_to_forum_subscriber(user, forum_id, title, body):
+    user_id = user.identity.id
+    user_name = user.identity.name
+
+    if not mochi.text.valid(title, "name"):
+        return {"error": "errors.invalid_title", "code": 400}
+    if not mochi.text.valid(body, "text"):
+        return {"error": "errors.invalid_body", "code": 400}
+
+    forum = get_forum(forum_id)
+    if not forum:
+        return {"error": "errors.forum_not_found", "code": 404}
+
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
+        "operations": ["post"],
+        "user": user_id,
+    })
+    if not access_response.get("post", False):
+        return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": 403}
+
+    id = mochi.uid()
+    now = mochi.time.now()
+
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
+        {"id": id, "title": title, "body": body}
+    )
+
+    # Save locally for optimistic UI (status pending until owner confirms)
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
+        id, forum_id, user_id, user_name, title, body, now, now)
+
+    fp = mochi.entity.fingerprint(forum_id) or ""
+    return {"forum": forum_id, "post": id, "fingerprint": fp}
+
+
+# Service event: another local app asks us to subscribe the user to a forum.
+# Caller restriction is declared in app.json events block.
+def event_app_subscribe(e):
+    forum_id = e.content("forum") or ""
+    result = _subscribe_to_forum(e.user, forum_id, "")
+    if "error" in result:
+        e.write({"error": result["error"], "code": result["code"]})
+        return
+    e.write({
+        "fingerprint": result.get("fingerprint", ""),
+        "already_subscribed": result.get("already_subscribed", False),
+    })
+
+
+# Service event: another local app asks us to post on the user's behalf.
+# Subscribes first as a safety net (idempotent), then posts via the
+# subscriber-side path.
+def event_app_post(e):
+    forum_id = e.content("forum") or ""
+    title = e.content("title") or ""
+    body = e.content("body") or ""
+
+    sub_result = _subscribe_to_forum(e.user, forum_id, "")
+    if "error" in sub_result:
+        e.write({"error": sub_result["error"], "code": sub_result["code"]})
+        return
+
+    post_result = _post_to_forum_subscriber(e.user, forum_id, title, body)
+    if "error" in post_result:
+        e.write({"error": post_result["error"], "code": post_result["code"]})
+        return
+
+    e.write({
+        "forum": post_result["forum"],
+        "post": post_result["post"],
+        "fingerprint": post_result["fingerprint"],
+    })
