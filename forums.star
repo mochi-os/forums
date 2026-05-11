@@ -4989,6 +4989,21 @@ def event_post_submit_event(e):
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
+    # Apply submitter-supplied tags (validated). Only the help app currently
+    # populates this — it adds "introduction" / "question" so the forum's
+    # filter-by-tag UI can group help-app submissions.
+    submitted_tags = e.content("tags") or []
+    applied_tags = []
+    for raw in submitted_tags:
+        label = validate_tag(raw)
+        if not label:
+            continue
+        if mochi.db.exists("select id from tags where object=? and label=?", id, label):
+            continue
+        tag_id = mochi.uid()
+        mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, id, label)
+        applied_tags.append({"id": tag_id, "label": label})
+
     # Only broadcast if approved
     if status == "approved":
         post_data = {
@@ -5003,6 +5018,8 @@ def event_post_submit_event(e):
             post_data["attachments"] = attachments
 
         broadcast_event(forum["id"], "post/create", post_data)
+        for at in applied_tags:
+            broadcast_event(forum["id"], "tag/add", {"id": at["id"], "object": id, "label": at["label"], "source": "manual"})
         if body:
             notify_mentions(forum["id"], id, body, sender_id, sender_name)
 
@@ -7011,7 +7028,7 @@ def _subscribe_to_forum(user, forum_id, server):
 
 # Internal: post on `forum_id` on behalf of `user`, subscriber-side path.
 # Returns {"forum", "post", "fingerprint"} or {"error", "code"}.
-def _post_to_forum_subscriber(user, forum_id, title, body):
+def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
     user_id = user.identity.id
     user_name = user.identity.name
 
@@ -7034,9 +7051,22 @@ def _post_to_forum_subscriber(user, forum_id, title, body):
     id = mochi.uid()
     now = mochi.time.now()
 
+    # Normalise tags through the same validator the owner uses so we don't
+    # forward invalid strings that the owner would just drop. Stays empty
+    # for normal posts that don't supply any.
+    validated_tags = []
+    for t in (tags or []):
+        v = validate_tag(t)
+        if v:
+            validated_tags.append(v)
+
+    content = {"id": id, "title": title, "body": body}
+    if validated_tags:
+        content["tags"] = validated_tags
+
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
-        {"id": id, "title": title, "body": body}
+        content
     )
 
     # Save locally for optimistic UI (status pending until owner confirms)
@@ -7068,13 +7098,14 @@ def event_app_post(e):
     forum_id = e.content("forum") or ""
     title = e.content("title") or ""
     body = e.content("body") or ""
+    tags = e.content("tags") or []
 
     sub_result = _subscribe_to_forum(e.user, forum_id, "")
     if "error" in sub_result:
         e.write({"error": sub_result["error"], "code": sub_result["code"]})
         return
 
-    post_result = _post_to_forum_subscriber(e.user, forum_id, title, body)
+    post_result = _post_to_forum_subscriber(e.user, forum_id, title, body, tags)
     if "error" in post_result:
         e.write({"error": post_result["error"], "code": post_result["code"]})
         return
