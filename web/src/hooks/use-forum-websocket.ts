@@ -7,7 +7,8 @@
 
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { isInShell } from '@mochi/web'
+import { isInShell, toast } from '@mochi/web'
+import { t } from '@lingui/core/macro'
 import { forumsKeys } from './use-forums-queries'
 
 interface ForumWebsocketEvent {
@@ -17,6 +18,7 @@ interface ForumWebsocketEvent {
     | 'post/delete'
     | 'post/lock'
     | 'post/pin'
+    | 'post/reject'
     | 'post/remove'
     | 'post/restore'
     | 'comment/create'
@@ -30,8 +32,32 @@ interface ForumWebsocketEvent {
   post?: string
   comment?: string
   sender?: string
+  /** post/reject: machine-readable reason code from the forum owner */
+  reason?: string
+  /** post/reject: optional human-readable detail (already localised by the owner side, may be in their language) */
+  detail?: string
   /** Present on tag/add (object with id, label, source) and tag/remove (tag ID string) */
   tag?: { id: string; label: string; source: string } | string
+}
+
+function rejectMessage(reason: string | undefined, detail: string | undefined): string {
+  switch (reason) {
+    case 'access_denied':
+      return t`You don't have permission to post in this forum`
+    case 'restricted':
+      return detail || t`You are restricted from posting in this forum`
+    case 'rate_limited':
+      return detail || t`You are posting too quickly — please wait and try again`
+    case 'invalid':
+      return t`Post couldn't be saved — title or body is invalid`
+    case 'duplicate':
+      return t`This post was already submitted`
+    case 'forum_not_found':
+      return t`Forum is no longer available`
+    case 'server_error':
+    default:
+      return t`Post couldn't be saved on the forum server`
+  }
 }
 
 const RECONNECT_DELAY = 3000
@@ -230,6 +256,19 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
               queryKey: forumsKeys.post(forumId, data.post),
             })
           }
+          break
+        case 'post/reject':
+          // The forum owner refused the post; the Starlark handler has already
+          // deleted the optimistic pending row. Surface the reason and refresh
+          // the post list so the row disappears from the UI.
+          toast.error(rejectMessage(data.reason, data.detail))
+          void queryClient.invalidateQueries({
+            queryKey: ['forum-posts'],
+            predicate: (query) => {
+              const key = query.queryKey
+              return key[0] === 'forum-posts' && key[1] === forumId
+            },
+          })
           break
       }
     }

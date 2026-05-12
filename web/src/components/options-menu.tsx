@@ -1,10 +1,11 @@
 import { useNavigate } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { MoreHorizontal, Rss, Settings } from 'lucide-react'
+import { Gavel, Loader2, MoreHorizontal, Rss, Settings, UserMinus } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -20,9 +21,12 @@ interface OptionsMenuProps {
   entityId?: string
   showRss?: boolean
   settingsUrl?: string
+  moderationUrl?: string
+  onUnsubscribe?: () => void
+  unsubscribePending?: boolean
 }
 
-export function OptionsMenu({ entityId, showRss, settingsUrl }: OptionsMenuProps) {
+export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onUnsubscribe, unsubscribePending }: OptionsMenuProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
   const rssEntity = entityId || (showRss ? '*' : null)
@@ -53,6 +57,18 @@ export function OptionsMenu({ entityId, showRss, settingsUrl }: OptionsMenuProps
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {moderationUrl && (
+          <DropdownMenuItem onSelect={() => navigate({ to: moderationUrl })}>
+            <Gavel className="size-4" />
+            <Trans>Moderation</Trans>
+          </DropdownMenuItem>
+        )}
+        {settingsUrl && (
+          <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
+            <Settings className="size-4" />
+            <Trans>Settings</Trans>
+          </DropdownMenuItem>
+        )}
         {rssEntity && (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -69,11 +85,21 @@ export function OptionsMenu({ entityId, showRss, settingsUrl }: OptionsMenuProps
             </DropdownMenuSubContent>
           </DropdownMenuSub>
         )}
-        {settingsUrl && (
-          <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
-            <Settings className="size-4" />
-            <Trans>Settings</Trans>
-          </DropdownMenuItem>
+        {onUnsubscribe && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onSelect={() => onUnsubscribe()}
+              disabled={unsubscribePending}
+            >
+              {unsubscribePending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <UserMinus className="size-4" />
+              )}
+              <Trans>Unsubscribe</Trans>
+            </DropdownMenuItem>
+          </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

@@ -4,21 +4,19 @@ import {
   AuthenticatedLayout,
   type SidebarData,
   type NavItem,
-  type NavSubItem, naturalCompare,} from '@mochi/web'
+  naturalCompare,
+} from '@mochi/web'
 import {
   Hash,
   MessageSquare,
   Plus,
   RefreshCw,
-  Settings,
-  Gavel,
   Search,
 } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsInfo,
-  useForumInfo,
   useCreatePost,
 } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
@@ -27,7 +25,6 @@ import { CreatePostDialog } from '@/features/forums/components/create-post-dialo
 function ForumsLayoutInner() {
   const { t } = useLingui()
   const {
-    forum,
     postDialogOpen,
     postDialogForum,
     closePostDialog,
@@ -43,13 +40,6 @@ function ForumsLayoutInner() {
     error: forumsInfoError,
     refetch: refetchForumsInfo,
   } = useForumsInfo()
-  // Fetch current forum permissions (at most 1 P2P call)
-  const {
-    data: currentForumInfo,
-    error: currentForumInfoError,
-    isLoading: isLoadingCurrentForumInfo,
-    refetch: refetchCurrentForumInfo,
-  } = useForumInfo(forum)
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
 
   // Find forums for dialog
@@ -84,79 +74,11 @@ function ForumsLayoutInner() {
       naturalCompare(a.name, b.name)
     )
 
-    // Build forum items - use fingerprint for shorter URLs
+    // Build forum items - use fingerprint for shorter URLs.
+    // Per-forum management actions (Settings, Moderation) live in the page-level
+    // ⋯ OptionsMenu, not the sidebar.
     const forumItems = sortedForums.map((f: Forum) => {
-      const isCurrentForum = forum === f.id || forum === f.fingerprint
       const forumUrl = f.fingerprint ?? f.id
-      const subItems: NavSubItem[] = []
-
-      // Build manage items - use currentForumInfo for permissions (handles P2P for subscribed forums)
-      const manageItems: { title: string; icon: typeof Settings | typeof Gavel; url: string }[] = []
-      const hasResolvedCurrentPermissions = Boolean(currentForumInfo?.data?.permissions)
-      const hasCurrentPermissionsError = isCurrentForum && !!currentForumInfoError
-      const canManage = isCurrentForum
-        ? hasResolvedCurrentPermissions &&
-          !isLoadingCurrentForumInfo &&
-          !hasCurrentPermissionsError &&
-          (currentForumInfo?.data?.permissions.manage ?? false)
-        : f.can_manage
-      const canModerate = isCurrentForum
-        ? hasResolvedCurrentPermissions &&
-          !isLoadingCurrentForumInfo &&
-          !hasCurrentPermissionsError &&
-          (currentForumInfo?.data?.permissions.moderate ?? false)
-        : f.can_moderate
-
-      // Settings link for forum managers only
-      if (isCurrentForum && canManage) {
-        manageItems.push({
-          title: t`Settings`,
-          icon: Settings,
-          url: `/${forumUrl}/settings`,
-        })
-      }
-      // Moderation link for managers and moderators
-      if (isCurrentForum && (canManage || canModerate)) {
-        manageItems.push({
-          title: t`Moderation`,
-          icon: Gavel,
-          url: `/${forumUrl}/moderation`,
-        })
-      }
-
-      if (isCurrentForum && hasCurrentPermissionsError) {
-        subItems.push({
-          title: t`Manage`,
-          items: [
-            {
-              title: t`Retry permissions load`,
-              icon: RefreshCw,
-              onClick: () => {
-                void refetchCurrentForumInfo()
-              },
-              className: 'text-destructive',
-            },
-          ],
-        } as NavSubItem)
-      }
-
-      // Group manage items under "Manage" section if there are any
-      if (manageItems.length > 0) {
-        subItems.push({
-          title: t`Manage`,
-          items: manageItems,
-        } as NavSubItem)
-      }
-
-      // NavCollapsible when there are sub-items, NavLink otherwise
-      if (subItems.length > 0) {
-        return {
-          title: f.name,
-          url: `/${forumUrl}`,
-          icon: Hash,
-          items: subItems,
-        }
-      }
 
       return {
         title: f.name,
@@ -208,14 +130,9 @@ function ForumsLayoutInner() {
     return { navGroups: groups }
   }, [
     forums,
-    forum,
     openForumDialog,
-    currentForumInfo,
-    currentForumInfoError,
-    isLoadingCurrentForumInfo,
     forumsInfoError,
     refetchForumsInfo,
-    refetchCurrentForumInfo,
   ])
 
   return (

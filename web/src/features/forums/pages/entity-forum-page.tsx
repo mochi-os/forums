@@ -123,6 +123,7 @@ export function EntityForumPage({
     isFetchingNextPage,
     fetchNextPage,
     can_manage: canManage,
+    can_moderate: canModerate,
     hasAi,
     error: postsError,
     refetch,
@@ -261,30 +262,15 @@ export function EntityForumPage({
                 )}
               </Button>
             )}
-            {canUnsubscribe && (
-              <Button
-                variant='outline'
-                onClick={() => unsubscribeMutation.mutate(forum.id)}
-                disabled={unsubscribeMutation.isPending}
-              >
-                {unsubscribeMutation.isPending ? (
-                  <>
-                    <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && (
-                      <span className='ms-2'><Trans>Unsubscribing...</Trans></span>
-                    )}
-                  </>
-                ) : (
-                  <Trans>Unsubscribe</Trans>
-                )}
-              </Button>
-            )}
           </>
         }
         menuAction={
           <OptionsMenu
             entityId={forum.fingerprint}
             settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
+            moderationUrl={(canManage || canModerate) ? `/${forum.fingerprint ?? forum.id}/moderation` : undefined}
+            onUnsubscribe={canUnsubscribe ? () => unsubscribeMutation.mutate(forum.id) : undefined}
+            unsubscribePending={unsubscribeMutation.isPending}
           />
         }
       />
