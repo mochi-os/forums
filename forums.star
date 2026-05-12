@@ -477,6 +477,67 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
     notify(topic, forum_id, title, body, "/forums/" + forum_id)
 
+# Helper: Notify every moderator of a forum (entity owner + users with the
+# 'moderate' access level) that there's new work in the queue.
+# `exclude_user_id` is the actor (post author, comment author, report
+# reporter) — they're not notified about their own submission. The local
+# owner gets a direct notify(); remote moderators get a P2P
+# 'moderator/notify' event that their side translates into a local notify().
+def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
+    entity = mochi.entity.info(forum_id)
+    if not entity:
+        return
+    owner_id = entity.get("creator", "")
+
+    # Dedupe via dict (Starlark has no set literal). Owner is implicit
+    # moderator; explicit access rules add the rest.
+    moderator_ids = {}
+    if owner_id:
+        moderator_ids[owner_id] = True
+    for rule in (mochi.access.list.resource("forum/" + forum_id) or []):
+        if rule.get("operation") != "moderate":
+            continue
+        if rule.get("grant", 1) != 1:
+            continue
+        subject = rule.get("subject", "")
+        # Skip wildcards, role markers, group markers — only specific users
+        # can receive a notification. Group expansion is a future enhancement.
+        if not subject or subject in ("*", "+") or subject.startswith("@") or subject.startswith("#"):
+            continue
+        moderator_ids[subject] = True
+
+    if exclude_user_id:
+        moderator_ids.pop(exclude_user_id, None)
+    if not moderator_ids:
+        return
+
+    fp = mochi.entity.fingerprint(forum_id) or forum_id
+    url = url or "/forums/" + fp + "/-/moderation/queue"
+
+    for mid in moderator_ids:
+        if mid == owner_id:
+            notify(topic, forum_id, title, body, url)
+        else:
+            mochi.message.send(
+                {"from": forum_id, "to": mid, "service": "forums", "event": "moderator/notify"},
+                {"topic": topic, "object": forum_id, "title": title, "body": body, "url": url}
+            )
+
+# Receive a moderator notification from a forum we moderate.
+# The forum owner addresses us by user ID; the message arrives in our
+# user context, so notify() routes to our own notifications app.
+def event_moderator_notify(e):
+    forum_id = e.header("from")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    topic = e.content("topic") or "moderation/queue"
+    title = e.content("title") or ""
+    body = e.content("body") or ""
+    url = e.content("url") or ""
+    if not title or not body:
+        return
+    notify(topic, forum_id, title, body, url)
+
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
 # entity lives on this server, or goes over P2P otherwise. Handles both binary
@@ -4610,6 +4671,15 @@ def event_comment_submit_event(e):
         broadcast_event(forum["id"], "comment/create", comment_data)
         if body:
             notify_mentions(forum["id"], post_id, body, sender_id, sender_name)
+    elif status == "pending":
+        notify_moderators(
+            forum["id"],
+            "moderation/queue",
+            mochi.app.label("moderation.pending.title", forum=forum["name"]),
+            mochi.app.label("moderation.pending.body.comment", author=sender_name, post=post.get("title") or ""),
+            "",
+            sender_id,
+        )
 
 # Received a comment edit request from member (we are forum owner)
 def event_comment_edit_submit_event(e):
@@ -5026,6 +5096,15 @@ def event_post_submit_event(e):
         # Schedule AI tagging
         if forum.get("ai_mode", ""):
             mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
+    elif status == "pending":
+        notify_moderators(
+            forum["id"],
+            "moderation/queue",
+            mochi.app.label("moderation.pending.title", forum=forum["name"]),
+            mochi.app.label("moderation.pending.body.post", author=sender_name),
+            "",
+            sender_id,
+        )
 
 # Received a post edit request from member (we are forum owner)
 def event_post_edit_submit_event(e):
@@ -5911,6 +5990,25 @@ def event_report_submit_event(e):
     mochi.db.execute(
         "insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         report_id, forum["id"], sender, report_type, target, author, reason, details, now)
+
+    # Notify moderators that a new report needs triage. The fingerprint URL
+    # points at the reports tab, not the queue tab. Exclude the reporter so
+    # a moderator reporting someone else's content doesn't ping themselves.
+    reporter_member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], sender)
+    reporter_name = reporter_member["name"] if reporter_member and reporter_member["name"] else ""
+    if not reporter_name:
+        reporter_entity = mochi.directory.get(sender)
+        reporter_name = reporter_entity["name"] if reporter_entity and reporter_entity["name"] else "Anonymous"
+    fp = mochi.entity.fingerprint(forum["id"]) or forum["id"]
+    body_key = "moderation.report.body.post" if report_type == "post" else "moderation.report.body.comment"
+    notify_moderators(
+        forum["id"],
+        "moderation/report",
+        mochi.app.label("moderation.report.title", forum=forum["name"]),
+        mochi.app.label(body_key, reporter=reporter_name, reason=reason),
+        "/forums/" + fp + "/-/moderation/reports",
+        sender,
+    )
 
 # Received a report resolution request from moderator (we are forum owner)
 def event_report_resolve_submit_event(e):
