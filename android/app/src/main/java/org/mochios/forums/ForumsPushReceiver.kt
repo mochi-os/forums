@@ -14,4 +14,6 @@ class ForumsPushReceiver : MochiPushReceiver() {
             .buildUpon()
             .appendQueryParameter("link", link)
             .build()
+
+    override fun appName(): String = "forums"
 }
