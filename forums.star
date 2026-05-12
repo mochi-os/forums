@@ -758,6 +758,11 @@ def event_ai_tag(e):
     forum_id = e.data.get("forum", "")
     post_id = e.data.get("post", "")
     if forum_id and post_id:
+        # Single-host gate: only one replica pays for the AI call.
+        # V1 mochi.schedule.leader is local-only; becomes load-bearing
+        # once cross-host claim coordination lands.
+        if not mochi.schedule.leader("forum:" + forum_id, "ai-tag:" + post_id):
+            return
         ai_tag_post(forum_id, post_id)
 
 # Set AI mode and account for a forum
