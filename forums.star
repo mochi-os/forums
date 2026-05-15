@@ -2738,6 +2738,36 @@ def action_comment_edit(a):
 
             now = mochi.time.now()
 
+            # Handle attachment changes — mirrors action_post_edit. The
+            # `order` form field is a JSON array of "<existing-id>" or
+            # "new:<index>" entries describing the desired final order.
+            order_json = a.input("order")
+            order = json.decode(order_json) if order_json else []
+
+            current_attachments = mochi.attachment.list(comment_id, forum["id"])
+            current_ids = [att["id"] for att in current_attachments]
+            new_attachments = mochi.attachment.save(comment_id, "files", [], [], [])
+
+            final_order = []
+            for item in order:
+                if item.startswith("new:"):
+                    idx = int(item[4:])
+                    if idx < len(new_attachments):
+                        final_order.append(new_attachments[idx]["id"])
+                else:
+                    final_order.append(item)
+
+            if final_order:
+                for att_id in current_ids:
+                    if att_id not in final_order:
+                        mochi.attachment.delete(att_id, [])
+                for i, att_id in enumerate(final_order):
+                    mochi.attachment.move(att_id, i + 1, [])
+            elif order_json:
+                # Explicit empty order: drop all attachments.
+                for att_id in current_ids:
+                    mochi.attachment.delete(att_id, [])
+
             mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
             mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -2746,7 +2776,8 @@ def action_comment_edit(a):
                 "id": comment_id,
                 "post": comment["post"],
                 "body": body,
-                "edited": now
+                "edited": now,
+                "attachments": mochi.attachment.list(comment_id, forum["id"]),
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
             broadcast_websocket(forum["id"], {"type": "comment/edit", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user_id})
