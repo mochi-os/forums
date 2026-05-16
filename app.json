@@ -1,5 +1,5 @@
 {
-	"version": "7.18",
+	"version": "7.20",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -17,7 +17,7 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 32,
+		"schema": 33,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -53,6 +53,7 @@
 		":forum/-/sort/set": {"function": "action_sort_set_forum"},
 		":forum/-/subscribe": {"function": "action_subscribe"},
 		":forum/-/unsubscribe": {"function": "action_unsubscribe"},
+		":forum/-/resync": {"function": "action_resync"},
 		":forum/-/delete": {"function": "action_delete"},
 		":forum/-/rename": {"function": "action_rename"},
 		":forum/-/banner/get": {"function": "action_banner_get"},

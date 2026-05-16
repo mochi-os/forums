@@ -47,7 +47,8 @@ def database_create():
         limit_window integer not null default 3600, fingerprint text not null default '',
         ai_mode text not null default '', ai_account integer not null default 0,
         ai_prompt_tag text not null default '', ai_prompt_score text not null default '',
-        banner text not null default '', sort text not null default '' )""")
+        banner text not null default '', sort text not null default '',
+        synced integer not null default 0 )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -202,6 +203,12 @@ def database_upgrade(to_version):
         mochi.db.execute("create index if not exists votes_post on votes( post )")
         mochi.db.execute("create index if not exists votes_comment on votes( comment )")
         mochi.db.execute("create index if not exists votes_voter on votes( voter )")
+    if to_version == 33:
+        # Add forums.synced for throttled resync requests when an
+        # incoming event references a post or comment we haven't seen.
+        cols = [r["name"] for r in mochi.db.table("forums") or []]
+        if "synced" not in cols:
+            mochi.db.execute("alter table forums add column synced integer not null default 0")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -338,6 +345,31 @@ def broadcast_event(forum_id, event, data, exclude=None):
             {"from": forum_id, "to": m["id"], "service": "forums", "event": event},
             data
         )
+
+# request_resync pulls a fresh schema dump from the forum owner when an
+# incoming event references data we don't have yet (out-of-order delivery,
+# lost messages while offline). The owner's event_schema is the canonical
+# source; insert_forum_schema applies it idempotently. Throttled to one
+# call per 60 seconds per forum so a burst of bad events can't spam the
+# owner. Subscribers-only — owners are themselves the canonical source.
+def request_resync(forum_id):
+    row = mochi.db.row("select server, synced from forums where id=?", forum_id)
+    if not row:
+        return
+    if not row["server"]:
+        return
+    now = mochi.time.now()
+    if row["synced"] and now - row["synced"] < 60:
+        return
+    mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
+    peer = mochi.remote.peer(row["server"])
+    schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+    if not schema or schema.get("error"):
+        return
+    insert_forum_schema(forum_id, schema)
+    fp = mochi.entity.fingerprint(forum_id)
+    if fp:
+        mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
 
 # Helper: Send a rejection back to the original sender of a submit event.
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
@@ -1959,6 +1991,24 @@ def action_subscribe(a):
     return {
         "data": {"fingerprint": mochi.entity.fingerprint(forum_id)}
     }
+
+# Force a fresh schema pull from the forum owner. The subscriber-side
+# event handlers self-heal via request_resync on the next inbound event;
+# this action lets the UI or a user trigger it explicitly.
+def action_resync(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    if owned(forum["id"]):
+        # Owners are the canonical source; nothing to resync from.
+        return {"data": {"synced": False}}
+    mochi.db.execute("update forums set synced=0 where id=?", forum["id"])
+    request_resync(forum["id"])
+    return {"data": {"synced": True}}
 
 # Unsubscribe from forum
 def action_unsubscribe(a):
@@ -4587,6 +4637,9 @@ def event_comment_create_event(e):
 
     post = e.content("post")
     if not mochi.db.exists("select id from posts where forum=? and id=?", forum["id"], post):
+        # Out-of-order delivery: post hasn't arrived yet. Resync from
+        # owner so we converge on the next event.
+        request_resync(forum["id"])
         return
 
     parent = e.content("parent") or ""
@@ -5262,6 +5315,7 @@ def event_post_update_event(e):
     forum_id = e.header("from")
     old_post = mochi.db.row("select * from posts where forum=? and id=?", forum_id, id)
     if not old_post:
+        request_resync(forum_id)
         return
 
     up = e.content("up")
@@ -5285,6 +5339,7 @@ def event_post_edit_event(e):
     forum_id = e.header("from")
     old_post = mochi.db.row("select * from posts where forum=? and id=?", forum_id, id)
     if not old_post:
+        request_resync(forum_id)
         return
 
     title = e.content("title")
