@@ -353,23 +353,25 @@ def broadcast_event(forum_id, event, data, exclude=None):
 # call per 60 seconds per forum so a burst of bad events can't spam the
 # owner. Subscribers-only — owners are themselves the canonical source.
 def request_resync(forum_id):
+    """Returns True iff a fresh schema was actually fetched and applied."""
     row = mochi.db.row("select server, synced from forums where id=?", forum_id)
     if not row:
-        return
+        return False
     if not row["server"]:
-        return
+        return False
     now = mochi.time.now()
     if row["synced"] and now - row["synced"] < 60:
-        return
+        return False
     mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
     peer = mochi.remote.peer(row["server"])
     schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
     if not schema or schema.get("error"):
-        return
+        return False
     insert_forum_schema(forum_id, schema)
     fp = mochi.entity.fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
+    return True
 
 # Helper: Send a rejection back to the original sender of a submit event.
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
@@ -2007,8 +2009,8 @@ def action_resync(a):
         # Owners are the canonical source; nothing to resync from.
         return {"data": {"synced": False}}
     mochi.db.execute("update forums set synced=0 where id=?", forum["id"])
-    request_resync(forum["id"])
-    return {"data": {"synced": True}}
+    synced = request_resync(forum["id"])
+    return {"data": {"synced": synced}}
 
 # Unsubscribe from forum
 def action_unsubscribe(a):
