@@ -333,18 +333,14 @@ def check_event_access(user_id, forum_id, operation):
 
     return False
 
-# Helper: Broadcast event to all subscribers of a forum
+# Helper: Broadcast event to all members of a forum via the durable
+# broadcast log. Sequence + log + gap-detection live in core.
 def broadcast_event(forum_id, event, data, exclude=None):
     if not forum_id:
         return
     members = mochi.db.rows("select id from members where forum=?", forum_id)
-    for m in members:
-        if exclude and m["id"] == exclude:
-            continue
-        mochi.message.send(
-            {"from": forum_id, "to": m["id"], "service": "forums", "event": event},
-            data
-        )
+    member_ids = [m["id"] for m in members]
+    mochi.broadcast.send(forum_id, forum_id, member_ids, "forums", event, data, exclude or "")
 
 # request_resync pulls a fresh schema dump from the forum owner when an
 # incoming event references data we don't have yet (out-of-order delivery,
