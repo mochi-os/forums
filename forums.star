@@ -370,7 +370,7 @@ def request_resync(forum_id):
     insert_forum_schema(forum_id, schema)
     fp = mochi.entity.fingerprint(forum_id)
     if fp:
-        mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
+        mochi.websocket.broadcast(fp, {"type": "forum/resynced", "forum": forum_id})
     return True
 
 # Helper: Send a rejection back to the original sender of a submit event.
@@ -385,15 +385,19 @@ def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
         {"id": target_id, "reason": reason, "detail": detail}
     )
 
-# Helper: Broadcast WebSocket notification to forum subscribers
-# Uses fingerprint as key since that's what frontend connects with (from URL)
+# Helper: Broadcast WebSocket notification to forum subscribers.
+# Uses fingerprint as key since that's what the frontend connects with.
+# Must use broadcast (not write) because inbound replication commits and
+# scheduled events run under the forum owner's thread user, while
+# subscribers' browsers are connected under their own UIDs. write would
+# only reach the emitter's own tabs.
 def broadcast_websocket(forum_id, data):
     if not forum_id:
         return
     fingerprint = mochi.entity.fingerprint(forum_id)
     if not fingerprint:
         return
-    mochi.websocket.write(fingerprint, data)
+    mochi.websocket.broadcast(fingerprint, data)
 
 # Helper: Check if user is restricted from a forum
 # Returns error message if restricted, None if allowed
@@ -4673,6 +4677,9 @@ def event_comment_create_event(e):
     mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
+    # Notify connected subscribers' tabs so the new comment appears without reload.
+    broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": post, "comment": id, "sender": member})
+
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
     forum = get_forum(e.header("to"))
@@ -4899,6 +4906,8 @@ def event_comment_edit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
 
+    broadcast_websocket(old_comment["forum"], {"type": "comment/edit", "forum": old_comment["forum"], "post": old_comment["post"], "comment": id, "sender": old_comment["member"]})
+
 # Received a comment delete from forum owner
 def event_comment_delete_event(e):
     forum_id = e.header("from")
@@ -4934,6 +4943,9 @@ def event_comment_delete_event(e):
         mochi.db.execute("update posts set updated=?, comments=comments-? where id=?",
             now, deleted_count, post_id)
         mochi.db.execute("update forums set updated=? where id=?", now, forum_id)
+
+        for comment_id in comment_ids:
+            broadcast_websocket(forum_id, {"type": "comment/delete", "forum": forum_id, "post": post_id, "comment": comment_id})
 
 # Received a comment vote from member (we are forum owner)
 def event_comment_vote_event(e):
@@ -5050,6 +5062,9 @@ def event_post_create_event(e):
         mochi.attachment.store(attachments, e.header("from"), id)
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
+
+    # Notify connected subscribers' tabs so the new post appears without reload.
+    broadcast_websocket(forum["id"], {"type": "post/create", "forum": forum["id"], "post": id, "sender": member})
 
 # Received a rejection from forum owner — our submitted post was refused.
 # Remove the optimistic pending row and signal the web tab to show a toast.
@@ -5366,6 +5381,8 @@ def event_post_edit_event(e):
 
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
+    broadcast_websocket(old_post["forum"], {"type": "post/edit", "forum": old_post["forum"], "post": id, "sender": old_post["member"]})
+
 # Received a post delete from forum owner
 def event_post_delete_event(e):
     id = e.content("id")
@@ -5398,6 +5415,8 @@ def event_post_delete_event(e):
 
     now = mochi.time.now()
     mochi.db.execute("update forums set updated=? where id=?", now, forum_id)
+
+    broadcast_websocket(forum_id, {"type": "post/delete", "forum": forum_id, "post": id, "sender": old_post["member"]})
 
 # Received a post vote from member (we are forum owner)
 def event_post_vote_event(e):
@@ -5469,6 +5488,7 @@ def event_tag_add(e):
     relevance = e.content("relevance") or 0
     source = e.content("source") or "manual"
     mochi.db.execute("insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)", tag_id, object_id, label, qid, relevance, source)
+    broadcast_websocket(forum_id, {"type": "tag/add", "forum": forum_id, "post": object_id, "tag": {"id": tag_id, "label": label, "source": source}})
 
 # Handle tag remove event from forum owner
 def event_tag_remove(e):
@@ -5477,9 +5497,11 @@ def event_tag_remove(e):
     if not forum:
         return
     tag_id = e.content("id")
+    object_id = e.content("object") or ""
     if not tag_id:
         return
     mochi.db.execute("delete from tags where id=?", tag_id)
+    broadcast_websocket(forum_id, {"type": "tag/remove", "forum": forum_id, "post": object_id, "tag": tag_id})
 
 # Received a subscribe request from member (we are forum owner)
 def event_subscribe_event(e):
@@ -5666,6 +5688,7 @@ def event_post_remove_event(e):
     mochi.db.execute(
         "update posts set status='removed', remover=?, reason=? where id=? and forum=?",
         remover, reason, post_id, forum["id"])
+    broadcast_websocket(forum["id"], {"type": "post/remove", "forum": forum["id"], "post": post_id})
 
 # Received a post restoration request from moderator (we are forum owner)
 def event_post_restore_submit_event(e):
@@ -5703,6 +5726,7 @@ def event_post_restore_event(e):
     mochi.db.execute(
         "update posts set status='approved', remover=null, reason='' where id=? and forum=?",
         post_id, forum["id"])
+    broadcast_websocket(forum["id"], {"type": "post/restore", "forum": forum["id"], "post": post_id})
 
 # Received a post approval request from moderator (we are forum owner)
 def event_post_approve_submit_event(e):
@@ -5788,6 +5812,7 @@ def event_post_lock_event(e):
     post_id = e.content("id")
     locked = e.content("locked")
     mochi.db.execute("update posts set locked=? where id=? and forum=?", 1 if locked else 0, post_id, forum["id"])
+    broadcast_websocket(forum["id"], {"type": "post/lock", "forum": forum["id"], "post": post_id, "locked": bool(locked)})
 
 # Received a post pin request from moderator (we are forum owner)
 def event_post_pin_submit_event(e):
@@ -5839,6 +5864,7 @@ def event_post_pin_event(e):
     post_id = e.content("id")
     pinned = e.content("pinned")
     mochi.db.execute("update posts set pinned=? where id=? and forum=?", 1 if pinned else 0, post_id, forum["id"])
+    broadcast_websocket(forum["id"], {"type": "post/pin", "forum": forum["id"], "post": post_id, "pinned": bool(pinned)})
 
 # Received a comment removal request from moderator (we are forum owner)
 def event_comment_remove_submit_event(e):
@@ -5886,6 +5912,9 @@ def event_comment_remove_event(e):
     mochi.db.execute(
         "update comments set status='removed', remover=?, reason=? where id=? and forum=?",
         remover, reason, comment_id, forum["id"])
+    post = mochi.db.row("select post from comments where id=?", comment_id)
+    if post:
+        broadcast_websocket(forum["id"], {"type": "comment/remove", "forum": forum["id"], "post": post["post"], "comment": comment_id})
 
 # Received a comment restoration request from moderator (we are forum owner)
 def event_comment_restore_submit_event(e):
@@ -5922,6 +5951,9 @@ def event_comment_restore_event(e):
     mochi.db.execute(
         "update comments set status='approved', remover=null, reason='' where id=? and forum=?",
         comment_id, forum["id"])
+    post = mochi.db.row("select post from comments where id=?", comment_id)
+    if post:
+        broadcast_websocket(forum["id"], {"type": "comment/restore", "forum": forum["id"], "post": post["post"], "comment": comment_id})
 
 # Received a comment approval request from moderator (we are forum owner)
 def event_comment_approve_submit_event(e):
