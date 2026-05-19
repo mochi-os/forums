@@ -20,7 +20,12 @@
 		"schema": 33,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
-		"upgrade": {"function": "database_upgrade"}
+		"upgrade": {"function": "database_upgrade"},
+		"replicate": {
+			"exclude": {
+				"tables": ["score_cache"]
+			}
+		}
 	},
 	"icons": [
 		{"action": "", "label": "app.name", "file": "images/icon.svg"}
