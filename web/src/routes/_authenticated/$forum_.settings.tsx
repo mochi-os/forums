@@ -449,6 +449,7 @@ function GeneralTab({
                     onClick={handleCancelEdit}
                     disabled={isRenaming}
                     className='h-9 w-9 p-0'
+                    aria-label={t`Cancel edit`}
                   >
                     <X className='size-4 text-destructive' />
                   </Button>
@@ -466,6 +467,7 @@ function GeneralTab({
                     variant='ghost'
                     onClick={handleStartEdit}
                     className='h-6 w-6 p-0 hover:bg-muted'
+                    aria-label={t`Edit name`}
                   >
                     <Pencil className='size-3.5 text-muted-foreground' />
                   </Button>
@@ -958,7 +960,7 @@ function AccessTab({ forumId }: AccessTabProps) {
             disabled={!canManageRules}
           >
             <Plus className='me-2 h-4 w-4' />
-            <Trans>Add Rule</Trans>
+            <Trans>Add rule</Trans>
           </Button>
         </div>
 
