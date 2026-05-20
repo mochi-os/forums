@@ -1,6 +1,6 @@
 import { Button, EmptyState } from '@mochi/web'
 import { Trans } from '@lingui/react/macro'
-import { FileQuestion } from 'lucide-react'
+import { ChevronLeft, FileQuestion } from 'lucide-react'
 import { t } from '@lingui/core/macro'
 
 export function EmptyThreadState({ onBack }: { onBack: () => void }) {
@@ -11,7 +11,7 @@ export function EmptyThreadState({ onBack }: { onBack: () => void }) {
         title={t`Post not found`}
         description={t`This post may have been deleted or doesn't exist.`}
       >
-        <Button onClick={onBack}><Trans>Back to forum</Trans></Button>
+        <Button onClick={onBack}><ChevronLeft className="size-4" /><Trans>Back to forum</Trans></Button>
       </EmptyState>
     </div>
   )
