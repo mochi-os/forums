@@ -366,7 +366,7 @@ def request_resync(forum_id):
     insert_forum_schema(forum_id, schema)
     fp = mochi.entity.fingerprint(forum_id)
     if fp:
-        mochi.websocket.broadcast(fp, {"type": "forum/resynced", "forum": forum_id})
+        mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
     return True
 
 # Helper: Send a rejection back to the original sender of a submit event.
@@ -393,7 +393,7 @@ def broadcast_websocket(forum_id, data):
     fingerprint = mochi.entity.fingerprint(forum_id)
     if not fingerprint:
         return
-    mochi.websocket.broadcast(fingerprint, data)
+    mochi.websocket.write(fingerprint, data)
 
 # Helper: Check if user is restricted from a forum
 # Returns error message if restricted, None if allowed
