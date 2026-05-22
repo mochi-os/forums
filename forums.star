@@ -546,7 +546,7 @@ def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
         return
 
     fp = mochi.entity.fingerprint(forum_id) or forum_id
-    url = url or "/forums/" + fp + "/-/moderation/queue"
+    url = url or "/forums/" + fp + "/moderation"
 
     for mid in moderator_ids:
         if mid == owner_id:
@@ -6127,7 +6127,7 @@ def event_report_submit_event(e):
         "moderation/report",
         mochi.app.label("moderation.report.title", forum=forum["name"]),
         mochi.app.label(body_key, reporter=reporter_name, reason=reason),
-        "/forums/" + fp + "/-/moderation/reports",
+        "/forums/" + fp + "/moderation?tab=reports",
         sender,
     )
 
