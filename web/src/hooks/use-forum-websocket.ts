@@ -7,7 +7,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { isInShell, toast } from '@mochi/web'
+import { toast, useAuthStore } from '@mochi/web'
 import { t } from '@lingui/core/macro'
 import { forumsKeys } from './use-forums-queries'
 
@@ -64,7 +64,10 @@ const RECONNECT_DELAY = 3000
 
 function getWebSocketUrl(key: string): string {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-  return `${protocol}//${window.location.host}/_/websocket?key=${key}`
+  const raw = useAuthStore.getState().token
+  const token = raw?.startsWith('Bearer ') ? raw.slice(7) : raw
+  const tokenParam = token ? `&token=${encodeURIComponent(token)}` : ''
+  return `${protocol}//${window.location.host}/_/websocket?key=${key}${tokenParam}`
 }
 
 /**
@@ -205,14 +208,16 @@ const wsManager = new WebSocketManager()
  */
 export function useForumWebsocket(forumKey?: string, userId?: string) {
   const queryClient = useQueryClient()
+  const authReady = useAuthStore((state) => state.isInitialized)
+  const authToken = useAuthStore((state) => state.token)
 
   // Use ref for userId so it doesn't cause reconnections
   const userIdRef = useRef(userId)
   userIdRef.current = userId
 
   useEffect(() => {
-    // WebSocket can't connect from sandboxed iframe (opaque origin, no cookies)
-    if (!forumKey || isInShell()) return
+    if (!authReady) return
+    if (!forumKey) return
 
     const handleMessage = (data: ForumWebsocketEvent) => {
       // Skip events from the current user (optimistic UI already applied)
@@ -275,5 +280,5 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
 
     const unsubscribe = wsManager.subscribe(forumKey, handleMessage)
     return unsubscribe
-  }, [forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
+  }, [authReady, authToken, forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
 }
