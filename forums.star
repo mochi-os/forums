@@ -6255,6 +6255,18 @@ def event_schema(e):
 
     tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=?)", forum_id) or []
 
+    # Inline attachment metadata so subscribers can't lose it when post/create events
+    # from event_subscribe_event are dropped by the already-exists guard in
+    # event_post_create_event. Metadata only — files still fetch on demand from the owner.
+    for p in posts:
+        atts = mochi.attachment.list(p["id"])
+        if atts:
+            p["attachments"] = atts
+    for c in comments:
+        atts = mochi.attachment.list(c["id"])
+        if atts:
+            c["attachments"] = atts
+
     e.stream.write({
         "posts": posts,
         "comments": comments,
@@ -6270,6 +6282,9 @@ def insert_forum_schema(forum_id, schema):
             p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
             p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
         )
+        atts = p.get("attachments") or []
+        if atts:
+            mochi.attachment.store(atts, forum_id, p.get("id", ""))
     for c in (schema.get("comments") or []):
         mochi.db.execute(
             "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -6277,6 +6292,9 @@ def insert_forum_schema(forum_id, schema):
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
             c.get("up", 0), c.get("down", 0), c.get("created", 0)
         )
+        atts = c.get("attachments") or []
+        if atts:
+            mochi.attachment.store(atts, forum_id, c.get("id", ""))
     for t in (schema.get("tags") or []):
         mochi.db.execute(
             "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)",
