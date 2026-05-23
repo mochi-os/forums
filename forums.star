@@ -395,6 +395,52 @@ def broadcast_websocket(forum_id, data):
         return
     mochi.websocket.write(fingerprint, data)
 
+def on_db_commit(table, kind, row_uid):
+    if not row_uid:
+        return
+    
+    msg = None
+    forum_id = None
+    
+    if table == "posts" and kind in ("insert", "update"):
+        row = mochi.db.row("select forum, member from posts where id=?", row_uid)
+        if not row:
+            return
+        forum_id = row["forum"]
+        msg_type = "post/create" if kind == "insert" else "post/edit"
+        msg = {"type": msg_type, "forum": forum_id, "post": row_uid, "sender": row.get("member", "")}
+        
+    elif table == "comments" and kind in ("insert", "update"):
+        row = mochi.db.row("select forum, post, member from comments where id=?", row_uid)
+        if not row:
+            return
+        forum_id = row["forum"]
+        msg_type = "comment/create" if kind == "insert" else "comment/edit"
+        msg = {"type": msg_type, "forum": forum_id, "post": row["post"], "comment": row_uid, "sender": row.get("member", "")}
+        
+    elif table == "tags" and kind == "insert":
+        tag = mochi.db.row("select object, label, source from tags where id=?", row_uid)
+        if not tag:
+            return
+        post = mochi.db.row("select forum from posts where id=?", tag["object"])
+        if not post:
+            return
+        forum_id = post["forum"]
+        msg = {
+            "type": "tag/add",
+            "forum": forum_id,
+            "post": tag["object"],
+            "tag": {"id": row_uid, "label": tag["label"], "source": tag["source"]}
+        }
+        
+    if not msg or not forum_id:
+        return
+
+    fingerprint = mochi.entity.fingerprint(forum_id)
+    if fingerprint:
+        mochi.websocket.write(fingerprint, msg)
+
+
 # Helper: Check if user is restricted from a forum
 # Returns error message if restricted, None if allowed
 def check_restriction(forum_id, user_id, operation):
@@ -920,7 +966,7 @@ def action_tags_add(a):
     mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, post_id, label)
 
     # Broadcast to subscribers via WebSocket (not P2P, which requires entity ownership)
-    broadcast_websocket(forum["id"], {"type": "tag/add", "forum": forum["id"], "post": post_id, "tag": {"id": tag_id, "label": label, "source": "manual"}, "sender": user_id})
+    mochi.db.commit.fire("tags", "insert", tag_id)
 
     # Update user interests from the manually added tag
     update_interests_from_manual_tag(label)
@@ -1481,7 +1527,7 @@ def action_post_create(a):
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
-                broadcast_websocket(forum["id"], {"type": "post/create", "forum": forum["id"], "post": id, "sender": user_id})
+                mochi.db.commit.fire("posts", "insert", id)
                 if body:
                     notify_mentions(forum["id"], id, body, user_id, user_name)
 
@@ -2367,7 +2413,7 @@ def action_post_edit(a):
             }
             post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
-            broadcast_websocket(forum["id"], {"type": "post/edit", "forum": forum["id"], "post": post_id, "sender": user_id})
+            mochi.db.commit.fire("posts", "update", post_id)
 
             # Re-tag with AI if enabled
             if forum.get("ai_mode", ""):
@@ -2686,7 +2732,7 @@ def action_comment_create(a):
                     comment_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
-                broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": post_id, "comment": id, "sender": user_id})
+                mochi.db.commit.fire("comments", "insert", id)
                 if body:
                     notify_mentions(forum["id"], post_id, body, user_id, user_name)
         else:
@@ -2832,7 +2878,7 @@ def action_comment_edit(a):
                 "attachments": mochi.attachment.list(comment_id, forum["id"]),
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
-            broadcast_websocket(forum["id"], {"type": "comment/edit", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user_id})
+            mochi.db.commit.fire("comments", "update", comment_id)
         else:
             # Subscriber - must be author or have manage access to edit
             is_author = user_id == comment["member"]
@@ -3458,7 +3504,7 @@ def action_comment_approve(a):
             "created": comment["created"]
         }
         broadcast_event(forum["id"], "comment/create", comment_data)
-        broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": comment["member"]})
+        mochi.db.commit.fire("comments", "insert", comment_id)
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "comment/approve/submit"},
@@ -4198,6 +4244,7 @@ def action_post_vote(a):
             now = mochi.time.now()
             mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+            mochi.db.commit.fire("posts", "update", post["id"])
 
             # Broadcast update to members
             updated_post = mochi.db.row("select up, down from posts where id=?", post["id"])
@@ -4243,6 +4290,7 @@ def action_post_vote(a):
                     mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
                 elif vote == "down":
                     mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
+            mochi.db.commit.fire("posts", "update", post["id"])
 
         return {
             "data": {"forum": forum["id"], "post": post["id"]}
@@ -4331,6 +4379,7 @@ def action_comment_vote(a):
             now = mochi.time.now()
             mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+            mochi.db.commit.fire("comments", "update", comment["id"])
 
             # Broadcast update to members
             updated_comment = mochi.db.row("select up, down from comments where id=?", comment["id"])
@@ -4372,6 +4421,7 @@ def action_comment_vote(a):
                     mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
                 elif vote == "down":
                     mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
+            mochi.db.commit.fire("comments", "update", comment["id"])
 
         return {
             "data": {"forum": forum["id"], "post": comment["post"]}
@@ -4674,7 +4724,7 @@ def event_comment_create_event(e):
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
     # Notify connected subscribers' tabs so the new comment appears without reload.
-    broadcast_websocket(forum["id"], {"type": "comment/create", "forum": forum["id"], "post": post, "comment": id, "sender": member})
+    mochi.db.commit.fire("comments", "insert", id)
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
@@ -4739,6 +4789,8 @@ def event_comment_submit_event(e):
 
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post_id, parent, sender_id, sender_name, body, status, now)
+    if status == "approved":
+        mochi.db.commit.fire("comments", "insert", id)
 
     # Store attachment metadata from the subscriber's event
     attachments = e.content("attachments") or []
@@ -4882,6 +4934,7 @@ def event_comment_update_event(e):
     mochi.db.execute("update comments set up=?, down=? where id=?", up, down, id)
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
+    mochi.db.commit.fire("comments", "update", id)
 
 # Received a comment edit from forum owner
 def event_comment_edit_event(e):
@@ -4902,7 +4955,7 @@ def event_comment_edit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
 
-    broadcast_websocket(old_comment["forum"], {"type": "comment/edit", "forum": old_comment["forum"], "post": old_comment["post"], "comment": id, "sender": old_comment["member"]})
+    mochi.db.commit.fire("comments", "update", id)
 
 # Received a comment delete from forum owner
 def event_comment_delete_event(e):
@@ -4992,6 +5045,7 @@ def event_comment_vote_event(e):
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.commit.fire("comments", "update", comment_id)
 
     # Broadcast update to all members except sender
     updated_comment = mochi.db.row("select up, down from comments where id=?", comment_id)
@@ -5059,8 +5113,7 @@ def event_post_create_event(e):
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
-    # Notify connected subscribers' tabs so the new post appears without reload.
-    broadcast_websocket(forum["id"], {"type": "post/create", "forum": forum["id"], "post": id, "sender": member})
+    mochi.db.commit.fire("posts", "insert", id)
 
 # Received a rejection from forum owner — our submitted post was refused.
 # Remove the optimistic pending row and signal the web tab to show a toast.
@@ -5153,6 +5206,8 @@ def event_post_submit_event(e):
 
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], sender_id, sender_name, title, body, status, now, now)
+    if status == "approved":
+        mochi.db.commit.fire("posts", "insert", id)
 
     # Store attachment metadata from the subscriber's event
     attachments = e.content("attachments") or []
@@ -5174,6 +5229,7 @@ def event_post_submit_event(e):
             continue
         tag_id = mochi.uid()
         mochi.db.execute("insert into tags (id, object, label) values (?, ?, ?)", tag_id, id, label)
+        mochi.db.commit.fire("tags", "insert", tag_id)
         applied_tags.append({"id": tag_id, "label": label})
 
     # Only broadcast if approved
@@ -5342,6 +5398,7 @@ def event_post_update_event(e):
     mochi.db.execute("update posts set up=?, down=? where id=?", up, down, id)
     mochi.db.execute("update posts set updated=? where id=?", now, id)
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
+    mochi.db.commit.fire("posts", "update", id)
 
 # Received a post edit from forum owner
 def event_post_edit_event(e):
@@ -5377,7 +5434,7 @@ def event_post_edit_event(e):
 
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
-    broadcast_websocket(old_post["forum"], {"type": "post/edit", "forum": old_post["forum"], "post": id, "sender": old_post["member"]})
+    mochi.db.commit.fire("posts", "update", id)
 
 # Received a post delete from forum owner
 def event_post_delete_event(e):
@@ -5462,6 +5519,7 @@ def event_post_vote_event(e):
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.commit.fire("posts", "update", post_id)
 
     # Broadcast update to all members except sender
     updated_post = mochi.db.row("select up, down from posts where id=?", post_id)
@@ -5484,7 +5542,7 @@ def event_tag_add(e):
     relevance = e.content("relevance") or 0
     source = e.content("source") or "manual"
     mochi.db.execute("insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)", tag_id, object_id, label, qid, relevance, source)
-    broadcast_websocket(forum_id, {"type": "tag/add", "forum": forum_id, "post": object_id, "tag": {"id": tag_id, "label": label, "source": source}})
+    mochi.db.commit.fire("tags", "insert", tag_id)
 
 # Handle tag remove event from forum owner
 def event_tag_remove(e):

@@ -235,19 +235,21 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
         case 'post/restore':
         case 'tag/add':
         case 'tag/remove':
-          // Invalidate the posts list for this forum
           void queryClient.invalidateQueries({
             queryKey: ['forum-posts'],
             predicate: (query) => {
               const key = query.queryKey
-              return key[0] === 'forum-posts' && key[1] === forumId
+              if (key[0] !== 'forum-posts') return false
+              const queryForumId = key[1] as string | undefined
+              if (!queryForumId) return false
+              return queryForumId === forumKey || queryForumId === forumId
             },
           })
-          // Also refresh the specific post detail if we know the post ID
           if (data.post) {
-            void queryClient.invalidateQueries({
-              queryKey: forumsKeys.post(forumId, data.post),
-            })
+            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            if (forumKey && forumKey !== forumId) {
+              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+            }
           }
           break
         case 'comment/create':
@@ -255,11 +257,11 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
         case 'comment/delete':
         case 'comment/remove':
         case 'comment/restore':
-          // Invalidate the specific post detail to show updated comments
           if (data.post) {
-            void queryClient.invalidateQueries({
-              queryKey: forumsKeys.post(forumId, data.post),
-            })
+            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            if (forumKey && forumKey !== forumId) {
+              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+            }
           }
           break
         case 'post/reject':
@@ -271,7 +273,10 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
             queryKey: ['forum-posts'],
             predicate: (query) => {
               const key = query.queryKey
-              return key[0] === 'forum-posts' && key[1] === forumId
+              if (key[0] !== 'forum-posts') return false
+              const queryForumId = key[1] as string | undefined
+              if (!queryForumId) return false
+              return queryForumId === forumKey || queryForumId === forumId
             },
           })
           break
