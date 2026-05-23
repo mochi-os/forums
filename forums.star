@@ -1,8 +1,8 @@
 # Mochi Forums app
 # Copyright Alistair Cunningham 2024-2026
 
-def notify(topic, object="", title="", body="", url=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")))
+def notify(topic, object="", title="", body="", url="", event_id=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
 
 # Helper: Build a map of qid -> weight from user interests
 def get_interest_map():
@@ -529,7 +529,7 @@ def check_rate_limit(forum, user_id, kind):
     return None
 
 # Helper: Send moderation notification to a user
-def notify_moderation_action(forum_id, user_id, action, target_type, reason):
+def notify_moderation_action(forum_id, user_id, action, target_type, reason, target_id=""):
     forum = get_forum(forum_id)
     forum_name = forum["name"] if forum else "Unknown forum"
 
@@ -553,7 +553,10 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
         return
 
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
-    notify(topic, forum_id, title, body, "/forums/" + forum_id)
+    # event_id derived from the moderation target so the same action on the
+    # same row dedupes across replicas. target_id is the post/comment/user id.
+    event_id = topic + ":" + forum_id + ":" + action + ":" + target_type + ":" + (target_id or user_id)
+    notify(topic, forum_id, title, body, "/forums/" + forum_id, event_id=event_id)
 
 # Helper: Notify every moderator of a forum (entity owner + users with the
 # 'moderate' access level) that there's new work in the queue.
@@ -561,7 +564,7 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 # reporter) — they're not notified about their own submission. The local
 # owner gets a direct notify(); remote moderators get a P2P
 # 'moderator/notify' event that their side translates into a local notify().
-def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
+def notify_moderators(forum_id, topic, title, body, url, exclude_user_id="", source_id=""):
     entity = mochi.entity.info(forum_id)
     if not entity:
         return
@@ -592,13 +595,17 @@ def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
     fp = mochi.entity.fingerprint(forum_id) or forum_id
     url = url or "/forums/" + fp + "/moderation"
 
+    # Stable event_id derived from the triggering source row (post/comment/
+    # report id), so replays from another host dedupe per moderator.
+    event_id = topic + ":" + (source_id or forum_id)
+
     for mid in moderator_ids:
         if mid == owner_id:
-            notify(topic, forum_id, title, body, url)
+            notify(topic, forum_id, title, body, url, event_id=event_id)
         else:
             mochi.message.send(
                 {"from": forum_id, "to": mid, "service": "forums", "event": "moderator/notify"},
-                {"topic": topic, "object": forum_id, "title": title, "body": body, "url": url}
+                {"topic": topic, "object": forum_id, "title": title, "body": body, "url": url, "source": source_id}
             )
 
 # Receive a moderator notification from a forum we moderate.
@@ -612,9 +619,11 @@ def event_moderator_notify(e):
     title = e.content("title") or ""
     body = e.content("body") or ""
     url = e.content("url") or ""
+    source = e.content("source") or ""
     if not title or not body:
         return
-    notify(topic, forum_id, title, body, url)
+    event_id = topic + ":" + (source or forum_id)
+    notify(topic, forum_id, title, body, url, event_id=event_id)
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -3061,7 +3070,7 @@ def action_post_remove(a):
             user, reason, now, post_id)
 
         log_moderation(forum["id"], user, "remove", "post", post_id, post["member"], reason)
-        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
 
         broadcast_event(forum["id"], "post/remove", {
             "id": post_id,
@@ -3165,7 +3174,7 @@ def action_post_approve(a):
             now, post_id)
 
         log_moderation(forum["id"], user, "approve", "post", post_id, post["member"], "")
-        notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+        notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
 
         # Now broadcast the post to members
         post_data = {
@@ -3394,7 +3403,7 @@ def action_comment_remove(a):
         recount_post_comments(comment["post"])
 
         log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
-        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
 
         broadcast_event(forum["id"], "comment/remove", {
             "id": comment_id,
@@ -3499,7 +3508,7 @@ def action_comment_approve(a):
         mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
         log_moderation(forum["id"], user, "approve", "comment", comment_id, comment["member"], "")
-        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
 
         # Now broadcast the comment to members
         comment_data = {
@@ -3568,7 +3577,7 @@ def action_restrict(a):
             forum["id"], target_user, restriction_type, reason, user, expires, now)
 
         log_moderation(forum["id"], user, "restrict", "user", target_user, None, reason)
-        notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+        notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
 
         broadcast_event(forum["id"], "user/restrict", {
             "user": target_user,
@@ -3615,7 +3624,7 @@ def action_unrestrict(a):
         mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
 
         log_moderation(forum["id"], user, "unrestrict", "user", target_user, None, "")
-        notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+        notify_moderation_action(forum["id"], target_user, "unrestrict", "", "", target_id=target_user)
 
         broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
     else:
@@ -3922,7 +3931,7 @@ def action_report_resolve(a):
                         "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                         user, report["reason"], now, report["target"])
                     log_moderation(forum["id"], user, "remove", "post", report["target"], report["author"], report["reason"])
-                    notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"])
+                    notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
                     broadcast_event(forum["id"], "post/remove", {
                         "id": report["target"], "remover": user, "reason": report["reason"]
                     })
@@ -3933,7 +3942,7 @@ def action_report_resolve(a):
                         "update comments set status='removed', remover=?, reason=? where id=?",
                         user, report["reason"], report["target"])
                     log_moderation(forum["id"], user, "remove", "comment", report["target"], report["author"], report["reason"])
-                    notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"])
+                    notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                     broadcast_event(forum["id"], "comment/remove", {
                         "id": report["target"], "post": comment["post"], "remover": user, "reason": report["reason"]
                     })
@@ -4637,7 +4646,9 @@ def event_mention_notify(e):
 	excerpt = e.content("excerpt") or ""
 	author = e.content("author") or "Someone"
 	url = e.content("url") or "/forums"
-	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url)
+	post_id = e.content("post") or ""
+	event_id = "mention:" + (post_id or forum_id)
+	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url, event_id=event_id)
 
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
@@ -4794,6 +4805,7 @@ def event_comment_submit_event(e):
             mochi.app.label("moderation.pending.body.comment", author=sender_name, post=post.get("title") or ""),
             "",
             sender_id,
+            source_id=id,
         )
 
 # Received a comment edit request from member (we are forum owner)
@@ -5218,6 +5230,7 @@ def event_post_submit_event(e):
             mochi.app.label("moderation.pending.body.post", author=sender_name),
             "",
             sender_id,
+            source_id=id,
         )
 
 # Received a post edit request from member (we are forum owner)
@@ -5668,7 +5681,7 @@ def event_post_remove_submit_event(e):
         sender, reason, now, post_id)
 
     log_moderation(forum["id"], sender, "remove", "post", post_id, post["member"], reason)
-    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
 
     broadcast_event(forum["id"], "post/remove", {"id": post_id, "remover": sender, "reason": reason})
 
@@ -5748,7 +5761,7 @@ def event_post_approve_submit_event(e):
     mochi.db.execute("update posts set status='approved', updated=? where id=?", now, post_id)
 
     log_moderation(forum["id"], sender, "approve", "post", post_id, post["member"], "")
-    notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+    notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
 
     # Broadcast the post to members
     post_data = {
@@ -5891,7 +5904,7 @@ def event_comment_remove_submit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
     log_moderation(forum["id"], sender, "remove", "comment", comment_id, comment["member"], reason)
-    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
 
     broadcast_event(forum["id"], "comment/remove", {
         "id": comment_id, "post": comment["post"], "remover": sender, "reason": reason
@@ -5976,7 +5989,7 @@ def event_comment_approve_submit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
     log_moderation(forum["id"], sender, "approve", "comment", comment_id, comment["member"], "")
-    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
 
     # Broadcast the comment to members
     comment_data = {
@@ -6014,7 +6027,7 @@ def event_restrict_submit_event(e):
         forum["id"], target_user, restriction_type, reason, sender, expires, now)
 
     log_moderation(forum["id"], sender, "restrict", "user", target_user, None, reason)
-    notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+    notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
 
     broadcast_event(forum["id"], "user/restrict", {
         "user": target_user, "type": restriction_type, "expires": expires
@@ -6055,7 +6068,7 @@ def event_unrestrict_submit_event(e):
 
     mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
     log_moderation(forum["id"], sender, "unrestrict", "user", target_user, None, "")
-    notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+    notify_moderation_action(forum["id"], target_user, "unrestrict", "", "", target_id=target_user)
 
     broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
 
@@ -6134,6 +6147,7 @@ def event_report_submit_event(e):
         mochi.app.label(body_key, reporter=reporter_name, reason=reason),
         "/forums/" + fp + "/moderation?tab=reports",
         sender,
+        source_id=report_id,
     )
 
 # Received a report resolution request from moderator (we are forum owner)
@@ -6168,7 +6182,7 @@ def event_report_resolve_submit_event(e):
                     "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                     sender, report["reason"], now, report["target"])
                 log_moderation(forum["id"], sender, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
                 broadcast_event(forum["id"], "post/remove", {
                     "id": report["target"], "remover": sender, "reason": report["reason"]
                 })
@@ -6179,7 +6193,7 @@ def event_report_resolve_submit_event(e):
                     "update comments set status='removed', remover=?, reason=? where id=?",
                     sender, report["reason"], report["target"])
                 log_moderation(forum["id"], sender, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                 broadcast_event(forum["id"], "comment/remove", {
                     "id": report["target"], "post": comment["post"], "remover": sender, "reason": report["reason"]
                 })
@@ -6699,7 +6713,7 @@ def event_report_resolve_action(e):
                     "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                     requester, report["reason"], now, report["target"])
                 log_moderation(forum_id, requester, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"], target_id=report["target"])
                 broadcast_event(forum_id, "post/remove", {
                     "id": report["target"], "remover": requester, "reason": report["reason"]
                 })
@@ -6710,7 +6724,7 @@ def event_report_resolve_action(e):
                     "update comments set status='removed', remover=?, reason=? where id=?",
                     requester, report["reason"], report["target"])
                 log_moderation(forum_id, requester, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                 broadcast_event(forum_id, "comment/remove", {
                     "id": report["target"], "post": comment["post"], "remover": requester, "reason": report["reason"]
                 })
