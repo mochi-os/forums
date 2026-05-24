@@ -7284,10 +7284,19 @@ def _subscribe_to_forum(user, forum_id, server):
 
 # Internal: post on `forum_id` on behalf of `user`, subscriber-side path.
 # Returns {"forum", "post", "fingerprint"} or {"error", "code"}.
-def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
+#
+# `post_id` is supplied by the caller, not minted here, so a future
+# multi-host invocation (event_app_post arriving on N replicas via
+# mochi.message.send fan-out) forwards the same id from every
+# replica - the owner's INSERT OR IGNORE on post id then dedups N
+# forwards to one accepted post. mochi.remote.request callers (single
+# fire) mint once before the request and pass through.
+def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     user_id = user.identity.id
     user_name = user.identity.name
 
+    if not mochi.text.valid(post_id, "id"):
+        return {"error": "errors.invalid_post_id", "code": 400}
     if not mochi.text.valid(title, "name"):
         return {"error": "errors.invalid_title", "code": 400}
     if not mochi.text.valid(body, "text"):
@@ -7304,7 +7313,6 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
     if not access_response.get("post", False):
         return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": 403}
 
-    id = mochi.uid()
     now = mochi.time.now()
 
     # Normalise tags through the same validator the owner uses so we don't
@@ -7316,7 +7324,7 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
         if v:
             validated_tags.append(v)
 
-    content = {"id": id, "title": title, "body": body}
+    content = {"id": post_id, "title": title, "body": body}
     if validated_tags:
         content["tags"] = validated_tags
 
@@ -7325,12 +7333,14 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
         content
     )
 
-    # Save locally for optimistic UI (status pending until owner confirms)
+    # Save locally for optimistic UI (status pending until owner confirms).
+    # `replace into` keeps re-entry on N-firing replicas idempotent — the
+    # second call rewrites the same row with the same values.
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
-        id, forum_id, user_id, user_name, title, body, now, now)
+        post_id, forum_id, user_id, user_name, title, body, now, now)
 
     fp = mochi.entity.fingerprint(forum_id) or ""
-    return {"forum": forum_id, "post": id, "fingerprint": fp}
+    return {"forum": forum_id, "post": post_id, "fingerprint": fp}
 
 
 # Service event: another local app asks us to subscribe the user to a forum.
@@ -7350,7 +7360,15 @@ def event_app_subscribe(e):
 # Service event: another local app asks us to post on the user's behalf.
 # Subscribes first as a safety net (idempotent), then posts via the
 # subscriber-side path.
+#
+# The caller is required to supply `id` so a multi-host fan-out
+# (mochi.message.send to a user's paired hosts arrives on each one)
+# produces a single post: every replica forwards the same id to the
+# forum owner, who dedups via INSERT OR IGNORE. mochi.remote.request
+# callers (single-fire, the current path) still need to mint once and
+# pass through.
 def event_app_post(e):
+    post_id = e.content("id") or ""
     forum_id = e.content("forum") or ""
     title = e.content("title") or ""
     body = e.content("body") or ""
@@ -7361,7 +7379,7 @@ def event_app_post(e):
         e.write({"error": sub_result["error"], "code": sub_result["code"]})
         return
 
-    post_result = _post_to_forum_subscriber(e.user, forum_id, title, body, tags)
+    post_result = _post_to_forum_subscriber(e.user, forum_id, post_id, title, body, tags)
     if "error" in post_result:
         e.write({"error": post_result["error"], "code": post_result["code"]})
         return
