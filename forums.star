@@ -4249,8 +4249,11 @@ def action_post_vote(a):
             # Broadcast update to members
             updated_post = mochi.db.row("select up, down from posts where id=?", post["id"])
             broadcast_event(forum["id"], "post/update",
-                {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"]},
+                {"id": post["id"], "up": updated_post["up"], "down": updated_post["down"], "voter": user_id},
                 user_id)
+            # Explicit WS with voter as sender so the post author's tab doesn't
+            # filter the on_db_commit-emitted post/edit (sender=author).
+            broadcast_websocket(forum["id"], {"type": "post/update", "forum": forum["id"], "post": post["id"], "sender": user_id})
 
             # Update user interests from vote
             if vote:
@@ -4291,6 +4294,7 @@ def action_post_vote(a):
                 elif vote == "down":
                     mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
             mochi.db.commit.fire("posts", "update", post["id"])
+            broadcast_websocket(forum["id"], {"type": "post/update", "forum": forum["id"], "post": post["id"], "sender": user_id})
 
         return {
             "data": {"forum": forum["id"], "post": post["id"]}
@@ -4384,8 +4388,9 @@ def action_comment_vote(a):
             # Broadcast update to members
             updated_comment = mochi.db.row("select up, down from comments where id=?", comment["id"])
             broadcast_event(forum["id"], "comment/update",
-                {"id": comment["id"], "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
+                {"id": comment["id"], "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"], "voter": user_id},
                 user_id)
+            broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment["id"], "sender": user_id})
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -4422,6 +4427,7 @@ def action_comment_vote(a):
                 elif vote == "down":
                     mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
             mochi.db.commit.fire("comments", "update", comment["id"])
+            broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment["id"], "sender": user_id})
 
         return {
             "data": {"forum": forum["id"], "post": comment["post"]}
@@ -4935,6 +4941,10 @@ def event_comment_update_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
     mochi.db.commit.fire("comments", "update", id)
+    # Re-emit with voter as sender so the comment author's tab isn't filtered
+    # by on_db_commit's sender=comment.member.
+    voter = e.content("voter") or ""
+    broadcast_websocket(old_comment["forum"], {"type": "comment/update", "forum": old_comment["forum"], "post": old_comment["post"], "comment": id, "sender": voter})
 
 # Received a comment edit from forum owner
 def event_comment_edit_event(e):
@@ -5050,8 +5060,9 @@ def event_comment_vote_event(e):
     # Broadcast update to all members except sender
     updated_comment = mochi.db.row("select up, down from comments where id=?", comment_id)
     broadcast_event(forum["id"], "comment/update",
-        {"id": comment_id, "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"]},
+        {"id": comment_id, "post": comment["post"], "up": updated_comment["up"], "down": updated_comment["down"], "voter": sender_id},
         sender_id)
+    broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": sender_id})
 
 # Received a member access update from forum owner
 def event_member_update_event(e):
@@ -5399,6 +5410,10 @@ def event_post_update_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, id)
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
     mochi.db.commit.fire("posts", "update", id)
+    # Re-emit with voter as sender so the post author's tab isn't filtered
+    # by on_db_commit's sender=post.member.
+    voter = e.content("voter") or ""
+    broadcast_websocket(old_post["forum"], {"type": "post/update", "forum": old_post["forum"], "post": id, "sender": voter})
 
 # Received a post edit from forum owner
 def event_post_edit_event(e):
@@ -5524,8 +5539,9 @@ def event_post_vote_event(e):
     # Broadcast update to all members except sender
     updated_post = mochi.db.row("select up, down from posts where id=?", post_id)
     broadcast_event(forum["id"], "post/update",
-        {"id": post_id, "up": updated_post["up"], "down": updated_post["down"]},
+        {"id": post_id, "up": updated_post["up"], "down": updated_post["down"], "voter": sender_id},
         sender_id)
+    broadcast_websocket(forum["id"], {"type": "post/update", "forum": forum["id"], "post": post_id, "sender": sender_id})
 
 # Handle tag add event from forum owner
 def event_tag_add(e):
