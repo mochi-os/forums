@@ -107,7 +107,7 @@ export function ThreadContent({
     setLocalUp(post.up)
     setLocalDown(post.down)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post.id])
+  }, [post.id, post.user_vote, post.up, post.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
     // Update local state immediately
