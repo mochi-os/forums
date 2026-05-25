@@ -1548,7 +1548,10 @@ def action_post_create(a):
                 "user": user_id,
             })
             if not access_response.get("post", False):
-                a.error(403, access_response.get("error", "Not allowed to post"))
+                if access_response.get("error"):
+                    a.error(403, access_response["error"])
+                else:
+                    a.error.label(403, "errors.not_allowed_to_post")
                 return
 
             # Save attachments locally
@@ -1582,7 +1585,10 @@ def action_post_create(a):
         "user": user_id,
     })
     if not access_response.get("post", False):
-        a.error(403, access_response.get("error", "Not allowed to post"))
+        if access_response.get("error"):
+            a.error(403, access_response["error"])
+        else:
+            a.error.label(403, "errors.not_allowed_to_post")
         return
 
     # Save attachments locally
@@ -1842,7 +1848,7 @@ def action_probe(a):
 
     response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
     if response.get("error"):
-        a.error(404, response.get("error", "Forum not found"))
+        a.error(404, response["error"])
         return
 
     # Return forum info as a directory-like entry
@@ -2756,7 +2762,10 @@ def action_comment_create(a):
                 "user": user_id,
             })
             if not access_response.get("comment", False):
-                a.error(403, access_response.get("error", "Not allowed to comment"))
+                if access_response.get("error"):
+                    a.error(403, access_response["error"])
+                else:
+                    a.error.label(403, "errors.not_allowed_to_comment")
                 return
 
             # Save comment attachments locally
@@ -2793,7 +2802,10 @@ def action_comment_create(a):
         "user": user_id,
     })
     if not access_response.get("comment", False):
-        a.error(403, access_response.get("error", "Not allowed to comment"))
+        if access_response.get("error"):
+            a.error(403, access_response["error"])
+        else:
+            a.error.label(403, "errors.not_allowed_to_comment")
         return
 
     # Save comment attachments locally
