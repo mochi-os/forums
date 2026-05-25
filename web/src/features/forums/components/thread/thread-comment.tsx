@@ -130,7 +130,7 @@ export function ThreadComment({
     setLocalUp(comment.up)
     setLocalDown(comment.down)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comment.id])
+  }, [comment.id, comment.user_vote, comment.up, comment.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
     const prevVote = localVote

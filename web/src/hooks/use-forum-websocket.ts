@@ -15,6 +15,7 @@ interface ForumWebsocketEvent {
   type:
     | 'post/create'
     | 'post/edit'
+    | 'post/update'
     | 'post/delete'
     | 'post/lock'
     | 'post/pin'
@@ -23,6 +24,7 @@ interface ForumWebsocketEvent {
     | 'post/restore'
     | 'comment/create'
     | 'comment/edit'
+    | 'comment/update'
     | 'comment/delete'
     | 'comment/remove'
     | 'comment/restore'
@@ -228,6 +230,7 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
       switch (data.type) {
         case 'post/create':
         case 'post/edit':
+        case 'post/update':
         case 'post/delete':
         case 'post/lock':
         case 'post/pin':
@@ -254,6 +257,7 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
           break
         case 'comment/create':
         case 'comment/edit':
+        case 'comment/update':
         case 'comment/delete':
         case 'comment/remove':
         case 'comment/restore':
