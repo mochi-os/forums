@@ -1,8 +1,8 @@
 # Mochi Forums app
 # Copyright Alistair Cunningham 2024-2026
 
-def notify(topic, object="", title="", body="", url=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")))
+def notify(topic, object="", title="", body="", url="", event_id=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
 
 # Helper: Build a map of qid -> weight from user interests
 def get_interest_map():
@@ -209,6 +209,24 @@ def database_upgrade(to_version):
         cols = [r["name"] for r in mochi.db.table("forums") or []]
         if "synced" not in cols:
             mochi.db.execute("alter table forums add column synced integer not null default 0")
+    if to_version == 34:
+        # Replication-safety: vote handlers no longer use counter
+        # arithmetic (update set up=up+1) - they derive up/down from
+        # the votes log via a single SET-from-aggregate UPDATE that
+        # replays correctly against each replica's local votes. Backfill
+        # the cached posts.up / posts.down / comments.up / comments.down
+        # from the votes table so any historical drift from concurrent
+        # writes is corrected before the new code goes live. Posts /
+        # comments with zero votes are left at default 0.
+        mochi.db.execute("update posts set up = (select count(*) from votes where post=posts.id and comment='' and vote='up'), down = (select count(*) from votes where post=posts.id and comment='' and vote='down') where exists (select 1 from votes where post=posts.id and comment='')")
+        mochi.db.execute("update comments set up = (select count(*) from votes where comment=comments.id and vote='up'), down = (select count(*) from votes where comment=comments.id and vote='down') where exists (select 1 from votes where comment=comments.id)")
+    if to_version == 35:
+        # Replication-safety: comment-create / delete / moderate
+        # handlers no longer use counter arithmetic on posts.comments -
+        # they derive the count from the comments log via the same
+        # SET-from-aggregate UPDATE shape. Backfill the cached
+        # posts.comments from the comments table.
+        mochi.db.execute("update posts set comments = (select count(*) from comments where post=posts.id and status != 'removed')")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -341,6 +359,32 @@ def broadcast_event(forum_id, event, data, exclude=None):
     members = mochi.db.rows("select id from members where forum=?", forum_id)
     member_ids = [m["id"] for m in members]
     mochi.broadcast.send(forum_id, forum_id, member_ids, "forums", event, data, exclude or "")
+
+# Re-derive the cached posts.up / posts.down for a single post from the
+# votes log. Replication-safe: the SQL replicates as one op whose SELECT
+# subqueries re-evaluate against each replica's local votes table, so
+# concurrent writers on paired hosts converge to the same count without
+# the counter-arithmetic anti-pattern.
+def recount_post_votes(post_id):
+    if not post_id:
+        return
+    mochi.db.execute("update posts set up = (select count(*) from votes where post=? and comment='' and vote='up'), down = (select count(*) from votes where post=? and comment='' and vote='down') where id=?", post_id, post_id, post_id)
+
+# Re-derive the cached comments.up / comments.down for a single comment
+# from the votes log. Same replication semantics as recount_post_votes.
+def recount_comment_votes(comment_id):
+    if not comment_id:
+        return
+    mochi.db.execute("update comments set up = (select count(*) from votes where comment=? and vote='up'), down = (select count(*) from votes where comment=? and vote='down') where id=?", comment_id, comment_id, comment_id)
+
+# Re-derive the cached posts.comments (non-removed comment count) for a
+# single post from the comments log. Same replication semantics as
+# recount_post_votes: the SELECT subquery re-evaluates on every replica
+# during replay.
+def recount_post_comments(post_id):
+    if not post_id:
+        return
+    mochi.db.execute("update posts set comments = (select count(*) from comments where post=? and status != 'removed') where id=?", post_id, post_id)
 
 # request_resync pulls a fresh schema dump from the forum owner when an
 # incoming event references data we don't have yet (out-of-order delivery,
@@ -531,7 +575,7 @@ def check_rate_limit(forum, user_id, kind):
     return None
 
 # Helper: Send moderation notification to a user
-def notify_moderation_action(forum_id, user_id, action, target_type, reason):
+def notify_moderation_action(forum_id, user_id, action, target_type, reason, target_id=""):
     forum = get_forum(forum_id)
     forum_name = forum["name"] if forum else "Unknown forum"
 
@@ -555,7 +599,10 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
         return
 
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
-    notify(topic, forum_id, title, body, "/forums/" + forum_id)
+    # event_id derived from the moderation target so the same action on the
+    # same row dedupes across replicas. target_id is the post/comment/user id.
+    event_id = topic + ":" + forum_id + ":" + action + ":" + target_type + ":" + (target_id or user_id)
+    notify(topic, forum_id, title, body, "/forums/" + forum_id, event_id=event_id)
 
 # Helper: Notify every moderator of a forum (entity owner + users with the
 # 'moderate' access level) that there's new work in the queue.
@@ -563,7 +610,7 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason):
 # reporter) — they're not notified about their own submission. The local
 # owner gets a direct notify(); remote moderators get a P2P
 # 'moderator/notify' event that their side translates into a local notify().
-def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
+def notify_moderators(forum_id, topic, title, body, url, exclude_user_id="", source_id=""):
     entity = mochi.entity.info(forum_id)
     if not entity:
         return
@@ -594,13 +641,17 @@ def notify_moderators(forum_id, topic, title, body, url, exclude_user_id=""):
     fp = mochi.entity.fingerprint(forum_id) or forum_id
     url = url or "/forums/" + fp + "/moderation"
 
+    # Stable event_id derived from the triggering source row (post/comment/
+    # report id), so replays from another host dedupe per moderator.
+    event_id = topic + ":" + (source_id or forum_id)
+
     for mid in moderator_ids:
         if mid == owner_id:
-            notify(topic, forum_id, title, body, url)
+            notify(topic, forum_id, title, body, url, event_id=event_id)
         else:
             mochi.message.send(
                 {"from": forum_id, "to": mid, "service": "forums", "event": "moderator/notify"},
-                {"topic": topic, "object": forum_id, "title": title, "body": body, "url": url}
+                {"topic": topic, "object": forum_id, "title": title, "body": body, "url": url, "source": source_id}
             )
 
 # Receive a moderator notification from a forum we moderate.
@@ -614,9 +665,11 @@ def event_moderator_notify(e):
     title = e.content("title") or ""
     body = e.content("body") or ""
     url = e.content("url") or ""
+    source = e.content("source") or ""
     if not title or not body:
         return
-    notify(topic, forum_id, title, body, url)
+    event_id = topic + ":" + (source or forum_id)
+    notify(topic, forum_id, title, body, url, event_id=event_id)
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -1908,14 +1961,20 @@ def action_members_save(a):
     # Handle member removal
     remove_id = a.input("remove")
     if remove_id and remove_id != a.user.identity.id:
-        # Clean up member's votes and adjust comment vote counts
-        votes = mochi.db.rows("select comment, vote from votes where forum=? and voter=?", forum["id"], remove_id)
-        for v in votes:
-            if v["vote"] == "up":
-                mochi.db.execute("update comments set up=up-1 where id=? and up>0", v["comment"])
-            elif v["vote"] == "down":
-                mochi.db.execute("update comments set down=down-1 where id=? and down>0", v["comment"])
+        # Collect the (post, comment) pairs the removed member voted on
+        # before deleting the rows, then derive-recount each affected
+        # post/comment after the delete. Per the new vote model, counts
+        # are always re-derived from the votes log — never patched by
+        # counter arithmetic — so removing votes is just delete + recount
+        # of the affected rows. (The old code only adjusted comment
+        # counts; post counts went out of sync on member removal.)
+        affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum["id"], remove_id)
         mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], remove_id)
+        for v in affected:
+            if v["comment"]:
+                recount_comment_votes(v["comment"])
+            else:
+                recount_post_votes(v["post"])
         # Remove from members table
         mochi.db.execute("delete from members where forum=? and id=?", forum["id"], remove_id)
         # Revoke all access
@@ -2714,7 +2773,8 @@ def action_comment_create(a):
             # Save comment attachments locally
             attachments = mochi.attachment.save(id, "files", [], [], [])
 
-            mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+            mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+            recount_post_comments(post_id)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
             # Only broadcast if approved
@@ -2761,7 +2821,8 @@ def action_comment_create(a):
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
 
-            mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+            mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+            recount_post_comments(post_id)
 
         return {
             "data": {"forum": forum["id"], "post": post_id, "comment": id}
@@ -2967,8 +3028,8 @@ def action_comment_delete(a):
                 mochi.db.execute("delete from comments where id=?", cid)
 
             now = mochi.time.now()
-            mochi.db.execute("update posts set updated=?, comments=comments-? where id=?",
-                now, deleted_count, comment["post"])
+            mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+            recount_post_comments(comment["post"])
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
             broadcast_event(forum["id"], "comment/delete",
@@ -2997,7 +3058,7 @@ def action_comment_delete(a):
             for cid in comment_ids:
                 mochi.db.execute("delete from comments where id=?", cid)
 
-            mochi.db.execute("update posts set comments=comments-? where id=?", deleted_count, comment["post"])
+            recount_post_comments(comment["post"])
 
         return {
             "data": {"forum": forum_id, "post": post_id}
@@ -3055,7 +3116,7 @@ def action_post_remove(a):
             user, reason, now, post_id)
 
         log_moderation(forum["id"], user, "remove", "post", post_id, post["member"], reason)
-        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
 
         broadcast_event(forum["id"], "post/remove", {
             "id": post_id,
@@ -3159,7 +3220,7 @@ def action_post_approve(a):
             now, post_id)
 
         log_moderation(forum["id"], user, "approve", "post", post_id, post["member"], "")
-        notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+        notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
 
         # Now broadcast the post to members
         post_data = {
@@ -3384,10 +3445,11 @@ def action_comment_remove(a):
         mochi.db.execute(
             "update comments set status='removed', remover=?, reason=? where id=?",
             user, reason, comment_id)
-        mochi.db.execute("update posts set updated=?, comments=comments-1 where id=?", now, comment["post"])
+        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+        recount_post_comments(comment["post"])
 
         log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
-        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
 
         broadcast_event(forum["id"], "comment/remove", {
             "id": comment_id,
@@ -3440,7 +3502,8 @@ def action_comment_restore(a):
         mochi.db.execute(
             "update comments set status='approved', remover=null, reason='' where id=?",
             comment_id)
-        mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, comment["post"])
+        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+        recount_post_comments(comment["post"])
 
         log_moderation(forum["id"], user, "restore", "comment", comment_id, comment["member"], "")
 
@@ -3491,7 +3554,7 @@ def action_comment_approve(a):
         mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
         log_moderation(forum["id"], user, "approve", "comment", comment_id, comment["member"], "")
-        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
 
         # Now broadcast the comment to members
         comment_data = {
@@ -3560,7 +3623,7 @@ def action_restrict(a):
             forum["id"], target_user, restriction_type, reason, user, expires, now)
 
         log_moderation(forum["id"], user, "restrict", "user", target_user, None, reason)
-        notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+        notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
 
         broadcast_event(forum["id"], "user/restrict", {
             "user": target_user,
@@ -3607,7 +3670,7 @@ def action_unrestrict(a):
         mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
 
         log_moderation(forum["id"], user, "unrestrict", "user", target_user, None, "")
-        notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+        notify_moderation_action(forum["id"], target_user, "unrestrict", "", "", target_id=target_user)
 
         broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
     else:
@@ -3914,7 +3977,7 @@ def action_report_resolve(a):
                         "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                         user, report["reason"], now, report["target"])
                     log_moderation(forum["id"], user, "remove", "post", report["target"], report["author"], report["reason"])
-                    notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"])
+                    notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
                     broadcast_event(forum["id"], "post/remove", {
                         "id": report["target"], "remover": user, "reason": report["reason"]
                     })
@@ -3925,7 +3988,7 @@ def action_report_resolve(a):
                         "update comments set status='removed', remover=?, reason=? where id=?",
                         user, report["reason"], report["target"])
                     log_moderation(forum["id"], user, "remove", "comment", report["target"], report["author"], report["reason"])
-                    notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"])
+                    notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                     broadcast_event(forum["id"], "comment/remove", {
                         "id": report["target"], "post": comment["post"], "remover": user, "reason": report["reason"]
                     })
@@ -4220,26 +4283,17 @@ def action_post_vote(a):
             if not check_access(a, forum["id"], "vote"):
                 a.error.label(403, "errors.not_allowed_to_vote")
                 return
-            # We own the forum - process locally and broadcast to members
-            # Remove old vote if exists
-            old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
-            if old_vote:
-                if old_vote["vote"] == "up":
-                    mochi.db.execute("update posts set up=up-1 where id=? and up>0", post["id"])
-                elif old_vote["vote"] == "down":
-                    mochi.db.execute("update posts set down=down-1 where id=? and down>0", post["id"])
-
-            # Add new vote or remove if empty
+            # We own the forum - process locally and broadcast to members.
+            # Upsert/delete the user's vote row; recount_post_votes then
+            # derives posts.up/posts.down from the votes log. This is the
+            # replication-safe shape: no counter arithmetic, the UPDATE's
+            # SELECT subqueries re-evaluate against each replica's votes.
             if vote == "":
                 mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
                     forum["id"], post["id"], user_id, vote)
-
-                if vote == "up":
-                    mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
-                elif vote == "down":
-                    mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
+            recount_post_votes(post["id"])
 
             now = mochi.time.now()
             mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
@@ -4274,16 +4328,14 @@ def action_post_vote(a):
                 {"post": post["id"], "vote": vote if vote else "none"}
             )
 
-            # Save vote locally for optimistic UI
-            # Remove old vote count if exists
-            old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post["id"], user_id)
-            if old_vote:
-                if old_vote["vote"] == "up":
-                    mochi.db.execute("update posts set up=up-1 where id=? and up>0", post["id"])
-                elif old_vote["vote"] == "down":
-                    mochi.db.execute("update posts set down=down-1 where id=? and down>0", post["id"])
-
-            # Add new vote or remove if empty
+            # Record the user's own vote locally so the UI can highlight
+            # the up/down arrow. We do NOT touch posts.up / posts.down
+            # here — the cached counts are the owner's authoritative
+            # snapshot and arrive via the post/update broadcast. (The
+            # previous optimistic counter-arithmetic update was both an
+            # anti-pattern under replication and only ever an
+            # approximation; the websocket round-trip from the owner
+            # arrives within sub-second on the same network.)
             if vote == "":
                 mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
             else:
@@ -4359,26 +4411,15 @@ def action_comment_vote(a):
             if not check_access(a, forum["id"], "vote"):
                 a.error.label(403, "errors.not_allowed_to_vote")
                 return
-            # We own the forum - process locally and broadcast to members
-            # Remove old vote if exists
-            old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], user_id)
-            if old_vote:
-                if old_vote["vote"] == "up":
-                    mochi.db.execute("update comments set up=up-1 where id=?", comment["id"])
-                elif old_vote["vote"] == "down":
-                    mochi.db.execute("update comments set down=down-1 where id=?", comment["id"])
-
-            # Add new vote or remove if empty
+            # We own the forum - process locally and broadcast to members.
+            # Same derive-from-log shape as post votes; see
+            # action_post_vote owner branch for the replication rationale.
             if vote == "":
                 mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
                     forum["id"], comment["post"], comment["id"], user_id, vote)
-
-                if vote == "up":
-                    mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
-                elif vote == "down":
-                    mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
+            recount_comment_votes(comment["id"])
 
             now = mochi.time.now()
             mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
@@ -4407,16 +4448,11 @@ def action_comment_vote(a):
                 {"comment": comment["id"], "vote": vote if vote else "none"}
             )
 
-            # Save vote locally for optimistic UI
-            # Remove old vote count if exists
-            old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment["id"], user_id)
-            if old_vote:
-                if old_vote["vote"] == "up":
-                    mochi.db.execute("update comments set up=up-1 where id=? and up>0", comment["id"])
-                elif old_vote["vote"] == "down":
-                    mochi.db.execute("update comments set down=down-1 where id=? and down>0", comment["id"])
-
-            # Add new vote or remove if empty
+            # Record the user's own vote locally for the up/down arrow
+            # highlight. The cached comments.up / comments.down stay as
+            # the owner's authoritative snapshot — they update when the
+            # comment/update broadcast arrives. See action_post_vote
+            # subscriber branch for the rationale.
             if vote == "":
                 mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
             else:
@@ -4426,9 +4462,8 @@ def action_comment_vote(a):
                     mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
                 elif vote == "down":
                     mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
-            mochi.db.commit.fire("comments", "update", comment["id"])
+                mochi.db.commit.fire("comments", "update", comment["id"])
             broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment["id"], "sender": user_id})
-
         return {
             "data": {"forum": forum["id"], "post": comment["post"]}
         }
@@ -4674,7 +4709,9 @@ def event_mention_notify(e):
 	excerpt = e.content("excerpt") or ""
 	author = e.content("author") or "Someone"
 	url = e.content("url") or "/forums"
-	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url)
+	post_id = e.content("post") or ""
+	event_id = "mention:" + (post_id or forum_id)
+	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url, event_id=event_id)
 
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
@@ -4726,7 +4763,8 @@ def event_comment_create_event(e):
     if attachments:
         mochi.attachment.store(attachments, e.header("from"), id)
 
-    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", created, post)
+    mochi.db.execute("update posts set updated=? where id=?", created, post)
+    recount_post_comments(post)
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
     # Notify connected subscribers' tabs so the new comment appears without reload.
@@ -4803,7 +4841,8 @@ def event_comment_submit_event(e):
     if attachments:
         mochi.attachment.store(attachments, sender_id, id)
 
-    mochi.db.execute("update posts set updated=?, comments=comments+1 where id=?", now, post_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+    recount_post_comments(post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Only broadcast if approved
@@ -4831,6 +4870,7 @@ def event_comment_submit_event(e):
             mochi.app.label("moderation.pending.body.comment", author=sender_name, post=post.get("title") or ""),
             "",
             sender_id,
+            source_id=id,
         )
 
 # Received a comment edit request from member (we are forum owner)
@@ -4920,7 +4960,8 @@ def event_comment_delete_submit_event(e):
         mochi.db.execute("delete from comments where id=?", cid)
 
     now = mochi.time.now()
-    mochi.db.execute("update posts set updated=?, comments=comments-? where id=?", now, deleted_count, comment["post"])
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+    recount_post_comments(comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Broadcast delete to all members (they will recursively delete descendants)
@@ -4999,8 +5040,8 @@ def event_comment_delete_event(e):
 
     if deleted_count > 0:
         now = mochi.time.now()
-        mochi.db.execute("update posts set updated=?, comments=comments-? where id=?",
-            now, deleted_count, post_id)
+        mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+        recount_post_comments(post_id)
         mochi.db.execute("update forums set updated=? where id=?", now, forum_id)
 
         for comment_id in comment_ids:
@@ -5031,26 +5072,16 @@ def event_comment_vote_event(e):
     if vote not in ["up", "down", ""]:
         return
 
-    # Delete old vote first to minimize race window, then adjust counts
-    old_vote = mochi.db.row("select vote from votes where comment=? and voter=?", comment_id, sender_id)
-    mochi.db.execute("delete from votes where comment=? and voter=?", comment_id, sender_id)
-
-    # Adjust count for removed vote (with guards to prevent negative)
-    if old_vote:
-        if old_vote["vote"] == "up":
-            mochi.db.execute("update comments set up=up-1 where id=? and up>0", comment_id)
-        elif old_vote["vote"] == "down":
-            mochi.db.execute("update comments set down=down-1 where id=? and down>0", comment_id)
-
-    # Add new vote if not empty
-    if vote != "":
+    # Upsert / delete the voter's row, then derive the new counts from
+    # the votes log. The recount UPDATE replicates with its SELECT
+    # subqueries intact, so paired owner replicas re-derive against
+    # their own votes table on apply and converge.
+    if vote == "":
+        mochi.db.execute("delete from votes where comment=? and voter=?", comment_id, sender_id)
+    else:
         mochi.db.execute("insert or replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
             forum["id"], comment["post"], comment_id, sender_id, vote)
-
-        if vote == "up":
-            mochi.db.execute("update comments set up=up+1 where id=?", comment_id)
-        elif vote == "down":
-            mochi.db.execute("update comments set down=down+1 where id=?", comment_id)
+    recount_comment_votes(comment_id)
 
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
@@ -5273,6 +5304,7 @@ def event_post_submit_event(e):
             mochi.app.label("moderation.pending.body.post", author=sender_name),
             "",
             sender_id,
+            source_id=id,
         )
 
 # Received a post edit request from member (we are forum owner)
@@ -5511,25 +5543,15 @@ def event_post_vote_event(e):
     if vote not in ["up", "down", ""]:
         return
 
-    # Remove old vote if exists
-    old_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, sender_id)
-    if old_vote:
-        if old_vote["vote"] == "up":
-            mochi.db.execute("update posts set up=up-1 where id=? and up>0", post_id)
-        elif old_vote["vote"] == "down":
-            mochi.db.execute("update posts set down=down-1 where id=? and down>0", post_id)
-
-    # Add new vote or remove if empty
+    # Upsert / delete the voter's row, then derive the new counts from
+    # the votes log. See action_post_vote owner branch for the
+    # replication rationale.
     if vote == "":
         mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post_id, sender_id)
     else:
         mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
             forum["id"], post_id, sender_id, vote)
-
-        if vote == "up":
-            mochi.db.execute("update posts set up=up+1 where id=?", post_id)
-        elif vote == "down":
-            mochi.db.execute("update posts set down=down+1 where id=?", post_id)
+    recount_post_votes(post_id)
 
     now = mochi.time.now()
     mochi.db.execute("update posts set updated=? where id=?", now, post_id)
@@ -5659,14 +5681,17 @@ def event_unsubscribe_event(e):
 
     member_id = e.header("from")
 
-    # Clean up member's votes and adjust comment vote counts
-    votes = mochi.db.rows("select comment, vote from votes where forum=? and voter=?", forum["id"], member_id)
-    for v in votes:
-        if v["vote"] == "up":
-            mochi.db.execute("update comments set up=up-1 where id=? and up>0", v["comment"])
-        elif v["vote"] == "down":
-            mochi.db.execute("update comments set down=down-1 where id=? and down>0", v["comment"])
+    # Collect the (post, comment) pairs the departing member voted on,
+    # delete their vote rows, then recount each affected post/comment
+    # from the votes log. The old code only adjusted comment counts —
+    # post counts went out of sync on unsubscribe; both are fixed now.
+    affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum["id"], member_id)
     mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], member_id)
+    for v in affected:
+        if v["comment"]:
+            recount_comment_votes(v["comment"])
+        else:
+            recount_post_votes(v["post"])
 
     # Remove from members table
     mochi.db.execute("delete from members where forum=? and id=?", forum["id"], member_id)
@@ -5737,7 +5762,7 @@ def event_post_remove_submit_event(e):
         sender, reason, now, post_id)
 
     log_moderation(forum["id"], sender, "remove", "post", post_id, post["member"], reason)
-    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason)
+    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
 
     broadcast_event(forum["id"], "post/remove", {"id": post_id, "remover": sender, "reason": reason})
 
@@ -5817,7 +5842,7 @@ def event_post_approve_submit_event(e):
     mochi.db.execute("update posts set status='approved', updated=? where id=?", now, post_id)
 
     log_moderation(forum["id"], sender, "approve", "post", post_id, post["member"], "")
-    notify_moderation_action(forum["id"], post["member"], "approve", "post", "")
+    notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
 
     # Broadcast the post to members
     post_data = {
@@ -5960,7 +5985,7 @@ def event_comment_remove_submit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
     log_moderation(forum["id"], sender, "remove", "comment", comment_id, comment["member"], reason)
-    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason)
+    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
 
     broadcast_event(forum["id"], "comment/remove", {
         "id": comment_id, "post": comment["post"], "remover": sender, "reason": reason
@@ -6045,7 +6070,7 @@ def event_comment_approve_submit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
     log_moderation(forum["id"], sender, "approve", "comment", comment_id, comment["member"], "")
-    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "")
+    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
 
     # Broadcast the comment to members
     comment_data = {
@@ -6083,7 +6108,7 @@ def event_restrict_submit_event(e):
         forum["id"], target_user, restriction_type, reason, sender, expires, now)
 
     log_moderation(forum["id"], sender, "restrict", "user", target_user, None, reason)
-    notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason)
+    notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
 
     broadcast_event(forum["id"], "user/restrict", {
         "user": target_user, "type": restriction_type, "expires": expires
@@ -6124,7 +6149,7 @@ def event_unrestrict_submit_event(e):
 
     mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
     log_moderation(forum["id"], sender, "unrestrict", "user", target_user, None, "")
-    notify_moderation_action(forum["id"], target_user, "unrestrict", "", "")
+    notify_moderation_action(forum["id"], target_user, "unrestrict", "", "", target_id=target_user)
 
     broadcast_event(forum["id"], "user/unrestrict", {"user": target_user})
 
@@ -6203,6 +6228,7 @@ def event_report_submit_event(e):
         mochi.app.label(body_key, reporter=reporter_name, reason=reason),
         "/forums/" + fp + "/moderation?tab=reports",
         sender,
+        source_id=report_id,
     )
 
 # Received a report resolution request from moderator (we are forum owner)
@@ -6237,7 +6263,7 @@ def event_report_resolve_submit_event(e):
                     "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                     sender, report["reason"], now, report["target"])
                 log_moderation(forum["id"], sender, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
                 broadcast_event(forum["id"], "post/remove", {
                     "id": report["target"], "remover": sender, "reason": report["reason"]
                 })
@@ -6248,7 +6274,7 @@ def event_report_resolve_submit_event(e):
                     "update comments set status='removed', remover=?, reason=? where id=?",
                     sender, report["reason"], report["target"])
                 log_moderation(forum["id"], sender, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                 broadcast_event(forum["id"], "comment/remove", {
                     "id": report["target"], "post": comment["post"], "remover": sender, "reason": report["reason"]
                 })
@@ -6329,6 +6355,18 @@ def event_schema(e):
 
     tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=?)", forum_id) or []
 
+    # Inline attachment metadata so subscribers can't lose it when post/create events
+    # from event_subscribe_event are dropped by the already-exists guard in
+    # event_post_create_event. Metadata only — files still fetch on demand from the owner.
+    for p in posts:
+        atts = mochi.attachment.list(p["id"])
+        if atts:
+            p["attachments"] = atts
+    for c in comments:
+        atts = mochi.attachment.list(c["id"])
+        if atts:
+            c["attachments"] = atts
+
     e.stream.write({
         "posts": posts,
         "comments": comments,
@@ -6344,6 +6382,9 @@ def insert_forum_schema(forum_id, schema):
             p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
             p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
         )
+        atts = p.get("attachments") or []
+        if atts:
+            mochi.attachment.store(atts, forum_id, p.get("id", ""))
     for c in (schema.get("comments") or []):
         mochi.db.execute(
             "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -6351,6 +6392,9 @@ def insert_forum_schema(forum_id, schema):
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
             c.get("up", 0), c.get("down", 0), c.get("created", 0)
         )
+        atts = c.get("attachments") or []
+        if atts:
+            mochi.attachment.store(atts, forum_id, c.get("id", ""))
     for t in (schema.get("tags") or []):
         mochi.db.execute(
             "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)",
@@ -6750,7 +6794,7 @@ def event_report_resolve_action(e):
                     "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
                     requester, report["reason"], now, report["target"])
                 log_moderation(forum_id, requester, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"], target_id=report["target"])
                 broadcast_event(forum_id, "post/remove", {
                     "id": report["target"], "remover": requester, "reason": report["reason"]
                 })
@@ -6761,7 +6805,7 @@ def event_report_resolve_action(e):
                     "update comments set status='removed', remover=?, reason=? where id=?",
                     requester, report["reason"], report["target"])
                 log_moderation(forum_id, requester, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"])
+                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"], target_id=report["target"])
                 broadcast_event(forum_id, "comment/remove", {
                     "id": report["target"], "post": comment["post"], "remover": requester, "reason": report["reason"]
                 })
@@ -7321,10 +7365,19 @@ def _subscribe_to_forum(user, forum_id, server):
 
 # Internal: post on `forum_id` on behalf of `user`, subscriber-side path.
 # Returns {"forum", "post", "fingerprint"} or {"error", "code"}.
-def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
+#
+# `post_id` is supplied by the caller, not minted here, so a future
+# multi-host invocation (event_app_post arriving on N replicas via
+# mochi.message.send fan-out) forwards the same id from every
+# replica - the owner's INSERT OR IGNORE on post id then dedups N
+# forwards to one accepted post. mochi.remote.request callers (single
+# fire) mint once before the request and pass through.
+def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     user_id = user.identity.id
     user_name = user.identity.name
 
+    if not mochi.text.valid(post_id, "id"):
+        return {"error": "errors.invalid_post_id", "code": 400}
     if not mochi.text.valid(title, "name"):
         return {"error": "errors.invalid_title", "code": 400}
     if not mochi.text.valid(body, "text"):
@@ -7341,7 +7394,6 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
     if not access_response.get("post", False):
         return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": 403}
 
-    id = mochi.uid()
     now = mochi.time.now()
 
     # Normalise tags through the same validator the owner uses so we don't
@@ -7353,7 +7405,7 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
         if v:
             validated_tags.append(v)
 
-    content = {"id": id, "title": title, "body": body}
+    content = {"id": post_id, "title": title, "body": body}
     if validated_tags:
         content["tags"] = validated_tags
 
@@ -7362,12 +7414,14 @@ def _post_to_forum_subscriber(user, forum_id, title, body, tags=None):
         content
     )
 
-    # Save locally for optimistic UI (status pending until owner confirms)
+    # Save locally for optimistic UI (status pending until owner confirms).
+    # `replace into` keeps re-entry on N-firing replicas idempotent — the
+    # second call rewrites the same row with the same values.
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
-        id, forum_id, user_id, user_name, title, body, now, now)
+        post_id, forum_id, user_id, user_name, title, body, now, now)
 
     fp = mochi.entity.fingerprint(forum_id) or ""
-    return {"forum": forum_id, "post": id, "fingerprint": fp}
+    return {"forum": forum_id, "post": post_id, "fingerprint": fp}
 
 
 # Service event: another local app asks us to subscribe the user to a forum.
@@ -7387,7 +7441,15 @@ def event_app_subscribe(e):
 # Service event: another local app asks us to post on the user's behalf.
 # Subscribes first as a safety net (idempotent), then posts via the
 # subscriber-side path.
+#
+# The caller is required to supply `id` so a multi-host fan-out
+# (mochi.message.send to a user's paired hosts arrives on each one)
+# produces a single post: every replica forwards the same id to the
+# forum owner, who dedups via INSERT OR IGNORE. mochi.remote.request
+# callers (single-fire, the current path) still need to mint once and
+# pass through.
 def event_app_post(e):
+    post_id = e.content("id") or ""
     forum_id = e.content("forum") or ""
     title = e.content("title") or ""
     body = e.content("body") or ""
@@ -7398,7 +7460,7 @@ def event_app_post(e):
         e.write({"error": sub_result["error"], "code": sub_result["code"]})
         return
 
-    post_result = _post_to_forum_subscriber(e.user, forum_id, title, body, tags)
+    post_result = _post_to_forum_subscriber(e.user, forum_id, post_id, title, body, tags)
     if "error" in post_result:
         e.write({"error": post_result["error"], "code": post_result["code"]})
         return
