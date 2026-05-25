@@ -4353,12 +4353,6 @@ def action_post_vote(a):
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )",
                     forum["id"], post["id"], user_id, vote)
-                if vote == "up":
-                    mochi.db.execute("update posts set up=up+1 where id=?", post["id"])
-                elif vote == "down":
-                    mochi.db.execute("update posts set down=down+1 where id=?", post["id"])
-            mochi.db.commit.fire("posts", "update", post["id"])
-            broadcast_websocket(forum["id"], {"type": "post/update", "forum": forum["id"], "post": post["id"], "sender": user_id})
 
         return {
             "data": {"forum": forum["id"], "post": post["id"]}
@@ -4470,12 +4464,6 @@ def action_comment_vote(a):
             else:
                 mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
                     forum["id"], comment["post"], comment["id"], user_id, vote)
-                if vote == "up":
-                    mochi.db.execute("update comments set up=up+1 where id=?", comment["id"])
-                elif vote == "down":
-                    mochi.db.execute("update comments set down=down+1 where id=?", comment["id"])
-                mochi.db.commit.fire("comments", "update", comment["id"])
-            broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment["id"], "sender": user_id})
         return {
             "data": {"forum": forum["id"], "post": comment["post"]}
         }
