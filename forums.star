@@ -386,6 +386,26 @@ def recount_post_comments(post_id):
         return
     mochi.db.execute("update posts set comments = (select count(*) from comments where post=? and status != 'removed') where id=?", post_id, post_id)
 
+# error_message_timeout: core calls this when a fan-out to a member aged out
+# undelivered. Remove them only when the directory shows no host left
+# (locations == 0) - definitely gone, not a transient outage or a server
+# migration in progress.
+def error_message_timeout(e):
+    if e.detail.get("locations", 1) != 0:
+        return
+    member = e.entity
+    affected = mochi.db.rows("select distinct forum from members where id=?", member)
+    mochi.db.execute("delete from members where id=?", member)
+    for r in affected:
+        mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", r["forum"], mochi.time.now(), r["forum"])
+
+# error_broadcast_gap: core calls this when an unfillable broadcast gap was
+# skipped and events were permanently lost. broadcast/resync can't replay a
+# pruned gap, so pull a fresh full snapshot.
+def error_broadcast_gap(e):
+    request_resync(e.entity)
+
+
 # request_resync pulls a fresh schema dump from the forum owner when an
 # incoming event references data we don't have yet (out-of-order delivery,
 # lost messages while offline). The owner's event_schema is the canonical
