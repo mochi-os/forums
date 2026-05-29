@@ -406,6 +406,11 @@ def error_broadcast_gap(e):
     request_resync(e.entity)
 
 
+# idle_resync_age: how long without applying any broadcast from a subscribed
+# forum before the next view re-subscribes (the owner may have pruned us after a
+# long idle). Matches core's broadcast_log_age.
+idle_resync_age = 7 * 86400
+
 # request_resync pulls a fresh schema dump from the forum owner when an
 # incoming event references data we don't have yet (out-of-order delivery,
 # lost messages while offline). The owner's event_schema is the canonical
@@ -428,10 +433,32 @@ def request_resync(forum_id):
     if not schema or schema.get("error"):
         return False
     insert_forum_schema(forum_id, schema)
+    mochi.broadcast.touch(forum_id)
     fp = mochi.entity.fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
     return True
+
+# maybe_resubscribe re-establishes a subscribed forum with its owner when the
+# subscription has gone idle (idle_resync_age). The owner's subscribe handler is
+# idempotent and pushes catch-up, so a bare re-subscribe re-adds us and re-syncs;
+# touch() stamps the idle timer so a quiet forum re-subscribes at most once per
+# window and a dead owner isn't re-poked per view.
+def maybe_resubscribe(a, forum_id):
+    user_id = a.user.identity.id if a.user else None
+    if not user_id:
+        return
+    row = mochi.db.row("select server from forums where id=?", forum_id)
+    if not row or not row["server"]:
+        return
+    if mochi.time.now() - mochi.broadcast.seen(forum_id) <= idle_resync_age:
+        return
+    mochi.message.send(
+        {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
+        {"name": a.user.identity.name},
+        []
+    )
+    mochi.broadcast.touch(forum_id)
 
 # Helper: Send a rejection back to the original sender of a submit event.
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
@@ -1233,6 +1260,9 @@ def action_view(a):
         if not forum:
             a.error.label(404, "errors.forum_not_found")
             return
+
+        # Re-establish with the owner if this subscription has gone idle.
+        maybe_resubscribe(a, forum["id"])
 
         is_owner = owned(forum["id"])
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
@@ -2120,6 +2150,7 @@ def action_subscribe(a):
         {"name": a.user.identity.name},
         []
     )
+    mochi.broadcast.touch(forum_id)
 
     return {
         "data": {"fingerprint": mochi.entity.fingerprint(forum_id)}
@@ -7379,6 +7410,7 @@ def _subscribe_to_forum(user, forum_id, server):
         {"name": user.identity.name},
         []
     )
+    mochi.broadcast.touch(forum_id)
 
     return {"fingerprint": fp, "already_subscribed": False}
 
