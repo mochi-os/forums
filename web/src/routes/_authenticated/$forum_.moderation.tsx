@@ -852,7 +852,7 @@ function LogTab({ forumId }: LogTabProps) {
                     src={`/people/${entry.author}/-/avatar`}
                     styleUrl={`/people/${entry.author}/-/style`}
                     name={entry.author_name}
-                    size={24}
+                    size="sm"
                     className='mt-0.5 shrink-0'
                   />
                 )}

@@ -82,7 +82,7 @@ export function PostCard({
               styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
               seed={post.member}
               name={post.name}
-              size={16}
+              size="xs"
             />
             <span>{post.name}</span>
             <span> · </span>
