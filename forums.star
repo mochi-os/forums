@@ -26,16 +26,6 @@ def enrich_tags(tags, interest_map):
 # "none" means no access (user has no rules or explicit deny).
 ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 
-# Map old role names to new access levels for migration
-ROLE_TO_ACCESS = {
-    "disabled": None,  # No access
-    "viewer": "view",
-    "voter": "vote",
-    "commenter": "comment",
-    "poster": "post",
-    "administrator": None  # Admins migrated to owner role, not access rules
-}
-
 # Create database
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -533,7 +523,9 @@ def on_db_commit(table, kind, row_uid):
 
 
 # Helper: Check if user is restricted from a forum
-# Returns error message if restricted, None if allowed
+# Returns a stable reason code ("banned" / "muted") if restricted, None if
+# allowed. Callers localise the code: HTTP via a.error.label, P2P by passing it
+# as the reject reason for the requesting side to resolve in its own language.
 def check_restriction(forum_id, user_id, operation):
     restriction = mochi.db.row(
         "select * from restrictions where forum=? and user=? and (expires is null or expires > ?)",
@@ -543,10 +535,10 @@ def check_restriction(forum_id, user_id, operation):
         return None
 
     if restriction["type"] == "banned":
-        return "You are banned from this forum"
+        return "banned"
 
     if restriction["type"] == "muted" and operation in ["post", "comment"]:
-        return "You are muted in this forum"
+        return "muted"
 
     # Shadowban returns None but content will be auto-removed
     return None
@@ -590,7 +582,8 @@ def requires_premoderation(forum, user_id, kind):
     return days < forum.get("new_user_days", 0)
 
 # Helper: Check rate limit for posting/commenting
-# Returns error message if rate limited, None if allowed
+# Returns True if rate limited, None if allowed. Callers localise the outcome:
+# HTTP via a.error.label, P2P via the reject reason resolved by the requester.
 def check_rate_limit(forum, user_id, kind):
     if kind == "post":
         limit = forum.get("post_limit", 0)
@@ -616,8 +609,7 @@ def check_rate_limit(forum, user_id, kind):
 
     count = row["count"] if row else 0
     if count >= limit:
-        minutes = window // 60
-        return "Rate limit exceeded. You can only create " + str(limit) + " " + kind + "s per " + str(minutes) + " minutes."
+        return True
 
     return None
 
@@ -849,29 +841,6 @@ def parse_unified_tag_response(text):
             entities.append({"name": name, "relevance": relevance})
         result.append({"index": idx, "novelty": novelty, "entities": entities[:10]})
     return result
-
-# Parse AI tag response into validated list of {qid, relevance} dicts
-def parse_ai_tags(text):
-    text = text.strip()
-    if text.startswith("```"):
-        lines = text.split("\n")
-        text = "\n".join(lines[1:-1])
-    items = json.decode(text)
-    if not items:
-        return []
-    valid = []
-    for item in items:
-        name = item.get("name", "")
-        relevance = item.get("relevance", 0)
-        if not name or type(name) != "string":
-            continue
-        if type(relevance) not in ("int", "float"):
-            continue
-        relevance = int(relevance)
-        if relevance < 0 or relevance > 100:
-            continue
-        valid.append({"name": name, "relevance": relevance})
-    return valid[:10]
 
 # Resolve AI account: 0 means use default AI account
 def resolve_ai_account(ai_account):
@@ -1122,7 +1091,7 @@ def action_forum_tags(a):
 # ACTIONS
 
 # Info endpoint for class context - returns list of forums
-def action_info_class(a):
+def action_information_class(a):
     forums = mochi.db.rows("select * from forums order by updated desc")
     owned_ids = owned_set()
 
@@ -1139,7 +1108,7 @@ def action_info_class(a):
     return {"data": {"entity": False, "forums": forums, "settings": settings}}
 
 # Info endpoint for entity context - returns forum info with permissions
-def action_info_entity(a):
+def action_information_entity(a):
     forum_id = a.input("forum")
     if not forum_id:
         a.error.label(400, "errors.forum_id_required")
@@ -1229,7 +1198,7 @@ def action_view(a):
             # Request forum data via P2P
             response = mochi.remote.request(entity_id, "forums", "view", {"forum": entity_id, "sort": sort}, peer)
             if response.get("error"):
-                a.error(response.get("code", 403), response["error"])
+                a.error.label(response.get("code", 403), response["error"])
                 return
 
             # Return remote data in same format as local view
@@ -1586,16 +1555,15 @@ def action_post_create(a):
                 return
 
             # Check for restrictions
-            restriction_error = check_restriction(forum["id"], user_id, "post")
-            if restriction_error:
-                a.error(403, restriction_error)
+            restriction = check_restriction(forum["id"], user_id, "post")
+            if restriction:
+                a.error.label(403, "errors.restriction_" + restriction)
                 return
 
             # Check rate limit (skip for moderators)
             if not check_access_remote(a, forum["id"], "moderate"):
-                rate_error = check_rate_limit(forum, user_id, "post")
-                if rate_error:
-                    a.error(429, rate_error)
+                if check_rate_limit(forum, user_id, "post"):
+                    a.error.label(429, "errors.rate_limit_post")
                     return
 
             # Determine initial status (moderators skip pre-moderation)
@@ -1645,7 +1613,7 @@ def action_post_create(a):
             })
             if not access_response.get("post", False):
                 if access_response.get("error"):
-                    a.error(403, access_response["error"])
+                    a.error.label(403, access_response["error"])
                 else:
                     a.error.label(403, "errors.not_allowed_to_post")
                 return
@@ -1682,7 +1650,7 @@ def action_post_create(a):
     })
     if not access_response.get("post", False):
         if access_response.get("error"):
-            a.error(403, access_response["error"])
+            a.error.label(403, access_response["error"])
         else:
             a.error.label(403, "errors.not_allowed_to_post")
         return
@@ -1839,11 +1807,11 @@ def action_recommendations(a):
     # Connect to recommendations service
     s = mochi.remote.stream("1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P", "recommendations", "list", {"type": "forum", "language": "en"})
     if not s:
-        return {"status": 500, "error": "Unable to connect to the recommendations service", "data": {"forums": []}}
+        return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
 
     r = s.read()
     if r.get("status") != "200":
-        return {"status": 500, "error": "Unable to connect to the recommendations service", "data": {"forums": []}}
+        return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
 
     recommendations = []
     items = s.read()
@@ -1942,9 +1910,9 @@ def action_probe(a):
         a.error.label(502, "errors.unable_to_connect_to_server")
         return
 
-    response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
+    response = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
     if response.get("error"):
-        a.error(404, response["error"])
+        a.error.label(404, response["error"])
         return
 
     # Return forum info as a directory-like entry
@@ -2111,9 +2079,9 @@ def action_subscribe(a):
         if not peer:
             a.error.label(502, "errors.unable_to_connect_to_server")
             return
-        response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
+        response = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
         if response.get("error"):
-            a.error(response.get("code", 404), response["error"])
+            a.error.label(response.get("code", 404), response["error"])
             return
         forum_name = response.get("name", "")
         schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
@@ -2341,7 +2309,7 @@ def action_post_view(a):
         # Request post data via P2P
         response = mochi.remote.request(forum_id, "forums", "post/view", {"forum": forum_id, "post": post_id}, peer)
         if response.get("error"):
-            a.error(response.get("code", 403), response["error"])
+            a.error.label(response.get("code", 403), response["error"])
             return
 
         # Return remote data
@@ -2791,16 +2759,15 @@ def action_comment_create(a):
                 return
 
             # Check for restrictions
-            restriction_error = check_restriction(forum["id"], user_id, "comment")
-            if restriction_error:
-                a.error(403, restriction_error)
+            restriction = check_restriction(forum["id"], user_id, "comment")
+            if restriction:
+                a.error.label(403, "errors.restriction_" + restriction)
                 return
 
             # Check rate limit (skip for moderators)
             if not check_access_remote(a, forum["id"], "moderate"):
-                rate_error = check_rate_limit(forum, user_id, "comment")
-                if rate_error:
-                    a.error(429, rate_error)
+                if check_rate_limit(forum, user_id, "comment"):
+                    a.error.label(429, "errors.rate_limit_comment")
                     return
 
             post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
@@ -2860,7 +2827,7 @@ def action_comment_create(a):
             })
             if not access_response.get("comment", False):
                 if access_response.get("error"):
-                    a.error(403, access_response["error"])
+                    a.error.label(403, access_response["error"])
                 else:
                     a.error.label(403, "errors.not_allowed_to_comment")
                 return
@@ -2900,7 +2867,7 @@ def action_comment_create(a):
     })
     if not access_response.get("comment", False):
         if access_response.get("error"):
-            a.error(403, access_response["error"])
+            a.error.label(403, access_response["error"])
         else:
             a.error.label(403, "errors.not_allowed_to_comment")
         return
@@ -3077,7 +3044,6 @@ def action_comment_delete(a):
                 return
 
             comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
-            deleted_count = len(comment_ids)
 
             # Delete attachments for all comments being deleted
             for cid in comment_ids:
@@ -3114,7 +3080,6 @@ def action_comment_delete(a):
 
             # Delete locally for optimistic UI
             comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
-            deleted_count = len(comment_ids)
 
             for cid in comment_ids:
                 mochi.db.execute("delete from votes where comment=?", cid)
@@ -3763,7 +3728,7 @@ def action_restrictions(a):
     if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
         if response and response.get("error"):
-            a.error(403, response["error"])
+            a.error.label(403, response["error"])
             return
         return {"data": response}
 
@@ -3932,7 +3897,7 @@ def action_moderation_reports(a):
         status = a.input("status", "pending")
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
-            a.error(403, response["error"])
+            a.error.label(403, response["error"])
             return
         return {"data": response}
 
@@ -4006,7 +3971,7 @@ def action_report_resolve(a):
         action = a.input("action")
         response = mochi.remote.request(forum["id"], "forums", "moderation/report/resolve", {"report": report_id, "action": action})
         if response and response.get("error"):
-            a.error(400, response["error"])
+            a.error.label(400, response["error"])
             return
         return {"data": {"success": True}}
 
@@ -4112,7 +4077,7 @@ def action_moderation_queue(a):
     if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
         if response and response.get("error"):
-            a.error(403, response["error"])
+            a.error.label(403, response["error"])
             return
         return {"data": response}
 
@@ -4279,7 +4244,7 @@ def action_moderation_log(a):
         limit_str = a.input("limit")
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit_str or "50"})
         if response and response.get("error"):
-            a.error(403, response["error"])
+            a.error.label(403, response["error"])
             return
         return {"data": response}
 
@@ -4758,11 +4723,14 @@ def event_mention_notify(e):
 	forum_id = e.header("from")
 	title = e.content("title") or ""
 	excerpt = e.content("excerpt") or ""
-	author = e.content("author") or "Someone"
+	# This handler runs on the recipient's host, so mochi.app.label resolves in
+	# the recipient's own language.
+	author = e.content("author") or mochi.app.label("notifications.mention.author_unknown")
 	url = e.content("url") or "/forums"
 	post_id = e.content("post") or ""
 	event_id = "mention:" + (post_id or forum_id)
-	notify("mention", forum_id, title, author + " mentioned you: " + excerpt, url, event_id=event_id)
+	body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
+	notify("mention", forum_id, title, body, url, event_id=event_id)
 
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
@@ -4832,14 +4800,12 @@ def event_comment_submit_event(e):
         return
 
     # Check for restrictions
-    restriction_error = check_restriction(forum["id"], sender_id, "comment")
-    if restriction_error:
+    if check_restriction(forum["id"], sender_id, "comment"):
         return
 
     # Check rate limit (skip for moderators)
     if not check_event_access(sender_id, forum["id"], "moderate"):
-        rate_error = check_rate_limit(forum, sender_id, "comment")
-        if rate_error:
+        if check_rate_limit(forum, sender_id, "comment"):
             return
 
     # Get sender name from members table, fall back to directory lookup
@@ -4994,7 +4960,6 @@ def event_comment_delete_submit_event(e):
 
     # Get all comment IDs to delete (this comment + descendants)
     comment_ids = [comment_id] + collect_descendants(comment_id)
-    deleted_count = len(comment_ids)
 
     # Delete attachments for these comments
     for cid in comment_ids:
@@ -5249,17 +5214,16 @@ def event_post_submit_event(e):
         send_reject(forum["id"], sender_id, "post", post_id, "access_denied")
         return
 
-    # Check for restrictions
-    restriction_error = check_restriction(forum["id"], sender_id, "post")
-    if restriction_error:
-        send_reject(forum["id"], sender_id, "post", post_id, "restricted", restriction_error)
+    # Check for restrictions. Send only the stable reason code; the requesting
+    # side localises it in its own language (it has no access to ours).
+    if check_restriction(forum["id"], sender_id, "post"):
+        send_reject(forum["id"], sender_id, "post", post_id, "restricted")
         return
 
     # Check rate limit (skip for moderators)
     if not check_event_access(sender_id, forum["id"], "moderate"):
-        rate_error = check_rate_limit(forum, sender_id, "post")
-        if rate_error:
-            send_reject(forum["id"], sender_id, "post", post_id, "rate_limited", rate_error)
+        if check_rate_limit(forum, sender_id, "post"):
+            send_reject(forum["id"], sender_id, "post", post_id, "rate_limited")
             return
 
     # Get sender name from members table, fall back to directory lookup
@@ -6364,13 +6328,13 @@ def event_report_resolve_event(e):
         resolver, action, now, report_id, forum["id"])
 
 # Handle info request for a forum (used by probe for remote forum lookup)
-def event_info(e):
+def event_information(e):
     forum_id = e.header("to")
 
     # Get entity info
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     e.stream.write({
@@ -6385,7 +6349,7 @@ def event_schema(e):
     forum_id = e.header("to")
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     posts = mochi.db.rows(
@@ -6461,13 +6425,13 @@ def event_view(e):
     # Get entity info - must be a forum we own
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     # Get forum from database
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     forum_name = entity.get("name", forum.get("name", ""))
@@ -6478,7 +6442,7 @@ def event_view(e):
     if forum_privacy == "private":
         can_view = check_event_access(requester, forum_id, "view")
         if not can_view:
-            e.stream.write({"error": "Not allowed to view this forum"})
+            e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
             return
 
     can_post = check_event_access(requester, forum_id, "post")
@@ -6530,7 +6494,7 @@ def event_access_check(e):
     # Get entity info - must be a forum we own
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     # Check each requested operation
@@ -6539,10 +6503,8 @@ def event_access_check(e):
         has_access = check_event_access(requester, forum_id, op)
         if has_access and op in ["post", "comment", "vote"]:
             # Also check for restrictions (muted/banned)
-            restriction_error = check_restriction(forum_id, requester, op)
-            if restriction_error:
+            if check_restriction(forum_id, requester, op):
                 has_access = False
-                result["error"] = restriction_error
         result[op] = has_access
 
     e.stream.write(result)
@@ -6554,19 +6516,19 @@ def event_post_view(e):
     post_id = e.content("post")
 
     if not post_id:
-        e.stream.write({"error": "Post ID required"})
+        e.stream.write({"error": "errors.post_id_required"})
         return
 
     # Get entity info - must be a forum we own
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     # Get forum from database
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     forum_privacy = entity.get("privacy", "public")
@@ -6575,13 +6537,13 @@ def event_post_view(e):
     if forum_privacy == "private":
         can_view = check_event_access(requester, forum_id, "view")
         if not can_view:
-            e.stream.write({"error": "Not allowed to view this forum"})
+            e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
             return
 
     # Get post
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum_id)
     if not post:
-        e.stream.write({"error": "Post not found"})
+        e.stream.write({"error": "errors.post_not_found"})
         return
 
     can_vote = check_event_access(requester, forum_id, "vote")
@@ -6641,11 +6603,11 @@ def event_moderation_queue(e):
 
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     if not check_event_access(requester, forum_id, "moderate"):
-        e.stream.write({"error": "Not allowed to moderate"})
+        e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
     posts = mochi.db.rows(
@@ -6687,15 +6649,15 @@ def event_moderation_reports(e):
 
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     if not check_event_access(requester, forum_id, "moderate"):
-        e.stream.write({"error": "Not allowed to moderate"})
+        e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
     if status not in ["pending", "resolved", "all"]:
-        e.stream.write({"error": "Invalid status"})
+        e.stream.write({"error": "errors.invalid_status"})
         return
 
     if status == "all":
@@ -6745,11 +6707,11 @@ def event_moderation_log(e):
 
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     if not check_event_access(requester, forum_id, "moderate"):
-        e.stream.write({"error": "Not allowed to moderate"})
+        e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
     limit = 50
@@ -6782,11 +6744,11 @@ def event_restrictions(e):
 
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     if not check_event_access(requester, forum_id, "moderate"):
-        e.stream.write({"error": "Not allowed to moderate"})
+        e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
     restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
@@ -6810,28 +6772,28 @@ def event_report_resolve_action(e):
 
     forum = get_forum(forum_id)
     if not forum:
-        e.stream.write({"error": "Forum not found"})
+        e.stream.write({"error": "errors.forum_not_found"})
         return
 
     if not check_event_access(requester, forum_id, "moderate"):
-        e.stream.write({"error": "Not allowed to moderate"})
+        e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
     if not report_id:
-        e.stream.write({"error": "Report ID required"})
+        e.stream.write({"error": "errors.report_id_required"})
         return
 
     report = mochi.db.row("select * from reports where id=? and forum=?", report_id, forum_id)
     if not report:
-        e.stream.write({"error": "Report not found"})
+        e.stream.write({"error": "errors.report_not_found"})
         return
 
     if report.get("status") != "pending":
-        e.stream.write({"error": "Report already resolved"})
+        e.stream.write({"error": "errors.report_already_resolved"})
         return
 
     if action not in ["removed", "ignored"]:
-        e.stream.write({"error": "Invalid action"})
+        e.stream.write({"error": "errors.invalid_action"})
         return
 
     now = mochi.time.now()
@@ -6967,9 +6929,9 @@ def action_rss_all(a):
     a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
     a.print('<rss version="2.0">\n')
     a.print('<channel>\n')
-    a.print('<title>All forums</title>\n')
+    a.print('<title>' + escape_xml(mochi.app.label("rss.all_forums_title")) + '</title>\n')
     a.print('<link>/forums</link>\n')
-    a.print('<description>All subscribed forums</description>\n')
+    a.print('<description>' + escape_xml(mochi.app.label("rss.all_forums_description")) + '</description>\n')
 
     # Build forum name lookup
     forum_names = {}
@@ -7024,9 +6986,9 @@ def action_rss_all(a):
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
             if parent_title:
-                title = forum_name + ": Re: " + parent_title
+                title = forum_name + ": " + mochi.app.label("rss.comment_reply", title=parent_title)
             else:
-                title = forum_name + ": Comment by " + row["author"]
+                title = forum_name + ": " + mochi.app.label("rss.comment_by", author=row["author"])
         else:
             title = forum_name + ": " + row["title"] if row["title"] else forum_name
 
@@ -7085,7 +7047,7 @@ def action_rss(a):
     a.print('<channel>\n')
     a.print('<title>' + escape_xml(forum_name) + '</title>\n')
     a.print('<link>/forums/' + escape_xml(fingerprint) + '</link>\n')
-    a.print('<description>' + escape_xml(forum_name) + ' RSS feed</description>\n')
+    a.print('<description>' + escape_xml(mochi.app.label("rss.feed_description", name=forum_name)) + '</description>\n')
 
     if mode == "all":
         # Interleave posts and comments by date, only approved content
@@ -7124,9 +7086,9 @@ def action_rss(a):
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
             if parent_title:
-                title = "Re: " + parent_title
+                title = mochi.app.label("rss.comment_reply", title=parent_title)
             else:
-                title = "Comment by " + row["author"]
+                title = mochi.app.label("rss.comment_by", author=row["author"])
         else:
             title = row["title"] if row["title"] else forum_name
 
@@ -7378,7 +7340,7 @@ def _subscribe_to_forum(user, forum_id, server):
         peer = mochi.remote.peer(server)
         if not peer:
             return {"error": "errors.unable_to_connect_to_server", "code": 502}
-        response = mochi.remote.request(forum_id, "forums", "info", {"forum": forum_id}, peer)
+        response = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
         if response.get("error"):
             return {"error": response["error"], "code": response.get("code", 404)}
         forum_name = response.get("name", "")

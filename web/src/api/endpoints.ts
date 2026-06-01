@@ -21,7 +21,7 @@ const endpoints = {
   forums: {
     // Class-level endpoints (no entity context)
     // These are relative - createAppClient adds /forums/ prefix
-    info: '-/info',
+    info: '-/information',
     list: '-/list',
     create: '-/create',
     find: 'find',
@@ -34,7 +34,7 @@ const endpoints = {
 
     // Entity-level endpoints (use /-/ separator)
     // Use getEntityBase for domain-aware paths
-    forumInfo: (forumId: string) => `${getEntityBase(forumId)}/-/info`,
+    forumInfo: (forumId: string) => `${getEntityBase(forumId)}/-/information`,
     posts: (forumId: string) => `${getEntityBase(forumId)}/-/posts`,
     subscribe: (forumId: string) => `${getEntityBase(forumId)}/-/subscribe`,
     unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,

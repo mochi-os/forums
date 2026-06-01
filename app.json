@@ -1,5 +1,5 @@
 {
-	"version": "7.30",
+	"version": "7.31",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -35,7 +35,7 @@
 		"": {"file": "web/dist/index.html"},
 		"assets": {"files": "web/dist/assets", "public": true},
 		"images": {"files": "web/dist/images", "public": true},
-		"-/info": {"function": "action_info_class"},
+		"-/information": {"function": "action_information_class"},
 		"-/sort/set": {"function": "action_sort_set_default"},
 		"-/list": {"function": "action_view"},
 		"-/create": {"function": "action_create"},
@@ -50,7 +50,7 @@
 		":forum": {"file": "web/dist/index.html", "public": true},
 		":forum/assets": {"files": "web/dist/assets", "public": true},
 		":forum/images": {"files": "web/dist/images", "public": true},
-		":forum/-/info": {"function": "action_info_entity", "public": true},
+		":forum/-/information": {"function": "action_information_entity", "public": true},
 		":forum/-/posts": {"function": "action_view", "public": true},
 		":forum/-/members": {"function": "action_members_edit"},
 		":forum/-/members/search": {"function": "action_member_search"},
@@ -125,7 +125,7 @@
 	},
 
 	"events": {
-		"info": {"function": "event_info"},
+		"information": {"function": "event_information"},
 		"schema": {"function": "event_schema"},
 		"view": {"function": "event_view"},
 		"access/check": {"function": "event_access_check"},
