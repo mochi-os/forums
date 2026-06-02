@@ -791,7 +791,7 @@ def can_tag_post(user_id, forum, post):
     return False
 
 # Default AI prompts
-AI_PROMPT_TAG = "For each post:\n1. Extract the key entities and topics (up to 10), with canonical English names and relevance scores (0-100). Prefer well-known entities and broad topics that would have their own Wikipedia article (e.g. 'technology', 'sport', 'football') over compound phrases or niche terms. Prefer singular forms (e.g. 'sport' not 'sports'). Include specific names only when they are the central subject.\n2. Assign a novelty score (0-100) where 100 means unique and lower scores mean the post is a near-duplicate of a better version covering the same story.\n\nIf a post is an advertisement, deal, sponsored content, or product promotion, include 'advertising' as an entity with high relevance.\n\nIf the title uses clickbait patterns, include 'clickbait' as an entity with high relevance. Patterns: vague demonstratives ('this', 'these'), withholding ('you won't believe', 'what happened next', 'not what you think'), emotional bait ('will blow your mind', 'will shock you', 'changed my life'), affiliate language ('you need to know', 'we tested', 'we found').\n\nReturn JSON only:\n[{\"index\": 0, \"novelty\": 100, \"entities\": [{\"name\": \"Germany\", \"relevance\": 90}]}, ...]\n\nPosts:\n{{posts}}"
+AI_PROMPT_TAG = "For each post:\n1. Extract the key entities and topics (up to 10), with canonical English names and relevance scores (0-100). Prefer well-known entities and broad topics that would have their own Wikipedia article (e.g. 'technology', 'sport', 'football') over compound phrases or niche terms. Prefer singular forms (e.g. 'sport' not 'sports'). Include specific names only when they are the central subject.\n2. Assign a novelty score (0-100) where 100 means unique and lower scores mean the post is a near-duplicate of a better version covering the same story.\n\nIf a post is an advertisement, deal, sponsored content, or product promotion, include 'advertising' as an entity with high relevance.\n\nIf the title uses clickbait patterns, include 'clickbait' as an entity with high relevance. Patterns: vague demonstratives ('this', 'these'), withholding ('you won't believe', 'what happened next', 'not what you think'), emotional bait ('will blow your mind', 'will shock you', 'changed my life'), affiliate language ('you need to know', 'we tested', 'we found').\n\nPosts may be prefixed in brackets with any linked domains. When a linked domain corresponds to a well-known company, publication, or institution, include it as an entity with moderate relevance (around 40-60). Do not create a tag from a generic, unrecognised, or link-shortener domain.\n\nReturn JSON only:\n[{\"index\": 0, \"novelty\": 100, \"entities\": [{\"name\": \"Germany\", \"relevance\": 90}]}, ...]\n\nPosts:\n{{posts}}"
 AI_PROMPT_SCORE = "Given a user's interests and a list of posts, score each post 0-100 based on relevance to the user.\n\nUser interests: {{interests}}\n\nPosts:\n{{posts}}\n\nReturn JSON only, one score per post in order:\n[{\"index\": 0, \"score\": 85}, ...]"
 
 AI_PROMPT_DEFAULTS = {
@@ -854,6 +854,49 @@ def resolve_ai_account(ai_account):
             return acc["id"]
     return accounts[0]["id"]
 
+# Extract http(s) URLs from free text (brackets, parens and quotes treated as
+# delimiters so markdown and HTML links are picked up)
+def extract_urls(text):
+    if not text:
+        return []
+    cleaned = text
+    for ch in ["\n", "\t", "(", ")", "<", ">", '"', "'", "[", "]", ","]:
+        cleaned = cleaned.replace(ch, " ")
+    urls = []
+    for token in cleaned.split(" "):
+        if token.startswith("http://") or token.startswith("https://"):
+            urls.append(token)
+    return urls
+
+# Reduce a URL to its host (scheme, path, credentials, port and leading www.
+# stripped), lowercased
+def url_domain(url):
+    if not url:
+        return ""
+    if "://" in url:
+        url = url[url.index("://") + 3:]
+    for sep in ["/", "?", "#"]:
+        if sep in url:
+            url = url[:url.index(sep)]
+    if "@" in url:
+        url = url[url.index("@") + 1:]
+    if ":" in url:
+        url = url[:url.index(":")]
+    if url.startswith("www."):
+        url = url[4:]
+    return url.lower()
+
+# Collect unique domains from a list of URLs, preserving order
+def collect_domains(urls):
+    domains = []
+    seen = {}
+    for url in urls:
+        domain = url_domain(url)
+        if domain and domain not in seen:
+            seen[domain] = True
+            domains.append(domain)
+    return domains
+
 # Tag a post using AI, storing results as AI tags (unified prompt)
 def ai_tag_post(forum_id, post_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -872,7 +915,11 @@ def ai_tag_post(forum_id, post_id):
     text = (title + ": " + body).strip() if title else body
     if len(text) > 500:
         text = text[:500]
-    post_text = "0. " + text.replace("\n", " ")
+    # Surface any linked domains so the AI can tag recognisable publishers
+    # (resolved via QID; unrecognised domains drop out)
+    domains = collect_domains(extract_urls(body))
+    prefix = ("[links: " + ", ".join(domains) + "] ") if domains else ""
+    post_text = "0. " + prefix + text.replace("\n", " ")
     prompt = get_ai_prompt(forum_id, "tag").replace("{{posts}}", post_text)
     result = mochi.ai.prompt(prompt, account=account)
     if result["status"] != 200:
