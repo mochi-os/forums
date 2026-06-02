@@ -14,6 +14,7 @@ import {
   getErrorMessage,
   GeneralError,
   useAuthStore,
+  ConfirmDialog,
 } from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -51,6 +52,7 @@ export function EntityForumPage({
   const { isMobile } = useScreenSize()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
+  const [showUnsubscribeConfirm, setShowUnsubscribeConfirm] = useState(false)
 
   // Per-forum override → falls back to the global default → falls back to 'new'.
   const [userSort, setUserSort] = useState<SortType | null>(
@@ -149,7 +151,7 @@ export function EntityForumPage({
   useEffect(() => {
     subscribeHandler.current = () =>
       subscribeMutation.mutate({ forumId: forum.id, server: forum.server })
-    unsubscribeHandler.current = () => unsubscribeMutation.mutate(forum.id)
+    unsubscribeHandler.current = () => setShowUnsubscribeConfirm(true)
 
     // Update subscription state for sidebar
     const localForum = forums.find((f) => f.id === forum.id)
@@ -269,7 +271,7 @@ export function EntityForumPage({
             entityId={forum.fingerprint}
             settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
             moderationUrl={(canManage || canModerate) ? `/${forum.fingerprint ?? forum.id}/moderation` : undefined}
-            onUnsubscribe={canUnsubscribe ? () => unsubscribeMutation.mutate(forum.id) : undefined}
+            onUnsubscribe={canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined}
             unsubscribePending={unsubscribeMutation.isPending}
           />
         }
@@ -320,6 +322,17 @@ export function EntityForumPage({
           )}
         </div>
       </Main>
+
+      <ConfirmDialog
+        open={showUnsubscribeConfirm}
+        onOpenChange={setShowUnsubscribeConfirm}
+        title={<Trans>Unsubscribe from forum?</Trans>}
+        desc={<Trans>You will stop receiving updates from this forum. You can re-subscribe at any time.</Trans>}
+        destructive
+        confirmText={<Trans>Unsubscribe</Trans>}
+        handleConfirm={() => unsubscribeMutation.mutate(forum.id)}
+        isLoading={unsubscribeMutation.isPending}
+      />
     </>
   )
 }
