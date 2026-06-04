@@ -239,6 +239,10 @@ msgstr "Lampirké berkas balesan"
 msgid "Attachments"
 msgstr "Lampiran"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Kode authenticator"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Bali"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Déning {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Batalake suntingan"
 msgid "Cancel reply"
 msgstr "Batal balesan"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Kategori kanggo pemberitahuan iki"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Ganti kategori pemberitahuan"
 
@@ -474,6 +479,10 @@ msgstr "Informasi kontekstual lan rincian."
 msgid "Continue"
 msgstr "Terus"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Terusake nganggo {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Atur sapa sing bisa ndelok lan sesambungan karo forum iki"
@@ -485,6 +494,18 @@ msgstr "Salin"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Ora bisa muat dokumen iki. Coba manèh mengko."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Ora bisa ngirim kode. Coba maneh."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Ora bisa miwiti otentikasi ulang. Coba maneh."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Ora bisa verifikasi nganggo akun kasebut. Mangga coba maneh."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Busak forum?"
 msgid "Delete post"
 msgstr "Busak post"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Busak akun sampeyan ing server lawas"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Mudhun"
@@ -588,6 +613,7 @@ msgstr "Arah"
 msgid "Disabled"
 msgstr "Dipatèni"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Singkiraké"
@@ -622,9 +648,21 @@ msgstr "Owahi jeneng"
 msgid "Edit post"
 msgstr "Owahi postingan"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Kode email"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Lebokna teks banner (markdown didukung)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Ketik kode saka email panjenengan"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Lebokna kode authenticator sampeyan"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Gagal nambah akun"
 msgid "Failed to add tag"
 msgstr "Gagal nambah tag"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Gagal mbusak akses"
 msgid "Failed to remove account"
 msgstr "Gagal mbusak akun"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Gagal mbusak minat"
@@ -801,11 +839,11 @@ msgstr "Gagal nganyari setélan AI"
 msgid "Failed to update banner"
 msgstr "Gagal nganyari banner"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Gagal nganyari kategori"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Disaring miturut tag:"
 
@@ -818,13 +856,17 @@ msgstr "Golèk forum"
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Rampungna mindah akun sampeyan"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Ngambang"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Forum digawé"
 msgid "Forum deleted"
 msgstr "Forum dibusak"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Forum wis ora kasedhiya"
 
@@ -964,7 +1006,7 @@ msgstr "Minat ditambah"
 msgid "Interest reduced"
 msgstr "Minat dikurangi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Minat dibusak"
@@ -1128,7 +1170,7 @@ msgstr "Forum anyar"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Postingan anyar"
 
@@ -1202,7 +1244,7 @@ msgstr "Ora ana asil ditemokaké."
 msgid "No time zone found."
 msgstr "Ora ana zona wektu ditemokaké."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Durung ana cathetan topik — coba manèh sawisé notifikasi sabanjure."
 
@@ -1271,6 +1313,18 @@ msgstr "Liyané"
 msgid "Owner"
 msgstr "Sing duwé"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr ""
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Verifikasi passkey gagal. Coba maneh."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Mangga lebokaké komentar"
 msgid "Please enter a reply"
 msgstr "Mangga lebokaké balesan"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Kiriman ora bisa disimpen — judhul utawa isi ora sah"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Kiriman ora bisa disimpen ing server forum"
 
@@ -1420,6 +1474,14 @@ msgstr "Antrian"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Watesan Tarif"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Sambungke maneh akun sampeyan ing server iki"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Daftarake maneh passkey sampeyan ing server iki"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Butuh persetujuan kanggo postingan anyar"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Butuh persetujuan kanggo pangguna anyar"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Kirim ulang email"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Pilih preferensi tema"
 msgid "Send again"
 msgstr "Kirim maneh"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Kirim email"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Serif"
@@ -1805,7 +1875,7 @@ msgstr "Lagi ngirim..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Langganan"
 
@@ -1822,7 +1892,7 @@ msgstr "Wis langganan {0}"
 msgid "Subscribed to forum"
 msgstr "Wis langganan forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Lagi langganan..."
 
@@ -1854,6 +1924,10 @@ msgstr "Tim/App"
 msgid "Terms and conditions"
 msgstr "Syarat lan ketentuan"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Kode kasebut salah utawa wis kadaluwarsa."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Tema"
@@ -1878,7 +1952,7 @@ msgstr "Forum iki mungkin wis dibusak utawa sampéyan ora duwé akses."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Postingan iki mungkin wis dibusak utawa ora ana."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Kiriman iki wis dikirim"
 
@@ -1969,7 +2043,7 @@ msgstr "Ketik kanggo nggolèki..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Ora bisa ngarahaké menyang login. Mangga coba manèh."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Ora ditugasaké"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Lepasaké pin"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Mbatalaké langganan"
@@ -2003,6 +2078,10 @@ msgstr "Mbatalaké langganan"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Mbatalaké langganan saka forum"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Mbatalake langganan forum?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Wis mbatalaké langganan"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Durung diverifikasi"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Gunakake passkey sampeyan"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Kode verifikasi dikirim"
 msgid "Verification failed"
 msgstr "Verifikasi gagal"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Verifikasi"
 msgid "Verify email address"
 msgstr "Verifikasi alamat email"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Thumbnail video"
 
@@ -2099,18 +2183,26 @@ msgstr "Durasi window"
 msgid "You are already subscribed to this forum"
 msgstr "Sampéyan wis langganan forum iki"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Sampeyan ngirim kanthi cepet banget — mangga ngenteni lan coba maneh"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Sampeyan diwatesi kanggo ngirim ing forum iki"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Sampeyan ora duwe idin kanggo ngirim ing forum iki"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Sampéyan durung duwé forum."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Sampeyan ora bakal nampa nganyari saka forum iki maneh. Sampeyan bisa langganan maneh kapan wae."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Akun sampeyan dipindah mrene saka {source}. Nganti sampeyan mbusak ana, pesen lan notifikasi bisa tekan loro-lorone server, sawetara konten sampeyan tetep dilayani saka server lawas, lan pengikut bisa butuh sawetara menit kanggo nemokake sampeyan ing kene."

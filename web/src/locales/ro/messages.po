@@ -239,6 +239,10 @@ msgstr "Atașează fișiere la răspuns"
 msgid "Attachments"
 msgstr "Atașamente"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Cod de autentificare"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Înapoi"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "De {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Anulează editarea"
 msgid "Cancel reply"
 msgstr "Anulează răspunsul"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Categorie pentru această notificare"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Schimbă categoria notificării"
 
@@ -474,6 +479,10 @@ msgstr "Informații și detalii contextuale."
 msgid "Continue"
 msgstr "Continuă"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Continuă cu {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Controlează cine poate vedea și interacționa cu acest forum"
@@ -485,6 +494,18 @@ msgstr "Copiază"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Nu s-a putut încărca acest document. Încearcă din nou mai târziu."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Codul nu a putut fi trimis. Încearcă din nou."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Reautentificarea nu a putut fi inițiată. Încearcă din nou."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Nu s-a putut verifica cu acel cont. Încearcă din nou."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Ștergi forumul?"
 msgid "Delete post"
 msgstr "Șterge postarea"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Ștergeți contul de pe serverul vechi"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Descresc."
@@ -588,6 +613,7 @@ msgstr "Direcție"
 msgid "Disabled"
 msgstr "Dezactivat"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Renunță"
@@ -622,9 +648,21 @@ msgstr "Editează numele"
 msgid "Edit post"
 msgstr "Editează postarea"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Cod email"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Introdu textul bannerului (markdown acceptat)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Introduceți codul din e-mailul dumneavoastră"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Introdu codul din aplicația de autentificare"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Adăugarea contului a eșuat"
 msgid "Failed to add tag"
 msgstr "Adăugarea etichetei a eșuat"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Eliminarea accesului a eșuat"
 msgid "Failed to remove account"
 msgstr "Eliminarea contului a eșuat"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Eliminarea interesului a eșuat"
@@ -801,11 +839,11 @@ msgstr "Actualizarea setărilor AI a eșuat"
 msgid "Failed to update banner"
 msgstr "Actualizarea bannerului a eșuat"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Actualizarea categoriei a eșuat"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Filtrat după etichetă:"
 
@@ -818,13 +856,17 @@ msgstr "Găsește forumuri"
 msgid "Fingerprint"
 msgstr "Amprentă"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Finalizați mutarea contului dvs."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Flotant"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Forum creat"
 msgid "Forum deleted"
 msgstr "Forum șters"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Forumul nu mai este disponibil"
 
@@ -964,7 +1006,7 @@ msgstr "Interes amplificat"
 msgid "Interest reduced"
 msgstr "Interes redus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interes eliminat"
@@ -1128,7 +1170,7 @@ msgstr "Forum nou"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Postare nouă"
 
@@ -1202,7 +1244,7 @@ msgstr "Nu s-au găsit rezultate."
 msgid "No time zone found."
 msgstr "Nu s-a găsit niciun fus orar."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Încă nu există înregistrare de subiect — încearcă din nou după următoarea notificare."
 
@@ -1271,6 +1313,18 @@ msgstr "Altele"
 msgid "Owner"
 msgstr "Proprietar"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Cheie de acces"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Verificarea cheii de acces a eșuat. Încearcă din nou."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Chei de acces"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Introdu un comentariu"
 msgid "Please enter a reply"
 msgstr "Introdu un răspuns"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Postarea nu a putut fi salvată — titlul sau conținutul este invalid"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Postarea nu a putut fi salvată pe serverul forumului"
 
@@ -1420,6 +1474,14 @@ msgstr "Coadă"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Limitare rată"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Reconectați conturile pe acest server"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Reînregistrați-vă cheile de acces pe acest server"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Necesită aprobare pentru postări noi"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Necesită aprobare pentru utilizatori noi"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Retrimite e-mailul"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Selectează preferința de temă"
 msgid "Send again"
 msgstr "Trimite din nou"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Trimite email"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Cu serife"
@@ -1805,7 +1875,7 @@ msgstr "Se trimite..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Abonează-te"
 
@@ -1822,7 +1892,7 @@ msgstr "Abonat la {0}"
 msgid "Subscribed to forum"
 msgstr "Abonat la forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Se abonează..."
 
@@ -1854,6 +1924,10 @@ msgstr "Echipe/Aplicații"
 msgid "Terms and conditions"
 msgstr "Termeni și condiții"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Acel cod este incorect sau a expirat."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Temă"
@@ -1878,7 +1952,7 @@ msgstr "Acest forum poate să fi fost șters sau nu ai acces la el."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Această postare poate să fi fost ștearsă sau nu există."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Această postare a fost deja trimisă"
 
@@ -1969,7 +2043,7 @@ msgstr "Tastează pentru a căuta..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Nu se poate redirecționa la conectare. Încearcă din nou."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Neatribuit"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Desprinde"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Dezabonează-te"
@@ -2003,6 +2078,10 @@ msgstr "Dezabonează-te"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Dezabonează-te de la forum"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Anulezi abonarea la forum?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Dezabonat"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Neverificat"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Folosește cheia de acces"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Cod de verificare trimis"
 msgid "Verification failed"
 msgstr "Verificarea a eșuat"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Verifică"
 msgid "Verify email address"
 msgstr "Verifică adresa de email"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Miniatură video"
 
@@ -2099,18 +2183,26 @@ msgstr "Durata ferestrei"
 msgid "You are already subscribed to this forum"
 msgstr "Ești deja abonat la acest forum"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Postezi prea repede — așteaptă și încearcă din nou"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Ești restricționat să postezi pe acest forum"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Nu ai permisiunea să postezi pe acest forum"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Nu ai încă niciun forum."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Nu vei mai primi actualizări de la acest forum. Te poți reabona oricând."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Contul dvs. a fost mutat aici de la {source}. Până când îl ștergeți de acolo, mesajele și notificările pot ajunge pe ambele servere, o parte din conținutul dvs. continuă să fie servit de pe serverul vechi, iar urmăritorii pot avea nevoie de câteva minute pentru a vă găsi aici."

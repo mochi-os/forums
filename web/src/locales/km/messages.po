@@ -239,6 +239,10 @@ msgstr "ភ្ជាប់ឯកសារឆ្លើយតប"
 msgid "Attachments"
 msgstr "ឯកសារភ្ជាប់"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "កូដ Authenticator"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "ត្រឡប់"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "ដោយ {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "បោះបង់ការកែសម្រួល"
 msgid "Cancel reply"
 msgstr "បោះបង់ការឆ្លើយតប"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "ប្រភេទសម្រាប់ការជូនដំណឹងនេះ"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "ប្ដូរប្រភេទការជូនដំណឹង"
 
@@ -474,6 +479,10 @@ msgstr "ព័ត៌មាន និងព័ត៌មានលម្អិត�
 msgid "Continue"
 msgstr "បន្ត"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "បន្តជាមួយ {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "គ្រប់គ្រងអ្នកដែលអាចមើល និងធ្វើអន្តរកម្មជាមួយវេទិកានេះ"
@@ -485,6 +494,18 @@ msgstr "ចម្លង"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "មិនអាចផ្ទុកឯកសារនេះ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "មិនអាចផ្ញើកូដបានទេ។ សូមព្យាយាមម្ដងទៀត។"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "មិនអាចចាប់ផ្ដើមការផ្ទៀងផ្ទាត់ឡើងវិញបានទេ។ សូមព្យាយាមម្ដងទៀត។"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "មិនអាចផ្ទៀងផ្ទាត់ជាមួយគណនីនោះបានទេ។ សូមព្យាយាមម្តងទៀត។"
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "លុបវេទិកា?"
 msgid "Delete post"
 msgstr "លុបការបង្ហោះ"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "លុបគណនីរបស់អ្នកនៅម៉ាស៊ីនមេចាស់"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "ចុះ"
@@ -588,6 +613,7 @@ msgstr "ទិស"
 msgid "Disabled"
 msgstr "បិទ"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "បិទ"
@@ -622,9 +648,21 @@ msgstr "កែសម្រួលឈ្មោះ"
 msgid "Edit post"
 msgstr "កែសម្រួលការបង្ហោះ"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "កូដអ៊ីមែល"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "បញ្ចូលអត្ថបទផ្ទាំង (គាំទ្រ markdown)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "បញ្ចូលកូដពីអ៊ីមែលរបស់អ្នក"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "បញ្ចូលកូដ authenticator របស់អ្នក"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "បរាជ័យក្នុងការបន្ថែមគណនី
 msgid "Failed to add tag"
 msgstr "បរាជ័យក្នុងការបន្ថែមស្លាក"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "បរាជ័យក្នុងការដកការចូលដំ
 msgid "Failed to remove account"
 msgstr "បរាជ័យក្នុងការដកគណនី"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "បរាជ័យក្នុងការដកចំណាប់អារម្មណ៍"
@@ -801,11 +839,11 @@ msgstr "បរាជ័យក្នុងការធ្វើបច្ចុប
 msgid "Failed to update banner"
 msgstr "បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពផ្ទាំង"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពប្រភេទ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "តម្រងតាមស្លាក៖"
 
@@ -818,13 +856,17 @@ msgstr "ស្វែងរកវេទិកា"
 msgid "Fingerprint"
 msgstr "ស្នាមម្រាមដៃ"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "បញ្ចប់ការផ្លាស់ប្តូរគណនីរបស់អ្នក"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "អណ្ដែត"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "បានបង្កើតវេទិកា"
 msgid "Forum deleted"
 msgstr "បានលុបវេទិកា"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "វេទិកាមិនមានទៀតទេ"
 
@@ -964,7 +1006,7 @@ msgstr "បានបង្កើនចំណាប់អារម្មណ៍"
 msgid "Interest reduced"
 msgstr "បានបន្ថយចំណាប់អារម្មណ៍"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "បានដកចំណាប់អារម្មណ៍"
@@ -1128,7 +1170,7 @@ msgstr "វេទិកាថ្មី"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "ប្រកាសថ្មី"
 
@@ -1202,7 +1244,7 @@ msgstr "រកមិនឃើញលទ្ធផល។"
 msgid "No time zone found."
 msgstr "រកមិនឃើញតំបន់ពេលវេលា។"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "មិនទាន់មានកំណត់ត្រាប្រធានបទ — សាកល្បងម្តងទៀតបន្ទាប់ពីការជូនដំណឹងលើកក្រោយ។"
 
@@ -1271,6 +1313,18 @@ msgstr "ផ្សេងទៀត"
 msgid "Owner"
 msgstr "ម្ចាស់"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr ""
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "ការផ្ទៀងផ្ទាត់ passkey បានបរាជ័យ។ សូមព្យាយាមម្ដងទៀត។"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "កូនសោចូល"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "សូមបញ្ចូលមតិយោបល់"
 msgid "Please enter a reply"
 msgstr "សូមបញ្ចូលការឆ្លើយតប"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "មិនអាចរក្សាទុកការផុសបានទេ — ចំណងជើងឬមាតិកាមិនត្រឹមត្រូវ"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "មិនអាចរក្សាទុកការផុសនៅលើម៉ាស៊ីនមេវេទិកាបានទេ"
 
@@ -1420,6 +1474,14 @@ msgstr "ជួរ"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "ការកំណត់អត្រា"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "ភ្ជាប់គណនីរបស់អ្នកឡើងវិញនៅម៉ាស៊ីនមេនេះ"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "ចុះឈ្មោះកូនសោចូលរបស់អ្នកឡើងវិញនៅលើម៉ាស៊ីនមេនេះ"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "តម្រូវឱ្យមានការអនុម័តសម្
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "តម្រូវឱ្យមានការអនុម័តសម្រាប់អ្នកប្រើថ្មី"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "ផ្ញើអ៊ីមែលឡើងវិញ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "ជ្រើសរើសចំណូលចិត្តរូបរាង
 msgid "Send again"
 msgstr "ផ្ញើម្តងទៀត"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "ផ្ញើអ៊ីមែល"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "សេរីហ្វ"
@@ -1805,7 +1875,7 @@ msgstr "កំពុងដាក់ស្នើ..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "ជាវ"
 
@@ -1822,7 +1892,7 @@ msgstr "បានជាវ {0}"
 msgid "Subscribed to forum"
 msgstr "បានជាវវេទិកា"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "កំពុងជាវ..."
 
@@ -1854,6 +1924,10 @@ msgstr "ក្រុម/កម្មវិធី"
 msgid "Terms and conditions"
 msgstr "លក្ខខណ្ឌ"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "កូដនោះមិនត្រឹមត្រូវ ឬផុតកំណត់ហើយ។"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "រូបរាង"
@@ -1878,7 +1952,7 @@ msgstr "វេទិកានេះប្រហែលជាត្រូវបា
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ការប្រកាសនេះប្រហែលជាត្រូវបានលុប ឬមិនមាន។"
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "ការផុសនេះត្រូវបានបញ្ជូនរួចហើយ"
 
@@ -1969,7 +2043,7 @@ msgstr "វាយដើម្បីស្វែងរក..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "មិនអាចប្តូរទិសទៅការចូល។ សូមព្យាយាមម្តងទៀត។"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "មិនបានកំណត់"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "ដកខ្ទាស់"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "ឈប់ជាវ"
@@ -2003,6 +2078,10 @@ msgstr "ឈប់ជាវ"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "ឈប់ជាវវេទិកា"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "ឈប់ជាវវេទិកានេះ?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "បានឈប់ជាវ"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "មិនបានផ្ទៀងផ្ទាត់"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "ប្រើ passkey របស់អ្នក"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "បានផ្ញើកូដផ្ទៀងផ្ទាត់"
 msgid "Verification failed"
 msgstr "ការផ្ទៀងផ្ទាត់បរាជ័យ"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "ផ្ទៀងផ្ទាត់"
 msgid "Verify email address"
 msgstr "ផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែល"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "រូបភាពតូចវីដេអូ"
 
@@ -2099,18 +2183,26 @@ msgstr "រយៈពេលបង្អួច"
 msgid "You are already subscribed to this forum"
 msgstr "អ្នកបានជាវវេទិកានេះរួចហើយ"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "អ្នកកំពុងផុសលឿនពេក — សូមរង់ចាំ ហើយព្យាយាមម្តងទៀត"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "អ្នកត្រូវបានដាក់កម្រិតមិនឱ្យផុសនៅក្នុងវេទិកានេះ"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "អ្នកមិនមានសិទ្ធិផុសនៅក្នុងវេទិកានេះទេ"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "អ្នកមិនទាន់មានវេទិកាទេ។"
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "អ្នកនឹងឈប់ទទួលបានបច្ចុប្បន្នភាពពីវេទិកានេះ។ អ្នកអាចជាវឡើងវិញនៅពេលណាក៏បាន។"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "គណនីរបស់អ្នកត្រូវបានផ្លាស់ប្តូរមកទីនេះពី {source}។ រហូតដល់អ្នកលុបវានៅទីនោះ សារ និងការជូនដំណឹងអាចទៅដល់ម៉ាស៊ីនមេទាំងពីរ មាតិកាមួយចំនួនរបស់អ្នកនៅតែត្រូវបានបម្រើពីម៉ាស៊ីនមេចាស់ ហើយអ្នកតាមដានអាចចំណាយពេលប៉ុន្មាននាទីដើម្បីរកអ្នកនៅទីនេះ។"

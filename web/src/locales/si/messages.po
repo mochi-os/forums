@@ -239,6 +239,10 @@ msgstr "පිළිතුරු ගොනු අමුණන්න"
 msgid "Attachments"
 msgstr "ඇමුණුම්"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Authenticator කේතය"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "ආපසු"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "{0} විසින්"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "සංස්කරණය අවලංගු කරන්න"
 msgid "Cancel reply"
 msgstr "පිළිතුර අවලංගු කරන්න"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "මෙම දැනුම්දීම සඳහා ප්‍රවර්ගය"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "දැනුම්දීම් ප්‍රවර්ගය වෙනස් කරන්න"
 
@@ -474,6 +479,10 @@ msgstr "සන්දර්භීය තොරතුරු සහ විස්ත
 msgid "Continue"
 msgstr "ඉදිරියට"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "{label} සමඟ ඉදිරියට යන්න"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "මෙම සංසදය බැලීමට සහ එයට අන්තර්ක්‍රියා කිරීමට හැකි කවුරුන්ද යන්න පාලනය කරන්න"
@@ -485,6 +494,18 @@ msgstr "පිටපත් කරන්න"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "මෙම ලේඛනය පූරණය කළ නොහැකි විය. කරුණාකර පසුව නැවත උත්සාහ කරන්න."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "කේතය යැවිය නොහැකි විය. නැවත උත්සාහ කරන්න."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "නැවත සත්‍යාපනය ආරම්භ කළ නොහැකි විය. නැවත උත්සාහ කරන්න."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "එම ගිණුම සමඟ සත්‍යාපනය කළ නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "සංසදය මකන්නද?"
 msgid "Delete post"
 msgstr "පළ කිරීම මකන්න"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "පැරණි සේවාදායකයේ ඔබේ ගිණුම මකන්න"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "අවරෝහණ"
@@ -588,6 +613,7 @@ msgstr "දිශාව"
 msgid "Disabled"
 msgstr "අක්‍රියයි"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "ඉවත ලන්න"
@@ -622,9 +648,21 @@ msgstr "නාමය සංස්කරණය කරන්න"
 msgid "Edit post"
 msgstr "පළ කිරීම සංස්කරණය කරන්න"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "ඊමේල් කේතය"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "බැනර් පෙළ ඇතුළු කරන්න (markdown සහාය දක්වයි)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "ඔබේ විද්‍යුත් තැපෑලෙහි ඇති කේතය ඇතුළු කරන්න"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "ඔබගේ සත්‍යාපන කේතය ඇතුළත් කරන්න"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "ගිණුම එක් කිරීමට අසමත් විය"
 msgid "Failed to add tag"
 msgstr "ටැගය එක් කිරීමට අසමත් විය"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "ප්‍රවේශය ඉවත් කිරීමට අසමත්
 msgid "Failed to remove account"
 msgstr "ගිණුම ඉවත් කිරීමට අසමත් විය"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "උනන්දුව ඉවත් කිරීමට අසමත් විය"
@@ -801,11 +839,11 @@ msgstr "AI සැකසුම් යාවත්කාලීන කිරීම�
 msgid "Failed to update banner"
 msgstr "බැනරය යාවත්කාලීන කිරීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "කාණ්ඩය යාවත්කාලීන කිරීමට අසමත් විය"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "ටැගයෙන් පෙරන ලද:"
 
@@ -818,13 +856,17 @@ msgstr "සභා සොයන්න"
 msgid "Fingerprint"
 msgstr "ඇඟිලි සලකුණ"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "ඔබේ ගිණුම ගෙන යාම අවසන් කරන්න"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "පාවෙන"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "සභාව සාදන ලදී"
 msgid "Forum deleted"
 msgstr "සභාව මකන ලදී"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "සංසදය තවදුරටත් ලබා ගත නොහැක"
 
@@ -964,7 +1006,7 @@ msgstr "උනන්දුව වැඩි කරන ලදී"
 msgid "Interest reduced"
 msgstr "උනන්දුව අඩු කරන ලදී"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "උනන්දුව ඉවත් කරන ලදී"
@@ -1128,7 +1170,7 @@ msgstr "නව සංසදය"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "නව පළ කිරීම"
 
@@ -1202,7 +1244,7 @@ msgstr "ප්‍රතිඵල හමු නොවීය."
 msgid "No time zone found."
 msgstr "වේලා කලාප හමු නොවීය."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "තවම topic වාර්තාවක් නැත — ඊළඟ දැනුම්දීමෙන් පසු නැවත උත්සාහ කරන්න."
 
@@ -1271,6 +1313,18 @@ msgstr "වෙනත්"
 msgid "Owner"
 msgstr "හිමිකරු"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "ප්‍රවේශ යතුර"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "මුරයතුර සත්‍යාපනය අසාර්ථක විය. නැවත උත්සාහ කරන්න."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "මුරයතුරු"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "කරුණාකර අදහසක් ඇතුළත් කරන්
 msgid "Please enter a reply"
 msgstr "කරුණාකර පිළිතුරක් ඇතුළත් කරන්න"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "පළකිරීම සුරැකීමට නොහැකි විය — මාතෘකාව හෝ අන්තර්ගතය වලංගු නැත"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "පළකිරීම සංසද සර්වරයේ සුරැකීමට නොහැකි විය"
 
@@ -1420,6 +1474,14 @@ msgstr "පෙළ"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Rate Limiting"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "මෙම සේවාදායකයේ ඔබේ ගිණුම් නැවත සම්බන්ධ කරන්න"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "මෙම සේවාදායකයේ ඔබගේ මුරයතුරු නැවත ලියාපදිංචි කරන්න"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "නව පළ කිරීම් සඳහා අනුමැතිය �
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "නව පරිශීලකයින් සඳහා අනුමැතිය අවශ්‍ය කරන්න"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "විද්‍යුත් තැපෑල නැවත එවන්න"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "theme මනාපය තෝරන්න"
 msgid "Send again"
 msgstr "නැවත යවන්න"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "ඊමේල් යවන්න"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "සෙරිෆ්"
@@ -1805,7 +1875,7 @@ msgstr "ඉදිරිපත් කරමින්..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "දායක වන්න"
 
@@ -1822,7 +1892,7 @@ msgstr "{0} ට දායක විය"
 msgid "Subscribed to forum"
 msgstr "සංසදයට දායක විය"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "දායක වෙමින්..."
 
@@ -1854,6 +1924,10 @@ msgstr "කණ්ඩායම්/යෙදුම්"
 msgid "Terms and conditions"
 msgstr "නියම සහ කොන්දේසි"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "එම කේතය වැරදියි හෝ කල් ඉකුත් වී ඇත."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "theme"
@@ -1878,7 +1952,7 @@ msgstr "මෙම සංසදය මකා දමා ඇති විය හැ
 msgid "This post may have been deleted or doesn't exist."
 msgstr "මෙම පෝස්ටුව මකා දමා ඇති විය හැකිය හෝ පවතින්නේ නැත."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "මෙම පළකිරීම දැනටමත් ඉදිරිපත් කර ඇත"
 
@@ -1969,7 +2043,7 @@ msgstr "සෙවීමට ටයිප් කරන්න..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "login එකට යළි-යොමු කළ නොහැක. කරුණාකර නැවත උත්සාහ කරන්න."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "පවරා නැත"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "unpin කරන්න"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "දායකත්වය ඉවත් කරන්න"
@@ -2003,6 +2078,10 @@ msgstr "දායකත්වය ඉවත් කරන්න"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "සංසදයෙන් දායකත්වය ඉවත් කරන්න"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "සංසදයෙන් දායකත්වය අවලංගු කරන්නද?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "දායකත්වය ඉවත් කරන ලදී"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "සත්‍යාපනය නොකළ"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "ඔබගේ මුරයතුර භාවිතා කරන්න"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "සත්‍යාපන කේතය යවන ලදී"
 msgid "Verification failed"
 msgstr "සත්‍යාපනය අසාර්ථක විය"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "සත්‍යාපනය කරන්න"
 msgid "Verify email address"
 msgstr "ඊමේල් ලිපිනය සත්‍යාපනය කරන්න"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "වීඩියෝ සංක්ෂිප්ත රූපය"
 
@@ -2099,18 +2183,26 @@ msgstr "කවුළු කාලය"
 msgid "You are already subscribed to this forum"
 msgstr "ඔබ දැනටමත් මෙම සංසදයට දායක වී ඇත"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "ඔබ ඉතා වේගයෙන් පළ කරමින් සිටී — කරුණාකර රැඳී සිටින්න සහ නැවත උත්සාහ කරන්න"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "මෙම සංසදයේ පළකිරීමෙන් ඔබ සීමා කර ඇත"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "මෙම සංසදයේ පළ කිරීමට ඔබට අවසරය නැත"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "ඔබට තවමත් සංසද නොමැත."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "ඔබට මෙම සංසදයෙන් යාවත්කාලීන ලැබීම නැවතෙනු ඇත. ඔබට ඕනෑම වේලාවක නැවත දායක විය හැක."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "ඔබේ ගිණුම {source} සිට මෙහි ගෙන ආවා. එතන ඉවත් කරන තෙක්, පණිවිඩ සහ දැනුම්දීම් සේවාදායකයන් දෙකටම ළඟා විය හැකිය, ඔබේ සමහර අන්තර්ගතය පැරණි සේවාදායකයෙන් ලබාදීම ඉදිරියටත් සිදු වේ, සහ අනුගාමිකයින්ට ඔබව මෙහිදී සොයා ගැනීමට මිනිත්තු කිහිපයක් ගත වනු ඇත."

@@ -239,6 +239,10 @@ msgstr "Adjunta fitxers de resposta"
 msgid "Attachments"
 msgstr "Fitxers adjunts"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Codi de l'autenticador"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Enrere"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Per {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Cancel·la l’edició"
 msgid "Cancel reply"
 msgstr "Cancel·la la resposta"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Categoria d'aquesta notificació"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Canvia la categoria de notificació"
 
@@ -474,6 +479,10 @@ msgstr "Informació i detalls de context."
 msgid "Continue"
 msgstr "Continua"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Continua amb {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Controla qui pot veure i interactuar amb aquest fòrum"
@@ -485,6 +494,18 @@ msgstr "Copia"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "No s'ha pogut carregar aquest document. Torna-ho a provar més tard."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "No s'ha pogut enviar el codi. Torneu-ho a provar."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "No s'ha pogut iniciar la reautenticació. Torneu-ho a provar."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "No s'ha pogut verificar amb aquest compte. Torneu-ho a provar."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Vols suprimir el fòrum?"
 msgid "Delete post"
 msgstr "Suprimeix la publicació"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Suprimiu el compte a l'antic servidor"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Desc."
@@ -588,6 +613,7 @@ msgstr "Direcció"
 msgid "Disabled"
 msgstr "Desactivat"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Descarta"
@@ -622,9 +648,21 @@ msgstr "Edita el nom"
 msgid "Edit post"
 msgstr "Edita la publicació"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Codi per correu"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Introdueix el text del bàner (admet markdown)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Introduïu el codi del vostre correu electrònic"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Introduïu el codi de l'autenticador"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "No s'ha pogut afegir el compte"
 msgid "Failed to add tag"
 msgstr "No s'ha pogut afegir l'etiqueta"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "No s'ha pogut retirar l'accés"
 msgid "Failed to remove account"
 msgstr "No s'ha pogut retirar el compte"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "No s'ha pogut retirar l'interès"
@@ -801,11 +839,11 @@ msgstr "No s'ha pogut actualitzar la configuració d'IA"
 msgid "Failed to update banner"
 msgstr "No s'ha pogut actualitzar el bàner"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "No s'ha pogut actualitzar la categoria"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Filtrat per etiqueta:"
 
@@ -818,13 +856,17 @@ msgstr "Cerca fòrums"
 msgid "Fingerprint"
 msgstr "Empremta"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Acabeu de moure el compte"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Flotant"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Fòrum creat"
 msgid "Forum deleted"
 msgstr "Fòrum suprimit"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "El fòrum ja no està disponible"
 
@@ -964,7 +1006,7 @@ msgstr "Interès incrementat"
 msgid "Interest reduced"
 msgstr "Interès reduït"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interès retirat"
@@ -1128,7 +1170,7 @@ msgstr "Fòrum nou"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Publicació nova"
 
@@ -1202,7 +1244,7 @@ msgstr "No s'ha trobat cap resultat."
 msgid "No time zone found."
 msgstr "No s'ha trobat cap fus horari."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Encara no hi ha cap registre de tema; torna-ho a provar després de la pròxima notificació."
 
@@ -1271,6 +1313,18 @@ msgstr "Altres"
 msgid "Owner"
 msgstr "Propietari"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Clau d'accés"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Ha fallat la verificació de la clau d'accés. Torneu-ho a provar."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Claus d'accés"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Introdueix un comentari"
 msgid "Please enter a reply"
 msgstr "Introdueix una resposta"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "No s'ha pogut desar la publicació — el títol o el contingut no són vàlids"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "No s'ha pogut desar la publicació al servidor del fòrum"
 
@@ -1420,6 +1474,14 @@ msgstr "Cua"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Limitació de freqüència"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Torneu a vincular els comptes en aquest servidor"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Torna a registrar les teves claus d'accés en aquest servidor"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Cal aprovació per a les publicacions noves"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Cal aprovació per als usuaris nous"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Torna a enviar el correu"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Selecciona la preferència de tema"
 msgid "Send again"
 msgstr "Torna a enviar"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Envia el correu"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Serif"
@@ -1805,7 +1875,7 @@ msgstr "Enviant..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Subscriu-te"
 
@@ -1822,7 +1892,7 @@ msgstr "Subscrit a {0}"
 msgid "Subscribed to forum"
 msgstr "Subscrit al fòrum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Subscrivint..."
 
@@ -1854,6 +1924,10 @@ msgstr "Equips/Aplicacions"
 msgid "Terms and conditions"
 msgstr "Termes i condicions"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Aquest codi és incorrecte o ha caducat."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Tema"
@@ -1878,7 +1952,7 @@ msgstr "És possible que aquest fòrum s'hagi eliminat o que no hi tinguis accé
 msgid "This post may have been deleted or doesn't exist."
 msgstr "És possible que aquest missatge s'hagi eliminat o que no existeixi."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Aquesta publicació ja s'ha enviat"
 
@@ -1969,7 +2043,7 @@ msgstr "Escriu per cercar..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "No s'ha pogut redirigir a l'inici de sessió. Torna-ho a provar."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Sense assignar"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Desafixa"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Cancel·la la subscripció"
@@ -2003,6 +2078,10 @@ msgstr "Cancel·la la subscripció"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Cancel·la la subscripció al fòrum"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Cancel·lar la subscripció al fòrum?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Subscripció cancel·lada"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "No verificat"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Utilitzeu la vostra clau d'accés"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Codi de verificació enviat"
 msgid "Verification failed"
 msgstr "La verificació ha fallat"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Verifica"
 msgid "Verify email address"
 msgstr "Verifica l'adreça de correu electrònic"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Miniatura del vídeo"
 
@@ -2099,18 +2183,26 @@ msgstr "Durada de la finestra"
 msgid "You are already subscribed to this forum"
 msgstr "Ja estàs subscrit a aquest fòrum"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Publiques massa ràpid — espera i torna-ho a provar"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Tens restriccions per publicar en aquest fòrum"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "No tens permís per publicar en aquest fòrum"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Encara no tens cap fòrum."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Deixaràs de rebre actualitzacions d'aquest fòrum. Pots tornar-te a subscriure en qualsevol moment."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "El vostre compte s'ha mogut aquí des de {source}. Fins que no l'elimineu d'allà, els missatges i les notificacions poden arribar als dos servidors, part del vostre contingut es continuarà servint des de l'antic servidor i els seguidors poden trigar uns minuts a trobar-vos aquí."

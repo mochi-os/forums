@@ -239,6 +239,10 @@ msgstr "Lisa vastuse failid"
 msgid "Attachments"
 msgstr "Manused"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Autentija kood"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Tagasi"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "{0} poolt"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Tühista muutmine"
 msgid "Cancel reply"
 msgstr "Tühista vastus"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Selle teavituse kategooria"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Muuda teavituse kategooriat"
 
@@ -474,6 +479,10 @@ msgstr "Kontekstuaalne teave ja üksikasjad."
 msgid "Continue"
 msgstr "Jätka"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Jätka teenusega {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Halda, kes saab seda foorumit vaadata ja sellega suhelda"
@@ -485,6 +494,18 @@ msgstr "Kopeeri"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Selle dokumendi laadimine ebaõnnestus. Palun proovi hiljem uuesti."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Koodi ei õnnestunud saata. Proovige uuesti."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Taasautentimist ei õnnestunud alustada. Proovige uuesti."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Selle kontoga ei õnnestunud kinnitada. Palun proovi uuesti."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Kustutada foorum?"
 msgid "Delete post"
 msgstr "Kustuta postitus"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Kustuta konto vanalt serverilt"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Kahanev"
@@ -588,6 +613,7 @@ msgstr "Suund"
 msgid "Disabled"
 msgstr "Keelatud"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Sulge"
@@ -622,9 +648,21 @@ msgstr "Muuda nime"
 msgid "Edit post"
 msgstr "Muuda postitust"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "E-posti kood"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Sisesta bännerteksti tekst (markdown toetatud)…"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Sisesta e-kirjas saadud kood"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Sisestage oma autentimisrakenduse kood"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Konto lisamine ebaõnnestus"
 msgid "Failed to add tag"
 msgstr "Sildi lisamine ebaõnnestus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Pääsu eemaldamine ebaõnnestus"
 msgid "Failed to remove account"
 msgstr "Konto eemaldamine ebaõnnestus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Huvi eemaldamine ebaõnnestus"
@@ -801,11 +839,11 @@ msgstr "AI seadete värskendamine ebaõnnestus"
 msgid "Failed to update banner"
 msgstr "Bännertekst värskendamine ebaõnnestus"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Kategooria värskendamine ebaõnnestus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Filtreeritud sildi järgi:"
 
@@ -818,13 +856,17 @@ msgstr "Otsi foorumeid"
 msgid "Fingerprint"
 msgstr "Sõrmejälg"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Lõpeta konto koliminen"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Hõljuv"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Foorum loodud"
 msgid "Forum deleted"
 msgstr "Foorum kustutatud"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Foorum pole enam saadaval"
 
@@ -964,7 +1006,7 @@ msgstr "Huvi suurendatud"
 msgid "Interest reduced"
 msgstr "Huvi vähendatud"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Huvi eemaldatud"
@@ -1128,7 +1170,7 @@ msgstr "Uus foorum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Uus postitus"
 
@@ -1202,7 +1244,7 @@ msgstr "Tulemusi ei leitud."
 msgid "No time zone found."
 msgstr "Ajavööndit ei leitud."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Teemakirjet veel pole — proovi uuesti pärast järgmist teavitust."
 
@@ -1271,6 +1313,18 @@ msgstr "Muu"
 msgid "Owner"
 msgstr "Omanik"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Pääsuvõti"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Pääsuvõtmega kinnitamine ebaõnnestus. Proovige uuesti."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Pääsuvõtmed"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Palun sisesta kommentaar"
 msgid "Please enter a reply"
 msgstr "Palun sisesta vastus"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Postitust ei õnnestunud salvestada — pealkiri või sisu on vigane"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Postitust ei õnnestunud foorumiserverisse salvestada"
 
@@ -1420,6 +1474,14 @@ msgstr "Järjekord"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Päringusageduse piirang"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Ühenda kontod uuesti selle serveriga"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Registreerige oma pääsuvõtmed selles serveris uuesti"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Nõua heakskiitu uutele postitustele"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Nõua heakskiitu uutele kasutajatele"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Saada e-kiri uuesti"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Vali teema eelistus"
 msgid "Send again"
 msgstr "Saada uuesti"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Saada e-kiri"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Seriif"
@@ -1805,7 +1875,7 @@ msgstr "Esitan..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Telli"
 
@@ -1822,7 +1892,7 @@ msgstr "Tellitud {0}"
 msgid "Subscribed to forum"
 msgstr "Tellitud foorumit"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Tellin..."
 
@@ -1854,6 +1924,10 @@ msgstr "Tiimid/Rakendused"
 msgid "Terms and conditions"
 msgstr "Tingimused"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "See kood on vale või aegunud."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Teema"
@@ -1878,7 +1952,7 @@ msgstr "See foorum võib olla kustutatud või sul pole sellele juurdepääsu."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "See postitus võib olla kustutatud või seda pole olemas."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "See postitus on juba esitatud"
 
@@ -1969,7 +2043,7 @@ msgstr "Kirjuta otsimiseks..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Sisselogimisele ei õnnestu ümber suunata. Palun proovi uuesti."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Määramata"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Eemalda kinnitus"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Tühista tellimus"
@@ -2003,6 +2078,10 @@ msgstr "Tühista tellimus"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Tühista foorumi tellimus"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Lõpetada foorumi tellimus?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Tellimus tühistatud"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Kontrollimata"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Kasutage oma pääsuvõtit"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Kontrollkood saadetud"
 msgid "Verification failed"
 msgstr "Kontrollimine ebaõnnestus"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Kontrolli"
 msgid "Verify email address"
 msgstr "Kontrolli e-posti aadressi"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Video pisipilt"
 
@@ -2099,18 +2183,26 @@ msgstr "Akna kestus"
 msgid "You are already subscribed to this forum"
 msgstr "Oled juba selle foorumi tellinud"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Postitate liiga kiiresti — palun oodake ja proovige uuesti"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Teil on selles foorumis postitamine piiratud"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Teil pole luba selles foorumis postitada"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Sul pole veel foorumeid."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Sa ei saa enam sellest foorumist uuendusi. Saad tellimuse igal ajal uuesti vormistada."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Sinu konto liideti siia asukohast {source}. Kuni sa selle sealt ei kustuta, võivad sõnumid ja teavitused jõuda mõlemale serverile, osa sinu sisust tarbitakse jätkuvalt vanalt serverilt ning jälgijatel võib kuluda mõni minut, et sind siit leida."

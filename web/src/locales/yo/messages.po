@@ -239,6 +239,10 @@ msgstr "So àwọn fáìlì ìdáhùn pọ̀"
 msgid "Attachments"
 msgstr "Àwọn ìsomọ́"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Kóòdù olùfọwọ́sí"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Padà"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Látọwọ́ {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Fagilee atunṣe"
 msgid "Cancel reply"
 msgstr "Fagilé ìdáhùn"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Ẹ̀ka fún ìfitónilétí yìí"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Yí ẹ̀ka ìfitónilétí padà"
 
@@ -474,6 +479,10 @@ msgstr "Ìròyìn àti ẹ̀kúnrẹ́rẹ́ ipò."
 msgid "Continue"
 msgstr "Tẹ̀síwájú"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Tẹ̀síwájú pẹ̀lú {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Darí ẹni tó lè wò àti bá forum yìí ṣiṣẹ́"
@@ -485,6 +494,18 @@ msgstr "Ṣe àdàkọ"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Kò lè kó ìwé yìí. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Kò lè fi kóòdù náà ránṣẹ́. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Kò lè bẹ̀rẹ̀ ìjẹ́rìísí-padà. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "A kò lè fọwọ́sí pẹ̀lú àkàùntì yẹn. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kansí."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Pa forum rẹ́?"
 msgid "Delete post"
 msgstr "Pa ìfìránṣẹ́ rẹ́"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Pa akonti rẹ rẹ lori olupin atijọ"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Desc"
@@ -588,6 +613,7 @@ msgstr "Ìtọ́sọ́nà"
 msgid "Disabled"
 msgstr "Tí a ti pa"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Mú kúrò"
@@ -622,9 +648,21 @@ msgstr "Ṣàtúnṣe orúkọ"
 msgid "Edit post"
 msgstr "Ṣàtúnṣe ìfìránṣẹ́"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Kóòdù ímẹ́ẹ̀lì"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Tẹ ọ̀rọ̀ banner (a gba markdown)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Tẹ koodu láti inú ímeèlì rẹ"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Tẹ kóòdù authenticator rẹ"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Kò lè fi àkántì kún"
 msgid "Failed to add tag"
 msgstr "Kò lè fi tag kún"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Kò lè mú àyè kúrò"
 msgid "Failed to remove account"
 msgstr "Kò lè mú àkántì kúrò"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Kò lè mú ìfẹ́ kúrò"
@@ -801,11 +839,11 @@ msgstr "Kò lè mú ètò AI dòde"
 msgid "Failed to update banner"
 msgstr "Kò lè mú banner dòde"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Kò lè mú ẹ̀ka dòde"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Tí a yọ́ nípa tag:"
 
@@ -818,13 +856,17 @@ msgstr "Wa àwọn forum"
 msgid "Fingerprint"
 msgstr "Àmì-ìka"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Pari gbigbe akonti rẹ"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Léfòfò"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "A ti dá forum"
 msgid "Forum deleted"
 msgstr "A ti pa forum rẹ́"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Apero ko si mọ́"
 
@@ -964,7 +1006,7 @@ msgstr "A ti gbé ìfẹ́ sókè"
 msgid "Interest reduced"
 msgstr "A ti dín ìfẹ́ kù"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "A ti mú ìfẹ́ kúrò"
@@ -1128,7 +1170,7 @@ msgstr "Forum tuntun"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Ìfìránṣẹ́ tuntun"
 
@@ -1202,7 +1244,7 @@ msgstr "A kò rí àbájáde kankan."
 msgid "No time zone found."
 msgstr "A kò rí àgbègbè àkókò kankan."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Kò sí àkọsílẹ̀ kókó síbẹ̀ — gbìyànjú lẹ́ẹ̀kan síi lẹ́yìn ìfìtọ́nisí tó kàn."
 
@@ -1271,6 +1313,18 @@ msgstr "Mìíràn"
 msgid "Owner"
 msgstr "Onílé"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Kọ́kọ́rọ́-ìwọlé"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Ìjẹ́rìísí passkey kùnà. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Àwọn passkey"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Jọ̀wọ́ tẹ àlàyé sí"
 msgid "Please enter a reply"
 msgstr "Jọ̀wọ́ tẹ ìdáhùn sí"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Ifiweranṣẹ ko le wa ni fipamọ — akọle tabi akoonu ko wulo"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Ifiweranṣẹ ko le wa ni fipamọ lori olupin apero"
 
@@ -1420,6 +1474,14 @@ msgstr "Ìlà"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Ìpinnu Ìwọ̀n"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Tun so akonti rẹ pọ lori olupin yii"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Tún àwọn bọ́tìnì ìwọlé rẹ forúkọsílẹ̀ lórí olùpèsè yìí"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Nílò àfọwọ́sí fún àwọn ìfìránṣẹ́ tuntun"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Nílò àfọwọ́sí fún àwọn olùlò tuntun"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Tún ìmélì náà ránṣẹ́"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Yan àfẹ́nilọ́kàn theme"
 msgid "Send again"
 msgstr "Fi ránṣẹ́ lẹ́ẹ̀kan sí i"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Fi ímeèlì ránṣẹ́"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Serif"
@@ -1805,7 +1875,7 @@ msgstr "Ń fi sí ilẹ̀..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Forúkọsílẹ̀"
 
@@ -1822,7 +1892,7 @@ msgstr "Ti forúkọsílẹ̀ sí {0}"
 msgid "Subscribed to forum"
 msgstr "Ti forúkọsílẹ̀ sí forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Ń forúkọsílẹ̀..."
 
@@ -1854,6 +1924,10 @@ msgstr "Àwọn ẹgbẹ́/Apps"
 msgid "Terms and conditions"
 msgstr "Àwọn ọ̀rọ̀ àti àwọn ipò"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Kóòdù yẹn kò tọ̀nà tàbí ó ti pé."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Theme"
@@ -1878,7 +1952,7 @@ msgstr "Apejọ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí o kò ní à
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Àkọsílẹ̀ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí kò sí."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Ifiweranṣẹ yii ti firanṣẹ tẹlẹ"
 
@@ -1969,7 +2043,7 @@ msgstr "Tẹ láti wá..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "A kò lè darí sí ojú-ìwé wíwọlé. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Aláìyàn"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Yọ pin kúrò"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Yọ ìforúkọsílẹ̀ kúrò"
@@ -2003,6 +2078,10 @@ msgstr "Yọ ìforúkọsílẹ̀ kúrò"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Yọ ìforúkọsílẹ̀ kúrò lórí forum"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Yọ ara rẹ kúrò nínú àpérò?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Ti yọ ìforúkọsílẹ̀ kúrò"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Kò tíì jẹ́rìí sí"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Lo passkey rẹ"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Kóòdù ìjẹ́rìísí ti ránṣẹ́"
 msgid "Verification failed"
 msgstr "Ìjẹ́rìísí kùnà"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Jẹ́rìí sí"
 msgid "Verify email address"
 msgstr "Jẹ́rìí sí àdírẹ́sì email"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Àwòrán kékeré fídíò"
 
@@ -2099,18 +2183,26 @@ msgstr "Àkókò Window"
 msgid "You are already subscribed to this forum"
 msgstr "O ti forúkọsílẹ̀ sí forum yìí tẹ́lẹ̀"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "O n fi awọn ifiweranṣẹ ranṣẹ ni iyara pupọ — jọwọ duro ki o tun gbiyanju"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "A ti dawọ ọ duro lati firanṣẹ ninu apero yii"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "O ko ni igbanilaaye lati firanṣẹ ninu apero yii"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "O kò ní forums kankan síbẹ̀."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Wàá dáwọ́ gbígba àwọn ìmúdójúìwọ̀n láti ọ̀dọ̀ àpérò yìí dúró. O lè tún forúkọ sílẹ̀ nígbàkígbà."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "A gbe akonti rẹ wá ibi lati {source}. Titi iwọ o fi pa rẹ nibẹ, awọn ifiranṣẹ ati awọn iwifunni le de olupin mejeeji, diẹ ninu akoonu rẹ tẹsiwaju lati sin lati olupin atijọ, ati awọn olutẹle le gba iṣẹju diẹ lati wa ọ nibi."

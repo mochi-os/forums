@@ -239,6 +239,10 @@ msgstr "Прикачи датотеки во одговор"
 msgid "Attachments"
 msgstr "Прилози"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Код за автентикација"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Назад"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Од {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Откажи уредување"
 msgid "Cancel reply"
 msgstr "Откажи одговор"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Категорија за ова известување"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Промени категорија на известување"
 
@@ -474,6 +479,10 @@ msgstr "Контекстуални информации и детали."
 msgid "Continue"
 msgstr "Продолжи"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Продолжи со {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Контролирај кој може да го гледа и да биде во интеракција со овој форум"
@@ -485,6 +494,18 @@ msgstr "Копирај"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Овој документ не може да се вчита. Обиди се повторно подоцна."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Кодот не можеше да се испрати. Обидете се повторно."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Не може да се започне повторна автентикација. Обидете се повторно."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Не успеа верификацијата со таа сметка. Обидете се повторно."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Да се избрише форумот?"
 msgid "Delete post"
 msgstr "Избриши објава"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Избришете го профилот на старата сервер"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Опаѓачки"
@@ -588,6 +613,7 @@ msgstr "Насока"
 msgid "Disabled"
 msgstr "Оневозможено"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Отфрли"
@@ -622,9 +648,21 @@ msgstr "Уреди име"
 msgid "Edit post"
 msgstr "Уреди објава"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Код за е-пошта"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Внесете текст за банер (поддржан е markdown)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Внесете го кодот од вашата е-пошта"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Внесете го кодот од authenticator"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Неуспешно додавање на сметка"
 msgid "Failed to add tag"
 msgstr "Неуспешно додавање на ознака"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Неуспешно отстранување на пристап"
 msgid "Failed to remove account"
 msgstr "Неуспешно отстранување на сметка"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Неуспешно отстранување на интерес"
@@ -801,11 +839,11 @@ msgstr "Неуспешно ажурирање на AI поставки"
 msgid "Failed to update banner"
 msgstr "Неуспешно ажурирање на банер"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Неуспешно ажурирање на категорија"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Филтрирано по ознака:"
 
@@ -818,13 +856,17 @@ msgstr "Најди форуми"
 msgid "Fingerprint"
 msgstr "Отпечаток"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Завршете го преместувањето на профилот"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Лебдечко"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Форумот е креиран"
 msgid "Forum deleted"
 msgstr "Форумот е избришан"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Форумот веќе не е достапен"
 
@@ -964,7 +1006,7 @@ msgstr "Интересот е зголемен"
 msgid "Interest reduced"
 msgstr "Интересот е намален"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Интересот е отстранет"
@@ -1128,7 +1170,7 @@ msgstr "Нов форум"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Нова објава"
 
@@ -1202,7 +1244,7 @@ msgstr "Не се пронајдени резултати."
 msgid "No time zone found."
 msgstr "Не е пронајдена временска зона."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Сè уште нема запис за темата — обидете се повторно по следното известување."
 
@@ -1271,6 +1313,18 @@ msgstr "Друго"
 msgid "Owner"
 msgstr "Сопственик"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Криптографски клуч"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Потврдата на passkey не успеа. Обидете се повторно."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey-и"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Внесете коментар"
 msgid "Please enter a reply"
 msgstr "Внесете одговор"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Објавата не можеше да се зачува — насловот или содржината не се валидни"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Објавата не можеше да се зачува на серверот на форумот"
 
@@ -1420,6 +1474,14 @@ msgstr "Редица"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Ограничување на стапката"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Повторно поврзете ги профилите на овој сервер"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Повторно регистрирајте ги вашите клучеви за пристап на овој сервер"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Барај одобрение за нови објави"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Барај одобрение за нови корисници"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Испрати ја е-поштата повторно"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Изберете преференца за тема"
 msgid "Send again"
 msgstr "Испрати повторно"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Испрати е-пошта"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Сериф"
@@ -1805,7 +1875,7 @@ msgstr "Се поднесува..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Претплати се"
 
@@ -1822,7 +1892,7 @@ msgstr "Претплатено на {0}"
 msgid "Subscribed to forum"
 msgstr "Претплатено на форум"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Се претплатува..."
 
@@ -1854,6 +1924,10 @@ msgstr "Тимови/Апликации"
 msgid "Terms and conditions"
 msgstr "Услови и одредби"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Тој код е неточен или е истечен."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Тема"
@@ -1878,7 +1952,7 @@ msgstr "Овој форум можеби е избришан или немате
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Овој пост можеби е избришан или не постои."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Оваа објава веќе е испратена"
 
@@ -1969,7 +2043,7 @@ msgstr "Внесете за пребарување..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Не може да се пренасочи кон најавата. Обидете се повторно."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Недоделено"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Откачи"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Откажи претплата"
@@ -2003,6 +2078,10 @@ msgstr "Откажи претплата"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Откажи претплата од форум"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Да се отпишете од форумот?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Претплатата е откажана"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Непотврдено"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Користете го вашиот passkey"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Кодот за потврда е испратен"
 msgid "Verification failed"
 msgstr "Потврдата не успеа"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Потврди"
 msgid "Verify email address"
 msgstr "Потврди ја адресата на е-пошта"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Сликичка на видео"
 
@@ -2099,18 +2183,26 @@ msgstr "Времетраење на прозорецот"
 msgid "You are already subscribed to this forum"
 msgstr "Веќе сте претплатени на овој форум"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Објавувате премногу брзо — почекајте и обидете се повторно"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Ограничени сте за објавување на овој форум"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Немате дозвола да објавувате на овој форум"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Сè уште немате форуми."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Ќе престанете да добивате ажурирања од овој форум. Можете повторно да се претплатите во секое време."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Вашиот профил беше преместен овде од {source}. Додека не го избришете таму, пораките и известувањата може да достигнат до двата сервера, дел од вашата содржина продолжува да се служи од старата сервер, а следбениците може да потребат неколку минути за да ве најдат овде."

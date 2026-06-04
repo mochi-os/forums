@@ -239,6 +239,10 @@ msgstr "Antwoordbestanden bijvoegen"
 msgid "Attachments"
 msgstr "Bijlagen"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Authenticator-code"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Terug"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Door {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Bewerking annuleren"
 msgid "Cancel reply"
 msgstr "Antwoord annuleren"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Categorie voor deze melding"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Meldingscategorie wijzigen"
 
@@ -474,6 +479,10 @@ msgstr "Contextuele informatie en details."
 msgid "Continue"
 msgstr "Doorgaan"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Doorgaan met {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Bepaal wie dit forum kan bekijken en ermee kan interageren"
@@ -485,6 +494,18 @@ msgstr "Kopiëren"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Kon dit document niet laden. Probeer het later opnieuw."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Kon de code niet versturen. Probeer het opnieuw."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Kon de herauthenticatie niet starten. Probeer het opnieuw."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Kan niet verifiëren met dat account. Probeer het opnieuw."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Forum verwijderen?"
 msgid "Delete post"
 msgstr "Bericht verwijderen"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Verwijder uw account op de oude server"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Afl."
@@ -588,6 +613,7 @@ msgstr "Richting"
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Sluiten"
@@ -622,9 +648,21 @@ msgstr "Naam bewerken"
 msgid "Edit post"
 msgstr "Bericht bewerken"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "E-mailcode"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Voer bannertekst in (markdown ondersteund)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Voer de code uit je e-mail in"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Voer je authenticatorcode in"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Account toevoegen mislukt"
 msgid "Failed to add tag"
 msgstr "Tag toevoegen mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Toegang verwijderen mislukt"
 msgid "Failed to remove account"
 msgstr "Account verwijderen mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Interesse verwijderen mislukt"
@@ -801,11 +839,11 @@ msgstr "AI-instellingen bijwerken mislukt"
 msgid "Failed to update banner"
 msgstr "Banner bijwerken mislukt"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Categorie bijwerken mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Gefilterd op tag:"
 
@@ -818,13 +856,17 @@ msgstr "Forums zoeken"
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Verhuizing van uw account voltooien"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Zwevend"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Forum aangemaakt"
 msgid "Forum deleted"
 msgstr "Forum verwijderd"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Forum is niet meer beschikbaar"
 
@@ -964,7 +1006,7 @@ msgstr "Interesse verhoogd"
 msgid "Interest reduced"
 msgstr "Interesse verminderd"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interesse verwijderd"
@@ -1128,7 +1170,7 @@ msgstr "Nieuw forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Nieuw bericht"
 
@@ -1202,7 +1244,7 @@ msgstr "Geen resultaten gevonden."
 msgid "No time zone found."
 msgstr "Geen tijdzone gevonden."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Nog geen topicregistratie — probeer opnieuw na de volgende melding."
 
@@ -1271,6 +1313,18 @@ msgstr "Andere"
 msgid "Owner"
 msgstr "Eigenaar"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr ""
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Verificatie met passkey is mislukt. Probeer het opnieuw."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Toegangssleutels"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Voer een reactie in"
 msgid "Please enter a reply"
 msgstr "Voer een antwoord in"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Bericht kon niet worden opgeslagen — titel of inhoud is ongeldig"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Bericht kon niet worden opgeslagen op de forumserver"
 
@@ -1420,6 +1474,14 @@ msgstr "Wachtrij"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Rate Limiting"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Uw accounts opnieuw koppelen op deze server"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Registreer je toegangssleutels opnieuw op deze server"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Goedkeuring vereisen voor nieuwe berichten"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Goedkeuring vereisen voor nieuwe gebruikers"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "E-mail opnieuw verzenden"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Selecteer themavoorkeur"
 msgid "Send again"
 msgstr "Opnieuw verzenden"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "E-mail verzenden"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Schreefletter"
@@ -1805,7 +1875,7 @@ msgstr "Indienen..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -1822,7 +1892,7 @@ msgstr "Geabonneerd op {0}"
 msgid "Subscribed to forum"
 msgstr "Geabonneerd op forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Abonneren..."
 
@@ -1854,6 +1924,10 @@ msgstr "Teams/Apps"
 msgid "Terms and conditions"
 msgstr "Algemene voorwaarden"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Die code is onjuist of vervallen."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Thema"
@@ -1878,7 +1952,7 @@ msgstr "Dit forum is mogelijk verwijderd of u heeft er geen toegang toe."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Dit bericht is mogelijk verwijderd of bestaat niet."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Dit bericht is al verstuurd"
 
@@ -1969,7 +2043,7 @@ msgstr "Typ om te zoeken..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Kan niet doorverwijzen naar login. Probeer opnieuw."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Niet toegewezen"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Losmaken"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Uitschrijven"
@@ -2003,6 +2078,10 @@ msgstr "Uitschrijven"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Uitschrijven van forum"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Uitschrijven van forum?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Uitgeschreven"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Niet geverifieerd"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Gebruik je passkey"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Verificatiecode verzonden"
 msgid "Verification failed"
 msgstr "Verificatie mislukt"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Verifiëren"
 msgid "Verify email address"
 msgstr "E-mailadres verifiëren"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Videominiatuur"
 
@@ -2099,18 +2183,26 @@ msgstr "Vensterduur"
 msgid "You are already subscribed to this forum"
 msgstr "U bent al geabonneerd op dit forum"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Je plaatst te snel — wacht even en probeer opnieuw"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Je bent beperkt om op dit forum te plaatsen"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Je hebt geen toestemming om op dit forum te plaatsen"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "U hebt nog geen forums."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Je ontvangt geen updates meer van dit forum. Je kunt je op elk moment opnieuw inschrijven."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Uw account is hier naartoe verplaatst vanuit {source}. Totdat u het daar verwijdert, kunnen berichten en meldingen beide servers bereiken, wordt een deel van uw inhoud nog steeds van de oude server geleverd, en kan het een paar minuten duren voordat volgers u hier vinden."

@@ -239,6 +239,10 @@ msgstr "উত্তরের ফাইল সংযুক্ত করুন"
 msgid "Attachments"
 msgstr "অ্যাটাচমেন্ট"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "অথেন্টিকেটর কোড"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "ফিরে যান"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "{0} দ্বারা"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "সম্পাদনা বাতিল করুন"
 msgid "Cancel reply"
 msgstr "উত্তর বাতিল করুন"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "এই নোটিফিকেশনের ক্যাটেগরি"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "নোটিফিকেশন ক্যাটেগরি পরিবর্তন করুন"
 
@@ -474,6 +479,10 @@ msgstr "প্রাসঙ্গিক তথ্য এবং বিবরণ।
 msgid "Continue"
 msgstr "চালিয়ে যান"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "{label} দিয়ে চালিয়ে যান"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "কে এই ফোরাম দেখতে এবং ইন্টারঅ্যাক্ট করতে পারবে তা নিয়ন্ত্রণ করুন"
@@ -485,6 +494,18 @@ msgstr "কপি করুন"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "এই ডকুমেন্টটি লোড করা যায়নি। অনুগ্রহ করে পরে আবার চেষ্টা করুন।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "কোডটি পাঠানো যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "পুনরায় প্রমাণীকরণ শুরু করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "ওই অ্যাকাউন্ট দিয়ে যাচাই করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "ফোরাম মুছবেন?"
 msgid "Delete post"
 msgstr "পোস্ট মুছুন"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "পুরানো সার্ভারে আপনার অ্যাকাউন্ট মুছুন"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "অধঃক্রম"
@@ -588,6 +613,7 @@ msgstr "দিক"
 msgid "Disabled"
 msgstr "নিষ্ক্রিয়"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "বাতিল করুন"
@@ -622,9 +648,21 @@ msgstr "নাম সম্পাদনা করুন"
 msgid "Edit post"
 msgstr "পোস্ট সম্পাদনা করুন"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "ইমেইল কোড"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "ব্যানার টেক্সট লিখুন (মার্কডাউন সমর্থিত)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "আপনার ইমেল থেকে পাওয়া কোডটি লিখুন"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "আপনার প্রমাণীকরণকারী কোড লিখুন"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "অ্যাকাউন্ট যোগ করতে ব্যর্থ
 msgid "Failed to add tag"
 msgstr "ট্যাগ যোগ করতে ব্যর্থ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "অ্যাক্সেস সরাতে ব্যর্থ"
 msgid "Failed to remove account"
 msgstr "অ্যাকাউন্ট সরাতে ব্যর্থ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "আগ্রহ সরাতে ব্যর্থ"
@@ -801,11 +839,11 @@ msgstr "AI সেটিংস আপডেট করতে ব্যর্থ"
 msgid "Failed to update banner"
 msgstr "ব্যানার আপডেট করতে ব্যর্থ"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "ক্যাটাগরি আপডেট করতে ব্যর্থ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "ট্যাগ অনুসারে ফিল্টার করা হয়েছে:"
 
@@ -818,13 +856,17 @@ msgstr "ফোরাম খুঁজুন"
 msgid "Fingerprint"
 msgstr "ফিঙ্গারপ্রিন্ট"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "আপনার অ্যাকাউন্ট স্থানান্তর সম্পন্ন করুন"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "ফ্লোটিং"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "ফোরাম তৈরি করা হয়েছে"
 msgid "Forum deleted"
 msgstr "ফোরাম মুছে ফেলা হয়েছে"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "ফোরাম আর উপলব্ধ নয়"
 
@@ -964,7 +1006,7 @@ msgstr "আগ্রহ বাড়ানো হয়েছে"
 msgid "Interest reduced"
 msgstr "আগ্রহ কমানো হয়েছে"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "আগ্রহ সরানো হয়েছে"
@@ -1128,7 +1170,7 @@ msgstr "নতুন ফোরাম"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "নতুন পোস্ট"
 
@@ -1202,7 +1244,7 @@ msgstr "কোনো ফলাফল পাওয়া যায়নি।"
 msgid "No time zone found."
 msgstr "কোনো টাইম জোন পাওয়া যায়নি।"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "এখনও কোনো বিষয়ের রেকর্ড নেই — পরবর্তী বিজ্ঞপ্তির পরে আবার চেষ্টা করুন।"
 
@@ -1271,6 +1313,18 @@ msgstr "অন্যান্য"
 msgid "Owner"
 msgstr "মালিক"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "পাসকি"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "পাসকি যাচাই ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "পাসকি"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "অনুগ্রহ করে একটি মন্তব্য ল�
 msgid "Please enter a reply"
 msgstr "অনুগ্রহ করে একটি উত্তর লিখুন"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "পোস্ট সংরক্ষণ করা যায়নি — শিরোনাম বা বিষয়বস্তু অবৈধ"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "ফোরাম সার্ভারে পোস্ট সংরক্ষণ করা যায়নি"
 
@@ -1420,6 +1474,14 @@ msgstr "সারি"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "রেট লিমিটিং"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "এই সার্ভারে আপনার অ্যাকাউন্টগুলি পুনরায় লিঙ্ক করুন"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "এই সার্ভারে আপনার পাসকি পুনরায় নিবন্ধন করুন"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "নতুন পোস্টের জন্য অনুমোদন �
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "নতুন ব্যবহারকারীদের জন্য অনুমোদন প্রয়োজন"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "ইমেল আবার পাঠান"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "থিম পছন্দ নির্বাচন করুন"
 msgid "Send again"
 msgstr "আবার পাঠান"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "ইমেইল পাঠান"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "সেরিফ"
@@ -1805,7 +1875,7 @@ msgstr "জমা দেওয়া হচ্ছে..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "সাবস্ক্রাইব করুন"
 
@@ -1822,7 +1892,7 @@ msgstr "{0}-এ সাবস্ক্রাইব করা হয়েছে"
 msgid "Subscribed to forum"
 msgstr "ফোরামে সাবস্ক্রাইব করা হয়েছে"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "সাবস্ক্রাইব করা হচ্ছে..."
 
@@ -1854,6 +1924,10 @@ msgstr "টিম/অ্যাপ"
 msgid "Terms and conditions"
 msgstr "শর্তাবলী"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "কোডটি ভুল বা এর মেয়াদ শেষ হয়ে গেছে।"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "থিম"
@@ -1878,7 +1952,7 @@ msgstr "এই ফোরামটি সম্ভবত মুছে ফেল�
 msgid "This post may have been deleted or doesn't exist."
 msgstr "এই পোস্টটি মুছে ফেলা হয়ে থাকতে পারে অথবা এটি বিদ্যমান নেই।"
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "এই পোস্টটি ইতিমধ্যে জমা দেওয়া হয়েছে"
 
@@ -1969,7 +2043,7 @@ msgstr "অনুসন্ধান করতে টাইপ করুন..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "লগইনে রিডাইরেক্ট করা যাচ্ছে না। অনুগ্রহ করে আবার চেষ্টা করুন।"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "অ্যাসাইন করা হয়নি"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "আনপিন করুন"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "আনসাবস্ক্রাইব করুন"
@@ -2003,6 +2078,10 @@ msgstr "আনসাবস্ক্রাইব করুন"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "ফোরাম থেকে আনসাবস্ক্রাইব করুন"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "ফোরাম থেকে সদস্যতা বাতিল করবেন?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "আনসাবস্ক্রাইব করা হয়েছে"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "যাচাই করা হয়নি"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "আপনার পাসকি ব্যবহার করুন"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "যাচাইকরণ কোড পাঠানো হয়েছে
 msgid "Verification failed"
 msgstr "যাচাইকরণ ব্যর্থ হয়েছে"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "যাচাই করুন"
 msgid "Verify email address"
 msgstr "ইমেল ঠিকানা যাচাই করুন"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "ভিডিও থাম্বনেইল"
 
@@ -2099,18 +2183,26 @@ msgstr "উইন্ডো সময়কাল"
 msgid "You are already subscribed to this forum"
 msgstr "আপনি ইতিমধ্যে এই ফোরামে সাবস্ক্রাইব করেছেন"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "আপনি খুব দ্রুত পোস্ট করছেন — অনুগ্রহ করে অপেক্ষা করুন এবং আবার চেষ্টা করুন"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "এই ফোরামে পোস্ট করা থেকে আপনি সীমাবদ্ধ"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "এই ফোরামে পোস্ট করার অনুমতি আপনার নেই"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "আপনার এখনও কোন ফোরাম নেই।"
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "আপনি এই ফোরাম থেকে আপডেট পাওয়া বন্ধ করবেন। আপনি যেকোনো সময় আবার সদস্যতা নিতে পারবেন।"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "আপনার অ্যাকাউন্ট {source} থেকে এখানে স্থানান্তরিত হয়েছে। আপনি সেখানে এটি মুছে না দেওয়া পর্যন্ত, বার্তা ও বিজ্ঞপ্তি উভয় সার্ভারে পৌঁছাতে পারে, আপনার কিছু বিষয়বস্তু পুরানো সার্ভার থেকে পরিবেশিত হতে পারে, এবং অনুসরণকারীদের আপনাকে এখানে খুঁজে পেতে কয়েক মিনিট লাগতে পারে।"

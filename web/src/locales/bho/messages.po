@@ -239,6 +239,10 @@ msgstr "जवाब फाइल संलग्न करीं"
 msgid "Attachments"
 msgstr "संलग्नक"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Authenticator कोड"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "वापस"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "{0} द्वारा"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "संपादन रद्द करीं"
 msgid "Cancel reply"
 msgstr "जवाब रद्द करीं"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "एह सूचना खातिर श्रेणी"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "सूचना श्रेणी बदलीं"
 
@@ -474,6 +479,10 @@ msgstr "प्रासंगिक जानकारी आ विवरण।
 msgid "Continue"
 msgstr "जारी रखीं"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "{label} के साथ आगे बढ़ीं"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "नियंत्रित करीं कि के एह फोरम के देख आ ओकरा से बात कर सकेला"
@@ -485,6 +494,18 @@ msgstr "कॉपी करीं"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "एह दस्तावेज के लोड ना कर सकल। बाद में फिर कोशिश करीं।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "कोड भेजल ना जा सकल। कृपया फिर से कोशिश करीं।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "फिर से प्रमाणीकरण शुरू ना हो सकल। कृपया फिर से कोशिश करीं।"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "ओह खाता से सत्यापन ना हो सकल। कृपया फेर से कोसिस करीं।"
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "फोरम मेटाईं?"
 msgid "Delete post"
 msgstr "पोस्ट मेटाईं"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "पुरान सर्वर पर आपन खाता मेटाईं"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "घटत"
@@ -588,6 +613,7 @@ msgstr "दिशा"
 msgid "Disabled"
 msgstr "अक्षम"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "खारिज करीं"
@@ -622,9 +648,21 @@ msgstr "नाम संपादित करीं"
 msgid "Edit post"
 msgstr "पोस्ट संपादित करीं"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "ईमेल कोड"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "बैनर टेक्स्ट लिखीं (markdown समर्थित)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "आपन ईमेल से आइल कोड डालीं"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "आपन प्रमाणक कोड डालीं"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "खाता जोड़े में विफल"
 msgid "Failed to add tag"
 msgstr "टैग जोड़े में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "पहुँच हटावे में विफल"
 msgid "Failed to remove account"
 msgstr "खाता हटावे में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "रुचि हटावे में विफल"
@@ -801,11 +839,11 @@ msgstr "AI सेटिंग अपडेट करे में विफल"
 msgid "Failed to update banner"
 msgstr "बैनर अपडेट करे में विफल"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "श्रेणी अपडेट करे में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "टैग से फिल्टर कइल गइल:"
 
@@ -818,13 +856,17 @@ msgstr "फोरम खोजीं"
 msgid "Fingerprint"
 msgstr "फिंगरप्रिंट"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "आपन खाता हिलावल पूरा करीं"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "तैरत"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "फोरम बन गइल"
 msgid "Forum deleted"
 msgstr "फोरम मेटा गइल"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "फोरम अब उपलब्ध नइखे"
 
@@ -964,7 +1006,7 @@ msgstr "रुचि बढ़ावल गइल"
 msgid "Interest reduced"
 msgstr "रुचि घटावल गइल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "रुचि हटावल गइल"
@@ -1128,7 +1170,7 @@ msgstr "नया फोरम"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "नया पोस्ट"
 
@@ -1202,7 +1244,7 @@ msgstr "कौनो परिणाम ना मिलल।"
 msgid "No time zone found."
 msgstr "कौनो टाइम जोन ना मिलल।"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "अबहीं तक कौनो विषय रिकॉर्ड नइखे — अगिला सूचना के बाद फेर कोशिश करीं।"
 
@@ -1271,6 +1313,18 @@ msgstr "दोसर"
 msgid "Owner"
 msgstr "मालिक"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "पासकी"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "पासकी सत्यापन विफल हो गइल। कृपया फिर से कोशिश करीं।"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "टिप्पणी डालीं"
 msgid "Please enter a reply"
 msgstr "जवाब डालीं"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "पोस्ट सेव ना हो सकल — शीर्षक भा सामग्री अमान्य बा"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "पोस्ट फोरम सर्वर पर सेव ना हो सकल"
 
@@ -1420,6 +1474,14 @@ msgstr "कतार"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "दर सीमा"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "एह सर्वर पर आपन खाता फिर से जोड़ीं"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "एह सर्वर पर आपन पासकी फिर से रजिस्टर करीं"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "नया पोस्ट खातिर मंजूरी जरू�
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "नया यूजर खातिर मंजूरी जरूरी करीं"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "ईमेल फिर से भेजीं"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "थीम वरीयता चुनीं"
 msgid "Send again"
 msgstr "फेरु भेजीं"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "ईमेल भेजीं"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "सेरिफ़"
@@ -1805,7 +1875,7 @@ msgstr "जमा हो रहल बा..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "सदस्यता लीं"
 
@@ -1822,7 +1892,7 @@ msgstr "{0} के सदस्यता ले लिहल गइल"
 msgid "Subscribed to forum"
 msgstr "फ़ोरम के सदस्यता ले लिहल गइल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "सदस्यता ले रहल बा..."
 
@@ -1854,6 +1924,10 @@ msgstr "टीम/ऐप सब"
 msgid "Terms and conditions"
 msgstr "नियम आ शर्त"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "ऊ कोड गलत बा भा ओकर मियाद खतम हो गइल बा।"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "थीम"
@@ -1878,7 +1952,7 @@ msgstr "ई फ़ोरम शायद हटा दिहल गइल बा
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ई पोस्ट शायद हटा दिहल गइल बा या मौजूद नइखे।"
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "ई पोस्ट पहिलहीं भेजल जा चुकल बा"
 
@@ -1969,7 +2043,7 @@ msgstr "खोजे खातिर टाइप करीं..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "लॉगिन पर रीडायरेक्ट ना हो सकल। कृपया फेर से कोशिश करीं।"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "अनसौंपल"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "अनपिन करीं"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "सदस्यता रद्द करीं"
@@ -2003,6 +2078,10 @@ msgstr "सदस्यता रद्द करीं"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "फ़ोरम से सदस्यता रद्द करीं"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "मंच से सदस्यता छोड़ीं?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "सदस्यता रद्द भइल"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "असत्यापित"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "आपन पासकी इस्तेमाल करीं"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "सत्यापन कोड भेजल गइल"
 msgid "Verification failed"
 msgstr "सत्यापन विफल भइल"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "सत्यापित करीं"
 msgid "Verify email address"
 msgstr "ईमेल पता सत्यापित करीं"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "वीडियो थंबनेल"
 
@@ -2099,18 +2183,26 @@ msgstr "विंडो अवधि"
 msgid "You are already subscribed to this forum"
 msgstr "आप पहिले से एह फ़ोरम के सदस्यता ले लिहले बानीं"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "रउरा बहुत जल्दी पोस्ट करत बानी — कृपया रुकीं आ फेर से कोसिस करीं"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "रउरा के एह फोरम में पोस्ट करे से रोकल गइल बा"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "रउरा के एह फोरम में पोस्ट करे के अनुमति नइखे"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "आपके अबही ले कवनो फ़ोरम नइखे।"
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "रउरा एह मंच से अपडेट मिलल बंद हो जाई। रउरा कबो भी फेर से सदस्यता ले सकीलें।"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "आपन खाता {source} से इहाँ हिलावल गइल। जब तक उहाँ से ना मेटाईं, संदेश आ सूचना दुनो सर्वर पर पहुँच सकेला, कुछ सामग्री पुरान सर्वर से आवत रही, आ फॉलोअर्स के इहाँ ढूंढे में कुछ मिनट लाग सकेला।"

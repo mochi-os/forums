@@ -239,6 +239,10 @@ msgstr "Ceangail comhaid freagra"
 msgid "Attachments"
 msgstr "Ceangaltáin"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Cód fíordheimhnitheora"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Ar ais"
@@ -305,6 +309,7 @@ msgid "By {0}"
 msgstr "Le {0}"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -327,11 +332,11 @@ msgstr "Cealaigh eagarthóireacht"
 msgid "Cancel reply"
 msgstr "Cealaigh freagra"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Catagóir don fhógra seo"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Athraigh catagóir an fhógra"
 
@@ -474,6 +479,10 @@ msgstr "Eolas comhthéacsúil agus sonraí."
 msgid "Continue"
 msgstr "Lean ar aghaidh"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Lean ar aghaidh le {label}"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "Control who can view and interact with this forum"
 msgstr "Smacht ar cé atá in ann an fóram seo a fheiceáil agus idirghníomhú leis"
@@ -485,6 +494,18 @@ msgstr "Cóipeáil"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Níorbh fhéidir an cháipéis seo a luchtú. Bain triail eile as ar ball."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Níorbh fhéidir an cód a sheoladh. Bain triail eile as."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Níorbh fhéidir an t-athfhíordheimhniú a thosú. Bain triail eile as."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Níorbh fhéidir fíorú leis an gcuntas sin. Bain triail eile as le do thoil."
 
 #: src/features/forums/components/forum-overview.tsx:91
 msgid "Create a new forum"
@@ -557,6 +578,10 @@ msgstr "Scrios fóram?"
 msgid "Delete post"
 msgstr "Scrios postáil"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Scrios do chuntas ar an sean-fhreastalaí"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Íslitheach"
@@ -588,6 +613,7 @@ msgstr "Treo"
 msgid "Disabled"
 msgstr "Díchumasaithe"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
 #: src/routes/_authenticated/$forum_.moderation.tsx:728
 msgid "Dismiss"
 msgstr "Dífhostaigh"
@@ -622,9 +648,21 @@ msgstr "Cuir ainm in eagar"
 msgid "Edit post"
 msgstr "Cuir postáil in eagar"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Cód ríomhphoist"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Enter banner text (markdown supported)..."
 msgstr "Iontráil téacs meirge (tacaíonn markdown)..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Cuir isteach an cód ó do ríomhphost"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Cuir isteach cód d'aip fhíordheimhnithe"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Entity ID"
@@ -646,8 +684,8 @@ msgstr "Theip ar chuntas a chur leis"
 msgid "Failed to add tag"
 msgstr "Theip ar chlib a chur leis"
 
-#: src/features/forums/pages/entity-forum-page.tsx:189
-#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:191
+#: src/features/forums/pages/entity-forum-page.tsx:202
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -733,7 +771,7 @@ msgstr "Theip ar bhaint rochtana"
 msgid "Failed to remove account"
 msgstr "Theip ar bhaint chuntais"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:214
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Theip ar bhaint suime"
@@ -801,11 +839,11 @@ msgstr "Theip ar nuashonrú socruithe IS"
 msgid "Failed to update banner"
 msgstr "Theip ar nuashonrú meirge"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Theip ar nuashonrú catagóire"
 
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/pages/entity-forum-page.tsx:286
 msgid "Filtered by tag:"
 msgstr "Scagtha de réir clibe:"
 
@@ -818,13 +856,17 @@ msgstr "Aimsigh fóraim"
 msgid "Fingerprint"
 msgstr "Méarlorg"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Críochnaigh aistriú do chuntas"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Ar foluain"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:67
-#: src/features/forums/pages/entity-forum-page.tsx:234
+#: src/features/forums/pages/entity-forum-page.tsx:69
+#: src/features/forums/pages/entity-forum-page.tsx:236
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -838,7 +880,7 @@ msgstr "Fóram cruthaithe"
 msgid "Forum deleted"
 msgstr "Fóram scriosta"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:58
 msgid "Forum is no longer available"
 msgstr "Níl an fóram ar fáil a thuilleadh"
 
@@ -964,7 +1006,7 @@ msgstr "Suim borrtha"
 msgid "Interest reduced"
 msgstr "Suim laghdaithe"
 
-#: src/features/forums/pages/entity-forum-page.tsx:210
+#: src/features/forums/pages/entity-forum-page.tsx:212
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Suim bainte"
@@ -1128,7 +1170,7 @@ msgstr "Fóram nua"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:244
 msgid "New post"
 msgstr "Postáil nua"
 
@@ -1202,7 +1244,7 @@ msgstr "Níor aimsíodh aon toradh."
 msgid "No time zone found."
 msgstr "Níor aimsíodh aon chrios ama."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Níl aon taifead ábhair fós — bain triail eile as tar éis an chéad fhógra eile."
 
@@ -1271,6 +1313,18 @@ msgstr "Eile"
 msgid "Owner"
 msgstr "Úinéir"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Pasluiche"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Theip ar fhíorú na heochrach rochtana. Bain triail eile as."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Pasluichí"
+
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:650
@@ -1315,11 +1369,11 @@ msgstr "Cuir trácht isteach le do thoil"
 msgid "Please enter a reply"
 msgstr "Cuir freagra isteach le do thoil"
 
-#: src/hooks/use-forum-websocket.ts:52
+#: src/hooks/use-forum-websocket.ts:54
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Níorbh fhéidir an postáil a shábháil — tá an teideal nó an t-ábhar neamhbhailí"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved on the forum server"
 msgstr "Níorbh fhéidir an postáil a shábháil ar fhreastalaí an fhóraim"
 
@@ -1420,6 +1474,14 @@ msgstr "Scuaine"
 #: src/routes/_authenticated/$forum_.settings.tsx:1151
 msgid "Rate Limiting"
 msgstr "Teorannú Ráta"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Athnasc do chuntais ar an bhfreastalaí seo"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Athchláraigh do heochracha rochtana ar an bhfreastalaí seo"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:709
 msgid "Reason:"
@@ -1562,6 +1624,10 @@ msgstr "Riachtanach faomhadh do phostálacha nua"
 #: src/routes/_authenticated/$forum_.settings.tsx:1120
 msgid "Require approval for new users"
 msgstr "Riachtanach faomhadh d'úsáideoirí nua"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Seol an ríomhphost arís"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1722,6 +1788,10 @@ msgstr "Roghnaigh sainrogha téama"
 msgid "Send again"
 msgstr "Seol arís"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Seol ríomhphost"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Le serif"
@@ -1805,7 +1875,7 @@ msgstr "Á chur isteach..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:261
+#: src/features/forums/pages/entity-forum-page.tsx:263
 msgid "Subscribe"
 msgstr "Liostáil"
 
@@ -1822,7 +1892,7 @@ msgstr "Liostáilte le {0}"
 msgid "Subscribed to forum"
 msgstr "Liostáilte leis an bhfóram"
 
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:260
 msgid "Subscribing..."
 msgstr "Á liostáil..."
 
@@ -1854,6 +1924,10 @@ msgstr "Foirne/Aipeanna"
 msgid "Terms and conditions"
 msgstr "Téarmaí agus coinníollacha"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Tá an cód sin mícheart nó tá sé imithe in éag."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Téama"
@@ -1878,7 +1952,7 @@ msgstr "Seans go bhfuil an fóram seo scriosta nó nach bhfuil rochtain agat air
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Seans go bhfuil an postáil seo scriosta nó nach bhfuil sí ann."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Cuireadh an postáil seo isteach cheana féin"
 
@@ -1969,7 +2043,7 @@ msgstr "Clóscríobh chun cuardach a dhéanamh..."
 msgid "Unable to redirect to login. Please try again."
 msgstr "Ní féidir athsheoladh chuig logáil isteach. Bain triail eile as le do thoil."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Gan sannadh"
 
@@ -1996,6 +2070,7 @@ msgid "Unpin"
 msgstr "Díphionnáil"
 
 #: src/components/options-menu.tsx:100
+#: src/features/forums/pages/entity-forum-page.tsx:332
 #: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "Unsubscribe"
 msgstr "Díliostáil"
@@ -2003,6 +2078,10 @@ msgstr "Díliostáil"
 #: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Unsubscribe from forum"
 msgstr "Díliostáil ón bhfóram"
+
+#: src/features/forums/pages/entity-forum-page.tsx:329
+msgid "Unsubscribe from forum?"
+msgstr "Díliostáil ón bhfóram?"
 
 #: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/$forum_.settings.tsx:172
@@ -2012,6 +2091,10 @@ msgstr "Díliostáilte"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Neamhfhíoraithe"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Úsáid d'eochair rochtana"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
@@ -2041,6 +2124,7 @@ msgstr "Cód fíoraithe seolta"
 msgid "Verification failed"
 msgstr "Theip ar an bhfíorú"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -2050,7 +2134,7 @@ msgstr "Fíoraigh"
 msgid "Verify email address"
 msgstr "Fíoraigh seoladh ríomhphoist"
 
-#: src/features/forums/components/thread/post-attachments.tsx:57
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Mionsamhail físeáin"
 
@@ -2099,18 +2183,26 @@ msgstr "Fad fuinneoige"
 msgid "You are already subscribed to this forum"
 msgstr "Tá tú liostáilte leis an bhfóram seo cheana"
 
-#: src/hooks/use-forum-websocket.ts:50
+#: src/hooks/use-forum-websocket.ts:52
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Tá tú ag postáil róthapa — fan agus déan iarracht arís"
 
-#: src/hooks/use-forum-websocket.ts:48
+#: src/hooks/use-forum-websocket.ts:50
 msgid "You are restricted from posting in this forum"
 msgstr "Tá srian ort ó phostáil san fhóram seo"
 
-#: src/hooks/use-forum-websocket.ts:46
+#: src/hooks/use-forum-websocket.ts:48
 msgid "You don't have permission to post in this forum"
 msgstr "Níl cead agat postáil san fhóram seo"
 
 #: src/features/forums/components/forum-overview.tsx:86
 msgid "You have no forums yet."
 msgstr "Níl aon fhóraim agat fós."
+
+#: src/features/forums/pages/entity-forum-page.tsx:330
+msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
+msgstr "Stopfaidh tú nuashonruithe a fháil ón bhfóram seo. Is féidir leat liostáil arís am ar bith."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Aistríodh do chuntas anseo ó {source}. Go dtí go scriosann tú é ansin, d'fhéadfadh teachtaireachtaí agus fógraí an dá fhreastalaí a bhaint amach, leanann roinnt de d'ábhar á sheirbheáil ón sean-fhreastalaí, agus d'fhéadfadh sé cúpla nóiméad a thógáil ar do lucht leanúna tú a aimsiú anseo."
