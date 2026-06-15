@@ -239,6 +239,7 @@ export function ThreadComment({
                 setEditing(null)
               }}
             >
+              <Check className='size-4' />
               <Trans>Save</Trans>
             </Button>
           </div>

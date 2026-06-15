@@ -4779,9 +4779,23 @@ def event_mention_notify(e):
 	body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
 	notify("mention", forum_id, title, body, url, event_id=event_id)
 
+# unsubscribe_stale tells a forum owner to drop this member when a broadcast
+# arrives for a forum the member no longer holds locally. action_subscribe
+# writes the local forums row before it notifies the owner, so a missing row
+# in a broadcast handler always means a stale roster entry (the member left or
+# was wiped), never an in-flight subscribe. event_unsubscribe_event deletes by
+# (forum, member), so if we are not in the roster this is a harmless no-op.
+# The broadcast's headers invert directly: from=forum (owner), to=this member.
+def unsubscribe_stale(e):
+    forum_id = e.header("from")
+    member_id = e.header("to")
+    if forum_id and member_id:
+        mochi.message.send({"from": member_id, "to": forum_id, "service": "forums", "event": "unsubscribe"})
+
 def event_comment_create_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     id = e.content("id")
@@ -5162,6 +5176,7 @@ def event_comment_vote_event(e):
 def event_member_update_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     # Access is now managed via mochi.access, so this event is a no-op for subscribers.
@@ -5832,6 +5847,7 @@ def event_post_remove_submit_event(e):
 def event_post_remove_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     # Don't update forums we own
@@ -5874,6 +5890,7 @@ def event_post_restore_submit_event(e):
 def event_post_restore_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -5961,6 +5978,7 @@ def event_post_unlock_submit_event(e):
 def event_post_lock_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6013,6 +6031,7 @@ def event_post_unpin_submit_event(e):
 def event_post_pin_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6057,6 +6076,7 @@ def event_comment_remove_submit_event(e):
 def event_comment_remove_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6099,6 +6119,7 @@ def event_comment_restore_submit_event(e):
 def event_comment_restore_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6180,6 +6201,7 @@ def event_restrict_submit_event(e):
 def event_user_restrict_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6219,6 +6241,7 @@ def event_unrestrict_submit_event(e):
 def event_user_unrestrict_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     if owned(forum["id"]):
@@ -6359,6 +6382,7 @@ def event_report_resolve_submit_event(e):
 def event_report_resolve_event(e):
     forum = get_forum(e.header("from"))
     if not forum:
+        unsubscribe_stale(e)
         return
 
     # Don't update forums we own

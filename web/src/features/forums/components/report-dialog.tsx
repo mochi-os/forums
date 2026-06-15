@@ -13,6 +13,7 @@ import {
   RadioGroupItem,
   Textarea,
 } from '@mochi/web'
+import { Loader2, Send } from 'lucide-react'
 
 function useReportReasons() {
   const { t } = useLingui()
@@ -109,6 +110,7 @@ export function ReportDialog({
             <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleSubmit} disabled={!isValid || isPending}>
+            {isPending ? <Loader2 className='size-4 animate-spin' /> : <Send className='size-4' />}
             {isPending ? <Trans>Submitting...</Trans> : <Trans>Submit report</Trans>}
           </Button>
         </ResponsiveDialogFooter>
