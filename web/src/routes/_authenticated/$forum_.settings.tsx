@@ -6,7 +6,9 @@ import {
   ConfirmDialog,
   PageHeader,
   Main,
-  cn,
+  Tabs,
+  TabsList,
+  TabsTrigger,
   usePageTitle,
   AccessDialog,
   AccessList,
@@ -257,51 +259,20 @@ function ForumSettingsPage() {
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (
-          <div
-            role="tablist"
-            aria-label={t`Forum settings sections`}
-            className='flex gap-1 border-b'
-            onKeyDown={(e) => {
-              const tabButtons = e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]')
-              const currentIndex = Array.from(tabButtons).findIndex((btn) => btn.getAttribute('aria-selected') === 'true')
-              if (e.key === 'ArrowRight') {
-                e.preventDefault()
-                const next = tabButtons[(currentIndex + 1) % tabButtons.length]
-                next.focus(); next.click()
-              } else if (e.key === 'ArrowLeft') {
-                e.preventDefault()
-                const prev = tabButtons[(currentIndex - 1 + tabButtons.length) % tabButtons.length]
-                prev.focus(); prev.click()
-              } else if (e.key === 'Home') {
-                e.preventDefault()
-                tabButtons[0].focus(); tabButtons[0].click()
-              } else if (e.key === 'End') {
-                e.preventDefault()
-                tabButtons[tabButtons.length - 1].focus(); tabButtons[tabButtons.length - 1].click()
-              }
-            }}
+          <Tabs
+            variant="underline"
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as TabId)}
           >
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={activeTab === tab.id}
-                aria-controls={`forum-settings-${tab.id}-tabpanel`}
-                tabIndex={activeTab === tab.id ? 0 : -1}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  'flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors',
-                  '-mb-px border-b-2',
-                  activeTab === tab.id
-                    ? 'border-primary text-foreground'
-                    : 'text-muted-foreground hover:text-foreground border-transparent'
-                )}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-          </div>
+            <TabsList aria-label={t`Forum settings sections`}>
+              {tabs.map((tab) => (
+                <TabsTrigger key={tab.id} value={tab.id} className="gap-2">
+                  {tab.icon}
+                  {tab.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         )}
 
         {/* Tab content */}
@@ -440,7 +411,7 @@ function GeneralTab({
                     {isRenaming ? (
                       <Loader2 className='size-4 animate-spin' />
                     ) : (
-                      <Check className='size-4 text-green-600' />
+                      <Check className='size-4 text-success' />
                     )}
                   </Button>
                   <Button

@@ -204,7 +204,7 @@ export function ThreadComment({
           </span>
         )}
         {isRemoved && (
-          <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+          <span className='inline-flex items-center gap-1 rounded-full bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive'>
             <EyeOff className='size-2.5' />
             <Trans>Removed</Trans>
           </span>

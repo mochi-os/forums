@@ -11,6 +11,10 @@ import {
   PageHeader,
   Main,
   cn,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
   getErrorMessage,
   toast,
   usePageTitle,
@@ -102,63 +106,34 @@ function ModerationPage() {
       <PageHeader title={t`Moderation`} back={{ label: t`Back to forum`, onFallback: goBackToForum }} />
       <Main className='space-y-6'>
         {/* Tabs */}
-        <div
-          role="tablist"
-          aria-label={t`Moderation sections`}
-          className='flex gap-1 border-b'
-          onKeyDown={(e) => {
-            const tabButtons = e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]')
-            const currentIndex = Array.from(tabButtons).findIndex((btn) => btn.getAttribute('aria-selected') === 'true')
-            if (e.key === 'ArrowRight') {
-              e.preventDefault()
-              const next = tabButtons[(currentIndex + 1) % tabButtons.length]
-              next.focus(); next.click()
-            } else if (e.key === 'ArrowLeft') {
-              e.preventDefault()
-              const prev = tabButtons[(currentIndex - 1 + tabButtons.length) % tabButtons.length]
-              prev.focus(); prev.click()
-            } else if (e.key === 'Home') {
-              e.preventDefault()
-              tabButtons[0].focus(); tabButtons[0].click()
-            } else if (e.key === 'End') {
-              e.preventDefault()
-              tabButtons[tabButtons.length - 1].focus(); tabButtons[tabButtons.length - 1].click()
-            }
-          }}
+        <Tabs
+          variant="underline"
+          value={activeTab}
+          onValueChange={(value) => setActiveTab(value as TabId)}
+          className="gap-6"
         >
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              role="tab"
-              aria-selected={activeTab === tab.id}
-              aria-controls={`${tab.id}-tabpanel`}
-              tabIndex={activeTab === tab.id ? 0 : -1}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                'flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors',
-                '-mb-px border-b-2',
-                activeTab === tab.id
-                  ? 'border-primary text-foreground'
-                  : 'text-muted-foreground hover:text-foreground border-transparent'
-              )}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
-        </div>
+          <TabsList aria-label={t`Moderation sections`}>
+            {tabs.map((tab) => (
+              <TabsTrigger key={tab.id} value={tab.id} className="gap-2">
+                {tab.icon}
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-        {/* Tab content */}
-        <div
-          id={`${activeTab}-tabpanel`}
-          role="tabpanel"
-          className='pt-2'
-        >
-          {activeTab === 'queue' && <QueueTab forumId={forumId} />}
-          {activeTab === 'reports' && <ReportsTab forumId={forumId} />}
-          {activeTab === 'log' && <LogTab forumId={forumId} />}
-          {activeTab === 'restrictions' && <RestrictionsTab forumId={forumId} />}
-        </div>
+          <TabsContent value="queue" className="pt-2">
+            <QueueTab forumId={forumId} />
+          </TabsContent>
+          <TabsContent value="reports" className="pt-2">
+            <ReportsTab forumId={forumId} />
+          </TabsContent>
+          <TabsContent value="log" className="pt-2">
+            <LogTab forumId={forumId} />
+          </TabsContent>
+          <TabsContent value="restrictions" className="pt-2">
+            <RestrictionsTab forumId={forumId} />
+          </TabsContent>
+        </Tabs>
       </Main>
     </>
   )
@@ -672,8 +647,8 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                         className={cn(
                           'rounded-full px-2 py-0.5 text-xs font-medium',
                           report.status === 'pending'
-                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                            : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            ? 'bg-warning/25 text-warning-foreground dark:bg-warning/15 dark:text-warning'
+                            : 'bg-success/15 text-success dark:bg-success/20'
                         )}
                       >
                         {report.status}
@@ -995,10 +970,10 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                   className={cn(
                     'rounded-full px-2 py-0.5 text-xs font-medium',
                     restriction.type === 'banned'
-                      ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                      ? 'bg-destructive/10 text-destructive'
                       : restriction.type === 'muted'
-                        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                        : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+                        ? 'bg-warning/25 text-warning-foreground dark:bg-warning/15 dark:text-warning'
+                        : 'bg-muted text-muted-foreground'
                   )}
                 >
                   {restriction.type === 'banned' ? <Trans>banned</Trans> : restriction.type === 'muted' ? <Trans>muted</Trans> : restriction.type}

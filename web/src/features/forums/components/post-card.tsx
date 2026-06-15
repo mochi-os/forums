@@ -52,7 +52,7 @@ export function PostCard({
               </span>
             )}
             {post.status === 'removed' && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200'>
+              <span className='inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive'>
                 <EyeOff className='size-3' />
                 <Trans>Removed</Trans>
               </span>
