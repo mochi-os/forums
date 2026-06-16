@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · समाप्त {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · स्थायी"
 
@@ -26,32 +26,37 @@ msgstr " · स्थायी"
 msgid " (edited)"
 msgstr " (सम्पादित)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# चयन गरिएको} other {# चयन गरिएको}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# प्रयोगकर्तालाई प्रतिबन्ध} other {# प्रयोगकर्तालाई प्रतिबन्ध}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# प्रयोगकर्तालाई म्युट} other {# प्रयोगकर्तालाई म्युट}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "{0} सेटिङहरू"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# वस्तु स्वीकृत} other {# वस्तुहरू स्वीकृत}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# वस्तु अस्वीकृत} other {# वस्तुहरू अस्वीकृत}}"
 
@@ -71,7 +76,7 @@ msgstr "२४ घण्टा"
 msgid "Absolute (date and time)"
 msgstr "निरपेक्ष (मिति र समय)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "पहुँच"
 
@@ -83,23 +88,23 @@ msgstr "पहुँच निषेधित"
 msgid "Access level"
 msgstr "पहुँच स्तर"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "पहुँच स्तर अद्यावधिक गरियो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "पहुँच व्यवस्थापन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "पहुँच हटाइयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} का लागि पहुँच सेट गरियो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "खाता"
 
@@ -149,7 +154,7 @@ msgstr "फाइलहरू थप्नुहोस्"
 msgid "Add new account"
 msgstr "नयाँ खाता थप्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "नियम थप्नुहोस्"
 
@@ -165,11 +170,12 @@ msgstr "टिम/एप थप्नुहोस्"
 msgid "Add to existing notifications"
 msgstr "अवस्थित सूचनाहरूमा थप्नुहोस्"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "दृश्य थप्नुहोस्"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "थप विवरण (वैकल्पिक)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "तपाईंको प्राथमिकताअनुसार रूप र लेआउट समायोजन गर्नुहोस्।"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "पोस्टहरूमा AI कार्यहरू"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "सबै"
 
@@ -196,7 +202,7 @@ msgstr "सबै"
 msgid "All forums"
 msgstr "सबै फोरमहरू"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "सबै पोस्ट र टिप्पणीहरूको समीक्षा गरिएको छ"
 
@@ -212,16 +218,16 @@ msgstr "त्रुटि भयो"
 msgid "An unexpected error occurred"
 msgstr "अनपेक्षित त्रुटि भयो"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "कुनै थप सन्दर्भ..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "स्वीकृत गर्नुहोस्"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "के तपाईं यो टिप्पणी मेटाउन निश्चित हुनुहुन्छ? यसले सबै जवाफहरू पनि मेटाउनेछ। यो कार्य फिर्ता गर्न सकिँदैन।"
 
@@ -237,7 +243,7 @@ msgstr "के तपाईं लग आउट गर्न निश्चि�
 msgid "Asc"
 msgstr "बढ्दो"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "जवाफ फाइलहरू एट्याच गर्नुहोस्"
@@ -260,10 +266,10 @@ msgstr "पछाडि"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "फोरममा फर्कनुहोस्"
 
@@ -277,28 +283,28 @@ msgstr "फोरमहरूमा फर्कनुहोस्"
 msgid "Back to home"
 msgstr "गृहमा फर्कनुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "प्रतिबन्ध"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "लेखकलाई प्रतिबन्ध गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "प्रतिबन्धित"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "ब्यानर"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "ब्यानर हटाइयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "ब्यानर अद्यावधिक भयो"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "रुचि बढाउनुहोस्"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "{0} द्वारा"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "{0} द्वारा"
 
@@ -326,16 +332,16 @@ msgstr "{0} द्वारा"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "सम्पादन रद्द गर्नुहोस्"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "जवाफ रद्द गर्नुहोस्"
@@ -374,7 +380,7 @@ msgstr "भाषा छनोट गर्नुहोस्"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "खाली गर्नुहोस्"
 
@@ -433,7 +439,7 @@ msgstr "टिप्पणी स्वीकृत"
 msgid "Comment deleted"
 msgstr "टिप्पणी मेटाइयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "टिप्पणी सीमा"
 
@@ -453,7 +459,7 @@ msgstr "टिप्पणी पुनःस्थापित गरियो"
 msgid "Comment updated"
 msgstr "टिप्पणी अद्यावधिक गरियो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "टिप्पणी, मतदान, र हेर्नुहोस्"
 
@@ -462,8 +468,8 @@ msgstr "टिप्पणी, मतदान, र हेर्नुहोस�
 msgid "Compact"
 msgstr "कम्प्याक्ट"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "पुष्टि गर्नुहोस्"
 
@@ -472,7 +478,7 @@ msgstr "पुष्टि गर्नुहोस्"
 msgid "Content"
 msgstr "सामग्री"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "थ्रेसहोल्ड भन्दा कम प्रयोगकर्ताहरूको सामग्री स्वीकृत हुनुपर्छ"
 
@@ -492,7 +498,7 @@ msgstr "जारी राख्नुहोस्"
 msgid "Continue with {label}"
 msgstr "{label} सँग जारी राख्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "यो फोरम कसले हेर्न र अन्तर्क्रिया गर्न सक्छ नियन्त्रण गर्नुहोस्"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "फोरम सिर्जना गर्नुहोस्"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "अनुकूलन"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "अँध्यारो मोड"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "पूर्वनिर्धारित"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "पूर्वनिर्धारित खाता"
 
@@ -560,27 +566,27 @@ msgstr "पूर्वनिर्धारित खाता"
 msgid "Default AI account"
 msgstr "पूर्वनिर्धारित AI खाता"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "मेटाउनुहोस्"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "टिप्पणी मेटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "फोरम मेटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "फोरम मेटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "फोरम मेटाउने?"
 
@@ -596,7 +602,7 @@ msgstr "पुरानो सर्भरमा आफ्नो खाता �
 msgid "Desc"
 msgstr "घट्दो"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "विवरण (आवश्यक)"
 
@@ -619,12 +625,12 @@ msgstr "वेब ब्राउजरबाट पत्ता लगाउन
 msgid "Direction"
 msgstr "दिशा"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "निष्क्रिय"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "हटाउनुहोस्"
 
@@ -644,12 +650,12 @@ msgstr "डाउनलोड"
 msgid "Dyslexia-friendly"
 msgstr "डिस्लेक्सिया-मैत्रीपूर्ण"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "सम्पादन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "नाम सम्पादन गर्नुहोस्"
 
@@ -662,7 +668,7 @@ msgstr "पोस्ट सम्पादन गर्नुहोस्"
 msgid "Email code"
 msgstr "इमेल कोड"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "ब्यानर पाठ लेख्नुहोस् (मार्कडाउन समर्थित)..."
 
@@ -674,7 +680,7 @@ msgstr "तपाईंको इमेलमा आएको कोड प्�
 msgid "Enter your authenticator code"
 msgstr "आफ्नो प्रमाणक कोड हाल्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "एन्टिटी आईडी"
 
@@ -694,14 +700,14 @@ msgstr "खाता थप्न असफल"
 msgid "Failed to add tag"
 msgstr "ट्याग थप्न असफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "रुचि समायोजन गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "वस्तुहरू स्वीकृत गर्न असफल"
 
@@ -709,7 +715,7 @@ msgstr "वस्तुहरू स्वीकृत गर्न असफल
 msgid "Failed to ban user"
 msgstr "प्रयोगकर्तालाई प्रतिबन्ध लगाउन असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "प्रयोगकर्ताहरूलाई प्रतिबन्ध लगाउन असफल"
 
@@ -717,7 +723,7 @@ msgstr "प्रयोगकर्ताहरूलाई प्रतिब�
 msgid "Failed to get RSS token"
 msgstr "RSS टोकन प्राप्त गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "पहुँच नियमहरू लोड गर्न असफल"
 
@@ -725,7 +731,7 @@ msgstr "पहुँच नियमहरू लोड गर्न असफ�
 msgid "Failed to load forum"
 msgstr "फोरम लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "फोरम सेटिङ लोड गर्न असफल"
 
@@ -733,19 +739,19 @@ msgstr "फोरम सेटिङ लोड गर्न असफल"
 msgid "Failed to load forums"
 msgstr "फोरमहरू लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "समूहहरू लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "मोडरेसन लग लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "मध्यस्थता लाइन लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "मध्यस्थता सेटिङ लोड गर्न असफल"
 
@@ -753,11 +759,11 @@ msgstr "मध्यस्थता सेटिङ लोड गर्न अ�
 msgid "Failed to load recommended forums"
 msgstr "सिफारिस गरिएका फोरम लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "रिपोर्टहरू लोड गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "प्रतिबन्धहरू लोड गर्न असफल"
 
@@ -765,15 +771,15 @@ msgstr "प्रतिबन्धहरू लोड गर्न असफल
 msgid "Failed to mute user"
 msgstr "प्रयोगकर्तालाई म्युट गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "प्रयोगकर्ताहरूलाई म्युट गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "वस्तुहरू अस्वीकार गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "पहुँच हटाउन असफल"
 
@@ -781,32 +787,32 @@ msgstr "पहुँच हटाउन असफल"
 msgid "Failed to remove account"
 msgstr "खाता हटाउन असफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "रुचि हटाउन असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "प्रतिबन्ध हटाउन असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "फोरमको नाम परिवर्तन गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "प्रम्प्ट रिसेट गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "रिपोर्ट समाधान गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "मोडरेसन सेटिङ सुरक्षित गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "प्रम्प्ट सुरक्षित गर्न असफल"
 
@@ -814,7 +820,7 @@ msgstr "प्रम्प्ट सुरक्षित गर्न असफ
 msgid "Failed to search forums"
 msgstr "फोरमहरू खोज्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "प्रयोगकर्ताहरू खोज्न असफल"
 
@@ -822,7 +828,7 @@ msgstr "प्रयोगकर्ताहरू खोज्न असफल"
 msgid "Failed to send verification code"
 msgstr "प्रमाणीकरण कोड पठाउन असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "पहुँच स्तर सेट गर्न असफल"
 
@@ -832,20 +838,20 @@ msgstr "पहुँच स्तर सेट गर्न असफल"
 msgid "Failed to subscribe"
 msgstr "सदस्यता लिन असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "सदस्यता हटाउन असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "पहुँच स्तर अद्यावधिक गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "AI सेटिङ अद्यावधिक गर्न असफल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "ब्यानर अद्यावधिक गर्न असफल"
 
@@ -853,7 +859,7 @@ msgstr "ब्यानर अद्यावधिक गर्न असफल
 msgid "Failed to update category"
 msgstr "वर्ग अद्यावधिक गर्न असफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "ट्यागद्वारा फिल्टर गरिएको:"
 
@@ -862,7 +868,7 @@ msgstr "ट्यागद्वारा फिल्टर गरिएको:
 msgid "Find forums"
 msgstr "फोरमहरू खोज्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "औंलाछाप"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "फ्लोटिङ"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "फोरम मेटाइयो"
 msgid "Forum is no longer available"
 msgstr "फोरम अब उपलब्ध छैन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "फोरम नाम आवश्यक छ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "फोरम फेला परेन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "फोरमको नाम परिवर्तन भयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "फोरम सेटिङ खण्डहरू"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "फोरम उपलब्ध छैन"
 
@@ -971,13 +977,13 @@ msgstr "अघिल्लो पृष्ठमा जानुहोस्"
 msgid "Group"
 msgstr "समूह"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "उत्पीडन"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "घृणास्पद भाषण"
 
@@ -996,7 +1002,7 @@ msgstr "होम"
 msgid "Hot"
 msgstr "हट"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "पहिचान"
 
@@ -1016,7 +1022,7 @@ msgstr "रुचि बढाइयो"
 msgid "Interest reduced"
 msgstr "रुचि घटाइयो"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "रुचि हटाइयो"
@@ -1068,7 +1074,7 @@ msgstr "लक"
 msgid "Locked"
 msgstr "लक गरिएको"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "लग"
 
@@ -1115,27 +1121,27 @@ msgstr "मेनु"
 msgid "Metric"
 msgstr "मेट्रिक"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "गलत जानकारी"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "मध्यस्थता, पोस्ट, टिप्पणी, मतदान, र हेर्नुहोस्"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "मोडरेसन"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "मोडरेसन कतार खाली छ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "मोडरेसन खण्डहरू"
 
@@ -1143,28 +1149,28 @@ msgstr "मोडरेसन खण्डहरू"
 msgid "Monday"
 msgstr "सोमबार"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "म्युट"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "लेखक मौन गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "म्युट"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "नाम"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "नाममा < वा > वर्णहरू हुन सक्दैनन्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "नाम १००० वर्ण वा सोभन्दा कम हुनुपर्छ"
 
@@ -1184,15 +1190,15 @@ msgstr "नयाँ फोरम"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "नयाँ पोस्ट"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "नयाँ थ्रेडहरू स्वीकृत हुनुपर्छ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "नयाँ प्रयोगकर्ता सीमा:"
 
@@ -1200,11 +1206,11 @@ msgstr "नयाँ प्रयोगकर्ता सीमा:"
 msgid "Next image"
 msgstr "अर्को तस्बिर"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "कुनै {statusFilter} रिपोर्टहरू भेटिएनन्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "पहुँच छैन"
 
@@ -1225,7 +1231,7 @@ msgstr "कुनै फोरम भेटिएन"
 msgid "No groups available"
 msgstr "कुनै समूह उपलब्ध छैन"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "कुनै मोडरेसन गतिविधि छैन"
 
@@ -1241,11 +1247,11 @@ msgstr "यस फोरममा अहिलेसम्म कुनै प�
 msgid "No profile"
 msgstr "कुनै प्रोफाइल छैन"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "कुनै रिपोर्ट छैन"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "कुनै प्रतिबन्ध छैन"
 
@@ -1266,7 +1272,7 @@ msgstr "अहिलेसम्म कुनै टपिक रेकर्ड
 msgid "No users found"
 msgstr "कुनै प्रयोगकर्ता भेटिएन"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "कुनै पनि प्रयोगकर्ता मौन वा प्रतिबन्धित गरिएको छैन"
 
@@ -1286,8 +1292,8 @@ msgstr "सामान्य"
 msgid "Notifications"
 msgstr "सूचनाहरू"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "विषय बाहिर"
 
@@ -1317,13 +1323,13 @@ msgstr "नेभिगेसन मेनु खोल्नुहोस्"
 msgid "Open theme settings"
 msgstr "थिम सेटिङ खोल्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "तपाईंको फोरमको शीर्षमा देखाइने वैकल्पिक markdown ब्यानर।"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "अन्य"
 
@@ -1345,7 +1351,7 @@ msgstr "पासकीहरू"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "बाँकी"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "स्वीकृति बाँकी"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "विचाराधीन टिप्पणीहरू ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "विचाराधीन पोस्टहरू ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "यो फोरम र यसका सम्पूर्ण सामग्री स्थायी रूपमा मेटाउनुहोस्।"
 
@@ -1379,7 +1385,7 @@ msgstr "पिन गरिएको"
 msgid "Please check your internet connection and try again."
 msgstr "कृपया आफ्नो इन्टरनेट जडान जाँच गरी पुनः प्रयास गर्नुहोस्।"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "कृपया समस्या वर्णन गर्नुहोस्..."
 
@@ -1403,7 +1409,7 @@ msgstr "फोरम सर्भरमा पोस्ट सुरक्षि
 msgid "Post deleted"
 msgstr "पोस्ट मेटाइयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "पोस्ट सीमा"
 
@@ -1443,7 +1449,7 @@ msgstr "पोस्ट अनपिन गरियो"
 msgid "Post updated"
 msgstr "पोस्ट अद्यावधिक गरियो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "पोस्ट, टिप्पणी, मतदान, र हेर्नुहोस्"
 
@@ -1455,11 +1461,11 @@ msgstr "पोस्टहरू"
 msgid "Posts and comments"
 msgstr "पोस्ट र टिप्पणीहरू"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "पूर्व-मोडरेसन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "प्रयोगकर्ताहरूले कति पटक पोस्ट गर्न सक्छन् सीमित गरेर स्प्याम रोक्नुहोस्"
 
@@ -1477,7 +1483,7 @@ msgstr "गोपनीयता"
 msgid "Profile"
 msgstr "प्रोफाइल"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "प्रोम्प्ट बचत गरियो"
 
@@ -1489,11 +1495,11 @@ msgstr "पोस्ट प्रकाशन गर्नुहोस्"
 msgid "Publishing..."
 msgstr "प्रकाशन गर्दै..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "लाइन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "रेट लिमिटिङ"
 
@@ -1505,12 +1511,12 @@ msgstr "यस सर्भरमा आफ्ना खाताहरू प�
 msgid "Re-register your passkeys on this server"
 msgstr "यस सर्भरमा तपाईंका पासकीहरू पुन: दर्ता गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "कारण:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "कारण: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "लग इनमा रिडाइरेक्ट गर्दै।"
 msgid "Reduce interest"
 msgstr "रुचि घटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "अस्वीकार गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "अस्वीकृत"
 
@@ -1551,12 +1557,12 @@ msgstr "२४ घण्टाभित्र सापेक्ष, अन्�
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "हटाउनुहोस्"
 
@@ -1569,7 +1575,7 @@ msgstr "पहुँच नियम हटाउनुहोस्"
 msgid "Remove access?"
 msgstr "पहुँच हटाउने?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "टिप्पणी हटाउनुहोस्"
 
@@ -1581,7 +1587,7 @@ msgstr "रुचि हटाउनुहोस्"
 msgid "Remove post"
 msgstr "पोस्ट हटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "यो फोरम तपाईंको साइडबारबाट हटाउनुहोस्।"
 
@@ -1591,29 +1597,29 @@ msgstr "यो फोरम तपाईंको साइडबारबाट
 msgid "Removed"
 msgstr "हटाइयो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "जवाफहरू स्वीकृत हुनुपर्छ"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "{0} लाई जवाफ..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "रिपोर्ट"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "टिप्पणी रिपोर्ट गर्नुहोस्"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "पोस्ट रिपोर्ट गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "रिपोर्ट समाधान गरियो"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "रिपोर्ट पेस गरियो"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "{0} द्वारा रिपोर्ट गरिएको"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "रिपोर्टहरू"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "सामग्री देखिनु अघि स्वीकृति आवश्यक"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "नयाँ टिप्पणीहरूका लागि स्वीकृति आवश्यक"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "नयाँ पोस्टहरूका लागि स्वीकृति आवश्यक"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "नयाँ प्रयोगकर्ताहरूका लागि स्वीकृति आवश्यक"
 
@@ -1660,20 +1666,20 @@ msgstr "रिसेट गर्नुहोस्"
 msgid "Reset all settings to default values"
 msgstr "सबै सेटिङहरू पूर्वनिर्धारित मानमा रिसेट गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "समाधान भयो"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "पुनर्स्थापना गर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "प्रतिबन्ध हटाइयो"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "प्रतिबन्धहरू"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "शनिबार"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "सुरक्षित गर्नुहोस्"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "परिवर्तनहरू सुरक्षित गर्नुहोस्"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "सुरक्षित गर्दै..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "स्कोर प्रॉम्प्ट"
 
@@ -1759,11 +1765,11 @@ msgstr "खोज्नुहोस्..."
 msgid "Searching..."
 msgstr "खोज्दै..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "यो टिप्पणी रिपोर्ट गर्ने कारण चयन गर्नुहोस्। रिपोर्टहरूको समीक्षा मध्यस्थहरूद्वारा गरिन्छ।"
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "यो पोस्ट रिपोर्ट गर्ने कारण चयन गर्नुहोस्। रिपोर्टहरूको समीक्षा मध्यस्थहरूद्वारा गरिन्छ।"
 
@@ -1779,7 +1785,7 @@ msgstr "पहुँच नियम छान्नुहोस्"
 msgid "Select account type"
 msgstr "खाता प्रकार छान्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "सबै चयन गर्नुहोस्"
 
@@ -1791,7 +1797,7 @@ msgstr "समूह छान्नुहोस्"
 msgid "Select layout style"
 msgstr "लेआउट शैली छान्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "केही चयन नगर्नुहोस्"
 
@@ -1841,10 +1847,10 @@ msgstr "उत्पत्ति र गन्तव्य सेट गर्�
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "सेटिङहरू"
 
@@ -1875,8 +1881,8 @@ msgstr "सानो"
 msgid "Spacious"
 msgstr "विशाल"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "स्प्याम"
 
@@ -1888,22 +1894,22 @@ msgstr "तर सम्पर्कमा रहनुहोस्!"
 msgid "Subject"
 msgstr "विषय"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "जवाफ पेस गर्नुहोस्"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "रिपोर्ट पेश गर्नुहोस्"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "पेस गर्दै..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "सदस्यता लिनुहोस्"
 
@@ -1920,7 +1926,7 @@ msgstr "{0} मा सदस्यता लिइयो"
 msgid "Subscribed to forum"
 msgstr "फोरममा सदस्यता लिइयो"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "सदस्यता लिँदै..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "प्रणाली"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "ट्याग"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "ट्याग प्रॉम्प्ट"
 
@@ -1964,15 +1970,15 @@ msgstr "थिम"
 msgid "Theme Settings"
 msgstr "थिम सेटिङहरू"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "अहिलेसम्म कुनै मध्यस्थता कार्य रेकर्ड गरिएको छैन"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "यो फोरम अहिले लोड हुन सकेन।"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "यो फोरम मेटाइएको हुन सक्छ वा तपाईंलाई यसमा पहुँच छैन।"
 
@@ -1984,7 +1990,7 @@ msgstr "यो पोस्ट मेटाइएको हुन सक्छ �
 msgid "This post was already submitted"
 msgstr "यो पोस्ट पहिले नै पठाइसकिएको छ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "यसले नियमित प्रयोगकर्ताहरूबाट टिप्पणी लुकाउनेछ। मध्यस्थहरूले अझै पनि यो देख्न र पछि पुनर्स्थापना गर्न सक्छन्।"
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "यसले नियमित प्रयोगकर्ताहरूबाट पोस्ट लुकाउनेछ। मध्यस्थहरूले अझै पनि यो देख्न र पछि पुनर्स्थापना गर्न सक्छन्।"
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "यसले \"{0}\" र यसका सबै पोस्टहरू र टिप्पणीहरू स्थायी रूपमा मेटाउनेछ। यो कार्य पूर्ववत गर्न सकिँदैन।"
 
@@ -2089,7 +2095,7 @@ msgstr "संयुक्त राज्य अमेरिका"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "अज्ञात"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "अनपिन गर्नुहोस्"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "सदस्यता हटाउनुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "फोरमबाट सदस्यता हटाउनुहोस्"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "फोरमको सदस्यता रद्द गर्ने?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "सदस्यता हटाइयो"
 
@@ -2140,7 +2146,7 @@ msgstr "प्रयोगकर्ताको खाताको प्रत�
 msgid "User muted"
 msgstr "प्रयोगकर्ता मौन पारियो"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "भेरिएबलहरू: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "सबै हेर्नुहोस्"
 msgid "View all notifications"
 msgstr "सबै सूचना हेर्नुहोस्"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "मात्र हेर्नुहोस्"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "हिंसा"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "मतदान र हेर्नुहोस्"
 
@@ -2207,7 +2213,7 @@ msgstr "वेबसाइट मर्मतसम्भारमा छ!"
 msgid "Wednesday"
 msgstr "बुधबार"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "विन्डो अवधि"
 
@@ -2231,7 +2237,7 @@ msgstr "यो फोरममा पोस्ट गर्ने अनुम�
 msgid "You have no forums yet."
 msgstr "तपाईंको अहिलेसम्म कुनै फोरम छैन।"
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "तपाईंले यस फोरमबाट अद्यावधिकहरू प्राप्त गर्न बन्द गर्नुहुनेछ। तपाईं जुनसुकै बेला पुनः सदस्यता लिन सक्नुहुन्छ।"
 

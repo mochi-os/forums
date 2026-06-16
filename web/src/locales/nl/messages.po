@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · Verloopt {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · Permanent"
 
@@ -26,32 +26,37 @@ msgstr " · Permanent"
 msgid " (edited)"
 msgstr " (bewerkt)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# geselecteerd} other {# geselecteerd}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# gebruiker verbannen} other {# gebruikers verbannen}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# gebruiker gedempt} other {# gebruikers gedempt}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "{0}-instellingen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# item goedgekeurd} other {# items goedgekeurd}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# item afgewezen} other {# items afgewezen}}"
 
@@ -71,7 +76,7 @@ msgstr "24 uur"
 msgid "Absolute (date and time)"
 msgstr "Absoluut (datum en tijd)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "Toegang"
 
@@ -83,23 +88,23 @@ msgstr "Toegang verboden"
 msgid "Access level"
 msgstr "Toegangsniveau"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "Toegangsniveau bijgewerkt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "Toegangsbeheer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "Toegang verwijderd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "Toegang ingesteld voor {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "Account"
 
@@ -149,7 +154,7 @@ msgstr "Bestanden toevoegen"
 msgid "Add new account"
 msgstr "Nieuw account toevoegen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "Regel toevoegen"
 
@@ -165,11 +170,12 @@ msgstr "Team/app toevoegen"
 msgid "Add to existing notifications"
 msgstr "Aan bestaande meldingen toevoegen"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Weergave toevoegen"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "Aanvullende details (optioneel)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Pas de weergave en lay-out aan naar je voorkeuren."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "AI-acties op posts"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "Alles"
 
@@ -196,7 +202,7 @@ msgstr "Alles"
 msgid "All forums"
 msgstr "Alle forums"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "Alle posts en reacties zijn beoordeeld"
 
@@ -212,16 +218,16 @@ msgstr "Er is een fout opgetreden"
 msgid "An unexpected error occurred"
 msgstr "Er is een onverwachte fout opgetreden"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "Eventuele aanvullende context..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "Goedkeuren"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Weet je zeker dat je deze reactie wilt verwijderen? Hiermee worden ook alle antwoorden verwijderd. Deze actie kan niet ongedaan worden gemaakt."
 
@@ -237,7 +243,7 @@ msgstr "Weet je zeker dat je wilt uitloggen? Je moet opnieuw inloggen om toegang
 msgid "Asc"
 msgstr "Oplopend"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Antwoordbestanden bijvoegen"
@@ -260,10 +266,10 @@ msgstr "Terug"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "Terug naar forum"
 
@@ -277,28 +283,28 @@ msgstr "Terug naar forums"
 msgid "Back to home"
 msgstr "Terug naar start"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "Verbannen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Auteur verbannen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "verbannen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "Banner verwijderd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "Banner bijgewerkt"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "Interesse versterken"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "door {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "Door {0}"
 
@@ -326,16 +332,16 @@ msgstr "Door {0}"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "Bewerking annuleren"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Antwoord annuleren"
@@ -374,7 +380,7 @@ msgstr "Kies taal"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "Wissen"
 
@@ -433,7 +439,7 @@ msgstr "Reactie goedgekeurd"
 msgid "Comment deleted"
 msgstr "Reactie verwijderd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "Reactielimiet"
 
@@ -453,7 +459,7 @@ msgstr "Reactie hersteld"
 msgid "Comment updated"
 msgstr "Reactie bijgewerkt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "Reageren, stemmen en bekijken"
 
@@ -462,8 +468,8 @@ msgstr "Reageren, stemmen en bekijken"
 msgid "Compact"
 msgstr "Compact"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -472,7 +478,7 @@ msgstr "Bevestigen"
 msgid "Content"
 msgstr "Inhoud"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "Inhoud van gebruikers onder een drempel moet worden goedgekeurd"
 
@@ -492,7 +498,7 @@ msgstr "Doorgaan"
 msgid "Continue with {label}"
 msgstr "Doorgaan met {label}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "Bepaal wie dit forum kan bekijken en ermee kan werken"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "Forum aanmaken"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "Aangepast"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "Donkere modus"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "Standaard"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "Standaardaccount"
 
@@ -560,27 +566,27 @@ msgstr "Standaardaccount"
 msgid "Default AI account"
 msgstr "Standaard AI-account"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "Reactie verwijderen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "Forum verwijderen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "Forum verwijderen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "Forum verwijderen?"
 
@@ -596,7 +602,7 @@ msgstr "Verwijder uw account op de oude server"
 msgid "Desc"
 msgstr "Aflopend"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "Details (verplicht)"
 
@@ -619,12 +625,12 @@ msgstr "Detecteren via webbrowser"
 msgid "Direction"
 msgstr "Richting"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "Sluiten"
 
@@ -644,12 +650,12 @@ msgstr "Downloaden"
 msgid "Dyslexia-friendly"
 msgstr "Dyslexie-vriendelijk"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "Naam bewerken"
 
@@ -662,7 +668,7 @@ msgstr "Bericht bewerken"
 msgid "Email code"
 msgstr "E-mailcode"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "Voer bannertekst in (markdown ondersteund)..."
 
@@ -674,7 +680,7 @@ msgstr "Voer de code uit je e-mail in"
 msgid "Enter your authenticator code"
 msgstr "Voer je authenticatorcode in"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "Entiteit-ID"
 
@@ -694,14 +700,14 @@ msgstr "Account toevoegen mislukt"
 msgid "Failed to add tag"
 msgstr "Tag toevoegen mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "Interesse aanpassen mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Items goedkeuren mislukt"
 
@@ -709,7 +715,7 @@ msgstr "Items goedkeuren mislukt"
 msgid "Failed to ban user"
 msgstr "Gebruiker verbannen mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Gebruikers verbannen mislukt"
 
@@ -717,7 +723,7 @@ msgstr "Gebruikers verbannen mislukt"
 msgid "Failed to get RSS token"
 msgstr "RSS-token ophalen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "Toegangsregels laden mislukt"
 
@@ -725,7 +731,7 @@ msgstr "Toegangsregels laden mislukt"
 msgid "Failed to load forum"
 msgstr "Forum laden mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "Forum-instellingen konden niet worden geladen"
 
@@ -733,19 +739,19 @@ msgstr "Forum-instellingen konden niet worden geladen"
 msgid "Failed to load forums"
 msgstr "Fora laden mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "Groepen konden niet worden geladen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "Moderatielog laden mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Moderatiewachtrij kon niet worden geladen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "Moderatie-instellingen konden niet worden geladen"
 
@@ -753,11 +759,11 @@ msgstr "Moderatie-instellingen konden niet worden geladen"
 msgid "Failed to load recommended forums"
 msgstr "Aanbevolen forums konden niet worden geladen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "Rapporten laden mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "Beperkingen konden niet worden geladen"
 
@@ -765,15 +771,15 @@ msgstr "Beperkingen konden niet worden geladen"
 msgid "Failed to mute user"
 msgstr "Gebruiker dempen mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "Gebruikers dempen mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Items afwijzen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "Toegang verwijderen mislukt"
 
@@ -781,32 +787,32 @@ msgstr "Toegang verwijderen mislukt"
 msgid "Failed to remove account"
 msgstr "Account verwijderen mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Interesse verwijderen mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Beperking verwijderen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "Forum hernoemen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "Prompt resetten mislukt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "Rapport oplossen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Moderatie-instellingen opslaan mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "Prompt opslaan mislukt"
 
@@ -814,7 +820,7 @@ msgstr "Prompt opslaan mislukt"
 msgid "Failed to search forums"
 msgstr "Forums doorzoeken mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "Gebruikers konden niet worden gezocht"
 
@@ -822,7 +828,7 @@ msgstr "Gebruikers konden niet worden gezocht"
 msgid "Failed to send verification code"
 msgstr "Verificatiecode verzenden mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "Toegangsniveau instellen mislukt"
 
@@ -832,20 +838,20 @@ msgstr "Toegangsniveau instellen mislukt"
 msgid "Failed to subscribe"
 msgstr "Abonneren mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Abonnement opzeggen mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "Toegangsniveau bijwerken mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "AI-instellingen bijwerken mislukt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "Banner bijwerken mislukt"
 
@@ -853,7 +859,7 @@ msgstr "Banner bijwerken mislukt"
 msgid "Failed to update category"
 msgstr "Categorie bijwerken mislukt"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "Gefilterd op tag:"
 
@@ -862,7 +868,7 @@ msgstr "Gefilterd op tag:"
 msgid "Find forums"
 msgstr "Forums zoeken"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Vingerafdruk"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "Zwevend"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Forum verwijderd"
 msgid "Forum is no longer available"
 msgstr "Forum is niet meer beschikbaar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "Forumnaam is vereist"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Forum niet gevonden"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "Forum hernoemd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "Forum-instellingensecties"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Forum niet beschikbaar"
 
@@ -971,13 +977,13 @@ msgstr "Naar vorige pagina"
 msgid "Group"
 msgstr "Groep"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "Intimidatie"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "Haatzaaiende taal"
 
@@ -996,7 +1002,7 @@ msgstr "Home"
 msgid "Hot"
 msgstr "Populair"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "Identiteit"
 
@@ -1016,7 +1022,7 @@ msgstr "Interesse versterkt"
 msgid "Interest reduced"
 msgstr "Interesse verminderd"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interesse verwijderd"
@@ -1068,7 +1074,7 @@ msgstr "Vergrendelen"
 msgid "Locked"
 msgstr "Vergrendeld"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "Logboek"
 
@@ -1115,27 +1121,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metriek"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "Misinformatie"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modereren, plaatsen, reageren, stemmen en bekijken"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "Moderatie"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "Moderatiewachtrij is leeg"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Moderatiesecties"
 
@@ -1143,28 +1149,28 @@ msgstr "Moderatiesecties"
 msgid "Monday"
 msgstr "Maandag"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "Dempen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Auteur dempen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "gedempt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "Naam"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "Naam mag geen < of > tekens bevatten"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "Naam mag maximaal 1000 tekens bevatten"
 
@@ -1184,15 +1190,15 @@ msgstr "Nieuw forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "Nieuwe post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "Nieuwe threads moeten worden goedgekeurd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "Drempel nieuwe gebruiker:"
 
@@ -1200,11 +1206,11 @@ msgstr "Drempel nieuwe gebruiker:"
 msgid "Next image"
 msgstr "Volgende afbeelding"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "Geen {statusFilter} meldingen gevonden"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "Geen toegang"
 
@@ -1225,7 +1231,7 @@ msgstr "Geen forums gevonden"
 msgid "No groups available"
 msgstr "Geen groepen beschikbaar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "Geen moderatieactiviteit"
 
@@ -1241,11 +1247,11 @@ msgstr "Nog geen posts in dit forum"
 msgid "No profile"
 msgstr "Geen profiel"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "Geen meldingen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "Geen beperkingen"
 
@@ -1266,7 +1272,7 @@ msgstr "Nog geen topic-record — probeer het opnieuw na de volgende melding."
 msgid "No users found"
 msgstr "Geen gebruikers gevonden"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "Er zijn geen gebruikers gedempt of verbannen"
 
@@ -1286,8 +1292,8 @@ msgstr "Normaal"
 msgid "Notifications"
 msgstr "Meldingen"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "Off-topic"
 
@@ -1317,13 +1323,13 @@ msgstr "Navigatiemenu openen"
 msgid "Open theme settings"
 msgstr "Thema-instellingen openen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Optionele markdown-banner die bovenaan je forum wordt weergegeven."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "Overig"
 
@@ -1345,7 +1351,7 @@ msgstr "Toegangssleutels"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "In afwachting"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "In afwachting van goedkeuring"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "Reacties in afwachting ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "Berichten in afwachting ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "Verwijder dit forum en alle inhoud permanent."
 
@@ -1379,7 +1385,7 @@ msgstr "Vastgemaakt"
 msgid "Please check your internet connection and try again."
 msgstr "Controleer je internetverbinding en probeer het opnieuw."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "Beschrijf het probleem..."
 
@@ -1403,7 +1409,7 @@ msgstr "Bericht kon niet worden opgeslagen op de forumserver"
 msgid "Post deleted"
 msgstr "Post verwijderd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "Postlimiet"
 
@@ -1443,7 +1449,7 @@ msgstr "Post losgemaakt"
 msgid "Post updated"
 msgstr "Post bijgewerkt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "Plaatsen, reageren, stemmen en bekijken"
 
@@ -1455,11 +1461,11 @@ msgstr "Posts"
 msgid "Posts and comments"
 msgstr "Posts en reacties"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "Pre-moderatie"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Voorkom spam door te beperken hoe vaak gebruikers kunnen posten"
 
@@ -1477,7 +1483,7 @@ msgstr "Privacy"
 msgid "Profile"
 msgstr "Profiel"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "Prompt opgeslagen"
 
@@ -1489,11 +1495,11 @@ msgstr "Post publiceren"
 msgid "Publishing..."
 msgstr "Bezig met publiceren..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "Wachtrij"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "Rate limiting"
 
@@ -1505,12 +1511,12 @@ msgstr "Koppel uw accounts opnieuw op deze server"
 msgid "Re-register your passkeys on this server"
 msgstr "Registreer je toegangssleutels opnieuw op deze server"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "Reden:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "Reden: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "Doorverwijzen naar inloggen."
 msgid "Reduce interest"
 msgstr "Interesse verminderen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "Afwijzen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Afgewezen"
 
@@ -1551,12 +1557,12 @@ msgstr "Relatief binnen 24 uur, anders absoluut"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -1569,7 +1575,7 @@ msgstr "Toegangsregel verwijderen"
 msgid "Remove access?"
 msgstr "Toegang verwijderen?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "Reactie verwijderen"
 
@@ -1581,7 +1587,7 @@ msgstr "Interesse verwijderen"
 msgid "Remove post"
 msgstr "Post verwijderen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "Verwijder dit forum uit je zijbalk."
 
@@ -1591,29 +1597,29 @@ msgstr "Verwijder dit forum uit je zijbalk."
 msgid "Removed"
 msgstr "Verwijderd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "Antwoorden moeten worden goedgekeurd"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "Reactie op {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Melden"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "Reactie melden"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "Bericht melden"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "Melding opgelost"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "Melding ingediend"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "Gemeld door {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "Meldingen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "Goedkeuring vereisen voordat inhoud zichtbaar wordt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "Goedkeuring vereisen voor nieuwe reacties"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "Goedkeuring vereisen voor nieuwe posts"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "Goedkeuring vereisen voor nieuwe gebruikers"
 
@@ -1660,20 +1666,20 @@ msgstr "Resetten"
 msgid "Reset all settings to default values"
 msgstr "Alle instellingen resetten naar standaardwaarden"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "Opgelost"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Herstellen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "Beperking opgeheven"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "Beperkingen"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "Zaterdag"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "Opslaan"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "Wijzigingen opslaan"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "Score-prompt"
 
@@ -1759,11 +1765,11 @@ msgstr "Zoeken..."
 msgid "Searching..."
 msgstr "Bezig met zoeken..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Selecteer een reden voor het melden van deze reactie. Meldingen worden door moderators beoordeeld."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "Selecteer een reden voor het melden van dit bericht. Meldingen worden door moderators beoordeeld."
 
@@ -1779,7 +1785,7 @@ msgstr "Kies toegangsregel"
 msgid "Select account type"
 msgstr "Kies accounttype"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "Alles selecteren"
 
@@ -1791,7 +1797,7 @@ msgstr "Kies groep"
 msgid "Select layout style"
 msgstr "Kies lay-outstijl"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "Niets selecteren"
 
@@ -1841,10 +1847,10 @@ msgstr "Vertrek en bestemming instellen"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -1875,8 +1881,8 @@ msgstr "Klein"
 msgid "Spacious"
 msgstr "Ruim"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "Spam"
 
@@ -1888,22 +1894,22 @@ msgstr "Houd het in de gaten!"
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Antwoord verzenden"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "Rapport verzenden"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "Bezig met verzenden..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -1920,7 +1926,7 @@ msgstr "Geabonneerd op {0}"
 msgid "Subscribed to forum"
 msgstr "Geabonneerd op forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "Bezig met abonneren..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "Systeem"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "Tag"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Tag-prompt"
 
@@ -1964,15 +1970,15 @@ msgstr "Thema"
 msgid "Theme Settings"
 msgstr "Thema-instellingen"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "Er zijn nog geen moderatieacties geregistreerd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "Dit forum kon nu niet worden geladen."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Dit forum is mogelijk verwijderd of u heeft er geen toegang toe."
 
@@ -1984,7 +1990,7 @@ msgstr "Dit bericht is mogelijk verwijderd of bestaat niet."
 msgid "This post was already submitted"
 msgstr "Dit bericht is al verzonden"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Hierdoor wordt de reactie verborgen voor gewone gebruikers. Moderators kunnen het nog steeds zien en later herstellen."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Hierdoor wordt het bericht verborgen voor gewone gebruikers. Moderators kunnen het nog steeds zien en later herstellen."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Hiermee worden \"{0}\" en al zijn berichten en reacties permanent verwijderd. Deze actie kan niet ongedaan worden gemaakt."
 
@@ -2089,7 +2095,7 @@ msgstr "Verenigde Staten"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "Onbekend"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "Losmaken"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Abonnement opzeggen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "Abonnement op forum opzeggen"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "Uitschrijven van forum?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "Abonnement opgezegd"
 
@@ -2140,7 +2146,7 @@ msgstr "Gebruiker verbannen"
 msgid "User muted"
 msgstr "Gebruiker gedempt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "Variabelen: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "Alles bekijken"
 msgid "View all notifications"
 msgstr "Alle meldingen bekijken"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "Alleen bekijken"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "Geweld"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "Stemmen en bekijken"
 
@@ -2207,7 +2213,7 @@ msgstr "Website is in onderhoud!"
 msgid "Wednesday"
 msgstr "Woensdag"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "Vensterduur"
 
@@ -2231,7 +2237,7 @@ msgstr "Je hebt geen toestemming om op dit forum te plaatsen"
 msgid "You have no forums yet."
 msgstr "Je hebt nog geen forums."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Je ontvangt geen updates meer van dit forum. Je kunt je op elk moment opnieuw inschrijven."
 

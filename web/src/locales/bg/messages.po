@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · Изтича {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · Постоянно"
 
@@ -26,32 +26,37 @@ msgstr " · Постоянно"
 msgid " (edited)"
 msgstr " (редактирано)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# избран} other {# избрани}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {Забранен # потребител} other {Забранени # потребители}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {Заглушен # потребител} other {Заглушени # потребители}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "{0} настройки"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {Одобрен # елемент} other {Одобрени # елемента}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Отхвърлен # елемент} other {Отхвърлени # елемента}}"
 
@@ -71,7 +76,7 @@ msgstr "24 часа"
 msgid "Absolute (date and time)"
 msgstr "Абсолютно (дата и час)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "Достъп"
 
@@ -83,23 +88,23 @@ msgstr "Достъпът е забранен"
 msgid "Access level"
 msgstr "Ниво на достъп"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "Нивото на достъп е обновено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "Управление на достъпа"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "Достъпът е премахнат"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "Достъпът е зададен за {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "Акаунт"
 
@@ -149,7 +154,7 @@ msgstr "Добави файлове"
 msgid "Add new account"
 msgstr "Добави нов акаунт"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "Добави правило"
 
@@ -165,11 +170,12 @@ msgstr "Добави екип/приложение"
 msgid "Add to existing notifications"
 msgstr "Добави към съществуващите известия"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Добави изглед"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "Допълнителни детайли (по избор)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Настройте външния вид и оформлението според предпочитанията си."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "AI действия върху публикации"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "Всички"
 
@@ -196,7 +202,7 @@ msgstr "Всички"
 msgid "All forums"
 msgstr "Всички форуми"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "Всички публикации и коментари са прегледани"
 
@@ -212,16 +218,16 @@ msgstr "Възникна грешка"
 msgid "An unexpected error occurred"
 msgstr "Възникна неочаквана грешка"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "Допълнителен контекст..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "Одобри"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Сигурни ли сте, че искате да изтриете този коментар? Това ще изтрие и всички отговори. Действието не може да бъде отменено."
 
@@ -237,7 +243,7 @@ msgstr "Сигурни ли сте, че искате да излезете? Щ�
 msgid "Asc"
 msgstr "Възх."
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Прикачи файлове към отговора"
@@ -260,10 +266,10 @@ msgstr "Назад"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "Обратно към форума"
 
@@ -277,28 +283,28 @@ msgstr "Обратно към форумите"
 msgid "Back to home"
 msgstr "Назад към началото"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "Блокирай"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Блокирай автора"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "забранен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "Банер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "Банерът е премахнат"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "Банерът е обновен"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "Усили интереса"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "от {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "От {0}"
 
@@ -326,16 +332,16 @@ msgstr "От {0}"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Отказ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "Отмени редактирането"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Отказ от отговора"
@@ -374,7 +380,7 @@ msgstr "Изберете език"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "Изчисти"
 
@@ -433,7 +439,7 @@ msgstr "Коментарът е одобрен"
 msgid "Comment deleted"
 msgstr "Коментарът е изтрит"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "Лимит на коментарите"
 
@@ -453,7 +459,7 @@ msgstr "Коментарът е възстановен"
 msgid "Comment updated"
 msgstr "Коментарът е обновен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "Коментирай, гласувай и преглеждай"
 
@@ -462,8 +468,8 @@ msgstr "Коментирай, гласувай и преглеждай"
 msgid "Compact"
 msgstr "Компактно"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "Потвърди"
 
@@ -472,7 +478,7 @@ msgstr "Потвърди"
 msgid "Content"
 msgstr "Съдържание"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "Съдържанието от потребители под определен праг трябва да бъде одобрено"
 
@@ -492,7 +498,7 @@ msgstr "Продължи"
 msgid "Continue with {label}"
 msgstr "Продължи с {label}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "Контролирайте кой може да преглежда и взаимодейства с този форум"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "Създай форум"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "Персонализирано"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "Тъмен режим"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "По подразбиране"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "Акаунт по подразбиране"
 
@@ -560,27 +566,27 @@ msgstr "Акаунт по подразбиране"
 msgid "Default AI account"
 msgstr "AI акаунт по подразбиране"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Изтрий"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "Изтрий коментара"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "Изтрий форума"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "Изтрий форума"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "Изтриване на форума?"
 
@@ -596,7 +602,7 @@ msgstr "Изтрийте профила си на стария сървър"
 msgid "Desc"
 msgstr "Низх."
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "Детайли (задължително)"
 
@@ -619,12 +625,12 @@ msgstr "Засечи от уеб браузъра"
 msgid "Direction"
 msgstr "Посока"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "Изключено"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "Отхвърли"
 
@@ -644,12 +650,12 @@ msgstr "Изтегляне"
 msgid "Dyslexia-friendly"
 msgstr "Подходящ за дислексия"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Редактиране"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "Редактиране на име"
 
@@ -662,7 +668,7 @@ msgstr "Редактиране на публикация"
 msgid "Email code"
 msgstr "Имейл код"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "Въведете текст на банера (поддържа се markdown)..."
 
@@ -674,7 +680,7 @@ msgstr "Въведете кода от имейла си"
 msgid "Enter your authenticator code"
 msgstr "Въведете кода от приложението за удостоверяване"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "ID на обект"
 
@@ -694,14 +700,14 @@ msgstr "Неуспешно добавяне на акаунт"
 msgid "Failed to add tag"
 msgstr "Неуспешно добавяне на таг"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "Неуспешна корекция на интерес"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Неуспешно одобряване на елементи"
 
@@ -709,7 +715,7 @@ msgstr "Неуспешно одобряване на елементи"
 msgid "Failed to ban user"
 msgstr "Неуспешно блокиране на потребител"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Неуспешно блокиране на потребители"
 
@@ -717,7 +723,7 @@ msgstr "Неуспешно блокиране на потребители"
 msgid "Failed to get RSS token"
 msgstr "Неуспешно получаване на RSS токен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "Неуспешно зареждане на правила за достъп"
 
@@ -725,7 +731,7 @@ msgstr "Неуспешно зареждане на правила за дост�
 msgid "Failed to load forum"
 msgstr "Неуспешно зареждане на форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "Неуспешно зареждане на настройки на форума"
 
@@ -733,19 +739,19 @@ msgstr "Неуспешно зареждане на настройки на фо�
 msgid "Failed to load forums"
 msgstr "Неуспешно зареждане на форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "Неуспешно зареждане на групи"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "Неуспешно зареждане на дневник за модерация"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Неуспешно зареждане на опашка за модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "Неуспешно зареждане на настройки за модерация"
 
@@ -753,11 +759,11 @@ msgstr "Неуспешно зареждане на настройки за мо�
 msgid "Failed to load recommended forums"
 msgstr "Неуспешно зареждане на препоръчани форуми"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "Неуспешно зареждане на доклади"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "Неуспешно зареждане на ограничения"
 
@@ -765,15 +771,15 @@ msgstr "Неуспешно зареждане на ограничения"
 msgid "Failed to mute user"
 msgstr "Неуспешно заглушаване на потребител"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "Неуспешно заглушаване на потребители"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Неуспешно отхвърляне на елементи"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "Неуспешно премахване на достъп"
 
@@ -781,32 +787,32 @@ msgstr "Неуспешно премахване на достъп"
 msgid "Failed to remove account"
 msgstr "Неуспешно премахване на акаунт"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Неуспешно премахване на интерес"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Неуспешно премахване на ограничение"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "Неуспешно преименуване на форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "Неуспешно нулиране на подсказката"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "Неуспешно разрешаване на доклад"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Неуспешно записване на настройки за модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "Неуспешно записване на подсказка"
 
@@ -814,7 +820,7 @@ msgstr "Неуспешно записване на подсказка"
 msgid "Failed to search forums"
 msgstr "Неуспешно търсене на форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "Неуспешно търсене на потребители"
 
@@ -822,7 +828,7 @@ msgstr "Неуспешно търсене на потребители"
 msgid "Failed to send verification code"
 msgstr "Неуспешно изпращане на код за потвърждение"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "Неуспешно задаване на ниво на достъп"
 
@@ -832,20 +838,20 @@ msgstr "Неуспешно задаване на ниво на достъп"
 msgid "Failed to subscribe"
 msgstr "Неуспешно абониране"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Неуспешно отписване"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "Неуспешна актуализация на ниво на достъп"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "Неуспешна актуализация на AI настройките"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "Неуспешна актуализация на банер"
 
@@ -853,7 +859,7 @@ msgstr "Неуспешна актуализация на банер"
 msgid "Failed to update category"
 msgstr "Неуспешна актуализация на категория"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "Филтрирано по таг:"
 
@@ -862,7 +868,7 @@ msgstr "Филтрирано по таг:"
 msgid "Find forums"
 msgstr "Намери форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Отпечатък"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "Плаващо"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Форумът е изтрит"
 msgid "Forum is no longer available"
 msgstr "Форумът вече не е достъпен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "Изисква се име на форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Форумът не е намерен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "Форумът е преименуван"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "Секции с настройки на форума"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Форумът не е достъпен"
 
@@ -971,13 +977,13 @@ msgstr "Към предишна страница"
 msgid "Group"
 msgstr "Група"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "Тормоз"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "Реч на омразата"
 
@@ -996,7 +1002,7 @@ msgstr "Начало"
 msgid "Hot"
 msgstr "Горещо"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "Самоличност"
 
@@ -1016,7 +1022,7 @@ msgstr "Интересът е увеличен"
 msgid "Interest reduced"
 msgstr "Интересът е намален"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Интересът е премахнат"
@@ -1068,7 +1074,7 @@ msgstr "Заключи"
 msgid "Locked"
 msgstr "Заключено"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "Дневник"
 
@@ -1115,27 +1121,27 @@ msgstr "Меню"
 msgid "Metric"
 msgstr "Метричен"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "Дезинформация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Модерация, публикуване, коментар, гласуване и преглед"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "Модерация"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "Опашката за модерация е празна"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Секции за модерация"
 
@@ -1143,28 +1149,28 @@ msgstr "Секции за модерация"
 msgid "Monday"
 msgstr "Понеделник"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "Заглуши"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Заглуши автора"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "заглушено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "Име"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "Името не може да съдържа символи < или >"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "Името трябва да е до 1000 символа"
 
@@ -1184,15 +1190,15 @@ msgstr "Нов форум"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "Нова публикация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "Новите теми изискват одобрение"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "Праг за нови потребители:"
 
@@ -1200,11 +1206,11 @@ msgstr "Праг за нови потребители:"
 msgid "Next image"
 msgstr "Следващо изображение"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "Не са намерени доклади със статус {statusFilter}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "Няма достъп"
 
@@ -1225,7 +1231,7 @@ msgstr "Не са намерени форуми"
 msgid "No groups available"
 msgstr "Няма налични групи"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "Няма модераторска активност"
 
@@ -1241,11 +1247,11 @@ msgstr "В този форум все още няма публикации"
 msgid "No profile"
 msgstr "Няма профил"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "Няма доклади"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "Без ограничения"
 
@@ -1266,7 +1272,7 @@ msgstr "Все още няма запис за темата — опитайте
 msgid "No users found"
 msgstr "Не са намерени потребители"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "Няма заглушени или блокирани потребители"
 
@@ -1286,8 +1292,8 @@ msgstr "Нормален"
 msgid "Notifications"
 msgstr "Известия"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "Извън темата"
 
@@ -1317,13 +1323,13 @@ msgstr "Отвори менюто за навигация"
 msgid "Open theme settings"
 msgstr "Отвори настройки на темата"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Незадължителен markdown банер, показан в горната част на форума."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "Друго"
 
@@ -1345,7 +1351,7 @@ msgstr "Ключове за достъп"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "В очакване"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "Чака одобрение"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "Чакащи коментари ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "Чакащи публикации ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "Изтрий завинаги този форум и цялото му съдържание."
 
@@ -1379,7 +1385,7 @@ msgstr "Закачено"
 msgid "Please check your internet connection and try again."
 msgstr "Проверете интернет връзката си и опитайте отново."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "Моля, опишете проблема..."
 
@@ -1403,7 +1409,7 @@ msgstr "Публикацията не можа да бъде запазена н
 msgid "Post deleted"
 msgstr "Публикацията е изтрита"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "Лимит на публикациите"
 
@@ -1443,7 +1449,7 @@ msgstr "Публикацията е откачена"
 msgid "Post updated"
 msgstr "Публикацията е обновена"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "Публикувай, коментирай, гласувай и преглеждай"
 
@@ -1455,11 +1461,11 @@ msgstr "Публикации"
 msgid "Posts and comments"
 msgstr "Публикации и коментари"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "Предварителна модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Предотвратете спам, като ограничите колко често потребителите могат да публикуват"
 
@@ -1477,7 +1483,7 @@ msgstr "Поверителност"
 msgid "Profile"
 msgstr "Профил"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "Промптът е запазен"
 
@@ -1489,11 +1495,11 @@ msgstr "Публикувай публикацията"
 msgid "Publishing..."
 msgstr "Публикува се..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "Опашка"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "Rate Limiting"
 
@@ -1505,12 +1511,12 @@ msgstr "Свържете отново профилите си на този съ
 msgid "Re-register your passkeys on this server"
 msgstr "Регистрирайте отново ключовете си за достъп на този сървър"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "Причина:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "Причина: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "Пренасочване към вход."
 msgid "Reduce interest"
 msgstr "Намали лихвата"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "Отхвърли"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Отхвърлено"
 
@@ -1551,12 +1557,12 @@ msgstr "Относително в рамките на 24 часа, иначе а
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "Премахни"
 
@@ -1569,7 +1575,7 @@ msgstr "Премахни правило за достъп"
 msgid "Remove access?"
 msgstr "Премахни достъпа?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "Премахни коментар"
 
@@ -1581,7 +1587,7 @@ msgstr "Премахни интерес"
 msgid "Remove post"
 msgstr "Премахни публикация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "Премахни този форум от страничната лента."
 
@@ -1591,29 +1597,29 @@ msgstr "Премахни този форум от страничната лен�
 msgid "Removed"
 msgstr "Премахнато"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "Отговорите изискват одобрение"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "Отговор до {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Докладвай"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "Докладвай коментара"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "Докладвай публикацията"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "Докладът е разрешен"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "Докладът е изпратен"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "Докладвано от {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "Доклади"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "Изисквай одобрение преди съдържанието да стане видимо"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "Изисквай одобрение за нови коментари"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "Изисквай одобрение за нови публикации"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "Изисквай одобрение за нови потребители"
 
@@ -1660,20 +1666,20 @@ msgstr "Нулирай"
 msgid "Reset all settings to default values"
 msgstr "Нулирай всички настройки до стойностите по подразбиране"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "Разрешен"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Възстанови"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "Ограничението е премахнато"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "Ограничения"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "Събота"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "Запази"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "Запази промените"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "Запазва се..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "Промпт за резултат"
 
@@ -1759,11 +1765,11 @@ msgstr "Търси..."
 msgid "Searching..."
 msgstr "Търси се..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Изберете причина за докладване на този коментар. Докладите се преглеждат от модератори."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "Изберете причина за докладване на тази публикация. Докладите се преглеждат от модератори."
 
@@ -1779,7 +1785,7 @@ msgstr "Изберете правило за достъп"
 msgid "Select account type"
 msgstr "Изберете тип акаунт"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "Избери всички"
 
@@ -1791,7 +1797,7 @@ msgstr "Избор на група"
 msgid "Select layout style"
 msgstr "Избор на стил на оформление"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "Изберете нищо"
 
@@ -1841,10 +1847,10 @@ msgstr "Задай начало и край"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1875,8 +1881,8 @@ msgstr "Малък"
 msgid "Spacious"
 msgstr "Просторно"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "Спам"
 
@@ -1888,22 +1894,22 @@ msgstr "Все пак следете!"
 msgid "Subject"
 msgstr "Тема"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Изпрати отговор"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "Изпрати сигнал"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "Изпращане..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "Абонирай се"
 
@@ -1920,7 +1926,7 @@ msgstr "Абониран за {0}"
 msgid "Subscribed to forum"
 msgstr "Абониран за форума"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "Абониране..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "Система"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "Етикет"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Покана за етикет"
 
@@ -1964,15 +1970,15 @@ msgstr "Тема"
 msgid "Theme Settings"
 msgstr "Настройки на темата"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "Все още няма записани действия по модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "Този форум не може да бъде зареден в момента."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Този форум може да е изтрит или нямате достъп до него."
 
@@ -1984,7 +1990,7 @@ msgstr "Тази публикация може да е изтрита или н�
 msgid "This post was already submitted"
 msgstr "Тази публикация вече е изпратена"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Това ще скрие коментара от обикновените потребители. Модераторите все още могат да го виждат и да го възстановят по-късно."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Това ще скрие публикацията от обикновените потребители. Модераторите все още могат да я виждат и да я възстановят по-късно."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Това ще изтрие окончателно „{0}“ и всичките му публикации и коментари. Това действие не може да бъде отменено."
 
@@ -2089,7 +2095,7 @@ msgstr "Съединени щати"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "Откачи"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Отпиши се"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "Отпиши се от форума"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "Отписване от форума?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "Отписан"
 
@@ -2140,7 +2146,7 @@ msgstr "Потребителят е забранен"
 msgid "User muted"
 msgstr "Потребителят е заглушен"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "Променливи: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "Виж всички"
 msgid "View all notifications"
 msgstr "Виж всички известия"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "Само за преглед"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "Насилие"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "Гласувай и виж"
 
@@ -2207,7 +2213,7 @@ msgstr "Уебсайтът е в поддръжка!"
 msgid "Wednesday"
 msgstr "Сряда"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "Продължителност на прозореца"
 
@@ -2231,7 +2237,7 @@ msgstr "Нямате разрешение да публикувате в тоз�
 msgid "You have no forums yet."
 msgstr "Все още нямате форуми."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Ще спрете да получавате актуализации от този форум. Можете да се абонирате отново по всяко време."
 

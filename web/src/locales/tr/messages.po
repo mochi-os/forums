@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · Süresi doluyor: {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · Kalıcı"
 
@@ -26,32 +26,37 @@ msgstr " · Kalıcı"
 msgid " (edited)"
 msgstr " (düzenlendi)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# seçili} other {# seçili}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# kullanıcı yasaklandı} other {# kullanıcı yasaklandı}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# kullanıcı susturuldu} other {# kullanıcı susturuldu}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "{0} ayarları"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# öğe onaylandı} other {# öğe onaylandı}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# öğe reddedildi} other {# öğe reddedildi}}"
 
@@ -71,7 +76,7 @@ msgstr "24 saat"
 msgid "Absolute (date and time)"
 msgstr "Mutlak (tarih ve saat)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "Erişim"
 
@@ -83,23 +88,23 @@ msgstr "Erişim yasak"
 msgid "Access level"
 msgstr "Erişim düzeyi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "Erişim düzeyi güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "Erişim yönetimi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "Erişim kaldırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} için erişim ayarlandı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "Hesap"
 
@@ -149,7 +154,7 @@ msgstr "Dosya ekle"
 msgid "Add new account"
 msgstr "Yeni hesap ekle"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "Kural ekle"
 
@@ -165,11 +170,12 @@ msgstr "Takım/uygulama ekle"
 msgid "Add to existing notifications"
 msgstr "Mevcut bildirimlere ekle"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Görünüm ekle"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "Ek bilgiler (isteğe bağlı)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Görünüm ve düzeni tercihlerinize göre ayarlayın."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "Gönderilerde AI eylemleri"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "Tümü"
 
@@ -196,7 +202,7 @@ msgstr "Tümü"
 msgid "All forums"
 msgstr "Tüm forumlar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "Tüm gönderiler ve yorumlar incelendi"
 
@@ -212,16 +218,16 @@ msgstr "Bir hata oluştu"
 msgid "An unexpected error occurred"
 msgstr "Beklenmeyen bir hata oluştu"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "Ek bağlam..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "Onayla"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Bu yorumu silmek istediğinizden emin misiniz? Bu, tüm yanıtları da silecektir. Bu işlem geri alınamaz."
 
@@ -237,7 +243,7 @@ msgstr "Çıkış yapmak istediğinizden emin misiniz? Hesabınıza erişmek iç
 msgid "Asc"
 msgstr "Artan"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Yanıt dosyalarını ekle"
@@ -260,10 +266,10 @@ msgstr "Geri"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "Foruma dön"
 
@@ -277,28 +283,28 @@ msgstr "Forumlara dön"
 msgid "Back to home"
 msgstr "Ana sayfaya dön"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "Yasakla"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Yazarı yasakla"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "yasaklı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "Banner kaldırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "Banner güncellendi"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "İlgiyi artır"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "{0} tarafından"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "{0} tarafından"
 
@@ -326,16 +332,16 @@ msgstr "{0} tarafından"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "Düzenlemeyi iptal et"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Yanıtı iptal et"
@@ -374,7 +380,7 @@ msgstr "Dil seçin"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "Temizle"
 
@@ -433,7 +439,7 @@ msgstr "Yorum onaylandı"
 msgid "Comment deleted"
 msgstr "Yorum silindi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "Yorum sınırı"
 
@@ -453,7 +459,7 @@ msgstr "Yorum geri yüklendi"
 msgid "Comment updated"
 msgstr "Yorum güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "Yorum yap, oy ver ve görüntüle"
 
@@ -462,8 +468,8 @@ msgstr "Yorum yap, oy ver ve görüntüle"
 msgid "Compact"
 msgstr "Kompakt"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "Onayla"
 
@@ -472,7 +478,7 @@ msgstr "Onayla"
 msgid "Content"
 msgstr "İçerik"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "Eşiğin altındaki kullanıcılardan gelen içerik onaylanmalı"
 
@@ -492,7 +498,7 @@ msgstr "Devam et"
 msgid "Continue with {label}"
 msgstr "{label} ile devam et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "Bu forumu kimin görüntüleyebileceğini ve etkileşime girebileceğini kontrol edin"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "Forum oluştur"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "Özel"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "Koyu mod"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "Varsayılan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "Varsayılan hesap"
 
@@ -560,27 +566,27 @@ msgstr "Varsayılan hesap"
 msgid "Default AI account"
 msgstr "Varsayılan AI hesabı"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Sil"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "Yorumu sil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "Forumu sil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "Forumu sil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "Forum silinsin mi?"
 
@@ -596,7 +602,7 @@ msgstr "Eski sunucudaki hesabınızı silin"
 msgid "Desc"
 msgstr "Azalan"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "Ayrıntılar (gerekli)"
 
@@ -619,12 +625,12 @@ msgstr "Web tarayıcıdan algıla"
 msgid "Direction"
 msgstr "Yön"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "Devre dışı"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "Kapat"
 
@@ -644,12 +650,12 @@ msgstr "İndir"
 msgid "Dyslexia-friendly"
 msgstr "Disleksi dostu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Düzenle"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "Adı düzenle"
 
@@ -662,7 +668,7 @@ msgstr "Gönderiyi düzenle"
 msgid "Email code"
 msgstr "E-posta kodu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "Afiş metnini girin (markdown destekli)..."
 
@@ -674,7 +680,7 @@ msgstr "E-postanızdaki kodu girin"
 msgid "Enter your authenticator code"
 msgstr "Kimlik doğrulayıcı kodunuzu girin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "Varlık kimliği"
 
@@ -694,14 +700,14 @@ msgstr "Hesap eklenemedi"
 msgid "Failed to add tag"
 msgstr "Etiket eklenemedi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "İlgi alanı ayarlanamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Öğeler onaylanamadı"
 
@@ -709,7 +715,7 @@ msgstr "Öğeler onaylanamadı"
 msgid "Failed to ban user"
 msgstr "Kullanıcı yasaklanamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Kullanıcılar yasaklanamadı"
 
@@ -717,7 +723,7 @@ msgstr "Kullanıcılar yasaklanamadı"
 msgid "Failed to get RSS token"
 msgstr "RSS belirteci alınamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "Erişim kuralları yüklenemedi"
 
@@ -725,7 +731,7 @@ msgstr "Erişim kuralları yüklenemedi"
 msgid "Failed to load forum"
 msgstr "Forum yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "Forum ayarları yüklenemedi"
 
@@ -733,19 +739,19 @@ msgstr "Forum ayarları yüklenemedi"
 msgid "Failed to load forums"
 msgstr "Forumlar yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "Gruplar yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "Moderasyon günlüğü yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Moderasyon kuyruğu yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "Moderasyon ayarları yüklenemedi"
 
@@ -753,11 +759,11 @@ msgstr "Moderasyon ayarları yüklenemedi"
 msgid "Failed to load recommended forums"
 msgstr "Önerilen forumlar yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "Raporlar yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "Kısıtlamalar yüklenemedi"
 
@@ -765,15 +771,15 @@ msgstr "Kısıtlamalar yüklenemedi"
 msgid "Failed to mute user"
 msgstr "Kullanıcı sessize alınamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "Kullanıcılar sessize alınamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Öğeler reddedilemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "Erişim kaldırılamadı"
 
@@ -781,32 +787,32 @@ msgstr "Erişim kaldırılamadı"
 msgid "Failed to remove account"
 msgstr "Hesap kaldırılamadı"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "İlgi alanı kaldırılamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Kısıtlama kaldırılamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "Forum yeniden adlandırılamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "Komut sıfırlanamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "Rapor çözülemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Moderasyon ayarları kaydedilemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "Komut kaydedilemedi"
 
@@ -814,7 +820,7 @@ msgstr "Komut kaydedilemedi"
 msgid "Failed to search forums"
 msgstr "Forumlar aranamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "Kullanıcılar aranamadı"
 
@@ -822,7 +828,7 @@ msgstr "Kullanıcılar aranamadı"
 msgid "Failed to send verification code"
 msgstr "Doğrulama kodu gönderilemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "Erişim düzeyi ayarlanamadı"
 
@@ -832,20 +838,20 @@ msgstr "Erişim düzeyi ayarlanamadı"
 msgid "Failed to subscribe"
 msgstr "Abone olunamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Abonelikten çıkılamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "Erişim düzeyi güncellenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "AI ayarları güncellenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "Afiş güncellenemedi"
 
@@ -853,7 +859,7 @@ msgstr "Afiş güncellenemedi"
 msgid "Failed to update category"
 msgstr "Kategori güncellenemedi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "Etikete göre filtrelendi:"
 
@@ -862,7 +868,7 @@ msgstr "Etikete göre filtrelendi:"
 msgid "Find forums"
 msgstr "Forum bul"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Parmak izi"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "Kayan"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Forum silindi"
 msgid "Forum is no longer available"
 msgstr "Forum artık kullanılamıyor"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "Forum adı gereklidir"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Forum bulunamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "Forum yeniden adlandırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "Forum ayar bölümleri"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Forum kullanılamıyor"
 
@@ -971,13 +977,13 @@ msgstr "Önceki sayfaya git"
 msgid "Group"
 msgstr "Grup"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "Taciz"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "Nefret söylemi"
 
@@ -996,7 +1002,7 @@ msgstr "Ana sayfa"
 msgid "Hot"
 msgstr "Popüler"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "Kimlik"
 
@@ -1016,7 +1022,7 @@ msgstr "İlgi alanı öne çıkarıldı"
 msgid "Interest reduced"
 msgstr "İlgi alanı azaltıldı"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "İlgi alanı kaldırıldı"
@@ -1068,7 +1074,7 @@ msgstr "Kilitle"
 msgid "Locked"
 msgstr "Kilitli"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "Günlük"
 
@@ -1115,27 +1121,27 @@ msgstr "Menü"
 msgid "Metric"
 msgstr "Metrik"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "Yanlış bilgi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderasyon, gönderme, yorum, oy ve görüntüleme"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "Moderasyon"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "Moderasyon kuyruğu boş"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Moderasyon bölümleri"
 
@@ -1143,28 +1149,28 @@ msgstr "Moderasyon bölümleri"
 msgid "Monday"
 msgstr "Pazartesi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "Sessize al"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Yazarı sessize al"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "susturuldu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "Ad"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "Ad < veya > karakterleri içeremez"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "Ad 1000 karakter veya daha az olmalı"
 
@@ -1184,15 +1190,15 @@ msgstr "Yeni forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "Yeni gönderi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "Yeni konuların onaylanması gerekir"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "Yeni kullanıcı eşiği:"
 
@@ -1200,11 +1206,11 @@ msgstr "Yeni kullanıcı eşiği:"
 msgid "Next image"
 msgstr "Sonraki görsel"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} raporu bulunamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "Erişim yok"
 
@@ -1225,7 +1231,7 @@ msgstr "Forum bulunamadı"
 msgid "No groups available"
 msgstr "Grup yok"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "Moderasyon aktivitesi yok"
 
@@ -1241,11 +1247,11 @@ msgstr "Bu forumda henüz gönderi yok"
 msgid "No profile"
 msgstr "Profil yok"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "Rapor yok"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "Kısıtlama yok"
 
@@ -1266,7 +1272,7 @@ msgstr "Henüz konu kaydı yok — bir sonraki bildirimden sonra tekrar deneyin.
 msgid "No users found"
 msgstr "Kullanıcı bulunamadı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "Sessize alınmış veya yasaklanmış kullanıcı yok"
 
@@ -1286,8 +1292,8 @@ msgstr "Normal"
 msgid "Notifications"
 msgstr "Bildirimler"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "Konu dışı"
 
@@ -1317,13 +1323,13 @@ msgstr "Gezinme menüsünü aç"
 msgid "Open theme settings"
 msgstr "Tema ayarlarını aç"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Forumunuzun üstünde gösterilen isteğe bağlı markdown banner."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "Diğer"
 
@@ -1345,7 +1351,7 @@ msgstr "Passkey'ler"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "Beklemede"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "Onay bekliyor"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "Bekleyen yorumlar ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "Bekleyen gönderiler ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "Bu forumu ve tüm içeriğini kalıcı olarak silin."
 
@@ -1379,7 +1385,7 @@ msgstr "Sabitlendi"
 msgid "Please check your internet connection and try again."
 msgstr "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "Lütfen sorunu açıklayın..."
 
@@ -1403,7 +1409,7 @@ msgstr "Gönderi forum sunucusuna kaydedilemedi"
 msgid "Post deleted"
 msgstr "Gönderi silindi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "Gönderi limiti"
 
@@ -1443,7 +1449,7 @@ msgstr "Gönderinin sabitlemesi kaldırıldı"
 msgid "Post updated"
 msgstr "Gönderi güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "Gönderi, yorum, oy ve görüntüleme"
 
@@ -1455,11 +1461,11 @@ msgstr "Gönderiler"
 msgid "Posts and comments"
 msgstr "Gönderiler ve yorumlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "Ön moderasyon"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Kullanıcıların ne sıklıkla gönderi yapabileceğini sınırlayarak spam'i önleyin"
 
@@ -1477,7 +1483,7 @@ msgstr "Gizlilik"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "İstem kaydedildi"
 
@@ -1489,11 +1495,11 @@ msgstr "Gönderiyi yayınla"
 msgid "Publishing..."
 msgstr "Yayınlanıyor..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "Kuyruk"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "Hız sınırlama"
 
@@ -1505,12 +1511,12 @@ msgstr "Hesaplarınızı bu sunucuda yeniden bağlayın"
 msgid "Re-register your passkeys on this server"
 msgstr "Bu sunucuda parola anahtarlarınızı yeniden kaydedin"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "Neden:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "Neden: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "Girişe yönlendiriliyor."
 msgid "Reduce interest"
 msgstr "İlgiyi azalt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "Reddet"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Reddedildi"
 
@@ -1551,12 +1557,12 @@ msgstr "24 saat içinde göreceli, aksi halde mutlak"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "Kaldır"
 
@@ -1569,7 +1575,7 @@ msgstr "Erişim kuralını kaldır"
 msgid "Remove access?"
 msgstr "Erişim kaldırılsın mı?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "Yorumu kaldır"
 
@@ -1581,7 +1587,7 @@ msgstr "İlgiyi kaldır"
 msgid "Remove post"
 msgstr "Gönderiyi kaldır"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "Bu forumu kenar çubuğunuzdan kaldırın."
 
@@ -1591,29 +1597,29 @@ msgstr "Bu forumu kenar çubuğunuzdan kaldırın."
 msgid "Removed"
 msgstr "Kaldırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "Yanıtların onaylanması gerekir"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "{0} kullanıcısına yanıt ver..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Bildir"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "Yorumu bildir"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "Gönderiyi bildir"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "Rapor çözümlendi"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "Rapor gönderildi"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "{0} tarafından bildirildi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "Raporlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "İçerik görünür olmadan önce onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "Yeni yorumlar için onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "Yeni gönderiler için onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "Yeni kullanıcılar için onay zorunlu kıl"
 
@@ -1660,20 +1666,20 @@ msgstr "Sıfırla"
 msgid "Reset all settings to default values"
 msgstr "Tüm ayarları varsayılan değerlere sıfırla"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "Çözümlendi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Geri yükle"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "Kısıtlama kaldırıldı"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "Kısıtlamalar"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "Cumartesi"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "Kaydet"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "Değişiklikleri kaydet"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "Skor istemi"
 
@@ -1759,11 +1765,11 @@ msgstr "Ara..."
 msgid "Searching..."
 msgstr "Aranıyor..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Bu yorumu bildirmek için bir neden seçin. Raporlar moderatörler tarafından incelenir."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "Bu gönderiyi bildirmek için bir neden seçin. Raporlar moderatörler tarafından incelenir."
 
@@ -1779,7 +1785,7 @@ msgstr "Erişim kuralı seç"
 msgid "Select account type"
 msgstr "Hesap türü seç"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "Tümünü seç"
 
@@ -1791,7 +1797,7 @@ msgstr "Grup seç"
 msgid "Select layout style"
 msgstr "Düzen stilini seç"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "Hiçbirini seçme"
 
@@ -1841,10 +1847,10 @@ msgstr "Başlangıç ve hedef belirle"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -1875,8 +1881,8 @@ msgstr "Küçük"
 msgid "Spacious"
 msgstr "Geniş"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "Spam"
 
@@ -1888,22 +1894,22 @@ msgstr "Yine de takipte kal!"
 msgid "Subject"
 msgstr "Konu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Yanıt gönder"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "Rapor gönder"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "Gönderiliyor..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "Abone ol"
 
@@ -1920,7 +1926,7 @@ msgstr "{0} aboneliği oluşturuldu"
 msgid "Subscribed to forum"
 msgstr "Foruma abone olundu"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "Abone olunuyor..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "Sistem"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "Etiket"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Etiket promptu"
 
@@ -1964,15 +1970,15 @@ msgstr "Tema"
 msgid "Theme Settings"
 msgstr "Tema ayarları"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "Henüz kaydedilmiş moderasyon eylemi yok"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "Bu forum şu anda yüklenemedi."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Bu forum silinmiş olabilir veya erişimin yok."
 
@@ -1984,7 +1990,7 @@ msgstr "Bu gönderi silinmiş olabilir veya mevcut değil."
 msgid "This post was already submitted"
 msgstr "Bu gönderi zaten gönderildi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Bu işlem yorumu sıradan kullanıcılardan gizleyecek. Moderatörler hâlâ görebilir ve daha sonra geri yükleyebilir."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Bu işlem gönderiyi sıradan kullanıcılardan gizleyecek. Moderatörler hâlâ görebilir ve daha sonra geri yükleyebilir."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Bu işlem \"{0}\" ve tüm gönderilerini ve yorumlarını kalıcı olarak silecek. Bu işlem geri alınamaz."
 
@@ -2089,7 +2095,7 @@ msgstr "Amerika Birleşik Devletleri"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "Sabitlemeyi kaldır"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Aboneliği iptal et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "Forum aboneliğini iptal et"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "Forum aboneliğinden çıkılsın mı?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "Abonelik iptal edildi"
 
@@ -2140,7 +2146,7 @@ msgstr "Kullanıcı yasaklandı"
 msgid "User muted"
 msgstr "Kullanıcı susturuldu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "Değişkenler: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "Tümünü görüntüle"
 msgid "View all notifications"
 msgstr "Tüm bildirimleri görüntüle"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "Yalnızca görüntüleme"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "Şiddet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "Oy ver ve görüntüle"
 
@@ -2207,7 +2213,7 @@ msgstr "Web sitesi bakımda!"
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "Pencere süresi"
 
@@ -2231,7 +2237,7 @@ msgstr "Bu forumda gönderi paylaşma izniniz yok"
 msgid "You have no forums yet."
 msgstr "Henüz forumun yok."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bu forumdan güncelleme almayı bırakacaksınız. İstediğiniz zaman yeniden abone olabilirsiniz."
 

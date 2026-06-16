@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · {0} dhumata"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · Yeroo hin dhumne"
 
@@ -26,32 +26,37 @@ msgstr " · Yeroo hin dhumne"
 msgid " (edited)"
 msgstr " (gulaalame)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# filatame} other {# filataman}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {Fayyadamaa # dhorkame} other {Fayyadamtoota # dhorkaman}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {Fayyadamaa # calliifame} other {Fayyadamtoota # calliifaman}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "Qindaa'inoota {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {Wantii # ka'eera} other {Wantoota # ka'eera}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Wantii # didameera} other {Wantoota # didameera}}"
 
@@ -71,7 +76,7 @@ msgstr "Sa'aatii 24"
 msgid "Absolute (date and time)"
 msgstr "Sirrii (guyyaa fi sa'aatii)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "Seensa"
 
@@ -83,23 +88,23 @@ msgstr "Seensi Dhorkamaadha"
 msgid "Access level"
 msgstr "Sadarkaa seensaa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "Sadarkaan seensaa haaromfame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "Bulchiinsa Seensaa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "Seensi haqame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "Seensi {subjectName} qabameera"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "Akkaawuntii"
 
@@ -149,7 +154,7 @@ msgstr "Faayilii dabali"
 msgid "Add new account"
 msgstr "Akkaawuntii haaraa dabali"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "Seera dabaluu"
 
@@ -165,11 +170,12 @@ msgstr "Garee/appii dabali"
 msgid "Add to existing notifications"
 msgstr "Beeksisaalee jiranitti dabali"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Mul'ata dabali"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "Odeeffannoo dabalataa (filannoo)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Mul'ataa fi caasaa fedhii kee waliin haa wal simu sirreessi."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "Tarkaanfilee AI maxxansaalee irratti"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "Hunda"
 
@@ -196,7 +202,7 @@ msgstr "Hunda"
 msgid "All forums"
 msgstr "Marii hunda"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "Maxxansaaleefi yaadawwan hundi qoratamaniiru"
 
@@ -212,16 +218,16 @@ msgstr "Dogoggorri uumame"
 msgid "An unexpected error occurred"
 msgstr "Dogoggorri hin eegamne uumame"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "Haala dabalataa kamiiyyuu..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "Mirkaneessi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Yaada kana haquu mirkanaa'oo dha? Kun deebii hundi haqama. Tarkaanfiin kun deebi'uu hin danda'u."
 
@@ -237,7 +243,7 @@ msgstr "Bahuu mirkanaa'oo dha? Akkaawuntii kee fayyadamuuf deebitee seenuu qabda
 msgid "Asc"
 msgstr "Olka'aa"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Faayiloota deebii hidhi"
@@ -260,10 +266,10 @@ msgstr "Duuba"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "Gara mariitti deebi'i"
 
@@ -277,28 +283,28 @@ msgstr "Gara mariiwwaniitti deebi'i"
 msgid "Back to home"
 msgstr "Gara mana deebi’uu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "Dhorki"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Barreessaa dhorki"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "dhorkamee"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "Bannerii"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "Banneriin haqame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "Banneriin haaromfame"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "Fedhii cimsi"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "{0}n"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "{0}n"
 
@@ -326,16 +332,16 @@ msgstr "{0}n"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Haquu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "Sirreessa dhiisuu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Deebii haquu"
@@ -374,7 +380,7 @@ msgstr "Afaan filadhu"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "Cilliisi"
 
@@ -433,7 +439,7 @@ msgstr "Yaadni mirkanaa'e"
 msgid "Comment deleted"
 msgstr "Yaadni haqame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "Daangaa yaada"
 
@@ -453,7 +459,7 @@ msgstr "Yaadni deebi'e"
 msgid "Comment updated"
 msgstr "Yaadni haaromfame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "Yaada, sagalee, fi mul'isi"
 
@@ -462,8 +468,8 @@ msgstr "Yaada, sagalee, fi mul'isi"
 msgid "Compact"
 msgstr "Compact"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "Mirkaneessi"
 
@@ -472,7 +478,7 @@ msgstr "Mirkaneessi"
 msgid "Content"
 msgstr "Qabiyyee"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "Qabiyyeen fayyadamtoota daangaa gadii akkawu mirkanaa'uu qaba"
 
@@ -492,7 +498,7 @@ msgstr "Itti fufi"
 msgid "Continue with {label}"
 msgstr "{label} waliin itti fufi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "Eenyu marii kana arguu fi waliin walqunnamuu danda'u to'adhu"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "Marii uumi"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "Mataa keetiin"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "Akkaataa dukkanaa"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "Idilee"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "Akkaawuntii idilee"
 
@@ -560,27 +566,27 @@ msgstr "Akkaawuntii idilee"
 msgid "Default AI account"
 msgstr "Akkaawuntii AI idilee"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Haqi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "Yaada haqi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "Marii haqi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "Marii Haqi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "Marii haqu?"
 
@@ -596,7 +602,7 @@ msgstr "Akkaawuntii kee sarvaraa durii irraa haqi"
 msgid "Desc"
 msgstr "Gadii"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "Bal'inaan (barbaachisaa)"
 
@@ -619,12 +625,12 @@ msgstr "Weeb biraawsarii irraa argi"
 msgid "Direction"
 msgstr "Kallatti"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "Cufame"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "Dhiisi"
 
@@ -644,12 +650,12 @@ msgstr "Buufadhu"
 msgid "Dyslexia-friendly"
 msgstr "Dyslexiyaa Walitti Dhufu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Sirreessi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "Maqaa sirreessi"
 
@@ -662,7 +668,7 @@ msgstr "Maxxansa sirreessi"
 msgid "Email code"
 msgstr "Koodii imeelii"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "Barreeffama dabballee galchi (markdown deeggarama)..."
 
@@ -674,7 +680,7 @@ msgstr "Koodii imeelii kee irraa galchi"
 msgid "Enter your authenticator code"
 msgstr "Koodii mirkaneessaa kee galchi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "ID Iddoo"
 
@@ -694,14 +700,14 @@ msgstr "Akkaawuntii dabaluu hin dandeenye"
 msgid "Failed to add tag"
 msgstr "Mallattoo dabaluu hin dandeenye"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "Fedha sirreessuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Wantoota mirkaneessuu hin dandeenye"
 
@@ -709,7 +715,7 @@ msgstr "Wantoota mirkaneessuu hin dandeenye"
 msgid "Failed to ban user"
 msgstr "Fayyadamaa dhorkuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Fayyadamtoota dhorkuu hin dandeenye"
 
@@ -717,7 +723,7 @@ msgstr "Fayyadamtoota dhorkuu hin dandeenye"
 msgid "Failed to get RSS token"
 msgstr "Mallattoo RSS argachuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "Seerota dameedhaa fe'achuu hin dandeenye"
 
@@ -725,7 +731,7 @@ msgstr "Seerota dameedhaa fe'achuu hin dandeenye"
 msgid "Failed to load forum"
 msgstr "Foramii fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "Sirreeffama foramii fe'achuu hin dandeenye"
 
@@ -733,19 +739,19 @@ msgstr "Sirreeffama foramii fe'achuu hin dandeenye"
 msgid "Failed to load forums"
 msgstr "Foramii fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "Garee fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "Galmee toattaa fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Tarree toattaa fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "Sirreeffama toattaa fe'achuu hin dandeenye"
 
@@ -753,11 +759,11 @@ msgstr "Sirreeffama toattaa fe'achuu hin dandeenye"
 msgid "Failed to load recommended forums"
 msgstr "Foramii leellisaman fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "Gabaasota fe'achuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "Daangaalee fe'achuu hin dandeenye"
 
@@ -765,15 +771,15 @@ msgstr "Daangaalee fe'achuu hin dandeenye"
 msgid "Failed to mute user"
 msgstr "Fayyadamaa cal'isiisuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "Fayyadamtoota cal'isiisuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Wantoota didanii fudhachuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "Carraa fudhatamuu haquu hin dandeenye"
 
@@ -781,32 +787,32 @@ msgstr "Carraa fudhatamuu haquu hin dandeenye"
 msgid "Failed to remove account"
 msgstr "Akkaawuntii haquu hin dandeenye"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Fedha haquu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Daangaa haquu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "Foramii moggaasuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "Boorsa deebii idilee taasisuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "Murtoo gabaasaa kennuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Sirreeffama toattaa olkaa'uu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "Boorsa olkaa'uu hin dandeenye"
 
@@ -814,7 +820,7 @@ msgstr "Boorsa olkaa'uu hin dandeenye"
 msgid "Failed to search forums"
 msgstr "Foramii barbaaduu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "Fayyadamtoota barbaaduu hin dandeenye"
 
@@ -822,7 +828,7 @@ msgstr "Fayyadamtoota barbaaduu hin dandeenye"
 msgid "Failed to send verification code"
 msgstr "Koodii mirkanaa ergamuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "Sadarkaa carraa fudhatamuu kaa'uu hin dandeenye"
 
@@ -832,20 +838,20 @@ msgstr "Sadarkaa carraa fudhatamuu kaa'uu hin dandeenye"
 msgid "Failed to subscribe"
 msgstr "Galmaa'uu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Galmee dhaabuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "Sadarkaa carraa fudhatamuu toattaachuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "Sirreeffama AI toattaachuu hin dandeenye"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "Dabballaa toattaachuu hin dandeenye"
 
@@ -853,7 +859,7 @@ msgstr "Dabballaa toattaachuu hin dandeenye"
 msgid "Failed to update category"
 msgstr "Ramaddii toattaachuu hin dandeenye"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "Mallattoodhaan filatame:"
 
@@ -862,7 +868,7 @@ msgstr "Mallattoodhaan filatame:"
 msgid "Find forums"
 msgstr "Foramiiwwan argi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Maxxansa quba"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "Bilisa"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Foramii haqame"
 msgid "Forum is no longer available"
 msgstr "Foramichi kana booda hin argamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "Maqaan foramii barbaachisaadha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Foramiin hin argamne"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "Foramii moggaafame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "Sirreeffama foramii kutaalee"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Foramiin hin argamne"
 
@@ -971,13 +977,13 @@ msgstr "Fuula duraa deemi"
 msgid "Group"
 msgstr "Garee"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "Mararsiisummaa"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "Haasaa jibbaa"
 
@@ -996,7 +1002,7 @@ msgstr "Mana"
 msgid "Hot"
 msgstr "Ho'aa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "Eenyummaa"
 
@@ -1016,7 +1022,7 @@ msgstr "Fedha dabalame"
 msgid "Interest reduced"
 msgstr "Fedha hir'isame"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Fedha haqame"
@@ -1068,7 +1074,7 @@ msgstr "Cufa"
 msgid "Locked"
 msgstr "Cufame"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "Galmee"
 
@@ -1115,27 +1121,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metric"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "Odeeffannoo dogoggoraa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Toattaachi, maxxansi, yaada kenni, sagalee kenni, fi ilaali"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "Toattaachuu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "Tarreen toattaachuu duwwaa dha"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Kutaalee toattaachuu"
 
@@ -1143,28 +1149,28 @@ msgstr "Kutaalee toattaachuu"
 msgid "Monday"
 msgstr "Wiixata"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "Cal'isiisi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Barreessaa cal'isiisi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "calliifame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "Maqaa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "Maqaan arfiilee < ykn > qabaachuu hin danda'u"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "Maqaan arfiilee 1000 ykn isaa gadi ta'uu qaba"
 
@@ -1184,15 +1190,15 @@ msgstr "Marii haaraa"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "Maxxansa haaraa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "Mata duree haaraan mirkanaa'uu qaba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "Daangaa fayyadamtuu haaraa:"
 
@@ -1200,11 +1206,11 @@ msgstr "Daangaa fayyadamtuu haaraa:"
 msgid "Next image"
 msgstr "Suuraa itti aanu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "Gabaasni {statusFilter} hin argamne"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "Itti seenuun hin jiru"
 
@@ -1225,7 +1231,7 @@ msgstr "Mariin hin argamne"
 msgid "No groups available"
 msgstr "Garreen hin jiran"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "Sochiin to'annaa hin jiru"
 
@@ -1241,11 +1247,11 @@ msgstr "Hanga ammaatti marii kana keessa maxxansi hin jiru"
 msgid "No profile"
 msgstr "Piroofaayiliin hin jiru"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "Gabaasonni hin jiran"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "Daangeessuun hin jiru"
 
@@ -1266,7 +1272,7 @@ msgstr "Hanga ammaatti galmeen mata duree hin jiru — beeksisa itti aanu booda 
 msgid "No users found"
 msgstr "Fayyadamtoonni hin argamne"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "Fayyadamtoonni callifamanii ykn dhorkaman hin jiran"
 
@@ -1286,8 +1292,8 @@ msgstr "Idilee"
 msgid "Notifications"
 msgstr "Beeksisaalee"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "Ala mata duree"
 
@@ -1317,13 +1323,13 @@ msgstr "Menyuu naviigeeshinii bani"
 msgid "Open theme settings"
 msgstr "Qindaa'inoota mata duree bani"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Bannarii markdown filannoo gubbaa marii kee irratti mul'atu."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "Biraa"
 
@@ -1345,7 +1351,7 @@ msgstr "Passkey-wwan"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "Eegaa jira"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "Mirkaneeffannaa eegaa jira"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "Yaadawwan eegaa jiran ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "Maxxansoonni eegaa jiran ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "Marii kana fi qabiyyee isaa hunda barabaraan haqi."
 
@@ -1379,7 +1385,7 @@ msgstr "Maxxanfame"
 msgid "Please check your internet connection and try again."
 msgstr "Maaloo walqunnamtii intarneetii kee mirkaneeffadhuutii irra deebi'ii yaali."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "Maaloo dhimmicha ibsi..."
 
@@ -1403,7 +1409,7 @@ msgstr "Maxxansa kana fuula sarvera foramii irratti olkaa'uun hin danda'amne"
 msgid "Post deleted"
 msgstr "Maxxansi haqame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "Daangaa maxxansaa"
 
@@ -1443,7 +1449,7 @@ msgstr "Maxxansi hin maxxanfamne"
 msgid "Post updated"
 msgstr "Maxxansi haaromfame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "Maxxansuu, yaada kennuu, sagalee kennuu, fi ilaaluu"
 
@@ -1455,11 +1461,11 @@ msgstr "Maxxansoota"
 msgid "Posts and comments"
 msgstr "Maxxansoota fi yaadawwan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "To'annaa duraa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Yeroo meeqa fayyadamtoonni maxxansuu danda'an daangeessuudhaan spam ittisi"
 
@@ -1477,7 +1483,7 @@ msgstr "Iccitii"
 msgid "Profile"
 msgstr "Piroofaayilii"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "Gaaffii olkaa'ame"
 
@@ -1489,11 +1495,11 @@ msgstr "Maxxansa maxxansi"
 msgid "Publishing..."
 msgstr "Maxxansaa jira..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "Tarree"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "Daangeessuu Saffisaa"
 
@@ -1505,12 +1511,12 @@ msgstr "Akkaawuntiiwan kee sarvarri kana irratti irra deebi'ii walitti hidhi"
 msgid "Re-register your passkeys on this server"
 msgstr "Furtuuwwan seensaa kee sajoo kana irratti irra deebi'ii galmeessi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "Sababa:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "Sababa: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "Gara galmeetti deebi'aa jira."
 msgid "Reduce interest"
 msgstr "Dantaa hir'isi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "Didi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Didame"
 
@@ -1551,12 +1557,12 @@ msgstr "Sa'aatii 24 keessatti walqabataa, kanaa alatti guutuu"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "Haqi"
 
@@ -1569,7 +1575,7 @@ msgstr "Seera itti seenumsaa haqi"
 msgid "Remove access?"
 msgstr "Itti seenumsa haquuf?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "Yaada haqi"
 
@@ -1581,7 +1587,7 @@ msgstr "Dantaa haqi"
 msgid "Remove post"
 msgstr "Maxxansa haqi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "Marii kana sidebar kee irraa haqi."
 
@@ -1591,29 +1597,29 @@ msgstr "Marii kana sidebar kee irraa haqi."
 msgid "Removed"
 msgstr "Haqame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "Deebiwwan mirkanaa'uu qabu"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "{0} f deebii kenni..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Gabaasa"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "Yaada gabaasi"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "Maxxansa gabaasi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "Gabaasni furamee"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "Gabaasni dhiyaate"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "{0} n gabaafame"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "Gabaasawwan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "Qabiyyeen mul'achuu dura mirkaneeffannaa barbaachisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "Yaadawwan haaraaf mirkaneeffannaa barbaachisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "Maxxansoota haaraaf mirkaneeffannaa barbaachisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "Fayyadamtoota haaraaf mirkaneeffannaa barbaachisi"
 
@@ -1660,20 +1666,20 @@ msgstr "Haaromsi"
 msgid "Reset all settings to default values"
 msgstr "Qindaa'inoota hunda gara durtiitti deebisi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "Furamee"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Deebisi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "Daangeessuu haqame"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "Daangeessuuwwan"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "Sanbata"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "Olkaa'i"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "Jijjiiramoota olkaa'i"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "Olkaa'aa jira..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "Gaaffii qabxii"
 
@@ -1759,11 +1765,11 @@ msgstr "Barbaadi..."
 msgid "Searching..."
 msgstr "Barbaadaa jira..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Yaada kana gabaasuuf sababa fili. Gabaasonni to'attootaan gamaaggamamu."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "Maxxansa kana gabaasuuf sababa fili. Gabaasonni to'attootaan gamaaggamamu."
 
@@ -1779,7 +1785,7 @@ msgstr "Seera itti seenumsaa fili"
 msgid "Select account type"
 msgstr "Gosa akkaawuntii fili"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "Hunda fili"
 
@@ -1791,7 +1797,7 @@ msgstr "Garee filadhu"
 msgid "Select layout style"
 msgstr "Akkaataa qindaa'inaa filadhu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "Tokko illee hin filatamne"
 
@@ -1841,10 +1847,10 @@ msgstr "Madda fi galma qindeessi"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "Qindaa'inoota"
 
@@ -1875,8 +1881,8 @@ msgstr "Xiqqaa"
 msgid "Spacious"
 msgstr "Bal'aa"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "Hin barbaachisne"
 
@@ -1888,22 +1894,22 @@ msgstr "Garuu nu hordofa!"
 msgid "Subject"
 msgstr "Mata duree"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Deebii galchaa"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "Gabaasa galchaa"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "Galchaa jira..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "Galaa'i"
 
@@ -1920,7 +1926,7 @@ msgstr "{0} galaa'eera"
 msgid "Subscribed to forum"
 msgstr "Manduree galaa'eera"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "Galaa'aa jira..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "Sirna"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "Tag"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Gaaffii Tag"
 
@@ -1964,15 +1970,15 @@ msgstr "Akeeka"
 msgid "Theme Settings"
 msgstr "Qindaa'inoota Akeeka"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "Tarkaanfilee qajeelchaa galmeessamoo ammallee hin jiran"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "Mandureen kun yeroo ammaa hin fe'amu."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Mandureen kun haqamuu mala ykn ittigaltee qabaachuu dhabuu mala."
 
@@ -1984,7 +1990,7 @@ msgstr "Postiin kun haqamuu mala ykn hin jiru."
 msgid "This post was already submitted"
 msgstr "Maxxansi kun duraan ergameera"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Kun yaada fayyadamtoota dhaabbii irraa dhoksa. Qajeelchotuu ammallee arguu fi boodaa deebisanii sirreessuu danda'u."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Kun postii fayyadamtoota dhaabbii irraa dhoksa. Qajeelchotuu ammallee arguu fi boodaa deebisanii sirreessuu danda'u."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Kun \"{0}\" fi postii fi yaadota hunda isaa bara baraan haqa. Tarkaanfiin kun deebi'ee hin sirreessamu."
 
@@ -2089,7 +2095,7 @@ msgstr "Yunaaytid Isteeths"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "Hin beekamu"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "Sutachuu kaasi"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Galaa'uu kaasi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "Manduree irraa galaa'uu kaasi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "Waltajjii kana irraa of haquu?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "Galaa'uun kaafameera"
 
@@ -2140,7 +2146,7 @@ msgstr "Fayyadamaan dhorkamee jira"
 msgid "User muted"
 msgstr "Fayyadamaan calliifame"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "Jijjiirraa: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "Hunda daawwadhu"
 msgid "View all notifications"
 msgstr "Beeksisa hunda daawwadhu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "Daawwannaa qofa"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "Jeequmsa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "Sagalee kennii daawwadhu"
 
@@ -2207,7 +2213,7 @@ msgstr "Saayitiin sirreeffama jala jira!"
 msgid "Wednesday"
 msgstr "Roobii"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "Yeroo turtii foddaa"
 
@@ -2231,7 +2237,7 @@ msgstr "Foramicha kana keessatti maxxansuuf hayyama hin qabdu"
 msgid "You have no forums yet."
 msgstr "Mandureewwan ammallee hin qabdu."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Waltajjii kana irraa odeeffannoo haaraa argachuu ni dhaabda. Yeroo kamiyyuu deebitee galmaa'uu ni dandeessa."
 

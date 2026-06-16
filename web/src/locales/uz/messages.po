@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · {0} muddati tugaydi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · Doimiy"
 
@@ -26,32 +26,37 @@ msgstr " · Doimiy"
 msgid " (edited)"
 msgstr " (tahrirlangan)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# tanlangan} other {# tanlangan}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# foydalanuvchi banlandi} other {# foydalanuvchi banlandi}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# foydalanuvchi jim qilindi} other {# foydalanuvchi jim qilindi}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "{0} sozlamalari"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# element tasdiqlandi} other {# element tasdiqlandi}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# element rad etildi} other {# element rad etildi}}"
 
@@ -71,7 +76,7 @@ msgstr "24 soat"
 msgid "Absolute (date and time)"
 msgstr "Aniq (sana va vaqt)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "Kirish"
 
@@ -83,23 +88,23 @@ msgstr "Kirish taqiqlangan"
 msgid "Access level"
 msgstr "Kirish darajasi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "Kirish darajasi yangilandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "Kirishni boshqarish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "Kirish olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} uchun kirish oʻrnatildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "Hisob"
 
@@ -149,7 +154,7 @@ msgstr "Fayllar qoʻshish"
 msgid "Add new account"
 msgstr "Yangi hisob qoʻshish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "Qoida qoʻshish"
 
@@ -165,11 +170,12 @@ msgstr "Jamoa/ilova qoʻshish"
 msgid "Add to existing notifications"
 msgstr "Mavjud bildirishnomalarga qoʻshish"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Koʻrinish qoʻshish"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "Qoʻshimcha tafsilotlar (ixtiyoriy)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Tashqi koʻrinish va tartibni xohishingizga moslang."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "Postlarga AI amallari"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "Hammasi"
 
@@ -196,7 +202,7 @@ msgstr "Hammasi"
 msgid "All forums"
 msgstr "Barcha forumlar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "Barcha postlar va izohlar koʻrib chiqildi"
 
@@ -212,16 +218,16 @@ msgstr "Xatolik yuz berdi"
 msgid "An unexpected error occurred"
 msgstr "Kutilmagan xatolik yuz berdi"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "Qoʻshimcha kontekst..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "Tasdiqlash"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Bu izohni oʻchirmoqchimisiz? Bu barcha javoblarni ham oʻchiradi. Bu amalni qaytarib boʻlmaydi."
 
@@ -237,7 +243,7 @@ msgstr "Chiqishga ishonchingiz komilmi? Hisobingizga kirish uchun yana kirishing
 msgid "Asc"
 msgstr "Oʻsib"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "Javob fayllarini biriktirish"
@@ -260,10 +266,10 @@ msgstr "Orqaga"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "Forumga qaytish"
 
@@ -277,28 +283,28 @@ msgstr "Forumlarga qaytish"
 msgid "Back to home"
 msgstr "Bosh sahifaga qaytish"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "Bloklash"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "Muallifni bloklash"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "banlangan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "Banner olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "Banner yangilandi"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "Qiziqishni kuchaytirish"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "{0} tomonidan"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "{0} tomonidan"
 
@@ -326,16 +332,16 @@ msgstr "{0} tomonidan"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "Bekor qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "Tahrirni bekor qilish"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "Javobni bekor qilish"
@@ -374,7 +380,7 @@ msgstr "Tilni tanlang"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "Tozalash"
 
@@ -433,7 +439,7 @@ msgstr "Izoh tasdiqlandi"
 msgid "Comment deleted"
 msgstr "Izoh oʻchirildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "Izoh chegarasi"
 
@@ -453,7 +459,7 @@ msgstr "Izoh tiklandi"
 msgid "Comment updated"
 msgstr "Izoh yangilandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "Izoh, ovoz va koʻrish"
 
@@ -462,8 +468,8 @@ msgstr "Izoh, ovoz va koʻrish"
 msgid "Compact"
 msgstr "Ixcham"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "Tasdiqlash"
 
@@ -472,7 +478,7 @@ msgstr "Tasdiqlash"
 msgid "Content"
 msgstr "Mazmun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "Chegaradan past foydalanuvchilar mazmuni tasdiqlanishi kerak"
 
@@ -492,7 +498,7 @@ msgstr "Davom etish"
 msgid "Continue with {label}"
 msgstr "{label} bilan davom etish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "Bu forumni kim koʻrishi va u bilan oʻzaro ishlashini boshqaring"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "Forum yaratish"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "Maxsus"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "Qorongʻi rejim"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "Standart"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "Standart hisob"
 
@@ -560,27 +566,27 @@ msgstr "Standart hisob"
 msgid "Default AI account"
 msgstr "Standart AI hisobi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Oʻchirish"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "Izohni oʻchirish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "Forumni oʻchirish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "Forumni oʻchirish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "Forum oʻchirilsinmi?"
 
@@ -596,7 +602,7 @@ msgstr "Eski serverdagi hisobingizni o'chiring"
 msgid "Desc"
 msgstr "Pasayuvchi"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "Tafsilotlar (talab qilinadi)"
 
@@ -619,12 +625,12 @@ msgstr "Veb-brauzerdan aniqlash"
 msgid "Direction"
 msgstr "Yoʻnalish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "Oʻchirilgan"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "Bekor qilish"
 
@@ -644,12 +650,12 @@ msgstr "Yuklab olish"
 msgid "Dyslexia-friendly"
 msgstr "Disleksiyaga moslashtirilgan"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "Tahrirlash"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "Nomni tahrirlash"
 
@@ -662,7 +668,7 @@ msgstr "Postni tahrirlash"
 msgid "Email code"
 msgstr "Email kodi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "Banner matnini kiriting (markdown qoʻllanadi)..."
 
@@ -674,7 +680,7 @@ msgstr "Elektron pochtangizdagi kodni kiriting"
 msgid "Enter your authenticator code"
 msgstr "Autentifikator kodingizni kiriting"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "Obyekt ID"
 
@@ -694,14 +700,14 @@ msgstr "Hisob qoʻshib boʻlmadi"
 msgid "Failed to add tag"
 msgstr "Yorliq qoʻshib boʻlmadi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "Qiziqishni sozlab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Elementlarni tasdiqlab boʻlmadi"
 
@@ -709,7 +715,7 @@ msgstr "Elementlarni tasdiqlab boʻlmadi"
 msgid "Failed to ban user"
 msgstr "Foydalanuvchini taqiqlab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Foydalanuvchilarni taqiqlab boʻlmadi"
 
@@ -717,7 +723,7 @@ msgstr "Foydalanuvchilarni taqiqlab boʻlmadi"
 msgid "Failed to get RSS token"
 msgstr "RSS tokenini olib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "Kirish qoidalarini yuklab boʻlmadi"
 
@@ -725,7 +731,7 @@ msgstr "Kirish qoidalarini yuklab boʻlmadi"
 msgid "Failed to load forum"
 msgstr "Forumni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "Forum sozlamalarini yuklab boʻlmadi"
 
@@ -733,19 +739,19 @@ msgstr "Forum sozlamalarini yuklab boʻlmadi"
 msgid "Failed to load forums"
 msgstr "Forumlarni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "Guruhlarni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "Moderatsiya jurnalini yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Moderatsiya navbatini yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "Moderatsiya sozlamalarini yuklab boʻlmadi"
 
@@ -753,11 +759,11 @@ msgstr "Moderatsiya sozlamalarini yuklab boʻlmadi"
 msgid "Failed to load recommended forums"
 msgstr "Tavsiya etilgan forumlarni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "Hisobotlarni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "Cheklovlarni yuklab boʻlmadi"
 
@@ -765,15 +771,15 @@ msgstr "Cheklovlarni yuklab boʻlmadi"
 msgid "Failed to mute user"
 msgstr "Foydalanuvchini ovozsizlantirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "Foydalanuvchilarni ovozsizlantirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Elementlarni rad etib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "Kirishni olib tashlab boʻlmadi"
 
@@ -781,32 +787,32 @@ msgstr "Kirishni olib tashlab boʻlmadi"
 msgid "Failed to remove account"
 msgstr "Hisobni olib tashlab boʻlmadi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Qiziqishni olib tashlab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Cheklovni olib tashlab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "Forum nomini oʻzgartirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "Soʻrovni tiklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "Hisobotni hal qilib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Moderatsiya sozlamalarini saqlab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "Soʻrovni saqlab boʻlmadi"
 
@@ -814,7 +820,7 @@ msgstr "Soʻrovni saqlab boʻlmadi"
 msgid "Failed to search forums"
 msgstr "Forumlarni qidirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "Foydalanuvchilarni qidirib boʻlmadi"
 
@@ -822,7 +828,7 @@ msgstr "Foydalanuvchilarni qidirib boʻlmadi"
 msgid "Failed to send verification code"
 msgstr "Tasdiqlash kodini yuborib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "Kirish darajasini oʻrnatib boʻlmadi"
 
@@ -832,20 +838,20 @@ msgstr "Kirish darajasini oʻrnatib boʻlmadi"
 msgid "Failed to subscribe"
 msgstr "Obuna boʻlib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Obunani bekor qilib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "Kirish darajasini yangilab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "AI sozlamalarini yangilab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "Bannerni yangilab boʻlmadi"
 
@@ -853,7 +859,7 @@ msgstr "Bannerni yangilab boʻlmadi"
 msgid "Failed to update category"
 msgstr "Toifani yangilab boʻlmadi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "Yorliq boʻyicha filtrlangan:"
 
@@ -862,7 +868,7 @@ msgstr "Yorliq boʻyicha filtrlangan:"
 msgid "Find forums"
 msgstr "Forumlarni topish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Barmoq izi"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "Suzuvchi"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Forum oʻchirildi"
 msgid "Forum is no longer available"
 msgstr "Forum endi mavjud emas"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "Forum nomi talab qilinadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Forum topilmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "Forum nomi oʻzgartirildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "Forum sozlamalari boʻlimlari"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Forum mavjud emas"
 
@@ -971,13 +977,13 @@ msgstr "Oldingi sahifaga oʻtish"
 msgid "Group"
 msgstr "Guruh"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "Tahqir"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "Nafrat nutqi"
 
@@ -996,7 +1002,7 @@ msgstr "Bosh sahifa"
 msgid "Hot"
 msgstr "Qaynoq"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "Identifikatsiya"
 
@@ -1016,7 +1022,7 @@ msgstr "Qiziqish kuchaytirildi"
 msgid "Interest reduced"
 msgstr "Qiziqish kamaytirildi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Qiziqish olib tashlandi"
@@ -1068,7 +1074,7 @@ msgstr "Qulflash"
 msgid "Locked"
 msgstr "Qulflangan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "Jurnal"
 
@@ -1115,27 +1121,27 @@ msgstr "Menyu"
 msgid "Metric"
 msgstr "Metrik"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "Notoʻgʻri maʼlumot"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderatsiya, post, izoh, ovoz va koʻrish"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "Moderatsiya"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "Moderatsiya navbati boʻsh"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Moderatsiya boʻlimlari"
 
@@ -1143,28 +1149,28 @@ msgstr "Moderatsiya boʻlimlari"
 msgid "Monday"
 msgstr "Dushanba"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "Ovozsizlantirish"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "Muallifni ovozsizlantirish"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "jim qilingan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "Nomi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "Nom < yoki > belgilarini oʻz ichiga olishi mumkin emas"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "Nom 1000 ta belgidan oshmasligi kerak"
 
@@ -1184,15 +1190,15 @@ msgstr "Yangi forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "Yangi post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "Yangi mavzular tasdiqlanishi kerak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "Yangi foydalanuvchi chegarasi:"
 
@@ -1200,11 +1206,11 @@ msgstr "Yangi foydalanuvchi chegarasi:"
 msgid "Next image"
 msgstr "Keyingi rasm"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} hisobotlari topilmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "Ruxsat yoʻq"
 
@@ -1225,7 +1231,7 @@ msgstr "Forumlar topilmadi"
 msgid "No groups available"
 msgstr "Mavjud guruhlar yoʻq"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "Moderatsiya faolligi yoʻq"
 
@@ -1241,11 +1247,11 @@ msgstr "Bu forumda hozircha postlar yoʻq"
 msgid "No profile"
 msgstr "Profil yoʻq"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "Hisobotlar yoʻq"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "Cheklovlar yoʻq"
 
@@ -1266,7 +1272,7 @@ msgstr "Hozircha mavzu yozuvi yoʻq — keyingi bildirishnomadan keyin qayta uri
 msgid "No users found"
 msgstr "Foydalanuvchilar topilmadi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "Hech bir foydalanuvchi ovozsiz yoki bloklanmagan"
 
@@ -1286,8 +1292,8 @@ msgstr "Oddiy"
 msgid "Notifications"
 msgstr "Bildirishnomalar"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "Mavzudan tashqari"
 
@@ -1317,13 +1323,13 @@ msgstr "Navigatsiya menyusini ochish"
 msgid "Open theme settings"
 msgstr "Mavzu sozlamalarini ochish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Forumingiz tepasida koʻrsatiladigan ixtiyoriy markdown banner."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "Boshqa"
 
@@ -1345,7 +1351,7 @@ msgstr "Passkey’lar"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "Kutilmoqda"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "Tasdiqlash kutilmoqda"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "Kutilayotgan izohlar ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "Kutilayotgan postlar ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "Bu forum va uning barcha tarkibini butunlay oʻchirish."
 
@@ -1379,7 +1385,7 @@ msgstr "Mahkamlangan"
 msgid "Please check your internet connection and try again."
 msgstr "Internet aloqangizni tekshiring va qayta urinib ko‘ring."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "Iltimos, muammoni tasvirlab bering..."
 
@@ -1403,7 +1409,7 @@ msgstr "Postni forum serverida saqlab bo'lmadi"
 msgid "Post deleted"
 msgstr "Post oʻchirildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "Post chegarasi"
 
@@ -1443,7 +1449,7 @@ msgstr "Post mahkamlash bekor qilindi"
 msgid "Post updated"
 msgstr "Post yangilandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "Post yozish, izohlash, ovoz berish va koʻrish"
 
@@ -1455,11 +1461,11 @@ msgstr "Postlar"
 msgid "Posts and comments"
 msgstr "Postlar va izohlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "Oldindan moderatsiya"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Foydalanuvchilarning post yozish chastotasini cheklash orqali spamning oldini olish"
 
@@ -1477,7 +1483,7 @@ msgstr "Maxfiylik"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "Soʻrov saqlandi"
 
@@ -1489,11 +1495,11 @@ msgstr "Postni nashr etish"
 msgid "Publishing..."
 msgstr "Nashr etilmoqda..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "Navbat"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "Tezlik chegarasi"
 
@@ -1505,12 +1511,12 @@ msgstr "Bu serverdagi hisoblaringizni qayta ulang"
 msgid "Re-register your passkeys on this server"
 msgstr "Ushbu serverda kirish kalitlaringizni qayta ro'yxatdan o'tkazing"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "Sabab:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "Sabab: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "Kirish sahifasiga yoʻnaltirilmoqda."
 msgid "Reduce interest"
 msgstr "Qiziqishni kamaytirish"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "Rad etish"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Rad etildi"
 
@@ -1551,12 +1557,12 @@ msgstr "24 soat ichida nisbiy, aks holda mutlaq"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "Olib tashlash"
 
@@ -1569,7 +1575,7 @@ msgstr "Kirish qoidasini olib tashlash"
 msgid "Remove access?"
 msgstr "Kirishni olib tashlasinmi?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "Izohni olib tashlash"
 
@@ -1581,7 +1587,7 @@ msgstr "Qiziqishni olib tashlash"
 msgid "Remove post"
 msgstr "Postni olib tashlash"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "Bu forumni yon paneldan olib tashlash."
 
@@ -1591,29 +1597,29 @@ msgstr "Bu forumni yon paneldan olib tashlash."
 msgid "Removed"
 msgstr "Olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "Javoblar tasdiqlanishi kerak"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "{0} ga javob..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "Hisobot"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "Izoh haqida hisobot"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "Post haqida hisobot"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "Hisobot hal qilindi"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "Hisobot yuborildi"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "{0} tomonidan hisobot berilgan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "Hisobotlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "Tarkib koʻrinishidan oldin tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "Yangi izohlar uchun tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "Yangi postlar uchun tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "Yangi foydalanuvchilar uchun tasdiqlash talab qilish"
 
@@ -1660,20 +1666,20 @@ msgstr "Tiklash"
 msgid "Reset all settings to default values"
 msgstr "Barcha sozlamalarni standart qiymatlarga qaytarish"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "Hal qilindi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "Tiklash"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "Cheklov olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "Cheklovlar"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "Shanba"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "Saqlash"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "Oʻzgarishlarni saqlash"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "Saqlanmoqda..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "Hisob uchun soʻrov"
 
@@ -1759,11 +1765,11 @@ msgstr "Qidirish..."
 msgid "Searching..."
 msgstr "Qidirilmoqda..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Bu izoh haqida hisobot berish sababini tanlang. Hisobotlarni moderatorlar koʻrib chiqadi."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "Bu post haqida hisobot berish sababini tanlang. Hisobotlarni moderatorlar koʻrib chiqadi."
 
@@ -1779,7 +1785,7 @@ msgstr "Kirish qoidasini tanlash"
 msgid "Select account type"
 msgstr "Hisob turini tanlash"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "Hammasini tanlash"
 
@@ -1791,7 +1797,7 @@ msgstr "Guruhni tanlang"
 msgid "Select layout style"
 msgstr "Joylashuv uslubini tanlang"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "Hech birini tanlamang"
 
@@ -1841,10 +1847,10 @@ msgstr "Boshlang‘ich va manzilni belgilash"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "Sozlamalar"
 
@@ -1875,8 +1881,8 @@ msgstr "Kichik"
 msgid "Spacious"
 msgstr "Keng"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "Spam"
 
@@ -1888,22 +1894,22 @@ msgstr "Lekin kuzatishda davom eting!"
 msgid "Subject"
 msgstr "Mavzu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "Javob yuborish"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "Hisobotni yuborish"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "Yuborilmoqda..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "Obuna boʻlish"
 
@@ -1920,7 +1926,7 @@ msgstr "{0} ga obuna boʻlindi"
 msgid "Subscribed to forum"
 msgstr "Forumga obuna boʻlindi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "Obuna boʻlinmoqda..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "Tizim"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "Teg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Teg soʻrovi"
 
@@ -1964,15 +1970,15 @@ msgstr "Mavzu"
 msgid "Theme Settings"
 msgstr "Mavzu sozlamalari"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "Hali hech qanday moderatsiya amallari qayd etilmagan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "Ushbu forumni hozir yuklab boʻlmaydi."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ushbu forum oʻchirilgan boʻlishi mumkin yoki sizda unga kirish ruxsati yoʻq."
 
@@ -1984,7 +1990,7 @@ msgstr "Ushbu post oʻchirilgan boʻlishi mumkin yoki mavjud emas."
 msgid "This post was already submitted"
 msgstr "Bu post allaqachon yuborilgan"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Bu izohni oddiy foydalanuvchilardan yashiradi. Moderatorlar uni hali ham koʻrishlari va keyinroq tiklashlari mumkin."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Bu postni oddiy foydalanuvchilardan yashiradi. Moderatorlar uni hali ham koʻrishlari va keyinroq tiklashlari mumkin."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Bu \"{0}\" va uning barcha postlarini va izohlarini doimiy ravishda oʻchiradi. Bu amalni bekor qilib boʻlmaydi."
 
@@ -2089,7 +2095,7 @@ msgstr "Amerika Qoʻshma Shtatlari"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "Nomaʼlum"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "Mahkamlanmagan"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Obunadan chiqish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "Forumdan obunadan chiqish"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "Forumdan obunani bekor qilasizmi?"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "Obunadan chiqildi"
 
@@ -2140,7 +2146,7 @@ msgstr "Foydalanuvchi banlandi"
 msgid "User muted"
 msgstr "Foydalanuvchi jim qilindi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "Oʻzgaruvchilar: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "Hammasini koʻrish"
 msgid "View all notifications"
 msgstr "Barcha bildirishnomalarni koʻrish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "Faqat koʻrish"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "Zoʻravonlik"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "Ovoz berish va koʻrish"
 
@@ -2207,7 +2213,7 @@ msgstr "Veb-sayt texnik xizmatda!"
 msgid "Wednesday"
 msgstr "Chorshanba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "Oyna davomiyligi"
 
@@ -2231,7 +2237,7 @@ msgstr "Sizda bu forumda joylashtirish uchun ruxsat yo'q"
 msgid "You have no forums yet."
 msgstr "Sizda hali forumlar yoʻq."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bu forumdan yangilanishlarni olishni to‘xtatasiz. Istalgan vaqtda qayta obuna bo‘lishingiz mumkin."
 

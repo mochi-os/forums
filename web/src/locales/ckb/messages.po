@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1015
+#: src/routes/_authenticated/$forum_.moderation.tsx:990
 msgid " · Expires {0}"
 msgstr " · بەسەر دەچێت {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid " · Permanent"
 msgstr " · هەمیشەیی"
 
@@ -26,32 +26,37 @@ msgstr " · هەمیشەیی"
 msgid " (edited)"
 msgstr " (دەستکاریکراو)"
 
+#. placeholder {0}: newPosts.count
+#: src/features/forums/pages/entity-forum-page.tsx:299
+msgid "{0, plural, one {# new post} other {# new posts}}"
+msgstr ""
+
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:536
+#: src/routes/_authenticated/$forum_.moderation.tsx:511
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# هەڵبژێردراو} other {# هەڵبژێردراو}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:324
+#: src/routes/_authenticated/$forum_.moderation.tsx:299
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# بەکارهێنەر قەدەغەکرا} other {# بەکارهێنەر قەدەغەکران}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:282
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# بەکارهێنەر بێ دەنگکرا} other {# بەکارهێنەر بێ دەنگکران}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "{0} settings"
 msgstr "ڕێکخستنەکانی {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# بابەت پەسەندکرا} other {# بابەت پەسەندکران}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:278
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# بابەت ڕەتکرایەوە} other {# بابەت ڕەتکرانەوە}}"
 
@@ -71,7 +76,7 @@ msgstr "٢٤ کاتژمێر"
 msgid "Absolute (date and time)"
 msgstr "ڕاستەوخۆ (بەروار و کات)"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:85
 msgid "Access"
 msgstr "دەستڕاگەیشتن"
 
@@ -83,23 +88,23 @@ msgstr "دەستڕاگەیشتن قەدەغەیە"
 msgid "Access level"
 msgstr "ئاستی دەستڕاگەیشتن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "Access level updated"
 msgstr "ئاستی دەستڕاگەیشتن نوێکرایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Access Management"
 msgstr "بەڕێوەبردنی دەستڕاگەیشتن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:900
 msgid "Access removed"
 msgstr "دەستڕاگەیشتن لابرا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:916
+#: src/routes/_authenticated/$forum_.settings.tsx:888
 msgid "Access set for {subjectName}"
 msgstr "دەستڕاگەیشتن دانرا بۆ {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:671
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Account"
 msgstr "هەژمار"
 
@@ -149,7 +154,7 @@ msgstr "زیادکردنی پەڕگە"
 msgid "Add new account"
 msgstr "زیادکردنی هەژماری نوێ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:963
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Add rule"
 msgstr "زیادکردنی یاسا"
 
@@ -165,11 +170,12 @@ msgstr "زیادکردنی تیم/ئەپ"
 msgid "Add to existing notifications"
 msgstr "زیادکردن بۆ ئاگادارکردنەوە هەبووەکان"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:57
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "زیادکردنی ڕوانگە"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Additional details (optional)"
 msgstr "وردەکاری زیاتر (هەڵبژاردە)"
 
@@ -178,16 +184,16 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "دیمەن و دامەزراوە ڕێک بخە بۆ گونجان لەگەڵ پێشنیارەکانت."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:629
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:659
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "AI actions on posts"
 msgstr "کرداری AI لەسەر پۆستەکان"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "All"
 msgstr "هەموو"
 
@@ -196,7 +202,7 @@ msgstr "هەموو"
 msgid "All forums"
 msgstr "هەموو فۆڕەمەکان"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:379
+#: src/routes/_authenticated/$forum_.moderation.tsx:354
 msgid "All posts and comments have been reviewed"
 msgstr "هەموو پۆست و لێدوانەکان پێداچوونەوەیان بۆکراوە"
 
@@ -212,16 +218,16 @@ msgstr "هەڵەیەک ڕوویدا"
 msgid "An unexpected error occurred"
 msgstr "هەڵەیەکی چاوەڕواننەکراو ڕوویدا"
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Any additional context..."
 msgstr "هەر زانیارییەکی زیاتر..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:501
+#: src/features/forums/components/thread/thread-comment.tsx:351
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Approve"
 msgstr "پەسەندکردن"
 
-#: src/features/forums/components/thread/thread-comment.tsx:407
+#: src/features/forums/components/thread/thread-comment.tsx:408
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "ئایا دڵنیایت لە سڕینەوەی ئەم لێدوانە؟ ئەمە هەروەها هەموو وەڵامەکانیش دەسڕێتەوە. ئەم کردارە ناگەڕێتەوە."
 
@@ -237,7 +243,7 @@ msgstr "ئایا دڵنیایت لە چوونە دەرەوە؟ پێویستە د
 msgid "Asc"
 msgstr "سەرەوە"
 
-#: src/features/forums/components/thread/thread-comment.tsx:475
+#: src/features/forums/components/thread/thread-comment.tsx:476
 #: src/features/forums/thread-detail.tsx:441
 msgid "Attach reply files"
 msgstr "هاوپێچکردنی پەڕگەی وەڵام"
@@ -260,10 +266,10 @@ msgstr "گەڕانەوە"
 #: src/features/forums/thread-detail.tsx:261
 #: src/features/forums/thread-detail.tsx:282
 #: src/features/forums/thread-detail.tsx:350
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:210
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:212
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "Back to forum"
 msgstr "گەڕانەوە بۆ فۆڕەم"
 
@@ -277,28 +283,28 @@ msgstr "گەڕانەوە بۆ فۆڕەمەکان"
 msgid "Back to home"
 msgstr "گەڕانەوە بۆ ماڵەوە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:527
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Ban"
 msgstr "بلۆککردن"
 
-#: src/features/forums/components/thread/thread-comment.tsx:392
+#: src/features/forums/components/thread/thread-comment.tsx:393
 #: src/features/forums/components/thread/thread-content.tsx:367
 msgid "Ban author"
 msgstr "بلۆککردنی نووسەر"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "banned"
 msgstr "قەدەغەکراو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Banner"
 msgstr "بانەر"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner removed"
 msgstr "بانەر لابرا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:574
+#: src/routes/_authenticated/$forum_.settings.tsx:545
 msgid "Banner updated"
 msgstr "بانەر نوێکرایەوە"
 
@@ -307,12 +313,12 @@ msgid "Boost interest"
 msgstr "بەهێزکردنی بایەخ"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "by {0}"
 msgstr "لەلایەن {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1013
+#: src/routes/_authenticated/$forum_.moderation.tsx:988
 msgid "By {0}"
 msgstr "لەلایەن {0}"
 
@@ -326,16 +332,16 @@ msgstr "لەلایەن {0}"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
 #: src/features/forums/components/create-post-dialog.tsx:330
 #: src/features/forums/components/edit-post-dialog.tsx:329
-#: src/features/forums/components/report-dialog.tsx:109
+#: src/features/forums/components/report-dialog.tsx:110
 #: src/features/forums/components/thread/thread-comment.tsx:231
 msgid "Cancel"
 msgstr "هەڵوەشاندنەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:452
+#: src/routes/_authenticated/$forum_.settings.tsx:423
 msgid "Cancel edit"
 msgstr "هەڵوەشاندنەوەی دەستکاری"
 
-#: src/features/forums/components/thread/thread-comment.tsx:484
+#: src/features/forums/components/thread/thread-comment.tsx:485
 #: src/features/forums/thread-detail.tsx:450
 msgid "Cancel reply"
 msgstr "هەڵوەشاندنەوەی وەڵام"
@@ -374,7 +380,7 @@ msgstr "زمان هەڵبژێرە"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:268
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: src/routes/_authenticated/$forum_.settings.tsx:610
+#: src/routes/_authenticated/$forum_.settings.tsx:581
 msgid "Clear"
 msgstr "پاککردنەوە"
 
@@ -433,7 +439,7 @@ msgstr "لێدوان پەسەند کرا"
 msgid "Comment deleted"
 msgstr "لێدوان سڕایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1171
+#: src/routes/_authenticated/$forum_.settings.tsx:1143
 msgid "Comment limit"
 msgstr "سنووری لێدوان"
 
@@ -453,7 +459,7 @@ msgstr "لێدوان گەڕایەوە"
 msgid "Comment updated"
 msgstr "لێدوان نوێکرایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Comment, vote, and view"
 msgstr "لێدوان، دەنگدان و بینین"
 
@@ -462,8 +468,8 @@ msgstr "لێدوان، دەنگدان و بینین"
 msgid "Compact"
 msgstr "بچووککراوە"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
-#: ../../../lib/web/src/components/travelling-picker.tsx:299
+#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/travelling-picker.tsx:300
 msgid "Confirm"
 msgstr "پشتڕاستکردنەوە"
 
@@ -472,7 +478,7 @@ msgstr "پشتڕاستکردنەوە"
 msgid "Content"
 msgstr "ناوەڕۆک"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1121
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "Content from users below a threshold must be approved"
 msgstr "ناوەڕۆک لە بەکارهێنەرانی خوار سنوور دەبێت پەسەند بکرێت"
 
@@ -492,7 +498,7 @@ msgstr "بەردەوامبوون"
 msgid "Continue with {label}"
 msgstr "بەردەوامبە بە {label}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:925
 msgid "Control who can view and interact with this forum"
 msgstr "کۆنترۆلی ئەوە بکە کێ دەتوانێت ئەم فۆڕەمە ببینێت و کاری لەگەڵ بکات"
 
@@ -530,7 +536,7 @@ msgid "Create forum"
 msgstr "دروستکردنی فۆڕەم"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:259
-#: src/routes/_authenticated/$forum_.settings.tsx:812
+#: src/routes/_authenticated/$forum_.settings.tsx:783
 msgid "Custom"
 msgstr "تایبەت"
 
@@ -548,11 +554,11 @@ msgid "Dark mode"
 msgstr "دۆخی تاریک"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:297
-#: src/routes/_authenticated/$forum_.settings.tsx:811
+#: src/routes/_authenticated/$forum_.settings.tsx:782
 msgid "Default"
 msgstr "بنەڕەت"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:677
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Default account"
 msgstr "هەژماری بنەڕەت"
 
@@ -560,27 +566,27 @@ msgstr "هەژماری بنەڕەت"
 msgid "Default AI account"
 msgstr "هەژماری بنەڕەتی AI"
 
-#: src/features/forums/components/thread/thread-comment.tsx:337
-#: src/features/forums/components/thread/thread-comment.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:409
 #: src/features/forums/components/thread/thread-content.tsx:304
 #: src/features/forums/components/thread/thread-content.tsx:382
-#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "سڕینەوە"
 
-#: src/features/forums/components/thread/thread-comment.tsx:406
+#: src/features/forums/components/thread/thread-comment.tsx:407
 msgid "Delete comment"
 msgstr "سڕینەوەی لێدوان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:522
+#: src/routes/_authenticated/$forum_.settings.tsx:493
 msgid "Delete forum"
 msgstr "سڕینەوەی فۆڕەم"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:543
+#: src/routes/_authenticated/$forum_.settings.tsx:514
 msgid "Delete Forum"
 msgstr "سڕینەوەی فۆڕەم"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:541
+#: src/routes/_authenticated/$forum_.settings.tsx:512
 msgid "Delete forum?"
 msgstr "فۆڕەم بسڕەوە؟"
 
@@ -596,7 +602,7 @@ msgstr "هەژمارەکەت لە سێرڤەری کۆنەکەوە بسڕەوە"
 msgid "Desc"
 msgstr "خوارەوە"
 
-#: src/features/forums/components/report-dialog.tsx:95
+#: src/features/forums/components/report-dialog.tsx:96
 msgid "Details (required)"
 msgstr "وردەکارییەکان (پێویست)"
 
@@ -619,12 +625,12 @@ msgstr "دۆزینەوە لە وێبگەڕ"
 msgid "Direction"
 msgstr "ئاراستە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:636
 msgid "Disabled"
 msgstr "ناچالاک"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
-#: src/routes/_authenticated/$forum_.moderation.tsx:728
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "Dismiss"
 msgstr "لابردن"
 
@@ -644,12 +650,12 @@ msgstr "داگرتن"
 msgid "Dyslexia-friendly"
 msgstr "لەگەڵ دیسلێکسیا گونجاو"
 
-#: src/features/forums/components/thread/thread-comment.tsx:331
+#: src/features/forums/components/thread/thread-comment.tsx:332
 #: src/features/forums/components/thread/thread-content.tsx:298
 msgid "Edit"
 msgstr "دەستکاری"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:470
+#: src/routes/_authenticated/$forum_.settings.tsx:441
 msgid "Edit name"
 msgstr "دەستکاری ناو"
 
@@ -662,7 +668,7 @@ msgstr "دەستکاری پۆست"
 msgid "Email code"
 msgstr "کۆدی ئیمەیڵ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Enter banner text (markdown supported)..."
 msgstr "دەقی پشتیوانی بنووسە (markdown پشتیوانی دەکرێت)..."
 
@@ -674,7 +680,7 @@ msgstr "ئەو کۆدە بنووسە کە لە ئیمەیڵەکەتدا هاتو
 msgid "Enter your authenticator code"
 msgstr "کۆدی ڕاستاندنەکەت بنووسە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:450
 msgid "Entity ID"
 msgstr "ناسنامەی ئەنتیتی"
 
@@ -694,14 +700,14 @@ msgstr "زیادکردنی هەژمار سەرکەوتوو نەبوو"
 msgid "Failed to add tag"
 msgstr "زیادکردنی تاگ سەرکەوتوو نەبوو"
 
-#: src/features/forums/pages/entity-forum-page.tsx:191
-#: src/features/forums/pages/entity-forum-page.tsx:202
+#: src/features/forums/pages/entity-forum-page.tsx:205
+#: src/features/forums/pages/entity-forum-page.tsx:216
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
 msgstr "ڕێکخستنی ئارەزوو سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:259
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "پەسەندکردنی بڕگەکان سەرکەوتوو نەبوو"
 
@@ -709,7 +715,7 @@ msgstr "پەسەندکردنی بڕگەکان سەرکەوتوو نەبوو"
 msgid "Failed to ban user"
 msgstr "ڕاگرتنی بەکارهێنەر سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:327
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "ڕاگرتنی بەکارهێنەران سەرکەوتوو نەبوو"
 
@@ -717,7 +723,7 @@ msgstr "ڕاگرتنی بەکارهێنەران سەرکەوتوو نەبوو"
 msgid "Failed to get RSS token"
 msgstr "وەرگرتنی Token ـی RSS سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:887
+#: src/routes/_authenticated/$forum_.settings.tsx:859
 msgid "Failed to load access rules"
 msgstr "بارکردنی ڕێسا گەیشتنییەکان سەرکەوتوو نەبوو"
 
@@ -725,7 +731,7 @@ msgstr "بارکردنی ڕێسا گەیشتنییەکان سەرکەوتوو ن
 msgid "Failed to load forum"
 msgstr "بارکردنی Forum سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:146
+#: src/routes/_authenticated/$forum_.settings.tsx:148
 msgid "Failed to load forum settings"
 msgstr "بارکردنی ڕێکخستنەکانی Forum سەرکەوتوو نەبوو"
 
@@ -733,19 +739,19 @@ msgstr "بارکردنی ڕێکخستنەکانی Forum سەرکەوتوو نە�
 msgid "Failed to load forums"
 msgstr "بارکردنی Forumەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Failed to load groups"
 msgstr "بارکردنی گرووپەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:789
+#: src/routes/_authenticated/$forum_.moderation.tsx:764
 msgid "Failed to load moderation log"
 msgstr "بارکردنی لۆگی نەزمی سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:192
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "بارکردنی ڕیزی نەزمی سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1038
+#: src/routes/_authenticated/$forum_.settings.tsx:1010
 msgid "Failed to load moderation settings"
 msgstr "بارکردنی ڕێکخستنەکانی نەزمی سەرکەوتوو نەبوو"
 
@@ -753,11 +759,11 @@ msgstr "بارکردنی ڕێکخستنەکانی نەزمی سەرکەوتوو 
 msgid "Failed to load recommended forums"
 msgstr "بارکردنی Forumە پێشنیارکراوەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:538
 msgid "Failed to load reports"
 msgstr "بارکردنی ڕاپۆرتەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:904
+#: src/routes/_authenticated/$forum_.moderation.tsx:879
 msgid "Failed to load restrictions"
 msgstr "بارکردنی سنوورداریەکان سەرکەوتوو نەبوو"
 
@@ -765,15 +771,15 @@ msgstr "بارکردنی سنوورداریەکان سەرکەوتوو نەبو�
 msgid "Failed to mute user"
 msgstr "بێدەنگکردنی بەکارهێنەر سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:310
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "Failed to mute users"
 msgstr "بێدەنگکردنی بەکارهێنەران سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "ڕەتکردنەوەی بڕگەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "Failed to remove access"
 msgstr "لابردنی گەیشتن سەرکەوتوو نەبوو"
 
@@ -781,32 +787,32 @@ msgstr "لابردنی گەیشتن سەرکەوتوو نەبوو"
 msgid "Failed to remove account"
 msgstr "لابردنی هەژمار سەرکەوتوو نەبوو"
 
-#: src/features/forums/pages/entity-forum-page.tsx:214
+#: src/features/forums/pages/entity-forum-page.tsx:228
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "لابردنی ئارەزوو سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:921
+#: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "لابردنی سنوورداری سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:196
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
 msgstr "گۆڕینی ناوی Forum سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:756
 msgid "Failed to reset prompt"
 msgstr "ڕێکخستنەوەی Prompt سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:580
+#: src/routes/_authenticated/$forum_.moderation.tsx:555
 msgid "Failed to resolve report"
 msgstr "چارەسەرکردنی ڕاپۆرت سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1055
+#: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "پاشەکەوتکردنی ڕێکخستنەکانی نەزمی سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:799
+#: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
 msgstr "پاشەکەوتکردنی Prompt سەرکەوتوو نەبوو"
 
@@ -814,7 +820,7 @@ msgstr "پاشەکەوتکردنی Prompt سەرکەوتوو نەبوو"
 msgid "Failed to search forums"
 msgstr "گەڕانی Forumەکان سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Failed to search users"
 msgstr "گەڕانی بەکارهێنەران سەرکەوتوو نەبوو"
 
@@ -822,7 +828,7 @@ msgstr "گەڕانی بەکارهێنەران سەرکەوتوو نەبوو"
 msgid "Failed to send verification code"
 msgstr "ناردنی کۆدی پشتڕاستکردنەوە سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:919
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Failed to set access level"
 msgstr "دانانی ئاستی گەیشتن سەرکەوتوو نەبوو"
 
@@ -832,20 +838,20 @@ msgstr "دانانی ئاستی گەیشتن سەرکەوتوو نەبوو"
 msgid "Failed to subscribe"
 msgstr "بەشداریبوون سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:176
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "وازهێنان لە بەشداریبوون سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:946
+#: src/routes/_authenticated/$forum_.settings.tsx:918
 msgid "Failed to update access level"
 msgstr "نوێکردنەوەی ئاستی گەیشتن سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:638
-#: src/routes/_authenticated/$forum_.settings.tsx:650
+#: src/routes/_authenticated/$forum_.settings.tsx:609
+#: src/routes/_authenticated/$forum_.settings.tsx:621
 msgid "Failed to update AI settings"
 msgstr "نوێکردنەوەی ڕێکخستنەکانی AI سەرکەوتوو نەبوو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:547
 msgid "Failed to update banner"
 msgstr "نوێکردنەوەی پشتیوانی سەرکەوتوو نەبوو"
 
@@ -853,7 +859,7 @@ msgstr "نوێکردنەوەی پشتیوانی سەرکەوتوو نەبوو"
 msgid "Failed to update category"
 msgstr "نوێکردنەوەی بەش سەرکەوتوو نەبوو"
 
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/pages/entity-forum-page.tsx:307
 msgid "Filtered by tag:"
 msgstr "فلتەر بەپێی تاگ:"
 
@@ -862,7 +868,7 @@ msgstr "فلتەر بەپێی تاگ:"
 msgid "Find forums"
 msgstr "دۆزینەوەی Forumەکان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:484
+#: src/routes/_authenticated/$forum_.settings.tsx:455
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
@@ -875,8 +881,8 @@ msgid "Floating"
 msgstr "سەرشانی"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:236
+#: src/features/forums/pages/entity-forum-page.tsx:71
+#: src/features/forums/pages/entity-forum-page.tsx:250
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -894,23 +900,23 @@ msgstr "Forum سڕایەوە"
 msgid "Forum is no longer available"
 msgstr "فۆڕەم چیتر بەردەست نییە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:371
+#: src/routes/_authenticated/$forum_.settings.tsx:342
 msgid "Forum name is required"
 msgstr "ناوی Forum پێویستە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum not found"
 msgstr "Forum نەدۆزرایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:194
+#: src/routes/_authenticated/$forum_.settings.tsx:196
 msgid "Forum renamed"
 msgstr "ناوی Forum گۆڕدرا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:262
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Forum settings sections"
 msgstr "بەشەکانی ڕێکخستنەکانی Forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:239
 msgid "Forum unavailable"
 msgstr "Forum بەردەست نییە"
 
@@ -971,13 +977,13 @@ msgstr "بڕۆ بۆ پەڕەی پێشوو"
 msgid "Group"
 msgstr "گرووپ"
 
-#: src/features/forums/components/report-dialog.tsx:21
-#: src/routes/_authenticated/$forum_.moderation.tsx:766
+#: src/features/forums/components/report-dialog.tsx:22
+#: src/routes/_authenticated/$forum_.moderation.tsx:741
 msgid "Harassment"
 msgstr "بێزارکردن"
 
-#: src/features/forums/components/report-dialog.tsx:22
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/features/forums/components/report-dialog.tsx:23
+#: src/routes/_authenticated/$forum_.moderation.tsx:742
 msgid "Hate speech"
 msgstr "قسەی ڕق"
 
@@ -996,7 +1002,7 @@ msgstr "ماڵەوە"
 msgid "Hot"
 msgstr "گەرم"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:383
 msgid "Identity"
 msgstr "ناسنامە"
 
@@ -1016,7 +1022,7 @@ msgstr "ئارەزوو زیادکرا"
 msgid "Interest reduced"
 msgstr "ئارەزوو کەمکرایەوە"
 
-#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:226
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "ئارەزوو لابرا"
@@ -1068,7 +1074,7 @@ msgstr "قفڵ"
 msgid "Locked"
 msgstr "قفڵکراو"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:72
+#: src/routes/_authenticated/$forum_.moderation.tsx:76
 msgid "Log"
 msgstr "لۆگ"
 
@@ -1115,27 +1121,27 @@ msgstr "Menu"
 msgid "Metric"
 msgstr "Metric"
 
-#: src/features/forums/components/report-dialog.tsx:24
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/features/forums/components/report-dialog.tsx:25
+#: src/routes/_authenticated/$forum_.moderation.tsx:744
 msgid "Misinformation"
 msgstr "زانیاری هەڵە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderate, post, comment, vote, and view"
 msgstr "نەزمی، پۆست، بۆچوون، دەنگدان، و بینین"
 
 #: src/components/options-menu.tsx:63
-#: src/routes/_authenticated/$forum_.moderation.tsx:91
-#: src/routes/_authenticated/$forum_.moderation.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:84
 msgid "Moderation"
 msgstr "نەزمی"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:378
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "Moderation queue is empty"
 msgstr "ڕیزی نەزمی بەتاڵە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:107
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "بەشەکانی نەزمی"
 
@@ -1143,28 +1149,28 @@ msgstr "بەشەکانی نەزمی"
 msgid "Monday"
 msgstr "دووشەممە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:515
+#: src/routes/_authenticated/$forum_.moderation.tsx:490
 msgid "Mute"
 msgstr "بێدەنگکردن"
 
-#: src/features/forums/components/thread/thread-comment.tsx:384
+#: src/features/forums/components/thread/thread-comment.tsx:385
 #: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Mute author"
 msgstr "بێدەنگکردنی نووسەر"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1004
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "muted"
 msgstr "بێ دەنگکراو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Name"
 msgstr "ناو"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:373
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name cannot contain < or > characters"
 msgstr "ناو ناتوانێت نووسەکانی < یان > لەخۆبگرێت"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Name must be 1000 characters or less"
 msgstr "ناو دەبێت ١٠٠٠ نووسە یان کەمتر بێت"
 
@@ -1184,15 +1190,15 @@ msgstr "فۆڕەمی نوێ"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:244
+#: src/features/forums/pages/entity-forum-page.tsx:258
 msgid "New post"
 msgstr "پۆستی نوێ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1099
+#: src/routes/_authenticated/$forum_.settings.tsx:1071
 msgid "New threads must be approved"
 msgstr "ڕشتە نوێیەکان دەبێت پەسەند بکرێن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1131
+#: src/routes/_authenticated/$forum_.settings.tsx:1103
 msgid "New user threshold:"
 msgstr "سنووری بەکارهێنەری نوێ:"
 
@@ -1200,11 +1206,11 @@ msgstr "سنووری بەکارهێنەری نوێ:"
 msgid "Next image"
 msgstr "وێنەی دواتر"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:660
+#: src/routes/_authenticated/$forum_.moderation.tsx:635
 msgid "No {statusFilter} reports found"
 msgstr "هیچ ڕاپۆرتێکی {statusFilter} نەدۆزرایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:98
 msgid "No access"
 msgstr "دەستڕاگەیشتن نییە"
 
@@ -1225,7 +1231,7 @@ msgstr "هیچ فۆڕەمێک نەدۆزرایەوە"
 msgid "No groups available"
 msgstr "هیچ گرووپێک بەردەست نییە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:836
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "No moderation activity"
 msgstr "هیچ چالاکییەکی ڕێکخستن نییە"
 
@@ -1241,11 +1247,11 @@ msgstr "هێشتا هیچ پۆستێک لەم فۆڕەمە نییە"
 msgid "No profile"
 msgstr "هیچ پڕۆفایلێک نییە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:659
+#: src/routes/_authenticated/$forum_.moderation.tsx:634
 msgid "No reports"
 msgstr "هیچ ڕاپۆرتێک نییە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:966
+#: src/routes/_authenticated/$forum_.moderation.tsx:941
 msgid "No restrictions"
 msgstr "هیچ سنووردارکردنێک نییە"
 
@@ -1266,7 +1272,7 @@ msgstr "هێشتا هیچ تۆمارێکی بابەت نییە — دوای ئا
 msgid "No users found"
 msgstr "هیچ بەکارهێنەرێک نەدۆزرایەوە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:967
+#: src/routes/_authenticated/$forum_.moderation.tsx:942
 msgid "No users have been muted or banned"
 msgstr "هیچ بەکارهێنەرێک بێدەنگ یان قەدەغە نەکراوە"
 
@@ -1286,8 +1292,8 @@ msgstr "ئاسایی"
 msgid "Notifications"
 msgstr "ئاگادارکردنەوەکان"
 
-#: src/features/forums/components/report-dialog.tsx:25
-#: src/routes/_authenticated/$forum_.moderation.tsx:770
+#: src/features/forums/components/report-dialog.tsx:26
+#: src/routes/_authenticated/$forum_.moderation.tsx:745
 msgid "Off-topic"
 msgstr "دەرەوەی بابەت"
 
@@ -1317,13 +1323,13 @@ msgstr "کردنەوەی لیستی ڕێدۆزی"
 msgid "Open theme settings"
 msgstr "کردنەوەی ڕێکخستنەکانی ڕووکار"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:585
+#: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "بانەری markdownی ئیختیاری کە لە سەرەوەی فۆڕەمەکەت پیشان دەدرێت."
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
-#: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:771
+#: src/features/forums/components/report-dialog.tsx:27
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
 msgid "Other"
 msgstr "هیتر"
 
@@ -1345,7 +1351,7 @@ msgstr "پاسکییەکان"
 
 #: src/features/forums/components/post-card.tsx:51
 #: src/features/forums/components/thread/thread-comment.tsx:203
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
 msgstr "چاوەڕوان"
 
@@ -1354,16 +1360,16 @@ msgid "Pending approval"
 msgstr "چاوەڕوانی پەسەندکردن"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:437
+#: src/routes/_authenticated/$forum_.moderation.tsx:412
 msgid "Pending comments ({0})"
 msgstr "بۆچوونە چاوەڕوانەکان ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:392
+#: src/routes/_authenticated/$forum_.moderation.tsx:367
 msgid "Pending posts ({0})"
 msgstr "پۆستە چاوەڕوانەکان ({0})"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:523
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Permanently delete this forum and all its content."
 msgstr "ئەم فۆڕەمە و هەموو ناوەڕۆکەکانی بە یەکجاری بسڕەوە."
 
@@ -1379,7 +1385,7 @@ msgstr "چەسپێنراو"
 msgid "Please check your internet connection and try again."
 msgstr "تکایە پەیوەندی ئینتەرنێتەکەت بپشکنە و دووبارە هەوڵ بدەرەوە."
 
-#: src/features/forums/components/report-dialog.tsx:101
+#: src/features/forums/components/report-dialog.tsx:102
 msgid "Please describe the issue..."
 msgstr "تکایە کێشەکە بنووسە..."
 
@@ -1403,7 +1409,7 @@ msgstr "بڵاوکراوەکە لەسەر سێرڤەری فۆڕەم پاشەکە
 msgid "Post deleted"
 msgstr "پۆست سڕایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1156
+#: src/routes/_authenticated/$forum_.settings.tsx:1128
 msgid "Post limit"
 msgstr "سنووری پۆست"
 
@@ -1443,7 +1449,7 @@ msgstr "پۆست چەسپ هەڵگیرا"
 msgid "Post updated"
 msgstr "پۆست نوێ کرایەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Post, comment, vote, and view"
 msgstr "پۆست، بۆچوون، دەنگدان و بینین"
 
@@ -1455,11 +1461,11 @@ msgstr "پۆستەکان"
 msgid "Posts and comments"
 msgstr "پۆستەکان و بۆچوونەکان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1092
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Pre-moderation"
 msgstr "پێش-ڕێکخستن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1152
+#: src/routes/_authenticated/$forum_.settings.tsx:1124
 msgid "Prevent spam by limiting how often users can post"
 msgstr "ڕێگەگرتن لە سپام بە سنووردارکردنی ئەوەی چەند جار بەکارهێنەران دەتوانن پۆست بکەن"
 
@@ -1477,7 +1483,7 @@ msgstr "تایبەتمەندی"
 msgid "Profile"
 msgstr "پڕۆفایل"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:768
 msgid "Prompt saved"
 msgstr "پرۆمپت پاشەکەوت کرا"
 
@@ -1489,11 +1495,11 @@ msgstr "بڵاوکردنەوەی پۆست"
 msgid "Publishing..."
 msgstr "بڵاوکردنەوە..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:69
+#: src/routes/_authenticated/$forum_.moderation.tsx:73
 msgid "Queue"
 msgstr "ڕیز"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1151
+#: src/routes/_authenticated/$forum_.settings.tsx:1123
 msgid "Rate Limiting"
 msgstr "سنووردارکردنی ڕێژە"
 
@@ -1505,12 +1511,12 @@ msgstr "هەژمارەکانت لەم سێرڤەرەدا دووبارە بەست
 msgid "Re-register your passkeys on this server"
 msgstr "پاسکیەکانت لەسەر ئەم ڕاژەیە دووبارە تۆمار بکە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:709
+#: src/routes/_authenticated/$forum_.moderation.tsx:684
 msgid "Reason:"
 msgstr "هۆکار:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "Reason: {0}"
 msgstr "هۆکار: {0}"
 
@@ -1532,12 +1538,12 @@ msgstr "ڕەوانەکردنەوە بۆ چونەژوورەوە."
 msgid "Reduce interest"
 msgstr "کەمکردنەوەی بەرژەوەندی"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:489
+#: src/routes/_authenticated/$forum_.moderation.tsx:464
 msgid "Reject"
 msgstr "ڕەتکردنەوە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:271
-#: src/routes/_authenticated/$forum_.moderation.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "ڕەتکراوەتەوە"
 
@@ -1551,12 +1557,12 @@ msgstr "ڕێژەیی لە ماوەی ٢٤ کاتژمێر، ئەگەرنا تەو
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/features/forums/components/thread/thread-comment.tsx:365
-#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:366
+#: src/features/forums/components/thread/thread-comment.tsx:423
 #: src/features/forums/components/thread/thread-content.tsx:320
 #: src/features/forums/components/thread/thread-content.tsx:396
-#: src/routes/_authenticated/$forum_.moderation.tsx:739
-#: src/routes/_authenticated/$forum_.moderation.tsx:1029
+#: src/routes/_authenticated/$forum_.moderation.tsx:714
+#: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
 msgstr "لابردن"
 
@@ -1569,7 +1575,7 @@ msgstr "لابردنی ڕێسای دەستڕاگەیشتن"
 msgid "Remove access?"
 msgstr "دەستڕاگەیشتن لاببەیت؟"
 
-#: src/features/forums/components/thread/thread-comment.tsx:420
+#: src/features/forums/components/thread/thread-comment.tsx:421
 msgid "Remove comment"
 msgstr "لابردنی بۆچوون"
 
@@ -1581,7 +1587,7 @@ msgstr "لابردنی بەرژەوەندی"
 msgid "Remove post"
 msgstr "لابردنی پۆست"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:502
+#: src/routes/_authenticated/$forum_.settings.tsx:473
 msgid "Remove this forum from your sidebar."
 msgstr "ئەم فۆڕەمە لە لاپەلەکەت لاببە."
 
@@ -1591,29 +1597,29 @@ msgstr "ئەم فۆڕەمە لە لاپەلەکەت لاببە."
 msgid "Removed"
 msgstr "لابرا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1110
+#: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
 msgstr "وەڵامەکان دەبێت پەسەند بکرێن"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:434
 msgid "Reply to {0}..."
 msgstr "وەڵامدانەوەی {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:373
+#: src/features/forums/components/thread/thread-comment.tsx:374
 #: src/features/forums/components/thread/thread-content.tsx:354
 msgid "Report"
 msgstr "ڕاپۆرت"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report comment"
 msgstr "ڕاپۆرتکردنی بۆچوون"
 
-#: src/features/forums/components/report-dialog.tsx:70
+#: src/features/forums/components/report-dialog.tsx:71
 msgid "Report post"
 msgstr "ڕاپۆرتکردنی پۆست"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:577
+#: src/routes/_authenticated/$forum_.moderation.tsx:552
 msgid "Report resolved"
 msgstr "ڕاپۆرت چارەسەرکرا"
 
@@ -1623,27 +1629,27 @@ msgid "Report submitted"
 msgstr "ڕاپۆرت نێردرا"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:717
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reported by {0}"
 msgstr "ڕاپۆرت کراوە لەلایەن {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:70
+#: src/routes/_authenticated/$forum_.moderation.tsx:74
 msgid "Reports"
 msgstr "ڕاپۆرتەکان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1065
 msgid "Require approval before content becomes visible"
 msgstr "پەسەندکردن پێویستە پێش ئەوەی ناوەڕۆک ببینرێت"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1109
+#: src/routes/_authenticated/$forum_.settings.tsx:1081
 msgid "Require approval for new comments"
 msgstr "پەسەندکردن پێویستە بۆ بۆچوونە نوێیەکان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "Require approval for new posts"
 msgstr "پەسەندکردن پێویستە بۆ پۆستە نوێیەکان"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1120
+#: src/routes/_authenticated/$forum_.settings.tsx:1092
 msgid "Require approval for new users"
 msgstr "پەسەندکردن پێویستە بۆ بەکارهێنەرە نوێیەکان"
 
@@ -1660,20 +1666,20 @@ msgstr "ڕێکخستنەوە"
 msgid "Reset all settings to default values"
 msgstr "هەموو ڕێکخستنەکان بۆ بەهای بنەڕەت بگەڕێنەوە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:650
+#: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Resolved"
 msgstr "چارەسەرکرا"
 
-#: src/features/forums/components/thread/thread-comment.tsx:359
+#: src/features/forums/components/thread/thread-comment.tsx:360
 #: src/features/forums/components/thread/thread-content.tsx:314
 msgid "Restore"
 msgstr "گەڕاندنەوە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:918
+#: src/routes/_authenticated/$forum_.moderation.tsx:893
 msgid "Restriction removed"
 msgstr "سنووردارکردن لابرا"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:71
+#: src/routes/_authenticated/$forum_.moderation.tsx:75
 msgid "Restrictions"
 msgstr "سنوورداریەکان"
 
@@ -1702,9 +1708,9 @@ msgid "Saturday"
 msgstr "شەممە"
 
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
-#: src/features/forums/components/thread/thread-comment.tsx:242
-#: src/routes/_authenticated/$forum_.settings.tsx:601
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/features/forums/components/thread/thread-comment.tsx:243
+#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Save"
 msgstr "پاشەکەوتکردن"
 
@@ -1713,11 +1719,11 @@ msgid "Save changes"
 msgstr "پاشەکەوتکردنی گۆڕانکارییەکان"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:798
 msgid "Saving..."
 msgstr "پاشەکەوتکردن..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:680
 msgid "Score prompt"
 msgstr "پرۆمپتی خاڵ"
 
@@ -1759,11 +1765,11 @@ msgstr "گەڕان..."
 msgid "Searching..."
 msgstr "گەڕان..."
 
-#: src/features/forums/components/report-dialog.tsx:76
+#: src/features/forums/components/report-dialog.tsx:77
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "هۆکارێک هەڵبژێرە بۆ ڕاپۆرتکردنی ئەم بۆچوونە. ڕاپۆرتەکان لەلایەن ڕێکخەرەکانەوە پێداچوونەوە دەکرێن."
 
-#: src/features/forums/components/report-dialog.tsx:74
+#: src/features/forums/components/report-dialog.tsx:75
 msgid "Select a reason for reporting this post. Reports are reviewed by moderators."
 msgstr "هۆکارێک هەڵبژێرە بۆ ڕاپۆرتکردنی ئەم پۆستە. ڕاپۆرتەکان لەلایەن ڕێکخەرەکانەوە پێداچوونەوە دەکرێن."
 
@@ -1779,7 +1785,7 @@ msgstr "ڕێسای دەستڕاگەیشتن هەڵبژێرە"
 msgid "Select account type"
 msgstr "جۆری هەژمار هەڵبژێرە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select all"
 msgstr "هەموو هەڵبژێرە"
 
@@ -1791,7 +1797,7 @@ msgstr "گرووپێک هەڵبژێرە"
 msgid "Select layout style"
 msgstr "شێوازی ڕووکار هەڵبژێرە"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:475
+#: src/routes/_authenticated/$forum_.moderation.tsx:450
 msgid "Select none"
 msgstr "هیچ هەڵبژێرە"
 
@@ -1841,10 +1847,10 @@ msgstr "سەرچاوە و مەبەست دیاریبکە"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:145
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 #: src/components/options-menu.tsx:69
-#: src/routes/_authenticated/$forum_.settings.tsx:81
-#: src/routes/_authenticated/$forum_.settings.tsx:156
-#: src/routes/_authenticated/$forum_.settings.tsx:223
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:83
+#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:225
+#: src/routes/_authenticated/$forum_.settings.tsx:255
 msgid "Settings"
 msgstr "ڕێکخستنەکان"
 
@@ -1875,8 +1881,8 @@ msgstr "بچووک"
 msgid "Spacious"
 msgstr "فراوان"
 
-#: src/features/forums/components/report-dialog.tsx:20
-#: src/routes/_authenticated/$forum_.moderation.tsx:765
+#: src/features/forums/components/report-dialog.tsx:21
+#: src/routes/_authenticated/$forum_.moderation.tsx:740
 msgid "Spam"
 msgstr "سپام"
 
@@ -1888,22 +1894,22 @@ msgstr "لەگەڵمان بمێنەوە!"
 msgid "Subject"
 msgstr "بابەت"
 
-#: src/features/forums/components/thread/thread-comment.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:495
 #: src/features/forums/thread-detail.tsx:462
 msgid "Submit reply"
 msgstr "وەڵام بنێرە"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submit report"
 msgstr "ڕاپۆرت بنێرە"
 
-#: src/features/forums/components/report-dialog.tsx:112
+#: src/features/forums/components/report-dialog.tsx:114
 msgid "Submitting..."
 msgstr "ناردن..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:263
+#: src/features/forums/pages/entity-forum-page.tsx:277
 msgid "Subscribe"
 msgstr "بەشداربە"
 
@@ -1920,7 +1926,7 @@ msgstr "بەشداربوو لە {0}"
 msgid "Subscribed to forum"
 msgstr "بەشداربوو لە فۆڕۆم"
 
-#: src/features/forums/pages/entity-forum-page.tsx:260
+#: src/features/forums/pages/entity-forum-page.tsx:274
 msgid "Subscribing..."
 msgstr "بەشداربوون..."
 
@@ -1935,11 +1941,11 @@ msgid "System"
 msgstr "سیستەم"
 
 #: ../../../lib/web/src/components/tag-input.tsx:91
-#: src/routes/_authenticated/$forum_.settings.tsx:666
+#: src/routes/_authenticated/$forum_.settings.tsx:637
 msgid "Tag"
 msgstr "تاگ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "هاندەری تاگ"
 
@@ -1964,15 +1970,15 @@ msgstr "ڕووکار"
 msgid "Theme Settings"
 msgstr "ڕێکخستنەکانی ڕووکار"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:837
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "There are no moderation actions recorded yet"
 msgstr "هێشتا هیچ کرداری چاودێری تۆمارنەکراوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:241
+#: src/routes/_authenticated/$forum_.settings.tsx:243
 msgid "This forum could not be loaded right now."
 msgstr "ئەم فۆڕۆمە لە ئێستادا ناتوانرێت بارببرێت."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:242
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "لەوانەیە ئەم فۆڕۆمە سڕابێتەوە یان دەستڕاگەیشتنت پێی نییە."
 
@@ -1984,7 +1990,7 @@ msgstr "لەوانەیە ئەم پۆستە سڕابێتەوە یان بوونی 
 msgid "This post was already submitted"
 msgstr "ئەم بڵاوکراوەیە پێشتر ناردراوە"
 
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "ئەمە لێدوانەکە لە بەکارهێنەرانی ئاسایی دەشارێتەوە. چاودێرەکان هێشتا دەتوانن ببینن و دواتر بیگەڕێننەوە."
 
@@ -1993,7 +1999,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "ئەمە پۆستەکە لە بەکارهێنەرانی ئاسایی دەشارێتەوە. چاودێرەکان هێشتا دەتوانن ببینن و دواتر بیگەڕێننەوە."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:542
+#: src/routes/_authenticated/$forum_.settings.tsx:513
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "ئەمە \"{0}\" و هەموو پۆستەکان و لێدوانەکانی بە هەمیشەیی دەسڕێتەوە. ئەم کردارە ناتوانرێت بگەڕێنرێتەوە."
 
@@ -2089,7 +2095,7 @@ msgstr "ویلایەتە یەکگرتووەکان"
 
 #: src/features/forums/components/forum-overview.tsx:69
 #: src/features/forums/pages/forums-list-page.tsx:107
-#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:660
 msgid "Unknown"
 msgstr "نەناسراو"
 
@@ -2102,21 +2108,21 @@ msgid "Unpin"
 msgstr "لاسەنجاندن"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:332
-#: src/routes/_authenticated/$forum_.settings.tsx:513
+#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "بەشداری هەڵبوەشێنەوە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Unsubscribe from forum"
 msgstr "بەشداری لە فۆڕۆم هەڵبوەشێنەوە"
 
-#: src/features/forums/pages/entity-forum-page.tsx:329
+#: src/features/forums/pages/entity-forum-page.tsx:350
 msgid "Unsubscribe from forum?"
 msgstr "بەشداری نەکردن لە فۆڕەم؟"
 
 #: src/hooks/use-forums-queries.ts:164
-#: src/routes/_authenticated/$forum_.settings.tsx:172
+#: src/routes/_authenticated/$forum_.settings.tsx:174
 msgid "Unsubscribed"
 msgstr "بەشداری هەڵوەشایەوە"
 
@@ -2140,7 +2146,7 @@ msgstr "بەکارهێنەر قەدەغەکرا"
 msgid "User muted"
 msgstr "بەکارهێنەر بێ دەنگکرا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:801
 msgid "Variables: {variables}"
 msgstr "گۆڕاوەکان: {variables}"
 
@@ -2182,16 +2188,16 @@ msgstr "هەمووی ببینە"
 msgid "View all notifications"
 msgstr "هەموو ئاگادارکردنەوەکان ببینە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:97
 msgid "View only"
 msgstr "تەنها بینین"
 
-#: src/features/forums/components/report-dialog.tsx:23
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/features/forums/components/report-dialog.tsx:24
+#: src/routes/_authenticated/$forum_.moderation.tsx:743
 msgid "Violence"
 msgstr "توندوتیژی"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Vote and view"
 msgstr "دەنگدان و بینین"
 
@@ -2207,7 +2213,7 @@ msgstr "ماڵپەڕ لە ژێر چاکسازییە!"
 msgid "Wednesday"
 msgstr "چوارشەممە"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1186
+#: src/routes/_authenticated/$forum_.settings.tsx:1158
 msgid "Window duration"
 msgstr "ماوەی پەنجەرە"
 
@@ -2231,7 +2237,7 @@ msgstr "تۆ مۆڵەتی بڵاوکردنەوەت لەم فۆڕەمە نییە"
 msgid "You have no forums yet."
 msgstr "هێشتا هیچ فۆڕۆمێکت نییە."
 
-#: src/features/forums/pages/entity-forum-page.tsx:330
+#: src/features/forums/pages/entity-forum-page.tsx:351
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "وازدەهێنیت لە وەرگرتنی نوێکارییەکانی ئەم فۆڕەمە. دەتوانیت هەر کاتێک دووبارە بەشداری بکەیت."
 

@@ -207,8 +207,15 @@ const wsManager = new WebSocketManager()
  *
  * @param forumKey - The forum fingerprint to subscribe to
  * @param userId - Current user ID, used to filter out self-events
+ * @param onNewPost - When provided, incoming `post/create` events are routed
+ *   here (with the new post id) instead of auto-invalidating the posts list,
+ *   so the caller can queue them behind a "new posts available" pill.
  */
-export function useForumWebsocket(forumKey?: string, userId?: string) {
+export function useForumWebsocket(
+  forumKey?: string,
+  userId?: string,
+  onNewPost?: (postId?: string) => void
+) {
   const queryClient = useQueryClient()
   const authReady = useAuthStore((state) => state.isInitialized)
   const authToken = useAuthStore((state) => state.token)
@@ -216,6 +223,10 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
   // Use ref for userId so it doesn't cause reconnections
   const userIdRef = useRef(userId)
   userIdRef.current = userId
+
+  // Ref so a changing callback doesn't tear down the WebSocket subscription
+  const onNewPostRef = useRef(onNewPost)
+  onNewPostRef.current = onNewPost
 
   useEffect(() => {
     if (!authReady) return
@@ -226,6 +237,15 @@ export function useForumWebsocket(forumKey?: string, userId?: string) {
       if (userIdRef.current && data.sender === userIdRef.current) return
 
       const forumId = data.forum
+
+      // A brand-new top-level post: queue it behind the "new posts available"
+      // pill instead of injecting it into the list under the reader. Other post
+      // events (edit/delete/lock/pin/...) still flow through to live-update
+      // already-visible rows.
+      if (data.type === 'post/create' && onNewPostRef.current) {
+        onNewPostRef.current(data.post)
+        return
+      }
 
       switch (data.type) {
         case 'post/create':

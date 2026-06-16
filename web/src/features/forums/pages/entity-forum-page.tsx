@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Plural, Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import {
@@ -10,6 +10,8 @@ import {
   PageHeader,
   SortSelector,
   type SortType,
+  NewItemsPill,
+  usePendingItems,
   toast,
   getErrorMessage,
   GeneralError,
@@ -131,8 +133,20 @@ export function EntityForumPage({
     refetch,
   } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
 
+  // Queue real-time new posts behind a "new posts available" pill instead of
+  // injecting them while the user is reading.
+  const newPosts = usePendingItems()
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const handleShowNewPosts = useCallback(() => {
+    newPosts.clear()
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+    void refetch()
+  }, [newPosts, refetch])
+
   // Real-time updates via WebSocket
-  useForumWebsocket(forum.fingerprint, forumMember?.id)
+  useForumWebsocket(forum.fingerprint, forumMember?.id, (postId) =>
+    newPosts.add(postId)
+  )
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')
@@ -277,7 +291,14 @@ export function EntityForumPage({
         }
       />
       <Main fixed>
-        <div className="flex-1 overflow-y-auto">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto">
+          <NewItemsPill
+            count={newPosts.count}
+            onClick={handleShowNewPosts}
+            label={
+              <Plural value={newPosts.count} one="# new post" other="# new posts" />
+            }
+          />
           {forum.banner_html && (
             <ForumBanner bannerHtml={forum.banner_html} forumId={forum.id} />
           )}
