@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import {
   AuthenticatedLayout,
@@ -7,6 +7,7 @@ import {
   naturalCompare,
 } from '@mochi/web'
 import {
+  Bookmark,
   Hash,
   MessageSquare,
   Plus,
@@ -19,6 +20,7 @@ import {
   useForumsInfo,
   useCreatePost,
 } from '@/hooks/use-forums-queries'
+import { loadSaved } from '@/lib/saved'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 
@@ -41,6 +43,11 @@ function ForumsLayoutInner() {
     refetch: refetchForumsInfo,
   } = useForumsInfo()
   const forums = useMemo(() => data?.data?.forums ?? [], [data?.data?.forums])
+
+  // Hydrate the saved-posts mirror so bookmarks reflect server state
+  useEffect(() => {
+    void loadSaved()
+  }, [])
 
   // Find forums for dialog
   const dialogForum = useMemo(() => {
@@ -95,6 +102,7 @@ function ForumsLayoutInner() {
 
     // Build action items (moved to bottom)
     const actionItems: NavItem[] = [
+      { title: t`Saved`, icon: Bookmark, url: '/saved' },
       { title: t`Find forums`, icon: Search, url: '/find' },
       {
         title: t`Create forum`,

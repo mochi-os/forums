@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (संपादित)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:299
+#: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgid "All"
 msgstr "सब"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:91
+#: src/components/layout/forums-layout.tsx:98
 msgid "All forums"
 msgstr "सब फोरम"
 
@@ -385,8 +385,14 @@ msgid "Clear"
 msgstr "साफ करीं"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
+#: src/features/forums/pages/saved-page.tsx:46
+#: src/features/forums/pages/saved-page.tsx:83
 msgid "Clear all"
 msgstr "सब साफ करीं"
+
+#: src/features/forums/pages/saved-page.tsx:76
+msgid "Clear all saved posts?"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -530,7 +536,7 @@ msgstr "एगो नया फोरम बनाईं"
 msgid "Create a new post"
 msgstr "एगो नया पोस्ट बनाईं"
 
-#: src/components/layout/forums-layout.tsx:100
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "फोरम बनाईं"
@@ -700,8 +706,8 @@ msgstr "खाता जोड़े में विफल"
 msgid "Failed to add tag"
 msgstr "टैग जोड़े में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:205
-#: src/features/forums/pages/entity-forum-page.tsx:216
+#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -718,6 +724,10 @@ msgstr "यूजर के प्रतिबंधित करे में �
 #: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "यूजर लोग के प्रतिबंधित करे में विफल"
+
+#: src/lib/saved.ts:96
+msgid "Failed to clear saved posts"
+msgstr ""
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -787,7 +797,7 @@ msgstr "पहुँच हटावे में विफल"
 msgid "Failed to remove account"
 msgstr "खाता हटावे में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:228
+#: src/features/forums/pages/entity-forum-page.tsx:235
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "रुचि हटावे में विफल"
@@ -795,6 +805,10 @@ msgstr "रुचि हटावे में विफल"
 #: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "प्रतिबंध हटावे में विफल"
+
+#: src/lib/saved.ts:75
+msgid "Failed to remove saved post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -811,6 +825,10 @@ msgstr "रिपोर्ट हल करे में विफल"
 #: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "मॉडरेशन सेटिंग सहेजे में विफल"
+
+#: src/lib/saved.ts:63
+msgid "Failed to save post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -859,11 +877,11 @@ msgstr "बैनर अपडेट करे में विफल"
 msgid "Failed to update category"
 msgstr "श्रेणी अपडेट करे में विफल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:307
+#: src/features/forums/pages/entity-forum-page.tsx:314
 msgid "Filtered by tag:"
 msgstr "टैग से फिल्टर कइल गइल:"
 
-#: src/components/layout/forums-layout.tsx:98
+#: src/components/layout/forums-layout.tsx:106
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "फोरम खोजीं"
@@ -881,8 +899,8 @@ msgid "Floating"
 msgstr "तैरत"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:71
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:72
+#: src/features/forums/pages/entity-forum-page.tsx:257
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -920,7 +938,7 @@ msgstr "फोरम सेटिंग खंड"
 msgid "Forum unavailable"
 msgstr "फोरम उपलब्ध नइखे"
 
-#: src/components/layout/forums-layout.tsx:108
+#: src/components/layout/forums-layout.tsx:116
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -1022,7 +1040,7 @@ msgstr "रुचि बढ़ावल गइल"
 msgid "Interest reduced"
 msgstr "रुचि घटावल गइल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:226
+#: src/features/forums/pages/entity-forum-page.tsx:233
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "रुचि हटावल गइल"
@@ -1190,7 +1208,7 @@ msgstr "नया फोरम"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:265
 msgid "New post"
 msgstr "नया पोस्ट"
 
@@ -1286,6 +1304,10 @@ msgstr "कुछुओ ना"
 msgid "Normal"
 msgstr "सामान्य"
 
+#: src/features/forums/pages/saved-page.tsx:56
+msgid "Nothing saved yet"
+msgstr ""
+
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
@@ -1349,7 +1371,7 @@ msgstr "पासकी सत्यापन विफल हो गइल। �
 msgid "Passkeys"
 msgstr "Passkey"
 
-#: src/features/forums/components/post-card.tsx:51
+#: src/features/forums/components/post-card.tsx:52
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
@@ -1579,6 +1601,13 @@ msgstr "पहुँच हटाईं?"
 msgid "Remove comment"
 msgstr "टिप्पणी हटाईं"
 
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+#: src/features/forums/components/saved-post-card.tsx:81
+#: src/features/forums/components/saved-post-card.tsx:82
+msgid "Remove from saved"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "रुचि हटाईं"
@@ -1591,11 +1620,15 @@ msgstr "पोस्ट हटाईं"
 msgid "Remove this forum from your sidebar."
 msgstr "रउआ साइडबार से ए फोरम के हटाईं।"
 
-#: src/features/forums/components/post-card.tsx:57
+#: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
 #: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "हटावल गइल"
+
+#: src/features/forums/components/saved-button.tsx:37
+msgid "Removed from saved"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1683,7 +1716,7 @@ msgstr "प्रतिबंध हटावल गइल"
 msgid "Restrictions"
 msgstr "प्रतिबंध"
 
-#: src/components/layout/forums-layout.tsx:113
+#: src/components/layout/forums-layout.tsx:121
 msgid "Retry forums load"
 msgstr "फोरम लोड फेर कोशिश"
 
@@ -1717,6 +1750,23 @@ msgstr "सहेजीं"
 #: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "बदलाव सहेजीं"
+
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+msgid "Save for later"
+msgstr ""
+
+#: src/components/layout/forums-layout.tsx:105
+#: src/features/forums/components/saved-button.tsx:37
+#: src/features/forums/pages/saved-page.tsx:24
+#: src/features/forums/pages/saved-page.tsx:38
+msgid "Saved"
+msgstr ""
+
+#. placeholder {0}: formatTimestamp(item.created)
+#: src/features/forums/components/saved-post-card.tsx:43
+msgid "saved {0}"
+msgstr ""
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1909,7 +1959,7 @@ msgstr "जमा हो रहल बा..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:277
+#: src/features/forums/pages/entity-forum-page.tsx:284
 msgid "Subscribe"
 msgstr "सदस्यता लीं"
 
@@ -1926,7 +1976,7 @@ msgstr "{0} के सदस्यता ले लिहल गइल"
 msgid "Subscribed to forum"
 msgstr "फ़ोरम के सदस्यता ले लिहल गइल"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:281
 msgid "Subscribing..."
 msgstr "सदस्यता ले रहल बा..."
 
@@ -1948,6 +1998,10 @@ msgstr "टैग"
 #: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "टैग प्रॉम्प्ट"
+
+#: src/features/forums/pages/saved-page.tsx:57
+msgid "Tap the bookmark on any post to save it here for later."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1989,6 +2043,10 @@ msgstr "ई पोस्ट शायद हटा दिहल गइल बा
 #: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "ई पोस्ट पहिलहीं भेजल जा चुकल बा"
+
+#: src/features/forums/pages/saved-page.tsx:78
+msgid "This removes every post from your saved list. This cannot be undone."
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -2108,7 +2166,7 @@ msgid "Unpin"
 msgstr "अनपिन करीं"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:360
 #: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "सदस्यता रद्द करीं"
@@ -2117,7 +2175,7 @@ msgstr "सदस्यता रद्द करीं"
 msgid "Unsubscribe from forum"
 msgstr "फ़ोरम से सदस्यता रद्द करीं"
 
-#: src/features/forums/pages/entity-forum-page.tsx:350
+#: src/features/forums/pages/entity-forum-page.tsx:357
 msgid "Unsubscribe from forum?"
 msgstr "मंच से सदस्यता छोड़ीं?"
 
@@ -2237,7 +2295,7 @@ msgstr "रउरा के एह फोरम में पोस्ट कर
 msgid "You have no forums yet."
 msgstr "आपके अबही ले कवनो फ़ोरम नइखे।"
 
-#: src/features/forums/pages/entity-forum-page.tsx:351
+#: src/features/forums/pages/entity-forum-page.tsx:358
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "रउरा एह मंच से अपडेट मिलल बंद हो जाई। रउरा कबो भी फेर से सदस्यता ले सकीलें।"
 

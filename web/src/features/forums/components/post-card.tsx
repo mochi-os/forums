@@ -7,6 +7,7 @@ import { getCommentCount } from '@/api/types/posts'
 import { sanitizeHtml } from '../utils'
 import { PostAttachments } from './thread/post-attachments'
 import { PostTagsTooltip } from './post-tags'
+import { SavedButton } from './saved-button'
 
 interface PostCardProps {
   post: Post
@@ -110,8 +111,11 @@ export function PostCard({
       />
 
       {/* Action buttons row - interactive */}
-      {(((post.tags && post.tags.length > 0) && isLoggedIn) || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
+      {(isLoggedIn || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
         <div className='text-muted-foreground flex items-center gap-4 md:gap-3 text-xs'>
+          {/* Save for later */}
+          {isLoggedIn && <SavedButton post={post} />}
+
           {/* Tags */}
           {isLoggedIn && post.tags && post.tags.length > 0 && (
             <PostTagsTooltip tags={post.tags} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} onInterestRemove={onInterestRemove} />

@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (redaguota)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:299
+#: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgid "All"
 msgstr "Visi"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:91
+#: src/components/layout/forums-layout.tsx:98
 msgid "All forums"
 msgstr "Visi forumai"
 
@@ -385,8 +385,14 @@ msgid "Clear"
 msgstr "Išvalyti"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
+#: src/features/forums/pages/saved-page.tsx:46
+#: src/features/forums/pages/saved-page.tsx:83
 msgid "Clear all"
 msgstr "Išvalyti viską"
+
+#: src/features/forums/pages/saved-page.tsx:76
+msgid "Clear all saved posts?"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -530,7 +536,7 @@ msgstr "Sukurti naują forumą"
 msgid "Create a new post"
 msgstr "Sukurti naują įrašą"
 
-#: src/components/layout/forums-layout.tsx:100
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Sukurti forumą"
@@ -700,8 +706,8 @@ msgstr "Nepavyko pridėti paskyros"
 msgid "Failed to add tag"
 msgstr "Nepavyko pridėti žymos"
 
-#: src/features/forums/pages/entity-forum-page.tsx:205
-#: src/features/forums/pages/entity-forum-page.tsx:216
+#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -718,6 +724,10 @@ msgstr "Nepavyko užblokuoti naudotojo"
 #: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "Nepavyko užblokuoti naudotojų"
+
+#: src/lib/saved.ts:96
+msgid "Failed to clear saved posts"
+msgstr ""
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -787,7 +797,7 @@ msgstr "Nepavyko panaikinti prieigos"
 msgid "Failed to remove account"
 msgstr "Nepavyko pašalinti paskyros"
 
-#: src/features/forums/pages/entity-forum-page.tsx:228
+#: src/features/forums/pages/entity-forum-page.tsx:235
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "Nepavyko pašalinti pomėgio"
@@ -795,6 +805,10 @@ msgstr "Nepavyko pašalinti pomėgio"
 #: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "Nepavyko pašalinti apribojimo"
+
+#: src/lib/saved.ts:75
+msgid "Failed to remove saved post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -811,6 +825,10 @@ msgstr "Nepavyko išspręsti pranešimo"
 #: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "Nepavyko išsaugoti moderavimo nustatymų"
+
+#: src/lib/saved.ts:63
+msgid "Failed to save post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -859,11 +877,11 @@ msgstr "Nepavyko atnaujinti reklamjuostės"
 msgid "Failed to update category"
 msgstr "Nepavyko atnaujinti kategorijos"
 
-#: src/features/forums/pages/entity-forum-page.tsx:307
+#: src/features/forums/pages/entity-forum-page.tsx:314
 msgid "Filtered by tag:"
 msgstr "Filtruota pagal žymą:"
 
-#: src/components/layout/forums-layout.tsx:98
+#: src/components/layout/forums-layout.tsx:106
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Rasti forumus"
@@ -881,8 +899,8 @@ msgid "Floating"
 msgstr "Plaukiojantis"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:71
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:72
+#: src/features/forums/pages/entity-forum-page.tsx:257
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -920,7 +938,7 @@ msgstr "Forumo nustatymų skiltys"
 msgid "Forum unavailable"
 msgstr "Forumas nepasiekiamas"
 
-#: src/components/layout/forums-layout.tsx:108
+#: src/components/layout/forums-layout.tsx:116
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -1022,7 +1040,7 @@ msgstr "Pomėgis padidintas"
 msgid "Interest reduced"
 msgstr "Pomėgis sumažintas"
 
-#: src/features/forums/pages/entity-forum-page.tsx:226
+#: src/features/forums/pages/entity-forum-page.tsx:233
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Pomėgis pašalintas"
@@ -1190,7 +1208,7 @@ msgstr "Naujas forumas"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:265
 msgid "New post"
 msgstr "Naujas įrašas"
 
@@ -1286,6 +1304,10 @@ msgstr "Nėra"
 msgid "Normal"
 msgstr "Normalus"
 
+#: src/features/forums/pages/saved-page.tsx:56
+msgid "Nothing saved yet"
+msgstr ""
+
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
@@ -1349,7 +1371,7 @@ msgstr "Slaptarakčio patvirtinimas nepavyko. Bandykite dar kartą."
 msgid "Passkeys"
 msgstr "Slaptarakčiai"
 
-#: src/features/forums/components/post-card.tsx:51
+#: src/features/forums/components/post-card.tsx:52
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
@@ -1579,6 +1601,13 @@ msgstr "Šalinti prieigą?"
 msgid "Remove comment"
 msgstr "Šalinti komentarą"
 
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+#: src/features/forums/components/saved-post-card.tsx:81
+#: src/features/forums/components/saved-post-card.tsx:82
+msgid "Remove from saved"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Šalinti susidomėjimą"
@@ -1591,11 +1620,15 @@ msgstr "Šalinti įrašą"
 msgid "Remove this forum from your sidebar."
 msgstr "Pašalinti šį forumą iš šoninės juostos."
 
-#: src/features/forums/components/post-card.tsx:57
+#: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
 #: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "Pašalinta"
+
+#: src/features/forums/components/saved-button.tsx:37
+msgid "Removed from saved"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1683,7 +1716,7 @@ msgstr "Apribojimas pašalintas"
 msgid "Restrictions"
 msgstr "Apribojimai"
 
-#: src/components/layout/forums-layout.tsx:113
+#: src/components/layout/forums-layout.tsx:121
 msgid "Retry forums load"
 msgstr "Bandyti forumų įkėlimą iš naujo"
 
@@ -1717,6 +1750,23 @@ msgstr "Išsaugoti"
 #: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Išsaugoti pakeitimus"
+
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+msgid "Save for later"
+msgstr ""
+
+#: src/components/layout/forums-layout.tsx:105
+#: src/features/forums/components/saved-button.tsx:37
+#: src/features/forums/pages/saved-page.tsx:24
+#: src/features/forums/pages/saved-page.tsx:38
+msgid "Saved"
+msgstr ""
+
+#. placeholder {0}: formatTimestamp(item.created)
+#: src/features/forums/components/saved-post-card.tsx:43
+msgid "saved {0}"
+msgstr ""
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1909,7 +1959,7 @@ msgstr "Pateikiama..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:277
+#: src/features/forums/pages/entity-forum-page.tsx:284
 msgid "Subscribe"
 msgstr "Prenumeruoti"
 
@@ -1926,7 +1976,7 @@ msgstr "Prenumeruota: {0}"
 msgid "Subscribed to forum"
 msgstr "Prenumeruotas forumas"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:281
 msgid "Subscribing..."
 msgstr "Prenumeruojama..."
 
@@ -1948,6 +1998,10 @@ msgstr "Žyma"
 #: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Žymos užklausa"
+
+#: src/features/forums/pages/saved-page.tsx:57
+msgid "Tap the bookmark on any post to save it here for later."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1989,6 +2043,10 @@ msgstr "Šis įrašas galėjo būti ištrintas arba neegzistuoja."
 #: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Šis įrašas jau pateiktas"
+
+#: src/features/forums/pages/saved-page.tsx:78
+msgid "This removes every post from your saved list. This cannot be undone."
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -2108,7 +2166,7 @@ msgid "Unpin"
 msgstr "Atsegti"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:360
 #: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Atšaukti prenumeratą"
@@ -2117,7 +2175,7 @@ msgstr "Atšaukti prenumeratą"
 msgid "Unsubscribe from forum"
 msgstr "Atšaukti forumo prenumeratą"
 
-#: src/features/forums/pages/entity-forum-page.tsx:350
+#: src/features/forums/pages/entity-forum-page.tsx:357
 msgid "Unsubscribe from forum?"
 msgstr "Atsisakyti forumo prenumeratos?"
 
@@ -2237,7 +2295,7 @@ msgstr "Neturite leidimo skelbti šiame forume"
 msgid "You have no forums yet."
 msgstr "Dar neturite jokių forumų."
 
-#: src/features/forums/pages/entity-forum-page.tsx:351
+#: src/features/forums/pages/entity-forum-page.tsx:358
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nustosite gauti šio forumo naujienas. Galite vėl užsiprenumeruoti bet kuriuo metu."
 

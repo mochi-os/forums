@@ -18,6 +18,13 @@ const endpoints = {
   groups: {
     list: '-/groups',
   },
+  // Saved / read-later (class-level, per-user list spanning all forums)
+  saved: {
+    list: '-/saved/list',
+    add: '-/saved/add',
+    remove: '-/saved/remove',
+    clear: '-/saved/clear',
+  },
   forums: {
     // Class-level endpoints (no entity context)
     // These are relative - createAppClient adds /forums/ prefix

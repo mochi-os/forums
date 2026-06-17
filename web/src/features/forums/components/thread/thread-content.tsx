@@ -22,6 +22,7 @@ import {
 import type { Post, Attachment } from '@/api/types/posts'
 import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
+import { SavedButton } from '../saved-button'
 import { embedVideos, sanitizeHtml } from '../../utils'
 import { t } from '@lingui/core/macro'
 
@@ -279,6 +280,8 @@ export function ThreadContent({
               <MessageSquare className='size-4' />
             </button>
           )}
+          {/* Save for later */}
+          {isLoggedIn && <SavedButton post={post} />}
           {/* More menu (edit, delete, moderation, report) */}
           {(canEdit || canModerate || onReport) && (
             <DropdownMenu>

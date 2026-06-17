@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (editat)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:299
+#: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgid "All"
 msgstr "Tot"
 
 #: src/components/layout/data/sidebar-data.ts:13
-#: src/components/layout/forums-layout.tsx:91
+#: src/components/layout/forums-layout.tsx:98
 msgid "All forums"
 msgstr "Tots els fòrums"
 
@@ -385,8 +385,14 @@ msgid "Clear"
 msgstr "Esborra"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
+#: src/features/forums/pages/saved-page.tsx:46
+#: src/features/forums/pages/saved-page.tsx:83
 msgid "Clear all"
 msgstr "Esborra-ho tot"
+
+#: src/features/forums/pages/saved-page.tsx:76
+msgid "Clear all saved posts?"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -530,7 +536,7 @@ msgstr "Crea un nou fòrum"
 msgid "Create a new post"
 msgstr "Crea una nova publicació"
 
-#: src/components/layout/forums-layout.tsx:100
+#: src/components/layout/forums-layout.tsx:108
 #: src/features/forums/components/create-forum-dialog.tsx:46
 msgid "Create forum"
 msgstr "Crea un fòrum"
@@ -700,8 +706,8 @@ msgstr "No s'ha pogut afegir el compte"
 msgid "Failed to add tag"
 msgstr "No s'ha pogut afegir l'etiqueta"
 
-#: src/features/forums/pages/entity-forum-page.tsx:205
-#: src/features/forums/pages/entity-forum-page.tsx:216
+#: src/features/forums/pages/entity-forum-page.tsx:212
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:177
 #: src/features/forums/thread-detail.tsx:189
 msgid "Failed to adjust interest"
@@ -718,6 +724,10 @@ msgstr "No s'ha pogut bandejar l'usuari"
 #: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "Failed to ban users"
 msgstr "No s'han pogut bandejar els usuaris"
+
+#: src/lib/saved.ts:96
+msgid "Failed to clear saved posts"
+msgstr ""
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -787,7 +797,7 @@ msgstr "No s'ha pogut retirar l'accés"
 msgid "Failed to remove account"
 msgstr "No s'ha pogut retirar el compte"
 
-#: src/features/forums/pages/entity-forum-page.tsx:228
+#: src/features/forums/pages/entity-forum-page.tsx:235
 #: src/features/forums/thread-detail.tsx:201
 msgid "Failed to remove interest"
 msgstr "No s'ha pogut retirar l'interès"
@@ -795,6 +805,10 @@ msgstr "No s'ha pogut retirar l'interès"
 #: src/routes/_authenticated/$forum_.moderation.tsx:896
 msgid "Failed to remove restriction"
 msgstr "No s'ha pogut retirar la restricció"
+
+#: src/lib/saved.ts:75
+msgid "Failed to remove saved post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -811,6 +825,10 @@ msgstr "No s'ha pogut resoldre el report"
 #: src/routes/_authenticated/$forum_.settings.tsx:1027
 msgid "Failed to save moderation settings"
 msgstr "No s'ha pogut desar la configuració de moderació"
+
+#: src/lib/saved.ts:63
+msgid "Failed to save post"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -859,11 +877,11 @@ msgstr "No s'ha pogut actualitzar el bàner"
 msgid "Failed to update category"
 msgstr "No s'ha pogut actualitzar la categoria"
 
-#: src/features/forums/pages/entity-forum-page.tsx:307
+#: src/features/forums/pages/entity-forum-page.tsx:314
 msgid "Filtered by tag:"
 msgstr "Filtrat per etiqueta:"
 
-#: src/components/layout/forums-layout.tsx:98
+#: src/components/layout/forums-layout.tsx:106
 #: src/routes/_authenticated/find.tsx:65
 msgid "Find forums"
 msgstr "Cerca fòrums"
@@ -881,8 +899,8 @@ msgid "Floating"
 msgstr "Flotant"
 
 #: src/features/forums/components/create-forum-dialog.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:71
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:72
+#: src/features/forums/pages/entity-forum-page.tsx:257
 #: src/features/forums/thread-detail.tsx:116
 #: src/routes/_authenticated/$forum/index.tsx:67
 msgid "Forum"
@@ -920,7 +938,7 @@ msgstr "Seccions de configuració del fòrum"
 msgid "Forum unavailable"
 msgstr "Fòrum no disponible"
 
-#: src/components/layout/forums-layout.tsx:108
+#: src/components/layout/forums-layout.tsx:116
 #: src/features/forums/components/forum-overview.tsx:85
 #: src/features/forums/pages/forums-list-page.tsx:40
 #: src/features/forums/pages/forums-list-page.tsx:125
@@ -1022,7 +1040,7 @@ msgstr "Interès incrementat"
 msgid "Interest reduced"
 msgstr "Interès reduït"
 
-#: src/features/forums/pages/entity-forum-page.tsx:226
+#: src/features/forums/pages/entity-forum-page.tsx:233
 #: src/features/forums/thread-detail.tsx:199
 msgid "Interest removed"
 msgstr "Interès retirat"
@@ -1190,7 +1208,7 @@ msgstr "Fòrum nou"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:258
+#: src/features/forums/pages/entity-forum-page.tsx:265
 msgid "New post"
 msgstr "Publicació nova"
 
@@ -1286,6 +1304,10 @@ msgstr "Cap"
 msgid "Normal"
 msgstr "Normal"
 
+#: src/features/forums/pages/saved-page.tsx:56
+msgid "Nothing saved yet"
+msgstr ""
+
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:247
@@ -1349,7 +1371,7 @@ msgstr "Ha fallat la verificació de la clau d'accés. Torneu-ho a provar."
 msgid "Passkeys"
 msgstr "Claus d'accés"
 
-#: src/features/forums/components/post-card.tsx:51
+#: src/features/forums/components/post-card.tsx:52
 #: src/features/forums/components/thread/thread-comment.tsx:203
 #: src/routes/_authenticated/$forum_.moderation.tsx:625
 msgid "Pending"
@@ -1579,6 +1601,13 @@ msgstr "Vols eliminar l'accés?"
 msgid "Remove comment"
 msgstr "Elimina el comentari"
 
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+#: src/features/forums/components/saved-post-card.tsx:81
+#: src/features/forums/components/saved-post-card.tsx:82
+msgid "Remove from saved"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Elimina l'interès"
@@ -1591,11 +1620,15 @@ msgstr "Elimina la publicació"
 msgid "Remove this forum from your sidebar."
 msgstr "Treu aquest fòrum de la barra lateral."
 
-#: src/features/forums/components/post-card.tsx:57
+#: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
 #: src/features/forums/components/thread/thread-content.tsx:151
 msgid "Removed"
 msgstr "Eliminat"
+
+#: src/features/forums/components/saved-button.tsx:37
+msgid "Removed from saved"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1683,7 +1716,7 @@ msgstr "Restricció eliminada"
 msgid "Restrictions"
 msgstr "Restriccions"
 
-#: src/components/layout/forums-layout.tsx:113
+#: src/components/layout/forums-layout.tsx:121
 msgid "Retry forums load"
 msgstr "Torna a provar la càrrega de fòrums"
 
@@ -1717,6 +1750,23 @@ msgstr "Desa"
 #: src/features/forums/components/edit-post-dialog.tsx:343
 msgid "Save changes"
 msgstr "Desa els canvis"
+
+#: src/features/forums/components/saved-button.tsx:29
+#: src/features/forums/components/saved-button.tsx:31
+msgid "Save for later"
+msgstr ""
+
+#: src/components/layout/forums-layout.tsx:105
+#: src/features/forums/components/saved-button.tsx:37
+#: src/features/forums/pages/saved-page.tsx:24
+#: src/features/forums/pages/saved-page.tsx:38
+msgid "Saved"
+msgstr ""
+
+#. placeholder {0}: formatTimestamp(item.created)
+#: src/features/forums/components/saved-post-card.tsx:43
+msgid "saved {0}"
+msgstr ""
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1909,7 +1959,7 @@ msgstr "Enviant..."
 
 #: src/features/forums/components/inline-forum-search.tsx:160
 #: src/features/forums/components/recommended-forums.tsx:154
-#: src/features/forums/pages/entity-forum-page.tsx:277
+#: src/features/forums/pages/entity-forum-page.tsx:284
 msgid "Subscribe"
 msgstr "Subscriu-te"
 
@@ -1926,7 +1976,7 @@ msgstr "Subscrit a {0}"
 msgid "Subscribed to forum"
 msgstr "Subscrit al fòrum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:274
+#: src/features/forums/pages/entity-forum-page.tsx:281
 msgid "Subscribing..."
 msgstr "Subscrivint..."
 
@@ -1948,6 +1998,10 @@ msgstr "Etiqueta"
 #: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Tag prompt"
 msgstr "Indicació d'etiqueta"
+
+#: src/features/forums/pages/saved-page.tsx:57
+msgid "Tap the bookmark on any post to save it here for later."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -1989,6 +2043,10 @@ msgstr "És possible que aquest missatge s'hagi eliminat o que no existeixi."
 #: src/hooks/use-forum-websocket.ts:56
 msgid "This post was already submitted"
 msgstr "Aquesta publicació ja s'ha enviat"
+
+#: src/features/forums/pages/saved-page.tsx:78
+msgid "This removes every post from your saved list. This cannot be undone."
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
@@ -2108,7 +2166,7 @@ msgid "Unpin"
 msgstr "Desafixa"
 
 #: src/components/options-menu.tsx:100
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:360
 #: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Unsubscribe"
 msgstr "Cancel·la la subscripció"
@@ -2117,7 +2175,7 @@ msgstr "Cancel·la la subscripció"
 msgid "Unsubscribe from forum"
 msgstr "Cancel·la la subscripció al fòrum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:350
+#: src/features/forums/pages/entity-forum-page.tsx:357
 msgid "Unsubscribe from forum?"
 msgstr "Cancel·lar la subscripció al fòrum?"
 
@@ -2237,7 +2295,7 @@ msgstr "No tens permís per publicar en aquest fòrum"
 msgid "You have no forums yet."
 msgstr "Encara no tens cap fòrum."
 
-#: src/features/forums/pages/entity-forum-page.tsx:351
+#: src/features/forums/pages/entity-forum-page.tsx:358
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Deixaràs de rebre actualitzacions d'aquest fòrum. Pots tornar-te a subscriure en qualsevol moment."
 

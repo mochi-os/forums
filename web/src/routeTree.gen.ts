@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSavedRouteImport } from './routes/_authenticated/saved'
 import { Route as AuthenticatedFindRouteImport } from './routes/_authenticated/find'
 import { Route as errors503RouteImport } from './routes/(errors)/503'
 import { Route as errors500RouteImport } from './routes/(errors)/500'
@@ -30,6 +31,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSavedRoute = AuthenticatedSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedFindRoute = AuthenticatedFindRouteImport.update({
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/find': typeof AuthenticatedFindRoute
+  '/saved': typeof AuthenticatedSavedRoute
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
   '/$forum/moderation': typeof AuthenticatedForumModerationRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/find': typeof AuthenticatedFindRoute
+  '/saved': typeof AuthenticatedSavedRoute
   '/': typeof AuthenticatedIndexRoute
   '/$forum/$post': typeof AuthenticatedForumPostRoute
   '/$forum/moderation': typeof AuthenticatedForumModerationRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/find': typeof AuthenticatedFindRoute
+  '/_authenticated/saved': typeof AuthenticatedSavedRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/$forum/$post': typeof AuthenticatedForumPostRoute
   '/_authenticated/$forum_/moderation': typeof AuthenticatedForumModerationRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/find'
+    | '/saved'
     | '/'
     | '/$forum/$post'
     | '/$forum/moderation'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/find'
+    | '/saved'
     | '/'
     | '/$forum/$post'
     | '/$forum/moderation'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/find'
+    | '/_authenticated/saved'
     | '/_authenticated/'
     | '/_authenticated/$forum/$post'
     | '/_authenticated/$forum_/moderation'
@@ -204,6 +216,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/saved': {
+      id: '/_authenticated/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof AuthenticatedSavedRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/find': {
@@ -288,6 +307,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedFindRoute: typeof AuthenticatedFindRoute
+  AuthenticatedSavedRoute: typeof AuthenticatedSavedRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedForumPostRoute: typeof AuthenticatedForumPostRoute
   AuthenticatedForumModerationRoute: typeof AuthenticatedForumModerationRoute
@@ -298,6 +318,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFindRoute: AuthenticatedFindRoute,
+  AuthenticatedSavedRoute: AuthenticatedSavedRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedForumPostRoute: AuthenticatedForumPostRoute,
   AuthenticatedForumModerationRoute: AuthenticatedForumModerationRoute,

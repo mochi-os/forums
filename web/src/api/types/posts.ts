@@ -75,6 +75,33 @@ export function getCommentCount(
   return 0
 }
 
+// Slim point-in-time snapshot stored for the "Saved" (read-later) feature.
+// Intentionally excludes comments/thread data — just enough to render a
+// read-only card and link back to the live post.
+export interface SavedPostSnapshot {
+  id: string
+  forum: string
+  fingerprint?: string
+  forumName?: string
+  member: string
+  name: string
+  title: string
+  body: string
+  body_markdown?: string
+  created: number
+  up: number
+  down: number
+  tags?: Tag[]
+  attachments?: Attachment[]
+}
+
+// One entry from the saved/list response: the stored snapshot plus the
+// server-side saved-at time (unix seconds).
+export interface SavedItem {
+  post: SavedPostSnapshot
+  created: number
+}
+
 export interface GetNewPostParams {
   forum: string
 }
