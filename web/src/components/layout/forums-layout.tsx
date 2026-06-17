@@ -152,7 +152,10 @@ function ForumsLayoutInner() {
           isSuccess={createPostMutation.isSuccess}
           open={postDialogOpen}
           onOpenChange={(open) => {
-            if (!open) closePostDialog()
+            if (!open) {
+              closePostDialog()
+              createPostMutation.reset()
+            }
           }}
           hideTrigger
         />

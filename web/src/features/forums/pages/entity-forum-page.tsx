@@ -16,6 +16,7 @@ import {
   getErrorMessage,
   GeneralError,
   useAuthStore,
+  useMergeOnScrollTop,
   ConfirmDialog,
 } from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
@@ -196,6 +197,12 @@ export function EntityForumPage({
   const handleTagFilter = useCallback((label: string) => {
     setActiveTag((current) => (current === label ? undefined : label))
   }, [])
+
+  useMergeOnScrollTop({
+    scrollRef,
+    active: newPosts.count > 0,
+    onMerge: handleShowNewPosts,
+  })
 
   const handleInterestUp = useCallback(
     async (qid: string) => {
