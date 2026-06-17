@@ -1,5 +1,5 @@
 {
-	"version": "7.34",
+	"version": "7.36",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -17,7 +17,7 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 35,
+		"schema": 36,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -39,6 +39,10 @@
 		"-/sort/set": {"function": "action_sort_set_default"},
 		"-/list": {"function": "action_view"},
 		"-/create": {"function": "action_create"},
+		"-/saved/list": {"function": "action_saved_list"},
+		"-/saved/add": {"function": "action_saved_add"},
+		"-/saved/remove": {"function": "action_saved_remove"},
+		"-/saved/clear": {"function": "action_saved_clear"},
 		"find": {"file": "web/dist/index.html"},
 		"-/new": {"function": "action_new"},
 		"search": {"file": "web/dist/index.html"},

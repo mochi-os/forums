@@ -26,6 +26,76 @@ def enrich_tags(tags, interest_map):
 # "none" means no access (user has no rules or explicit deny).
 ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 
+# ---- Saved posts ----
+#
+# A user's saved ("read later") posts are private per-user data living in this
+# app's own per-user database on the user's own Mochi node. They persist across
+# reloads and logout, and replicate across the user's own devices via Mochi's
+# per-app replication. Identity comes from a.user.identity.id.
+#
+# Each row stores a JSON snapshot of the post (the same object the browser
+# already renders) so the saved list renders in one local query without fanning
+# out over P2P to each post's originating forum, which may be offline.
+
+# List the current user's saved posts, most recently saved first.
+def action_saved_list(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    rows = mochi.db.rows("select data, created from saved where user=? order by created desc", a.user.identity.id)
+    posts = []
+    for r in rows:
+        item = json.decode(r["data"], None)
+        if item:
+            # "created" is the saved-at time; the post snapshot is nested under
+            # "post" so its own "created" (post time) is preserved.
+            posts.append({"post": item, "created": r["created"]})
+    return {"data": {"saved": posts, "total": len(posts)}}
+
+# Save a post (idempotent). "post" is the post's id; "data" is a JSON snapshot
+# of the post object to render later. Re-saving an already-saved post refreshes
+# the stored snapshot without changing its saved-at time.
+def action_saved_add(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    post = a.input("post")
+    if not post:
+        a.error.label(400, "errors.post_id_required")
+        return
+    data = a.input("data")
+    if not data or json.decode(data, None) == None:
+        a.error.label(400, "errors.invalid_data")
+        return
+    user = a.user.identity.id
+    existing = mochi.db.row("select id from saved where user=? and post=?", user, post)
+    if existing:
+        mochi.db.execute("update saved set data=? where id=?", data, existing["id"])
+    else:
+        mochi.db.execute("insert into saved ( id, user, post, data, created ) values ( ?, ?, ?, ?, ? )", mochi.uid(), user, post, data, mochi.time.now())
+    return {"data": {"saved": True}}
+
+# Remove a saved post. Idempotent: removing a post that is not saved is a no-op.
+def action_saved_remove(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    post = a.input("post")
+    if not post:
+        a.error.label(400, "errors.post_id_required")
+        return
+    mochi.db.execute("delete from saved where user=? and post=?", a.user.identity.id, post)
+    return {"data": {"saved": False}}
+
+# Remove all of the current user's saved posts.
+def action_saved_clear(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    mochi.db.execute("delete from saved where user=?", a.user.identity.id)
+    return {"data": {"saved": True}}
+
+
 # Create database
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -110,6 +180,9 @@ def database_create():
 
     mochi.db.execute("create table if not exists settings ( id integer primary key check ( id = 1 ), sort text not null default '' )")
     mochi.db.execute("insert or ignore into settings ( id, sort ) values ( 1, '' )")
+
+    mochi.db.execute("create table if not exists saved ( id text not null primary key, user text not null, post text not null, data text not null default '', created integer not null, unique ( user, post ) )")
+    mochi.db.execute("create index if not exists saved_user_created on saved( user, created )")
 
 
 # Upgrade database schema
@@ -217,6 +290,12 @@ def database_upgrade(to_version):
         # SET-from-aggregate UPDATE shape. Backfill the cached
         # posts.comments from the comments table.
         mochi.db.execute("update posts set comments = (select count(*) from comments where post=posts.id and status != 'removed')")
+
+    if to_version == 36:
+        # Add the saved ("read later") posts table: per-user private data
+        # holding a JSON snapshot of each saved post.
+        mochi.db.execute("create table if not exists saved ( id text not null primary key, user text not null, post text not null, data text not null default '', created integer not null, unique ( user, post ) )")
+        mochi.db.execute("create index if not exists saved_user_created on saved( user, created )")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
