@@ -258,13 +258,13 @@ export function EntityForumPage({
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
-            {isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='me-2 size-4' />
                 <Trans>New post</Trans>
               </Button>
             )}
+            {isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}
             {!isLoadingForums && isRemoteForum && !isSubscribed && (
               <Button
                 onClick={() =>
