@@ -865,7 +865,11 @@ def validate_tag(label):
 
 # Check if a user can tag a post in a forum
 def can_tag_post(user_id, forum, post):
-    if owned(forum["id"]):
+    # Gate the ownership short-circuit on a real user: owned() resolves against the
+    # thread-local effective user, which is the entity owner for an anonymous public
+    # action. Today's callers (action_tags_add/remove) require auth, but this keeps
+    # the helper safe if a public caller is ever added.
+    if user_id and owned(forum["id"]):
         return True
     if post.get("member") == user_id:
         return True
