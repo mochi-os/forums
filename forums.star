@@ -341,8 +341,12 @@ def check_access(a, forum_id, operation):
     if a.user and a.user.identity:
         user = a.user.identity.id
 
-    # Owner has full access
-    if owned(forum_id):
+    # Owner has full access. Gate on a real authenticated user: owned() calls
+    # mochi.entity.get(), which keys on the thread-local effective user. For an
+    # anonymous request to a public action that is the entity owner, so without
+    # the `user and` guard an anonymous caller is treated as the owner/moderator
+    # and would see removed/pending posts and bypass the checks below.
+    if user and owned(forum_id):
         return True
 
     # Wildcard grants full access (owner only)
