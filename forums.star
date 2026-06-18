@@ -341,8 +341,12 @@ def check_access(a, forum_id, operation):
     if a.user and a.user.identity:
         user = a.user.identity.id
 
-    # Owner has full access
-    if owned(forum_id):
+    # Owner has full access. Gate on a real authenticated user: owned() calls
+    # mochi.entity.get(), which keys on the thread-local effective user. For an
+    # anonymous request to a public action that is the entity owner, so without
+    # the `user and` guard an anonymous caller is treated as the owner/moderator
+    # and would see removed/pending posts and bypass the checks below.
+    if user and owned(forum_id):
         return True
 
     # Wildcard grants full access (owner only)
@@ -861,7 +865,11 @@ def validate_tag(label):
 
 # Check if a user can tag a post in a forum
 def can_tag_post(user_id, forum, post):
-    if owned(forum["id"]):
+    # Gate the ownership short-circuit on a real user: owned() resolves against the
+    # thread-local effective user, which is the entity owner for an anonymous public
+    # action. Today's callers (action_tags_add/remove) require auth, but this keeps
+    # the helper safe if a public caller is ever added.
+    if user_id and owned(forum["id"]):
         return True
     if post.get("member") == user_id:
         return True
