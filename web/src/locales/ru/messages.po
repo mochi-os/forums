@@ -29,7 +29,7 @@ msgstr " (изменено)"
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
-msgstr ""
+msgstr "{0, plural, one {# новая публикация} few {# новые публикации} many {# новых публикаций} other {# новой публикации}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:511
@@ -231,7 +231,7 @@ msgstr "Одобрить"
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Вы уверены, что хотите удалить этот комментарий? Это также удалит все ответы. Это действие необратимо."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Вы уверены, что хотите удалить этот пост? Это также удалит все комментарии. Это действие нельзя отменить."
 
@@ -288,7 +288,7 @@ msgid "Ban"
 msgstr "Заблокировать"
 
 #: src/features/forums/components/thread/thread-comment.tsx:393
-#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:370
 msgid "Ban author"
 msgstr "Заблокировать автора"
 
@@ -385,14 +385,14 @@ msgid "Clear"
 msgstr "Очистить"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
-#: src/features/forums/pages/saved-page.tsx:46
-#: src/features/forums/pages/saved-page.tsx:83
+#: src/features/forums/pages/saved-page.tsx:71
+#: src/features/forums/pages/saved-page.tsx:119
 msgid "Clear all"
 msgstr "Очистить всё"
 
-#: src/features/forums/pages/saved-page.tsx:76
+#: src/features/forums/pages/saved-page.tsx:112
 msgid "Clear all saved posts?"
-msgstr ""
+msgstr "Очистить все сохранённые публикации?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -574,8 +574,8 @@ msgstr "Аккаунт ИИ по умолчанию"
 
 #: src/features/forums/components/thread/thread-comment.tsx:338
 #: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:304
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:307
+#: src/features/forums/components/thread/thread-content.tsx:385
 #: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Удалить"
@@ -596,7 +596,7 @@ msgstr "Удалить форум"
 msgid "Delete forum?"
 msgstr "Удалить форум?"
 
-#: src/features/forums/components/thread/thread-content.tsx:380
+#: src/features/forums/components/thread/thread-content.tsx:383
 msgid "Delete post"
 msgstr "Удалить публикацию"
 
@@ -657,7 +657,7 @@ msgid "Dyslexia-friendly"
 msgstr "Подходит при дислексии"
 
 #: src/features/forums/components/thread/thread-comment.tsx:332
-#: src/features/forums/components/thread/thread-content.tsx:298
+#: src/features/forums/components/thread/thread-content.tsx:301
 msgid "Edit"
 msgstr "Изменить"
 
@@ -727,7 +727,7 @@ msgstr "Не удалось заблокировать пользователе�
 
 #: src/lib/saved.ts:96
 msgid "Failed to clear saved posts"
-msgstr ""
+msgstr "Не удалось очистить сохранённые публикации"
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -808,7 +808,7 @@ msgstr "Не удалось снять ограничение"
 
 #: src/lib/saved.ts:75
 msgid "Failed to remove saved post"
-msgstr ""
+msgstr "Не удалось удалить сохранённую публикацию"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -828,7 +828,7 @@ msgstr "Не удалось сохранить настройки модерац
 
 #: src/lib/saved.ts:63
 msgid "Failed to save post"
-msgstr ""
+msgstr "Не удалось сохранить публикацию"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -1084,11 +1084,11 @@ msgstr "Загрузить ещё"
 msgid "Loading…"
 msgstr "Загрузка…"
 
-#: src/features/forums/components/thread/thread-content.tsx:333
+#: src/features/forums/components/thread/thread-content.tsx:336
 msgid "Lock"
 msgstr "Заблокировать"
 
-#: src/features/forums/components/thread/thread-content.tsx:157
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Locked"
 msgstr "Заблокировано"
 
@@ -1172,7 +1172,7 @@ msgid "Mute"
 msgstr "Заглушить"
 
 #: src/features/forums/components/thread/thread-comment.tsx:385
-#: src/features/forums/components/thread/thread-content.tsx:361
+#: src/features/forums/components/thread/thread-content.tsx:364
 msgid "Mute author"
 msgstr "Заглушить автора"
 
@@ -1208,7 +1208,7 @@ msgstr "Новый форум"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:265
+#: src/features/forums/pages/entity-forum-page.tsx:264
 msgid "New post"
 msgstr "Новая публикация"
 
@@ -1304,9 +1304,9 @@ msgstr "Нет"
 msgid "Normal"
 msgstr "Обычный"
 
-#: src/features/forums/pages/saved-page.tsx:56
+#: src/features/forums/pages/saved-page.tsx:81
 msgid "Nothing saved yet"
-msgstr ""
+msgstr "Пока ничего не сохранено"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1377,7 +1377,7 @@ msgstr "Ключи доступа"
 msgid "Pending"
 msgstr "Ожидание"
 
-#: src/features/forums/components/thread/thread-content.tsx:145
+#: src/features/forums/components/thread/thread-content.tsx:146
 msgid "Pending approval"
 msgstr "Ожидает одобрения"
 
@@ -1395,11 +1395,11 @@ msgstr "Ожидающие посты ({0})"
 msgid "Permanently delete this forum and all its content."
 msgstr "Безвозвратно удалить этот форум и всё его содержимое."
 
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Pin"
 msgstr "Закрепить"
 
-#: src/features/forums/components/thread/thread-content.tsx:163
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Pinned"
 msgstr "Закреплено"
 
@@ -1581,8 +1581,8 @@ msgstr "Относительный в пределах 24 часов, иначе
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: src/features/forums/components/thread/thread-comment.tsx:366
 #: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:320
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-content.tsx:399
 #: src/routes/_authenticated/$forum_.moderation.tsx:714
 #: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
@@ -1603,16 +1603,14 @@ msgstr "Удалить комментарий"
 
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
-#: src/features/forums/components/saved-post-card.tsx:81
-#: src/features/forums/components/saved-post-card.tsx:82
 msgid "Remove from saved"
-msgstr ""
+msgstr "Удалить из сохранённого"
 
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Удалить интерес"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Remove post"
 msgstr "Удалить публикацию"
 
@@ -1622,13 +1620,13 @@ msgstr "Удалить этот форум из боковой панели."
 
 #: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
-#: src/features/forums/components/thread/thread-content.tsx:151
+#: src/features/forums/components/thread/thread-content.tsx:152
 msgid "Removed"
 msgstr "Удалено"
 
 #: src/features/forums/components/saved-button.tsx:37
 msgid "Removed from saved"
-msgstr ""
+msgstr "Удалено из сохранённых"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1640,7 +1638,7 @@ msgid "Reply to {0}..."
 msgstr "Ответить {0}..."
 
 #: src/features/forums/components/thread/thread-comment.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:354
+#: src/features/forums/components/thread/thread-content.tsx:357
 msgid "Report"
 msgstr "Пожаловаться"
 
@@ -1704,7 +1702,7 @@ msgid "Resolved"
 msgstr "Решено"
 
 #: src/features/forums/components/thread/thread-comment.tsx:360
-#: src/features/forums/components/thread/thread-content.tsx:314
+#: src/features/forums/components/thread/thread-content.tsx:317
 msgid "Restore"
 msgstr "Восстановить"
 
@@ -1754,19 +1752,14 @@ msgstr "Сохранить изменения"
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
 msgid "Save for later"
-msgstr ""
+msgstr "Сохранить на потом"
 
 #: src/components/layout/forums-layout.tsx:105
 #: src/features/forums/components/saved-button.tsx:37
-#: src/features/forums/pages/saved-page.tsx:24
-#: src/features/forums/pages/saved-page.tsx:38
+#: src/features/forums/pages/saved-page.tsx:49
+#: src/features/forums/pages/saved-page.tsx:63
 msgid "Saved"
-msgstr ""
-
-#. placeholder {0}: formatTimestamp(item.created)
-#: src/features/forums/components/saved-post-card.tsx:43
-msgid "saved {0}"
-msgstr ""
+msgstr "Сохранено"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1999,9 +1992,9 @@ msgstr "Тег"
 msgid "Tag prompt"
 msgstr "Подсказка тега"
 
-#: src/features/forums/pages/saved-page.tsx:57
+#: src/features/forums/pages/saved-page.tsx:82
 msgid "Tap the bookmark on any post to save it here for later."
-msgstr ""
+msgstr "Коснитесь закладки на любой публикации, чтобы сохранить её здесь на потом."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -2044,15 +2037,15 @@ msgstr "Этот пост, возможно, был удалён или не с�
 msgid "This post was already submitted"
 msgstr "Это сообщение уже отправлено"
 
-#: src/features/forums/pages/saved-page.tsx:78
+#: src/features/forums/pages/saved-page.tsx:114
 msgid "This removes every post from your saved list. This cannot be undone."
-msgstr ""
+msgstr "Это удалит каждую публикацию из вашего списка сохранённого. Это действие нельзя отменить."
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Это скроет комментарий от обычных пользователей. Модераторы по-прежнему могут видеть его и восстановить позже."
 
-#: src/features/forums/components/thread/thread-content.tsx:395
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Это скроет пост от обычных пользователей. Модераторы по-прежнему могут видеть его и восстановить позже."
 
@@ -2157,11 +2150,11 @@ msgstr "США"
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Unlock"
 msgstr "Разблокировать"
 
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "Unpin"
 msgstr "Открепить"
 

@@ -29,7 +29,7 @@ msgstr " (edytowane)"
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
-msgstr ""
+msgstr "{0, plural, one {# nowy post} few {# nowe posty} many {# nowych postów} other {# nowego posta}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:511
@@ -231,7 +231,7 @@ msgstr "Zatwierdź"
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Czy na pewno chcesz usunąć ten komentarz? Spowoduje to również usunięcie wszystkich odpowiedzi. Tej akcji nie można cofnąć."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Czy na pewno chcesz usunąć ten wpis? Usunięte zostaną także wszystkie komentarze. Tej operacji nie można cofnąć."
 
@@ -288,7 +288,7 @@ msgid "Ban"
 msgstr "Zbanuj"
 
 #: src/features/forums/components/thread/thread-comment.tsx:393
-#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:370
 msgid "Ban author"
 msgstr "Zbanuj autora"
 
@@ -385,14 +385,14 @@ msgid "Clear"
 msgstr "Wyczyść"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
-#: src/features/forums/pages/saved-page.tsx:46
-#: src/features/forums/pages/saved-page.tsx:83
+#: src/features/forums/pages/saved-page.tsx:71
+#: src/features/forums/pages/saved-page.tsx:119
 msgid "Clear all"
 msgstr "Wyczyść wszystko"
 
-#: src/features/forums/pages/saved-page.tsx:76
+#: src/features/forums/pages/saved-page.tsx:112
 msgid "Clear all saved posts?"
-msgstr ""
+msgstr "Wyczyścić wszystkie zapisane posty?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -574,8 +574,8 @@ msgstr "Domyślne konto AI"
 
 #: src/features/forums/components/thread/thread-comment.tsx:338
 #: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:304
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:307
+#: src/features/forums/components/thread/thread-content.tsx:385
 #: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Usuń"
@@ -596,7 +596,7 @@ msgstr "Usuń forum"
 msgid "Delete forum?"
 msgstr "Usunąć forum?"
 
-#: src/features/forums/components/thread/thread-content.tsx:380
+#: src/features/forums/components/thread/thread-content.tsx:383
 msgid "Delete post"
 msgstr "Usuń post"
 
@@ -657,7 +657,7 @@ msgid "Dyslexia-friendly"
 msgstr "Przyjazna dla dysleksji"
 
 #: src/features/forums/components/thread/thread-comment.tsx:332
-#: src/features/forums/components/thread/thread-content.tsx:298
+#: src/features/forums/components/thread/thread-content.tsx:301
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -727,7 +727,7 @@ msgstr "Nie udało się zbanować użytkowników"
 
 #: src/lib/saved.ts:96
 msgid "Failed to clear saved posts"
-msgstr ""
+msgstr "Nie udało się wyczyścić zapisanych postów"
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -808,7 +808,7 @@ msgstr "Nie udało się usunąć ograniczenia"
 
 #: src/lib/saved.ts:75
 msgid "Failed to remove saved post"
-msgstr ""
+msgstr "Nie udało się usunąć zapisanego posta"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -828,7 +828,7 @@ msgstr "Nie udało się zapisać ustawień moderacji"
 
 #: src/lib/saved.ts:63
 msgid "Failed to save post"
-msgstr ""
+msgstr "Nie udało się zapisać posta"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -1084,11 +1084,11 @@ msgstr "Załaduj więcej"
 msgid "Loading…"
 msgstr "Ładowanie…"
 
-#: src/features/forums/components/thread/thread-content.tsx:333
+#: src/features/forums/components/thread/thread-content.tsx:336
 msgid "Lock"
 msgstr "Zablokuj"
 
-#: src/features/forums/components/thread/thread-content.tsx:157
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Locked"
 msgstr "Zablokowane"
 
@@ -1172,7 +1172,7 @@ msgid "Mute"
 msgstr "Wycisz"
 
 #: src/features/forums/components/thread/thread-comment.tsx:385
-#: src/features/forums/components/thread/thread-content.tsx:361
+#: src/features/forums/components/thread/thread-content.tsx:364
 msgid "Mute author"
 msgstr "Wycisz autora"
 
@@ -1208,7 +1208,7 @@ msgstr "Nowe forum"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:265
+#: src/features/forums/pages/entity-forum-page.tsx:264
 msgid "New post"
 msgstr "Nowy wpis"
 
@@ -1304,9 +1304,9 @@ msgstr "Brak"
 msgid "Normal"
 msgstr "Normalny"
 
-#: src/features/forums/pages/saved-page.tsx:56
+#: src/features/forums/pages/saved-page.tsx:81
 msgid "Nothing saved yet"
-msgstr ""
+msgstr "Nic jeszcze nie zapisano"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1377,7 +1377,7 @@ msgstr "Klucze dostępu"
 msgid "Pending"
 msgstr "Oczekujące"
 
-#: src/features/forums/components/thread/thread-content.tsx:145
+#: src/features/forums/components/thread/thread-content.tsx:146
 msgid "Pending approval"
 msgstr "Oczekuje na zatwierdzenie"
 
@@ -1395,11 +1395,11 @@ msgstr "Oczekujące wpisy ({0})"
 msgid "Permanently delete this forum and all its content."
 msgstr "Trwale usuń to forum i całą jego zawartość."
 
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Pin"
 msgstr "Przypnij"
 
-#: src/features/forums/components/thread/thread-content.tsx:163
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Pinned"
 msgstr "Przypięto"
 
@@ -1581,8 +1581,8 @@ msgstr "Względny w ciągu 24 godzin, w przeciwnym razie bezwzględny"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: src/features/forums/components/thread/thread-comment.tsx:366
 #: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:320
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-content.tsx:399
 #: src/routes/_authenticated/$forum_.moderation.tsx:714
 #: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
@@ -1603,16 +1603,14 @@ msgstr "Usuń komentarz"
 
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
-#: src/features/forums/components/saved-post-card.tsx:81
-#: src/features/forums/components/saved-post-card.tsx:82
 msgid "Remove from saved"
-msgstr ""
+msgstr "Usuń z zapisanych"
 
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Usuń zainteresowanie"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Remove post"
 msgstr "Usuń wpis"
 
@@ -1622,13 +1620,13 @@ msgstr "Usuń to forum z paska bocznego."
 
 #: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
-#: src/features/forums/components/thread/thread-content.tsx:151
+#: src/features/forums/components/thread/thread-content.tsx:152
 msgid "Removed"
 msgstr "Usunięto"
 
 #: src/features/forums/components/saved-button.tsx:37
 msgid "Removed from saved"
-msgstr ""
+msgstr "Usunięto z zapisanych"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1640,7 +1638,7 @@ msgid "Reply to {0}..."
 msgstr "Odpowiedz {0}..."
 
 #: src/features/forums/components/thread/thread-comment.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:354
+#: src/features/forums/components/thread/thread-content.tsx:357
 msgid "Report"
 msgstr "Zgłoś"
 
@@ -1704,7 +1702,7 @@ msgid "Resolved"
 msgstr "Rozwiązane"
 
 #: src/features/forums/components/thread/thread-comment.tsx:360
-#: src/features/forums/components/thread/thread-content.tsx:314
+#: src/features/forums/components/thread/thread-content.tsx:317
 msgid "Restore"
 msgstr "Przywróć"
 
@@ -1754,19 +1752,14 @@ msgstr "Zapisz zmiany"
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
 msgid "Save for later"
-msgstr ""
+msgstr "Zapisz na później"
 
 #: src/components/layout/forums-layout.tsx:105
 #: src/features/forums/components/saved-button.tsx:37
-#: src/features/forums/pages/saved-page.tsx:24
-#: src/features/forums/pages/saved-page.tsx:38
+#: src/features/forums/pages/saved-page.tsx:49
+#: src/features/forums/pages/saved-page.tsx:63
 msgid "Saved"
-msgstr ""
-
-#. placeholder {0}: formatTimestamp(item.created)
-#: src/features/forums/components/saved-post-card.tsx:43
-msgid "saved {0}"
-msgstr ""
+msgstr "Zapisano"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1999,9 +1992,9 @@ msgstr "Tag"
 msgid "Tag prompt"
 msgstr "Polecenie tagu"
 
-#: src/features/forums/pages/saved-page.tsx:57
+#: src/features/forums/pages/saved-page.tsx:82
 msgid "Tap the bookmark on any post to save it here for later."
-msgstr ""
+msgstr "Dotknij zakładki przy dowolnym poście, aby zapisać go tutaj na później."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -2044,15 +2037,15 @@ msgstr "Ten wpis mógł zostać usunięty lub nie istnieje."
 msgid "This post was already submitted"
 msgstr "Ten wpis został już wysłany"
 
-#: src/features/forums/pages/saved-page.tsx:78
+#: src/features/forums/pages/saved-page.tsx:114
 msgid "This removes every post from your saved list. This cannot be undone."
-msgstr ""
+msgstr "Spowoduje to usunięcie każdego posta z listy zapisanych. Tej operacji nie można cofnąć."
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Spowoduje to ukrycie komentarza przed zwykłymi użytkownikami. Moderatorzy nadal mogą go zobaczyć i przywrócić później."
 
-#: src/features/forums/components/thread/thread-content.tsx:395
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Spowoduje to ukrycie wpisu przed zwykłymi użytkownikami. Moderatorzy nadal mogą go zobaczyć i przywrócić później."
 
@@ -2157,11 +2150,11 @@ msgstr "Stany Zjednoczone"
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Unlock"
 msgstr "Odblokuj"
 
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "Unpin"
 msgstr "Odepnij"
 

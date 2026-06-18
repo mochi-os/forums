@@ -29,7 +29,7 @@ msgstr " (golygwyd)"
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
-msgstr ""
+msgstr "{0, plural, one {# postiad newydd} two {# bostiad newydd} few {# postiad newydd} many {# postiad newydd} other {# postiad newydd}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:511
@@ -231,7 +231,7 @@ msgstr "Cymeradwyo"
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Ydych chi'n siŵr eich bod am ddileu'r sylw hwn? Bydd hyn hefyd yn dileu pob ateb. Ni ellir dadwneud y weithred hon."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Ydych chi'n siŵr eich bod am ddileu'r postiad hwn? Bydd hyn hefyd yn dileu pob sylw. Ni ellir dadwneud y weithred hon."
 
@@ -288,7 +288,7 @@ msgid "Ban"
 msgstr "Gwahardd"
 
 #: src/features/forums/components/thread/thread-comment.tsx:393
-#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:370
 msgid "Ban author"
 msgstr "Gwahardd awdur"
 
@@ -385,14 +385,14 @@ msgid "Clear"
 msgstr "Clirio"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
-#: src/features/forums/pages/saved-page.tsx:46
-#: src/features/forums/pages/saved-page.tsx:83
+#: src/features/forums/pages/saved-page.tsx:71
+#: src/features/forums/pages/saved-page.tsx:119
 msgid "Clear all"
 msgstr "Clirio popeth"
 
-#: src/features/forums/pages/saved-page.tsx:76
+#: src/features/forums/pages/saved-page.tsx:112
 msgid "Clear all saved posts?"
-msgstr ""
+msgstr "Clirio pob postiad sydd wedi'u cadw?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -574,8 +574,8 @@ msgstr "Cyfrif AI diofyn"
 
 #: src/features/forums/components/thread/thread-comment.tsx:338
 #: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:304
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:307
+#: src/features/forums/components/thread/thread-content.tsx:385
 #: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "Dileu"
@@ -596,7 +596,7 @@ msgstr "Dileu fforwm"
 msgid "Delete forum?"
 msgstr "Dileu fforwm?"
 
-#: src/features/forums/components/thread/thread-content.tsx:380
+#: src/features/forums/components/thread/thread-content.tsx:383
 msgid "Delete post"
 msgstr "Dileu postiad"
 
@@ -657,7 +657,7 @@ msgid "Dyslexia-friendly"
 msgstr "Cyfeillgar i ddyslecsia"
 
 #: src/features/forums/components/thread/thread-comment.tsx:332
-#: src/features/forums/components/thread/thread-content.tsx:298
+#: src/features/forums/components/thread/thread-content.tsx:301
 msgid "Edit"
 msgstr "Golygu"
 
@@ -727,7 +727,7 @@ msgstr "Methwyd gwahardd defnyddwyr"
 
 #: src/lib/saved.ts:96
 msgid "Failed to clear saved posts"
-msgstr ""
+msgstr "Methwyd clirio'r postiadau cadwedig"
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -808,7 +808,7 @@ msgstr "Methwyd dileu'r cyfyngiad"
 
 #: src/lib/saved.ts:75
 msgid "Failed to remove saved post"
-msgstr ""
+msgstr "Methwyd tynnu'r postiad cadwedig"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -828,7 +828,7 @@ msgstr "Methwyd cadw gosodiadau cymedroli"
 
 #: src/lib/saved.ts:63
 msgid "Failed to save post"
-msgstr ""
+msgstr "Methwyd cadw'r postiad"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -1084,11 +1084,11 @@ msgstr "Llwytho mwy"
 msgid "Loading…"
 msgstr "Yn llwytho…"
 
-#: src/features/forums/components/thread/thread-content.tsx:333
+#: src/features/forums/components/thread/thread-content.tsx:336
 msgid "Lock"
 msgstr "Cloi"
 
-#: src/features/forums/components/thread/thread-content.tsx:157
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Locked"
 msgstr "Wedi'i gloi"
 
@@ -1172,7 +1172,7 @@ msgid "Mute"
 msgstr "Tewi"
 
 #: src/features/forums/components/thread/thread-comment.tsx:385
-#: src/features/forums/components/thread/thread-content.tsx:361
+#: src/features/forums/components/thread/thread-content.tsx:364
 msgid "Mute author"
 msgstr "Tewi'r awdur"
 
@@ -1208,7 +1208,7 @@ msgstr "Fforwm newydd"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:265
+#: src/features/forums/pages/entity-forum-page.tsx:264
 msgid "New post"
 msgstr "Postiad newydd"
 
@@ -1304,9 +1304,9 @@ msgstr "Dim"
 msgid "Normal"
 msgstr "Arferol"
 
-#: src/features/forums/pages/saved-page.tsx:56
+#: src/features/forums/pages/saved-page.tsx:81
 msgid "Nothing saved yet"
-msgstr ""
+msgstr "Heb gadw dim eto"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1377,7 +1377,7 @@ msgstr "Pasallweddi"
 msgid "Pending"
 msgstr "Ar y gweill"
 
-#: src/features/forums/components/thread/thread-content.tsx:145
+#: src/features/forums/components/thread/thread-content.tsx:146
 msgid "Pending approval"
 msgstr "Yn aros am gymeradwyaeth"
 
@@ -1395,11 +1395,11 @@ msgstr "Postiadau ar y gweill ({0})"
 msgid "Permanently delete this forum and all its content."
 msgstr "Dileu'r fforwm hwn a'i holl gynnwys yn barhaol."
 
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Pin"
 msgstr "Pinio"
 
-#: src/features/forums/components/thread/thread-content.tsx:163
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Pinned"
 msgstr "Wedi'i binio"
 
@@ -1581,8 +1581,8 @@ msgstr "Cymharol o fewn 24 awr, fel arall yn absoliwt"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: src/features/forums/components/thread/thread-comment.tsx:366
 #: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:320
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-content.tsx:399
 #: src/routes/_authenticated/$forum_.moderation.tsx:714
 #: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
@@ -1603,16 +1603,14 @@ msgstr "Tynnu sylw"
 
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
-#: src/features/forums/components/saved-post-card.tsx:81
-#: src/features/forums/components/saved-post-card.tsx:82
 msgid "Remove from saved"
-msgstr ""
+msgstr "Tynnu o'r cadwedig"
 
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "Tynnu diddordeb"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Remove post"
 msgstr "Tynnu postiad"
 
@@ -1622,13 +1620,13 @@ msgstr "Tynnwch y fforwm hwn o'ch bar ochr."
 
 #: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
-#: src/features/forums/components/thread/thread-content.tsx:151
+#: src/features/forums/components/thread/thread-content.tsx:152
 msgid "Removed"
 msgstr "Wedi'i dynnu"
 
 #: src/features/forums/components/saved-button.tsx:37
 msgid "Removed from saved"
-msgstr ""
+msgstr "Wedi'i ddileu o'r rhai a gadwyd"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1640,7 +1638,7 @@ msgid "Reply to {0}..."
 msgstr "Ymateb i {0}..."
 
 #: src/features/forums/components/thread/thread-comment.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:354
+#: src/features/forums/components/thread/thread-content.tsx:357
 msgid "Report"
 msgstr "Adroddiad"
 
@@ -1704,7 +1702,7 @@ msgid "Resolved"
 msgstr "Wedi'i datrys"
 
 #: src/features/forums/components/thread/thread-comment.tsx:360
-#: src/features/forums/components/thread/thread-content.tsx:314
+#: src/features/forums/components/thread/thread-content.tsx:317
 msgid "Restore"
 msgstr "Adfer"
 
@@ -1754,19 +1752,14 @@ msgstr "Cadw newidiadau"
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
 msgid "Save for later"
-msgstr ""
+msgstr "Cadw at nes ymlaen"
 
 #: src/components/layout/forums-layout.tsx:105
 #: src/features/forums/components/saved-button.tsx:37
-#: src/features/forums/pages/saved-page.tsx:24
-#: src/features/forums/pages/saved-page.tsx:38
+#: src/features/forums/pages/saved-page.tsx:49
+#: src/features/forums/pages/saved-page.tsx:63
 msgid "Saved"
-msgstr ""
-
-#. placeholder {0}: formatTimestamp(item.created)
-#: src/features/forums/components/saved-post-card.tsx:43
-msgid "saved {0}"
-msgstr ""
+msgstr "Wedi'i gadw"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1999,9 +1992,9 @@ msgstr "Tag"
 msgid "Tag prompt"
 msgstr "Anogwr tag"
 
-#: src/features/forums/pages/saved-page.tsx:57
+#: src/features/forums/pages/saved-page.tsx:82
 msgid "Tap the bookmark on any post to save it here for later."
-msgstr ""
+msgstr "Tapiwch y nod tudalen ar unrhyw bostiad i'w gadw yma at nes ymlaen."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -2044,15 +2037,15 @@ msgstr "Efallai bod y postiad hwn wedi'i ddileu neu nad yw'n bodoli."
 msgid "This post was already submitted"
 msgstr "Mae'r post hwn eisoes wedi'i gyflwyno"
 
-#: src/features/forums/pages/saved-page.tsx:78
+#: src/features/forums/pages/saved-page.tsx:114
 msgid "This removes every post from your saved list. This cannot be undone."
-msgstr ""
+msgstr "Mae hyn yn tynnu pob postiad o'ch rhestr gadwedig. Ni ellir dadwneud hyn."
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Bydd hyn yn cuddio'r sylw rhag defnyddwyr rheolaidd. Gall cymedrolwyr ei weld o hyd a'i adfer yn ddiweddarach."
 
-#: src/features/forums/components/thread/thread-content.tsx:395
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Bydd hyn yn cuddio'r postiad rhag defnyddwyr rheolaidd. Gall cymedrolwyr ei weld o hyd a'i adfer yn ddiweddarach."
 
@@ -2157,11 +2150,11 @@ msgstr "Yr Unol Daleithiau"
 msgid "Unknown"
 msgstr "Anhysbys"
 
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Unlock"
 msgstr "Datgloi"
 
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "Unpin"
 msgstr "Dadbinio"
 

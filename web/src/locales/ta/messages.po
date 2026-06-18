@@ -29,7 +29,7 @@ msgstr " (திருத்தப்பட்டது)"
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
-msgstr ""
+msgstr "{0, plural, one {# புதிய இடுகை} other {# புதிய இடுகைகள்}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:511
@@ -231,7 +231,7 @@ msgstr "அங்கீகரி"
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "இந்த கருத்தை நீக்க விரும்புகிறீர்களா? இது அனைத்து பதிலளிப்புகளையும் நீக்கும். இந்த செயலை மாற்ற முடியாது."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "இந்த இடுகையை நீக்க விரும்புகிறீர்களா? இது அனைத்து கருத்துகளையும் நீக்கும். இந்தச் செயலைச் செயல்தவிர்க்க முடியாது."
 
@@ -288,7 +288,7 @@ msgid "Ban"
 msgstr "தடைசெய்"
 
 #: src/features/forums/components/thread/thread-comment.tsx:393
-#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:370
 msgid "Ban author"
 msgstr "ஆசிரியரைத் தடைசெய்"
 
@@ -385,14 +385,14 @@ msgid "Clear"
 msgstr "அழி"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
-#: src/features/forums/pages/saved-page.tsx:46
-#: src/features/forums/pages/saved-page.tsx:83
+#: src/features/forums/pages/saved-page.tsx:71
+#: src/features/forums/pages/saved-page.tsx:119
 msgid "Clear all"
 msgstr "அனைத்தையும் அழி"
 
-#: src/features/forums/pages/saved-page.tsx:76
+#: src/features/forums/pages/saved-page.tsx:112
 msgid "Clear all saved posts?"
-msgstr ""
+msgstr "சேமித்த அனைத்து இடுகைகளையும் அழிக்கவா?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -574,8 +574,8 @@ msgstr "இயல்புநிலை AI கணக்கு"
 
 #: src/features/forums/components/thread/thread-comment.tsx:338
 #: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:304
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:307
+#: src/features/forums/components/thread/thread-content.tsx:385
 #: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "நீக்கு"
@@ -596,7 +596,7 @@ msgstr "மன்றத்தை நீக்கு"
 msgid "Delete forum?"
 msgstr "மன்றத்தை நீக்கவா?"
 
-#: src/features/forums/components/thread/thread-content.tsx:380
+#: src/features/forums/components/thread/thread-content.tsx:383
 msgid "Delete post"
 msgstr "பதிவை நீக்கு"
 
@@ -657,7 +657,7 @@ msgid "Dyslexia-friendly"
 msgstr "டிஸ்லெக்சியாவுக்கு உகந்தது"
 
 #: src/features/forums/components/thread/thread-comment.tsx:332
-#: src/features/forums/components/thread/thread-content.tsx:298
+#: src/features/forums/components/thread/thread-content.tsx:301
 msgid "Edit"
 msgstr "திருத்து"
 
@@ -727,7 +727,7 @@ msgstr "பயனர்களைத் தடை செய்ய முடிய
 
 #: src/lib/saved.ts:96
 msgid "Failed to clear saved posts"
-msgstr ""
+msgstr "சேமித்த இடுகைகளை அழிக்க முடியவில்லை"
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -808,7 +808,7 @@ msgstr "கட்டுப்பாட்டை நீக்க முடிய�
 
 #: src/lib/saved.ts:75
 msgid "Failed to remove saved post"
-msgstr ""
+msgstr "சேமித்த இடுகையை அகற்ற முடியவில்லை"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -828,7 +828,7 @@ msgstr "மாடரேஷன் அமைப்புகளை சேமிக�
 
 #: src/lib/saved.ts:63
 msgid "Failed to save post"
-msgstr ""
+msgstr "இடுகையைச் சேமிக்க முடியவில்லை"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -1084,11 +1084,11 @@ msgstr "மேலும் ஏற்று"
 msgid "Loading…"
 msgstr "ஏற்றுகிறது…"
 
-#: src/features/forums/components/thread/thread-content.tsx:333
+#: src/features/forums/components/thread/thread-content.tsx:336
 msgid "Lock"
 msgstr "பூட்டு"
 
-#: src/features/forums/components/thread/thread-content.tsx:157
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Locked"
 msgstr "பூட்டப்பட்டது"
 
@@ -1172,7 +1172,7 @@ msgid "Mute"
 msgstr "முடக்கு"
 
 #: src/features/forums/components/thread/thread-comment.tsx:385
-#: src/features/forums/components/thread/thread-content.tsx:361
+#: src/features/forums/components/thread/thread-content.tsx:364
 msgid "Mute author"
 msgstr "ஆசிரியரை மியூட் செய்யவும்"
 
@@ -1208,7 +1208,7 @@ msgstr "புதிய மன்றம்"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:265
+#: src/features/forums/pages/entity-forum-page.tsx:264
 msgid "New post"
 msgstr "புதிய பதிவு"
 
@@ -1304,9 +1304,9 @@ msgstr "ஒன்றுமில்லை"
 msgid "Normal"
 msgstr "சாதாரணம்"
 
-#: src/features/forums/pages/saved-page.tsx:56
+#: src/features/forums/pages/saved-page.tsx:81
 msgid "Nothing saved yet"
-msgstr ""
+msgstr "இன்னும் எதுவும் சேமிக்கப்படவில்லை"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1377,7 +1377,7 @@ msgstr "Passkeyக்கள்"
 msgid "Pending"
 msgstr "நிலுவையில்"
 
-#: src/features/forums/components/thread/thread-content.tsx:145
+#: src/features/forums/components/thread/thread-content.tsx:146
 msgid "Pending approval"
 msgstr "ஒப்புதலுக்காக நிலுவையில்"
 
@@ -1395,11 +1395,11 @@ msgstr "நிலுவையில் உள்ள இடுகைகள் ({0
 msgid "Permanently delete this forum and all its content."
 msgstr "இந்த மன்றம் மற்றும் அதன் அனைத்து உள்ளடக்கத்தையும் நிரந்தரமாக நீக்கவும்."
 
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:163
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Pinned"
 msgstr "Pin செய்யப்பட்டது"
 
@@ -1581,8 +1581,8 @@ msgstr "24 மணி நேரத்திற்குள் சார்பு,
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: src/features/forums/components/thread/thread-comment.tsx:366
 #: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:320
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-content.tsx:399
 #: src/routes/_authenticated/$forum_.moderation.tsx:714
 #: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
@@ -1603,16 +1603,14 @@ msgstr "கருத்தை அகற்று"
 
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
-#: src/features/forums/components/saved-post-card.tsx:81
-#: src/features/forums/components/saved-post-card.tsx:82
 msgid "Remove from saved"
-msgstr ""
+msgstr "சேமித்தவற்றிலிருந்து அகற்று"
 
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "ஆர்வத்தை அகற்று"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Remove post"
 msgstr "பதிவை அகற்று"
 
@@ -1622,13 +1620,13 @@ msgstr "உங்கள் sidebar-லிருந்து இந்த மன�
 
 #: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
-#: src/features/forums/components/thread/thread-content.tsx:151
+#: src/features/forums/components/thread/thread-content.tsx:152
 msgid "Removed"
 msgstr "அகற்றப்பட்டது"
 
 #: src/features/forums/components/saved-button.tsx:37
 msgid "Removed from saved"
-msgstr ""
+msgstr "சேமிக்கப்பட்டவற்றிலிருந்து அகற்றப்பட்டது"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1640,7 +1638,7 @@ msgid "Reply to {0}..."
 msgstr "{0} க்கு பதிலளி..."
 
 #: src/features/forums/components/thread/thread-comment.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:354
+#: src/features/forums/components/thread/thread-content.tsx:357
 msgid "Report"
 msgstr "புகார்"
 
@@ -1704,7 +1702,7 @@ msgid "Resolved"
 msgstr "தீர்க்கப்பட்டது"
 
 #: src/features/forums/components/thread/thread-comment.tsx:360
-#: src/features/forums/components/thread/thread-content.tsx:314
+#: src/features/forums/components/thread/thread-content.tsx:317
 msgid "Restore"
 msgstr "மீட்டெடு"
 
@@ -1754,19 +1752,14 @@ msgstr "மாற்றங்களை சேமி"
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
 msgid "Save for later"
-msgstr ""
+msgstr "பின்னர் பார்க்க சேமி"
 
 #: src/components/layout/forums-layout.tsx:105
 #: src/features/forums/components/saved-button.tsx:37
-#: src/features/forums/pages/saved-page.tsx:24
-#: src/features/forums/pages/saved-page.tsx:38
+#: src/features/forums/pages/saved-page.tsx:49
+#: src/features/forums/pages/saved-page.tsx:63
 msgid "Saved"
-msgstr ""
-
-#. placeholder {0}: formatTimestamp(item.created)
-#: src/features/forums/components/saved-post-card.tsx:43
-msgid "saved {0}"
-msgstr ""
+msgstr "சேமிக்கப்பட்டது"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1999,9 +1992,9 @@ msgstr "டேக்"
 msgid "Tag prompt"
 msgstr "குறிச்சொல் வினவல்"
 
-#: src/features/forums/pages/saved-page.tsx:57
+#: src/features/forums/pages/saved-page.tsx:82
 msgid "Tap the bookmark on any post to save it here for later."
-msgstr ""
+msgstr "எந்த இடுகையையும் இங்கே பின்னர் பார்க்க சேமிக்க அதன் புத்தகக்குறியைத் தட்டவும்."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -2044,15 +2037,15 @@ msgstr "இந்த இடுகை நீக்கப்பட்டிரு�
 msgid "This post was already submitted"
 msgstr "இந்த இடுகை ஏற்கனவே சமர்ப்பிக்கப்பட்டுள்ளது"
 
-#: src/features/forums/pages/saved-page.tsx:78
+#: src/features/forums/pages/saved-page.tsx:114
 msgid "This removes every post from your saved list. This cannot be undone."
-msgstr ""
+msgstr "இது உங்கள் சேமித்த பட்டியலிலிருந்து ஒவ்வொரு இடுகையையும் அகற்றும். இதை மீட்டெடுக்க முடியாது."
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "இது வழக்கமான பயனர்களிடமிருந்து கருத்தை மறைக்கும். மிதவாதிகள் இன்னும் அதைப் பார்க்கலாம் மற்றும் பின்னர் மீட்டெடுக்கலாம்."
 
-#: src/features/forums/components/thread/thread-content.tsx:395
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "இது வழக்கமான பயனர்களிடமிருந்து இடுகையை மறைக்கும். மிதவாதிகள் இன்னும் அதைப் பார்க்கலாம் மற்றும் பின்னர் மீட்டெடுக்கலாம்."
 
@@ -2157,11 +2150,11 @@ msgstr "ஐக்கிய அமெரிக்கா"
 msgid "Unknown"
 msgstr "தெரியாதது"
 
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Unlock"
 msgstr "திற"
 
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "Unpin"
 msgstr "பின் நீக்கு"
 
