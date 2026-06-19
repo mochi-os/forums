@@ -29,7 +29,7 @@ msgstr " (সম্পাদিত)"
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:306
 msgid "{0, plural, one {# new post} other {# new posts}}"
-msgstr ""
+msgstr "{0, plural, one {# নতুন পোস্ট} other {# নতুন পোস্ট}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:511
@@ -231,7 +231,7 @@ msgstr "অনুমোদন করুন"
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "আপনি কি নিশ্চিত এই মন্তব্যটি মুছতে চান? এটি সব উত্তরও মুছে ফেলবে। এই অ্যাকশন পূর্বাবস্থায় ফেরানো যাবে না।"
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "আপনি কি নিশ্চিত যে আপনি এই পোস্টটি মুছে ফেলতে চান? এটি সমস্ত মন্তব্যও মুছে ফেলবে। এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না।"
 
@@ -288,7 +288,7 @@ msgid "Ban"
 msgstr "নিষিদ্ধ করুন"
 
 #: src/features/forums/components/thread/thread-comment.tsx:393
-#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:370
 msgid "Ban author"
 msgstr "লেখককে নিষিদ্ধ করুন"
 
@@ -385,14 +385,14 @@ msgid "Clear"
 msgstr "পরিষ্কার করুন"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:64
-#: src/features/forums/pages/saved-page.tsx:46
-#: src/features/forums/pages/saved-page.tsx:83
+#: src/features/forums/pages/saved-page.tsx:71
+#: src/features/forums/pages/saved-page.tsx:119
 msgid "Clear all"
 msgstr "সব পরিষ্কার করুন"
 
-#: src/features/forums/pages/saved-page.tsx:76
+#: src/features/forums/pages/saved-page.tsx:112
 msgid "Clear all saved posts?"
-msgstr ""
+msgstr "সব সংরক্ষিত পোস্ট মুছে ফেলবেন?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:137
 msgid "Clear filters"
@@ -574,8 +574,8 @@ msgstr "ডিফল্ট AI অ্যাকাউন্ট"
 
 #: src/features/forums/components/thread/thread-comment.tsx:338
 #: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:304
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:307
+#: src/features/forums/components/thread/thread-content.tsx:385
 #: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Delete"
 msgstr "মুছুন"
@@ -596,7 +596,7 @@ msgstr "ফোরাম মুছুন"
 msgid "Delete forum?"
 msgstr "ফোরাম মুছবেন?"
 
-#: src/features/forums/components/thread/thread-content.tsx:380
+#: src/features/forums/components/thread/thread-content.tsx:383
 msgid "Delete post"
 msgstr "পোস্ট মুছুন"
 
@@ -657,7 +657,7 @@ msgid "Dyslexia-friendly"
 msgstr "ডিসলেক্সিয়া-বান্ধব"
 
 #: src/features/forums/components/thread/thread-comment.tsx:332
-#: src/features/forums/components/thread/thread-content.tsx:298
+#: src/features/forums/components/thread/thread-content.tsx:301
 msgid "Edit"
 msgstr "সম্পাদনা"
 
@@ -727,7 +727,7 @@ msgstr "ব্যবহারকারীদের নিষিদ্ধ কর�
 
 #: src/lib/saved.ts:96
 msgid "Failed to clear saved posts"
-msgstr ""
+msgstr "সংরক্ষিত পোস্ট মোছা যায়নি"
 
 #: src/components/options-menu.tsx:45
 msgid "Failed to get RSS token"
@@ -808,7 +808,7 @@ msgstr "নিষেধাজ্ঞা সরাতে ব্যর্থ"
 
 #: src/lib/saved.ts:75
 msgid "Failed to remove saved post"
-msgstr ""
+msgstr "সংরক্ষিত পোস্ট সরানো যায়নি"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Failed to rename forum"
@@ -828,7 +828,7 @@ msgstr "মডারেশন সেটিংস সংরক্ষণ করত
 
 #: src/lib/saved.ts:63
 msgid "Failed to save post"
-msgstr ""
+msgstr "পোস্ট সংরক্ষণ করা যায়নি"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:770
 msgid "Failed to save prompt"
@@ -1084,11 +1084,11 @@ msgstr "আরও লোড করুন"
 msgid "Loading…"
 msgstr "লোড হচ্ছে…"
 
-#: src/features/forums/components/thread/thread-content.tsx:333
+#: src/features/forums/components/thread/thread-content.tsx:336
 msgid "Lock"
 msgstr "লক করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:157
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Locked"
 msgstr "লক করা"
 
@@ -1172,7 +1172,7 @@ msgid "Mute"
 msgstr "নিঃশব্দ"
 
 #: src/features/forums/components/thread/thread-comment.tsx:385
-#: src/features/forums/components/thread/thread-content.tsx:361
+#: src/features/forums/components/thread/thread-content.tsx:364
 msgid "Mute author"
 msgstr "লেখককে মিউট করুন"
 
@@ -1208,7 +1208,7 @@ msgstr "নতুন ফোরাম"
 #: src/features/forums/components/create-post-dialog.tsx:168
 #: src/features/forums/components/create-post-dialog.tsx:173
 #: src/features/forums/components/create-post-dialog.tsx:180
-#: src/features/forums/pages/entity-forum-page.tsx:265
+#: src/features/forums/pages/entity-forum-page.tsx:264
 msgid "New post"
 msgstr "নতুন পোস্ট"
 
@@ -1304,9 +1304,9 @@ msgstr "কোনোটি নয়"
 msgid "Normal"
 msgstr "সাধারণ"
 
-#: src/features/forums/pages/saved-page.tsx:56
+#: src/features/forums/pages/saved-page.tsx:81
 msgid "Nothing saved yet"
-msgstr ""
+msgstr "এখনো কিছুই সংরক্ষণ করা হয়নি"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:132
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:146
@@ -1377,7 +1377,7 @@ msgstr "পাসকি"
 msgid "Pending"
 msgstr "মুলতুবি"
 
-#: src/features/forums/components/thread/thread-content.tsx:145
+#: src/features/forums/components/thread/thread-content.tsx:146
 msgid "Pending approval"
 msgstr "অনুমোদনের অপেক্ষায়"
 
@@ -1395,11 +1395,11 @@ msgstr "অপেক্ষমান পোস্ট ({0})"
 msgid "Permanently delete this forum and all its content."
 msgstr "এই ফোরাম ও এর সমস্ত বিষয়বস্তু স্থায়ীভাবে মুছে ফেলুন।"
 
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Pin"
 msgstr "পিন করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:163
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Pinned"
 msgstr "পিন করা হয়েছে"
 
@@ -1581,8 +1581,8 @@ msgstr "২৪ ঘণ্টার মধ্যে আপেক্ষিক, অ�
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: src/features/forums/components/thread/thread-comment.tsx:366
 #: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:320
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-content.tsx:399
 #: src/routes/_authenticated/$forum_.moderation.tsx:714
 #: src/routes/_authenticated/$forum_.moderation.tsx:1004
 msgid "Remove"
@@ -1603,16 +1603,14 @@ msgstr "মন্তব্য সরান"
 
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
-#: src/features/forums/components/saved-post-card.tsx:81
-#: src/features/forums/components/saved-post-card.tsx:82
 msgid "Remove from saved"
-msgstr ""
+msgstr "সংরক্ষিত থেকে সরান"
 
 #: ../../../lib/web/src/components/post-tags.tsx:190
 msgid "Remove interest"
 msgstr "আগ্রহ সরান"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Remove post"
 msgstr "পোস্ট সরান"
 
@@ -1622,13 +1620,13 @@ msgstr "আপনার সাইডবার থেকে এই ফোরা�
 
 #: src/features/forums/components/post-card.tsx:58
 #: src/features/forums/components/thread/thread-comment.tsx:209
-#: src/features/forums/components/thread/thread-content.tsx:151
+#: src/features/forums/components/thread/thread-content.tsx:152
 msgid "Removed"
 msgstr "সরানো হয়েছে"
 
 #: src/features/forums/components/saved-button.tsx:37
 msgid "Removed from saved"
-msgstr ""
+msgstr "সংরক্ষিত থেকে সরানো হয়েছে"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1082
 msgid "Replies must be approved"
@@ -1640,7 +1638,7 @@ msgid "Reply to {0}..."
 msgstr "{0} কে উত্তর দিন..."
 
 #: src/features/forums/components/thread/thread-comment.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:354
+#: src/features/forums/components/thread/thread-content.tsx:357
 msgid "Report"
 msgstr "রিপোর্ট"
 
@@ -1704,7 +1702,7 @@ msgid "Resolved"
 msgstr "সমাধান হয়েছে"
 
 #: src/features/forums/components/thread/thread-comment.tsx:360
-#: src/features/forums/components/thread/thread-content.tsx:314
+#: src/features/forums/components/thread/thread-content.tsx:317
 msgid "Restore"
 msgstr "পুনরুদ্ধার করুন"
 
@@ -1754,19 +1752,14 @@ msgstr "পরিবর্তন সংরক্ষণ করুন"
 #: src/features/forums/components/saved-button.tsx:29
 #: src/features/forums/components/saved-button.tsx:31
 msgid "Save for later"
-msgstr ""
+msgstr "পরে দেখার জন্য সংরক্ষণ করুন"
 
 #: src/components/layout/forums-layout.tsx:105
 #: src/features/forums/components/saved-button.tsx:37
-#: src/features/forums/pages/saved-page.tsx:24
-#: src/features/forums/pages/saved-page.tsx:38
+#: src/features/forums/pages/saved-page.tsx:49
+#: src/features/forums/pages/saved-page.tsx:63
 msgid "Saved"
-msgstr ""
-
-#. placeholder {0}: formatTimestamp(item.created)
-#: src/features/forums/components/saved-post-card.tsx:43
-msgid "saved {0}"
-msgstr ""
+msgstr "সংরক্ষিত"
 
 #: src/features/forums/components/edit-post-dialog.tsx:338
 #: src/routes/_authenticated/$forum_.settings.tsx:798
@@ -1999,9 +1992,9 @@ msgstr "ট্যাগ"
 msgid "Tag prompt"
 msgstr "ট্যাগ প্রম্পট"
 
-#: src/features/forums/pages/saved-page.tsx:57
+#: src/features/forums/pages/saved-page.tsx:82
 msgid "Tap the bookmark on any post to save it here for later."
-msgstr ""
+msgstr "পরে দেখার জন্য এখানে সংরক্ষণ করতে যেকোনো পোস্টের বুকমার্কে ট্যাপ করুন।"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:60
 msgid "Teams/Apps"
@@ -2044,15 +2037,15 @@ msgstr "এই পোস্টটি মুছে ফেলা হয়ে থ�
 msgid "This post was already submitted"
 msgstr "এই পোস্টটি ইতিমধ্যে জমা দেওয়া হয়েছে"
 
-#: src/features/forums/pages/saved-page.tsx:78
+#: src/features/forums/pages/saved-page.tsx:114
 msgid "This removes every post from your saved list. This cannot be undone."
-msgstr ""
+msgstr "এটি আপনার সংরক্ষিত তালিকা থেকে প্রতিটি পোস্ট সরিয়ে দেবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।"
 
 #: src/features/forums/components/thread/thread-comment.tsx:422
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "এটি সাধারণ ব্যবহারকারীদের কাছ থেকে মন্তব্যটি লুকিয়ে রাখবে। মডারেটররা এখনও এটি দেখতে পারেন এবং পরে পুনরুদ্ধার করতে পারেন।"
 
-#: src/features/forums/components/thread/thread-content.tsx:395
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "এটি সাধারণ ব্যবহারকারীদের কাছ থেকে পোস্টটি লুকিয়ে রাখবে। মডারেটররা এখনও এটি দেখতে পারেন এবং পরে পুনরুদ্ধার করতে পারেন।"
 
@@ -2157,11 +2150,11 @@ msgstr "যুক্তরাষ্ট্র"
 msgid "Unknown"
 msgstr "অজানা"
 
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Unlock"
 msgstr "আনলক করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "Unpin"
 msgstr "আনপিন করুন"
 
