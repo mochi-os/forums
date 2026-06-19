@@ -170,7 +170,7 @@ export function PostCard({
     return (
       <div
         className={cn(
-          'group/card hover:bg-accent/50 cursor-pointer overflow-hidden transition-colors'
+          'group/card hover:bg-hover/50 cursor-pointer overflow-hidden transition-colors'
         )}
         onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
       >
