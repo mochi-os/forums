@@ -23,6 +23,7 @@ import {
   Skeleton,
   Section,
   FieldRow,
+  EditableFieldRow,
   DataChip,
   useAccounts,
   getAppPath,
@@ -33,7 +34,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue, naturalCompare,} from '@mochi/web'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Pencil, Check, X, Gavel } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { toError, getErrorStatus } from '@/lib/errors'
@@ -333,10 +334,6 @@ function GeneralTab({
   onRefresh,
 }: GeneralTabProps) {
   const { t } = useLingui()
-  const [isEditing, setIsEditing] = useState(false)
-  const [editName, setEditName] = useState(forum.name)
-  const [isRenaming, setIsRenaming] = useState(false)
-  const [nameError, setNameError] = useState<string | null>(null)
 
   const validateName = (name: string): string | null => {
     if (!name.trim()) return t`Forum name is required`
@@ -345,107 +342,20 @@ function GeneralTab({
     return null
   }
 
-  const handleStartEdit = () => {
-    setEditName(forum.name)
-    setNameError(null)
-    setIsEditing(true)
-  }
-
-  const handleCancelEdit = () => {
-    setIsEditing(false)
-    setEditName(forum.name)
-    setNameError(null)
-  }
-
-  const handleSaveEdit = async () => {
-    const trimmedName = editName.trim()
-    const error = validateName(trimmedName)
-    if (error) {
-      setNameError(error)
-      return
-    }
-    if (trimmedName === forum.name) {
-      setIsEditing(false)
-      return
-    }
-    setIsRenaming(true)
-    try {
-      await onRename(trimmedName)
-      setIsEditing(false)
-    } finally {
-      setIsRenaming(false)
-    }
-  }
-
   return (
     <div className='space-y-6'>
       <Section
         title={t`Identity`}
       >
         <div className="divide-y-0">
-          <FieldRow label={t`Name`}>
-            {forum.can_manage && isEditing ? (
-              <div className='flex flex-col gap-1 w-full max-w-md'>
-                <div className='flex items-center gap-2'>
-                  <Input
-                    value={editName}
-                    onChange={(e) => {
-                      setEditName(e.target.value)
-                      setNameError(null)
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') void handleSaveEdit()
-                      if (e.key === 'Escape') handleCancelEdit()
-                    }}
-                    className='h-9'
-                    disabled={isRenaming}
-                    autoFocus
-                  />
-                  <Button
-                    size='sm'
-                    variant='ghost'
-                    onClick={() => void handleSaveEdit()}
-                    disabled={isRenaming}
-                    className='h-9 w-9 p-0'
-                  >
-                    {isRenaming ? (
-                      <Loader2 className='size-4 animate-spin' />
-                    ) : (
-                      <Check className='size-4 text-success' />
-                    )}
-                  </Button>
-                  <Button
-                    size='sm'
-                    variant='ghost'
-                    onClick={handleCancelEdit}
-                    disabled={isRenaming}
-                    className='h-9 w-9 p-0'
-                    aria-label={t`Cancel edit`}
-                  >
-                    <X className='size-4 text-destructive' />
-                  </Button>
-                </div>
-                {nameError && (
-                  <span className='text-sm text-destructive'>{nameError}</span>
-                )}
-              </div>
-            ) : (
-              <div className='flex items-center gap-2'>
-                <span className="text-base font-semibold">{forum.name}</span>
-                {forum.can_manage && (
-                  <Button
-                    size='sm'
-                    variant='ghost'
-                    onClick={handleStartEdit}
-                    className='h-6 w-6 p-0 hover:bg-hover'
-                    aria-label={t`Edit name`}
-                  >
-                    <Pencil className='size-3.5 text-muted-foreground' />
-                  </Button>
-                )}
-              </div>
-            )}
-          </FieldRow>
+          <EditableFieldRow
+            label={t`Name`}
+            value={forum.name}
+            canEdit={forum.can_manage}
+            onSave={onRename}
+            validate={validateName}
+            emphasize
+          />
 
           <FieldRow label={t`Entity ID`}>
             <DataChip value={forum.id} truncate='middle' />
