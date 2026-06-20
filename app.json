@@ -23,7 +23,8 @@
 		"upgrade": {"function": "database_upgrade"},
 		"replicate": {
 			"exclude": {
-				"tables": ["score_cache"]
+				"tables": ["score_cache"],
+				"columns": {"tags": ["relevance"]}
 			}
 		}
 	},
