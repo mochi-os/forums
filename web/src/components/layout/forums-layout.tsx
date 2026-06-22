@@ -14,7 +14,6 @@ import {
 import {
   Bookmark,
   Hash,
-  MessageSquare,
   Plus,
   RefreshCw,
   Search,
@@ -102,7 +101,8 @@ function ForumsLayoutInner() {
     const allForumsItem: NavItem = {
       title: t`All forums`,
       url: '/',
-      icon: MessageSquare,
+      icon: Hash,
+      aggregate: true,
     }
 
     // Build action items (moved to bottom)
