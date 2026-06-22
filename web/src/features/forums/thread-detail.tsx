@@ -19,6 +19,7 @@ import {
   useImageObjectUrls,
   MentionTextarea,
   useAuthStore,
+  useListAutoAnimate,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -105,6 +106,10 @@ export function ThreadDetail({
     error: postError,
     refetch: refetchPost,
   } = usePostDetail(forum, postId, server)
+
+  const [commentsListRef] = useListAutoAnimate<HTMLDivElement>({
+    disabled: isLoading,
+  })
 
   // Sync post title to sidebar
   useEffect(() => {
@@ -474,7 +479,7 @@ export function ThreadDetail({
 
                 {/* Comments List */}
                 {commentCount > 0 ? (
-                  <div className='divide-y-0'>
+                  <div className='divide-y-0' ref={commentsListRef}>
                     {comments.map((comment) => (
                       <ThreadComment
                         key={comment.id}

@@ -134,7 +134,7 @@ export function ThreadComment({
     setLocalVote(comment.user_vote || '')
     setLocalUp(comment.up)
     setLocalDown(comment.down)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comment.id, comment.user_vote, comment.up, comment.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
@@ -358,19 +358,19 @@ export function ThreadComment({
                       )}
                       {isRemoved
                         ? onRestore && (
-                            <DropdownMenuItem
-                              onClick={() => onRestore(comment.id)}
-                            >
-                              <Eye className='me-2 size-4' />
-                              <Trans>Restore</Trans>
-                            </DropdownMenuItem>
-                          )
+                          <DropdownMenuItem
+                            onClick={() => onRestore(comment.id)}
+                          >
+                            <Eye className='me-2 size-4' />
+                            <Trans>Restore</Trans>
+                          </DropdownMenuItem>
+                        )
                         : onRemove && (
-                            <DropdownMenuItem onClick={() => setRemoving(true)}>
-                              <EyeOff className='me-2 size-4' />
-                              <Trans>Remove</Trans>
-                            </DropdownMenuItem>
-                          )}
+                          <DropdownMenuItem onClick={() => setRemoving(true)}>
+                            <EyeOff className='me-2 size-4' />
+                            <Trans>Remove</Trans>
+                          </DropdownMenuItem>
+                        )}
                     </>
                   )}
                   {onReport && currentUserId !== comment.member && (

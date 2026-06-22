@@ -93,6 +93,7 @@ function ForumsLayoutInner() {
       const forumUrl = f.fingerprint ?? f.id
 
       return {
+        id: f.id,
         title: f.name,
         url: `/${forumUrl}`,
         icon: Hash,
@@ -100,6 +101,7 @@ function ForumsLayoutInner() {
     })
 
     const allForumsItem: NavItem = {
+      id: 'all-forums',
       title: t`All forums`,
       url: '/',
       icon: MessageSquare,
@@ -119,10 +121,12 @@ function ForumsLayoutInner() {
     const groups: SidebarData['navGroups'] = [
       {
         title: t`Forums`,
+        animateList: true,
         items: forumsInfoError
           ? [
             allForumsItem,
             {
+              id: 'retry-forums-load',
               title: t`Retry forums load`,
               icon: RefreshCw,
               onClick: () => {

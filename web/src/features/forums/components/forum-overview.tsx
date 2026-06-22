@@ -3,6 +3,8 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
+import { useLayoutEffect, useRef } from 'react'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState } from '@mochi/web'
 import { Trans } from '@lingui/react/macro'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
@@ -59,14 +61,40 @@ export function ForumOverview({
   onInterestRemove,
   isLoggedIn = true,
 }: ForumOverviewProps) {
+  const [listRef, setAnimationsEnabled] = useAutoAnimate<HTMLDivElement>({
+    duration: 180,
+    easing: 'ease-out',
+  })
+  const wasFetchingRef = useRef(false)
+
+  useLayoutEffect(() => {
+    setAnimationsEnabled(false)
+    const id = requestAnimationFrame(() => setAnimationsEnabled(true))
+    return () => cancelAnimationFrame(id)
+  }, [setAnimationsEnabled])
+
+  useLayoutEffect(() => {
+    if (isFetchingNextPage) {
+      wasFetchingRef.current = true
+      setAnimationsEnabled(false)
+      return
+    }
+    if (wasFetchingRef.current) {
+      wasFetchingRef.current = false
+      setAnimationsEnabled(false)
+      const id = requestAnimationFrame(() => setAnimationsEnabled(true))
+      return () => cancelAnimationFrame(id)
+    }
+  }, [isFetchingNextPage, setAnimationsEnabled])
+
   if (!forum) {
     // All forums view - show each post in its own card with forum badge
     return (
       <div className='space-y-4'>
         {isLoading ? (
-          <CardSkeleton count={3} />
+          <CardSkeleton count={3} className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1' />
         ) : posts.length > 0 ? (
-          <div className='space-y-3'>
+          <div className='space-y-3' ref={listRef}>
             {posts.map((post) => (
               <PostCard
                 key={post.id}
@@ -107,10 +135,10 @@ export function ForumOverview({
   return (
     <div className='space-y-6'>
       {isLoading ? (
-        <CardSkeleton count={3} />
+        <CardSkeleton count={3} className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1' />
       ) : posts.length > 0 ? (
         <>
-          <div className='space-y-3'>
+          <div className='space-y-3' ref={listRef}>
             {posts.map((post) => (
               <PostCard
                 key={post.id}
