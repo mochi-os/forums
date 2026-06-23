@@ -9,7 +9,7 @@ import {
   Button,
   GeneralError,
   Skeleton,
-  toast,
+  toastAction,
   getErrorMessage,
 } from '@mochi/web'
 import { Hash, Loader2 } from 'lucide-react'
@@ -57,13 +57,19 @@ export function RecommendedForums({
   const handleSubscribe = async (forum: RecommendedForum) => {
     setPendingId(forum.id)
     try {
-      await forumsApi.subscribeForum(forum.id, forum.server || undefined)
+      await toastAction(
+        forumsApi.subscribeForum(forum.id, forum.server || undefined),
+        {
+          loading: t`Subscribing...`,
+          success: t`Subscribed to ${forum.name}`,
+          error: (e) => getErrorMessage(e, t`Failed to subscribe`),
+        }
+      )
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onSubscribe?.()
-      toast.success(t`Subscribed to ${forum.name}`)
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))
-    } catch (subscribeError) {
-      toast.error(getErrorMessage(subscribeError, t`Failed to subscribe`))
+    } catch {
+      // toast already shown
     } finally {
       setPendingId(null)
     }

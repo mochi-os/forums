@@ -8,7 +8,7 @@ import { useLingui } from '@lingui/react/macro'
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Hash } from 'lucide-react'
-import { FindEntityPage, toast, getErrorMessage } from '@mochi/web'
+import { FindEntityPage, toastAction, getErrorMessage } from '@mochi/web'
 import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 import forumsApi from '@/api/forums'
 import endpoints from '@/api/endpoints'
@@ -49,11 +49,14 @@ function FindForumsPage() {
   const handleSubscribe = useCallback(
     async (forumId: string) => {
       try {
-        await forumsApi.subscribeForum(forumId)
-        toast.success(t`Subscribed`)
+        await toastAction(forumsApi.subscribeForum(forumId), {
+          loading: t`Subscribing...`,
+          success: t`Subscribed`,
+          error: (e) => getErrorMessage(e, t`Failed to subscribe`),
+        })
         await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
-      } catch (error) {
-        toast.error(getErrorMessage(error, t`Failed to subscribe`))
+      } catch {
+        // toast already shown
       }
     },
     [queryClient, t]

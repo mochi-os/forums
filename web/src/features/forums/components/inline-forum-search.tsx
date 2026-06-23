@@ -12,7 +12,7 @@ import {
   Button,
   GeneralError,
   Input,
-  toast,
+  toastAction,
   getErrorMessage,
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
@@ -84,12 +84,18 @@ export function InlineForumSearch({
   const handleSubscribe = async (forum: DirectoryEntry) => {
     setPendingForumId(forum.id)
     try {
-      await forumsApi.subscribeForum(forum.id, forum.location || undefined)
+      await toastAction(
+        forumsApi.subscribeForum(forum.id, forum.location || undefined),
+        {
+          loading: t`Subscribing...`,
+          success: t`Subscribed`,
+          error: (e) => getErrorMessage(e, t`Failed to subscribe`),
+        }
+      )
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to subscribe`))
+    } catch {
       setPendingForumId(null)
     }
   }
