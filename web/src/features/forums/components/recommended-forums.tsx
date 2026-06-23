@@ -9,6 +9,7 @@ import {
   Button,
   GeneralError,
   Skeleton,
+  toast,
   toastAction,
   getErrorMessage,
 } from '@mochi/web'
@@ -57,14 +58,19 @@ export function RecommendedForums({
   const handleSubscribe = async (forum: RecommendedForum) => {
     setPendingId(forum.id)
     try {
-      await toastAction(
+      const data = await toastAction(
         forumsApi.subscribeForum(forum.id, forum.server || undefined),
         {
           loading: t`Subscribing...`,
-          success: t`Subscribed to ${forum.name}`,
+          success: false,
           error: (e) => getErrorMessage(e, t`Failed to subscribe`),
         }
       )
+      if (data.data?.already_subscribed) {
+        toast.info(t`You are already subscribed to this forum`)
+      } else {
+        toast.success(t`Subscribed to ${forum.name}`)
+      }
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onSubscribe?.()
       setRecommendations((prev) => prev.filter((f) => f.id !== forum.id))

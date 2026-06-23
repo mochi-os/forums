@@ -12,6 +12,7 @@ import {
   Button,
   GeneralError,
   Input,
+  toast,
   toastAction,
   getErrorMessage,
 } from '@mochi/web'
@@ -84,18 +85,25 @@ export function InlineForumSearch({
   const handleSubscribe = async (forum: DirectoryEntry) => {
     setPendingForumId(forum.id)
     try {
-      await toastAction(
+      const data = await toastAction(
         forumsApi.subscribeForum(forum.id, forum.location || undefined),
         {
           loading: t`Subscribing...`,
-          success: t`Subscribed`,
+          success: false,
           error: (e) => getErrorMessage(e, t`Failed to subscribe`),
         }
       )
+      if (data.data?.already_subscribed) {
+        toast.info(t`You are already subscribed to this forum`)
+      } else {
+        toast.success(t`Subscribed`)
+      }
       void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onRefresh?.()
       void navigate({ to: '/$forum', params: { forum: forum.id } })
     } catch {
+      // toast already shown
+    } finally {
       setPendingForumId(null)
     }
   }
