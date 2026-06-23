@@ -16,6 +16,9 @@ import {
   CardContent,
   PageHeader,
   GeneralError,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   useImageObjectUrls,
   MentionTextarea,
   useAuthStore,
@@ -433,9 +436,14 @@ export function ThreadDetail({
                             )}
                             <Paperclip className='text-muted-foreground size-3 shrink-0' />
                             <span className='max-w-40 truncate'>{file.name}</span>
-                            <button type='button' onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
-                              <X className='size-3.5' />
-                            </button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button type='button' aria-label={t`Remove file`} onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
+                                  <X className='size-3.5' />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t`Remove file`}</TooltipContent>
+                            </Tooltip>
                           </div>
                         ))}
                       </div>
@@ -448,31 +456,46 @@ export function ThreadDetail({
                         onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
                         className='hidden'
                       />
-                      <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={t`Attach reply files`}>
-                        <Paperclip className='size-4' />
-                      </Button>
-                      <Button
-                        type='button'
-                        size='icon'
-                        variant='ghost'
-                        className='size-8'
-                        onClick={() => setShowReplyForm(false)}
-                        aria-label={t`Cancel reply`}
-                        disabled={createCommentMutation.isPending}
-                      >
-                        <X className='size-4' />
-                      </Button>
-                      <Button
-                        size='icon'
-                        className='size-8'
-                        disabled={
-                          !commentBody.trim() || createCommentMutation.isPending
-                        }
-                        onClick={handleCommentSubmit}
-                        aria-label={t`Submit reply`}
-                      >
-                        <Send className='size-4' />
-                      </Button>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={t`Attach reply files`}>
+                            <Paperclip className='size-4' />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{t`Attach reply files`}</TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type='button'
+                            size='icon'
+                            variant='ghost'
+                            className='size-8'
+                            onClick={() => setShowReplyForm(false)}
+                            aria-label={t`Cancel reply`}
+                            disabled={createCommentMutation.isPending}
+                          >
+                            <X className='size-4' />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{t`Cancel reply`}</TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            size='icon'
+                            className='size-8'
+                            disabled={
+                              !commentBody.trim() || createCommentMutation.isPending
+                            }
+                            onClick={handleCommentSubmit}
+                            aria-label={t`Submit reply`}
+                          >
+                            <Send className='size-4' />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{t`Submit reply`}</TooltipContent>
+                      </Tooltip>
                     </div>
                   </div>
                 )}

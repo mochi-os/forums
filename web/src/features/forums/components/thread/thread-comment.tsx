@@ -5,7 +5,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -306,25 +306,37 @@ export function ThreadComment({
           {/* Action buttons - always visible on mobile, hover-reveal on desktop */}
           <div className='comment-actions flex items-center gap-1.5 transition-opacity pointer-events-auto opacity-100 md:gap-1 md:pointer-events-none md:opacity-0 md:group-hover/row:pointer-events-auto md:group-hover/row:opacity-100'>
             {canReply && onReply && (
-              <button
-                type='button'
-                className={iconActionButtonClass}
-                onClick={() => onReply(comment.id)}
-              >
-                <MessageSquare className='size-4' />
-              </button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type='button'
+                    className={iconActionButtonClass}
+                    aria-label={t`Reply`}
+                    onClick={() => onReply(comment.id)}
+                  >
+                    <MessageSquare className='size-4' />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>{t`Reply`}</TooltipContent>
+              </Tooltip>
             )}
             {/* More menu (edit, delete, moderation, report) */}
             {(commentCanEdit || canModerate || onReport) && (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type='button'
-                    className={iconActionButtonClass}
-                  >
-                    <MoreHorizontal className='size-4' />
-                  </button>
-                </DropdownMenuTrigger>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        type='button'
+                        className={iconActionButtonClass}
+                        aria-label={t`More options`}
+                      >
+                        <MoreHorizontal className='size-4' />
+                      </button>
+                    </DropdownMenuTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>{t`More options`}</TooltipContent>
+                </Tooltip>
                 <DropdownMenuContent align='start'>
                   {commentCanEdit && onEdit && (
                     <DropdownMenuItem
@@ -463,9 +475,14 @@ export function ThreadComment({
                   )}
                   <Paperclip className='text-muted-foreground size-3 shrink-0' />
                   <span className='max-w-40 truncate'>{file.name}</span>
-                  <button type='button' onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
-                    <X className='size-3.5' />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type='button' aria-label={t`Remove file`} onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
+                        <X className='size-3.5' />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Remove file`}</TooltipContent>
+                  </Tooltip>
                 </div>
               ))}
             </div>
@@ -478,29 +495,44 @@ export function ThreadComment({
               onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setReplyFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
               className='hidden'
             />
-            <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={t`Attach reply files`}>
-              <Paperclip className='size-4' />
-            </Button>
-            <Button
-              type='button'
-              size='icon'
-              variant='ghost'
-              className='size-8'
-              onClick={onReplyCancel}
-              aria-label={t`Cancel reply`}
-            >
-              <X className='size-4' />
-            </Button>
-            <Button
-              type='button'
-              size='icon'
-              className='size-8'
-              disabled={!replyValue.trim() || isReplyPending}
-              onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
-              aria-label={t`Submit reply`}
-            >
-              <Send className='size-4' />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} aria-label={t`Attach reply files`}>
+                  <Paperclip className='size-4' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Attach reply files`}</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type='button'
+                  size='icon'
+                  variant='ghost'
+                  className='size-8'
+                  onClick={onReplyCancel}
+                  aria-label={t`Cancel reply`}
+                >
+                  <X className='size-4' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Cancel reply`}</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type='button'
+                  size='icon'
+                  className='size-8'
+                  disabled={!replyValue.trim() || isReplyPending}
+                  onClick={() => onReplySubmit?.(comment.id, replyFiles.length > 0 ? replyFiles : undefined)}
+                  aria-label={t`Submit reply`}
+                >
+                  <Send className='size-4' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Submit reply`}</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       )}

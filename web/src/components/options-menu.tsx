@@ -15,6 +15,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   toast,
   getErrorMessage,
   getAppPath,
@@ -53,14 +56,20 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-hover hover:text-foreground transition-colors"
-        >
-          <MoreHorizontal className="size-4" />
-        </button>
-      </DropdownMenuTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              aria-label={t`More options`}
+              className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-hover hover:text-foreground transition-colors"
+            >
+              <MoreHorizontal className="size-4" />
+            </button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent>{t`More options`}</TooltipContent>
+      </Tooltip>
       <DropdownMenuContent align="end">
         {moderationUrl && (
           <DropdownMenuItem onSelect={() => navigate({ to: moderationUrl })}>
