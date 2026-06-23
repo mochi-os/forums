@@ -26,6 +26,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   useImageObjectUrls,
 } from '@mochi/web'
 import {
@@ -260,39 +263,57 @@ export function CreatePostDialog({
                           )}
                           {/* Hover overlay with controls */}
                           <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
-                            <button
-                              type='button'
-                              className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                              disabled={isFirst || isPending}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                moveAttachment(index, 'left')
-                              }}
-                            >
-                              <ArrowLeft className='size-5 rtl:rotate-180' />
-                            </button>
-                            <button
-                              type='button'
-                              className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                              disabled={isLast || isPending}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                moveAttachment(index, 'right')
-                              }}
-                            >
-                              <ArrowRight className='size-5 rtl:rotate-180' />
-                            </button>
-                            <button
-                              type='button'
-                              className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
-                              disabled={isPending}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                removeAttachment(index)
-                              }}
-                            >
-                              <X className='size-5' />
-                            </button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type='button'
+                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
+                                  disabled={isFirst || isPending}
+                                  aria-label={t`Move attachment left`}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    moveAttachment(index, 'left')
+                                  }}
+                                >
+                                  <ArrowLeft className='size-5 rtl:rotate-180' />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t`Move attachment left`}</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type='button'
+                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
+                                  disabled={isLast || isPending}
+                                  aria-label={t`Move attachment right`}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    moveAttachment(index, 'right')
+                                  }}
+                                >
+                                  <ArrowRight className='size-5 rtl:rotate-180' />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t`Move attachment right`}</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type='button'
+                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
+                                  disabled={isPending}
+                                  aria-label={t`Remove attachment`}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    removeAttachment(index)
+                                  }}
+                                >
+                                  <X className='size-5' />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>{t`Remove attachment`}</TooltipContent>
+                            </Tooltip>
                           </div>
                           {/* Position indicator */}
                           <div className='absolute top-2 left-2 flex size-6 items-center justify-center rounded-full bg-black/60 text-xs font-medium text-white'>

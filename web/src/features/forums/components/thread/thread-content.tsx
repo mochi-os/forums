@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react'
 import { Trans } from '@lingui/react/macro'
-import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, useFormat, highlightMentions, renderMentions, getAppPath } from '@mochi/web'
+import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -274,31 +274,43 @@ export function ThreadContent({
             </>
           )}
           {canReply && onReply && (
-            <button
-              type='button'
-              className={iconActionButtonClass}
-              onClick={(e) => {
-                e.stopPropagation()
-                onReply()
-              }}
-            >
-              <MessageSquare className='size-4' />
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type='button'
+                  className={iconActionButtonClass}
+                  aria-label={t`Reply`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onReply()
+                  }}
+                >
+                  <MessageSquare className='size-4' />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Reply`}</TooltipContent>
+            </Tooltip>
           )}
           {/* Save for later */}
           {isLoggedIn && <SavedButton post={post} />}
           {/* More menu (edit, delete, moderation, report) */}
           {(canEdit || canModerate || onReport) && (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  type='button'
-                  className={iconActionButtonClass}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <MoreHorizontal className='size-4' />
-                </button>
-              </DropdownMenuTrigger>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`More options`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <MoreHorizontal className='size-4' />
+                    </button>
+                  </DropdownMenuTrigger>
+                </TooltipTrigger>
+                <TooltipContent>{t`More options`}</TooltipContent>
+              </Tooltip>
               <DropdownMenuContent align='start'>
                 {canEdit && onEdit && (
                   <DropdownMenuItem onClick={onEdit}>
