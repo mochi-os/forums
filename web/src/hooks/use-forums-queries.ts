@@ -5,7 +5,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
-import { handleServerError, toast } from '@mochi/web'
+import { handleServerError, toast, toastAction, getErrorMessage } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
 
@@ -101,12 +101,15 @@ export function useCreateForum() {
   const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: forumsApi.createForum,
+    mutationFn: (payload: Parameters<typeof forumsApi.createForum>[0]) =>
+      toastAction(forumsApi.createForum(payload), {
+        loading: t`Creating forum...`,
+        success: t`Forum created`,
+        error: (e) => getErrorMessage(e, t`Failed to create forum`),
+      }),
     onSuccess: () => {
-      toast.success(t`Forum created`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     },
-    onError: handleServerError,
   })
 }
 
@@ -114,13 +117,16 @@ export function useDeleteForum(onDeleted?: () => void) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (forumId: string) => forumsApi.deleteForum(forumId),
+    mutationFn: (forumId: string) =>
+      toastAction(forumsApi.deleteForum(forumId), {
+        loading: t`Deleting forum...`,
+        success: t`Forum deleted`,
+        error: (e) => getErrorMessage(e, t`Failed to delete forum`),
+      }),
     onSuccess: () => {
-      toast.success(t`Forum deleted`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onDeleted?.()
     },
-    onError: handleServerError,
   })
 }
 
@@ -146,7 +152,11 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ forumId, server }: { forumId: string; server?: string }) =>
-      forumsApi.subscribeForum(forumId, server),
+      toastAction(forumsApi.subscribeForum(forumId, server), {
+        loading: t`Subscribing...`,
+        success: false,
+        error: (e) => getErrorMessage(e, t`Failed to subscribe`),
+      }),
     onSuccess: (data, { forumId }) => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       if (data.data?.already_subscribed) {
@@ -156,7 +166,6 @@ export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
         onSubscribed?.(forumId)
       }
     },
-    onError: handleServerError,
   })
 }
 
@@ -164,13 +173,16 @@ export function useUnsubscribeForum(onUnsubscribed?: () => void) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (forumId: string) => forumsApi.unsubscribeForum(forumId),
+    mutationFn: (forumId: string) =>
+      toastAction(forumsApi.unsubscribeForum(forumId), {
+        loading: t`Unsubscribing...`,
+        success: t`Unsubscribed`,
+        error: (e) => getErrorMessage(e, t`Failed to unsubscribe`),
+      }),
     onSuccess: () => {
-      toast.success(t`Unsubscribed`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onUnsubscribed?.()
     },
-    onError: handleServerError,
   })
 }
 

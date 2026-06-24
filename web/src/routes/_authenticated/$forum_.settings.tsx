@@ -22,6 +22,7 @@ import {
   type AccessRule,
   getErrorMessage,
   toast,
+  toastAction,
   Input,
   Switch,
   EmptyState,
@@ -176,12 +177,15 @@ function ForumSettingsPage() {
 
     setIsUnsubscribing(true)
     try {
-      await forumsApi.unsubscribeForum(selectedForum.id)
-      toast.success(t`Unsubscribed`)
+      await toastAction(forumsApi.unsubscribeForum(selectedForum.id), {
+        loading: t`Unsubscribing...`,
+        success: t`Unsubscribed`,
+        error: (e) => getErrorMessage(e, t`Failed to unsubscribe`),
+      })
       void refreshForums()
       void navigate({ to: '/' })
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to unsubscribe`))
+    } catch {
+      // toast already shown
     } finally {
       setIsUnsubscribing(false)
     }
@@ -196,12 +200,14 @@ function ForumSettingsPage() {
     if (!selectedForum || !selectedForum.can_manage) return
 
     try {
-      await forumsApi.renameForum(selectedForum.id, name)
+      await toastAction(forumsApi.renameForum(selectedForum.id, name), {
+        loading: t`Renaming forum...`,
+        success: t`Forum renamed`,
+        error: (e) => getErrorMessage(e, t`Failed to rename forum`),
+      })
       void refreshForumInfo()
       void refreshForums()
-      toast.success(t`Forum renamed`)
     } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to rename forum`))
       throw error
     }
   }, [selectedForum, refreshForumInfo, refreshForums, t])
