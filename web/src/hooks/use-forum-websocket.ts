@@ -35,6 +35,7 @@ interface ForumWebsocketEvent {
     | 'comment/restore'
     | 'tag/add'
     | 'tag/remove'
+    | 'forum/update'
   forum: string
   post?: string
   comment?: string
@@ -219,7 +220,8 @@ const wsManager = new WebSocketManager()
 export function useForumWebsocket(
   forumKey?: string,
   userId?: string,
-  onNewPost?: (postId?: string) => void
+  onNewPost?: (postId?: string) => void,
+  onSync?: () => void
 ) {
   const queryClient = useQueryClient()
   const authReady = useAuthStore((state) => state.isInitialized)
@@ -229,9 +231,11 @@ export function useForumWebsocket(
   const userIdRef = useRef(userId)
   userIdRef.current = userId
 
-  // Ref so a changing callback doesn't tear down the WebSocket subscription
+  // Refs so a changing callback doesn't tear down the WebSocket subscription
   const onNewPostRef = useRef(onNewPost)
   onNewPostRef.current = onNewPost
+  const onSyncRef = useRef(onSync)
+  onSyncRef.current = onSync
 
   useEffect(() => {
     if (!authReady) return
@@ -308,6 +312,12 @@ export function useForumWebsocket(
               return queryForumId === forumKey || queryForumId === forumId
             },
           })
+          break
+        case 'forum/update':
+          // The owner finished pushing a fresh subscriber's initial content
+          // (server flipped `populated`); re-run the route loader so the board
+          // leaves its loading state and renders the now-complete forum.
+          onSyncRef.current?.()
           break
       }
     }

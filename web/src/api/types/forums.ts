@@ -28,6 +28,10 @@ export interface Forum {
   banner?: string
   banner_html?: string
   sort?: string // Per-forum override; empty means use default
+  // 0 while a freshly-subscribed forum's bulk posts are still arriving over P2P;
+  // 1 (or absent, for owned / remote-preview) once present. The board shows a
+  // loading state while this is 0.
+  populated?: number
 }
 
 // Helper to safely get member count
