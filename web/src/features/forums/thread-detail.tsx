@@ -23,9 +23,11 @@ import {
   MentionTextarea,
   useAuthStore,
   useListAutoAnimate,
+  findCommentTextInTree,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
+import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
@@ -333,9 +335,15 @@ export function ThreadDetail({
     order: string[]
     attachments: File[]
   }) => {
-    editPostMutation.mutate(data, {
-      onSuccess: () => setEditPostDialogOpen(false),
-    })
+    editPostMutation.mutate(
+      {
+        ...data,
+        original: forumPostEditOriginalFromPost(post),
+      },
+      {
+        onSuccess: () => setEditPostDialogOpen(false),
+      }
+    )
   }
 
   const handleMuteAuthor = async (userId: string) => {
@@ -538,7 +546,16 @@ export function ThreadDetail({
                         isReplyPending={createCommentMutation.isPending}
                         canEdit={canEditComment}
                         onEdit={(commentId, body) =>
-                          editCommentMutation.mutate({ commentId, body })
+                          editCommentMutation.mutate({
+                            commentId,
+                            body,
+                            originalBody:
+                              findCommentTextInTree(comments, commentId, {
+                                getId: (c) => c.id,
+                                getText: (c) => c.body,
+                                getChildren: (c) => c.children,
+                              }) ?? '',
+                          })
                         }
                         onDelete={(commentId) =>
                           deleteCommentMutation.mutate(commentId)

@@ -279,15 +279,24 @@ const forumsApi = {
       {}
     ),
 
-  editComment: (payload: EditCommentRequest) =>
-    client.post<EditCommentResponse>(
+  editComment: (payload: EditCommentRequest) => {
+    const formData = new FormData()
+    formData.append('body', payload.body)
+    if (payload.order) formData.append('order', JSON.stringify(payload.order))
+    if (payload.files) {
+      for (const file of payload.files) {
+        formData.append('files', file)
+      }
+    }
+    return client.post<EditCommentResponse>(
       endpoints.forums.comment.edit(
         payload.forum,
         payload.post,
         payload.comment
       ),
-      { body: payload.body }
-    ),
+      formData
+    )
+  },
 
   deleteComment: (payload: DeleteCommentRequest) =>
     client.post<DeleteCommentResponse>(

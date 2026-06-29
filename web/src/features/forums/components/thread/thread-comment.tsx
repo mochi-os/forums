@@ -5,7 +5,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, type MentionUser } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -238,9 +238,17 @@ export function ThreadComment({
             <Button
               size='sm'
               className='h-7 text-xs'
-              disabled={!editBody.trim()}
+              disabled={
+                !editBody.trim() ||
+                textUnchanged(editBody.trim(), comment.body)
+              }
               onClick={() => {
-                onEdit?.(comment.id, editBody.trim())
+                const trimmed = editBody.trim()
+                if (textUnchanged(trimmed, comment.body)) {
+                  setEditing(null)
+                  return
+                }
+                onEdit?.(comment.id, trimmed)
                 setEditing(null)
               }}
             >

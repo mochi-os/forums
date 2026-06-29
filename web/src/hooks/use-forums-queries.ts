@@ -5,9 +5,12 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
-import { handleServerError, toast, toastAction, getErrorMessage } from '@mochi/web'
+import { handleServerError, toast, toastAction, getErrorMessage, MUTATION_SKIPPED, isMutationSkipped, textUnchanged, type MutationFnResult } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, DirectoryEntry, Post } from '@/api/types/forums'
+import type { EditPostResponse } from '@/api/types/posts'
+import type { EditCommentResponse } from '@/api/types/comments'
+import { isForumPostEditUnchanged, type ForumPostEditOriginal } from '@/features/forums/edit-compare'
 
 // Query keys for consistency
 export const forumsKeys = {
@@ -297,22 +300,39 @@ export function useCreateComment(forumId: string, postId: string) {
 export function useEditPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (data: {
+  return useMutation<
+    MutationFnResult<EditPostResponse>,
+    Error,
+    {
       title: string
       body: string
       order?: string[]
       attachments?: File[]
-    }) =>
-      forumsApi.editPost({
+      original: ForumPostEditOriginal
+    }
+  >({
+    mutationFn: async (data) => {
+      if (
+        isForumPostEditUnchanged(data.original, {
+          title: data.title,
+          body: data.body,
+          order: data.order,
+          attachments: data.attachments,
+        })
+      ) {
+        return MUTATION_SKIPPED
+      }
+      return forumsApi.editPost({
         forum: forumId,
         post: postId,
         title: data.title,
         body: data.body,
         order: data.order,
         attachments: data.attachments,
-      }),
-    onSuccess: () => {
+      })
+    },
+    onSuccess: (result) => {
+      if (isMutationSkipped(result)) return
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
@@ -345,15 +365,32 @@ export function useDeletePost(forumId: string, onDeleted?: () => void) {
 export function useEditComment(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: ({ commentId, body }: { commentId: string; body: string }) =>
-      forumsApi.editComment({
+  return useMutation<
+    MutationFnResult<EditCommentResponse>,
+    Error,
+    {
+      commentId: string
+      body: string
+      originalBody: string
+    }
+  >({
+    mutationFn: async ({
+      commentId,
+      body,
+      originalBody,
+    }) => {
+      if (textUnchanged(body, originalBody)) {
+        return MUTATION_SKIPPED
+      }
+      return forumsApi.editComment({
         forum: forumId,
         post: postId,
         comment: commentId,
         body,
-      }),
-    onSuccess: () => {
+      })
+    },
+    onSuccess: (result) => {
+      if (isMutationSkipped(result)) return
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
