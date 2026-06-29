@@ -12,6 +12,7 @@ import {
   toast,
   toastAction,
   getErrorMessage,
+  callWithServerFallback,
 } from '@mochi/web'
 import { Hash, Loader2 } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -59,7 +60,10 @@ export function RecommendedForums({
     setPendingId(forum.id)
     try {
       const data = await toastAction(
-        forumsApi.subscribeForum(forum.id, forum.server || undefined),
+        callWithServerFallback(
+          (server) => forumsApi.subscribeForum(forum.id, server),
+          forum.server || undefined,
+        ),
         {
           loading: t`Subscribing...`,
           success: false,

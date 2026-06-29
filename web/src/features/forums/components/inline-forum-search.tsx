@@ -15,6 +15,7 @@ import {
   toast,
   toastAction,
   getErrorMessage,
+  callWithServerFallback,
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
@@ -86,7 +87,10 @@ export function InlineForumSearch({
     setPendingForumId(forum.id)
     try {
       const data = await toastAction(
-        forumsApi.subscribeForum(forum.id, forum.location || undefined),
+        callWithServerFallback(
+          (location) => forumsApi.subscribeForum(forum.id, location),
+          forum.location || undefined,
+        ),
         {
           loading: t`Subscribing...`,
           success: false,
