@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (засварласан)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:311
+#: src/features/forums/pages/entity-forum-page.tsx:325
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# шинэ нийтлэл} other {# шинэ нийтлэл}}"
 
@@ -421,11 +421,11 @@ msgstr "Сонголтыг цэвэрлэх (Escape)"
 
 #: src/lib/saved.ts:105
 msgid "Clearing saved posts..."
-msgstr ""
+msgstr "Хадгалсан нийтлэлийг цэвэрлэж байна..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Хаах"
@@ -446,8 +446,8 @@ msgstr "Хайлтыг хаах"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Collapse"
 msgstr "Хураах"
 
@@ -569,7 +569,7 @@ msgstr "Форум үүсгэх"
 
 #: src/hooks/use-forums-queries.ts:106
 msgid "Creating forum..."
-msgstr ""
+msgstr "Форум үүсгэж байна..."
 
 #: ../../../lib/web/src/components/colour-picker.tsx:260
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -636,7 +636,7 @@ msgstr "Хуучин серверт байгаа бүртгэлээ устган
 
 #: src/hooks/use-forums-queries.ts:122
 msgid "Deleting forum..."
-msgstr ""
+msgstr "Форум устгаж байна..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
 msgid "Desc"
@@ -688,10 +688,14 @@ msgstr "Баннер хаах"
 msgid "Displays the mobile sidebar."
 msgstr "Гар утасны хажуугийн самбарыг харуулна."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:320
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
 msgstr "Татах"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+msgid "Download failed"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:146
 msgid "Dyslexia-friendly"
@@ -733,8 +737,8 @@ msgstr "Entity ID"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Expand"
 msgstr "Дэлгэх"
 
@@ -754,8 +758,8 @@ msgstr "Бүртгэл нэмж чадсангүй"
 msgid "Failed to add tag"
 msgstr "Шошго нэмж чадсангүй"
 
-#: src/features/forums/pages/entity-forum-page.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:228
+#: src/features/forums/pages/entity-forum-page.tsx:231
+#: src/features/forums/pages/entity-forum-page.tsx:242
 #: src/features/forums/thread-detail.tsx:190
 #: src/features/forums/thread-detail.tsx:202
 msgid "Failed to adjust interest"
@@ -779,11 +783,11 @@ msgstr "Хадгалсан нийтлэлүүдийг цэвэрлэж чадс�
 
 #: src/hooks/use-forums-queries.ts:108
 msgid "Failed to create forum"
-msgstr ""
+msgstr "Форум үүсгэж чадсангүй"
 
 #: src/hooks/use-forums-queries.ts:124
 msgid "Failed to delete forum"
-msgstr ""
+msgstr "Форум устгаж чадсангүй"
 
 #: src/components/options-menu.tsx:53
 msgid "Failed to get RSS token"
@@ -821,7 +825,7 @@ msgstr "Хяналтын дараалал ачаалж чадсангүй"
 msgid "Failed to load moderation settings"
 msgstr "Хяналтын тохиргоо ачаалж чадсангүй"
 
-#: src/features/forums/components/recommended-forums.tsx:46
+#: src/features/forums/components/recommended-forums.tsx:47
 msgid "Failed to load recommended forums"
 msgstr "Санал болгосон форумууд ачаалж чадсангүй"
 
@@ -853,7 +857,7 @@ msgstr "Хандалтыг хасч чадсангүй"
 msgid "Failed to remove account"
 msgstr "Бүртгэл хасч чадсангүй"
 
-#: src/features/forums/pages/entity-forum-page.tsx:240
+#: src/features/forums/pages/entity-forum-page.tsx:254
 #: src/features/forums/thread-detail.tsx:214
 msgid "Failed to remove interest"
 msgstr "Сонирхол хасч чадсангүй"
@@ -890,7 +894,7 @@ msgstr "Нийтлэлийг хадгалж чадсангүй"
 msgid "Failed to save prompt"
 msgstr "Промпт хадгалж чадсангүй"
 
-#: src/features/forums/components/inline-forum-search.tsx:56
+#: src/features/forums/components/inline-forum-search.tsx:57
 msgid "Failed to search forums"
 msgstr "Форум хайж чадсангүй"
 
@@ -906,10 +910,10 @@ msgstr "Баталгаажуулах код илгээж чадсангүй"
 msgid "Failed to set access level"
 msgstr "Хандалтын түвшинг тохируулж чадсангүй"
 
-#: src/features/forums/components/inline-forum-search.tsx:92
-#: src/features/forums/components/recommended-forums.tsx:65
+#: src/features/forums/components/inline-forum-search.tsx:93
+#: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:158
-#: src/routes/_authenticated/find.tsx:55
+#: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Захиалж чадсангүй"
 
@@ -935,12 +939,12 @@ msgstr "Баннер шинэчилж чадсангүй"
 msgid "Failed to update category"
 msgstr "Ангилал шинэчилж чадсангүй"
 
-#: src/features/forums/pages/entity-forum-page.tsx:319
+#: src/features/forums/pages/entity-forum-page.tsx:333
 msgid "Filtered by tag:"
 msgstr "Шошгоор шүүсэн:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:73
+#: src/routes/_authenticated/find.tsx:81
 msgid "Find forums"
 msgstr "Форум хайх"
 
@@ -961,8 +965,8 @@ msgid "Floating"
 msgstr "Хөвөгч"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:77
-#: src/features/forums/pages/entity-forum-page.tsx:262
+#: src/features/forums/pages/entity-forum-page.tsx:78
+#: src/features/forums/pages/entity-forum-page.tsx:276
 #: src/features/forums/thread-detail.tsx:129
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
@@ -976,7 +980,7 @@ msgstr "Форум үүсгэгдсэн"
 msgid "Forum deleted"
 msgstr "Форум устгагдсан"
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Форум хүртээмжтэй байхаа больсон"
 
@@ -1107,7 +1111,7 @@ msgstr "Сонирхол нэмэгдсэн"
 msgid "Interest reduced"
 msgstr "Сонирхол багассан"
 
-#: src/features/forums/pages/entity-forum-page.tsx:238
+#: src/features/forums/pages/entity-forum-page.tsx:252
 #: src/features/forums/thread-detail.tsx:212
 msgid "Interest removed"
 msgstr "Сонирхол устгагдсан"
@@ -1146,6 +1150,10 @@ msgstr "Цайвар"
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Илүү ачаалах"
+
+#: ../../../lib/web/src/components/ui/loading-content.tsx:29
+msgid "Loading content…"
+msgstr "Контент ачааллаж байна…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
@@ -1300,7 +1308,7 @@ msgstr "Шинэ форум"
 #: src/features/forums/components/create-post-dialog.tsx:176
 #: src/features/forums/components/create-post-dialog.tsx:181
 #: src/features/forums/components/create-post-dialog.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "Шинэ нийтлэл"
 
@@ -1312,8 +1320,8 @@ msgstr "Шинэ thread-уудыг батлах ёстой"
 msgid "New user threshold:"
 msgstr "Шинэ хэрэглэгчийн босго:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:366
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:371
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
 msgid "Next image"
 msgstr "Дараагийн зураг"
 
@@ -1333,8 +1341,8 @@ msgstr "Хандалтын дүрэм тохируулагдаагүй байн�
 msgid "No connected accounts"
 msgstr "Холбогдсон бүртгэл байхгүй"
 
-#: src/features/forums/components/inline-forum-search.tsx:136
-#: src/routes/_authenticated/find.tsx:75
+#: src/features/forums/components/inline-forum-search.tsx:144
+#: src/routes/_authenticated/find.tsx:83
 msgid "No forums found"
 msgstr "Форум олдсонгүй"
 
@@ -1427,8 +1435,8 @@ msgstr "Уучлаарай! Хуудас олдсонгүй!"
 msgid "Open account actions"
 msgstr "Бүртгэлийн үйлдлүүдийг нээх"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:176
-#: ../../../lib/web/src/components/layout/nav-group.tsx:181
+#: ../../../lib/web/src/components/layout/nav-group.tsx:182
+#: ../../../lib/web/src/components/layout/nav-group.tsx:187
 msgid "Open actions"
 msgstr "Үйлдлүүдийг нээх"
 
@@ -1521,11 +1529,11 @@ msgstr "Сэтгэгдэл оруулна уу"
 msgid "Please enter a reply"
 msgstr "Хариу оруулна уу"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:60
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Нийтлэлийг хадгалж чадсангүй — гарчиг эсвэл агуулга буруу байна"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:67
 msgid "Post couldn't be saved on the forum server"
 msgstr "Нийтлэлийг форумын сервер дээр хадгалж чадсангүй"
 
@@ -1593,8 +1601,8 @@ msgstr "Урьдчилсан модераци"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Хэрэглэгч хэр давтамжтай нийтэлж болохыг хязгаарлаж спамаас сэргийлэх"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:351
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:356
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
 msgid "Previous image"
 msgstr "Өмнөх зураг"
 
@@ -1654,8 +1662,8 @@ msgstr "Шалтгаан: {0}"
 msgid "Recommended"
 msgstr "Зөвлөмжтэй"
 
-#: src/features/forums/components/recommended-forums.tsx:111
-#: src/features/forums/components/recommended-forums.tsx:133
+#: src/features/forums/components/recommended-forums.tsx:117
+#: src/features/forums/components/recommended-forums.tsx:139
 msgid "Recommended forums"
 msgstr "Зөвлөмжтэй форумууд"
 
@@ -1753,11 +1761,11 @@ msgstr "Хадгалснаас устгасан"
 
 #: src/lib/saved.ts:81
 msgid "Removing..."
-msgstr ""
+msgstr "Хасаж байна..."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Renaming forum..."
-msgstr ""
+msgstr "Форумын нэрийг өөрчилж байна..."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1902,7 +1910,7 @@ msgstr "Хадгалагдсан"
 
 #: src/lib/saved.ts:106
 msgid "Saved posts cleared"
-msgstr ""
+msgstr "Хадгалсан нийтлэл цэвэрлэгдлээ"
 
 #: src/features/forums/components/edit-post-dialog.tsx:364
 #: src/lib/saved.ts:66
@@ -1914,7 +1922,7 @@ msgstr "Хадгалж байна..."
 msgid "Score prompt"
 msgstr "Оноо асуух"
 
-#: src/routes/_authenticated/find.tsx:74
+#: src/routes/_authenticated/find.tsx:82
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Нэр, ID, fingerprint, эсвэл URL-аар хайх..."
 
@@ -1926,7 +1934,7 @@ msgstr "Газар хайх"
 msgid "Search for destination..."
 msgstr "Очих газар хайх..."
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:119
 msgid "Search for forums..."
 msgstr "Форум хайх..."
 
@@ -2107,19 +2115,19 @@ msgstr "Гомдол илгээх"
 msgid "Submitting..."
 msgstr "Илгээж байна..."
 
-#: src/features/forums/components/inline-forum-search.tsx:171
-#: src/features/forums/components/recommended-forums.tsx:165
-#: src/features/forums/pages/entity-forum-page.tsx:289
+#: src/features/forums/components/inline-forum-search.tsx:179
+#: src/features/forums/components/recommended-forums.tsx:171
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "Захиалах"
 
-#: src/features/forums/components/inline-forum-search.tsx:91
-#: src/routes/_authenticated/find.tsx:54
+#: src/features/forums/components/inline-forum-search.tsx:99
+#: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "Захиалсан"
 
 #. placeholder {0}: forum.name
-#: src/features/forums/components/recommended-forums.tsx:64
+#: src/features/forums/components/recommended-forums.tsx:72
 msgid "Subscribed to {0}"
 msgstr "{0}-г захиалсан"
 
@@ -2127,11 +2135,11 @@ msgstr "{0}-г захиалсан"
 msgid "Subscribed to forum"
 msgstr "Форум захиалсан"
 
-#: src/features/forums/components/inline-forum-search.tsx:90
-#: src/features/forums/components/recommended-forums.tsx:63
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/components/inline-forum-search.tsx:91
+#: src/features/forums/components/recommended-forums.tsx:64
+#: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:156
-#: src/routes/_authenticated/find.tsx:53
+#: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Захиалж байна..."
 
@@ -2200,7 +2208,7 @@ msgstr "Энэ форум устгагдсан байж болно эсвэл т
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Энэ пост устгагдсан байж болно эсвэл байхгүй."
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:62
 msgid "This post was already submitted"
 msgstr "Энэ нийтлэлийг аль хэдийн илгээсэн байна"
 
@@ -2243,10 +2251,10 @@ msgstr "Багануудыг сэлгэх"
 msgid "Toggle right panel"
 msgstr "Баруун самбарыг солих"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:345
-#: ../../../lib/web/src/components/layout/nav-group.tsx:352
-#: ../../../lib/web/src/components/layout/nav-group.tsx:475
-#: ../../../lib/web/src/components/layout/nav-group.tsx:482
+#: ../../../lib/web/src/components/layout/nav-group.tsx:351
+#: ../../../lib/web/src/components/layout/nav-group.tsx:358
+#: ../../../lib/web/src/components/layout/nav-group.tsx:481
+#: ../../../lib/web/src/components/layout/nav-group.tsx:488
 msgid "Toggle section"
 msgstr "Хэсгийг сэлгэх"
 
@@ -2336,7 +2344,7 @@ msgid "Unpin"
 msgstr "Хадаас тайлах"
 
 #: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:365
+#: src/features/forums/pages/entity-forum-page.tsx:384
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Захиалгаас гарах"
@@ -2345,7 +2353,7 @@ msgstr "Захиалгаас гарах"
 msgid "Unsubscribe from forum"
 msgstr "Форумаас захиалгаа гаргах"
 
-#: src/features/forums/pages/entity-forum-page.tsx:362
+#: src/features/forums/pages/entity-forum-page.tsx:381
 msgid "Unsubscribe from forum?"
 msgstr "Чуулгаас бүртгэлээ цуцлах уу?"
 
@@ -2357,7 +2365,7 @@ msgstr "Захиалгаас гарсан"
 #: src/hooks/use-forums-queries.ts:178
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
-msgstr ""
+msgstr "Захиалгаас гарч байна..."
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
@@ -2451,19 +2459,22 @@ msgstr "Лхагва гараг"
 msgid "Window duration"
 msgstr "Цонхны үргэлжлэх хугацаа"
 
+#: src/features/forums/components/inline-forum-search.tsx:97
+#: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:163
+#: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Та энэ форумыг аль хэдийн захиалсан байна"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:58
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Та хэт хурдан нийтэлж байна — түр хүлээгээд дахин оролдоно уу"
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:56
 msgid "You are restricted from posting in this forum"
 msgstr "Танд энэ форум дээр нийтлэх боломж хязгаарлагдсан"
 
-#: src/hooks/use-forum-websocket.ts:53
+#: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"
 msgstr "Танд энэ форум дээр нийтлэх зөвшөөрөл байхгүй"
 
@@ -2471,7 +2482,7 @@ msgstr "Танд энэ форум дээр нийтлэх зөвшөөрөл б
 msgid "You have no forums yet."
 msgstr "Танд одоохондоо форум байхгүй байна."
 
-#: src/features/forums/pages/entity-forum-page.tsx:363
+#: src/features/forums/pages/entity-forum-page.tsx:382
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Та энэ чуулгаас шинэчлэлт хүлээж авахаа болино. Та хүссэн үедээ дахин бүртгүүлж болно."
 

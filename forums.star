@@ -75,7 +75,7 @@ def action_saved_add(a):
     if existing:
         mochi.db.execute("update saved set data=? where id=?", data, existing["id"])
     else:
-        mochi.db.execute("insert into saved ( id, user, post, data, created ) values ( ?, ?, ?, ?, ? )", mochi.uid(), user, post, data, mochi.time.now())
+        mochi.db.execute("insert or ignore into saved ( id, user, post, data, created ) values ( ?, ?, ?, ?, ? )", mochi.uid(), user, post, data, mochi.time.now())
     return {"data": {"saved": True}}
 
 # Remove a saved post. Idempotent: removing a post that is not saved is a no-op.
@@ -111,7 +111,8 @@ def database_create():
         ai_mode text not null default '', ai_account integer not null default 0,
         ai_prompt_tag text not null default '', ai_prompt_score text not null default '',
         banner text not null default '', sort text not null default '',
-        synced integer not null default 0 )""")
+        synced integer not null default 0,
+        populated integer not null default 1 )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -299,6 +300,16 @@ def database_upgrade(to_version):
         # holding a JSON snapshot of each saved post.
         mochi.db.execute("create table if not exists saved ( id text not null primary key, user text not null, post text not null, data text not null default '', created integer not null, unique ( user, post ) )")
         mochi.db.execute("create index if not exists saved_user_created on saved( user, created )")
+
+    if to_version == 37:
+        # Add forums.populated: 0 while a freshly-subscribed forum's bulk content
+        # (posts/comments/tags) is still arriving over P2P; set 1 when the owner's
+        # post-subscribe "update" broadcast lands (event_update_event), so the
+        # frontend shows a loading state instead of a half-synced forum. Existing
+        # rows already hold their data, hence default 1.
+        cols = [r["name"] for r in mochi.db.table("forums") or []]
+        if "populated" not in cols:
+            mochi.db.execute("alter table forums add column populated integer not null default 1")
 
 # Helper: Get forum by ID or fingerprint
 def get_forum(forum_id):
@@ -2238,7 +2249,10 @@ def action_subscribe(a):
     # Create local forum record
     now = mochi.time.now()
     fp = mochi.entity.fingerprint(forum_id) or ""
-    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint ) values ( ?, ?, ?, ?, ?, ? )""",
+    # populated=0: schema is fetched synchronously, but the bulk posts arrive
+    # asynchronously from the owner; event_update_event flips it to 1 when the
+    # owner's post-subscribe "update" broadcast lands.
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
         forum_id, forum_name, 0, now, server or "", fp)
 
     # Add self as subscriber
@@ -5902,7 +5916,12 @@ def event_update_event(e):
     if type(members) != "int" or members < 0:
         return
 
-    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum_id)
+    # The member-count update is the owner's terminal broadcast sent right after
+    # pushing a new subscriber's initial posts/comments/tags, so it doubles as
+    # the "initial content arrived" signal: flip populated=1 and tell the browser
+    # to re-load the forum so the board leaves its loading state.
+    mochi.db.execute("update forums set members=?, updated=?, populated=1 where id=?", members, mochi.time.now(), forum_id)
+    broadcast_websocket(forum_id, {"type": "forum/update", "forum": forum_id})
 
 # MODERATION EVENTS
 
@@ -7519,7 +7538,10 @@ def _subscribe_to_forum(user, forum_id, server):
 
     now = mochi.time.now()
     fp = mochi.entity.fingerprint(forum_id) or ""
-    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint ) values ( ?, ?, ?, ?, ?, ? )""",
+    # populated=0: schema is fetched synchronously, but the bulk posts arrive
+    # asynchronously from the owner; event_update_event flips it to 1 when the
+    # owner's post-subscribe "update" broadcast lands.
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
         forum_id, forum_name, 0, now, server or "", fp)
 
     mochi.db.execute("replace into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? )",

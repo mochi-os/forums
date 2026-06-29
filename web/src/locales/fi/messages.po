@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (muokattu)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:311
+#: src/features/forums/pages/entity-forum-page.tsx:325
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# uusi julkaisu} other {# uutta julkaisua}}"
 
@@ -421,11 +421,11 @@ msgstr "Tyhjennä valinta (Escape)"
 
 #: src/lib/saved.ts:105
 msgid "Clearing saved posts..."
-msgstr ""
+msgstr "Tyhjennetään tallennettuja julkaisuja..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Sulje"
@@ -446,8 +446,8 @@ msgstr "Sulje haku"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Collapse"
 msgstr "Tiivistä"
 
@@ -569,7 +569,7 @@ msgstr "Luo foorumi"
 
 #: src/hooks/use-forums-queries.ts:106
 msgid "Creating forum..."
-msgstr ""
+msgstr "Luodaan foorumia..."
 
 #: ../../../lib/web/src/components/colour-picker.tsx:260
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -636,7 +636,7 @@ msgstr "Poista tilisi vanhalta palvelimelta"
 
 #: src/hooks/use-forums-queries.ts:122
 msgid "Deleting forum..."
-msgstr ""
+msgstr "Poistetaan foorumia..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
 msgid "Desc"
@@ -688,10 +688,14 @@ msgstr "Hylkää banneri"
 msgid "Displays the mobile sidebar."
 msgstr "Näyttää mobiilisivupalkin."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:320
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
 msgstr "Lataa"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+msgid "Download failed"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:146
 msgid "Dyslexia-friendly"
@@ -733,8 +737,8 @@ msgstr "Entiteetin tunnus"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Expand"
 msgstr "Laajenna"
 
@@ -754,8 +758,8 @@ msgstr "Tilin lisääminen epäonnistui"
 msgid "Failed to add tag"
 msgstr "Tunnisteen lisääminen epäonnistui"
 
-#: src/features/forums/pages/entity-forum-page.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:228
+#: src/features/forums/pages/entity-forum-page.tsx:231
+#: src/features/forums/pages/entity-forum-page.tsx:242
 #: src/features/forums/thread-detail.tsx:190
 #: src/features/forums/thread-detail.tsx:202
 msgid "Failed to adjust interest"
@@ -779,11 +783,11 @@ msgstr "Tallennettujen julkaisujen tyhjentäminen epäonnistui"
 
 #: src/hooks/use-forums-queries.ts:108
 msgid "Failed to create forum"
-msgstr ""
+msgstr "Foorumin luominen epäonnistui"
 
 #: src/hooks/use-forums-queries.ts:124
 msgid "Failed to delete forum"
-msgstr ""
+msgstr "Foorumin poistaminen epäonnistui"
 
 #: src/components/options-menu.tsx:53
 msgid "Failed to get RSS token"
@@ -821,7 +825,7 @@ msgstr "Moderointijonon lataaminen epäonnistui"
 msgid "Failed to load moderation settings"
 msgstr "Moderointiasetusten lataaminen epäonnistui"
 
-#: src/features/forums/components/recommended-forums.tsx:46
+#: src/features/forums/components/recommended-forums.tsx:47
 msgid "Failed to load recommended forums"
 msgstr "Suositeltujen foorumien lataaminen epäonnistui"
 
@@ -853,7 +857,7 @@ msgstr "Pääsyn poisto epäonnistui"
 msgid "Failed to remove account"
 msgstr "Tilin poisto epäonnistui"
 
-#: src/features/forums/pages/entity-forum-page.tsx:240
+#: src/features/forums/pages/entity-forum-page.tsx:254
 #: src/features/forums/thread-detail.tsx:214
 msgid "Failed to remove interest"
 msgstr "Kiinnostuksen kohteen poisto epäonnistui"
@@ -890,7 +894,7 @@ msgstr "Julkaisun tallentaminen epäonnistui"
 msgid "Failed to save prompt"
 msgstr "Kehotteen tallennus epäonnistui"
 
-#: src/features/forums/components/inline-forum-search.tsx:56
+#: src/features/forums/components/inline-forum-search.tsx:57
 msgid "Failed to search forums"
 msgstr "Foorumien haku epäonnistui"
 
@@ -906,10 +910,10 @@ msgstr "Vahvistuskoodin lähetys epäonnistui"
 msgid "Failed to set access level"
 msgstr "Käyttöoikeustason asettaminen epäonnistui"
 
-#: src/features/forums/components/inline-forum-search.tsx:92
-#: src/features/forums/components/recommended-forums.tsx:65
+#: src/features/forums/components/inline-forum-search.tsx:93
+#: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:158
-#: src/routes/_authenticated/find.tsx:55
+#: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Tilaaminen epäonnistui"
 
@@ -935,12 +939,12 @@ msgstr "Bannerin päivitys epäonnistui"
 msgid "Failed to update category"
 msgstr "Kategorian päivitys epäonnistui"
 
-#: src/features/forums/pages/entity-forum-page.tsx:319
+#: src/features/forums/pages/entity-forum-page.tsx:333
 msgid "Filtered by tag:"
 msgstr "Suodatettu tunnisteen mukaan:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:73
+#: src/routes/_authenticated/find.tsx:81
 msgid "Find forums"
 msgstr "Etsi foorumeita"
 
@@ -961,8 +965,8 @@ msgid "Floating"
 msgstr "Kelluva"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:77
-#: src/features/forums/pages/entity-forum-page.tsx:262
+#: src/features/forums/pages/entity-forum-page.tsx:78
+#: src/features/forums/pages/entity-forum-page.tsx:276
 #: src/features/forums/thread-detail.tsx:129
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
@@ -976,7 +980,7 @@ msgstr "Foorumi luotu"
 msgid "Forum deleted"
 msgstr "Foorumi poistettu"
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Foorumi ei ole enää käytettävissä"
 
@@ -1107,7 +1111,7 @@ msgstr "Kiinnostusta lisätty"
 msgid "Interest reduced"
 msgstr "Kiinnostusta vähennetty"
 
-#: src/features/forums/pages/entity-forum-page.tsx:238
+#: src/features/forums/pages/entity-forum-page.tsx:252
 #: src/features/forums/thread-detail.tsx:212
 msgid "Interest removed"
 msgstr "Kiinnostus poistettu"
@@ -1146,6 +1150,10 @@ msgstr "Vaalea"
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Lataa lisää"
+
+#: ../../../lib/web/src/components/ui/loading-content.tsx:29
+msgid "Loading content…"
+msgstr "Ladataan sisältöä…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
@@ -1300,7 +1308,7 @@ msgstr "Uusi foorumi"
 #: src/features/forums/components/create-post-dialog.tsx:176
 #: src/features/forums/components/create-post-dialog.tsx:181
 #: src/features/forums/components/create-post-dialog.tsx:188
-#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "Uusi julkaisu"
 
@@ -1312,8 +1320,8 @@ msgstr "Uudet ketjut on hyväksyttävä"
 msgid "New user threshold:"
 msgstr "Uuden käyttäjän kynnys:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:366
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:371
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
 msgid "Next image"
 msgstr "Seuraava kuva"
 
@@ -1333,8 +1341,8 @@ msgstr "Käyttöoikeussääntöjä ei ole määritetty. Lisää sääntöjä hal
 msgid "No connected accounts"
 msgstr "Ei yhdistettyjä tilejä"
 
-#: src/features/forums/components/inline-forum-search.tsx:136
-#: src/routes/_authenticated/find.tsx:75
+#: src/features/forums/components/inline-forum-search.tsx:144
+#: src/routes/_authenticated/find.tsx:83
 msgid "No forums found"
 msgstr "Foorumeita ei löytynyt"
 
@@ -1427,8 +1435,8 @@ msgstr "Hups! Sivua ei löytynyt!"
 msgid "Open account actions"
 msgstr "Avaa tilin toiminnot"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:176
-#: ../../../lib/web/src/components/layout/nav-group.tsx:181
+#: ../../../lib/web/src/components/layout/nav-group.tsx:182
+#: ../../../lib/web/src/components/layout/nav-group.tsx:187
 msgid "Open actions"
 msgstr "Avaa toiminnot"
 
@@ -1521,11 +1529,11 @@ msgstr "Syötä kommentti"
 msgid "Please enter a reply"
 msgstr "Syötä vastaus"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:60
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Viestiä ei voitu tallentaa — otsikko tai sisältö on virheellinen"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:67
 msgid "Post couldn't be saved on the forum server"
 msgstr "Viestiä ei voitu tallentaa foorumipalvelimelle"
 
@@ -1593,8 +1601,8 @@ msgstr "Esimoderointi"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Estä roskaposti rajoittamalla, kuinka usein käyttäjät voivat julkaista"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:351
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:356
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
 msgid "Previous image"
 msgstr "Edellinen kuva"
 
@@ -1654,8 +1662,8 @@ msgstr "Syy: {0}"
 msgid "Recommended"
 msgstr "Suositeltu"
 
-#: src/features/forums/components/recommended-forums.tsx:111
-#: src/features/forums/components/recommended-forums.tsx:133
+#: src/features/forums/components/recommended-forums.tsx:117
+#: src/features/forums/components/recommended-forums.tsx:139
 msgid "Recommended forums"
 msgstr "Suositellut foorumit"
 
@@ -1753,11 +1761,11 @@ msgstr "Poistettu tallennetuista"
 
 #: src/lib/saved.ts:81
 msgid "Removing..."
-msgstr ""
+msgstr "Poistetaan..."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Renaming forum..."
-msgstr ""
+msgstr "Nimetään foorumia uudelleen..."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1902,7 +1910,7 @@ msgstr "Tallennettu"
 
 #: src/lib/saved.ts:106
 msgid "Saved posts cleared"
-msgstr ""
+msgstr "Tallennetut julkaisut tyhjennetty"
 
 #: src/features/forums/components/edit-post-dialog.tsx:364
 #: src/lib/saved.ts:66
@@ -1914,7 +1922,7 @@ msgstr "Tallennetaan..."
 msgid "Score prompt"
 msgstr "Pisteytyskehote"
 
-#: src/routes/_authenticated/find.tsx:74
+#: src/routes/_authenticated/find.tsx:82
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Hae nimellä, tunnuksella, sormenjäljellä tai URL-osoitteella..."
 
@@ -1926,7 +1934,7 @@ msgstr "Hae paikkaa"
 msgid "Search for destination..."
 msgstr "Hae määränpäätä..."
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:119
 msgid "Search for forums..."
 msgstr "Hae foorumeita..."
 
@@ -2107,19 +2115,19 @@ msgstr "Lähetä raportti"
 msgid "Submitting..."
 msgstr "Lähetetään..."
 
-#: src/features/forums/components/inline-forum-search.tsx:171
-#: src/features/forums/components/recommended-forums.tsx:165
-#: src/features/forums/pages/entity-forum-page.tsx:289
+#: src/features/forums/components/inline-forum-search.tsx:179
+#: src/features/forums/components/recommended-forums.tsx:171
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "Tilaa"
 
-#: src/features/forums/components/inline-forum-search.tsx:91
-#: src/routes/_authenticated/find.tsx:54
+#: src/features/forums/components/inline-forum-search.tsx:99
+#: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "Tilattu"
 
 #. placeholder {0}: forum.name
-#: src/features/forums/components/recommended-forums.tsx:64
+#: src/features/forums/components/recommended-forums.tsx:72
 msgid "Subscribed to {0}"
 msgstr "Tilattu: {0}"
 
@@ -2127,11 +2135,11 @@ msgstr "Tilattu: {0}"
 msgid "Subscribed to forum"
 msgstr "Foorumi tilattu"
 
-#: src/features/forums/components/inline-forum-search.tsx:90
-#: src/features/forums/components/recommended-forums.tsx:63
-#: src/features/forums/pages/entity-forum-page.tsx:286
+#: src/features/forums/components/inline-forum-search.tsx:91
+#: src/features/forums/components/recommended-forums.tsx:64
+#: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:156
-#: src/routes/_authenticated/find.tsx:53
+#: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Tilataan..."
 
@@ -2200,7 +2208,7 @@ msgstr "Tämä foorumi on saatettu poistaa tai sinulla ei ole pääsyä siihen."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Tämä viesti on saatettu poistaa tai sitä ei ole olemassa."
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:62
 msgid "This post was already submitted"
 msgstr "Tämä viesti on jo lähetetty"
 
@@ -2243,10 +2251,10 @@ msgstr "Vaihda sarakkeet"
 msgid "Toggle right panel"
 msgstr "Vaihda oikeaa paneelia"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:345
-#: ../../../lib/web/src/components/layout/nav-group.tsx:352
-#: ../../../lib/web/src/components/layout/nav-group.tsx:475
-#: ../../../lib/web/src/components/layout/nav-group.tsx:482
+#: ../../../lib/web/src/components/layout/nav-group.tsx:351
+#: ../../../lib/web/src/components/layout/nav-group.tsx:358
+#: ../../../lib/web/src/components/layout/nav-group.tsx:481
+#: ../../../lib/web/src/components/layout/nav-group.tsx:488
 msgid "Toggle section"
 msgstr "Näytä tai piilota osio"
 
@@ -2336,7 +2344,7 @@ msgid "Unpin"
 msgstr "Poista kiinnitys"
 
 #: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:365
+#: src/features/forums/pages/entity-forum-page.tsx:384
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Peru tilaus"
@@ -2345,7 +2353,7 @@ msgstr "Peru tilaus"
 msgid "Unsubscribe from forum"
 msgstr "Peru foorumin tilaus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:362
+#: src/features/forums/pages/entity-forum-page.tsx:381
 msgid "Unsubscribe from forum?"
 msgstr "Lopetetaanko foorumin tilaus?"
 
@@ -2357,7 +2365,7 @@ msgstr "Tilaus peruttu"
 #: src/hooks/use-forums-queries.ts:178
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
-msgstr ""
+msgstr "Perutaan tilausta..."
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
@@ -2451,19 +2459,22 @@ msgstr "Keskiviikko"
 msgid "Window duration"
 msgstr "Ikkunan kesto"
 
+#: src/features/forums/components/inline-forum-search.tsx:97
+#: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:163
+#: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Olet jo tilannut tämän foorumin"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:58
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Lähetät viestejä liian nopeasti — odota ja yritä uudelleen"
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:56
 msgid "You are restricted from posting in this forum"
 msgstr "Sinua on rajoitettu viestien lähettämisestä tällä foorumilla"
 
-#: src/hooks/use-forum-websocket.ts:53
+#: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"
 msgstr "Sinulla ei ole lupaa lähettää viestejä tällä foorumilla"
 
@@ -2471,7 +2482,7 @@ msgstr "Sinulla ei ole lupaa lähettää viestejä tällä foorumilla"
 msgid "You have no forums yet."
 msgstr "Sinulla ei ole vielä foorumeita."
 
-#: src/features/forums/pages/entity-forum-page.tsx:363
+#: src/features/forums/pages/entity-forum-page.tsx:382
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Et enää saa päivityksiä tältä foorumilta. Voit tilata sen uudelleen milloin tahansa."
 

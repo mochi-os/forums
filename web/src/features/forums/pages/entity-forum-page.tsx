@@ -23,6 +23,7 @@ import {
   useAuthStore,
   useMergeOnScrollTop,
   ConfirmDialog,
+  LoadingContent,
 } from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
@@ -149,10 +150,23 @@ export function EntityForumPage({
     void refetch()
   }, [newPosts, refetch])
 
-  // Real-time updates via WebSocket
-  useForumWebsocket(forum.fingerprint, forumMember?.id, (postId) =>
-    newPosts.add(postId)
+  // Real-time updates via WebSocket. onSync re-runs the route loader when the
+  // owner finishes pushing a fresh subscriber's initial posts (server flips
+  // `populated`), so the board leaves its loading state.
+  useForumWebsocket(
+    forum.fingerprint,
+    forumMember?.id,
+    (postId) => newPosts.add(postId),
+    () => void router.invalidate()
   )
+
+  // Fallback for the websocket race: if forum/update is missed, poll the loader
+  // while the forum is still filling so the board never stays stuck loading.
+  useEffect(() => {
+    if (forum.populated !== 0) return
+    const timer = setInterval(() => void router.invalidate(), 3000)
+    return () => clearInterval(timer)
+  }, [forum.populated, router])
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')
@@ -327,7 +341,16 @@ export function EntityForumPage({
               </button>
             </div>
           )}
-          {postsError ? (
+          {forum.populated === 0 && infinitePosts.length === 0 ? (
+            // Freshly subscribed and still syncing posts over P2P, with nothing
+            // to show yet: show the explicit "loading content" message, not
+            // skeleton post cards (which read as corrupt/blank entries). Gating
+            // on infinitePosts too means once any post has arrived we render it
+            // immediately — so the forum is never stuck behind the spinner when
+            // the owner runs old code (or is offline) and never sends the
+            // terminal update broadcast that would flip `populated`.
+            <LoadingContent />
+          ) : postsError ? (
             <GeneralError
               error={postsError}
               minimal
