@@ -24,7 +24,7 @@ export interface Forum {
   can_moderate?: boolean // True if current user can moderate this forum
   server?: string // Server URL for remote forums (when accessing as delegated moderator)
   ai_mode?: string
-  ai_account?: number
+  ai_account?: string
   banner?: string
   banner_html?: string
   sort?: string // Per-forum override; empty means use default

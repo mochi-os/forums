@@ -75,7 +75,7 @@ interface ForumData {
   fingerprint: string
   can_manage: boolean
   ai_mode: string
-  ai_account: number
+  ai_account: string
 }
 
 interface Tab {
@@ -145,7 +145,7 @@ function ForumSettingsPage() {
       fingerprint: forumInfoData.data.fingerprint,
       can_manage: forumInfoData.data.permissions.manage,
       ai_mode: forumInfoData.data.forum.ai_mode ?? '',
-      ai_account: forumInfoData.data.forum.ai_account ?? 0,
+      ai_account: forumInfoData.data.forum.ai_account ?? '',
     }
     : null, [forumInfoData])
 
@@ -508,13 +508,16 @@ function BannerSection({ forumId }: { forumId: string }) {
   )
 }
 
-function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: number; onSave: () => void }) {
+function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: string; onSave: () => void }) {
   const { t } = useLingui()
   const normalizeMode = (m: string) => {
     if (m === 'score') return 'tag'
     return m || 'off'
   }
   const [mode, setMode] = useState(normalizeMode(aiMode))
+  // Account id is an opaque string. Empty (and legacy "0") both mean "use default account".
+  const DEFAULT_ACCOUNT = 'default'
+  const isDefaultAccount = (id: string) => id === '' || id === '0'
   const [account, setAccount] = useState(aiAccount)
   const { accounts, isLoading } = useAccounts(getAppPath(), 'ai')
 
@@ -532,7 +535,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   }
 
   const handleAccountChange = async (val: string) => {
-    const newAccount = parseInt(val, 10)
+    const newAccount = val === DEFAULT_ACCOUNT ? '' : val
     const apiMode = mode === 'off' ? '' : mode
     try {
       await forumsApi.setAiSettings(forumId, apiMode, newAccount)
@@ -561,14 +564,14 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       </FieldRow>
       {mode !== 'off' && (
         <FieldRow label={t`Account`}>
-          <Select value={account.toString()} onValueChange={handleAccountChange} disabled={isLoading}>
+          <Select value={isDefaultAccount(account) ? DEFAULT_ACCOUNT : account} onValueChange={handleAccountChange} disabled={isLoading}>
             <SelectTrigger className="w-full max-w-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0"><Trans>Default account</Trans></SelectItem>
+              <SelectItem value={DEFAULT_ACCOUNT}><Trans>Default account</Trans></SelectItem>
               {[...accounts].sort((a, b) => naturalCompare((a.label || a.identifier), b.label || b.identifier)).map((acc) => (
-                <SelectItem key={acc.id} value={acc.id.toString()}>
+                <SelectItem key={acc.id} value={String(acc.id)}>
                   {acc.label || acc.identifier}
                 </SelectItem>
               ))}
