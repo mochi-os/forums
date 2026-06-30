@@ -39,7 +39,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue, naturalCompare,} from '@mochi/web'
+  SelectValue, naturalCompare, textUnchanged,} from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -683,6 +683,9 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
   }
 
   const handleSave = () => {
+    if (textUnchanged(text, customPrompt)) {
+      return
+    }
     setSaving(true)
     forumsApi.setAiPrompt(forumId, type, text).then(() => {
       onSave(text)
@@ -714,7 +717,7 @@ function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPr
               disabled={saving}
             />
             <div className="flex items-center gap-2">
-              <Button size="sm" onClick={handleSave} disabled={saving}>
+              <Button size="sm" onClick={handleSave} disabled={saving || textUnchanged(text, customPrompt)}>
                 {saving ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />}
                 {saving ? <Trans>Saving...</Trans> : <Trans>Save</Trans>}
               </Button>

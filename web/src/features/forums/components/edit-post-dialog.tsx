@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -32,6 +32,11 @@ import {
 } from '@mochi/web'
 import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
+import {
+  buildForumPostEditDraft,
+  forumPostEditOriginalFromPost,
+  isForumPostEditUnchanged,
+} from '@/features/forums/edit-compare'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
 const DISALLOWED_CHARS = /[<>\r\n]/
@@ -107,26 +112,30 @@ export function EditPostDialog({
     }
   }, [open, post, form])
 
+  const watchedTitle = form.watch('title')
+  const watchedBody = form.watch('body')
+  const hasChanges = useMemo(() => {
+    const draft = buildForumPostEditDraft(items, {
+      title: watchedTitle,
+      body: watchedBody,
+    })
+    const original = forumPostEditOriginalFromPost(post)
+    return !isForumPostEditUnchanged(original, draft)
+  }, [items, watchedTitle, watchedBody, post])
+
   const onSubmit = (values: EditPostFormValues) => {
-    // Build order array: existing IDs and "new:N" placeholders
-    const order: string[] = []
-    const newFiles: File[] = []
-    let newIndex = 0
-    for (const item of items) {
-      if (item.kind === 'existing') {
-        order.push(item.attachment.id)
-      } else {
-        order.push(`new:${newIndex}`)
-        newFiles.push(item.file)
-        newIndex++
-      }
+    const draft = buildForumPostEditDraft(items, values)
+    const original = forumPostEditOriginalFromPost(post)
+    if (isForumPostEditUnchanged(original, draft)) {
+      onOpenChange(false)
+      return
     }
 
     onSave({
-      title: values.title,
-      body: values.body,
-      order,
-      attachments: newFiles,
+      title: draft.title,
+      body: draft.body,
+      order: draft.order ?? [],
+      attachments: draft.attachments ?? [],
     })
   }
 
@@ -356,7 +365,7 @@ export function EditPostDialog({
               </Button>
               <Button
                 type='submit'
-                disabled={!form.formState.isValid || isPending}
+                disabled={!form.formState.isValid || isPending || !hasChanges}
               >
                 {isPending ? (
                   <>
