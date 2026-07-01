@@ -550,10 +550,10 @@ const forumsApi = {
     return res.data.tags ?? []
   },
 
-  setAiSettings: (forumId: string, mode: string, account: number) => {
+  setAiSettings: (forumId: string, mode: string, account: string) => {
     const formData = new URLSearchParams()
     formData.append('mode', mode)
-    formData.append('account', String(account))
+    formData.append('account', account)
     return client.post(endpoints.forums.aiSettings(forumId), formData.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })

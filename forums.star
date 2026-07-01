@@ -963,11 +963,14 @@ def parse_unified_tag_response(text):
 
 # Resolve AI account: 0 means use default AI account
 def resolve_ai_account(ai_account):
-    if ai_account > 0:
+    # Account ids are strings now; the stored value may be the legacy integer read
+    # back from the integer-affinity column (0 = none), so normalise to a string id.
+    ai_account = str(ai_account) if ai_account else ""
+    if ai_account:
         return ai_account
     accounts = mochi.account.list("ai")
     if not accounts:
-        return 0
+        return ""
     for acc in accounts:
         if "ai" in acc.get("default", "").split(","):
             return acc["id"]
@@ -1074,8 +1077,10 @@ def event_ai_tag(e):
     post_id = e.data.get("post", "")
     if forum_id and post_id:
         # Single-host gate: only one replica pays for the AI call.
-        # V1 mochi.schedule.leader is local-only; becomes load-bearing
-        # once cross-host claim coordination lands.
+        # mochi.schedule.leader elects one leader across the operator pair
+        # (leader.go: claim RPC + fence tokens), so exactly one host runs
+        # this per (forum, post). Caveat: the "forum:" scope covers the
+        # operator pair, not a forum owner's own multi-device host set.
         if not mochi.schedule.leader("forum:" + forum_id, "ai-tag:" + post_id):
             return
         ai_tag_post(forum_id, post_id)
@@ -1088,7 +1093,7 @@ def action_ai_settings(a):
     user_id = a.user.identity.id
     forum_id = a.input("forum")
     mode = a.input("mode", "")
-    account = int(a.input("account", "0"))
+    account = a.input("account", "")
     forum = get_forum(forum_id)
     if not forum:
         a.error.label(404, "errors.forum_not_found")
@@ -1099,7 +1104,7 @@ def action_ai_settings(a):
     if mode not in ("", "tag"):
         a.error.label(400, "errors.invalid_ai_mode")
         return
-    if account > 0:
+    if account and account != "0":
         accounts = mochi.account.list("ai")
         found = False
         for acc in accounts:
@@ -1548,7 +1553,7 @@ def action_view(a):
             forum["can_post"] = can_post
             forum["can_moderate"] = can_moderate
 
-        has_ai = resolve_ai_account(0) > 0 if user_id else False
+        has_ai = resolve_ai_account(0) != "" if user_id else False
 
         result = {
             "data": {
@@ -1621,7 +1626,7 @@ def action_view(a):
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
                 p["user_vote"] = pv["vote"] if pv else ""
 
-        has_ai = resolve_ai_account(0) > 0 if user_id else False
+        has_ai = resolve_ai_account(0) != "" if user_id else False
         settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
 
         return {
