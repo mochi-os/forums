@@ -117,7 +117,7 @@ def database_create():
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
 
-    # Membership is a converging LWW-Register (mochi.db.merge / mochi.db.tombstone):
+    # Membership is a converging LWW-Register (mochi.db.merge / mochi.db.remove):
     # the real rows live in members_all with version/writer/removed; the `members`
     # view exposes only the active (removed=0) rows, so all existing reads stay
     # correct and only writes target members_all.
@@ -202,7 +202,7 @@ def database_upgrade(to_version):
             mochi.db.execute("alter table forums add column banner text not null default ''")
     if to_version == 27:
         for _row in mochi.db.rows("select forum, id from members where forum not in (select id from forums)") or []:
-            mochi.db.tombstone("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
+            mochi.db.remove("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
     if to_version == 28:
         # Re-plant ai_prompt_tag/ai_prompt_score on forums — they were only ever
         # added by a legacy migration that was later deleted, so fresh installs
@@ -320,7 +320,7 @@ def database_upgrade(to_version):
         # Make membership a converging LWW-Register: move the rows into
         # members_all (with subscribed/version/writer/removed) and expose the
         # active rows through a `members` view, so every existing read stays
-        # correct and writes go through mochi.db.merge / mochi.db.tombstone.
+        # correct and writes go through mochi.db.merge / mochi.db.remove.
         if not mochi.db.table("members_all"):
             mochi.db.execute("create table members_all ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null default 0, writer text not null default '', version integer not null default 0, removed integer not null default 0, primary key ( forum, id ) )")
             mochi.db.execute("insert into members_all ( forum, id, name, subscribed ) select forum, id, name, subscribed from members")
@@ -500,7 +500,7 @@ def error_message_timeout(e):
     member = e.entity
     affected = mochi.db.rows("select distinct forum from members where id=?", member)
     for _row in mochi.db.rows("select forum, id from members where id=?", member) or []:
-        mochi.db.tombstone("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
+        mochi.db.remove("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
     for r in affected:
         mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", r["forum"], mochi.time.now(), r["forum"])
 
@@ -2170,7 +2170,7 @@ def action_members_save(a):
             else:
                 recount_post_votes(v["post"])
         # Remove from members table
-        mochi.db.tombstone("members_all", ["forum", "id"], {"forum": forum["id"], "id": remove_id})
+        mochi.db.remove("members_all", ["forum", "id"], {"forum": forum["id"], "id": remove_id})
         # Revoke all access
         resource = "forum/" + forum["id"]
         for op in ACCESS_LEVELS + ["manage", "*"]:
@@ -2335,7 +2335,7 @@ def action_unsubscribe(a):
     mochi.db.execute("delete from comments where forum=?", forum["id"])
     mochi.db.execute("delete from posts where forum=?", forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.tombstone("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
+        mochi.db.remove("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
@@ -2371,7 +2371,7 @@ def action_delete(a):
     mochi.db.execute("delete from comments where forum=?", forum["id"])
     mochi.db.execute("delete from posts where forum=?", forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.tombstone("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
+        mochi.db.remove("members_all", ["forum", "id"], {"forum": _row["forum"], "id": _row["id"]})
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Revoke all access rules
@@ -5897,7 +5897,7 @@ def event_unsubscribe_event(e):
             recount_post_votes(v["post"])
 
     # Remove from members table
-    mochi.db.tombstone("members_all", ["forum", "id"], {"forum": forum["id"], "id": member_id})
+    mochi.db.remove("members_all", ["forum", "id"], {"forum": forum["id"], "id": member_id})
 
     # Revoke all access
     resource = "forum/" + forum["id"]
