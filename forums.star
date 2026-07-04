@@ -334,6 +334,20 @@ def database_upgrade(to_version):
             mochi.db.execute("create index if not exists members_id on members( id )")
 
 # Helper: Get forum by ID or fingerprint
+    if to_version == 40:
+        # Schema alignment for the baseline squash: drop columns and tables
+        # removed from create without migrations, rebuild the settings table
+        # (its shape changed entirely; per-forum display preferences reset),
+        # then heal missing tables/indexes via the idempotent create.
+        for c in ["tag_account", "score_account", "owner"]:
+            if [x for x in mochi.db.table("forums") or [] if x["name"] == c]:
+                mochi.db.execute("alter table forums drop column " + c)
+        mochi.db.execute("drop table if exists bookmarks")
+        settings = [c["name"] for c in mochi.db.table("settings") or []]
+        if settings and "id" not in settings:
+            mochi.db.execute("drop table settings")
+        database_create()
+
 def get_forum(forum_id):
     forum = mochi.db.row("select * from forums where id=?", forum_id)
     if not forum:
