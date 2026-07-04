@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "7.51",
+	"version": "7.53",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -22,15 +22,10 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 38,
+		"schema": 39,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
-		"upgrade": {"function": "database_upgrade"},
-		"replicate": {
-			"exclude": {
-				"columns": {"tags": ["relevance"]}
-			}
-		}
+		"upgrade": {"function": "database_upgrade"}
 	},
 	"commit": {"function": "on_db_commit"},
 	"icons": [
