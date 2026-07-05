@@ -1277,7 +1277,7 @@ def action_view(a):
         if limit_str and mochi.text.valid(limit_str, "natural"):
             limit = min(int(limit_str), 100)
         before = None
-        if before_str and mochi.text.valid(before_str, "natural"):
+        if before_str and mochi.text.valid(before_str, "integer"):
             before = int(before_str)
 
         # Determine access permissions
