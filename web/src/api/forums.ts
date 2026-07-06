@@ -210,7 +210,7 @@ const forumsApi = {
         formData.append('attachments', file)
       )
     }
-    return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData)
+    return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData, { timeout: 0 })
   },
 
   viewPost: (params: ViewPostParams) =>
@@ -239,7 +239,8 @@ const forumsApi = {
     }
     return client.post<EditPostResponse>(
       endpoints.forums.post.edit(payload.forum, payload.post),
-      formData
+      formData,
+      { timeout: 0 }
     )
   },
 
@@ -272,7 +273,7 @@ const forumsApi = {
     return client.post<CreateCommentResponse>(
       endpoints.forums.comment.create(payload.forum, payload.post),
       formData,
-      { headers: { 'Content-Type': undefined } }
+      { headers: { 'Content-Type': undefined }, timeout: 0 }
     )
   },
 
@@ -302,7 +303,8 @@ const forumsApi = {
         payload.post,
         payload.comment
       ),
-      formData
+      formData,
+      { timeout: 0 }
     )
   },
 
