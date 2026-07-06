@@ -80,6 +80,10 @@ msgstr "Bezwzględna (data i godzina)"
 msgid "Access"
 msgstr "Dostęp"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
+msgid "Access denied"
+msgstr "Odmowa dostępu"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
 msgid "Access Forbidden"
 msgstr "Dostęp zabroniony"
@@ -214,7 +218,7 @@ msgstr "Zezwalaj wszystkim na wyszukiwanie forum"
 msgid "An error occurred"
 msgstr "Wystąpił błąd"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:241
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
 msgid "An unexpected error occurred"
 msgstr "Wystąpił nieoczekiwany błąd"
 
@@ -356,12 +360,12 @@ msgstr "Anuluj"
 msgid "Cancel reply"
 msgstr "Anuluj odpowiedź"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:144
+#: ../../../lib/web/src/components/notification-category-button.tsx:143
 msgid "Category for this notification"
 msgstr "Kategoria tego powiadomienia"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
-#: ../../../lib/web/src/components/notification-category-button.tsx:136
+#: ../../../lib/web/src/components/notification-category-button.tsx:124
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Change notification category"
 msgstr "Zmień kategorię powiadomienia"
 
@@ -592,6 +596,10 @@ msgstr "Ciemny"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
 msgid "Dark mode"
 msgstr "Tryb ciemny"
+
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+msgid "Data conflict"
+msgstr "Konflikt danych"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:709
@@ -947,7 +955,7 @@ msgstr "Nie udało się zaktualizować ustawień AI"
 msgid "Failed to update banner"
 msgstr "Nie udało się zaktualizować banera"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:111
 msgid "Failed to update category"
 msgstr "Nie udało się zaktualizować kategorii"
 
@@ -1312,7 +1320,8 @@ msgstr "Nazwa nie może zawierać znaków < ani >"
 msgid "Name must be 1000 characters or less"
 msgstr "Nazwa może mieć maksymalnie 1000 znaków"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:288
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
 msgid "Network error"
 msgstr "Błąd sieci"
 
@@ -1403,7 +1412,7 @@ msgstr "Nie znaleziono wyników."
 msgid "No time zone found."
 msgstr "Nie znaleziono strefy czasowej."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:148
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "No topic record yet — try again after the next notification."
 msgstr "Brak jeszcze rekordu tematu — spróbuj ponownie po następnym powiadomieniu."
 
@@ -1424,6 +1433,10 @@ msgstr "Brak"
 #: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Normal"
 msgstr "Normalny"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
+msgid "Not found"
+msgstr "Nie znaleziono"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
@@ -1533,7 +1546,9 @@ msgstr "Przypnij"
 msgid "Pinned"
 msgstr "Przypięto"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:289
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Sprawdź połączenie internetowe i spróbuj ponownie."
 
@@ -1548,6 +1563,14 @@ msgstr "Wprowadź komentarz"
 #: src/features/forums/thread-detail.tsx:241
 msgid "Please enter a reply"
 msgstr "Wprowadź odpowiedź"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
+msgid "Please try again."
+msgstr "Spróbuj ponownie."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
+msgid "Please wait a moment and try again."
+msgstr "Poczekaj chwilę i spróbuj ponownie."
 
 #: src/hooks/use-forum-websocket.ts:60
 msgid "Post couldn't be saved — title or body is invalid"
@@ -1677,8 +1700,8 @@ msgstr "Powód:"
 msgid "Reason: {0}"
 msgstr "Powód: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:243
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
+#: ../../../lib/web/src/components/search-entity-page.tsx:240
 msgid "Recommended"
 msgstr "Polecane"
 
@@ -1974,8 +1997,8 @@ msgstr "Szukaj użytkowników"
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:201
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/search-entity-page.tsx:198
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
@@ -2040,8 +2063,8 @@ msgstr "Wyślij e-mail"
 msgid "Serif"
 msgstr "Szeryfowa"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:245
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:271
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
 msgid "Server error"
 msgstr "Błąd serwera"
 
@@ -2050,9 +2073,9 @@ msgstr "Błąd serwera"
 msgid "Server rules"
 msgstr "Zasady serwera"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:209
-msgid "Session expired"
-msgstr "Sesja wygasła"
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+msgid "Session expired. Please log in again."
+msgstr "Sesja wygasła. Zaloguj się ponownie."
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
@@ -2204,6 +2227,10 @@ msgstr "Regulamin"
 msgid "That code is incorrect or has expired."
 msgstr "Ten kod jest nieprawidłowy lub wygasł."
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
+msgid "The requested content could not be found."
+msgstr "Nie można znaleźć żądanej treści."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Motyw"
@@ -2293,6 +2320,10 @@ msgstr "Przełącz pasek boczny"
 msgid "Toggle theme"
 msgstr "Przełącz motyw"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
+msgid "Too many requests"
+msgstr "Zbyt wiele żądań"
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "Góra"
@@ -2301,13 +2332,13 @@ msgstr "Góra"
 msgid "Travelling"
 msgstr "Podróż"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:217
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
+#: ../../../lib/web/src/components/search-entity-page.tsx:214
 msgid "Try adjusting your search terms"
 msgstr "Spróbuj dostosować zapytanie wyszukiwania"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:128
-#: ../../../lib/web/src/features/errors/general-error.tsx:168
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "Spróbuj ponownie"
@@ -2328,7 +2359,7 @@ msgstr "Wpisz, aby szukać użytkowników"
 msgid "Type to search..."
 msgstr "Wpisz, aby szukać..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:267
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
 msgid "Unable to connect to remote server"
 msgstr "Nie można połączyć się ze zdalnym serwerem"
 
@@ -2337,7 +2368,7 @@ msgstr "Nie można połączyć się ze zdalnym serwerem"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Nie można przekierować do logowania. Spróbuj ponownie."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:156
+#: ../../../lib/web/src/components/notification-category-button.tsx:155
 msgid "Unassigned"
 msgstr "Nieprzypisane"
 
@@ -2493,6 +2524,10 @@ msgstr "Publikujesz zbyt szybko — poczekaj i spróbuj ponownie"
 #: src/hooks/use-forum-websocket.ts:56
 msgid "You are restricted from posting in this forum"
 msgstr "Masz ograniczenia w publikowaniu na tym forum"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
+msgid "You do not have access to this section."
+msgstr "Nie masz dostępu do tej sekcji."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

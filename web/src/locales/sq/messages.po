@@ -80,6 +80,10 @@ msgstr "Absolut (data dhe ora)"
 msgid "Access"
 msgstr "Qasja"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
+msgid "Access denied"
+msgstr "Qasja u refuzua"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
 msgid "Access Forbidden"
 msgstr "Qasja e ndaluar"
@@ -214,7 +218,7 @@ msgstr "Lejo këdo të kërkojë për forum"
 msgid "An error occurred"
 msgstr "Ndodhi një gabim"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:241
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
 msgid "An unexpected error occurred"
 msgstr "Ndodhi një gabim i papritur"
 
@@ -356,12 +360,12 @@ msgstr "Anulo"
 msgid "Cancel reply"
 msgstr "Anulo përgjigjen"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:144
+#: ../../../lib/web/src/components/notification-category-button.tsx:143
 msgid "Category for this notification"
 msgstr "Kategoria për këtë njoftim"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
-#: ../../../lib/web/src/components/notification-category-button.tsx:136
+#: ../../../lib/web/src/components/notification-category-button.tsx:124
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Change notification category"
 msgstr "Ndrysho kategorinë e njoftimit"
 
@@ -592,6 +596,10 @@ msgstr "I errët"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
 msgid "Dark mode"
 msgstr "Modë e errët"
+
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+msgid "Data conflict"
+msgstr "Konflikt të dhënash"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:709
@@ -947,7 +955,7 @@ msgstr "Përditësimi i cilësimeve të AI dështoi"
 msgid "Failed to update banner"
 msgstr "Përditësimi i banderolës dështoi"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:111
 msgid "Failed to update category"
 msgstr "Përditësimi i kategorisë dështoi"
 
@@ -1312,7 +1320,8 @@ msgstr "Emri nuk mund të përmbajë karaktere < ose >"
 msgid "Name must be 1000 characters or less"
 msgstr "Emri duhet të jetë 1000 karaktere ose më pak"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:288
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
 msgid "Network error"
 msgstr "Gabim rrjeti"
 
@@ -1403,7 +1412,7 @@ msgstr "S'u gjet asnjë rezultat."
 msgid "No time zone found."
 msgstr "S'u gjet asnjë zonë kohore."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:148
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "No topic record yet — try again after the next notification."
 msgstr "Ende asnjë regjistrim teme — provoni përsëri pas njoftimit tjetër."
 
@@ -1424,6 +1433,10 @@ msgstr "Asnjë"
 #: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Normal"
 msgstr "Normale"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
+msgid "Not found"
+msgstr "Nuk u gjet"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
@@ -1533,7 +1546,9 @@ msgstr "Fikso"
 msgid "Pinned"
 msgstr "I fiksuar"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:289
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Kontrolloni lidhjen tuaj me internetin dhe provoni përsëri."
 
@@ -1548,6 +1563,14 @@ msgstr "Ju lutemi futni një koment"
 #: src/features/forums/thread-detail.tsx:241
 msgid "Please enter a reply"
 msgstr "Ju lutemi futni një përgjigje"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
+msgid "Please try again."
+msgstr "Provoni përsëri."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
+msgid "Please wait a moment and try again."
+msgstr "Ju lutemi prisni një moment dhe provoni sërish."
 
 #: src/hooks/use-forum-websocket.ts:60
 msgid "Post couldn't be saved — title or body is invalid"
@@ -1677,8 +1700,8 @@ msgstr "Arsyeja:"
 msgid "Reason: {0}"
 msgstr "Arsyeja: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:243
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
+#: ../../../lib/web/src/components/search-entity-page.tsx:240
 msgid "Recommended"
 msgstr "I rekomanduar"
 
@@ -1974,8 +1997,8 @@ msgstr "Kërko përdorues"
 msgid "Search..."
 msgstr "Kërko..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:201
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/search-entity-page.tsx:198
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Duke kërkuar..."
@@ -2040,8 +2063,8 @@ msgstr "Dërgo email"
 msgid "Serif"
 msgstr "Me serif"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:245
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:271
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
 msgid "Server error"
 msgstr "Gabim serveri"
 
@@ -2050,9 +2073,9 @@ msgstr "Gabim serveri"
 msgid "Server rules"
 msgstr "Rregullat e serverit"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:209
-msgid "Session expired"
-msgstr "Sesioni skadoi"
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+msgid "Session expired. Please log in again."
+msgstr "Sesioni ka skaduar. Ju lutemi identifikohuni sërish."
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
@@ -2204,6 +2227,10 @@ msgstr "Kushtet dhe rregullat"
 msgid "That code is incorrect or has expired."
 msgstr "Ai kod është i pasaktë ose ka skaduar."
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
+msgid "The requested content could not be found."
+msgstr "Përmbajtja e kërkuar nuk u gjet."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Tema"
@@ -2293,6 +2320,10 @@ msgstr "Ndrysho shiritin anësor"
 msgid "Toggle theme"
 msgstr "Ndrysho temën"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
+msgid "Too many requests"
+msgstr "Shumë kërkesa"
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "Lart"
@@ -2301,13 +2332,13 @@ msgstr "Lart"
 msgid "Travelling"
 msgstr "Duke udhëtuar"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:217
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
+#: ../../../lib/web/src/components/search-entity-page.tsx:214
 msgid "Try adjusting your search terms"
 msgstr "Provo të rregullosh termat e kërkimit"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:128
-#: ../../../lib/web/src/features/errors/general-error.tsx:168
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "Provo përsëri"
@@ -2328,7 +2359,7 @@ msgstr "Shkruaj për të kërkuar përdorues"
 msgid "Type to search..."
 msgstr "Shkruaj për të kërkuar..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:267
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
 msgid "Unable to connect to remote server"
 msgstr "Nuk u lidh dot me serverin në distancë"
 
@@ -2337,7 +2368,7 @@ msgstr "Nuk u lidh dot me serverin në distancë"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Nuk mund të ridrejtohet te hyrja. Ju lutemi provoni përsëri."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:156
+#: ../../../lib/web/src/components/notification-category-button.tsx:155
 msgid "Unassigned"
 msgstr "I pacaktuar"
 
@@ -2493,6 +2524,10 @@ msgstr "Po postoni shumë shpejt — ju lutemi prisni dhe provoni përsëri"
 #: src/hooks/use-forum-websocket.ts:56
 msgid "You are restricted from posting in this forum"
 msgstr "Jeni i kufizuar nga postimi në këtë forum"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
+msgid "You do not have access to this section."
+msgstr "Nuk keni qasje në këtë seksion."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

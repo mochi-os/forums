@@ -80,6 +80,10 @@ msgstr "Absoliwt (dyddiad ac amser)"
 msgid "Access"
 msgstr "Mynediad"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
+msgid "Access denied"
+msgstr "Mynediad wedi'i wrthod"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
 msgid "Access Forbidden"
 msgstr "Mynediad wedi'i wahardd"
@@ -214,7 +218,7 @@ msgstr "Caniatáu i unrhyw un chwilio am fforwm"
 msgid "An error occurred"
 msgstr "Digwyddodd gwall"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:241
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
 msgid "An unexpected error occurred"
 msgstr "Digwyddodd gwall annisgwyl"
 
@@ -356,12 +360,12 @@ msgstr "Canslo"
 msgid "Cancel reply"
 msgstr "Canslo ateb"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:144
+#: ../../../lib/web/src/components/notification-category-button.tsx:143
 msgid "Category for this notification"
 msgstr "Categori ar gyfer yr hysbysiad hwn"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
-#: ../../../lib/web/src/components/notification-category-button.tsx:136
+#: ../../../lib/web/src/components/notification-category-button.tsx:124
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Change notification category"
 msgstr "Newid categori hysbysiad"
 
@@ -592,6 +596,10 @@ msgstr "Tywyll"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
 msgid "Dark mode"
 msgstr "Modd tywyll"
+
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+msgid "Data conflict"
+msgstr "Gwrthdaro data"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:709
@@ -947,7 +955,7 @@ msgstr "Methwyd diweddaru gosodiadau AI"
 msgid "Failed to update banner"
 msgstr "Methwyd diweddaru'r faner"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:111
 msgid "Failed to update category"
 msgstr "Methwyd diweddaru'r categori"
 
@@ -1312,7 +1320,8 @@ msgstr "Ni all yr enw gynnwys nodau < neu >"
 msgid "Name must be 1000 characters or less"
 msgstr "Rhaid i'r enw fod yn 1000 o nodau neu lai"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:288
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
 msgid "Network error"
 msgstr "Gwall rhwydwaith"
 
@@ -1403,7 +1412,7 @@ msgstr "Heb ddod o hyd i ganlyniadau."
 msgid "No time zone found."
 msgstr "Heb ddod o hyd i barth amser."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:148
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "No topic record yet — try again after the next notification."
 msgstr "Dim cofnod pwnc eto — rhowch gynnig arall arni ar ôl yr hysbysiad nesaf."
 
@@ -1424,6 +1433,10 @@ msgstr "Dim"
 #: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Normal"
 msgstr "Arferol"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
+msgid "Not found"
+msgstr "Heb ei ganfod"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
@@ -1533,7 +1546,9 @@ msgstr "Pinio"
 msgid "Pinned"
 msgstr "Wedi'i binio"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:289
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Gwiriwch eich cysylltiad rhyngrwyd a rhowch gynnig arall arni."
 
@@ -1548,6 +1563,14 @@ msgstr "Rhowch sylw"
 #: src/features/forums/thread-detail.tsx:241
 msgid "Please enter a reply"
 msgstr "Rhowch ymateb"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
+msgid "Please try again."
+msgstr "Rhowch gynnig arall arni."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
+msgid "Please wait a moment and try again."
+msgstr "Arhoswch funud a rhowch gynnig arall arni."
 
 #: src/hooks/use-forum-websocket.ts:60
 msgid "Post couldn't be saved — title or body is invalid"
@@ -1677,8 +1700,8 @@ msgstr "Rheswm:"
 msgid "Reason: {0}"
 msgstr "Rheswm: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:243
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
+#: ../../../lib/web/src/components/search-entity-page.tsx:240
 msgid "Recommended"
 msgstr "Argymhellir"
 
@@ -1974,8 +1997,8 @@ msgstr "Chwilio defnyddwyr"
 msgid "Search..."
 msgstr "Chwilio..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:201
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/search-entity-page.tsx:198
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Yn chwilio..."
@@ -2040,8 +2063,8 @@ msgstr "Anfon e-bost"
 msgid "Serif"
 msgstr "Serif"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:245
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:271
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
 msgid "Server error"
 msgstr "Gwall gweinydd"
 
@@ -2050,9 +2073,9 @@ msgstr "Gwall gweinydd"
 msgid "Server rules"
 msgstr "Rheolau'r gweinydd"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:209
-msgid "Session expired"
-msgstr "Sesiwn wedi dod i ben"
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+msgid "Session expired. Please log in again."
+msgstr "Mae'r sesiwn wedi dod i ben. Mewngofnodwch eto."
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
@@ -2204,6 +2227,10 @@ msgstr "Telerau ac amodau"
 msgid "That code is incorrect or has expired."
 msgstr "Mae'r cod hwnnw'n anghywir neu wedi dod i ben."
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
+msgid "The requested content could not be found."
+msgstr "Nid oedd modd dod o hyd i'r cynnwys y gofynnwyd amdano."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Thema"
@@ -2293,6 +2320,10 @@ msgstr "Toglo'r Bar Ochr"
 msgid "Toggle theme"
 msgstr "Toglo thema"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
+msgid "Too many requests"
+msgstr "Gormod o geisiadau"
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "Brig"
@@ -2301,13 +2332,13 @@ msgstr "Brig"
 msgid "Travelling"
 msgstr "Yn teithio"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:217
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
+#: ../../../lib/web/src/components/search-entity-page.tsx:214
 msgid "Try adjusting your search terms"
 msgstr "Ceisiwch addasu eich termau chwilio"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:128
-#: ../../../lib/web/src/features/errors/general-error.tsx:168
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "Rhoi cynnig arall"
@@ -2328,7 +2359,7 @@ msgstr "Teipiwch i chwilio defnyddwyr"
 msgid "Type to search..."
 msgstr "Teipiwch i chwilio..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:267
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
 msgid "Unable to connect to remote server"
 msgstr "Methu cysylltu â'r gweinydd pell"
 
@@ -2337,7 +2368,7 @@ msgstr "Methu cysylltu â'r gweinydd pell"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Methu ailgyfeirio i fewngofnodi. Rhowch gynnig arall arni."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:156
+#: ../../../lib/web/src/components/notification-category-button.tsx:155
 msgid "Unassigned"
 msgstr "Heb ei neilltuo"
 
@@ -2493,6 +2524,10 @@ msgstr "Rydych chi'n postio'n rhy gyflym — arhoswch ac ailgynnig"
 #: src/hooks/use-forum-websocket.ts:56
 msgid "You are restricted from posting in this forum"
 msgstr "Mae cyfyngiad arnoch chi rhag postio yn y fforwm hwn"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
+msgid "You do not have access to this section."
+msgstr "Nid oes gennych fynediad i'r adran hon."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"
