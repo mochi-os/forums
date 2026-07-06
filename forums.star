@@ -6465,11 +6465,17 @@ def event_report_resolve_event(e):
 def event_information(e):
     forum_id = e.header("to")
 
-    # Get entity info
     entity = mochi.entity.info(forum_id)
     if not entity or entity.get("class") != "forum":
         e.stream.write({"error": "errors.forum_not_found"})
         return
+
+    # A private forum's name/fingerprint is only disclosed to a caller with
+    # view access - knowing the id (e.g. from a share link) must not reveal it.
+    if entity.get("privacy", "public") == "private":
+        if not check_event_access(e.header("from"), forum_id, "view"):
+            e.stream.write({"error": "errors.not_allowed"})
+            return
 
     e.stream.write({
         "id": entity["id"],
@@ -6485,6 +6491,15 @@ def event_schema(e):
     if not entity or entity.get("class") != "forum":
         e.stream.write({"error": "errors.forum_not_found"})
         return
+
+    # A private forum's full content (posts/comments) is only served to a
+    # caller who holds view access. Any peer can invoke this event directly
+    # with the forum id, so gating registration (event_subscribe_event) is
+    # not enough - the content dump itself must check the caller (#209).
+    if entity.get("privacy", "public") == "private":
+        if not check_event_access(e.header("from"), forum_id, "view"):
+            e.stream.write({"error": "errors.not_allowed"})
+            return
 
     posts = mochi.db.rows(
         "select id, member, name, title, body, up, down, comments, created, updated from posts where forum=? order by created desc limit 100",
