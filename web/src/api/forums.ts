@@ -158,11 +158,19 @@ const forumsApi = {
 
   getNewForum: () => client.get<GetNewForumResponse>(endpoints.forums.new),
 
-  subscribeForum: (forumId: string, server?: string) =>
+  subscribeForum: (forumId: string, server?: string, peer?: string) =>
     client.post<SubscribeForumResponse>(endpoints.forums.subscribe(forumId), {
       forum: forumId,
       server,
+      peer,
     }),
+
+  // Produce a mochi://<peer>/<forum> share link for a forum the caller owns.
+  shareForum: (forumId: string) =>
+    client.post<{ data: { link: string; peer: string; forum: string } }>(
+      endpoints.forums.share(forumId),
+      {}
+    ),
 
   unsubscribeForum: (forumId: string) =>
     client.post<UnsubscribeForumResponse>(

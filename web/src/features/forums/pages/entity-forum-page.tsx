@@ -310,6 +310,7 @@ export function EntityForumPage({
           <OptionsMenu
             entityId={forum.fingerprint}
             settingsUrl={canManage ? `/${forum.fingerprint ?? forum.id}/settings` : undefined}
+            canShare={canManage}
             moderationUrl={(canManage || canModerate) ? `/${forum.fingerprint ?? forum.id}/moderation` : undefined}
             onUnsubscribe={canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined}
             unsubscribePending={unsubscribeMutation.isPending}

@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (өңделді)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# жаңа жазба} other {# жаңа жазба}}"
 
@@ -221,6 +221,10 @@ msgstr "Күтпеген қате орын алды"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Қосымша мәтінмән..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Рұқсат берген кез келген адам осы сілтеме арқылы жазыла алады."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Баннерді жабу"
 msgid "Displays the mobile sidebar."
 msgstr "Мобильді бүйір тақтаны көрсетеді."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Дайын"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Сақталған жазбаларды тазалау сәтсіз ая
 msgid "Failed to create forum"
 msgstr "Форум құру сәтсіз аяқталды"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Сілтеме жасау сәтсіз аяқталды"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Форум жою сәтсіз аяқталды"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS токенін алу сәтсіз аяқталды"
 
@@ -939,12 +951,12 @@ msgstr "Баннерді жаңарту сәтсіз аяқталды"
 msgid "Failed to update category"
 msgstr "Санатты жаңарту сәтсіз аяқталды"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Тег бойынша сүзілді:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Форумдарды табу"
 
@@ -983,6 +995,10 @@ msgstr "Форум жойылды"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Форум енді қолжетімді емес"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Форум сілтемесі"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Солдан оңға"
 msgid "Light"
 msgstr "Ашық"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Сілтеме"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Көбірек жүктеу"
@@ -1225,7 +1245,7 @@ msgstr "Жалған ақпарат"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Модерация, жариялау, пікір қалдыру, дауыс беру және қарау"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Модерация бөлімдері"
 msgid "Monday"
 msgstr "Дүйсенбі"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Байланысқан тіркелгілер жоқ"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Форумдар табылмады"
 
@@ -1585,11 +1605,11 @@ msgstr "Жазба жаңартылды"
 msgid "Post, comment, vote, and view"
 msgstr "Жариялау, пікір қалдыру, дауыс беру және қарау"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Жазбалар"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Жазбалар мен пікірлер"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Себеп: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Ұсынылған"
 
@@ -1872,11 +1892,11 @@ msgstr "Оңнан солға"
 msgid "Rows per page"
 msgstr "Бетке жолдар"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS арнасы"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL алмасу буферіне көшірілді"
 
@@ -1922,7 +1942,7 @@ msgstr "Сақталуда..."
 msgid "Score prompt"
 msgstr "Ұпай сұрауы"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Аты, ID, fingerprint немесе URL бойынша іздеу..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Іздеу..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Іздеуде..."
@@ -2043,7 +2063,7 @@ msgstr "Шығу және бару нүктесін орнату"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Сапар"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Іздеу терминдерін реттеуді көріңіз"
 
@@ -2343,8 +2363,8 @@ msgstr "Құлпын ашу"
 msgid "Unpin"
 msgstr "Бекітуді жою"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Жазылудан бас тарту"
@@ -2353,7 +2373,7 @@ msgstr "Жазылудан бас тарту"
 msgid "Unsubscribe from forum"
 msgstr "Форумнан жазылудан бас тарту"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Форумнан жазылудан бас тарту керек пе?"
 
@@ -2482,7 +2502,7 @@ msgstr "Сізде бұл форумда жариялауға рұқсат жо�
 msgid "You have no forums yet."
 msgstr "Сізде әлі форум жоқ."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Сіз бұл форумнан жаңартулар алуды тоқтатасыз. Кез келген уақытта қайта жазыла аласыз."
 

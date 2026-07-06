@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (רעדאַגירט)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# נײַער אַרײַנשרײַב} other {# נײַע אַרײַנשרײַבן}}"
 
@@ -221,6 +221,10 @@ msgstr "אַן אומדערוואַרטעטער פֿעלער איז פֿאָרג
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "ווײַטערדיקער קאָנטעקסט..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "ווער עס איז איר גיט צוטריט קען זיך אַבאָנירן מיט דעם לינק."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "אַראָפּזאָגן באַנער"
 msgid "Displays the mobile sidebar."
 msgstr "ווײַזט די מאָבילע סײַדבאַר."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "געטאָן"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "ניט געלונגען צו רייניקן די געהיטענע אַר
 msgid "Failed to create forum"
 msgstr "ניט געקענט באַשאַפֿן פֿאָרום"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "ניט געלונגען צו שאַפֿן לינק"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "ניט געקענט מעקן פֿאָרום"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "ניט געלונגען צו באַקומען RSS־טאָקען"
 
@@ -939,12 +951,12 @@ msgstr "ניט געלונגען צו דערהײַנטיקן באַנער"
 msgid "Failed to update category"
 msgstr "ניט געלונגען צו דערהײַנטיקן קאַטעגאָריע"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "געפֿילטערט לויט טאַג:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "געפֿינען פֿאָרומס"
 
@@ -983,6 +995,10 @@ msgstr "פֿאָרום אויסגעמעקט"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "פֿאָרום איז מער נישט פֿאַראַן"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "פֿאָרום לינק"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "פֿון לינקס צו רעכטס"
 msgid "Light"
 msgstr "ליכטיק"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "לינק"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "לאָדן מער"
@@ -1225,7 +1245,7 @@ msgstr "פֿאַלשע אינפֿאָרמאַציע"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "מאָדערירן, פּאָסטן, קאָמענטירן, שטימען, און זען"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "מאָדעראַציע־אָפּטיילן"
 msgid "Monday"
 msgstr "מאָנטיק"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "קיין פֿאַרבונדענע קאָנטעס"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "קיין פֿאָרומס ניט געפֿונען"
 
@@ -1585,11 +1605,11 @@ msgstr "פּאָסט דערפֿרישט"
 msgid "Post, comment, vote, and view"
 msgstr "פּאָסטן, באַמערקן, שטימען, און קוקן"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "פּאָסטן"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "פּאָסטן און באַמערקונגען"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "סיבה: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "רעקאָמענדירט"
 
@@ -1872,11 +1892,11 @@ msgstr "רעכטס צו לינקס"
 msgid "Rows per page"
 msgstr "רייען פּער זײַטל"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS פֿיד"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL קאָפּירט צו קלעמברעט"
 
@@ -1922,7 +1942,7 @@ msgstr "היטן..."
 msgid "Score prompt"
 msgstr "צאָל פּראָמפּט"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "זוך לויט נאָמען, ID, פֿינגערפּרינט, אָדער URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "זוך..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "זוכן..."
@@ -2043,7 +2063,7 @@ msgstr "שטעל אָנהייב און ציל"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "רײַזנדיק"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "פּרוּווט באַאַרבעטן אײַערע זוך־אויסדרוקן"
 
@@ -2343,8 +2363,8 @@ msgstr "אַנטשליסן"
 msgid "Unpin"
 msgstr "אומפּינען"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "אַבאַבאָנירן"
@@ -2353,7 +2373,7 @@ msgstr "אַבאַבאָנירן"
 msgid "Unsubscribe from forum"
 msgstr "אַבאַבאָנירן פֿון פֿאָרום"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "אַראָפּשרײַבן זיך פֿונעם פֿאָרום?"
 
@@ -2482,7 +2502,7 @@ msgstr "איר האָט נישט קיין דערלויבעניש צו פּאָס
 msgid "You have no forums yet."
 msgstr "איר האָט נאָך קיין פֿאָרומס."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "איר וועט אויפֿהערן צו באַקומען דערהײַנטיקונגען פֿון דעם פֿאָרום. איר קענט זיך ווידער אײַנשרײַבן ווען עס איז."
 

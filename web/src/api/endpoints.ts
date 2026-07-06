@@ -48,6 +48,7 @@ const endpoints = {
     // Use getEntityBase for domain-aware paths
     forumInfo: (forumId: string) => `${getEntityBase(forumId)}/-/information`,
     posts: (forumId: string) => `${getEntityBase(forumId)}/-/posts`,
+    share: (forumId: string) => `${getEntityBase(forumId)}/-/share`,
     subscribe: (forumId: string) => `${getEntityBase(forumId)}/-/subscribe`,
     unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,
     delete: (forumId: string) => `${getEntityBase(forumId)}/-/delete`,

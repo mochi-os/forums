@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (সম্পাদিত)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# নতুন পোস্ট} other {# নতুন পোস্ট}}"
 
@@ -221,6 +221,10 @@ msgstr "একটি অপ্রত্যাশিত ত্রুটি ঘট
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "কোন অতিরিক্ত প্রসঙ্গ..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "আপনি যাকে অ্যাক্সেস দেবেন সে এই লিঙ্ক দিয়ে সাবস্ক্রাইব করতে পারবে।"
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "ব্যানার বাতিল করুন"
 msgid "Displays the mobile sidebar."
 msgstr "মোবাইল সাইডবার প্রদর্শন করে।"
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "সম্পন্ন"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "সংরক্ষিত পোস্ট মোছা যায়নি
 msgid "Failed to create forum"
 msgstr "ফোরাম তৈরি করা যায়নি"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "লিঙ্ক তৈরি করতে ব্যর্থ"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "ফোরাম মুছে ফেলা যায়নি"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS টোকেন পেতে ব্যর্থ"
 
@@ -939,12 +951,12 @@ msgstr "ব্যানার আপডেট করতে ব্যর্থ"
 msgid "Failed to update category"
 msgstr "ক্যাটাগরি আপডেট করতে ব্যর্থ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "ট্যাগ অনুসারে ফিল্টার করা হয়েছে:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "ফোরাম খুঁজুন"
 
@@ -983,6 +995,10 @@ msgstr "ফোরাম মুছে ফেলা হয়েছে"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "ফোরাম আর উপলব্ধ নয়"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "ফোরাম লিঙ্ক"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "বাম থেকে ডান"
 msgid "Light"
 msgstr "হালকা"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "লিঙ্ক"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "আরও লোড করুন"
@@ -1225,7 +1245,7 @@ msgstr "ভুল তথ্য"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "মডারেট, পোস্ট, মন্তব্য, ভোট এবং দেখা"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "মডারেশন বিভাগ"
 msgid "Monday"
 msgstr "সোমবার"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "কোনো সংযুক্ত অ্যাকাউন্ট নেই"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "কোনো ফোরাম পাওয়া যায়নি"
 
@@ -1585,11 +1605,11 @@ msgstr "পোস্ট আপডেট করা হয়েছে"
 msgid "Post, comment, vote, and view"
 msgstr "পোস্ট, মন্তব্য, ভোট এবং দেখা"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "পোস্টসমূহ"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "পোস্ট ও মন্তব্য"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "কারণ: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "সুপারিশকৃত"
 
@@ -1872,11 +1892,11 @@ msgstr "ডান থেকে বাম"
 msgid "Rows per page"
 msgstr "প্রতি পৃষ্ঠায় সারি"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS ফিড"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL ক্লিপবোর্ডে কপি করা হয়েছে"
 
@@ -1922,7 +1942,7 @@ msgstr "সংরক্ষণ করা হচ্ছে..."
 msgid "Score prompt"
 msgstr "স্কোর প্রম্পট"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "নাম, ID, ফিঙ্গারপ্রিন্ট, বা URL দিয়ে অনুসন্ধান করুন..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "অনুসন্ধান করুন..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "অনুসন্ধান করা হচ্ছে..."
@@ -2043,7 +2063,7 @@ msgstr "উৎস ও গন্তব্য সেট করুন"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "ভ্রমণরত"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "আপনার অনুসন্ধান শর্তাবলী সমন্বয় করার চেষ্টা করুন"
 
@@ -2343,8 +2363,8 @@ msgstr "আনলক করুন"
 msgid "Unpin"
 msgstr "আনপিন করুন"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "আনসাবস্ক্রাইব করুন"
@@ -2353,7 +2373,7 @@ msgstr "আনসাবস্ক্রাইব করুন"
 msgid "Unsubscribe from forum"
 msgstr "ফোরাম থেকে আনসাবস্ক্রাইব করুন"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "ফোরাম থেকে সদস্যতা বাতিল করবেন?"
 
@@ -2482,7 +2502,7 @@ msgstr "এই ফোরামে পোস্ট করার অনুমত�
 msgid "You have no forums yet."
 msgstr "আপনার এখনও কোন ফোরাম নেই।"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "আপনি এই ফোরাম থেকে আপডেট পাওয়া বন্ধ করবেন। আপনি যেকোনো সময় আবার সদস্যতা নিতে পারবেন।"
 

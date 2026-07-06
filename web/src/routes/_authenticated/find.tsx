@@ -8,7 +8,7 @@ import { useLingui } from '@lingui/react/macro'
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Hash } from 'lucide-react'
-import { FindEntityPage, toast, toastAction, getErrorMessage } from '@mochi/web'
+import { FindEntityPage, toast, toastAction, getErrorMessage, type MochiEntityUri } from '@mochi/web'
 import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 import forumsApi from '@/api/forums'
 import endpoints from '@/api/endpoints'
@@ -47,10 +47,10 @@ function FindForumsPage() {
   )
 
   const handleSubscribe = useCallback(
-    async (forumId: string, entity: { location?: string }) => {
+    async (forumId: string, entity: { location?: string; peer?: string }) => {
       try {
         const data = await toastAction(
-          forumsApi.subscribeForum(forumId, entity.location),
+          forumsApi.subscribeForum(forumId, entity.location, entity.peer),
           {
             loading: t`Subscribing...`,
             success: false,
@@ -70,8 +70,18 @@ function FindForumsPage() {
     [queryClient, t]
   )
 
+  // Resolve a pasted mochi:// share link to the forum's name via probe, so the
+  // card shows the real forum rather than a raw entity id.
+  const resolveUri = useCallback(async (uri: MochiEntityUri) => {
+    if (!uri.peer) return null
+    const response = await forumsApi.probeForum({ url: `mochi://${uri.peer}/${uri.entity}` })
+    const data = response.data ?? response
+    return { ...data, peer: data.peer || uri.peer }
+  }, [])
+
   return (
     <FindEntityPage
+      resolveUri={resolveUri}
       onSubscribe={handleSubscribe}
       subscribedIds={subscribedForumIds}
       entityClass="forum"

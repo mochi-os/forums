@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (szerkesztve)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# új bejegyzés} other {# új bejegyzés}}"
 
@@ -221,6 +221,10 @@ msgstr "Váratlan hiba történt"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Bármilyen további kontextus..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Bárki, akinek hozzáférést ad, feliratkozhat ezzel a hivatkozással."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Banner elvetése"
 msgid "Displays the mobile sidebar."
 msgstr "Megjeleníti a mobil oldalsávot."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Kész"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "A mentett bejegyzések törlése nem sikerült"
 msgid "Failed to create forum"
 msgstr "Nem sikerült létrehozni a fórumot"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Nem sikerült létrehozni a hivatkozást"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Nem sikerült törölni a fórumot"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "Nem sikerült megszerezni az RSS tokent"
 
@@ -939,12 +951,12 @@ msgstr "Nem sikerült frissíteni a bannert"
 msgid "Failed to update category"
 msgstr "Nem sikerült frissíteni a kategóriát"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Szűrve címke szerint:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Fórumok keresése"
 
@@ -983,6 +995,10 @@ msgstr "Fórum törölve"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "A fórum már nem érhető el"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Fórum-hivatkozás"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Balról jobbra"
 msgid "Light"
 msgstr "Világos"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Hivatkozás"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Továbbiak betöltése"
@@ -1225,7 +1245,7 @@ msgstr "Félretájékoztatás"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderálás, bejegyzés, megjegyzés, szavazás és megtekintés"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Moderációs szekciók"
 msgid "Monday"
 msgstr "Hétfő"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Nincsenek csatlakoztatott fiókok"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Nem találhatók fórumok"
 
@@ -1585,11 +1605,11 @@ msgstr "Bejegyzés frissítve"
 msgid "Post, comment, vote, and view"
 msgstr "Bejegyzés, megjegyzés, szavazás és megtekintés"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Bejegyzések"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Bejegyzések és hozzászólások"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Indoklás: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Ajánlott"
 
@@ -1872,11 +1892,11 @@ msgstr "Jobbról balra"
 msgid "Rows per page"
 msgstr "Sorok oldalanként"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS hírfolyam"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL vágólapra másolva"
 
@@ -1922,7 +1942,7 @@ msgstr "Mentés..."
 msgid "Score prompt"
 msgstr "Pontozási prompt"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Keresés név, azonosító, ujjlenyomat vagy URL alapján..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Keresés..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Keresés folyamatban..."
@@ -2043,7 +2063,7 @@ msgstr "Kiindulási és úti cél beállítása"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Utazás"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Próbálja módosítani a keresési kifejezéseket"
 
@@ -2343,8 +2363,8 @@ msgstr "Feloldás"
 msgid "Unpin"
 msgstr "Rögzítés feloldása"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Leiratkozás"
@@ -2353,7 +2373,7 @@ msgstr "Leiratkozás"
 msgid "Unsubscribe from forum"
 msgstr "Leiratkozás a fórumról"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Leiratkozol a fórumról?"
 
@@ -2482,7 +2502,7 @@ msgstr "Nincs jogosultsága ebben a fórumban posztolni"
 msgid "You have no forums yet."
 msgstr "Még nincsenek fórumai."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nem fogsz többé értesítéseket kapni erről a fórumról. Bármikor újra feliratkozhatsz."
 

@@ -268,6 +268,8 @@ export interface ProbeForumResponse {
     name: string
     fingerprint: string
     class: string
-    server: string
+    server?: string
+    /** owner's peer from a mochi:// share-link probe; subscribe pins the same peer. */
+    peer?: string
   }
 }

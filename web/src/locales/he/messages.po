@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (נערך)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {פוסט חדש אחד} two {# פוסטים חדשים} many {# פוסטים חדשים} other {# פוסטים חדשים}}"
 
@@ -221,6 +221,10 @@ msgstr "אירעה שגיאה בלתי צפויה"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "כל הקשר נוסף..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "כל מי שתעניק לו גישה יכול להירשם באמצעות קישור זה."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "סגור באנר"
 msgid "Displays the mobile sidebar."
 msgstr "מציג את סרגל הצד למובייל."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "בוצע"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "ניקוי הפוסטים השמורים נכשל"
 msgid "Failed to create forum"
 msgstr "יצירת הפורום נכשלה"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "יצירת הקישור נכשלה"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "מחיקת הפורום נכשלה"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "קבלת טוקן RSS נכשלה"
 
@@ -939,12 +951,12 @@ msgstr "עדכון הבאנר נכשל"
 msgid "Failed to update category"
 msgstr "עדכון הקטגוריה נכשל"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "מסונן לפי תגית:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "חפש פורומים"
 
@@ -983,6 +995,10 @@ msgstr "הפורום נמחק"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "הפורום אינו זמין יותר"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "קישור לפורום"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "משמאל לימין"
 msgid "Light"
 msgstr "בהיר"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "קישור"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "טען עוד"
@@ -1225,7 +1245,7 @@ msgstr "מידע שגוי"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "ניהול, פרסום, תגובה, הצבעה וצפייה"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "מקטעי ניהול תוכן"
 msgid "Monday"
 msgstr "יום שני"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "אין חשבונות מקושרים"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "לא נמצאו פורומים"
 
@@ -1585,11 +1605,11 @@ msgstr "הפוסט עודכן"
 msgid "Post, comment, vote, and view"
 msgstr "פרסום, תגובה, הצבעה וצפייה"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "פוסטים"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "פוסטים ותגובות"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "סיבה: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "מומלץ"
 
@@ -1872,11 +1892,11 @@ msgstr "מימין לשמאל"
 msgid "Rows per page"
 msgstr "שורות לעמוד"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "פיד RSS"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "כתובת ה-URL של RSS הועתקה ללוח"
 
@@ -1922,7 +1942,7 @@ msgstr "שומר..."
 msgid "Score prompt"
 msgstr "הנחיית ציון"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "חפש לפי שם, מזהה, טביעת אצבע או כתובת URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "חיפוש..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "מחפש..."
@@ -2043,7 +2063,7 @@ msgstr "קבע מקור ויעד"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "בנסיעה"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "נסה להתאים את מונחי החיפוש שלך"
 
@@ -2343,8 +2363,8 @@ msgstr "בטל נעילה"
 msgid "Unpin"
 msgstr "בטל נעיצה"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "בטל הרשמה"
@@ -2353,7 +2373,7 @@ msgstr "בטל הרשמה"
 msgid "Unsubscribe from forum"
 msgstr "בטל הרשמה מהפורום"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "לבטל את ההרשמה לפורום?"
 
@@ -2482,7 +2502,7 @@ msgstr "אין לך הרשאה לפרסם בפורום זה"
 msgid "You have no forums yet."
 msgstr "עדיין אין לך פורומים."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "תפסיק לקבל עדכונים מהפורום הזה. תוכל להירשם מחדש בכל עת."
 

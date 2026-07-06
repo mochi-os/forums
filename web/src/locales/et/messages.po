@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (muudetud)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# uus postitus} other {# uut postitust}}"
 
@@ -221,6 +221,10 @@ msgstr "Tekkis ootamatu viga"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Täiendav kontekst..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Igaüks, kellele annad juurdepääsu, saab selle lingiga tellida."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Sulge bänner"
 msgid "Displays the mobile sidebar."
 msgstr "Kuvab mobiilse külgriba."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Tehtud"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Salvestatud postituste kustutamine ebaõnnestus"
 msgid "Failed to create forum"
 msgstr "Foorumi loomine ebaõnnestus"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Lingi loomine ebaõnnestus"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Foorumi kustutamine ebaõnnestus"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS-tokeni hankimine ebaõnnestus"
 
@@ -939,12 +951,12 @@ msgstr "Bännertekst värskendamine ebaõnnestus"
 msgid "Failed to update category"
 msgstr "Kategooria värskendamine ebaõnnestus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Filtreeritud sildi järgi:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Otsi foorumeid"
 
@@ -983,6 +995,10 @@ msgstr "Foorum kustutatud"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Foorum pole enam saadaval"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Foorumi link"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Vasakult paremale"
 msgid "Light"
 msgstr "Hele"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Link"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Lae rohkem"
@@ -1225,7 +1245,7 @@ msgstr "Väärinformatsioon"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modereeri, postita, kommenteeri, hääleta ja vaata"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Modereerimissektsioonid"
 msgid "Monday"
 msgstr "Esmaspäev"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Seotud kontosid pole"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Foorumeid ei leitud"
 
@@ -1585,11 +1605,11 @@ msgstr "Postitus uuendatud"
 msgid "Post, comment, vote, and view"
 msgstr "Postita, kommenteeri, hääleta ja vaata"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Postitused"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Postitused ja kommentaarid"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Põhjus: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Soovitatud"
 
@@ -1872,11 +1892,11 @@ msgstr "Paremalt vasakule"
 msgid "Rows per page"
 msgstr "Ridu lehel"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS-voog"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL kopeeritud lõikepuhvrisse"
 
@@ -1922,7 +1942,7 @@ msgstr "Salvestamine..."
 msgid "Score prompt"
 msgstr "Skoori viip"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Otsi nime, ID, sõrmejälje või URL-i järgi..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Otsi..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Otsimine..."
@@ -2043,7 +2063,7 @@ msgstr "Määra lähtekoht ja sihtkoht"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Reisil"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Proovi otsingusõnu kohandada"
 
@@ -2343,8 +2363,8 @@ msgstr "Lukusta lahti"
 msgid "Unpin"
 msgstr "Eemalda kinnitus"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Tühista tellimus"
@@ -2353,7 +2373,7 @@ msgstr "Tühista tellimus"
 msgid "Unsubscribe from forum"
 msgstr "Tühista foorumi tellimus"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Lõpetada foorumi tellimus?"
 
@@ -2482,7 +2502,7 @@ msgstr "Teil pole luba selles foorumis postitada"
 msgid "You have no forums yet."
 msgstr "Sul pole veel foorumeid."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Sa ei saa enam sellest foorumist uuendusi. Saad tellimuse igal ajal uuesti vormistada."
 

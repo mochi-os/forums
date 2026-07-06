@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (изменено)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# новая публикация} few {# новые публикации} many {# новых публикаций} other {# новой публикации}}"
 
@@ -221,6 +221,10 @@ msgstr "Произошла непредвиденная ошибка"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Любой дополнительный контекст..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Любой, кому вы предоставите доступ, может подписаться по этой ссылке."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Закрыть баннер"
 msgid "Displays the mobile sidebar."
 msgstr "Отображает мобильную боковую панель."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Готово"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Не удалось очистить сохранённые публик
 msgid "Failed to create forum"
 msgstr "Не удалось создать форум"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Не удалось создать ссылку"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Не удалось удалить форум"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "Не удалось получить RSS-токен"
 
@@ -939,12 +951,12 @@ msgstr "Не удалось обновить баннер"
 msgid "Failed to update category"
 msgstr "Не удалось обновить категорию"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Фильтр по тегу:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Найти форумы"
 
@@ -983,6 +995,10 @@ msgstr "Форум удалён"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Форум больше недоступен"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Ссылка на форум"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Слева направо"
 msgid "Light"
 msgstr "Светлая"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Ссылка"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Загрузить ещё"
@@ -1225,7 +1245,7 @@ msgstr "Дезинформация"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Модерация, публикация, комментирование, голосование и просмотр"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Разделы модерации"
 msgid "Monday"
 msgstr "Понедельник"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Нет подключённых учётных записей"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Форумы не найдены"
 
@@ -1585,11 +1605,11 @@ msgstr "Публикация обновлена"
 msgid "Post, comment, vote, and view"
 msgstr "Публикация, комментирование, голосование и просмотр"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Публикации"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Публикации и комментарии"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Причина: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Рекомендуется"
 
@@ -1872,11 +1892,11 @@ msgstr "Справа налево"
 msgid "Rows per page"
 msgstr "Строк на странице"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS-лента"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "URL RSS скопирован в буфер обмена"
 
@@ -1922,7 +1942,7 @@ msgstr "Сохранение..."
 msgid "Score prompt"
 msgstr "Подсказка оценки"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Поиск по имени, ID, отпечатку или URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Поиск..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Поиск..."
@@ -2043,7 +2063,7 @@ msgstr "Укажите пункты отправления и назначени
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "В пути"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Попробуйте изменить условия поиска"
 
@@ -2343,8 +2363,8 @@ msgstr "Разблокировать"
 msgid "Unpin"
 msgstr "Открепить"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Отписаться"
@@ -2353,7 +2373,7 @@ msgstr "Отписаться"
 msgid "Unsubscribe from forum"
 msgstr "Отписаться от форума"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Отписаться от форума?"
 
@@ -2482,7 +2502,7 @@ msgstr "У вас нет разрешения публиковать на это
 msgid "You have no forums yet."
 msgstr "У вас пока нет форумов."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Вы перестанете получать обновления с этого форума. Вы можете подписаться снова в любое время."
 

@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "7.56",
+	"version": "7.57",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -22,7 +22,7 @@
 		"accounts.star"
 	],
 	"database": {
-		"schema": 1,
+		"schema": 2,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 	},
@@ -53,6 +53,7 @@
 		":forum": {"file": "web/dist/index.html", "public": true},
 		":forum/assets": {"files": "web/dist/assets", "public": true},
 		":forum/images": {"files": "web/dist/images", "public": true},
+		":forum/-/share": {"function": "action_share"},
 		":forum/-/information": {"function": "action_information_entity", "public": true},
 		":forum/-/posts": {"function": "action_view", "public": true},
 		":forum/-/members": {"function": "action_members_edit"},

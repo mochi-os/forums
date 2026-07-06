@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (зменена)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# новы допіс} few {# новыя допісы} many {# новых допісаў} other {# новага допісу}}"
 
@@ -221,6 +221,10 @@ msgstr "Адбылася нечаканая памылка"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Любы дадатковы кантэкст..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Любы, каму вы дасце доступ, можа падпісацца па гэтай спасылцы."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Закрыць банер"
 msgid "Displays the mobile sidebar."
 msgstr "Адлюстроўвае мабільную бакавую панэль."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Гатова"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Не ўдалося ачысціць захаваныя допісы"
 msgid "Failed to create forum"
 msgstr "Не ўдалося стварыць форум"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Не ўдалося стварыць спасылку"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Не ўдалося выдаліць форум"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "Не ўдалося атрымаць RSS токен"
 
@@ -939,12 +951,12 @@ msgstr "Не ўдалося абнавіць банер"
 msgid "Failed to update category"
 msgstr "Не ўдалося абнавіць катэгорыю"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Адфільтравана па тэгу:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Знайсці форумы"
 
@@ -983,6 +995,10 @@ msgstr "Форум выдалены"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Форум больш недаступны"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Спасылка на форум"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Злева направа"
 msgid "Light"
 msgstr "Светлая"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Спасылка"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Загрузіць больш"
@@ -1225,7 +1245,7 @@ msgstr "Дэзінфармацыя"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Мадэраваць, публікаваць, каментаваць, галасаваць і праглядаць"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Раздзелы мадэрацыі"
 msgid "Monday"
 msgstr "Панядзелак"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Няма падключаных акаўнтаў"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Форумы не знойдзены"
 
@@ -1585,11 +1605,11 @@ msgstr "Пост абноўлены"
 msgid "Post, comment, vote, and view"
 msgstr "Пост, каментар, голас і прагляд"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Пасты"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Пасты і каментары"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Прычына: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Рэкамендуецца"
 
@@ -1872,11 +1892,11 @@ msgstr "Справа налева"
 msgid "Rows per page"
 msgstr "Радкоў на старонцы"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS-стужка"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "URL RSS скапіраваны ў буфер абмену"
 
@@ -1922,7 +1942,7 @@ msgstr "Захаванне..."
 msgid "Score prompt"
 msgstr "Падказка балаў"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Пошук па імені, ID, адбітку або URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Пошук..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Пошук..."
@@ -2043,7 +2063,7 @@ msgstr "Задаць адпраўленне і прызначэнне"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "У дарозе"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Паспрабуйце наладзіць пошукавыя запыты"
 
@@ -2343,8 +2363,8 @@ msgstr "Разблакаваць"
 msgid "Unpin"
 msgstr "Адмацаваць"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Адпісацца"
@@ -2353,7 +2373,7 @@ msgstr "Адпісацца"
 msgid "Unsubscribe from forum"
 msgstr "Адпісацца ад форума"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Адпісацца ад форуму?"
 
@@ -2482,7 +2502,7 @@ msgstr "У вас няма дазволу публікаваць на гэтым
 msgid "You have no forums yet."
 msgstr "У вас яшчэ няма форумаў."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Вы перастанеце атрымліваць абнаўленні з гэтага форуму. Вы можаце падпісацца зноў у любы час."
 

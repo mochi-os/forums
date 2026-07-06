@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (bearbeitet)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# neuer Beitrag} other {# neue Beiträge}}"
 
@@ -221,6 +221,10 @@ msgstr "Ein unerwarteter Fehler ist aufgetreten"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Zusätzlicher Kontext..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Jeder, dem du Zugriff gibst, kann sich mit diesem Link abonnieren."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Banner schließen"
 msgid "Displays the mobile sidebar."
 msgstr "Zeigt die mobile Seitenleiste an."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Fertig"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Gespeicherte Beiträge konnten nicht gelöscht werden"
 msgid "Failed to create forum"
 msgstr "Forum konnte nicht erstellt werden"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Link konnte nicht erstellt werden"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Forum konnte nicht gelöscht werden"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS-Token konnte nicht abgerufen werden"
 
@@ -939,12 +951,12 @@ msgstr "Banner konnte nicht aktualisiert werden"
 msgid "Failed to update category"
 msgstr "Kategorie konnte nicht aktualisiert werden"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Gefiltert nach Tag:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Foren finden"
 
@@ -983,6 +995,10 @@ msgstr "Forum gelöscht"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Forum ist nicht mehr verfügbar"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Forum-Link"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Links nach Rechts"
 msgid "Light"
 msgstr "Hell"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Link"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Mehr laden"
@@ -1225,7 +1245,7 @@ msgstr "Fehlinformation"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderieren, posten, kommentieren, abstimmen und ansehen"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Moderationsbereiche"
 msgid "Monday"
 msgstr "Montag"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Keine verbundenen Konten"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Keine Foren gefunden"
 
@@ -1585,11 +1605,11 @@ msgstr "Beitrag aktualisiert"
 msgid "Post, comment, vote, and view"
 msgstr "Posten, kommentieren, abstimmen und ansehen"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Beiträge"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Beiträge und Kommentare"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Grund: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Empfohlen"
 
@@ -1872,11 +1892,11 @@ msgstr "Rechts nach links"
 msgid "Rows per page"
 msgstr "Zeilen pro Seite"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS-URL in die Zwischenablage kopiert"
 
@@ -1922,7 +1942,7 @@ msgstr "Wird gespeichert..."
 msgid "Score prompt"
 msgstr "Bewertungs-Prompt"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Nach Name, ID, Fingerabdruck oder URL suchen..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Suchen..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Wird gesucht..."
@@ -2043,7 +2063,7 @@ msgstr "Ausgangspunkt und Ziel festlegen"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Unterwegs"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Passen Sie Ihre Suchbegriffe an"
 
@@ -2343,8 +2363,8 @@ msgstr "Entsperren"
 msgid "Unpin"
 msgstr "Lösen"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Abbestellen"
@@ -2353,7 +2373,7 @@ msgstr "Abbestellen"
 msgid "Unsubscribe from forum"
 msgstr "Forum abbestellen"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Forum abbestellen?"
 
@@ -2482,7 +2502,7 @@ msgstr "Du hast keine Berechtigung, in diesem Forum zu posten"
 msgid "You have no forums yet."
 msgstr "Sie haben noch keine Foren."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Du erhältst keine Aktualisierungen mehr aus diesem Forum. Du kannst das Forum jederzeit wieder abonnieren."
 

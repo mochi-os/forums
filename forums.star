@@ -100,6 +100,21 @@ def action_saved_clear(a):
 
 
 # Create database
+def database_upgrade(version):
+    if version == 2:
+        # Forum creation used to grant view to "*" and post to "+" even for
+        # PRIVATE forums, so the ACL said "anyone can view" and the subscribe
+        # privacy gate was ineffective. Revoke the wildcard rules on private
+        # forums this user owns; public forums keep them by design.
+        for f in mochi.db.rows("select id from forums"):
+            entity = mochi.entity.info(f["id"])
+            if not entity or entity.get("privacy", "public") != "private":
+                continue
+            if not mochi.entity.get(f["id"]):  # only the owner holds the grants
+                continue
+            mochi.access.revoke("*", "forum/" + f["id"], "view")
+            mochi.access.revoke("+", "forum/" + f["id"], "post")
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
@@ -1523,12 +1538,15 @@ def action_create(a):
     # Add creator as subscriber (they have implicit manage access as entity owner)
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", entity_id, a.user.identity.id, a.user.identity.name, now)
 
-    # Set default access rules
+    # Set default access rules. The wildcard grants only apply to public
+    # forums - a private forum's members get explicit grants from the owner
+    # (access/set), and check_event_access default-denies without a rule.
     resource = "forum/" + entity_id
     creator = a.user.identity.id
     mochi.access.allow(creator, resource, "*", creator)  # Creator has full access
-    mochi.access.allow("+", resource, "post", creator)   # Authenticated users can post
-    mochi.access.allow("*", resource, "view", creator)   # Anyone can view
+    if privacy == "public":
+        mochi.access.allow("+", resource, "post", creator)   # Authenticated users can post
+        mochi.access.allow("*", resource, "view", creator)   # Anyone can view
 
     return {
         "data": {"id": entity_id, "fingerprint": mochi.entity.fingerprint(entity_id)}
@@ -1874,6 +1892,31 @@ def action_probe(a):
         a.error.label(400, "errors.no_url_provided")
         return
 
+    # mochi://<peer>/<entity> - a share link pins the owner's peer directly,
+    # so a private forum (never directory-listed) resolves without a hostname.
+    if url.startswith("mochi://"):
+        rest = url[len("mochi://"):]
+        if "/" not in rest:
+            a.error.label(400, "errors.invalid_url")
+            return
+        link_peer, path = rest.split("/", 1)
+        link_forum = path.split("/")[0]
+        if not link_peer or not mochi.text.valid(link_forum, "entity"):
+            a.error.label(400, "errors.invalid_url")
+            return
+        response = mochi.remote.request(link_forum, "forums", "information", {"forum": link_forum}, link_peer)
+        if response.get("error"):
+            a.error(response.get("code", 404), response["error"])
+            return
+        return {"data": {
+            "id": link_forum,
+            "name": response.get("name", ""),
+            "fingerprint": response.get("fingerprint", ""),
+            "class": "forum",
+            "peer": link_peer,  # subscribe pins the same peer for its initial sync
+            "remote": True
+        }}
+
     # Parse URL to extract server and forum ID
     # Expected formats:
     #   https://example.com/forums/ENTITY_ID
@@ -2078,6 +2121,23 @@ def action_sort_set_forum(a):
     return {"data": {"sort": sort}}
 
 # Subscribe to a forum
+# Produce a mochi://<server-peer>/<forum> share link for a forum the caller
+# owns. The link conveys location only - a private forum still requires the
+# owner to grant view access before a subscriber is accepted (#209).
+def action_share(a): # forums_share
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    forum_id = a.input("forum")
+    if not mochi.text.valid(forum_id, "entity"):
+        a.error.label(400, "errors.invalid_id")
+        return
+    if not owned(forum_id):  # gated on a.user above
+        a.error.label(403, "errors.not_forum_owner")
+        return
+    peer = mochi.server.id()
+    return {"data": {"link": "mochi://" + peer + "/" + forum_id, "peer": peer, "forum": forum_id}}
+
 def action_subscribe(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -2085,6 +2145,7 @@ def action_subscribe(a):
 
     forum_id = a.input("forum")
     server = a.input("server")
+    peer = a.input("peer")  # from a mochi://<peer>/<forum> share link
 
     if not mochi.text.valid(forum_id, "entity"):
         a.error.label(400, "errors.invalid_id")
@@ -2098,8 +2159,9 @@ def action_subscribe(a):
 
     # Get forum info from remote server or directory
     schema = None
-    if server:
-        peer = mochi.remote.peer(server)
+    if peer or server:
+        if not peer:
+            peer = mochi.remote.peer(server)
         if not peer:
             a.error.label(502, "errors.unable_to_connect_to_server")
             return
@@ -2138,12 +2200,19 @@ def action_subscribe(a):
     if schema and not schema.get("error"):
         insert_forum_schema(forum_id, schema)
 
-    # Send subscribe message to forum owner
-    mochi.message.send(
-        {"from": a.user.identity.id, "to": forum_id, "service": "forums", "event": "subscribe"},
-        {"name": a.user.identity.name},
-        []
-    )
+    # Send subscribe message to forum owner. A private forum is not in the
+    # directory, so when the subscription came via a share link (or the
+    # directory row carried a location we resolved), pin that peer.
+    if peer:
+        mochi.message.send.peer(peer,
+            {"from": a.user.identity.id, "to": forum_id, "service": "forums", "event": "subscribe"},
+            {"name": a.user.identity.name})
+    else:
+        mochi.message.send(
+            {"from": a.user.identity.id, "to": forum_id, "service": "forums", "event": "subscribe"},
+            {"name": a.user.identity.name},
+            []
+        )
     mochi.broadcast.touch(forum_id)
 
     return {
@@ -5666,6 +5735,15 @@ def event_subscribe_event(e):
         return
     if not mochi.text.valid(name, "name"):
         return
+
+    # Private forums only accept subscribers who already hold view access via
+    # an explicit ACL grant. Without this gate any peer that can reach the
+    # owner could subscribe and be sent all content - knowing a forum's
+    # location (e.g. from a share link) must never grant access (#209).
+    entity = mochi.entity.info(forum["id"])
+    if entity and entity.get("privacy", "public") == "private":
+        if not check_event_access(member_id, forum["id"], "view"):
+            return
 
     # Add as subscriber if not already a member
     if not mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):

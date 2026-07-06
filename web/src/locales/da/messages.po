@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (redigeret)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# nyt opslag} other {# nye opslag}}"
 
@@ -221,6 +221,10 @@ msgstr "Der opstod en uventet fejl"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Eventuel yderligere kontekst..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Alle, du giver adgang, kan abonnere med dette link."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Afvis banner"
 msgid "Displays the mobile sidebar."
 msgstr "Viser mobil-sidebjælken."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Færdig"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "De gemte opslag kunne ikke ryddes"
 msgid "Failed to create forum"
 msgstr "Kunne ikke oprette forum"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Kunne ikke oprette link"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Kunne ikke slette forum"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "Kunne ikke hente RSS-token"
 
@@ -939,12 +951,12 @@ msgstr "Kunne ikke opdatere banner"
 msgid "Failed to update category"
 msgstr "Kunne ikke opdatere kategori"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Filtreret efter tag:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Find fora"
 
@@ -983,6 +995,10 @@ msgstr "Forum slettet"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Forummet er ikke længere tilgængeligt"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Forumlink"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Venstre mod højre"
 msgid "Light"
 msgstr "Lys"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Link"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Indlæs flere"
@@ -1225,7 +1245,7 @@ msgstr "Misinformation"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderér, opslå, kommentér, stem og se"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Moderationssektioner"
 msgid "Monday"
 msgstr "Mandag"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Ingen tilknyttede konti"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Ingen fora fundet"
 
@@ -1585,11 +1605,11 @@ msgstr "Indlæg opdateret"
 msgid "Post, comment, vote, and view"
 msgstr "Opslå, kommentér, stem og se"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Indlæg"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Indlæg og kommentarer"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Årsag: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Anbefalet"
 
@@ -1872,11 +1892,11 @@ msgstr "Højre mod venstre"
 msgid "Rows per page"
 msgstr "Rækker pr. side"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS-feed"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS-URL kopieret til udklipsholderen"
 
@@ -1922,7 +1942,7 @@ msgstr "Gemmer..."
 msgid "Score prompt"
 msgstr "Score-prompt"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Søg efter navn, ID, fingeraftryk eller URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Søg..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Søger..."
@@ -2043,7 +2063,7 @@ msgstr "Angiv oprindelse og destination"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Rejser"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Prøv at justere dine søgeord"
 
@@ -2343,8 +2363,8 @@ msgstr "Lås op"
 msgid "Unpin"
 msgstr "Frigør"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Afmeld"
@@ -2353,7 +2373,7 @@ msgstr "Afmeld"
 msgid "Unsubscribe from forum"
 msgstr "Afmeld forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Afmeld forummet?"
 
@@ -2482,7 +2502,7 @@ msgstr "Du har ikke tilladelse til at sende indlæg i dette forum"
 msgid "You have no forums yet."
 msgstr "Du har endnu ingen fora."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Du vil holde op med at modtage opdateringer fra dette forum. Du kan tilmelde dig igen når som helst."
 

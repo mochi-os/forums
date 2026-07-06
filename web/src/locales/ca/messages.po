@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (editat)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# publicació nova} other {# publicacions noves}}"
 
@@ -221,6 +221,10 @@ msgstr "S'ha produït un error inesperat"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Qualsevol context addicional..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Qualsevol persona a qui doneu accés pot subscriure's amb aquest enllaç."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Descarta el bàner"
 msgid "Displays the mobile sidebar."
 msgstr "Mostra la barra lateral mòbil."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Fet"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "No s'han pogut esborrar les publicacions desades"
 msgid "Failed to create forum"
 msgstr "No s'ha pogut crear el fòrum"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "No s'ha pogut crear l'enllaç"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "No s'ha pogut suprimir el fòrum"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "No s'ha pogut obtenir el testimoni RSS"
 
@@ -939,12 +951,12 @@ msgstr "No s'ha pogut actualitzar el bàner"
 msgid "Failed to update category"
 msgstr "No s'ha pogut actualitzar la categoria"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Filtrat per etiqueta:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Cerca fòrums"
 
@@ -983,6 +995,10 @@ msgstr "Fòrum suprimit"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "El fòrum ja no està disponible"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Enllaç del fòrum"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "D'esquerra a dreta"
 msgid "Light"
 msgstr "Clar"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Enllaç"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Carrega'n més"
@@ -1225,7 +1245,7 @@ msgstr "Desinformació"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modera, publica, comenta, vota i visualitza"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Seccions de moderació"
 msgid "Monday"
 msgstr "Dilluns"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Cap compte connectat"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "No s'ha trobat cap fòrum"
 
@@ -1585,11 +1605,11 @@ msgstr "Publicació actualitzada"
 msgid "Post, comment, vote, and view"
 msgstr "Publicar, comentar, votar i veure"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Publicacions"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Publicacions i comentaris"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Motiu: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Recomanat"
 
@@ -1872,11 +1892,11 @@ msgstr "De dreta a esquerra"
 msgid "Rows per page"
 msgstr "Files per pàgina"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "Canal RSS"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "URL RSS copiat al porta-retalls"
 
@@ -1922,7 +1942,7 @@ msgstr "Desant..."
 msgid "Score prompt"
 msgstr "Sol·licitud de puntuació"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Cerca per nom, ID, empremta o URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Cerca..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Cercant..."
@@ -2043,7 +2063,7 @@ msgstr "Estableix origen i destinació"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Viatjant"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Prova d'ajustar els termes de cerca"
 
@@ -2343,8 +2363,8 @@ msgstr "Desbloqueja"
 msgid "Unpin"
 msgstr "Desafixa"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Cancel·la la subscripció"
@@ -2353,7 +2373,7 @@ msgstr "Cancel·la la subscripció"
 msgid "Unsubscribe from forum"
 msgstr "Cancel·la la subscripció al fòrum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Cancel·lar la subscripció al fòrum?"
 
@@ -2482,7 +2502,7 @@ msgstr "No tens permís per publicar en aquest fòrum"
 msgid "You have no forums yet."
 msgstr "Encara no tens cap fòrum."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Deixaràs de rebre actualitzacions d'aquest fòrum. Pots tornar-te a subscriure en qualsevol moment."
 

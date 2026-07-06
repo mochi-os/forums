@@ -3,9 +3,10 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
+import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Gavel, Loader2, MoreHorizontal, Rss, Settings, UserMinus } from 'lucide-react'
+import { Check, Copy, Gavel, Link as LinkIcon, Loader2, MoreHorizontal, Rss, Settings, UserMinus } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +23,13 @@ import {
   getErrorMessage,
   getAppPath,
   shellClipboardWrite,
+  Button,
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 
@@ -32,12 +40,41 @@ interface OptionsMenuProps {
   moderationUrl?: string
   onUnsubscribe?: () => void
   unsubscribePending?: boolean
+  /** Show the 'Link' share-link dialog entry - owner only (the share action is owner-gated). */
+  canShare?: boolean
 }
 
-export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onUnsubscribe, unsubscribePending }: OptionsMenuProps) {
+export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onUnsubscribe, unsubscribePending, canShare }: OptionsMenuProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
   const rssEntity = entityId || (showRss ? '*' : null)
+
+  const [linkOpen, setLinkOpen] = useState(false)
+  const [link, setLink] = useState('')
+  const [copied, setCopied] = useState(false)
+
+  const openLinkDialog = async () => {
+    if (!entityId) return
+    setLink('')
+    setCopied(false)
+    setLinkOpen(true)
+    try {
+      const response = await forumsApi.shareForum(entityId)
+      setLink(response.data.link)
+    } catch (error) {
+      setLinkOpen(false)
+      toast.error(getErrorMessage(error, t`Failed to create link`))
+    }
+  }
+
+  const copyLink = async () => {
+    if (!link) return
+    const ok = await shellClipboardWrite(link)
+    if (ok) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
   const handleCopyRssUrl = async (mode: 'posts' | 'all') => {
     if (!rssEntity) return
@@ -55,6 +92,7 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
   }
 
   return (
+    <>
     <DropdownMenu>
       <Tooltip>
         <TooltipTrigger asChild>
@@ -81,6 +119,12 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
           <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
             <Settings className="size-4" />
             <Trans>Settings</Trans>
+          </DropdownMenuItem>
+        )}
+        {canShare && entityId && (
+          <DropdownMenuItem onSelect={() => void openLinkDialog()}>
+            <LinkIcon className="size-4" />
+            <Trans>Link</Trans>
           </DropdownMenuItem>
         )}
         {rssEntity && (
@@ -117,5 +161,26 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
         )}
       </DropdownMenuContent>
     </DropdownMenu>
+
+    <ResponsiveDialog open={linkOpen} onOpenChange={setLinkOpen}>
+      <ResponsiveDialogContent>
+        <ResponsiveDialogHeader>
+          <ResponsiveDialogTitle><Trans>Forum link</Trans></ResponsiveDialogTitle>
+          <ResponsiveDialogDescription>
+            <Trans>Anyone you give access to can subscribe with this link.</Trans>
+          </ResponsiveDialogDescription>
+        </ResponsiveDialogHeader>
+        <div className="bg-muted flex items-center gap-2 rounded-md p-3 font-mono text-sm">
+          <code className="flex-1 break-all">{link || '…'}</code>
+          <Button variant="ghost" size="sm" onClick={() => void copyLink()} disabled={!link} className="shrink-0">
+            {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+          </Button>
+        </div>
+        <ResponsiveDialogFooter>
+          <Button variant="outline" onClick={() => setLinkOpen(false)}><Trans>Done</Trans></Button>
+        </ResponsiveDialogFooter>
+      </ResponsiveDialogContent>
+    </ResponsiveDialog>
+    </>
   )
 }

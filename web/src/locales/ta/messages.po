@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (திருத்தப்பட்டது)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# புதிய இடுகை} other {# புதிய இடுகைகள்}}"
 
@@ -221,6 +221,10 @@ msgstr "எதிர்பாராத பிழை ஏற்பட்டது"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "ஏதேனும் கூடுதல் சூழல்..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "நீங்கள் அணுகல் வழங்கும் எவரும் இந்த இணைப்பைப் பயன்படுத்தி குழுசேரலாம்."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "பேனரை நிராகரி"
 msgid "Displays the mobile sidebar."
 msgstr "மொபைல் பக்கப்பட்டியைக் காட்டுகிறது."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "முடிந்தது"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "சேமித்த இடுகைகளை அழிக்க மு
 msgid "Failed to create forum"
 msgstr "மன்றத்தை உருவாக்க முடியவில்லை"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "இணைப்பை உருவாக்க முடியவில்லை"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "மன்றத்தை நீக்க முடியவில்லை"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS டோக்கனைப் பெற முடியவில்லை"
 
@@ -939,12 +951,12 @@ msgstr "பேனரைப் புதுப்பிக்க முடிய�
 msgid "Failed to update category"
 msgstr "வகையைப் புதுப்பிக்க முடியவில்லை"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "டேக் மூலம் வடிகட்டப்பட்டது:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "ஃபோரங்களைக் கண்டுபிடி"
 
@@ -983,6 +995,10 @@ msgstr "ஃபோரம் நீக்கப்பட்டது"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "மன்றம் இனி கிடைக்காது"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "மன்ற இணைப்பு"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "இடமிருந்து வலம்"
 msgid "Light"
 msgstr "லைட்"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "இணைப்பு"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "மேலும் ஏற்று"
@@ -1225,7 +1245,7 @@ msgstr "தவறான தகவல்"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "மிதப்படுத்து, இடுகை, கருத்து, வாக்கு, பார்வை"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "மிதப்படுத்தல் பிரிவுகள்"
 msgid "Monday"
 msgstr "திங்கட்கிழமை"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "இணைக்கப்பட்ட கணக்குகள் இல்லை"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "மன்றங்கள் எதுவும் கிடைக்கவில்லை"
 
@@ -1585,11 +1605,11 @@ msgstr "பதிவு புதுப்பிக்கப்பட்டத�
 msgid "Post, comment, vote, and view"
 msgstr "இடுகை, கருத்து, வாக்கு, பார்வை"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "பதிவுகள்"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "பதிவுகள் மற்றும் கருத்துகள்"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "காரணம்: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "பரிந்துரைக்கப்பட்டது"
 
@@ -1872,11 +1892,11 @@ msgstr "வலமிருந்து இடம்"
 msgid "Rows per page"
 msgstr "ஒரு பக்கத்திற்கான வரிசைகள்"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS ஃபீட்"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL clipboard-க்கு நகலெடுக்கப்பட்டது"
 
@@ -1922,7 +1942,7 @@ msgstr "சேமிக்கிறது..."
 msgid "Score prompt"
 msgstr "மதிப்பெண் வினவல்"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "பெயர், ID, ஃபிங்கர்பிரிண்ட் அல்லது URL மூலம் தேடு..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "தேடு..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "தேடுகிறது..."
@@ -2043,7 +2063,7 @@ msgstr "துவக்கம் மற்றும் சேருமிடத�
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "பயணிக்கிறது"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "உங்கள் தேடல் சொற்களை சரிசெய்ய முயற்சி செய்யுங்கள்"
 
@@ -2343,8 +2363,8 @@ msgstr "திற"
 msgid "Unpin"
 msgstr "பின் நீக்கு"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "சந்தா நீக்கு"
@@ -2353,7 +2373,7 @@ msgstr "சந்தா நீக்கு"
 msgid "Unsubscribe from forum"
 msgstr "மன்றத்திலிருந்து சந்தா நீக்கு"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "மன்றத்திலிருந்து குழுச்சேர்க்கையை நீக்கவா?"
 
@@ -2482,7 +2502,7 @@ msgstr "இந்த மன்றத்தில் இட உங்களுக
 msgid "You have no forums yet."
 msgstr "உங்களிடம் இன்னும் மன்றங்கள் இல்லை."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "இந்த மன்றத்திலிருந்து புதுப்பிப்புகளைப் பெறுவதை நிறுத்துவீர்கள். எந்த நேரத்திலும் மீண்டும் குழுச்சேரலாம்."
 

@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (수정됨)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, other {새 게시물 #개}}"
 
@@ -221,6 +221,10 @@ msgstr "예기치 않은 오류가 발생했습니다"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "추가 컨텍스트..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "액세스 권한을 부여한 사람은 누구나 이 링크로 구독할 수 있습니다."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "배너 닫기"
 msgid "Displays the mobile sidebar."
 msgstr "모바일 사이드바를 표시해요."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "완료"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "저장된 게시물을 지우지 못했습니다"
 msgid "Failed to create forum"
 msgstr "포럼 생성에 실패했습니다"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "링크 생성에 실패했어요"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "포럼 삭제에 실패했습니다"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "RSS 토큰을 가져오지 못했어요"
 
@@ -939,12 +951,12 @@ msgstr "배너 업데이트에 실패했어요"
 msgid "Failed to update category"
 msgstr "카테고리 업데이트에 실패했어요"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "태그로 필터링됨:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "포럼 찾기"
 
@@ -983,6 +995,10 @@ msgstr "포럼이 삭제되었어요"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "포럼을 더 이상 사용할 수 없습니다"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "포럼 링크"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "왼쪽에서 오른쪽"
 msgid "Light"
 msgstr "라이트"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "링크"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "더 보기"
@@ -1225,7 +1245,7 @@ msgstr "잘못된 정보"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "관리, 게시, 댓글, 투표 및 보기"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "모더레이션 섹션"
 msgid "Monday"
 msgstr "월요일"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "연결된 계정이 없어요"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "포럼을 찾을 수 없어요"
 
@@ -1585,11 +1605,11 @@ msgstr "게시물이 업데이트되었어요"
 msgid "Post, comment, vote, and view"
 msgstr "게시, 댓글, 투표 및 보기"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "게시물"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "게시물 및 댓글"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "이유: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "추천됨"
 
@@ -1872,11 +1892,11 @@ msgstr "오른쪽에서 왼쪽"
 msgid "Rows per page"
 msgstr "페이지당 행"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "RSS 피드"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL이 클립보드에 복사되었어요"
 
@@ -1922,7 +1942,7 @@ msgstr "저장 중..."
 msgid "Score prompt"
 msgstr "점수 프롬프트"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "이름, ID, 지문 또는 URL로 검색..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "검색..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "검색 중..."
@@ -2043,7 +2063,7 @@ msgstr "출발지와 도착지 설정"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "이동 중"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "검색어를 조정해 보세요"
 
@@ -2343,8 +2363,8 @@ msgstr "잠금 해제"
 msgid "Unpin"
 msgstr "고정 해제"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "구독 취소"
@@ -2353,7 +2373,7 @@ msgstr "구독 취소"
 msgid "Unsubscribe from forum"
 msgstr "포럼 구독 취소"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "포럼 구독을 취소하시겠습니까?"
 
@@ -2482,7 +2502,7 @@ msgstr "이 포럼에 게시할 권한이 없습니다"
 msgid "You have no forums yet."
 msgstr "아직 포럼이 없어요."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "이 포럼의 업데이트를 더 이상 받지 않습니다. 언제든지 다시 구독할 수 있습니다."
 

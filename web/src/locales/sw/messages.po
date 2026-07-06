@@ -27,7 +27,7 @@ msgid " (edited)"
 msgstr " (imehaririwa)"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:325
+#: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# chapisho jipya} other {# machapisho mapya}}"
 
@@ -221,6 +221,10 @@ msgstr "Hitilafu isiyotarajiwa imetokea"
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Muktadha wowote wa ziada..."
+
+#: src/components/options-menu.tsx:170
+msgid "Anyone you give access to can subscribe with this link."
+msgstr "Mtu yeyote unayempa ufikiaji anaweza kujiandikisha kwa kiungo hiki."
 
 #: src/features/forums/components/thread/thread-comment.tsx:376
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -688,6 +692,10 @@ msgstr "Ondoa bango"
 msgid "Displays the mobile sidebar."
 msgstr "Huonyesha utepe wa simu."
 
+#: src/components/options-menu.tsx:180
+msgid "Done"
+msgstr "Imekamilika"
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -785,11 +793,15 @@ msgstr "Imeshindwa kufuta machapisho yaliyohifadhiwa"
 msgid "Failed to create forum"
 msgstr "Imeshindwa kuunda jukwaa"
 
+#: src/components/options-menu.tsx:66
+msgid "Failed to create link"
+msgstr "Imeshindwa kuunda kiungo"
+
 #: src/hooks/use-forums-queries.ts:127
 msgid "Failed to delete forum"
 msgstr "Imeshindwa kufuta jukwaa"
 
-#: src/components/options-menu.tsx:53
+#: src/components/options-menu.tsx:90
 msgid "Failed to get RSS token"
 msgstr "Imeshindwa kupata tokeni ya RSS"
 
@@ -939,12 +951,12 @@ msgstr "Imeshindwa kusasisha bango"
 msgid "Failed to update category"
 msgstr "Imeshindwa kusasisha kategoria"
 
-#: src/features/forums/pages/entity-forum-page.tsx:333
+#: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
 msgstr "Imechujwa kwa tagi:"
 
 #: src/components/layout/forums-layout.tsx:113
-#: src/routes/_authenticated/find.tsx:81
+#: src/routes/_authenticated/find.tsx:91
 msgid "Find forums"
 msgstr "Tafuta makongamano"
 
@@ -983,6 +995,10 @@ msgstr "Kongamano limefutwa"
 #: src/hooks/use-forum-websocket.ts:64
 msgid "Forum is no longer available"
 msgstr "Jukwaa halipatikani tena"
+
+#: src/components/options-menu.tsx:168
+msgid "Forum link"
+msgstr "Kiungo cha jukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Forum name is required"
@@ -1147,6 +1163,10 @@ msgstr "Kushoto kwenda Kulia"
 msgid "Light"
 msgstr "Mwepesi"
 
+#: src/components/options-menu.tsx:127
+msgid "Link"
+msgstr "Kiungo"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Pakia zaidi"
@@ -1225,7 +1245,7 @@ msgstr "Habari potofu"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Simamia, chapisha, maoni, kura, na kuona"
 
-#: src/components/options-menu.tsx:77
+#: src/components/options-menu.tsx:115
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1244,8 +1264,8 @@ msgstr "Sehemu za udhibiti"
 msgid "Monday"
 msgstr "Jumatatu"
 
-#: src/components/options-menu.tsx:64
-#: src/components/options-menu.tsx:71
+#: src/components/options-menu.tsx:102
+#: src/components/options-menu.tsx:109
 #: src/features/forums/components/thread/thread-comment.tsx:340
 #: src/features/forums/components/thread/thread-comment.tsx:346
 #: src/features/forums/components/thread/thread-content.tsx:305
@@ -1342,7 +1362,7 @@ msgid "No connected accounts"
 msgstr "Hakuna akaunti zilizounganishwa"
 
 #: src/features/forums/components/inline-forum-search.tsx:144
-#: src/routes/_authenticated/find.tsx:83
+#: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Hakuna majukwaa yaliyopatikana"
 
@@ -1585,11 +1605,11 @@ msgstr "Chapisho limesasishwa"
 msgid "Post, comment, vote, and view"
 msgstr "Chapisha, maoni, kura, na kuona"
 
-#: src/components/options-menu.tsx:94
+#: src/components/options-menu.tsx:138
 msgid "Posts"
 msgstr "Machapisho"
 
-#: src/components/options-menu.tsx:97
+#: src/components/options-menu.tsx:141
 msgid "Posts and comments"
 msgstr "Machapisho na maoni"
 
@@ -1658,7 +1678,7 @@ msgid "Reason: {0}"
 msgstr "Sababu: {0}"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Inapendekezwa"
 
@@ -1872,11 +1892,11 @@ msgstr "Kulia kwenda Kushoto"
 msgid "Rows per page"
 msgstr "Safu kwa kila ukurasa"
 
-#: src/components/options-menu.tsx:90
+#: src/components/options-menu.tsx:134
 msgid "RSS feed"
 msgstr "Mlisho wa RSS"
 
-#: src/components/options-menu.tsx:51
+#: src/components/options-menu.tsx:88
 msgid "RSS URL copied to clipboard"
 msgstr "URL ya RSS imenakiliwa kwenye ubao wa kunakili"
 
@@ -1922,7 +1942,7 @@ msgstr "Inahifadhi..."
 msgid "Score prompt"
 msgstr "Maagizo ya alama"
 
-#: src/routes/_authenticated/find.tsx:82
+#: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Tafuta kwa jina, ID, alama ya kidole, au URL..."
 
@@ -1955,7 +1975,7 @@ msgid "Search..."
 msgstr "Tafuta..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Inatafuta..."
@@ -2043,7 +2063,7 @@ msgstr "Weka chanzo na marudio"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
-#: src/components/options-menu.tsx:83
+#: src/components/options-menu.tsx:121
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:237
@@ -2282,7 +2302,7 @@ msgid "Travelling"
 msgstr "Kusafiri"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Jaribu kurekebisha maneno yako ya utafutaji"
 
@@ -2343,8 +2363,8 @@ msgstr "Fungua"
 msgid "Unpin"
 msgstr "Bandua"
 
-#: src/components/options-menu.tsx:114
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/components/options-menu.tsx:158
+#: src/features/forums/pages/entity-forum-page.tsx:389
 #: src/routes/_authenticated/$forum_.settings.tsx:405
 msgid "Unsubscribe"
 msgstr "Jiondoe"
@@ -2353,7 +2373,7 @@ msgstr "Jiondoe"
 msgid "Unsubscribe from forum"
 msgstr "Jiondoe kutoka jukwaa"
 
-#: src/features/forums/pages/entity-forum-page.tsx:385
+#: src/features/forums/pages/entity-forum-page.tsx:386
 msgid "Unsubscribe from forum?"
 msgstr "Ujiondoe kwenye jukwaa?"
 
@@ -2482,7 +2502,7 @@ msgstr "Huna ruhusa ya kuchapisha katika jukwaa hili"
 msgid "You have no forums yet."
 msgstr "Bado huna majukwaa yoyote."
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Utaacha kupokea masasisho kutoka jukwaa hili. Unaweza kujiandikisha tena wakati wowote."
 
