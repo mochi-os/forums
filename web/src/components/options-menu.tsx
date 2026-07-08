@@ -26,7 +26,6 @@ import {
   Button,
   ResponsiveDialog,
   ResponsiveDialogContent,
-  ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from '@mochi/web'
@@ -114,18 +113,6 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
             <Trans>Moderation</Trans>
           </DropdownMenuItem>
         )}
-        {settingsUrl && (
-          <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
-            <Settings className="size-4" />
-            <Trans>Settings</Trans>
-          </DropdownMenuItem>
-        )}
-        {canShare && entityId && (
-          <DropdownMenuItem onSelect={() => void openLinkDialog()}>
-            <LinkIcon className="size-4" />
-            <Trans>Link</Trans>
-          </DropdownMenuItem>
-        )}
         {rssEntity && (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -141,6 +128,19 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
+        )}
+        {/* Canonical menu tail: Link, Design (n/a here), Settings, Unsubscribe. */}
+        {canShare && entityId && (
+          <DropdownMenuItem onSelect={() => void openLinkDialog()}>
+            <LinkIcon className="size-4" />
+            <Trans>Link</Trans>
+          </DropdownMenuItem>
+        )}
+        {settingsUrl && (
+          <DropdownMenuItem onSelect={() => navigate({ to: settingsUrl })}>
+            <Settings className="size-4" />
+            <Trans>Settings</Trans>
+          </DropdownMenuItem>
         )}
         {onUnsubscribe && (
           <>
@@ -172,9 +172,6 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
             {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
           </Button>
         </div>
-        <ResponsiveDialogFooter>
-          <Button variant="outline" onClick={() => setLinkOpen(false)}><Trans>Done</Trans></Button>
-        </ResponsiveDialogFooter>
       </ResponsiveDialogContent>
     </ResponsiveDialog>
     </>

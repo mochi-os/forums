@@ -49,6 +49,18 @@ export function InlineForumSearch({
     setIsLoading(true)
     setSearchError(null)
     try {
+      // A pasted link (mochi://<peer>/<forum> or a web URL) resolves via probe -
+      // a directory search can't find a private/unlisted forum or match a URL.
+      if (/^(mochi:|https?:\/\/)/i.test(query)) {
+        const probe = await forumsApi.probeForum({ url: query }).catch(() => null)
+        const data = probe?.data
+        setResults(data?.id
+          ? [{ id: data.id, name: data.name ?? '', fingerprint: data.fingerprint ?? '',
+               fingerprint_hyphens: '', class: 'forum', data: '', location: data.server ?? '',
+               peer: data.peer, created: 0, updated: 0 }]
+          : [])
+        return
+      }
       const response = await forumsApi.searchForums({ search: query })
       setResults(response.data.results ?? [])
     } catch (error) {
@@ -86,7 +98,7 @@ export function InlineForumSearch({
     setPendingForumId(forum.id)
     try {
       const data = await toastAction(
-        forumsApi.subscribeForum(forum.id, forum.location || undefined),
+        forumsApi.subscribeForum(forum.id, forum.location || undefined, forum.peer),
         {
           loading: t`Subscribing...`,
           success: false,

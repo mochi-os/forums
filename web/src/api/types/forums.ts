@@ -66,6 +66,8 @@ export interface DirectoryEntry {
   class: string
   data: string
   location: string
+  /** owner's peer from a mochi:// share-link probe; subscribe pins the same peer. */
+  peer?: string
   created: number
   updated: number
   subscribed?: boolean
