@@ -1677,7 +1677,7 @@ def action_post_create(a):
                 id, forum["id"], user_id, user_name, title, body, now, now)
 
         return {
-            "data": {"forum": forum["id"], "post": id}
+            "data": {"id": id, "forum": forum["id"]}
         }
 
     # Forum not found locally - send to remote forum
@@ -1711,7 +1711,7 @@ def action_post_create(a):
     )
 
     return {
-        "data": {"forum": forum_id, "post": id}
+        "data": {"id": id, "forum": forum_id}
     }
 
 # Form for new post
@@ -2949,7 +2949,7 @@ def action_comment_create(a):
             recount_post_comments(post_id)
 
         return {
-            "data": {"forum": forum["id"], "post": post_id, "comment": id}
+            "data": {"id": id, "forum": forum["id"], "post": post_id}
         }
 
     # Forum not found locally - send to remote forum
@@ -2982,7 +2982,7 @@ def action_comment_create(a):
     )
 
     return {
-        "data": {"forum": forum_id, "post": post_id, "comment": id}
+        "data": {"id": id, "forum": forum_id, "post": post_id}
     }
 
 # Edit a comment

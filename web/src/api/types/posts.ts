@@ -126,8 +126,8 @@ export interface CreatePostRequest {
 
 export interface CreatePostResponse {
   data: {
+    id: string
     forum: string
-    post: string
   }
 }
 

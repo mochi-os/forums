@@ -45,7 +45,7 @@ export interface CreateCommentRequest {
 
 export interface CreateCommentResponse {
   data: {
-    comment: string
+    id: string
     forum: string
     post: string
   }
