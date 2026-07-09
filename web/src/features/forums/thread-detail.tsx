@@ -24,6 +24,15 @@ import {
   useAuthStore,
   useListAutoAnimate,
   findCommentTextInTree,
+  Attachment,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentContent,
+  AttachmentTitle,
+  AttachmentDescription,
+  AttachmentActions,
+  AttachmentAction,
+  useFormat,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -74,6 +83,7 @@ export function ThreadDetail({
   fromAllForums = false,
 }: ThreadDetailProps) {
   const { t } = useLingui()
+  const { formatFileSize } = useFormat()
   const navigate = useNavigate()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
@@ -436,25 +446,33 @@ export function ThreadDetail({
                       disabled={createCommentMutation.isPending}
                     />
                     {commentFiles.length > 0 && (
-                      <div className='flex flex-wrap gap-2'>
-                        {commentFiles.map((file, i) => (
-                          <div key={i} className='bg-muted relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
-                            {file.type.startsWith('image/') && (
-                              <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} className='h-8 w-8 rounded object-cover' />
-                            )}
-                            <Paperclip className='text-muted-foreground size-3 shrink-0' />
-                            <span className='max-w-40 truncate'>{file.name}</span>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button type='button' aria-label={t`Remove file`} onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} className='text-muted-foreground hover:text-foreground ms-0.5'>
-                                  <X className='size-3.5' />
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>{t`Remove file`}</TooltipContent>
-                            </Tooltip>
-                          </div>
-                        ))}
-                      </div>
+                      <AttachmentGroup>
+                        {commentFiles.map((file, i) => {
+                          const isImage = file.type.startsWith('image/')
+                          return (
+                            <Attachment key={i} state="uploading" size="sm">
+                              <AttachmentMedia variant={isImage ? "image" : "icon"}>
+                                {isImage && commentFilePreviewUrls[i] ? (
+                                  <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} draggable={false} />
+                                ) : (
+                                  <Paperclip />
+                                )}
+                              </AttachmentMedia>
+                              <AttachmentContent>
+                                <AttachmentTitle>{file.name}</AttachmentTitle>
+                                <AttachmentDescription>
+                                  {formatFileSize(file.size)}
+                                </AttachmentDescription>
+                              </AttachmentContent>
+                              <AttachmentActions>
+                                <AttachmentAction onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} aria-label={t`Remove file`}>
+                                  <X className='size-4' />
+                                </AttachmentAction>
+                              </AttachmentActions>
+                            </Attachment>
+                          )
+                        })}
+                      </AttachmentGroup>
                     )}
                     <div className='flex items-center justify-end gap-2'>
                       <input

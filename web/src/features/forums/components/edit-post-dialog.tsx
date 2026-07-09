@@ -24,14 +24,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   getAppPath,
   authenticatedUrl,
+  Attachment,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentContent,
+  AttachmentTitle,
+  AttachmentDescription,
+  AttachmentActions,
+  AttachmentAction,
+  useFormat,
 } from '@mochi/web'
-import { Save, ArrowLeft, ArrowRight, Paperclip, X } from 'lucide-react'
-import type { Post, Attachment } from '@/api/types/posts'
+import { Save, Paperclip, X } from 'lucide-react'
+import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
 import {
   buildForumPostEditDraft,
   forumPostEditOriginalFromPost,
@@ -58,7 +64,7 @@ type EditPostFormValues = z.infer<ReturnType<typeof buildSchema>>
 
 // Unified attachment type for editing - can be existing or new
 type EditingAttachment =
-  | { kind: 'existing'; attachment: Attachment }
+  | { kind: 'existing'; attachment: AttachmentData }
   | { kind: 'new'; file: File }
 
 type EditPostDialogProps = {
@@ -139,6 +145,49 @@ export function EditPostDialog({
     })
   }
 
+  const { formatFileSize } = useFormat()
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null)
+  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
+  const canReorder = items.length > 1
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    if (!canReorder) return
+    e.dataTransfer.setData('text/plain', index.toString())
+    e.dataTransfer.effectAllowed = 'move'
+    setDraggingIndex(index)
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    if (!canReorder || draggingIndex === null || draggingIndex === index) return
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    setDropTargetIndex(index)
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, targetIndex: number) => {
+    if (!canReorder) return
+    e.preventDefault()
+    const sourceIndex = parseInt(e.dataTransfer.getData('text/plain') || draggingIndex?.toString() || '-1')
+    if (sourceIndex === -1 || sourceIndex === targetIndex) {
+      setDraggingIndex(null)
+      setDropTargetIndex(null)
+      return
+    }
+    setItems((prev) => {
+      const result = [...prev]
+      const [removed] = result.splice(sourceIndex, 1)
+      result.splice(targetIndex, 0, removed)
+      return result
+    })
+    setDraggingIndex(null)
+    setDropTargetIndex(null)
+  }
+
+  const handleDragEnd = () => {
+    setDraggingIndex(null)
+    setDropTargetIndex(null)
+  }
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files) {
@@ -151,18 +200,7 @@ export function EditPostDialog({
     event.target.value = ''
   }
 
-  const moveItem = (index: number, direction: 'left' | 'right') => {
-    setItems((prev) => {
-      const newIndex = direction === 'left' ? index - 1 : index + 1
-      if (newIndex < 0 || newIndex >= prev.length) return prev
-      const newItems = [...prev]
-      ;[newItems[index], newItems[newIndex]] = [
-        newItems[newIndex],
-        newItems[index],
-      ]
-      return newItems
-    })
-  }
+
 
   const removeItem = (index: number) => {
     setItems((prev) => prev.filter((_, i) => i !== index))
@@ -223,112 +261,70 @@ export function EditPostDialog({
             {items.length > 0 && (
               <div className='space-y-2'>
                 <div className='text-sm font-medium'><Trans>Attachments</Trans></div>
-                <div className='flex flex-wrap gap-2'>
-                  {items.map((item, index, arr) => {
-                    const isExisting = item.kind === 'existing'
-                    const isImage = isExisting
-                      ? item.attachment.type?.startsWith('image/')
-                      : item.file.type?.startsWith('image/')
-                    const thumbnailUrl =
-                      isExisting && isImage
-                        ? authenticatedUrl(`${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`)
-                        : undefined
-                    const previewUrl =
-                      !isExisting && isImage
-                        ? URL.createObjectURL(item.file)
-                        : undefined
-                    const itemKey = isExisting
-                      ? item.attachment.id
-                      : `new-${item.file.name}-${item.file.size}-${item.file.lastModified}`
-                    const isFirst = index === 0
-                    const isLast = index === arr.length - 1
+                  <AttachmentGroup
+                    onDragOver={(e) => {
+                      if (canReorder) e.preventDefault()
+                    }}
+                  >
+                    {items.map((item, index) => {
+                      const isExisting = item.kind === 'existing'
+                      const isImage = isExisting
+                        ? item.attachment.type?.startsWith('image/')
+                        : item.file.type?.startsWith('image/')
+                      const thumbnailUrl =
+                        isExisting && isImage
+                          ? authenticatedUrl(`${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`)
+                          : undefined
+                      const previewUrl =
+                        !isExisting && isImage
+                          ? URL.createObjectURL(item.file)
+                          : undefined
+                      const itemKey = isExisting
+                        ? item.attachment.id
+                        : `new-${item.file.name}-${item.file.size}-${item.file.lastModified}`
+                      const isDragging = draggingIndex === index
+                      const isDropTarget = dropTargetIndex === index
 
-                    return (
-                      <div
-                        key={itemKey}
-                        className={`group/att relative flex items-center justify-center overflow-hidden rounded-lg ${
-                          isExisting
-                            ? 'bg-muted border'
-                            : 'border-primary/30 bg-muted/50 border-2 border-dashed'
-                        }`}
-                      >
-                        {isImage && (thumbnailUrl || previewUrl) ? (
-                          <img
-                            src={thumbnailUrl || previewUrl}
-                            alt={
-                              isExisting ? item.attachment.name : item.file.name
-                            }
-                            className='max-h-[120px] max-w-[160px] object-cover'
-                          />
-                        ) : (
-                          <div className='flex h-[80px] w-[120px] flex-col items-center justify-center gap-1 px-2'>
-                            <Paperclip className='text-muted-foreground size-5' />
-                            <span className='text-muted-foreground line-clamp-2 text-center text-xs break-all'>
-                              {isExisting
-                                ? item.attachment.name
-                                : item.file.name}
-                            </span>
-                          </div>
-                        )}
-                        {/* Hover overlay with controls */}
-                        <div className='absolute inset-0 flex items-center justify-center gap-1 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type='button'
-                                className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                                disabled={isFirst || isPending}
-                                aria-label={t`Move attachment left`}
-                                onClick={() => moveItem(index, 'left')}
-                              >
-                                <ArrowLeft className='size-4 rtl:rotate-180' />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent>{t`Move attachment left`}</TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type='button'
-                                className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                                disabled={isLast || isPending}
-                                aria-label={t`Move attachment right`}
-                                onClick={() => moveItem(index, 'right')}
-                              >
-                                <ArrowRight className='size-4 rtl:rotate-180' />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent>{t`Move attachment right`}</TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button
-                                type='button'
-                                className='flex size-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
-                                disabled={isPending}
-                                aria-label={t`Remove attachment`}
-                                onClick={() => removeItem(index)}
-                              >
-                                <X className='size-4' />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent>{t`Remove attachment`}</TooltipContent>
-                          </Tooltip>
-                        </div>
-                        {/* Position indicator or New badge */}
-                        <div
-                          className={`absolute top-1 left-1 ${
-                            isExisting
-                              ? 'flex size-5 items-center justify-center rounded-full bg-black/60 text-xs font-medium text-white'
-                              : 'bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium'
-                          }`}
+                      return (
+                        <Attachment
+                          key={itemKey}
+                          draggable={canReorder}
+                          onDragStart={(e) => handleDragStart(e, index)}
+                          onDragOver={(e) => handleDragOver(e, index)}
+                          onDrop={(e) => handleDrop(e, index)}
+                          onDragEnd={handleDragEnd}
+                          state={isExisting ? "done" : "uploading"}
+                          className={`
+                            ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
+                            ${isDragging ? 'opacity-40' : ''}
+                            ${isDropTarget ? 'ring-primary rounded-lg ring-2 ring-inset' : ''}
+                          `}
                         >
-                          {isExisting ? index + 1 : <Trans>New</Trans>}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                          <AttachmentMedia variant={isImage ? "image" : "icon"}>
+                            {isImage && (thumbnailUrl || previewUrl) ? (
+                              <img src={thumbnailUrl || previewUrl} alt={isExisting ? item.attachment.name : item.file.name} draggable={false} />
+                            ) : (
+                              <Paperclip />
+                            )}
+                          </AttachmentMedia>
+                          <AttachmentContent>
+                            <AttachmentTitle>
+                              {isExisting ? item.attachment.name : item.file.name}
+                            </AttachmentTitle>
+                            <AttachmentDescription>
+                              {isExisting ? formatFileSize(item.attachment.size) : formatFileSize(item.file.size)}
+                              {!isExisting && <span className="ml-2 px-1.5 py-0.5 rounded bg-primary/20 text-primary text-[10px] uppercase font-bold"><Trans>New</Trans></span>}
+                            </AttachmentDescription>
+                          </AttachmentContent>
+                          <AttachmentActions>
+                            <AttachmentAction onClick={(e) => { e.stopPropagation(); removeItem(index); }} aria-label={t`Remove`}>
+                              <X className='size-4' />
+                            </AttachmentAction>
+                          </AttachmentActions>
+                        </Attachment>
+                      )
+                    })}
+                  </AttachmentGroup>
               </div>
             )}
 

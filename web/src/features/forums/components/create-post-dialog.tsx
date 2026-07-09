@@ -26,14 +26,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   useImageObjectUrls,
+  Attachment,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentContent,
+  AttachmentTitle,
+  AttachmentDescription,
+  AttachmentActions,
+  AttachmentAction,
+  useFormat,
 } from '@mochi/web'
 import {
-  ArrowLeft,
-  ArrowRight,
   FileEdit,
   Paperclip,
   Send,
@@ -92,7 +96,51 @@ export function CreatePostDialog({
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
+  const { formatFileSize } = useFormat()
   const [attachments, setAttachments] = useState<File[]>([])
+  
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null)
+  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
+  const canReorder = attachments.length > 1
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    if (!canReorder) return
+    e.dataTransfer.setData('text/plain', index.toString())
+    e.dataTransfer.effectAllowed = 'move'
+    setDraggingIndex(index)
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    if (!canReorder || draggingIndex === null || draggingIndex === index) return
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    setDropTargetIndex(index)
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, targetIndex: number) => {
+    if (!canReorder) return
+    e.preventDefault()
+    const sourceIndex = parseInt(e.dataTransfer.getData('text/plain') || draggingIndex?.toString() || '-1')
+    if (sourceIndex === -1 || sourceIndex === targetIndex) {
+      setDraggingIndex(null)
+      setDropTargetIndex(null)
+      return
+    }
+    setAttachments((prev) => {
+      const result = [...prev]
+      const [removed] = result.splice(sourceIndex, 1)
+      result.splice(targetIndex, 0, removed)
+      return result
+    })
+    setDraggingIndex(null)
+    setDropTargetIndex(null)
+  }
+
+  const handleDragEnd = () => {
+    setDraggingIndex(null)
+    setDropTargetIndex(null)
+  }
+
   const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -139,16 +187,6 @@ export function CreatePostDialog({
 
   const removeAttachment = (index: number) => {
     setAttachments((prev) => prev.filter((_, i) => i !== index))
-  }
-
-  const moveAttachment = (index: number, direction: 'left' | 'right') => {
-    setAttachments((prev) => {
-      const newIndex = direction === 'left' ? index - 1 : index + 1
-      if (newIndex < 0 || newIndex >= prev.length) return prev
-      const newArr = [...prev]
-      ;[newArr[index], newArr[newIndex]] = [newArr[newIndex], newArr[index]]
-      return newArr
-    })
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -236,93 +274,58 @@ export function CreatePostDialog({
                   <div className='text-muted-foreground text-xs font-medium'>
                     <Trans>Attachments</Trans>
                   </div>
-                  <div className='flex flex-wrap gap-2'>
+                  <AttachmentGroup
+                    onDragOver={(e) => {
+                      if (canReorder) e.preventDefault()
+                    }}
+                  >
                     {attachments.map((file, index) => {
-                      const previewUrl = attachmentPreviewUrls[index] ?? undefined
-                      const isFirst = index === 0
-                      const isLast = index === attachments.length - 1
+                      const isImage = file.type?.startsWith('image/')
+                      const previewUrl = isImage ? attachmentPreviewUrls[index] ?? undefined : undefined
+                      const isDragging = draggingIndex === index
+                      const isDropTarget = dropTargetIndex === index
 
                       return (
-                        <div
+                        <Attachment
                           key={`${file.name}-${file.size}-${file.lastModified}`}
-                          className='group/att border-primary/30 bg-muted/50 relative flex items-center justify-center overflow-hidden rounded-[8px] border-2 border-dashed'
+                          draggable={canReorder}
+                          onDragStart={(e) => handleDragStart(e, index)}
+                          onDragOver={(e) => handleDragOver(e, index)}
+                          onDrop={(e) => handleDrop(e, index)}
+                          onDragEnd={handleDragEnd}
+                          state="uploading"
+                          className={`
+                            ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
+                            ${isDragging ? 'opacity-40' : ''}
+                            ${isDropTarget ? 'ring-primary rounded-lg ring-2 ring-inset' : ''}
+                          `}
                         >
-                          {previewUrl ? (
-                            <img
-                              src={previewUrl}
-                              alt={file.name}
-                              className='max-h-[150px] max-w-[200px]'
-                            />
-                          ) : (
-                            <div className='flex h-[100px] w-[150px] flex-col items-center justify-center gap-1 px-2'>
-                              <Paperclip className='text-muted-foreground size-6' />
-                              <span className='text-muted-foreground line-clamp-2 text-center text-xs break-all'>
-                                {file.name}
-                              </span>
-                            </div>
-                          )}
-                          {/* Hover overlay with controls */}
-                          <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  type='button'
-                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                                  disabled={isFirst || isPending}
-                                  aria-label={t`Move attachment left`}
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    moveAttachment(index, 'left')
-                                  }}
-                                >
-                                  <ArrowLeft className='size-5 rtl:rotate-180' />
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>{t`Move attachment left`}</TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  type='button'
-                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
-                                  disabled={isLast || isPending}
-                                  aria-label={t`Move attachment right`}
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    moveAttachment(index, 'right')
-                                  }}
-                                >
-                                  <ArrowRight className='size-5 rtl:rotate-180' />
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>{t`Move attachment right`}</TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  type='button'
-                                  className='flex size-9 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
-                                  disabled={isPending}
-                                  aria-label={t`Remove attachment`}
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    removeAttachment(index)
-                                  }}
-                                >
-                                  <X className='size-5' />
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>{t`Remove attachment`}</TooltipContent>
-                            </Tooltip>
-                          </div>
-                          {/* Position indicator */}
-                          <div className='absolute top-2 left-2 flex size-6 items-center justify-center rounded-full bg-black/60 text-xs font-medium text-white'>
-                            {index + 1}
-                          </div>
-                        </div>
+                          <AttachmentMedia variant={isImage ? "image" : "icon"}>
+                            {isImage && previewUrl ? (
+                              <img src={previewUrl} alt={file.name} draggable={false} />
+                            ) : (
+                              <Paperclip />
+                            )}
+                          </AttachmentMedia>
+                          <AttachmentContent>
+                            <AttachmentTitle>{file.name}</AttachmentTitle>
+                            <AttachmentDescription>{formatFileSize(file.size)}</AttachmentDescription>
+                          </AttachmentContent>
+                          <AttachmentActions>
+                            <AttachmentAction
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                removeAttachment(index)
+                              }}
+                              aria-label={t`Remove`}
+                            >
+                              <X className='size-4' />
+                            </AttachmentAction>
+                          </AttachmentActions>
+                        </Attachment>
                       )
                     })}
-                  </div>
+                  </AttachmentGroup>
                 </>
               )}
 
