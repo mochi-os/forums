@@ -33,6 +33,8 @@ import {
   AttachmentActions,
   AttachmentAction,
   useFormat,
+  pendingFileKey,
+  removePendingFile,
 } from '@mochi/web'
 import { Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -450,7 +452,7 @@ export function ThreadDetail({
                         {commentFiles.map((file, i) => {
                           const isImage = file.type.startsWith('image/')
                           return (
-                            <Attachment key={i} state="uploading" size="sm">
+                            <Attachment key={pendingFileKey(file)} state="uploading" size="sm">
                               <AttachmentMedia variant={isImage ? "image" : "icon"}>
                                 {isImage && commentFilePreviewUrls[i] ? (
                                   <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} draggable={false} />
@@ -465,7 +467,7 @@ export function ThreadDetail({
                                 </AttachmentDescription>
                               </AttachmentContent>
                               <AttachmentActions>
-                                <AttachmentAction onClick={() => setCommentFiles((prev) => prev.filter((_, idx) => idx !== i))} aria-label={t`Remove file`}>
+                                <AttachmentAction onClick={() => setCommentFiles((prev) => removePendingFile(prev, file))} aria-label={t`Remove file`}>
                                   <X className='size-4' />
                                 </AttachmentAction>
                               </AttachmentActions>

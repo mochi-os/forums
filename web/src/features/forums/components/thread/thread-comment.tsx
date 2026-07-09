@@ -5,7 +5,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, AttachmentGroup, Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, AttachmentGroup, Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction, pendingFileKey, removePendingFile } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -480,7 +480,7 @@ export function ThreadComment({
               {replyFiles.map((file, i) => {
                 const isImage = file.type.startsWith('image/')
                 return (
-                  <Attachment key={i} state="uploading" size="sm">
+                  <Attachment key={pendingFileKey(file)} state="uploading" size="sm">
                     <AttachmentMedia variant={isImage ? "image" : "icon"}>
                       {isImage && replyPreviewUrls[i] ? (
                         <img src={replyPreviewUrls[i] ?? undefined} alt={file.name} draggable={false} />
@@ -495,7 +495,7 @@ export function ThreadComment({
                       </AttachmentDescription>
                     </AttachmentContent>
                     <AttachmentActions>
-                      <AttachmentAction onClick={() => setReplyFiles((prev) => prev.filter((_, idx) => idx !== i))} aria-label={t`Remove file`}>
+                      <AttachmentAction onClick={() => setReplyFiles((prev) => removePendingFile(prev, file))} aria-label={t`Remove file`}>
                         <X className='size-4' />
                       </AttachmentAction>
                     </AttachmentActions>
