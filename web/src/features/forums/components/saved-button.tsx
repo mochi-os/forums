@@ -6,12 +6,13 @@
 import { useEffect, useState } from 'react'
 import { Bookmark } from 'lucide-react'
 import { useLingui } from '@lingui/react/macro'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@mochi/web'
+import { Tooltip, TooltipContent, TooltipTrigger, cn } from '@mochi/web'
 import type { Post } from '@/api/types/posts'
 import { isSaved, onSavedChange, toggleSaved } from '@/lib/saved'
 
 interface SavedButtonProps {
   post: Post
+  className?: string
 }
 
 /**
@@ -19,7 +20,7 @@ interface SavedButtonProps {
  * saved mirror (see lib/saved) and re-renders when it changes, so the
  * filled/empty state stays in sync across every card showing the same post.
  */
-export function SavedButton({ post }: SavedButtonProps) {
+export function SavedButton({ post, className }: SavedButtonProps) {
   const { t } = useLingui()
   const [active, setActive] = useState(false)
 
@@ -35,7 +36,7 @@ export function SavedButton({ post }: SavedButtonProps) {
           type='button'
           aria-label={active ? t`Remove from saved` : t`Save for later`}
           aria-pressed={active}
-          className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
+          className={cn('text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors', className)}
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()

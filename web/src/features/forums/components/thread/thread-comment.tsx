@@ -153,8 +153,8 @@ export function ThreadComment({
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
   /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
-  const voteButtonClass = 'text-muted-foreground hover:text-foreground inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:-m-1 md:min-h-0 md:rounded-none md:px-1 md:py-1'
-  const iconActionButtonClass = 'text-muted-foreground hover:text-foreground inline-flex size-8 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:size-auto md:rounded-none md:p-0'
+  const voteButtonClass = 'inline-flex h-7 items-center justify-center gap-1.5 rounded-full px-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const iconActionButtonClass = 'inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   /* eslint-enable lingui/no-unlocalized-strings */
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
@@ -276,44 +276,46 @@ export function ThreadComment({
         <div
           className={`comment-actions-row text-muted-foreground flex min-h-8 items-center gap-2.5 pt-1.5 text-xs md:min-h-[28px] md:gap-3 md:pt-1 ${hasVotes ? 'has-votes' : ''}`}
         >
-          {/* Votes */}
-          {canVote ? (
-            <>
-              <button
-                type='button'
-                className={voteButtonClass}
-                onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
-              >
-                {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
-                {localUp > 0 && localUp}
-              </button>
+          {/* Action pill */}
+          <div className='comment-actions inline-flex shrink-0 items-center gap-0.5 rounded-full border border-border/50 bg-muted/40 p-0.5 shadow-sm transition-all rtl:flex-row-reverse'>
+            {/* Votes */}
+            {canVote ? (
+              <>
+                <button
+                  type='button'
+                  className={voteButtonClass}
+                  onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
+                >
+                  {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-3.5' />}
+                  {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
+                </button>
               <button
                 type='button'
                 className={voteButtonClass}
                 onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
               >
-                {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
-                {localDown > 0 && localDown}
-              </button>
+                  {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-3.5' />}
+                  {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
+                </button>
             </>
           ) : (
             <>
               {localUp > 0 && (
-                <span className='flex items-center gap-1'>
-                  <ThumbsUp className='size-4' />
+                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                  <ThumbsUp className='size-3.5' />
                   {localUp}
                 </span>
               )}
               {localDown > 0 && (
-                <span className='flex items-center gap-1'>
-                  <ThumbsDown className='size-4' />
+                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                  <ThumbsDown className='size-3.5' />
                   {localDown}
                 </span>
               )}
             </>
           )}
           {/* Action buttons - always visible on mobile, hover-reveal on desktop */}
-          <div className='comment-actions flex items-center gap-1.5 transition-opacity pointer-events-auto opacity-100 md:gap-1 md:pointer-events-none md:opacity-0 md:group-hover/row:pointer-events-auto md:group-hover/row:opacity-100'>
+          <div className='flex items-center gap-0.5 md:max-w-0 md:opacity-0 md:overflow-hidden md:group-hover/row:max-w-[200px] md:group-hover/row:opacity-100 md:group-focus-within/row:max-w-[200px] md:group-focus-within/row:opacity-100 md:has-[[data-state=open]]:max-w-[200px] md:has-[[data-state=open]]:opacity-100 transition-all duration-200'>
             {canReply && onReply && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -323,7 +325,7 @@ export function ThreadComment({
                     aria-label={t`Reply`}
                     onClick={() => onReply(comment.id)}
                   >
-                    <MessageSquare className='size-4' />
+                    <MessageSquare className='size-3.5' />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>{t`Reply`}</TooltipContent>
@@ -340,7 +342,7 @@ export function ThreadComment({
                         className={iconActionButtonClass}
                         aria-label={t`More options`}
                       >
-                        <MoreHorizontal className='size-4' />
+                        <MoreHorizontal className='size-3.5' />
                       </button>
                     </DropdownMenuTrigger>
                   </TooltipTrigger>
@@ -424,6 +426,7 @@ export function ThreadComment({
             )}
           </div>
         </div>
+      </div>
       )}
 
       {/* Delete confirmation dialog */}

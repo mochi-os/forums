@@ -11,13 +11,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @media (min-width: 768px) {
-  /* Comment meta and actions - shown on hover */
-  .comment-meta,
-  .comment-actions {
+  /* Comment meta - shown on hover */
+  .comment-meta {
     opacity: 0;
   }
-  .comment-content:hover .comment-meta,
-  .comment-content:hover .comment-actions {
+  .comment-content:hover .comment-meta {
     opacity: 1;
   }
 
