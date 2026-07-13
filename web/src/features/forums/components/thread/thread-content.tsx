@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react'
 import { Trans } from '@lingui/react/macro'
-import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath } from '@mochi/web'
+import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -134,8 +134,8 @@ export function ThreadContent({
   const isPinned = !!post.pinned
   const timestamp = formatTimestamp(post.created)
   /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
-  const voteButtonClass = 'inline-flex h-7 items-center justify-center gap-1.5 rounded-full px-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  const iconActionButtonClass = 'inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   /* eslint-enable lingui/no-unlocalized-strings */
 
   return (
@@ -222,60 +222,62 @@ export function ThreadContent({
             onInterestRemove={onInterestRemove}
           />
         )}
-        <div className='comment-actions inline-flex shrink-0 items-center gap-0.5 rounded-full border border-border/50 bg-muted/40 p-0.5 shadow-sm transition-all'>
-          {/* Votes */}
-          {canVote ? (
-            <>
-              <button
-                type='button'
-                className={voteButtonClass}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleVote(localVote === 'up' ? '' : 'up')
-                }}
-              >
-                {localVote === 'up' ? (
-                  <span className='text-sm'>👍</span>
-                ) : (
-                  <ThumbsUp className='size-3.5' />
+        <ActionPill sticky expandActions={false} className='comment-actions'>
+          <ActionPillSticky className='contents'>
+            {/* Votes */}
+            {canVote ? (
+              <>
+                <button
+                  type='button'
+                  className={voteButtonClass}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleVote(localVote === 'up' ? '' : 'up')
+                  }}
+                >
+                  {localVote === 'up' ? (
+                    <span className='text-sm'>👍</span>
+                  ) : (
+                    <ThumbsUp className='size-3.5' />
+                  )}
+                  {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
+                </button>
+                <button
+                  type='button'
+                  className={voteButtonClass}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleVote(localVote === 'down' ? '' : 'down')
+                  }}
+                >
+                  {localVote === 'down' ? (
+                    <span className='text-sm'>👎</span>
+                  ) : (
+                    <ThumbsDown className='size-3.5' />
+                  )}
+                  {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
+                </button>
+              </>
+            ) : (
+              <>
+                {localUp > 0 && (
+                  <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                    <ThumbsUp className='size-3.5' />
+                    {localUp}
+                  </span>
                 )}
-                {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
-              </button>
-              <button
-                type='button'
-                className={voteButtonClass}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleVote(localVote === 'down' ? '' : 'down')
-                }}
-              >
-                {localVote === 'down' ? (
-                  <span className='text-sm'>👎</span>
-                ) : (
-                  <ThumbsDown className='size-3.5' />
+                {localDown > 0 && (
+                  <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                    <ThumbsDown className='size-3.5' />
+                    {localDown}
+                  </span>
                 )}
-                {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
-              </button>
-            </>
-          ) : (
-            <>
-              {localUp > 0 && (
-                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                  <ThumbsUp className='size-3.5' />
-                  {localUp}
-                </span>
-              )}
-              {localDown > 0 && (
-                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                  <ThumbsDown className='size-3.5' />
-                  {localDown}
-                </span>
-              )}
-            </>
-          )}
+              </>
+            )}
+          </ActionPillSticky>
 
           {/* Action buttons - always visible */}
-          <div className='flex items-center gap-0.5'>
+          <ActionPillActions alwaysVisible>
             {canReply && onReply && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -393,8 +395,8 @@ export function ThreadContent({
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-          </div>
-        </div>
+          </ActionPillActions>
+        </ActionPill>
       </div>
 
       {/* Delete confirmation dialog */}

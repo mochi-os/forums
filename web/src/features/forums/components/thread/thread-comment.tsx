@@ -5,7 +5,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, AttachmentGroup, Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction, pendingFileKey, removePendingFile } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, AttachmentGroup, Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction, pendingFileKey, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -153,8 +153,8 @@ export function ThreadComment({
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
   /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
-  const voteButtonClass = 'inline-flex h-7 items-center justify-center gap-1.5 rounded-full px-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  const iconActionButtonClass = 'inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   /* eslint-enable lingui/no-unlocalized-strings */
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
@@ -277,155 +277,162 @@ export function ThreadComment({
           className={`comment-actions-row text-muted-foreground flex min-h-8 items-center gap-2.5 pt-1.5 text-xs md:min-h-[28px] md:gap-3 md:pt-1 ${hasVotes ? 'has-votes' : ''}`}
         >
           {/* Action pill */}
-          <div className='comment-actions inline-flex shrink-0 items-center gap-0.5 rounded-full border border-border/50 bg-muted/40 p-0.5 shadow-sm transition-all rtl:flex-row-reverse'>
-            {/* Votes */}
-            {canVote ? (
-              <>
-                <button
-                  type='button'
-                  className={voteButtonClass}
-                  onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
-                >
-                  {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-3.5' />}
-                  {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
-                </button>
-              <button
-                type='button'
-                className={voteButtonClass}
-                onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
-              >
-                  {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-3.5' />}
-                  {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
-                </button>
-            </>
-          ) : (
-            <>
-              {localUp > 0 && (
-                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                  <ThumbsUp className='size-3.5' />
-                  {localUp}
-                </span>
-              )}
-              {localDown > 0 && (
-                <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                  <ThumbsDown className='size-3.5' />
-                  {localDown}
-                </span>
-              )}
-            </>
-          )}
-          {/* Action buttons - always visible on mobile, hover-reveal on desktop */}
-          <div className='flex items-center gap-0.5 md:max-w-0 md:opacity-0 md:overflow-hidden md:group-hover/row:max-w-[200px] md:group-hover/row:opacity-100 md:group-focus-within/row:max-w-[200px] md:group-focus-within/row:opacity-100 md:has-[[data-state=open]]:max-w-[200px] md:has-[[data-state=open]]:opacity-100 transition-all duration-200'>
-            {canReply && onReply && (
-              <Tooltip>
-                <TooltipTrigger asChild>
+          <ActionPill
+            sticky
+            hoverGroup='row'
+            expandWidth={200}
+            className='comment-actions rtl:flex-row-reverse'
+          >
+            <ActionPillSticky className='contents'>
+              {/* Votes */}
+              {canVote ? (
+                <>
                   <button
                     type='button'
-                    className={iconActionButtonClass}
-                    aria-label={t`Reply`}
-                    onClick={() => onReply(comment.id)}
+                    className={voteButtonClass}
+                    onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
                   >
-                    <MessageSquare className='size-3.5' />
+                    {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-3.5' />}
+                    {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
                   </button>
-                </TooltipTrigger>
-                <TooltipContent>{t`Reply`}</TooltipContent>
-              </Tooltip>
-            )}
-            {/* More menu (edit, delete, moderation, report) */}
-            {(commentCanEdit || canModerate || onReport) && (
-              <DropdownMenu>
+                  <button
+                    type='button'
+                    className={voteButtonClass}
+                    onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
+                  >
+                    {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-3.5' />}
+                    {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {localUp > 0 && (
+                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                      <ThumbsUp className='size-3.5' />
+                      {localUp}
+                    </span>
+                  )}
+                  {localDown > 0 && (
+                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                      <ThumbsDown className='size-3.5' />
+                      {localDown}
+                    </span>
+                  )}
+                </>
+              )}
+            </ActionPillSticky>
+            {/* Action buttons - always visible on mobile, hover-reveal on desktop */}
+            <ActionPillActions>
+              {canReply && onReply && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        type='button'
-                        className={iconActionButtonClass}
-                        aria-label={t`More options`}
-                      >
-                        <MoreHorizontal className='size-3.5' />
-                      </button>
-                    </DropdownMenuTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>{t`More options`}</TooltipContent>
-                </Tooltip>
-                <DropdownMenuContent align='start'>
-                  {commentCanEdit && onEdit && (
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setEditing(comment.id)
-                        setEditBody(comment.body)
-                      }}
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`Reply`}
+                      onClick={() => onReply(comment.id)}
                     >
-                      <Pencil className='me-2 size-4' />
-                      <Trans>Edit</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {commentCanEdit && onDelete && (
-                    <DropdownMenuItem onClick={() => setDeleting(true)}>
-                      <Trash2 className='me-2 size-4' />
-                      <Trans>Delete</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {commentCanEdit &&
-                    (canModerate ||
-                      (onReport && currentUserId !== comment.member)) && (
-                      <DropdownMenuSeparator />
+                      <MessageSquare className='size-3.5' />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t`Reply`}</TooltipContent>
+                </Tooltip>
+              )}
+              {/* More menu (edit, delete, moderation, report) */}
+              {(commentCanEdit || canModerate || onReport) && (
+                <DropdownMenu>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type='button'
+                          className={iconActionButtonClass}
+                          aria-label={t`More options`}
+                        >
+                          <MoreHorizontal className='size-3.5' />
+                        </button>
+                      </DropdownMenuTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`More options`}</TooltipContent>
+                  </Tooltip>
+                  <DropdownMenuContent align='start'>
+                    {commentCanEdit && onEdit && (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setEditing(comment.id)
+                          setEditBody(comment.body)
+                        }}
+                      >
+                        <Pencil className='me-2 size-4' />
+                        <Trans>Edit</Trans>
+                      </DropdownMenuItem>
                     )}
-                  {canModerate && (
-                    <>
-                      {isPending && onApprove && (
-                        <DropdownMenuItem onClick={() => onApprove(comment.id)}>
-                          <Check className='me-2 size-4' />
-                          <Trans>Approve</Trans>
-                        </DropdownMenuItem>
+                    {commentCanEdit && onDelete && (
+                      <DropdownMenuItem onClick={() => setDeleting(true)}>
+                        <Trash2 className='me-2 size-4' />
+                        <Trans>Delete</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {commentCanEdit &&
+                      (canModerate ||
+                        (onReport && currentUserId !== comment.member)) && (
+                        <DropdownMenuSeparator />
                       )}
-                      {isRemoved
-                        ? onRestore && (
-                          <DropdownMenuItem
-                            onClick={() => onRestore(comment.id)}
-                          >
-                            <Eye className='me-2 size-4' />
-                            <Trans>Restore</Trans>
-                          </DropdownMenuItem>
-                        )
-                        : onRemove && (
-                          <DropdownMenuItem onClick={() => setRemoving(true)}>
-                            <EyeOff className='me-2 size-4' />
-                            <Trans>Remove</Trans>
+                    {canModerate && (
+                      <>
+                        {isPending && onApprove && (
+                          <DropdownMenuItem onClick={() => onApprove(comment.id)}>
+                            <Check className='me-2 size-4' />
+                            <Trans>Approve</Trans>
                           </DropdownMenuItem>
                         )}
-                    </>
-                  )}
-                  {onReport && currentUserId !== comment.member && (
-                    <DropdownMenuItem onClick={() => onReport(comment.id)}>
-                      <Flag className='me-2 size-4' />
-                      <Trans>Report</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canModerate && (onMuteAuthor || onBanAuthor) && (
-                    <DropdownMenuSeparator />
-                  )}
-                  {canModerate && onMuteAuthor && (
-                    <DropdownMenuItem
-                      onClick={() => onMuteAuthor(comment.member)}
-                    >
-                      <VolumeX className='me-2 size-4' />
-                      <Trans>Mute author</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canModerate && onBanAuthor && (
-                    <DropdownMenuItem
-                      onClick={() => onBanAuthor(comment.member)}
-                    >
-                      <Ban className='me-2 size-4' />
-                      <Trans>Ban author</Trans>
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </div>
-        </div>
+                        {isRemoved
+                          ? onRestore && (
+                            <DropdownMenuItem
+                              onClick={() => onRestore(comment.id)}
+                            >
+                              <Eye className='me-2 size-4' />
+                              <Trans>Restore</Trans>
+                            </DropdownMenuItem>
+                          )
+                          : onRemove && (
+                            <DropdownMenuItem onClick={() => setRemoving(true)}>
+                              <EyeOff className='me-2 size-4' />
+                              <Trans>Remove</Trans>
+                            </DropdownMenuItem>
+                          )}
+                      </>
+                    )}
+                    {onReport && currentUserId !== comment.member && (
+                      <DropdownMenuItem onClick={() => onReport(comment.id)}>
+                        <Flag className='me-2 size-4' />
+                        <Trans>Report</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canModerate && (onMuteAuthor || onBanAuthor) && (
+                      <DropdownMenuSeparator />
+                    )}
+                    {canModerate && onMuteAuthor && (
+                      <DropdownMenuItem
+                        onClick={() => onMuteAuthor(comment.member)}
+                      >
+                        <VolumeX className='me-2 size-4' />
+                        <Trans>Mute author</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canModerate && onBanAuthor && (
+                      <DropdownMenuItem
+                        onClick={() => onBanAuthor(comment.member)}
+                      >
+                        <Ban className='me-2 size-4' />
+                        <Trans>Ban author</Trans>
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </ActionPillActions>
+          </ActionPill>
       </div>
       )}
 
