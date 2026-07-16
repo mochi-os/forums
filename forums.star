@@ -115,6 +115,13 @@ def database_upgrade(version):
             mochi.access.revoke("*", "forum/" + f["id"], "view")
             mochi.access.revoke("+", "forum/" + f["id"], "post")
 
+    if version == 3:
+        # Drop the pre-2026-07 broadcast tables left in the app data DB when
+        # broadcast state moved to the per-app system DB - inert, but stale
+        # sequence/log copies mislead diagnosis.
+        for table in ["sequence", "log", "acknowledged", "received"]:
+            mochi.db.execute("drop table if exists " + table)
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
