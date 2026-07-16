@@ -232,179 +232,179 @@ export function ThreadContent({
         )}
         {hasActionsOrVotes && (
           <ActionPill sticky expandActions={false} className='comment-actions'>
-          <ActionPillSticky className='contents'>
-            {/* Votes */}
-            {canVote ? (
-              <>
-                <button
-                  type='button'
-                  className={voteButtonClass}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleVote(localVote === 'up' ? '' : 'up')
-                  }}
-                >
-                  {localVote === 'up' ? (
-                    <span className='text-sm'>👍</span>
-                  ) : (
-                    <ThumbsUp className='size-3.5' />
-                  )}
-                  {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
-                </button>
-                <button
-                  type='button'
-                  className={voteButtonClass}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleVote(localVote === 'down' ? '' : 'down')
-                  }}
-                >
-                  {localVote === 'down' ? (
-                    <span className='text-sm'>👎</span>
-                  ) : (
-                    <ThumbsDown className='size-3.5' />
-                  )}
-                  {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
-                </button>
-              </>
-            ) : (
-              <>
-                {localUp > 0 && (
-                  <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                    <ThumbsUp className='size-3.5' />
-                    {localUp}
-                  </span>
-                )}
-                {localDown > 0 && (
-                  <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                    <ThumbsDown className='size-3.5' />
-                    {localDown}
-                  </span>
-                )}
-              </>
-            )}
-          </ActionPillSticky>
-
-          {/* Action buttons - always visible */}
-          <ActionPillActions alwaysVisible>
-            {canReply && onReply && (
-              <Tooltip>
-                <TooltipTrigger asChild>
+            <ActionPillSticky className='contents'>
+              {/* Votes */}
+              {canVote ? (
+                <>
                   <button
                     type='button'
-                    className={iconActionButtonClass}
-                    aria-label={t`Reply`}
+                    className={voteButtonClass}
                     onClick={(e) => {
                       e.stopPropagation()
-                      onReply()
+                      handleVote(localVote === 'up' ? '' : 'up')
                     }}
                   >
-                    <MessageSquare className='size-3.5' />
+                    {localVote === 'up' ? (
+                      <span className='text-sm'>👍</span>
+                    ) : (
+                      <ThumbsUp className='size-3.5' />
+                    )}
+                    {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
                   </button>
-                </TooltipTrigger>
-                <TooltipContent>{t`Reply`}</TooltipContent>
-              </Tooltip>
-            )}
-            {/* More menu (edit, delete, moderation, report) */}
-            {(canEdit || canModerate || onReport) && (
-              <DropdownMenu>
+                  <button
+                    type='button'
+                    className={voteButtonClass}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleVote(localVote === 'down' ? '' : 'down')
+                    }}
+                  >
+                    {localVote === 'down' ? (
+                      <span className='text-sm'>👎</span>
+                    ) : (
+                      <ThumbsDown className='size-3.5' />
+                    )}
+                    {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {localUp > 0 && (
+                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                      <ThumbsUp className='size-3.5' />
+                      {localUp}
+                    </span>
+                  )}
+                  {localDown > 0 && (
+                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                      <ThumbsDown className='size-3.5' />
+                      {localDown}
+                    </span>
+                  )}
+                </>
+              )}
+            </ActionPillSticky>
+
+            {/* Action buttons - always visible */}
+            <ActionPillActions alwaysVisible>
+              {canReply && onReply && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        type='button'
-                        className={iconActionButtonClass}
-                        aria-label={t`More options`}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <MoreHorizontal className='size-3.5' />
-                      </button>
-                    </DropdownMenuTrigger>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`Reply`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onReply()
+                      }}
+                    >
+                      <MessageSquare className='size-3.5' />
+                    </button>
                   </TooltipTrigger>
-                  <TooltipContent>{t`More options`}</TooltipContent>
+                  <TooltipContent>{t`Reply`}</TooltipContent>
                 </Tooltip>
-                <DropdownMenuContent align='start'>
-                  {canEdit && onEdit && (
-                    <DropdownMenuItem onClick={onEdit}>
-                      <Pencil className='me-2 size-4' />
-                      <Trans>Edit</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canEdit && onDelete && (
-                    <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-                      <Trash2 className='me-2 size-4' />
-                      <Trans>Delete</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canEdit && (canModerate || onReport) && <DropdownMenuSeparator />}
-                  {canModerate && (
-                    <>
-                      {isRemoved
-                        ? onRestore && (
-                            <DropdownMenuItem onClick={onRestore}>
-                              <Eye className='me-2 size-4' />
-                              <Trans>Restore</Trans>
-                            </DropdownMenuItem>
-                          )
-                        : onRemove && (
-                            <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
-                              <EyeOff className='me-2 size-4' />
-                              <Trans>Remove</Trans>
-                            </DropdownMenuItem>
-                          )}
-                      {isLocked
-                        ? onUnlock && (
-                            <DropdownMenuItem onClick={onUnlock}>
-                              <Unlock className='me-2 size-4' />
-                              <Trans>Unlock</Trans>
-                            </DropdownMenuItem>
-                          )
-                        : onLock && (
-                            <DropdownMenuItem onClick={onLock}>
-                              <Lock className='me-2 size-4' />
-                              <Trans>Lock</Trans>
-                            </DropdownMenuItem>
-                          )}
-                      {isPinned
-                        ? onUnpin && (
-                            <DropdownMenuItem onClick={onUnpin}>
-                              <PinOff className='me-2 size-4' />
-                              <Trans>Unpin</Trans>
-                            </DropdownMenuItem>
-                          )
-                        : onPin && (
-                            <DropdownMenuItem onClick={onPin}>
-                              <Pin className='me-2 size-4' />
-                              <Trans>Pin</Trans>
-                            </DropdownMenuItem>
-                          )}
-                    </>
-                  )}
-                  {onReport && (
-                    <DropdownMenuItem onClick={onReport}>
-                      <Flag className='me-2 size-4' />
-                      <Trans>Report</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
-                  {canModerate && onMuteAuthor && (
-                    <DropdownMenuItem onClick={onMuteAuthor}>
-                      <VolumeX className='me-2 size-4' />
-                      <Trans>Mute author</Trans>
-                    </DropdownMenuItem>
-                  )}
-                  {canModerate && onBanAuthor && (
-                    <DropdownMenuItem onClick={onBanAuthor}>
-                      <Ban className='me-2 size-4' />
-                      <Trans>Ban author</Trans>
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </ActionPillActions>
-        </ActionPill>
-      )}
+              )}
+              {/* More menu (edit, delete, moderation, report) */}
+              {(canEdit || canModerate || onReport) && (
+                <DropdownMenu>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type='button'
+                          className={iconActionButtonClass}
+                          aria-label={t`More options`}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <MoreHorizontal className='size-3.5' />
+                        </button>
+                      </DropdownMenuTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`More options`}</TooltipContent>
+                  </Tooltip>
+                  <DropdownMenuContent align='start'>
+                    {canEdit && onEdit && (
+                      <DropdownMenuItem onClick={onEdit}>
+                        <Pencil className='me-2 size-4' />
+                        <Trans>Edit</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canEdit && onDelete && (
+                      <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+                        <Trash2 className='me-2 size-4' />
+                        <Trans>Delete</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canEdit && (canModerate || onReport) && <DropdownMenuSeparator />}
+                    {canModerate && (
+                      <>
+                        {isRemoved
+                          ? onRestore && (
+                              <DropdownMenuItem onClick={onRestore}>
+                                <Eye className='me-2 size-4' />
+                                <Trans>Restore</Trans>
+                              </DropdownMenuItem>
+                            )
+                          : onRemove && (
+                              <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
+                                <EyeOff className='me-2 size-4' />
+                                <Trans>Remove</Trans>
+                              </DropdownMenuItem>
+                            )}
+                        {isLocked
+                          ? onUnlock && (
+                              <DropdownMenuItem onClick={onUnlock}>
+                                <Unlock className='me-2 size-4' />
+                                <Trans>Unlock</Trans>
+                              </DropdownMenuItem>
+                            )
+                          : onLock && (
+                              <DropdownMenuItem onClick={onLock}>
+                                <Lock className='me-2 size-4' />
+                                <Trans>Lock</Trans>
+                              </DropdownMenuItem>
+                            )}
+                        {isPinned
+                          ? onUnpin && (
+                              <DropdownMenuItem onClick={onUnpin}>
+                                <PinOff className='me-2 size-4' />
+                                <Trans>Unpin</Trans>
+                              </DropdownMenuItem>
+                            )
+                          : onPin && (
+                              <DropdownMenuItem onClick={onPin}>
+                                <Pin className='me-2 size-4' />
+                                <Trans>Pin</Trans>
+                              </DropdownMenuItem>
+                            )}
+                      </>
+                    )}
+                    {onReport && (
+                      <DropdownMenuItem onClick={onReport}>
+                        <Flag className='me-2 size-4' />
+                        <Trans>Report</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+                    {canModerate && onMuteAuthor && (
+                      <DropdownMenuItem onClick={onMuteAuthor}>
+                        <VolumeX className='me-2 size-4' />
+                        <Trans>Mute author</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {canModerate && onBanAuthor && (
+                      <DropdownMenuItem onClick={onBanAuthor}>
+                        <Ban className='me-2 size-4' />
+                        <Trans>Ban author</Trans>
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </ActionPillActions>
+          </ActionPill>
+        )}
       </div>
 
       {/* Delete confirmation dialog */}
