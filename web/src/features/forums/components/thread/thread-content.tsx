@@ -138,6 +138,8 @@ export function ThreadContent({
   const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   /* eslint-enable lingui/no-unlocalized-strings */
 
+  const hasActionsOrVotes = canVote || localUp > 0 || localDown > 0 || (canReply && onReply) || canEdit || canModerate || !!onReport
+
   return (
     <div className='group space-y-4'>
       <PostTitleBar
@@ -222,7 +224,14 @@ export function ThreadContent({
             onInterestRemove={onInterestRemove}
           />
         )}
-        <ActionPill sticky expandActions={false} className='comment-actions'>
+        {isLoggedIn && (
+          <SavedButton
+            post={post}
+            className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active"
+          />
+        )}
+        {hasActionsOrVotes && (
+          <ActionPill sticky expandActions={false} className='comment-actions'>
           <ActionPillSticky className='contents'>
             {/* Votes */}
             {canVote ? (
@@ -296,8 +305,6 @@ export function ThreadContent({
                 <TooltipContent>{t`Reply`}</TooltipContent>
               </Tooltip>
             )}
-            {/* Save for later */}
-            {isLoggedIn && <SavedButton post={post} className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active" />}
             {/* More menu (edit, delete, moderation, report) */}
             {(canEdit || canModerate || onReport) && (
               <DropdownMenu>
@@ -397,6 +404,7 @@ export function ThreadContent({
             )}
           </ActionPillActions>
         </ActionPill>
+      )}
       </div>
 
       {/* Delete confirmation dialog */}

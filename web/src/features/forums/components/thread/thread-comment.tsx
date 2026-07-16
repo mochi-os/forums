@@ -281,7 +281,7 @@ export function ThreadComment({
             sticky
             hoverGroup='row'
             expandWidth={200}
-            className='comment-actions rtl:flex-row-reverse'
+            className='comment-actions'
           >
             <ActionPillSticky className='contents'>
               {/* Votes */}
