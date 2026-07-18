@@ -380,7 +380,18 @@ def recount_post_comments(post_id):
 def error_message_timeout(e):
     if e.detail.get("locations", 1) != 0:
         return
-    member = e.entity
+    member_remove(e.entity)
+
+# error_subscriber_unreachable: core suspended this member - every delivery
+# across the whole evict window failed with no contradicting success - and
+# asks us to drop them so fan-out stops paying for a dead host. If they
+# return, they re-join.
+def error_subscriber_unreachable(e):
+    member_remove(e.entity)
+
+# member_remove drops every membership a gone member holds and refreshes
+# the affected forums' counts.
+def member_remove(member):
     affected = mochi.db.rows("select distinct forum from members where id=?", member)
     for _row in mochi.db.rows("select forum, id from members where id=?", member) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
