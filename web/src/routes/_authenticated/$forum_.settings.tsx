@@ -199,17 +199,13 @@ function ForumSettingsPage() {
   const handleRename = useCallback(async (name: string) => {
     if (!selectedForum || !selectedForum.can_manage) return
 
-    try {
-      await toastAction(forumsApi.renameForum(selectedForum.id, name), {
-        loading: t`Renaming forum...`,
-        success: t`Forum renamed`,
-        error: (e) => getErrorMessage(e, t`Failed to rename forum`),
-      })
-      void refreshForumInfo()
-      void refreshForums()
-    } catch (error) {
-      throw error
-    }
+    await toastAction(forumsApi.renameForum(selectedForum.id, name), {
+      loading: t`Renaming forum...`,
+      success: t`Forum renamed`,
+      error: (e) => getErrorMessage(e, t`Failed to rename forum`),
+    })
+    void refreshForumInfo()
+    void refreshForums()
   }, [selectedForum, refreshForumInfo, refreshForums, t])
 
   // Can unsubscribe if subscribed and not the owner
@@ -412,7 +408,6 @@ function GeneralTab({
       {forum.can_manage && (
         <Section
           title={t`Delete forum`}
-          description={t`Permanently delete this forum and all its content.`}
           action={
             <Button
               variant="outline"
@@ -432,7 +427,7 @@ function GeneralTab({
         onOpenChange={setShowDeleteDialog}
         title={t`Delete forum?`}
         desc={t`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
-        confirmText={t`Delete Forum`}
+        confirmText={t`Delete forum`}
         destructive
         handleConfirm={onDelete}
       />
@@ -848,8 +843,7 @@ function AccessTab({ forumId }: AccessTabProps) {
 
   return (
     <Section
-      title={t`Access Management`}
-      description={t`Control who can view and interact with this forum`}
+      title={t`Access management`}
     >
       <div className='space-y-4'>
         <div className='flex justify-end'>
@@ -1047,7 +1041,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
       </Section>
 
       <Section
-        title={t`Rate Limiting`}
+        title={t`Rate limiting`}
         description={t`Prevent spam by limiting how often users can post`}
       >
         <div className='space-y-4 py-2 text-sm'>
