@@ -4871,8 +4871,18 @@ def event_attachment_view(e):
             e.stream.write({"status": "403", "error": "Not allowed to view this forum"})
             return
 
-    # Verify attachment exists
-    if not mochi.attachment.exists(attachment_id):
+    # Bind the attachment to the requested forum. The access check above only
+    # proved view access to `forum_id`, but mochi.attachment.path resolves the
+    # id across the owner's whole forums DB, so without this a viewer of one
+    # forum could fetch a private sibling forum's attachment by id. Mirrors the
+    # HTTP serve_attachment binding: attached to a post or comment in the forum.
+    att = mochi.attachment.get(attachment_id)
+    if not att:
+        e.stream.write({"status": "404", "error": "Attachment not found"})
+        return
+    obj = att.get("object")
+    in_forum = mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) or mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id)
+    if not in_forum:
         e.stream.write({"status": "404", "error": "Attachment not found"})
         return
 
