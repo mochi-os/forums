@@ -2324,6 +2324,11 @@ def action_delete(a):
     mochi.db.execute("delete from posts where forum=?", forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    # Revoke this forum's RSS access tokens too — the core tokens, not just the
+    # rss rows, or ?token=<deleted-forum-token> would still authenticate.
+    for r in mochi.db.rows("select token from rss where entity=?", forum["id"]) or []:
+        mochi.token.delete(r["token"])
+    mochi.db.execute("delete from rss where entity=?", forum["id"])
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Revoke all access rules
