@@ -4782,6 +4782,45 @@ def action_access_revoke(a):
     }
 
 
+# HTTP handlers serving a forum's attachments (and thumbnails). Public routes,
+# so anonymous viewers can load a public forum's attachments; access is enforced
+# here on a.user, never on ambient ownership. Core's a.write.attachment serves
+# the bytes with no access check of its own, so this handler is the gate. It
+# mirrors event_attachment_view (the P2P equivalent): private forums require
+# view access, and the attachment must belong to a post or comment in THIS
+# forum, so one forum's attachment can't be fetched via another forum's route.
+def action_attachment(a):
+    serve_attachment(a, False)
+
+def action_attachment_thumbnail(a):
+    serve_attachment(a, True)
+
+def serve_attachment(a, thumbnail):
+    attachment = a.input("id")
+    forum_id = a.input("forum")
+    forum = mochi.db.row("select * from forums where id=?", forum_id)
+    if forum and not forum.get("server", ""):
+        # We own this forum: enforce access for private forums (public forums
+        # allow anyone), then bind the attachment to a post or comment in it.
+        entity = mochi.entity.info(forum_id)
+        privacy = entity.get("privacy", "public") if entity else "public"
+        if privacy == "private" and not check_access(a, forum_id, "view"):
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
+        att = mochi.attachment.get(attachment)
+        if not att:
+            a.error.label(404, "errors.attachment_not_found")
+            return
+        obj = att.get("object")
+        in_forum = mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) or mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id)
+        if not in_forum:
+            a.error.label(404, "errors.attachment_not_found")
+            return
+    # Remote forums we're a member of (server set): the owning server enforces
+    # access and the binding when a.write.attachment fetches over P2P, and
+    # per-user databases isolate one member from another.
+    a.write.attachment(attachment, thumbnail=thumbnail)
+
 # EVENTS
 
 # Handle attachment view request from subscriber (stream-based request/response)
