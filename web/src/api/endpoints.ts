@@ -137,6 +137,7 @@ const endpoints = {
 
     // RSS
     rssToken: '-/rss/token',
+    rssTokenRevoke: '-/rss/token/revoke',
 
     // User restrictions
     restrict: (forumId: string) => `${getEntityBase(forumId)}/-/restrict`,

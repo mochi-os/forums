@@ -540,6 +540,8 @@ const forumsApi = {
 
   getRssToken: (entity: string, mode: 'posts' | 'all') =>
     client.post<{ data: { token: string } }>(endpoints.forums.rssToken, { entity, mode }),
+  revokeRssToken: (entity: string) =>
+    client.post<{ data: { ok: boolean } }>(endpoints.forums.rssTokenRevoke, { entity }),
 
   // Tags
   addPostTag: async (forumId: string, postId: string, label: string) => {

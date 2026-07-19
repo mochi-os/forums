@@ -2288,6 +2288,7 @@ def action_unsubscribe(a):
     mochi.db.execute("delete from posts where forum=?", forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    rss_tokens_revoke(forum["id"])
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
@@ -2300,6 +2301,14 @@ def action_unsubscribe(a):
     return {
         "data": {}
     }
+
+# Revoke a forum's RSS access tokens (the core tokens, not just the rss rows) so a
+# removed forum's ?token= URL stops authenticating. No-op when the forum has no RSS
+# tokens, so it is safe to call from every forum-removal path.
+def rss_tokens_revoke(entity_id):
+    for r in mochi.db.rows("select token from rss where entity=?", entity_id) or []:
+        mochi.token.delete(r["token"])
+    mochi.db.execute("delete from rss where entity=?", entity_id)
 
 # Delete a forum (owner only)
 def action_delete(a):
@@ -2324,11 +2333,7 @@ def action_delete(a):
     mochi.db.execute("delete from posts where forum=?", forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
-    # Revoke this forum's RSS access tokens too — the core tokens, not just the
-    # rss rows, or ?token=<deleted-forum-token> would still authenticate.
-    for r in mochi.db.rows("select token from rss where entity=?", forum["id"]) or []:
-        mochi.token.delete(r["token"])
-    mochi.db.execute("delete from rss where entity=?", forum["id"])
+    rss_tokens_revoke(forum["id"])
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Revoke all access rules
@@ -7130,6 +7135,30 @@ def action_rss_token(a):
     now = mochi.time.now()
     mochi.db.execute("insert into rss (token, entity, mode, created) values (?, ?, ?, ?)", token, forum_id, mode, now)
     return {"data": {"token": token}}
+
+# Revoke a forum's RSS access: delete the core token(s) and rss row(s) so the RSS
+# URL stops working. The next Copy RSS URL mints a fresh token.
+def action_rss_token_revoke(a):
+    if not a.user:
+        a.error.label(401, "errors.authentication_required")
+        return
+
+    entity = a.input("entity")
+    if not entity:
+        a.error.label(400, "errors.missing_entity_or_mode")
+        return
+
+    if entity == "*":
+        forum_id = "*"
+    else:
+        forum = get_forum(entity)
+        if not forum:
+            a.error.label(404, "errors.forum_not_found")
+            return
+        forum_id = forum["id"]
+
+    rss_tokens_revoke(forum_id)
+    return {"data": {"ok": True}}
 
 # Serve RSS feed for all subscribed forums
 def action_rss_all(a):

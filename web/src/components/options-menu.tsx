@@ -89,6 +89,16 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
     }
   }
 
+  const handleRevokeRss = async () => {
+    if (!rssEntity) return
+    try {
+      await forumsApi.revokeRssToken(rssEntity)
+      toast.success(t`RSS access revoked`)
+    } catch (error) {
+      toast.error(getErrorMessage(error, t`Failed to revoke RSS access`))
+    }
+  }
+
   return (
     <>
     <DropdownMenu>
@@ -125,6 +135,9 @@ export function OptionsMenu({ entityId, showRss, settingsUrl, moderationUrl, onU
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => void handleCopyRssUrl('all')}>
                 <Trans>Posts and comments</Trans>
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => void handleRevokeRss()}>
+                <Trans>Revoke access</Trans>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
