@@ -32,10 +32,6 @@ import type {
   UnsubscribeForumResponse,
   ViewForumParams,
   ViewForumResponse,
-  GetMembersParams,
-  GetMembersResponse,
-  SaveMembersRequest,
-  SaveMembersResponse,
   GetAccessParams,
   GetAccessResponse,
   SetAccessRequest,
@@ -177,22 +173,6 @@ const forumsApi = {
       endpoints.forums.unsubscribe(forumId),
       {}
     ),
-
-  getMembers: (params: GetMembersParams) =>
-    client.get<GetMembersResponse>(endpoints.forums.membersEdit(params.forum)),
-
-  saveMembers: (payload: SaveMembersRequest) => {
-    const { forum, ...memberRoles } = payload
-    return client.post<SaveMembersResponse>(
-      endpoints.forums.membersSave(forum),
-      memberRoles,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    )
-  },
 
   // Posts
   getNewPost: (params: GetNewPostParams) =>

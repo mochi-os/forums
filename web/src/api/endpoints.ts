@@ -55,9 +55,7 @@ const endpoints = {
     rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
     bannerGet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/get`,
     bannerSet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/set`,
-    membersEdit: (forumId: string) => `${getEntityBase(forumId)}/-/members`,
     membersSearch: (forumId: string) => `${getEntityBase(forumId)}/-/members/search`,
-    membersSave: (forumId: string) => `${getEntityBase(forumId)}/-/members/save`,
 
     // Post endpoints
     post: {

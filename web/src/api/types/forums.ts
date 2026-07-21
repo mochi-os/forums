@@ -199,28 +199,6 @@ export interface GetNewForumResponse {
   data: Record<string, never>
 }
 
-export interface GetMembersParams {
-  forum: string
-}
-
-export interface GetMembersResponse {
-  data: {
-    forum: Forum
-    members: Member[]
-  }
-}
-
-export interface SaveMembersRequest {
-  forum: string
-  [key: `role_${string}`]: string // Legacy - may need update for access system
-}
-
-export interface SaveMembersResponse {
-  data: {
-    forum: Forum
-  }
-}
-
 // Access control types
 export interface GetAccessParams {
   forum: string
