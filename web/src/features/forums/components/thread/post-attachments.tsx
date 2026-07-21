@@ -32,6 +32,13 @@ export function PostAttachments({ attachments, forumId, server, mediaCap = 8 }: 
           )
         )
       }
+      getPreviewUrl={(att) =>
+        authenticatedUrl(
+          normalizeEntityUrl(
+            att.preview_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/preview${serverParam}`
+          )
+        )
+      }
       mediaCap={mediaCap}
     />
   )

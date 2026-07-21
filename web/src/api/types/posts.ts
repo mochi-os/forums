@@ -37,6 +37,7 @@ export interface Attachment {
   rank: number
   size: number
   thumbnail_url: string
+  preview_url?: string
   type: string
   url: string
 }

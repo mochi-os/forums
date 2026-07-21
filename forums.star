@@ -4811,12 +4811,15 @@ def action_access_revoke(a):
 # view access, and the attachment must belong to a post or comment in THIS
 # forum, so one forum's attachment can't be fetched via another forum's route.
 def action_attachment(a):
-    serve_attachment(a, False)
+    serve_attachment(a, "")
 
 def action_attachment_thumbnail(a):
-    serve_attachment(a, True)
+    serve_attachment(a, "thumbnail")
 
-def serve_attachment(a, thumbnail):
+def action_attachment_preview(a):
+    serve_attachment(a, "preview")
+
+def serve_attachment(a, variant):
     attachment = a.input("id")
     forum_id = a.input("forum")
     forum = mochi.db.row("select * from forums where id=?", forum_id)
@@ -4840,7 +4843,7 @@ def serve_attachment(a, thumbnail):
     # Remote forums we're a member of (server set): the owning server enforces
     # access and the binding when a.write.attachment fetches over P2P, and
     # per-user databases isolate one member from another.
-    a.write.attachment(attachment, thumbnail=thumbnail)
+    a.write.attachment(attachment, variant=variant)
 
 # EVENTS
 
