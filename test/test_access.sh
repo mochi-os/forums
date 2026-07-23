@@ -11,7 +11,7 @@
 set +e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CURL="$SCRIPT_DIR/../../../test/claude/curl.sh"
+CURL="$SCRIPT_DIR/../../../claude/scripts/curl.sh"
 
 # Test forum owned by instance 1
 FORUM_ID="1KGmt81NJYairn7J6zv6tgpn8SyDkx33BZez8xdBFWku5NNpRZ"
