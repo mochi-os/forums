@@ -4575,6 +4575,12 @@ def action_post_vote(a):
             if not check_access(a, forum["id"], "vote"):
                 a.error.label(403, "errors.not_allowed_to_vote")
                 return
+            # A banned user keeps their view/vote grant, so enforce the
+            # restriction layer too (muted users may still vote).
+            restriction = check_restriction(forum["id"], user_id, "vote")
+            if restriction:
+                a.error.label(403, "errors.restriction_" + restriction)
+                return
             # We own the forum - process locally and broadcast to members.
             # Upsert/delete the user's vote row; recount_post_votes then
             # derives posts.up/posts.down from the votes log. This is the
@@ -4696,6 +4702,12 @@ def action_comment_vote(a):
             # Owner checks access locally
             if not check_access(a, forum["id"], "vote"):
                 a.error.label(403, "errors.not_allowed_to_vote")
+                return
+            # A banned user keeps their view/vote grant, so enforce the
+            # restriction layer too (muted users may still vote).
+            restriction = check_restriction(forum["id"], user_id, "vote")
+            if restriction:
+                a.error.label(403, "errors.restriction_" + restriction)
                 return
             # We own the forum - process locally and broadcast to members.
             # Same derive-from-log shape as post votes; see
@@ -5420,6 +5432,9 @@ def event_comment_vote_event(e):
     sender_id = e.header("from")
     if not check_event_access(sender_id, forum["id"], "vote"):
         return
+    # A banned sender keeps their vote grant; drop their vote (muted may vote).
+    if check_restriction(forum["id"], sender_id, "vote"):
+        return
 
     vote = e.content("vote")
     # Handle "none" as vote removal
@@ -5896,6 +5911,9 @@ def event_post_vote_event(e):
 
     sender_id = e.header("from")
     if not check_event_access(sender_id, forum["id"], "vote"):
+        return
+    # A banned sender keeps their vote grant; drop their vote (muted may vote).
+    if check_restriction(forum["id"], sender_id, "vote"):
         return
 
     vote = e.content("vote")
