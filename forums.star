@@ -2519,6 +2519,14 @@ def action_post_view(a):
         can_comment = access_response.get("comment", False)
         can_moderate = access_response.get("moderate", False)
 
+    # Non-moderators may only view an approved post, or their own PENDING post;
+    # removed/shadowbanned and others' pending posts are hidden. Without this an
+    # anonymous caller on a public forum (who runs as the ambient owner and so
+    # loads the post from the owner's full DB) could read a removed post by id.
+    if not can_moderate and not (post["status"] == "approved" or (post["status"] == "pending" and post["member"] == user_id)):
+        a.error.label(404, "errors.post_not_found")
+        return
+
     # Get user's vote on post
     user_post_vote = ""
     if a.user:
@@ -2531,13 +2539,13 @@ def action_post_view(a):
         if depth > 100:  # Prevent infinite recursion
             return []
 
-        # Filter out removed comments for non-moderators
+        # Moderators see every status; others see approved plus their own pending.
         if can_moderate:
             comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
                 forum["id"], post_id, parent_id)
         else:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and status!='removed' order by created desc",
-                forum["id"], post_id, parent_id)
+            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                forum["id"], post_id, parent_id, user_id or "")
 
         for c in comments:
             c["children"] = get_comments(c["id"], depth + 1)
@@ -6885,11 +6893,14 @@ def event_post_view(e):
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
     # Don't disclose a pending or removed post to an ordinary viewer. Moderators
-    # see any status; the author sees their own pending post; everyone else only
-    # sees it once approved. Previously the status was never checked here.
-    if not can_moderate and post["status"] != "approved" and post["member"] != requester:
-        e.stream.write({"error": "errors.post_not_found"})
-        return
+    # see any status; the author sees their own PENDING post only; everyone else
+    # sees it once approved. Removed/shadowbanned is hidden even from the author,
+    # so a shadowbanned author can't confirm their post was removed.
+    if not can_moderate:
+        visible = post["status"] == "approved" or (post["status"] == "pending" and post["member"] == requester)
+        if not visible:
+            e.stream.write({"error": "errors.post_not_found"})
+            return
 
     post_data = dict(post)
     post_data["body_markdown"] = mochi.text.markdown(post["body"])
