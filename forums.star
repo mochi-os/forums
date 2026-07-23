@@ -659,24 +659,24 @@ def check_rate_limit(forum, user_id, kind):
 # Helper: Send moderation notification to a user
 def notify_moderation_action(forum_id, user_id, action, target_type, reason, target_id=""):
     forum = get_forum(forum_id)
-    forum_name = forum["name"] if forum else "Unknown forum"
+    forum_name = forum["name"] if forum else mochi.app.label("moderation.forum_unknown")
 
     if action == "remove":
-        title = "Content removed in " + forum_name
-        body = "Your " + target_type + " was removed"
+        title = mochi.app.label("moderation.removed.title", forum=forum_name)
+        body = mochi.app.label("moderation.removed.body." + target_type)
         if reason:
             body = body + ": " + reason
     elif action == "approve":
-        title = "Content approved in " + forum_name
-        body = "Your " + target_type + " has been approved and is now visible"
+        title = mochi.app.label("moderation.approved.title", forum=forum_name)
+        body = mochi.app.label("moderation.approved.body." + target_type)
     elif action == "restrict":
-        title = "Restricted in " + forum_name
-        body = "You have been restricted"
+        title = mochi.app.label("moderation.restricted.title", forum=forum_name)
+        body = mochi.app.label("moderation.restricted.body")
         if reason:
             body = body + ": " + reason
     elif action == "unrestrict":
-        title = "Restriction lifted in " + forum_name
-        body = "Your restriction has been removed"
+        title = mochi.app.label("moderation.unrestricted.title", forum=forum_name)
+        body = mochi.app.label("moderation.unrestricted.body")
     else:
         return
 
@@ -5210,7 +5210,7 @@ def event_comment_submit_event(e):
     sender_name = member["name"] if member and member["name"] else ""
     if not sender_name:
         entity = mochi.directory.get(sender_id)
-        sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
+        sender_name = entity["name"] if entity and entity["name"] else mochi.app.label("notifications.mention.author_unknown")
 
     id = e.content("id")
     if not mochi.text.valid(id, "id"):
@@ -5636,7 +5636,7 @@ def event_post_submit_event(e):
     sender_name = member["name"] if member and member["name"] else ""
     if not sender_name:
         entity = mochi.directory.get(sender_id)
-        sender_name = entity["name"] if entity and entity["name"] else "Anonymous"
+        sender_name = entity["name"] if entity and entity["name"] else mochi.app.label("notifications.mention.author_unknown")
 
     if not mochi.text.valid(post_id, "id"):
         send_reject(forum["id"], sender_id, "post", post_id, "invalid")
@@ -6676,7 +6676,7 @@ def event_report_submit_event(e):
     reporter_name = reporter_member["name"] if reporter_member and reporter_member["name"] else ""
     if not reporter_name:
         reporter_entity = mochi.directory.get(sender)
-        reporter_name = reporter_entity["name"] if reporter_entity and reporter_entity["name"] else "Anonymous"
+        reporter_name = reporter_entity["name"] if reporter_entity and reporter_entity["name"] else mochi.app.label("notifications.mention.author_unknown")
     fp = mochi.entity.fingerprint(forum["id"]) or forum["id"]
     body_key = "moderation.report.body.post" if report_type == "post" else "moderation.report.body.comment"
     notify_moderators(
@@ -7486,7 +7486,7 @@ def action_rss_all(a):
         item_id = row["id"]
         forum_id = row["forum"]
         forum_fp = mochi.entity.fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
-        forum_name = forum_names.get(forum_id, "Forum")
+        forum_name = forum_names.get(forum_id, mochi.app.label("moderation.forum_unknown"))
         body = row["body"]
         if len(body) > 500:
             body = body[:500] + "..."
@@ -7549,7 +7549,7 @@ def action_rss(a):
         if rss_row:
             mode = rss_row["mode"]
 
-    forum_name = forum.get("name", "Forum")
+    forum_name = forum.get("name", mochi.app.label("moderation.forum_unknown"))
     fingerprint = mochi.entity.fingerprint(forum_id)
     # RSS requires absolute links (scheme + host); readers can't resolve relative
     # ones. Mochi is served over https.
