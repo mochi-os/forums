@@ -13,7 +13,8 @@ def remote_error(a, response, code=502):
         mochi.log.info("Remote transport error: %s", response.get("error", ""))
         a.error.label(response.get("code", code), "errors.remote")
     else:
-        a.error(response.get("code", code), response.get("error", "Error"))
+        # The remote sends a stable label key; localise it in the caller's language.
+        a.error.label(response.get("code", code), response.get("error", "errors.remote"))
 
 def notify(topic, object="", title="", body="", url="", event_id=""):
 	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
@@ -1775,7 +1776,7 @@ def action_post_create(a):
             })
             if not access_response.get("post", False):
                 if access_response.get("error"):
-                    a.error.label(403, access_response["error"])
+                    remote_error(a, access_response, 403)
                 else:
                     a.error.label(403, "errors.not_allowed_to_post")
                 return
@@ -1812,7 +1813,7 @@ def action_post_create(a):
     })
     if not access_response.get("post", False):
         if access_response.get("error"):
-            a.error.label(403, access_response["error"])
+            remote_error(a, access_response, 403)
         else:
             a.error.label(403, "errors.not_allowed_to_post")
         return
@@ -2099,7 +2100,7 @@ def action_probe(a):
 
     response = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
     if response.get("error"):
-        a.error.label(404, response["error"])
+        remote_error(a, response, 404)
         return
 
     # Return forum info as a directory-like entry
@@ -3099,7 +3100,7 @@ def action_comment_create(a):
             })
             if not access_response.get("comment", False):
                 if access_response.get("error"):
-                    a.error.label(403, access_response["error"])
+                    remote_error(a, access_response, 403)
                 else:
                     a.error.label(403, "errors.not_allowed_to_comment")
                 return
@@ -3139,7 +3140,7 @@ def action_comment_create(a):
     })
     if not access_response.get("comment", False):
         if access_response.get("error"):
-            a.error.label(403, access_response["error"])
+            remote_error(a, access_response, 403)
         else:
             a.error.label(403, "errors.not_allowed_to_comment")
         return
@@ -4015,7 +4016,7 @@ def action_restrictions(a):
     if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
         if response and response.get("error"):
-            a.error.label(403, response["error"])
+            remote_error(a, response, 403)
             return
         return {"data": response}
 
@@ -4184,7 +4185,7 @@ def action_moderation_reports(a):
         status = a.input("status", "pending")
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
-            a.error.label(403, response["error"])
+            remote_error(a, response, 403)
             return
         return {"data": response}
 
@@ -4258,7 +4259,7 @@ def action_report_resolve(a):
         action = a.input("action")
         response = mochi.remote.request(forum["id"], "forums", "moderation/report/resolve", {"report": report_id, "action": action})
         if response and response.get("error"):
-            a.error.label(400, response["error"])
+            remote_error(a, response, 400)
             return
         return {"data": {"success": True}}
 
@@ -4364,7 +4365,7 @@ def action_moderation_queue(a):
     if not owned(forum["id"]):
         response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
         if response and response.get("error"):
-            a.error.label(403, response["error"])
+            remote_error(a, response, 403)
             return
         return {"data": response}
 
@@ -4531,7 +4532,7 @@ def action_moderation_log(a):
         limit_str = a.input("limit")
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit_str or "50"})
         if response and response.get("error"):
-            a.error.label(403, response["error"])
+            remote_error(a, response, 403)
             return
         return {"data": response}
 
@@ -7429,12 +7430,14 @@ def action_rss_all(a):
         if rss_row:
             mode = rss_row["mode"]
 
+    # RSS requires absolute links (scheme + host). Mochi is served over https.
+    base = ""  # relative to the feed URL; readers resolve against it. Path uses the -/ separator.
     a.header("Content-Type", "application/rss+xml; charset=utf-8")
     a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
     a.print('<rss version="2.0">\n')
     a.print('<channel>\n')
     a.print('<title>' + escape_xml(mochi.app.label("rss.all_forums_title")) + '</title>\n')
-    a.print('<link>/forums</link>\n')
+    a.print('<link>' + escape_xml(base + "/forums") + '</link>\n')
     a.print('<description>' + escape_xml(mochi.app.label("rss.all_forums_description")) + '</description>\n')
 
     # Build forum name lookup
@@ -7467,12 +7470,14 @@ def action_rss_all(a):
 
     # Build post title lookup for comment "Re: title" format
     post_titles = {}
+    comment_posts = {}
     if mode == "all":
         comment_ids = [row["id"] for row in rows if row["type"] == "comment"]
         if comment_ids:
             for cid in comment_ids:
                 comment_row = mochi.db.row("select post from comments where id=?", cid)
                 if comment_row:
+                    comment_posts[cid] = comment_row["post"]
                     post_row = mochi.db.row("select title from posts where id=?", comment_row["post"])
                     if post_row:
                         post_titles[cid] = post_row["title"]
@@ -7481,7 +7486,6 @@ def action_rss_all(a):
         item_id = row["id"]
         forum_id = row["forum"]
         forum_fp = mochi.entity.fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
-        item_fp = mochi.entity.fingerprint(item_id) if mochi.text.valid(item_id, "entity") else item_id
         forum_name = forum_names.get(forum_id, "Forum")
         body = row["body"]
         if len(body) > 500:
@@ -7496,7 +7500,10 @@ def action_rss_all(a):
         else:
             title = forum_name + ": " + row["title"] if row["title"] else forum_name
 
-        link = "/forums/" + forum_fp + "/" + item_fp
+        if row["type"] == "comment":
+            link = base + "/forums/" + forum_fp + "/-/" + comment_posts.get(item_id, item_id)
+        else:
+            link = base + "/forums/" + forum_fp + "/-/" + item_id
 
         a.print('<item>\n')
         a.print('<title>' + escape_xml(title) + '</title>\n')
@@ -7544,13 +7551,16 @@ def action_rss(a):
 
     forum_name = forum.get("name", "Forum")
     fingerprint = mochi.entity.fingerprint(forum_id)
+    # RSS requires absolute links (scheme + host); readers can't resolve relative
+    # ones. Mochi is served over https.
+    base = ""  # relative to the feed URL; readers resolve against it. Path uses the -/ separator.
 
     a.header("Content-Type", "application/rss+xml; charset=utf-8")
     a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
     a.print('<rss version="2.0">\n')
     a.print('<channel>\n')
     a.print('<title>' + escape_xml(forum_name) + '</title>\n')
-    a.print('<link>/forums/' + escape_xml(fingerprint) + '</link>\n')
+    a.print('<link>' + escape_xml(base + "/forums/" + fingerprint) + '</link>\n')
     a.print('<description>' + escape_xml(mochi.app.label("rss.feed_description", name=forum_name)) + '</description>\n')
 
     if mode == "all":
@@ -7567,22 +7577,23 @@ def action_rss(a):
     if rows:
         a.print('<lastBuildDate>' + mochi.time.local(rows[0]["created"], "rfc822") + '</lastBuildDate>\n')
 
-    # Build post title lookup for comment "Re: title" format
+    # Build post title + parent-post lookup for comments (Re: title, and the link
+    # target - a comment lives on its post's page).
     post_titles = {}
+    comment_posts = {}
     if mode == "all":
         comment_ids = [row["id"] for row in rows if row["type"] == "comment"]
         if comment_ids:
-            # Get parent post IDs for these comments
             for cid in comment_ids:
                 comment_row = mochi.db.row("select post from comments where id=?", cid)
                 if comment_row:
+                    comment_posts[cid] = comment_row["post"]
                     post_row = mochi.db.row("select title from posts where id=?", comment_row["post"])
                     if post_row:
                         post_titles[cid] = post_row["title"]
 
     for row in rows:
         item_id = row["id"]
-        item_fp = mochi.entity.fingerprint(item_id) if mochi.text.valid(item_id, "entity") else item_id
         body = row["body"]
         if len(body) > 500:
             body = body[:500] + "..."
@@ -7593,10 +7604,10 @@ def action_rss(a):
                 title = mochi.app.label("rss.comment_reply", title=parent_title)
             else:
                 title = mochi.app.label("rss.comment_by", author=row["author"])
+            link = base + "/forums/" + fingerprint + "/-/" + comment_posts.get(item_id, item_id)
         else:
             title = row["title"] if row["title"] else forum_name
-
-        link = "/forums/" + fingerprint + "/" + item_fp
+            link = base + "/forums/" + fingerprint + "/-/" + item_id
 
         a.print('<item>\n')
         a.print('<title>' + escape_xml(title) + '</title>\n')
