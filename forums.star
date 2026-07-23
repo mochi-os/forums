@@ -2600,8 +2600,14 @@ def action_post_edit(a):
         a.error.label(400, "errors.invalid_body")
         return
 
-    post = mochi.db.row("select * from posts where id=?", post_id)
     forum = get_forum(forum_id)
+    # Scope the post lookup to the named forum. Authorization below checks access
+    # on `forum`, so loading the post by id alone would let a caller who manages
+    # forum A route an edit onto a post that belongs to forum B. Matches the
+    # forum-scoped lookup in event_post_edit_submit_event.
+    post = None
+    if forum:
+        post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
 
     # Check if we have the post locally
     if post and forum:
@@ -2777,8 +2783,13 @@ def action_post_delete(a):
     post_id = a.input("post")
     user_id = a.user.identity.id
 
-    post = mochi.db.row("select * from posts where id=?", post_id)
     forum = get_forum(forum_id)
+    # Scope the post lookup to the named forum so a caller who manages forum A
+    # cannot route a delete onto a post that belongs to forum B. Matches the
+    # forum-scoped lookup in event_post_delete_submit_event.
+    post = None
+    if forum:
+        post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
 
     # Check if we have the post locally
     if post and forum:
@@ -3072,8 +3083,14 @@ def action_comment_edit(a):
         a.error.label(400, "errors.invalid_body")
         return
 
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
     forum = get_forum(forum_id)
+    # Scope the comment lookup to the named forum. Authorization below checks
+    # access on `forum`, so loading the comment by id alone would let a caller
+    # who manages forum A route an edit onto a comment that belongs to forum B.
+    # Matches the forum-scoped lookup in event_comment_edit_submit_event.
+    comment = None
+    if forum:
+        comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
 
     # Check if we have the comment locally
     if comment and forum:
@@ -3185,8 +3202,13 @@ def action_comment_delete(a):
     comment_id = a.input("comment")
     user_id = a.user.identity.id
 
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
     forum = get_forum(forum_id)
+    # Scope the comment lookup to the named forum so a caller who manages forum A
+    # cannot route a delete onto a comment that belongs to forum B. Matches the
+    # forum-scoped lookup in event_comment_delete_submit_event.
+    comment = None
+    if forum:
+        comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
 
     # Helper to recursively collect descendant comment IDs
     def collect_descendants(forum_id, post_id, parent_id):
