@@ -1082,11 +1082,42 @@ def action_ai_prompts_set(a):
 
 # List tags for a post
 def action_tags_list(a):
+    forum_id = a.input("forum")
     post_id = a.input("post")
     if not post_id:
         a.error.label(400, "errors.missing_post")
         return
-    tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
+
+    forum = get_forum(forum_id)
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+
+    # Enforce view access for private forums we own (mirrors action_post_view);
+    # subscribed forums (server set) are gated by the owning server.
+    if not forum.get("server", ""):
+        entity = mochi.entity.info(forum["id"])
+        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
+
+    # Scope the post to the named forum so an arbitrary post id can't be read, and
+    # hide a removed or others'-pending post's tags from non-moderators.
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
+        a.error.label(404, "errors.post_not_found")
+        return
+    user_id = a.user.identity.id if a.user else None
+    if post["status"] != "approved":
+        if not (check_access(a, forum["id"], "moderate") or (post["status"] == "pending" and post["member"] == user_id)):
+            a.error.label(404, "errors.post_not_found")
+            return
+
+    # Only enrich with interests for an authenticated viewer. An anonymous caller
+    # runs as the ambient owner, so get_interest_map() would annotate the response
+    # with the owner's personal interest weights.
+    interest_map = get_interest_map() if a.user else {}
+    tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], interest_map)
     return {"data": {"tags": tags}}
 
 # Add a tag to a post

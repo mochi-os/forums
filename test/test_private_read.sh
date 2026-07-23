@@ -151,6 +151,17 @@ check_no_config "information endpoint omits config" "$BASE/forums/$PUB/-/informa
 check_no_config "posts list omits config"           "$BASE/forums/$PUB/-/posts"       "$OWNER"
 check_no_config "thread view omits config"          "$BASE/forums/$PUB/-/$PUB_POST"   "$OWNER"
 
+# --- Post tags endpoint: forum-scoping + privacy/status gates ---
+curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" \
+    "$BASE/forums/$PUB/-/$PUB_POST/tags/add" -F "forum=$PUB" -F "post=$PUB_POST" -F "label=opentag"
+
+echo -e "\n${YELLOW}Post tags endpoint (:forum/-/:post/tags)${NC}"
+check        "anonymous reads public post tags"     "$BASE/forums/$PUB/-/$PUB_POST/tags"     ""       200
+check_denied "anonymous private post tags denied"   "$BASE/forums/$PRIV/-/$PRIV_POST/tags"   ""
+check        "anonymous removed post tags hidden"   "$BASE/forums/$PUB/-/$REMOVED_POST/tags" ""       404
+# A post from PUB requested through PRIV's route must not resolve (forum-scoped).
+check        "cross-forum post tags rejected"       "$BASE/forums/$PRIV/-/$PUB_POST/tags"    "$OWNER" 404
+
 # --- Clean up seeded data ---
 curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" "$BASE/forums/$PRIV/-/delete"
 curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" "$BASE/forums/$PUB/-/delete"
