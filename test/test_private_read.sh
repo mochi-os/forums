@@ -57,6 +57,28 @@ check() { # label url token expected
     if [ "$code" = "$expected" ]; then pass "$label"; else fail "$label" "$expected" "$code"; fi
 }
 
+# Denial check: any non-200 counts (a non-member routes to their own empty DB and
+# gets 404; an anonymous caller is stopped by the privacy gate and gets 403).
+check_denied() { # label url token
+    local label="$1" url="$2" tok="$3"
+    local code; code=$(get_code "$url" "$tok")
+    if [ "$code" != "200" ]; then pass "$label (HTTP $code)"; else fail "$label" "non-200" "$code"; fi
+}
+
+# Assert the forum object in a read response carries no owner-only config fields.
+check_no_config() { # label url token
+    local label="$1" url="$2" tok="$3"
+    local leaked
+    leaked=$(curl -s ${tok:+-H "Authorization: Bearer $tok"} "$url" | python3 -c "
+import sys,json
+try:
+    f=json.load(sys.stdin)['data']['forum']
+    bad=[k for k in ['moderation_posts','moderation_comments','moderation_new','new_user_days','post_limit','comment_limit','limit_window','ai_prompt_tag','ai_prompt_score'] if k in f]
+    print(','.join(bad))
+except Exception: print('PARSE_ERROR')" 2>/dev/null)
+    if [ -z "$leaked" ]; then pass "$label"; else fail "$label" "no config fields" "$leaked"; fi
+}
+
 OWNER=$(app_token admin)
 NONMEMBER=$(app_token user)
 if [ -z "$OWNER" ]; then
@@ -117,6 +139,17 @@ echo -e "\n${YELLOW}Removed post on a public forum (non-moderators must not see 
 check "owner (moderator) sees removed"     "$BASE/forums/$PUB/-/$REMOVED_POST" "$OWNER"     200
 check "non-member cannot see removed"      "$BASE/forums/$PUB/-/$REMOVED_POST" "$NONMEMBER" 403
 check "anonymous cannot see removed"       "$BASE/forums/$PUB/-/$REMOVED_POST" ""           404
+
+echo -e "\n${YELLOW}Information endpoint privacy gate (:forum/-/information)${NC}"
+check        "owner reads private info"          "$BASE/forums/$PRIV/-/information" "$OWNER"     200
+check_denied "non-member private info denied"    "$BASE/forums/$PRIV/-/information" "$NONMEMBER"
+check_denied "anonymous private info denied"     "$BASE/forums/$PRIV/-/information" ""
+check        "anonymous reads public info"       "$BASE/forums/$PUB/-/information"  ""           200
+
+echo -e "\n${YELLOW}Owner-only config filtered from read responses${NC}"
+check_no_config "information endpoint omits config" "$BASE/forums/$PUB/-/information" "$OWNER"
+check_no_config "posts list omits config"           "$BASE/forums/$PUB/-/posts"       "$OWNER"
+check_no_config "thread view omits config"          "$BASE/forums/$PUB/-/$PUB_POST"   "$OWNER"
 
 # --- Clean up seeded data ---
 curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" "$BASE/forums/$PRIV/-/delete"

@@ -230,6 +230,19 @@ def get_forum(forum_id):
         forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
     return forum
 
+# Strip owner-only operational config from a forum row before returning it to a
+# viewer. Moderation thresholds, rate limits, and AI prompt text are reachable
+# only through the owner-gated settings endpoints (action_moderation_settings,
+# action_ai_prompts_get), so a general read response must not carry them. The
+# display fields and ai_mode/ai_account (read by the owner's settings screen)
+# are left in place. Mutates and returns the dict.
+def strip_forum_config(forum):
+    for key in ["moderation_posts", "moderation_comments", "moderation_new",
+                "new_user_days", "post_limit", "comment_limit", "limit_window",
+                "ai_prompt_tag", "ai_prompt_score"]:
+        forum.pop(key, None)
+    return forum
+
 # Helper: Does the current user own this forum's entity?
 # Source of truth is core/users.db.entities — the private key bearer is the owner.
 def owned(forum_id):
@@ -1198,6 +1211,16 @@ def action_information_entity(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
+    # Enforce view access for private forums we own (public forums allow anyone).
+    # Mirrors action_view / serve_attachment; the P2P twin event_information gates
+    # the same way. Without this a public HTTP caller could read a private forum's
+    # name, banner, and metadata directly from the owner's node.
+    if not forum.get("server", ""):
+        entity = mochi.entity.info(forum["id"])
+        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
+
     is_owner = owned(forum["id"])
     user_id = a.user.identity.id if a.user else None
 
@@ -1233,7 +1256,7 @@ def action_information_entity(a):
 
     return {"data": {
         "entity": True,
-        "forum": forum,
+        "forum": strip_forum_config(forum),
         "permissions": permissions,
         "fingerprint": fp
     }}
@@ -1478,7 +1501,7 @@ def action_view(a):
 
         result = {
             "data": {
-                "forum": forum,
+                "forum": strip_forum_config(forum),
                 "posts": posts,
                 "member": member,
                 "can_manage": forum["can_manage"],
@@ -1552,7 +1575,7 @@ def action_view(a):
 
         return {
             "data": {
-                "forums": forums,
+                "forums": [strip_forum_config(f) for f in forums],
                 "posts": posts,
                 "hasAi": has_ai,
                 "settings": settings,
@@ -2578,7 +2601,7 @@ def action_post_view(a):
 
     return {
         "data": {
-            "forum": forum,
+            "forum": strip_forum_config(forum),
             "post": post,
             "comments": comments,
             "member": member,
