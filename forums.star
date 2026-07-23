@@ -5867,8 +5867,10 @@ def event_subscribe_event(e):
         members = mochi.db.rows("select id from members where forum=?", forum["id"])
         mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), now, forum["id"])
 
-        # Send recent posts to new member with attachment metadata
-        posts = mochi.db.rows("select * from posts where forum=? order by created desc limit 20", forum["id"])
+        # Send recent posts to new member with attachment metadata. Only
+        # approved content seeds a member's replica: pending (pre-moderation)
+        # and removed/shadowbanned posts must never reach an ordinary member.
+        posts = mochi.db.rows("select * from posts where forum=? and status='approved' order by created desc limit 20", forum["id"])
         mochi.log.info("event_subscribe: sending %v posts to %v", len(posts), member_id)
         for p in posts:
             post_data = {
@@ -5889,8 +5891,8 @@ def event_subscribe_event(e):
                 post_data
             )
 
-            # Send comments for this post with attachment metadata
-            comments = mochi.db.rows("select * from comments where forum=? and post=? order by created asc", forum["id"], p["id"])
+            # Send comments for this post with attachment metadata (approved only)
+            comments = mochi.db.rows("select * from comments where forum=? and post=? and status='approved' order by created asc", forum["id"], p["id"])
             for c in comments:
                 comment_data = {
                     "id": c["id"],
@@ -6614,8 +6616,14 @@ def event_schema(e):
             e.stream.write({"error": "errors.not_allowed"})
             return
 
+    # Subscription sync populates a member's local replica via
+    # insert_forum_schema, which stores every row as status='approved' (the
+    # schema payload carries no status column). Only ever replicate approved
+    # content, so pending (pre-moderation) and removed/shadowbanned posts and
+    # comments never enter an ordinary member's database. Moderators fetch
+    # pending content live via the moderation queue, not the synced replica.
     posts = mochi.db.rows(
-        "select id, member, name, title, body, up, down, comments, created, updated from posts where forum=? order by created desc limit 100",
+        "select id, member, name, title, body, up, down, comments, created, updated from posts where forum=? and status='approved' order by created desc limit 100",
         forum_id
     ) or []
 
@@ -6624,13 +6632,13 @@ def event_schema(e):
     comments = []
     for pid in post_ids:
         rows = mochi.db.rows(
-            "select id, post, parent, member, name, body, up, down, created from comments where forum=? and post=? order by created",
+            "select id, post, parent, member, name, body, up, down, created from comments where forum=? and post=? and status='approved' order by created",
             forum_id, pid
         ) or []
         for r in rows:
             comments.append(r)
 
-    tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=?)", forum_id) or []
+    tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=? and status='approved')", forum_id) or []
 
     # Inline attachment metadata so subscribers can't lose it when post/create events
     # from event_subscribe_event are dropped by the already-exists guard in
@@ -6710,11 +6718,14 @@ def event_view(e):
     can_post = check_event_access(requester, forum_id, "post")
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
-    # Get posts for this forum (filter removed posts for non-moderators)
+    # Moderators see every status; everyone else sees approved posts plus their
+    # own pending. Removed/shadowbanned content (status='removed') never leaves
+    # the owner to a non-moderator. Mirrors the local action_view filter -
+    # filtering only status!='removed' still leaked pending pre-moderation posts.
     if can_moderate:
         posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, updated desc limit 100", forum_id)
     else:
-        posts = mochi.db.rows("select * from posts where forum=? and status!='removed' order by pinned desc, updated desc limit 100", forum_id)
+        posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit 100", forum_id, requester)
 
     # Format posts with comments
     formatted_posts = []
@@ -6722,13 +6733,14 @@ def event_view(e):
         post_data = dict(post)
         post_data["body_markdown"] = mochi.text.markdown(post["body"])
         post_data["attachments"] = mochi.attachment.list(post["id"], forum_id)
-        # Filter comments for non-moderators
+        # Same visibility rule for comments: moderators all, others approved
+        # plus their own pending.
         if can_moderate:
             post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
                 forum_id, post["id"])
         else:
-            post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and status!='removed' order by created desc",
-                forum_id, post["id"])
+            post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                forum_id, post["id"], requester)
         post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post["id"]) or []
         formatted_posts.append(post_data)
 
@@ -6812,6 +6824,13 @@ def event_post_view(e):
     can_comment = check_event_access(requester, forum_id, "comment")
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
+    # Don't disclose a pending or removed post to an ordinary viewer. Moderators
+    # see any status; the author sees their own pending post; everyone else only
+    # sees it once approved. Previously the status was never checked here.
+    if not can_moderate and post["status"] != "approved" and post["member"] != requester:
+        e.stream.write({"error": "errors.post_not_found"})
+        return
+
     post_data = dict(post)
     post_data["body_markdown"] = mochi.text.markdown(post["body"])
     post_data["attachments"] = mochi.attachment.list(post_id, forum_id)
@@ -6826,13 +6845,13 @@ def event_post_view(e):
         if depth > 100:
             return []
 
-        # Filter out removed comments for non-moderators
+        # Moderators see every status; others see approved plus their own pending.
         if can_moderate:
             comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
                 forum_id, post_id, parent_id)
         else:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and status!='removed' order by created desc",
-                forum_id, post_id, parent_id)
+            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+                forum_id, post_id, parent_id, requester)
 
         for c in comments:
             c["children"] = get_comments(c["id"], depth + 1)
