@@ -720,13 +720,23 @@ def event_moderator_notify(e):
     forum_id = e.header("from")
     if not mochi.text.valid(forum_id, "entity"):
         return
+    # Only accept a moderator notification for a forum we hold locally - i.e. one
+    # we subscribe to (moderating a forum requires a local subscription; see
+    # action_moderation_queue). Core authenticates "from" to an entity the sender
+    # owns, so this drops notifications forged by someone spamming from a forum of
+    # their own that we don't moderate.
+    if not get_forum(forum_id):
+        return
     topic = e.content("topic") or "moderation/queue"
     title = e.content("title") or ""
     body = e.content("body") or ""
-    url = e.content("url") or ""
     source = e.content("source") or ""
     if not title or not body:
         return
+    # Build the link locally rather than trusting a sender-supplied url, so a
+    # forged notification cannot carry an arbitrary click target.
+    fp = mochi.entity.fingerprint(forum_id) or forum_id
+    url = "/forums/" + fp + "/moderation"
     event_id = topic + ":" + (source or forum_id)
     notify(topic, forum_id, title, body, url, event_id=event_id)
 
@@ -4931,13 +4941,23 @@ def event_attachment_view(e):
 def event_mention_notify(e):
 	"""Member receives a mention notification from a forum owner."""
 	forum_id = e.header("from")
+	# Only accept a mention notification for a forum this user actually follows.
+	# Core authenticates "from" to an entity the sender owns, so this drops
+	# notifications forged by someone spamming from a forum of their own that we
+	# don't subscribe to. A genuine mention only ever targets a member, who by
+	# definition holds the forum locally.
+	if not get_forum(forum_id):
+		return
 	title = e.content("title") or ""
 	excerpt = e.content("excerpt") or ""
 	# This handler runs on the recipient's host, so mochi.app.label resolves in
 	# the recipient's own language.
 	author = e.content("author") or mochi.app.label("notifications.mention.author_unknown")
-	url = e.content("url") or "/forums"
 	post_id = e.content("post") or ""
+	# Build the link locally from the forum fingerprint rather than trusting a
+	# sender-supplied url, so a forged mention cannot carry an arbitrary target.
+	fp = mochi.entity.fingerprint(forum_id)
+	url = "/forums/" + fp if fp else "/forums"
 	event_id = "mention:" + (post_id or forum_id)
 	body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
 	notify("mention", forum_id, title, body, url, event_id=event_id)
