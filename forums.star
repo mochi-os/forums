@@ -2646,7 +2646,11 @@ def action_post_edit(a):
                     idx = int(item[4:])
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
-                else:
+                elif item in current_ids:
+                    # Only reorder attachments that already belong to this object.
+                    # Ignore arbitrary ids so a crafted order can't perturb another
+                    # object's attachment ranks (mochi.attachment.move is scoped to
+                    # the owner's app DB, but not to this object).
                     final_order.append(item)
 
             if final_order:
@@ -2707,7 +2711,11 @@ def action_post_edit(a):
                     idx = int(item[4:])
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
-                else:
+                elif item in current_ids:
+                    # Only reorder attachments that already belong to this object.
+                    # Ignore arbitrary ids so a crafted order can't perturb another
+                    # object's attachment ranks (mochi.attachment.move is scoped to
+                    # the owner's app DB, but not to this object).
                     final_order.append(item)
 
             # Determine which attachments to delete
@@ -3128,7 +3136,11 @@ def action_comment_edit(a):
                     idx = int(item[4:])
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
-                else:
+                elif item in current_ids:
+                    # Only reorder attachments that already belong to this object.
+                    # Ignore arbitrary ids so a crafted order can't perturb another
+                    # object's attachment ranks (mochi.attachment.move is scoped to
+                    # the owner's app DB, but not to this object).
                     final_order.append(item)
 
             if final_order:
@@ -5629,6 +5641,12 @@ def event_post_edit_submit_event(e):
     # Get current attachments and delete any not in the order list
     current_attachments = mochi.attachment.list(post_id, forum["id"])
     current_ids = [att["id"] for att in current_attachments]
+
+    # Ignore any id in the sender-supplied order that isn't an attachment of this
+    # post (newly-uploaded ones were just stored above, so they're in current_ids).
+    # mochi.attachment.move is scoped to the owner's app DB but not to this object,
+    # so an unfiltered order would let an author perturb another object's ranks.
+    order = [att_id for att_id in order if att_id in current_ids]
 
     # Delete attachments not in order (those being removed)
     for att_id in current_ids:
