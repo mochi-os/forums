@@ -4976,10 +4976,20 @@ def serve_attachment(a, variant):
             a.error.label(404, "errors.attachment_not_found")
             return
         obj = att.get("object")
-        in_forum = mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) or mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id)
-        if not in_forum:
+        # Bind the attachment to a post or comment in this forum, AND enforce that
+        # object's visibility: a removed post/comment (or someone else's pending)
+        # must not leak its files. Mirrors the action_post_view status gate.
+        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
+        if not target:
+            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+        if not target:
             a.error.label(404, "errors.attachment_not_found")
             return
+        if not check_access(a, forum_id, "moderate"):
+            user_id = a.user.identity.id if a.user else None
+            if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)):
+                a.error.label(404, "errors.attachment_not_found")
+                return
     # Remote forums we're a member of (server set): the owning server enforces
     # access and the binding when a.write.attachment fetches over P2P, and
     # per-user databases isolate one member from another.
@@ -5006,10 +5016,10 @@ def event_attachment_view(e):
         return
 
     # Check access for private forums only (public forums allow anyone to view attachments)
+    requester = e.header("from")
     entity = mochi.entity.info(forum_id)
     forum_privacy = entity.get("privacy", "public") if entity else "public"
     if forum_privacy == "private":
-        requester = e.header("from")
         if not check_event_access(requester, forum_id, "view"):
             e.stream.write({"status": "403", "error": "Not allowed to view this forum"})
             return
@@ -5024,10 +5034,18 @@ def event_attachment_view(e):
         e.stream.write({"status": "404", "error": "Attachment not found"})
         return
     obj = att.get("object")
-    in_forum = mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) or mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id)
-    if not in_forum:
+    # Bind to a post/comment in this forum AND enforce its visibility so a removed
+    # or others'-pending object's files are not fetchable. Mirrors serve_attachment.
+    target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
+    if not target:
+        target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+    if not target:
         e.stream.write({"status": "404", "error": "Attachment not found"})
         return
+    if not check_event_access(requester, forum_id, "moderate"):
+        if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == requester)):
+            e.stream.write({"status": "404", "error": "Attachment not found"})
+            return
 
     # Get the file path (thumbnail or original)
     if want_thumbnail:
@@ -5096,9 +5114,11 @@ def event_comment_create_event(e):
     up = e.content("up") or 0
     down = e.content("down") or 0
 
-    # If comment exists, update vote counts and mark as approved (for subscription sync and approval notification)
-    if mochi.db.exists("select id from comments where id=?", id):
-        mochi.db.execute("update comments set up=?, down=?, status='approved' where id=?", up, down, id)
+    # If comment exists, update vote counts and mark as approved (subscription sync
+    # / approval). Scope to the sending forum so another forum can't tamper with
+    # this forum's comment rows in your replica (cross-forum tampering).
+    if mochi.db.exists("select id from comments where id=? and forum=?", id, forum["id"]):
+        mochi.db.execute("update comments set up=?, down=?, status='approved' where id=? and forum=?", up, down, id, forum["id"])
         return
 
     post = e.content("post")
@@ -5126,7 +5146,8 @@ def event_comment_create_event(e):
     if created > now + 86400 or created < now - 31536000:
         return
 
-    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+    # insert or ignore (not replace): don't overwrite a colliding id from another forum.
+    mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, up, down, created)
 
     # Store attachment metadata from the event
@@ -5492,9 +5513,11 @@ def event_post_create_event(e):
     down = e.content("down") or 0
     comments_count = e.content("comments") or 0
 
-    # If post exists, update vote counts and status (for subscription sync and approval)
-    if mochi.db.exists("select id from posts where id=?", id):
-        mochi.db.execute("update posts set up=?, down=?, comments=?, status='approved' where id=?", up, down, comments_count, id)
+    # If post exists, update vote counts and status (for subscription sync and approval).
+    # Scope to the sending forum so a forum you also subscribe to cannot overwrite
+    # another forum's post counts/status in your replica (cross-forum tampering).
+    if mochi.db.exists("select id from posts where id=? and forum=?", id, forum["id"]):
+        mochi.db.execute("update posts set up=?, down=?, comments=?, status='approved' where id=? and forum=?", up, down, comments_count, id, forum["id"])
         return
 
     member = e.content("member")
@@ -5517,7 +5540,9 @@ def event_post_create_event(e):
     if created > now + 86400 or created < now - 31536000:
         return
 
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+    # insert or ignore (not replace): a genuinely new post inserts, but a colliding
+    # id that belongs to a different forum must not be overwritten/moved into this one.
+    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], member, name, title, body, up, down, comments_count, created, created)
 
     # Store attachment metadata from the event
@@ -5959,6 +5984,10 @@ def event_tag_add(e):
     qid = e.content("qid") or ""
     relevance = e.content("relevance") or 0
     source = e.content("source") or "manual"
+    # Scope to the sending forum: only tag an object that belongs to it, so another
+    # forum you subscribe to can't inject tags onto this forum's rows in your replica.
+    if not (mochi.db.exists("select 1 from posts where id=? and forum=?", object_id, forum["id"]) or mochi.db.exists("select 1 from comments where id=? and forum=?", object_id, forum["id"])):
+        return
     mochi.db.execute("insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)", tag_id, object_id, label, qid, relevance, source)
     mochi.db.commit.fire("tags", "insert", tag_id)
 
@@ -5972,7 +6001,9 @@ def event_tag_remove(e):
     object_id = e.content("object") or ""
     if not tag_id:
         return
-    mochi.db.execute("delete from tags where id=?", tag_id)
+    # Only delete a tag whose object belongs to the sending forum, so another forum
+    # can't remove this forum's tags from your replica (cross-forum tampering).
+    mochi.db.execute("delete from tags where id=? and (object in (select id from posts where forum=?) or object in (select id from comments where forum=?))", tag_id, forum["id"], forum["id"])
     broadcast_websocket(forum_id, {"type": "tag/remove", "forum": forum_id, "post": object_id, "tag": tag_id})
 
 # Received a subscribe request from member (we are forum owner)

@@ -162,6 +162,22 @@ check        "anonymous removed post tags hidden"   "$BASE/forums/$PUB/-/$REMOVE
 # A post from PUB requested through PRIV's route must not resolve (forum-scoped).
 check        "cross-forum post tags rejected"       "$BASE/forums/$PRIV/-/$PUB_POST/tags"    "$OWNER" 404
 
+# --- Removed post's attachments must not be served to non-moderators ---
+ATTFILE="$(dirname "${BASH_SOURCE[0]}")/.att-tmp"
+printf 'attachment-bytes' > "$ATTFILE"
+ATT_POST=$(curl -s -X POST "$BASE/forums/-/post/create" -H "Authorization: Bearer $OWNER" \
+    -F "forum=$PUB" -F "title=WithAtt" -F "body=b" -F "attachments=@$ATTFILE" \
+    | python3 -c "import sys,json;print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
+ATT_ID=$(curl -s -H "Authorization: Bearer $OWNER" "$BASE/forums/$PUB/-/$ATT_POST" \
+    | python3 -c "import sys,json;print(json.load(sys.stdin)['data']['post']['attachments'][0]['id'])" 2>/dev/null)
+curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" \
+    "$BASE/forums/$PUB/-/$ATT_POST/remove" -F "forum=$PUB" -F "post=$ATT_POST"
+rm -f "$ATTFILE"
+
+echo -e "\n${YELLOW}Removed post's attachment (non-moderators must not fetch it)${NC}"
+check "owner (moderator) fetches attachment" "$BASE/forums/$PUB/-/attachments/$ATT_ID?forum=$PUB" "$OWNER" 200
+check "anonymous removed attachment hidden"  "$BASE/forums/$PUB/-/attachments/$ATT_ID?forum=$PUB" ""       404
+
 # --- Clean up seeded data ---
 curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" "$BASE/forums/$PRIV/-/delete"
 curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" "$BASE/forums/$PUB/-/delete"
