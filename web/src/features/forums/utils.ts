@@ -11,20 +11,33 @@ const ALLOWED_IFRAME_HOSTS = [
   'player.vimeo.com',
 ]
 
-export const sanitizeHtml = (html: string): string => {
-  const preStripped = html.replace(
-    /<iframe\s[^>]*src=["']([^"']*)["'][^>]*>[\s\S]*?<\/iframe>/gi,
-    (match, src: string) => {
-      try {
-        const host = new URL(src).hostname
-        return ALLOWED_IFRAME_HOSTS.includes(host) ? match : ''
-      } catch {
-        return ''
-      }
-    },
-  )
+// Enforce the iframe host allowlist on the PARSED DOM, so an unquoted or oddly
+// formatted src can't slip a disallowed iframe past a regex. Registered around
+// each sanitize call so it doesn't leak into unrelated DOMPurify usage.
+const iframeHostFilter = (node: Node, data: { tagName: string }): void => {
+  if (data.tagName !== 'iframe') return
+  let host = ''
+  try {
+    host = new URL((node as Element).getAttribute('src') ?? '').hostname
+  } catch {
+    host = ''
+  }
+  if (!ALLOWED_IFRAME_HOSTS.includes(host)) {
+    node.parentNode?.removeChild(node)
+  }
+}
 
-  return DOMPurify.sanitize(preStripped, {
+export const sanitizeHtml = (html: string): string => {
+  DOMPurify.addHook('uponSanitizeElement', iframeHostFilter)
+  try {
+    return sanitizeWithConfig(html)
+  } finally {
+    DOMPurify.removeHook('uponSanitizeElement')
+  }
+}
+
+const sanitizeWithConfig = (html: string): string => {
+  return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
       'b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
       'code', 'pre', 'blockquote', 'img', 'figure', 'figcaption',
