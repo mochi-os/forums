@@ -243,6 +243,13 @@ def strip_forum_config(forum):
         forum.pop(key, None)
     return forum
 
+# Cap free-text moderation input (reasons, report details) so one field can't
+# approach the 1MB body limit. Truncates rather than rejecting: a reason/detail is
+# explanatory, and an over-long value is almost certainly a paste or abuse.
+def cap_text(text, limit=2000):
+    text = text or ""
+    return text[:limit]
+
 # Helper: Does the current user own this forum's entity?
 # Source of truth is core/users.db.entities — the private key bearer is the owner.
 def owned(forum_id):
@@ -420,6 +427,8 @@ def member_remove(member):
     for _row in mochi.db.rows("select forum, id from members where id=?", member) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
     for r in affected:
+        # Drop the removed member's votes too, aligning with event_unsubscribe_event.
+        mochi.db.execute("delete from votes where forum=? and voter=?", r["forum"], member)
         mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", r["forum"], mochi.time.now(), r["forum"])
 
 # error_broadcast_gap: core calls this when an unfillable broadcast gap was
@@ -860,7 +869,7 @@ def parse_unified_tag_response(text):
     if text.startswith("```"):
         lines = text.split("\n")
         text = "\n".join(lines[1:-1])
-    items = json.decode(text)
+    items = json.decode(text, None)
     if not items:
         return []
     result = []
@@ -953,7 +962,7 @@ def ai_tag_post(forum_id, post_id):
     if not forum or forum.get("ai_mode", "") == "":
         return
     account = resolve_ai_account(forum.get("ai_account", 0))
-    if account == 0:
+    if not account:
         return
     post = mochi.db.row("select id, title, body from posts where id=?", post_id)
     if not post:
@@ -1435,21 +1444,21 @@ def action_view(a):
                 tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
                 if can_moderate:
                     if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? order by p.pinned desc, " + p_order + " limit ?",
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? order by p.pinned desc, " + p_order + " limit ?",
                             forum["id"], valid_tags, before, limit + 1)
                     else:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " order by p.pinned desc, " + p_order + " limit ?",
                             forum["id"], valid_tags, limit + 1)
                 else:
                     if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.updated<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
+                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
                             forum["id"], valid_tags, before, user_id or "", limit + 1)
                     else:
                         posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
                             forum["id"], valid_tags, user_id or "", limit + 1)
         elif can_moderate:
             if before:
-                posts = mochi.db.rows("select * from posts where forum=? and updated<? order by pinned desc, " + order_by + " limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? and created<? order by pinned desc, " + order_by + " limit ?",
                     forum["id"], before, limit + 1)
             else:
                 posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, " + order_by + " limit ?",
@@ -1457,7 +1466,7 @@ def action_view(a):
         else:
             # Regular users see approved posts or their own pending posts
             if before:
-                posts = mochi.db.rows("select * from posts where forum=? and updated<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
+                posts = mochi.db.rows("select * from posts where forum=? and created<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
                     forum["id"], before, user_id or "", limit + 1)
             else:
                 posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
@@ -1490,10 +1499,12 @@ def action_view(a):
                 pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
                 p["user_vote"] = pv["vote"] if pv else ""
 
-        # Calculate next cursor
+        # Calculate next cursor. Must match the ORDER BY key (created), not
+        # updated: paginating on updated while ordering by created silently drops
+        # posts whose updated was bumped by a later vote/comment.
         next_cursor = None
         if has_more and len(posts) > 0:
-            next_cursor = posts[-1]["updated"]
+            next_cursor = posts[-1]["created"]
 
         # Re-rank by relevance if requested (ai = with AI reranking, interests = formula only)
         matches_info = []
@@ -1555,11 +1566,14 @@ def action_view(a):
 
         forums = mochi.db.rows("select * from forums order by updated desc")
         owned_ids = owned_set()
-        # Only show approved posts or user's own pending posts
+        # Only show approved posts or user's own pending posts. Bounded: this
+        # cross-forum landing view runs per-post queries (attachments, comment
+        # count, tags, vote), so an unbounded scan could approach the 90s Starlark
+        # cap on a large instance. The single-forum view paginates for older posts.
         if user_id:
-            posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by, user_id)
+            posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by + " limit 100", user_id)
         else:
-            posts = mochi.db.rows("select * from posts where status='approved' order by pinned desc, " + order_by)
+            posts = mochi.db.rows("select * from posts where status='approved' order by pinned desc, " + order_by + " limit 100")
 
         # Add fingerprint and access flags to each forum
         # For owned forums, check locally. For subscribed forums, skip remote
@@ -2360,9 +2374,7 @@ def action_unsubscribe(a):
         return
 
     # Delete all local data for this forum
-    mochi.db.execute("delete from votes where forum=?", forum["id"])
-    mochi.db.execute("delete from comments where forum=?", forum["id"])
-    mochi.db.execute("delete from posts where forum=?", forum["id"])
+    purge_forum_rows(forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
     rss_tokens_revoke(forum["id"])
@@ -2387,6 +2399,19 @@ def rss_tokens_revoke(entity_id):
         mochi.token.delete(r["token"])
     mochi.db.execute("delete from rss where entity=?", entity_id)
 
+# Delete every row scoped to a forum (owner delete, or a member dropping the local
+# replica on unsubscribe). tags key on post/comment id, so resolve them before the
+# posts/comments they reference are removed.
+def purge_forum_rows(forum_id):
+    mochi.db.execute("delete from tags where object in (select id from posts where forum=?) or object in (select id from comments where forum=?)", forum_id, forum_id)
+    mochi.db.execute("delete from score_cache where forum=?", forum_id)
+    mochi.db.execute("delete from reports where forum=?", forum_id)
+    mochi.db.execute("delete from restrictions where forum=?", forum_id)
+    mochi.db.execute("delete from moderation where forum=?", forum_id)
+    mochi.db.execute("delete from votes where forum=?", forum_id)
+    mochi.db.execute("delete from comments where forum=?", forum_id)
+    mochi.db.execute("delete from posts where forum=?", forum_id)
+
 # Delete a forum (owner only)
 def action_delete(a):
     if not a.user:
@@ -2405,9 +2430,7 @@ def action_delete(a):
         return
 
     # Delete all local data
-    mochi.db.execute("delete from votes where forum=?", forum["id"])
-    mochi.db.execute("delete from comments where forum=?", forum["id"])
-    mochi.db.execute("delete from posts where forum=?", forum["id"])
+    purge_forum_rows(forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
     rss_tokens_revoke(forum["id"])
@@ -2694,7 +2717,7 @@ def action_post_edit(a):
             # Handle attachment changes
             order_json = a.input("order")
             if order_json:
-                order = json.decode(order_json)
+                order = json.decode(order_json, None) or []
             else:
                 order = []
 
@@ -2705,7 +2728,7 @@ def action_post_edit(a):
             final_order = []
             for item in order:
                 if item.startswith("new:"):
-                    idx = int(item[4:])
+                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
                 elif item in current_ids:
@@ -2756,7 +2779,7 @@ def action_post_edit(a):
             # Handle attachments - save new ones and send to owner
             order_json = a.input("order")
             if order_json:
-                order = json.decode(order_json)
+                order = json.decode(order_json, None) or []
             else:
                 order = []
 
@@ -2770,7 +2793,7 @@ def action_post_edit(a):
             final_order = []
             for item in order:
                 if item.startswith("new:"):
-                    idx = int(item[4:])
+                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
                 elif item in current_ids:
@@ -2814,7 +2837,7 @@ def action_post_edit(a):
     # For remote forums, we can still send new attachments
     order_json = a.input("order")
     if order_json:
-        order = json.decode(order_json)
+        order = json.decode(order_json, None) or []
     else:
         order = []
 
@@ -2825,7 +2848,7 @@ def action_post_edit(a):
     final_order = []
     for item in order:
         if item.startswith("new:"):
-            idx = int(item[4:])
+            idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
             if idx < len(new_attachments):
                 final_order.append(new_attachments[idx]["id"])
         else:
@@ -3186,7 +3209,7 @@ def action_comment_edit(a):
             # `order` form field is a JSON array of "<existing-id>" or
             # "new:<index>" entries describing the desired final order.
             order_json = a.input("order")
-            order = json.decode(order_json) if order_json else []
+            order = json.decode(order_json, None) or [] if order_json else []
 
             current_attachments = mochi.attachment.list(comment_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
@@ -3195,7 +3218,7 @@ def action_comment_edit(a):
             final_order = []
             for item in order:
                 if item.startswith("new:"):
-                    idx = int(item[4:])
+                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
                     if idx < len(new_attachments):
                         final_order.append(new_attachments[idx]["id"])
                 elif item in current_ids:
@@ -3398,7 +3421,7 @@ def action_post_remove(a):
         return
 
     user = a.user.identity.id
-    reason = a.input("reason", "")
+    reason = cap_text(a.input("reason", ""))
     is_owner = owned(forum["id"])
 
     if is_owner:
@@ -3729,7 +3752,7 @@ def action_comment_remove(a):
         return
 
     user = a.user.identity.id
-    reason = a.input("reason", "")
+    reason = cap_text(a.input("reason", ""))
     is_owner = owned(forum["id"])
 
     if is_owner:
@@ -3896,7 +3919,7 @@ def action_restrict(a):
         a.error.label(400, "errors.invalid_restriction_type")
         return
 
-    reason = a.input("reason", "")
+    reason = cap_text(a.input("reason", ""))
     duration = a.input("duration")  # In seconds, None for permanent
     expires = None
     if duration:
@@ -4039,7 +4062,7 @@ def action_post_report(a):
         a.error.label(400, "errors.invalid_reason")
         return
 
-    details = a.input("details", "")
+    details = cap_text(a.input("details", ""))
     if reason == "other" and not details:
         a.error.label(400, "errors.details_required_for_other_reason")
         return
@@ -4104,7 +4127,7 @@ def action_comment_report(a):
         a.error.label(400, "errors.invalid_reason")
         return
 
-    details = a.input("details", "")
+    details = cap_text(a.input("details", ""))
     if reason == "other" and not details:
         a.error.label(400, "errors.details_required_for_other_reason")
         return
@@ -6932,8 +6955,10 @@ def event_view(e):
 # Handle access check request from subscribers
 def event_access_check(e):
     forum_id = e.header("to")
-    # Use user from content if provided, otherwise fall back to P2P header
-    requester = e.content("user") or e.header("from")
+    # The requester is the authenticated sender (core sets the stream "from" to the
+    # caller's identity). Do NOT trust a content-supplied user id: it would let any
+    # peer probe an arbitrary user's access/restriction status. Matches event_view.
+    requester = e.header("from")
     operations = e.content("operations") or []
 
     # Get entity info - must be a forum we own
@@ -7718,7 +7743,7 @@ def ai_rerank(forum_data, posts, interests):
     if not posts:
         return posts
     account = resolve_ai_account(forum_data.get("ai_account", 0))
-    if account == 0:
+    if not account:
         return posts
 
     # Only re-rank top 50 candidates
@@ -7779,7 +7804,7 @@ def ai_rerank(forum_data, posts, interests):
     if text.startswith("```"):
         lines = text.split("\n")
         text = "\n".join(lines[1:-1])
-    scores = json.decode(text)
+    scores = json.decode(text, None)
     if not scores:
         return candidates + rest
 
