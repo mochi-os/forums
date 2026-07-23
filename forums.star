@@ -1299,6 +1299,19 @@ def action_view(a):
             a.error.label(404, "errors.forum_not_found")
             return
 
+        # Enforce view access for private forums we own (public forums allow
+        # anyone). Mirrors serve_attachment: subscribed forums (server set) are
+        # gated by the owning server on the P2P read path above, and per-user
+        # databases keep other local users out. Without this a public HTTP
+        # caller could read a private forum's approved posts directly from the
+        # owner's node - the wildcard view grant was already revoked for private
+        # forums (database_upgrade v2), but this action never consulted it.
+        if not forum.get("server", ""):
+            entity = mochi.entity.info(forum["id"])
+            if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
+                a.error.label(403, "errors.not_allowed_to_view_this_forum")
+                return
+
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
 
@@ -2459,6 +2472,15 @@ def action_post_view(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
+
+    # Enforce view access for private forums we own (public forums allow
+    # anyone). Mirrors serve_attachment; subscribed forums (server set) are
+    # gated by the owning server on the P2P post/view path.
+    if not forum.get("server", ""):
+        entity = mochi.entity.info(forum["id"])
+        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
 
     is_owner = owned(forum["id"])
 
