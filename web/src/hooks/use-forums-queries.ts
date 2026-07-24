@@ -55,25 +55,6 @@ export function useForumsInfo() {
   })
 }
 
-export function useForumDetail(forumId: string | null, sort?: string) {
-  return useQuery({
-    queryKey: [...forumsKeys.detail(forumId!), sort],
-    queryFn: () => forumsApi.viewForum({ forum: forumId!, sort }),
-    enabled: !!forumId,
-    staleTime: 0,
-    refetchOnWindowFocus: false,
-  })
-}
-
-export function useForumSearch(searchTerm: string) {
-  return useQuery({
-    queryKey: forumsKeys.search(searchTerm),
-    queryFn: () => forumsApi.searchForums({ search: searchTerm }),
-    enabled: searchTerm.trim().length > 0,
-    refetchOnWindowFocus: false,
-  })
-}
-
 export function useForumAccess(
   forumId: string,
   options?: { enabled?: boolean }
@@ -84,15 +65,6 @@ export function useForumAccess(
     staleTime: 0,
     refetchOnWindowFocus: false,
     enabled: options?.enabled ?? true,
-  })
-}
-
-export function useForumRecommendations() {
-  return useQuery({
-    queryKey: forumsKeys.recommendations(),
-    queryFn: () => forumsApi.getRecommendations(),
-    retry: false,
-    refetchOnWindowFocus: false,
   })
 }
 
@@ -186,28 +158,6 @@ export function useUnsubscribeForum(onUnsubscribed?: () => void) {
       queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       onUnsubscribed?.()
     },
-  })
-}
-
-export function useSetAccess(forumId: string) {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: forumsApi.setAccess,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.access(forumId) })
-    },
-    onError: handleServerError,
-  })
-}
-
-export function useRevokeAccess(forumId: string) {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: forumsApi.revokeAccess,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.access(forumId) })
-    },
-    onError: handleServerError,
   })
 }
 
@@ -442,12 +392,6 @@ export function selectDefaultSort(
   data: Awaited<ReturnType<typeof forumsApi.listForums>> | undefined
 ): string {
   return data?.data?.settings?.sort ?? ''
-}
-
-export function selectSearchResults(
-  data: Awaited<ReturnType<typeof forumsApi.searchForums>> | undefined
-): DirectoryEntry[] {
-  return data?.data?.results || []
 }
 
 // ============================================================================

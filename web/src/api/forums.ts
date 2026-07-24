@@ -139,7 +139,6 @@ const forumsApi = {
   createForum: (payload: CreateForumRequest) =>
     client.post<CreateForumResponse>(endpoints.forums.create, payload),
 
-  findForums: () => client.get<FindForumsResponse>(endpoints.forums.find),
 
   searchForums: (params: SearchForumsParams) =>
     client.get<SearchForumsResponse>(endpoints.forums.search, {
@@ -152,7 +151,6 @@ const forumsApi = {
   probeForum: (params: ProbeForumRequest) =>
     client.post<ProbeForumResponse>(endpoints.forums.probe, { url: params.url }),
 
-  getNewForum: () => client.get<GetNewForumResponse>(endpoints.forums.new),
 
   subscribeForum: (forumId: string, server?: string, peer?: string) =>
     client.post<SubscribeForumResponse>(endpoints.forums.subscribe(forumId), {
@@ -175,11 +173,6 @@ const forumsApi = {
     ),
 
   // Posts
-  getNewPost: (params: GetNewPostParams) =>
-    client.get<GetNewPostResponse>(endpoints.forums.postNew, {
-      params: { forum: params.forum },
-    }),
-
   createPost: (payload: CreatePostRequest) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)
@@ -231,14 +224,6 @@ const forumsApi = {
     ),
 
   // Comments
-  getNewComment: (params: GetNewCommentParams) =>
-    client.get<GetNewCommentResponse>(
-      endpoints.forums.comment.new(params.forum, params.post),
-      {
-        params: omitUndefined({ parent: params.parent }),
-      }
-    ),
-
   createComment: (payload: CreateCommentRequest & { files?: File[] }) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)
@@ -363,10 +348,6 @@ const forumsApi = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
     return result.data?.members ?? []
-  },
-
-  checkSubscription: async (): Promise<{ data: { exists: boolean; types: string[] } }> => {
-    return client.get(endpoints.forums.notificationsCheck)
   },
 
   listGroups: async () => {
@@ -530,16 +511,6 @@ const forumsApi = {
       { label }
     )
     return res.data
-  },
-
-  removePostTag: (forumId: string, postId: string, tagId: string) =>
-    client.post(endpoints.forums.postTagsRemove(forumId, postId), { tag: tagId }),
-
-  getForumTags: async (forumId: string) => {
-    const res = await client.get<{ data: { tags: { label: string; count: number }[] } }>(
-      endpoints.forums.tags(forumId)
-    )
-    return res.data.tags ?? []
   },
 
   setAiSettings: (forumId: string, mode: string, account: string) => {

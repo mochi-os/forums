@@ -72,7 +72,7 @@ function addSaved(post: Post): void {
   })
 }
 
-export function removeSaved(id: string): void {
+function removeSaved(id: string): void {
   const previous = cache.find((item) => item.post.id === id)
   if (!previous) return
   cache = cache.filter((item) => item.post.id !== id)

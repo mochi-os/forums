@@ -34,14 +34,6 @@ export interface Forum {
   populated?: number
 }
 
-// Helper to safely get member count
-export function getMemberCount(
-  members: number | unknown[] | undefined
-): number {
-  if (typeof members === 'number') return members
-  if (Array.isArray(members)) return members.length
-  return 0
-}
 
 export interface Member {
   forum: string
