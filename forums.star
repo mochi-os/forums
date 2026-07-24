@@ -802,7 +802,9 @@ def action_post_asset(a):
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
-	row = mochi.db.row("select member from posts where id=?", a.input("post"))
+	# Bind the post to the route forum so this can't resolve a post (and its
+	# author) in a forum the URL doesn't name.
+	row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), a.input("forum"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
 # Proxy a comment author's person asset from the people service.
@@ -811,7 +813,8 @@ def action_comment_asset(a):
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
-	row = mochi.db.row("select member from comments where id=?", a.input("comment"))
+	# Bind the comment to the route forum.
+	row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), a.input("forum"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
@@ -5592,16 +5595,18 @@ def event_post_reject_event(e):
     if not mochi.text.valid(post_id, "id"):
         return
 
-    # Find the local pending row to know which forum to notify and to clean up.
-    row = mochi.db.row("select forum from posts where id=? and status='pending'", post_id)
+    # Only the forum the post was submitted to may reject it. Scope to the
+    # sending forum so a peer can't drop a pending post in another of the user's
+    # forums by guessing its (client-generated) id.
+    forum_id = e.header("from")
+    row = mochi.db.row("select id from posts where id=? and forum=? and status='pending'", post_id, forum_id)
     if not row:
         return
 
-    forum_id = row["forum"]
     reason = e.content("reason") or "server_error"
     detail = e.content("detail") or ""
 
-    mochi.db.execute("delete from posts where id=? and status='pending'", post_id)
+    mochi.db.execute("delete from posts where id=? and forum=? and status='pending'", post_id, forum_id)
 
     broadcast_websocket(forum_id, {
         "type": "post/reject",
@@ -6637,6 +6642,11 @@ def event_report_submit_event(e):
         return
 
     sender = e.header("from")
+    # Require view access before accepting a report - a peer that merely knows a
+    # target id shouldn't be able to file reports on a private forum. Matches the
+    # other owner-path handlers.
+    if not check_event_access(sender, forum["id"], "view"):
+        return
     report_id = e.content("id")
     report_type = e.content("type")
     target = e.content("target")
@@ -6863,8 +6873,11 @@ def event_schema(e):
 # Insert forum schema data into local database
 def insert_forum_schema(forum_id, schema):
     for p in (schema.get("posts") or []):
+        # insert or ignore (not replace): the dump comes from the forum owner, who
+        # could name an id that already exists in another of the user's forums;
+        # replace would delete that foreign row and move it into this forum.
         mochi.db.execute(
-            "replace into posts (id, forum, member, name, title, body, up, down, comments, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
             p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
             p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
@@ -6873,6 +6886,9 @@ def insert_forum_schema(forum_id, schema):
         if atts:
             mochi.attachment.store(atts, forum_id, p.get("id", ""))
     for c in (schema.get("comments") or []):
+        # Only accept a comment whose post is a post in THIS forum.
+        if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
+            continue
         mochi.db.execute(
             "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
@@ -6883,9 +6899,13 @@ def insert_forum_schema(forum_id, schema):
         if atts:
             mochi.attachment.store(atts, forum_id, c.get("id", ""))
     for t in (schema.get("tags") or []):
+        # Only tag a post or comment that belongs to this forum.
+        obj = t.get("object", "")
+        if not mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) and not mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id):
+            continue
         mochi.db.execute(
             "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)",
-            t.get("id", ""), t.get("object", ""), t.get("label", ""),
+            t.get("id", ""), obj, t.get("label", ""),
             t.get("qid", ""), t.get("relevance", 0.0), t.get("source", "manual")
         )
 

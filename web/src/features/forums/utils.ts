@@ -45,10 +45,14 @@ const sanitizeWithConfig = (html: string): string => {
       'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'del', 'sup',
       'sub', 'details', 'summary',
     ],
+    // No 'style': author-supplied inline styles are a clickjacking-overlay
+    // vector (position:fixed/opacity), and DOMPurify doesn't strip those. The
+    // app's own video-embed styles are added by embedVideos AFTER sanitizing,
+    // so they're unaffected; images size via width/height.
     ALLOWED_ATTR: [
       'href', 'target', 'rel', 'class', 'src', 'alt', 'title',
       'width', 'height', 'allow', 'allowfullscreen', 'frameborder',
-      'style', 'id', 'colspan', 'rowspan',
+      'id', 'colspan', 'rowspan',
     ],
     ADD_ATTR: ['target'],
   })
