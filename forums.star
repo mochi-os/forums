@@ -315,10 +315,13 @@ def check_access(a, forum_id, operation):
                 if user_level and operation in ACCESS_LEVELS and user_level in ACCESS_LEVELS:
                     if ACCESS_LEVELS.index(user_level) >= ACCESS_LEVELS.index(operation):
                         return True
-                # User-specific rule doesn't grant access, but continue to check member fallback
-                break
+                # User-specific rule exists but doesn't grant this operation. The
+                # explicit rule is authoritative: don't fall through to the wildcard
+                # grants below, so a user capped at e.g. "view" can't gain "post" via
+                # a "+" wildcard. Matches check_event_access (reconciled, #24).
+                return False
 
-    # No user-specific rule or it didn't grant access - use normal access checks
+    # No user-specific rule - use the normal wildcard/level access checks
     if operation in ACCESS_LEVELS:
         op_index = ACCESS_LEVELS.index(operation)
         for level in ACCESS_LEVELS[op_index:]:
