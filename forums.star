@@ -41,6 +41,10 @@ def enrich_tags(tags, interest_map):
 # "none" means no access (user has no rules or explicit deny).
 ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 
+# Entity of the shared forum-recommendations service (queried over P2P by
+# action_recommendations). Kept as one constant so the id isn't duplicated.
+RECOMMENDATIONS_ENTITY = "1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P"
+
 # ---- Saved posts ----
 #
 # A user's saved ("read later") posts are private per-user data living in this
@@ -1971,7 +1975,7 @@ def action_recommendations(a):
         existing_ids.add(f["id"])
 
     # Connect to recommendations service
-    s = mochi.remote.stream("1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P", "recommendations", "list", {"type": "forum", "language": "en"})
+    s = mochi.remote.stream(RECOMMENDATIONS_ENTITY, "recommendations", "list", {"type": "forum", "language": "en"})
     if not s:
         return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
 
@@ -1985,7 +1989,7 @@ def action_recommendations(a):
         return {"data": {"forums": []}}
 
     # Get the server location from the recommendations entity so subscribers can reach the forums
-    rec_dir = mochi.directory.get("1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P")
+    rec_dir = mochi.directory.get(RECOMMENDATIONS_ENTITY)
     rec_server = ""
     if rec_dir:
         rec_server = rec_dir.get("location", "")
