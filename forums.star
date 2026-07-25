@@ -827,9 +827,15 @@ def action_post_asset(a):
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
+	# Public route - gate on view access first, or knowing a post id confirms
+	# that identity posted in a private forum.
+	forum_id = a.input("forum")
+	if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
+		a.error.label(403, "errors.not_allowed_to_view_this_forum")
+		return
 	# Bind the post to the route forum so this can't resolve a post (and its
 	# author) in a forum the URL doesn't name.
-	row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), a.input("forum"))
+	row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), forum_id)
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
 # Proxy a comment author's person asset from the people service.
@@ -838,8 +844,13 @@ def action_comment_asset(a):
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
+	# Public route - gate on view access first (see action_post_asset).
+	forum_id = a.input("forum")
+	if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
+		a.error.label(403, "errors.not_allowed_to_view_this_forum")
+		return
 	# Bind the comment to the route forum.
-	row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), a.input("forum"))
+	row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), forum_id)
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
