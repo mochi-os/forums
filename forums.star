@@ -1970,6 +1970,15 @@ def action_search(a):
     return {"data": {"results": results}}
 
 # Get recommended forums from the recommendations service
+# Read the user's BCP 47 language tag, or "en" if unset / anonymous
+def user_language(a):
+    if not a.user:
+        return "en"
+    preference = a.user.preference.get("language")
+    if not preference:
+        return "en"
+    return str(preference).strip().lower()
+
 def action_recommendations(a):
     # Get user's existing forums (owned or subscribed)
     existing_ids = set()
@@ -1978,7 +1987,7 @@ def action_recommendations(a):
         existing_ids.add(f["id"])
 
     # Connect to recommendations service
-    s = mochi.remote.stream(RECOMMENDATIONS_ENTITY, "recommendations", "list", {"type": "forum", "language": "en"})
+    s = mochi.remote.stream(RECOMMENDATIONS_ENTITY, "recommendations", "list", {"type": "forum", "language": user_language(a)})
     if not s:
         return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
 
