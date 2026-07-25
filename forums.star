@@ -334,6 +334,31 @@ def check_access(a, forum_id, operation):
 
     return False
 
+# Helper: may this caller view this forum?
+#
+# For a forum this host holds, the access rules are authoritative: check_access
+# derives its subject from a.user, so an anonymous caller is tested against the
+# "*" grant alone - a public forum carries it, a private one does not.
+#
+# A REPLICA of a remote forum carries no local access rules at all (subscribe
+# grants none) and check_access has no membership short-circuit, so a member's
+# own subscription is authorised by membership instead. That fallback is
+# deliberately limited to forums we do NOT host, so a stale members row can
+# never override a revoked grant on a forum we do.
+#
+# Never gate on mochi.entity.info()'s privacy field: it returns None for a
+# remote entity, which read as "public" and silently made the old checks a
+# no-op on every replica - anonymous callers were served subscribed private
+# forums' posts, comments and attachments. Here entity.info is used only as a
+# host-scoped "do we hold this entity" test (entity_by_any), which is what it
+# reliably answers.
+def can_view_forum(a, forum_id, user_id):
+    if check_access(a, forum_id, "view"):
+        return True
+    if not user_id or mochi.entity.info(forum_id) != None:
+        return False
+    return mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id)
+
 # Helper: Check if remote user (from event header) has access to perform an operation
 # Uses same hierarchical levels as check_access.
 def check_event_access(user_id, forum_id, operation):
@@ -1262,18 +1287,15 @@ def action_information_entity(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    # Enforce view access for private forums we own (public forums allow anyone).
-    # Mirrors action_view / serve_attachment; the P2P twin event_information gates
-    # the same way. Without this a public HTTP caller could read a private forum's
-    # name, banner, and metadata directly from the owner's node.
-    if not forum.get("server", ""):
-        entity = mochi.entity.info(forum["id"])
-        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
-            a.error.label(403, "errors.not_allowed_to_view_this_forum")
-            return
-
     is_owner = owned(forum["id"])
     user_id = a.user.identity.id if a.user else None
+
+    # Enforce view access for forums we host AND for replicas. Without this an
+    # anonymous caller could read a private forum's name, banner and metadata -
+    # directly from the owner's node, or out of a subscriber's replica.
+    if not can_view_forum(a, forum["id"], user_id):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
 
     # Determine permissions for current user
     if is_owner:
@@ -1383,18 +1405,13 @@ def action_view(a):
             a.error.label(404, "errors.forum_not_found")
             return
 
-        # Enforce view access for private forums we own (public forums allow
-        # anyone). Mirrors serve_attachment: subscribed forums (server set) are
-        # gated by the owning server on the P2P read path above, and per-user
-        # databases keep other local users out. Without this a public HTTP
-        # caller could read a private forum's approved posts directly from the
-        # owner's node - the wildcard view grant was already revoked for private
-        # forums (database_upgrade v2), but this action never consulted it.
-        if not forum.get("server", ""):
-            entity = mochi.entity.info(forum["id"])
-            if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
-                a.error.label(403, "errors.not_allowed_to_view_this_forum")
-                return
+        # Enforce view access for forums we host AND for replicas. Without this
+        # an anonymous caller could read a private forum's posts - directly from
+        # the owner's node, or out of a subscriber's replica, which is what the
+        # old "we own it" precondition let through on every subscription.
+        if not can_view_forum(a, forum["id"], user_id):
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
 
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
@@ -2580,14 +2597,12 @@ def action_post_view(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    # Enforce view access for private forums we own (public forums allow
-    # anyone). Mirrors serve_attachment; subscribed forums (server set) are
-    # gated by the owning server on the P2P post/view path.
-    if not forum.get("server", ""):
-        entity = mochi.entity.info(forum["id"])
-        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
-            a.error.label(403, "errors.not_allowed_to_view_this_forum")
-            return
+    # Enforce view access for forums we host AND for replicas. Without this an
+    # anonymous caller could read a private forum's post and its comments out of
+    # a subscriber's replica.
+    if not can_view_forum(a, forum["id"], user_id):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
 
     is_owner = owned(forum["id"])
 
@@ -2607,14 +2622,25 @@ def action_post_view(a):
             if can_comment and check_restriction(forum["id"], user_id, "comment"):
                 can_comment = False
     else:
-        # Query owner for access permissions
-        access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-            "operations": ["vote", "comment", "moderate"],
-            "user": user_id,
-        })
-        can_vote = access_response.get("vote", False)
-        can_comment = access_response.get("comment", False)
-        can_moderate = access_response.get("moderate", False)
+        can_vote = False
+        can_comment = False
+        can_moderate = False
+        # Only ask the owner on behalf of a REAL authenticated caller. For an
+        # anonymous request to a public action core substitutes the entity owner
+        # as the effective user, so mochi.remote.request would carry the local
+        # subscriber's identity and the owner would answer with THEIR
+        # permissions - handing an anonymous caller a moderator's view,
+        # including removed and shadowbanned posts and comments (the status
+        # filters below key off can_moderate). action_view and
+        # action_information_entity already guard the same call this way.
+        if user_id:
+            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
+                "operations": ["vote", "comment", "moderate"],
+                "user": user_id,
+            })
+            can_vote = access_response.get("vote", False)
+            can_comment = access_response.get("comment", False)
+            can_moderate = access_response.get("moderate", False)
 
     # Non-moderators may only view an approved post, or their own PENDING post;
     # removed/shadowbanned and others' pending posts are hidden. Without this an
@@ -5021,14 +5047,9 @@ def serve_attachment(a, variant):
     # check_access derives its subject from a.user, so an anonymous caller is
     # tested against the "*" grant alone - a public forum we own carries it, a
     # private one does not.
-    if not check_access(a, forum_id, "view"):
-        # A replica carries no local access rules (subscribe grants none) and
-        # check_access has no membership short-circuit, so authorise a member's
-        # own subscription by membership. Requires a real authenticated user,
-        # never an ambient owner.
-        if not user_id or not mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id):
-            a.error.label(403, "errors.not_allowed_to_view_this_forum")
-            return
+    if not can_view_forum(a, forum_id, user_id):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
 
     att = mochi.attachment.get(attachment)
     if not att:
