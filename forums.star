@@ -1138,13 +1138,12 @@ def action_tags_list(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    # Enforce view access for private forums we own (mirrors action_post_view);
-    # subscribed forums (server set) are gated by the owning server.
-    if not forum.get("server", ""):
-        entity = mochi.entity.info(forum["id"])
-        if entity and entity.get("privacy", "public") == "private" and not check_access(a, forum["id"], "view"):
-            a.error.label(403, "errors.not_allowed_to_view_this_forum")
-            return
+    # Enforce view access for forums we host AND for replicas. The old gate
+    # read mochi.entity.info(), which returns None for a remote entity and so
+    # resolved to "public", making this a no-op on every subscription.
+    if not can_view_forum(a, forum["id"], a.user.identity.id if a.user and a.user.identity else None):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
 
     # Scope the post to the named forum so an arbitrary post id can't be read, and
     # hide a removed or others'-pending post's tags from non-moderators.
