@@ -5006,36 +5006,49 @@ def serve_attachment(a, variant):
     attachment = a.input("id")
     forum_id = a.input("forum")
     forum = mochi.db.row("select * from forums where id=?", forum_id)
-    if forum and not forum.get("server", ""):
-        # We own this forum: enforce access for private forums (public forums
-        # allow anyone), then bind the attachment to a post or comment in it.
-        entity = mochi.entity.info(forum_id)
-        privacy = entity.get("privacy", "public") if entity else "public"
-        if privacy == "private" and not check_access(a, forum_id, "view"):
+    if not forum:
+        a.error.label(404, "errors.attachment_not_found")
+        return
+    user_id = a.user.identity.id if a.user and a.user.identity else None
+
+    # The gate and the binding both run for forums we own AND for replicas.
+    # Never defer to "the owning server enforces access when a.write.attachment
+    # fetches over P2P": that holds only until the bytes are cached locally,
+    # after which core serves them from disk and the owner is never consulted
+    # again - so a revoked or deleted source keeps serving. Do not gate on
+    # mochi.entity.info() either: it returns None for a remote entity, which
+    # read as "public" and made the check a no-op on every replica.
+    # check_access derives its subject from a.user, so an anonymous caller is
+    # tested against the "*" grant alone - a public forum we own carries it, a
+    # private one does not.
+    if not check_access(a, forum_id, "view"):
+        # A replica carries no local access rules (subscribe grants none) and
+        # check_access has no membership short-circuit, so authorise a member's
+        # own subscription by membership. Requires a real authenticated user,
+        # never an ambient owner.
+        if not user_id or not mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id):
             a.error.label(403, "errors.not_allowed_to_view_this_forum")
             return
-        att = mochi.attachment.get(attachment)
-        if not att:
+
+    att = mochi.attachment.get(attachment)
+    if not att:
+        a.error.label(404, "errors.attachment_not_found")
+        return
+    obj = att.get("object")
+    # Bind the attachment to a post or comment in this forum, AND enforce that
+    # object's visibility: a removed post/comment (or someone else's pending)
+    # must not leak its files. Mirrors the action_post_view status gate.
+    target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
+    if not target:
+        target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+    if not target:
+        a.error.label(404, "errors.attachment_not_found")
+        return
+    if not check_access(a, forum_id, "moderate"):
+        if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)):
             a.error.label(404, "errors.attachment_not_found")
             return
-        obj = att.get("object")
-        # Bind the attachment to a post or comment in this forum, AND enforce that
-        # object's visibility: a removed post/comment (or someone else's pending)
-        # must not leak its files. Mirrors the action_post_view status gate.
-        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
-        if not target:
-            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
-        if not target:
-            a.error.label(404, "errors.attachment_not_found")
-            return
-        if not check_access(a, forum_id, "moderate"):
-            user_id = a.user.identity.id if a.user else None
-            if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)):
-                a.error.label(404, "errors.attachment_not_found")
-                return
-    # Remote forums we're a member of (server set): the owning server enforces
-    # access and the binding when a.write.attachment fetches over P2P, and
-    # per-user databases isolate one member from another.
+
     a.write.attachment(attachment, variant=variant)
 
 # EVENTS
