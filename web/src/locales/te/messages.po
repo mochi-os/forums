@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# కొత్త పోస్ట్} other {# కొత్త పోస్ట్‌లు}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ఎంచుకోబడింది} other {# ఎంచుకోబడ్డాయి}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# అంశం ఆమోదించబడింద
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# అంశం తిరస్కరించబడింది} other {# అంశాలు తిరస్కరించబడ్డాయి}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "{entityLabel} పేరు"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} ఎంచుకోబడింది} other {{manyName} ఎంచుకోబడ్డాయి}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} ఎంచుకోబడింది. బల్క్ చర్యల టూల్‌బార్ అందుబాటులో ఉంది.} other {# {manyName} ఎంచుకోబడ్డాయి. బల్క్ చర్యల టూల్‌బార్ అందుబాటులో ఉంది.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# ఎంచుకోబడింది} other {# ఎంచుకోబడింది}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {# ఎంచుకున్న {entityName} కోసం బల్క్ చర్యలు} other {# ఎంచుకున్న {manyName} కోసం బల్క్ చర్యలు}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "ఫోరమ్‌కి తిరిగి"
 msgid "Back to forums"
 msgstr "ఫోరమ్‌లకు తిరిగి"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "హోమ్‌కు తిరిగి వెళ్ళండి"
 
@@ -346,7 +368,7 @@ msgstr "{0} ద్వారా"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "అన్నీ క్లియర్ చేయండి"
 msgid "Clear all saved posts?"
 msgstr "సేవ్ చేసిన అన్ని పోస్ట్‌లను క్లియర్ చేయాలా?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "ఫిల్టర్‌లను క్లియర్ చేయండి"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "ఎంపికను క్లియర్ చేయండి"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "ఎంపికను క్లియర్ చేయండి (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "సేవ్ చేసిన పోస్ట్‌లను క్లియర్ చేస్తోంది..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "మూసివేయండి"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "నావిగేషన్‌ను మూసివేయండి"
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "అనుకూల"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "డార్క్"
@@ -597,6 +621,10 @@ msgstr "డార్క్ మోడ్"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "డేటా వైరుధ్యం"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "రోజులు"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -694,8 +722,8 @@ msgstr "బ్యానర్‌ను విస్మరించండి"
 msgid "Displays the mobile sidebar."
 msgstr "మొబైల్ సైడ్‌బార్‌ను ప్రదర్శిస్తుంది."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "డౌన్‌లోడ్"
 
@@ -823,6 +851,10 @@ msgstr "ఫోరమ్‌లను లోడ్ చేయడంలో విఫ
 msgid "Failed to load groups"
 msgstr "సమూహాలను లోడ్ చేయడంలో విఫలమైంది"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "చిత్రాన్ని లోడ్ చేయడంలో విఫలమైంది"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "మోడరేషన్ లాగ్‌ను లోడ్ చేయడంలో విఫలమైంది"
@@ -846,6 +878,10 @@ msgstr "నివేదికలను లోడ్ చేయడంలో వి
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "పరిమితులను లోడ్ చేయడంలో విఫలమైంది"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "వీడియోను లోడ్ చేయడంలో విఫలమైంది"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -1050,29 +1086,29 @@ msgstr "థీమ్ నుండి"
 msgid "Full layout"
 msgstr "పూర్తి లేఅవుట్"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "వెనక్కి వెళ్ళండి"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "మొదటి పేజీకి వెళ్ళండి"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "చివరి పేజీకి వెళ్ళండి"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "తదుపరి పేజీకి వెళ్ళండి"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "పేజీ {pageNumber}కి వెళ్ళండి"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "మునుపటి పేజీకి వెళ్ళండి"
 
@@ -1113,6 +1149,11 @@ msgstr "హాట్"
 msgid "Identity"
 msgstr "గుర్తింపు"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "చిత్ర వీక్షకం: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "ఇంపీరియల్"
@@ -1142,6 +1183,10 @@ msgstr "ఆసక్తులు"
 msgid "Invalid verification code"
 msgstr "చెల్లని ధృవీకరణ కోడ్"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "మీరు వెతుకుతున్న పేజీ <0/>లేదు లేదా తీసివేయబడి ఉండవచ్చు."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "ఎడమ నుండి కుడికి"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "లైట్"
@@ -1216,8 +1262,8 @@ msgstr "విజయవంతంగా లాగ్ అవుట్ అయ్య
 msgid "Logging out…"
 msgstr "లాగ్ అవుట్ చేస్తోంది…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "అన్నింటినీ చదివినట్లు గుర్తించండి"
@@ -1329,8 +1375,8 @@ msgstr "కొత్త థ్రెడ్‌లు ఆమోదించబడ�
 msgid "New user threshold:"
 msgstr "కొత్త వినియోగదారు థ్రెషోల్డ్:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "తదుపరి చిత్రం"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "పరిమితులు లేవు"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "ఫలితాలు ఏవీ కనుగొనబడలేదు."
 
@@ -1434,6 +1480,11 @@ msgstr "ఇంకా ఏదీ సేవ్ చేయబడలేదు"
 msgid "Notifications"
 msgstr "నోటిఫికేషన్‌లు"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "నోటిఫికేషన్‌లు: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1481,6 +1532,11 @@ msgstr "ఇతర"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "ఓనర్"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "పేజీ {currentPage} / {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1538,6 +1594,10 @@ msgstr "కామెంట్ ఎంటర్ చేయండి"
 #: src/features/forums/thread-detail.tsx:253
 msgid "Please enter a reply"
 msgstr "రిప్లై ఎంటర్ చేయండి"
+
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "ఈ వనరును యాక్సెస్ చేయడానికి <0/> దయచేసి సరైన ఆధారాలతో లాగిన్ చేయండి."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1603,6 +1663,10 @@ msgstr "పోస్ట్ అప్‌డేట్ చేయబడింది"
 msgid "Post, comment, vote, and view"
 msgstr "పోస్ట్, వ్యాఖ్య, ఓటు, వీక్షణ"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "పోస్ట్‌లు"
+
 #: src/components/options-menu.tsx:134
 msgid "Posts"
 msgstr "పోస్ట్‌లు"
@@ -1619,8 +1683,8 @@ msgstr "ప్రీ-మోడరేషన్"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "యూజర్‌లు ఎంత తరచుగా పోస్ట్ చేయగలరో పరిమితం చేయడం ద్వారా స్పామ్‌ను నిరోధించండి"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "మునుపటి చిత్రం"
 
@@ -1729,6 +1793,11 @@ msgstr "తొలగించండి"
 msgid "Remove access rule"
 msgstr "యాక్సెస్ నియమాన్ని తొలగించండి"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "\"{0}\" కోసం యాక్సెస్ నియమాన్ని తీసివేయాలా?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "యాక్సెస్‌ను తొలగించాలా?"
@@ -1777,6 +1846,10 @@ msgstr "తొలగిస్తోంది..."
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Renaming forum..."
 msgstr "ఫోరమ్ పేరు మారుస్తోంది..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "ప్రత్యుత్తరాలు"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1883,7 +1956,7 @@ msgstr "యాక్సెస్ ఉపసంహరించు"
 msgid "Right to Left"
 msgstr "కుడి నుండి ఎడమకు"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "ఒక్కో పేజీకి వరుసలు"
 
@@ -1979,6 +2052,10 @@ msgstr "శోధించండి..."
 msgid "Searching..."
 msgstr "శోధిస్తోంది..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "సెకన్లు"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "ఈ వ్యాఖ్యను నివేదించడానికి కారణాన్ని ఎంచుకోండి. నివేదికలను మోడరేటర్లు సమీక్షిస్తారు."
@@ -2027,7 +2104,16 @@ msgstr "సైట్ దిశను ఎంచుకోండి"
 msgid "Select theme preference"
 msgstr "థీమ్ ప్రాధాన్యతను ఎంచుకోండి"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "ఎంచుకోబడింది"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "ఎంచుకోబడింది: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "మళ్ళీ పంపండి"
 
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "ఆదివారం"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "ఆ కోడ్ తప్పు లేదా గడువు ముగ�
 msgid "The requested content could not be found."
 msgstr "అభ్యర్థించిన కంటెంట్ కనుగొనబడలేదు."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "సైట్ ప్రస్తుతం అందుబాటులో లేదు."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "థీమ్"
@@ -2226,6 +2317,10 @@ msgstr "ఈ ఫోరం ఇప్పుడు లోడ్ చేయలేక�
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ఈ ఫోరం తొలగించబడి ఉండవచ్చు లేదా మీకు దానికి యాక్సెస్ లేదు."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "ఈ పేజీ ఇంకా సృష్టించబడలేదు."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2264,6 +2359,10 @@ msgstr "గురువారం"
 #: src/features/forums/components/edit-post-dialog.tsx:230
 msgid "Title"
 msgstr "శీర్షిక"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "కు"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2418,7 +2517,7 @@ msgstr "యూజర్ మ్యూట్ చేయబడ్డారు"
 msgid "Variables: {variables}"
 msgstr "వేరియబుల్‌లు: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "ధృవీకరణ కోడ్"
 
@@ -2432,7 +2531,7 @@ msgstr "ధృవీకరణ విఫలమైంది"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ధృవీకరించండి"
 
@@ -2444,6 +2543,11 @@ msgstr "ఇమెయిల్ చిరునామాను ధృవీకర�
 msgid "Video thumbnail"
 msgstr "వీడియో థంబ్‌నెయిల్"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "వీడియో వీక్షకం: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "వీక్షించండి"
@@ -2452,8 +2556,8 @@ msgstr "వీక్షించండి"
 msgid "View all"
 msgstr "అన్నీ వీక్షించండి"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "అన్ని నోటిఫికేషన్‌లను వీక్షించండి"
 
@@ -2469,6 +2573,11 @@ msgstr "హింస"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "ఓటు మరియు వీక్షణ"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "మేము <0>{0}</0> కు ధృవీకరణ కోడ్‌ను పంపాము. మీ ఇమెయిల్ చిరునామాను ధృవీకరించడానికి క్రింద కోడ్‌ను నమోదు చేయండి."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2504,6 +2613,10 @@ msgstr "ఈ ఫోరమ్‌లో పోస్ట్ చేయడం ను�
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "ఈ విభాగానికి మీకు యాక్సెస్ లేదు."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "ఈ వనరును వీక్షించడానికి <0/>మీకు అవసరమైన అనుమతి లేదు."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

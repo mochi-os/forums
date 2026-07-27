@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# новая публикация} few {# новые публикации} many {# новых публикаций} other {# новой публикации}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# выбран} few {# выбрано} many {# выбрано} other {# выбрано}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {Одобрен # элемент} few {Одобре�
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Отклонён # элемент} few {Отклонено # элементов} many {Отклонено # элементов} other {Отклонено # элементов}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Название {entityLabel}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {Выбран {entityName}} few {Выбрано {manyName}} many {Выбрано {manyName}} other {Выбрано {manyName}}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {Выбран # {entityName}. Панель массовых действий доступна.} few {Выбрано # {manyName}. Панель массовых действий доступна.} many {Выбрано # {manyName}. Панель массовых действий доступна.} other {Выбрано # {manyName}. Панель массовых действий доступна.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# выбрано} few {# выбрано} many {# выбрано} other {# выбрано}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Массовые действия для # выбранного {entityName}} few {Массовые действия для # выбранных {manyName}} many {Массовые действия для # выбранных {manyName}} other {Массовые действия для # выбранного {manyName}}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "Назад к форуму"
 msgid "Back to forums"
 msgstr "Назад к форумам"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "На главную"
 
@@ -346,7 +368,7 @@ msgstr "От {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "Очистить всё"
 msgid "Clear all saved posts?"
 msgstr "Очистить все сохранённые публикации?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Очистить фильтры"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Сбросить выбор"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Сбросить выбор (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "Очистка сохранённых публикаций..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Закрыть навигацию"
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "Пользовательский"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Тёмная"
@@ -597,6 +621,10 @@ msgstr "Тёмный режим"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "Конфликт данных"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "дней"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -694,8 +722,8 @@ msgstr "Закрыть баннер"
 msgid "Displays the mobile sidebar."
 msgstr "Отображает мобильную боковую панель."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Скачать"
 
@@ -823,6 +851,10 @@ msgstr "Не удалось загрузить форумы"
 msgid "Failed to load groups"
 msgstr "Не удалось загрузить группы"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Не удалось загрузить изображение"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "Не удалось загрузить журнал модерации"
@@ -846,6 +878,10 @@ msgstr "Не удалось загрузить жалобы"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "Не удалось загрузить ограничения"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Не удалось загрузить видео"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -1050,29 +1086,29 @@ msgstr "Из темы"
 msgid "Full layout"
 msgstr "Полный макет"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Назад"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Перейти на первую страницу"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Перейти на последнюю страницу"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Перейти на следующую страницу"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Перейти на страницу {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Перейти на предыдущую страницу"
 
@@ -1113,6 +1149,11 @@ msgstr "Популярное"
 msgid "Identity"
 msgstr "Личность"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Просмотр изображений: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Имперская"
@@ -1142,6 +1183,10 @@ msgstr "Интересы"
 msgid "Invalid verification code"
 msgstr "Недопустимый код подтверждения"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Похоже, страница, которую вы ищете, <0/>не существует или была удалена."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "Слева направо"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Светлая"
@@ -1216,8 +1262,8 @@ msgstr "Выход выполнен успешно"
 msgid "Logging out…"
 msgstr "Выход…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Отметить все как прочитанное"
@@ -1329,8 +1375,8 @@ msgstr "Новые темы должны быть одобрены"
 msgid "New user threshold:"
 msgstr "Порог нового пользователя:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Следующее изображение"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "Нет ограничений"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Результаты не найдены."
 
@@ -1434,6 +1480,11 @@ msgstr "Пока ничего не сохранено"
 msgid "Notifications"
 msgstr "Уведомления"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Уведомления: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1481,6 +1532,11 @@ msgstr "Другое"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "Владелец"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Страница {currentPage} из {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1538,6 +1594,10 @@ msgstr "Пожалуйста, введите комментарий"
 #: src/features/forums/thread-detail.tsx:253
 msgid "Please enter a reply"
 msgstr "Пожалуйста, введите ответ"
+
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Пожалуйста, войдите с соответствующими учётными данными, <0/> чтобы получить доступ к этому ресурсу."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1603,6 +1663,10 @@ msgstr "Публикация обновлена"
 msgid "Post, comment, vote, and view"
 msgstr "Публикация, комментирование, голосование и просмотр"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "публикаций"
+
 #: src/components/options-menu.tsx:134
 msgid "Posts"
 msgstr "Публикации"
@@ -1619,8 +1683,8 @@ msgstr "Премодерация"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Предотвращайте спам, ограничивая частоту публикаций пользователей"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Предыдущее изображение"
 
@@ -1729,6 +1793,11 @@ msgstr "Удалить"
 msgid "Remove access rule"
 msgstr "Удалить правило доступа"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Удалить правило доступа для «{0}»?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Удалить доступ?"
@@ -1777,6 +1846,10 @@ msgstr "Удаление..."
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Renaming forum..."
 msgstr "Переименование форума..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "ответов"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1883,7 +1956,7 @@ msgstr "Отозвать доступ"
 msgid "Right to Left"
 msgstr "Справа налево"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Строк на странице"
 
@@ -1979,6 +2052,10 @@ msgstr "Поиск..."
 msgid "Searching..."
 msgstr "Поиск..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "секунд"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Выберите причину для жалобы на этот комментарий. Жалобы рассматриваются модераторами."
@@ -2027,7 +2104,16 @@ msgstr "Выберите направление сайта"
 msgid "Select theme preference"
 msgstr "Выберите предпочтение темы"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "выбрано"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Выбрано: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Отправить ещё раз"
 
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "Воскресенье"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "Этот код неверен или истёк."
 msgid "The requested content could not be found."
 msgstr "Не удалось найти запрошенный контент."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Сайт сейчас недоступен."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Тема"
@@ -2226,6 +2317,10 @@ msgstr "Не удалось загрузить этот форум прямо с
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Этот форум, возможно, был удалён или у вас нет к нему доступа."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Эта страница ещё не создана."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2264,6 +2359,10 @@ msgstr "Четверг"
 #: src/features/forums/components/edit-post-dialog.tsx:230
 msgid "Title"
 msgstr "Заголовок"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Куда"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2418,7 +2517,7 @@ msgstr "Пользователь заглушён"
 msgid "Variables: {variables}"
 msgstr "Переменные: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Код подтверждения"
 
@@ -2432,7 +2531,7 @@ msgstr "Подтверждение не удалось"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Подтвердить"
 
@@ -2444,6 +2543,11 @@ msgstr "Подтвердить адрес email"
 msgid "Video thumbnail"
 msgstr "Миниатюра видео"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Просмотр видео: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Просмотр"
@@ -2452,8 +2556,8 @@ msgstr "Просмотр"
 msgid "View all"
 msgstr "Просмотреть всё"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Просмотреть все уведомления"
 
@@ -2469,6 +2573,11 @@ msgstr "Насилие"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "Голосование и просмотр"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Мы отправили код подтверждения на <0>{0}</0>. Введите код ниже, чтобы подтвердить свой адрес электронной почты."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2504,6 +2613,10 @@ msgstr "Вам ограничено публиковать на этом фор�
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "У вас нет доступа к этому разделу."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "У вас нет необходимого разрешения <0/>для просмотра этого ресурса."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

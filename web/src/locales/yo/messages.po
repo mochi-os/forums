@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# ìfìwéránṣẹ́ tuntun} other {# ìfìwéránṣẹ́ tuntun}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# yan} other {# yan}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {A fọwọ́ sí nǹkan #} other {A fọwọ́ sí 
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {A kọ̀ nǹkan #} other {A kọ̀ nǹkan #}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Orúkọ {entityLabel}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} tí a yàn} other {{manyName} tí a yàn}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} tí a yàn. Àkàwé ìṣe púpọ̀ wà.} other {# {manyName} tí a yàn. Àkàwé ìṣe púpọ̀ wà.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# tí a yàn} other {# tí a yàn}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Àwọn ìṣe púpọ̀ fún {entityName} # tí a yàn} other {Àwọn ìṣe púpọ̀ fún {manyName} # tí a yàn}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "Padà sí forum"
 msgid "Back to forums"
 msgstr "Padà sí àwọn forum"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Pada si ile"
 
@@ -346,7 +368,7 @@ msgstr "Látọwọ́ {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "Pa gbogbo rẹ̀ rẹ́"
 msgid "Clear all saved posts?"
 msgstr "Pa gbogbo àwọn ìfìwéránṣẹ́ tí a fipamọ́ rẹ́?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Pa àwọn ásẹ̀ rẹ́"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Pa ìyàn rẹ́"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Pa ìyàn rẹ́ (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "Ń pa àwọn ìfìwéránṣẹ́ tí a fipamọ́ rẹ́..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Tì"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Ti ìṣíkiri"
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "Àṣà"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Òkùnkùn"
@@ -597,6 +621,10 @@ msgstr "Ọ̀nà òkùnkùn"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "Ìtakora dátà"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "ọjọ́"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -694,8 +722,8 @@ msgstr "Mú banner kúrò"
 msgid "Displays the mobile sidebar."
 msgstr "Ó ń fi sidebar fóònù hàn."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Gbà sílẹ̀"
 
@@ -823,6 +851,10 @@ msgstr "Kò lè ṣí àwọn forum lọ̀"
 msgid "Failed to load groups"
 msgstr "Kò ṣeé ṣe láti gbé àwọn ẹgbẹ́ wọlé"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Kò ṣeé gbé àwòrán wọlé"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "Kò lè ṣí àkọsílẹ̀ ìṣàkóso lọ̀"
@@ -846,6 +878,10 @@ msgstr "Kò lè ṣí àwọn ìròyìn lọ̀"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "Kò ṣeé ṣe láti gbé àwọn ìfòfindè wọlé"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Kò ṣeé gbé fídíò wọlé"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -1050,29 +1086,29 @@ msgstr "Lát'ọ̀dọ̀ Theme"
 msgid "Full layout"
 msgstr "Àtòjọ kíkún"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Padà"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Lọ sí ojú-ewé àkọ́kọ́"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Lọ sí ojú-ewé ìkẹyìn"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Lọ sí ojú-ewé tí ó tẹ̀le"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Lọ sí ojú-ìwé {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Lọ sí ojú-ewé tí ó ṣáájú"
 
@@ -1113,6 +1149,11 @@ msgstr "Gbígbóná"
 msgid "Identity"
 msgstr "Ìdánimọ̀"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Ẹ̀rọ ìwo àwòrán: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Imperial"
@@ -1142,6 +1183,10 @@ msgstr "Àwọn ìfẹ́"
 msgid "Invalid verification code"
 msgstr "Kóòdù ìjẹ́rìí aláìdára"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Ó dàbí pé ojú-ìwé tí o ń wá <0/>kò sí tàbí a ti yọ ọ́ kúrò."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "Òsì sí Ọ̀tún"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Ìmọ́lẹ̀"
@@ -1216,8 +1262,8 @@ msgstr "Ti jáde ní àṣeyọrí"
 msgid "Logging out…"
 msgstr "Ń jáde…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Sàmì sí gbogbo gẹ́gẹ́ bí kíkà"
@@ -1329,8 +1375,8 @@ msgstr "Àwọn thread tuntun gbọ́dọ̀ jẹ́ àfọwọ́sí"
 msgid "New user threshold:"
 msgstr "Ààlà olùmúlò titun:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Àwòrán tó kàn"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "Kò sí ìdíwọ́"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "A kò rí àbájáde kankan."
 
@@ -1434,6 +1480,11 @@ msgstr "Kò sí ohun tí a tí pamọ́ síbẹ̀"
 msgid "Notifications"
 msgstr "Àwọn ìfìtọ́nisí"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Àwọn ìfitónilétí: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1481,6 +1532,11 @@ msgstr "Mìíràn"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "Onílé"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Ojú-ìwé {currentPage} nínú {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1538,6 +1594,10 @@ msgstr "Jọ̀wọ́ tẹ àlàyé sí"
 #: src/features/forums/thread-detail.tsx:253
 msgid "Please enter a reply"
 msgstr "Jọ̀wọ́ tẹ ìdáhùn sí"
+
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Jọ̀wọ́ wọlé pẹ̀lú àwọn ẹ̀rí tó yẹ <0/> láti wọlé sí ohun àmúlò yìí."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1603,6 +1663,10 @@ msgstr "A ti dojú ìfìránṣẹ́ ìwọ́n"
 msgid "Post, comment, vote, and view"
 msgstr "Fiweránṣẹ́, ìfìwéránṣẹ́, ìdìbò, àti wíwò"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "àwọn ìfìwéránṣẹ́"
+
 #: src/components/options-menu.tsx:134
 msgid "Posts"
 msgstr "Àwọn ìfìránṣẹ́"
@@ -1619,8 +1683,8 @@ msgstr "Ìṣàkóso ṣáájú"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Dí spam dúró nípa fífi ààlà sí bí àwọn olùlò ṣe lè ṣe ìfìránṣẹ́ tó"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Àwòrán tó kọjá"
 
@@ -1729,6 +1793,11 @@ msgstr "Yọ kúrò"
 msgid "Remove access rule"
 msgstr "Yọ òfin àyè kúrò"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Yọ òfin ìwọlé fún \"{0}\" kúrò?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Yọ àyè kúrò?"
@@ -1777,6 +1846,10 @@ msgstr "Ń yọ kúrò..."
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Renaming forum..."
 msgstr "Ń tún àpérò lórúkọ..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "àwọn ìdáhùn"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1883,7 +1956,7 @@ msgstr "Fagilé ìwọlé"
 msgid "Right to Left"
 msgstr "Ọ̀tún sí Òsì"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Àwọn ila fún ojú-ìwé kọ̀ọ̀kan"
 
@@ -1979,6 +2052,10 @@ msgstr "Wá..."
 msgid "Searching..."
 msgstr "Ń wá..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "ìṣẹ́jú-àáyá"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Yan ìdí kan láti ròyìn ìfìwéránṣẹ́ yìí. Àwọn alábòójútó wo àwọn ìròyìn náà."
@@ -2027,7 +2104,16 @@ msgstr "Yan ìtọ́sọ́nà síìtì"
 msgid "Select theme preference"
 msgstr "Yan àfẹ́nilọ́kàn theme"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "tí a yàn"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Yan: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Fi ránṣẹ́ lẹ́ẹ̀kan sí i"
 
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "Ọjọ́ Àìkú"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "Kóòdù yẹn kò tọ̀nà tàbí ó ti pé."
 msgid "The requested content could not be found."
 msgstr "A kò rí àkóónú tí o béèrè fún."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Ojúlé náà kò sí ní àkókò yìí."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Theme"
@@ -2226,6 +2317,10 @@ msgstr "Apejọ yìí kò ṣeé ṣe láti gbé wọlé báyìí."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Apejọ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí o kò ní ààyè sí."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "A kò tí ì ṣẹ̀dá ojú-ìwé yìí."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2264,6 +2359,10 @@ msgstr "Ọjọ́bọ̀"
 #: src/features/forums/components/edit-post-dialog.tsx:230
 msgid "Title"
 msgstr "Àkọlé"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Sí"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2418,7 +2517,7 @@ msgstr "A ti pa ohùn user mọ́"
 msgid "Variables: {variables}"
 msgstr "Àwọn variables: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Kóòdù ìjẹ́rìísí"
 
@@ -2432,7 +2531,7 @@ msgstr "Ìjẹ́rìísí kùnà"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Jẹ́rìí sí"
 
@@ -2444,6 +2543,11 @@ msgstr "Jẹ́rìí sí àdírẹ́sì email"
 msgid "Video thumbnail"
 msgstr "Àwòrán kékeré fídíò"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Ẹ̀rọ ìwo fídíò: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Wo"
@@ -2452,8 +2556,8 @@ msgstr "Wo"
 msgid "View all"
 msgstr "Wo gbogbo"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Wo gbogbo àwọn ìfitónilétí"
 
@@ -2469,6 +2573,11 @@ msgstr "Ìwà ipá"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "Ìdìbò àti wíwò"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "A rán kóòdù ìjẹ́rìísí sí <0>{0}</0>. Tẹ kóòdù náà sí ìsàlẹ̀ láti fọwọ́sí àdírẹ́sì ímeèlì rẹ."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2504,6 +2613,10 @@ msgstr "A ti dawọ ọ duro lati firanṣẹ ninu apero yii"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "O kò ní ààyè sí abala yìí."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "O kò ní àṣẹ tó yẹ <0/>láti wo ohun àmúlò yìí."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

@@ -1033,7 +1033,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
                   onBlur={(e) => updateSetting('new_user_days', parseInt(e.target.value) || 0)}
                   className='h-8 w-16 text-center'
                 />
-                <span className='text-muted-foreground text-xs font-medium'>days</span>
+                <span className='text-muted-foreground text-xs font-medium'><Trans>days</Trans></span>
               </div>
             </div>
           )}
@@ -1056,7 +1056,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
                 onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
                 className='h-8 w-16 text-center'
               />
-              <span className='text-muted-foreground text-xs'>posts</span>
+              <span className='text-muted-foreground text-xs'><Trans>posts</Trans></span>
             </div>
           </div>
 
@@ -1071,7 +1071,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
                 onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
                 className='h-8 w-16 text-center'
               />
-              <span className='text-muted-foreground text-xs'>replies</span>
+              <span className='text-muted-foreground text-xs'><Trans>replies</Trans></span>
             </div>
           </div>
 
@@ -1086,7 +1086,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
                 onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}
                 className='h-8 w-24 text-center'
               />
-              <span className='text-muted-foreground text-xs'>seconds</span>
+              <span className='text-muted-foreground text-xs'><Trans>seconds</Trans></span>
             </div>
           </div>
         </div>

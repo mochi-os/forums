@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# neuer Beitrag} other {# neue Beiträge}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ausgewählt} other {# ausgewählt}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# Element genehmigt} other {# Elemente genehmigt}}"
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# Element abgelehnt} other {# Elemente abgelehnt}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "{entityLabel}-Name"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} ausgewählt} other {{manyName} ausgewählt}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} ausgewählt. Die Symbolleiste für Sammelaktionen ist verfügbar.} other {# {manyName} ausgewählt. Die Symbolleiste für Sammelaktionen ist verfügbar.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# ausgewählt} other {# ausgewählt}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Sammelaktionen für # ausgewähltes {entityName}} other {Sammelaktionen für # ausgewählte {manyName}}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "Zurück zum Forum"
 msgid "Back to forums"
 msgstr "Zurück zu den Foren"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Zurück zur Startseite"
 
@@ -346,7 +368,7 @@ msgstr "Von {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "Alle leeren"
 msgid "Clear all saved posts?"
 msgstr "Alle gespeicherten Beiträge löschen?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Filter zurücksetzen"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Auswahl aufheben"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Auswahl aufheben (Esc)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "Gespeicherte Beiträge werden gelöscht..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Schließen"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Navigation schließen"
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Dunkel"
@@ -597,6 +621,10 @@ msgstr "Dunkler Modus"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "Datenkonflikt"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "Tage"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -694,8 +722,8 @@ msgstr "Banner schließen"
 msgid "Displays the mobile sidebar."
 msgstr "Zeigt die mobile Seitenleiste an."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -823,6 +851,10 @@ msgstr "Foren konnten nicht geladen werden"
 msgid "Failed to load groups"
 msgstr "Gruppen konnten nicht geladen werden"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Bild konnte nicht geladen werden"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "Moderationsprotokoll konnte nicht geladen werden"
@@ -846,6 +878,10 @@ msgstr "Berichte konnten nicht geladen werden"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "Einschränkungen konnten nicht geladen werden"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Video konnte nicht geladen werden"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -1050,29 +1086,29 @@ msgstr "Vom Theme"
 msgid "Full layout"
 msgstr "Vollständiges Layout"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Zurück"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Zur ersten Seite"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Zur letzten Seite"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Zur nächsten Seite"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Zu Seite {pageNumber} gehen"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Zur vorherigen Seite"
 
@@ -1113,6 +1149,11 @@ msgstr "Heiß"
 msgid "Identity"
 msgstr "Identität"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Bildbetrachter: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Imperial"
@@ -1142,6 +1183,10 @@ msgstr "Interessen"
 msgid "Invalid verification code"
 msgstr "Ungültiger Bestätigungscode"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Die gesuchte Seite <0/>existiert nicht oder wurde entfernt."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "Links nach Rechts"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Hell"
@@ -1216,8 +1262,8 @@ msgstr "Erfolgreich abgemeldet"
 msgid "Logging out…"
 msgstr "Abmelden …"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Alle als gelesen markieren"
@@ -1329,8 +1375,8 @@ msgstr "Neue Threads müssen genehmigt werden"
 msgid "New user threshold:"
 msgstr "Schwellenwert für neue Benutzer:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Nächstes Bild"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "Keine Einschränkungen"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
@@ -1434,6 +1480,11 @@ msgstr "Noch nichts gespeichert"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Benachrichtigungen: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1481,6 +1532,11 @@ msgstr "Sonstige"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "Eigentümer"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Seite {currentPage} von {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1538,6 +1594,10 @@ msgstr "Bitte geben Sie einen Kommentar ein"
 #: src/features/forums/thread-detail.tsx:253
 msgid "Please enter a reply"
 msgstr "Bitte geben Sie eine Antwort ein"
+
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Bitte melden Sie sich mit den entsprechenden Zugangsdaten an, <0/> um auf diese Ressource zuzugreifen."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1603,6 +1663,10 @@ msgstr "Beitrag aktualisiert"
 msgid "Post, comment, vote, and view"
 msgstr "Posten, kommentieren, abstimmen und ansehen"
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "Beiträge"
+
 #: src/components/options-menu.tsx:134
 msgid "Posts"
 msgstr "Beiträge"
@@ -1619,8 +1683,8 @@ msgstr "Vorabmoderation"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Verhindern Sie Spam, indem Sie einschränken, wie oft Nutzer Beiträge veröffentlichen können"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Vorheriges Bild"
 
@@ -1729,6 +1793,11 @@ msgstr "Entfernen"
 msgid "Remove access rule"
 msgstr "Zugriffsregel entfernen"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Zugriffsregel für „{0}“ entfernen?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Zugriff entfernen?"
@@ -1777,6 +1846,10 @@ msgstr "Wird entfernt …"
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Renaming forum..."
 msgstr "Forum wird umbenannt..."
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "Antworten"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
@@ -1883,7 +1956,7 @@ msgstr "Zugriff widerrufen"
 msgid "Right to Left"
 msgstr "Rechts nach links"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Zeilen pro Seite"
 
@@ -1979,6 +2052,10 @@ msgstr "Suchen..."
 msgid "Searching..."
 msgstr "Wird gesucht..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "Sekunden"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Wählen Sie einen Grund für die Meldung dieses Kommentars. Meldungen werden von Moderatoren geprüft."
@@ -2027,7 +2104,16 @@ msgstr "Site-Richtung auswählen"
 msgid "Select theme preference"
 msgstr "Theme-Einstellung auswählen"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "ausgewählt"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Ausgewählt: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Erneut senden"
 
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "Sonntag"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "Dieser Code ist falsch oder abgelaufen."
 msgid "The requested content could not be found."
 msgstr "Der angeforderte Inhalt wurde nicht gefunden."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Die Website ist derzeit nicht verfügbar."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Theme"
@@ -2226,6 +2317,10 @@ msgstr "Dieses Forum konnte derzeit nicht geladen werden."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Dieses Forum wurde möglicherweise gelöscht oder Sie haben keinen Zugriff darauf."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Diese Seite wurde noch nicht erstellt."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2264,6 +2359,10 @@ msgstr "Donnerstag"
 #: src/features/forums/components/edit-post-dialog.tsx:230
 msgid "Title"
 msgstr "Titel"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Nach"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2418,7 +2517,7 @@ msgstr "Benutzer stummgeschaltet"
 msgid "Variables: {variables}"
 msgstr "Variablen: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Verifizierungscode"
 
@@ -2432,7 +2531,7 @@ msgstr "Verifizierung fehlgeschlagen"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Verifizieren"
 
@@ -2444,6 +2543,11 @@ msgstr "E-Mail-Adresse verifizieren"
 msgid "Video thumbnail"
 msgstr "Video-Vorschaubild"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Videobetrachter: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Ansicht"
@@ -2452,8 +2556,8 @@ msgstr "Ansicht"
 msgid "View all"
 msgstr "Alle anzeigen"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Alle Benachrichtigungen anzeigen"
 
@@ -2469,6 +2573,11 @@ msgstr "Gewalt"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "Abstimmen und ansehen"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Wir haben einen Bestätigungscode an <0>{0}</0> gesendet. Geben Sie den Code unten ein, um Ihre E-Mail-Adresse zu bestätigen."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2504,6 +2613,10 @@ msgstr "Du bist vom Posten in diesem Forum eingeschränkt"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Sie haben keinen Zugriff auf diesen Bereich."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Sie haben nicht die erforderliche Berechtigung, <0/>um diese Ressource anzuzeigen."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"
