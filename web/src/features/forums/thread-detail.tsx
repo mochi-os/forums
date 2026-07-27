@@ -102,6 +102,12 @@ export function ThreadDetail({
   const commentFileRef = useRef<HTMLInputElement>(null)
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
+  useEffect(() => {
+    if (!showReplyForm) {
+      if (commentFiles.length > 0) setCommentFiles([])
+      if (commentBody) setCommentBody('')
+    }
+  }, [showReplyForm])
   const [replyingToComment, setReplyingToComment] = useState<string | null>(
     null
   )
@@ -426,7 +432,12 @@ export function ThreadDetail({
               <div className='border-border/60 mt-6 border-t pt-4'>
                 {/* Reply Form - shown above comments */}
                 {showReplyForm && (
-                  <div className='mb-4 space-y-2'>
+                  <div
+                    className='mb-4 space-y-2'
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setShowReplyForm(false)
+                    }}
+                  >
                     <MentionTextarea
                       value={commentBody}
                       onValueChange={setCommentBody}

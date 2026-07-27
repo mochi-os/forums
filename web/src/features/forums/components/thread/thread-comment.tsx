@@ -149,6 +149,11 @@ export function ThreadComment({
   }
 
   const isReplying = replyingToId === comment.id
+
+  useEffect(() => {
+    if (!isReplying && replyFiles.length > 0) setReplyFiles([])
+  }, [isReplying, replyFiles.length])
+
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
@@ -465,7 +470,12 @@ export function ThreadComment({
 
       {/* Reply input */}
       {isReplying && (
-        <div className='mt-2 space-y-2 border-t pt-2'>
+        <div
+          className='mt-2 space-y-2 border-t pt-2'
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') onReplyCancel?.()
+          }}
+        >
           <MentionTextarea
             placeholder={t`Reply to ${comment.name}...`}
             value={replyValue}

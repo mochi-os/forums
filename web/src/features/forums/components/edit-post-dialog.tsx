@@ -35,6 +35,7 @@ import {
   AttachmentActions,
   AttachmentAction,
   useFormat,
+  useImageObjectUrls,
 } from '@mochi/web'
 import { Save, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
@@ -117,6 +118,17 @@ export function EditPostDialog({
       setItems(existingItems)
     }
   }, [open, post, form])
+
+  const newFiles = useMemo(
+    () => items.flatMap((it) => (it.kind === 'new' ? [it.file] : [])),
+    [items]
+  )
+  const newFileUrls = useImageObjectUrls(newFiles)
+  const urlByNewFile = useMemo(() => {
+    const m = new Map<File, string | null>()
+    newFiles.forEach((f, i) => m.set(f, newFileUrls[i]))
+    return m
+  }, [newFiles, newFileUrls])
 
   const watchedTitle = form.watch('title')
   const watchedBody = form.watch('body')
@@ -277,7 +289,7 @@ export function EditPostDialog({
                           : undefined
                       const previewUrl =
                         !isExisting && isImage
-                          ? URL.createObjectURL(item.file)
+                          ? (urlByNewFile.get(item.file) ?? undefined)
                           : undefined
                       const itemKey = isExisting
                         ? item.attachment.id
