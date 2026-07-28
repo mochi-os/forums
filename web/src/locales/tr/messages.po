@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# yeni gönderi} other {# yeni gönderi}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# seçili} other {# seçili}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# öğe onaylandı} other {# öğe onaylandı}}"
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# öğe reddedildi} other {# öğe reddedildi}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "{entityLabel} adı"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} seçildi} other {{manyName} seçildi}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} seçildi. Toplu işlem araç çubuğu kullanılabilir.} other {# {manyName} seçildi. Toplu işlem araç çubuğu kullanılabilir.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# seçildi} other {# seçildi}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {# seçili {entityName} için toplu işlemler} other {# seçili {manyName} için toplu işlemler}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "Foruma dön"
 msgid "Back to forums"
 msgstr "Forumlara dön"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Ana sayfaya dön"
 
@@ -346,7 +368,7 @@ msgstr "{0} tarafından"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "Tümünü temizle"
 msgid "Clear all saved posts?"
 msgstr "Kaydedilen tüm gönderiler temizlensin mi?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Filtreleri temizle"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Seçimi temizle"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Seçimi temizle (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "Kaydedilen gönderiler temizleniyor..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Kapat"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Gezinmeyi kapat"
 
@@ -472,11 +495,11 @@ msgstr "Geniş"
 msgid "Coming Soon!"
 msgstr "Yakında!"
 
-#: src/hooks/use-forums-queries.ts:617
+#: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "Yorum onaylandı"
 
-#: src/hooks/use-forums-queries.ts:417
+#: src/hooks/use-forums-queries.ts:367
 msgid "Comment deleted"
 msgstr "Yorum silindi"
 
@@ -484,19 +507,19 @@ msgstr "Yorum silindi"
 msgid "Comment limit"
 msgstr "Yorum sınırı"
 
-#: src/hooks/use-forums-queries.ts:294
+#: src/hooks/use-forums-queries.ts:244
 msgid "Comment posted"
 msgstr "Yorum gönderildi"
 
-#: src/hooks/use-forums-queries.ts:589
+#: src/hooks/use-forums-queries.ts:533
 msgid "Comment removed"
 msgstr "Yorum kaldırıldı"
 
-#: src/hooks/use-forums-queries.ts:603
+#: src/hooks/use-forums-queries.ts:547
 msgid "Comment restored"
 msgstr "Yorum geri yüklendi"
 
-#: src/hooks/use-forums-queries.ts:397
+#: src/hooks/use-forums-queries.ts:347
 msgid "Comment updated"
 msgstr "Yorum güncellendi"
 
@@ -572,7 +595,7 @@ msgstr "Yeni bir gönderi oluştur"
 msgid "Create forum"
 msgstr "Forum oluştur"
 
-#: src/hooks/use-forums-queries.ts:109
+#: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Forum oluşturuluyor..."
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "Özel"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Koyu"
@@ -597,6 +621,10 @@ msgstr "Koyu mod"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "Veri çakışması"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "gün"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -640,7 +668,7 @@ msgstr "Gönderiyi sil"
 msgid "Delete your account on the old server"
 msgstr "Eski sunucudaki hesabınızı silin"
 
-#: src/hooks/use-forums-queries.ts:125
+#: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Forum siliniyor..."
 
@@ -694,8 +722,8 @@ msgstr "Banner'ı kapat"
 msgid "Displays the mobile sidebar."
 msgstr "Mobil kenar çubuğunu görüntüler."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "İndir"
 
@@ -787,7 +815,7 @@ msgstr "Kullanıcılar yasaklanamadı"
 msgid "Failed to clear saved posts"
 msgstr "Kaydedilen gönderiler temizlenemedi"
 
-#: src/hooks/use-forums-queries.ts:111
+#: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "Forum oluşturulamadı"
 
@@ -795,7 +823,7 @@ msgstr "Forum oluşturulamadı"
 msgid "Failed to create link"
 msgstr "Bağlantı oluşturulamadı"
 
-#: src/hooks/use-forums-queries.ts:127
+#: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "Forum silinemedi"
 
@@ -823,6 +851,10 @@ msgstr "Forumlar yüklenemedi"
 msgid "Failed to load groups"
 msgstr "Gruplar yüklenemedi"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Görsel yüklenemedi"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "Moderasyon günlüğü yüklenemedi"
@@ -846,6 +878,10 @@ msgstr "Raporlar yüklenemedi"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "Kısıtlamalar yüklenemedi"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Video yüklenemedi"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -926,12 +962,12 @@ msgstr "Erişim düzeyi ayarlanamadı"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:161
+#: src/hooks/use-forums-queries.ts:133
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Abone olunamadı"
 
-#: src/hooks/use-forums-queries.ts:183
+#: src/hooks/use-forums-queries.ts:155
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Abonelikten çıkılamadı"
@@ -986,11 +1022,11 @@ msgstr "Kayan"
 msgid "Forum"
 msgstr "Forum"
 
-#: src/hooks/use-forums-queries.ts:110
+#: src/hooks/use-forums-queries.ts:82
 msgid "Forum created"
 msgstr "Forum oluşturuldu"
 
-#: src/hooks/use-forums-queries.ts:126
+#: src/hooks/use-forums-queries.ts:98
 msgid "Forum deleted"
 msgstr "Forum silindi"
 
@@ -1050,29 +1086,29 @@ msgstr "Temadan"
 msgid "Full layout"
 msgstr "Tam düzen"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Geri"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "İlk sayfaya git"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Son sayfaya git"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Sonraki sayfaya git"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "{pageNumber}. sayfaya git"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Önceki sayfaya git"
 
@@ -1113,6 +1149,11 @@ msgstr "Popüler"
 msgid "Identity"
 msgstr "Kimlik"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Görsel görüntüleyici: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "İngiliz birim sistemi"
@@ -1142,6 +1183,10 @@ msgstr "İlgi alanları"
 msgid "Invalid verification code"
 msgstr "Geçersiz doğrulama kodu"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Aradığınız sayfa <0/>mevcut değil veya kaldırılmış görünüyor."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "Soldan sağa"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Açık"
@@ -1179,8 +1225,8 @@ msgstr "İçerik yükleniyor…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
-msgid "Loading…"
-msgstr "Yükleniyor…"
+msgid "Loading..."
+msgstr "Yükleniyor..."
 
 #: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Lock"
@@ -1216,8 +1262,8 @@ msgstr "Oturum başarıyla kapatıldı"
 msgid "Logging out…"
 msgstr "Oturum kapatılıyor…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Tümünü okundu olarak işaretle"
@@ -1329,8 +1375,8 @@ msgstr "Yeni konuların onaylanması gerekir"
 msgid "New user threshold:"
 msgstr "Yeni kullanıcı eşiği:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Sonraki görsel"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "Kısıtlama yok"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
 
@@ -1434,6 +1480,11 @@ msgstr "Henüz hiçbir şey kaydedilmedi"
 msgid "Notifications"
 msgstr "Bildirimler"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Bildirimler: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1448,8 +1499,8 @@ msgstr "Hata! Sayfa bulunamadı!"
 msgid "Open account actions"
 msgstr "Hesap eylemlerini aç"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:182
-#: ../../../lib/web/src/components/layout/nav-group.tsx:187
+#: ../../../lib/web/src/components/layout/nav-group.tsx:202
+#: ../../../lib/web/src/components/layout/nav-group.tsx:207
 msgid "Open actions"
 msgstr "İşlemleri aç"
 
@@ -1481,6 +1532,11 @@ msgstr "Diğer"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "Sahip"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Sayfa {currentPage} / {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1539,6 +1595,10 @@ msgstr "Lütfen bir yorum girin"
 msgid "Please enter a reply"
 msgstr "Lütfen bir yanıt girin"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Bu kaynağa erişmek için <0/> lütfen uygun kimlik bilgileriyle giriş yapın."
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Lütfen tekrar deneyin."
@@ -1555,7 +1615,7 @@ msgstr "Gönderi kaydedilemedi — başlık veya içerik geçersiz"
 msgid "Post couldn't be saved on the forum server"
 msgstr "Gönderi forum sunucusuna kaydedilemedi"
 
-#: src/hooks/use-forums-queries.ts:358
+#: src/hooks/use-forums-queries.ts:308
 msgid "Post deleted"
 msgstr "Gönderi silindi"
 
@@ -1563,7 +1623,7 @@ msgstr "Gönderi silindi"
 msgid "Post limit"
 msgstr "Gönderi limiti"
 
-#: src/hooks/use-forums-queries.ts:516
+#: src/hooks/use-forums-queries.ts:460
 msgid "Post locked"
 msgstr "Gönderi kilitlendi"
 
@@ -1571,37 +1631,41 @@ msgstr "Gönderi kilitlendi"
 msgid "Post not found"
 msgstr "Gönderi bulunamadı"
 
-#: src/hooks/use-forums-queries.ts:544
+#: src/hooks/use-forums-queries.ts:488
 msgid "Post pinned"
 msgstr "Gönderi sabitlendi"
 
-#: src/hooks/use-forums-queries.ts:142
+#: src/hooks/use-forums-queries.ts:114
 msgid "Post published."
 msgstr "Gönderi yayınlandı."
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:432
 msgid "Post removed"
 msgstr "Gönderi kaldırıldı"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:447
 msgid "Post restored"
 msgstr "Gönderi geri yüklendi"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post unlocked"
 msgstr "Gönderinin kilidi açıldı"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:503
 msgid "Post unpinned"
 msgstr "Gönderinin sabitlemesi kaldırıldı"
 
-#: src/hooks/use-forums-queries.ts:342
+#: src/hooks/use-forums-queries.ts:292
 msgid "Post updated"
 msgstr "Gönderi güncellendi"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Post, comment, vote, and view"
 msgstr "Gönderi, yorum, oy ve görüntüleme"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "gönderi"
 
 #: src/components/options-menu.tsx:134
 msgid "Posts"
@@ -1619,8 +1683,8 @@ msgstr "Ön moderasyon"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Kullanıcıların ne sıklıkla gönderi yapabileceğini sınırlayarak spam'i önleyin"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Önceki görsel"
 
@@ -1729,6 +1793,11 @@ msgstr "Kaldır"
 msgid "Remove access rule"
 msgstr "Erişim kuralını kaldır"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "\"{0}\" için erişim kuralı kaldırılsın mı?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Erişim kaldırılsın mı?"
@@ -1778,6 +1847,10 @@ msgstr "Kaldırılıyor..."
 msgid "Renaming forum..."
 msgstr "Forum yeniden adlandırılıyor..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "yanıt"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "Yanıtların onaylanması gerekir"
@@ -1811,8 +1884,8 @@ msgstr "Gönderiyi bildir"
 msgid "Report resolved"
 msgstr "Rapor çözümlendi"
 
-#: src/hooks/use-forums-queries.ts:571
-#: src/hooks/use-forums-queries.ts:643
+#: src/hooks/use-forums-queries.ts:515
+#: src/hooks/use-forums-queries.ts:587
 msgid "Report submitted"
 msgstr "Rapor gönderildi"
 
@@ -1883,7 +1956,7 @@ msgstr "Erişimi iptal et"
 msgid "Right to Left"
 msgstr "Sağdan sola"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Sayfa başına satır"
 
@@ -1979,6 +2052,10 @@ msgstr "Ara..."
 msgid "Searching..."
 msgstr "Aranıyor..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "saniye"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Bu yorumu bildirmek için bir neden seçin. Raporlar moderatörler tarafından incelenir."
@@ -2027,7 +2104,16 @@ msgstr "Site yönünü seç"
 msgid "Select theme preference"
 msgstr "Tema tercihi seç"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "seçildi"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Seçili: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Tekrar gönder"
 
@@ -2150,14 +2236,14 @@ msgstr "Abone olundu"
 msgid "Subscribed to {0}"
 msgstr "{0} aboneliği oluşturuldu"
 
-#: src/hooks/use-forums-queries.ts:168
+#: src/hooks/use-forums-queries.ts:140
 msgid "Subscribed to forum"
 msgstr "Foruma abone olundu"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:159
+#: src/hooks/use-forums-queries.ts:131
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Abone olunuyor..."
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "Pazar"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "Bu kod yanlış veya süresi dolmuş."
 msgid "The requested content could not be found."
 msgstr "İstenen içerik bulunamadı."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Site şu anda kullanılamıyor."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Tema"
@@ -2226,6 +2317,10 @@ msgstr "Bu forum şu anda yüklenemedi."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Bu forum silinmiş olabilir veya erişimin yok."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Bu sayfa henüz oluşturulmadı."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2265,6 +2360,10 @@ msgstr "Perşembe"
 msgid "Title"
 msgstr "Başlık"
 
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Nereye"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
 msgstr "Sütunları aç/kapat"
@@ -2274,10 +2373,10 @@ msgstr "Sütunları aç/kapat"
 msgid "Toggle right panel"
 msgstr "Sağ paneli aç/kapat"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:351
-#: ../../../lib/web/src/components/layout/nav-group.tsx:358
-#: ../../../lib/web/src/components/layout/nav-group.tsx:481
-#: ../../../lib/web/src/components/layout/nav-group.tsx:488
+#: ../../../lib/web/src/components/layout/nav-group.tsx:373
+#: ../../../lib/web/src/components/layout/nav-group.tsx:380
+#: ../../../lib/web/src/components/layout/nav-group.tsx:503
+#: ../../../lib/web/src/components/layout/nav-group.tsx:510
 msgid "Toggle section"
 msgstr "Bölümü aç/kapat"
 
@@ -2384,12 +2483,12 @@ msgstr "Forum aboneliğini iptal et"
 msgid "Unsubscribe from forum?"
 msgstr "Forum aboneliğinden çıkılsın mı?"
 
-#: src/hooks/use-forums-queries.ts:182
+#: src/hooks/use-forums-queries.ts:154
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Abonelik iptal edildi"
 
-#: src/hooks/use-forums-queries.ts:181
+#: src/hooks/use-forums-queries.ts:153
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Abonelik iptal ediliyor..."
@@ -2418,7 +2517,7 @@ msgstr "Kullanıcı susturuldu"
 msgid "Variables: {variables}"
 msgstr "Değişkenler: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Doğrulama kodu"
 
@@ -2432,7 +2531,7 @@ msgstr "Doğrulama başarısız"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Doğrula"
 
@@ -2440,9 +2539,14 @@ msgstr "Doğrula"
 msgid "Verify email address"
 msgstr "E-posta adresini doğrula"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: ../../../lib/web/src/components/attachment-gallery.tsx:79
 msgid "Video thumbnail"
 msgstr "Video küçük resmi"
+
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Video görüntüleyici: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
@@ -2452,8 +2556,8 @@ msgstr "Görüntüle"
 msgid "View all"
 msgstr "Tümünü görüntüle"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Tüm bildirimleri görüntüle"
 
@@ -2469,6 +2573,11 @@ msgstr "Şiddet"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "Oy ver ve görüntüle"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "<0>{0}</0> adresine bir doğrulama kodu gönderdik. E-posta adresinizi doğrulamak için kodu aşağıya girin."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2488,7 +2597,7 @@ msgstr "Pencere süresi"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:166
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Bu foruma zaten abonesin"
@@ -2504,6 +2613,10 @@ msgstr "Bu forumda gönderi paylaşmanız kısıtlanmıştır"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Bu bölüme erişiminiz yok."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Bu kaynağı görüntülemek için <0/>gerekli izniniz yok."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

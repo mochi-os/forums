@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# nova objava} few {# nove objave} other {# novih objava}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# odabrano} few {# odabrana} other {# odabranih}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {Odobrena # stavka} few {Odobrene # stavke} other {O
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Odbijena # stavka} few {Odbijene # stavke} other {Odbijeno # stavki}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Naziv {entityLabel}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} odabran} few {{manyName} odabrana} other {{manyName} odabranih}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} odabran. Traka grupnih radnji je dostupna.} few {# {manyName} odabrana. Traka grupnih radnji je dostupna.} other {# {manyName} odabranih. Traka grupnih radnji je dostupna.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# odabrano} few {# odabrano} other {# odabrano}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Grupne radnje za # odabrani {entityName}} few {Grupne radnje za # odabrana {manyName}} other {Grupne radnje za # odabranih {manyName}}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "Nazad na forum"
 msgid "Back to forums"
 msgstr "Nazad na forume"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Nazad na početnu"
 
@@ -346,7 +368,7 @@ msgstr "Od {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "Očisti sve"
 msgid "Clear all saved posts?"
 msgstr "Obrisati sve sačuvane objave?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Očisti filtere"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Očisti odabir"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Očisti odabir (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "Brisanje sačuvanih objava..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Zatvori"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Zatvori navigaciju"
 
@@ -472,11 +495,11 @@ msgstr "Udobno"
 msgid "Coming Soon!"
 msgstr "Uskoro!"
 
-#: src/hooks/use-forums-queries.ts:617
+#: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "Komentar odobren"
 
-#: src/hooks/use-forums-queries.ts:417
+#: src/hooks/use-forums-queries.ts:367
 msgid "Comment deleted"
 msgstr "Komentar obrisan"
 
@@ -484,19 +507,19 @@ msgstr "Komentar obrisan"
 msgid "Comment limit"
 msgstr "Limit komentara"
 
-#: src/hooks/use-forums-queries.ts:294
+#: src/hooks/use-forums-queries.ts:244
 msgid "Comment posted"
 msgstr "Komentar objavljen"
 
-#: src/hooks/use-forums-queries.ts:589
+#: src/hooks/use-forums-queries.ts:533
 msgid "Comment removed"
 msgstr "Komentar uklonjen"
 
-#: src/hooks/use-forums-queries.ts:603
+#: src/hooks/use-forums-queries.ts:547
 msgid "Comment restored"
 msgstr "Komentar vraćen"
 
-#: src/hooks/use-forums-queries.ts:397
+#: src/hooks/use-forums-queries.ts:347
 msgid "Comment updated"
 msgstr "Komentar ažuriran"
 
@@ -572,7 +595,7 @@ msgstr "Kreiraj novu objavu"
 msgid "Create forum"
 msgstr "Kreiraj forum"
 
-#: src/hooks/use-forums-queries.ts:109
+#: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Kreiranje foruma..."
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "Prilagođeno"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Tamno"
@@ -597,6 +621,10 @@ msgstr "Tamni način"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "Sukob podataka"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "dani"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -640,7 +668,7 @@ msgstr "Obriši objavu"
 msgid "Delete your account on the old server"
 msgstr "Obrišite račun na starom serveru"
 
-#: src/hooks/use-forums-queries.ts:125
+#: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Brisanje foruma..."
 
@@ -694,8 +722,8 @@ msgstr "Odbaci banner"
 msgid "Displays the mobile sidebar."
 msgstr "Prikazuje mobilnu bočnu traku."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Preuzmi"
 
@@ -787,7 +815,7 @@ msgstr "Banovanje korisnika nije uspjelo"
 msgid "Failed to clear saved posts"
 msgstr "Sačuvane objave nisu obrisane"
 
-#: src/hooks/use-forums-queries.ts:111
+#: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "Kreiranje foruma nije uspjelo"
 
@@ -795,7 +823,7 @@ msgstr "Kreiranje foruma nije uspjelo"
 msgid "Failed to create link"
 msgstr "Kreiranje veze nije uspjelo"
 
-#: src/hooks/use-forums-queries.ts:127
+#: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "Brisanje foruma nije uspjelo"
 
@@ -823,6 +851,10 @@ msgstr "Učitavanje foruma nije uspjelo"
 msgid "Failed to load groups"
 msgstr "Učitavanje grupa nije uspjelo"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Slika se nije mogla učitati"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "Učitavanje moderacijskog dnevnika nije uspjelo"
@@ -846,6 +878,10 @@ msgstr "Učitavanje prijava nije uspjelo"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "Učitavanje ograničenja nije uspjelo"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Video se nije mogao učitati"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -926,12 +962,12 @@ msgstr "Postavljanje nivoa pristupa nije uspjelo"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:161
+#: src/hooks/use-forums-queries.ts:133
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Pretplata nije uspjela"
 
-#: src/hooks/use-forums-queries.ts:183
+#: src/hooks/use-forums-queries.ts:155
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Otkazivanje pretplate nije uspjelo"
@@ -986,11 +1022,11 @@ msgstr "Plutajuće"
 msgid "Forum"
 msgstr "Forum"
 
-#: src/hooks/use-forums-queries.ts:110
+#: src/hooks/use-forums-queries.ts:82
 msgid "Forum created"
 msgstr "Forum kreiran"
 
-#: src/hooks/use-forums-queries.ts:126
+#: src/hooks/use-forums-queries.ts:98
 msgid "Forum deleted"
 msgstr "Forum obrisan"
 
@@ -1050,29 +1086,29 @@ msgstr "Iz teme"
 msgid "Full layout"
 msgstr "Puni izgled"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Nazad"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Idi na prvu stranicu"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Idi na zadnju stranicu"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Idi na sljedeću stranicu"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Idi na stranicu {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Idi na prethodnu stranicu"
 
@@ -1113,6 +1149,11 @@ msgstr "Vruće"
 msgid "Identity"
 msgstr "Identitet"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Preglednik slika: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Imperijalni"
@@ -1142,6 +1183,10 @@ msgstr "Interesi"
 msgid "Invalid verification code"
 msgstr "Nevažeći verifikacioni kod"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Izgleda da stranica koju tražite <0/>ne postoji ili je uklonjena."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "Slijeva nadesno"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Svijetla"
@@ -1179,8 +1225,8 @@ msgstr "Učitavanje sadržaja…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
-msgid "Loading…"
-msgstr "Učitavanje…"
+msgid "Loading..."
+msgstr "Učitavanje..."
 
 #: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Lock"
@@ -1216,8 +1262,8 @@ msgstr "Uspješno odjavljeni"
 msgid "Logging out…"
 msgstr "Odjavljivanje…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Označi sve kao pročitano"
@@ -1329,8 +1375,8 @@ msgstr "Nove teme moraju biti odobrene"
 msgid "New user threshold:"
 msgstr "Prag za nove korisnike:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Sljedeća slika"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "Nema ograničenja"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Nisu pronađeni rezultati."
 
@@ -1434,6 +1480,11 @@ msgstr "Ništa još nije sačuvano"
 msgid "Notifications"
 msgstr "Obavještenja"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Obavijesti: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1448,8 +1499,8 @@ msgstr "Ups! Stranica nije pronađena!"
 msgid "Open account actions"
 msgstr "Otvori akcije naloga"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:182
-#: ../../../lib/web/src/components/layout/nav-group.tsx:187
+#: ../../../lib/web/src/components/layout/nav-group.tsx:202
+#: ../../../lib/web/src/components/layout/nav-group.tsx:207
 msgid "Open actions"
 msgstr "Otvori radnje"
 
@@ -1481,6 +1532,11 @@ msgstr "Drugo"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "Vlasnik"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Stranica {currentPage} od {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1539,6 +1595,10 @@ msgstr "Molimo unesite komentar"
 msgid "Please enter a reply"
 msgstr "Molimo unesite odgovor"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Molimo prijavite se s odgovarajućim podacima <0/> da biste pristupili ovom resursu."
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Pokušajte ponovo."
@@ -1555,7 +1615,7 @@ msgstr "Objava nije mogla biti spremljena — naslov ili sadržaj nije valjan"
 msgid "Post couldn't be saved on the forum server"
 msgstr "Objava nije mogla biti spremljena na serveru foruma"
 
-#: src/hooks/use-forums-queries.ts:358
+#: src/hooks/use-forums-queries.ts:308
 msgid "Post deleted"
 msgstr "Objava obrisana"
 
@@ -1563,7 +1623,7 @@ msgstr "Objava obrisana"
 msgid "Post limit"
 msgstr "Limit objava"
 
-#: src/hooks/use-forums-queries.ts:516
+#: src/hooks/use-forums-queries.ts:460
 msgid "Post locked"
 msgstr "Objava zaključana"
 
@@ -1571,37 +1631,41 @@ msgstr "Objava zaključana"
 msgid "Post not found"
 msgstr "Objava nije pronađena"
 
-#: src/hooks/use-forums-queries.ts:544
+#: src/hooks/use-forums-queries.ts:488
 msgid "Post pinned"
 msgstr "Objava zakačena"
 
-#: src/hooks/use-forums-queries.ts:142
+#: src/hooks/use-forums-queries.ts:114
 msgid "Post published."
 msgstr "Objava objavljena."
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:432
 msgid "Post removed"
 msgstr "Objava uklonjena"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:447
 msgid "Post restored"
 msgstr "Objava vraćena"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post unlocked"
 msgstr "Objava otključana"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:503
 msgid "Post unpinned"
 msgstr "Objava otkačena"
 
-#: src/hooks/use-forums-queries.ts:342
+#: src/hooks/use-forums-queries.ts:292
 msgid "Post updated"
 msgstr "Objava ažurirana"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Post, comment, vote, and view"
 msgstr "Objava, komentar, glas i pregled"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "objave"
 
 #: src/components/options-menu.tsx:134
 msgid "Posts"
@@ -1619,8 +1683,8 @@ msgstr "Pre-moderacija"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Spriječite spam ograničavanjem koliko često korisnici mogu objavljivati"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Prethodna slika"
 
@@ -1729,6 +1793,11 @@ msgstr "Ukloni"
 msgid "Remove access rule"
 msgstr "Ukloni pravilo pristupa"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Ukloniti pravilo pristupa za \"{0}\"?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Ukloniti pristup?"
@@ -1778,6 +1847,10 @@ msgstr "Uklanjanje..."
 msgid "Renaming forum..."
 msgstr "Preimenovanje foruma..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "odgovori"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "Odgovori moraju biti odobreni"
@@ -1811,8 +1884,8 @@ msgstr "Prijavi objavu"
 msgid "Report resolved"
 msgstr "Prijava riješena"
 
-#: src/hooks/use-forums-queries.ts:571
-#: src/hooks/use-forums-queries.ts:643
+#: src/hooks/use-forums-queries.ts:515
+#: src/hooks/use-forums-queries.ts:587
 msgid "Report submitted"
 msgstr "Prijava podnesena"
 
@@ -1883,7 +1956,7 @@ msgstr "Opozovi pristup"
 msgid "Right to Left"
 msgstr "S desna na lijevo"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Redova po stranici"
 
@@ -1979,6 +2052,10 @@ msgstr "Pretraži..."
 msgid "Searching..."
 msgstr "Pretraživanje..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "sekundi"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Odaberite razlog za prijavljivanje ovog komentara. Prijave pregledaju moderatori."
@@ -2027,7 +2104,16 @@ msgstr "Odaberi smjer stranice"
 msgid "Select theme preference"
 msgstr "Odaberi preferencu teme"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "odabrano"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Odabrano: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Pošalji ponovo"
 
@@ -2150,14 +2236,14 @@ msgstr "Pretplaćeno"
 msgid "Subscribed to {0}"
 msgstr "Pretplaćen na {0}"
 
-#: src/hooks/use-forums-queries.ts:168
+#: src/hooks/use-forums-queries.ts:140
 msgid "Subscribed to forum"
 msgstr "Pretplaćen na forum"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:159
+#: src/hooks/use-forums-queries.ts:131
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Pretplaćivanje..."
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "Nedjelja"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "Taj kod je netačan ili je istekao."
 msgid "The requested content could not be found."
 msgstr "Traženi sadržaj nije pronađen."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Stranica trenutno nije dostupna."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Tema"
@@ -2226,6 +2317,10 @@ msgstr "Ovaj forum se trenutno ne može učitati."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ovaj forum je možda obrisan ili nemate pristup."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Ova stranica još nije kreirana."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2265,6 +2360,10 @@ msgstr "Četvrtak"
 msgid "Title"
 msgstr "Naslov"
 
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Za"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
 msgstr "Prikaži/sakrij kolone"
@@ -2274,10 +2373,10 @@ msgstr "Prikaži/sakrij kolone"
 msgid "Toggle right panel"
 msgstr "Prebaci desni panel"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:351
-#: ../../../lib/web/src/components/layout/nav-group.tsx:358
-#: ../../../lib/web/src/components/layout/nav-group.tsx:481
-#: ../../../lib/web/src/components/layout/nav-group.tsx:488
+#: ../../../lib/web/src/components/layout/nav-group.tsx:373
+#: ../../../lib/web/src/components/layout/nav-group.tsx:380
+#: ../../../lib/web/src/components/layout/nav-group.tsx:503
+#: ../../../lib/web/src/components/layout/nav-group.tsx:510
 msgid "Toggle section"
 msgstr "Uključi/isključi odjeljak"
 
@@ -2384,12 +2483,12 @@ msgstr "Otkaži pretplatu na forum"
 msgid "Unsubscribe from forum?"
 msgstr "Otkazati pretplatu na forum?"
 
-#: src/hooks/use-forums-queries.ts:182
+#: src/hooks/use-forums-queries.ts:154
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Pretplata otkazana"
 
-#: src/hooks/use-forums-queries.ts:181
+#: src/hooks/use-forums-queries.ts:153
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Otkazujem pretplatu..."
@@ -2418,7 +2517,7 @@ msgstr "Korisnik utišan"
 msgid "Variables: {variables}"
 msgstr "Varijable: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Verifikacijski kod"
 
@@ -2432,7 +2531,7 @@ msgstr "Verifikacija neuspjela"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Verifikuj"
 
@@ -2440,9 +2539,14 @@ msgstr "Verifikuj"
 msgid "Verify email address"
 msgstr "Verifikuj email adresu"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: ../../../lib/web/src/components/attachment-gallery.tsx:79
 msgid "Video thumbnail"
 msgstr "Sličica videa"
+
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Preglednik videa: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
@@ -2452,8 +2556,8 @@ msgstr "Pregledaj"
 msgid "View all"
 msgstr "Pregledaj sve"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Pregledaj sve obavijesti"
 
@@ -2469,6 +2573,11 @@ msgstr "Nasilje"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "Glasaj i pregledaj"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Poslali smo kod za potvrdu na <0>{0}</0>. Unesite kod ispod da potvrdite svoju e-mail adresu."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2488,7 +2597,7 @@ msgstr "Trajanje prozora"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:166
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Već si pretplaćen na ovaj forum"
@@ -2504,6 +2613,10 @@ msgstr "Ograničeni ste u objavljivanju na ovom forumu"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Nemate pristup ovom odjeljku."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Nemate potrebnu dozvolu <0/>za pregled ovog resursa."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

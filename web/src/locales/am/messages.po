@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# አዲስ ልጥፍ} other {# አዲስ ልጥፎች}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ተመርጧል} other {# ተመርጠዋል}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# እቃ ጸድቋል} other {# እቃዎች ጸድ
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# እቃ ተቀባይነት አላገኘም} other {# እቃዎች ተቀባይነት አላገኙም}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "የ{entityLabel} ስም"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} ተመርጧል} other {{manyName} ተመርጠዋል}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} ተመርጧል። የጅምላ እርምጃ አሞሌ ይገኛል።} other {# {manyName} ተመርጠዋል። የጅምላ እርምጃ አሞሌ ይገኛል።}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# ተመርጠዋል} other {# ተመርጠዋል}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {ለ# የተመረጠ {entityName} የጅምላ እርምጃዎች} other {ለ# የተመረጡ {manyName} የጅምላ እርምጃዎች}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "ወደ መድረክ ተመለስ"
 msgid "Back to forums"
 msgstr "ወደ መድረኮች ተመለስ"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "ወደ መነሻ ተመለስ"
 
@@ -346,7 +368,7 @@ msgstr "በ {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "ሁሉንም አጽዳ"
 msgid "Clear all saved posts?"
 msgstr "ሁሉንም የተቀመጡ ልጥፎች ይጽዱ?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "ማጣሪያዎችን አጽዳ"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "ምርጫ አጽዳ"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "ምርጫ አጽዳ (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "የተቀመጡ ልጥፎችን በማጽዳት ላይ..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "ዝጋ"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "ማሰሻን ዝጋ"
 
@@ -472,11 +495,11 @@ msgstr "ምቹ"
 msgid "Coming Soon!"
 msgstr "በቅርብ ይመጣል!"
 
-#: src/hooks/use-forums-queries.ts:617
+#: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "አስተያየት ጸድቋል"
 
-#: src/hooks/use-forums-queries.ts:417
+#: src/hooks/use-forums-queries.ts:367
 msgid "Comment deleted"
 msgstr "አስተያየት ተሰርዟል"
 
@@ -484,19 +507,19 @@ msgstr "አስተያየት ተሰርዟል"
 msgid "Comment limit"
 msgstr "የአስተያየት ገደብ"
 
-#: src/hooks/use-forums-queries.ts:294
+#: src/hooks/use-forums-queries.ts:244
 msgid "Comment posted"
 msgstr "አስተያየት ተለጥፏል"
 
-#: src/hooks/use-forums-queries.ts:589
+#: src/hooks/use-forums-queries.ts:533
 msgid "Comment removed"
 msgstr "አስተያየት ተወግዷል"
 
-#: src/hooks/use-forums-queries.ts:603
+#: src/hooks/use-forums-queries.ts:547
 msgid "Comment restored"
 msgstr "አስተያየት ተመልሷል"
 
-#: src/hooks/use-forums-queries.ts:397
+#: src/hooks/use-forums-queries.ts:347
 msgid "Comment updated"
 msgstr "አስተያየት ተዘምኗል"
 
@@ -572,7 +595,7 @@ msgstr "አዲስ ልጥፍ ፍጠር"
 msgid "Create forum"
 msgstr "መድረክ ፍጠር"
 
-#: src/hooks/use-forums-queries.ts:109
+#: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "መድረክ በመፍጠር ላይ..."
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "ብጁ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "ጨለማ"
@@ -597,6 +621,10 @@ msgstr "ጨለማ ሁነታ"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "የውሂብ ግጭት"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "ቀናት"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -640,7 +668,7 @@ msgstr "ልጥፍ ሰርዝ"
 msgid "Delete your account on the old server"
 msgstr "በድሮ ሰርቨር ላይ ያለ መለያህን ሰርዝ"
 
-#: src/hooks/use-forums-queries.ts:125
+#: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "መድረክ በመሰረዝ ላይ..."
 
@@ -694,8 +722,8 @@ msgstr "ባነሩን አጥፋ"
 msgid "Displays the mobile sidebar."
 msgstr "የሞባይል ጎንደርን ያሳያል።"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "አውርድ"
 
@@ -787,7 +815,7 @@ msgstr "ተጠቃሚዎችን መከልከል አልተሳካም"
 msgid "Failed to clear saved posts"
 msgstr "የተቀመጡ ልጥፎችን ማጽዳት አልተሳካም"
 
-#: src/hooks/use-forums-queries.ts:111
+#: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "መድረክ መፍጠር አልተሳካም"
 
@@ -795,7 +823,7 @@ msgstr "መድረክ መፍጠር አልተሳካም"
 msgid "Failed to create link"
 msgstr "አገናኝ መፍጠር አልተሳካም"
 
-#: src/hooks/use-forums-queries.ts:127
+#: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "መድረክ መሰረዝ አልተሳካም"
 
@@ -823,6 +851,10 @@ msgstr "ፎረሞችን መጫን አልተሳካም"
 msgid "Failed to load groups"
 msgstr "ቡድኖችን መጫን አልተሳካም"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "ምስሉን መጫን አልተሳካም"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "የልከኝነት መዝገብን መጫን አልተሳካም"
@@ -846,6 +878,10 @@ msgstr "ሪፖርቶችን መጫን አልተሳካም"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "ገደቦችን መጫን አልተሳካም"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "ቪዲዮውን መጫን አልተሳካም"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -926,12 +962,12 @@ msgstr "የመዳረሻ ደረጃ ማቀናበር አልተሳካም"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:161
+#: src/hooks/use-forums-queries.ts:133
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "መመዝገብ አልተሳካም"
 
-#: src/hooks/use-forums-queries.ts:183
+#: src/hooks/use-forums-queries.ts:155
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "ምዝገባን መሰረዝ አልተሳካም"
@@ -986,11 +1022,11 @@ msgstr "ተንሳፋፊ"
 msgid "Forum"
 msgstr "ፎረም"
 
-#: src/hooks/use-forums-queries.ts:110
+#: src/hooks/use-forums-queries.ts:82
 msgid "Forum created"
 msgstr "ፎረም ተፈጥሯል"
 
-#: src/hooks/use-forums-queries.ts:126
+#: src/hooks/use-forums-queries.ts:98
 msgid "Forum deleted"
 msgstr "ፎረም ተሰርዟል"
 
@@ -1050,29 +1086,29 @@ msgstr "ከገጽታ"
 msgid "Full layout"
 msgstr "ሙሉ አቀማመጥ"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "ተመለስ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "ወደ መጀመሪያ ገጽ ሂድ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "ወደ መጨረሻ ገጽ ሂድ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "ወደ ቀጣይ ገጽ ሂድ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "ወደ ገጽ {pageNumber} ሂድ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "ወደ ቀዳሚ ገጽ ሂድ"
 
@@ -1113,6 +1149,11 @@ msgstr "ሞቅ ያለ"
 msgid "Identity"
 msgstr "ማንነት"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "የምስል መመልከቻ፦ {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "ኢምፔሪያል"
@@ -1142,6 +1183,10 @@ msgstr "ፍላጎቶች"
 msgid "Invalid verification code"
 msgstr "ልክ ያልሆነ የማረጋገጫ ኮድ"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "የሚፈልጉት ገጽ <0/>የለም ወይም ተወግዷል።"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "ከግራ ወደ ቀኝ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "ብርሃን"
@@ -1179,8 +1225,8 @@ msgstr "ይዘት በመጫን ላይ…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
-msgid "Loading…"
-msgstr "በመጫን ላይ…"
+msgid "Loading..."
+msgstr "በመጫን ላይ..."
 
 #: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Lock"
@@ -1216,8 +1262,8 @@ msgstr "በተሳካ ሁኔታ ወጥቷል"
 msgid "Logging out…"
 msgstr "በመውጣት ላይ…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "ሁሉንም እንደተነበበ ምልክት አድርግ"
@@ -1329,8 +1375,8 @@ msgstr "አዲስ ክሮች መጽደቅ አለባቸው"
 msgid "New user threshold:"
 msgstr "የአዲስ ተጠቃሚ ገደብ:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "ቀጣይ ምስል"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "ምንም ገደቦች የሉም"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "ምንም ውጤቶች አልተገኙም።"
 
@@ -1434,6 +1480,11 @@ msgstr "እስካሁን ምንም አልተቀመጠም"
 msgid "Notifications"
 msgstr "ማሳወቂያዎች"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "ማሳወቂያዎች፦ {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1448,8 +1499,8 @@ msgstr "ኦህ! ገጽ አልተገኘም!"
 msgid "Open account actions"
 msgstr "የመለያ ድርጊቶችን ክፈት"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:182
-#: ../../../lib/web/src/components/layout/nav-group.tsx:187
+#: ../../../lib/web/src/components/layout/nav-group.tsx:202
+#: ../../../lib/web/src/components/layout/nav-group.tsx:207
 msgid "Open actions"
 msgstr "እርምጃዎችን ክፈት"
 
@@ -1481,6 +1532,11 @@ msgstr "ሌላ"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "ባለቤት"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "ገጽ {currentPage} ከ{totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1539,6 +1595,10 @@ msgstr "እባክዎን አስተያየት ያስገቡ"
 msgid "Please enter a reply"
 msgstr "እባክዎን ምላሽ ያስገቡ"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "ይህን መርጃ ለመድረስ እባክዎ በተገቢው መረጃ <0/> ይግቡ።"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "እባክዎ እንደገና ይሞክሩ።"
@@ -1555,7 +1615,7 @@ msgstr "ልጥፍ ሊቀመጥ አልቻለም — ርዕስ ወይም ይዘት
 msgid "Post couldn't be saved on the forum server"
 msgstr "ልጥፍ በመድረክ አገልጋዩ ላይ ሊቀመጥ አልቻለም"
 
-#: src/hooks/use-forums-queries.ts:358
+#: src/hooks/use-forums-queries.ts:308
 msgid "Post deleted"
 msgstr "ልጥፍ ተሰርዟል"
 
@@ -1563,7 +1623,7 @@ msgstr "ልጥፍ ተሰርዟል"
 msgid "Post limit"
 msgstr "የልጥፍ ገደብ"
 
-#: src/hooks/use-forums-queries.ts:516
+#: src/hooks/use-forums-queries.ts:460
 msgid "Post locked"
 msgstr "ልጥፍ ተቆልፏል"
 
@@ -1571,37 +1631,41 @@ msgstr "ልጥፍ ተቆልፏል"
 msgid "Post not found"
 msgstr "ልጥፍ አልተገኘም"
 
-#: src/hooks/use-forums-queries.ts:544
+#: src/hooks/use-forums-queries.ts:488
 msgid "Post pinned"
 msgstr "ልጥፍ ተሰክቷል"
 
-#: src/hooks/use-forums-queries.ts:142
+#: src/hooks/use-forums-queries.ts:114
 msgid "Post published."
 msgstr "ልጥፍ ታትሟል።"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:432
 msgid "Post removed"
 msgstr "ልጥፍ ተወግዷል"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:447
 msgid "Post restored"
 msgstr "ልጥፍ ተመልሷል"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post unlocked"
 msgstr "ልጥፍ ተከፍቷል"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:503
 msgid "Post unpinned"
 msgstr "ልጥፍ ተነቅሏል"
 
-#: src/hooks/use-forums-queries.ts:342
+#: src/hooks/use-forums-queries.ts:292
 msgid "Post updated"
 msgstr "ልጥፍ ተዘምኗል"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Post, comment, vote, and view"
 msgstr "ለጥፍ፣ አስተያየት፣ ድምጽ እና እይታ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "ልጥፎች"
 
 #: src/components/options-menu.tsx:134
 msgid "Posts"
@@ -1619,8 +1683,8 @@ msgstr "ቅድመ-ማስተካከያ"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "ተጠቃሚዎች ምን ያህል ጊዜ ሊለጥፉ እንደሚችሉ በመገደብ ስፓምን ይከላከሉ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "ቀዳሚ ምስል"
 
@@ -1729,6 +1793,11 @@ msgstr "አስወግድ"
 msgid "Remove access rule"
 msgstr "የድረሳ ህግ አስወግድ"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "የ\"{0}\" የመዳረሻ ደንብ ይወገድ?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "ድረሳ ይወገድ?"
@@ -1778,6 +1847,10 @@ msgstr "በማስወገድ ላይ..."
 msgid "Renaming forum..."
 msgstr "መድረክ እንደገና በመሰየም ላይ..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "ምላሾች"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "ምላሾች መጽደቅ አለባቸው"
@@ -1811,8 +1884,8 @@ msgstr "ልጥፍ ሪፖርት አድርግ"
 msgid "Report resolved"
 msgstr "ሪፖርት ተፈትቷል"
 
-#: src/hooks/use-forums-queries.ts:571
-#: src/hooks/use-forums-queries.ts:643
+#: src/hooks/use-forums-queries.ts:515
+#: src/hooks/use-forums-queries.ts:587
 msgid "Report submitted"
 msgstr "ሪፖርት ተልኳል"
 
@@ -1883,7 +1956,7 @@ msgstr "መዳረሻን ሻር"
 msgid "Right to Left"
 msgstr "ከቀኝ ወደ ግራ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "በገጽ ያሉ ረድፎች"
 
@@ -1979,6 +2052,10 @@ msgstr "ይፈልጉ..."
 msgid "Searching..."
 msgstr "በመፈለግ ላይ..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "ሰከንዶች"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "ይህን አስተያየት ሪፖርት ለማድረግ ምክንያት ይምረጡ። ሪፖርቶች በሞዴሬተሮች ይገመገማሉ።"
@@ -2027,7 +2104,16 @@ msgstr "የጣቢያ አቅጣጫ ይምረጡ"
 msgid "Select theme preference"
 msgstr "የገጽታ ምርጫ ይምረጡ"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "ተመርጠዋል"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "ተመርጧል: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "እንደገና ላክ"
 
@@ -2150,14 +2236,14 @@ msgstr "ተመዝግቧል"
 msgid "Subscribed to {0}"
 msgstr "ለ{0} ተመዝግቧል"
 
-#: src/hooks/use-forums-queries.ts:168
+#: src/hooks/use-forums-queries.ts:140
 msgid "Subscribed to forum"
 msgstr "ለመድረክ ተመዝግቧል"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:159
+#: src/hooks/use-forums-queries.ts:131
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "በመመዝገብ ላይ..."
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "እሁድ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "ያ ኮድ የተሳሳተ ነው ወይም ጊዜው አልፎበታል
 msgid "The requested content could not be found."
 msgstr "የተጠየቀው ይዘት ሊገኝ አልቻለም።"
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "ጣቢያው በአሁኑ ጊዜ አይገኝም።"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "ገጽታ"
@@ -2226,6 +2317,10 @@ msgstr "ይህ ፎረም አሁን መጫን አልተቻለም።"
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ይህ ፎረም ተሰርዟል ወይም መዳረሻ የለዎትም።"
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "ይህ ገጽ ገና አልተፈጠረም።"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2265,6 +2360,10 @@ msgstr "ሐሙስ"
 msgid "Title"
 msgstr "ርዕስ"
 
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "ወደ"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
 msgstr "አምዶችን ቀይር"
@@ -2274,10 +2373,10 @@ msgstr "አምዶችን ቀይር"
 msgid "Toggle right panel"
 msgstr "ቀኝ ፓኔል ቀይር"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:351
-#: ../../../lib/web/src/components/layout/nav-group.tsx:358
-#: ../../../lib/web/src/components/layout/nav-group.tsx:481
-#: ../../../lib/web/src/components/layout/nav-group.tsx:488
+#: ../../../lib/web/src/components/layout/nav-group.tsx:373
+#: ../../../lib/web/src/components/layout/nav-group.tsx:380
+#: ../../../lib/web/src/components/layout/nav-group.tsx:503
+#: ../../../lib/web/src/components/layout/nav-group.tsx:510
 msgid "Toggle section"
 msgstr "ክፍልን ቀያይር"
 
@@ -2384,12 +2483,12 @@ msgstr "ከመድረክ ምዝገባ ያቋርጡ"
 msgid "Unsubscribe from forum?"
 msgstr "ከመድረኩ ይውጡ?"
 
-#: src/hooks/use-forums-queries.ts:182
+#: src/hooks/use-forums-queries.ts:154
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "ምዝገባ ተቋርጧል"
 
-#: src/hooks/use-forums-queries.ts:181
+#: src/hooks/use-forums-queries.ts:153
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "ምዝገባ በማቋረጥ ላይ..."
@@ -2418,7 +2517,7 @@ msgstr "ተጠቃሚ ዝም ተብሏል"
 msgid "Variables: {variables}"
 msgstr "ተለዋዋጮች: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "የማረጋገጫ ኮድ"
 
@@ -2432,7 +2531,7 @@ msgstr "ማረጋገጫ አልተሳካም"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ያረጋግጡ"
 
@@ -2440,9 +2539,14 @@ msgstr "ያረጋግጡ"
 msgid "Verify email address"
 msgstr "የኢሜይል አድራሻ ያረጋግጡ"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: ../../../lib/web/src/components/attachment-gallery.tsx:79
 msgid "Video thumbnail"
 msgstr "የቪዲዮ ጥፍር ምስል"
+
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "የቪዲዮ መመልከቻ፦ {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
@@ -2452,8 +2556,8 @@ msgstr "ይመልከቱ"
 msgid "View all"
 msgstr "ሁሉንም ይመልከቱ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "ሁሉንም ማሳወቂያዎች ይመልከቱ"
 
@@ -2469,6 +2573,11 @@ msgstr "ብጥብጥ"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "ድምጽ እና እይታ"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "የማረጋገጫ ኮድ ወደ <0>{0}</0> ልከናል። የኢሜይል አድራሻዎን ለማረጋገጥ ኮዱን ከታች ያስገቡ።"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2488,7 +2597,7 @@ msgstr "የመስኮት ቆይታ"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:166
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "አስቀድሞ ለዚህ መድረክ ተመዝግበዋል"
@@ -2504,6 +2613,10 @@ msgstr "በዚህ መድረክ ውስጥ ከመለጠፍ ተገድበዋል"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "የዚህ ክፍል መዳረሻ የለዎትም።"
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "ይህን መርጃ ለማየት <0/>አስፈላጊው ፈቃድ የለዎትም።"
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

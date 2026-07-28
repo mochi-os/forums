@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# નવી પોસ્ટ} other {# નવી પોસ્ટ}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# પસંદ કરેલ} other {# પસંદ કરેલ}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# આઇટમ મંજૂર} other {# આઇટ�
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# આઇટમ નકારી} other {# આઇટમ્સ નકારી}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "{entityLabel} નામ"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} પસંદ કરેલ} other {{manyName} પસંદ કરેલ}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} પસંદ કરેલ. બલ્ક ક્રિયા ટૂલબાર ઉપલબ્ધ છે.} other {# {manyName} પસંદ કરેલ. બલ્ક ક્રિયા ટૂલબાર ઉપલબ્ધ છે.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# પસંદ કરેલ} other {# પસંદ કરેલ}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {# પસંદ કરેલ {entityName} માટે બલ્ક ક્રિયાઓ} other {# પસંદ કરેલ {manyName} માટે બલ્ક ક્રિયાઓ}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "ફોરમ પર પાછા"
 msgid "Back to forums"
 msgstr "ફોરમ પર પાછા"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "મુખ્ય પૃષ્ઠ પર પાછા જાઓ"
 
@@ -346,7 +368,7 @@ msgstr "{0} દ્વારા"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "બધું સાફ કરો"
 msgid "Clear all saved posts?"
 msgstr "બધી સાચવેલ પોસ્ટ સાફ કરવી છે?"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "ફિલ્ટર સાફ કરો"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "પસંદગી સાફ કરો"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "પસંદગી સાફ કરો (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "સાચવેલી પોસ્ટ સાફ કરી રહ્યું છે..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "બંધ કરો"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "નેવિગેશન બંધ કરો"
 
@@ -472,11 +495,11 @@ msgstr "આરામદાયક"
 msgid "Coming Soon!"
 msgstr "જલ્દી આવી રહ્યું છે!"
 
-#: src/hooks/use-forums-queries.ts:617
+#: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "ટિપ્પણી મંજૂર"
 
-#: src/hooks/use-forums-queries.ts:417
+#: src/hooks/use-forums-queries.ts:367
 msgid "Comment deleted"
 msgstr "ટિપ્પણી કાઢી નાખી"
 
@@ -484,19 +507,19 @@ msgstr "ટિપ્પણી કાઢી નાખી"
 msgid "Comment limit"
 msgstr "ટિપ્પણી મર્યાદા"
 
-#: src/hooks/use-forums-queries.ts:294
+#: src/hooks/use-forums-queries.ts:244
 msgid "Comment posted"
 msgstr "ટિપ્પણી પોસ્ટ કરી"
 
-#: src/hooks/use-forums-queries.ts:589
+#: src/hooks/use-forums-queries.ts:533
 msgid "Comment removed"
 msgstr "ટિપ્પણી દૂર કરી"
 
-#: src/hooks/use-forums-queries.ts:603
+#: src/hooks/use-forums-queries.ts:547
 msgid "Comment restored"
 msgstr "ટિપ્પણી પુનઃસ્થાપિત"
 
-#: src/hooks/use-forums-queries.ts:397
+#: src/hooks/use-forums-queries.ts:347
 msgid "Comment updated"
 msgstr "ટિપ્પણી અપડેટ થઈ"
 
@@ -572,7 +595,7 @@ msgstr "નવી પોસ્ટ બનાવો"
 msgid "Create forum"
 msgstr "ફોરમ બનાવો"
 
-#: src/hooks/use-forums-queries.ts:109
+#: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "ફોરમ બનાવી રહ્યું છે..."
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "કસ્ટમ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "ડાર્ક"
@@ -597,6 +621,10 @@ msgstr "ડાર્ક મોડ"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "ડેટા સંઘર્ષ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "દિવસો"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -640,7 +668,7 @@ msgstr "પોસ્ટ કાઢી નાખો"
 msgid "Delete your account on the old server"
 msgstr "જૂના સર્વર પર તમારું ખાતું કાઢી નાખો"
 
-#: src/hooks/use-forums-queries.ts:125
+#: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "ફોરમ કાઢી રહ્યું છે..."
 
@@ -694,8 +722,8 @@ msgstr "બેનર રદ કરો"
 msgid "Displays the mobile sidebar."
 msgstr "મોબાઇલ સાઇડબાર દર્શાવે છે."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "ડાઉનલોડ કરો"
 
@@ -787,7 +815,7 @@ msgstr "યુઝર્સને બેન કરવામાં નિષ્ફ
 msgid "Failed to clear saved posts"
 msgstr "સાચવેલ પોસ્ટ સાફ કરવામાં નિષ્ફળ"
 
-#: src/hooks/use-forums-queries.ts:111
+#: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "ફોરમ બનાવવામાં નિષ્ફળ"
 
@@ -795,7 +823,7 @@ msgstr "ફોરમ બનાવવામાં નિષ્ફળ"
 msgid "Failed to create link"
 msgstr "લિંક બનાવવામાં નિષ્ફળ"
 
-#: src/hooks/use-forums-queries.ts:127
+#: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "ફોરમ કાઢવામાં નિષ્ફળ"
 
@@ -823,6 +851,10 @@ msgstr "ફોરમ્સ લોડ કરવામાં નિષ્ફળ"
 msgid "Failed to load groups"
 msgstr "જૂથો લોડ કરવામાં નિષ્ફળ"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "છબી લોડ કરવામાં નિષ્ફળ"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "મૉડરેશન લૉગ લોડ કરવામાં નિષ્ફળ"
@@ -846,6 +878,10 @@ msgstr "રિપોર્ટ્સ લોડ કરવામાં નિષ્
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "પ્રતિબંધો લોડ કરવામાં નિષ્ફળ"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "વિડિઓ લોડ કરવામાં નિષ્ફળ"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -926,12 +962,12 @@ msgstr "ઍક્સેસ લેવલ સેટ કરવામાં નિ�
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:161
+#: src/hooks/use-forums-queries.ts:133
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "સબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
 
-#: src/hooks/use-forums-queries.ts:183
+#: src/hooks/use-forums-queries.ts:155
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "અનસબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
@@ -986,11 +1022,11 @@ msgstr "ફ્લોટિંગ"
 msgid "Forum"
 msgstr "ફોરમ"
 
-#: src/hooks/use-forums-queries.ts:110
+#: src/hooks/use-forums-queries.ts:82
 msgid "Forum created"
 msgstr "ફોરમ બનાવ્યું"
 
-#: src/hooks/use-forums-queries.ts:126
+#: src/hooks/use-forums-queries.ts:98
 msgid "Forum deleted"
 msgstr "ફોરમ કાઢી નાખ્યું"
 
@@ -1050,29 +1086,29 @@ msgstr "થીમમાંથી"
 msgid "Full layout"
 msgstr "સંપૂર્ણ લેઆઉટ"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "પાછા જાઓ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "પ્રથમ પેજ પર જાઓ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "છેલ્લા પેજ પર જાઓ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "આગલા પેજ પર જાઓ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "પૃષ્ઠ {pageNumber} પર જાઓ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "પાછલા પેજ પર જાઓ"
 
@@ -1113,6 +1149,11 @@ msgstr "હૉટ"
 msgid "Identity"
 msgstr "ઓળખ"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "છબી દર્શક: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "ઇમ્પીરિયલ"
@@ -1142,6 +1183,10 @@ msgstr "રુચિઓ"
 msgid "Invalid verification code"
 msgstr "અમાન્ય ચકાસણી કોડ"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "એવું લાગે છે કે તમે જે પૃષ્ઠ શોધી રહ્યા છો <0/>તે અસ્તિત્વમાં નથી અથવા દૂર કરવામાં આવ્યું છે."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "ડાબેથી જમણે"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "લાઇટ"
@@ -1179,8 +1225,8 @@ msgstr "સામગ્રી લોડ થઈ રહી છે…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
-msgid "Loading…"
-msgstr "લોડ થઈ રહ્યું છે…"
+msgid "Loading..."
+msgstr "લોડ થઈ રહ્યું છે..."
 
 #: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Lock"
@@ -1216,8 +1262,8 @@ msgstr "સફળતાપૂર્વક લૉગ આઉટ થયા"
 msgid "Logging out…"
 msgstr "લૉગ આઉટ થઈ રહ્યું છે…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "બધાને વાંચેલા તરીકે માર્ક કરો"
@@ -1329,8 +1375,8 @@ msgstr "નવા થ્રેડ્સ મંજૂર કરવા જરૂ�
 msgid "New user threshold:"
 msgstr "નવા વપરાશકર્તાની મર્યાદા:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "આગળની છબી"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "કોઈ પ્રતિબંધો નથી"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "કોઈ પરિણામો મળ્યા નથી."
 
@@ -1434,6 +1480,11 @@ msgstr "હજુ સુધી કંઈ સાચવ્યું નથી"
 msgid "Notifications"
 msgstr "સૂચનાઓ"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "સૂચનાઓ: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1448,8 +1499,8 @@ msgstr "ઓહ! પેજ મળ્યું નથી!"
 msgid "Open account actions"
 msgstr "ખાતાની ક્રિયાઓ ખોલો"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:182
-#: ../../../lib/web/src/components/layout/nav-group.tsx:187
+#: ../../../lib/web/src/components/layout/nav-group.tsx:202
+#: ../../../lib/web/src/components/layout/nav-group.tsx:207
 msgid "Open actions"
 msgstr "ક્રિયાઓ ખોલો"
 
@@ -1481,6 +1532,11 @@ msgstr "અન્ય"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "માલિક"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "પૃષ્ઠ {currentPage} / {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1539,6 +1595,10 @@ msgstr "કૃપા કરીને કૉમેન્ટ દાખલ કર�
 msgid "Please enter a reply"
 msgstr "કૃપા કરીને જવાબ દાખલ કરો"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "આ સંસાધનને ઍક્સેસ કરવા માટે <0/> કૃપા કરીને યોગ્ય ઓળખપત્રો સાથે લોગ ઇન કરો."
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "કૃપા કરીને ફરી પ્રયાસ કરો."
@@ -1555,7 +1615,7 @@ msgstr "પોસ્ટ સાચવી શકાઈ નથી — શીર્�
 msgid "Post couldn't be saved on the forum server"
 msgstr "પોસ્ટ ફોરમ સર્વર પર સાચવી શકાઈ નથી"
 
-#: src/hooks/use-forums-queries.ts:358
+#: src/hooks/use-forums-queries.ts:308
 msgid "Post deleted"
 msgstr "પોસ્ટ ડિલીટ થઈ"
 
@@ -1563,7 +1623,7 @@ msgstr "પોસ્ટ ડિલીટ થઈ"
 msgid "Post limit"
 msgstr "પોસ્ટ મર્યાદા"
 
-#: src/hooks/use-forums-queries.ts:516
+#: src/hooks/use-forums-queries.ts:460
 msgid "Post locked"
 msgstr "પોસ્ટ લૉક થઈ"
 
@@ -1571,37 +1631,41 @@ msgstr "પોસ્ટ લૉક થઈ"
 msgid "Post not found"
 msgstr "પોસ્ટ મળી નથી"
 
-#: src/hooks/use-forums-queries.ts:544
+#: src/hooks/use-forums-queries.ts:488
 msgid "Post pinned"
 msgstr "પોસ્ટ પિન કરી"
 
-#: src/hooks/use-forums-queries.ts:142
+#: src/hooks/use-forums-queries.ts:114
 msgid "Post published."
 msgstr "પોસ્ટ પ્રકાશિત થઈ."
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:432
 msgid "Post removed"
 msgstr "પોસ્ટ દૂર કરી"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:447
 msgid "Post restored"
 msgstr "પોસ્ટ પુનઃસ્થાપિત કરી"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post unlocked"
 msgstr "પોસ્ટ અનલૉક થઈ"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:503
 msgid "Post unpinned"
 msgstr "પોસ્ટ અનપિન કરી"
 
-#: src/hooks/use-forums-queries.ts:342
+#: src/hooks/use-forums-queries.ts:292
 msgid "Post updated"
 msgstr "પોસ્ટ અપડેટ થઈ"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Post, comment, vote, and view"
 msgstr "પોસ્ટ, ટિપ્પણી, મત અને જુઓ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "પોસ્ટ"
 
 #: src/components/options-menu.tsx:134
 msgid "Posts"
@@ -1619,8 +1683,8 @@ msgstr "પ્રી-મોડરેશન"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "યુઝર્સ કેટલી વાર પોસ્ટ કરી શકે તે મર્યાદિત કરીને સ્પામ અટકાવો"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "પાછળની છબી"
 
@@ -1729,6 +1793,11 @@ msgstr "દૂર કરો"
 msgid "Remove access rule"
 msgstr "ઍક્સેસ નિયમ દૂર કરો"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "\"{0}\" માટે ઍક્સેસ નિયમ દૂર કરીએ?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "ઍક્સેસ દૂર કરો?"
@@ -1778,6 +1847,10 @@ msgstr "દૂર કરી રહ્યું છે..."
 msgid "Renaming forum..."
 msgstr "ફોરમનું નામ બદલી રહ્યું છે..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "જવાબો"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "જવાબો મંજૂર કરવા જરૂરી છે"
@@ -1811,8 +1884,8 @@ msgstr "પોસ્ટની જાણ કરો"
 msgid "Report resolved"
 msgstr "રિપોર્ટ ઉકેલાઈ"
 
-#: src/hooks/use-forums-queries.ts:571
-#: src/hooks/use-forums-queries.ts:643
+#: src/hooks/use-forums-queries.ts:515
+#: src/hooks/use-forums-queries.ts:587
 msgid "Report submitted"
 msgstr "રિપોર્ટ સબમિટ થયો"
 
@@ -1883,7 +1956,7 @@ msgstr "ઍક્સેસ રદ કરો"
 msgid "Right to Left"
 msgstr "જમણે થી ડાબે"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "પ્રતિ પૃષ્ઠ પંક્તિઓ"
 
@@ -1979,6 +2052,10 @@ msgstr "શોધો..."
 msgid "Searching..."
 msgstr "શોધી રહ્યું છે..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "સેકન્ડ"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "આ ટિપ્પણીની જાણ કરવા માટે કારણ પસંદ કરો. અહેવાલોની સમીક્ષા મધ્યસ્થીઓ દ્વારા કરવામાં આવે છે."
@@ -2027,7 +2104,16 @@ msgstr "સાઇટ દિશા પસંદ કરો"
 msgid "Select theme preference"
 msgstr "થીમ પસંદગી પસંદ કરો"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "પસંદ કરેલ"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "પસંદ કરેલ: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "ફરી મોકલો"
 
@@ -2150,14 +2236,14 @@ msgstr "સબ્સ્ક્રાઇબ કર્યું"
 msgid "Subscribed to {0}"
 msgstr "{0} પર સબ્સ્ક્રાઇબ કર્યું"
 
-#: src/hooks/use-forums-queries.ts:168
+#: src/hooks/use-forums-queries.ts:140
 msgid "Subscribed to forum"
 msgstr "ફોરમ પર સબ્સ્ક્રાઇબ કર્યું"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:159
+#: src/hooks/use-forums-queries.ts:131
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "સબ્સ્ક્રાઇબ કરી રહ્યું છે..."
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "રવિવાર"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "તે કોડ ખોટો છે અથવા સમયસમાપ�
 msgid "The requested content could not be found."
 msgstr "વિનંતી કરેલી સામગ્રી મળી શકી નથી."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "સાઇટ આ ક્ષણે ઉપલબ્ધ નથી."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "થીમ"
@@ -2226,6 +2317,10 @@ msgstr "આ ફોરમ અત્યારે લોડ થઈ શક્યુ�
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "આ ફોરમ કાઢી નાખવામાં આવ્યું હોઈ શકે છે અથવા તમને તેની ઍક્સેસ નથી."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "આ પૃષ્ઠ હજુ સુધી બનાવવામાં આવ્યું નથી."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2265,6 +2360,10 @@ msgstr "ગુરુવાર"
 msgid "Title"
 msgstr "શીર્ષક"
 
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "પ્રતિ"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
 msgstr "કૉલમ્સ ટૉગલ કરો"
@@ -2274,10 +2373,10 @@ msgstr "કૉલમ્સ ટૉગલ કરો"
 msgid "Toggle right panel"
 msgstr "જમણી પેનલ ટૉગલ કરો"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:351
-#: ../../../lib/web/src/components/layout/nav-group.tsx:358
-#: ../../../lib/web/src/components/layout/nav-group.tsx:481
-#: ../../../lib/web/src/components/layout/nav-group.tsx:488
+#: ../../../lib/web/src/components/layout/nav-group.tsx:373
+#: ../../../lib/web/src/components/layout/nav-group.tsx:380
+#: ../../../lib/web/src/components/layout/nav-group.tsx:503
+#: ../../../lib/web/src/components/layout/nav-group.tsx:510
 msgid "Toggle section"
 msgstr "વિભાગ ટૉગલ કરો"
 
@@ -2384,12 +2483,12 @@ msgstr "ફોરમ માંથી અનસબ્સ્ક્રાઇબ ક
 msgid "Unsubscribe from forum?"
 msgstr "ફોરમમાંથી સબ્સ્ક્રિપ્શન રદ કરવું?"
 
-#: src/hooks/use-forums-queries.ts:182
+#: src/hooks/use-forums-queries.ts:154
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "અનસબ્સ્ક્રાઇબ કર્યું"
 
-#: src/hooks/use-forums-queries.ts:181
+#: src/hooks/use-forums-queries.ts:153
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "અનસબ્સ્ક્રાઇબ કરી રહ્યું છે..."
@@ -2418,7 +2517,7 @@ msgstr "વપરાશકર્તા મ્યૂટ કર્યો"
 msgid "Variables: {variables}"
 msgstr "વેરિએબલ્સ: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "ચકાસણી કોડ"
 
@@ -2432,7 +2531,7 @@ msgstr "ચકાસણી નિષ્ફળ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ચકાસો"
 
@@ -2440,9 +2539,14 @@ msgstr "ચકાસો"
 msgid "Verify email address"
 msgstr "ઈમેઇલ સરનામું ચકાસો"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: ../../../lib/web/src/components/attachment-gallery.tsx:79
 msgid "Video thumbnail"
 msgstr "વિડિયો થંબનેલ"
+
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "વિડિઓ દર્શક: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
@@ -2452,8 +2556,8 @@ msgstr "જુઓ"
 msgid "View all"
 msgstr "બધું જુઓ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "બધી સૂચનાઓ જુઓ"
 
@@ -2469,6 +2573,11 @@ msgstr "હિંસા"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "મત આપો અને જુઓ"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "અમે <0>{0}</0> પર ચકાસણી કોડ મોકલ્યો છે. તમારું ઇમેઇલ સરનામું ચકાસવા માટે નીચે કોડ દાખલ કરો."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2488,7 +2597,7 @@ msgstr "વિન્ડો સમયગાળો"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:166
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "તમે પહેલેથી જ આ ફોરમ પર સબ્સ્ક્રાઇબ કરેલ છો"
@@ -2504,6 +2613,10 @@ msgstr "આ ફોરમમાં પોસ્ટ કરવા પર તમે 
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "તમારી પાસે આ વિભાગની ઍક્સેસ નથી."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "આ સંસાધન જોવા માટે <0/>તમારી પાસે જરૂરી પરવાનગી નથી."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"

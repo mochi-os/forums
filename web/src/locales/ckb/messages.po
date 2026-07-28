@@ -37,6 +37,8 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# پۆستی نوێ} other {# پۆستی نوێ}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
 #: src/routes/_authenticated/$forum_.moderation.tsx:516
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# هەڵبژێردراو} other {# هەڵبژێردراو}}"
@@ -64,6 +66,26 @@ msgstr "{count, plural, one {# بابەت پەسەندکرا} other {# بابە�
 #: src/routes/_authenticated/$forum_.moderation.tsx:258
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# بابەت ڕەتکرایەوە} other {# بابەت ڕەتکرانەوە}}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "ناوی {entityLabel}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} هەڵبژێردرا} other {{manyName} هەڵبژێردران}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} هەڵبژێردرا. تووڵامرازی کردارە کۆمەڵییەکان بەردەستە.} other {# {manyName} هەڵبژێردران. تووڵامرازی کردارە کۆمەڵییەکان بەردەستە.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# هەڵبژێردراو} other {# هەڵبژێردراو}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {کردارە کۆمەڵییەکان بۆ # {entityName}ی هەڵبژێردراو} other {کردارە کۆمەڵییەکان بۆ # {manyName}ی هەڵبژێردراو}}"
 
 #: src/features/forums/components/thread/thread-comment.tsx:189
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
@@ -292,9 +314,9 @@ msgstr "گەڕانەوە بۆ فۆڕەم"
 msgid "Back to forums"
 msgstr "گەڕانەوە بۆ فۆڕەمەکان"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "گەڕانەوە بۆ ماڵەوە"
 
@@ -346,7 +368,7 @@ msgstr "لەلایەن {0}"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
 #: src/features/forums/components/edit-post-dialog.tsx:360
 #: src/features/forums/components/report-dialog.tsx:115
@@ -415,16 +437,17 @@ msgstr "پاککردنەوەی هەموو"
 msgid "Clear all saved posts?"
 msgstr "سڕینەوەی هەموو پۆستە پاشەکەوتکراوەکان؟"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "پاککردنەوەی پاڵێوەرەکان"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "پاککردنەوەی هەڵبژاردە"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "پاککردنەوەی هەڵبژاردە (Escape)"
 
@@ -433,14 +456,14 @@ msgid "Clearing saved posts..."
 msgstr "پاککردنەوەی پۆستە پاشەکەوتکراوەکان..."
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "داخستن"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "داخستنی ڕێدۆزی"
 
@@ -472,11 +495,11 @@ msgstr "ئاسوودە"
 msgid "Coming Soon!"
 msgstr "بەم زووانە!"
 
-#: src/hooks/use-forums-queries.ts:617
+#: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "لێدوان پەسەند کرا"
 
-#: src/hooks/use-forums-queries.ts:417
+#: src/hooks/use-forums-queries.ts:367
 msgid "Comment deleted"
 msgstr "لێدوان سڕایەوە"
 
@@ -484,19 +507,19 @@ msgstr "لێدوان سڕایەوە"
 msgid "Comment limit"
 msgstr "سنووری لێدوان"
 
-#: src/hooks/use-forums-queries.ts:294
+#: src/hooks/use-forums-queries.ts:244
 msgid "Comment posted"
 msgstr "لێدوان بڵاو کرایەوە"
 
-#: src/hooks/use-forums-queries.ts:589
+#: src/hooks/use-forums-queries.ts:533
 msgid "Comment removed"
 msgstr "لێدوان لابرا"
 
-#: src/hooks/use-forums-queries.ts:603
+#: src/hooks/use-forums-queries.ts:547
 msgid "Comment restored"
 msgstr "لێدوان گەڕایەوە"
 
-#: src/hooks/use-forums-queries.ts:397
+#: src/hooks/use-forums-queries.ts:347
 msgid "Comment updated"
 msgstr "لێدوان نوێکرایەوە"
 
@@ -572,7 +595,7 @@ msgstr "پۆستێکی نوێ دروست بکە"
 msgid "Create forum"
 msgstr "دروستکردنی فۆڕەم"
 
-#: src/hooks/use-forums-queries.ts:109
+#: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "دروستکردنی فۆڕەم..."
 
@@ -582,6 +605,7 @@ msgid "Custom"
 msgstr "تایبەت"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "تاریک"
@@ -597,6 +621,10 @@ msgstr "دۆخی تاریک"
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:240
 msgid "Data conflict"
 msgstr "ناکۆکی داتا"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
+msgid "days"
+msgstr "ڕۆژ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -640,7 +668,7 @@ msgstr "سڕینەوەی پۆست"
 msgid "Delete your account on the old server"
 msgstr "هەژمارەکەت لە سێرڤەری کۆنەکەوە بسڕەوە"
 
-#: src/hooks/use-forums-queries.ts:125
+#: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "سڕینەوەی فۆڕەم..."
 
@@ -694,8 +722,8 @@ msgstr "لابردنی بانەر"
 msgid "Displays the mobile sidebar."
 msgstr "لاتەنیشتی مۆبایل پیشان دەدات."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "داگرتن"
 
@@ -787,7 +815,7 @@ msgstr "ڕاگرتنی بەکارهێنەران سەرکەوتوو نەبوو"
 msgid "Failed to clear saved posts"
 msgstr "سڕینەوەی پۆستە پاشەکەوتکراوەکان سەرکەوتوو نەبوو"
 
-#: src/hooks/use-forums-queries.ts:111
+#: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "دروستکردنی فۆڕەم سەرکەوتوو نەبوو"
 
@@ -795,7 +823,7 @@ msgstr "دروستکردنی فۆڕەم سەرکەوتوو نەبوو"
 msgid "Failed to create link"
 msgstr "دروستکردنی بەستەر سەرکەوتوو نەبوو"
 
-#: src/hooks/use-forums-queries.ts:127
+#: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "سڕینەوەی فۆڕەم سەرکەوتوو نەبوو"
 
@@ -823,6 +851,10 @@ msgstr "بارکردنی Forumەکان سەرکەوتوو نەبوو"
 msgid "Failed to load groups"
 msgstr "بارکردنی گرووپەکان سەرکەوتوو نەبوو"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "وێنەکە بار نەکرا"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:769
 msgid "Failed to load moderation log"
 msgstr "بارکردنی لۆگی نەزمی سەرکەوتوو نەبوو"
@@ -846,6 +878,10 @@ msgstr "بارکردنی ڕاپۆرتەکان سەرکەوتوو نەبوو"
 #: src/routes/_authenticated/$forum_.moderation.tsx:884
 msgid "Failed to load restrictions"
 msgstr "بارکردنی سنوورداریەکان سەرکەوتوو نەبوو"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "ڤیدیۆکە بار نەکرا"
 
 #: src/features/forums/thread-detail.tsx:366
 msgid "Failed to mute user"
@@ -926,12 +962,12 @@ msgstr "دانانی ئاستی گەیشتن سەرکەوتوو نەبوو"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:161
+#: src/hooks/use-forums-queries.ts:133
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "بەشداریبوون سەرکەوتوو نەبوو"
 
-#: src/hooks/use-forums-queries.ts:183
+#: src/hooks/use-forums-queries.ts:155
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "وازهێنان لە بەشداریبوون سەرکەوتوو نەبوو"
@@ -986,11 +1022,11 @@ msgstr "سەرشانی"
 msgid "Forum"
 msgstr "Forum"
 
-#: src/hooks/use-forums-queries.ts:110
+#: src/hooks/use-forums-queries.ts:82
 msgid "Forum created"
 msgstr "Forum دروست کرا"
 
-#: src/hooks/use-forums-queries.ts:126
+#: src/hooks/use-forums-queries.ts:98
 msgid "Forum deleted"
 msgstr "Forum سڕایەوە"
 
@@ -1050,29 +1086,29 @@ msgstr "لە ڕووکارەوە"
 msgid "Full layout"
 msgstr "ڕێکخستنی تەواو"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "گەڕانەوە"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "بڕۆ بۆ یەکەم پەڕە"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "بڕۆ بۆ کۆتا پەڕە"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "بڕۆ بۆ پەڕەی دواتر"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "بڕۆ بۆ لاپەڕە {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "بڕۆ بۆ پەڕەی پێشوو"
 
@@ -1113,6 +1149,11 @@ msgstr "گەرم"
 msgid "Identity"
 msgstr "ناسنامە"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "بینەری وێنە: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "ئیمپێریاڵ"
@@ -1142,6 +1183,10 @@ msgstr "ئارەزووەکان"
 msgid "Invalid verification code"
 msgstr "کۆدی پشتڕاستکردنەوەی نادروست"
 
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "وا دیارە ئەو پەڕەیەی بەدوایدا دەگەڕێیت <0/>بوونی نییە یان سڕاوەتەوە."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1161,6 +1206,7 @@ msgid "Left to Right"
 msgstr "لە چەپەوە بۆ ڕاست"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "ڕووناک"
@@ -1179,8 +1225,8 @@ msgstr "ناوەڕۆک باردەکرێت…"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:90
-msgid "Loading…"
-msgstr "بار دەکرێت…"
+msgid "Loading..."
+msgstr "بار دەکرێت..."
 
 #: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Lock"
@@ -1216,8 +1262,8 @@ msgstr "بە سەرکەوتوویی دەرچوو"
 msgid "Logging out…"
 msgstr "دەردەچێت…"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "نیشانەکردنی هەمووان وەک خوێندراوە"
@@ -1329,8 +1375,8 @@ msgstr "ڕشتە نوێیەکان دەبێت پەسەند بکرێن"
 msgid "New user threshold:"
 msgstr "سنووری بەکارهێنەری نوێ:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "وێنەی دواتر"
 
@@ -1384,7 +1430,7 @@ msgid "No restrictions"
 msgstr "هیچ سنووردارکردنێک نییە"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "هیچ ئەنجامێک نەدۆزرایەوە."
 
@@ -1434,6 +1480,11 @@ msgstr "هێشتا هیچ پاشەکەوت نەکراوە"
 msgid "Notifications"
 msgstr "ئاگادارکردنەوەکان"
 
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "ئاگادارکردنەوەکان: {0}"
+
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
 msgid "Off-topic"
@@ -1448,8 +1499,8 @@ msgstr "ئۆه! پەڕە نەدۆزرایەوە!"
 msgid "Open account actions"
 msgstr "کردنەوەی کردارەکانی هەژمار"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:182
-#: ../../../lib/web/src/components/layout/nav-group.tsx:187
+#: ../../../lib/web/src/components/layout/nav-group.tsx:202
+#: ../../../lib/web/src/components/layout/nav-group.tsx:207
 msgid "Open actions"
 msgstr "کردارەکان بکەرەوە"
 
@@ -1481,6 +1532,11 @@ msgstr "هیتر"
 #: ../../../lib/web/src/features/access/access-list.tsx:217
 msgid "Owner"
 msgstr "خاوەن"
+
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "پەڕەی {currentPage} لە {totalPages}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
@@ -1539,6 +1595,10 @@ msgstr "تکایە بۆچوونێک بنووسە"
 msgid "Please enter a reply"
 msgstr "تکایە وەڵامێک بنووسە"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "تکایە بە زانیارییە گونجاوەکان بچۆ ژوورەوە <0/> بۆ دەستپێگەیشتن بەم سەرچاوەیە."
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "تکایە دووبارە هەوڵ بدەرەوە."
@@ -1555,7 +1615,7 @@ msgstr "بڵاوکراوەکە پاشەکەوت نەکرا — ناونیشان 
 msgid "Post couldn't be saved on the forum server"
 msgstr "بڵاوکراوەکە لەسەر سێرڤەری فۆڕەم پاشەکەوت نەکرا"
 
-#: src/hooks/use-forums-queries.ts:358
+#: src/hooks/use-forums-queries.ts:308
 msgid "Post deleted"
 msgstr "پۆست سڕایەوە"
 
@@ -1563,7 +1623,7 @@ msgstr "پۆست سڕایەوە"
 msgid "Post limit"
 msgstr "سنووری پۆست"
 
-#: src/hooks/use-forums-queries.ts:516
+#: src/hooks/use-forums-queries.ts:460
 msgid "Post locked"
 msgstr "پۆست داخرا"
 
@@ -1571,37 +1631,41 @@ msgstr "پۆست داخرا"
 msgid "Post not found"
 msgstr "پۆست نەدۆزرایەوە"
 
-#: src/hooks/use-forums-queries.ts:544
+#: src/hooks/use-forums-queries.ts:488
 msgid "Post pinned"
 msgstr "پۆست چەسپێنرا"
 
-#: src/hooks/use-forums-queries.ts:142
+#: src/hooks/use-forums-queries.ts:114
 msgid "Post published."
 msgstr "پۆست بڵاوکرایەوە."
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:432
 msgid "Post removed"
 msgstr "پۆست لابرا"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:447
 msgid "Post restored"
 msgstr "پۆست گەڕێنرایەوە"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post unlocked"
 msgstr "پۆست کرایەوە"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:503
 msgid "Post unpinned"
 msgstr "پۆست چەسپ هەڵگیرا"
 
-#: src/hooks/use-forums-queries.ts:342
+#: src/hooks/use-forums-queries.ts:292
 msgid "Post updated"
 msgstr "پۆست نوێ کرایەوە"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Post, comment, vote, and view"
 msgstr "پۆست، بۆچوون، دەنگدان و بینین"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
+msgid "posts"
+msgstr "بابەتەکان"
 
 #: src/components/options-menu.tsx:134
 msgid "Posts"
@@ -1619,8 +1683,8 @@ msgstr "پێش-ڕێکخستن"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "ڕێگەگرتن لە سپام بە سنووردارکردنی ئەوەی چەند جار بەکارهێنەران دەتوانن پۆست بکەن"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "وێنەی پێشوو"
 
@@ -1729,6 +1793,11 @@ msgstr "لابردن"
 msgid "Remove access rule"
 msgstr "لابردنی ڕێسای دەستڕاگەیشتن"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "یاسای دەستپێگەیشتن بۆ \"{0}\" لابردرێت؟"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "دەستڕاگەیشتن لاببەیت؟"
@@ -1778,6 +1847,10 @@ msgstr "لابردن..."
 msgid "Renaming forum..."
 msgstr "گۆڕینی ناوی فۆڕەم..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
+msgid "replies"
+msgstr "وەڵامەکان"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "وەڵامەکان دەبێت پەسەند بکرێن"
@@ -1811,8 +1884,8 @@ msgstr "ڕاپۆرتکردنی پۆست"
 msgid "Report resolved"
 msgstr "ڕاپۆرت چارەسەرکرا"
 
-#: src/hooks/use-forums-queries.ts:571
-#: src/hooks/use-forums-queries.ts:643
+#: src/hooks/use-forums-queries.ts:515
+#: src/hooks/use-forums-queries.ts:587
 msgid "Report submitted"
 msgstr "ڕاپۆرت نێردرا"
 
@@ -1883,7 +1956,7 @@ msgstr "ڕەتکردنەوەی دەستپێگەیشتن"
 msgid "Right to Left"
 msgstr "ڕاست بۆ چەپ"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "ڕیزەکان بۆ هەر پەڕەیەک"
 
@@ -1979,6 +2052,10 @@ msgstr "گەڕان..."
 msgid "Searching..."
 msgstr "گەڕان..."
 
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
+msgid "seconds"
+msgstr "چرکە"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "هۆکارێک هەڵبژێرە بۆ ڕاپۆرتکردنی ئەم بۆچوونە. ڕاپۆرتەکان لەلایەن ڕێکخەرەکانەوە پێداچوونەوە دەکرێن."
@@ -2027,7 +2104,16 @@ msgstr "ئاراستەی ماڵپەڕ هەڵبژێرە"
 msgid "Select theme preference"
 msgstr "هەڵبژاردەی ڕووکار هەڵبژێرە"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "هەڵبژێردراو"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "هەڵبژێردراو: <0>{0}</0>"
+
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "دیسان بنێرە"
 
@@ -2150,14 +2236,14 @@ msgstr "بەشداربوو"
 msgid "Subscribed to {0}"
 msgstr "بەشداربوو لە {0}"
 
-#: src/hooks/use-forums-queries.ts:168
+#: src/hooks/use-forums-queries.ts:140
 msgid "Subscribed to forum"
 msgstr "بەشداربوو لە فۆڕۆم"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:159
+#: src/hooks/use-forums-queries.ts:131
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "بەشداربوون..."
@@ -2167,6 +2253,7 @@ msgid "Sunday"
 msgstr "یەکشەممە"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -2207,6 +2294,10 @@ msgstr "ئەو کۆدە هەڵەیە یان بەسەرچووە."
 msgid "The requested content could not be found."
 msgstr "ناوەڕۆکی داواکراو نەدۆزرایەوە."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "ماڵپەڕەکە لە ئێستادا بەردەست نییە."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "ڕووکار"
@@ -2226,6 +2317,10 @@ msgstr "ئەم فۆڕۆمە لە ئێستادا ناتوانرێت بارببر�
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "لەوانەیە ئەم فۆڕۆمە سڕابێتەوە یان دەستڕاگەیشتنت پێی نییە."
+
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "ئەم پەڕەیە هێشتا درووست نەکراوە."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -2265,6 +2360,10 @@ msgstr "پێنجشەممە"
 msgid "Title"
 msgstr "ناونیشان"
 
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "بۆ"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
 msgstr "گۆڕینی ستوونەکان"
@@ -2274,10 +2373,10 @@ msgstr "گۆڕینی ستوونەکان"
 msgid "Toggle right panel"
 msgstr "گۆڕینی پانێلی ڕاست"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:351
-#: ../../../lib/web/src/components/layout/nav-group.tsx:358
-#: ../../../lib/web/src/components/layout/nav-group.tsx:481
-#: ../../../lib/web/src/components/layout/nav-group.tsx:488
+#: ../../../lib/web/src/components/layout/nav-group.tsx:373
+#: ../../../lib/web/src/components/layout/nav-group.tsx:380
+#: ../../../lib/web/src/components/layout/nav-group.tsx:503
+#: ../../../lib/web/src/components/layout/nav-group.tsx:510
 msgid "Toggle section"
 msgstr "بەش بگۆڕە"
 
@@ -2384,12 +2483,12 @@ msgstr "بەشداری لە فۆڕۆم هەڵبوەشێنەوە"
 msgid "Unsubscribe from forum?"
 msgstr "بەشداری نەکردن لە فۆڕەم؟"
 
-#: src/hooks/use-forums-queries.ts:182
+#: src/hooks/use-forums-queries.ts:154
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "بەشداری هەڵوەشایەوە"
 
-#: src/hooks/use-forums-queries.ts:181
+#: src/hooks/use-forums-queries.ts:153
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "هەڵوەشاندنەوەی بەشداری..."
@@ -2418,7 +2517,7 @@ msgstr "بەکارهێنەر بێ دەنگکرا"
 msgid "Variables: {variables}"
 msgstr "گۆڕاوەکان: {variables}"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "کۆدی پشتڕاستکردنەوە"
 
@@ -2432,7 +2531,7 @@ msgstr "پشتڕاستکردنەوە سەرکەوتوو نەبوو"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "پشتڕاستبکە"
 
@@ -2440,9 +2539,14 @@ msgstr "پشتڕاستبکە"
 msgid "Verify email address"
 msgstr "ناونیشانی ئیمەیڵ پشتڕاستبکە"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: ../../../lib/web/src/components/attachment-gallery.tsx:79
 msgid "Video thumbnail"
 msgstr "وێنۆکەی ڤیدیۆ"
+
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "بینەری ڤیدیۆ: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
@@ -2452,8 +2556,8 @@ msgstr "بینین"
 msgid "View all"
 msgstr "هەمووی ببینە"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "هەموو ئاگادارکردنەوەکان ببینە"
 
@@ -2469,6 +2573,11 @@ msgstr "توندوتیژی"
 #: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Vote and view"
 msgstr "دەنگدان و بینین"
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "کۆدی پشتڕاستکردنەوەمان نارد بۆ <0>{0}</0>. بۆ پشتڕاستکردنەوەی ناونیشانی ئیمەیڵەکەت کۆدەکە لە خوارەوە بنووسە."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2488,7 +2597,7 @@ msgstr "ماوەی پەنجەرە"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:166
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "تۆ پێشتر بەشدارت لەم فۆڕۆمەدا"
@@ -2504,6 +2613,10 @@ msgstr "تۆ سنووردارکراویت لە بڵاوکردنەوە لەم ف�
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "دەستپێگەیشتنت بەم بەشە نییە."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "مۆڵەتی پێویستت نییە <0/>بۆ بینینی ئەم سەرچاوەیە."
 
 #: src/hooks/use-forum-websocket.ts:54
 msgid "You don't have permission to post in this forum"
