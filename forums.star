@@ -2257,7 +2257,7 @@ def action_notifications_clear(a):
         return
     forum = get_forum(a.input("forum"))
     if forum:
-        mochi.service.call("notifications", "clear/object", "forums", forum["id"])
+        mochi.service.call("notifications", "clear/object", forum["id"])
 
 def action_sort_set_default(a):
     """Set the user's default post sort (applied to All forums and to forums with no override)."""
