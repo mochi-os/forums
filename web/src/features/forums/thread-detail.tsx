@@ -24,19 +24,18 @@ import {
   useAuthStore,
   useListAutoAnimate,
   findCommentTextInTree,
-  Attachment,
-  AttachmentGroup,
-  AttachmentMedia,
-  AttachmentContent,
-  AttachmentTitle,
-  AttachmentDescription,
-  AttachmentActions,
-  AttachmentAction,
-  useFormat,
-  pendingFileKey,
+  cn,
   removePendingFile,
 } from '@mochi/web'
-import { Paperclip, Send, X } from 'lucide-react'
+import { Loader2, Paperclip, Send, X } from 'lucide-react'
+import {
+  ComposerAttachments,
+  SendShortcutHint,
+  dropActiveClass,
+  offlineBlocked,
+  useComposerDrop,
+  useDiscardGuard,
+} from '@/components/comment-composer'
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
@@ -85,7 +84,6 @@ export function ThreadDetail({
   fromAllForums = false,
 }: ThreadDetailProps) {
   const { t } = useLingui()
-  const { formatFileSize } = useFormat()
   const navigate = useNavigate()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
@@ -102,12 +100,24 @@ export function ThreadDetail({
   const commentFileRef = useRef<HTMLInputElement>(null)
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
+  const [commentFailed, setCommentFailed] = useState(false)
+  // The create-comment mutation is shared with every reply form in the thread,
+  // so its isPending cannot stand in for "this form is sending".
+  const [isSendingComment, setIsSendingComment] = useState(false)
   useEffect(() => {
     if (!showReplyForm) {
       if (commentFiles.length > 0) setCommentFiles([])
       if (commentBody) setCommentBody('')
+      if (commentFailed) setCommentFailed(false)
     }
+    // Only the open/closed flip matters here; the values are read fresh.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showReplyForm])
+
+  const addCommentFiles = useCallback((incoming: File[]) => {
+    setCommentFailed(false)
+    setCommentFiles((prev) => [...prev, ...incoming])
+  }, [])
   const [replyingToComment, setReplyingToComment] = useState<string | null>(
     null
   )
@@ -180,6 +190,18 @@ export function ThreadDetail({
   const reportPostMutation = useReportPost(forum, postId)
   const reportCommentMutation = useReportComment(forum, postId)
 
+  const { isDragActive, dropzoneProps } = useComposerDrop({
+    onFiles: addCommentFiles,
+    disabled: isSendingComment,
+  })
+
+  const { requestClose: requestCloseReplyForm, discardDialog } = useDiscardGuard({
+    hasText: commentBody.trim().length > 0,
+    hasFiles: commentFiles.length > 0,
+    onDiscard: () => setShowReplyForm(false),
+    locked: isSendingComment,
+  })
+
   // Tag state (local optimistic updates since post detail isn't using react-query for tags)
   const [localTags, setLocalTags] = useState<Tag[] | null>(null)
 
@@ -238,36 +260,43 @@ export function ThreadDetail({
   )
 
   const handleCommentSubmit = () => {
-    if (!commentBody.trim()) {
-      toast.error(t`Please enter a comment`)
+    if (!commentBody.trim() || isSendingComment) {
+      if (!commentBody.trim()) toast.error(t`Please enter a comment`)
       return
     }
+    if (offlineBlocked()) return
+    setCommentFailed(false)
+    setIsSendingComment(true)
     createCommentMutation.mutate(
       { body: commentBody, files: commentFiles.length > 0 ? commentFiles : undefined },
       {
+        onSettled: () => setIsSendingComment(false),
         onSuccess: () => {
           setCommentBody('')
           setCommentFiles([])
           setShowReplyForm(false)
         },
+        // Keep the form open with its draft and attachments so Retry can send
+        // exactly what failed.
+        onError: () => setCommentFailed(true),
       }
     )
   }
 
-  const handleCommentReplySubmit = (parentId: string, files?: File[]) => {
+  const handleCommentReplySubmit = async (parentId: string, files?: File[]) => {
     if (!commentReplyBody.trim()) {
       toast.error(t`Please enter a reply`)
       return
     }
-    createCommentMutation.mutate(
-      { body: commentReplyBody, parent: parentId, files },
-      {
-        onSuccess: () => {
-          setCommentReplyBody('')
-          setReplyingToComment(null)
-        },
-      }
-    )
+    // mutateAsync so the thread can keep the failed reply staged for a retry;
+    // the mutation's own onError has already reported it.
+    await createCommentMutation.mutateAsync({
+      body: commentReplyBody,
+      parent: parentId,
+      files,
+    })
+    setCommentReplyBody('')
+    setReplyingToComment(null)
   }
 
   const handleBack = () => {
@@ -433,12 +462,17 @@ export function ThreadDetail({
                 {/* Reply Form - shown above comments */}
                 {showReplyForm && (
                   <div
-                    className='mb-4 space-y-2'
+                    className={cn(
+                      'mb-4 space-y-2',
+                      isDragActive && dropActiveClass
+                    )}
                     onKeyDown={(e) => {
-                      if (e.key === 'Escape') setShowReplyForm(false)
+                      if (e.key === 'Escape') requestCloseReplyForm()
                     }}
+                    {...dropzoneProps}
                   >
                     <MentionTextarea
+                      className='placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50'
                       value={commentBody}
                       onValueChange={setCommentBody}
                       onSearchPeople={(q) =>
@@ -451,53 +485,40 @@ export function ThreadDetail({
                             handleCommentSubmit()
                           }
                         } else if (e.key === 'Escape') {
-                          setShowReplyForm(false)
+                          requestCloseReplyForm()
                         }
                       }}
                       rows={3}
                       autoFocus
-                      disabled={createCommentMutation.isPending}
+                      disabled={isSendingComment}
                     />
-                    {commentFiles.length > 0 && (
-                      <AttachmentGroup>
-                        {commentFiles.map((file, i) => {
-                          const isImage = file.type.startsWith('image/')
-                          return (
-                            <Attachment key={pendingFileKey(file)} state="uploading" size="sm">
-                              <AttachmentMedia variant={isImage ? "image" : "icon"}>
-                                {isImage && commentFilePreviewUrls[i] ? (
-                                  <img src={commentFilePreviewUrls[i] ?? undefined} alt={file.name} draggable={false} />
-                                ) : (
-                                  <Paperclip />
-                                )}
-                              </AttachmentMedia>
-                              <AttachmentContent>
-                                <AttachmentTitle>{file.name}</AttachmentTitle>
-                                <AttachmentDescription>
-                                  {formatFileSize(file.size)}
-                                </AttachmentDescription>
-                              </AttachmentContent>
-                              <AttachmentActions>
-                                <AttachmentAction onClick={() => setCommentFiles((prev) => removePendingFile(prev, file))} aria-label={t`Remove file`}>
-                                  <X className='size-4' />
-                                </AttachmentAction>
-                              </AttachmentActions>
-                            </Attachment>
-                          )
-                        })}
-                      </AttachmentGroup>
-                    )}
+                    <ComposerAttachments
+                      files={commentFiles}
+                      previewUrls={commentFilePreviewUrls}
+                      state={
+                        isSendingComment
+                          ? 'uploading'
+                          : commentFailed
+                            ? 'error'
+                            : 'idle'
+                      }
+                      onRemove={(file) =>
+                        setCommentFiles((prev) => removePendingFile(prev, file))
+                      }
+                      onRetry={handleCommentSubmit}
+                    />
                     <div className='flex items-center justify-end gap-2'>
+                      <SendShortcutHint />
                       <input
                         ref={commentFileRef}
                         type='file'
                         multiple
-                        onChange={(e) => { if (e.target.files) { const f = Array.from(e.target.files); setCommentFiles((prev) => [...prev, ...f]) } e.target.value = '' }}
+                        onChange={(e) => { if (e.target.files) { addCommentFiles(Array.from(e.target.files)) } e.target.value = '' }}
                         className='hidden'
                       />
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} aria-label={t`Attach reply files`}>
+                          <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} disabled={isSendingComment} aria-label={t`Attach reply files`}>
                             <Paperclip className='size-4' />
                           </Button>
                         </TooltipTrigger>
@@ -510,9 +531,9 @@ export function ThreadDetail({
                             size='icon'
                             variant='ghost'
                             className='size-8'
-                            onClick={() => setShowReplyForm(false)}
+                            onClick={requestCloseReplyForm}
                             aria-label={t`Cancel reply`}
-                            disabled={createCommentMutation.isPending}
+                            disabled={isSendingComment}
                           >
                             <X className='size-4' />
                           </Button>
@@ -525,12 +546,16 @@ export function ThreadDetail({
                             size='icon'
                             className='size-8'
                             disabled={
-                              !commentBody.trim() || createCommentMutation.isPending
+                              !commentBody.trim() || isSendingComment
                             }
                             onClick={handleCommentSubmit}
                             aria-label={t`Submit reply`}
                           >
-                            <Send className='size-4' />
+                            {isSendingComment ? (
+                              <Loader2 className='size-4 animate-spin' />
+                            ) : (
+                              <Send className='size-4' />
+                            )}
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>{t`Submit reply`}</TooltipContent>
@@ -574,7 +599,6 @@ export function ThreadDetail({
                         onReplyChange={setCommentReplyBody}
                         onReplySubmit={handleCommentReplySubmit}
                         onReplyCancel={() => setReplyingToComment(null)}
-                        isReplyPending={createCommentMutation.isPending}
                         canEdit={canEditComment}
                         onEdit={(commentId, body) =>
                           editCommentMutation.mutate({
@@ -657,6 +681,8 @@ export function ThreadDetail({
           isPending={reportCommentMutation.isPending}
           contentType='comment'
         />
+
+        {discardDialog}
       </Main>
     </>
   )
