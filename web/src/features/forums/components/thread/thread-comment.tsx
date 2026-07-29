@@ -5,7 +5,7 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -26,14 +26,6 @@ import {
   Paperclip,
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
-import {
-  ComposerAttachments,
-  SendShortcutHint,
-  dropActiveClass,
-  offlineBlocked,
-  useComposerDrop,
-  useDiscardGuard,
-} from '@/components/comment-composer'
 import { CommentAttachments } from '../comment-attachments'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API

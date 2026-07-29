@@ -26,16 +26,14 @@ import {
   findCommentTextInTree,
   cn,
   removePendingFile,
-} from '@mochi/web'
-import { Loader2, Paperclip, Send, X } from 'lucide-react'
-import {
   ComposerAttachments,
   SendShortcutHint,
   dropActiveClass,
   offlineBlocked,
   useComposerDrop,
   useDiscardGuard,
-} from '@/components/comment-composer'
+} from '@mochi/web'
+import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
