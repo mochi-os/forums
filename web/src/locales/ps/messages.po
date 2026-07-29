@@ -53,6 +53,11 @@ msgstr "{0, plural, one {# کاروونکی بندیز شو} other {# کاروو
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# کاروونکی بې غږه شو} other {# کاروونکي بې غږه شول}}"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:263
@@ -67,9 +72,13 @@ msgstr "{count, plural, one {# توکی تصویب شو} other {# توکي تص�
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# توکی رد شو} other {# توکي رد شول}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "د {entityLabel} نوم"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -90,6 +99,10 @@ msgstr "{selectedCount, plural, one {د # غوره شوي {entityName} لپار�
 #: src/features/forums/components/thread/thread-comment.tsx:242
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# ځواب} other {# ځوابونه}}"
+
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -115,7 +128,7 @@ msgstr "لاسرسی رد شو"
 msgid "Access Forbidden"
 msgstr "لاسرسی منع دی"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "د لاسرسي کچه"
 
@@ -155,6 +168,7 @@ msgstr "د حساب ډول"
 msgid "Account verified"
 msgstr "حساب تایید شو"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "اضافه کړئ"
@@ -181,7 +195,7 @@ msgstr "د خبرتیاوو ترلاسه کولو او خدماتو کارولو
 msgid "Add files"
 msgstr "فایلونه اضافه کړئ"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "نوی حساب اضافه کړئ"
 
@@ -190,6 +204,7 @@ msgid "Add rule"
 msgstr "قاعده اضافه کړئ"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "ټاګ اضافه کړئ..."
 
@@ -206,11 +221,15 @@ msgstr "موجوده خبرتیاو ته اضافه کړئ"
 msgid "Add view"
 msgstr "لید اضافه کړئ"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Additional details (optional)"
 msgstr "اضافي توضیحات (اختیاري)"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "د خپلو غوره توبونو سره سم بڼه او ترتیب تنظیم کړئ."
 
@@ -237,6 +256,11 @@ msgstr "ټول فورمونه"
 msgid "All posts and comments have been reviewed"
 msgstr "ټول پوسټونه او تبصرې بیاکتل شوي"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "هر چا ته اجازه ورکړئ چې د فورم لټون وکړي"
@@ -249,9 +273,22 @@ msgstr "یوه تېروتنه رامنځته شوه"
 msgid "An unexpected error occurred"
 msgstr "یوه ناڅاپي تېروتنه رامنځته شوه"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "هر اضافي شالید..."
+
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Anyone"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -290,11 +327,24 @@ msgstr "د ځواب فایلونه ضمیمه کړئ"
 msgid "Attachments"
 msgstr "ضمیمې"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "د Authenticator کوډ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "شاته"
 
@@ -333,6 +383,7 @@ msgstr "لیکوال بند کړه"
 msgid "banned"
 msgstr "بندیز شوی"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
 #: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "بانر"
@@ -350,6 +401,10 @@ msgstr "بانر نوی شو"
 msgid "Boost interest"
 msgstr "دلچسپي ډیره کړه"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr ""
+
 #. placeholder {0}: report.author_name ?? t`Unknown`
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "by {0}"
@@ -363,10 +418,10 @@ msgstr "لخوا {0}"
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
@@ -383,32 +438,36 @@ msgstr "لغوه کول"
 msgid "Cancel reply"
 msgstr "ځواب لغوه کړه"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "د دې خبرتیا لپاره کټګورۍ"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "د خبرتیا کټګورۍ بدله کړه"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr ""
 
 #: src/features/forums/components/forum-overview.tsx:147
 msgid "Check back later for new content"
 msgstr "د نوې منځپانګې لپاره وروسته بیا وګورئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "د ډیفالټ پراخ شوي، فشرده یوازې آیکون، یا بشپړ ترتیب حالت تر منځ وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "د inset، floating، یا معیاري څنګې پټۍ ترتیب تر منځ وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "د کیڼ-تر-ښي یا ښي-تر-کیڼ سایټ لوري تر منځ وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "د سیسټم غوره توب، روښانه حالت، یا تیاره حالت تر منځ وټاکئ"
 
@@ -417,8 +476,8 @@ msgstr "د سیسټم غوره توب، روښانه حالت، یا تیاره 
 msgid "Choose language"
 msgstr "ژبه وټاکئ"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -427,7 +486,7 @@ msgstr "ژبه وټاکئ"
 msgid "Clear"
 msgstr "پاک کړئ"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 #: src/features/forums/pages/saved-page.tsx:76
 #: src/features/forums/pages/saved-page.tsx:124
 msgid "Clear all"
@@ -440,6 +499,10 @@ msgstr "ټول خوندي شوي پوستونه پاک کړئ؟"
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "فیلټرونه پاک کړئ"
+
+#: ../../../lib/web/src/components/search-input.tsx:26
+msgid "Clear search"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
@@ -495,6 +558,10 @@ msgstr "آرام"
 msgid "Coming Soon!"
 msgstr "ډیر ژر راځي!"
 
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "تبصره ومنل شوه"
@@ -527,15 +594,27 @@ msgstr "تبصره نوې شوه"
 msgid "Comment, vote, and view"
 msgstr "تبصره، رایه، او لیدنه"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "فشرده"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "تایید کړئ"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr ""
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr ""
 
 #: src/features/forums/components/create-post-dialog.tsx:256
 #: src/features/forums/components/edit-post-dialog.tsx:259
@@ -545,6 +624,10 @@ msgstr "منځپانګه"
 #: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "د حد څخه لاندې د کاروونکو منځپانګه باید ومنل شي"
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr ""
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -562,7 +645,15 @@ msgstr "دوام ورکړئ"
 msgid "Continue with {label}"
 msgstr "د {label} سره دوام ورکړئ"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/lib/toast-utils.ts:42
+msgid "Copied"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 msgid "Copy"
 msgstr "کاپي کړئ"
 
@@ -582,6 +673,11 @@ msgstr "بیا تصدیق پیلیدلی نشو. مهرباني وکړئ بیا 
 msgid "Couldn't verify with that account. Please try again."
 msgstr "د دغه حساب سره تصدیق ونشو. مهرباني وکړئ بیا هڅه وکړئ."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/forums/components/forum-overview.tsx:100
 msgid "Create a new forum"
 msgstr "نوی فورم جوړ کړئ"
@@ -599,12 +695,20 @@ msgstr "فورم جوړ کړئ"
 msgid "Creating forum..."
 msgstr "د فورم جوړول..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+msgid "Creating..."
+msgstr ""
+
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr ""
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 #: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "دودیز"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -626,7 +730,7 @@ msgstr "د ډېټا ټکر"
 msgid "days"
 msgstr "ورځې"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "ډیفالټ"
@@ -680,6 +784,10 @@ msgstr "نزولي"
 msgid "Descending"
 msgstr "د ډېر څخه کم"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Details (required)"
 msgstr "تفصیلات (اړین)"
@@ -699,20 +807,29 @@ msgstr "د تفصیلاتو پینل"
 msgid "Detect from web browser"
 msgstr "د ویب براوزر څخه ومومئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "لوری"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:555
 msgid "Disabled"
 msgstr "غیرفعال شوی"
 
-#: src/components/comment-composer.tsx:269
+#: src/components/comment-composer.tsx:302
 msgid "Discard"
 msgstr ""
 
-#: src/components/comment-composer.tsx:267
+#: src/components/comment-composer.tsx:300
 msgid "Discard draft?"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
 msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:79
@@ -757,6 +874,10 @@ msgstr "{label} سمول"
 msgid "Edit post"
 msgstr "د پوسټ سمول"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "د بریښنالیک کوډ"
@@ -788,6 +909,10 @@ msgstr "غځول"
 msgid "Expand sidebar"
 msgstr "څنګلوري لیست خلاص کړئ"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "ډېر لوی"
@@ -796,6 +921,7 @@ msgstr "ډېر لوی"
 msgid "Failed to add account"
 msgstr "د حساب اضافه کولو پاتې راغلل"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
 #: src/features/forums/thread-detail.tsx:221
 msgid "Failed to add tag"
 msgstr "د ټګ اضافه کولو پاتې راغلل"
@@ -823,6 +949,11 @@ msgstr "د کاروونکو بنده پاتې راغلل"
 msgid "Failed to clear saved posts"
 msgstr "د خوندي شویو پوستونو پاکول ناکام شو"
 
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
+msgid "Failed to copy"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "د فورم جوړول ونه شول"
@@ -838,6 +969,10 @@ msgstr "د فورم ړنګول ونه شول"
 #: src/components/options-menu.tsx:88
 msgid "Failed to get RSS token"
 msgstr "د RSS ټوکن ترلاسه کولو پاتې راغلل"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
@@ -993,9 +1128,13 @@ msgstr "د AI تنظیماتو د تازه کولو پاتې راغلل"
 msgid "Failed to update banner"
 msgstr "د بینر تازه کولو پاتې راغلل"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "د کټګورۍ تازه کولو پاتې راغلل"
+
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr ""
 
 #: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
@@ -1018,7 +1157,7 @@ msgstr "د خپل حساب لیږد پای ته ورسوئ"
 msgid "Flat"
 msgstr "هوار"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "ځړیدلی"
 
@@ -1077,6 +1216,10 @@ msgstr "فورمونه"
 msgid "Friday"
 msgstr "جمعه"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
+msgid "Friends"
+msgstr ""
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "له"
@@ -1090,7 +1233,7 @@ msgstr "له"
 msgid "From theme"
 msgstr "د ښکارندوی څخه"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "بشپړ ترتیب"
 
@@ -1123,6 +1266,11 @@ msgstr "تیر پاڼې ته ولاړ شه"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
 msgstr "ګروپ"
+
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:27
 #: src/routes/_authenticated/$forum_.moderation.tsx:746
@@ -1166,7 +1314,19 @@ msgstr "د انځور کتونکی: {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "Inset"
 
@@ -1187,6 +1347,10 @@ msgstr "علاقه لیرې شوه"
 msgid "Interests"
 msgstr "علاقې"
 
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "د تصدیق ناسم کوډ"
@@ -1195,12 +1359,16 @@ msgstr "د تصدیق ناسم کوډ"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "داسې ښکاري چې هغه مخ چې تاسو یې لټوئ <0/>شتون نلري یا لرې شوی دی."
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
 msgstr "لوی"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "ترتیب"
 
@@ -1209,11 +1377,15 @@ msgstr "ترتیب"
 msgid "Learn more"
 msgstr "نور زده کړئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "له کیڼ څخه ښي"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1270,6 +1442,10 @@ msgstr "په بریالیتوب سره لاګ آوټ شو"
 msgid "Logging out…"
 msgstr "لاګ آوټ کیږي…"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1279,6 +1455,10 @@ msgstr "ټول د لوستل شویو په توګه نښه کړئ"
 #: src/features/forums/components/create-post-dialog.tsx:260
 msgid "Markdown supported"
 msgstr "Markdown ملاتړ کیږي"
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1296,6 +1476,10 @@ msgstr "میټریک"
 #: src/routes/_authenticated/$forum_.moderation.tsx:749
 msgid "Misinformation"
 msgstr "غلطه معلومات"
+
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:100
 msgid "Moderate, post, comment, vote, and view"
@@ -1350,6 +1534,11 @@ msgstr "نوم"
 msgid "Name cannot contain < or > characters"
 msgstr "نوم نشي کولی < یا > تورې ولري"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
 #: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name must be 1000 characters or less"
 msgstr "نوم باید 1000 توري یا لږ وي"
@@ -1396,7 +1585,7 @@ msgstr "هیڅ {statusFilter} راپورونه ونه موندل شول"
 msgid "No access"
 msgstr "د لاسرسي اجازه نشته"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "د لاسرسي قاعدې نه دي تنظیم شوې. د دې سرچینې لاسرسي د کنترول لپاره قاعدې اضافه کړئ."
 
@@ -1417,7 +1606,15 @@ msgstr "هیڅ ډلې شتون نلري"
 msgid "No moderation activity"
 msgstr "د اعتدال هیڅ فعالیت نشته"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr ""
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
+msgid "No people found"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "هیڅ ځایونه ونه موندل شول"
 
@@ -1437,6 +1634,11 @@ msgstr "هیڅ راپورونه نشته"
 msgid "No restrictions"
 msgstr "هیڅ بندیزونه نشته"
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr ""
+
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
@@ -1446,7 +1648,7 @@ msgstr "هیڅ پایلې ونه موندل شوې."
 msgid "No time zone found."
 msgstr "هیڅ وخت زون ونه موندل شو."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "تر اوسه د موضوع هیڅ ریکارډ نشته — د راتلونکې خبرتیا وروسته بیا هڅه وکړئ."
 
@@ -1458,6 +1660,7 @@ msgstr "هیڅ کاروونکي ونه موندل شول"
 msgid "No users have been muted or banned"
 msgstr "هیڅ کاروونکي چپ کړل شوي یا بند شوي نه دي"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1498,6 +1701,10 @@ msgstr "خبرتیاوې: {0}"
 msgid "Off-topic"
 msgstr "د موضوع څخه بهر"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr ""
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "اوه! پاڼه ونه موندل شوه!"
@@ -1512,6 +1719,10 @@ msgstr "د حساب کړنې خلاصې کړئ"
 msgid "Open actions"
 msgstr "کړنې پرانیزئ"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1522,8 +1733,8 @@ msgstr "نیویګیشن خلاص کړئ"
 msgid "Open navigation menu"
 msgstr "د نیویګیشن مینو خلاص کړئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "د ت موضوع تنظیمات خلاص کړئ"
 
@@ -1537,7 +1748,7 @@ msgstr "اختیاري مارکډاون بینر چې ستاسو د فورم پ�
 msgid "Other"
 msgstr "نور"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "مالک"
 
@@ -1578,6 +1789,10 @@ msgstr "په تمه تبصرې ({0})"
 msgid "Pending posts ({0})"
 msgstr "په تمه لیکنې ({0})"
 
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr ""
+
 #: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Pin"
 msgstr "پن کول"
@@ -1588,7 +1803,7 @@ msgstr "پن شوی"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: src/components/comment-composer.tsx:69
+#: src/components/comment-composer.tsx:97
 msgid "Please check your internet connection and try again."
 msgstr "مهرباني وکړئ خپل د انټرنیټ اړیکه وګورئ او بیا هڅه وکړئ."
 
@@ -1707,6 +1922,10 @@ msgstr "محرمیت"
 msgid "Profile"
 msgstr "پروفایل"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr ""
+
 #: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "پرامپټ خوندي شو"
@@ -1718,6 +1937,10 @@ msgstr "لیکنه خپرول"
 #: src/features/forums/components/create-post-dialog.tsx:369
 msgid "Publishing..."
 msgstr "د خپرولو په حال کې..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:78
 msgid "Queue"
@@ -1748,8 +1971,8 @@ msgstr "دلیل:"
 msgid "Reason: {0}"
 msgstr "دلیل: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "سپارښتل شوی"
 
@@ -1757,6 +1980,10 @@ msgstr "سپارښتل شوی"
 #: src/features/forums/components/recommended-forums.tsx:139
 msgid "Recommended forums"
 msgstr "سپارښتل شوي فورمونه"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Redirecting to login."
@@ -1784,9 +2011,9 @@ msgstr "نسبي (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "په 24 ساعتونو کې نسبي، که نه نو مطلق"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/components/comment-composer.tsx:201
+#: src/components/comment-composer.tsx:234
 #: src/features/forums/components/create-post-dialog.tsx:320
 #: src/features/forums/components/edit-post-dialog.tsx:332
 #: src/features/forums/components/thread/thread-comment.tsx:455
@@ -1798,17 +2025,23 @@ msgstr "په 24 ساعتونو کې نسبي، که نه نو مطلق"
 msgid "Remove"
 msgstr "لرې کول"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "د لاسرسي قاعده لرې کړئ"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "د \"{0}\" لپاره د لاسرسي قاعده لرې شي؟"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "لاسرسی لرې کړو؟"
 
@@ -1923,12 +2156,17 @@ msgstr "د نویو کاروونکو لپاره تصویب اړین دی"
 msgid "Resend email"
 msgstr "بریښنالیک بیا واستوئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "بیا تنظیم"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "ټول تنظیمات د ډیفالټ ارزښتونو ته بیرته تنظیم کړئ"
 
@@ -1949,7 +2187,7 @@ msgstr "محدودیت لرې شو"
 msgid "Restrictions"
 msgstr "محدودیتونه"
 
-#: src/components/comment-composer.tsx:218
+#: src/components/comment-composer.tsx:251
 msgid "Retry"
 msgstr ""
 
@@ -1961,7 +2199,7 @@ msgstr "د فورمونو لوډ بیا هڅه وکړئ"
 msgid "Revoke access"
 msgstr "لاسرسی لغوه کړئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "له ښي څخه کیڼ ته"
 
@@ -2023,13 +2261,27 @@ msgstr "د خوندي کولو په حال کې..."
 msgid "Score prompt"
 msgstr "د سکور پرامپټ"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr ""
+
 #: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "د نوم، ID، فنګر پرنټ، یا URL له مخې وپلټئ..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "د یو ځای لپاره وپلټئ"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -2052,11 +2304,13 @@ msgid "Search users"
 msgstr "کاروونکي وپلټئ"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "لټون..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "د لټون په حال کې..."
@@ -2064,6 +2318,11 @@ msgstr "د لټون په حال کې..."
 #: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "ثانیې"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2081,6 +2340,10 @@ msgstr "د لاسرسي د ورکولو لپاره یو کارن، ډله، یا
 msgid "Select access rule"
 msgstr "د لاسرسي قاعده وټاکئ"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "د حساب ډول وټاکئ"
@@ -2093,23 +2356,31 @@ msgstr "ټول وټاکئ"
 msgid "Select group"
 msgstr "ګروپ وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "د طرحې سټایل وټاکئ"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:455
 msgid "Select none"
 msgstr "هیڅ مه ټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "د سایډبار سټایل وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "د سایټ لوری وټاکئ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "د ښکارندوی غوره توب وټاکئ"
 
@@ -2173,8 +2444,8 @@ msgstr "پټنوم وښيئ"
 msgid "Showing {totalShown} of {total}"
 msgstr "د {total} څخه {totalShown} ښودل کیږي"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "سایډبار"
@@ -2210,7 +2481,7 @@ msgstr "Spam"
 msgid "Stay tuned though!"
 msgstr "خو خبر اوسئ!"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "موضوع"
 
@@ -2229,6 +2500,8 @@ msgstr "راپور وسپارئ"
 msgid "Submitting..."
 msgstr "سپارل کیږي..."
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:191
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
@@ -2261,17 +2534,25 @@ msgstr "ګډون کیږي..."
 msgid "Sunday"
 msgstr "یکشنبه"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "سیسټم"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 #: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Tag"
 msgstr "ټاګ"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr ""
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:598
 msgid "Tag prompt"
@@ -2307,11 +2588,11 @@ msgstr "غوښتل شوې منځپانګه ونه موندل شوه."
 msgid "The site is not available at the moment."
 msgstr "سایت دا مهال شتون نلري."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "ښکارندوی"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "د ښکارندوی ترتیبات"
 
@@ -2416,8 +2697,8 @@ msgstr "بره"
 msgid "Travelling"
 msgstr "په سفر کې"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "د خپل لټون اصطلاحات سمول هڅه وکړئ"
 
@@ -2452,7 +2733,7 @@ msgstr "له لرې پرتي سرور سره نښلېدل ونشول"
 msgid "Unable to redirect to login. Please try again."
 msgstr "ننوتلو ته لارښوونه نشي کیدلی. مهرباني وکړئ بیا هڅه وکړئ."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "نه ګمارل شوی"
 
@@ -2460,10 +2741,16 @@ msgstr "نه ګمارل شوی"
 msgid "Unauthorized Access"
 msgstr "غیر مجاز لاسرسی"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "متحده ایالات"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:78
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
@@ -2510,6 +2797,7 @@ msgstr "تصدیق نه شوی"
 msgid "Use your passkey"
 msgstr "خپله پاس کیلۍ وکاروئ"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "کاروونکی"
@@ -2583,6 +2871,10 @@ msgstr "تاوتریخوالی"
 msgid "Vote and view"
 msgstr "رایه او لیدل"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr ""
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2591,6 +2883,10 @@ msgstr "موږ تصدیق کوډ <0>{0}</0> ته ولیږه. د خپل بریښ�
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "موږ به ډېر ژر بیرته آنلاین یو."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2635,22 +2931,30 @@ msgstr "تاسو په دې فورم کې د پوسټ کولو اجازه نلر�
 msgid "You have no forums yet."
 msgstr "تاسو لا تر اوسه هیڅ فورم نه لرئ."
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "تاسو به د دې فورم څخه نور تازه معلومات ترلاسه نه کړئ. تاسو کولی شئ هر وخت بیا ګډون وکړئ."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ستاسو حساب له {source} دلته لیږدول شوی. تر هغه چې تاسو هلته یې ړنګ نه کړئ، پیغامونه او خبرتیاوې ممکن دواړه سرورونو ته ورسیږي، ستاسو د مینځپانګې یوه برخه لاهم له پخوانی سرور نه چمتو کیږي، او تعقیبونکي ممکن دلته ستاسو موندلو لپاره یو شیبه وخت ولري."
 
-#: src/components/comment-composer.tsx:260
+#: src/components/comment-composer.tsx:293
 msgid "Your attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:258
+#: src/components/comment-composer.tsx:291
 msgid "Your text and attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:261
+#: src/components/comment-composer.tsx:294
 msgid "Your text will be lost."
 msgstr ""

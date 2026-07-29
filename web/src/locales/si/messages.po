@@ -53,6 +53,11 @@ msgstr "{0, plural, one {# පරිශීලකයෙකු තහනම්} ot
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# පරිශීලකයෙකු නිහඬ} other {# පරිශීලකයන් නිහඬ}}"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:263
@@ -67,9 +72,13 @@ msgstr "{count, plural, one {# අයිතමයක් අනුමත} other {
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# අයිතමයක් ප්‍රතික්ෂේප} other {# අයිතම ප්‍රතික්ෂේප}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} නම"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -90,6 +99,10 @@ msgstr "{selectedCount, plural, one {තෝරාගත් {entityName} # ක්
 #: src/features/forums/components/thread/thread-comment.tsx:242
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# පිළිතුරක්} other {# පිළිතුරු}}"
+
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -115,7 +128,7 @@ msgstr "ප්‍රවේශය ප්‍රතික්ෂේප විය"
 msgid "Access Forbidden"
 msgstr "ප්‍රවේශය තහනම්"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "ප්‍රවේශ මට්ටම"
 
@@ -155,6 +168,7 @@ msgstr "ගිණුම් වර්ගය"
 msgid "Account verified"
 msgstr "ගිණුම සත්‍යාපනය කරන ලදී"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "එක් කරන්න"
@@ -181,7 +195,7 @@ msgstr "දැනුම්දීම් ලබා ගැනීමට සහ ස�
 msgid "Add files"
 msgstr "ගොනු එක් කරන්න"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "නව ගිණුමක් එක් කරන්න"
 
@@ -190,6 +204,7 @@ msgid "Add rule"
 msgstr "නියමයක් එක් කරන්න"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "ටැගයක් එක් කරන්න..."
 
@@ -206,11 +221,15 @@ msgstr "පවතින දැනුම්දීම් වෙත එක් ක�
 msgid "Add view"
 msgstr "දැක්මක් එක් කරන්න"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Additional details (optional)"
 msgstr "අමතර විස්තර (විකල්ප)"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "ඔබේ අභිරුචීන්ට ගැළපෙන පරිදි පෙනුම සහ පිරිසැලසුම සකසන්න."
 
@@ -237,6 +256,11 @@ msgstr "සියලු සංසද"
 msgid "All posts and comments have been reviewed"
 msgstr "සියලු පළ කිරීම් සහ අදහස් සමාලෝචනය කර ඇත"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "ඕනෑම කෙනෙකුට සංසදය සෙවීමට ඉඩ දෙන්න"
@@ -249,9 +273,22 @@ msgstr "දෝෂයක් සිදු විය"
 msgid "An unexpected error occurred"
 msgstr "අනපේක්ෂිත දෝෂයක් සිදු විය"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "ඕනෑම අමතර සන්දර්භයක්..."
+
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Anyone"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -290,11 +327,24 @@ msgstr "පිළිතුරු ගොනු අමුණන්න"
 msgid "Attachments"
 msgstr "ඇමුණුම්"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Authenticator කේතය"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "ආපසු"
 
@@ -333,6 +383,7 @@ msgstr "කතුවරයා තහනම් කරන්න"
 msgid "banned"
 msgstr "තහනම්"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
 #: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Banner"
@@ -350,6 +401,10 @@ msgstr "බැනරය යාවත්කාලීන කළා"
 msgid "Boost interest"
 msgstr "කැමැත්ත වැඩි කරන්න"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr ""
+
 #. placeholder {0}: report.author_name ?? t`Unknown`
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "by {0}"
@@ -363,10 +418,10 @@ msgstr "{0} විසින්"
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
@@ -383,32 +438,36 @@ msgstr "අවලංගු කරන්න"
 msgid "Cancel reply"
 msgstr "පිළිතුර අවලංගු කරන්න"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "මෙම දැනුම්දීම සඳහා ප්‍රවර්ගය"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "දැනුම්දීම් ප්‍රවර්ගය වෙනස් කරන්න"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr ""
 
 #: src/features/forums/components/forum-overview.tsx:147
 msgid "Check back later for new content"
 msgstr "නව අන්තර්ගතය සඳහා පසුව නැවත පරීක්ෂා කරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "පෙරනිමි විහිදුවන ලද, සංයුක්ත අයිකන-පමණයි හෝ සම්පූර්ණ පිරිසැලසුම් ආකාරය අතර තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "ඇතුළත්, පාවෙන හෝ සම්මත පැති තීරු පිරිසැලසුම අතර තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "වමේ-සිට-දකුණට හෝ දකුණේ-සිට-වමට අඩවි දිශාව අතර තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "පද්ධති අභිරුචිය, ආලෝකමත් ආකාරය හෝ අඳුරු ආකාරය අතර තෝරන්න"
 
@@ -417,8 +476,8 @@ msgstr "පද්ධති අභිරුචිය, ආලෝකමත් ආ�
 msgid "Choose language"
 msgstr "භාෂාව තෝරන්න"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -427,7 +486,7 @@ msgstr "භාෂාව තෝරන්න"
 msgid "Clear"
 msgstr "හිස් කරන්න"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 #: src/features/forums/pages/saved-page.tsx:76
 #: src/features/forums/pages/saved-page.tsx:124
 msgid "Clear all"
@@ -440,6 +499,10 @@ msgstr "සුරැකූ සියලු පළ කිරීම් හිස�
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "පෙරහන් හිස් කරන්න"
+
+#: ../../../lib/web/src/components/search-input.tsx:26
+msgid "Clear search"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
@@ -495,6 +558,10 @@ msgstr "සුවිශේෂ"
 msgid "Coming Soon!"
 msgstr "ළඟදීම පැමිණේ!"
 
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "අදහස අනුමත කරන ලදී"
@@ -527,15 +594,27 @@ msgstr "අදහස යාවත්කාලීන කරන ලදී"
 msgid "Comment, vote, and view"
 msgstr "අදහස් දැක්වීම, ඡන්දය සහ බැලීම"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "සංයුක්ත"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "තහවුරු කරන්න"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr ""
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr ""
 
 #: src/features/forums/components/create-post-dialog.tsx:256
 #: src/features/forums/components/edit-post-dialog.tsx:259
@@ -545,6 +624,10 @@ msgstr "අන්තර්ගතය"
 #: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "සීමාවකට පහළින් සිටින පරිශීලකයන්ගේ අන්තර්ගතය අනුමත විය යුතුය"
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr ""
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -562,7 +645,15 @@ msgstr "ඉදිරියට"
 msgid "Continue with {label}"
 msgstr "{label} සමඟ ඉදිරියට යන්න"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/lib/toast-utils.ts:42
+msgid "Copied"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 msgid "Copy"
 msgstr "පිටපත් කරන්න"
 
@@ -582,6 +673,11 @@ msgstr "නැවත සත්‍යාපනය ආරම්භ කළ නො�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "එම ගිණුම සමඟ සත්‍යාපනය කළ නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/forums/components/forum-overview.tsx:100
 msgid "Create a new forum"
 msgstr "නව සංසදයක් නිර්මාණය කරන්න"
@@ -599,12 +695,20 @@ msgstr "සංසදයක් නිර්මාණය කරන්න"
 msgid "Creating forum..."
 msgstr "සංසදය සාදමින්..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+msgid "Creating..."
+msgstr ""
+
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr ""
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 #: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "අභිරුචි"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -626,7 +730,7 @@ msgstr "දත්ත ගැටුමක්"
 msgid "days"
 msgstr "දින"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "පෙරනිමි"
@@ -680,6 +784,10 @@ msgstr "අවරෝහණ"
 msgid "Descending"
 msgstr "අවරෝහණ"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Details (required)"
 msgstr "විස්තර (අවශ්‍යයි)"
@@ -699,20 +807,29 @@ msgstr "විස්තර Panel"
 msgid "Detect from web browser"
 msgstr "වෙබ් බ්‍රවුසරයෙන් හඳුනාගන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "දිශාව"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:555
 msgid "Disabled"
 msgstr "අක්‍රියයි"
 
-#: src/components/comment-composer.tsx:269
+#: src/components/comment-composer.tsx:302
 msgid "Discard"
 msgstr ""
 
-#: src/components/comment-composer.tsx:267
+#: src/components/comment-composer.tsx:300
 msgid "Discard draft?"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
 msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:79
@@ -757,6 +874,10 @@ msgstr "{label} සංස්කරණය කරන්න"
 msgid "Edit post"
 msgstr "පළ කිරීම සංස්කරණය කරන්න"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "ඊමේල් කේතය"
@@ -788,6 +909,10 @@ msgstr "විහිදන්න"
 msgid "Expand sidebar"
 msgstr "පැති තීරුව ප්‍රසාරණය කරන්න"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "අමතර විශාල"
@@ -796,6 +921,7 @@ msgstr "අමතර විශාල"
 msgid "Failed to add account"
 msgstr "ගිණුම එක් කිරීමට අසමත් විය"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
 #: src/features/forums/thread-detail.tsx:221
 msgid "Failed to add tag"
 msgstr "ටැගය එක් කිරීමට අසමත් විය"
@@ -823,6 +949,11 @@ msgstr "පරිශීලකයන් තහනම් කිරීමට අස
 msgid "Failed to clear saved posts"
 msgstr "සුරැකූ පළ කිරීම් හිස් කිරීමට අසමත් විය"
 
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
+msgid "Failed to copy"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "සංසදය සෑදීමට අසමත් විය"
@@ -838,6 +969,10 @@ msgstr "සංසදය මැකීමට අසමත් විය"
 #: src/components/options-menu.tsx:88
 msgid "Failed to get RSS token"
 msgstr "RSS ටෝකනය ලබා ගැනීමට අසමත් විය"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
@@ -993,9 +1128,13 @@ msgstr "AI සැකසුම් යාවත්කාලීන කිරීම�
 msgid "Failed to update banner"
 msgstr "බැනරය යාවත්කාලීන කිරීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "කාණ්ඩය යාවත්කාලීන කිරීමට අසමත් විය"
+
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr ""
 
 #: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
@@ -1018,7 +1157,7 @@ msgstr "ඔබේ ගිණුම ගෙන යාම අවසන් කරන�
 msgid "Flat"
 msgstr "පැතලි"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "පාවෙන"
 
@@ -1077,6 +1216,10 @@ msgstr "සභා"
 msgid "Friday"
 msgstr "සිකුරාදා"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
+msgid "Friends"
+msgstr ""
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "සිට"
@@ -1090,7 +1233,7 @@ msgstr "සිට"
 msgid "From theme"
 msgstr "තේමාවෙන්"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "සම්පූර්ණ පිරිසැලසුම"
 
@@ -1123,6 +1266,11 @@ msgstr "පෙර පිටුවට යන්න"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
 msgstr "කණ්ඩායම"
+
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:27
 #: src/routes/_authenticated/$forum_.moderation.tsx:746
@@ -1166,7 +1314,19 @@ msgstr "රූප දර්ශකය: {0}"
 msgid "Imperial"
 msgstr "ඉම්පීරියල්"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "ඇතුළත"
 
@@ -1187,6 +1347,10 @@ msgstr "උනන්දුව ඉවත් කරන ලදී"
 msgid "Interests"
 msgstr "උනන්දු"
 
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "අවලංගු සත්‍යාපන කේතය"
@@ -1195,12 +1359,16 @@ msgstr "අවලංගු සත්‍යාපන කේතය"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "ඔබ සොයන පිටුව <0/>නොපවතින බවක් හෝ ඉවත් කර ඇති බවක් පෙනේ."
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
 msgstr "විශාල"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "පිරිසැලසුම"
 
@@ -1209,11 +1377,15 @@ msgstr "පිරිසැලසුම"
 msgid "Learn more"
 msgstr "තවත් ඉගෙන ගන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "වමේ සිට දකුණට"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1270,6 +1442,10 @@ msgstr "සාර්ථකව ඉවත් විය"
 msgid "Logging out…"
 msgstr "ඉවත් වෙමින්…"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1279,6 +1455,10 @@ msgstr "සියල්ල කියවූ ලෙස සලකුණු කර�
 #: src/features/forums/components/create-post-dialog.tsx:260
 msgid "Markdown supported"
 msgstr "Markdown සහාය දක්වයි"
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1296,6 +1476,10 @@ msgstr "මිනුම"
 #: src/routes/_authenticated/$forum_.moderation.tsx:749
 msgid "Misinformation"
 msgstr "වැරදි තොරතුරු"
+
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:100
 msgid "Moderate, post, comment, vote, and view"
@@ -1350,6 +1534,11 @@ msgstr "නම"
 msgid "Name cannot contain < or > characters"
 msgstr "නම තුළ < හෝ > අක්ෂර තිබිය නොහැක"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
 #: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name must be 1000 characters or less"
 msgstr "නම අක්ෂර 1000 ක් හෝ ඊට අඩු විය යුතුය"
@@ -1396,7 +1585,7 @@ msgstr "{statusFilter} වාර්තා හමු නොවීය"
 msgid "No access"
 msgstr "ප්‍රවේශය නැත"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "ප්‍රවේශ නියමයන් කිසිවක් සැකසී නැත. මෙම සම්පතට ප්‍රවේශ විය හැක්කේ කවුද යන්න පාලනය කිරීමට නියමයන් එක් කරන්න."
 
@@ -1417,7 +1606,15 @@ msgstr "කණ්ඩායම් ලබා ගත නොහැක"
 msgid "No moderation activity"
 msgstr "මෝඩරේෂන් ක්‍රියාකාරකම් නැත"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr ""
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
+msgid "No people found"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "ස්ථාන හමු නොවීය"
 
@@ -1437,6 +1634,11 @@ msgstr "වාර්තා නැත"
 msgid "No restrictions"
 msgstr "සීමාවන් නැත"
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr ""
+
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
@@ -1446,7 +1648,7 @@ msgstr "ප්‍රතිඵල හමු නොවීය."
 msgid "No time zone found."
 msgstr "වේලා කලාප හමු නොවීය."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "තවම topic වාර්තාවක් නැත — ඊළඟ දැනුම්දීමෙන් පසු නැවත උත්සාහ කරන්න."
 
@@ -1458,6 +1660,7 @@ msgstr "පරිශීලකයන් හමු නොවීය"
 msgid "No users have been muted or banned"
 msgstr "කිසිදු පරිශීලකයෙක් නිහඬ කර හෝ තහනම් කර නැත"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1498,6 +1701,10 @@ msgstr "දැනුම්දීම්: {0}"
 msgid "Off-topic"
 msgstr "මාතෘකාවෙන් බැහැර"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr ""
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "අහෝ! පිටුව හමු නොවීය!"
@@ -1512,6 +1719,10 @@ msgstr "ගිණුම් ක්‍රියා විවෘත කරන්න
 msgid "Open actions"
 msgstr "ක්‍රියා විවෘත කරන්න"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1522,8 +1733,8 @@ msgstr "සංචාලනය විවෘත කරන්න"
 msgid "Open navigation menu"
 msgstr "සංචාලන මෙනුව විවෘත කරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "theme සැකසුම් විවෘත කරන්න"
 
@@ -1537,7 +1748,7 @@ msgstr "ඔබේ සංසදයේ ඉහළින් පෙන්වන ව�
 msgid "Other"
 msgstr "වෙනත්"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "හිමිකරු"
 
@@ -1578,6 +1789,10 @@ msgstr "පොරොත්තු අදහස් ({0})"
 msgid "Pending posts ({0})"
 msgstr "පොරොත්තු පෝස්ටු ({0})"
 
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr ""
+
 #: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Pin"
 msgstr "pin කරන්න"
@@ -1588,7 +1803,7 @@ msgstr "pin කර ඇත"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: src/components/comment-composer.tsx:69
+#: src/components/comment-composer.tsx:97
 msgid "Please check your internet connection and try again."
 msgstr "කරුණාකර ඔබගේ අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
 
@@ -1707,6 +1922,10 @@ msgstr "පෞද්ගලිකත්වය"
 msgid "Profile"
 msgstr "පැතිකඩ"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr ""
+
 #: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "prompt එක සුරකින ලදී"
@@ -1718,6 +1937,10 @@ msgstr "පළ කිරීම ප්‍රකාශයට පත් කරන�
 #: src/features/forums/components/create-post-dialog.tsx:369
 msgid "Publishing..."
 msgstr "ප්‍රකාශයට පත් කරමින්..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:78
 msgid "Queue"
@@ -1748,8 +1971,8 @@ msgstr "හේතුව:"
 msgid "Reason: {0}"
 msgstr "හේතුව: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "නිර්දේශිත"
 
@@ -1757,6 +1980,10 @@ msgstr "නිර්දේශිත"
 #: src/features/forums/components/recommended-forums.tsx:139
 msgid "Recommended forums"
 msgstr "නිර්දේශිත සංසද"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Redirecting to login."
@@ -1784,9 +2011,9 @@ msgstr "සාපේක්ෂ (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "පැය 24 තුළ සාපේක්ෂ, නැතහොත් නිරපේක්ෂ"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/components/comment-composer.tsx:201
+#: src/components/comment-composer.tsx:234
 #: src/features/forums/components/create-post-dialog.tsx:320
 #: src/features/forums/components/edit-post-dialog.tsx:332
 #: src/features/forums/components/thread/thread-comment.tsx:455
@@ -1798,17 +2025,23 @@ msgstr "පැය 24 තුළ සාපේක්ෂ, නැතහොත් න�
 msgid "Remove"
 msgstr "ඉවත් කරන්න"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "ප්‍රවේශ නියමය ඉවත් කරන්න"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "\"{0}\" සඳහා ප්‍රවේශ නීතිය ඉවත් කරන්නද?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "ප්‍රවේශය ඉවත් කරන්නද?"
 
@@ -1923,12 +2156,17 @@ msgstr "නව පරිශීලකයින් සඳහා අනුමැත
 msgid "Resend email"
 msgstr "විද්‍යුත් තැපෑල නැවත එවන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "reset"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "සියලු සැකසුම් පෙරනිමි අගයන් වෙත reset කරන්න"
 
@@ -1949,7 +2187,7 @@ msgstr "සීමාව ඉවත් කරන ලදී"
 msgid "Restrictions"
 msgstr "සීමා කිරීම්"
 
-#: src/components/comment-composer.tsx:218
+#: src/components/comment-composer.tsx:251
 msgid "Retry"
 msgstr ""
 
@@ -1961,7 +2199,7 @@ msgstr "සංසද පූරණය නැවත උත්සාහ කරන�
 msgid "Revoke access"
 msgstr "ප්‍රවේශය අවලංගු කරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "දකුණේ සිට වමට"
 
@@ -2023,13 +2261,27 @@ msgstr "සුරකිමින්..."
 msgid "Score prompt"
 msgstr "ලකුණු විමසීම"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr ""
+
 #: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "නම, ID, ඇඟිලි සලකුණ, හෝ URL අනුව සොයන්න..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "ස්ථානයක් සොයන්න"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -2052,11 +2304,13 @@ msgid "Search users"
 msgstr "පරිශීලකයින් සොයන්න"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "සොයන්න..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "සොයමින්..."
@@ -2064,6 +2318,11 @@ msgstr "සොයමින්..."
 #: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "තත්පර"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2081,6 +2340,10 @@ msgstr "ප්‍රවේශය ලබා දීමට පරිශීලකය
 msgid "Select access rule"
 msgstr "ප්‍රවේශ රීතිය තෝරන්න"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "ගිණුම් වර්ගය තෝරන්න"
@@ -2093,23 +2356,31 @@ msgstr "සියල්ල තෝරන්න"
 msgid "Select group"
 msgstr "කණ්ඩායම තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "layout විලාසය තෝරන්න"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:455
 msgid "Select none"
 msgstr "කිසිවක් තෝරා නැත"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "sidebar විලාසය තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "අඩවියේ දිශාව තෝරන්න"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "theme මනාපය තෝරන්න"
 
@@ -2173,8 +2444,8 @@ msgstr "මුරපදය පෙන්වන්න"
 msgid "Showing {totalShown} of {total}"
 msgstr "{total}න් {totalShown}ක් පෙන්වමින්"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "sidebar"
@@ -2210,7 +2481,7 @@ msgstr "අයාචිත"
 msgid "Stay tuned though!"
 msgstr "නමුත් රැඳී සිටින්න!"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "විෂය"
 
@@ -2229,6 +2500,8 @@ msgstr "වාර්තාව ඉදිරිපත් කරන්න"
 msgid "Submitting..."
 msgstr "ඉදිරිපත් කරමින්..."
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:191
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
@@ -2261,17 +2534,25 @@ msgstr "දායක වෙමින්..."
 msgid "Sunday"
 msgstr "ඉරිදා"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "පද්ධතිය"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 #: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Tag"
 msgstr "ටැගය"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr ""
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:598
 msgid "Tag prompt"
@@ -2307,11 +2588,11 @@ msgstr "ඉල්ලූ අන්තර්ගතය සොයාගත නොහ
 msgid "The site is not available at the moment."
 msgstr "අඩවිය මේ මොහොතේ ලබා ගත නොහැක."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "theme"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "theme සැකසුම්"
 
@@ -2416,8 +2697,8 @@ msgstr "ඉහළ"
 msgid "Travelling"
 msgstr "ගමන් කරමින්"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "ඔබේ සෙවුම් යෙදුම් සකස් කිරීම උත්සාහ කරන්න"
 
@@ -2452,7 +2733,7 @@ msgstr "දුරස්ථ සේවාදායකයට සම්බන්ධ 
 msgid "Unable to redirect to login. Please try again."
 msgstr "login එකට යළි-යොමු කළ නොහැක. කරුණාකර නැවත උත්සාහ කරන්න."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "පවරා නැත"
 
@@ -2460,10 +2741,16 @@ msgstr "පවරා නැත"
 msgid "Unauthorized Access"
 msgstr "අනවසර ප්‍රවේශය"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "එක්සත් ජනපදය"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:78
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
@@ -2510,6 +2797,7 @@ msgstr "සත්‍යාපනය නොකළ"
 msgid "Use your passkey"
 msgstr "ඔබගේ මුරයතුර භාවිතා කරන්න"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "පරිශීලකයා"
@@ -2583,6 +2871,10 @@ msgstr "ප්‍රචණ්ඩත්වය"
 msgid "Vote and view"
 msgstr "ඡන්දය සහ බැලීම"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr ""
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2591,6 +2883,10 @@ msgstr "අපි <0>{0}</0> වෙත සත්‍යාපන කේතයක�
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "අපි ඉක්මනින් online වන්නෙමු."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2635,22 +2931,30 @@ msgstr "මෙම සංසදයේ පළ කිරීමට ඔබට අව�
 msgid "You have no forums yet."
 msgstr "ඔබට තවමත් සංසද නොමැත."
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "ඔබට මෙම සංසදයෙන් යාවත්කාලීන ලැබීම නැවතෙනු ඇත. ඔබට ඕනෑම වේලාවක නැවත දායක විය හැක."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ඔබේ ගිණුම {source} සිට මෙහි ගෙන ආවා. එතන ඉවත් කරන තෙක්, පණිවිඩ සහ දැනුම්දීම් සේවාදායකයන් දෙකටම ළඟා විය හැකිය, ඔබේ සමහර අන්තර්ගතය පැරණි සේවාදායකයෙන් ලබාදීම ඉදිරියටත් සිදු වේ, සහ අනුගාමිකයින්ට ඔබව මෙහිදී සොයා ගැනීමට මිනිත්තු කිහිපයක් ගත වනු ඇත."
 
-#: src/components/comment-composer.tsx:260
+#: src/components/comment-composer.tsx:293
 msgid "Your attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:258
+#: src/components/comment-composer.tsx:291
 msgid "Your text and attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:261
+#: src/components/comment-composer.tsx:294
 msgid "Your text will be lost."
 msgstr ""

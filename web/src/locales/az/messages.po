@@ -53,6 +53,11 @@ msgstr "{0, plural, one {# istifadəçi səssizləşdirildi} other {# istifadə�
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {Heyətdən xəbərdarlıq} other {Heyətdən xəbərdarlıqlar}}"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:263
@@ -67,9 +72,13 @@ msgstr "{count, plural, one {Mənbə əlavə edildi (1 yazı idxal edildi)} othe
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count} fiqur"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} adı"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -90,6 +99,10 @@ msgstr "{selectedCount, plural, one {# seçilmiş {entityName} üçün toplu əm
 #: src/features/forums/components/thread/thread-comment.tsx:242
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {1 cavab} other {# əlavə cavab}}"
+
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -115,7 +128,7 @@ msgstr "Giriş rədd edildi"
 msgid "Access Forbidden"
 msgstr "Giriş qadağandır"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Giriş səviyyəsi"
 
@@ -155,6 +168,7 @@ msgstr "Hesab tipi"
 msgid "Account verified"
 msgstr "Hesab təsdiqləndi"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "Əlavə et"
@@ -181,7 +195,7 @@ msgstr "Bildiriş almaq və xidmətlərdən istifadə etmək üçün hesab əlav
 msgid "Add files"
 msgstr "Fayllar əlavə et"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Yeni hesab əlavə et"
 
@@ -190,6 +204,7 @@ msgid "Add rule"
 msgstr "Qayda əlavə et"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Etiket əlavə et..."
 
@@ -206,11 +221,15 @@ msgstr "Mövcud bildirişlərə əlavə et"
 msgid "Add view"
 msgstr "Görünüş əlavə et"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Additional details (optional)"
 msgstr "Əlavə təfərrüatlar (istəyə bağlı)"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Üstünlüklərinizə uyğunlaşdırmaq üçün görünüşü və düzümü tənzimləyin."
 
@@ -237,6 +256,11 @@ msgstr "Bütün forumlar"
 msgid "All posts and comments have been reviewed"
 msgstr "Bütün yazılar və şərhlər nəzərdən keçirilib"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Hər kəsə forum axtarmağa icazə ver"
@@ -249,9 +273,22 @@ msgstr "Xəta baş verdi"
 msgid "An unexpected error occurred"
 msgstr "Gözlənilməz xəta baş verdi"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:107
 msgid "Any additional context..."
 msgstr "Hər hansı əlavə kontekst..."
+
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Anyone"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
@@ -290,11 +327,24 @@ msgstr "Cavab fayllarını qoş"
 msgid "Attachments"
 msgstr "Qoşmalar"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Authenticator kodu"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Geri"
 
@@ -333,6 +383,7 @@ msgstr "Müəllifi blokla"
 msgid "banned"
 msgstr "qadağan edilib"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
 #: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Banner"
@@ -350,6 +401,10 @@ msgstr "Banner yeniləndi"
 msgid "Boost interest"
 msgstr "Marağı artır"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr ""
+
 #. placeholder {0}: report.author_name ?? t`Unknown`
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "by {0}"
@@ -363,10 +418,10 @@ msgstr "{0} tərəfindən"
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:359
@@ -383,32 +438,36 @@ msgstr "Ləğv et"
 msgid "Cancel reply"
 msgstr "Cavabı ləğv et"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "Bu bildiriş üçün kateqoriya"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "Bildiriş kateqoriyasını dəyişdir"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr ""
 
 #: src/features/forums/components/forum-overview.tsx:147
 msgid "Check back later for new content"
 msgstr "Yeni məzmun üçün sonra yenidən yoxlayın"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "Default genişləndirilmiş, kompakt yalnız ikon və ya tam düzüm rejimi arasında seçim edin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "Inset, üzən və ya standart yan panel düzümü arasında seçim edin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "Soldan-sağa və ya sağdan-sola sayt istiqaməti arasında seçim edin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Sistem üstünlüyü, açıq rejim və ya tünd rejim arasında seçim edin"
 
@@ -417,8 +476,8 @@ msgstr "Sistem üstünlüyü, açıq rejim və ya tünd rejim arasında seçim e
 msgid "Choose language"
 msgstr "Dil seçin"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -427,7 +486,7 @@ msgstr "Dil seçin"
 msgid "Clear"
 msgstr "Təmizlə"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 #: src/features/forums/pages/saved-page.tsx:76
 #: src/features/forums/pages/saved-page.tsx:124
 msgid "Clear all"
@@ -440,6 +499,10 @@ msgstr "Bütün saxlanmış paylaşımlar silinsin?"
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Filtrləri təmizlə"
+
+#: ../../../lib/web/src/components/search-input.tsx:26
+msgid "Clear search"
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
@@ -495,6 +558,10 @@ msgstr "Rahat"
 msgid "Coming Soon!"
 msgstr "Tezliklə!"
 
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:561
 msgid "Comment approved"
 msgstr "Şərh təsdiqləndi"
@@ -527,15 +594,27 @@ msgstr "Şərh yeniləndi"
 msgid "Comment, vote, and view"
 msgstr "Şərh, səs ver və bax"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Kompakt"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Təsdiqlə"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr ""
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr ""
 
 #: src/features/forums/components/create-post-dialog.tsx:256
 #: src/features/forums/components/edit-post-dialog.tsx:259
@@ -545,6 +624,10 @@ msgstr "Məzmun"
 #: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "Hədddən aşağı istifadəçilərin məzmunu təsdiqlənməlidir"
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr ""
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -562,7 +645,15 @@ msgstr "Davam et"
 msgid "Continue with {label}"
 msgstr "{label} ilə davam edin"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/lib/toast-utils.ts:42
+msgid "Copied"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 msgid "Copy"
 msgstr "Kopyala"
 
@@ -582,6 +673,11 @@ msgstr "Yenidən autentifikasiyanı başlatmaq mümkün olmadı. Zəhmət olmasa
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Bu hesabla doğrulama mümkün olmadı. Zəhmət olmasa, yenidən cəhd edin."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/forums/components/forum-overview.tsx:100
 msgid "Create a new forum"
 msgstr "Yeni forum yarat"
@@ -599,12 +695,20 @@ msgstr "Forum yarat"
 msgid "Creating forum..."
 msgstr "Forum yaradılır..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+msgid "Creating..."
+msgstr ""
+
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr ""
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 #: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "Xüsusi"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -626,7 +730,7 @@ msgstr "Məlumat konflikti"
 msgid "days"
 msgstr "məs. Staging"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "Default"
@@ -680,6 +784,10 @@ msgstr "Azalan"
 msgid "Descending"
 msgstr "Azalan"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:101
 msgid "Details (required)"
 msgstr "Təfərrüatlar (tələb olunur)"
@@ -699,20 +807,29 @@ msgstr "Təfərrüatlar paneli"
 msgid "Detect from web browser"
 msgstr "Veb-brauzerdən aşkarla"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "İstiqamət"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:555
 msgid "Disabled"
 msgstr "Söndürülmüşdür"
 
-#: src/components/comment-composer.tsx:269
+#: src/components/comment-composer.tsx:302
 msgid "Discard"
 msgstr ""
 
-#: src/components/comment-composer.tsx:267
+#: src/components/comment-composer.tsx:300
 msgid "Discard draft?"
+msgstr ""
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
 msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:79
@@ -757,6 +874,10 @@ msgstr "{label} redaktə et"
 msgid "Edit post"
 msgstr "Postu redaktə et"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "E-poçt kodu"
@@ -788,6 +909,10 @@ msgstr "Genişlət"
 msgid "Expand sidebar"
 msgstr "Yan paneli genişləndir"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "Çox böyük"
@@ -796,6 +921,7 @@ msgstr "Çox böyük"
 msgid "Failed to add account"
 msgstr "Hesab əlavə etmək alınmadı"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
 #: src/features/forums/thread-detail.tsx:221
 msgid "Failed to add tag"
 msgstr "Etiket əlavə etmək alınmadı"
@@ -823,6 +949,11 @@ msgstr "İstifadəçiləri qadağan etmək alınmadı"
 msgid "Failed to clear saved posts"
 msgstr "Saxlanmış paylaşımları silmək alınmadı"
 
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
+msgid "Failed to copy"
+msgstr ""
+
 #: src/hooks/use-forums-queries.ts:83
 msgid "Failed to create forum"
 msgstr "Forum yaradıla bilmədi"
@@ -838,6 +969,10 @@ msgstr "Forum silinə bilmədi"
 #: src/components/options-menu.tsx:88
 msgid "Failed to get RSS token"
 msgstr "RSS tokenini almaq alınmadı"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
@@ -993,9 +1128,13 @@ msgstr "AI parametrlərini yeniləmək alınmadı"
 msgid "Failed to update banner"
 msgstr "Bannerı yeniləmək alınmadı"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "Kateqoriyanı yeniləmək alınmadı"
+
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr ""
 
 #: src/features/forums/pages/entity-forum-page.tsx:334
 msgid "Filtered by tag:"
@@ -1018,7 +1157,7 @@ msgstr "Hesabınızın köçürülməsini tamamlayın"
 msgid "Flat"
 msgstr "Düz"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "Üzən"
 
@@ -1077,6 +1216,10 @@ msgstr "Forumlar"
 msgid "Friday"
 msgstr "Cümə"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
+msgid "Friends"
+msgstr ""
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "Kimdən"
@@ -1090,7 +1233,7 @@ msgstr "Kimdən"
 msgid "From theme"
 msgstr "Mövzudan"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "Tam tərtibat"
 
@@ -1123,6 +1266,11 @@ msgstr "Əvvəlki səhifəyə get"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
 msgstr "Qrup"
+
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:27
 #: src/routes/_authenticated/$forum_.moderation.tsx:746
@@ -1166,7 +1314,19 @@ msgstr "Şəkil göstəricisi: {0}"
 msgid "Imperial"
 msgstr "İmperial"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "İçəri"
 
@@ -1187,6 +1347,10 @@ msgstr "Maraq silindi"
 msgid "Interests"
 msgstr "Maraqlar"
 
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "Etibarsız doğrulama kodu"
@@ -1195,12 +1359,16 @@ msgstr "Etibarsız doğrulama kodu"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Axtardığınız səhifə <0/>mövcud deyil və ya silinib."
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
 msgstr "Böyük"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "Tərtibat"
 
@@ -1209,11 +1377,15 @@ msgstr "Tərtibat"
 msgid "Learn more"
 msgstr "Daha çox öyrən"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "Soldan sağa"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1270,6 +1442,10 @@ msgstr "Uğurla çıxış edildi"
 msgid "Logging out…"
 msgstr "Çıxış edilir…"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1279,6 +1455,10 @@ msgstr "Hamısını oxunmuş kimi işarələ"
 #: src/features/forums/components/create-post-dialog.tsx:260
 msgid "Markdown supported"
 msgstr "Markdown dəstəklənir"
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1296,6 +1476,10 @@ msgstr "Metrik"
 #: src/routes/_authenticated/$forum_.moderation.tsx:749
 msgid "Misinformation"
 msgstr "Yanlış məlumat"
+
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:100
 msgid "Moderate, post, comment, vote, and view"
@@ -1350,6 +1534,11 @@ msgstr "Ad"
 msgid "Name cannot contain < or > characters"
 msgstr "Ad < və ya > simvolları ehtiva edə bilməz"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
 #: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name must be 1000 characters or less"
 msgstr "Ad 1000 simvol və ya daha az olmalıdır"
@@ -1396,7 +1585,7 @@ msgstr "{statusFilter} hesabat tapılmadı"
 msgid "No access"
 msgstr "Giriş yoxdur"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Giriş qaydaları konfiqurasiya edilməyib. Bu resursa kimin daxil ola biləcəyini idarə etmək üçün qaydalar əlavə edin."
 
@@ -1417,7 +1606,15 @@ msgstr "Mövcud qrup yoxdur"
 msgid "No moderation activity"
 msgstr "Moderasiya fəaliyyəti yoxdur"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr ""
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
+msgid "No people found"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Yer tapılmadı"
 
@@ -1437,6 +1634,11 @@ msgstr "Hesabat yoxdur"
 msgid "No restrictions"
 msgstr "Məhdudiyyət yoxdur"
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr ""
+
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
@@ -1446,7 +1648,7 @@ msgstr "Nəticə tapılmadı."
 msgid "No time zone found."
 msgstr "Saat qurşağı tapılmadı."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "Hələ mövzu qeydi yoxdur — növbəti bildirişdən sonra yenidən cəhd edin."
 
@@ -1458,6 +1660,7 @@ msgstr "İstifadəçi tapılmadı"
 msgid "No users have been muted or banned"
 msgstr "Səssizləşdirilmiş və ya qadağan edilmiş istifadəçi yoxdur"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1498,6 +1701,10 @@ msgstr "Bildirişlər: {0}"
 msgid "Off-topic"
 msgstr "Mövzudan kənar"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr ""
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Hopa! Səhifə Tapılmadı!"
@@ -1512,6 +1719,10 @@ msgstr "Hesab əməliyyatlarını aç"
 msgid "Open actions"
 msgstr "Əməliyyatları aç"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1522,8 +1733,8 @@ msgstr "Naviqasiyanı aç"
 msgid "Open navigation menu"
 msgstr "Naviqasiya menyusunu aç"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Tema parametrlərini aç"
 
@@ -1537,7 +1748,7 @@ msgstr "Forumunuzun yuxarısında göstərilən könüllü markdown banneri."
 msgid "Other"
 msgstr "Digər"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "Sahibi"
 
@@ -1578,6 +1789,10 @@ msgstr "Gözləyən şərhlər ({0})"
 msgid "Pending posts ({0})"
 msgstr "Gözləyən postlar ({0})"
 
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr ""
+
 #: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Pin"
 msgstr "Sancaqla"
@@ -1588,7 +1803,7 @@ msgstr "Sancaqlanıb"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: src/components/comment-composer.tsx:69
+#: src/components/comment-composer.tsx:97
 msgid "Please check your internet connection and try again."
 msgstr "İnternet bağlantınızı yoxlayıb yenidən cəhd edin."
 
@@ -1707,6 +1922,10 @@ msgstr "Məxfilik"
 msgid "Profile"
 msgstr "Profil"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr ""
+
 #: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "Sorğu saxlanıldı"
@@ -1718,6 +1937,10 @@ msgstr "Postu dərc et"
 #: src/features/forums/components/create-post-dialog.tsx:369
 msgid "Publishing..."
 msgstr "Dərc olunur..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:78
 msgid "Queue"
@@ -1748,8 +1971,8 @@ msgstr "Səbəb:"
 msgid "Reason: {0}"
 msgstr "Səbəb: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Tövsiyə olunur"
 
@@ -1757,6 +1980,10 @@ msgstr "Tövsiyə olunur"
 #: src/features/forums/components/recommended-forums.tsx:139
 msgid "Recommended forums"
 msgstr "Tövsiyə olunan forumlar"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Redirecting to login."
@@ -1784,9 +2011,9 @@ msgstr "Nisbi (5d, 3s, 2g)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 saat içində nisbi, əks halda mütləq"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/components/comment-composer.tsx:201
+#: src/components/comment-composer.tsx:234
 #: src/features/forums/components/create-post-dialog.tsx:320
 #: src/features/forums/components/edit-post-dialog.tsx:332
 #: src/features/forums/components/thread/thread-comment.tsx:455
@@ -1798,17 +2025,23 @@ msgstr "24 saat içində nisbi, əks halda mütləq"
 msgid "Remove"
 msgstr "Sil"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr ""
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "Giriş qaydasını sil"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "\"{0}\" üçün giriş qaydası silinsin?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "Girişi silək?"
 
@@ -1923,12 +2156,17 @@ msgstr "Yeni istifadəçilər üçün təsdiq tələb et"
 msgid "Resend email"
 msgstr "E-poçtu yenidən göndər"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Bütün parametrləri standart dəyərlərə sıfırla"
 
@@ -1949,7 +2187,7 @@ msgstr "Məhdudiyyət silindi"
 msgid "Restrictions"
 msgstr "Məhdudiyyətlər"
 
-#: src/components/comment-composer.tsx:218
+#: src/components/comment-composer.tsx:251
 msgid "Retry"
 msgstr ""
 
@@ -1961,7 +2199,7 @@ msgstr "Forum yükləməsini yenidən cəhd et"
 msgid "Revoke access"
 msgstr "Girişi ləğv et"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "Sağdan Sola"
 
@@ -2023,13 +2261,27 @@ msgstr "Saxlanılır..."
 msgid "Score prompt"
 msgstr "Xal sorğusu"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr ""
+
 #: src/routes/_authenticated/find.tsx:92
 msgid "Search by name, ID, fingerprint, or URL..."
 msgstr "Ad, ID, fingerprint və ya URL ilə axtar..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Yer axtar"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -2052,11 +2304,13 @@ msgid "Search users"
 msgstr "İstifadəçi axtar"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Axtar..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Axtarılır..."
@@ -2064,6 +2318,11 @@ msgstr "Axtarılır..."
 #: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "saniyə"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2081,6 +2340,10 @@ msgstr "Giriş vermək üçün istifadəçi, qrup və ya başqa qayda seçin."
 msgid "Select access rule"
 msgstr "Giriş qaydası seç"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "Hesab növünü seç"
@@ -2093,23 +2356,31 @@ msgstr "Hamısını seç"
 msgid "Select group"
 msgstr "Qrupu seçin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "Tərtibat üslubunu seçin"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:455
 msgid "Select none"
 msgstr "Heç birini seçin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "Yan panel üslubunu seçin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "Sayt istiqamətini seçin"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "Mövzu seçimini seçin"
 
@@ -2173,8 +2444,8 @@ msgstr "Parolu göstər"
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} olan {totalShown} göstərilir"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "Yan panel"
@@ -2210,7 +2481,7 @@ msgstr "Spam"
 msgid "Stay tuned though!"
 msgstr "Yenə də diqqətli olun!"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Mövzu"
 
@@ -2229,6 +2500,8 @@ msgstr "Hesabatı təqdim et"
 msgid "Submitting..."
 msgstr "Təqdim edilir..."
 
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:191
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
@@ -2261,17 +2534,25 @@ msgstr "Abunə olunur..."
 msgid "Sunday"
 msgstr "Bazar"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "Sistem"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 #: src/routes/_authenticated/$forum_.settings.tsx:556
 msgid "Tag"
 msgstr "Etiket"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr ""
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:598
 msgid "Tag prompt"
@@ -2307,11 +2588,11 @@ msgstr "Tələb olunan məzmun tapılmadı."
 msgid "The site is not available at the moment."
 msgstr "Sayt hazırda əlçatan deyil."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "Mövzu yeniləndi"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "Mövzu parametrləri"
 
@@ -2416,8 +2697,8 @@ msgstr "Mövzular"
 msgid "Travelling"
 msgstr "Fərqli axtarış termini və ya filtri sınayın."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Fərqli axtarış termini sınayın."
 
@@ -2452,7 +2733,7 @@ msgstr "Uzaq serverə qoşulmaq mümkün olmadı"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Girişə yönləndirmək mümkün olmadı. Yenidən cəhd edin."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "İcazəsiz giriş"
 
@@ -2460,10 +2741,16 @@ msgstr "İcazəsiz giriş"
 msgid "Unauthorized Access"
 msgstr "Banı götür"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "Naməlum"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:78
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
@@ -2510,6 +2797,7 @@ msgstr "İzləri yenilə"
 msgid "Use your passkey"
 msgstr "Giriş açarınızdan istifadə edin"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "İstifadəçi yaradıldı"
@@ -2583,6 +2871,10 @@ msgstr "Alıcının ödənişi tamamlamasını gözləyirik"
 msgid "Vote and view"
 msgstr "Səs ver və bax"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr ""
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2591,6 +2883,10 @@ msgstr "<0>{0}</0> ünvanına təsdiq kodu göndərdik. E-poçt ünvanınızı t
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "Tezliklə yenidən onlayn olacağıq."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2635,22 +2931,30 @@ msgstr "Bu forumda yazı yerləşdirmək üçün icazəniz yoxdur"
 msgid "You have no forums yet."
 msgstr "Hələ heç bir repozitoriyanız yoxdur."
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bu forumdan yeniləmələr almağı dayandıracaqsınız. İstənilən vaxt yenidən abunə ola bilərsiniz."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Hesabınız {source} saytından buraya köçürüldü. Orada silənə qədər mesajlar və bildirişlər hər iki serverə çata bilər, bəzi məzmununuz köhnə serverdən təqdim edilməyə davam edər və izləyicilər sizi burada tapmaq üçün bir neçə dəqiqə gözləyə bilər."
 
-#: src/components/comment-composer.tsx:260
+#: src/components/comment-composer.tsx:293
 msgid "Your attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:258
+#: src/components/comment-composer.tsx:291
 msgid "Your text and attachments will be lost."
 msgstr ""
 
-#: src/components/comment-composer.tsx:261
+#: src/components/comment-composer.tsx:294
 msgid "Your text will be lost."
 msgstr ""
