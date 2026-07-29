@@ -27,6 +27,7 @@ import {
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
+import { mergePendingFiles } from '@/features/forums/utils'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -62,6 +63,9 @@ interface ThreadCommentProps {
   replyingToId?: string | null
   replyValue?: string
   onReplyChange?: (value: string) => void
+  /** Reports how many files this comment has staged while it is the one being
+   * replied to, so the thread can warn before a switch throws them away. */
+  onReplyFilesChange?: (count: number) => void
   onReplySubmit?: (commentId: string, files?: File[]) => void | Promise<void>
   onReplyCancel?: () => void
   canEdit?: (commentMember: string) => boolean
@@ -91,6 +95,7 @@ export function ThreadComment({
   replyingToId = null,
   replyValue = '',
   onReplyChange,
+  onReplyFilesChange,
   onReplySubmit,
   onReplyCancel,
   canEdit,
@@ -123,8 +128,18 @@ export function ThreadComment({
 
   const addReplyFiles = useCallback((incoming: File[]) => {
     setReplyFailed(false)
-    setReplyFiles((prev) => [...prev, ...incoming])
+    setReplyFiles((prev) => mergePendingFiles(prev, incoming))
   }, [])
+
+  // Editing the draft after a failure means the red attachments and the Retry
+  // button no longer describe what is in the box.
+  const handleReplyChange = useCallback(
+    (value: string) => {
+      setReplyFailed(false)
+      onReplyChange?.(value)
+    },
+    [onReplyChange]
+  )
 
   // Moderation status
   const isPending = comment.status === 'pending'
@@ -162,6 +177,10 @@ export function ThreadComment({
   useEffect(() => {
     if (!isReplying && replyFailed) setReplyFailed(false)
   }, [isReplying, replyFailed])
+
+  useEffect(() => {
+    if (isReplying) onReplyFilesChange?.(replyFiles.length)
+  }, [isReplying, replyFiles.length, onReplyFilesChange])
 
   const submitReply = useCallback(async () => {
     if (isSubmittingReply || !replyValue.trim() || offlineBlocked()) return
@@ -526,7 +545,7 @@ export function ThreadComment({
           <MentionTextarea
             placeholder={t`Reply to ${comment.name}...`}
             value={replyValue}
-            onValueChange={(v) => onReplyChange?.(v)}
+            onValueChange={handleReplyChange}
             onSearchPeople={onSearchPeople}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -548,7 +567,8 @@ export function ThreadComment({
             onRemove={(file) =>
               setReplyFiles((prev) => removePendingFile(prev, file))
             }
-            onRetry={() => void submitReply()}
+            // Retry sends the draft, so it is only offered while there is one.
+            onRetry={replyValue.trim() ? () => void submitReply() : undefined}
           />
           <div className='flex items-center justify-end gap-2'>
             <SendShortcutHint />
@@ -622,6 +642,7 @@ export function ThreadComment({
           replyingToId={replyingToId}
           replyValue={replyValue}
           onReplyChange={onReplyChange}
+          onReplyFilesChange={onReplyFilesChange}
           onReplySubmit={onReplySubmit}
           onReplyCancel={onReplyCancel}
           canEdit={canEdit}

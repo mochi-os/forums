@@ -36,6 +36,7 @@ import {
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
+import { mergePendingFiles } from '@/features/forums/utils'
 import type { Tag } from '@/api/types/posts'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
@@ -114,12 +115,40 @@ export function ThreadDetail({
 
   const addCommentFiles = useCallback((incoming: File[]) => {
     setCommentFailed(false)
-    setCommentFiles((prev) => [...prev, ...incoming])
+    setCommentFiles((prev) => mergePendingFiles(prev, incoming))
+  }, [])
+
+  // Editing the draft after a failure means the red attachments and the Retry
+  // button no longer describe what is in the box.
+  const handleCommentBodyChange = useCallback((value: string) => {
+    setCommentBody(value)
+    setCommentFailed(false)
   }, [])
   const [replyingToComment, setReplyingToComment] = useState<string | null>(
     null
   )
   const [commentReplyBody, setCommentReplyBody] = useState('')
+  const [replyFileCount, setReplyFileCount] = useState(0)
+  const pendingReplyTarget = useRef<string | null>(null)
+
+  const startReply = useCallback((commentId: string) => {
+    setReplyingToComment(commentId)
+    setReplyFileCount(0)
+    const selected = window.getSelection()?.toString().trim()
+    if (selected) {
+      const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
+      setCommentReplyBody(quoted)
+    } else {
+      setCommentReplyBody('')
+    }
+  }, [])
+
+  const cancelReply = useCallback(() => {
+    setReplyingToComment(null)
+    setCommentReplyBody('')
+    setReplyFileCount(0)
+  }, [])
+
   const [reportPostDialogOpen, setReportPostDialogOpen] = useState(false)
   const [reportingCommentId, setReportingCommentId] = useState<string | null>(null)
 
@@ -199,6 +228,34 @@ export function ThreadDetail({
     onDiscard: () => setShowReplyForm(false),
     locked: isSendingComment,
   })
+
+  // Opening another comment's reply box throws the current draft away, so it
+  // asks first, exactly like closing the box does. The guard lives here rather
+  // than in the comment because the comment being replied to is not the one
+  // whose Reply button was clicked.
+  const { requestClose: requestReplySwitch, discardDialog: replySwitchDialog } =
+    useDiscardGuard({
+      hasText: commentReplyBody.trim().length > 0,
+      hasFiles: replyFileCount > 0,
+      onDiscard: () => {
+        const next = pendingReplyTarget.current
+        pendingReplyTarget.current = null
+        if (next) startReply(next)
+        else cancelReply()
+      },
+    })
+
+  const handleStartReply = useCallback(
+    (commentId: string) => {
+      if (replyingToComment && replyingToComment !== commentId) {
+        pendingReplyTarget.current = commentId
+        requestReplySwitch()
+        return
+      }
+      startReply(commentId)
+    },
+    [replyingToComment, requestReplySwitch, startReply]
+  )
 
   // Tag state (local optimistic updates since post detail isn't using react-query for tags)
   const [localTags, setLocalTags] = useState<Tag[] | null>(null)
@@ -472,7 +529,7 @@ export function ThreadDetail({
                     <MentionTextarea
                       className='placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50'
                       value={commentBody}
-                      onValueChange={setCommentBody}
+                      onValueChange={handleCommentBodyChange}
                       onSearchPeople={(q) =>
                         forumsApi.searchMembers(forum, q)
                       }
@@ -503,7 +560,11 @@ export function ThreadDetail({
                       onRemove={(file) =>
                         setCommentFiles((prev) => removePendingFile(prev, file))
                       }
-                      onRetry={handleCommentSubmit}
+                      // Retry sends the draft, so it is only offered while
+                      // there is one.
+                      onRetry={
+                        commentBody.trim() ? handleCommentSubmit : undefined
+                      }
                     />
                     <div className='flex items-center justify-end gap-2'>
                       <SendShortcutHint />
@@ -582,21 +643,13 @@ export function ThreadDetail({
                             : null
                         }
                         canReply={can_comment}
-                        onReply={(commentId) => {
-                          setReplyingToComment(commentId)
-                          const selected = window.getSelection()?.toString().trim()
-                          if (selected) {
-                            const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
-                            setCommentReplyBody(quoted)
-                          } else {
-                            setCommentReplyBody('')
-                          }
-                        }}
+                        onReply={handleStartReply}
                         replyingToId={replyingToComment}
                         replyValue={commentReplyBody}
                         onReplyChange={setCommentReplyBody}
                         onReplySubmit={handleCommentReplySubmit}
-                        onReplyCancel={() => setReplyingToComment(null)}
+                        onReplyCancel={cancelReply}
+                        onReplyFilesChange={setReplyFileCount}
                         canEdit={canEditComment}
                         onEdit={(commentId, body) =>
                           editCommentMutation.mutate({
@@ -681,6 +734,7 @@ export function ThreadDetail({
         />
 
         {discardDialog}
+        {replySwitchDialog}
       </Main>
     </>
   )
