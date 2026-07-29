@@ -1782,7 +1782,7 @@ def action_post_create(a):
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
             # Save any uploaded attachments locally
-            attachments = mochi.attachment.save(id, "attachments", [], [], [])
+            attachments = mochi.attachment.save(id, "attachments", [], [])
 
             # Only broadcast if approved
             if status == "approved":
@@ -1819,7 +1819,7 @@ def action_post_create(a):
                 return
 
             # Save attachments locally
-            attachments = mochi.attachment.save(id, "attachments", [], [], [])
+            attachments = mochi.attachment.save(id, "attachments", [], [])
 
             submit_data = {"id": id, "title": title, "body": body}
             if attachments:
@@ -1856,7 +1856,7 @@ def action_post_create(a):
         return
 
     # Save attachments locally
-    attachments = mochi.attachment.save(id, "attachments", [], [], [])
+    attachments = mochi.attachment.save(id, "attachments", [], [])
 
     # Send post to remote forum owner with attachment metadata
     submit_data = {"id": id, "title": title, "body": body}
@@ -2779,7 +2779,7 @@ def action_post_edit(a):
 
             current_attachments = mochi.attachment.list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [])
 
             final_order = []
             for item in order:
@@ -2797,12 +2797,12 @@ def action_post_edit(a):
             if final_order:
                 for att_id in current_ids:
                     if att_id not in final_order:
-                        mochi.attachment.delete(att_id, [])
+                        mochi.attachment.delete(att_id)
                 for i, att_id in enumerate(final_order):
-                    mochi.attachment.move(att_id, i + 1, [])
+                    mochi.attachment.move(att_id, i + 1)
             else:
                 for att_id in current_ids:
-                    mochi.attachment.delete(att_id, [])
+                    mochi.attachment.delete(att_id)
 
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
@@ -2843,7 +2843,7 @@ def action_post_edit(a):
             current_ids = [att["id"] for att in current_attachments]
 
             # Save new attachments locally
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+            new_attachments = mochi.attachment.save(post_id, "attachments", [], [])
 
             # Build final order
             final_order = []
@@ -2898,7 +2898,7 @@ def action_post_edit(a):
         order = []
 
     # Save new attachments locally
-    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+    new_attachments = mochi.attachment.save(post_id, "attachments", [], [])
 
     # Build final order (only new attachments, no existing ones locally)
     final_order = []
@@ -3123,7 +3123,7 @@ def action_comment_create(a):
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
 
             # Save comment attachments locally
-            attachments = mochi.attachment.save(id, "files", [], [], [])
+            attachments = mochi.attachment.save(id, "files", [], [])
 
             mochi.db.execute("update posts set updated=? where id=?", now, post_id)
             recount_post_comments(post_id)
@@ -3161,7 +3161,7 @@ def action_comment_create(a):
                 return
 
             # Save comment attachments locally
-            attachments = mochi.attachment.save(id, "files", [], [], [])
+            attachments = mochi.attachment.save(id, "files", [], [])
 
             # Send comment to forum owner with attachment metadata
             submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
@@ -3201,7 +3201,7 @@ def action_comment_create(a):
         return
 
     # Save comment attachments locally
-    attachments = mochi.attachment.save(id, "files", [], [], [])
+    attachments = mochi.attachment.save(id, "files", [], [])
 
     # Send comment to remote forum owner with attachment metadata
     submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
@@ -3269,7 +3269,7 @@ def action_comment_edit(a):
 
             current_attachments = mochi.attachment.list(comment_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = mochi.attachment.save(comment_id, "files", [], [], [])
+            new_attachments = mochi.attachment.save(comment_id, "files", [], [])
 
             final_order = []
             for item in order:
@@ -3287,13 +3287,13 @@ def action_comment_edit(a):
             if final_order:
                 for att_id in current_ids:
                     if att_id not in final_order:
-                        mochi.attachment.delete(att_id, [])
+                        mochi.attachment.delete(att_id)
                 for i, att_id in enumerate(final_order):
-                    mochi.attachment.move(att_id, i + 1, [])
+                    mochi.attachment.move(att_id, i + 1)
             elif order_json:
                 # Explicit empty order: drop all attachments.
                 for att_id in current_ids:
-                    mochi.attachment.delete(att_id, [])
+                    mochi.attachment.delete(att_id)
 
             mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
             mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
@@ -5842,11 +5842,11 @@ def event_post_edit_submit_event(e):
     # Delete attachments not in order (those being removed)
     for att_id in current_ids:
         if att_id not in order:
-            mochi.attachment.delete(att_id, [])
+            mochi.attachment.delete(att_id)
 
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
-        mochi.attachment.move(att_id, i + 1, [])
+        mochi.attachment.move(att_id, i + 1)
 
     # Update the post
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
@@ -5966,7 +5966,7 @@ def event_post_edit_event(e):
     # Update attachments from event
     attachments = e.content("attachments")
     if attachments != None:
-        mochi.attachment.clear(id, [])
+        mochi.attachment.clear(id)
         if attachments:
             mochi.attachment.store(attachments, e.header("from"), id)
 
