@@ -8075,13 +8075,17 @@ def _check_forum(user, forum_id):
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
 
-    if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
-        fp = mochi.entity.fingerprint(forum_id) or ""
-        return {"fingerprint": fp, "already_subscribed": True}
+    subscribed = mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id)
 
-    if not mochi.directory.get(forum_id):
+    # An unsubscribed caller must resolve the forum publicly; a subscriber
+    # already knows it (and may have joined a private forum the directory
+    # does not list), so the directory gate applies only before membership.
+    if not subscribed and not mochi.directory.get(forum_id):
         return {"error": "errors.forum_not_found_in_directory", "code": 404}
 
+    # Probe the owner even when subscribed: membership proves neither present
+    # reachability nor that the member can still post — access may have been
+    # revoked, or the member muted, since subscribing.
     access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["post"],
         "user": user_id,
@@ -8090,7 +8094,7 @@ def _check_forum(user, forum_id):
         return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
 
     fp = mochi.entity.fingerprint(forum_id) or ""
-    return {"fingerprint": fp, "already_subscribed": False}
+    return {"fingerprint": fp, "already_subscribed": subscribed}
 
 
 # Service event: another local app asks whether the user could subscribe and
