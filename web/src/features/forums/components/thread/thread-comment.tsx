@@ -5,7 +5,7 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -67,6 +67,8 @@ interface ThreadCommentProps {
    * replied to, so the thread can warn before a switch throws them away. */
   onReplyFilesChange?: (count: number) => void
   onReplySubmit?: (commentId: string, files?: File[]) => void | Promise<void>
+  /** Byte progress of an in-flight reply upload */
+  replyProgress?: Upload | null
   onReplyCancel?: () => void
   canEdit?: (commentMember: string) => boolean
   onEdit?: (commentId: string, body: string) => void
@@ -97,6 +99,7 @@ export function ThreadComment({
   onReplyChange,
   onReplyFilesChange,
   onReplySubmit,
+  replyProgress,
   onReplyCancel,
   canEdit,
   onEdit,
@@ -348,7 +351,7 @@ export function ThreadComment({
             expandWidth={200}
             className='comment-actions'
           >
-            <ActionPillSticky className='contents'>
+            <ActionPillSticky>
               {/* Votes */}
               {canVote ? (
                 <>
@@ -570,6 +573,7 @@ export function ThreadComment({
             // Retry sends the draft, so it is only offered while there is one.
             onRetry={replyValue.trim() ? () => void submitReply() : undefined}
           />
+          {replyBusy && <UploadProgress progress={replyProgress ?? null} />}
           <div className='flex items-center justify-end gap-2'>
             <SendShortcutHint />
             <input
@@ -644,6 +648,7 @@ export function ThreadComment({
           onReplyChange={onReplyChange}
           onReplyFilesChange={onReplyFilesChange}
           onReplySubmit={onReplySubmit}
+          replyProgress={replyProgress}
           onReplyCancel={onReplyCancel}
           canEdit={canEdit}
           onEdit={onEdit}

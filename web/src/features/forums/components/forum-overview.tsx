@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState, useListAutoAnimate } from '@mochi/web'
+import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState, useListAutoAnimate, type Upload } from '@mochi/web'
 import { Trans } from '@lingui/react/macro'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
@@ -32,6 +32,8 @@ interface ForumOverviewProps {
   }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
+  /** Byte progress of the create-post upload, when the caller tracks it */
+  createPostProgress?: Upload | null
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
@@ -47,6 +49,7 @@ export function ForumOverview({
   onCreatePost,
   isCreatingPost = false,
   isPostCreated = false,
+  createPostProgress,
   hasNextPage = false,
   isFetchingNextPage = false,
   onLoadMore,
@@ -153,6 +156,7 @@ export function ForumOverview({
               onCreate={onCreatePost}
               isPending={isCreatingPost}
               isSuccess={isPostCreated}
+              progress={createPostProgress}
             />
           )}
         </EmptyState>

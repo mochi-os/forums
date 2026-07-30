@@ -36,6 +36,8 @@ import {
   AttachmentAction,
   useFormat,
   useImageObjectUrls,
+  UploadProgress,
+  type Upload,
 } from '@mochi/web'
 import { Save, Paperclip, X } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
@@ -79,6 +81,8 @@ type EditPostDialogProps = {
     attachments: File[]
   }) => void
   isPending?: boolean
+  /** Byte progress of the save upload, when the caller tracks it */
+  progress?: Upload | null
 }
 
 export function EditPostDialog({
@@ -87,6 +91,7 @@ export function EditPostDialog({
   onOpenChange,
   onSave,
   isPending = false,
+  progress,
 }: EditPostDialogProps) {
   const { t } = useLingui()
   const appPath = getAppPath()
@@ -351,6 +356,7 @@ export function EditPostDialog({
             />
 
             </div>
+            <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>
               <Button
                 type='button'

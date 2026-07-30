@@ -371,6 +371,7 @@ export function EntityForumPage({
               onCreatePost={handleCreatePost}
               isCreatingPost={createPostMutation.isPending}
               isPostCreated={createPostMutation.isSuccess}
+              createPostProgress={createPostMutation.progress}
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
               onLoadMore={fetchNextPage}

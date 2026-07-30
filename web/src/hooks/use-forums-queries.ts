@@ -5,7 +5,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
-import { handleServerError, toast, toastAction, getErrorMessage, MUTATION_SKIPPED, isMutationSkipped, textUnchanged, type MutationFnResult } from '@mochi/web'
+import { handleServerError, toast, toastAction, getErrorMessage, MUTATION_SKIPPED, isMutationSkipped, textUnchanged, useUploadProgress, type MutationFnResult } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Forum, Post } from '@/api/types/forums'
 import type { EditPostResponse } from '@/api/types/posts'
@@ -108,8 +108,12 @@ export function useDeleteForum(onDeleted?: () => void) {
 export function useCreatePost(forumId: string | null) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: forumsApi.createPost,
+  const { progress, upload } = useUploadProgress()
+  const mutation = useMutation({
+    mutationFn: (payload: Parameters<typeof forumsApi.createPost>[0]) =>
+      payload.attachments?.length
+        ? upload((onProgress) => forumsApi.createPost(payload, onProgress))
+        : forumsApi.createPost(payload),
     onSuccess: () => {
       toast.success(t`Post published.`)
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
@@ -120,6 +124,7 @@ export function useCreatePost(forumId: string | null) {
     },
     onError: handleServerError,
   })
+  return { ...mutation, progress }
 }
 
 export function useSubscribeForum(onSubscribed?: (forumId: string) => void) {
@@ -234,9 +239,14 @@ export function useVoteComment(forumId: string, postId: string) {
 export function useCreateComment(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) =>
-      forumsApi.createComment({ forum: forumId, post: postId, body, parent, files }),
+  const { progress, upload } = useUploadProgress()
+  const mutation = useMutation({
+    mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) => {
+      const payload = { forum: forumId, post: postId, body, parent, files }
+      return files?.length
+        ? upload((onProgress) => forumsApi.createComment(payload, onProgress))
+        : forumsApi.createComment(payload)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
@@ -245,12 +255,14 @@ export function useCreateComment(forumId: string, postId: string) {
     },
     onError: handleServerError,
   })
+  return { ...mutation, progress }
 }
 
 export function useEditPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  return useMutation<
+  const { progress, upload } = useUploadProgress()
+  const mutation = useMutation<
     MutationFnResult<EditPostResponse>,
     Error,
     {
@@ -272,14 +284,17 @@ export function useEditPost(forumId: string, postId: string) {
       ) {
         return MUTATION_SKIPPED
       }
-      return forumsApi.editPost({
+      const payload = {
         forum: forumId,
         post: postId,
         title: data.title,
         body: data.body,
         order: data.order,
         attachments: data.attachments,
-      })
+      }
+      return data.attachments?.length
+        ? upload((onProgress) => forumsApi.editPost(payload, onProgress))
+        : forumsApi.editPost(payload)
     },
     onSuccess: (result) => {
       if (isMutationSkipped(result)) return
@@ -293,6 +308,7 @@ export function useEditPost(forumId: string, postId: string) {
     },
     onError: handleServerError,
   })
+  return { ...mutation, progress }
 }
 
 export function useDeletePost(forumId: string, onDeleted?: () => void) {
