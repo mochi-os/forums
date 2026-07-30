@@ -8062,6 +8062,54 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     return {"forum": forum_id, "post": post_id, "fingerprint": fp}
 
 
+# Internal: read-only accessibility check for `forum_id` on behalf of `user`.
+# Mirrors _subscribe_to_forum's resolution steps without writing anything: no
+# membership row, no schema fetch, no subscribe message. Unlike subscribe
+# (which tolerates an unreachable owner and lets the sync arrive later), an
+# unreachable owner fails the check — its purpose is to promise that a post
+# written now can be delivered.
+# Returns {"fingerprint", "already_subscribed"} or {"error", "code"}.
+def _check_forum(user, forum_id):
+    user_id = user.identity.id
+
+    if not mochi.text.valid(forum_id, "entity"):
+        return {"error": "errors.invalid_id", "code": 400}
+
+    if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
+        fp = mochi.entity.fingerprint(forum_id) or ""
+        return {"fingerprint": fp, "already_subscribed": True}
+
+    if not mochi.directory.get(forum_id):
+        return {"error": "errors.forum_not_found_in_directory", "code": 404}
+
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
+        "operations": ["post"],
+        "user": user_id,
+    })
+    if not access_response.get("post", False):
+        return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
+
+    fp = mochi.entity.fingerprint(forum_id) or ""
+    return {"fingerprint": fp, "already_subscribed": False}
+
+
+# Service event: another local app asks whether the user could subscribe and
+# post to a forum, without changing anything — the read-only counterpart of
+# event_app_subscribe. Help calls this when a contribute dialog opens, before
+# the user has committed to anything.
+# Caller restriction is declared in app.json events block.
+def event_app_check(e):
+    forum_id = e.content("forum") or ""
+    result = _check_forum(e.user, forum_id)
+    if "error" in result:
+        e.write({"error": result["error"], "code": result["code"]})
+        return
+    e.write({
+        "fingerprint": result.get("fingerprint", ""),
+        "already_subscribed": result.get("already_subscribed", False),
+    })
+
+
 # Service event: another local app asks us to subscribe the user to a forum.
 # Caller restriction is declared in app.json events block.
 def event_app_subscribe(e):
