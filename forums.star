@@ -1297,7 +1297,11 @@ def action_information_entity(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    is_owner = owned(forum["id"])
+    # a.owner: core answers for the routed entity against the AUTHENTICATED
+    # caller. owned() resolved through mochi.entity.get, and an anonymous request
+    # to a public action runs as the entity owner - so a stranger reading this
+    # public route was told they owned it.
+    is_owner = a.owner
     user_id = a.user.identity.id if a.user else None
 
     # Enforce view access for forums we host AND for replicas. Without this an
@@ -1426,7 +1430,11 @@ def action_view(a):
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
 
-        is_owner = owned(forum["id"])
+        # a.owner: core answers for the routed entity against the AUTHENTICATED
+        # caller. owned() resolved through mochi.entity.get, and an anonymous request
+        # to a public action runs as the entity owner - so a stranger reading this
+        # public route was told they owned it.
+        is_owner = a.owner
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
         # Render banner markdown to HTML
         banner = forum.get("banner", "")
@@ -1521,6 +1529,7 @@ def action_view(a):
             p["body_markdown"] = mochi.text.markdown(p["body"])
             p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
             # Fetch attachments from forum owner if we don't have them locally
+            # access-ok: locality, not authorisation. This asks whether THIS SERVER holds the forum, to decide if attachments must be fetched from its host - not whether the caller owns it. a.owner would be wrong here: it is False for an anonymous viewer of a forum we do host, which would trigger a pointless remote fetch.
             if not p["attachments"] and not owned(forum["id"]):
                 p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
             # Get comment COUNT for post list (full comments loaded on thread view)
@@ -2614,7 +2623,11 @@ def action_post_view(a):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
-    is_owner = owned(forum["id"])
+    # a.owner: core answers for the routed entity against the AUTHENTICATED
+    # caller. owned() resolved through mochi.entity.get, and an anonymous request
+    # to a public action runs as the entity owner - so a stranger reading this
+    # public route was told they owned it.
+    is_owner = a.owner
 
     member = None
     if a.user:
@@ -2698,6 +2711,7 @@ def action_post_view(a):
     post["body_markdown"] = mochi.text.markdown(post["body"])
     post["attachments"] = mochi.attachment.list(post_id, forum["id"])
     # Fetch attachments from forum owner if we don't have them locally
+    # access-ok: locality, not authorisation. This asks whether THIS SERVER holds the forum, to decide if attachments must be fetched from its host - not whether the caller owns it. a.owner would be wrong here: it is False for an anonymous viewer of a forum we do host, which would trigger a pointless remote fetch.
     if not post["attachments"] and not owned(forum["id"]):
         post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
     post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
