@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "7.74",
+	"version": "7.76",
 	"label": "app.name",
 	"classes": ["forum"],
 	"paths": [
@@ -18,11 +18,14 @@
 		"version": 4
 	},
 	"execute": [
+		"lib/attachments.star",
 		"forums.star",
 		"accounts.star"
 	],
+	"require": {"version": {"minimum": "0.4.227"}},
+
 	"database": {
-		"schema": 3,
+		"schema": 4,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -138,7 +141,7 @@
 		"view": {"function": "event_view"},
 		"access/check": {"function": "event_access_check"},
 		"post/view": {"function": "event_post_view"},
-		"attachment/view": {"function": "event_attachment_view"},
+		"attachment/fetch": {"function": "event_attachment_fetch"},
 		"comment/create": {"function": "event_comment_create_event"},
 		"comment/delete": {"function": "event_comment_delete_event"},
 		"comment/delete/submit": {"function": "event_comment_delete_submit_event"},
