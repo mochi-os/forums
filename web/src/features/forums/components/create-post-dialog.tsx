@@ -35,6 +35,8 @@ import {
   AttachmentActions,
   AttachmentAction,
   useFormat,
+  UploadProgress,
+  type Upload,
 } from '@mochi/web'
 import {
   FileEdit,
@@ -57,6 +59,8 @@ type CreatePostDialogProps = {
   }) => void
   isPending?: boolean
   isSuccess?: boolean
+  /** Byte progress of the submit upload, when the caller tracks it */
+  progress?: Upload | null
   triggerVariant?: 'button' | 'icon'
   onSuccess?: () => void
   open?: boolean
@@ -70,6 +74,7 @@ export function CreatePostDialog({
   onCreate,
   isPending = false,
   isSuccess = false,
+  progress,
   triggerVariant = 'button',
   onSuccess,
   open,
@@ -339,6 +344,7 @@ export function CreatePostDialog({
             </div>
 
             </div>
+            <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>
               <ResponsiveDialogClose asChild>
                 <Button type='button' variant='outline' disabled={isPending}>

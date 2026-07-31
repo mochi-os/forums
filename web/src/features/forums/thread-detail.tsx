@@ -32,6 +32,7 @@ import {
   offlineBlocked,
   useComposerDrop,
   useDiscardGuard,
+  UploadProgress,
 } from '@mochi/web'
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -566,6 +567,9 @@ export function ThreadDetail({
                         commentBody.trim() ? handleCommentSubmit : undefined
                       }
                     />
+                    {isSendingComment && (
+                      <UploadProgress progress={createCommentMutation.progress} />
+                    )}
                     <div className='flex items-center justify-end gap-2'>
                       <SendShortcutHint />
                       <input
@@ -648,6 +652,7 @@ export function ThreadDetail({
                         replyValue={commentReplyBody}
                         onReplyChange={setCommentReplyBody}
                         onReplySubmit={handleCommentReplySubmit}
+                        replyProgress={createCommentMutation.progress}
                         onReplyCancel={cancelReply}
                         onReplyFilesChange={setReplyFileCount}
                         canEdit={canEditComment}
@@ -701,6 +706,7 @@ export function ThreadDetail({
           onOpenChange={setEditPostDialogOpen}
           onSave={handleEditPost}
           isPending={editPostMutation.isPending}
+          progress={editPostMutation.progress}
         />
 
         {/* Report Post Dialog */}

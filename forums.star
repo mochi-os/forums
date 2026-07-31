@@ -137,6 +137,13 @@ def database_upgrade(version):
         # sequence/log copies mislead diagnosis.
         for table in ["sequence", "log", "acknowledged", "received"]:
             mochi.db.execute("drop table if exists " + table)
+    if version == 4:
+        # Attachments move into this database, owned by the shared library.
+        # Create the table and copy existing rows across the transition bridge;
+        # the migrate helper aborts without advancing the version if the bridge
+        # is gone, so the step retries later.
+        attachment_schema_create()
+        attachment_migrate()
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -225,6 +232,9 @@ def database_create():
 
     mochi.db.execute("create table if not exists saved ( id text not null primary key, user text not null, post text not null, data text not null default '', created integer not null, unique ( user, post ) )")
     mochi.db.execute("create index if not exists saved_user_created on saved( user, created )")
+
+    # Attachments now live in this database, owned by the shared library.
+    attachment_schema_create()
 
 
 
@@ -816,7 +826,13 @@ def stream_asset(a, entity_id, service, asset):
 	if "data" in header:
 		return {"data": header["data"]}
 	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-	a.write.stream(s)
+	# Bytes to relay per slot, matching what the people app accepts on upload.
+	# Without a cap, a peer answering for a person can stream indefinitely through
+	# this route, which is public. Only the three binary slots reach here - style
+	# and information returned above as data - so an unrecognised slot falls back
+	# to the largest of them rather than breaking a route that would otherwise work.
+	caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
+	a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
 	return None
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
@@ -1297,7 +1313,11 @@ def action_information_entity(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    is_owner = owned(forum["id"])
+    # a.owner: core answers for the routed entity against the AUTHENTICATED
+    # caller. owned() resolved through mochi.entity.get, and an anonymous request
+    # to a public action runs as the entity owner - so a stranger reading this
+    # public route was told they owned it.
+    is_owner = a.owner
     user_id = a.user.identity.id if a.user else None
 
     # Enforce view access for forums we host AND for replicas. Without this an
@@ -1426,7 +1446,11 @@ def action_view(a):
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
 
-        is_owner = owned(forum["id"])
+        # a.owner: core answers for the routed entity against the AUTHENTICATED
+        # caller. owned() resolved through mochi.entity.get, and an anonymous request
+        # to a public action runs as the entity owner - so a stranger reading this
+        # public route was told they owned it.
+        is_owner = a.owner
         forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
         # Render banner markdown to HTML
         banner = forum.get("banner", "")
@@ -1519,10 +1543,11 @@ def action_view(a):
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["body_markdown"] = mochi.text.markdown(p["body"])
-            p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
-            # Fetch attachments from forum owner if we don't have them locally
-            if not p["attachments"] and not owned(forum["id"]):
-                p["attachments"] = mochi.attachment.fetch(p["id"], forum["id"])
+            # Attachment metadata is stored locally when the post fans out
+            # (event_post_* call attachment_store), so the list returns it
+            # without a separate metadata fetch; the bytes pull on demand when
+            # served. The old fetch-from-owner fallback is obsolete.
+            p["attachments"] = attachment_list(p["id"], forum["id"])
             # Get comment COUNT for post list (full comments loaded on thread view)
             if can_moderate:
                 row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=?",
@@ -1635,7 +1660,7 @@ def action_view(a):
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
             p["body_markdown"] = mochi.text.markdown(p["body"])
-            p["attachments"] = mochi.attachment.list(p["id"], p["forum"])
+            p["attachments"] = attachment_list(p["id"], p["forum"])
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
             p["fingerprint"] = forum["fingerprint"] if forum else mochi.entity.fingerprint(p["forum"])
@@ -1782,7 +1807,7 @@ def action_post_create(a):
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
             # Save any uploaded attachments locally
-            attachments = mochi.attachment.save(id, "attachments", [], [], [])
+            attachments = attachment_save(a, id, field="attachments")
 
             # Only broadcast if approved
             if status == "approved":
@@ -1819,7 +1844,7 @@ def action_post_create(a):
                 return
 
             # Save attachments locally
-            attachments = mochi.attachment.save(id, "attachments", [], [], [])
+            attachments = attachment_save(a, id, field="attachments")
 
             submit_data = {"id": id, "title": title, "body": body}
             if attachments:
@@ -1856,7 +1881,7 @@ def action_post_create(a):
         return
 
     # Save attachments locally
-    attachments = mochi.attachment.save(id, "attachments", [], [], [])
+    attachments = attachment_save(a, id, field="attachments")
 
     # Send post to remote forum owner with attachment metadata
     submit_data = {"id": id, "title": title, "body": body}
@@ -2614,7 +2639,11 @@ def action_post_view(a):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
-    is_owner = owned(forum["id"])
+    # a.owner: core answers for the routed entity against the AUTHENTICATED
+    # caller. owned() resolved through mochi.entity.get, and an anonymous request
+    # to a public action runs as the entity owner - so a stranger reading this
+    # public route was told they owned it.
+    is_owner = a.owner
 
     member = None
     if a.user:
@@ -2682,7 +2711,7 @@ def action_post_view(a):
 
         for c in comments:
             c["children"] = get_comments(c["id"], depth + 1)
-            c["attachments"] = mochi.attachment.list(c["id"], forum["id"])
+            c["attachments"] = attachment_list(c["id"], forum["id"])
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
             # Get user's vote on this comment
@@ -2696,10 +2725,9 @@ def action_post_view(a):
 
     post["user_vote"] = user_post_vote
     post["body_markdown"] = mochi.text.markdown(post["body"])
-    post["attachments"] = mochi.attachment.list(post_id, forum["id"])
-    # Fetch attachments from forum owner if we don't have them locally
-    if not post["attachments"] and not owned(forum["id"]):
-        post["attachments"] = mochi.attachment.fetch(post_id, forum["id"])
+    # Metadata is stored locally on fan-out; bytes pull on demand at serve. The
+    # old fetch-from-owner metadata fallback is obsolete.
+    post["attachments"] = attachment_list(post_id, forum["id"])
     post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
 
     comments = get_comments("", 0)
@@ -2777,9 +2805,9 @@ def action_post_edit(a):
             else:
                 order = []
 
-            current_attachments = mochi.attachment.list(post_id, forum["id"])
+            current_attachments = attachment_list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+            new_attachments = attachment_save(a, post_id, field="attachments")
 
             final_order = []
             for item in order:
@@ -2797,12 +2825,12 @@ def action_post_edit(a):
             if final_order:
                 for att_id in current_ids:
                     if att_id not in final_order:
-                        mochi.attachment.delete(att_id, [])
+                        attachment_delete(att_id)
                 for i, att_id in enumerate(final_order):
-                    mochi.attachment.move(att_id, i + 1, [])
+                    attachment_move(att_id, i + 1)
             else:
                 for att_id in current_ids:
-                    mochi.attachment.delete(att_id, [])
+                    attachment_delete(att_id)
 
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
@@ -2814,7 +2842,7 @@ def action_post_edit(a):
                 "body": body,
                 "edited": now
             }
-            post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
+            post_data["attachments"] = attachment_list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
             mochi.db.commit.fire("posts", "update", post_id)
 
@@ -2839,11 +2867,11 @@ def action_post_edit(a):
             else:
                 order = []
 
-            current_attachments = mochi.attachment.list(post_id, forum["id"])
+            current_attachments = attachment_list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
 
             # Save new attachments locally
-            new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+            new_attachments = attachment_save(a, post_id, field="attachments")
 
             # Build final order
             final_order = []
@@ -2877,9 +2905,9 @@ def action_post_edit(a):
 
             # Handle local attachment changes for optimistic UI
             for att_id in delete_ids:
-                mochi.attachment.delete(att_id)
+                attachment_delete(att_id)
             for i, att_id in enumerate(final_order):
-                mochi.attachment.move(att_id, i + 1)
+                attachment_move(att_id, i + 1)
 
         return {
             "data": {"forum": forum_id, "post": post_id}
@@ -2898,7 +2926,7 @@ def action_post_edit(a):
         order = []
 
     # Save new attachments locally
-    new_attachments = mochi.attachment.save(post_id, "attachments", [], [], [])
+    new_attachments = attachment_save(a, post_id, field="attachments")
 
     # Build final order (only new attachments, no existing ones locally)
     final_order = []
@@ -2957,9 +2985,9 @@ def action_post_delete(a):
             mochi.db.execute("delete from tags where object=?", post_id)
 
             # Delete all attachments for this post
-            attachments = mochi.attachment.list(post_id, forum["id"])
+            attachments = attachment_list(post_id, forum["id"])
             for att in attachments:
-                mochi.attachment.delete(att["id"])
+                attachment_delete(att["id"])
 
             # Delete votes for all comments on this post
             mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
@@ -3123,7 +3151,7 @@ def action_comment_create(a):
                 id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
 
             # Save comment attachments locally
-            attachments = mochi.attachment.save(id, "files", [], [], [])
+            attachments = attachment_save(a, id)
 
             mochi.db.execute("update posts set updated=? where id=?", now, post_id)
             recount_post_comments(post_id)
@@ -3161,7 +3189,7 @@ def action_comment_create(a):
                 return
 
             # Save comment attachments locally
-            attachments = mochi.attachment.save(id, "files", [], [], [])
+            attachments = attachment_save(a, id)
 
             # Send comment to forum owner with attachment metadata
             submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
@@ -3201,7 +3229,7 @@ def action_comment_create(a):
         return
 
     # Save comment attachments locally
-    attachments = mochi.attachment.save(id, "files", [], [], [])
+    attachments = attachment_save(a, id)
 
     # Send comment to remote forum owner with attachment metadata
     submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
@@ -3267,9 +3295,9 @@ def action_comment_edit(a):
             order_json = a.input("order")
             order = json.decode(order_json, None) or [] if order_json else []
 
-            current_attachments = mochi.attachment.list(comment_id, forum["id"])
+            current_attachments = attachment_list(comment_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = mochi.attachment.save(comment_id, "files", [], [], [])
+            new_attachments = attachment_save(a, comment_id)
 
             final_order = []
             for item in order:
@@ -3287,13 +3315,13 @@ def action_comment_edit(a):
             if final_order:
                 for att_id in current_ids:
                     if att_id not in final_order:
-                        mochi.attachment.delete(att_id, [])
+                        attachment_delete(att_id)
                 for i, att_id in enumerate(final_order):
-                    mochi.attachment.move(att_id, i + 1, [])
+                    attachment_move(att_id, i + 1)
             elif order_json:
                 # Explicit empty order: drop all attachments.
                 for att_id in current_ids:
-                    mochi.attachment.delete(att_id, [])
+                    attachment_delete(att_id)
 
             mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment_id)
             mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
@@ -3304,7 +3332,7 @@ def action_comment_edit(a):
                 "post": comment["post"],
                 "body": body,
                 "edited": now,
-                "attachments": mochi.attachment.list(comment_id, forum["id"]),
+                "attachments": attachment_list(comment_id, forum["id"]),
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
             mochi.db.commit.fire("comments", "update", comment_id)
@@ -3390,9 +3418,9 @@ def action_comment_delete(a):
 
             # Delete attachments for all comments being deleted
             for cid in comment_ids:
-                attachments = mochi.attachment.list(cid, forum["id"])
+                attachments = attachment_list(cid, forum["id"])
                 for att in attachments:
-                    mochi.attachment.delete(att["id"])
+                    attachment_delete(att["id"])
 
             for cid in comment_ids:
                 mochi.db.execute("delete from votes where comment=?", cid)
@@ -4285,7 +4313,7 @@ def action_moderation_reports(a):
             if post:
                 r["content_title"] = post["title"]
                 r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = mochi.attachment.list(r["target"], forum["id"])
+                r["attachments"] = attachment_list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
@@ -4428,7 +4456,7 @@ def action_moderation_queue(a):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
+        p["attachments"] = attachment_list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
@@ -5061,94 +5089,54 @@ def serve_attachment(a, variant):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
-    att = mochi.attachment.get(attachment)
-    if not att:
-        a.error.label(404, "errors.attachment_not_found")
-        return
-    obj = att.get("object")
-    # Bind the attachment to a post or comment in this forum, AND enforce that
-    # object's visibility: a removed post/comment (or someone else's pending)
-    # must not leak its files. Mirrors the action_post_view status gate.
-    target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
-    if not target:
-        target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
-    if not target:
-        a.error.label(404, "errors.attachment_not_found")
-        return
-    if not check_access(a, forum_id, "moderate"):
-        if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)):
-            a.error.label(404, "errors.attachment_not_found")
-            return
+    # The library serves the bytes with no access check of its own. The forum
+    # view gate ran above; the per-attachment binding runs in `visible`, which
+    # also enforces the target object's visibility: a removed post/comment (or
+    # someone else's pending) must not leak its files. Mirrors the
+    # action_post_view status gate.
+    def visible(obj):
+        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
+        if not target:
+            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+        if not target:
+            return False
+        if check_access(a, forum_id, "moderate"):
+            return True
+        return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)
 
-    a.write.attachment(attachment, variant=variant)
+    attachment_serve(a, attachment, forum_id, lambda container: True, variant=variant, member=visible)
 
 # EVENTS
 
 # Handle attachment view request from subscriber (stream-based request/response)
-def event_attachment_view(e):
+def event_attachment_fetch(e):
+    # The library runs the fixed responder sequence: requester from the signed
+    # header, authorized against this forum, the requested attachment bound to a
+    # post or comment in the forum, then the bytes (or a rendered variant). The
+    # callbacks are this app's judgement: a private forum needs view access; and
+    # the target post/comment must be visible to the requester (approved, or
+    # their own pending, or they moderate).
     forum_id = e.header("to")
-
-    # Read request data from stream
-    request = e.stream.read()
-    if not request:
-        e.stream.write({"status": "400", "error": "No request data"})
-        return
-    attachment_id = request.get("attachment", "")
-    want_thumbnail = request.get("thumbnail", False)
-
-    # Get forum data - check if we own this forum
-    forum = mochi.db.row("select * from forums where id=?", forum_id)
-    if not forum:
-        e.stream.write({"status": "404", "error": "Forum not found"})
-        return
-
-    # Check access for private forums only (public forums allow anyone to view attachments)
     requester = e.header("from")
-    entity = mochi.entity.info(forum_id)
-    forum_privacy = entity.get("privacy", "public") if entity else "public"
-    if forum_privacy == "private":
-        if not check_event_access(requester, forum_id, "view"):
-            e.stream.write({"status": "403", "error": "Not allowed to view this forum"})
-            return
 
-    # Bind the attachment to the requested forum. The access check above only
-    # proved view access to `forum_id`, but mochi.attachment.path resolves the
-    # id across the owner's whole forums DB, so without this a viewer of one
-    # forum could fetch a private sibling forum's attachment by id. Mirrors the
-    # HTTP serve_attachment binding: attached to a post or comment in the forum.
-    att = mochi.attachment.get(attachment_id)
-    if not att:
-        e.stream.write({"status": "404", "error": "Attachment not found"})
-        return
-    obj = att.get("object")
-    # Bind to a post/comment in this forum AND enforce its visibility so a removed
-    # or others'-pending object's files are not fetchable. Mirrors serve_attachment.
-    target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
-    if not target:
-        target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
-    if not target:
-        e.stream.write({"status": "404", "error": "Attachment not found"})
-        return
-    if not check_event_access(requester, forum_id, "moderate"):
-        if not (target["status"] == "approved" or (target["status"] == "pending" and target["member"] == requester)):
-            e.stream.write({"status": "404", "error": "Attachment not found"})
-            return
+    def authorize(sender, container):
+        entity = mochi.entity.info(container)
+        privacy = entity.get("privacy", "public") if entity else "public"
+        if privacy == "private":
+            return check_event_access(sender, container, "view")
+        return True
 
-    # Get the file path (thumbnail or original)
-    if want_thumbnail:
-        path = mochi.attachment.thumbnail(attachment_id)
-        if not path:
-            path = mochi.attachment.path(attachment_id)
-        content_type = "image/jpeg"  # Thumbnails are always JPEG
-    else:
-        path = mochi.attachment.path(attachment_id)
-        content_type = "application/octet-stream"
+    def visible(obj):
+        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
+        if not target:
+            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+        if not target:
+            return False
+        if check_event_access(requester, forum_id, "moderate"):
+            return True
+        return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == requester)
 
-    if not path:
-        e.stream.write({"status": "404", "error": "Attachment file not found"})
-        return
-    e.stream.write({"status": "200", "content_type": content_type})
-    e.write.file(path)
+    attachment_respond(e, forum_id, authorize, member=visible)
 
 # Received a comment from forum owner
 def event_mention_notify(e):
@@ -5240,7 +5228,7 @@ def event_comment_create_event(e):
     # Store attachment metadata from the event
     attachments = e.content("attachments") or []
     if attachments:
-        mochi.attachment.store(attachments, e.header("from"), id)
+        attachment_store(attachments, e.header("from"), id)
 
     mochi.db.execute("update posts set updated=? where id=?", created, post)
     recount_post_comments(post)
@@ -5316,7 +5304,7 @@ def event_comment_submit_event(e):
     # Store attachment metadata from the subscriber's event
     attachments = e.content("attachments") or []
     if attachments:
-        mochi.attachment.store(attachments, sender_id, id)
+        attachment_store(attachments, sender_id, id)
 
     mochi.db.execute("update posts set updated=? where id=?", now, post_id)
     recount_post_comments(post_id)
@@ -5423,9 +5411,9 @@ def event_comment_delete_submit_event(e):
 
     # Delete attachments for these comments
     for cid in comment_ids:
-        attachments = mochi.attachment.list(cid, forum["id"])
+        attachments = attachment_list(cid, forum["id"])
         for att in attachments:
-            mochi.attachment.delete(att["id"])
+            attachment_delete(att["id"])
 
     # Delete votes for these comments
     for cid in comment_ids:
@@ -5505,9 +5493,9 @@ def event_comment_delete_event(e):
         # Verify this comment belongs to this forum
         if mochi.db.exists("select id from comments where id=? and forum=?", comment_id, forum_id):
             # Delete attachments for this comment
-            attachments = mochi.attachment.list(comment_id, forum_id)
+            attachments = attachment_list(comment_id, forum_id)
             for att in attachments:
-                mochi.attachment.delete(att["id"])
+                attachment_delete(att["id"])
             # Delete votes for this comment
             mochi.db.execute("delete from votes where comment=?", comment_id)
             # Delete the comment
@@ -5635,7 +5623,7 @@ def event_post_create_event(e):
     # Store attachment metadata from the event
     attachments = e.content("attachments") or []
     if attachments:
-        mochi.attachment.store(attachments, e.header("from"), id)
+        attachment_store(attachments, e.header("from"), id)
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
@@ -5739,7 +5727,7 @@ def event_post_submit_event(e):
     # Store attachment metadata from the subscriber's event
     attachments = e.content("attachments") or []
     if attachments:
-        mochi.attachment.store(attachments, sender_id, id)
+        attachment_store(attachments, sender_id, id)
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -5824,13 +5812,13 @@ def event_post_edit_submit_event(e):
     # Store new attachment metadata from the subscriber's event
     new_attachments = e.content("attachments") or []
     if new_attachments:
-        mochi.attachment.store(new_attachments, sender_id, post_id)
+        attachment_store(new_attachments, sender_id, post_id)
 
     # Handle attachment changes
     order = e.content("order") or []
 
     # Get current attachments and delete any not in the order list
-    current_attachments = mochi.attachment.list(post_id, forum["id"])
+    current_attachments = attachment_list(post_id, forum["id"])
     current_ids = [att["id"] for att in current_attachments]
 
     # Ignore any id in the sender-supplied order that isn't an attachment of this
@@ -5842,11 +5830,11 @@ def event_post_edit_submit_event(e):
     # Delete attachments not in order (those being removed)
     for att_id in current_ids:
         if att_id not in order:
-            mochi.attachment.delete(att_id, [])
+            attachment_delete(att_id)
 
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
-        mochi.attachment.move(att_id, i + 1, [])
+        attachment_move(att_id, i + 1)
 
     # Update the post
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
@@ -5859,7 +5847,7 @@ def event_post_edit_submit_event(e):
         "body": body,
         "edited": now
     }
-    post_data["attachments"] = mochi.attachment.list(post_id, forum["id"])
+    post_data["attachments"] = attachment_list(post_id, forum["id"])
     broadcast_event(forum["id"], "post/edit", post_data)
 
     # Re-tag with AI if enabled
@@ -5890,9 +5878,9 @@ def event_post_delete_submit_event(e):
     mochi.db.execute("delete from tags where object=?", post_id)
 
     # Delete all attachments for this post
-    attachments = mochi.attachment.list(post_id, forum["id"])
+    attachments = attachment_list(post_id, forum["id"])
     for att in attachments:
-        mochi.attachment.delete(att["id"])
+        attachment_delete(att["id"])
 
     # Delete votes for all comments on this post
     mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
@@ -5966,9 +5954,9 @@ def event_post_edit_event(e):
     # Update attachments from event
     attachments = e.content("attachments")
     if attachments != None:
-        mochi.attachment.clear(id, [])
+        attachment_clear(id)
         if attachments:
-            mochi.attachment.store(attachments, e.header("from"), id)
+            attachment_store(attachments, e.header("from"), id)
 
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
@@ -5991,9 +5979,9 @@ def event_post_delete_event(e):
     mochi.db.execute("delete from tags where object=?", id)
 
     # Delete all attachments for this post
-    attachments = mochi.attachment.list(id, forum_id)
+    attachments = attachment_list(id, forum_id)
     for att in attachments:
-        mochi.attachment.delete(att["id"])
+        attachment_delete(att["id"])
 
     # Delete votes for all comments on this post
     mochi.db.execute("delete from votes where forum=? and post=?", forum_id, id)
@@ -6145,7 +6133,7 @@ def event_subscribe_event(e):
                 "created": p["created"],
                 "sync": True
             }
-            post_data["attachments"] = mochi.attachment.list(p["id"], forum["id"])
+            post_data["attachments"] = attachment_list(p["id"], forum["id"])
             mochi.message.send(
                 {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
                 post_data
@@ -6166,7 +6154,7 @@ def event_subscribe_event(e):
                     "created": c["created"],
                     "sync": True
                 }
-                comment_data["attachments"] = mochi.attachment.list(c["id"], forum["id"])
+                comment_data["attachments"] = attachment_list(c["id"], forum["id"])
                 mochi.message.send(
                     {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
                     comment_data
@@ -6909,11 +6897,11 @@ def event_schema(e):
     # from event_subscribe_event are dropped by the already-exists guard in
     # event_post_create_event. Metadata only — files still fetch on demand from the owner.
     for p in posts:
-        atts = mochi.attachment.list(p["id"])
+        atts = attachment_list(p["id"])
         if atts:
             p["attachments"] = atts
     for c in comments:
-        atts = mochi.attachment.list(c["id"])
+        atts = attachment_list(c["id"])
         if atts:
             c["attachments"] = atts
 
@@ -6937,7 +6925,7 @@ def insert_forum_schema(forum_id, schema):
         )
         atts = p.get("attachments") or []
         if atts:
-            mochi.attachment.store(atts, forum_id, p.get("id", ""))
+            attachment_store(atts, forum_id, p.get("id", ""))
     for c in (schema.get("comments") or []):
         # Only accept a comment whose post is a post in THIS forum.
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
@@ -6950,7 +6938,7 @@ def insert_forum_schema(forum_id, schema):
         )
         atts = c.get("attachments") or []
         if atts:
-            mochi.attachment.store(atts, forum_id, c.get("id", ""))
+            attachment_store(atts, forum_id, c.get("id", ""))
     for t in (schema.get("tags") or []):
         # Only tag a post or comment that belongs to this forum.
         obj = t.get("object", "")
@@ -7007,7 +6995,7 @@ def event_view(e):
     for post in posts:
         post_data = dict(post)
         post_data["body_markdown"] = mochi.text.markdown(post["body"])
-        post_data["attachments"] = mochi.attachment.list(post["id"], forum_id)
+        post_data["attachments"] = attachment_list(post["id"], forum_id)
         # Same visibility rule for comments: moderators all, others approved
         # plus their own pending.
         if can_moderate:
@@ -7113,7 +7101,7 @@ def event_post_view(e):
 
     post_data = dict(post)
     post_data["body_markdown"] = mochi.text.markdown(post["body"])
-    post_data["attachments"] = mochi.attachment.list(post_id, forum_id)
+    post_data["attachments"] = attachment_list(post_id, forum_id)
     post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or []
 
     # Get requester's vote on the post
@@ -7175,7 +7163,7 @@ def event_moderation_queue(e):
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
     for p in posts:
-        p["attachments"] = mochi.attachment.list(p["id"], forum["id"])
+        p["attachments"] = attachment_list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
         "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
@@ -7252,7 +7240,7 @@ def event_moderation_reports(e):
             if post:
                 r["content_title"] = post["title"]
                 r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = mochi.attachment.list(r["target"], forum["id"])
+                r["attachments"] = attachment_list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
@@ -8040,6 +8028,58 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
 
     fp = mochi.entity.fingerprint(forum_id) or ""
     return {"forum": forum_id, "post": post_id, "fingerprint": fp}
+
+
+# Internal: read-only accessibility check for `forum_id` on behalf of `user`.
+# Mirrors _subscribe_to_forum's resolution steps without writing anything: no
+# membership row, no schema fetch, no subscribe message. Unlike subscribe
+# (which tolerates an unreachable owner and lets the sync arrive later), an
+# unreachable owner fails the check — its purpose is to promise that a post
+# written now can be delivered.
+# Returns {"fingerprint", "already_subscribed"} or {"error", "code"}.
+def _check_forum(user, forum_id):
+    user_id = user.identity.id
+
+    if not mochi.text.valid(forum_id, "entity"):
+        return {"error": "errors.invalid_id", "code": 400}
+
+    subscribed = mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id)
+
+    # An unsubscribed caller must resolve the forum publicly; a subscriber
+    # already knows it (and may have joined a private forum the directory
+    # does not list), so the directory gate applies only before membership.
+    if not subscribed and not mochi.directory.get(forum_id):
+        return {"error": "errors.forum_not_found_in_directory", "code": 404}
+
+    # Probe the owner even when subscribed: membership proves neither present
+    # reachability nor that the member can still post — access may have been
+    # revoked, or the member muted, since subscribing.
+    access_response = mochi.remote.request(forum_id, "forums", "access/check", {
+        "operations": ["post"],
+        "user": user_id,
+    })
+    if not access_response.get("post", False):
+        return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
+
+    fp = mochi.entity.fingerprint(forum_id) or ""
+    return {"fingerprint": fp, "already_subscribed": subscribed}
+
+
+# Service event: another local app asks whether the user could subscribe and
+# post to a forum, without changing anything — the read-only counterpart of
+# event_app_subscribe. Help calls this when a contribute dialog opens, before
+# the user has committed to anything.
+# Caller restriction is declared in app.json events block.
+def event_app_check(e):
+    forum_id = e.content("forum") or ""
+    result = _check_forum(e.user, forum_id)
+    if "error" in result:
+        e.write({"error": result["error"], "code": result["code"]})
+        return
+    e.write({
+        "fingerprint": result.get("fingerprint", ""),
+        "already_subscribed": result.get("already_subscribed", False),
+    })
 
 
 # Service event: another local app asks us to subscribe the user to a forum.

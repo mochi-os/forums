@@ -232,7 +232,7 @@ export function ThreadContent({
         )}
         {hasActionsOrVotes && (
           <ActionPill sticky expandActions={false} className='comment-actions'>
-            <ActionPillSticky className='contents'>
+            <ActionPillSticky>
               {/* Votes */}
               {canVote ? (
                 <>

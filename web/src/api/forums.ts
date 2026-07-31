@@ -4,6 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { createAppClient } from '@mochi/web'
+import type { AxiosProgressEvent } from 'axios'
 import endpoints from '@/api/endpoints'
 import type {
   CreateCommentRequest,
@@ -173,7 +174,10 @@ const forumsApi = {
     ),
 
   // Posts
-  createPost: (payload: CreatePostRequest) => {
+  createPost: (
+    payload: CreatePostRequest,
+    onProgress?: (event: AxiosProgressEvent) => void
+  ) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)
     formData.append('title', payload.title)
@@ -183,7 +187,7 @@ const forumsApi = {
         formData.append('attachments', file)
       )
     }
-    return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData, { timeout: 0 })
+    return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData, { timeout: 0, onUploadProgress: onProgress })
   },
 
   viewPost: (params: ViewPostParams) =>
@@ -200,7 +204,10 @@ const forumsApi = {
       {}
     ),
 
-  editPost: (payload: EditPostRequest) => {
+  editPost: (
+    payload: EditPostRequest,
+    onProgress?: (event: AxiosProgressEvent) => void
+  ) => {
     const formData = new FormData()
     formData.append('title', payload.title)
     formData.append('body', payload.body)
@@ -213,7 +220,7 @@ const forumsApi = {
     return client.post<EditPostResponse>(
       endpoints.forums.post.edit(payload.forum, payload.post),
       formData,
-      { timeout: 0 }
+      { timeout: 0, onUploadProgress: onProgress }
     )
   },
 
@@ -224,7 +231,10 @@ const forumsApi = {
     ),
 
   // Comments
-  createComment: (payload: CreateCommentRequest & { files?: File[] }) => {
+  createComment: (
+    payload: CreateCommentRequest & { files?: File[] },
+    onProgress?: (event: AxiosProgressEvent) => void
+  ) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)
     formData.append('post', payload.post)
@@ -238,7 +248,7 @@ const forumsApi = {
     return client.post<CreateCommentResponse>(
       endpoints.forums.comment.create(payload.forum, payload.post),
       formData,
-      { headers: { 'Content-Type': undefined }, timeout: 0 }
+      { headers: { 'Content-Type': undefined }, timeout: 0, onUploadProgress: onProgress }
     )
   },
 
