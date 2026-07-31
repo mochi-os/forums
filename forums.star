@@ -138,12 +138,10 @@ def database_upgrade(version):
         for table in ["sequence", "log", "acknowledged", "received"]:
             mochi.db.execute("drop table if exists " + table)
     if version == 4 or version == 5:
-        # Attachments move into this database, owned by the shared library:
-        # create the table and copy existing rows across the transition
+        # Attachments live in this database, owned by the shared library:
+        # create the table and copy any rows still held by the transition
         # bridge, aborting without advancing if the bridge is unavailable.
-        # Both calls are idempotent, so the step is safe to run at either
-        # version - 5 covers databases whose version-4 run was consumed on a
-        # server predating the bridge (needs core 0.4.228).
+        # Both calls are idempotent, so the step runs at either version.
         attachment_schema_create()
         attachment_migrate()
 
