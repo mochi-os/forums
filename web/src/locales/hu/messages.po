@@ -27,7 +27,7 @@ msgstr " · Lejár {0}"
 msgid " · Permanent"
 msgstr " · Állandó"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (szerkesztve)"
 
@@ -80,6 +80,10 @@ msgstr "{entityLabel} neve"
 msgid "{entityLabel} name is required"
 msgstr "A(z) {entityLabel} neve kötelező"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "{opponentName} döntetlent ajánlott"
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {{entityName} kiválasztva} other {{manyName} kiválasztva}}"
@@ -100,13 +104,18 @@ msgstr "{selectedCount, plural, one {Tömeges műveletek # kiválasztott {entity
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# válasz} other {# válasz}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menü megnyitása (# olvasatlan értesítés)} other {Menü megnyitása (# olvasatlan értesítés)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} beágyazott"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -119,6 +128,10 @@ msgstr "24 óra"
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "Abszolút (dátum és idő)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "Elfogadás"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -172,6 +185,7 @@ msgstr "Fióktípus"
 msgid "Account verified"
 msgstr "Fiók ellenőrizve"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -194,10 +208,18 @@ msgstr "Fiók hozzáadása"
 msgid "Add an account to receive notifications and use services."
 msgstr "Adjon hozzá egy fiókot az értesítések fogadásához és a szolgáltatások használatához."
 
-#: src/features/forums/components/create-post-dialog.tsx:351
-#: src/features/forums/components/edit-post-dialog.tsx:363
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "Ellenőrzőlista-elem hozzáadása"
+
+#: src/features/forums/components/create-post-dialog.tsx:356
+#: src/features/forums/components/edit-post-dialog.tsx:369
 msgid "Add files"
 msgstr "Fájlok hozzáadása"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "Elem hozzáadása..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -294,12 +316,12 @@ msgstr "Bárki"
 msgid "Anyone who is logged in"
 msgstr "Bárki, aki be van jelentkezve"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "Jóváhagyás"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Biztosan törli ezt a megjegyzést? Ez az összes választ is törli. A művelet nem vonható vissza."
 
@@ -319,15 +341,15 @@ msgstr "Növekvő"
 msgid "Ascending"
 msgstr "Növekvő"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "Válaszfájlok csatolása"
 
-#: src/features/forums/components/create-post-dialog.tsx:275
-#: src/features/forums/components/edit-post-dialog.tsx:275
+#: src/features/forums/components/create-post-dialog.tsx:280
+#: src/features/forums/components/edit-post-dialog.tsx:280
 msgid "Attachments"
 msgstr "Mellékletek"
 
@@ -353,10 +375,10 @@ msgid "Back"
 msgstr "Vissza"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -378,7 +400,7 @@ msgstr "Vissza a kezdőlapra"
 msgid "Ban"
 msgstr "Kitiltás"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "Szerző kitiltása"
@@ -399,6 +421,11 @@ msgstr "Banner eltávolítva"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Banner frissítve"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "Megbízhatatlan hivatkozásra való navigáció letiltva"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -428,17 +455,17 @@ msgstr "{0} által"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:359
-#: src/features/forums/components/edit-post-dialog.tsx:372
+#: src/features/forums/components/create-post-dialog.tsx:365
+#: src/features/forums/components/edit-post-dialog.tsx:378
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "Válasz elvetése"
 
@@ -455,9 +482,13 @@ msgstr "Értesítési kategória módosítása"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Jelölje be az „Összes” lehetőséget a korábbi értesítésekhez."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "Nézzen vissza később új tartalomért"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "Válasszon egy játékot az oldalsávból, vagy kezdjen újat."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -566,11 +597,11 @@ msgstr "Hamarosan!"
 msgid "Command Palette"
 msgstr "Parancspaletta"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "Megjegyzés jóváhagyva"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "Megjegyzés törölve"
 
@@ -578,19 +609,19 @@ msgstr "Megjegyzés törölve"
 msgid "Comment limit"
 msgstr "Megjegyzéskorlát"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "Megjegyzés közzétéve"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "Megjegyzés eltávolítva"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "Megjegyzés visszaállítva"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "Megjegyzés frissítve"
 
@@ -620,8 +651,8 @@ msgstr "Csatlakoztatott fiókok"
 msgid "Connecting..."
 msgstr "Csatlakozás…"
 
-#: src/features/forums/components/create-post-dialog.tsx:256
-#: src/features/forums/components/edit-post-dialog.tsx:259
+#: src/features/forums/components/create-post-dialog.tsx:261
+#: src/features/forums/components/edit-post-dialog.tsx:264
 msgid "Content"
 msgstr "Tartalom"
 
@@ -682,11 +713,11 @@ msgstr "Nem sikerült ellenőrizni azzal a fiókkal. Kérjük, próbálja újra.
 msgid "Create {0}"
 msgstr "{0} létrehozása"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "Új fórum létrehozása"
 
-#: src/features/forums/components/create-post-dialog.tsx:228
+#: src/features/forums/components/create-post-dialog.tsx:233
 msgid "Create a new post"
 msgstr "Új bejegyzés létrehozása"
 
@@ -734,6 +765,10 @@ msgstr "Adatütközés"
 msgid "days"
 msgstr "nap"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "Elutasítás"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
@@ -747,15 +782,15 @@ msgstr "Alapértelmezett fiók"
 msgid "Default AI account"
 msgstr "Alapértelmezett MI-fiók"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Megjegyzés törlése"
 
@@ -772,7 +807,7 @@ msgstr "Törli a fórumot?"
 msgid "Delete post"
 msgstr "Bejegyzés törlése"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "Törölje fiókját a régi szerveren"
 
@@ -836,8 +871,8 @@ msgstr "Elveted a piszkozatot?"
 msgid "Disconnected"
 msgstr "Leválasztva"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "Elvetés"
@@ -864,7 +899,7 @@ msgstr "A letöltés sikertelen"
 msgid "Dyslexia-friendly"
 msgstr "Diszlexiabarát"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "Szerkesztés"
@@ -873,8 +908,8 @@ msgstr "Szerkesztés"
 msgid "Edit {label}"
 msgstr "{label} szerkesztése"
 
-#: src/features/forums/components/edit-post-dialog.tsx:229
-#: src/features/forums/components/edit-post-dialog.tsx:231
+#: src/features/forums/components/edit-post-dialog.tsx:234
+#: src/features/forums/components/edit-post-dialog.tsx:236
 msgid "Edit post"
 msgstr "Bejegyzés szerkesztése"
 
@@ -926,14 +961,14 @@ msgid "Failed to add account"
 msgstr "Nem sikerült hozzáadni a fiókot"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "Nem sikerült hozzáadni a címkét"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "Nem sikerült módosítani az érdeklődést"
 
@@ -941,7 +976,7 @@ msgstr "Nem sikerült módosítani az érdeklődést"
 msgid "Failed to approve items"
 msgstr "Nem sikerült jóváhagyni az elemeket"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "Nem sikerült kitiltani a felhasználót"
 
@@ -1030,7 +1065,7 @@ msgstr "A korlátozások betöltése sikertelen"
 msgid "Failed to load video"
 msgstr "A videó betöltése sikertelen"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "Nem sikerült elnémítani a felhasználót"
 
@@ -1051,7 +1086,7 @@ msgid "Failed to remove account"
 msgstr "Nem sikerült eltávolítani a fiókot"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "Nem sikerült eltávolítani az érdeklődést"
 
@@ -1109,12 +1144,12 @@ msgstr "Nem sikerült beállítani a hozzáférési szintet"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Nem sikerült feliratkozni"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Nem sikerült leiratkozni"
@@ -1153,7 +1188,7 @@ msgstr "Fórumok keresése"
 msgid "Fingerprint"
 msgstr "Ujjlenyomat"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Fejezze be a fiók áthelyezését"
 
@@ -1168,7 +1203,7 @@ msgstr "Lebegő"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Fórum"
@@ -1210,7 +1245,7 @@ msgid "Forum unavailable"
 msgstr "Fórum nem elérhető"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1334,22 +1369,26 @@ msgstr "{name} monogramos profilképe"
 msgid "Inset"
 msgstr "Beillesztett"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "Érdeklődés növelve"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "Érdeklődés csökkentve"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "Érdeklődés eltávolítva"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "Érdeklődések"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "Érvénytelen dátum"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1450,13 +1489,13 @@ msgstr "Kijelentkezés…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Kezelje csatlakoztatott fiókjait az értesítésekhez és szolgáltatásokhoz."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Összes megjelölése olvasottként"
 
-#: src/features/forums/components/create-post-dialog.tsx:260
+#: src/features/forums/components/create-post-dialog.tsx:265
 msgid "Markdown supported"
 msgstr "Markdown támogatott"
 
@@ -1471,6 +1510,10 @@ msgstr "Közepes"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
 msgid "Menu"
 msgstr "Menü"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "Üzenet"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1510,8 +1553,8 @@ msgstr "Hétfő"
 
 #: src/components/options-menu.tsx:110
 #: src/components/options-menu.tsx:117
-#: src/features/forums/components/thread/thread-comment.tsx:415
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:424
 #: src/features/forums/components/thread/thread-content.tsx:317
 #: src/features/forums/components/thread/thread-content.tsx:324
 msgid "More options"
@@ -1521,7 +1564,7 @@ msgstr "További lehetőségek"
 msgid "Mute"
 msgstr "Némítás"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "Szerző némítása"
@@ -1553,7 +1596,7 @@ msgid "Network error"
 msgstr "Hálózati hiba"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:328
+#: src/features/forums/components/edit-post-dialog.tsx:333
 msgid "New"
 msgstr "Új"
 
@@ -1561,9 +1604,14 @@ msgstr "Új"
 msgid "New forum"
 msgstr "Új fórum"
 
-#: src/features/forums/components/create-post-dialog.tsx:214
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "Új játék"
+
 #: src/features/forums/components/create-post-dialog.tsx:219
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:224
+#: src/features/forums/components/create-post-dialog.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "Új bejegyzés"
@@ -1602,6 +1650,10 @@ msgstr "Nincsenek csatlakoztatott fiókok"
 msgid "No forums found"
 msgstr "Nem találhatók fórumok"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "Még nincsenek játékok"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "Nincsenek elérhető csoportok"
@@ -1614,6 +1666,7 @@ msgstr "Nincs moderációs tevékenység"
 msgid "No notifications yet"
 msgstr "Még nincsenek értesítések"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Nem találhatók személyek"
@@ -1622,7 +1675,7 @@ msgstr "Nem találhatók személyek"
 msgid "No places found"
 msgstr "Nem találhatók helyek"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "Még nincsenek bejegyzések ebben a fórumban"
 
@@ -1696,7 +1749,7 @@ msgid "Notifications"
 msgstr "Értesítések"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "Értesítések: {0}"
 
@@ -1769,12 +1822,12 @@ msgstr "Azonosítókulcs"
 msgid "Passkey verification failed. Please try again."
 msgstr "A hozzáférési kulcs ellenőrzése sikertelen. Próbálja újra."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Passkey-ek"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "Függőben"
@@ -1815,11 +1868,11 @@ msgstr "Ellenőrizze az internetkapcsolatát, és próbálja újra."
 msgid "Please describe the issue..."
 msgstr "Kérjük, írja le a problémát..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "Adjon meg egy hozzászólást"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "Adjon meg egy választ"
 
@@ -1843,7 +1896,7 @@ msgstr "A bejegyzést nem sikerült menteni — a cím vagy a tartalom érvényt
 msgid "Post couldn't be saved on the forum server"
 msgstr "A bejegyzést nem sikerült menteni a fórum kiszolgálóján"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "Bejegyzés törölve"
 
@@ -1851,7 +1904,7 @@ msgstr "Bejegyzés törölve"
 msgid "Post limit"
 msgstr "Bejegyzés korlát"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "Bejegyzés zárolva"
 
@@ -1859,31 +1912,31 @@ msgstr "Bejegyzés zárolva"
 msgid "Post not found"
 msgstr "A bejegyzés nem található"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "Bejegyzés rögzítve"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "Bejegyzés közzétéve."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "Bejegyzés eltávolítva"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "Bejegyzés visszaállítva"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "Bejegyzés feloldva"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "Bejegyzés rögzítése feloldva"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "Bejegyzés frissítve"
 
@@ -1938,11 +1991,11 @@ msgstr "Projekttagok"
 msgid "Prompt saved"
 msgstr "Prompt mentve"
 
-#: src/features/forums/components/create-post-dialog.tsx:374
+#: src/features/forums/components/create-post-dialog.tsx:380
 msgid "Publish post"
 msgstr "Bejegyzés közzététele"
 
-#: src/features/forums/components/create-post-dialog.tsx:369
+#: src/features/forums/components/create-post-dialog.tsx:375
 msgid "Publishing..."
 msgstr "Közzététel..."
 
@@ -1962,11 +2015,11 @@ msgstr "Kiemelt"
 msgid "Rate limiting"
 msgstr "Sebességkorlátozás"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "Kapcsolja újra össze fiókjait ezen a szerveren"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "Regisztrálja újra a hozzáférési kulcsait ezen a kiszolgálón"
 
@@ -2022,10 +2075,10 @@ msgstr "24 órán belül relatív, egyébként abszolút"
 #: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:332
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/create-post-dialog.tsx:325
+#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:469
+#: src/features/forums/components/thread/thread-comment.tsx:527
 #: src/features/forums/components/thread/thread-content.tsx:352
 #: src/features/forums/components/thread/thread-content.tsx:430
 #: src/routes/_authenticated/$forum_.moderation.tsx:719
@@ -2053,7 +2106,7 @@ msgstr "Eltávolítja a(z) „{0}” hozzáférési szabályát?"
 msgid "Remove access?"
 msgstr "Eltávolítja a hozzáférést?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Hozzászólás eltávolítása"
 
@@ -2067,6 +2120,10 @@ msgstr "Eltávolítás a mentettek közül"
 msgid "Remove interest"
 msgstr "Érdeklődés eltávolítása"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "Elem eltávolítása"
+
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
 msgstr "Bejegyzés eltávolítása"
@@ -2076,7 +2133,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "Távolítsa el ezt a fórumot az oldalsávról."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "Eltávolítva"
@@ -2101,19 +2158,19 @@ msgstr "válasz"
 msgid "Replies must be approved"
 msgstr "A válaszokat jóvá kell hagyni"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "Válasz"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "Válasz {0} számára..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "Jelentés"
@@ -2130,8 +2187,8 @@ msgstr "Bejegyzés jelentése"
 msgid "Report resolved"
 msgstr "Jelentés megoldva"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "Jelentés elküldve"
 
@@ -2182,7 +2239,7 @@ msgstr "Minden beállítás visszaállítása alapértelmezett értékekre"
 msgid "Resolved"
 msgstr "Megoldva"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "Visszaállítás"
@@ -2233,13 +2290,13 @@ msgstr "Szombat"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "Mentés"
 
-#: src/features/forums/components/edit-post-dialog.tsx:386
+#: src/features/forums/components/edit-post-dialog.tsx:392
 msgid "Save changes"
 msgstr "Módosítások mentése"
 
@@ -2259,7 +2316,7 @@ msgstr "Mentve"
 msgid "Saved posts cleared"
 msgstr "Mentett bejegyzések törölve"
 
-#: src/features/forums/components/edit-post-dialog.tsx:381
+#: src/features/forums/components/edit-post-dialog.tsx:387
 #: src/lib/saved.ts:66
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -2332,6 +2389,10 @@ msgstr "másodperc"
 msgid "Select {0}"
 msgstr "{0} kiválasztása"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "Játék kiválasztása"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Válassza ki a megjegyzés bejelentésének okát. A jelentéseket a moderátorok ellenőrzik."
@@ -2392,6 +2453,11 @@ msgstr "Oldalirány kiválasztása"
 msgid "Select theme preference"
 msgstr "Téma beállításának kiválasztása"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "Kiválasztás..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "kiválasztva"
@@ -2408,6 +2474,11 @@ msgstr "Újraküldés"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:307
 msgid "Send email"
 msgstr "E-mail küldése"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+msgid "Send message"
+msgstr "Üzenet küldése"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
@@ -2493,10 +2564,10 @@ msgstr "De maradjon velünk!"
 msgid "Subject"
 msgstr "Tárgy"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "Válasz beküldése"
 
@@ -2526,14 +2597,14 @@ msgstr "Feliratkozva"
 msgid "Subscribed to {0}"
 msgstr "Feliratkozva: {0}"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "Feliratkozva a fórumra"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Feliratkozás..."
@@ -2632,7 +2703,7 @@ msgstr "Ezt a bejegyzést már elküldték"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Ez eltávolít minden bejegyzést a mentettek listájáról. A művelet nem vonható vissza."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Ezzel elrejti a megjegyzést a normál felhasználók elől. A moderátorok továbbra is láthatják, és később visszaállíthatják."
 
@@ -2645,7 +2716,7 @@ msgstr "Ezzel elrejti a bejegyzést a normál felhasználók elől. A moderátor
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Ezzel véglegesen törli a(z) \"{0}\" fórumot és annak összes bejegyzését és megjegyzését. Ez a művelet nem vonható vissza."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "Téma"
 
@@ -2653,8 +2724,8 @@ msgstr "Téma"
 msgid "Thursday"
 msgstr "Csütörtök"
 
-#: src/features/forums/components/create-post-dialog.tsx:239
-#: src/features/forums/components/edit-post-dialog.tsx:242
+#: src/features/forums/components/create-post-dialog.tsx:244
+#: src/features/forums/components/edit-post-dialog.tsx:247
 msgid "Title"
 msgstr "Cím"
 
@@ -2724,6 +2795,10 @@ msgstr "Kedd"
 msgid "Type a command or search..."
 msgstr "Adjon meg egy parancsot vagy keressen..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "Írjon egy üzenetet…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "Gépeljen a felhasználók kereséséhez"
@@ -2759,7 +2834,7 @@ msgid "United States"
 msgstr "Egyesült Államok"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2774,7 +2849,7 @@ msgid "Unpin"
 msgstr "Rögzítés feloldása"
 
 #: src/components/options-menu.tsx:170
-#: src/features/forums/pages/entity-forum-page.tsx:389
+#: src/features/forums/pages/entity-forum-page.tsx:390
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "Leiratkozás"
@@ -2783,16 +2858,16 @@ msgstr "Leiratkozás"
 msgid "Unsubscribe from forum"
 msgstr "Leiratkozás a fórumról"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "Leiratkozol a fórumról?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Leiratkozva"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Leiratkozás..."
@@ -2814,11 +2889,11 @@ msgstr "Használja a hozzáférési kulcsát"
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "Felhasználó kitiltva"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "Felhasználó elnémítva"
 
@@ -2865,8 +2940,8 @@ msgstr "Megtekintés"
 msgid "View all"
 msgstr "Összes megtekintése"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "Összes értesítés megtekintése"
 
@@ -2914,7 +2989,7 @@ msgstr "Ablak időtartama"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Már feliratkozott erre a fórumra"
@@ -2939,7 +3014,7 @@ msgstr "Nincs meg a szükséges engedélye <0/>az erőforrás megtekintéséhez.
 msgid "You don't have permission to post in this forum"
 msgstr "Nincs jogosultsága ebben a fórumban posztolni"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "Még nincsenek fórumai."
 
@@ -2947,7 +3022,7 @@ msgstr "Még nincsenek fórumai."
 msgid "You submitted the following values:"
 msgstr "A következő értékeket küldte be:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nem fogsz többé értesítéseket kapni erről a fórumról. Bármikor újra feliratkozhatsz."
 
@@ -2955,7 +3030,7 @@ msgstr "Nem fogsz többé értesítéseket kapni erről a fórumról. Bármikor 
 msgid "You're all caught up!"
 msgstr "Mindent elolvasott!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Fiókja ide lett áthelyezve innen: {source}. Amíg nem törli onnan, az üzenetek és értesítések mindkét szerverre eljuthatnak, tartalmának egy része továbbra is a régi szerverről lesz kiszolgálva, és a követőknek néhány percbe telhet, mire megtalálják Önt itt."
 

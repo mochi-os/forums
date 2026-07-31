@@ -27,7 +27,7 @@ msgstr " · Λήγει {0}"
 msgid " · Permanent"
 msgstr " · Μόνιμο"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (επεξεργάστηκε)"
 
@@ -80,6 +80,10 @@ msgstr "Όνομα {entityLabel}"
 msgid "{entityLabel} name is required"
 msgstr "Το όνομα {entityLabel} είναι υποχρεωτικό"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "Ο/Η {opponentName} πρότεινε ισοπαλία"
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {{entityName} επιλέχθηκε} other {{manyName} επιλέχθηκαν}}"
@@ -100,13 +104,18 @@ msgstr "{selectedCount, plural, one {Μαζικές ενέργειες για # 
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} από {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# απάντηση} other {# απαντήσεις}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Άνοιγμα μενού (# μη αναγνωσμένη ειδοποίηση)} other {Άνοιγμα μενού (# μη αναγνωσμένες ειδοποιήσεις)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} ένθετα"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -119,6 +128,10 @@ msgstr "24 ώρες"
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "Απόλυτη (ημερομηνία και ώρα)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "Αποδοχή"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -172,6 +185,7 @@ msgstr "Τύπος λογαριασμού"
 msgid "Account verified"
 msgstr "Ο λογαριασμός επαληθεύτηκε"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -194,10 +208,18 @@ msgstr "Προσθήκη λογαριασμού"
 msgid "Add an account to receive notifications and use services."
 msgstr "Προσθέστε έναν λογαριασμό για να λαμβάνετε ειδοποιήσεις και να χρησιμοποιείτε υπηρεσίες."
 
-#: src/features/forums/components/create-post-dialog.tsx:351
-#: src/features/forums/components/edit-post-dialog.tsx:363
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "Προσθήκη στοιχείου λίστας ελέγχου"
+
+#: src/features/forums/components/create-post-dialog.tsx:356
+#: src/features/forums/components/edit-post-dialog.tsx:369
 msgid "Add files"
 msgstr "Προσθήκη αρχείων"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "Προσθήκη στοιχείου..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -294,12 +316,12 @@ msgstr "Οποιοσδήποτε"
 msgid "Anyone who is logged in"
 msgstr "Οποιοσδήποτε είναι συνδεδεμένος"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "Έγκριση"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το σχόλιο; Αυτό θα διαγράψει και όλες τις απαντήσεις. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
@@ -319,15 +341,15 @@ msgstr "Αύξουσα"
 msgid "Ascending"
 msgstr "Αύξουσα"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "Επισύναψη αρχείων απάντησης"
 
-#: src/features/forums/components/create-post-dialog.tsx:275
-#: src/features/forums/components/edit-post-dialog.tsx:275
+#: src/features/forums/components/create-post-dialog.tsx:280
+#: src/features/forums/components/edit-post-dialog.tsx:280
 msgid "Attachments"
 msgstr "Συνημμένα"
 
@@ -353,10 +375,10 @@ msgid "Back"
 msgstr "Πίσω"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -378,7 +400,7 @@ msgstr "Επιστροφή στην αρχή"
 msgid "Ban"
 msgstr "Αποκλεισμός"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "Αποκλεισμός συγγραφέα"
@@ -399,6 +421,11 @@ msgstr "Το banner αφαιρέθηκε"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Το banner ενημερώθηκε"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "Αποκλείστηκε η πλοήγηση σε μη αξιόπιστο σύνδεσμο"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -428,17 +455,17 @@ msgstr "Από {0}"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:359
-#: src/features/forums/components/edit-post-dialog.tsx:372
+#: src/features/forums/components/create-post-dialog.tsx:365
+#: src/features/forums/components/edit-post-dialog.tsx:378
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "Ακύρωση απάντησης"
 
@@ -455,9 +482,13 @@ msgstr "Αλλαγή κατηγορίας ειδοποίησης"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Επιλέξτε «Όλα» για να δείτε παλαιότερες ειδοποιήσεις."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "Επιστρέψτε αργότερα για νέο περιεχόμενο"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "Επιλέξτε ένα παιχνίδι από την πλαϊνή στήλη ή ξεκινήστε ένα νέο."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -566,11 +597,11 @@ msgstr "Έρχεται σύντομα!"
 msgid "Command Palette"
 msgstr "Παλέτα εντολών"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "Το σχόλιο εγκρίθηκε"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "Το σχόλιο διαγράφηκε"
 
@@ -578,19 +609,19 @@ msgstr "Το σχόλιο διαγράφηκε"
 msgid "Comment limit"
 msgstr "Όριο σχολίων"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "Το σχόλιο δημοσιεύτηκε"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "Το σχόλιο αφαιρέθηκε"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "Το σχόλιο αποκαταστάθηκε"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "Το σχόλιο ενημερώθηκε"
 
@@ -620,8 +651,8 @@ msgstr "Συνδεδεμένοι λογαριασμοί"
 msgid "Connecting..."
 msgstr "Σύνδεση..."
 
-#: src/features/forums/components/create-post-dialog.tsx:256
-#: src/features/forums/components/edit-post-dialog.tsx:259
+#: src/features/forums/components/create-post-dialog.tsx:261
+#: src/features/forums/components/edit-post-dialog.tsx:264
 msgid "Content"
 msgstr "Περιεχόμενο"
 
@@ -682,11 +713,11 @@ msgstr "Δεν ήταν δυνατή η επαλήθευση με αυτόν τ�
 msgid "Create {0}"
 msgstr "Δημιουργία {0}"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "Δημιουργία νέου forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:228
+#: src/features/forums/components/create-post-dialog.tsx:233
 msgid "Create a new post"
 msgstr "Δημιουργία νέας δημοσίευσης"
 
@@ -734,6 +765,10 @@ msgstr "Διένεξη δεδομένων"
 msgid "days"
 msgstr "ημέρες"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "Απόρριψη"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
@@ -747,15 +782,15 @@ msgstr "Προεπιλεγμένος λογαριασμός"
 msgid "Default AI account"
 msgstr "Προεπιλεγμένος λογαριασμός AI"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Διαγραφή σχολίου"
 
@@ -772,7 +807,7 @@ msgstr "Διαγραφή forum;"
 msgid "Delete post"
 msgstr "Διαγραφή δημοσίευσης"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "Διαγράψτε τον λογαριασμό σας στον παλιό διακομιστή"
 
@@ -836,8 +871,8 @@ msgstr "Απόρριψη πρόχειρου;"
 msgid "Disconnected"
 msgstr "Αποσυνδεδεμένο"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "Απόρριψη"
@@ -864,7 +899,7 @@ msgstr "Η λήψη απέτυχε"
 msgid "Dyslexia-friendly"
 msgstr "Φιλικό προς δυσλεξία"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "Επεξεργασία"
@@ -873,8 +908,8 @@ msgstr "Επεξεργασία"
 msgid "Edit {label}"
 msgstr "Επεξεργασία {label}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:229
-#: src/features/forums/components/edit-post-dialog.tsx:231
+#: src/features/forums/components/edit-post-dialog.tsx:234
+#: src/features/forums/components/edit-post-dialog.tsx:236
 msgid "Edit post"
 msgstr "Επεξεργασία ανάρτησης"
 
@@ -926,14 +961,14 @@ msgid "Failed to add account"
 msgstr "Αποτυχία προσθήκης λογαριασμού"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "Αποτυχία προσθήκης ετικέτας"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "Αποτυχία ρύθμισης ενδιαφέροντος"
 
@@ -941,7 +976,7 @@ msgstr "Αποτυχία ρύθμισης ενδιαφέροντος"
 msgid "Failed to approve items"
 msgstr "Αποτυχία έγκρισης στοιχείων"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "Αποτυχία αποκλεισμού χρήστη"
 
@@ -1030,7 +1065,7 @@ msgstr "Αποτυχία φόρτωσης περιορισμών"
 msgid "Failed to load video"
 msgstr "Αποτυχία φόρτωσης βίντεο"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "Αποτυχία σίγασης χρήστη"
 
@@ -1051,7 +1086,7 @@ msgid "Failed to remove account"
 msgstr "Αποτυχία αφαίρεσης λογαριασμού"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "Αποτυχία αφαίρεσης ενδιαφέροντος"
 
@@ -1109,12 +1144,12 @@ msgstr "Αποτυχία ορισμού επιπέδου πρόσβασης"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Αποτυχία εγγραφής"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Αποτυχία διαγραφής εγγραφής"
@@ -1153,7 +1188,7 @@ msgstr "Εύρεση φόρουμ"
 msgid "Fingerprint"
 msgstr "Αποτύπωμα"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Ολοκληρώστε τη μεταφορά του λογαριασμού σας"
 
@@ -1168,7 +1203,7 @@ msgstr "Αιωρούμενο"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Φόρουμ"
@@ -1210,7 +1245,7 @@ msgid "Forum unavailable"
 msgstr "Το φόρουμ δεν είναι διαθέσιμο"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1334,22 +1369,26 @@ msgstr "Άβαταρ αρχικών για {name}"
 msgid "Inset"
 msgstr "Εσωτερικό"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "Το ενδιαφέρον ενισχύθηκε"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "Το ενδιαφέρον μειώθηκε"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "Το ενδιαφέρον αφαιρέθηκε"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "Ενδιαφέροντα"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "Μη έγκυρη ημερομηνία"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1450,13 +1489,13 @@ msgstr "Αποσύνδεση…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Διαχειριστείτε τους συνδεδεμένους λογαριασμούς σας για ειδοποιήσεις και υπηρεσίες."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Σήμανση όλων ως αναγνωσμένα"
 
-#: src/features/forums/components/create-post-dialog.tsx:260
+#: src/features/forums/components/create-post-dialog.tsx:265
 msgid "Markdown supported"
 msgstr "Υποστηρίζεται Markdown"
 
@@ -1471,6 +1510,10 @@ msgstr "Μεσαίο"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
 msgid "Menu"
 msgstr "Μενού"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "Μήνυμα"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1510,8 +1553,8 @@ msgstr "Δευτέρα"
 
 #: src/components/options-menu.tsx:110
 #: src/components/options-menu.tsx:117
-#: src/features/forums/components/thread/thread-comment.tsx:415
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:424
 #: src/features/forums/components/thread/thread-content.tsx:317
 #: src/features/forums/components/thread/thread-content.tsx:324
 msgid "More options"
@@ -1521,7 +1564,7 @@ msgstr "Περισσότερες επιλογές"
 msgid "Mute"
 msgstr "Σίγαση"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "Σίγαση συντάκτη"
@@ -1553,7 +1596,7 @@ msgid "Network error"
 msgstr "Σφάλμα δικτύου"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:328
+#: src/features/forums/components/edit-post-dialog.tsx:333
 msgid "New"
 msgstr "Νέο"
 
@@ -1561,9 +1604,14 @@ msgstr "Νέο"
 msgid "New forum"
 msgstr "Νέο φόρουμ"
 
-#: src/features/forums/components/create-post-dialog.tsx:214
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "Νέο παιχνίδι"
+
 #: src/features/forums/components/create-post-dialog.tsx:219
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:224
+#: src/features/forums/components/create-post-dialog.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "Νέα ανάρτηση"
@@ -1602,6 +1650,10 @@ msgstr "Δεν υπάρχουν συνδεδεμένοι λογαριασμοί"
 msgid "No forums found"
 msgstr "Δεν βρέθηκαν φόρουμ"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "Δεν υπάρχουν ακόμη παιχνίδια"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "Δεν υπάρχουν διαθέσιμες ομάδες"
@@ -1614,6 +1666,7 @@ msgstr "Καμία δραστηριότητα συντονισμού"
 msgid "No notifications yet"
 msgstr "Καμία ειδοποίηση ακόμη"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Δεν βρέθηκαν άτομα"
@@ -1622,7 +1675,7 @@ msgstr "Δεν βρέθηκαν άτομα"
 msgid "No places found"
 msgstr "Δεν βρέθηκαν τοποθεσίες"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "Δεν υπάρχουν ακόμη αναρτήσεις σε αυτό το φόρουμ"
 
@@ -1696,7 +1749,7 @@ msgid "Notifications"
 msgstr "Ειδοποιήσεις"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "Ειδοποιήσεις: {0}"
 
@@ -1769,12 +1822,12 @@ msgstr "Κλειδί πρόσβασης"
 msgid "Passkey verification failed. Please try again."
 msgstr "Η επαλήθευση με κλειδί πρόσβασης απέτυχε. Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Κλειδιά πρόσβασης"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "Σε εκκρεμότητα"
@@ -1815,11 +1868,11 @@ msgstr "Ελέγξτε τη σύνδεσή σας στο διαδίκτυο κα
 msgid "Please describe the issue..."
 msgstr "Περιγράψτε το πρόβλημα..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "Εισαγάγετε ένα σχόλιο"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "Εισαγάγετε μια απάντηση"
 
@@ -1843,7 +1896,7 @@ msgstr "Η ανάρτηση δεν μπόρεσε να αποθηκευτεί �
 msgid "Post couldn't be saved on the forum server"
 msgstr "Η ανάρτηση δεν μπόρεσε να αποθηκευτεί στον διακομιστή του φόρουμ"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "Η ανάρτηση διαγράφηκε"
 
@@ -1851,7 +1904,7 @@ msgstr "Η ανάρτηση διαγράφηκε"
 msgid "Post limit"
 msgstr "Όριο αναρτήσεων"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "Η ανάρτηση κλειδώθηκε"
 
@@ -1859,31 +1912,31 @@ msgstr "Η ανάρτηση κλειδώθηκε"
 msgid "Post not found"
 msgstr "Η ανάρτηση δεν βρέθηκε"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "Η ανάρτηση καρφιτσώθηκε"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "Η ανάρτηση δημοσιεύτηκε."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "Η ανάρτηση αφαιρέθηκε"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "Η ανάρτηση επαναφέρθηκε"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "Η ανάρτηση ξεκλειδώθηκε"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "Η ανάρτηση ξεκαρφιτσώθηκε"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "Η ανάρτηση ενημερώθηκε"
 
@@ -1938,11 +1991,11 @@ msgstr "Μέλη έργου"
 msgid "Prompt saved"
 msgstr "Το prompt αποθηκεύτηκε"
 
-#: src/features/forums/components/create-post-dialog.tsx:374
+#: src/features/forums/components/create-post-dialog.tsx:380
 msgid "Publish post"
 msgstr "Δημοσίευση ανάρτησης"
 
-#: src/features/forums/components/create-post-dialog.tsx:369
+#: src/features/forums/components/create-post-dialog.tsx:375
 msgid "Publishing..."
 msgstr "Δημοσίευση..."
 
@@ -1962,11 +2015,11 @@ msgstr "Ανυψωμένη"
 msgid "Rate limiting"
 msgstr "Περιορισμός ρυθμού"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "Επανασυνδέστε τους λογαριασμούς σας σε αυτόν τον διακομιστή"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "Καταχωρίστε ξανά τα κλειδιά πρόσβασής σας σε αυτόν τον διακομιστή"
 
@@ -2022,10 +2075,10 @@ msgstr "Σχετικό εντός 24 ωρών, αλλιώς απόλυτο"
 #: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:332
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/create-post-dialog.tsx:325
+#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:469
+#: src/features/forums/components/thread/thread-comment.tsx:527
 #: src/features/forums/components/thread/thread-content.tsx:352
 #: src/features/forums/components/thread/thread-content.tsx:430
 #: src/routes/_authenticated/$forum_.moderation.tsx:719
@@ -2053,7 +2106,7 @@ msgstr "Κατάργηση κανόνα πρόσβασης για «{0}»;"
 msgid "Remove access?"
 msgstr "Αφαίρεση πρόσβασης;"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Αφαίρεση σχολίου"
 
@@ -2067,6 +2120,10 @@ msgstr "Αφαίρεση από τα αποθηκευμένα"
 msgid "Remove interest"
 msgstr "Αφαίρεση ενδιαφέροντος"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "Αφαίρεση στοιχείου"
+
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
 msgstr "Αφαίρεση ανάρτησης"
@@ -2076,7 +2133,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "Αφαιρέστε αυτό το φόρουμ από την πλαϊνή γραμμή σας."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "Αφαιρέθηκε"
@@ -2101,19 +2158,19 @@ msgstr "απαντήσεις"
 msgid "Replies must be approved"
 msgstr "Οι απαντήσεις πρέπει να εγκρίνονται"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "Απάντηση"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "Απάντηση σε {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "Αναφορά"
@@ -2130,8 +2187,8 @@ msgstr "Αναφορά ανάρτησης"
 msgid "Report resolved"
 msgstr "Η αναφορά επιλύθηκε"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "Η αναφορά υποβλήθηκε"
 
@@ -2182,7 +2239,7 @@ msgstr "Επαναφορά όλων των ρυθμίσεων σε προεπι�
 msgid "Resolved"
 msgstr "Επιλύθηκε"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "Επαναφορά"
@@ -2233,13 +2290,13 @@ msgstr "Σάββατο"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: src/features/forums/components/edit-post-dialog.tsx:386
+#: src/features/forums/components/edit-post-dialog.tsx:392
 msgid "Save changes"
 msgstr "Αποθήκευση αλλαγών"
 
@@ -2259,7 +2316,7 @@ msgstr "Αποθηκεύτηκε"
 msgid "Saved posts cleared"
 msgstr "Οι αποθηκευμένες αναρτήσεις εκκαθαρίστηκαν"
 
-#: src/features/forums/components/edit-post-dialog.tsx:381
+#: src/features/forums/components/edit-post-dialog.tsx:387
 #: src/lib/saved.ts:66
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -2332,6 +2389,10 @@ msgstr "δευτερόλεπτα"
 msgid "Select {0}"
 msgstr "Επιλογή {0}"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "Επιλέξτε ένα παιχνίδι"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "Επιλέξτε έναν λόγο για την αναφορά αυτού του σχολίου. Οι αναφορές εξετάζονται από συντονιστές."
@@ -2392,6 +2453,11 @@ msgstr "Επιλέξτε κατεύθυνση ιστότοπου"
 msgid "Select theme preference"
 msgstr "Επιλέξτε προτίμηση θέματος"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "Επιλογή..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "επιλεγμένα"
@@ -2408,6 +2474,11 @@ msgstr "Αποστολή ξανά"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:307
 msgid "Send email"
 msgstr "Αποστολή email"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+msgid "Send message"
+msgstr "Αποστολή μηνύματος"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
@@ -2493,10 +2564,10 @@ msgstr "Μείνετε όμως συντονισμένοι!"
 msgid "Subject"
 msgstr "Θέμα"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "Υποβολή απάντησης"
 
@@ -2526,14 +2597,14 @@ msgstr "Εγγεγραμμένος"
 msgid "Subscribed to {0}"
 msgstr "Εγγραφή σε {0}"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "Εγγραφή στο φόρουμ"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Εγγραφή..."
@@ -2632,7 +2703,7 @@ msgstr "Αυτή η ανάρτηση έχει ήδη υποβληθεί"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Αυτό αφαιρεί κάθε δημοσίευση από τη λίστα αποθηκευμένων σας. Δεν μπορεί να αναιρεθεί."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Αυτό θα κρύψει το σχόλιο από τους κανονικούς χρήστες. Οι συντονιστές μπορούν ακόμα να το δουν και να το επαναφέρουν αργότερα."
 
@@ -2645,7 +2716,7 @@ msgstr "Αυτό θα κρύψει την ανάρτηση από τους κα�
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Αυτό θα διαγράψει μόνιμα το \"{0}\" και όλες τις αναρτήσεις και τα σχόλιά του. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "Νήμα"
 
@@ -2653,8 +2724,8 @@ msgstr "Νήμα"
 msgid "Thursday"
 msgstr "Πέμπτη"
 
-#: src/features/forums/components/create-post-dialog.tsx:239
-#: src/features/forums/components/edit-post-dialog.tsx:242
+#: src/features/forums/components/create-post-dialog.tsx:244
+#: src/features/forums/components/edit-post-dialog.tsx:247
 msgid "Title"
 msgstr "Τίτλος"
 
@@ -2724,6 +2795,10 @@ msgstr "Τρίτη"
 msgid "Type a command or search..."
 msgstr "Πληκτρολογήστε μια εντολή ή αναζητήστε..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "Πληκτρολογήστε ένα μήνυμα…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "Πληκτρολογήστε για αναζήτηση χρηστών"
@@ -2759,7 +2834,7 @@ msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2774,7 +2849,7 @@ msgid "Unpin"
 msgstr "Ξεκαρφίτσωμα"
 
 #: src/components/options-menu.tsx:170
-#: src/features/forums/pages/entity-forum-page.tsx:389
+#: src/features/forums/pages/entity-forum-page.tsx:390
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "Διαγραφή εγγραφής"
@@ -2783,16 +2858,16 @@ msgstr "Διαγραφή εγγραφής"
 msgid "Unsubscribe from forum"
 msgstr "Διαγραφή εγγραφής από το φόρουμ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "Κατάργηση εγγραφής από το φόρουμ;"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Διαγραφή εγγραφής ολοκληρώθηκε"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Διαγραφή εγγραφής..."
@@ -2814,11 +2889,11 @@ msgstr "Χρησιμοποιήστε το κλειδί πρόσβασής σας
 msgid "User"
 msgstr "Χρήστης"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "Ο χρήστης αποκλείστηκε"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "Ο χρήστης σιγήθηκε"
 
@@ -2865,8 +2940,8 @@ msgstr "Προβολή"
 msgid "View all"
 msgstr "Προβολή όλων"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "Προβολή όλων των ειδοποιήσεων"
 
@@ -2914,7 +2989,7 @@ msgstr "Διάρκεια παραθύρου"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Είστε ήδη εγγεγραμμένος σε αυτό το φόρουμ"
@@ -2939,7 +3014,7 @@ msgstr "Δεν έχετε την απαραίτητη άδεια <0/>για να
 msgid "You don't have permission to post in this forum"
 msgstr "Δεν έχετε άδεια δημοσίευσης σε αυτό το φόρουμ"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "Δεν έχετε ακόμα φόρουμ."
 
@@ -2947,7 +3022,7 @@ msgstr "Δεν έχετε ακόμα φόρουμ."
 msgid "You submitted the following values:"
 msgstr "Υποβάλατε τις ακόλουθες τιμές:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Θα σταματήσετε να λαμβάνετε ενημερώσεις από αυτό το φόρουμ. Μπορείτε να εγγραφείτε ξανά οποιαδήποτε στιγμή."
 
@@ -2955,7 +3030,7 @@ msgstr "Θα σταματήσετε να λαμβάνετε ενημερώσει
 msgid "You're all caught up!"
 msgstr "Τα είδατε όλα!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ο λογαριασμός σας μεταφέρθηκε εδώ από {source}. Μέχρι να τον διαγράψετε εκεί, τα μηνύματα και οι ειδοποιήσεις μπορεί να φτάνουν και στους δύο διακομιστές, μέρος του περιεχομένου σας συνεχίζει να εξυπηρετείται από τον παλιό διακομιστή και οι ακόλουθοί σας ενδέχεται να χρειαστούν λίγα λεπτά για να σας βρουν εδώ."
 

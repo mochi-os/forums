@@ -27,7 +27,7 @@ msgstr " · સમાપ્ત {0}"
 msgid " · Permanent"
 msgstr " · કાયમી"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (સંપાદિત)"
 
@@ -80,6 +80,10 @@ msgstr "{entityLabel} નામ"
 msgid "{entityLabel} name is required"
 msgstr "{entityLabel} નામ જરૂરી છે"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "{opponentName}એ ડ્રોની ઓફર કરી"
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {{entityName} પસંદ કરેલ} other {{manyName} પસંદ કરેલ}}"
@@ -100,13 +104,18 @@ msgstr "{selectedCount, plural, one {# પસંદ કરેલ {entityName} �
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}માંથી {sentLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# જવાબ} other {# જવાબો}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {મેનૂ ખોલો (# વણવાંચેલ સૂચના)} other {મેનૂ ખોલો (# વણવાંચેલ સૂચનાઓ)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} નેસ્ટેડ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -119,6 +128,10 @@ msgstr "24 કલાક"
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "નિરપેક્ષ (તારીખ અને સમય)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "સ્વીકારો"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -172,6 +185,7 @@ msgstr "ખાતાનો પ્રકાર"
 msgid "Account verified"
 msgstr "ખાતું ચકાસાયું"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -194,10 +208,18 @@ msgstr "ખાતું ઉમેરો"
 msgid "Add an account to receive notifications and use services."
 msgstr "સૂચનાઓ મેળવવા અને સેવાઓનો ઉપયોગ કરવા માટે ખાતું ઉમેરો."
 
-#: src/features/forums/components/create-post-dialog.tsx:351
-#: src/features/forums/components/edit-post-dialog.tsx:363
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "ચેકલિસ્ટ આઇટમ ઉમેરો"
+
+#: src/features/forums/components/create-post-dialog.tsx:356
+#: src/features/forums/components/edit-post-dialog.tsx:369
 msgid "Add files"
 msgstr "ફાઇલો ઉમેરો"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "આઇટમ ઉમેરો..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -294,12 +316,12 @@ msgstr "કોઈપણ"
 msgid "Anyone who is logged in"
 msgstr "લોગ ઇન થયેલ કોઈપણ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "મંજૂર કરો"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "શું તમે ખરેખર આ ટિપ્પણી કાઢી નાખવા માંગો છો? આ બધા જવાબો પણ કાઢી નાખશે. આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી."
 
@@ -319,15 +341,15 @@ msgstr "ચડતા"
 msgid "Ascending"
 msgstr "ચઢતો ક્રમ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "જવાબ ફાઇલો જોડો"
 
-#: src/features/forums/components/create-post-dialog.tsx:275
-#: src/features/forums/components/edit-post-dialog.tsx:275
+#: src/features/forums/components/create-post-dialog.tsx:280
+#: src/features/forums/components/edit-post-dialog.tsx:280
 msgid "Attachments"
 msgstr "જોડાણો"
 
@@ -353,10 +375,10 @@ msgid "Back"
 msgstr "પાછળ"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -378,7 +400,7 @@ msgstr "મુખ્ય પૃષ્ઠ પર પાછા જાઓ"
 msgid "Ban"
 msgstr "પ્રતિબંધ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "લેખક પ્રતિબંધિત કરો"
@@ -399,6 +421,11 @@ msgstr "બેનર દૂર કર્યું"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "બેનર અપડેટ કર્યું"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "વિશ્વાસપાત્ર નથી તેવી લિંક પર નેવિગેશન અવરોધિત કર્યું"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -428,17 +455,17 @@ msgstr "{0} દ્વારા"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:359
-#: src/features/forums/components/edit-post-dialog.tsx:372
+#: src/features/forums/components/create-post-dialog.tsx:365
+#: src/features/forums/components/edit-post-dialog.tsx:378
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "રદ કરો"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "જવાબ રદ કરો"
 
@@ -455,9 +482,13 @@ msgstr "સૂચના શ્રેણી બદલો"
 msgid "Check \"All\" to see your past notifications."
 msgstr "તમારી અગાઉની સૂચનાઓ જોવા માટે \"બધું\" પસંદ કરો."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "નવી સામગ્રી માટે પાછળથી પાછા તપાસો"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "સાઇડબારમાંથી રમત પસંદ કરો અથવા નવી શરૂ કરો."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -566,11 +597,11 @@ msgstr "જલ્દી આવી રહ્યું છે!"
 msgid "Command Palette"
 msgstr "કમાન્ડ પેલેટ"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "ટિપ્પણી મંજૂર"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "ટિપ્પણી કાઢી નાખી"
 
@@ -578,19 +609,19 @@ msgstr "ટિપ્પણી કાઢી નાખી"
 msgid "Comment limit"
 msgstr "ટિપ્પણી મર્યાદા"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "ટિપ્પણી પોસ્ટ કરી"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "ટિપ્પણી દૂર કરી"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "ટિપ્પણી પુનઃસ્થાપિત"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "ટિપ્પણી અપડેટ થઈ"
 
@@ -620,8 +651,8 @@ msgstr "જોડાયેલા ખાતાઓ"
 msgid "Connecting..."
 msgstr "કનેક્ટ થઈ રહ્યું છે..."
 
-#: src/features/forums/components/create-post-dialog.tsx:256
-#: src/features/forums/components/edit-post-dialog.tsx:259
+#: src/features/forums/components/create-post-dialog.tsx:261
+#: src/features/forums/components/edit-post-dialog.tsx:264
 msgid "Content"
 msgstr "સામગ્રી"
 
@@ -682,11 +713,11 @@ msgstr "તે ખાતા વડે ચકાસણી કરી શકાઈ 
 msgid "Create {0}"
 msgstr "{0} બનાવો"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "નવો ફોરમ બનાવો"
 
-#: src/features/forums/components/create-post-dialog.tsx:228
+#: src/features/forums/components/create-post-dialog.tsx:233
 msgid "Create a new post"
 msgstr "નવી પોસ્ટ બનાવો"
 
@@ -734,6 +765,10 @@ msgstr "ડેટા સંઘર્ષ"
 msgid "days"
 msgstr "દિવસો"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "નકારો"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
@@ -747,15 +782,15 @@ msgstr "ડિફૉલ્ટ ખાતું"
 msgid "Default AI account"
 msgstr "ડિફૉલ્ટ AI ખાતું"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "કાઢી નાખો"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "ટિપ્પણી કાઢી નાખો"
 
@@ -772,7 +807,7 @@ msgstr "ફોરમ કાઢી નાખવો છે?"
 msgid "Delete post"
 msgstr "પોસ્ટ કાઢી નાખો"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "જૂના સર્વર પર તમારું ખાતું કાઢી નાખો"
 
@@ -836,8 +871,8 @@ msgstr "ડ્રાફ્ટ રદ કરવો?"
 msgid "Disconnected"
 msgstr "ડિસ્કનેક્ટેડ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "રદ કરો"
@@ -864,7 +899,7 @@ msgstr "ડાઉનલોડ નિષ્ફળ"
 msgid "Dyslexia-friendly"
 msgstr "ડિસ્લેક્સિયા-મૈત્રીપૂર્ણ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "સંપાદિત કરો"
@@ -873,8 +908,8 @@ msgstr "સંપાદિત કરો"
 msgid "Edit {label}"
 msgstr "{label} સંપાદિત કરો"
 
-#: src/features/forums/components/edit-post-dialog.tsx:229
-#: src/features/forums/components/edit-post-dialog.tsx:231
+#: src/features/forums/components/edit-post-dialog.tsx:234
+#: src/features/forums/components/edit-post-dialog.tsx:236
 msgid "Edit post"
 msgstr "પોસ્ટ એડિટ કરો"
 
@@ -926,14 +961,14 @@ msgid "Failed to add account"
 msgstr "એકાઉન્ટ ઉમેરવામાં નિષ્ફળ"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "ટેગ ઉમેરવામાં નિષ્ફળ"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "રુચિ ગોઠવવામાં નિષ્ફળ"
 
@@ -941,7 +976,7 @@ msgstr "રુચિ ગોઠવવામાં નિષ્ફળ"
 msgid "Failed to approve items"
 msgstr "આઇટમ્સ મંજૂર કરવામાં નિષ્ફળ"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "યુઝરને બેન કરવામાં નિષ્ફળ"
 
@@ -1030,7 +1065,7 @@ msgstr "પ્રતિબંધો લોડ કરવામાં નિષ્
 msgid "Failed to load video"
 msgstr "વિડિઓ લોડ કરવામાં નિષ્ફળ"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "યુઝરને મ્યૂટ કરવામાં નિષ્ફળ"
 
@@ -1051,7 +1086,7 @@ msgid "Failed to remove account"
 msgstr "એકાઉન્ટ દૂર કરવામાં નિષ્ફળ"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "રુચિ દૂર કરવામાં નિષ્ફળ"
 
@@ -1109,12 +1144,12 @@ msgstr "ઍક્સેસ લેવલ સેટ કરવામાં નિ�
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "સબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "અનસબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
@@ -1153,7 +1188,7 @@ msgstr "ફોરમ્સ શોધો"
 msgid "Fingerprint"
 msgstr "આંગળાની છાપ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "તમારું ખાતું ખસેડવાનું પૂર્ણ કરો"
 
@@ -1168,7 +1203,7 @@ msgstr "ફ્લોટિંગ"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ફોરમ"
@@ -1210,7 +1245,7 @@ msgid "Forum unavailable"
 msgstr "ફોરમ અનુપલબ્ધ"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1334,22 +1369,26 @@ msgstr "{name} માટે આદ્યાક્ષર અવતાર"
 msgid "Inset"
 msgstr "ઇનસેટ"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "રુચિ વધારી"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "રુચિ ઘટાડી"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "રુચિ દૂર કરી"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "રુચિઓ"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "અમાન્ય તારીખ"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1450,13 +1489,13 @@ msgstr "લૉગ આઉટ થઈ રહ્યું છે…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "સૂચનાઓ અને સેવાઓ માટે તમારા જોડાયેલા એકાઉન્ટ્સનું સંચાલન કરો."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "બધાને વાંચેલા તરીકે માર્ક કરો"
 
-#: src/features/forums/components/create-post-dialog.tsx:260
+#: src/features/forums/components/create-post-dialog.tsx:265
 msgid "Markdown supported"
 msgstr "Markdown સપોર્ટેડ"
 
@@ -1471,6 +1510,10 @@ msgstr "મધ્યમ"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
 msgid "Menu"
 msgstr "મેનૂ"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "સંદેશ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1510,8 +1553,8 @@ msgstr "સોમવાર"
 
 #: src/components/options-menu.tsx:110
 #: src/components/options-menu.tsx:117
-#: src/features/forums/components/thread/thread-comment.tsx:415
-#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:418
+#: src/features/forums/components/thread/thread-comment.tsx:424
 #: src/features/forums/components/thread/thread-content.tsx:317
 #: src/features/forums/components/thread/thread-content.tsx:324
 msgid "More options"
@@ -1521,7 +1564,7 @@ msgstr "વધુ વિકલ્પો"
 msgid "Mute"
 msgstr "મ્યૂટ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "લેખકને મ્યૂટ કરો"
@@ -1553,7 +1596,7 @@ msgid "Network error"
 msgstr "નેટવર્ક ભૂલ"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:328
+#: src/features/forums/components/edit-post-dialog.tsx:333
 msgid "New"
 msgstr "નવું"
 
@@ -1561,9 +1604,14 @@ msgstr "નવું"
 msgid "New forum"
 msgstr "નવું ફોરમ"
 
-#: src/features/forums/components/create-post-dialog.tsx:214
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "નવી ગેમ"
+
 #: src/features/forums/components/create-post-dialog.tsx:219
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:224
+#: src/features/forums/components/create-post-dialog.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "નવી પોસ્ટ"
@@ -1602,6 +1650,10 @@ msgstr "કોઈ કનેક્ટેડ ખાતા નથી"
 msgid "No forums found"
 msgstr "કોઈ ફોરમ્સ મળ્યા નથી"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "હજુ સુધી કોઈ ગેમ્સ નથી"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "કોઈ ગ્રૂપ્સ ઉપલબ્ધ નથી"
@@ -1614,6 +1666,7 @@ msgstr "કોઈ મોડરેશન પ્રવૃત્તિ નથી"
 msgid "No notifications yet"
 msgstr "હજુ સુધી કોઈ સૂચના નથી"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "કોઈ લોકો મળ્યા નથી"
@@ -1622,7 +1675,7 @@ msgstr "કોઈ લોકો મળ્યા નથી"
 msgid "No places found"
 msgstr "કોઈ સ્થળો મળ્યા નથી"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "આ ફોરમમાં હજુ સુધી કોઈ પોસ્ટ્સ નથી"
 
@@ -1696,7 +1749,7 @@ msgid "Notifications"
 msgstr "સૂચનાઓ"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "સૂચનાઓ: {0}"
 
@@ -1769,12 +1822,12 @@ msgstr "પાસકી"
 msgid "Passkey verification failed. Please try again."
 msgstr "પાસકી ચકાસણી નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "પાસકીઝ"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "બાકી"
@@ -1815,11 +1868,11 @@ msgstr "કૃપા કરી તમારું ઇન્ટરનેટ ક�
 msgid "Please describe the issue..."
 msgstr "કૃપા કરીને સમસ્યાનું વર્ણન કરો..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "કૃપા કરીને કૉમેન્ટ દાખલ કરો"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "કૃપા કરીને જવાબ દાખલ કરો"
 
@@ -1843,7 +1896,7 @@ msgstr "પોસ્ટ સાચવી શકાઈ નથી — શીર્�
 msgid "Post couldn't be saved on the forum server"
 msgstr "પોસ્ટ ફોરમ સર્વર પર સાચવી શકાઈ નથી"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "પોસ્ટ ડિલીટ થઈ"
 
@@ -1851,7 +1904,7 @@ msgstr "પોસ્ટ ડિલીટ થઈ"
 msgid "Post limit"
 msgstr "પોસ્ટ મર્યાદા"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "પોસ્ટ લૉક થઈ"
 
@@ -1859,31 +1912,31 @@ msgstr "પોસ્ટ લૉક થઈ"
 msgid "Post not found"
 msgstr "પોસ્ટ મળી નથી"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "પોસ્ટ પિન કરી"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "પોસ્ટ પ્રકાશિત થઈ."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "પોસ્ટ દૂર કરી"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "પોસ્ટ પુનઃસ્થાપિત કરી"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "પોસ્ટ અનલૉક થઈ"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "પોસ્ટ અનપિન કરી"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "પોસ્ટ અપડેટ થઈ"
 
@@ -1938,11 +1991,11 @@ msgstr "પ્રોજેક્ટ સભ્યો"
 msgid "Prompt saved"
 msgstr "પ્રોમ્પ્ટ સાચવ્યું"
 
-#: src/features/forums/components/create-post-dialog.tsx:374
+#: src/features/forums/components/create-post-dialog.tsx:380
 msgid "Publish post"
 msgstr "પોસ્ટ પ્રકાશિત કરો"
 
-#: src/features/forums/components/create-post-dialog.tsx:369
+#: src/features/forums/components/create-post-dialog.tsx:375
 msgid "Publishing..."
 msgstr "પ્રકાશિત થઈ રહ્યું છે..."
 
@@ -1962,11 +2015,11 @@ msgstr "ઊંચું"
 msgid "Rate limiting"
 msgstr "રેટ લિમિટિંગ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "આ સર્વર પર તમારા ખાતાઓ ફરીથી જોડો"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "આ સર્વર પર તમારી પાસકી ફરીથી નોંધણી કરો"
 
@@ -2022,10 +2075,10 @@ msgstr "24 કલાકની અંદર સાપેક્ષ, અન્ય�
 #: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:320
-#: src/features/forums/components/edit-post-dialog.tsx:332
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/create-post-dialog.tsx:325
+#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/thread/thread-comment.tsx:469
+#: src/features/forums/components/thread/thread-comment.tsx:527
 #: src/features/forums/components/thread/thread-content.tsx:352
 #: src/features/forums/components/thread/thread-content.tsx:430
 #: src/routes/_authenticated/$forum_.moderation.tsx:719
@@ -2053,7 +2106,7 @@ msgstr "\"{0}\" માટે ઍક્સેસ નિયમ દૂર કરી
 msgid "Remove access?"
 msgstr "ઍક્સેસ દૂર કરો?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "કૉમેન્ટ દૂર કરો"
 
@@ -2067,6 +2120,10 @@ msgstr "સાચવેલમાંથી દૂર કરો"
 msgid "Remove interest"
 msgstr "રસ દૂર કરો"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "આઇટમ દૂર કરો"
+
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
 msgstr "પોસ્ટ દૂર કરો"
@@ -2076,7 +2133,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "તમારા સાઇડબારમાંથી આ ફોરમ દૂર કરો."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "દૂર કર્યું"
@@ -2101,19 +2158,19 @@ msgstr "જવાબો"
 msgid "Replies must be approved"
 msgstr "જવાબો મંજૂર કરવા જરૂરી છે"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "જવાબ આપો"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "{0} ને જવાબ આપો..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "રિપોર્ટ કરો"
@@ -2130,8 +2187,8 @@ msgstr "પોસ્ટની જાણ કરો"
 msgid "Report resolved"
 msgstr "રિપોર્ટ ઉકેલાઈ"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "રિપોર્ટ સબમિટ થયો"
 
@@ -2182,7 +2239,7 @@ msgstr "તમામ સેટિંગ્સને ડિફૉલ્ટ મૂ
 msgid "Resolved"
 msgstr "ઉકેલાયું"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "પુનઃસ્થાપિત કરો"
@@ -2233,13 +2290,13 @@ msgstr "શનિવાર"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "સાચવો"
 
-#: src/features/forums/components/edit-post-dialog.tsx:386
+#: src/features/forums/components/edit-post-dialog.tsx:392
 msgid "Save changes"
 msgstr "ફેરફારો સાચવો"
 
@@ -2259,7 +2316,7 @@ msgstr "સાચવ્યું"
 msgid "Saved posts cleared"
 msgstr "સાચવેલી પોસ્ટ સાફ કરી"
 
-#: src/features/forums/components/edit-post-dialog.tsx:381
+#: src/features/forums/components/edit-post-dialog.tsx:387
 #: src/lib/saved.ts:66
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -2332,6 +2389,10 @@ msgstr "સેકન્ડ"
 msgid "Select {0}"
 msgstr "{0} પસંદ કરો"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "રમત પસંદ કરો"
+
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
 msgstr "આ ટિપ્પણીની જાણ કરવા માટે કારણ પસંદ કરો. અહેવાલોની સમીક્ષા મધ્યસ્થીઓ દ્વારા કરવામાં આવે છે."
@@ -2392,6 +2453,11 @@ msgstr "સાઇટ દિશા પસંદ કરો"
 msgid "Select theme preference"
 msgstr "થીમ પસંદગી પસંદ કરો"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "પસંદ કરો..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "પસંદ કરેલ"
@@ -2408,6 +2474,11 @@ msgstr "ફરી મોકલો"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:307
 msgid "Send email"
 msgstr "ઇમેઇલ મોકલો"
+
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+msgid "Send message"
+msgstr "સંદેશ મોકલો"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
@@ -2493,10 +2564,10 @@ msgstr "છતાં અમારી સાથે જોડાયેલા ર�
 msgid "Subject"
 msgstr "વિષય"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "જવાબ સબમિટ કરો"
 
@@ -2526,14 +2597,14 @@ msgstr "સબ્સ્ક્રાઇબ કર્યું"
 msgid "Subscribed to {0}"
 msgstr "{0} પર સબ્સ્ક્રાઇબ કર્યું"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "ફોરમ પર સબ્સ્ક્રાઇબ કર્યું"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "સબ્સ્ક્રાઇબ કરી રહ્યું છે..."
@@ -2632,7 +2703,7 @@ msgstr "આ પોસ્ટ પહેલેથી જ સબમિટ કરવ�
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "આ તમારી સાચવેલ સૂચિમાંથી દરેક પોસ્ટ દૂર કરે છે. આ પાછું વાળી શકાતું નથી."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "આ ટિપ્પણીને નિયમિત વપરાશકર્તાઓથી છુપાવશે. મધ્યસ્થીઓ હજુ પણ તેને જોઈ શકે છે અને પછી પુનઃસ્થાપિત કરી શકે છે."
 
@@ -2645,7 +2716,7 @@ msgstr "આ પોસ્ટને નિયમિત વપરાશકર્ત
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "આ \"{0}\" અને તેની તમામ પોસ્ટ્સ અને ટિપ્પણીઓને કાયમી ધોરણે કાઢી નાખશે. આ ક્રિયા પાછી ખેંચી શકાતી નથી."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "થ્રેડ"
 
@@ -2653,8 +2724,8 @@ msgstr "થ્રેડ"
 msgid "Thursday"
 msgstr "ગુરુવાર"
 
-#: src/features/forums/components/create-post-dialog.tsx:239
-#: src/features/forums/components/edit-post-dialog.tsx:242
+#: src/features/forums/components/create-post-dialog.tsx:244
+#: src/features/forums/components/edit-post-dialog.tsx:247
 msgid "Title"
 msgstr "શીર્ષક"
 
@@ -2724,6 +2795,10 @@ msgstr "મંગળવાર"
 msgid "Type a command or search..."
 msgstr "કમાન્ડ ટાઇપ કરો અથવા શોધો..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "સંદેશ ટાઇપ કરો…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "વપરાશકર્તાઓ શોધવા માટે ટાઇપ કરો"
@@ -2759,7 +2834,7 @@ msgid "United States"
 msgstr "યુનાઇટેડ સ્ટેટ્સ"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2774,7 +2849,7 @@ msgid "Unpin"
 msgstr "અનપિન કરો"
 
 #: src/components/options-menu.tsx:170
-#: src/features/forums/pages/entity-forum-page.tsx:389
+#: src/features/forums/pages/entity-forum-page.tsx:390
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "અનસબ્સ્ક્રાઇબ કરો"
@@ -2783,16 +2858,16 @@ msgstr "અનસબ્સ્ક્રાઇબ કરો"
 msgid "Unsubscribe from forum"
 msgstr "ફોરમ માંથી અનસબ્સ્ક્રાઇબ કરો"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "ફોરમમાંથી સબ્સ્ક્રિપ્શન રદ કરવું?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "અનસબ્સ્ક્રાઇબ કર્યું"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "અનસબ્સ્ક્રાઇબ કરી રહ્યું છે..."
@@ -2814,11 +2889,11 @@ msgstr "તમારી પાસકીનો ઉપયોગ કરો"
 msgid "User"
 msgstr "વપરાશકર્તા"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "વપરાશકર્તા પર પ્રતિબંધ મૂક્યો"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "વપરાશકર્તા મ્યૂટ કર્યો"
 
@@ -2865,8 +2940,8 @@ msgstr "જુઓ"
 msgid "View all"
 msgstr "બધું જુઓ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "બધી સૂચનાઓ જુઓ"
 
@@ -2914,7 +2989,7 @@ msgstr "વિન્ડો સમયગાળો"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "તમે પહેલેથી જ આ ફોરમ પર સબ્સ્ક્રાઇબ કરેલ છો"
@@ -2939,7 +3014,7 @@ msgstr "આ સંસાધન જોવા માટે <0/>તમારી પ
 msgid "You don't have permission to post in this forum"
 msgstr "આ ફોરમમાં પોસ્ટ કરવાની તમને પરવાનગી નથી"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "તમારી પાસે હજુ સુધી કોઈ ફોરમ નથી."
 
@@ -2947,7 +3022,7 @@ msgstr "તમારી પાસે હજુ સુધી કોઈ ફોર�
 msgid "You submitted the following values:"
 msgstr "તમે નીચેના મૂલ્યો સબમિટ કર્યા:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "તમે આ ફોરમમાંથી અપડેટ્સ મેળવવાનું બંધ કરશો. તમે કોઈપણ સમયે ફરીથી સબ્સ્ક્રાઇબ કરી શકો છો."
 
@@ -2955,7 +3030,7 @@ msgstr "તમે આ ફોરમમાંથી અપડેટ્સ મે�
 msgid "You're all caught up!"
 msgstr "તમે બધું જોઈ લીધું!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "તમારું ખાતું {source} પરથી અહીં ખસેડવામાં આવ્યું. જ્યાં સુધી તમે ત્યાં તેને કાઢી ન નાખો, સંદેશા અને સૂચનાઓ બંને સર્વર સુધી પહોંચી શકે, કેટલીક સામગ્રી જૂના સર્વરથી પ્રદાન કરાતી રહે, અને ફૉલોઅર્સ ને તમને અહીં શોધવામાં થોડી મિનિટ લાગી શકે."
 
