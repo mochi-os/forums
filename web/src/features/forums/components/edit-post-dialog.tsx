@@ -5,7 +5,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -44,24 +43,9 @@ import {
   forumPostEditOriginalFromPost,
   isForumPostEditUnchanged,
 } from '@/features/forums/edit-compare'
+import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
 
-// Characters disallowed in post titles (matches backend validation for "name" type)
-const DISALLOWED_CHARS = /[<>\r\n]/
-
-function buildSchema(t: (descriptor: TemplateStringsArray) => string) {
-  return z.object({
-    title: z
-      .string()
-      .min(1, t`Title is required`)
-      .max(1000, t`Title must be 1000 characters or less`)
-      .refine((val) => !DISALLOWED_CHARS.test(val), {
-        message: t`Title cannot contain < or > characters`,
-      }),
-    body: z.string().min(1, t`Content is required`),
-  })
-}
-
-type EditPostFormValues = z.infer<ReturnType<typeof buildSchema>>
+type EditPostFormValues = PostFormValues
 
 // Unified attachment type for editing - can be existing or new
 type EditingAttachment =
@@ -93,8 +77,10 @@ export function EditPostDialog({
   const [items, setItems] = useState<EditingAttachment[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  const postSchema = usePostSchema()
+
   const form = useForm<EditPostFormValues>({
-    resolver: zodResolver(buildSchema(t)),
+    resolver: zodResolver(postSchema),
     defaultValues: {
       title: post.title,
       body: post.body,
