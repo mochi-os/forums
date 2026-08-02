@@ -5104,7 +5104,7 @@ def serve_attachment(a, variant):
             return True
         return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)
 
-    attachment_serve(a, attachment, forum_id, lambda container: True, variant=variant, member=visible)
+    attachment_serve(a, attachment, forum_id, variant=variant, member=visible)
 
 # EVENTS
 
