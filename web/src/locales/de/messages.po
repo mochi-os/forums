@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:204
+#: ../../../lib/web/src/lib/error-normalizer.ts:236
 msgid "Please check your internet connection and try again."
 msgstr "Bitte überprüfe deine Internetverbindung und versuche es erneut."
 
@@ -27,7 +27,7 @@ msgstr " · Läuft ab {0}"
 msgid " · Permanent"
 msgstr " · Dauerhaft"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (bearbeitet)"
 
@@ -82,7 +82,7 @@ msgstr "{entityLabel}-Name ist erforderlich"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
-msgstr ""
+msgstr "{opponentName} hat ein Remis angeboten"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -104,18 +104,18 @@ msgstr "{selectedCount, plural, one {Sammelaktionen für # ausgewähltes {entity
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} von {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# Antwort} other {# Antworten}}"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:148
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menü öffnen (# ungelesene Benachrichtigung)} other {Menü öffnen (# ungelesene Benachrichtigungen)}}"
 
 #. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
-msgstr ""
+msgstr "+{0} verschachtelt"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -131,7 +131,7 @@ msgstr "Absolut (Datum und Uhrzeit)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
 msgid "Accept"
-msgstr ""
+msgstr "Annehmen"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -210,7 +210,7 @@ msgstr "Fügen Sie ein Konto hinzu, um Benachrichtigungen zu erhalten und Dienst
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
-msgstr ""
+msgstr "Checklisten-Eintrag hinzufügen"
 
 #: src/features/forums/components/create-post-dialog.tsx:337
 #: src/features/forums/components/edit-post-dialog.tsx:349
@@ -219,7 +219,7 @@ msgstr "Dateien hinzufügen"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
-msgstr ""
+msgstr "Eintrag hinzufügen ..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -291,11 +291,11 @@ msgstr "Allen erlauben, nach {0} zu suchen"
 msgid "Allow anyone to search for forum"
 msgstr "Allen erlauben, das Forum zu suchen"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:159
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:178
 msgid "An error occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
 msgid "An unexpected error occurred"
 msgstr "Ein unerwarteter Fehler ist aufgetreten"
 
@@ -316,12 +316,12 @@ msgstr "Jeder"
 msgid "Anyone who is logged in"
 msgstr "Alle angemeldeten Personen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "Genehmigen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Möchten Sie diesen Kommentar wirklich löschen? Dadurch werden auch alle Antworten gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
 
@@ -341,10 +341,10 @@ msgstr "Aufst."
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "Antwortdateien anhängen"
 
@@ -379,10 +379,10 @@ msgid "Back"
 msgstr "Zurück"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -404,7 +404,7 @@ msgstr "Zurück zur Startseite"
 msgid "Ban"
 msgstr "Sperren"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "Autor sperren"
@@ -425,6 +425,11 @@ msgstr "Banner entfernt"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Banner aktualisiert"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "Navigation zu nicht vertrauenswürdigem Link blockiert"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -457,14 +462,14 @@ msgstr "Von {0}"
 #: src/features/forums/components/create-post-dialog.tsx:345
 #: src/features/forums/components/edit-post-dialog.tsx:358
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "Antwort abbrechen"
 
@@ -481,13 +486,13 @@ msgstr "Benachrichtigungskategorie ändern"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Wählen Sie „Alle“, um frühere Benachrichtigungen zu sehen."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "Schauen Sie später wieder vorbei für neue Inhalte"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:38
 msgid "Choose a game from the sidebar or start a new one."
-msgstr ""
+msgstr "Wählen Sie ein Spiel aus der Seitenleiste aus oder starten Sie ein neues."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -600,11 +605,11 @@ msgstr "Demnächst verfügbar!"
 msgid "Command Palette"
 msgstr "Befehlspalette"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "Kommentar genehmigt"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "Kommentar gelöscht"
 
@@ -612,19 +617,19 @@ msgstr "Kommentar gelöscht"
 msgid "Comment limit"
 msgstr "Kommentar-Limit"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "Kommentar veröffentlicht"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "Kommentar entfernt"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "Kommentar wiederhergestellt"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "Kommentar aktualisiert"
 
@@ -720,7 +725,7 @@ msgstr "Verifizierung mit diesem Konto fehlgeschlagen. Bitte versuchen Sie es er
 msgid "Create {0}"
 msgstr "{0} erstellen"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "Neues Forum erstellen"
 
@@ -768,7 +773,7 @@ msgstr "Dunkel"
 msgid "Dark mode"
 msgstr "Dunkler Modus"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
 msgid "Data conflict"
 msgstr "Datenkonflikt"
 
@@ -778,7 +783,7 @@ msgstr "Tage"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
-msgstr ""
+msgstr "Ablehnen"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -793,15 +798,15 @@ msgstr "Standardkonto"
 msgid "Default AI account"
 msgstr "Standard-KI-Konto"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Kommentar löschen"
 
@@ -818,7 +823,7 @@ msgstr "Forum löschen?"
 msgid "Delete post"
 msgstr "Beitrag löschen"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "Konto auf dem alten Server löschen"
 
@@ -882,8 +887,8 @@ msgstr "Entwurf verwerfen?"
 msgid "Disconnected"
 msgstr "Getrennt"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "Schließen"
@@ -910,7 +915,7 @@ msgstr "Download fehlgeschlagen"
 msgid "Dyslexia-friendly"
 msgstr "Legasthenie-freundlich"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -976,14 +981,14 @@ msgid "Failed to add account"
 msgstr "Konto konnte nicht hinzugefügt werden"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "Tag konnte nicht hinzugefügt werden"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "Interesse konnte nicht angepasst werden"
 
@@ -991,7 +996,7 @@ msgstr "Interesse konnte nicht angepasst werden"
 msgid "Failed to approve items"
 msgstr "Elemente konnten nicht genehmigt werden"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "Benutzer konnte nicht gesperrt werden"
 
@@ -1084,7 +1089,7 @@ msgstr "Einschränkungen konnten nicht geladen werden"
 msgid "Failed to load video"
 msgstr "Video konnte nicht geladen werden"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "Benutzer konnte nicht stummgeschaltet werden"
 
@@ -1105,7 +1110,7 @@ msgid "Failed to remove account"
 msgstr "Konto konnte nicht entfernt werden"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "Interesse konnte nicht entfernt werden"
 
@@ -1163,12 +1168,12 @@ msgstr "Zugriffsebene konnte nicht festgelegt werden"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Abonnement fehlgeschlagen"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Abbestellen fehlgeschlagen"
@@ -1207,7 +1212,7 @@ msgstr "Foren finden"
 msgid "Fingerprint"
 msgstr "Fingerabdruck"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Kontoumzug abschließen"
 
@@ -1222,7 +1227,7 @@ msgstr "Schwebend"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Forum"
@@ -1264,7 +1269,7 @@ msgid "Forum unavailable"
 msgstr "Forum nicht verfügbar"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1353,7 +1358,7 @@ msgid "History"
 msgstr ""
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:175
 #: ../../../lib/web/src/components/layout/top-bar.tsx:71
 #: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
@@ -1392,16 +1397,16 @@ msgstr "Initialen-Avatar für {name}"
 msgid "Inset"
 msgstr "Eingerückt"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "Interesse erhöht"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "Interesse reduziert"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "Interesse entfernt"
 
@@ -1411,7 +1416,7 @@ msgstr "Interessen"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
-msgstr ""
+msgstr "Ungültiges Datum"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1516,8 +1521,8 @@ msgstr "Abmelden …"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Verwalten Sie Ihre verbundenen Konten für Benachrichtigungen und Dienste."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Alle als gelesen markieren"
@@ -1534,13 +1539,13 @@ msgstr "MCP-Server"
 msgid "Medium"
 msgstr "Mittel"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:190
 msgid "Menu"
 msgstr "Menü"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:35
 msgid "Message"
-msgstr ""
+msgstr "Nachricht"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1591,7 +1596,7 @@ msgstr "Weitere Optionen"
 msgid "Mute"
 msgstr "Stummschalten"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "Autor stummschalten"
@@ -1618,7 +1623,7 @@ msgid "Name must be 1000 characters or less"
 msgstr "Der Name darf höchstens 1000 Zeichen lang sein"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
 msgid "Network error"
 msgstr "Netzwerkfehler"
 
@@ -1634,7 +1639,7 @@ msgstr "Neues Forum"
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:42
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:54
 msgid "New game"
-msgstr ""
+msgstr "Neues Spiel"
 
 #: src/features/forums/components/create-post-dialog.tsx:200
 #: src/features/forums/components/create-post-dialog.tsx:205
@@ -1679,7 +1684,7 @@ msgstr "Keine Foren gefunden"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "No games yet"
-msgstr ""
+msgstr "Noch keine Spiele"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
@@ -1702,7 +1707,7 @@ msgstr "Keine Personen gefunden"
 msgid "No places found"
 msgstr "Keine Orte gefunden"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "Noch keine Beiträge in diesem Forum"
 
@@ -1776,7 +1781,7 @@ msgid "Notifications"
 msgstr "Benachrichtigungen"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "Benachrichtigungen: {0}"
 
@@ -1803,7 +1808,7 @@ msgstr "Kontoaktionen öffnen"
 msgid "Open actions"
 msgstr "Aktionen öffnen"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:149
 msgid "Open menu"
 msgstr "Menü öffnen"
 
@@ -1853,12 +1858,12 @@ msgstr "Passkey"
 msgid "Passkey verification failed. Please try again."
 msgstr "Die Passkey-Überprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Passkeys"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "Ausstehend"
@@ -1891,7 +1896,7 @@ msgstr "Angeheftet"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
 msgstr "Bitte überprüfe deine Internetverbindung und versuche es erneut."
 
@@ -1899,11 +1904,11 @@ msgstr "Bitte überprüfe deine Internetverbindung und versuche es erneut."
 msgid "Please describe the issue..."
 msgstr "Bitte beschreiben Sie das Problem..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "Bitte geben Sie einen Kommentar ein"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "Bitte geben Sie eine Antwort ein"
 
@@ -1927,7 +1932,7 @@ msgstr "Beitrag konnte nicht gespeichert werden — Titel oder Inhalt ist ungül
 msgid "Post couldn't be saved on the forum server"
 msgstr "Beitrag konnte auf dem Forumserver nicht gespeichert werden"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "Beitrag gelöscht"
 
@@ -1935,7 +1940,7 @@ msgstr "Beitrag gelöscht"
 msgid "Post limit"
 msgstr "Beitragslimit"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "Beitrag gesperrt"
 
@@ -1943,31 +1948,31 @@ msgstr "Beitrag gesperrt"
 msgid "Post not found"
 msgstr "Beitrag nicht gefunden"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "Beitrag angeheftet"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "Beitrag veröffentlicht."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "Beitrag entfernt"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "Beitrag wiederhergestellt"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "Beitrag entsperrt"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "Beitrag losgelöst"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "Beitrag aktualisiert"
 
@@ -2046,11 +2051,11 @@ msgstr "Erhöht"
 msgid "Rate limiting"
 msgstr "Ratenbegrenzung"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "Konten auf diesem Server erneut verknüpfen"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "Registrieren Sie Ihre Passkeys auf diesem Server erneut"
 
@@ -2137,7 +2142,7 @@ msgstr "Zugriffsregel für „{0}“ entfernen?"
 msgid "Remove access?"
 msgstr "Zugriff entfernen?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Kommentar entfernen"
 
@@ -2153,7 +2158,7 @@ msgstr "Interesse entfernen"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
 msgid "Remove item"
-msgstr ""
+msgstr "Element entfernen"
 
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
@@ -2164,7 +2169,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "Entfernen Sie dieses Forum aus Ihrer Seitenleiste."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "Entfernt"
@@ -2189,19 +2194,19 @@ msgstr "Antworten"
 msgid "Replies must be approved"
 msgstr "Antworten müssen genehmigt werden"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "Antworten"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "Antwort an {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "Melden"
@@ -2218,8 +2223,8 @@ msgstr "Beitrag melden"
 msgid "Report resolved"
 msgstr "Meldung gelöst"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "Meldung eingereicht"
 
@@ -2270,7 +2275,7 @@ msgstr "Alle Einstellungen auf Standardwerte zurücksetzen"
 msgid "Resolved"
 msgstr "Gelöst"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "Wiederherstellen"
@@ -2321,7 +2326,7 @@ msgstr "Samstag"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
@@ -2422,7 +2427,7 @@ msgstr "{0} auswählen"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:37
 msgid "Select a game"
-msgstr ""
+msgstr "Spiel auswählen"
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2495,7 +2500,7 @@ msgstr "Theme-Einstellung auswählen"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
 msgid "Select..."
-msgstr ""
+msgstr "Auswählen..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
@@ -2517,14 +2522,14 @@ msgstr "E-Mail senden"
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
 msgid "Send message"
-msgstr ""
+msgstr "Nachricht senden"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
 msgstr "Serife"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
 msgid "Server error"
 msgstr "Serverfehler"
 
@@ -2533,7 +2538,7 @@ msgstr "Serverfehler"
 msgid "Server rules"
 msgstr "Serverregeln"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
 msgid "Session expired. Please log in again."
 msgstr "Sitzung abgelaufen. Bitte melden Sie sich erneut an."
 
@@ -2541,8 +2546,8 @@ msgstr "Sitzung abgelaufen. Bitte melden Sie sich erneut an."
 msgid "Set origin and destination"
 msgstr "Ausgangspunkt und Ziel festlegen"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:93
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:99
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:109
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:115
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
@@ -2572,8 +2577,8 @@ msgstr "{totalShown} von {total} werden angezeigt"
 msgid "Sidebar"
 msgstr "Seitenleiste"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:105
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:111
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:121
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:127
 msgid "Sign out"
 msgstr "Abmelden"
 
@@ -2611,10 +2616,10 @@ msgstr "Bleiben Sie aber dran!"
 msgid "Subject"
 msgstr "Betreff"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "Antwort absenden"
 
@@ -2644,14 +2649,14 @@ msgstr "Abonniert"
 msgid "Subscribed to {0}"
 msgstr "{0} abonniert"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "Forum abonniert"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Wird abonniert..."
@@ -2715,6 +2720,13 @@ msgstr "Dieser Code ist falsch oder abgelaufen."
 msgid "The requested content could not be found."
 msgstr "Der angeforderte Inhalt wurde nicht gefunden."
 
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+#~ msgid "The server returned a web page instead of data, which usually means the address was wrong."
+#~ msgstr ""
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+msgid "The server returned a web page instead of data."
+msgstr "Der Server hat eine Webseite statt Daten zurückgegeben."
+
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
 msgid "The site is not available at the moment."
 msgstr "Die Website ist derzeit nicht verfügbar."
@@ -2755,7 +2767,7 @@ msgstr "Dieser Beitrag wurde bereits gesendet"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Dadurch werden alle Beiträge aus deiner Liste der gespeicherten Beiträge entfernt. Dies kann nicht rückgängig gemacht werden."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Dadurch wird der Kommentar vor regulären Benutzern ausgeblendet. Moderatoren können ihn weiterhin sehen und später wiederherstellen."
 
@@ -2768,7 +2780,7 @@ msgstr "Dadurch wird der Beitrag vor regulären Benutzern ausgeblendet. Moderato
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Damit werden \"{0}\" und alle zugehörigen Beiträge und Kommentare dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "Thread"
 
@@ -2865,7 +2877,7 @@ msgstr "Befehl eingeben oder suchen..."
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:39
 msgid "Type a message…"
-msgstr ""
+msgstr "Nachricht eingeben…"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
@@ -2875,7 +2887,7 @@ msgstr "Tippen, um Benutzer zu suchen"
 msgid "Type to search..."
 msgstr "Tippen, um zu suchen..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
 msgid "Unable to connect to remote server"
 msgstr "Verbindung zum Remote-Server nicht möglich"
 
@@ -2902,7 +2914,7 @@ msgid "United States"
 msgstr "Vereinigte Staaten"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2926,16 +2938,16 @@ msgstr "Abbestellen"
 msgid "Unsubscribe from forum"
 msgstr "Forum abbestellen"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "Forum abbestellen?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Abbestellt"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Wird abbestellt..."
@@ -2952,16 +2964,16 @@ msgstr "Upload-Fortschritt"
 msgid "Use your passkey"
 msgstr "Passkey verwenden"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:102
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Benutzer"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "Benutzer gesperrt"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "Benutzer stummgeschaltet"
 
@@ -3008,8 +3020,8 @@ msgstr "Ansicht"
 msgid "View all"
 msgstr "Alle anzeigen"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "Alle Benachrichtigungen anzeigen"
 
@@ -3057,7 +3069,7 @@ msgstr "Fensterdauer"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Sie haben dieses Forum bereits abonniert"
@@ -3082,7 +3094,7 @@ msgstr "Sie haben nicht die erforderliche Berechtigung, <0/>um diese Ressource a
 msgid "You don't have permission to post in this forum"
 msgstr "Du hast keine Berechtigung, in diesem Forum zu posten"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "Sie haben noch keine Foren."
 
@@ -3090,7 +3102,7 @@ msgstr "Sie haben noch keine Foren."
 msgid "You submitted the following values:"
 msgstr "Sie haben die folgenden Werte gesendet:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Du erhältst keine Aktualisierungen mehr aus diesem Forum. Du kannst das Forum jederzeit wieder abonnieren."
 
@@ -3098,7 +3110,7 @@ msgstr "Du erhältst keine Aktualisierungen mehr aus diesem Forum. Du kannst das
 msgid "You're all caught up!"
 msgstr "Sie sind auf dem neuesten Stand!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ihr Konto wurde von {source} hierher verschoben. Bis Sie es dort löschen, können Nachrichten und Benachrichtigungen beide Server erreichen, ein Teil Ihrer Inhalte wird weiterhin vom alten Server bereitgestellt, und Follower benötigen möglicherweise ein paar Minuten, um Sie hier zu finden."
 

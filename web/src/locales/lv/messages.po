@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:204
+#: ../../../lib/web/src/lib/error-normalizer.ts:236
 msgid "Please check your internet connection and try again."
 msgstr "Lūdzu, pārbaudiet interneta savienojumu un mēģiniet vēlreiz."
 
@@ -27,7 +27,7 @@ msgstr " · Beidzas {0}"
 msgid " · Permanent"
 msgstr " · Pastāvīgs"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (rediģēts)"
 
@@ -82,7 +82,7 @@ msgstr "{entityLabel} nosaukums ir obligāts"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
-msgstr ""
+msgstr "{opponentName} piedāvāja neizšķirtu"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -104,18 +104,18 @@ msgstr "{selectedCount, plural, zero {Lielapjoma darbības # atlasītiem {manyNa
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} no {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, zero {# atbilžu} one {# atbilde} other {# atbildes}}"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:148
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, zero {Atvērt izvēlni (# neizlasītu paziņojumu)} one {Atvērt izvēlni (# neizlasīts paziņojums)} other {Atvērt izvēlni (# neizlasīti paziņojumi)}}"
 
 #. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
-msgstr ""
+msgstr "+{0} ligzdoti"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -131,7 +131,7 @@ msgstr "Absolūts (datums un laiks)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
 msgid "Accept"
-msgstr ""
+msgstr "Pieņemt"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -210,7 +210,7 @@ msgstr "Pievieno kontu, lai saņemtu paziņojumus un izmantotu pakalpojumus."
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
-msgstr ""
+msgstr "Pievienot kontrolsaraksta vienumu"
 
 #: src/features/forums/components/create-post-dialog.tsx:337
 #: src/features/forums/components/edit-post-dialog.tsx:349
@@ -219,7 +219,7 @@ msgstr "Pievienot failus"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
-msgstr ""
+msgstr "Pievienot vienumu..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -291,11 +291,11 @@ msgstr "Atļaut ikvienam meklēt {0}"
 msgid "Allow anyone to search for forum"
 msgstr "Ļaut jebkuram meklēt forumu"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:159
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:178
 msgid "An error occurred"
 msgstr "Radās kļūda"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
 msgid "An unexpected error occurred"
 msgstr "Radās negaidīta kļūda"
 
@@ -316,12 +316,12 @@ msgstr "Jebkurš"
 msgid "Anyone who is logged in"
 msgstr "Jebkurš, kas ir pieteicies"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "Apstiprināt"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Vai tiešām vēlies dzēst šo komentāru? Tas dzēsīs arī visas atbildes. Šo darbību nevar atsaukt."
 
@@ -341,10 +341,10 @@ msgstr "Aug."
 msgid "Ascending"
 msgstr "Augošā secībā"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "Pievienot atbildes failus"
 
@@ -379,10 +379,10 @@ msgid "Back"
 msgstr "Atpakaļ"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -404,7 +404,7 @@ msgstr "Atpakaļ uz sākumu"
 msgid "Ban"
 msgstr "Bloķēt"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "Bloķēt autoru"
@@ -425,6 +425,11 @@ msgstr "Baneris noņemts"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Baneris atjaunināts"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "Navigācija uz neuzticamu saiti bloķēta"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -457,14 +462,14 @@ msgstr "No {0}"
 #: src/features/forums/components/create-post-dialog.tsx:345
 #: src/features/forums/components/edit-post-dialog.tsx:358
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "Atcelt atbildi"
 
@@ -481,13 +486,13 @@ msgstr "Mainīt paziņojuma kategoriju"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Atzīmējiet “Visi”, lai redzētu iepriekšējos paziņojumus."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "Pārbaudi vēlāk, vai nav jauna satura"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:38
 msgid "Choose a game from the sidebar or start a new one."
-msgstr ""
+msgstr "Izvēlies spēli no sānu joslas vai sāc jaunu."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -600,11 +605,11 @@ msgstr "Drīzumā!"
 msgid "Command Palette"
 msgstr "Komandu palete"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "Komentārs apstiprināts"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "Komentārs dzēsts"
 
@@ -612,19 +617,19 @@ msgstr "Komentārs dzēsts"
 msgid "Comment limit"
 msgstr "Komentāru ierobežojums"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "Komentārs publicēts"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "Komentārs noņemts"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "Komentārs atjaunots"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "Komentārs atjaunināts"
 
@@ -720,7 +725,7 @@ msgstr "Neizdevās verificēt ar šo kontu. Lūdzu, mēģiniet vēlreiz."
 msgid "Create {0}"
 msgstr "Izveidot {0}"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "Izveidot jaunu forumu"
 
@@ -768,7 +773,7 @@ msgstr "Tumšs"
 msgid "Dark mode"
 msgstr "Tumšais režīms"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
 msgid "Data conflict"
 msgstr "Datu konflikts"
 
@@ -778,7 +783,7 @@ msgstr "dienas"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
-msgstr ""
+msgstr "Noraidīt"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -793,15 +798,15 @@ msgstr "Noklusētais konts"
 msgid "Default AI account"
 msgstr "Noklusētais AI konts"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Dzēst"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Dzēst komentāru"
 
@@ -818,7 +823,7 @@ msgstr "Dzēst forumu?"
 msgid "Delete post"
 msgstr "Dzēst ierakstu"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "Dzēsiet savu kontu vecajā serverī"
 
@@ -882,8 +887,8 @@ msgstr "Atmest melnrakstu?"
 msgid "Disconnected"
 msgstr "Atvienots"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "Aizvērt"
@@ -910,7 +915,7 @@ msgstr "Lejupielāde neizdevās"
 msgid "Dyslexia-friendly"
 msgstr "Disleksijai draudzīgs"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "Rediģēt"
@@ -976,14 +981,14 @@ msgid "Failed to add account"
 msgstr "Neizdevās pievienot kontu"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "Neizdevās pievienot birku"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "Neizdevās pielāgot interesi"
 
@@ -991,7 +996,7 @@ msgstr "Neizdevās pielāgot interesi"
 msgid "Failed to approve items"
 msgstr "Neizdevās apstiprināt vienumus"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "Neizdevās aizliegt lietotāju"
 
@@ -1084,7 +1089,7 @@ msgstr "Neizdevās ielādēt ierobežojumus"
 msgid "Failed to load video"
 msgstr "Neizdevās ielādēt video"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "Neizdevās apklusināt lietotāju"
 
@@ -1105,7 +1110,7 @@ msgid "Failed to remove account"
 msgstr "Neizdevās noņemt kontu"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "Neizdevās noņemt interesi"
 
@@ -1163,12 +1168,12 @@ msgstr "Neizdevās iestatīt piekļuves līmeni"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Neizdevās abonēt"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Neizdevās atteikties no abonementa"
@@ -1207,7 +1212,7 @@ msgstr "Atrast forumus"
 msgid "Fingerprint"
 msgstr "Pirkstu nospiedums"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Pabeidziet konta pārvietošanu"
 
@@ -1222,7 +1227,7 @@ msgstr "Peldošs"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Forums"
@@ -1264,7 +1269,7 @@ msgid "Forum unavailable"
 msgstr "Forums nav pieejams"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1353,7 +1358,7 @@ msgid "History"
 msgstr ""
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:175
 #: ../../../lib/web/src/components/layout/top-bar.tsx:71
 #: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
@@ -1392,16 +1397,16 @@ msgstr "{name} iniciāļu avatars"
 msgid "Inset"
 msgstr "Iebūvēts"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "Interese palielināta"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "Interese samazināta"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "Interese noņemta"
 
@@ -1411,7 +1416,7 @@ msgstr "Intereses"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
-msgstr ""
+msgstr "Nederīgs datums"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1516,8 +1521,8 @@ msgstr "Izrakstās…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Pārvaldiet savus pievienotos kontus paziņojumiem un pakalpojumiem."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Atzīmēt visus kā lasītus"
@@ -1534,13 +1539,13 @@ msgstr "MCP serveris"
 msgid "Medium"
 msgstr "Vidējs"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:190
 msgid "Menu"
 msgstr "Izvēlne"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:35
 msgid "Message"
-msgstr ""
+msgstr "Ziņojums"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1591,7 +1596,7 @@ msgstr "Vairāk opciju"
 msgid "Mute"
 msgstr "Apklusināt"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "Apklusināt autoru"
@@ -1618,7 +1623,7 @@ msgid "Name must be 1000 characters or less"
 msgstr "Nosaukums nedrīkst pārsniegt 1000 rakstzīmes"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
 msgid "Network error"
 msgstr "Tīkla kļūda"
 
@@ -1634,7 +1639,7 @@ msgstr "Jauns forums"
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:42
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:54
 msgid "New game"
-msgstr ""
+msgstr "Jauna spēle"
 
 #: src/features/forums/components/create-post-dialog.tsx:200
 #: src/features/forums/components/create-post-dialog.tsx:205
@@ -1679,7 +1684,7 @@ msgstr "Forumi nav atrasti"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "No games yet"
-msgstr ""
+msgstr "Vēl nav spēļu"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
@@ -1702,7 +1707,7 @@ msgstr "Cilvēki nav atrasti"
 msgid "No places found"
 msgstr "Vietas nav atrastas"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "Šajā forumā vēl nav ierakstu"
 
@@ -1776,7 +1781,7 @@ msgid "Notifications"
 msgstr "Paziņojumi"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "Paziņojumi: {0}"
 
@@ -1803,7 +1808,7 @@ msgstr "Atvērt konta darbības"
 msgid "Open actions"
 msgstr "Atvērt darbības"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:149
 msgid "Open menu"
 msgstr "Atvērt izvēlni"
 
@@ -1853,12 +1858,12 @@ msgstr "Piekļuves atslēga"
 msgid "Passkey verification failed. Please try again."
 msgstr "Piekļuves atslēgas pārbaude neizdevās. Lūdzu, mēģiniet vēlreiz."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Piekļuves atslēgas"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "Gaida"
@@ -1891,7 +1896,7 @@ msgstr "Piesprausts"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
 msgstr "Lūdzu, pārbaudiet interneta savienojumu un mēģiniet vēlreiz."
 
@@ -1899,11 +1904,11 @@ msgstr "Lūdzu, pārbaudiet interneta savienojumu un mēģiniet vēlreiz."
 msgid "Please describe the issue..."
 msgstr "Lūdzu, aprakstiet problēmu..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "Lūdzu, ievadiet komentāru"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "Lūdzu, ievadiet atbildi"
 
@@ -1927,7 +1932,7 @@ msgstr "Ziņu neizdevās saglabāt — virsraksts vai saturs nav derīgs"
 msgid "Post couldn't be saved on the forum server"
 msgstr "Ziņu neizdevās saglabāt foruma serverī"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "Ieraksts izdzēsts"
 
@@ -1935,7 +1940,7 @@ msgstr "Ieraksts izdzēsts"
 msgid "Post limit"
 msgstr "Ierakstu limits"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "Ieraksts bloķēts"
 
@@ -1943,31 +1948,31 @@ msgstr "Ieraksts bloķēts"
 msgid "Post not found"
 msgstr "Ieraksts nav atrasts"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "Ieraksts piesprausts"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "Ieraksts publicēts."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "Ieraksts noņemts"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "Ieraksts atjaunots"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "Ieraksts atbloķēts"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "Ieraksts atsprausts"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "Ieraksts atjaunināts"
 
@@ -2046,11 +2051,11 @@ msgstr "Izcelts"
 msgid "Rate limiting"
 msgstr "Pieprasījumu ierobežošana"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "Atkārtoti saistiet savus kontus šajā serverī"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "Atkārtoti reģistrējiet savas piekļuves atslēgas šajā serverī"
 
@@ -2137,7 +2142,7 @@ msgstr "Vai noņemt piekļuves noteikumu “{0}”?"
 msgid "Remove access?"
 msgstr "Noņemt piekļuvi?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Noņemt komentāru"
 
@@ -2153,7 +2158,7 @@ msgstr "Noņemt interesi"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
 msgid "Remove item"
-msgstr ""
+msgstr "Noņemt vienumu"
 
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
@@ -2164,7 +2169,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "Noņemt šo forumu no sānu joslas."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "Noņemts"
@@ -2189,19 +2194,19 @@ msgstr "atbildes"
 msgid "Replies must be approved"
 msgstr "Atbildes jāapstiprina"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "Atbildēt"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "Atbildēt {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "Ziņot"
@@ -2218,8 +2223,8 @@ msgstr "Ziņot par ierakstu"
 msgid "Report resolved"
 msgstr "Ziņojums atrisināts"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "Ziņojums iesniegts"
 
@@ -2270,7 +2275,7 @@ msgstr "Atiestatīt visus iestatījumus uz noklusējuma vērtībām"
 msgid "Resolved"
 msgstr "Atrisināts"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "Atjaunot"
@@ -2321,7 +2326,7 @@ msgstr "Sestdiena"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
@@ -2422,7 +2427,7 @@ msgstr "Atlasīt {0}"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:37
 msgid "Select a game"
-msgstr ""
+msgstr "Atlasīt spēli"
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2495,7 +2500,7 @@ msgstr "Izvēlieties motīva preferenci"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
 msgid "Select..."
-msgstr ""
+msgstr "Izvēlieties..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
@@ -2517,14 +2522,14 @@ msgstr "Sūtīt e-pastu"
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
 msgid "Send message"
-msgstr ""
+msgstr "Sūtīt ziņu"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
 msgstr "Serifs"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
 msgid "Server error"
 msgstr "Servera kļūda"
 
@@ -2533,7 +2538,7 @@ msgstr "Servera kļūda"
 msgid "Server rules"
 msgstr "Servera noteikumi"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
 msgid "Session expired. Please log in again."
 msgstr "Sesija ir beigusies. Lūdzu, piesakieties vēlreiz."
 
@@ -2541,8 +2546,8 @@ msgstr "Sesija ir beigusies. Lūdzu, piesakieties vēlreiz."
 msgid "Set origin and destination"
 msgstr "Iestatīt sākuma un galapunktu"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:93
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:99
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:109
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:115
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
@@ -2572,8 +2577,8 @@ msgstr "Tiek rādīti {totalShown} no {total}"
 msgid "Sidebar"
 msgstr "Sānu josla"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:105
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:111
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:121
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:127
 msgid "Sign out"
 msgstr "Atteikties"
 
@@ -2611,10 +2616,10 @@ msgstr "Tomēr palieciet uz viļņa!"
 msgid "Subject"
 msgstr "Tēma"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "Iesniegt atbildi"
 
@@ -2644,14 +2649,14 @@ msgstr "Abonēts"
 msgid "Subscribed to {0}"
 msgstr "Abonēts {0}"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "Abonēts forums"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Notiek abonēšana..."
@@ -2715,6 +2720,13 @@ msgstr "Šis kods ir nepareizs vai tā derīguma termiņš ir beidzies."
 msgid "The requested content could not be found."
 msgstr "Pieprasīto saturu neizdevās atrast."
 
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+#~ msgid "The server returned a web page instead of data, which usually means the address was wrong."
+#~ msgstr ""
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+msgid "The server returned a web page instead of data."
+msgstr "Serveris atgrieza tīmekļa lapu, nevis datus."
+
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
 msgid "The site is not available at the moment."
 msgstr "Vietne pašlaik nav pieejama."
@@ -2755,7 +2767,7 @@ msgstr "Šī ziņa jau ir nosūtīta"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Tas noņem katru ierakstu no jūsu saglabāto saraksta. To nevar atsaukt."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Tas paslēps komentāru no parastajiem lietotājiem. Moderatori joprojām var to redzēt un vēlāk atjaunot."
 
@@ -2768,7 +2780,7 @@ msgstr "Tas paslēps ziņu no parastajiem lietotājiem. Moderatori joprojām var
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Tas neatgriezeniski izdzēsīs \"{0}\" un visas tā ziņas un komentārus. Šo darbību nevar atsaukt."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "Pavediens"
 
@@ -2865,7 +2877,7 @@ msgstr "Ierakstiet komandu vai meklējiet..."
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:39
 msgid "Type a message…"
-msgstr ""
+msgstr "Ierakstiet ziņu…"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
@@ -2875,7 +2887,7 @@ msgstr "Ierakstiet, lai meklētu lietotājus"
 msgid "Type to search..."
 msgstr "Ierakstiet, lai meklētu..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
 msgid "Unable to connect to remote server"
 msgstr "Neizdevās izveidot savienojumu ar attālo serveri"
 
@@ -2902,7 +2914,7 @@ msgid "United States"
 msgstr "Amerikas Savienotās Valstis"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2926,16 +2938,16 @@ msgstr "Atrakstīties"
 msgid "Unsubscribe from forum"
 msgstr "Atrakstīties no foruma"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "Atrakstīties no foruma?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Atrakstīts"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Notiek atrakstīšanās..."
@@ -2952,16 +2964,16 @@ msgstr "Augšupielādes norise"
 msgid "Use your passkey"
 msgstr "Izmantojiet savu piekļuves atslēgu"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:102
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Lietotājs"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "Lietotājs bloķēts"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "Lietotājs apklusināts"
 
@@ -3008,8 +3020,8 @@ msgstr "Skatīt"
 msgid "View all"
 msgstr "Skatīt visu"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "Skatīt visus paziņojumus"
 
@@ -3057,7 +3069,7 @@ msgstr "Loga ilgums"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Jūs jau abonējat šo forumu"
@@ -3082,7 +3094,7 @@ msgstr "Jums nav nepieciešamās atļaujas, <0/>lai skatītu šo resursu."
 msgid "You don't have permission to post in this forum"
 msgstr "Jums nav atļaujas publicēt šajā forumā"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "Jums vēl nav neviena foruma."
 
@@ -3090,7 +3102,7 @@ msgstr "Jums vēl nav neviena foruma."
 msgid "You submitted the following values:"
 msgstr "Jūs iesniedzāt šādas vērtības:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Jūs vairs nesaņemsiet atjauninājumus no šī foruma. Jūs varat atkārtoti pierakstīties jebkurā laikā."
 
@@ -3098,7 +3110,7 @@ msgstr "Jūs vairs nesaņemsiet atjauninājumus no šī foruma. Jūs varat atkā
 msgid "You're all caught up!"
 msgstr "Jūs esat visu izlasījis!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Jūsu konts tika pārvietots šeit no {source}. Kamēr to tur nedzēšat, ziņojumi un paziņojumi var sasniegt abus serverus, daļa jūsu satura joprojām tiek apkalpota no vecā servera un sekotājiem var paiet dažas minūtes, lai atrastu jūs šeit."
 

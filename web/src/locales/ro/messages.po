@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:204
+#: ../../../lib/web/src/lib/error-normalizer.ts:236
 msgid "Please check your internet connection and try again."
 msgstr "Verifică conexiunea la internet și încearcă din nou."
 
@@ -27,7 +27,7 @@ msgstr " · Expiră {0}"
 msgid " · Permanent"
 msgstr " · Permanent"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (editat)"
 
@@ -82,7 +82,7 @@ msgstr "Numele {entityLabel} este obligatoriu"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
-msgstr ""
+msgstr "{opponentName} a oferit egalitate"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -104,18 +104,18 @@ msgstr "{selectedCount, plural, one {Acțiuni în masă pentru # {entityName} se
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} din {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# răspuns} few {# răspunsuri} other {# de răspunsuri}}"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:148
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Deschideți meniul (# notificare necitită)} few {Deschideți meniul (# notificări necitite)} other {Deschideți meniul (# de notificări necitite)}}"
 
 #. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
-msgstr ""
+msgstr "+{0} imbricate"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -131,7 +131,7 @@ msgstr "Absolut (dată și oră)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -210,7 +210,7 @@ msgstr "Adaugă un cont pentru a primi notificări și a folosi servicii."
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
-msgstr ""
+msgstr "Adaugă element în listă"
 
 #: src/features/forums/components/create-post-dialog.tsx:337
 #: src/features/forums/components/edit-post-dialog.tsx:349
@@ -219,7 +219,7 @@ msgstr "Adaugă fișiere"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
-msgstr ""
+msgstr "Adaugă element..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -291,11 +291,11 @@ msgstr "Permiteți oricui să caute {0}"
 msgid "Allow anyone to search for forum"
 msgstr "Permite oricui să caute forumul"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:159
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:178
 msgid "An error occurred"
 msgstr "A apărut o eroare"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
 msgid "An unexpected error occurred"
 msgstr "A apărut o eroare neașteptată"
 
@@ -316,12 +316,12 @@ msgstr "Oricine"
 msgid "Anyone who is logged in"
 msgstr "Oricine este autentificat"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "Aprobă"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Sigur vrei să ștergi acest comentariu? Asta va șterge și toate răspunsurile. Această acțiune nu poate fi anulată."
 
@@ -341,10 +341,10 @@ msgstr "Cresc."
 msgid "Ascending"
 msgstr "Crescător"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "Atașează fișiere la răspuns"
 
@@ -379,10 +379,10 @@ msgid "Back"
 msgstr "Înapoi"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -404,7 +404,7 @@ msgstr "Înapoi la pornire"
 msgid "Ban"
 msgstr "Blochează"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "Blochează autorul"
@@ -425,6 +425,11 @@ msgstr "Banner eliminat"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Banner actualizat"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "Navigare blocată către un link nesigur"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -457,14 +462,14 @@ msgstr "De {0}"
 #: src/features/forums/components/create-post-dialog.tsx:345
 #: src/features/forums/components/edit-post-dialog.tsx:358
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "Anulează răspunsul"
 
@@ -481,13 +486,13 @@ msgstr "Schimbă categoria notificării"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Bifați „Toate” pentru a vedea notificările anterioare."
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "Revino mai târziu pentru conținut nou"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:38
 msgid "Choose a game from the sidebar or start a new one."
-msgstr ""
+msgstr "Alege un joc din bara laterală sau începe unul nou."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -600,11 +605,11 @@ msgstr "În curând!"
 msgid "Command Palette"
 msgstr "Paleta de comenzi"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "Comentariu aprobat"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "Comentariu șters"
 
@@ -612,19 +617,19 @@ msgstr "Comentariu șters"
 msgid "Comment limit"
 msgstr "Limită de comentarii"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "Comentariu publicat"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "Comentariu eliminat"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "Comentariu restaurat"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "Comentariu actualizat"
 
@@ -720,7 +725,7 @@ msgstr "Nu s-a putut verifica cu acel cont. Încearcă din nou."
 msgid "Create {0}"
 msgstr "Creați {0}"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "Creează un forum nou"
 
@@ -768,7 +773,7 @@ msgstr "Întunecat"
 msgid "Dark mode"
 msgstr "Mod întunecat"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
 msgid "Data conflict"
 msgstr "Conflict de date"
 
@@ -778,7 +783,7 @@ msgstr "zile"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
-msgstr ""
+msgstr "Respinge"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -793,15 +798,15 @@ msgstr "Cont implicit"
 msgid "Default AI account"
 msgstr "Cont AI implicit"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Șterge"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Șterge comentariul"
 
@@ -818,7 +823,7 @@ msgstr "Ștergi forumul?"
 msgid "Delete post"
 msgstr "Șterge postarea"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "Ștergeți contul de pe serverul vechi"
 
@@ -882,8 +887,8 @@ msgstr "Renunți la ciornă?"
 msgid "Disconnected"
 msgstr "Deconectat"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "Renunță"
@@ -910,7 +915,7 @@ msgstr "Descărcarea a eșuat"
 msgid "Dyslexia-friendly"
 msgstr "Potrivit pentru dislexie"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "Editează"
@@ -976,14 +981,14 @@ msgid "Failed to add account"
 msgstr "Adăugarea contului a eșuat"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "Adăugarea etichetei a eșuat"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "Ajustarea interesului a eșuat"
 
@@ -991,7 +996,7 @@ msgstr "Ajustarea interesului a eșuat"
 msgid "Failed to approve items"
 msgstr "Aprobarea elementelor a eșuat"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "Banarea utilizatorului a eșuat"
 
@@ -1084,7 +1089,7 @@ msgstr "Încărcarea restricțiilor a eșuat"
 msgid "Failed to load video"
 msgstr "Videoclipul nu a putut fi încărcat"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "Dezactivarea utilizatorului a eșuat"
 
@@ -1105,7 +1110,7 @@ msgid "Failed to remove account"
 msgstr "Eliminarea contului a eșuat"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "Eliminarea interesului a eșuat"
 
@@ -1163,12 +1168,12 @@ msgstr "Setarea nivelului de acces a eșuat"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Abonarea a eșuat"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "Dezabonarea a eșuat"
@@ -1207,7 +1212,7 @@ msgstr "Găsește forumuri"
 msgid "Fingerprint"
 msgstr "Amprentă"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Finalizați mutarea contului dvs."
 
@@ -1222,7 +1227,7 @@ msgstr "Flotant"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Forum"
@@ -1264,7 +1269,7 @@ msgid "Forum unavailable"
 msgstr "Forum indisponibil"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1353,7 +1358,7 @@ msgid "History"
 msgstr ""
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:175
 #: ../../../lib/web/src/components/layout/top-bar.tsx:71
 #: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
@@ -1392,16 +1397,16 @@ msgstr "Avatar cu inițiale pentru {name}"
 msgid "Inset"
 msgstr "Încastrat"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "Interes amplificat"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "Interes redus"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "Interes eliminat"
 
@@ -1411,7 +1416,7 @@ msgstr "Interese"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
-msgstr ""
+msgstr "Dată invalidă"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1516,8 +1521,8 @@ msgstr "Se deconectează…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Gestionați conturile conectate pentru notificări și servicii."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Marchează totul ca citit"
@@ -1534,13 +1539,13 @@ msgstr "Server MCP"
 msgid "Medium"
 msgstr "Mediu"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:190
 msgid "Menu"
 msgstr "Meniu"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:35
 msgid "Message"
-msgstr ""
+msgstr "Mesaj"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1591,7 +1596,7 @@ msgstr "Mai multe opțiuni"
 msgid "Mute"
 msgstr "Dezactivează sunetul"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "Dezactivează autorul"
@@ -1618,7 +1623,7 @@ msgid "Name must be 1000 characters or less"
 msgstr "Numele trebuie să aibă cel mult 1000 de caractere"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
 msgid "Network error"
 msgstr "Eroare de rețea"
 
@@ -1634,7 +1639,7 @@ msgstr "Forum nou"
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:42
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:54
 msgid "New game"
-msgstr ""
+msgstr "Joc nou"
 
 #: src/features/forums/components/create-post-dialog.tsx:200
 #: src/features/forums/components/create-post-dialog.tsx:205
@@ -1679,7 +1684,7 @@ msgstr "Nu s-au găsit forumuri"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "No games yet"
-msgstr ""
+msgstr "Încă niciun joc"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
@@ -1702,7 +1707,7 @@ msgstr "Nu s-au găsit persoane"
 msgid "No places found"
 msgstr "Nu s-au găsit locuri"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "Încă nicio postare în acest forum"
 
@@ -1776,7 +1781,7 @@ msgid "Notifications"
 msgstr "Notificări"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "Notificări: {0}"
 
@@ -1803,7 +1808,7 @@ msgstr "Deschide acțiuni cont"
 msgid "Open actions"
 msgstr "Deschide acțiunile"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:149
 msgid "Open menu"
 msgstr "Deschide meniul"
 
@@ -1853,12 +1858,12 @@ msgstr "Cheie de acces"
 msgid "Passkey verification failed. Please try again."
 msgstr "Verificarea cheii de acces a eșuat. Încearcă din nou."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Chei de acces"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "În așteptare"
@@ -1891,7 +1896,7 @@ msgstr "Fixat"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
 msgstr "Verifică conexiunea la internet și încearcă din nou."
 
@@ -1899,11 +1904,11 @@ msgstr "Verifică conexiunea la internet și încearcă din nou."
 msgid "Please describe the issue..."
 msgstr "Descrie problema..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "Introdu un comentariu"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "Introdu un răspuns"
 
@@ -1927,7 +1932,7 @@ msgstr "Postarea nu a putut fi salvată — titlul sau conținutul este invalid"
 msgid "Post couldn't be saved on the forum server"
 msgstr "Postarea nu a putut fi salvată pe serverul forumului"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "Postare ștearsă"
 
@@ -1935,7 +1940,7 @@ msgstr "Postare ștearsă"
 msgid "Post limit"
 msgstr "Limită postări"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "Postare blocată"
 
@@ -1943,31 +1948,31 @@ msgstr "Postare blocată"
 msgid "Post not found"
 msgstr "Postarea nu a fost găsită"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "Postare fixată"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "Postare publicată."
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "Postare eliminată"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "Postare restaurată"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "Postare deblocată"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "Postare anulată din fixare"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "Postare actualizată"
 
@@ -2046,11 +2051,11 @@ msgstr "Ridicat"
 msgid "Rate limiting"
 msgstr "Limitare rată"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "Reconectați conturile pe acest server"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "Reînregistrați-vă cheile de acces pe acest server"
 
@@ -2137,7 +2142,7 @@ msgstr "Eliminați regula de acces pentru „{0}”?"
 msgid "Remove access?"
 msgstr "Elimini accesul?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Elimină comentariul"
 
@@ -2153,7 +2158,7 @@ msgstr "Elimină interesul"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
 msgid "Remove item"
-msgstr ""
+msgstr "Elimină articolul"
 
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
@@ -2164,7 +2169,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "Elimină acest forum din bara laterală."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "Eliminat"
@@ -2189,19 +2194,19 @@ msgstr "răspunsuri"
 msgid "Replies must be approved"
 msgstr "Răspunsurile trebuie aprobate"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "Răspunde"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "Răspunde lui {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "Raportează"
@@ -2218,8 +2223,8 @@ msgstr "Raportează postarea"
 msgid "Report resolved"
 msgstr "Raport rezolvat"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "Raport trimis"
 
@@ -2270,7 +2275,7 @@ msgstr "Resetează toate setările la valorile implicite"
 msgid "Resolved"
 msgstr "Rezolvat"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "Restaurează"
@@ -2321,7 +2326,7 @@ msgstr "Sâmbătă"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
@@ -2422,7 +2427,7 @@ msgstr "Selectați {0}"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:37
 msgid "Select a game"
-msgstr ""
+msgstr "Selectează un joc"
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2495,7 +2500,7 @@ msgstr "Selectează preferința de temă"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
 msgid "Select..."
-msgstr ""
+msgstr "Selectează..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
@@ -2517,14 +2522,14 @@ msgstr "Trimite email"
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
 msgid "Send message"
-msgstr ""
+msgstr "Trimite mesajul"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
 msgstr "Cu serife"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
 msgid "Server error"
 msgstr "Eroare de server"
 
@@ -2533,7 +2538,7 @@ msgstr "Eroare de server"
 msgid "Server rules"
 msgstr "Regulile serverului"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
 msgid "Session expired. Please log in again."
 msgstr "Sesiunea a expirat. Autentificați-vă din nou."
 
@@ -2541,8 +2546,8 @@ msgstr "Sesiunea a expirat. Autentificați-vă din nou."
 msgid "Set origin and destination"
 msgstr "Setează originea și destinația"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:93
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:99
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:109
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:115
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
@@ -2572,8 +2577,8 @@ msgstr "Se afișează {totalShown} din {total}"
 msgid "Sidebar"
 msgstr "Bară laterală"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:105
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:111
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:121
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:127
 msgid "Sign out"
 msgstr "Deconectează-te"
 
@@ -2611,10 +2616,10 @@ msgstr "Rămâi pe aproape totuși!"
 msgid "Subject"
 msgstr "Subiect"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "Trimite răspunsul"
 
@@ -2644,14 +2649,14 @@ msgstr "Abonat"
 msgid "Subscribed to {0}"
 msgstr "Abonat la {0}"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "Abonat la forum"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Se abonează..."
@@ -2715,6 +2720,13 @@ msgstr "Acel cod este incorect sau a expirat."
 msgid "The requested content could not be found."
 msgstr "Conținutul solicitat nu a putut fi găsit."
 
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+#~ msgid "The server returned a web page instead of data, which usually means the address was wrong."
+#~ msgstr ""
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+msgid "The server returned a web page instead of data."
+msgstr "Serverul a returnat o pagină web în loc de date."
+
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
 msgid "The site is not available at the moment."
 msgstr "Site-ul nu este disponibil momentan."
@@ -2755,7 +2767,7 @@ msgstr "Această postare a fost deja trimisă"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Aceasta elimină fiecare postare din lista ta de salvate. Acțiunea nu poate fi anulată."
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Aceasta va ascunde comentariul de utilizatorii obișnuiți. Moderatorii îl pot vedea în continuare și îl pot restaura mai târziu."
 
@@ -2768,7 +2780,7 @@ msgstr "Aceasta va ascunde postarea de utilizatorii obișnuiți. Moderatorii o p
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Aceasta va șterge definitiv „{0}” și toate postările și comentariile sale. Această acțiune nu poate fi anulată."
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "Discuție"
 
@@ -2865,7 +2877,7 @@ msgstr "Tastează o comandă sau caută..."
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:39
 msgid "Type a message…"
-msgstr ""
+msgstr "Tastează un mesaj…"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
@@ -2875,7 +2887,7 @@ msgstr "Tastează pentru a căuta utilizatori"
 msgid "Type to search..."
 msgstr "Tastează pentru a căuta..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
 msgid "Unable to connect to remote server"
 msgstr "Nu se poate conecta la serverul la distanță"
 
@@ -2902,7 +2914,7 @@ msgid "United States"
 msgstr "Statele Unite"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2926,16 +2938,16 @@ msgstr "Dezabonează-te"
 msgid "Unsubscribe from forum"
 msgstr "Dezabonează-te de la forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "Anulezi abonarea la forum?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "Dezabonat"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "Se dezabonează..."
@@ -2952,16 +2964,16 @@ msgstr "Progresul încărcării"
 msgid "Use your passkey"
 msgstr "Folosește cheia de acces"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:102
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Utilizator"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "Utilizator interzis"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "Utilizator amuțit"
 
@@ -3008,8 +3020,8 @@ msgstr "Vizualizează"
 msgid "View all"
 msgstr "Vizualizează tot"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "Vizualizează toate notificările"
 
@@ -3057,7 +3069,7 @@ msgstr "Durata ferestrei"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Ești deja abonat la acest forum"
@@ -3082,7 +3094,7 @@ msgstr "Nu aveți permisiunea necesară <0/>pentru a vizualiza această resursă
 msgid "You don't have permission to post in this forum"
 msgstr "Nu ai permisiunea să postezi pe acest forum"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "Nu ai încă niciun forum."
 
@@ -3090,7 +3102,7 @@ msgstr "Nu ai încă niciun forum."
 msgid "You submitted the following values:"
 msgstr "Ați trimis următoarele valori:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nu vei mai primi actualizări de la acest forum. Te poți reabona oricând."
 
@@ -3098,7 +3110,7 @@ msgstr "Nu vei mai primi actualizări de la acest forum. Te poți reabona oricâ
 msgid "You're all caught up!"
 msgstr "Sunteți la zi!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Contul dvs. a fost mutat aici de la {source}. Până când îl ștergeți de acolo, mesajele și notificările pot ajunge pe ambele servere, o parte din conținutul dvs. continuă să fie servit de pe serverul vechi, iar urmăritorii pot avea nevoie de câteva minute pentru a vă găsi aici."
 

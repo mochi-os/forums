@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:204
+#: ../../../lib/web/src/lib/error-normalizer.ts:236
 msgid "Please check your internet connection and try again."
 msgstr "እባክዎ የበይነመረብ ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ።"
 
@@ -27,7 +27,7 @@ msgstr " · ያበቃል {0}"
 msgid " · Permanent"
 msgstr " · ቋሚ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:267
+#: src/features/forums/components/thread/thread-comment.tsx:270
 msgid " (edited)"
 msgstr " (ተስተካክሏል)"
 
@@ -82,7 +82,7 @@ msgstr "የ{entityLabel} ስም ያስፈልጋል"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
-msgstr ""
+msgstr "{opponentName} አቻ አቅርቧል"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -104,18 +104,18 @@ msgstr "{selectedCount, plural, one {ለ# የተመረጠ {entityName} የጅም
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} ከ {totalLabel}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:253
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# መልስ} other {# መልሶች}}"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:148
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {ምናሌን ክፈት (# ያልተነበበ ማሳወቂያ)} other {ምናሌን ክፈት (# ያልተነበቡ ማሳወቂያዎች)}}"
 
 #. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
-msgstr ""
+msgstr "+{0} የተነባበሩ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -131,7 +131,7 @@ msgstr "ፍጹም (ቀንና ሰዓት)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
 msgid "Accept"
-msgstr ""
+msgstr "ተቀበል"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Access"
@@ -210,7 +210,7 @@ msgstr "ማሳወቂያዎችን ለመቀበልና አገልግሎቶችን ለ
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
-msgstr ""
+msgstr "የዝርዝር ንጥል ጨምር"
 
 #: src/features/forums/components/create-post-dialog.tsx:337
 #: src/features/forums/components/edit-post-dialog.tsx:349
@@ -219,7 +219,7 @@ msgstr "ፋይሎችን ጨምር"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
-msgstr ""
+msgstr "ንጥል ጨምር..."
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
@@ -291,11 +291,11 @@ msgstr "ማንኛውም ሰው {0} እንዲፈልግ ፍቀድ"
 msgid "Allow anyone to search for forum"
 msgstr "ማንኛውም ሰው ፎረሙን እንዲፈልግ ፍቀድ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:159
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:178
 msgid "An error occurred"
 msgstr "ስህተት ተከስቷል"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
 msgid "An unexpected error occurred"
 msgstr "ያልተጠበቀ ስህተት ተከስቷል"
 
@@ -316,12 +316,12 @@ msgstr "ማንኛውም ሰው"
 msgid "Anyone who is logged in"
 msgstr "የገባ ማንኛውም ሰው"
 
-#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
 msgstr "አጽድቅ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:509
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "ይህን አስተያየት መሰረዝ እንደምትፈልግ እርግጠኛ ነህ? ይህ ሁሉንም ምላሾችም ይሰርዛል። ይህ እርምጃ ሊቀለበስ አይችልም።"
 
@@ -341,10 +341,10 @@ msgstr "ዕርገት"
 msgid "Ascending"
 msgstr "ከታች ወደ ላይ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:584
 #: src/features/forums/components/thread/thread-comment.tsx:588
-#: src/features/forums/thread-detail.tsx:580
+#: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
+#: src/features/forums/thread-detail.tsx:588
 msgid "Attach reply files"
 msgstr "የምላሽ ፋይሎችን አያይዝ"
 
@@ -379,10 +379,10 @@ msgid "Back"
 msgstr "ተመለስ"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:366
-#: src/features/forums/thread-detail.tsx:378
-#: src/features/forums/thread-detail.tsx:399
-#: src/features/forums/thread-detail.tsx:473
+#: src/features/forums/thread-detail.tsx:367
+#: src/features/forums/thread-detail.tsx:379
+#: src/features/forums/thread-detail.tsx:400
+#: src/features/forums/thread-detail.tsx:474
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -404,7 +404,7 @@ msgstr "ወደ መነሻ ተመለስ"
 msgid "Ban"
 msgstr "አግድ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:493
+#: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-content.tsx:399
 msgid "Ban author"
 msgstr "ደራሲን አግድ"
@@ -425,6 +425,11 @@ msgstr "ባነር ተወግዷል"
 #: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "ባነር ተዘምኗል"
+
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "ወደማይታመን አገናኝ ማሰስ ተከልክሏል"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
@@ -457,14 +462,14 @@ msgstr "በ {0}"
 #: src/features/forums/components/create-post-dialog.tsx:345
 #: src/features/forums/components/edit-post-dialog.tsx:358
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:302
+#: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
 msgstr "ይቅር"
 
-#: src/features/forums/components/thread/thread-comment.tsx:599
-#: src/features/forums/components/thread/thread-comment.tsx:604
-#: src/features/forums/thread-detail.tsx:594
-#: src/features/forums/thread-detail.tsx:600
+#: src/features/forums/components/thread/thread-comment.tsx:603
+#: src/features/forums/components/thread/thread-comment.tsx:608
+#: src/features/forums/thread-detail.tsx:598
+#: src/features/forums/thread-detail.tsx:604
 msgid "Cancel reply"
 msgstr "ምላሽ ሰርዝ"
 
@@ -481,13 +486,13 @@ msgstr "የማሳወቂያ ምድብ ለውጥ"
 msgid "Check \"All\" to see your past notifications."
 msgstr "ያለፉ ማሳወቂያዎችዎን ለማየት \"ሁሉም\" የሚለውን ይምረጡ።"
 
-#: src/features/forums/components/forum-overview.tsx:147
+#: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "ለአዲስ ይዘት በኋላ ተመለስ"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:38
 msgid "Choose a game from the sidebar or start a new one."
-msgstr ""
+msgstr "ከጎን አሞሌ ጨዋታ ምረጥ ወይም አዲስ ጀምር።"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -600,11 +605,11 @@ msgstr "በቅርብ ይመጣል!"
 msgid "Command Palette"
 msgstr "የትዕዛዝ ፓሌት"
 
-#: src/hooks/use-forums-queries.ts:561
+#: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
 msgstr "አስተያየት ጸድቋል"
 
-#: src/hooks/use-forums-queries.ts:367
+#: src/hooks/use-forums-queries.ts:383
 msgid "Comment deleted"
 msgstr "አስተያየት ተሰርዟል"
 
@@ -612,19 +617,19 @@ msgstr "አስተያየት ተሰርዟል"
 msgid "Comment limit"
 msgstr "የአስተያየት ገደብ"
 
-#: src/hooks/use-forums-queries.ts:244
+#: src/hooks/use-forums-queries.ts:254
 msgid "Comment posted"
 msgstr "አስተያየት ተለጥፏል"
 
-#: src/hooks/use-forums-queries.ts:533
+#: src/hooks/use-forums-queries.ts:549
 msgid "Comment removed"
 msgstr "አስተያየት ተወግዷል"
 
-#: src/hooks/use-forums-queries.ts:547
+#: src/hooks/use-forums-queries.ts:563
 msgid "Comment restored"
 msgstr "አስተያየት ተመልሷል"
 
-#: src/hooks/use-forums-queries.ts:347
+#: src/hooks/use-forums-queries.ts:363
 msgid "Comment updated"
 msgstr "አስተያየት ተዘምኗል"
 
@@ -720,7 +725,7 @@ msgstr "በዚያ መለያ ማረጋገጥ አልተቻለም። እባክዎ �
 msgid "Create {0}"
 msgstr "{0} ፍጠር"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 msgid "Create a new forum"
 msgstr "አዲስ መድረክ ፍጠር"
 
@@ -768,7 +773,7 @@ msgstr "ጨለማ"
 msgid "Dark mode"
 msgstr "ጨለማ ሁነታ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
 msgid "Data conflict"
 msgstr "የውሂብ ግጭት"
 
@@ -778,7 +783,7 @@ msgstr "ቀናት"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
-msgstr ""
+msgstr "አትቀበል"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 #: src/routes/_authenticated/$forum_.settings.tsx:704
@@ -793,15 +798,15 @@ msgstr "ነባሪ መለያ"
 msgid "Default AI account"
 msgstr "ነባሪ የAI መለያ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:441
+#: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
 #: src/features/forums/components/thread/thread-content.tsx:416
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "ሰርዝ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "አስተያየት ሰርዝ"
 
@@ -818,7 +823,7 @@ msgstr "መድረክ ይሰረዝ?"
 msgid "Delete post"
 msgstr "ልጥፍ ሰርዝ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "በድሮ ሰርቨር ላይ ያለ መለያህን ሰርዝ"
 
@@ -882,8 +887,8 @@ msgstr "ረቂቁን ይጣል?"
 msgid "Disconnected"
 msgstr "ተቋርጧል"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:708
 msgid "Dismiss"
 msgstr "አጥፋ"
@@ -910,7 +915,7 @@ msgstr "ማውረድ አልተሳካም"
 msgid "Dyslexia-friendly"
 msgstr "ለዲስሌክሲያ ምቹ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:432
+#: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
 msgstr "አስተካክል"
@@ -976,14 +981,14 @@ msgid "Failed to add account"
 msgstr "መለያ መጨመር አልተሳካም"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:276
+#: src/features/forums/thread-detail.tsx:277
 msgid "Failed to add tag"
 msgstr "መለያ መጨመር አልተሳካም"
 
 #: src/features/forums/pages/entity-forum-page.tsx:231
 #: src/features/forums/pages/entity-forum-page.tsx:242
-#: src/features/forums/thread-detail.tsx:287
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:288
+#: src/features/forums/thread-detail.tsx:300
 msgid "Failed to adjust interest"
 msgstr "ፍላጎትን ማስተካከል አልተሳካም"
 
@@ -991,7 +996,7 @@ msgstr "ፍላጎትን ማስተካከል አልተሳካም"
 msgid "Failed to approve items"
 msgstr "ንጥሎችን ማጽደቅ አልተሳካም"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "Failed to ban user"
 msgstr "ተጠቃሚን መከልከል አልተሳካም"
 
@@ -1084,7 +1089,7 @@ msgstr "ገደቦችን መጫን አልተሳካም"
 msgid "Failed to load video"
 msgstr "ቪዲዮውን መጫን አልተሳካም"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "Failed to mute user"
 msgstr "ተጠቃሚን ዝም ማሰኘት አልተሳካም"
 
@@ -1105,7 +1110,7 @@ msgid "Failed to remove account"
 msgstr "መለያን ማስወገድ አልተሳካም"
 
 #: src/features/forums/pages/entity-forum-page.tsx:254
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:312
 msgid "Failed to remove interest"
 msgstr "ፍላጎትን ማስወገድ አልተሳካም"
 
@@ -1163,12 +1168,12 @@ msgstr "የመዳረሻ ደረጃ ማቀናበር አልተሳካም"
 
 #: src/features/forums/components/inline-forum-search.tsx:105
 #: src/features/forums/components/recommended-forums.tsx:66
-#: src/hooks/use-forums-queries.ts:133
+#: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "መመዝገብ አልተሳካም"
 
-#: src/hooks/use-forums-queries.ts:155
+#: src/hooks/use-forums-queries.ts:160
 #: src/routes/_authenticated/$forum_.settings.tsx:183
 msgid "Failed to unsubscribe"
 msgstr "ምዝገባን መሰረዝ አልተሳካም"
@@ -1207,7 +1212,7 @@ msgstr "ፎረሞችን ፈልግ"
 msgid "Fingerprint"
 msgstr "ጣት አሻራ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "የመለያ ዝውውርን አጠናቅ"
 
@@ -1222,7 +1227,7 @@ msgstr "ተንሳፋፊ"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:276
-#: src/features/forums/thread-detail.tsx:186
+#: src/features/forums/thread-detail.tsx:187
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ፎረም"
@@ -1264,7 +1269,7 @@ msgid "Forum unavailable"
 msgstr "ፎረም አይገኝም"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:94
+#: src/features/forums/components/forum-overview.tsx:97
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1353,7 +1358,7 @@ msgid "History"
 msgstr ""
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:175
 #: ../../../lib/web/src/components/layout/top-bar.tsx:71
 #: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
@@ -1392,16 +1397,16 @@ msgstr "የ{name} የመነሻ ፊደላት አምሳያ"
 msgid "Inset"
 msgstr "ውስጠኛ"
 
-#: src/features/forums/thread-detail.tsx:285
+#: src/features/forums/thread-detail.tsx:286
 msgid "Interest boosted"
 msgstr "ፍላጎት ተጨምሯል"
 
-#: src/features/forums/thread-detail.tsx:297
+#: src/features/forums/thread-detail.tsx:298
 msgid "Interest reduced"
 msgstr "ፍላጎት ቀንሷል"
 
 #: src/features/forums/pages/entity-forum-page.tsx:252
-#: src/features/forums/thread-detail.tsx:309
+#: src/features/forums/thread-detail.tsx:310
 msgid "Interest removed"
 msgstr "ፍላጎት ተወግዷል"
 
@@ -1411,7 +1416,7 @@ msgstr "ፍላጎቶች"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
-msgstr ""
+msgstr "ልክ ያልሆነ ቀን"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1516,8 +1521,8 @@ msgstr "በመውጣት ላይ…"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "ለማሳወቂያዎችና አገልግሎቶች የተገናኙ መለያዎችዎን ያስተዳድሩ።"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "ሁሉንም እንደተነበበ ምልክት አድርግ"
@@ -1534,13 +1539,13 @@ msgstr "የMCP አገልጋይ"
 msgid "Medium"
 msgstr "መካከለኛ"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:173
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:190
 msgid "Menu"
 msgstr "ምናሌ"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:35
 msgid "Message"
-msgstr ""
+msgstr "መልዕክት"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
@@ -1591,7 +1596,7 @@ msgstr "ተጨማሪ አማራጮች"
 msgid "Mute"
 msgstr "ዝምታ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:485
+#: src/features/forums/components/thread/thread-comment.tsx:488
 #: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Mute author"
 msgstr "ደራሲውን ድምጽ አጥፋ"
@@ -1618,7 +1623,7 @@ msgid "Name must be 1000 characters or less"
 msgstr "ስም 1000 ቁምፊዎች ወይም ከዚያ ያነሰ መሆን አለበት"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
 msgid "Network error"
 msgstr "የአውታረ መረብ ስህተት"
 
@@ -1634,7 +1639,7 @@ msgstr "አዲስ መድረክ"
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:42
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:54
 msgid "New game"
-msgstr ""
+msgstr "አዲስ ጨዋታ"
 
 #: src/features/forums/components/create-post-dialog.tsx:200
 #: src/features/forums/components/create-post-dialog.tsx:205
@@ -1679,7 +1684,7 @@ msgstr "ምንም መድረኮች አልተገኙም"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "No games yet"
-msgstr ""
+msgstr "እስካሁን ጨዋታዎች የሉም"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
@@ -1702,7 +1707,7 @@ msgstr "ምንም ሰዎች አልተገኙም"
 msgid "No places found"
 msgstr "ምንም ቦታዎች አልተገኙም"
 
-#: src/features/forums/components/forum-overview.tsx:146
+#: src/features/forums/components/forum-overview.tsx:149
 msgid "No posts in this forum yet"
 msgstr "በዚህ መድረክ ውስጥ እስካሁን ልጥፎች የሉም"
 
@@ -1776,7 +1781,7 @@ msgid "Notifications"
 msgstr "ማሳወቂያዎች"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "ማሳወቂያዎች፦ {0}"
 
@@ -1803,7 +1808,7 @@ msgstr "የመለያ ድርጊቶችን ክፈት"
 msgid "Open actions"
 msgstr "እርምጃዎችን ክፈት"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:149
 msgid "Open menu"
 msgstr "ምናሌ ክፈት"
 
@@ -1853,12 +1858,12 @@ msgstr "የይለፍ ቁልፍ"
 msgid "Passkey verification failed. Please try again."
 msgstr "የይለፍ ቁልፍ ማረጋገጫ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "ፓስኪዎች"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:273
+#: src/features/forums/components/thread/thread-comment.tsx:276
 #: src/routes/_authenticated/$forum_.moderation.tsx:630
 msgid "Pending"
 msgstr "በመጠባበቅ ላይ"
@@ -1891,7 +1896,7 @@ msgstr "ተሰክቷል"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
 msgstr "እባክዎ የበይነመረብ ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ።"
 
@@ -1899,11 +1904,11 @@ msgstr "እባክዎ የበይነመረብ ግንኙነትዎን አረጋግጠ
 msgid "Please describe the issue..."
 msgstr "እባኮት ችግሩን ይግለጹ..."
 
-#: src/features/forums/thread-detail.tsx:319
+#: src/features/forums/thread-detail.tsx:320
 msgid "Please enter a comment"
 msgstr "እባክዎን አስተያየት ያስገቡ"
 
-#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:344
 msgid "Please enter a reply"
 msgstr "እባክዎን ምላሽ ያስገቡ"
 
@@ -1927,7 +1932,7 @@ msgstr "ልጥፍ ሊቀመጥ አልቻለም — ርዕስ ወይም ይዘት
 msgid "Post couldn't be saved on the forum server"
 msgstr "ልጥፍ በመድረክ አገልጋዩ ላይ ሊቀመጥ አልቻለም"
 
-#: src/hooks/use-forums-queries.ts:308
+#: src/hooks/use-forums-queries.ts:324
 msgid "Post deleted"
 msgstr "ልጥፍ ተሰርዟል"
 
@@ -1935,7 +1940,7 @@ msgstr "ልጥፍ ተሰርዟል"
 msgid "Post limit"
 msgstr "የልጥፍ ገደብ"
 
-#: src/hooks/use-forums-queries.ts:460
+#: src/hooks/use-forums-queries.ts:476
 msgid "Post locked"
 msgstr "ልጥፍ ተቆልፏል"
 
@@ -1943,31 +1948,31 @@ msgstr "ልጥፍ ተቆልፏል"
 msgid "Post not found"
 msgstr "ልጥፍ አልተገኘም"
 
-#: src/hooks/use-forums-queries.ts:488
+#: src/hooks/use-forums-queries.ts:504
 msgid "Post pinned"
 msgstr "ልጥፍ ተሰክቷል"
 
-#: src/hooks/use-forums-queries.ts:114
+#: src/hooks/use-forums-queries.ts:118
 msgid "Post published."
 msgstr "ልጥፍ ታትሟል።"
 
-#: src/hooks/use-forums-queries.ts:432
+#: src/hooks/use-forums-queries.ts:448
 msgid "Post removed"
 msgstr "ልጥፍ ተወግዷል"
 
-#: src/hooks/use-forums-queries.ts:447
+#: src/hooks/use-forums-queries.ts:463
 msgid "Post restored"
 msgstr "ልጥፍ ተመልሷል"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:489
 msgid "Post unlocked"
 msgstr "ልጥፍ ተከፍቷል"
 
-#: src/hooks/use-forums-queries.ts:503
+#: src/hooks/use-forums-queries.ts:519
 msgid "Post unpinned"
 msgstr "ልጥፍ ተነቅሏል"
 
-#: src/hooks/use-forums-queries.ts:292
+#: src/hooks/use-forums-queries.ts:307
 msgid "Post updated"
 msgstr "ልጥፍ ተዘምኗል"
 
@@ -2046,11 +2051,11 @@ msgstr "ከፍ ያለ"
 msgid "Rate limiting"
 msgstr "ፍጥነት መገደብ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "በዚህ ሰርቨር ላይ መለያዎችህን እንደገና አገናኝ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "የይለፍ ቁልፎችዎን በዚህ አገልጋይ ላይ እንደገና ይመዝግቡ"
 
@@ -2137,7 +2142,7 @@ msgstr "የ\"{0}\" የመዳረሻ ደንብ ይወገድ?"
 msgid "Remove access?"
 msgstr "ድረሳ ይወገድ?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:522
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "አስተያየት አስወግድ"
 
@@ -2153,7 +2158,7 @@ msgstr "ፍላጎት አስወግድ"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
 msgid "Remove item"
-msgstr ""
+msgstr "ንጥል አስወግድ"
 
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
@@ -2164,7 +2169,7 @@ msgid "Remove this forum from your sidebar."
 msgstr "ይህን መድረክ ከጎን አሞሌዎ አስወግድ።"
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/features/forums/components/thread/thread-comment.tsx:282
 #: src/features/forums/components/thread/thread-content.tsx:159
 msgid "Removed"
 msgstr "ተወግዷል"
@@ -2189,19 +2194,19 @@ msgstr "ምላሾች"
 msgid "Replies must be approved"
 msgstr "ምላሾች መጽደቅ አለባቸው"
 
-#: src/features/forums/components/thread/thread-comment.tsx:397
-#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:400
+#: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
 #: src/features/forums/components/thread/thread-content.tsx:305
 msgid "Reply"
 msgstr "ምላሽ ስጥ"
 
 #. placeholder {0}: comment.name
-#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "ለ {0} መልስ..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:477
 #: src/features/forums/components/thread/thread-content.tsx:386
 msgid "Report"
 msgstr "ሪፖርት"
@@ -2218,8 +2223,8 @@ msgstr "ልጥፍ ሪፖርት አድርግ"
 msgid "Report resolved"
 msgstr "ሪፖርት ተፈትቷል"
 
-#: src/hooks/use-forums-queries.ts:515
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:531
+#: src/hooks/use-forums-queries.ts:603
 msgid "Report submitted"
 msgstr "ሪፖርት ተልኳል"
 
@@ -2270,7 +2275,7 @@ msgstr "ሁሉንም ቅንብሮች ወደ ነባሪ እሴቶች ዳግም አ
 msgid "Resolved"
 msgstr "ተፈትቷል"
 
-#: src/features/forums/components/thread/thread-comment.tsx:460
+#: src/features/forums/components/thread/thread-comment.tsx:463
 #: src/features/forums/components/thread/thread-content.tsx:346
 msgid "Restore"
 msgstr "ይመልሱ"
@@ -2321,7 +2326,7 @@ msgstr "ቅዳሜ"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/forums/components/thread/thread-comment.tsx:322
+#: src/features/forums/components/thread/thread-comment.tsx:325
 #: src/routes/_authenticated/$forum_.settings.tsx:488
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
@@ -2422,7 +2427,7 @@ msgstr "{0} ይምረጡ"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:37
 msgid "Select a game"
-msgstr ""
+msgstr "ጨዋታ ይምረጡ"
 
 #: src/features/forums/components/report-dialog.tsx:82
 msgid "Select a reason for reporting this comment. Reports are reviewed by moderators."
@@ -2495,7 +2500,7 @@ msgstr "የገጽታ ምርጫ ይምረጡ"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
 msgid "Select..."
-msgstr ""
+msgstr "ይምረጡ..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
@@ -2517,14 +2522,14 @@ msgstr "ኢሜይል ላክ"
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
 msgid "Send message"
-msgstr ""
+msgstr "መልዕክት ይላኩ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:145
 msgid "Serif"
 msgstr "ሰሪፍ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
 msgid "Server error"
 msgstr "የአገልጋይ ስህተት"
 
@@ -2533,7 +2538,7 @@ msgstr "የአገልጋይ ስህተት"
 msgid "Server rules"
 msgstr "የሰርቨር ህጎች"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
 msgid "Session expired. Please log in again."
 msgstr "ክፍለ-ጊዜው አብቅቷል። እባክዎ እንደገና ይግቡ።"
 
@@ -2541,8 +2546,8 @@ msgstr "ክፍለ-ጊዜው አብቅቷል። እባክዎ እንደገና ይ�
 msgid "Set origin and destination"
 msgstr "መነሻ እና መድረሻ ያዘጋጁ"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:93
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:99
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:109
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:115
 #: ../../../lib/web/src/components/layout/nav-user.tsx:84
 #: ../../../lib/web/src/components/layout/nav-user.tsx:148
 #: ../../../lib/web/src/components/layout/nav-user.tsx:198
@@ -2572,8 +2577,8 @@ msgstr "ከ{total} ውስጥ {totalShown} እያሳየ"
 msgid "Sidebar"
 msgstr "የጎን አሞሌ"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:105
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:111
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:121
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:127
 msgid "Sign out"
 msgstr "ውጣ"
 
@@ -2611,10 +2616,10 @@ msgstr "ግን ይከታተሉ!"
 msgid "Subject"
 msgstr "ርዕሰ ጉዳይ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:614
-#: src/features/forums/components/thread/thread-comment.tsx:623
-#: src/features/forums/thread-detail.tsx:611
-#: src/features/forums/thread-detail.tsx:620
+#: src/features/forums/components/thread/thread-comment.tsx:618
+#: src/features/forums/components/thread/thread-comment.tsx:627
+#: src/features/forums/thread-detail.tsx:615
+#: src/features/forums/thread-detail.tsx:624
 msgid "Submit reply"
 msgstr "ምላሽ ያቅርቡ"
 
@@ -2644,14 +2649,14 @@ msgstr "ተመዝግቧል"
 msgid "Subscribed to {0}"
 msgstr "ለ{0} ተመዝግቧል"
 
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:145
 msgid "Subscribed to forum"
 msgstr "ለመድረክ ተመዝግቧል"
 
 #: src/features/forums/components/inline-forum-search.tsx:103
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
-#: src/hooks/use-forums-queries.ts:131
+#: src/hooks/use-forums-queries.ts:136
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "በመመዝገብ ላይ..."
@@ -2715,6 +2720,13 @@ msgstr "ያ ኮድ የተሳሳተ ነው ወይም ጊዜው አልፎበታል
 msgid "The requested content could not be found."
 msgstr "የተጠየቀው ይዘት ሊገኝ አልቻለም።"
 
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+#~ msgid "The server returned a web page instead of data, which usually means the address was wrong."
+#~ msgstr ""
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:152
+msgid "The server returned a web page instead of data."
+msgstr "አገልጋዩ ከመረጃ ይልቅ የድር ገጽ መልሷል።"
+
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
 msgid "The site is not available at the moment."
 msgstr "ጣቢያው በአሁኑ ጊዜ አይገኝም።"
@@ -2755,7 +2767,7 @@ msgstr "ይህ ልጥፍ አስቀድሞ ቀርቧል"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "ይህ ሁሉንም ልጥፍ ከተቀመጠ ዝርዝርዎ ያስወግዳል። ይህ ሊቀለበስ አይችልም።"
 
-#: src/features/forums/components/thread/thread-comment.tsx:523
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "ይህ አስተያየቱን ከመደበኛ ተጠቃሚዎች ይደብቃል። ሞዴሬተሮች አሁንም ሊያዩት እና በኋላ ሊመልሱት ይችላሉ።"
 
@@ -2768,7 +2780,7 @@ msgstr "ይህ ልጥፉን ከመደበኛ ተጠቃሚዎች ይደብቃል�
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "ይህ \"{0}\" እና ሁሉንም ልጥፎቹን እና አስተያየቶቹን በቋሚነት ይሰርዛል። ይህ እርምጃ መዋቀር አይቻልም።"
 
-#: src/features/forums/thread-detail.tsx:181
+#: src/features/forums/thread-detail.tsx:182
 msgid "Thread"
 msgstr "ክር"
 
@@ -2865,7 +2877,7 @@ msgstr "ትዕዛዝ ይተይቡ ወይም ይፈልጉ..."
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:39
 msgid "Type a message…"
-msgstr ""
+msgstr "መልዕክት ይተይቡ…"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
@@ -2875,7 +2887,7 @@ msgstr "ተጠቃሚዎችን ለመፈለግ ይተይቡ"
 msgid "Type to search..."
 msgstr "ለመፈለግ ይተይቡ..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
 msgid "Unable to connect to remote server"
 msgstr "ከርቀት አገልጋይ ጋር መገናኘት አልተቻለም"
 
@@ -2902,7 +2914,7 @@ msgid "United States"
 msgstr "ዩናይትድ ስቴትስ"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:78
+#: src/features/forums/components/forum-overview.tsx:81
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -2926,16 +2938,16 @@ msgstr "ምዝገባ ያቋርጡ"
 msgid "Unsubscribe from forum"
 msgstr "ከመድረክ ምዝገባ ያቋርጡ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:387
 msgid "Unsubscribe from forum?"
 msgstr "ከመድረኩ ይውጡ?"
 
-#: src/hooks/use-forums-queries.ts:154
+#: src/hooks/use-forums-queries.ts:159
 #: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Unsubscribed"
 msgstr "ምዝገባ ተቋርጧል"
 
-#: src/hooks/use-forums-queries.ts:153
+#: src/hooks/use-forums-queries.ts:158
 #: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribing..."
 msgstr "ምዝገባ በማቋረጥ ላይ..."
@@ -2952,16 +2964,16 @@ msgstr "የመስቀል ሂደት"
 msgid "Use your passkey"
 msgstr "የይለፍ ቁልፍዎን ይጠቀሙ"
 
-#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:102
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "ተጠቃሚ"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:464
 msgid "User banned"
 msgstr "ተጠቃሚ ታግዷል"
 
-#: src/features/forums/thread-detail.tsx:454
+#: src/features/forums/thread-detail.tsx:455
 msgid "User muted"
 msgstr "ተጠቃሚ ዝም ተብሏል"
 
@@ -3008,8 +3020,8 @@ msgstr "ይመልከቱ"
 msgid "View all"
 msgstr "ሁሉንም ይመልከቱ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "ሁሉንም ማሳወቂያዎች ይመልከቱ"
 
@@ -3057,7 +3069,7 @@ msgstr "የመስኮት ቆይታ"
 
 #: src/features/forums/components/inline-forum-search.tsx:109
 #: src/features/forums/components/recommended-forums.tsx:70
-#: src/hooks/use-forums-queries.ts:138
+#: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "አስቀድሞ ለዚህ መድረክ ተመዝግበዋል"
@@ -3082,7 +3094,7 @@ msgstr "ይህን መርጃ ለማየት <0/>አስፈላጊው ፈቃድ የለ
 msgid "You don't have permission to post in this forum"
 msgstr "በዚህ መድረክ ውስጥ የመለጠፍ ፈቃድ የለዎትም"
 
-#: src/features/forums/components/forum-overview.tsx:95
+#: src/features/forums/components/forum-overview.tsx:98
 msgid "You have no forums yet."
 msgstr "እስካሁን ምንም መድረኮች የሉዎትም።"
 
@@ -3090,7 +3102,7 @@ msgstr "እስካሁን ምንም መድረኮች የሉዎትም።"
 msgid "You submitted the following values:"
 msgstr "የሚከተሉትን እሴቶች አስገብተዋል፦"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:388
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "ከዚህ መድረክ ዝማኔዎችን መቀበል ያቆማሉ። በማንኛውም ጊዜ እንደገና መመዝገብ ይችላሉ።"
 
@@ -3098,7 +3110,7 @@ msgstr "ከዚህ መድረክ ዝማኔዎችን መቀበል ያቆማሉ። �
 msgid "You're all caught up!"
 msgstr "ሁሉንም አይተዋል!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "መለያህ ከ{source} ወደዚህ ተዛውሯል። እዚያ እስኪሰርዝ ድረስ፣ መልዕክቶችና ማሳወቂያዎች ሁለቱ ሰርቨሮች ሊደርሱ ይችላሉ፣ አንዳንድ ይዘቶችህ ከድሮ ሰርቨር ሲቀርቡ ይቀጥላሉ፣ ተከታዮችህ ወደዚህ ለማግኘት ጥቂት ደቂቃዎች ሊወስድ ይችላል።"
 
