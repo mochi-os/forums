@@ -137,7 +137,12 @@ def database_upgrade(version):
         # sequence/log copies mislead diagnosis.
         for table in ["sequence", "log", "acknowledged", "received"]:
             mochi.db.execute("drop table if exists " + table)
-    if version == 4 or version == 5:
+    if version == 4 or version == 5 or version == 6:
+    	# The last number re-issues the step: a server that installed the
+    	# first library version ahead of its core update paid both earlier
+    	# numbers for a raise inside the bridge call and was left at full
+    	# schema with no attachments table. The step is idempotent, so a
+    	# healthy database re-running it changes nothing.
         # Attachments live in this database, owned by the shared library:
         # create the table and copy any rows still held by the transition
         # bridge, aborting without advancing if the bridge is unavailable.
