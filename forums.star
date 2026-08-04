@@ -1855,14 +1855,18 @@ def action_post_create(a):
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
+            # Save locally BEFORE announcing (status pending until the owner
+            # confirms): the owner pulls attachment bytes back the moment it
+            # accepts the submit, and its fetch responder resolves the forum
+            # through this row - announced first, the pull can race the insert
+            # and find nothing to bind.
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, now, now)
+
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
                 submit_data
             )
-
-            # Save locally for optimistic UI (status pending until owner confirms)
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, now, now)
 
         return {
             "data": {"id": id, "forum": forum["id"]}
@@ -1892,6 +1896,13 @@ def action_post_create(a):
     submit_data = {"id": id, "title": title, "body": body}
     if attachments:
         submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+
+    # Record the post locally before announcing, for the same reason the
+    # subscribed branch does: the owner's accept-time byte-pull resolves the
+    # forum through this row. No forums row exists here, so the post stays
+    # invisible in local lists; it exists to name the destination.
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
+        id, forum_id, user_id, user_name, title, body, now, now)
 
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
@@ -3200,14 +3211,19 @@ def action_comment_create(a):
             submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+
+            # Save locally BEFORE announcing (status pending until the owner
+            # confirms): the owner pulls attachment bytes back the moment it
+            # accepts the submit, and its fetch responder resolves the forum
+            # through this row - announced first, the pull can race the insert
+            # and find nothing to bind.
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
                 submit_data
             )
-
-            # Save locally for optimistic UI (status pending until owner confirms)
-            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
-                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
 
             mochi.db.execute("update posts set updated=? where id=?", now, post_id)
             recount_post_comments(post_id)
@@ -3240,6 +3256,14 @@ def action_comment_create(a):
     submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
     if attachments:
         submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+
+    # Record the comment locally before announcing, for the same reason the
+    # subscribed branch does: the owner's accept-time byte-pull resolves the
+    # forum through this row. No forums row exists here, so the comment stays
+    # invisible in local lists; it exists to name the destination.
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
+        id, forum_id, post_id, parent_id or "", user_id, user_name, body, now)
+
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "comment/submit"},
         submit_data
@@ -5109,11 +5133,14 @@ def serve_attachment(a, variant):
             return True
         return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)
 
-    attachment_serve(a, attachment, forum_id, variant=variant, member=visible)
+    # The forum's canonical host adopts legacy remote-provenance rows on first
+    # serve, taking the bytes in; member replicas keep pulling to cache.
+    attachment_serve(a, attachment, forum_id, variant=variant, member=visible,
+        adopt=mochi.entity.get(forum_id) != None)
 
 # EVENTS
 
-# Handle attachment view request from subscriber (stream-based request/response)
+# Handle attachment view request (stream-based request/response)
 def event_attachment_fetch(e):
     # The library runs the fixed responder sequence: requester from the signed
     # header, authorized against this forum, the requested attachment bound to a
@@ -5121,10 +5148,28 @@ def event_attachment_fetch(e):
     # callbacks are this app's judgement: a private forum needs view access; and
     # the target post/comment must be visible to the requester (approved, or
     # their own pending, or they moderate).
-    forum_id = e.header("to")
+    #
+    # `to` is routing only - the entity the puller dialled to reach these
+    # bytes. For a member-held upload that is this user's own identity, not a
+    # forum, so the container comes from the requested row: the attachment's
+    # post or comment, resolved to the forum it belongs to here.
+    id = e.content("id")
+    forum_id = ""
+    if attachment_identifier(id):
+        row = attachment_row(id)
+        if row:
+            obj = mochi.db.row("select forum from posts where id=?", row["object"])
+            if not obj:
+                obj = mochi.db.row("select forum from comments where id=?", row["object"])
+            if obj:
+                forum_id = obj["forum"]
     requester = e.header("from")
 
     def authorize(sender, container):
+        # The forum's own entity may always fetch bytes bound to it - that is
+        # the owner taking a member's upload in (attachment_accept / adopt).
+        if sender == container:
+            return True
         entity = mochi.entity.info(container)
         privacy = entity.get("privacy", "public") if entity else "public"
         if privacy == "private":
@@ -5137,6 +5182,11 @@ def event_attachment_fetch(e):
             target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
         if not target:
             return False
+        # The forum's own entity sees everything bound to it: the pending
+        # status this predicate guards is moderation state, and the moderating
+        # host is exactly the one pulling a pending submission's bytes in.
+        if requester == forum_id:
+            return True
         if check_event_access(requester, forum_id, "moderate"):
             return True
         return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == requester)
@@ -5306,10 +5356,11 @@ def event_comment_submit_event(e):
     if status == "approved":
         mochi.db.commit.fire("comments", "insert", id)
 
-    # Store attachment metadata from the subscriber's event
+    # Store the submission's attachment metadata and take the bytes in from
+    # the sender now, while it is online; a pull that fails heals on serve.
     attachments = e.content("attachments") or []
     if attachments:
-        attachment_store(attachments, sender_id, id)
+        attachment_accept(attachments, sender_id, id, forum["id"])
 
     mochi.db.execute("update posts set updated=? where id=?", now, post_id)
     recount_post_comments(post_id)
@@ -5729,10 +5780,11 @@ def event_post_submit_event(e):
     if status == "approved":
         mochi.db.commit.fire("posts", "insert", id)
 
-    # Store attachment metadata from the subscriber's event
+    # Store the submission's attachment metadata and take the bytes in from
+    # the sender now, while it is online; a pull that fails heals on serve.
     attachments = e.content("attachments") or []
     if attachments:
-        attachment_store(attachments, sender_id, id)
+        attachment_accept(attachments, sender_id, id, forum["id"])
 
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -5814,10 +5866,11 @@ def event_post_edit_submit_event(e):
 
     now = mochi.time.now()
 
-    # Store new attachment metadata from the subscriber's event
+    # Store the edit's new attachment metadata and take the bytes in from the
+    # sender now, while it is online; a pull that fails heals on serve.
     new_attachments = e.content("attachments") or []
     if new_attachments:
-        attachment_store(new_attachments, sender_id, post_id)
+        attachment_accept(new_attachments, sender_id, post_id, forum["id"])
 
     # Handle attachment changes
     order = e.content("order") or []
