@@ -5,7 +5,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -45,24 +44,9 @@ import {
   Send,
   X,
 } from 'lucide-react'
+import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
 
-// Characters disallowed in post titles (matches backend validation for "name" type)
-const DISALLOWED_CHARS = /[<>\r\n]/
-
-function buildSchema(t: (descriptor: TemplateStringsArray) => string) {
-  return z.object({
-    title: z
-      .string()
-      .min(1, t`Title is required`)
-      .max(1000, t`Title must be 1000 characters or less`)
-      .refine((val) => !DISALLOWED_CHARS.test(val), {
-        message: t`Title cannot contain < or > characters`,
-      }),
-    body: z.string().min(1, t`Content is required`),
-  })
-}
-
-type CreatePostFormValues = z.infer<ReturnType<typeof buildSchema>>
+type CreatePostFormValues = PostFormValues
 
 type CreatePostDialogProps = {
   forumId: string
@@ -149,8 +133,10 @@ export function CreatePostDialog({
   const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  const postSchema = usePostSchema()
+
   const form = useForm<CreatePostFormValues>({
-    resolver: zodResolver(buildSchema(t)),
+    resolver: zodResolver(postSchema),
     defaultValues: {
       title: '',
       body: '',
