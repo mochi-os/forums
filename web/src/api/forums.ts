@@ -482,7 +482,7 @@ const forumsApi = {
   reportPost: (payload: ReportPostRequest) =>
     client.post<ReportPostResponse>(
       endpoints.forums.postModeration.report(payload.forum, payload.post),
-      { reason: payload.reason }
+      { reason: payload.reason, details: payload.details }
     ),
 
   removeComment: (payload: RemoveCommentRequest) =>
@@ -506,7 +506,7 @@ const forumsApi = {
   reportComment: (payload: ReportCommentRequest) =>
     client.post<ReportCommentResponse>(
       endpoints.forums.commentModeration.report(payload.forum, payload.post, payload.comment),
-      { reason: payload.reason }
+      { reason: payload.reason, details: payload.details }
     ),
 
   getRssToken: (entity: string, mode: 'posts' | 'all') =>
