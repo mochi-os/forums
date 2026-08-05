@@ -1151,7 +1151,8 @@ msgstr "پاشەکەوتکردنی پۆست سەرکەوتوو نەبوو"
 msgid "Failed to save prompt"
 msgstr "پاشەکەوتکردنی Prompt سەرکەوتوو نەبوو"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "گەڕانی Forumەکان سەرکەوتوو نەبوو"
 
@@ -1167,7 +1168,7 @@ msgstr "ناردنی کۆدی پشتڕاستکردنەوە سەرکەوتوو ن
 msgid "Failed to set access level"
 msgstr "دانانی ئاستی گەیشتن سەرکەوتوو نەبوو"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "Forum دروست کرا"
 msgid "Forum deleted"
 msgstr "Forum سڕایەوە"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "فۆڕەم چیتر بەردەست نییە"
 
@@ -1675,7 +1676,7 @@ msgstr "هیچ ڕێسایەکی دەستڕاگەیشتن ڕێکنەخراوە. �
 msgid "No connected accounts"
 msgstr "هیچ هەژمارێکی پەیوەندیدراو نییە"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "هیچ فۆڕەمێک نەدۆزرایەوە"
@@ -1926,11 +1927,11 @@ msgstr "تکایە دووبارە هەوڵ بدەرەوە."
 msgid "Please wait a moment and try again."
 msgstr "تکایە کەمێک چاوەڕوان بە و دووبارە هەوڵ بدەوە."
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "بڵاوکراوەکە پاشەکەوت نەکرا — ناونیشان یان ناوەڕۆک نادروستە"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "بڵاوکراوەکە لەسەر سێرڤەری فۆڕەم پاشەکەوت نەکرا"
 
@@ -2389,7 +2390,7 @@ msgstr "بەدوای شوێنێکدا بگەڕێ..."
 msgid "Search for destination..."
 msgstr "گەڕان بۆ گەیشتنگا..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "گەڕان بۆ فۆڕەمەکان..."
 
@@ -2631,13 +2632,13 @@ msgstr "ناردن..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "بەشداربە"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "بەشداربوو"
@@ -2651,7 +2652,7 @@ msgstr "بەشداربوو لە {0}"
 msgid "Subscribed to forum"
 msgstr "بەشداربوو لە فۆڕۆم"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "ئەم پەڕەیە هێشتا درووست نەکراوە."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "لەوانەیە ئەم پۆستە سڕابێتەوە یان بوونی نەبێت."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "ئەم بڵاوکراوەیە پێشتر ناردراوە"
 
@@ -3062,18 +3063,18 @@ msgstr "چوارشەممە"
 msgid "Window duration"
 msgstr "ماوەی پەنجەرە"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "تۆ پێشتر بەشدارت لەم فۆڕۆمەدا"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "تۆ زۆر بەخێرایی بڵاو دەکەیتەوە — تکایە چاوەڕێ بکە و دیسان هەوڵبدە"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "تۆ سنووردارکراویت لە بڵاوکردنەوە لەم فۆڕەمە"
 
@@ -3085,7 +3086,7 @@ msgstr "دەستپێگەیشتنت بەم بەشە نییە."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "مۆڵەتی پێویستت نییە <0/>بۆ بینینی ئەم سەرچاوەیە."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "تۆ مۆڵەتی بڵاوکردنەوەت لەم فۆڕەمە نییە"
 

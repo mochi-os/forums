@@ -3,15 +3,12 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useCallback, useEffect, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
-import { Search, Loader2, Hash } from 'lucide-react'
+import { Hash } from 'lucide-react'
 import {
-  Button,
-  GeneralError,
-  Input,
+  InlineEntitySearch,
   toast,
   toastAction,
   getErrorMessage,
@@ -25,177 +22,89 @@ interface InlineForumSearchProps {
   onRefresh?: () => void
 }
 
+// The directory sends its own hyphenated fingerprint, so the row keeps it
+// rather than letting the shared component derive one.
+type ForumResult = DirectoryEntry & { subtitle: string }
+
+const withSubtitle = (forum: DirectoryEntry): ForumResult => ({
+  ...forum,
+  subtitle: forum.fingerprint_hyphens,
+})
+
 export function InlineForumSearch({
   subscribedIds,
   onRefresh,
 }: InlineForumSearchProps) {
   const { t } = useLingui()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [debouncedQuery, setDebouncedQuery] = useState('')
-  const [results, setResults] = useState<DirectoryEntry[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [searchError, setSearchError] = useState<Error | null>(null)
-  const [pendingForumId, setPendingForumId] = useState<string | null>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  const runSearch = useCallback(async (query: string) => {
-    if (query.length === 0) {
-      setResults([])
-      setSearchError(null)
-      return
-    }
-
-    setIsLoading(true)
-    setSearchError(null)
+  const search = async (query: string): Promise<ForumResult[]> => {
     try {
-      // A pasted link (mochi://<peer>/<forum> or a web URL) resolves via probe -
-      // a directory search can't find a private/unlisted forum or match a URL.
-      if (/^(mochi:|https?:\/\/)/i.test(query)) {
-        const probe = await forumsApi.probeForum({ url: query }).catch(() => null)
-        const data = probe?.data
-        setResults(data?.id
-          ? [{ id: data.id, name: data.name ?? '', fingerprint: data.fingerprint ?? '',
-               fingerprint_hyphens: '', class: 'forum', data: '', location: data.server ?? '',
-               peer: data.peer, created: 0, updated: 0 }]
-          : [])
-        return
-      }
       const response = await forumsApi.searchForums({ search: query })
-      setResults(response.data.results ?? [])
+      return (response.data.results ?? []).map(withSubtitle)
     } catch (error) {
-      setResults([])
-      setSearchError(
-        new Error(getErrorMessage(error, t`Failed to search forums`))
-      )
-    } finally {
-      setIsLoading(false)
-    }
-  }, [t])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(searchQuery)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [searchQuery])
-
-  useEffect(() => {
-    if (debouncedQuery.length === 0) {
-      setResults([])
-      setSearchError(null)
-      return
-    }
-
-    void runSearch(debouncedQuery)
-  }, [debouncedQuery, runSearch])
-
-  const retrySearch = useCallback(() => {
-    void runSearch(debouncedQuery)
-  }, [debouncedQuery, runSearch])
-
-  const handleSubscribe = async (forum: DirectoryEntry) => {
-    setPendingForumId(forum.id)
-    try {
-      const data = await toastAction(
-        forumsApi.subscribeForum(forum.id, forum.location || undefined, forum.peer),
-        {
-          loading: t`Subscribing...`,
-          success: false,
-          error: (e) => getErrorMessage(e, t`Failed to subscribe`),
-        }
-      )
-      if (data.data?.already_subscribed) {
-        toast.info(t`You are already subscribed to this forum`)
-      } else {
-        toast.success(t`Subscribed`)
-      }
-      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
-      onRefresh?.()
-      void navigate({ to: '/$forum', params: { forum: forum.id } })
-    } catch {
-      // toast already shown
-    } finally {
-      setPendingForumId(null)
+      // The panel shows error.message, so the server's own wording has to be
+      // pulled out here rather than left inside the axios error.
+      throw new Error(getErrorMessage(error, t`Failed to search forums`))
     }
   }
 
-  const showResults = debouncedQuery.length > 0
-  const showLoading = isLoading && debouncedQuery.length > 0
+  const probe = async (url: string): Promise<ForumResult[]> => {
+    const probed = await forumsApi.probeForum({ url })
+    const data = probed?.data
+    return data?.id
+      ? [
+          withSubtitle({
+            id: data.id,
+            name: data.name ?? '',
+            fingerprint: data.fingerprint ?? '',
+            fingerprint_hyphens: '',
+            class: 'forum',
+            data: '',
+            location: data.server ?? '',
+            peer: data.peer,
+            created: 0,
+            updated: 0,
+          }),
+        ]
+      : []
+  }
+
+  const handleSubscribe = async (forum: ForumResult) => {
+    const data = await toastAction(
+      forumsApi.subscribeForum(
+        forum.id,
+        forum.location || undefined,
+        forum.peer
+      ),
+      {
+        loading: t`Subscribing...`,
+        success: false,
+        error: (e) => getErrorMessage(e, t`Failed to subscribe`),
+      }
+    )
+    if (data.data?.already_subscribed) {
+      toast.info(t`You are already subscribed to this forum`)
+    } else {
+      toast.success(t`Subscribed`)
+    }
+    void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+    onRefresh?.()
+    void navigate({ to: '/$forum', params: { forum: forum.id } })
+  }
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="relative mb-4">
-        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-        <Input
-          placeholder={t`Search for forums...`}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-10 ps-9"
-          autoFocus
-        />
-      </div>
-
-      {showLoading && (
-        <div className="flex items-center justify-center py-8">
-          <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
-        </div>
-      )}
-
-      {!isLoading && showResults && searchError && (
-        <GeneralError
-          error={searchError}
-          minimal
-          mode='inline'
-          reset={retrySearch}
-        />
-      )}
-
-      {!isLoading && showResults && !searchError && results.length === 0 && (
-        <p className="text-muted-foreground text-sm text-center py-4">
-          <Trans>No forums found</Trans>
-        </p>
-      )}
-
-      {!isLoading && !searchError && results.length > 0 && (
-        <div className="divide-border divide-y rounded-lg border">
-          {results
-            .filter((forum) => !forum.subscribed && !subscribedIds.has(forum.id) && !subscribedIds.has(forum.fingerprint))
-            .map((forum) => {
-              const isPending = pendingForumId === forum.id
-
-              return (
-                <div
-                  key={forum.id}
-                  className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-hover"
-                >
-                  <div className="flex min-w-0 flex-1 items-center gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10">
-                      <Hash className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="flex min-w-0 flex-1 flex-col text-start">
-                      <span className="truncate text-sm font-medium">{forum.name}</span>
-                      <span className="text-muted-foreground truncate text-xs">
-                        {forum.fingerprint_hyphens}
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    size="sm"
-                    onClick={() => handleSubscribe(forum)}
-                    disabled={isPending}
-                  >
-                    {isPending ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Trans>Subscribe</Trans>
-                    )}
-                  </Button>
-                </div>
-              )
-            })}
-        </div>
-      )}
-    </div>
+    <InlineEntitySearch
+      subscribedIds={subscribedIds}
+      search={search}
+      probe={probe}
+      onSubscribe={handleSubscribe}
+      icon={Hash}
+      placeholder={t`Search for forums...`}
+      emptyMessage={t`No forums found`}
+      searchErrorMessage={t`Failed to search forums`}
+      subscribeLabel={t`Subscribe`}
+    />
   )
 }

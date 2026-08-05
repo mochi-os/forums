@@ -1151,7 +1151,8 @@ msgstr "පළ කිරීම සුරැකීමට අසමත් වි�
 msgid "Failed to save prompt"
 msgstr "prompt එක සුරැකීමට අසමත් විය"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "සභා සෙවීමට අසමත් විය"
 
@@ -1167,7 +1168,7 @@ msgstr "සත්‍යාපන කේතය යැවීමට අසමත්
 msgid "Failed to set access level"
 msgstr "ප්‍රවේශ මට්ටම සැකසීමට අසමත් විය"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "සභාව සාදන ලදී"
 msgid "Forum deleted"
 msgstr "සභාව මකන ලදී"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "සංසදය තවදුරටත් ලබා ගත නොහැක"
 
@@ -1675,7 +1676,7 @@ msgstr "ප්‍රවේශ නියමයන් කිසිවක් සැ
 msgid "No connected accounts"
 msgstr "සම්බන්ධිත ගිණුම් නැත"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "සංසද හමු නොවීය"
@@ -1926,11 +1927,11 @@ msgstr "කරුණාකර නැවත උත්සාහ කරන්න."
 msgid "Please wait a moment and try again."
 msgstr "කරුණාකර මොහොතක් රැඳී සිට නැවත උත්සාහ කරන්න."
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "පළකිරීම සුරැකීමට නොහැකි විය — මාතෘකාව හෝ අන්තර්ගතය වලංගු නැත"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "පළකිරීම සංසද සර්වරයේ සුරැකීමට නොහැකි විය"
 
@@ -2389,7 +2390,7 @@ msgstr "ස්ථානයක් සොයන්න..."
 msgid "Search for destination..."
 msgstr "ගමනාන්තය සොයන්න..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "සංසද සොයන්න..."
 
@@ -2631,13 +2632,13 @@ msgstr "ඉදිරිපත් කරමින්..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "දායක වන්න"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "දායක වී ඇත"
@@ -2651,7 +2652,7 @@ msgstr "{0} ට දායක විය"
 msgid "Subscribed to forum"
 msgstr "සංසදයට දායක විය"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "මෙම පිටුව තවම සාදා නැත."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "මෙම පෝස්ටුව මකා දමා ඇති විය හැකිය හෝ පවතින්නේ නැත."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "මෙම පළකිරීම දැනටමත් ඉදිරිපත් කර ඇත"
 
@@ -3062,18 +3063,18 @@ msgstr "බදාදා"
 msgid "Window duration"
 msgstr "කවුළු කාලය"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "ඔබ දැනටමත් මෙම සංසදයට දායක වී ඇත"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "ඔබ ඉතා වේගයෙන් පළ කරමින් සිටී — කරුණාකර රැඳී සිටින්න සහ නැවත උත්සාහ කරන්න"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "මෙම සංසදයේ පළකිරීමෙන් ඔබ සීමා කර ඇත"
 
@@ -3085,7 +3086,7 @@ msgstr "ඔබට මෙම කොටසට ප්‍රවේශය නොම�
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "මෙම සම්පත බැලීමට <0/>ඔබට අවශ්‍ය අවසරය නොමැත."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "මෙම සංසදයේ පළ කිරීමට ඔබට අවසරය නැත"
 

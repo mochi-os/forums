@@ -1151,7 +1151,8 @@ msgstr "ذخیره پست ناموفق بود"
 msgid "Failed to save prompt"
 msgstr "ذخیره prompt ناموفق بود"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "جستجوی انجمن‌ها ناموفق بود"
 
@@ -1167,7 +1168,7 @@ msgstr "ارسال کد تأیید ناموفق بود"
 msgid "Failed to set access level"
 msgstr "تنظیم سطح دسترسی ناموفق بود"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "انجمن ایجاد شد"
 msgid "Forum deleted"
 msgstr "انجمن حذف شد"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "انجمن دیگر در دسترس نیست"
 
@@ -1675,7 +1676,7 @@ msgstr "هیچ قاعده دسترسی پیکربندی نشده است. برا�
 msgid "No connected accounts"
 msgstr "هیچ حساب متصلی وجود ندارد"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "انجمنی یافت نشد"
@@ -1926,11 +1927,11 @@ msgstr "لطفاً دوباره تلاش کنید."
 msgid "Please wait a moment and try again."
 msgstr "لطفاً چند لحظه صبر کنید و دوباره امتحان کنید."
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "نمی‌توان پست را ذخیره کرد — عنوان یا محتوا نامعتبر است"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "نمی‌توان پست را در سرور انجمن ذخیره کرد"
 
@@ -2389,7 +2390,7 @@ msgstr "جستجوی مکان..."
 msgid "Search for destination..."
 msgstr "جست‌وجوی مقصد..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "جست‌وجوی انجمن‌ها..."
 
@@ -2631,13 +2632,13 @@ msgstr "در حال ثبت..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "اشتراک"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "مشترک شد"
@@ -2651,7 +2652,7 @@ msgstr "در {0} مشترک شدید"
 msgid "Subscribed to forum"
 msgstr "اشتراک انجمن انجام شد"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "این صفحه هنوز ایجاد نشده است."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "این پست ممکن است حذف شده باشد یا وجود نداشته باشد."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "این پست قبلاً ارسال شده است"
 
@@ -3062,18 +3063,18 @@ msgstr "چهارشنبه"
 msgid "Window duration"
 msgstr "مدت پنجره"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "شما از پیش در این انجمن مشترک شده‌اید"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "خیلی سریع پست می‌گذارید — لطفاً صبر کنید و دوباره تلاش کنید"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "شما از ارسال در این انجمن محدود شده‌اید"
 
@@ -3085,7 +3086,7 @@ msgstr "شما به این بخش دسترسی ندارید."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "شما مجوز لازم <0/>برای مشاهده این منبع را ندارید."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "شما اجازه ارسال در این انجمن را ندارید"
 

@@ -1151,7 +1151,8 @@ msgstr "ပို့စ်သိမ်းရန် မအောင်မြင�
 msgid "Failed to save prompt"
 msgstr "လမ်းညွှန် သိမ်း၍ မရပါ"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "ဖိုရမ်များ ရှာ၍ မရပါ"
 
@@ -1167,7 +1168,7 @@ msgstr "အတည်ပြုကုဒ် ပို့၍ မရပါ"
 msgid "Failed to set access level"
 msgstr "ဝင်ရောက်ခွင့် အဆင့် သတ်မှတ်၍ မရပါ"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "ဖိုရမ် ဖန်တီးပြီးပါပြီ"
 msgid "Forum deleted"
 msgstr "ဖိုရမ် ဖျက်ပြီးပါပြီ"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "ဖိုရမ်ကို မရရှိနိုင်တော့ပါ"
 
@@ -1675,7 +1676,7 @@ msgstr "ဝင်ရောက်ခွင့်စည်းမျဉ်းမျ
 msgid "No connected accounts"
 msgstr "ချိတ်ဆက်ထားသော အကောင့်များ မရှိပါ"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "ဆွေးနွေးပွဲများ မတွေ့ပါ"
@@ -1926,11 +1927,11 @@ msgstr "ကျေးဇူးပြု၍ ထပ်ကြိုးစားပ�
 msgid "Please wait a moment and try again."
 msgstr "ကျေးဇူးပြု၍ ခဏစောင့်ပြီး ထပ်စမ်းကြည့်ပါ။"
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "ပို့စ်ကို သိမ်းဆည်း၍ မရပါ — ခေါင်းစဉ် သို့မဟုတ် အကြောင်းအရာ မှားယွင်းနေသည်"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "ဖိုရမ်ဆာဗာတွင် ပို့စ်ကို သိမ်းဆည်း၍ မရပါ"
 
@@ -2389,7 +2390,7 @@ msgstr "နေရာရှာပါ..."
 msgid "Search for destination..."
 msgstr "destination ရှာဖွေ..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "ဆွေးနွေးပွဲများ ရှာဖွေ..."
 
@@ -2631,13 +2632,13 @@ msgstr "တင်ပြနေသည်..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "Subscribe လုပ်မည်"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "Subscribe လုပ်ပြီး"
@@ -2651,7 +2652,7 @@ msgstr "{0} ကို subscribe လုပ်ပြီး"
 msgid "Subscribed to forum"
 msgstr "Forum ကို subscribe လုပ်ပြီး"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "ဤစာမျက်နှာကို မဖန်တီးရသေ�
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ဤ post ကို ဖျက်ထားနိုင်သည် သို့မဟုတ် မရှိပါ။"
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "ဤပို့စ်ကို တင်ပြခဲ့ပြီးပါပြီ"
 
@@ -3062,18 +3063,18 @@ msgstr "ဗုဒ္ဓဟူး"
 msgid "Window duration"
 msgstr "ပြတင်းပေါက် ကြာချိန်"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "ဤ forum ကို subscribe လုပ်ထားပြီးဖြစ်သည်"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "သင်သည် အလွန်မြန်ဆန်စွာ ပို့စ်တင်နေသည် — ခေတ္တစောင့်ပြီး ပြန်ကြိုးစားပါ"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "ဤဖိုရမ်တွင် ပို့စ်တင်ခြင်းကို သင်အား ကန့်သတ်ထားသည်"
 
@@ -3085,7 +3086,7 @@ msgstr "ဤအပိုင်းသို့ သင့်တွင် ဝင်�
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "ဤအရင်းအမြစ်ကို ကြည့်ရှုရန် <0/>လိုအပ်သော ခွင့်ပြုချက် သင့်တွင်မရှိပါ။"
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "ဤဖိုရမ်တွင် ပို့စ်တင်ရန် သင်တွင် ခွင့်ပြုချက် မရှိပါ"
 

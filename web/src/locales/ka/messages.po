@@ -1151,7 +1151,8 @@ msgstr "პოსტის შენახვა ვერ მოხერხდ
 msgid "Failed to save prompt"
 msgstr "მოთხოვნის შენახვა ვერ მოხერხდა"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "ფორუმების ძიება ვერ მოხერხდა"
 
@@ -1167,7 +1168,7 @@ msgstr "დადასტურების კოდის გაგზავ�
 msgid "Failed to set access level"
 msgstr "წვდომის დონის დაყენება ვერ მოხერხდა"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "ფორუმი შეიქმნა"
 msgid "Forum deleted"
 msgstr "ფორუმი წაიშალა"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "ფორუმი აღარ არის ხელმისაწვდომი"
 
@@ -1675,7 +1676,7 @@ msgstr "წვდომის წესები არ არის კონ�
 msgid "No connected accounts"
 msgstr "დაკავშირებული ანგარიშები არ არის"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "ფორუმები ვერ მოიძებნა"
@@ -1926,11 +1927,11 @@ msgstr "გთხოვთ, კიდევ სცადეთ."
 msgid "Please wait a moment and try again."
 msgstr "გთხოვთ, ცოტა ხნით მოიცადოთ და ხელახლა სცადოთ."
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "პოსტის შენახვა ვერ მოხერხდა — სათაური ან შინაარსი არასწორია"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "პოსტის შენახვა ფორუმის სერვერზე ვერ მოხერხდა"
 
@@ -2389,7 +2390,7 @@ msgstr "მოძებნეთ ადგილი..."
 msgid "Search for destination..."
 msgstr "დანიშნულების ძიება..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "ფორუმების ძიება..."
 
@@ -2631,13 +2632,13 @@ msgstr "გაგზავნა მიმდინარეობს..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "გამოწერა"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "გამოწერილი"
@@ -2651,7 +2652,7 @@ msgstr "გამოწერილია {0}"
 msgid "Subscribed to forum"
 msgstr "ფორუმი გამოიწერა"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "ეს გვერდი ჯერ არ შექმნილა."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ეს პოსტი შესაძლოა წაიშალა ან არ არსებობს."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "ეს პოსტი უკვე გაიგზავნა"
 
@@ -3062,18 +3063,18 @@ msgstr "ვებსაიტი ტექმომსახურებაშ�
 msgid "Window duration"
 msgstr "ფანჯრის ხანგრძლივობა"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "თქვენ უკვე გამოწერილი გაქვთ ეს ფორუმი"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "ძალიან სწრაფად აქვეყნებთ — გთხოვთ, დაიცადეთ და კვლავ სცადეთ"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "თქვენ შეზღუდული ხართ ამ ფორუმზე გამოქვეყნებაში"
 
@@ -3085,7 +3086,7 @@ msgstr "ამ განყოფილებაზე წვდომა არ
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "თქვენ არ გაქვთ საჭირო ნებართვა <0/>ამ რესურსის სანახავად."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "თქვენ არ გაქვთ ნებართვა გამოაქვეყნოთ ამ ფორუმზე"
 

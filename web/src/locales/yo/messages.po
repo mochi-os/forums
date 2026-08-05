@@ -1151,7 +1151,8 @@ msgstr "Kò ṣàṣeyọrí láti fipamọ́ ìfìwéránṣẹ́"
 msgid "Failed to save prompt"
 msgstr "Kò lè fi prompt pamọ́"
 
-#: src/features/forums/components/inline-forum-search.tsx:69
+#: src/features/forums/components/inline-forum-search.tsx:49
+#: src/features/forums/components/inline-forum-search.tsx:106
 msgid "Failed to search forums"
 msgstr "Kò lè wá àwọn forum"
 
@@ -1167,7 +1168,7 @@ msgstr "Kò lè firanṣẹ́ kóòdù ìjẹ́rìí"
 msgid "Failed to set access level"
 msgstr "Kò lè gbé ìpele àyè kalẹ̀"
 
-#: src/features/forums/components/inline-forum-search.tsx:105
+#: src/features/forums/components/inline-forum-search.tsx:84
 #: src/features/forums/components/recommended-forums.tsx:66
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:57
@@ -1237,7 +1238,7 @@ msgstr "A ti dá forum"
 msgid "Forum deleted"
 msgstr "A ti pa forum rẹ́"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:74
 msgid "Forum is no longer available"
 msgstr "Apero ko si mọ́"
 
@@ -1675,7 +1676,7 @@ msgstr "A kò ṣètò àwọn òfin àyè kankan. Fi àwọn òfin kún láti �
 msgid "No connected accounts"
 msgstr "Kò sí ìròyìn tó sopọ̀"
 
-#: src/features/forums/components/inline-forum-search.tsx:156
+#: src/features/forums/components/inline-forum-search.tsx:105
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "A kò rí forum kankan"
@@ -1926,11 +1927,11 @@ msgstr "Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
 msgid "Please wait a moment and try again."
 msgstr "Jọ̀wọ́ dúró díẹ̀ kí o sì gbìyànjú lẹ́ẹ̀kansí."
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:70
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Ifiweranṣẹ ko le wa ni fipamọ — akọle tabi akoonu ko wulo"
 
-#: src/hooks/use-forum-websocket.ts:67
+#: src/hooks/use-forum-websocket.ts:77
 msgid "Post couldn't be saved on the forum server"
 msgstr "Ifiweranṣẹ ko le wa ni fipamọ lori olupin apero"
 
@@ -2389,7 +2390,7 @@ msgstr "Wá ibì kan..."
 msgid "Search for destination..."
 msgstr "Wá ibi tí o ń lọ..."
 
-#: src/features/forums/components/inline-forum-search.tsx:131
+#: src/features/forums/components/inline-forum-search.tsx:104
 msgid "Search for forums..."
 msgstr "Wá àwọn forums..."
 
@@ -2631,13 +2632,13 @@ msgstr "Ń fi sí ilẹ̀..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
-#: src/features/forums/components/inline-forum-search.tsx:191
+#: src/features/forums/components/inline-forum-search.tsx:107
 #: src/features/forums/components/recommended-forums.tsx:171
 #: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Subscribe"
 msgstr "Forúkọsílẹ̀"
 
-#: src/features/forums/components/inline-forum-search.tsx:111
+#: src/features/forums/components/inline-forum-search.tsx:90
 #: src/routes/_authenticated/find.tsx:63
 msgid "Subscribed"
 msgstr "Ti forúkọsílẹ̀"
@@ -2651,7 +2652,7 @@ msgstr "Ti forúkọsílẹ̀ sí {0}"
 msgid "Subscribed to forum"
 msgstr "Ti forúkọsílẹ̀ sí forum"
 
-#: src/features/forums/components/inline-forum-search.tsx:103
+#: src/features/forums/components/inline-forum-search.tsx:82
 #: src/features/forums/components/recommended-forums.tsx:64
 #: src/features/forums/pages/entity-forum-page.tsx:300
 #: src/hooks/use-forums-queries.ts:136
@@ -2754,7 +2755,7 @@ msgstr "A kò tí ì ṣẹ̀dá ojú-ìwé yìí."
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Àkọsílẹ̀ yìí lè jẹ́ pé wọ́n ti pa á rẹ́ tàbí kò sí."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:72
 msgid "This post was already submitted"
 msgstr "Ifiweranṣẹ yii ti firanṣẹ tẹlẹ"
 
@@ -3062,18 +3063,18 @@ msgstr "Ọjọ́rú"
 msgid "Window duration"
 msgstr "Àkókò Window"
 
-#: src/features/forums/components/inline-forum-search.tsx:109
+#: src/features/forums/components/inline-forum-search.tsx:88
 #: src/features/forums/components/recommended-forums.tsx:70
 #: src/hooks/use-forums-queries.ts:143
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "O ti forúkọsílẹ̀ sí forum yìí tẹ́lẹ̀"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are posting too quickly — please wait and try again"
 msgstr "O n fi awọn ifiweranṣẹ ranṣẹ ni iyara pupọ — jọwọ duro ki o tun gbiyanju"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:64
 msgid "You are restricted from posting in this forum"
 msgstr "A ti dawọ ọ duro lati firanṣẹ ninu apero yii"
 
@@ -3085,7 +3086,7 @@ msgstr "O kò ní ààyè sí abala yìí."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "O kò ní àṣẹ tó yẹ <0/>láti wo ohun àmúlò yìí."
 
-#: src/hooks/use-forum-websocket.ts:54
+#: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to post in this forum"
 msgstr "O ko ni igbanilaaye lati firanṣẹ ninu apero yii"
 
