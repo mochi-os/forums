@@ -31,6 +31,22 @@ msgstr " · 永久"
 msgid " (edited)"
 msgstr " (已編輯)"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+msgid " or "
+msgstr "或"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
+msgid "(edited)"
+msgstr "(已編輯)"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+msgid "(expand)"
+msgstr "(展開)"
+
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:774
+msgid "[not set]"
+msgstr "[未設定]"
+
 #. placeholder {0}: newPosts.count
 #: src/features/forums/pages/entity-forum-page.tsx:326
 msgid "{0, plural, one {# new post} other {# new posts}}"
@@ -104,6 +120,10 @@ msgstr "{selectedCount, plural, one {對已選取的 # 個 {entityName} 執行�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+msgid "{totalCount, plural, one {# item} other {# items}}"
+msgstr "{totalCount, plural, one {# 項} other {# 項}}"
+
 #: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# 則回覆} other {# 則回覆}}"
@@ -116,6 +136,14 @@ msgstr "{unreadCount, plural, one {開啟選單（# 則未讀通知）} other {�
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
 msgstr "+{0} 個巢狀"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} 則回覆"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+msgid "1 reply"
+msgstr "1 則回覆"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -191,9 +219,17 @@ msgstr "帳戶已驗證"
 msgid "Add"
 msgstr "新增"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+msgid "Add a comment..."
+msgstr "新增留言..."
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:133
 msgid "Add a new account"
 msgstr "新增帳戶"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+msgid "Add a new field to this class"
+msgstr "為此類別新增欄位"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:148
 msgid "Add access"
@@ -212,6 +248,11 @@ msgstr "新增帳戶以接收通知並使用服務。"
 msgid "Add checklist item"
 msgstr "新增檢查清單項目"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+msgid "Add field"
+msgstr "新增欄位"
+
 #: src/features/forums/components/create-post-dialog.tsx:342
 #: src/features/forums/components/edit-post-dialog.tsx:355
 msgid "Add files"
@@ -221,9 +262,21 @@ msgstr "新增檔案"
 msgid "Add item..."
 msgstr "新增項目..."
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+msgid "Add link"
+msgstr "新增連結"
+
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "新增帳戶"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:292
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:194
+msgid "Add option"
+msgstr "新增選項"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:856
 msgid "Add rule"
@@ -242,6 +295,8 @@ msgstr "新增團隊/應用程式"
 msgid "Add to existing notifications"
 msgstr "新增至現有通知"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:519
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -291,6 +346,10 @@ msgstr "允許任何人搜尋{0}"
 msgid "Allow anyone to search for forum"
 msgstr "允許任何人搜尋論壇"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:226
+msgid "Allow sort by"
+msgstr "允許排序依據"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:178
 msgid "An error occurred"
 msgstr "發生錯誤"
@@ -321,6 +380,19 @@ msgstr "任何已登入的人"
 msgid "Approve"
 msgstr "核准"
 
+#. placeholder {0}: deleteTarget?.name
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+msgid "Are you sure you want to delete \"{0}\"?"
+msgstr "您確定要刪除「{0}」嗎?"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:643
+msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
+msgstr "您確定要刪除「{name}」欄位嗎?此操作無法復原。"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+msgid "Are you sure you want to delete this comment? This will also delete all replies."
+msgstr "您確定要刪除此留言嗎?這也會刪除所有回覆。"
+
 #: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "您確定要刪除此留言嗎?這也會刪除所有回覆。此操作無法復原。"
@@ -341,6 +413,13 @@ msgstr "升序"
 msgid "Ascending"
 msgstr "升冪"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+msgid "Attach comment files"
+msgstr "附加留言檔案"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
 #: src/features/forums/components/thread/thread-comment.tsx:588
 #: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/thread-detail.tsx:584
@@ -426,15 +505,32 @@ msgstr "已移除橫幅"
 msgid "Banner updated"
 msgstr "已更新橫幅"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+msgid "Blocked by"
+msgstr "被以下阻擋"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:237
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:247
 msgid "Blocked navigation to untrusted link"
 msgstr "已封鎖前往不受信任連結的導航"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+msgid "Blocks"
+msgstr "阻擋"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+msgid "Board"
+msgstr "棋盤"
+
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "提升興趣"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:405
+msgid "Border colour"
+msgstr "邊框顏色"
 
 #: ../../../lib/web/src/features/accounts/types.ts:13
 msgid "Browser notifications"
@@ -450,6 +546,10 @@ msgstr "由 {0}"
 msgid "By {0}"
 msgstr "由 {0}"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
@@ -466,6 +566,13 @@ msgstr "由 {0}"
 msgid "Cancel"
 msgstr "取消"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+msgid "Cancel comment"
+msgstr "取消留言"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
 #: src/features/forums/components/thread/thread-comment.tsx:603
 #: src/features/forums/components/thread/thread-comment.tsx:608
 #: src/features/forums/thread-detail.tsx:598
@@ -489,6 +596,14 @@ msgstr "選擇\"全部\"以檢視過往通知。"
 #: src/features/forums/components/forum-overview.tsx:150
 msgid "Check back later for new content"
 msgstr "稍後回來查看新內容"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+msgid "Checkbox"
+msgstr "核取方塊"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+msgid "Checklist"
+msgstr "檢查清單"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:37
 msgid "Choose a game from the sidebar or start a new one."
@@ -557,12 +672,21 @@ msgstr "清除選取 (Escape)"
 msgid "Clearing saved posts..."
 msgstr "正在清除已儲存的貼文..."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "關閉"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:269
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:273
+msgid "Close dialog"
+msgstr "關閉對話框"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
@@ -593,6 +717,19 @@ msgstr "收合"
 msgid "Collapse sidebar"
 msgstr "摺疊側邊欄"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:149
+msgid "Colour"
+msgstr "顏色"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:553
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:558
+msgid "Column actions"
+msgstr "欄操作"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Columns group by"
+msgstr "欄位分組依據"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:96
 msgid "Comfortable"
 msgstr "舒適"
@@ -604,6 +741,11 @@ msgstr "敬請期待!"
 #: ../../../lib/web/src/components/ui/command.tsx:34
 msgid "Command Palette"
 msgstr "命令選擇區"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+msgid "Comment actions"
+msgstr "留言操作"
 
 #: src/hooks/use-forums-queries.ts:577
 msgid "Comment approved"
@@ -641,6 +783,14 @@ msgstr "留言、投票和檢視"
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "緊湊"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:97
+msgid "Configure option settings"
+msgstr "設定選項"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:265
+msgid "Configure view settings"
+msgstr "設定檢視"
 
 #: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
@@ -724,6 +874,14 @@ msgstr "無法開始重新驗證。請再試一次。"
 msgid "Couldn't verify with that account. Please try again."
 msgstr "無法使用該帳戶進行驗證。請重試。"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+msgid "Create"
+msgstr "建立"
+
 #. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
 msgid "Create {0}"
@@ -746,10 +904,16 @@ msgstr "建立論壇"
 msgid "Create new item"
 msgstr "建立新項目"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:498
+msgid "Created"
+msgstr "已建立"
+
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "正在建立論壇..."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "建立中..."
@@ -778,6 +942,10 @@ msgstr "深色模式"
 msgid "Data conflict"
 msgstr "資料衝突"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+msgid "Date"
+msgstr "日期"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:1036
 msgid "days"
 msgstr "天"
@@ -799,6 +967,19 @@ msgstr "預設帳戶"
 msgid "Default AI account"
 msgstr "預設 AI 帳戶"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:485
+msgid "Default sort"
+msgstr "預設排序"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
 #: src/features/forums/components/thread/thread-comment.tsx:441
 #: src/features/forums/components/thread/thread-comment.tsx:513
 #: src/features/forums/components/thread/thread-content.tsx:336
@@ -807,9 +988,22 @@ msgstr "預設 AI 帳戶"
 msgid "Delete"
 msgstr "刪除"
 
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+msgid "Delete attachment"
+msgstr "刪除附件"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:642
+msgid "Delete column"
+msgstr "刪除欄位"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
 #: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "刪除留言"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:301
+msgid "Delete field"
+msgstr "刪除欄位"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:410
 #: src/routes/_authenticated/$forum_.settings.tsx:430
@@ -820,9 +1014,23 @@ msgstr "刪除論壇"
 msgid "Delete forum?"
 msgstr "刪除論壇?"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:119
+msgid "Delete option"
+msgstr "刪除選項"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:279
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:284
+msgid "Delete option {0}"
+msgstr "刪除選項 {0}"
+
 #: src/features/forums/components/thread/thread-content.tsx:414
 msgid "Delete post"
 msgstr "刪除貼文"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:290
+msgid "Delete view"
+msgstr "刪除檢視"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
@@ -903,6 +1111,12 @@ msgstr "關閉橫幅"
 msgid "Displays the mobile sidebar."
 msgstr "顯示行動裝置側邊欄。"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:524
+msgid "Done"
+msgstr "完成"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -912,10 +1126,16 @@ msgstr "下載"
 msgid "Download failed"
 msgstr "下載失敗"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+msgid "Duplicates"
+msgstr "重複"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:146
 msgid "Dyslexia-friendly"
 msgstr "閱讀障礙友善"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
 #: src/features/forums/components/thread/thread-comment.tsx:435
 #: src/features/forums/components/thread/thread-content.tsx:330
 msgid "Edit"
@@ -925,6 +1145,24 @@ msgstr "編輯"
 msgid "Edit {label}"
 msgstr "編輯 {label}"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+msgid "Edit field"
+msgstr "編輯欄位"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:139
+msgid "Edit field settings"
+msgstr "編輯欄位設定"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+msgid "Edit option"
+msgstr "編輯選項"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:264
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:269
+msgid "Edit option {0}"
+msgstr "編輯選項 {0}"
+
 #: src/features/forums/components/edit-post-dialog.tsx:220
 #: src/features/forums/components/edit-post-dialog.tsx:222
 msgid "Edit post"
@@ -933,6 +1171,10 @@ msgstr "編輯貼文"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:31
 msgid "Edit selected card"
 msgstr "編輯選取的卡片"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+msgid "Edit view"
+msgstr "編輯檢視"
 
 #: ../../../lib/web/src/features/accounts/types.ts:15
 msgid "Email"
@@ -1018,13 +1260,26 @@ msgstr "複製失敗"
 msgid "Failed to create forum"
 msgstr "建立論壇失敗"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:99
 msgid "Failed to create link"
 msgstr "建立連結失敗"
 
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+msgid "Failed to delete attachment"
+msgstr "刪除附件失敗"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+msgid "Failed to delete comment"
+msgstr "刪除留言失敗"
+
 #: src/hooks/use-forums-queries.ts:99
 msgid "Failed to delete forum"
 msgstr "刪除論壇失敗"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+msgid "Failed to delete link"
+msgstr "刪除連結失敗"
 
 #: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "Failed to get RSS token"
@@ -1097,6 +1352,10 @@ msgstr "靜音使用者失敗"
 #: src/routes/_authenticated/$forum_.moderation.tsx:290
 msgid "Failed to mute users"
 msgstr "靜音使用者失敗"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+msgid "Failed to post comment"
+msgstr "張貼留言失敗"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:261
 msgid "Failed to reject items"
@@ -1192,6 +1451,20 @@ msgstr "更新 AI 設定失敗"
 msgid "Failed to update banner"
 msgstr "更新橫幅失敗"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+msgid "Failed to update comment"
+msgstr "更新留言失敗"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+msgid "Failed to upload attachment"
+msgstr "上傳附件失敗"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+msgid "Files"
+msgstr "檔案"
+
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
 msgid "Filter..."
 msgstr "篩選..."
@@ -1212,6 +1485,10 @@ msgstr "指紋"
 #: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "完成帳號遷移"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:222
+msgid "Flags"
+msgstr "標記"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:116
 msgid "Flat"
@@ -1327,6 +1604,10 @@ msgstr "前往上一頁"
 msgid "Group"
 msgstr "群組"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Group by"
+msgstr "分組依據"
+
 #. placeholder {0}: name || subject.slice(1)
 #: ../../../lib/web/src/features/access/access-list.tsx:68
 msgid "Group: {0}"
@@ -1364,6 +1645,10 @@ msgstr "首頁"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:44
 msgid "Hot"
 msgstr "熱門"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:153
+msgid "ID"
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Identity"
@@ -1441,6 +1726,7 @@ msgid "Large"
 msgstr "大"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Layout"
 msgstr "版面"
 
@@ -1466,6 +1752,14 @@ msgstr "淺色"
 #: ../../../lib/web/src/components/options-menu.tsx:190
 msgid "Link"
 msgstr "連結"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+msgid "Links"
+msgstr "連結"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:324
+msgid "List"
+msgstr "清單"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
@@ -1519,6 +1813,10 @@ msgstr "管理類別"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "管理用於通知和服務的已連結帳戶。"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
+msgid "Manual"
+msgstr "手動"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:202
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:209
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1528,6 +1826,10 @@ msgstr "全部標示為已讀"
 #: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "支援 Markdown"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:199
+msgid "Maximum length"
+msgstr "最大長度"
 
 #: ../../../lib/web/src/features/accounts/types.ts:17
 msgid "MCP server"
@@ -1548,6 +1850,10 @@ msgstr "訊息"
 #: ../../../lib/web/src/lib/preference-utils.ts:85
 msgid "Metric"
 msgstr "公制"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:188
+msgid "Minimum length"
+msgstr "最小長度"
 
 #: src/features/forums/components/report-dialog.tsx:30
 #: src/routes/_authenticated/$forum_.moderation.tsx:749
@@ -1603,6 +1909,11 @@ msgstr "靜音作者"
 msgid "muted"
 msgstr "已靜音"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:143
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
 #: src/routes/_authenticated/$forum_.settings.tsx:359
 msgid "Name"
 msgstr "名稱"
@@ -1625,6 +1936,7 @@ msgstr "名稱必須為 1000 個字元或更少"
 msgid "Network error"
 msgstr "網路錯誤"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "New"
@@ -1659,6 +1971,10 @@ msgstr "新使用者門檻："
 msgid "Next image"
 msgstr "下一張圖片"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+msgid "No {parentClassNames} to add to"
+msgstr "沒有可加入的 {parentClassNames}"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:640
 msgid "No {statusFilter} reports found"
 msgstr "找不到 {statusFilter} 檢舉"
@@ -1670,6 +1986,14 @@ msgstr "無存取權"
 #: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "未設定存取規則。新增規則以控制誰可以存取此資源。"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+msgid "No activity yet"
+msgstr "尚無活動"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+msgid "No comments yet"
+msgstr "尚無留言"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
 msgid "No connected accounts"
@@ -1687,6 +2011,14 @@ msgstr "尚無遊戲"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "無可用的群組"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+msgid "No item types can be created yet. Create the required parent items first."
+msgstr "尚無法建立任何項目類型。請先建立所需的父項目。"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+msgid "No matching objects"
+msgstr "無相符的物件"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "No moderation activity"
@@ -1731,6 +2063,12 @@ msgstr "找不到結果"
 msgid "No results found."
 msgstr "找不到結果。"
 
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:845
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:890
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+msgid "No status"
+msgstr "無狀態"
+
 #: ../../../lib/web/src/components/timezone-select.tsx:67
 msgid "No time zone found."
 msgstr "找不到時區。"
@@ -1751,7 +2089,21 @@ msgstr "找不到使用者"
 msgid "No users have been muted or banned"
 msgstr "沒有使用者被靜音或封禁"
 
+#: ../../../lib/web/src/components/entity/entity-design-preview.tsx:115
+msgid "No views"
+msgstr "無檢視"
+
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:421
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1770,6 +2122,10 @@ msgstr "找不到"
 msgid "Not set"
 msgstr "未設定"
 
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+msgid "Nothing found"
+msgstr "找不到任何項目"
+
 #: src/features/forums/pages/saved-page.tsx:86
 msgid "Nothing saved yet"
 msgstr "尚未儲存任何內容"
@@ -1786,6 +2142,12 @@ msgstr "通知"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:195
 msgid "Notifications: {0}"
 msgstr "通知：{0}"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+msgid "Number"
+msgstr "數字"
 
 #: src/features/forums/components/report-dialog.tsx:31
 #: src/routes/_authenticated/$forum_.moderation.tsx:750
@@ -1824,6 +2186,11 @@ msgstr "開啟導覽"
 msgid "Open navigation menu"
 msgstr "開啟導覽選單"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:108
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:114
+msgid "Open option actions"
+msgstr "開啟選項動作"
+
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:30
 msgid "Open selected card"
 msgstr "開啟選取的卡片"
@@ -1833,9 +2200,29 @@ msgstr "開啟選取的卡片"
 msgid "Open theme settings"
 msgstr "開啟佈景主題設定"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:280
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:285
+msgid "Open view actions"
+msgstr "開啟檢視動作"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:150
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:156
+msgid "Open view controls"
+msgstr "開啟檢視控制項"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:158
+msgid "Option name"
+msgstr "選項名稱"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "在您的論壇頂部顯示的選用 Markdown 橫幅。"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:241
+msgid "Options"
+msgstr "選項"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
@@ -1852,6 +2239,10 @@ msgstr "擁有者"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "第 {currentPage} 頁，共 {totalPages} 頁"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+msgid "Parent"
+msgstr "父項"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "通行密鑰"
@@ -1863,6 +2254,10 @@ msgstr "通行金鑰驗證失敗。請再試一次。"
 #: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Passkey"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:210
+msgid "Pattern (regex)"
+msgstr "格式(正規表示式)"
 
 #: src/features/forums/components/post-card.tsx:57
 #: src/features/forums/components/thread/thread-comment.tsx:276
@@ -2101,6 +2496,10 @@ msgstr "拒絕"
 msgid "Rejected"
 msgstr "已拒絕"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+msgid "Relates"
+msgstr "關聯"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:50
 msgid "Relative (5m, 3h, 2d)"
 msgstr "相對(5m、3h、2d)"
@@ -2110,6 +2509,8 @@ msgid "Relative within 24 hours, else absolute"
 msgstr "24 小時內相對,否則絕對"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:311
@@ -2161,6 +2562,11 @@ msgstr "移除興趣"
 msgid "Remove item"
 msgstr "移除項目"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+msgid "Remove link"
+msgstr "移除連結"
+
 #: src/features/forums/components/thread/thread-content.tsx:428
 msgid "Remove post"
 msgstr "移除貼文"
@@ -2183,6 +2589,19 @@ msgstr "已從收藏中移除"
 msgid "Removing..."
 msgstr "移除中..."
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:575
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+msgid "Rename"
+msgstr "重新命名"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:610
+msgid "Rename column"
+msgstr "重新命名欄位"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:611
+msgid "Rename this board column"
+msgstr "重新命名此看板欄位"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Renaming forum..."
 msgstr "正在重新命名論壇..."
@@ -2195,6 +2614,8 @@ msgstr "則回覆"
 msgid "Replies must be approved"
 msgstr "回覆必須經過核准"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
 #: src/features/forums/components/thread/thread-comment.tsx:400
 #: src/features/forums/components/thread/thread-comment.tsx:406
 #: src/features/forums/components/thread/thread-content.tsx:296
@@ -2203,6 +2624,8 @@ msgid "Reply"
 msgstr "回覆"
 
 #. placeholder {0}: comment.name
+#. placeholder {0}: comment.name || comment.author
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
 #: src/features/forums/components/thread/thread-comment.tsx:549
 msgid "Reply to {0}..."
 msgstr "回覆 {0}..."
@@ -2253,6 +2676,10 @@ msgstr "新貼文需要核准"
 #: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new users"
 msgstr "新使用者需要核准"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+msgid "Required"
+msgstr "必填"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:367
 msgid "Resend email"
@@ -2305,6 +2732,15 @@ msgstr "撤銷存取權限"
 msgid "Right to Left"
 msgstr "從右至左"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:169
+msgid "Rows"
+msgstr "列"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:379
+msgid "Rows group by"
+msgstr "列分組依據"
+
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "每頁列數"
@@ -2325,6 +2761,8 @@ msgstr "已複製 RSS URL 至剪貼簿"
 msgid "Saturday"
 msgstr "星期六"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
 #: src/features/forums/components/thread/thread-comment.tsx:325
@@ -2363,6 +2801,7 @@ msgstr "儲存中..."
 msgid "Score prompt"
 msgstr "評分提示"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:177
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
 #: ../../../lib/web/src/components/search.tsx:18
@@ -2397,6 +2836,10 @@ msgstr "搜尋論壇..."
 msgid "Search for origin..."
 msgstr "搜尋出發地..."
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+msgid "Search objects..."
+msgstr "搜尋物件..."
+
 #: ../../../lib/web/src/components/timezone-select.tsx:65
 msgid "Search time zone..."
 msgstr "搜尋時區..."
@@ -2405,6 +2848,12 @@ msgstr "搜尋時區..."
 msgid "Search users"
 msgstr "搜尋使用者"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:173
+msgid "Search, watch, and sort this view."
+msgstr "搜尋、關注並排序此檢視。"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2421,10 +2870,18 @@ msgstr "搜尋中..."
 msgid "seconds"
 msgstr "秒"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+msgid "Select"
+msgstr "選擇"
+
 #. placeholder {0}: item.label.toLowerCase()
 #: ../../../lib/web/src/components/config-drawer.tsx:149
 msgid "Select {0}"
 msgstr "選擇{0}"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+msgid "Select a field"
+msgstr "選擇欄位"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:36
 msgid "Select a game"
@@ -2557,6 +3014,14 @@ msgstr "設定出發地與目的地"
 msgid "Settings"
 msgstr "設定"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:333
+msgid "Show classes"
+msgstr "顯示類別"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:434
+msgid "Show fields"
+msgstr "顯示欄位"
+
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
 msgstr "顯示密碼"
@@ -2584,6 +3049,11 @@ msgstr "登出"
 msgid "Signing out..."
 msgstr "登出中..."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:180
+msgid "Single line of text only"
+msgstr "僅限單行文字"
+
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
 msgid "Skip to Main"
 msgstr "跳至主要內容"
@@ -2592,6 +3062,10 @@ msgstr "跳至主要內容"
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Small"
 msgstr "小"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:199
+msgid "Sort"
+msgstr "排序"
 
 #: ../../../lib/web/src/components/options-menu.tsx:158
 msgid "Sources"
@@ -2606,6 +3080,10 @@ msgstr "寬鬆"
 msgid "Spam"
 msgstr "垃圾訊息"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+msgid "Start the discussion by adding the first comment."
+msgstr "新增第一則留言以開啟討論。"
+
 #: ../../../lib/web/src/components/coming-soon.tsx:15
 msgid "Stay tuned though!"
 msgstr "敬請期待!"
@@ -2614,6 +3092,13 @@ msgstr "敬請期待!"
 msgid "Subject"
 msgstr "主旨"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+msgid "Submit comment"
+msgstr "送出留言"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
 #: src/features/forums/components/thread/thread-comment.tsx:618
 #: src/features/forums/components/thread/thread-comment.tsx:627
 #: src/features/forums/thread-detail.tsx:615
@@ -2709,6 +3194,10 @@ msgstr "團隊/應用程式"
 #: ../../../lib/web/src/features/document/document-page.tsx:42
 msgid "Terms and conditions"
 msgstr "條款與細則"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+msgid "Text"
+msgstr "文字"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "That code is incorrect or has expired."
@@ -2839,6 +3328,11 @@ msgstr "切換主題"
 msgid "Toggle view options"
 msgstr "切換檢視選項"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:190
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:267
+msgid "Toggle watched filter"
+msgstr "切換關注篩選"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "要求次數過多"
@@ -2865,6 +3359,11 @@ msgstr "重試"
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Tuesday"
 msgstr "星期二"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:163
+msgid "Type"
+msgstr "類型"
 
 #: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
@@ -2947,9 +3446,25 @@ msgstr "已取消訂閱"
 msgid "Unsubscribing..."
 msgstr "取消訂閱中..."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+msgid "Untitled"
+msgstr "未命名"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "未驗證"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:500
+msgid "Updated"
+msgstr "已更新"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+msgid "Upload"
+msgstr "上傳"
 
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:34
 msgid "Upload progress"
@@ -2959,6 +3474,7 @@ msgstr "上傳進度"
 msgid "Use your passkey"
 msgstr "使用您的通行金鑰"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
@@ -3020,6 +3536,10 @@ msgstr "檢視全部"
 msgid "View all notifications"
 msgstr "檢視所有通知"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:172
+msgid "View controls"
+msgstr "檢視控制項"
+
 #: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "View only"
 msgstr "僅檢視"
@@ -3033,9 +3553,14 @@ msgstr "暴力"
 msgid "Vote and view"
 msgstr "投票和檢視"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:271
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
 msgstr "已關注"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:194
+msgid "Watched only"
+msgstr "僅關注的"
 
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
