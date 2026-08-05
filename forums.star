@@ -7677,8 +7677,12 @@ def action_rss(a):
     mode = "posts"
     if token:
         rss_row = mochi.db.row("select mode from rss where token=? and entity=?", token, forum_id)
-        if rss_row:
-            mode = rss_row["mode"]
+        # The token authorises one forum. check_access above resolves against
+        # the token's issuer, so it passes for any forum that issuer owns.
+        if not rss_row:
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
+        mode = rss_row["mode"]
 
     forum_name = forum.get("name", mochi.app.label("moderation.forum_unknown"))
     fingerprint = mochi.entity.fingerprint(forum_id)
