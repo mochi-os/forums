@@ -28,7 +28,7 @@
 		"schema": 6,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
-		"upgrade": {"function": "database_upgrade"},
+		"upgrade": {"function": "database_upgrade"}
 	},
 	"commit": {"function": "on_db_commit"},
 	"icons": [
@@ -193,7 +193,6 @@
 		"moderation/log": {"function": "event_moderation_log"},
 		"restrictions": {"function": "event_restrictions"},
 		"moderation/report/resolve": {"function": "event_report_resolve_action"},
-		"ai/tag": {"function": "event_ai_tag"},
 		"mention/notify": {"function": "event_mention_notify"},
 		"moderator/notify": {"function": "event_moderator_notify"},
 		"app/check": {"function": "event_app_check", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help"]},
