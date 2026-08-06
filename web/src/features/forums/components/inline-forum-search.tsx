@@ -2,17 +2,16 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { useLingui } from '@lingui/react/macro'
-import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
-import { Hash } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+import { useLingui } from '@lingui/react/macro'
 import {
   InlineEntitySearch,
   toast,
   toastAction,
   getErrorMessage,
 } from '@mochi/web'
+import { Hash } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
