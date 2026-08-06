@@ -2,23 +2,26 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
+
 /**
  * Forum WebSocket Hook
  *
- * The connection is owned by the shared entityWebsocketManager, which keeps one
- * socket per forum key across every subscriber, reconnects on drop, and
- * survives component remounts and React StrictMode double-renders. Only the
- * event vocabulary and the query invalidation below are forums-specific.
+ * Connections come from the shared entityWebsocketManager: one socket per
+ * forum key shared by every subscriber, persisting across component remounts
+ * and React StrictMode double-renders, with a close path that detaches
+ * handlers so the resubscribe on a token refresh cannot orphan a socket that
+ * keeps delivering events.
  */
+
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { t } from '@lingui/core/macro'
 import {
-  entityWebsocketManager,
   toast,
   useAuthStore,
+  entityWebsocketManager,
   type EntityWebsocketEvent,
 } from '@mochi/web'
+import { t } from '@lingui/core/macro'
 import { forumsKeys } from './use-forums-queries'
 
 interface ForumWebsocketEvent {
@@ -53,19 +56,14 @@ interface ForumWebsocketEvent {
   tag?: { id: string; label: string; source: string } | string
 }
 
-function rejectMessage(
-  reason: string | undefined,
-  detail: string | undefined
-): string {
+function rejectMessage(reason: string | undefined, detail: string | undefined): string {
   switch (reason) {
     case 'access_denied':
       return t`You don't have permission to post in this forum`
     case 'restricted':
       return detail || t`You are restricted from posting in this forum`
     case 'rate_limited':
-      return (
-        detail || t`You are posting too quickly — please wait and try again`
-      )
+      return detail || t`You are posting too quickly — please wait and try again`
     case 'invalid':
       return t`Post couldn't be saved — title or body is invalid`
     case 'duplicate':
@@ -80,6 +78,7 @@ function rejectMessage(
 
 /**
  * Hook to subscribe to forum WebSocket events.
+ * Uses the shared singleton manager to prevent duplicate connections.
  *
  * @param forumKey - The forum fingerprint to subscribe to
  * @param userId - Current user ID, used to filter out self-events
@@ -112,7 +111,6 @@ export function useForumWebsocket(
     if (!forumKey) return
 
     const handleMessage = (event: EntityWebsocketEvent) => {
-      // The manager parses the envelope; the payload shape is the forum's own.
       const data = event as unknown as ForumWebsocketEvent
 
       // Skip events from the current user (optimistic UI already applied)
@@ -151,13 +149,9 @@ export function useForumWebsocket(
             },
           })
           if (data.post) {
-            void queryClient.invalidateQueries({
-              queryKey: forumsKeys.post(forumId, data.post),
-            })
+            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
             if (forumKey && forumKey !== forumId) {
-              void queryClient.invalidateQueries({
-                queryKey: forumsKeys.post(forumKey, data.post),
-              })
+              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
             }
           }
           break
@@ -168,13 +162,9 @@ export function useForumWebsocket(
         case 'comment/remove':
         case 'comment/restore':
           if (data.post) {
-            void queryClient.invalidateQueries({
-              queryKey: forumsKeys.post(forumId, data.post),
-            })
+            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
             if (forumKey && forumKey !== forumId) {
-              void queryClient.invalidateQueries({
-                queryKey: forumsKeys.post(forumKey, data.post),
-              })
+              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
             }
           }
           break
@@ -203,6 +193,7 @@ export function useForumWebsocket(
       }
     }
 
-    return entityWebsocketManager.subscribe(forumKey, handleMessage)
+    const unsubscribe = entityWebsocketManager.subscribe(forumKey, handleMessage)
+    return unsubscribe
   }, [authReady, authToken, forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
 }

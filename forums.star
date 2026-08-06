@@ -1075,7 +1075,7 @@ def ai_tag_post(forum_id, post_id):
         broadcast_event(forum_id, "tag/add", {"id": tag_id, "object": post_id, "label": label, "qid": qid, "relevance": item["relevance"], "source": "ai"})
 
 # Scheduled event handler for AI tagging
-def event_ai_tag(e):
+def schedule_ai_tag(e):
     if e.source != "schedule":
         return
     forum_id = e.data.get("forum", "")
@@ -1834,7 +1834,7 @@ def action_post_create(a):
 
                 # Schedule AI tagging
                 if forum.get("ai_mode", ""):
-                    mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
+                    mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": id}, 0)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -2865,7 +2865,7 @@ def action_post_edit(a):
             # Re-tag with AI if enabled
             if forum.get("ai_mode", ""):
                 mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
-                mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
+                mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": post_id}, 0)
         else:
             # Subscriber - must be author or have manage access to edit
             is_author = user_id == post["member"]
@@ -5825,7 +5825,7 @@ def event_post_submit_event(e):
 
         # Schedule AI tagging
         if forum.get("ai_mode", ""):
-            mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": id}, 0)
+            mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": id}, 0)
     elif status == "pending":
         notify_moderators(
             forum["id"],
@@ -5911,7 +5911,7 @@ def event_post_edit_submit_event(e):
     # Re-tag with AI if enabled
     if forum.get("ai_mode", ""):
         mochi.db.execute("delete from tags where object=? and source='ai'", post_id)
-        mochi.schedule.after("ai/tag", {"forum": forum["id"], "post": post_id}, 0)
+        mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": post_id}, 0)
 
 # Received a post delete request from member (we are forum owner)
 def event_post_delete_submit_event(e):
@@ -7677,8 +7677,12 @@ def action_rss(a):
     mode = "posts"
     if token:
         rss_row = mochi.db.row("select mode from rss where token=? and entity=?", token, forum_id)
-        if rss_row:
-            mode = rss_row["mode"]
+        # The token authorises one forum. check_access above resolves against
+        # the token's issuer, so it passes for any forum that issuer owns.
+        if not rss_row:
+            a.error.label(403, "errors.not_allowed_to_view_this_forum")
+            return
+        mode = rss_row["mode"]
 
     forum_name = forum.get("name", mochi.app.label("moderation.forum_unknown"))
     fingerprint = mochi.entity.fingerprint(forum_id)
