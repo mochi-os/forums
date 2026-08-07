@@ -1929,7 +1929,7 @@ def action_post_new(a):
         return
 
     return {
-        "data": {"forum": forum}
+        "data": {"forum": strip_forum_config(forum)}
     }
 
 # Search for forums
@@ -3070,7 +3070,7 @@ def action_comment_new(a):
     
     return {
         "data": {
-            "forum": forum,
+            "forum": strip_forum_config(forum),
             "post": a.input("post"),
             "parent": a.input("parent")
         }
@@ -4501,7 +4501,7 @@ def action_moderation_queue(a):
 
     return {
         "data": {
-            "forum": forum,
+            "forum": strip_forum_config(forum),
             "posts": posts,
             "comments": comments,
             "reports": reports,
@@ -7192,7 +7192,7 @@ def event_post_view(e):
     comments = get_comments("", 0)
 
     e.stream.write({
-        "forum": forum,
+        "forum": strip_forum_config(forum),
         "post": post_data,
         "comments": comments,
         "member": None,
@@ -7236,7 +7236,7 @@ def event_moderation_queue(e):
     """, forum["id"])
 
     e.stream.write({
-        "forum": forum,
+        "forum": strip_forum_config(forum),
         "posts": posts,
         "comments": comments,
         "reports": reports,
