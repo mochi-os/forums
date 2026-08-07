@@ -26,6 +26,7 @@ import {
   findCommentTextInTree,
   cn,
   removePendingFile,
+  moveItem,
   ComposerAttachments,
   SendShortcutHint,
   dropActiveClass,
@@ -558,8 +559,12 @@ export function ThreadDetail({
                             ? 'error'
                             : 'idle'
                       }
+                      progress={createCommentMutation.progress?.slices}
                       onRemove={(file) =>
                         setCommentFiles((prev) => removePendingFile(prev, file))
+                      }
+                      onReorder={(from, to) =>
+                        setCommentFiles((prev) => moveItem(prev, from, to))
                       }
                       // Retry sends the draft, so it is only offered while
                       // there is one.

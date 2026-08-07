@@ -112,7 +112,9 @@ export function useCreatePost(forumId: string | null) {
   const mutation = useMutation({
     mutationFn: (payload: Parameters<typeof forumsApi.createPost>[0]) =>
       payload.attachments?.length
-        ? upload((onProgress) => forumsApi.createPost(payload, onProgress))
+        ? upload((onProgress) => forumsApi.createPost(payload, onProgress), {
+            sizes: payload.attachments.map((file) => file.size),
+          })
         : forumsApi.createPost(payload),
     onSuccess: () => {
       toast.success(t`Post published.`)
@@ -244,7 +246,9 @@ export function useCreateComment(forumId: string, postId: string) {
     mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) => {
       const payload = { forum: forumId, post: postId, body, parent, files }
       return files?.length
-        ? upload((onProgress) => forumsApi.createComment(payload, onProgress))
+        ? upload((onProgress) => forumsApi.createComment(payload, onProgress), {
+            sizes: files.map((file) => file.size),
+          })
         : forumsApi.createComment(payload)
     },
     onSuccess: () => {
@@ -293,7 +297,10 @@ export function useEditPost(forumId: string, postId: string) {
         attachments: data.attachments,
       }
       return data.attachments?.length
-        ? upload((onProgress) => forumsApi.editPost(payload, onProgress))
+        ? upload((onProgress) => forumsApi.editPost(payload, onProgress), {
+            // Only the new files ride the body; saved ones come back via `order`.
+            sizes: data.attachments.map((file) => file.size),
+          })
         : forumsApi.editPost(payload)
     },
     onSuccess: (result) => {
