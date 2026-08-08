@@ -8137,12 +8137,34 @@ def _check_forum(user, forum_id):
     return {"fingerprint": fp, "already_subscribed": subscribed}
 
 
+# Whether an app/* service event really came from the user it acts for.
+#
+# These handlers subscribe the receiving user and post as them, and their only
+# gate used to be the `apps` allowlist in app.json. That allowlist is checked
+# against `from-app`, an UNSIGNED wire field the sender writes about itself
+# (core protocol2.go Frame.FromApp; the claim signature covers v, stream,
+# entity, receiver and protocol, and not this), so it constrained nobody: any
+# authenticated peer could name an allowed app and pass.
+#
+# The sender identity IS authenticated, and the callers are self-directed -
+# help.star sends these with mochi.remote.request(a.user.identity.id, ...), so
+# the sender and the recipient are the same person. Requiring that is both
+# enforceable and stronger than the allowlist ever was: only you can make
+# yourself subscribe and post, whatever app claims to be asking.
+def _app_event_is_self(e):
+    sender = e.header("from")
+    return bool(sender) and e.user and e.user.identity and sender == e.user.identity.id
+
+
 # Service event: another local app asks whether the user could subscribe and
 # post to a forum, without changing anything — the read-only counterpart of
 # event_app_subscribe. Help calls this when a contribute dialog opens, before
 # the user has committed to anything.
 # Caller restriction is declared in app.json events block.
 def event_app_check(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     forum_id = e.content("forum") or ""
     result = _check_forum(e.user, forum_id)
     if "error" in result:
@@ -8157,6 +8179,9 @@ def event_app_check(e):
 # Service event: another local app asks us to subscribe the user to a forum.
 # Caller restriction is declared in app.json events block.
 def event_app_subscribe(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     forum_id = e.content("forum") or ""
     result = _subscribe_to_forum(e.user, forum_id, "")
     if "error" in result:
@@ -8179,6 +8204,9 @@ def event_app_subscribe(e):
 # callers (single-fire, the current path) still need to mint once and
 # pass through.
 def event_app_post(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     post_id = e.content("id") or ""
     forum_id = e.content("forum") or ""
     title = e.content("title") or ""
