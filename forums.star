@@ -250,6 +250,20 @@ def get_forum(forum_id):
         forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
     return forum
 
+# Helper: deliver a subscription-lifecycle event (subscribe, unsubscribe) to an
+# owner whose entity may no longer be resolvable: private entities never list
+# in the directory, and public entries expire while the owner is offline. A
+# stored directory-form "p2p/<peer>" server pins the queue row to that peer, so
+# an undeliverable send parks and revives when the peer reconnects, instead of
+# parking unresolvable forever. Hostname servers still route via the directory -
+# resolving one here would put a network dial on a view path.
+def registration_send(server, headers, content):
+    peer = server[len("p2p/"):] if server and server.startswith("p2p/") else ""
+    if peer:
+        mochi.message.send.peer(peer, headers, content)
+    else:
+        mochi.message.send(headers, content)
+
 # Strip owner-only operational config from a forum row before returning it to a
 # viewer. Moderation thresholds, rate limits, and AI prompt text are reachable
 # only through the owner-gated settings endpoints (action_moderation_settings,
@@ -533,11 +547,9 @@ def maybe_resubscribe(a, forum_id):
         return
     if mochi.time.now() - mochi.broadcast.seen(forum_id) <= idle_resync_age:
         return
-    mochi.message.send(
+    registration_send(row["server"],
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
-        {"name": a.user.identity.name},
-        []
-    )
+        {"name": a.user.identity.name})
     mochi.broadcast.touch(forum_id)
 
 # Helper: Send a rejection back to the original sender of a submit event.
@@ -2469,11 +2481,9 @@ def action_unsubscribe(a):
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
-    mochi.message.send(
+    registration_send(forum["server"],
         {"from": a.user.identity.id, "to": forum["id"], "service": "forums", "event": "unsubscribe"},
-        {},
-        []
-    )
+        {})
 
     return {
         "data": {}
