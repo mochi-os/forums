@@ -168,12 +168,15 @@ export function CreatePostDialog({
   }, [isSuccess, isOpen, wasSuccessHandled, onSuccess, form, setIsOpen])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files) {
-      setAttachments((prev) => [...prev, ...Array.from(files)])
-    }
+    // Copy the FileList before resetting the input: it is live, so clearing
+    // the value empties it, and a state updater React defers would then read
+    // no files and drop the pick silently.
+    const picked = Array.from(event.target.files ?? [])
     // Reset input to allow selecting the same file again
     event.target.value = ''
+    if (picked.length > 0) {
+      setAttachments((prev) => [...prev, ...picked])
+    }
   }
 
   const removeAttachment = (index: number) => {
@@ -284,7 +287,9 @@ export function CreatePostDialog({
                           onDragOver={(e) => handleDragOver(e, index)}
                           onDrop={(e) => handleDrop(e, index)}
                           onDragEnd={handleDragEnd}
-                          state="uploading"
+                          // Staged files are not uploading until the dialog is
+                          // submitted; the uploading state pulses and dims them.
+                          state={isPending ? 'uploading' : 'idle'}
                           className={`
                             ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
                             ${isDragging ? 'opacity-40' : ''}

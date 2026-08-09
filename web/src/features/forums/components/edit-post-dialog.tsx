@@ -296,7 +296,10 @@ export function EditPostDialog({
                           onDragOver={(e) => handleDragOver(e, index)}
                           onDrop={(e) => handleDrop(e, index)}
                           onDragEnd={handleDragEnd}
-                          state={isExisting ? "done" : "uploading"}
+                          // Newly picked files are staged, not uploading,
+                          // until the dialog is submitted; the uploading
+                          // state pulses and dims them.
+                          state={isExisting ? 'done' : isPending ? 'uploading' : 'idle'}
                           className={`
                             ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
                             ${isDragging ? 'opacity-40' : ''}
