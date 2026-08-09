@@ -17,23 +17,23 @@ def remote_error(a, response, code=502):
         a.error.label(response.get("code", code), response.get("error", "errors.remote"))
 
 def notify(topic, object="", title="", body="", url="", event_id=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
+    mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
 
 # Helper: Build a map of qid -> weight from user interests
 def get_interest_map():
-	interests = mochi.interests.list()
-	m = {}
-	for i in interests:
-		m[i["qid"]] = i["weight"]
-	return m
+    interests = mochi.interests.list()
+    m = {}
+    for i in interests:
+        m[i["qid"]] = i["weight"]
+    return m
 
 # Helper: Annotate tags that match a user interest with the interest weight
 def enrich_tags(tags, interest_map):
-	for t in tags:
-		qid = t.get("qid", "")
-		if qid and qid in interest_map:
-			t["interest"] = interest_map[qid]
-	return tags
+    for t in tags:
+        qid = t.get("qid", "")
+        if qid and qid in interest_map:
+            t["interest"] = interest_map[qid]
+    return tags
 
 # Access level hierarchy: moderate > post > comment > vote > view
 # Each level grants access to that operation and all operations below it.
@@ -276,6 +276,58 @@ def strip_forum_config(forum):
                 "ai_prompt_tag", "ai_prompt_score"]:
         forum.pop(key, None)
     return forum
+
+# Resolve a client-supplied attachment order into concrete attachment ids.
+#
+# "new:N" indexes the attachments just uploaded in this request; anything else
+# must already belong to this object. Ids that belong to neither are dropped:
+# mochi.attachment.move is scoped to the owner's app database but NOT to this
+# object, so an arbitrary id in the order would let a crafted request perturb
+# another object's attachment ranks.
+#
+# Extracted from four identical copies across action_post_edit (three) and
+# action_comment_edit. The scoping check is the reason that mattered: a fix
+# applied to one copy and missed on another leaves the hole open on whichever
+# path was overlooked.
+def resolve_attachment_order(order, current_ids, new_attachments):
+    final_order = []
+    for item in order:
+        if item.startswith("new:"):
+            index = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
+            if index < len(new_attachments):
+                final_order.append(new_attachments[index]["id"])
+        elif item in current_ids:
+            final_order.append(item)
+    return final_order
+
+
+# Batch the per-post enrichment for a list view.
+#
+# comment counts, tags and the caller's votes were a query EACH per post, so a
+# landing page of ~100 posts cost ~400 round trips for data three whole-page
+# queries answer. The post list is already bounded by the page limit, so the
+# IN clauses are too.
+def enrich_posts_batch(posts, forum_ids, user_id, moderator):
+    ids = [p["id"] for p in posts]
+    counts = {}
+    tags = {}
+    votes = {}
+    if not ids:
+        return counts, tags, votes
+    places = ", ".join(["?" for _ in ids])
+    if moderator:
+        rows = mochi.db.rows("select post, count(*) as cnt from comments where post in (" + places + ") group by post", *ids)
+    else:
+        rows = mochi.db.rows("select post, count(*) as cnt from comments where post in (" + places + ") and (status='approved' or (status='pending' and member=?)) group by post", *(ids + [user_id or ""]))
+    for row in rows or []:
+        counts[row["post"]] = row["cnt"]
+    for row in mochi.db.rows("select object, id, label, qid, source, relevance from tags where object in (" + places + ")", *ids) or []:
+        tags.setdefault(row["object"], []).append(row)
+    if user_id:
+        for row in mochi.db.rows("select post, vote from votes where comment='' and voter=? and post in (" + places + ")", *([user_id] + ids)) or []:
+            votes[row["post"]] = row["vote"]
+    return counts, tags, votes
+
 
 # Coerce a peer-supplied count to a non-negative integer.
 #
@@ -851,63 +903,63 @@ def event_moderator_notify(e):
 # assets (avatar/banner/favicon — header + bytes) and JSON assets
 # (style/information — single JSON write with a "data" field).
 def stream_asset(a, entity_id, service, asset):
-	if not entity_id:
-		a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
-		return None
-	s = mochi.remote.stream(entity_id, service, asset, {})
-	if not s:
-		a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
-		return None
-	header = s.read()
-	if not header or header.get("status") != "200":
-		a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
-		return None
-	a.header("Cache-Control", "private, max-age=300")
-	if "data" in header:
-		return {"data": header["data"]}
-	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-	# Bytes to relay per slot, matching what the people app accepts on upload.
-	# Without a cap, a peer answering for a person can stream indefinitely through
-	# this route, which is public. Only the three binary slots reach here - style
-	# and information returned above as data - so an unrecognised slot falls back
-	# to the largest of them rather than breaking a route that would otherwise work.
-	caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
-	a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
-	return None
+    if not entity_id:
+        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
+        return None
+    s = mochi.remote.stream(entity_id, service, asset, {})
+    if not s:
+        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
+        return None
+    header = s.read()
+    if not header or header.get("status") != "200":
+        a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
+        return None
+    a.header("Cache-Control", "private, max-age=300")
+    if "data" in header:
+        return {"data": header["data"]}
+    a.header("Content-Type", header.get("content_type", "application/octet-stream"))
+    # Bytes to relay per slot, matching what the people app accepts on upload.
+    # Without a cap, a peer answering for a person can stream indefinitely through
+    # this route, which is public. Only the three binary slots reach here - style
+    # and information returned above as data - so an unrecognised slot falls back
+    # to the largest of them rather than breaking a route that would otherwise work.
+    caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
+    a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
+    return None
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
 
 # Proxy a post author's person asset from the people service.
 def action_post_asset(a):
-	asset = a.input("asset")
-	if asset not in _PERSON_ASSETS:
-		a.error.label(404, "errors.unknown_asset")
-		return
-	# Public route - gate on view access first, or knowing a post id confirms
-	# that identity posted in a private forum.
-	forum_id = a.input("forum")
-	if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
-		a.error.label(403, "errors.not_allowed_to_view_this_forum")
-		return
-	# Bind the post to the route forum so this can't resolve a post (and its
-	# author) in a forum the URL doesn't name.
-	row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), forum_id)
-	return stream_asset(a, row["member"] if row else "", "people", asset)
+    asset = a.input("asset")
+    if asset not in _PERSON_ASSETS:
+        a.error.label(404, "errors.unknown_asset")
+        return
+    # Public route - gate on view access first, or knowing a post id confirms
+    # that identity posted in a private forum.
+    forum_id = a.input("forum")
+    if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
+    # Bind the post to the route forum so this can't resolve a post (and its
+    # author) in a forum the URL doesn't name.
+    row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), forum_id)
+    return stream_asset(a, row["member"] if row else "", "people", asset)
 
 # Proxy a comment author's person asset from the people service.
 def action_comment_asset(a):
-	asset = a.input("asset")
-	if asset not in _PERSON_ASSETS:
-		a.error.label(404, "errors.unknown_asset")
-		return
-	# Public route - gate on view access first (see action_post_asset).
-	forum_id = a.input("forum")
-	if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
-		a.error.label(403, "errors.not_allowed_to_view_this_forum")
-		return
-	# Bind the comment to the route forum.
-	row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), forum_id)
-	return stream_asset(a, row["member"] if row else "", "people", asset)
+    asset = a.input("asset")
+    if asset not in _PERSON_ASSETS:
+        a.error.label(404, "errors.unknown_asset")
+        return
+    # Public route - gate on view access first (see action_post_asset).
+    forum_id = a.input("forum")
+    if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
+    # Bind the comment to the route forum.
+    row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), forum_id)
+    return stream_asset(a, row["member"] if row else "", "people", asset)
 
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
 
@@ -1600,6 +1652,7 @@ def action_view(a):
             posts = posts[:limit]
 
         im = get_interest_map()
+        comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, [forum["id"]], user_id, can_moderate)
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["body_markdown"] = mochi.text.markdown(p["body"])
@@ -1608,19 +1661,12 @@ def action_view(a):
             # without a separate metadata fetch; the bytes pull on demand when
             # served. The old fetch-from-owner fallback is obsolete.
             p["attachments"] = attachment_list(p["id"], forum["id"])
-            # Get comment COUNT for post list (full comments loaded on thread view)
-            if can_moderate:
-                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=?",
-                    forum["id"], p["id"])
-            else:
-                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
-                    forum["id"], p["id"], user_id or "")
-            p["comments"] = row["cnt"] if row else 0
-            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", p["id"]) or [], im)
-            # Get user's vote on this post
+            # Comment count, tags and the caller's vote all come from the
+            # whole-page queries above.
+            p["comments"] = comment_counts.get(p["id"], 0)
+            p["tags"] = enrich_tags(tags_by_post.get(p["id"], []), im)
             if user_id:
-                pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
-                p["user_vote"] = pv["vote"] if pv else ""
+                p["user_vote"] = votes_by_post.get(p["id"], "")
 
         # Calculate next cursor. Must match the ORDER BY key (created), not
         # updated: paginating on updated while ordering by created silently drops
@@ -1717,6 +1763,7 @@ def action_view(a):
         forum_map = {f["id"]: f for f in forums}
 
         im = get_interest_map()
+        comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, [], user_id, False)
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
             p["body_markdown"] = mochi.text.markdown(p["body"])
@@ -1724,19 +1771,12 @@ def action_view(a):
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
             p["fingerprint"] = forum["fingerprint"] if forum else mochi.entity.fingerprint(p["forum"])
-            # Get comment COUNT only for list view (not full comments)
+            # Comment count, tags and the caller's vote come from the
+            # whole-page queries above.
+            p["comments"] = comment_counts.get(p["id"], 0)
+            p["tags"] = enrich_tags(tags_by_post.get(p["id"], []), im)
             if user_id:
-                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))",
-                    p["forum"], p["id"], user_id)
-            else:
-                row = mochi.db.row("select count(*) as cnt from comments where forum=? and post=? and status='approved'",
-                    p["forum"], p["id"])
-            p["comments"] = row["cnt"] if row else 0
-            p["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", p["id"]) or [], im)
-            # Get user's vote on this post
-            if user_id:
-                pv = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", p["id"], user_id)
-                p["user_vote"] = pv["vote"] if pv else ""
+                p["user_vote"] = votes_by_post.get(p["id"], "")
 
         has_ai = resolve_ai_account(0) != "" if user_id else False
         settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
@@ -2884,18 +2924,7 @@ def action_post_edit(a):
             current_ids = [att["id"] for att in current_attachments]
             new_attachments = attachment_save(a, post_id, field="attachments")
 
-            final_order = []
-            for item in order:
-                if item.startswith("new:"):
-                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
-                    if idx < len(new_attachments):
-                        final_order.append(new_attachments[idx]["id"])
-                elif item in current_ids:
-                    # Only reorder attachments that already belong to this object.
-                    # Ignore arbitrary ids so a crafted order can't perturb another
-                    # object's attachment ranks (mochi.attachment.move is scoped to
-                    # the owner's app DB, but not to this object).
-                    final_order.append(item)
+            final_order = resolve_attachment_order(order, current_ids, new_attachments)
 
             if final_order:
                 for att_id in current_ids:
@@ -2949,18 +2978,7 @@ def action_post_edit(a):
             new_attachments = attachment_save(a, post_id, field="attachments")
 
             # Build final order
-            final_order = []
-            for item in order:
-                if item.startswith("new:"):
-                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
-                    if idx < len(new_attachments):
-                        final_order.append(new_attachments[idx]["id"])
-                elif item in current_ids:
-                    # Only reorder attachments that already belong to this object.
-                    # Ignore arbitrary ids so a crafted order can't perturb another
-                    # object's attachment ranks (mochi.attachment.move is scoped to
-                    # the owner's app DB, but not to this object).
-                    final_order.append(item)
+            final_order = resolve_attachment_order(order, current_ids, new_attachments)
 
             # Determine which attachments to delete
             delete_ids = [att_id for att_id in current_ids if att_id not in final_order]
@@ -3003,13 +3021,19 @@ def action_post_edit(a):
     # Save new attachments locally
     new_attachments = attachment_save(a, post_id, field="attachments")
 
-    # Build final order (only new attachments, no existing ones locally)
+    # Build final order (only new attachments, no existing ones locally).
+    #
+    # Deliberately NOT resolve_attachment_order: this is the subscriber path
+    # for a forum we do not own, so there are no local attachment rows to
+    # check an id against. Passing an empty current_ids to the helper would
+    # drop every existing id instead of forwarding it. The order goes to the
+    # OWNER, who holds the rows and applies the same scoping check there.
     final_order = []
     for item in order:
         if item.startswith("new:"):
-            idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
-            if idx < len(new_attachments):
-                final_order.append(new_attachments[idx]["id"])
+            index = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
+            if index < len(new_attachments):
+                final_order.append(new_attachments[index]["id"])
         else:
             final_order.append(item)
 
@@ -3387,18 +3411,7 @@ def action_comment_edit(a):
             current_ids = [att["id"] for att in current_attachments]
             new_attachments = attachment_save(a, comment_id)
 
-            final_order = []
-            for item in order:
-                if item.startswith("new:"):
-                    idx = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
-                    if idx < len(new_attachments):
-                        final_order.append(new_attachments[idx]["id"])
-                elif item in current_ids:
-                    # Only reorder attachments that already belong to this object.
-                    # Ignore arbitrary ids so a crafted order can't perturb another
-                    # object's attachment ranks (mochi.attachment.move is scoped to
-                    # the owner's app DB, but not to this object).
-                    final_order.append(item)
+            final_order = resolve_attachment_order(order, current_ids, new_attachments)
 
             if final_order:
                 for att_id in current_ids:
@@ -5254,28 +5267,28 @@ def event_attachment_fetch(e):
 
 # Received a comment from forum owner
 def event_mention_notify(e):
-	"""Member receives a mention notification from a forum owner."""
-	forum_id = e.header("from")
-	# Only accept a mention notification for a forum this user actually follows.
-	# Core authenticates "from" to an entity the sender owns, so this drops
-	# notifications forged by someone spamming from a forum of their own that we
-	# don't subscribe to. A genuine mention only ever targets a member, who by
-	# definition holds the forum locally.
-	if not get_forum(forum_id):
-		return
-	title = e.content("title") or ""
-	excerpt = e.content("excerpt") or ""
-	# This handler runs on the recipient's host, so mochi.app.label resolves in
-	# the recipient's own language.
-	author = e.content("author") or mochi.app.label("notifications.mention.author_unknown")
-	post_id = e.content("post") or ""
-	# Build the link locally from the forum fingerprint rather than trusting a
-	# sender-supplied url, so a forged mention cannot carry an arbitrary target.
-	fp = mochi.entity.fingerprint(forum_id)
-	url = "/forums/" + fp if fp else "/forums"
-	event_id = "mention:" + (post_id or forum_id)
-	body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
-	notify("mention", forum_id, title, body, url, event_id=event_id)
+    """Member receives a mention notification from a forum owner."""
+    forum_id = e.header("from")
+    # Only accept a mention notification for a forum this user actually follows.
+    # Core authenticates "from" to an entity the sender owns, so this drops
+    # notifications forged by someone spamming from a forum of their own that we
+    # don't subscribe to. A genuine mention only ever targets a member, who by
+    # definition holds the forum locally.
+    if not get_forum(forum_id):
+        return
+    title = e.content("title") or ""
+    excerpt = e.content("excerpt") or ""
+    # This handler runs on the recipient's host, so mochi.app.label resolves in
+    # the recipient's own language.
+    author = e.content("author") or mochi.app.label("notifications.mention.author_unknown")
+    post_id = e.content("post") or ""
+    # Build the link locally from the forum fingerprint rather than trusting a
+    # sender-supplied url, so a forged mention cannot carry an arbitrary target.
+    fp = mochi.entity.fingerprint(forum_id)
+    url = "/forums/" + fp if fp else "/forums"
+    event_id = "mention:" + (post_id or forum_id)
+    body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
+    notify("mention", forum_id, title, body, url, event_id=event_id)
 
 # unsubscribe_stale tells a forum owner to drop this member when a broadcast
 # arrives for a forum the member no longer holds locally. action_subscribe
