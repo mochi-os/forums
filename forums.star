@@ -1296,6 +1296,12 @@ def action_forum_tags(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
+    # A tag list names what a private forum discusses, so it needs the same
+    # view gate its posts do. Its siblings on :post/tags already check.
+    if not can_view_forum(a, forum["id"], a.user.identity.id if a.user else None):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
+
     tags = mochi.db.rows("select label, count(*) as count from tags where object in (select id from posts where forum=?) group by label order by count desc", forum["id"]) or []
     return {"data": {"tags": tags}}
 
@@ -2242,6 +2248,12 @@ def action_member_search(a):
     forum = get_forum(a.input("forum"))
     if not forum:
         a.error.label(404, "errors.forum_not_found")
+        return
+    # Being logged in is not being a member: without this, any authenticated
+    # user could enumerate a private forum's roster by name fragment. The
+    # sibling roster actions (members/edit, members/save) require manage.
+    if not can_view_forum(a, forum["id"], a.user.identity.id):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
     query = (a.input("q") or "").lower().strip()
     if query:
@@ -4358,7 +4370,7 @@ def action_moderation_reports(a):
             if comment:
                 r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
 
-    return {"data": {"forum": forum, "reports": reports}}
+    return {"data": {"forum": strip_forum_config(forum), "reports": reports}}
 
 # Resolve a report
 def action_report_resolve(a):
@@ -7314,7 +7326,7 @@ def event_moderation_reports(e):
             if comment:
                 r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
 
-    e.stream.write({"forum": forum, "reports": reports})
+    e.stream.write({"forum": strip_forum_config(forum), "reports": reports})
 
 # Handle moderation log request from delegated moderators
 def event_moderation_log(e):
