@@ -277,6 +277,29 @@ def strip_forum_config(forum):
         forum.pop(key, None)
     return forum
 
+# Coerce a peer-supplied count to a non-negative integer.
+#
+# Vote tallies arrive from the forum owner, who is authoritative for them, but
+# authoritative is not the same as well-formed: the value lands in an integer
+# column that ORDER BY sorts on, and Starlark has no try/except, so a string
+# or a dict either corrupts the ordering or aborts the handler outright.
+def count_content(e, key):
+    value = e.content(key)
+    if type(value) in ["int", "float"]:
+        return int(value) if value >= 0 else 0
+    if type(value) == "string" and mochi.text.valid(value, "integer"):
+        number = int(value)
+        return number if number >= 0 else 0
+    return 0
+
+
+# The sender of a vote, used only to address a websocket re-emit. Anything
+# that is not an entity is dropped rather than echoed to every open tab.
+def voter_content(e):
+    voter = voter_content(e)
+    return voter if mochi.text.valid(voter, "entity") else ""
+
+
 # Cap free-text moderation input (reasons, report details) so one field can't
 # approach the 1MB body limit. Truncates rather than rejecting: a reason/detail is
 # explanatory, and an over-long value is almost certainly a paste or abuse.
@@ -889,16 +912,24 @@ def action_comment_asset(a):
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
 
 # Helper: Get post sort order based on sort type
-def get_post_order(sort):
+# Build the ORDER BY for a post list. `prefix` qualifies the columns for the
+# joined tag query ("p."); empty for the plain one.
+#
+# The joined form used to be derived by running .replace() over the unjoined
+# string, column name by column name. That only survives because none of the
+# three sorts contains the word "updated": add one and the chain rewrites
+# "updated" to "p.updated", then matches the "up" inside it and produces
+# "p.p.updated". Emitting the prefix directly cannot go wrong that way.
+def get_post_order(sort, prefix=""):
     if sort == "top":
-        return "(up - down) desc, created desc"
+        return "(" + prefix + "up - " + prefix + "down) desc, " + prefix + "created desc"
     if sort == "hot":
         # score / (age_in_hours + 2)
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
-        return "((up - down) + 1) / max(((" + str(mochi.time.now()) + " - created) / 3600) + 2, 1) desc, created desc"
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + prefix + "created desc"
     # Default is "new" (also used as fallback for ai/interests/relevant which do post-query sorting)
-    return "created desc"
+    return prefix + "created desc"
 
 # Validate and clean a tag label
 def validate_tag(label):
@@ -1530,7 +1561,7 @@ def action_view(a):
             if len(valid_tags) == 0:
                 posts = []
             else:
-                p_order = order_by.replace("created", "p.created").replace("updated", "p.updated").replace("pinned", "p.pinned").replace("up", "p.up").replace("down", "p.down")
+                p_order = get_post_order(sort, "p.")
                 placeholders = ", ".join(["?" for _ in valid_tags])
                 tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
                 if can_moderate:
@@ -5269,8 +5300,8 @@ def event_comment_create_event(e):
     if not mochi.text.valid(id, "id"):
         return
 
-    up = e.content("up") or 0
-    down = e.content("down") or 0
+    up = count_content(e, "up")
+    down = count_content(e, "down")
 
     # If comment exists, update vote counts and mark as approved (subscription sync
     # / approval). Scope to the sending forum so another forum can't tamper with
@@ -5322,21 +5353,32 @@ def event_comment_create_event(e):
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
+    # Every refusal below tells the sender. The submitter stored the comment
+    # locally as pending for optimistic display; without a reject it has
+    # nothing to clear on, so a comment the owner declined sits pending on the
+    # member's screen forever. The post path has done this since it was
+    # written - send_reject plus the matching comment/reject handler.
+    sender_id = e.header("from")
+    comment_id = e.content("id")
+
     forum = get_forum(e.header("to"))
     if not forum:
+        send_reject("", sender_id, "comment", comment_id, "forum_not_found")
         return
 
-    sender_id = e.header("from")
     if not check_event_access(sender_id, forum["id"], "comment"):
+        send_reject(forum["id"], sender_id, "comment", comment_id, "access_denied")
         return
 
     # Check for restrictions
     if check_restriction(forum["id"], sender_id, "comment"):
+        send_reject(forum["id"], sender_id, "comment", comment_id, "restricted")
         return
 
     # Check rate limit (skip for moderators)
     if not check_event_access(sender_id, forum["id"], "moderate"):
         if check_rate_limit(forum, sender_id, "comment"):
+            send_reject(forum["id"], sender_id, "comment", comment_id, "rate_limited")
             return
 
     # Get sender name from members table, fall back to directory lookup
@@ -5346,20 +5388,23 @@ def event_comment_submit_event(e):
         entity = mochi.directory.get(sender_id)
         sender_name = entity["name"] if entity and entity["name"] else mochi.app.label("notifications.mention.author_unknown")
 
-    id = e.content("id")
+    id = comment_id
     if not mochi.text.valid(id, "id"):
+        send_reject(forum["id"], sender_id, "comment", id, "invalid")
         return
 
     if mochi.db.exists("select id from comments where id=?", id):
-        return  # Duplicate
+        return  # Duplicate: already accepted, so nothing to reject
 
     post_id = e.content("post")
     post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
     if not post:
+        send_reject(forum["id"], sender_id, "comment", id, "post_not_found")
         return
 
     # Check if post is locked
     if post.get("locked"):
+        send_reject(forum["id"], sender_id, "comment", id, "locked")
         return
 
     parent = e.content("parent") or ""
@@ -5524,15 +5569,15 @@ def event_comment_update_event(e):
         return
 
     now = mochi.time.now()
-    up = e.content("up") or 0
-    down = e.content("down") or 0
+    up = count_content(e, "up")
+    down = count_content(e, "down")
     mochi.db.execute("update comments set up=?, down=? where id=?", up, down, id)
     mochi.db.execute("update posts set updated=? where id=?", now, old_comment["post"])
     mochi.db.execute("update forums set updated=? where id=?", now, old_comment["forum"])
     mochi.db.commit.fire("comments", "update", id)
     # Re-emit with voter as sender so the comment author's tab isn't filtered
     # by on_db_commit's sender=comment.member.
-    voter = e.content("voter") or ""
+    voter = voter_content(e)
     broadcast_websocket(old_comment["forum"], {"type": "comment/update", "forum": old_comment["forum"], "post": old_comment["post"], "comment": id, "sender": voter})
 
 # Received a comment edit from forum owner
@@ -5668,8 +5713,8 @@ def event_post_create_event(e):
     if not mochi.text.valid(id, "id"):
         return
 
-    up = e.content("up") or 0
-    down = e.content("down") or 0
+    up = count_content(e, "up")
+    down = count_content(e, "down")
     comments_count = e.content("comments") or 0
 
     # If post exists, update vote counts and status (for subscription sync and approval).
@@ -5737,6 +5782,37 @@ def event_post_reject_event(e):
         "type": "post/reject",
         "forum": forum_id,
         "post": post_id,
+        "reason": reason,
+        "detail": detail,
+    })
+
+# Received a comment rejection from the forum owner (we are the submitter).
+# Mirrors event_post_reject_event: clear the optimistic pending row and tell
+# the open tab why, so a declined comment stops looking like it is still on
+# its way.
+def event_comment_reject_event(e):
+    comment_id = e.content("id")
+    if not mochi.text.valid(comment_id, "id"):
+        return
+
+    # Only the forum the comment was submitted to may reject it. Scope to the
+    # sending forum so a peer cannot drop a pending comment in another of the
+    # user's forums by guessing its (client-generated) id.
+    forum_id = e.header("from")
+    row = mochi.db.row("select post from comments where id=? and forum=? and status='pending'", comment_id, forum_id)
+    if not row:
+        return
+
+    reason = e.content("reason") or "server_error"
+    detail = e.content("detail") or ""
+
+    mochi.db.execute("delete from comments where id=? and forum=? and status='pending'", comment_id, forum_id)
+
+    broadcast_websocket(forum_id, {
+        "type": "comment/reject",
+        "forum": forum_id,
+        "post": row["post"],
+        "comment": comment_id,
         "reason": reason,
         "detail": detail,
     })
@@ -5995,12 +6071,8 @@ def event_post_update_event(e):
         request_resync(forum_id)
         return
 
-    up = e.content("up")
-    down = e.content("down")
-    if up == None:
-        up = 0
-    if down == None:
-        down = 0
+    up = count_content(e, "up")
+    down = count_content(e, "down")
 
     now = mochi.time.now()
     mochi.db.execute("update posts set up=?, down=? where id=?", up, down, id)
@@ -6009,7 +6081,7 @@ def event_post_update_event(e):
     mochi.db.commit.fire("posts", "update", id)
     # Re-emit with voter as sender so the post author's tab isn't filtered
     # by on_db_commit's sender=post.member.
-    voter = e.content("voter") or ""
+    voter = voter_content(e)
     broadcast_websocket(old_post["forum"], {"type": "post/update", "forum": old_post["forum"], "post": id, "sender": voter})
 
 # Received a post edit from forum owner

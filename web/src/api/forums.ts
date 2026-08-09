@@ -553,7 +553,7 @@ const forumsApi = {
     client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
 
   clearNotifications: (forumId: string) =>
-    client.post(`${forumId}/-/notifications/clear`),
+    client.post(endpoints.forums.notificationsClear(forumId)),
 
   setDefaultSort: (sort: string) => {
     const formData = new URLSearchParams()

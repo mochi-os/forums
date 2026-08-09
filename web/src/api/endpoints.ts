@@ -127,7 +127,7 @@ const endpoints = {
     },
 
     // Notifications
-    notificationsCheck: '-/notifications/check',
+    notificationsClear: (forumId: string) => `${getEntityBase(forumId)}/-/notifications/clear`,
 
     // Sort persistence
     sortSet: '-/sort/set',
