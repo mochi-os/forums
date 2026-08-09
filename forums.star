@@ -1318,6 +1318,12 @@ def action_information_class(a):
         if owned_ids.get(f["id"]):
             f["can_manage"] = check_access(a, f["id"], "manage")
             f["can_moderate"] = check_access(a, f["id"], "moderate")
+        else:
+            # A subscribed forum's row is the OWNER's configuration, held
+            # locally only because it replicated. `select *` handed the
+            # subscriber the owner's ai prompts, moderation settings and rate
+            # limits; the moderation endpoints already strip these.
+            strip_forum_config(f)
         # For subscribed forums, permissions require P2P - skip here for speed
 
     settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
@@ -6138,9 +6144,22 @@ def event_tag_add(e):
     label = e.content("label")
     if not tag_id or not object_id or not label:
         return
+    # The owner's broadcast is not trusted input. Four action paths run
+    # validate_tag; this one stored whatever arrived, so a compromised or
+    # buggy owner could push a 1MB label, markup, or a non-numeric relevance
+    # into every subscriber's replica.
+    label = validate_tag(label)
+    if not label:
+        return
     qid = e.content("qid") or ""
+    if not mochi.text.valid(qid, "line"):
+        return
     relevance = e.content("relevance") or 0
+    if type(relevance) not in ["int", "float"]:
+        relevance = 0
     source = e.content("source") or "manual"
+    if not mochi.text.valid(source, "name"):
+        source = "manual"
     # Scope to the sending forum: only tag an object that belongs to it, so another
     # forum you subscribe to can't inject tags onto this forum's rows in your replica.
     if not (mochi.db.exists("select 1 from posts where id=? and forum=?", object_id, forum["id"]) or mochi.db.exists("select 1 from comments where id=? and forum=?", object_id, forum["id"])):
@@ -6684,12 +6703,27 @@ def event_restrict_submit_event(e):
         return
 
     target_user = e.content("user")
+    # A restriction names a person; an unvalidated value writes a row that
+    # matches nobody, or matches by accident.
+    if not mochi.text.valid(target_user, "entity"):
+        return
     restriction_type = e.content("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
         return
 
     reason = e.content("reason") or ""
+    if not mochi.text.valid(reason, "text"):
+        reason = ""
+    # expires is compared as `expires > <integer now>` when a restriction is
+    # read back, so it must be stored as a number or not at all. The action
+    # path stores now() + int(duration); a string arriving over the wire
+    # would compare by SQLite's type ordering rather than by time, and a
+    # restriction that never expires is not the one the moderator set.
     expires = e.content("expires")
+    if type(expires) == "string":
+        expires = int(expires) if mochi.text.valid(expires, "integer") else None
+    elif type(expires) not in ["int", "float"]:
+        expires = None
     now = mochi.time.now()
 
     mochi.db.execute(
@@ -7690,21 +7724,30 @@ def action_rss(a):
         return
 
     forum_id = forum["id"]
-    if not check_access(a, forum_id, "view"):
-        a.error.label(403, "errors.not_allowed_to_view_this_forum")
-        return
 
-    # Look up mode from token
+    # Look up mode from token. The token authorises ONE forum, so a row
+    # matching this entity is itself the authorisation - checked before the
+    # access gate rather than after it, because a query token authenticates as
+    # its ISSUER, and letting that satisfy the gate would pass for any forum
+    # the issuer owns.
     token = a.input("token")
     mode = "posts"
+    rss_row = None
     if token:
         rss_row = mochi.db.row("select mode from rss where token=? and entity=?", token, forum_id)
-        # The token authorises one forum. check_access above resolves against
-        # the token's issuer, so it passes for any forum that issuer owns.
         if not rss_row:
             a.error.label(403, "errors.not_allowed_to_view_this_forum")
             return
         mode = rss_row["mode"]
+
+    # can_view_forum, not check_access. A member of a REMOTE forum holds no
+    # local ACL row - the owner does - so check_access alone refused the feed
+    # to exactly the subscribers it exists for. can_view_forum falls back to
+    # the members table when the forum is not a local entity, which is the
+    # subscribed-to-a-remote-forum case and only that case.
+    if not rss_row and not can_view_forum(a, forum_id, a.user.identity.id if a.user else None):
+        a.error.label(403, "errors.not_allowed_to_view_this_forum")
+        return
 
     forum_name = forum.get("name", mochi.app.label("moderation.forum_unknown"))
     fingerprint = mochi.entity.fingerprint(forum_id)
