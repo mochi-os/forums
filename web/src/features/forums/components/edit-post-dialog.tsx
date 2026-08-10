@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -25,20 +25,16 @@ import {
   FormMessage,
   getAppPath,
   authenticatedUrl,
-  Attachment,
-  AttachmentGroup,
-  AttachmentMedia,
-  AttachmentContent,
-  AttachmentTitle,
-  AttachmentDescription,
-  AttachmentActions,
-  AttachmentAction,
-  useFormat,
+  AttachmentComposer,
+  newPendingFiles,
+  pendingFileKey,
+  type ComposerItem,
+  moveItem,
   useImageObjectUrls,
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Save, Paperclip, X } from 'lucide-react'
+import { Save, Paperclip } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
 import {
   buildForumPostEditDraft,
@@ -77,7 +73,6 @@ export function EditPostDialog({
   isPending = false,
   progress,
 }: EditPostDialogProps) {
-  const { t } = useLingui()
   const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -148,59 +143,72 @@ export function EditPostDialog({
     })
   }
 
-  const { formatFileSize } = useFormat()
-  const [draggingIndex, setDraggingIndex] = useState<number | null>(null)
-  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
-  const canReorder = items.length > 1
-
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    if (!canReorder) return
-    e.dataTransfer.setData('text/plain', index.toString())
-    e.dataTransfer.effectAllowed = 'move'
-    setDraggingIndex(index)
-  }
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    if (!canReorder || draggingIndex === null || draggingIndex === index) return
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDropTargetIndex(index)
-  }
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, targetIndex: number) => {
-    if (!canReorder) return
-    e.preventDefault()
-    const sourceIndex = parseInt(e.dataTransfer.getData('text/plain') || draggingIndex?.toString() || '-1')
-    if (sourceIndex === -1 || sourceIndex === targetIndex) {
-      setDraggingIndex(null)
-      setDropTargetIndex(null)
-      return
-    }
-    setItems((prev) => {
-      const result = [...prev]
-      const [removed] = result.splice(sourceIndex, 1)
-      result.splice(targetIndex, 0, removed)
-      return result
-    })
-    setDraggingIndex(null)
-    setDropTargetIndex(null)
-  }
-
-  const handleDragEnd = () => {
-    setDraggingIndex(null)
-    setDropTargetIndex(null)
-  }
+  // The edit list mixes attachments already on the post with files not yet
+  // uploaded, so it maps onto ComposerItem by hand rather than going through
+  // the File[] wrapper.
+  const attachmentItems = useMemo<ComposerItem[]>(
+    () =>
+      items.map((item) => {
+        if (item.kind === 'existing') {
+          const att = item.attachment
+          return {
+            key: att.id,
+            name: att.name,
+            size: att.size,
+            type: att.type ?? '',
+            previewUrl: att.type?.startsWith('image/')
+              ? authenticatedUrl(
+                  `${appPath}/${post.forum}/-/attachments/${att.id}/thumbnail`
+                )
+              : null,
+            // Saved attachments are not part of the save's upload, so they
+            // keep the still state while the new files pulse.
+            state: 'idle' as const,
+          }
+        }
+        const { file } = item
+        return {
+          key: pendingFileKey(file),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          previewUrl: file.type?.startsWith('image/')
+            ? (urlByNewFile.get(file) ?? null)
+            : null,
+          badge: (
+            <span className='bg-primary/85 text-primary-foreground rounded px-1.5 py-0.5 text-[10px] font-bold uppercase'>
+              <Trans>New</Trans>
+            </span>
+          ),
+          // Saved attachments are referenced by `order` rather than uploaded,
+          // so a slice is addressed by the file's rank in `newFiles` — the
+          // array that becomes the body — not by its slot in this mixed list.
+          progress: progress?.slices?.[newFiles.indexOf(file)],
+        }
+      }),
+    [items, appPath, post.forum, urlByNewFile, newFiles, progress]
+  )
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files) {
-      const newItems: EditingAttachment[] = Array.from(files).map((file) => ({
-        kind: 'new' as const,
-        file,
-      }))
-      setItems((prev) => [...prev, ...newItems])
-    }
+    // Copy the FileList before resetting the input: it is live, so clearing
+    // the value empties it, and a state updater React defers would then read
+    // no files and drop the pick silently.
+    const picked = Array.from(event.target.files ?? [])
     event.target.value = ''
+    if (picked.length > 0) {
+      setItems((prev) => {
+        // Saved attachments and new files share this list, so the pick is
+        // filtered against the new files already in it.
+        const staged = prev.flatMap((item) =>
+          item.kind === 'new' ? [item.file] : []
+        )
+        const newItems: EditingAttachment[] = newPendingFiles(
+          staged,
+          picked
+        ).map((file) => ({ kind: 'new' as const, file }))
+        return newItems.length > 0 ? [...prev, ...newItems] : prev
+      })
+    }
   }
 
 
@@ -264,73 +272,17 @@ export function EditPostDialog({
             {items.length > 0 && (
               <div className='space-y-2'>
                 <div className='text-sm font-medium'><Trans>Attachments</Trans></div>
-                  <AttachmentGroup
-                    onDragOver={(e) => {
-                      if (canReorder) e.preventDefault()
-                    }}
-                  >
-                    {items.map((item, index) => {
-                      const isExisting = item.kind === 'existing'
-                      const isImage = isExisting
-                        ? item.attachment.type?.startsWith('image/')
-                        : item.file.type?.startsWith('image/')
-                      const thumbnailUrl =
-                        isExisting && isImage
-                          ? authenticatedUrl(`${appPath}/${post.forum}/-/attachments/${item.attachment.id}/thumbnail`)
-                          : undefined
-                      const previewUrl =
-                        !isExisting && isImage
-                          ? (urlByNewFile.get(item.file) ?? undefined)
-                          : undefined
-                      const itemKey = isExisting
-                        ? item.attachment.id
-                        : `new-${item.file.name}-${item.file.size}-${item.file.lastModified}`
-                      const isDragging = draggingIndex === index
-                      const isDropTarget = dropTargetIndex === index
-
-                      return (
-                        <Attachment
-                          key={itemKey}
-                          draggable={canReorder}
-                          onDragStart={(e) => handleDragStart(e, index)}
-                          onDragOver={(e) => handleDragOver(e, index)}
-                          onDrop={(e) => handleDrop(e, index)}
-                          onDragEnd={handleDragEnd}
-                          // Newly picked files are staged, not uploading,
-                          // until the dialog is submitted; the uploading
-                          // state pulses and dims them.
-                          state={isExisting ? 'done' : isPending ? 'uploading' : 'idle'}
-                          className={`
-                            ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
-                            ${isDragging ? 'opacity-40' : ''}
-                            ${isDropTarget ? 'ring-primary rounded-lg ring-2 ring-inset' : ''}
-                          `}
-                        >
-                          <AttachmentMedia variant={isImage ? "image" : "icon"}>
-                            {isImage && (thumbnailUrl || previewUrl) ? (
-                              <img src={thumbnailUrl || previewUrl} alt={isExisting ? item.attachment.name : item.file.name} draggable={false} />
-                            ) : (
-                              <Paperclip />
-                            )}
-                          </AttachmentMedia>
-                          <AttachmentContent>
-                            <AttachmentTitle>
-                              {isExisting ? item.attachment.name : item.file.name}
-                            </AttachmentTitle>
-                            <AttachmentDescription>
-                              {isExisting ? formatFileSize(item.attachment.size) : formatFileSize(item.file.size)}
-                              {!isExisting && <span className="ml-2 px-1.5 py-0.5 rounded bg-primary/20 text-primary text-[10px] uppercase font-bold"><Trans>New</Trans></span>}
-                            </AttachmentDescription>
-                          </AttachmentContent>
-                          <AttachmentActions>
-                            <AttachmentAction onClick={(e) => { e.stopPropagation(); removeItem(index); }} aria-label={t`Remove`}>
-                              <X className='size-4' />
-                            </AttachmentAction>
-                          </AttachmentActions>
-                        </Attachment>
-                      )
-                    })}
-                  </AttachmentGroup>
+                <AttachmentComposer
+                  items={attachmentItems}
+                  layout='grid'
+                  preview='tile'
+                  groupMedia
+                  state={isPending ? 'uploading' : 'idle'}
+                  onRemove={removeItem}
+                  onReorder={(from, to) =>
+                    setItems((prev) => moveItem(prev, from, to))
+                  }
+                />
               </div>
             )}
 

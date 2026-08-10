@@ -26,15 +26,10 @@ import {
   FormLabel,
   FormMessage,
   useImageObjectUrls,
-  Attachment,
-  AttachmentGroup,
-  AttachmentMedia,
-  AttachmentContent,
-  AttachmentTitle,
-  AttachmentDescription,
-  AttachmentActions,
-  AttachmentAction,
-  useFormat,
+  ComposerAttachments,
+  mergePendingFiles,
+  removePendingFile,
+  moveItem,
   UploadProgress,
   type Upload,
 } from '@mochi/web'
@@ -42,7 +37,6 @@ import {
   FileEdit,
   Paperclip,
   Send,
-  X,
 } from 'lucide-react'
 import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
 
@@ -85,50 +79,7 @@ export function CreatePostDialog({
   const [internalOpen, setInternalOpen] = useState(false)
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
-  const { formatFileSize } = useFormat()
   const [attachments, setAttachments] = useState<File[]>([])
-  
-  const [draggingIndex, setDraggingIndex] = useState<number | null>(null)
-  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
-  const canReorder = attachments.length > 1
-
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    if (!canReorder) return
-    e.dataTransfer.setData('text/plain', index.toString())
-    e.dataTransfer.effectAllowed = 'move'
-    setDraggingIndex(index)
-  }
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    if (!canReorder || draggingIndex === null || draggingIndex === index) return
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDropTargetIndex(index)
-  }
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, targetIndex: number) => {
-    if (!canReorder) return
-    e.preventDefault()
-    const sourceIndex = parseInt(e.dataTransfer.getData('text/plain') || draggingIndex?.toString() || '-1')
-    if (sourceIndex === -1 || sourceIndex === targetIndex) {
-      setDraggingIndex(null)
-      setDropTargetIndex(null)
-      return
-    }
-    setAttachments((prev) => {
-      const result = [...prev]
-      const [removed] = result.splice(sourceIndex, 1)
-      result.splice(targetIndex, 0, removed)
-      return result
-    })
-    setDraggingIndex(null)
-    setDropTargetIndex(null)
-  }
-
-  const handleDragEnd = () => {
-    setDraggingIndex(null)
-    setDropTargetIndex(null)
-  }
 
   const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -175,12 +126,8 @@ export function CreatePostDialog({
     // Reset input to allow selecting the same file again
     event.target.value = ''
     if (picked.length > 0) {
-      setAttachments((prev) => [...prev, ...picked])
+      setAttachments((prev) => mergePendingFiles(prev, picked))
     }
-  }
-
-  const removeAttachment = (index: number) => {
-    setAttachments((prev) => prev.filter((_, i) => i !== index))
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -268,60 +215,19 @@ export function CreatePostDialog({
                   <div className='text-muted-foreground text-xs font-medium'>
                     <Trans>Attachments</Trans>
                   </div>
-                  <AttachmentGroup
-                    onDragOver={(e) => {
-                      if (canReorder) e.preventDefault()
-                    }}
-                  >
-                    {attachments.map((file, index) => {
-                      const isImage = file.type?.startsWith('image/')
-                      const previewUrl = isImage ? attachmentPreviewUrls[index] ?? undefined : undefined
-                      const isDragging = draggingIndex === index
-                      const isDropTarget = dropTargetIndex === index
-
-                      return (
-                        <Attachment
-                          key={`${file.name}-${file.size}-${file.lastModified}`}
-                          draggable={canReorder}
-                          onDragStart={(e) => handleDragStart(e, index)}
-                          onDragOver={(e) => handleDragOver(e, index)}
-                          onDrop={(e) => handleDrop(e, index)}
-                          onDragEnd={handleDragEnd}
-                          // Staged files are not uploading until the dialog is
-                          // submitted; the uploading state pulses and dims them.
-                          state={isPending ? 'uploading' : 'idle'}
-                          className={`
-                            ${canReorder ? 'cursor-grab active:cursor-grabbing' : ''}
-                            ${isDragging ? 'opacity-40' : ''}
-                            ${isDropTarget ? 'ring-primary rounded-lg ring-2 ring-inset' : ''}
-                          `}
-                        >
-                          <AttachmentMedia variant={isImage ? "image" : "icon"}>
-                            {isImage && previewUrl ? (
-                              <img src={previewUrl} alt={file.name} draggable={false} />
-                            ) : (
-                              <Paperclip />
-                            )}
-                          </AttachmentMedia>
-                          <AttachmentContent>
-                            <AttachmentTitle>{file.name}</AttachmentTitle>
-                            <AttachmentDescription>{formatFileSize(file.size)}</AttachmentDescription>
-                          </AttachmentContent>
-                          <AttachmentActions>
-                            <AttachmentAction
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                removeAttachment(index)
-                              }}
-                              aria-label={t`Remove`}
-                            >
-                              <X className='size-4' />
-                            </AttachmentAction>
-                          </AttachmentActions>
-                        </Attachment>
-                      )
-                    })}
-                  </AttachmentGroup>
+                  <ComposerAttachments
+                    files={attachments}
+                    previewUrls={attachmentPreviewUrls}
+                    state={isPending ? 'uploading' : 'idle'}
+                    progress={progress?.slices}
+                    onRemove={(file) =>
+                      setAttachments((prev) => removePendingFile(prev, file))
+                    }
+                    onReorder={(from, to) =>
+                      setAttachments((prev) => moveItem(prev, from, to))
+                    }
+                    groupMedia
+                  />
                 </>
               )}
 

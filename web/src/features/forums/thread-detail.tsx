@@ -25,7 +25,9 @@ import {
   useListAutoAnimate,
   findCommentTextInTree,
   cn,
+  mergePendingFiles,
   removePendingFile,
+  moveItem,
   ComposerAttachments,
   SendShortcutHint,
   dropActiveClass,
@@ -37,7 +39,6 @@ import {
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
-import { mergePendingFiles } from '@/features/forums/utils'
 import type { Tag } from '@/api/types/posts'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
@@ -558,9 +559,14 @@ export function ThreadDetail({
                             ? 'error'
                             : 'idle'
                       }
+                      progress={createCommentMutation.progress?.slices}
                       onRemove={(file) =>
                         setCommentFiles((prev) => removePendingFile(prev, file))
                       }
+                      onReorder={(from, to) =>
+                        setCommentFiles((prev) => moveItem(prev, from, to))
+                      }
+                      groupMedia
                       // Retry sends the draft, so it is only offered while
                       // there is one.
                       onRetry={

@@ -5,7 +5,7 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, removePendingFile, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, mergePendingFiles, removePendingFile, moveItem, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -27,7 +27,6 @@ import {
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
-import { mergePendingFiles } from '@/features/forums/utils'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -567,9 +566,14 @@ export function ThreadComment({
             files={replyFiles}
             previewUrls={replyPreviewUrls}
             state={replyBusy ? 'uploading' : replyFailed ? 'error' : 'idle'}
+            progress={replyProgress?.slices}
             onRemove={(file) =>
               setReplyFiles((prev) => removePendingFile(prev, file))
             }
+            onReorder={(from, to) =>
+              setReplyFiles((prev) => moveItem(prev, from, to))
+            }
+            groupMedia
             // Retry sends the draft, so it is only offered while there is one.
             onRetry={replyValue.trim() ? () => void submitReply() : undefined}
           />
