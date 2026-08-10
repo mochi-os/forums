@@ -276,6 +276,7 @@ export function EditPostDialog({
                   items={attachmentItems}
                   layout='grid'
                   preview='tile'
+                  groupMedia
                   state={isPending ? 'uploading' : 'idle'}
                   onRemove={removeItem}
                   onReorder={(from, to) =>

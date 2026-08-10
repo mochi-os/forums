@@ -573,6 +573,7 @@ export function ThreadComment({
             onReorder={(from, to) =>
               setReplyFiles((prev) => moveItem(prev, from, to))
             }
+            groupMedia
             // Retry sends the draft, so it is only offered while there is one.
             onRetry={replyValue.trim() ? () => void submitReply() : undefined}
           />

@@ -226,6 +226,7 @@ export function CreatePostDialog({
                     onReorder={(from, to) =>
                       setAttachments((prev) => moveItem(prev, from, to))
                     }
+                    groupMedia
                   />
                 </>
               )}
