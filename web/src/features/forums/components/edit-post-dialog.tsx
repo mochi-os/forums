@@ -26,6 +26,8 @@ import {
   getAppPath,
   authenticatedUrl,
   AttachmentComposer,
+  newPendingFiles,
+  pendingFileKey,
   type ComposerItem,
   moveItem,
   useImageObjectUrls,
@@ -166,7 +168,7 @@ export function EditPostDialog({
         }
         const { file } = item
         return {
-          key: `new-${file.name}-${file.size}-${file.lastModified}`,
+          key: pendingFileKey(file),
           name: file.name,
           size: file.size,
           type: file.type,
@@ -188,15 +190,25 @@ export function EditPostDialog({
   )
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files) {
-      const newItems: EditingAttachment[] = Array.from(files).map((file) => ({
-        kind: 'new' as const,
-        file,
-      }))
-      setItems((prev) => [...prev, ...newItems])
-    }
+    // Copy the FileList before resetting the input: it is live, so clearing
+    // the value empties it, and a state updater React defers would then read
+    // no files and drop the pick silently.
+    const picked = Array.from(event.target.files ?? [])
     event.target.value = ''
+    if (picked.length > 0) {
+      setItems((prev) => {
+        // Saved attachments and new files share this list, so the pick is
+        // filtered against the new files already in it.
+        const staged = prev.flatMap((item) =>
+          item.kind === 'new' ? [item.file] : []
+        )
+        const newItems: EditingAttachment[] = newPendingFiles(
+          staged,
+          picked
+        ).map((file) => ({ kind: 'new' as const, file }))
+        return newItems.length > 0 ? [...prev, ...newItems] : prev
+      })
+    }
   }
 
 

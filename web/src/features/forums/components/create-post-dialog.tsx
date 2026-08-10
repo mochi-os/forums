@@ -27,6 +27,7 @@ import {
   FormMessage,
   useImageObjectUrls,
   ComposerAttachments,
+  mergePendingFiles,
   removePendingFile,
   moveItem,
   UploadProgress,
@@ -125,7 +126,7 @@ export function CreatePostDialog({
     // Reset input to allow selecting the same file again
     event.target.value = ''
     if (picked.length > 0) {
-      setAttachments((prev) => [...prev, ...picked])
+      setAttachments((prev) => mergePendingFiles(prev, picked))
     }
   }
 

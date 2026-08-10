@@ -3,7 +3,6 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { pendingFileKey } from '@mochi/web'
 import DOMPurify from 'dompurify'
 
 const ALLOWED_IFRAME_HOSTS = [
@@ -83,23 +82,4 @@ export const embedVideos = (html: string): string => {
       return `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;border-radius:8px"><iframe src="${embedUrl}" style="position:absolute;top:0;left:0;width:100%;height:100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     }
   )
-}
-
-/**
- * Appends only the files that are not already staged.
- *
- * Picking or dropping the same file twice yields the same `pendingFileKey`,
- * which collides as a React key and uploads the file twice. Returns `prev`
- * untouched when every incoming file was a duplicate, so the preview object
- * URLs keyed off the array reference are not rebuilt for nothing.
- */
-export function mergePendingFiles(prev: File[], incoming: File[]): File[] {
-  const seen = new Set(prev.map(pendingFileKey))
-  const added = incoming.filter((file) => {
-    const key = pendingFileKey(file)
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
-  return added.length > 0 ? [...prev, ...added] : prev
 }
