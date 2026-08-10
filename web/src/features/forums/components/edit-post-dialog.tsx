@@ -159,6 +159,9 @@ export function EditPostDialog({
                   `${appPath}/${post.forum}/-/attachments/${att.id}/thumbnail`
                 )
               : null,
+            // Saved attachments are not part of the save's upload, so they
+            // keep the still state while the new files pulse.
+            state: 'idle' as const,
           }
         }
         const { file } = item

@@ -250,6 +250,20 @@ def get_forum(forum_id):
         forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
     return forum
 
+# Helper: deliver a subscription-lifecycle event (subscribe, unsubscribe) to an
+# owner whose entity may no longer be resolvable: private entities never list
+# in the directory, and public entries expire while the owner is offline. A
+# stored directory-form "p2p/<peer>" server pins the queue row to that peer, so
+# an undeliverable send parks and revives when the peer reconnects, instead of
+# parking unresolvable forever. Hostname servers still route via the directory -
+# resolving one here would put a network dial on a view path.
+def registration_send(server, headers, content):
+    peer = server[len("p2p/"):] if server and server.startswith("p2p/") else ""
+    if peer:
+        mochi.message.send.peer(peer, headers, content)
+    else:
+        mochi.message.send(headers, content)
+
 # Strip owner-only operational config from a forum row before returning it to a
 # viewer. Moderation thresholds, rate limits, and AI prompt text are reachable
 # only through the owner-gated settings endpoints (action_moderation_settings,
@@ -533,11 +547,9 @@ def maybe_resubscribe(a, forum_id):
         return
     if mochi.time.now() - mochi.broadcast.seen(forum_id) <= idle_resync_age:
         return
-    mochi.message.send(
+    registration_send(row["server"],
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
-        {"name": a.user.identity.name},
-        []
-    )
+        {"name": a.user.identity.name})
     mochi.broadcast.touch(forum_id)
 
 # Helper: Send a rejection back to the original sender of a submit event.
@@ -1929,7 +1941,7 @@ def action_post_new(a):
         return
 
     return {
-        "data": {"forum": forum}
+        "data": {"forum": strip_forum_config(forum)}
     }
 
 # Search for forums
@@ -2469,11 +2481,9 @@ def action_unsubscribe(a):
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
-    mochi.message.send(
+    registration_send(forum["server"],
         {"from": a.user.identity.id, "to": forum["id"], "service": "forums", "event": "unsubscribe"},
-        {},
-        []
-    )
+        {})
 
     return {
         "data": {}
@@ -3070,7 +3080,7 @@ def action_comment_new(a):
     
     return {
         "data": {
-            "forum": forum,
+            "forum": strip_forum_config(forum),
             "post": a.input("post"),
             "parent": a.input("parent")
         }
@@ -4501,7 +4511,7 @@ def action_moderation_queue(a):
 
     return {
         "data": {
-            "forum": forum,
+            "forum": strip_forum_config(forum),
             "posts": posts,
             "comments": comments,
             "reports": reports,
@@ -7192,7 +7202,7 @@ def event_post_view(e):
     comments = get_comments("", 0)
 
     e.stream.write({
-        "forum": forum,
+        "forum": strip_forum_config(forum),
         "post": post_data,
         "comments": comments,
         "member": None,
@@ -7236,7 +7246,7 @@ def event_moderation_queue(e):
     """, forum["id"])
 
     e.stream.write({
-        "forum": forum,
+        "forum": strip_forum_config(forum),
         "posts": posts,
         "comments": comments,
         "reports": reports,
@@ -8127,12 +8137,34 @@ def _check_forum(user, forum_id):
     return {"fingerprint": fp, "already_subscribed": subscribed}
 
 
+# Whether an app/* service event really came from the user it acts for.
+#
+# These handlers subscribe the receiving user and post as them, and their only
+# gate used to be the `apps` allowlist in app.json. That allowlist is checked
+# against `from-app`, an UNSIGNED wire field the sender writes about itself
+# (core protocol2.go Frame.FromApp; the claim signature covers v, stream,
+# entity, receiver and protocol, and not this), so it constrained nobody: any
+# authenticated peer could name an allowed app and pass.
+#
+# The sender identity IS authenticated, and the callers are self-directed -
+# help.star sends these with mochi.remote.request(a.user.identity.id, ...), so
+# the sender and the recipient are the same person. Requiring that is both
+# enforceable and stronger than the allowlist ever was: only you can make
+# yourself subscribe and post, whatever app claims to be asking.
+def _app_event_is_self(e):
+    sender = e.header("from")
+    return bool(sender) and e.user and e.user.identity and sender == e.user.identity.id
+
+
 # Service event: another local app asks whether the user could subscribe and
 # post to a forum, without changing anything — the read-only counterpart of
 # event_app_subscribe. Help calls this when a contribute dialog opens, before
 # the user has committed to anything.
 # Caller restriction is declared in app.json events block.
 def event_app_check(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     forum_id = e.content("forum") or ""
     result = _check_forum(e.user, forum_id)
     if "error" in result:
@@ -8147,6 +8179,9 @@ def event_app_check(e):
 # Service event: another local app asks us to subscribe the user to a forum.
 # Caller restriction is declared in app.json events block.
 def event_app_subscribe(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     forum_id = e.content("forum") or ""
     result = _subscribe_to_forum(e.user, forum_id, "")
     if "error" in result:
@@ -8169,6 +8204,9 @@ def event_app_subscribe(e):
 # callers (single-fire, the current path) still need to mint once and
 # pass through.
 def event_app_post(e):
+    if not _app_event_is_self(e):
+        e.write({"error": "errors.access_denied", "code": 403})
+        return
     post_id = e.content("id") or ""
     forum_id = e.content("forum") or ""
     title = e.content("title") or ""

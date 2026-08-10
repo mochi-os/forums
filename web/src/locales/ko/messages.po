@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:236
+#: ../../../lib/web/src/lib/error-normalizer.ts:244
 msgid "Please check your internet connection and try again."
 msgstr "인터넷 연결을 확인하고 다시 시도하세요."
 
@@ -31,7 +31,7 @@ msgstr " · 영구"
 msgid " (edited)"
 msgstr " (수정됨)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:292
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:293
 msgid " or "
 msgstr " 또는 "
 
@@ -79,6 +79,22 @@ msgstr "{0} 옵션 미리보기"
 #: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "{0} settings"
 msgstr "{0} 설정"
+
+#: ../../../lib/web/src/lib/locale-format.ts:121
+msgid "{count, plural, one {#d} other {#d}}"
+msgstr "{count, plural, one {#일} other {#일}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:117
+msgid "{count, plural, one {#h} other {#h}}"
+msgstr "{count, plural, one {#시간} other {#시간}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:113
+msgid "{count, plural, one {#m} other {#m}}"
+msgstr "{count, plural, one {#분} other {#분}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:125
+msgid "{count, plural, one {#w} other {#w}}"
+msgstr "{count, plural, one {#주} other {#주}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:236
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
@@ -254,8 +270,8 @@ msgstr "체크리스트 항목 추가"
 msgid "Add field"
 msgstr "필드 추가"
 
-#: src/features/forums/components/create-post-dialog.tsx:248
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:251
+#: src/features/forums/components/edit-post-dialog.tsx:297
 msgid "Add files"
 msgstr "파일 추가"
 
@@ -376,6 +392,10 @@ msgstr "누구나"
 msgid "Anyone who is logged in"
 msgstr "로그인한 모든 사람"
 
+#: ../../../lib/web/src/components/options-menu.tsx:249
+msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
+msgstr "이 피드를 구독 중인 모든 것이 수신을 중단합니다. 이후에 새 URL을 복사할 수 있습니다."
+
 #: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
@@ -428,8 +448,8 @@ msgstr "댓글 파일 첨부"
 msgid "Attach reply files"
 msgstr "답글 파일 첨부"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
-#: src/features/forums/components/edit-post-dialog.tsx:259
+#: src/features/forums/components/create-post-dialog.tsx:215
+#: src/features/forums/components/edit-post-dialog.tsx:262
 msgid "Attachments"
 msgstr "첨부 파일"
 
@@ -438,7 +458,7 @@ msgstr "첨부 파일"
 msgid "Authenticated users"
 msgstr "인증된 사용자"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Authenticator code"
 msgstr "인증 코드"
 
@@ -552,7 +572,7 @@ msgstr "{0} 작성"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:363
+#: ../../../lib/web/src/components/step-up-dialog.tsx:377
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -560,8 +580,8 @@ msgstr "{0} 작성"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:257
-#: src/features/forums/components/edit-post-dialog.tsx:303
+#: src/features/forums/components/create-post-dialog.tsx:260
+#: src/features/forums/components/edit-post-dialog.tsx:306
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
@@ -673,8 +693,8 @@ msgstr "선택 해제 (Escape)"
 msgid "Clearing saved posts..."
 msgstr "저장된 게시물 지우는 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:477
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:482
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:478
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:483
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -810,8 +830,8 @@ msgstr "연결된 계정"
 msgid "Connecting..."
 msgstr "연결 중..."
 
-#: src/features/forums/components/create-post-dialog.tsx:193
-#: src/features/forums/components/edit-post-dialog.tsx:243
+#: src/features/forums/components/create-post-dialog.tsx:196
+#: src/features/forums/components/edit-post-dialog.tsx:246
 msgid "Content"
 msgstr "콘텐츠"
 
@@ -839,7 +859,7 @@ msgstr "맥락 정보 및 세부 사항."
 msgid "Continue"
 msgstr "계속"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:352
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 msgid "Continue with {label}"
 msgstr "{label}(으)로 계속하기"
 
@@ -863,22 +883,22 @@ msgstr "이 문서를 불러올 수 없었습니다. 잠시 후 다시 시도해
 msgid "Couldn't load notifications"
 msgstr "알림을 불러오지 못했습니다"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:184
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "Couldn't send the code. Please try again."
 msgstr "코드를 보낼 수 없습니다. 다시 시도해 주세요."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:145
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "재인증을 시작할 수 없습니다. 다시 시도해 주세요."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:221
+#: ../../../lib/web/src/components/step-up-dialog.tsx:235
 msgid "Couldn't verify with that account. Please try again."
 msgstr "해당 계정으로 인증하지 못했습니다. 다시 시도해 주세요."
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:467
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:616
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:468
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:623
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "생성"
@@ -892,7 +912,7 @@ msgstr "{0} 만들기"
 msgid "Create a new forum"
 msgstr "새 포럼 생성"
 
-#: src/features/forums/components/create-post-dialog.tsx:165
+#: src/features/forums/components/create-post-dialog.tsx:168
 msgid "Create a new post"
 msgstr "새 게시물 작성"
 
@@ -914,7 +934,7 @@ msgstr "생성됨"
 msgid "Creating forum..."
 msgstr "포럼 생성 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:616
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:623
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "생성 중..."
@@ -1164,8 +1184,8 @@ msgstr "옵션 편집"
 msgid "Edit option {0}"
 msgstr "옵션 {0} 편집"
 
-#: src/features/forums/components/edit-post-dialog.tsx:213
-#: src/features/forums/components/edit-post-dialog.tsx:215
+#: src/features/forums/components/edit-post-dialog.tsx:216
+#: src/features/forums/components/edit-post-dialog.tsx:218
 msgid "Edit post"
 msgstr "게시물 편집"
 
@@ -1181,7 +1201,7 @@ msgstr "뷰 편집"
 msgid "Email"
 msgstr "이메일"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:289
+#: ../../../lib/web/src/components/step-up-dialog.tsx:303
 msgid "Email code"
 msgstr "이메일 코드"
 
@@ -1189,11 +1209,11 @@ msgstr "이메일 코드"
 msgid "Enter banner text (markdown supported)..."
 msgstr "배너 텍스트를 입력하세요 (마크다운 지원)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:299
+#: ../../../lib/web/src/components/step-up-dialog.tsx:313
 msgid "Enter the code from your email"
 msgstr "이메일로 받은 코드를 입력하세요"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:324
+#: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Enter your authenticator code"
 msgstr "인증 앱 코드를 입력하세요"
 
@@ -1262,7 +1282,7 @@ msgid "Failed to create forum"
 msgstr "포럼 생성에 실패했습니다"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
-#: ../../../lib/web/src/components/options-menu.tsx:99
+#: ../../../lib/web/src/components/options-menu.tsx:101
 msgid "Failed to create link"
 msgstr "링크 생성에 실패했어요"
 
@@ -1282,7 +1302,7 @@ msgstr "포럼 삭제에 실패했습니다"
 msgid "Failed to delete link"
 msgstr "링크 삭제에 실패했어요"
 
-#: ../../../lib/web/src/components/options-menu.tsx:123
+#: ../../../lib/web/src/components/options-menu.tsx:125
 msgid "Failed to get RSS token"
 msgstr "RSS 토큰을 가져오지 못했어요"
 
@@ -1396,7 +1416,7 @@ msgstr "프롬프트 재설정에 실패했어요"
 msgid "Failed to resolve report"
 msgstr "신고 해결에 실패했어요"
 
-#: ../../../lib/web/src/components/options-menu.tsx:133
+#: ../../../lib/web/src/components/options-menu.tsx:136
 msgid "Failed to revoke RSS access"
 msgstr "RSS 액세스 취소에 실패했습니다"
 
@@ -1462,7 +1482,7 @@ msgstr "댓글 업데이트에 실패했어요"
 msgid "Failed to upload attachment"
 msgstr "첨부 파일 업로드에 실패했어요"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:559
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:153
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
 msgid "Files"
@@ -1715,7 +1735,7 @@ msgstr "잘못된 인증 코드"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "찾으시는 페이지가 <0/>존재하지 않거나 삭제된 것 같아요."
 
-#: ../../../lib/web/src/lib/locale-format.ts:62
+#: ../../../lib/web/src/lib/locale-format.ts:110
 msgid "Just now"
 msgstr "방금"
 
@@ -1752,7 +1772,7 @@ msgstr "문자, 숫자, 공백, 하이픈만 가능해요"
 msgid "Light"
 msgstr "라이트"
 
-#: ../../../lib/web/src/components/options-menu.tsx:190
+#: ../../../lib/web/src/components/options-menu.tsx:193
 msgid "Link"
 msgstr "링크"
 
@@ -1826,7 +1846,7 @@ msgstr "수동"
 msgid "Mark all as read"
 msgstr "모두 읽음으로 표시"
 
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:200
 msgid "Markdown supported"
 msgstr "마크다운 지원됨"
 
@@ -1871,7 +1891,7 @@ msgstr "Mochi 웹"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "관리, 게시, 댓글, 투표 및 보기"
 
-#: ../../../lib/web/src/components/options-menu.tsx:164
+#: ../../../lib/web/src/components/options-menu.tsx:167
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1890,8 +1910,8 @@ msgstr "모더레이션 섹션"
 msgid "Monday"
 msgstr "월요일"
 
-#: ../../../lib/web/src/components/options-menu.tsx:145
-#: ../../../lib/web/src/components/options-menu.tsx:152
+#: ../../../lib/web/src/components/options-menu.tsx:148
+#: ../../../lib/web/src/components/options-menu.tsx:155
 #: src/features/forums/components/thread/thread-comment.tsx:418
 #: src/features/forums/components/thread/thread-comment.tsx:424
 #: src/features/forums/components/thread/thread-content.tsx:317
@@ -1939,9 +1959,9 @@ msgstr "이름은 1000자 이하여야 해요"
 msgid "Network error"
 msgstr "네트워크 오류"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:452
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:453
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:175
+#: src/features/forums/components/edit-post-dialog.tsx:178
 msgid "New"
 msgstr "새로 만들기"
 
@@ -1954,9 +1974,9 @@ msgstr "새 포럼"
 msgid "New game"
 msgstr "새 게임"
 
-#: src/features/forums/components/create-post-dialog.tsx:151
-#: src/features/forums/components/create-post-dialog.tsx:156
-#: src/features/forums/components/create-post-dialog.tsx:163
+#: src/features/forums/components/create-post-dialog.tsx:154
+#: src/features/forums/components/create-post-dialog.tsx:159
+#: src/features/forums/components/create-post-dialog.tsx:166
 #: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "새 게시물"
@@ -1974,7 +1994,7 @@ msgstr "신규 사용자 임계값:"
 msgid "Next image"
 msgstr "다음 이미지"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:525
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:526
 msgid "No {parentClassNames} to add to"
 msgstr "추가할 {parentClassNames}이(가) 없음"
 
@@ -2015,7 +2035,7 @@ msgstr "아직 게임이 없어요"
 msgid "No groups available"
 msgstr "이용 가능한 그룹이 없어요"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:493
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "아직 항목 유형을 만들 수 없어요. 먼저 필요한 상위 항목을 만들어 주세요."
 
@@ -2098,9 +2118,9 @@ msgid "No views"
 msgstr "조회수가 없어요"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:515
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:509
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:512
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2243,15 +2263,15 @@ msgstr "소유자"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "{totalPages}페이지 중 {currentPage}페이지"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
 msgid "Parent"
 msgstr "상위"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:334
+#: ../../../lib/web/src/components/step-up-dialog.tsx:348
 msgid "Passkey"
 msgstr "패스키"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:209
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
 msgid "Passkey verification failed. Please try again."
 msgstr "패스키 인증에 실패했습니다. 다시 시도해 주세요."
 
@@ -2385,11 +2405,11 @@ msgstr "게시, 댓글, 투표 및 보기"
 msgid "posts"
 msgstr "개의 게시물"
 
-#: ../../../lib/web/src/components/options-menu.tsx:175
+#: ../../../lib/web/src/components/options-menu.tsx:178
 msgid "Posts"
 msgstr "게시물"
 
-#: ../../../lib/web/src/components/options-menu.tsx:178
+#: ../../../lib/web/src/components/options-menu.tsx:181
 msgid "Posts and comments"
 msgstr "게시물 및 댓글"
 
@@ -2427,11 +2447,11 @@ msgstr "프로젝트 멤버"
 msgid "Prompt saved"
 msgstr "프롬프트가 저장되었어요"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:275
 msgid "Publish post"
 msgstr "게시물 게시"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:270
 msgid "Publishing..."
 msgstr "게시 중..."
 
@@ -2682,7 +2702,7 @@ msgstr "새 사용자에 승인이 필요해요"
 msgid "Required"
 msgstr "필수"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:367
+#: ../../../lib/web/src/components/step-up-dialog.tsx:381
 msgid "Resend email"
 msgstr "이메일 다시 보내기"
 
@@ -2725,9 +2745,17 @@ msgstr "다시 시도"
 msgid "Retry forums load"
 msgstr "포럼 불러오기 다시 시도"
 
-#: ../../../lib/web/src/components/options-menu.tsx:181
+#: ../../../lib/web/src/components/options-menu.tsx:250
+msgid "Revoke"
+msgstr "취소"
+
+#: ../../../lib/web/src/components/options-menu.tsx:184
 msgid "Revoke access"
 msgstr "액세스 취소"
+
+#: ../../../lib/web/src/components/options-menu.tsx:244
+msgid "Revoke RSS access?"
+msgstr "RSS 액세스를 해지할까요?"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2746,15 +2774,15 @@ msgstr "행 그룹화 기준"
 msgid "Rows per page"
 msgstr "페이지당 행"
 
-#: ../../../lib/web/src/components/options-menu.tsx:131
+#: ../../../lib/web/src/components/options-menu.tsx:134
 msgid "RSS access revoked"
 msgstr "RSS 액세스가 취소되었습니다"
 
-#: ../../../lib/web/src/components/options-menu.tsx:171
+#: ../../../lib/web/src/components/options-menu.tsx:174
 msgid "RSS feed"
 msgstr "RSS 피드"
 
-#: ../../../lib/web/src/components/options-menu.tsx:121
+#: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL이 클립보드에 복사되었어요"
 
@@ -2772,7 +2800,7 @@ msgstr "토요일"
 msgid "Save"
 msgstr "저장"
 
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Save changes"
 msgstr "변경 사항 저장"
 
@@ -2792,7 +2820,7 @@ msgstr "저장됨"
 msgid "Saved posts cleared"
 msgstr "저장된 게시물이 지워졌습니다"
 
-#: src/features/forums/components/edit-post-dialog.tsx:312
+#: src/features/forums/components/edit-post-dialog.tsx:315
 #: src/lib/saved.ts:31
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -2975,7 +3003,7 @@ msgstr "선택됨: <0>{0}</0>"
 msgid "Send again"
 msgstr "다시 보내기"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:307
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
 msgid "Send email"
 msgstr "이메일 보내기"
 
@@ -3008,7 +3036,7 @@ msgstr "출발지와 도착지 설정"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
-#: ../../../lib/web/src/components/options-menu.tsx:196
+#: ../../../lib/web/src/components/options-menu.tsx:199
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -3069,7 +3097,7 @@ msgstr "작게"
 msgid "Sort"
 msgstr "정렬"
 
-#: ../../../lib/web/src/components/options-menu.tsx:158
+#: ../../../lib/web/src/components/options-menu.tsx:161
 msgid "Sources"
 msgstr "소스"
 
@@ -3203,7 +3231,7 @@ msgstr "이용 약관"
 msgid "Text"
 msgstr "텍스트"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/components/step-up-dialog.tsx:204
 msgid "That code is incorrect or has expired."
 msgstr "코드가 올바르지 않거나 만료되었습니다."
 
@@ -3276,8 +3304,8 @@ msgstr "스레드"
 msgid "Thursday"
 msgstr "목요일"
 
-#: src/features/forums/components/create-post-dialog.tsx:176
-#: src/features/forums/components/edit-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:179
+#: src/features/forums/components/edit-post-dialog.tsx:229
 msgid "Title"
 msgstr "제목"
 
@@ -3426,7 +3454,7 @@ msgstr "잠금 해제"
 msgid "Unpin"
 msgstr "고정 해제"
 
-#: ../../../lib/web/src/components/options-menu.tsx:211
+#: ../../../lib/web/src/components/options-menu.tsx:214
 #: src/features/forums/pages/entity-forum-page.tsx:390
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
@@ -3450,7 +3478,7 @@ msgstr "구독이 취소되었어요"
 msgid "Unsubscribing..."
 msgstr "구독 취소 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:276
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:277
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
@@ -3465,7 +3493,7 @@ msgstr "확인되지 않음"
 msgid "Updated"
 msgstr "업데이트됨"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:599
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:606
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:296
 msgid "Upload"
 msgstr "업로드"
@@ -3474,7 +3502,7 @@ msgstr "업로드"
 msgid "Upload progress"
 msgstr "업로드 진행률"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:338
+#: ../../../lib/web/src/components/step-up-dialog.tsx:352
 msgid "Use your passkey"
 msgstr "패스키 사용"
 
@@ -3508,7 +3536,7 @@ msgstr "확인 코드가 전송되었어요"
 msgid "Verification failed"
 msgstr "확인에 실패했어요"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:388
+#: ../../../lib/web/src/components/step-up-dialog.tsx:402
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"

@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:236
+#: ../../../lib/web/src/lib/error-normalizer.ts:244
 msgid "Please check your internet connection and try again."
 msgstr "කරුණාකර ඔබගේ අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
 
@@ -31,7 +31,7 @@ msgstr " · ස්ථිර"
 msgid " (edited)"
 msgstr " (සංස්කරණය කළා)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:292
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:293
 msgid " or "
 msgstr " හෝ "
 
@@ -79,6 +79,22 @@ msgstr "{0} විකල්පයේ පෙරදසුන"
 #: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "{0} settings"
 msgstr "{0} සැකසුම්"
+
+#: ../../../lib/web/src/lib/locale-format.ts:121
+msgid "{count, plural, one {#d} other {#d}}"
+msgstr "{count, plural, one {#දි} other {#දි}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:117
+msgid "{count, plural, one {#h} other {#h}}"
+msgstr "{count, plural, one {#පැ} other {#පැ}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:113
+msgid "{count, plural, one {#m} other {#m}}"
+msgstr "{count, plural, one {#මි} other {#මි}}"
+
+#: ../../../lib/web/src/lib/locale-format.ts:125
+msgid "{count, plural, one {#w} other {#w}}"
+msgstr "{count, plural, one {#සති} other {#සති}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:236
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
@@ -254,8 +270,8 @@ msgstr "පරීක්ෂා ලැයිස්තු අයිතමයක් 
 msgid "Add field"
 msgstr "ක්ෂේත්‍රයක් එක් කරන්න"
 
-#: src/features/forums/components/create-post-dialog.tsx:248
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:251
+#: src/features/forums/components/edit-post-dialog.tsx:297
 msgid "Add files"
 msgstr "ගොනු එක් කරන්න"
 
@@ -376,6 +392,10 @@ msgstr "ඕනෑම කෙනෙක්"
 msgid "Anyone who is logged in"
 msgstr "පිවිසී සිටින ඕනෑම කෙනෙක්"
 
+#: ../../../lib/web/src/components/options-menu.tsx:249
+msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
+msgstr "මෙම සංග්‍රහයට දායක වූ සියල්ල එය ලැබීම නවත්වනු ඇත. පසුව ඔබට නව URL එකක් පිටපත් කළ හැකිය."
+
 #: src/features/forums/components/thread/thread-comment.tsx:454
 #: src/routes/_authenticated/$forum_.moderation.tsx:481
 msgid "Approve"
@@ -428,8 +448,8 @@ msgstr "අදහස්වල ගොනු අමුණන්න"
 msgid "Attach reply files"
 msgstr "පිළිතුරු ගොනු අමුණන්න"
 
-#: src/features/forums/components/create-post-dialog.tsx:212
-#: src/features/forums/components/edit-post-dialog.tsx:259
+#: src/features/forums/components/create-post-dialog.tsx:215
+#: src/features/forums/components/edit-post-dialog.tsx:262
 msgid "Attachments"
 msgstr "ඇමුණුම්"
 
@@ -438,7 +458,7 @@ msgstr "ඇමුණුම්"
 msgid "Authenticated users"
 msgstr "සත්‍යාපිත පරිශීලකයන්"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Authenticator code"
 msgstr "Authenticator කේතය"
 
@@ -552,7 +572,7 @@ msgstr "{0} විසින්"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:363
+#: ../../../lib/web/src/components/step-up-dialog.tsx:377
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -560,8 +580,8 @@ msgstr "{0} විසින්"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:257
-#: src/features/forums/components/edit-post-dialog.tsx:303
+#: src/features/forums/components/create-post-dialog.tsx:260
+#: src/features/forums/components/edit-post-dialog.tsx:306
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:305
 msgid "Cancel"
@@ -673,8 +693,8 @@ msgstr "තේරීම හිස් කරන්න (Escape)"
 msgid "Clearing saved posts..."
 msgstr "සුරැකි පළකිරීම් හිස් කරමින්..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:477
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:482
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:478
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:483
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -810,8 +830,8 @@ msgstr "සම්බන්ධිත ගිණුම්"
 msgid "Connecting..."
 msgstr "සම්බන්ධ වෙමින්..."
 
-#: src/features/forums/components/create-post-dialog.tsx:193
-#: src/features/forums/components/edit-post-dialog.tsx:243
+#: src/features/forums/components/create-post-dialog.tsx:196
+#: src/features/forums/components/edit-post-dialog.tsx:246
 msgid "Content"
 msgstr "අන්තර්ගතය"
 
@@ -839,7 +859,7 @@ msgstr "සන්දර්භීය තොරතුරු සහ විස්ත
 msgid "Continue"
 msgstr "ඉදිරියට"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:352
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 msgid "Continue with {label}"
 msgstr "{label} සමඟ ඉදිරියට යන්න"
 
@@ -863,22 +883,22 @@ msgstr "මෙම ලේඛනය පූරණය කළ නොහැකි ව�
 msgid "Couldn't load notifications"
 msgstr "දැනුම්දීම් පූරණය කළ නොහැකි විය"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:184
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "Couldn't send the code. Please try again."
 msgstr "කේතය යැවිය නොහැකි විය. නැවත උත්සාහ කරන්න."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:145
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "නැවත සත්‍යාපනය ආරම්භ කළ නොහැකි විය. නැවත උත්සාහ කරන්න."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:221
+#: ../../../lib/web/src/components/step-up-dialog.tsx:235
 msgid "Couldn't verify with that account. Please try again."
 msgstr "එම ගිණුම සමඟ සත්‍යාපනය කළ නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න."
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:467
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:616
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:468
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:623
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "නිර්මාණය කරන්න"
@@ -892,7 +912,7 @@ msgstr "{0} සාදන්න"
 msgid "Create a new forum"
 msgstr "නව සංසදයක් නිර්මාණය කරන්න"
 
-#: src/features/forums/components/create-post-dialog.tsx:165
+#: src/features/forums/components/create-post-dialog.tsx:168
 msgid "Create a new post"
 msgstr "නව පළ කිරීමක් නිර්මාණය කරන්න"
 
@@ -914,7 +934,7 @@ msgstr "නිර්මාණය කරන ලදී"
 msgid "Creating forum..."
 msgstr "සංසදය සාදමින්..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:616
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:623
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "නිර්මාණය කරමින්..."
@@ -1164,8 +1184,8 @@ msgstr "විකල්පය සංස්කරණය කරන්න"
 msgid "Edit option {0}"
 msgstr "විකල්පය {0} සංස්කරණය කරන්න"
 
-#: src/features/forums/components/edit-post-dialog.tsx:213
-#: src/features/forums/components/edit-post-dialog.tsx:215
+#: src/features/forums/components/edit-post-dialog.tsx:216
+#: src/features/forums/components/edit-post-dialog.tsx:218
 msgid "Edit post"
 msgstr "පළ කිරීම සංස්කරණය කරන්න"
 
@@ -1181,7 +1201,7 @@ msgstr "දසුන සංස්කරණය කරන්න"
 msgid "Email"
 msgstr "ඊමේල්"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:289
+#: ../../../lib/web/src/components/step-up-dialog.tsx:303
 msgid "Email code"
 msgstr "ඊමේල් කේතය"
 
@@ -1189,11 +1209,11 @@ msgstr "ඊමේල් කේතය"
 msgid "Enter banner text (markdown supported)..."
 msgstr "බැනර් පෙළ ඇතුළු කරන්න (markdown සහාය දක්වයි)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:299
+#: ../../../lib/web/src/components/step-up-dialog.tsx:313
 msgid "Enter the code from your email"
 msgstr "ඔබේ විද්‍යුත් තැපෑලෙහි ඇති කේතය ඇතුළු කරන්න"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:324
+#: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Enter your authenticator code"
 msgstr "ඔබගේ සත්‍යාපන කේතය ඇතුළත් කරන්න"
 
@@ -1262,7 +1282,7 @@ msgid "Failed to create forum"
 msgstr "සංසදය සෑදීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
-#: ../../../lib/web/src/components/options-menu.tsx:99
+#: ../../../lib/web/src/components/options-menu.tsx:101
 msgid "Failed to create link"
 msgstr "සබැඳියක් සෑදීමට අසමත් විය"
 
@@ -1282,7 +1302,7 @@ msgstr "සංසදය මැකීමට අසමත් විය"
 msgid "Failed to delete link"
 msgstr "සබැඳිය මැකීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/options-menu.tsx:123
+#: ../../../lib/web/src/components/options-menu.tsx:125
 msgid "Failed to get RSS token"
 msgstr "RSS ටෝකනය ලබා ගැනීමට අසමත් විය"
 
@@ -1396,7 +1416,7 @@ msgstr "prompt එක යළි පිහිටුවීමට අසමත් �
 msgid "Failed to resolve report"
 msgstr "වාර්තාව විසඳීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/options-menu.tsx:133
+#: ../../../lib/web/src/components/options-menu.tsx:136
 msgid "Failed to revoke RSS access"
 msgstr "RSS ප්‍රවේශය අවලංගු කිරීමට අසමත් විය"
 
@@ -1462,7 +1482,7 @@ msgstr "අදහස යාවත්කාලීන කිරීමට අසම
 msgid "Failed to upload attachment"
 msgstr "ඇමුණුම උඩුගත කිරීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:559
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:153
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
 msgid "Files"
@@ -1715,7 +1735,7 @@ msgstr "අවලංගු සත්‍යාපන කේතය"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "ඔබ සොයන පිටුව <0/>නොපවතින බවක් හෝ ඉවත් කර ඇති බවක් පෙනේ."
 
-#: ../../../lib/web/src/lib/locale-format.ts:62
+#: ../../../lib/web/src/lib/locale-format.ts:110
 msgid "Just now"
 msgstr "මේ දැන්"
 
@@ -1752,7 +1772,7 @@ msgstr "අකුරු, අංක, හිස්තැන් සහ යා-ක�
 msgid "Light"
 msgstr "ලා"
 
-#: ../../../lib/web/src/components/options-menu.tsx:190
+#: ../../../lib/web/src/components/options-menu.tsx:193
 msgid "Link"
 msgstr "සබැඳිය"
 
@@ -1826,7 +1846,7 @@ msgstr "අතින්"
 msgid "Mark all as read"
 msgstr "සියල්ල කියවූ ලෙස සලකුණු කරන්න"
 
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:200
 msgid "Markdown supported"
 msgstr "Markdown සහාය දක්වයි"
 
@@ -1871,7 +1891,7 @@ msgstr "Mochi වෙබ්"
 msgid "Moderate, post, comment, vote, and view"
 msgstr "පාලනය කරන්න, පළ කරන්න, අදහස් දක්වන්න, ඡන්දය දෙන්න සහ බලන්න"
 
-#: ../../../lib/web/src/components/options-menu.tsx:164
+#: ../../../lib/web/src/components/options-menu.tsx:167
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:91
@@ -1890,8 +1910,8 @@ msgstr "මෝඩරේෂන් කොටස්"
 msgid "Monday"
 msgstr "සඳුදා"
 
-#: ../../../lib/web/src/components/options-menu.tsx:145
-#: ../../../lib/web/src/components/options-menu.tsx:152
+#: ../../../lib/web/src/components/options-menu.tsx:148
+#: ../../../lib/web/src/components/options-menu.tsx:155
 #: src/features/forums/components/thread/thread-comment.tsx:418
 #: src/features/forums/components/thread/thread-comment.tsx:424
 #: src/features/forums/components/thread/thread-content.tsx:317
@@ -1939,9 +1959,9 @@ msgstr "නම අක්ෂර 1000 ක් හෝ ඊට අඩු විය ය
 msgid "Network error"
 msgstr "ජාල දෝෂය"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:452
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:453
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:175
+#: src/features/forums/components/edit-post-dialog.tsx:178
 msgid "New"
 msgstr "අලුත්"
 
@@ -1954,9 +1974,9 @@ msgstr "නව සංසදය"
 msgid "New game"
 msgstr "නව ක්‍රීඩාවක්"
 
-#: src/features/forums/components/create-post-dialog.tsx:151
-#: src/features/forums/components/create-post-dialog.tsx:156
-#: src/features/forums/components/create-post-dialog.tsx:163
+#: src/features/forums/components/create-post-dialog.tsx:154
+#: src/features/forums/components/create-post-dialog.tsx:159
+#: src/features/forums/components/create-post-dialog.tsx:166
 #: src/features/forums/pages/entity-forum-page.tsx:283
 msgid "New post"
 msgstr "නව පළ කිරීම"
@@ -1974,7 +1994,7 @@ msgstr "නව පරිශීලක සීමාව:"
 msgid "Next image"
 msgstr "ඊළඟ පින්තූරය"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:525
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:526
 msgid "No {parentClassNames} to add to"
 msgstr "එක් කිරීමට {parentClassNames} නොමැත"
 
@@ -2015,7 +2035,7 @@ msgstr "තවම ක්‍රීඩා නැත"
 msgid "No groups available"
 msgstr "කණ්ඩායම් ලබා ගත නොහැක"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:493
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "තවම අයිතම වර්ග සෑදිය නොහැක. අවශ්‍ය මූලික අයිතම පළමුව සාදන්න."
 
@@ -2098,9 +2118,9 @@ msgid "No views"
 msgstr "බැලීම් නැත"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:515
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:509
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:512
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2243,15 +2263,15 @@ msgstr "හිමිකරු"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "පිටුව {currentPage} / {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
 msgid "Parent"
 msgstr "මව්"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:334
+#: ../../../lib/web/src/components/step-up-dialog.tsx:348
 msgid "Passkey"
 msgstr "ප්‍රවේශ යතුර"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:209
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
 msgid "Passkey verification failed. Please try again."
 msgstr "මුරයතුර සත්‍යාපනය අසාර්ථක විය. නැවත උත්සාහ කරන්න."
 
@@ -2385,11 +2405,11 @@ msgstr "පළ කිරීම, අදහස්, ඡන්දය සහ බැ�
 msgid "posts"
 msgstr "පළකිරීම්"
 
-#: ../../../lib/web/src/components/options-menu.tsx:175
+#: ../../../lib/web/src/components/options-menu.tsx:178
 msgid "Posts"
 msgstr "පළ කිරීම්"
 
-#: ../../../lib/web/src/components/options-menu.tsx:178
+#: ../../../lib/web/src/components/options-menu.tsx:181
 msgid "Posts and comments"
 msgstr "පළ කිරීම් සහ අදහස්"
 
@@ -2427,11 +2447,11 @@ msgstr "ව්‍යාපෘති සාමාජිකයන්"
 msgid "Prompt saved"
 msgstr "prompt එක සුරකින ලදී"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:275
 msgid "Publish post"
 msgstr "පළ කිරීම ප්‍රකාශයට පත් කරන්න"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:270
 msgid "Publishing..."
 msgstr "ප්‍රකාශයට පත් කරමින්..."
 
@@ -2682,7 +2702,7 @@ msgstr "නව පරිශීලකයින් සඳහා අනුමැත
 msgid "Required"
 msgstr "අවශ්‍යයි"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:367
+#: ../../../lib/web/src/components/step-up-dialog.tsx:381
 msgid "Resend email"
 msgstr "විද්‍යුත් තැපෑල නැවත එවන්න"
 
@@ -2725,9 +2745,17 @@ msgstr "නැවත උත්සාහ කරන්න"
 msgid "Retry forums load"
 msgstr "සංසද පූරණය නැවත උත්සාහ කරන්න"
 
-#: ../../../lib/web/src/components/options-menu.tsx:181
+#: ../../../lib/web/src/components/options-menu.tsx:250
+msgid "Revoke"
+msgstr "අවලංගු කරන්න"
+
+#: ../../../lib/web/src/components/options-menu.tsx:184
 msgid "Revoke access"
 msgstr "ප්‍රවේශය අවලංගු කරන්න"
+
+#: ../../../lib/web/src/components/options-menu.tsx:244
+msgid "Revoke RSS access?"
+msgstr "RSS ප්‍රවේශය අවලංගු කරන්නද?"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2746,15 +2774,15 @@ msgstr "පේළි කාණ්ඩගත කරන්නේ"
 msgid "Rows per page"
 msgstr "පිටුවකට පේළි"
 
-#: ../../../lib/web/src/components/options-menu.tsx:131
+#: ../../../lib/web/src/components/options-menu.tsx:134
 msgid "RSS access revoked"
 msgstr "RSS ප්‍රවේශය අවලංගු කරන ලදී"
 
-#: ../../../lib/web/src/components/options-menu.tsx:171
+#: ../../../lib/web/src/components/options-menu.tsx:174
 msgid "RSS feed"
 msgstr "RSS පෝෂණය"
 
-#: ../../../lib/web/src/components/options-menu.tsx:121
+#: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL ක්ලිප්බෝඩ් වෙත පිටපත් කරන ලදී"
 
@@ -2772,7 +2800,7 @@ msgstr "සෙනසුරාදා"
 msgid "Save"
 msgstr "සුරකින්න"
 
-#: src/features/forums/components/edit-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:320
 msgid "Save changes"
 msgstr "වෙනස්කම් සුරකින්න"
 
@@ -2792,7 +2820,7 @@ msgstr "සුරකින ලදී"
 msgid "Saved posts cleared"
 msgstr "සුරැකි පළකිරීම් හිස් කළා"
 
-#: src/features/forums/components/edit-post-dialog.tsx:312
+#: src/features/forums/components/edit-post-dialog.tsx:315
 #: src/lib/saved.ts:31
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -2975,7 +3003,7 @@ msgstr "තෝරාගත්: <0>{0}</0>"
 msgid "Send again"
 msgstr "නැවත යවන්න"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:307
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
 msgid "Send email"
 msgstr "ඊමේල් යවන්න"
 
@@ -3008,7 +3036,7 @@ msgstr "මූලාරම්භය සහ ගමනාන්තය සකසන
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
-#: ../../../lib/web/src/components/options-menu.tsx:196
+#: ../../../lib/web/src/components/options-menu.tsx:199
 #: src/routes/_authenticated/$forum_.settings.tsx:90
 #: src/routes/_authenticated/$forum_.settings.tsx:165
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -3069,7 +3097,7 @@ msgstr "කුඩා"
 msgid "Sort"
 msgstr "වර්ග කරන්න"
 
-#: ../../../lib/web/src/components/options-menu.tsx:158
+#: ../../../lib/web/src/components/options-menu.tsx:161
 msgid "Sources"
 msgstr "මූලාරම්භ"
 
@@ -3203,7 +3231,7 @@ msgstr "නියම සහ කොන්දේසි"
 msgid "Text"
 msgstr "පෙළ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/components/step-up-dialog.tsx:204
 msgid "That code is incorrect or has expired."
 msgstr "එම කේතය වැරදියි හෝ කල් ඉකුත් වී ඇත."
 
@@ -3276,8 +3304,8 @@ msgstr "තන්තුව"
 msgid "Thursday"
 msgstr "බ්‍රහස්පතින්දා"
 
-#: src/features/forums/components/create-post-dialog.tsx:176
-#: src/features/forums/components/edit-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:179
+#: src/features/forums/components/edit-post-dialog.tsx:229
 msgid "Title"
 msgstr "මාතෘකාව"
 
@@ -3426,7 +3454,7 @@ msgstr "අගුළු හරින්න"
 msgid "Unpin"
 msgstr "unpin කරන්න"
 
-#: ../../../lib/web/src/components/options-menu.tsx:211
+#: ../../../lib/web/src/components/options-menu.tsx:214
 #: src/features/forums/pages/entity-forum-page.tsx:390
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
@@ -3450,7 +3478,7 @@ msgstr "දායකත්වය ඉවත් කරන ලදී"
 msgid "Unsubscribing..."
 msgstr "දායකත්වය ඉවත් කරමින්..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:276
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:277
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
@@ -3465,7 +3493,7 @@ msgstr "සත්‍යාපනය නොකළ"
 msgid "Updated"
 msgstr "යාවත්කාලීන කරන ලදී"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:599
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:606
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:296
 msgid "Upload"
 msgstr "උඩුගත කරන්න"
@@ -3474,7 +3502,7 @@ msgstr "උඩුගත කරන්න"
 msgid "Upload progress"
 msgstr "උඩුගත කිරීමේ ප්‍රගතිය"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:338
+#: ../../../lib/web/src/components/step-up-dialog.tsx:352
 msgid "Use your passkey"
 msgstr "ඔබගේ මුරයතුර භාවිතා කරන්න"
 
@@ -3508,7 +3536,7 @@ msgstr "සත්‍යාපන කේතය යවන ලදී"
 msgid "Verification failed"
 msgstr "සත්‍යාපනය අසාර්ථක විය"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:388
+#: ../../../lib/web/src/components/step-up-dialog.tsx:402
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
