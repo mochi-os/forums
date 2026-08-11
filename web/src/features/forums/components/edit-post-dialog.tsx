@@ -26,6 +26,7 @@ import {
   getAppPath,
   authenticatedUrl,
   AttachmentComposer,
+  AttachmentAddTile,
   cn,
   dropActiveClass,
   useComposerDrop,
@@ -39,7 +40,7 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Save, Paperclip } from 'lucide-react'
+import { Save } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
 import {
   buildForumPostEditDraft,
@@ -242,7 +243,7 @@ export function EditPostDialog({
       onOpenChange={onOpenChange}
       shouldCloseOnInteractOutside={false}
     >
-      <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
+      <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle><Trans>Edit post</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
@@ -287,24 +288,35 @@ export function EditPostDialog({
               )}
             />
 
-            {/* Attachments grid */}
-            {items.length > 0 && (
-              <div className='space-y-2'>
-                <div className='text-sm font-medium'><Trans>Attachments</Trans></div>
-                <AttachmentComposer
-                  items={attachmentItems}
-                  layout='grid'
-                  preview='tile'
-                  groupMedia
-                  state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
-                  onRetry={form.handleSubmit(onSubmit)}
-                  onRemove={removeItem}
-                  onReorder={(from, to) =>
-                    setItems((prev) => moveItem(prev, from, to))
-                  }
-                />
-              </div>
-            )}
+            {/* Attachments grid. The add tile is the last cell rather than a
+                button in the footer, where it sat beside Cancel and Save and
+                read as a dialog action instead of something acting on this
+                list. */}
+            <div className='space-y-2'>
+              <AttachmentComposer
+                items={attachmentItems}
+                layout='grid'
+                preview='tile'
+                groupMedia
+                blockLabels={{
+                  media: <Trans>Photos and videos</Trans>,
+                  files: <Trans>Files</Trans>,
+                }}
+                addSlot={
+                  <AttachmentAddTile
+                    label={<Trans>Add files</Trans>}
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isPending}
+                  />
+                }
+                state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                onRetry={form.handleSubmit(onSubmit)}
+                onRemove={removeItem}
+                onReorder={(from, to) =>
+                  setItems((prev) => moveItem(prev, from, to))
+                }
+              />
+            </div>
 
             {/* Hidden file input */}
             <input
@@ -319,17 +331,6 @@ export function EditPostDialog({
             </div>
             <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>
-              <Button
-                type='button'
-                variant='outline'
-                size='sm'
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isPending}
-              >
-                <Paperclip className='size-4' />
-                <Trans>Add files</Trans>
-              </Button>
-              <div className='flex-1' />
               <Button
                 type='button'
                 variant='outline'

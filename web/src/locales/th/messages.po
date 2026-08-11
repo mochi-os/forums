@@ -132,7 +132,7 @@ msgstr "{selectedCount, plural, one {# ที่เลือก} other {# ที
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {การดำเนินการเป็นกลุ่มสำหรับ {entityName} # รายการที่เลือก} other {การดำเนินการเป็นกลุ่มสำหรับ {manyName} # รายการที่เลือก}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:189
+#: ../../../lib/web/src/components/attachment-composer.tsx:252
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} จาก {totalLabel}"
@@ -270,8 +270,8 @@ msgstr "เพิ่มรายการเช็คลิสต์"
 msgid "Add field"
 msgstr "เพิ่มฟิลด์"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
-#: src/features/forums/components/edit-post-dialog.tsx:330
+#: src/features/forums/components/create-post-dialog.tsx:252
+#: src/features/forums/components/edit-post-dialog.tsx:307
 msgid "Add files"
 msgstr "เพิ่มไฟล์"
 
@@ -449,9 +449,8 @@ msgid "Attach reply files"
 msgstr "แนบไฟล์ตอบกลับ"
 
 #: src/features/forums/components/create-post-dialog.tsx:234
-#: src/features/forums/components/edit-post-dialog.tsx:293
-msgid "Attachments"
-msgstr "ไฟล์แนบ"
+#~ msgid "Attachments"
+#~ msgstr "ไฟล์แนบ"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:46
 #: ../../../lib/web/src/features/access/types.ts:41
@@ -580,8 +579,8 @@ msgstr "โดย {0}"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:281
-#: src/features/forums/components/edit-post-dialog.tsx:339
+#: src/features/forums/components/create-post-dialog.tsx:276
+#: src/features/forums/components/edit-post-dialog.tsx:340
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
@@ -693,8 +692,8 @@ msgstr "ล้างการเลือก (Escape)"
 msgid "Clearing saved posts..."
 msgstr "กำลังล้างโพสต์ที่บันทึกไว้..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:505
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -831,7 +830,7 @@ msgid "Connecting..."
 msgstr "กำลังเชื่อมต่อ..."
 
 #: src/features/forums/components/create-post-dialog.tsx:215
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/edit-post-dialog.tsx:278
 msgid "Content"
 msgstr "เนื้อหา"
 
@@ -897,8 +896,8 @@ msgstr "ไม่สามารถยืนยันด้วยบัญชี
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:650
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:496
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:665
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "สร้าง"
@@ -934,7 +933,7 @@ msgstr "สร้างแล้ว"
 msgid "Creating forum..."
 msgstr "กำลังสร้างฟอรัม..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:650
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:665
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "กำลังสร้าง..."
@@ -1104,11 +1103,11 @@ msgstr "ไดเรกทอรี"
 msgid "Disabled"
 msgstr "ปิดใช้งานแล้ว"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:300
 msgid "Discard"
 msgstr "ยกเลิก"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:290
+#: ../../../lib/web/src/components/comment-composer.tsx:298
 msgid "Discard draft?"
 msgstr "ยกเลิกฉบับร่างใช่ไหม?"
 
@@ -1184,8 +1183,8 @@ msgstr "แก้ไขตัวเลือก"
 msgid "Edit option {0}"
 msgstr "แก้ไขตัวเลือก {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:249
+#: src/features/forums/components/edit-post-dialog.tsx:248
+#: src/features/forums/components/edit-post-dialog.tsx:250
 msgid "Edit post"
 msgstr "แก้ไขโพสต์"
 
@@ -1482,9 +1481,11 @@ msgstr "ไม่สามารถอัปเดตความคิดเห
 msgid "Failed to upload attachment"
 msgstr "ไม่สามารถอัปโหลดไฟล์แนบได้"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:588
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:594
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: src/features/forums/components/create-post-dialog.tsx:248
+#: src/features/forums/components/edit-post-dialog.tsx:303
 msgid "Files"
 msgstr "ไฟล์"
 
@@ -1959,9 +1960,9 @@ msgstr "ชื่อต้องไม่เกิน 1000 ตัวอักษ
 msgid "Network error"
 msgstr "ข้อผิดพลาดของเครือข่าย"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:481
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:189
+#: src/features/forums/components/edit-post-dialog.tsx:190
 msgid "New"
 msgstr "ใหม่"
 
@@ -1994,7 +1995,7 @@ msgstr "เกณฑ์ผู้ใช้ใหม่:"
 msgid "Next image"
 msgstr "รูปถัดไป"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
 msgid "No {parentClassNames} to add to"
 msgstr "ไม่มี {parentClassNames} ให้เพิ่ม"
 
@@ -2035,7 +2036,7 @@ msgstr "ยังไม่มีเกม"
 msgid "No groups available"
 msgstr "ไม่มีกลุ่มที่ใช้งานได้"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:521
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:527
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "ยังไม่สามารถสร้างประเภทรายการได้ กรุณาสร้างรายการแม่ที่จำเป็นก่อน"
 
@@ -2118,9 +2119,9 @@ msgid "No views"
 msgstr "ไม่มีการเข้าชม"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:537
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:540
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:543
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:550
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2263,7 +2264,7 @@ msgstr "เจ้าของ"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "หน้า {currentPage} จาก {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:529
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:535
 msgid "Parent"
 msgstr "แม่"
 
@@ -2302,6 +2303,11 @@ msgstr "ความคิดเห็นที่รอดำเนินกา
 #: src/routes/_authenticated/$forum_.moderation.tsx:372
 msgid "Pending posts ({0})"
 msgstr "โพสต์ที่รอดำเนินการ ({0})"
+
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:302
+msgid "Photos and videos"
+msgstr ""
 
 #: ../../../lib/web/src/components/date-picker.tsx:20
 msgid "Pick a date"
@@ -2447,11 +2453,11 @@ msgstr "สมาชิกโครงการ"
 msgid "Prompt saved"
 msgstr "บันทึก prompt แล้ว"
 
-#: src/features/forums/components/create-post-dialog.tsx:296
+#: src/features/forums/components/create-post-dialog.tsx:291
 msgid "Publish post"
 msgstr "เผยแพร่โพสต์"
 
-#: src/features/forums/components/create-post-dialog.tsx:291
+#: src/features/forums/components/create-post-dialog.tsx:286
 msgid "Publishing..."
 msgstr "กำลังเผยแพร่..."
 
@@ -2531,8 +2537,8 @@ msgstr "แบบสัมพัทธ์ (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "สัมพัทธ์ภายใน 24 ชั่วโมง นอกนั้นแบบสัมบูรณ์"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:210
-#: ../../../lib/web/src/components/attachment-composer.tsx:247
+#: ../../../lib/web/src/components/attachment-composer.tsx:289
+#: ../../../lib/web/src/components/attachment-composer.tsx:328
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2737,7 +2743,7 @@ msgstr "นำการจำกัดออกแล้ว"
 msgid "Restrictions"
 msgstr "ข้อจำกัด"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:264
+#: ../../../lib/web/src/components/attachment-composer.tsx:346
 msgid "Retry"
 msgstr "ลองอีกครั้ง"
 
@@ -2800,7 +2806,7 @@ msgstr "วันเสาร์"
 msgid "Save"
 msgstr "บันทึก"
 
-#: src/features/forums/components/edit-post-dialog.tsx:353
+#: src/features/forums/components/edit-post-dialog.tsx:354
 msgid "Save changes"
 msgstr "บันทึกการเปลี่ยนแปลง"
 
@@ -2820,7 +2826,7 @@ msgstr "บันทึกแล้ว"
 msgid "Saved posts cleared"
 msgstr "ล้างโพสต์ที่บันทึกไว้แล้ว"
 
-#: src/features/forums/components/edit-post-dialog.tsx:348
+#: src/features/forums/components/edit-post-dialog.tsx:349
 #: src/lib/saved.ts:31
 #: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
@@ -3314,7 +3320,7 @@ msgid "Thursday"
 msgstr "วันพฤหัสบดี"
 
 #: src/features/forums/components/create-post-dialog.tsx:198
-#: src/features/forums/components/edit-post-dialog.tsx:260
+#: src/features/forums/components/edit-post-dialog.tsx:261
 msgid "Title"
 msgstr "ชื่อ"
 
@@ -3502,7 +3508,7 @@ msgstr "ยังไม่ยืนยัน"
 msgid "Updated"
 msgstr "อัปเดตแล้ว"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:633
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:648
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "อัปโหลด"
@@ -3671,14 +3677,14 @@ msgstr "คุณดูครบแล้ว!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "บัญชีของคุณถูกย้ายมาที่นี่จาก {source} จนกว่าคุณจะลบออกที่นั่น ข้อความและการแจ้งเตือนอาจไปถึงทั้งสองเซิร์ฟเวอร์ เนื้อหาบางส่วนของคุณยังคงให้บริการจากเซิร์ฟเวอร์เดิม และผู้ติดตามอาจต้องใช้เวลาสักครู่เพื่อพบคุณที่นี่"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:283
+#: ../../../lib/web/src/components/comment-composer.tsx:291
 msgid "Your attachments will be lost."
 msgstr "ไฟล์แนบของคุณจะหายไป"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:281
+#: ../../../lib/web/src/components/comment-composer.tsx:289
 msgid "Your text and attachments will be lost."
 msgstr "ข้อความและไฟล์แนบของคุณจะหายไป"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:284
+#: ../../../lib/web/src/components/comment-composer.tsx:292
 msgid "Your text will be lost."
 msgstr "ข้อความของคุณจะหายไป"

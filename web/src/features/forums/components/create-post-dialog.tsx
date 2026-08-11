@@ -27,6 +27,7 @@ import {
   FormMessage,
   useImageObjectUrls,
   ComposerAttachments,
+  AttachmentAddTile,
   cn,
   dropActiveClass,
   useComposerDrop,
@@ -38,7 +39,6 @@ import {
 } from '@mochi/web'
 import {
   FileEdit,
-  Paperclip,
   Send,
 } from 'lucide-react'
 import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
@@ -180,7 +180,7 @@ export function CreatePostDialog({
           )}
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
+      <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle><Trans>New post</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
@@ -226,29 +226,35 @@ export function CreatePostDialog({
               )}
             />
 
-            {/* Attachments - handled separately from react-hook-form */}
+            {/* Attachments - handled separately from react-hook-form. Same
+                shape as the edit dialog: labelled blocks, and the add tile as
+                the last cell of the grid rather than a button under it. */}
             <div className='space-y-2'>
-              {attachments.length > 0 && (
-                <>
-                  <div className='text-muted-foreground text-xs font-medium'>
-                    <Trans>Attachments</Trans>
-                  </div>
-                  <ComposerAttachments
-                    files={attachments}
-                    previewUrls={attachmentPreviewUrls}
-                    state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
-                    onRetry={form.handleSubmit(onSubmit)}
-                    progress={progress?.slices}
-                    onRemove={(file) =>
-                      setAttachments((prev) => removePendingFile(prev, file))
-                    }
-                    onReorder={(from, to) =>
-                      setAttachments((prev) => moveItem(prev, from, to))
-                    }
-                    groupMedia
+              <ComposerAttachments
+                files={attachments}
+                previewUrls={attachmentPreviewUrls}
+                state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                onRetry={form.handleSubmit(onSubmit)}
+                progress={progress?.slices}
+                onRemove={(file) =>
+                  setAttachments((prev) => removePendingFile(prev, file))
+                }
+                onReorder={(from, to) =>
+                  setAttachments((prev) => moveItem(prev, from, to))
+                }
+                groupMedia
+                blockLabels={{
+                  media: <Trans>Photos and videos</Trans>,
+                  files: <Trans>Files</Trans>,
+                }}
+                addSlot={
+                  <AttachmentAddTile
+                    label={<Trans>Add files</Trans>}
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isPending}
                   />
-                </>
-              )}
+                }
+              />
 
               {/* Hidden file input */}
               <input
@@ -260,17 +266,6 @@ export function CreatePostDialog({
                 onChange={handleFileChange}
                 disabled={isPending}
               />
-
-              <Button
-                type='button'
-                variant='outline'
-                size='sm'
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isPending}
-              >
-                <Paperclip className='me-1 size-4' />
-                <Trans>Add files</Trans>
-              </Button>
             </div>
 
             </div>
