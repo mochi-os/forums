@@ -2377,6 +2377,11 @@ def action_members_save(a):
                 recount_post_votes(v["post"])
         # Remove from members table
         mochi.db.execute("delete from members where forum=? and id=?", forum["id"], remove_id)
+        # Dropping them from the fan-out list stops new posts but not replay:
+        # core keeps a subscription record so a lagging subscriber can resync,
+        # and it lives on the log's own clock. Without this a removed member
+        # could still pull posts made after they were removed.
+        mochi.broadcast.subscriber.remove(forum["id"], remove_id)
         # Revoke all access
         resource = "forum/" + forum["id"]
         for op in ACCESS_LEVELS + ["manage", "*"]:
@@ -6294,6 +6299,9 @@ def event_subscribe_event(e):
     if not mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):
         now = mochi.time.now()
         mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum["id"], member_id, name, now)
+        # Record them for replay now rather than waiting for the next post to
+        # do it, so a gap before that post can still be healed.
+        mochi.broadcast.subscriber.add(forum["id"], member_id)
 
         # Update member count
         members = mochi.db.rows("select id from members where forum=?", forum["id"])
@@ -6377,6 +6385,8 @@ def event_unsubscribe_event(e):
 
     # Remove from members table
     mochi.db.execute("delete from members where forum=? and id=?", forum["id"], member_id)
+    # Stop serving them replay of this forum's stream as well as new posts.
+    mochi.broadcast.subscriber.remove(forum["id"], member_id)
 
     # Revoke all access
     resource = "forum/" + forum["id"]
