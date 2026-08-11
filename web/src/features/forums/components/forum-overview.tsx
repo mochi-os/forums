@@ -32,6 +32,7 @@ interface ForumOverviewProps {
   }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean
+  isPostFailed?: boolean
   /** Byte progress of the create-post upload, when the caller tracks it */
   createPostProgress?: Upload | null
   hasNextPage?: boolean
@@ -49,6 +50,7 @@ export function ForumOverview({
   onCreatePost,
   isCreatingPost = false,
   isPostCreated = false,
+  isPostFailed = false,
   createPostProgress,
   hasNextPage = false,
   isFetchingNextPage = false,
@@ -156,6 +158,7 @@ export function ForumOverview({
               onCreate={onCreatePost}
               isPending={isCreatingPost}
               isSuccess={isPostCreated}
+              isError={isPostFailed}
               progress={createPostProgress}
             />
           )}

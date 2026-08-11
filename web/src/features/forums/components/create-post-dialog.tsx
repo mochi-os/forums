@@ -27,6 +27,9 @@ import {
   FormMessage,
   useImageObjectUrls,
   ComposerAttachments,
+  cn,
+  dropActiveClass,
+  useComposerDrop,
   mergePendingFiles,
   removePendingFile,
   moveItem,
@@ -53,6 +56,8 @@ type CreatePostDialogProps = {
   }) => void
   isPending?: boolean
   isSuccess?: boolean
+  /** The create failed; the composer says so and offers the draft back. */
+  isError?: boolean
   /** Byte progress of the submit upload, when the caller tracks it */
   progress?: Upload | null
   triggerVariant?: 'button' | 'icon'
@@ -68,6 +73,7 @@ export function CreatePostDialog({
   onCreate,
   isPending = false,
   isSuccess = false,
+  isError = false,
   progress,
   triggerVariant = 'button',
   onSuccess,
@@ -118,6 +124,20 @@ export function CreatePostDialog({
     }
   }, [isSuccess, isOpen, wasSuccessHandled, onSuccess, form, setIsOpen])
 
+  // One staging path for the picker and for a drop, so the two cannot come to
+  // disagree about what counts as a file already staged.
+  const addFiles = (picked: File[]) => {
+    if (picked.length === 0) return
+    setAttachments((prev) => mergePendingFiles(prev, picked))
+  }
+
+  // Claims the drop for the whole dialog. Without this the browser takes it,
+  // navigates to the dropped file, and the draft goes with it.
+  const { isDragActive, dropzoneProps } = useComposerDrop({
+    onFiles: addFiles,
+    disabled: isPending,
+  })
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Copy the FileList before resetting the input: it is live, so clearing
     // the value empties it, and a state updater React defers would then read
@@ -125,9 +145,7 @@ export function CreatePostDialog({
     const picked = Array.from(event.target.files ?? [])
     // Reset input to allow selecting the same file again
     event.target.value = ''
-    if (picked.length > 0) {
-      setAttachments((prev) => mergePendingFiles(prev, picked))
-    }
+    addFiles(picked)
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -170,8 +188,8 @@ export function CreatePostDialog({
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='space-y-4 overflow-y-auto flex-1 min-h-0'>
+          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)} {...dropzoneProps}>
+            <div className={cn('space-y-4 overflow-y-auto flex-1 min-h-0', isDragActive && dropActiveClass)}>
             <FormField
               control={form.control}
               name='title'
@@ -218,7 +236,8 @@ export function CreatePostDialog({
                   <ComposerAttachments
                     files={attachments}
                     previewUrls={attachmentPreviewUrls}
-                    state={isPending ? 'uploading' : 'idle'}
+                    state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                    onRetry={form.handleSubmit(onSubmit)}
                     progress={progress?.slices}
                     onRemove={(file) =>
                       setAttachments((prev) => removePendingFile(prev, file))

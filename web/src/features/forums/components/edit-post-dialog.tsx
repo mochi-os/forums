@@ -26,7 +26,12 @@ import {
   getAppPath,
   authenticatedUrl,
   AttachmentComposer,
+  cn,
+  dropActiveClass,
+  useComposerDrop,
   newPendingFiles,
+  isMedia,
+  isVideo,
   pendingFileKey,
   type ComposerItem,
   moveItem,
@@ -61,6 +66,8 @@ type EditPostDialogProps = {
     attachments: File[]
   }) => void
   isPending?: boolean
+  /** The save failed; the composer says so and offers the draft back. */
+  isError?: boolean
   /** Byte progress of the save upload, when the caller tracks it */
   progress?: Upload | null
 }
@@ -71,6 +78,7 @@ export function EditPostDialog({
   onOpenChange,
   onSave,
   isPending = false,
+  isError = false,
   progress,
 }: EditPostDialogProps) {
   const appPath = getAppPath()
@@ -172,9 +180,10 @@ export function EditPostDialog({
           name: file.name,
           size: file.size,
           type: file.type,
-          previewUrl: file.type?.startsWith('image/')
-            ? (urlByNewFile.get(file) ?? null)
-            : null,
+          previewUrl: isMedia(file.type) ? (urlByNewFile.get(file) ?? null) : null,
+          previewKind: isVideo(file.type)
+            ? ('video' as const)
+            : ('image' as const),
           badge: (
             <span className='bg-primary/85 text-primary-foreground rounded px-1.5 py-0.5 text-[10px] font-bold uppercase'>
               <Trans>New</Trans>
@@ -189,26 +198,36 @@ export function EditPostDialog({
     [items, appPath, post.forum, urlByNewFile, newFiles, progress]
   )
 
+  // One staging path for the picker and for a drop. The list mixes saved
+  // attachments with new files, so the pick is filtered against the new ones
+  // already in it rather than merged into a File[].
+  const addFiles = (picked: File[]) => {
+    if (picked.length === 0) return
+    setItems((prev) => {
+      const staged = prev.flatMap((item) =>
+        item.kind === 'new' ? [item.file] : []
+      )
+      const newItems: EditingAttachment[] = newPendingFiles(staged, picked).map(
+        (file) => ({ kind: 'new' as const, file })
+      )
+      return newItems.length > 0 ? [...prev, ...newItems] : prev
+    })
+  }
+
+  // Claims the drop for the whole dialog. Without this the browser takes it,
+  // navigates to the dropped file, and the edit draft goes with it.
+  const { isDragActive, dropzoneProps } = useComposerDrop({
+    onFiles: addFiles,
+    disabled: isPending,
+  })
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Copy the FileList before resetting the input: it is live, so clearing
     // the value empties it, and a state updater React defers would then read
     // no files and drop the pick silently.
     const picked = Array.from(event.target.files ?? [])
     event.target.value = ''
-    if (picked.length > 0) {
-      setItems((prev) => {
-        // Saved attachments and new files share this list, so the pick is
-        // filtered against the new files already in it.
-        const staged = prev.flatMap((item) =>
-          item.kind === 'new' ? [item.file] : []
-        )
-        const newItems: EditingAttachment[] = newPendingFiles(
-          staged,
-          picked
-        ).map((file) => ({ kind: 'new' as const, file }))
-        return newItems.length > 0 ? [...prev, ...newItems] : prev
-      })
-    }
+    addFiles(picked)
   }
 
 
@@ -231,8 +250,8 @@ export function EditPostDialog({
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='space-y-4 overflow-y-auto flex-1 min-h-0'>
+          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)} {...dropzoneProps}>
+            <div className={cn('space-y-4 overflow-y-auto flex-1 min-h-0', isDragActive && dropActiveClass)}>
             <FormField
               control={form.control}
               name='title'
@@ -277,7 +296,8 @@ export function EditPostDialog({
                   layout='grid'
                   preview='tile'
                   groupMedia
-                  state={isPending ? 'uploading' : 'idle'}
+                  state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                  onRetry={form.handleSubmit(onSubmit)}
                   onRemove={removeItem}
                   onReorder={(from, to) =>
                     setItems((prev) => moveItem(prev, from, to))
