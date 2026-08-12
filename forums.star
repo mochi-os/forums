@@ -348,7 +348,7 @@ def count_content(e, key):
 # The sender of a vote, used only to address a websocket re-emit. Anything
 # that is not an entity is dropped rather than echoed to every open tab.
 def voter_content(e):
-    voter = voter_content(e)
+    voter = e.content("voter")
     return voter if mochi.text.valid(voter, "entity") else ""
 
 
