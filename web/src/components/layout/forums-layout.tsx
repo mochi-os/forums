@@ -167,6 +167,7 @@ function ForumsLayoutInner() {
           onCreate={handleCreatePost}
           isPending={createPostMutation.isPending}
           isSuccess={createPostMutation.isSuccess}
+          isError={createPostMutation.isError}
           progress={createPostMutation.progress}
           open={postDialogOpen}
           onOpenChange={(open) => {

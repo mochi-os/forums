@@ -712,6 +712,7 @@ export function ThreadDetail({
           onOpenChange={setEditPostDialogOpen}
           onSave={handleEditPost}
           isPending={editPostMutation.isPending}
+          isError={editPostMutation.isError}
           progress={editPostMutation.progress}
         />
 

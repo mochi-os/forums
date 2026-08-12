@@ -27,6 +27,10 @@ import {
   FormMessage,
   useImageObjectUrls,
   ComposerAttachments,
+  AttachmentAddTile,
+  cn,
+  dropActiveClass,
+  useComposerDrop,
   mergePendingFiles,
   removePendingFile,
   moveItem,
@@ -35,7 +39,6 @@ import {
 } from '@mochi/web'
 import {
   FileEdit,
-  Paperclip,
   Send,
 } from 'lucide-react'
 import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
@@ -53,6 +56,8 @@ type CreatePostDialogProps = {
   }) => void
   isPending?: boolean
   isSuccess?: boolean
+  /** The create failed; the composer says so and offers the draft back. */
+  isError?: boolean
   /** Byte progress of the submit upload, when the caller tracks it */
   progress?: Upload | null
   triggerVariant?: 'button' | 'icon'
@@ -68,6 +73,7 @@ export function CreatePostDialog({
   onCreate,
   isPending = false,
   isSuccess = false,
+  isError = false,
   progress,
   triggerVariant = 'button',
   onSuccess,
@@ -118,6 +124,20 @@ export function CreatePostDialog({
     }
   }, [isSuccess, isOpen, wasSuccessHandled, onSuccess, form, setIsOpen])
 
+  // One staging path for the picker and for a drop, so the two cannot come to
+  // disagree about what counts as a file already staged.
+  const addFiles = (picked: File[]) => {
+    if (picked.length === 0) return
+    setAttachments((prev) => mergePendingFiles(prev, picked))
+  }
+
+  // Claims the drop for the whole dialog. Without this the browser takes it,
+  // navigates to the dropped file, and the draft goes with it.
+  const { isDragActive, dropzoneProps } = useComposerDrop({
+    onFiles: addFiles,
+    disabled: isPending,
+  })
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Copy the FileList before resetting the input: it is live, so clearing
     // the value empties it, and a state updater React defers would then read
@@ -125,9 +145,7 @@ export function CreatePostDialog({
     const picked = Array.from(event.target.files ?? [])
     // Reset input to allow selecting the same file again
     event.target.value = ''
-    if (picked.length > 0) {
-      setAttachments((prev) => mergePendingFiles(prev, picked))
-    }
+    addFiles(picked)
   }
 
   const handleOpenChange = (open: boolean) => {
@@ -162,7 +180,7 @@ export function CreatePostDialog({
           )}
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className='sm:max-w-[600px] max-h-[90vh] flex flex-col'>
+      <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle><Trans>New post</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription className="sr-only">
@@ -170,8 +188,8 @@ export function CreatePostDialog({
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='space-y-4 overflow-y-auto flex-1 min-h-0'>
+          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)} {...dropzoneProps}>
+            <div className={cn('space-y-4 overflow-y-auto flex-1 min-h-0', isDragActive && dropActiveClass)}>
             <FormField
               control={form.control}
               name='title'
@@ -208,28 +226,35 @@ export function CreatePostDialog({
               )}
             />
 
-            {/* Attachments - handled separately from react-hook-form */}
+            {/* Attachments - handled separately from react-hook-form. Same
+                shape as the edit dialog: labelled blocks, and the add tile as
+                the last cell of the grid rather than a button under it. */}
             <div className='space-y-2'>
-              {attachments.length > 0 && (
-                <>
-                  <div className='text-muted-foreground text-xs font-medium'>
-                    <Trans>Attachments</Trans>
-                  </div>
-                  <ComposerAttachments
-                    files={attachments}
-                    previewUrls={attachmentPreviewUrls}
-                    state={isPending ? 'uploading' : 'idle'}
-                    progress={progress?.slices}
-                    onRemove={(file) =>
-                      setAttachments((prev) => removePendingFile(prev, file))
-                    }
-                    onReorder={(from, to) =>
-                      setAttachments((prev) => moveItem(prev, from, to))
-                    }
-                    groupMedia
+              <ComposerAttachments
+                files={attachments}
+                previewUrls={attachmentPreviewUrls}
+                state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                onRetry={form.handleSubmit(onSubmit)}
+                progress={progress?.slices}
+                onRemove={(file) =>
+                  setAttachments((prev) => removePendingFile(prev, file))
+                }
+                onReorder={(from, to) =>
+                  setAttachments((prev) => moveItem(prev, from, to))
+                }
+                groupMedia
+                blockLabels={{
+                  media: <Trans>Photos and videos</Trans>,
+                  files: <Trans>Files</Trans>,
+                }}
+                addSlot={
+                  <AttachmentAddTile
+                    label={<Trans>Add files</Trans>}
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isPending}
                   />
-                </>
-              )}
+                }
+              />
 
               {/* Hidden file input */}
               <input
@@ -241,17 +266,6 @@ export function CreatePostDialog({
                 onChange={handleFileChange}
                 disabled={isPending}
               />
-
-              <Button
-                type='button'
-                variant='outline'
-                size='sm'
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isPending}
-              >
-                <Paperclip className='me-1 size-4' />
-                <Trans>Add files</Trans>
-              </Button>
             </div>
 
             </div>
