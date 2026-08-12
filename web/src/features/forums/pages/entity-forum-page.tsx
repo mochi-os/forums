@@ -294,6 +294,7 @@ export function EntityForumPage({
                 }
                 disabled={subscribeMutation.isPending}
               >
+                {/* button-icon-ok: Subscribe has no conventional glyph; every sibling app ships it text-only */}
                 {subscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
