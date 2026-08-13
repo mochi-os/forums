@@ -5212,8 +5212,13 @@ def serve_attachment(a, variant):
 
     # The forum's canonical host adopts legacy remote-provenance rows on first
     # serve, taking the bytes in; member replicas keep pulling to cache.
+    # Ownership here is holding the forum entity: entity.get returns a list,
+    # empty for an anonymous caller or a non-owner, so only the owner adopts
+    # (the adopt pull opens as the forum entity, which sender_check refuses
+    # for anyone else). Non-owners fall through to the pull path, which opens
+    # as the viewer's own identity.
     attachment_serve(a, attachment, forum_id, variant=variant, member=visible,
-        adopt=mochi.entity.get(forum_id) != None)
+        adopt=bool(mochi.entity.get(forum_id)))
 
 # EVENTS
 
