@@ -206,6 +206,7 @@ export function EntityForumPage({
     title: string
     body: string
     attachments?: File[]
+    captions?: string[]
   }) => {
     createPostMutation.mutate({
       forum: forum.id,

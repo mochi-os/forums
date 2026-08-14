@@ -48,7 +48,7 @@ msgid "[not set]"
 msgstr "[gan socrú]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:326
+#: src/features/forums/pages/entity-forum-page.tsx:328
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# phostáil nua} two {# phostáil nua} few {# phostáil nua} many {# bpostáil nua} other {# postáil nua}}"
 
@@ -132,7 +132,7 @@ msgstr "{selectedCount, plural, one {# roghnaithe} two {# roghnaithe} few {# rog
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Gníomhartha ollmhóra le haghaidh # {entityName} roghnaithe} two {Gníomhartha ollmhóra le haghaidh # {manyName} roghnaithe} few {Gníomhartha ollmhóra le haghaidh # {manyName} roghnaithe} many {Gníomhartha ollmhóra le haghaidh # {manyName} roghnaithe} other {Gníomhartha ollmhóra le haghaidh # {manyName} roghnaithe}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} as {totalLabel}"
@@ -174,7 +174,7 @@ msgstr "24 uair"
 msgid "Absolute (date and time)"
 msgstr "Absalóideach (dáta agus am)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "Glac leis"
 
@@ -194,23 +194,23 @@ msgstr "Rochtain Toirmiscthe"
 msgid "Access level"
 msgstr "Leibhéal rochtana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:837
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "Access level updated"
 msgstr "Leibhéal rochtana nuashonraithe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:846
+#: src/routes/_authenticated/$forum_.settings.tsx:850
 msgid "Access management"
 msgstr "Bainistíocht Rochtana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:822
+#: src/routes/_authenticated/$forum_.settings.tsx:826
 msgid "Access removed"
 msgstr "Rochtain bainte"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:814
 msgid "Access set for {subjectName}"
 msgstr "Rochtain socraithe do {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:565
 msgid "Account"
 msgstr "Cuntas"
 
@@ -261,6 +261,10 @@ msgstr "Cuir cuntas leis"
 msgid "Add an account to receive notifications and use services."
 msgstr "Cuir cuntas leis chun fógraí a fháil agus seirbhísí a úsáid."
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "Cuir foscríbhinn leis"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
 msgstr "Cuir mír seicliosta leis"
@@ -270,8 +274,8 @@ msgstr "Cuir mír seicliosta leis"
 msgid "Add field"
 msgstr "Cuir réimse leis"
 
-#: src/features/forums/components/create-post-dialog.tsx:252
-#: src/features/forums/components/edit-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/edit-post-dialog.tsx:323
 msgid "Add files"
 msgstr "Cuir comhaid leis"
 
@@ -295,7 +299,7 @@ msgstr "Cuir cuntas nua leis"
 msgid "Add option"
 msgstr "Cuir rogha leis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:856
+#: src/routes/_authenticated/$forum_.settings.tsx:860
 msgid "Add rule"
 msgstr "Cuir riail leis"
 
@@ -332,11 +336,11 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Coigeartaigh an chuma agus an leagan amach de réir do roghanna."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:548
+#: src/routes/_authenticated/$forum_.settings.tsx:552
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:549
+#: src/routes/_authenticated/$forum_.settings.tsx:553
 msgid "AI actions on posts"
 msgstr "Gníomhartha AI ar phostálacha"
 
@@ -443,8 +447,8 @@ msgstr "Ceangail comhaid nóta tráchta"
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
 #: src/features/forums/components/thread/thread-comment.tsx:592
 #: src/features/forums/components/thread/thread-comment.tsx:596
-#: src/features/forums/thread-detail.tsx:590
-#: src/features/forums/thread-detail.tsx:594
+#: src/features/forums/thread-detail.tsx:591
+#: src/features/forums/thread-detail.tsx:595
 msgid "Attach reply files"
 msgstr "Ceangail comhaid freagra"
 
@@ -477,7 +481,7 @@ msgstr "Ar ais"
 #: src/features/forums/thread-detail.tsx:368
 #: src/features/forums/thread-detail.tsx:380
 #: src/features/forums/thread-detail.tsx:401
-#: src/features/forums/thread-detail.tsx:475
+#: src/features/forums/thread-detail.tsx:476
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -562,6 +566,7 @@ msgstr "ag {0}"
 msgid "By {0}"
 msgstr "Le {0}"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -575,8 +580,8 @@ msgstr "Le {0}"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:276
-#: src/features/forums/components/edit-post-dialog.tsx:340
+#: src/features/forums/components/create-post-dialog.tsx:296
+#: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
@@ -591,10 +596,15 @@ msgstr "Cealaigh nóta tráchta"
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
 #: src/features/forums/components/thread/thread-comment.tsx:607
 #: src/features/forums/components/thread/thread-comment.tsx:612
-#: src/features/forums/thread-detail.tsx:604
-#: src/features/forums/thread-detail.tsx:610
+#: src/features/forums/thread-detail.tsx:605
+#: src/features/forums/thread-detail.tsx:611
 msgid "Cancel reply"
 msgstr "Cealaigh freagra"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "Foscríbhinn"
 
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
@@ -609,7 +619,7 @@ msgstr "Athraigh catagóir an fhógra"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Tic \"Gach rud\" chun d'fhógraí roimhe seo a fheiceáil."
 
-#: src/features/forums/components/forum-overview.tsx:152
+#: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Seiceáil ar ais ar ball le haghaidh ábhar nua"
 
@@ -652,7 +662,7 @@ msgstr "Roghnaigh teanga"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:497
+#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "Glan"
 
@@ -691,8 +701,8 @@ msgstr "Postálacha sábháilte á nglanadh..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Dún"
@@ -763,15 +773,15 @@ msgstr "Pailéad orduithe"
 msgid "Comment actions"
 msgstr "Gníomhartha tráchta"
 
-#: src/hooks/use-forums-queries.ts:584
+#: src/hooks/use-forums-queries.ts:587
 msgid "Comment approved"
 msgstr "Nóta tráchta faofa"
 
-#: src/hooks/use-forums-queries.ts:390
+#: src/hooks/use-forums-queries.ts:393
 msgid "Comment deleted"
 msgstr "Nóta tráchta scriosta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1064
+#: src/routes/_authenticated/$forum_.settings.tsx:1068
 msgid "Comment limit"
 msgstr "Teorainn nótaí tráchta"
 
@@ -779,15 +789,15 @@ msgstr "Teorainn nótaí tráchta"
 msgid "Comment posted"
 msgstr "Nóta tráchta postáilte"
 
-#: src/hooks/use-forums-queries.ts:556
+#: src/hooks/use-forums-queries.ts:559
 msgid "Comment removed"
 msgstr "Nóta tráchta bainte"
 
-#: src/hooks/use-forums-queries.ts:570
+#: src/hooks/use-forums-queries.ts:573
 msgid "Comment restored"
 msgstr "Nóta tráchta athchóirithe"
 
-#: src/hooks/use-forums-queries.ts:370
+#: src/hooks/use-forums-queries.ts:373
 msgid "Comment updated"
 msgstr "Nóta tráchta nuashonraithe"
 
@@ -825,12 +835,12 @@ msgstr "Cuntais cheangailte"
 msgid "Connecting..."
 msgstr "Ag nascadh..."
 
-#: src/features/forums/components/create-post-dialog.tsx:215
-#: src/features/forums/components/edit-post-dialog.tsx:278
+#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/edit-post-dialog.tsx:294
 msgid "Content"
 msgstr "Ábhar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1014
+#: src/routes/_authenticated/$forum_.settings.tsx:1018
 msgid "Content from users below a threshold must be approved"
 msgstr "Ní mór ábhar ó úsáideoirí faoi bhun tairsí a cheadú"
 
@@ -903,11 +913,11 @@ msgstr "Cruthaigh"
 msgid "Create {0}"
 msgstr "Cruthaigh {0}"
 
-#: src/features/forums/components/forum-overview.tsx:105
+#: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
 msgstr "Cruthaigh fóram nua"
 
-#: src/features/forums/components/create-post-dialog.tsx:187
+#: src/features/forums/components/create-post-dialog.tsx:198
 msgid "Create a new post"
 msgstr "Cruthaigh postáil nua"
 
@@ -939,7 +949,7 @@ msgid "Current location"
 msgstr "Suíomh reatha"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:705
+#: src/routes/_authenticated/$forum_.settings.tsx:709
 msgid "Custom"
 msgstr "Saincheaptha"
 
@@ -962,7 +972,7 @@ msgstr "Coinbhleacht sonraí"
 msgid "Date"
 msgstr "Dáta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1036
+#: src/routes/_authenticated/$forum_.settings.tsx:1040
 msgid "days"
 msgstr "laethanta"
 
@@ -971,11 +981,11 @@ msgid "Decline"
 msgstr "Diúltaigh"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:708
 msgid "Default"
 msgstr "Réamhshocrú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:567
+#: src/routes/_authenticated/$forum_.settings.tsx:571
 msgid "Default account"
 msgstr "Cuntas réamhshocraithe"
 
@@ -1095,15 +1105,15 @@ msgstr "Treo"
 msgid "Directory"
 msgstr "Eolaire"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:555
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "Disabled"
 msgstr "Díchumasaithe"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "Cuir i leataobh"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "An gcuirfear an dréacht i leataobh?"
 
@@ -1133,12 +1143,12 @@ msgid "Done"
 msgstr "Críochnaithe"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "Íoslódáil"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "Theip ar an íoslódáil"
 
@@ -1161,6 +1171,10 @@ msgstr "Cuir in eagar"
 msgid "Edit {label}"
 msgstr "Cuir {label} in eagar"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "Cuir an fhoscríbhinn in eagar"
+
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
 msgstr "Cuir réimse in eagar"
@@ -1179,8 +1193,8 @@ msgstr "Cuir rogha in eagar"
 msgid "Edit option {0}"
 msgstr "Cuir rogha {0} in eagar"
 
-#: src/features/forums/components/edit-post-dialog.tsx:248
-#: src/features/forums/components/edit-post-dialog.tsx:250
+#: src/features/forums/components/edit-post-dialog.tsx:264
+#: src/features/forums/components/edit-post-dialog.tsx:266
 msgid "Edit post"
 msgstr "Cuir postáil in eagar"
 
@@ -1244,8 +1258,8 @@ msgstr "Theip ar chuntas a chur leis"
 msgid "Failed to add tag"
 msgstr "Theip ar chlib a chur leis"
 
-#: src/features/forums/pages/entity-forum-page.tsx:231
-#: src/features/forums/pages/entity-forum-page.tsx:242
+#: src/features/forums/pages/entity-forum-page.tsx:232
+#: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:289
 #: src/features/forums/thread-detail.tsx:301
 msgid "Failed to adjust interest"
@@ -1255,7 +1269,7 @@ msgstr "Theip ar shuim a choigeartú"
 msgid "Failed to approve items"
 msgstr "Theip ar mhíreanna a fhaomhadh"
 
-#: src/features/forums/thread-detail.tsx:467
+#: src/features/forums/thread-detail.tsx:468
 msgid "Failed to ban user"
 msgstr "Theip ar úsáideoir a thoirmeasc"
 
@@ -1301,11 +1315,11 @@ msgstr "Theip ar nasc a scriosadh"
 msgid "Failed to get RSS token"
 msgstr "Theip ar chomhartha RSS a fháil"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "Theip ar luchtú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:781
+#: src/routes/_authenticated/$forum_.settings.tsx:785
 msgid "Failed to load access rules"
 msgstr "Theip ar luchtú rialacha rochtana"
 
@@ -1321,7 +1335,7 @@ msgstr "Theip ar luchtú socruithe fóraim"
 msgid "Failed to load forums"
 msgstr "Theip ar luchtú fóram"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:788
+#: src/routes/_authenticated/$forum_.settings.tsx:792
 msgid "Failed to load groups"
 msgstr "Theip ar luchtú grúpaí"
 
@@ -1329,7 +1343,7 @@ msgstr "Theip ar luchtú grúpaí"
 msgid "Failed to load history"
 msgstr "Theip ar luchtú staire"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "Theip ar an íomhá a lódáil"
 
@@ -1341,7 +1355,7 @@ msgstr "Theip ar luchtú loga modhnóireachta"
 msgid "Failed to load moderation queue"
 msgstr "Theip ar luchtú scuaine modhnóireachta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:931
+#: src/routes/_authenticated/$forum_.settings.tsx:935
 msgid "Failed to load moderation settings"
 msgstr "Theip ar luchtú socruithe modhnóireachta"
 
@@ -1358,11 +1372,11 @@ msgstr "Theip ar luchtú tuairiscí"
 msgid "Failed to load restrictions"
 msgstr "Theip ar luchtú srianta"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "Theip ar an bhfíseán a lódáil"
 
-#: src/features/forums/thread-detail.tsx:458
+#: src/features/forums/thread-detail.tsx:459
 msgid "Failed to mute user"
 msgstr "Theip ar úsáideoir a chiúnú"
 
@@ -1378,7 +1392,7 @@ msgstr "Theip ar nóta tráchta a phostáil"
 msgid "Failed to reject items"
 msgstr "Theip ar mhíreanna a dhiúltú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:825
+#: src/routes/_authenticated/$forum_.settings.tsx:829
 msgid "Failed to remove access"
 msgstr "Theip ar bhaint rochtana"
 
@@ -1386,7 +1400,7 @@ msgstr "Theip ar bhaint rochtana"
 msgid "Failed to remove account"
 msgstr "Theip ar bhaint chuntais"
 
-#: src/features/forums/pages/entity-forum-page.tsx:254
+#: src/features/forums/pages/entity-forum-page.tsx:255
 #: src/features/forums/thread-detail.tsx:313
 msgid "Failed to remove interest"
 msgstr "Theip ar bhaint suime"
@@ -1403,7 +1417,7 @@ msgstr "Theip ar an bpostáil shábháilte a bhaint"
 msgid "Failed to rename forum"
 msgstr "Theip ar athainmniú fóraim"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:675
+#: src/routes/_authenticated/$forum_.settings.tsx:679
 msgid "Failed to reset prompt"
 msgstr "Theip ar leid a athshocrú"
 
@@ -1415,7 +1429,7 @@ msgstr "Theip ar thuairisc a réiteach"
 msgid "Failed to revoke RSS access"
 msgstr "Theip ar rochtain RSS a chúlghairm"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:948
+#: src/routes/_authenticated/$forum_.settings.tsx:952
 msgid "Failed to save moderation settings"
 msgstr "Theip ar shábháil socruithe modhnóireachta"
 
@@ -1423,7 +1437,7 @@ msgstr "Theip ar shábháil socruithe modhnóireachta"
 msgid "Failed to save post"
 msgstr "Theip ar an bpostáil a shábháil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:696
 msgid "Failed to save prompt"
 msgstr "Theip ar shábháil leide"
 
@@ -1432,7 +1446,7 @@ msgstr "Theip ar shábháil leide"
 msgid "Failed to search forums"
 msgstr "Theip ar chuardach fóram"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:789
 msgid "Failed to search users"
 msgstr "Theip ar chuardach úsáideoirí"
 
@@ -1440,7 +1454,7 @@ msgstr "Theip ar chuardach úsáideoirí"
 msgid "Failed to send verification code"
 msgstr "Theip ar sheoladh cód fíoraithe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:813
+#: src/routes/_authenticated/$forum_.settings.tsx:817
 msgid "Failed to set access level"
 msgstr "Theip ar shocrú leibhéal rochtana"
 
@@ -1456,12 +1470,12 @@ msgstr "Theip ar shíntiús"
 msgid "Failed to unsubscribe"
 msgstr "Theip ar dhíshíntiús"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:840
+#: src/routes/_authenticated/$forum_.settings.tsx:844
 msgid "Failed to update access level"
 msgstr "Theip ar nuashonrú leibhéal rochtana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
-#: src/routes/_authenticated/$forum_.settings.tsx:540
+#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:544
 msgid "Failed to update AI settings"
 msgstr "Theip ar nuashonrú socruithe IS"
 
@@ -1480,8 +1494,8 @@ msgstr "Theip ar uaslódáil ceangaltáin"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:594
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
-#: src/features/forums/components/create-post-dialog.tsx:248
-#: src/features/forums/components/edit-post-dialog.tsx:303
+#: src/features/forums/components/create-post-dialog.tsx:268
+#: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
 msgstr "Comhaid"
 
@@ -1489,7 +1503,7 @@ msgstr "Comhaid"
 msgid "Filter..."
 msgstr "Scag..."
 
-#: src/features/forums/pages/entity-forum-page.tsx:334
+#: src/features/forums/pages/entity-forum-page.tsx:336
 msgid "Filtered by tag:"
 msgstr "Scagtha de réir clibe:"
 
@@ -1520,7 +1534,7 @@ msgstr "Ar foluain"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:276
+#: src/features/forums/pages/entity-forum-page.tsx:277
 #: src/features/forums/thread-detail.tsx:188
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
@@ -1563,7 +1577,7 @@ msgid "Forum unavailable"
 msgstr "Fóram nach bhfuil ar fáil"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:99
+#: src/features/forums/components/forum-overview.tsx:100
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1675,7 +1689,7 @@ msgid "Identity"
 msgstr "Aitheantas"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "Amharcán íomhánna: {0}"
 
@@ -1707,7 +1721,7 @@ msgstr "Suim borrtha"
 msgid "Interest reduced"
 msgstr "Suim laghdaithe"
 
-#: src/features/forums/pages/entity-forum-page.tsx:252
+#: src/features/forums/pages/entity-forum-page.tsx:253
 #: src/features/forums/thread-detail.tsx:311
 msgid "Interest removed"
 msgstr "Suim bainte"
@@ -1843,7 +1857,7 @@ msgstr "Láimhe"
 msgid "Mark all as read"
 msgstr "Marcáil gach rud mar léite"
 
-#: src/features/forums/components/create-post-dialog.tsx:219
+#: src/features/forums/components/create-post-dialog.tsx:230
 msgid "Markdown supported"
 msgstr "Tacaíonn Markdown"
 
@@ -1958,7 +1972,7 @@ msgstr "Earráid líonra"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:481
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:190
+#: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
 msgstr "Nua"
 
@@ -1971,23 +1985,23 @@ msgstr "Fóram nua"
 msgid "New game"
 msgstr "Cluiche nua"
 
-#: src/features/forums/components/create-post-dialog.tsx:173
-#: src/features/forums/components/create-post-dialog.tsx:178
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/pages/entity-forum-page.tsx:283
+#: src/features/forums/components/create-post-dialog.tsx:184
+#: src/features/forums/components/create-post-dialog.tsx:189
+#: src/features/forums/components/create-post-dialog.tsx:196
+#: src/features/forums/pages/entity-forum-page.tsx:284
 msgid "New post"
 msgstr "Postáil nua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:992
+#: src/routes/_authenticated/$forum_.settings.tsx:996
 msgid "New threads must be approved"
 msgstr "Caithfear snáitheanna nua a cheadú"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1024
+#: src/routes/_authenticated/$forum_.settings.tsx:1028
 msgid "New user threshold:"
 msgstr "Tairseach úsáideora nua:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "An chéad íomhá eile"
 
@@ -2057,7 +2071,7 @@ msgstr "Níor aimsíodh aon duine"
 msgid "No places found"
 msgstr "Níor aimsíodh aon áit"
 
-#: src/features/forums/components/forum-overview.tsx:151
+#: src/features/forums/components/forum-overview.tsx:152
 msgid "No posts in this forum yet"
 msgstr "Níl aon phostáil sa bhfóram seo fós"
 
@@ -2300,8 +2314,8 @@ msgstr "Tráchtanna ar feitheamh ({0})"
 msgid "Pending posts ({0})"
 msgstr "Postálacha ar feitheamh ({0})"
 
-#: src/features/forums/components/create-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:302
+#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
 msgstr "Grianghraif agus físeáin"
 
@@ -2355,15 +2369,15 @@ msgstr "Níorbh fhéidir an postáil a shábháil — tá an teideal nó an t-á
 msgid "Post couldn't be saved on the forum server"
 msgstr "Níorbh fhéidir an postáil a shábháil ar fhreastalaí an fhóraim"
 
-#: src/hooks/use-forums-queries.ts:331
+#: src/hooks/use-forums-queries.ts:334
 msgid "Post deleted"
 msgstr "Postáil scriosta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1049
+#: src/routes/_authenticated/$forum_.settings.tsx:1053
 msgid "Post limit"
 msgstr "Teorainn postála"
 
-#: src/hooks/use-forums-queries.ts:483
+#: src/hooks/use-forums-queries.ts:486
 msgid "Post locked"
 msgstr "Postáil faoi ghlas"
 
@@ -2371,7 +2385,7 @@ msgstr "Postáil faoi ghlas"
 msgid "Post not found"
 msgstr "Níor aimsíodh an phostáil"
 
-#: src/hooks/use-forums-queries.ts:511
+#: src/hooks/use-forums-queries.ts:514
 msgid "Post pinned"
 msgstr "Postáil pionnáilte"
 
@@ -2379,23 +2393,23 @@ msgstr "Postáil pionnáilte"
 msgid "Post published."
 msgstr "Foilsíodh an phostáil."
 
-#: src/hooks/use-forums-queries.ts:455
+#: src/hooks/use-forums-queries.ts:458
 msgid "Post removed"
 msgstr "Postáil bainte"
 
-#: src/hooks/use-forums-queries.ts:470
+#: src/hooks/use-forums-queries.ts:473
 msgid "Post restored"
 msgstr "Postáil athchóirithe"
 
-#: src/hooks/use-forums-queries.ts:496
+#: src/hooks/use-forums-queries.ts:499
 msgid "Post unlocked"
 msgstr "Postáil díghlasáilte"
 
-#: src/hooks/use-forums-queries.ts:526
+#: src/hooks/use-forums-queries.ts:529
 msgid "Post unpinned"
 msgstr "Postáil dípionnáilte"
 
-#: src/hooks/use-forums-queries.ts:314
+#: src/hooks/use-forums-queries.ts:317
 msgid "Post updated"
 msgstr "Postáil nuashonraithe"
 
@@ -2403,7 +2417,7 @@ msgstr "Postáil nuashonraithe"
 msgid "Post, comment, vote, and view"
 msgstr "Postáil, déan trácht, vótáil agus féach"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1059
+#: src/routes/_authenticated/$forum_.settings.tsx:1063
 msgid "posts"
 msgstr "postálacha"
 
@@ -2415,16 +2429,16 @@ msgstr "Postálacha"
 msgid "Posts and comments"
 msgstr "Postálacha agus tráchtanna"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:985
+#: src/routes/_authenticated/$forum_.settings.tsx:989
 msgid "Pre-moderation"
 msgstr "Réamh-mhodhnóireacht"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1045
+#: src/routes/_authenticated/$forum_.settings.tsx:1049
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Cuir cosc ar turscar trí theorannú a chur ar a mhinice is féidir le húsáideoirí postáil"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "Íomhá roimhe seo"
 
@@ -2445,15 +2459,15 @@ msgstr "Próifíl"
 msgid "Project members"
 msgstr "Baill an tionscadail"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:690
+#: src/routes/_authenticated/$forum_.settings.tsx:694
 msgid "Prompt saved"
 msgstr "Leid sábháilte"
 
-#: src/features/forums/components/create-post-dialog.tsx:291
+#: src/features/forums/components/create-post-dialog.tsx:311
 msgid "Publish post"
 msgstr "Foilsigh an phostáil"
 
-#: src/features/forums/components/create-post-dialog.tsx:286
+#: src/features/forums/components/create-post-dialog.tsx:306
 msgid "Publishing..."
 msgstr "Á fhoilsiú..."
 
@@ -2469,7 +2483,7 @@ msgstr "Scuaine"
 msgid "Raised"
 msgstr "Ardaithe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1044
+#: src/routes/_authenticated/$forum_.settings.tsx:1048
 msgid "Rate limiting"
 msgstr "Teorannú Ráta"
 
@@ -2533,8 +2547,8 @@ msgstr "Coibhneasta (5n, 3u, 2l)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Coibhneasta laistigh de 24 uair, eile dearbhach"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2629,11 +2643,11 @@ msgstr "Athainmnigh colún an chláir seo"
 msgid "Renaming forum..."
 msgstr "Fóram á athainmniú..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1074
+#: src/routes/_authenticated/$forum_.settings.tsx:1078
 msgid "replies"
 msgstr "freagraí"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1003
+#: src/routes/_authenticated/$forum_.settings.tsx:1007
 msgid "Replies must be approved"
 msgstr "Caithfear freagraí a cheadú"
 
@@ -2670,8 +2684,8 @@ msgstr "Tuairiscigh postáil"
 msgid "Report resolved"
 msgstr "Tuairisc réitithe"
 
-#: src/hooks/use-forums-queries.ts:538
-#: src/hooks/use-forums-queries.ts:610
+#: src/hooks/use-forums-queries.ts:541
+#: src/hooks/use-forums-queries.ts:613
 msgid "Report submitted"
 msgstr "Cuireadh isteach an tuairisc"
 
@@ -2684,19 +2698,19 @@ msgstr "Tuairiscithe ag {0}"
 msgid "Reports"
 msgstr "Tuairiscí"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:986
+#: src/routes/_authenticated/$forum_.settings.tsx:990
 msgid "Require approval before content becomes visible"
 msgstr "Riachtanach faomhadh sula mbeidh inneachar le feiceáil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1002
+#: src/routes/_authenticated/$forum_.settings.tsx:1006
 msgid "Require approval for new comments"
 msgstr "Riachtanach faomhadh do thráchtanna nua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:991
+#: src/routes/_authenticated/$forum_.settings.tsx:995
 msgid "Require approval for new posts"
 msgstr "Riachtanach faomhadh do phostálacha nua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1013
+#: src/routes/_authenticated/$forum_.settings.tsx:1017
 msgid "Require approval for new users"
 msgstr "Riachtanach faomhadh d'úsáideoirí nua"
 
@@ -2739,7 +2753,7 @@ msgstr "Baineadh srian"
 msgid "Restrictions"
 msgstr "Srianta"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "Bain triail eile as"
 
@@ -2792,17 +2806,18 @@ msgstr "Cóipeáladh URL RSS chuig an ngearrthaisce"
 msgid "Saturday"
 msgstr "Dé Sathairn"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:488
-#: src/routes/_authenticated/$forum_.settings.tsx:720
+#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:724
 msgid "Save"
 msgstr "Sábháil"
 
-#: src/features/forums/components/edit-post-dialog.tsx:354
+#: src/features/forums/components/edit-post-dialog.tsx:384
 msgid "Save changes"
 msgstr "Sábháil athruithe"
 
@@ -2822,13 +2837,13 @@ msgstr "Sábháilte"
 msgid "Saved posts cleared"
 msgstr "Glanadh na postálacha sábháilte"
 
-#: src/features/forums/components/edit-post-dialog.tsx:349
+#: src/features/forums/components/edit-post-dialog.tsx:379
 #: src/lib/saved.ts:31
-#: src/routes/_authenticated/$forum_.settings.tsx:720
+#: src/routes/_authenticated/$forum_.settings.tsx:724
 msgid "Saving..."
 msgstr "Á shábháil..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:599
+#: src/routes/_authenticated/$forum_.settings.tsx:603
 msgid "Score prompt"
 msgstr "Leid scóir"
 
@@ -2898,7 +2913,7 @@ msgstr "Cuardaigh..."
 msgid "Searching..."
 msgstr "Ag cuardach..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1089
+#: src/routes/_authenticated/$forum_.settings.tsx:1093
 msgid "seconds"
 msgstr "soicindí"
 
@@ -3133,8 +3148,8 @@ msgstr "Cuir nóta tráchta isteach"
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
 #: src/features/forums/components/thread/thread-comment.tsx:622
 #: src/features/forums/components/thread/thread-comment.tsx:631
-#: src/features/forums/thread-detail.tsx:621
-#: src/features/forums/thread-detail.tsx:630
+#: src/features/forums/thread-detail.tsx:622
+#: src/features/forums/thread-detail.tsx:631
 msgid "Submit reply"
 msgstr "Cuir freagra isteach"
 
@@ -3152,7 +3167,7 @@ msgstr "Á chur isteach..."
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:303
+#: src/features/forums/pages/entity-forum-page.tsx:305
 msgid "Subscribe"
 msgstr "Liostáil"
 
@@ -3172,7 +3187,7 @@ msgstr "Liostáilte leis an bhfóram"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:300
+#: src/features/forums/pages/entity-forum-page.tsx:302
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
@@ -3195,7 +3210,7 @@ msgid "System"
 msgstr "Córas"
 
 #: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:556
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "Tag"
 msgstr "Clib"
 
@@ -3207,7 +3222,7 @@ msgstr "Tá an chlib ann cheana"
 msgid "Tag must be 50 characters or less"
 msgstr "Ní mór don chlib a bheith 50 carachtar ar a mhéad"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:598
+#: src/routes/_authenticated/$forum_.settings.tsx:602
 msgid "Tag prompt"
 msgstr "Leid clibe"
 
@@ -3315,8 +3330,8 @@ msgstr "Snáithe"
 msgid "Thursday"
 msgstr "Déardaoin"
 
-#: src/features/forums/components/create-post-dialog.tsx:198
-#: src/features/forums/components/edit-post-dialog.tsx:261
+#: src/features/forums/components/create-post-dialog.tsx:209
+#: src/features/forums/components/edit-post-dialog.tsx:277
 msgid "Title"
 msgstr "Teideal"
 
@@ -3451,7 +3466,7 @@ msgid "United States"
 msgstr "Stáit Aontaithe"
 
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:83
+#: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
 #: src/routes/_authenticated/$forum_.moderation.tsx:665
 msgid "Unknown"
@@ -3466,7 +3481,7 @@ msgid "Unpin"
 msgstr "Díphionnáil"
 
 #: ../../../lib/web/src/components/options-menu.tsx:214
-#: src/features/forums/pages/entity-forum-page.tsx:391
+#: src/features/forums/pages/entity-forum-page.tsx:393
 #: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "Díliostáil"
@@ -3475,7 +3490,7 @@ msgstr "Díliostáil"
 msgid "Unsubscribe from forum"
 msgstr "Díliostáil ón bhfóram"
 
-#: src/features/forums/pages/entity-forum-page.tsx:388
+#: src/features/forums/pages/entity-forum-page.tsx:390
 msgid "Unsubscribe from forum?"
 msgstr "Díliostáil ón bhfóram?"
 
@@ -3523,15 +3538,15 @@ msgstr "Úsáid d'eochair rochtana"
 msgid "User"
 msgstr "Úsáideoir"
 
-#: src/features/forums/thread-detail.tsx:465
+#: src/features/forums/thread-detail.tsx:466
 msgid "User banned"
 msgstr "Úsáideoir coiscthe"
 
-#: src/features/forums/thread-detail.tsx:456
+#: src/features/forums/thread-detail.tsx:457
 msgid "User muted"
 msgstr "Úsáideoir balbhaithe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:723
+#: src/routes/_authenticated/$forum_.settings.tsx:727
 msgid "Variables: {variables}"
 msgstr "Athróga: {variables}"
 
@@ -3557,12 +3572,12 @@ msgstr "Fíoraigh"
 msgid "Verify email address"
 msgstr "Fíoraigh seoladh ríomhphoist"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 msgid "Video thumbnail"
 msgstr "Mionsamhail físeáin"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "Amharcán físeán: {0}"
 
@@ -3626,7 +3641,7 @@ msgstr "Tá an suíomh gréasáin faoi chothabháil!"
 msgid "Wednesday"
 msgstr "Céadaoin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1079
+#: src/routes/_authenticated/$forum_.settings.tsx:1083
 msgid "Window duration"
 msgstr "Fad fuinneoige"
 
@@ -3657,11 +3672,11 @@ msgstr "Níl an cead riachtanach agat <0/>chun an acmhainn seo a fheiceáil."
 msgid "You don't have permission to post in this forum"
 msgstr "Níl cead agat postáil san fhóram seo"
 
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:101
 msgid "You have no forums yet."
 msgstr "Níl aon fhóraim agat fós."
 
-#: src/features/forums/pages/entity-forum-page.tsx:389
+#: src/features/forums/pages/entity-forum-page.tsx:391
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Stopfaidh tú nuashonruithe a fháil ón bhfóram seo. Is féidir leat liostáil arís am ar bith."
 
@@ -3673,14 +3688,14 @@ msgstr "Tá gach rud feicthe agat!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Aistríodh do chuntas anseo ó {source}. Go dtí go scriosann tú é ansin, d'fhéadfadh teachtaireachtaí agus fógraí an dá fhreastalaí a bhaint amach, leanann roinnt de d'ábhar á sheirbheáil ón sean-fhreastalaí, agus d'fhéadfadh sé cúpla nóiméad a thógáil ar do lucht leanúna tú a aimsiú anseo."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "Caillfear do cheangaltáin."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "Caillfear do théacs agus do cheangaltáin."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "Caillfear do théacs."

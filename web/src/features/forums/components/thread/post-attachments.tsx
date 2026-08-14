@@ -40,6 +40,7 @@ export function PostAttachments({ attachments, forumId, server, mediaCap = 8 }: 
         )
       }
       mediaCap={mediaCap}
+      showCaptions
     />
   )
 }

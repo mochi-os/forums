@@ -29,6 +29,7 @@ interface ForumOverviewProps {
     title: string
     body: string
     attachments?: File[]
+    captions?: string[]
   }) => void
   isCreatingPost?: boolean
   isPostCreated?: boolean

@@ -301,6 +301,17 @@ def resolve_attachment_order(order, current_ids, new_attachments):
     return final_order
 
 
+# Captions for the files an edit uploads, aligned with the upload order the
+# "new:N" placeholders in `order` name. A companion to resolve_attachment_order
+# for the same reason it exists: one walk, not a copy per edit path.
+def resolve_attachment_captions(order, captions):
+    total = 0
+    for item in order:
+        if type(item) == "string" and item.startswith("new:"):
+            total += 1
+    return [captions.get("new:" + str(i), "") for i in range(total)]
+
+
 # Batch the per-post enrichment for a list view.
 #
 # comment counts, tags and the caller's votes were a query EACH per post, so a
@@ -1863,6 +1874,22 @@ def action_post_create(a):
         a.error.label(400, "errors.invalid_body")
         return
 
+    # Optional per-file captions: a JSON array of strings aligned with the
+    # files' order, stored on the attachment rows and fanned out with them.
+    captions = []
+    captions_raw = a.input("captions")
+    if captions_raw:
+        decoded = json.decode(captions_raw, None)
+        if type(decoded) != "list" or len(decoded) > 100:
+            a.error.label(400, "errors.invalid_body")
+            return
+        for raw in decoded:
+            caption = str(raw)
+            if len(caption) > 1000:
+                a.error.label(400, "errors.invalid_body")
+                return
+            captions.append(caption)
+
     user_id = a.user.identity.id
     user_name = a.user.identity.name
     id = mochi.uid()
@@ -1907,7 +1934,7 @@ def action_post_create(a):
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
             # Save any uploaded attachments locally
-            attachments = attachment_save(a, id, field="attachments")
+            attachments = attachment_save(a, id, field="attachments", captions=captions)
 
             # Only broadcast if approved
             if status == "approved":
@@ -1920,7 +1947,7 @@ def action_post_create(a):
                     "created": now
                 }
                 if attachments:
-                    post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+                    post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
                 broadcast_event(forum["id"], "post/create", post_data, user_id)
                 mochi.db.commit.fire("posts", "insert", id)
@@ -1944,11 +1971,11 @@ def action_post_create(a):
                 return
 
             # Save attachments locally
-            attachments = attachment_save(a, id, field="attachments")
+            attachments = attachment_save(a, id, field="attachments", captions=captions)
 
             submit_data = {"id": id, "title": title, "body": body}
             if attachments:
-                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
             # Save locally BEFORE announcing (status pending until the owner
             # confirms): the owner pulls attachment bytes back the moment it
@@ -1985,12 +2012,12 @@ def action_post_create(a):
         return
 
     # Save attachments locally
-    attachments = attachment_save(a, id, field="attachments")
+    attachments = attachment_save(a, id, field="attachments", captions=captions)
 
     # Send post to remote forum owner with attachment metadata
     submit_data = {"id": id, "title": title, "body": body}
     if attachments:
-        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
     # Record the post locally before announcing, for the same reason the
     # subscribed branch does: the owner's accept-time byte-pull resolves the
@@ -2889,6 +2916,22 @@ def action_post_edit(a):
         a.error.label(400, "errors.invalid_body")
         return
 
+    # Optional caption edits: a JSON object keyed by attachment id or "new:N"
+    # placeholder. Applied only to rows the edited post holds.
+    captions = {}
+    captions_raw = a.input("captions")
+    if captions_raw:
+        decoded = json.decode(captions_raw, None)
+        if type(decoded) != "dict" or len(decoded) > 100:
+            a.error.label(400, "errors.invalid_body")
+            return
+        for key in decoded:
+            caption = str(decoded[key])
+            if len(caption) > 1000:
+                a.error.label(400, "errors.invalid_body")
+                return
+            captions[key] = caption
+
     forum = get_forum(forum_id)
     # Scope the post lookup to the named forum. Authorization below checks access
     # on `forum`, so loading the post by id alone would let a caller who manages
@@ -2927,7 +2970,7 @@ def action_post_edit(a):
 
             current_attachments = attachment_list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = attachment_save(a, post_id, field="attachments")
+            new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
 
             final_order = resolve_attachment_order(order, current_ids, new_attachments)
 
@@ -2940,6 +2983,13 @@ def action_post_edit(a):
             else:
                 for att_id in current_ids:
                     attachment_delete(att_id)
+
+            # Caption edits on attachments the post already holds. Bound to
+            # this post's own rows, so an id from another post cannot be
+            # annotated through this route.
+            for att in attachment_list(post_id, forum["id"]):
+                if att["id"] in captions and captions[att["id"]] != att.get("caption", ""):
+                    attachment_update(att["id"], captions[att["id"]], att.get("description", ""))
 
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
@@ -2980,7 +3030,7 @@ def action_post_edit(a):
             current_ids = [att["id"] for att in current_attachments]
 
             # Save new attachments locally
-            new_attachments = attachment_save(a, post_id, field="attachments")
+            new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
 
             # Build final order
             final_order = resolve_attachment_order(order, current_ids, new_attachments)
@@ -2988,10 +3038,20 @@ def action_post_edit(a):
             # Determine which attachments to delete
             delete_ids = [att_id for att_id in current_ids if att_id not in final_order]
 
+            # Caption edits keyed by attachment id, resolved against this
+            # post's rows and forwarded for the owner to apply the same way it
+            # applies the order.
+            caption_edits = {}
+            for att in current_attachments:
+                if att["id"] in captions and captions[att["id"]] != att.get("caption", ""):
+                    caption_edits[att["id"]] = captions[att["id"]]
+
             # Send edit request to forum owner with attachment metadata
             submit_data = {"id": post_id, "title": title, "body": body, "order": final_order, "delete": delete_ids}
             if new_attachments:
-                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
+                submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
+            if caption_edits:
+                submit_data["captions"] = caption_edits
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/edit/submit"},
                 submit_data
@@ -3006,6 +3066,10 @@ def action_post_edit(a):
                 attachment_delete(att_id)
             for i, att_id in enumerate(final_order):
                 attachment_move(att_id, i + 1)
+            for att_id in caption_edits:
+                row = attachment_get(att_id)
+                if row:
+                    attachment_update(att_id, caption_edits[att_id], row.get("description", ""))
 
         return {
             "data": {"forum": forum_id, "post": post_id}
@@ -3024,7 +3088,7 @@ def action_post_edit(a):
         order = []
 
     # Save new attachments locally
-    new_attachments = attachment_save(a, post_id, field="attachments")
+    new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
 
     # Build final order (only new attachments, no existing ones locally).
     #
@@ -3044,7 +3108,16 @@ def action_post_edit(a):
 
     submit_data = {"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}
     if new_attachments:
-        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
+        submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
+    # Caption edits on existing attachments go to the owner unresolved: no
+    # local rows exist here to diff against, and the owner bounds them to the
+    # post the same way it bounds the order.
+    caption_edits = {}
+    for key in captions:
+        if not key.startswith("new:"):
+            caption_edits[key] = captions[key]
+    if caption_edits:
+        submit_data["captions"] = caption_edits
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/edit/submit"},
         submit_data
@@ -6020,6 +6093,17 @@ def event_post_edit_submit_event(e):
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
         attachment_move(att_id, i + 1)
+
+    # Apply the author's caption edits, bounded to this post's rows exactly as
+    # the order is: the author may annotate the post's own attachments and
+    # nothing else. Values are reduced like any peer text.
+    caption_edits = e.content("captions")
+    if type(caption_edits) == "dict":
+        for att in attachment_list(post_id, forum["id"]):
+            if att["id"] in caption_edits:
+                caption = attachment_text(caption_edits[att["id"]], attachment_text_maximum)
+                if caption != att.get("caption", ""):
+                    attachment_update(att["id"], caption, att.get("description", ""))
 
     # Update the post
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)

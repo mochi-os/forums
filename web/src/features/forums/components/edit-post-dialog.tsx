@@ -65,6 +65,7 @@ type EditPostDialogProps = {
     body: string
     order: string[]
     attachments: File[]
+    captions: Record<string, string>
   }) => void
   isPending?: boolean
   /** The save failed; the composer says so and offers the draft back. */
@@ -84,6 +85,9 @@ export function EditPostDialog({
 }: EditPostDialogProps) {
   const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
+  // Keyed by attachment id (existing) or pendingFileKey (new), so neither
+  // removal nor reorder can re-attach a caption to the wrong item.
+  const [captions, setCaptions] = useState<Record<string, string>>({})
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const postSchema = usePostSchema()
@@ -111,6 +115,13 @@ export function EditPostDialog({
         })
       )
       setItems(existingItems)
+      setCaptions(
+        Object.fromEntries(
+          (post.attachments || []).flatMap((att) =>
+            att.caption ? [[att.id, att.caption]] : []
+          )
+        )
+      )
     }
   }, [open, post, form])
 
@@ -128,16 +139,18 @@ export function EditPostDialog({
   const watchedTitle = form.watch('title')
   const watchedBody = form.watch('body')
   const hasChanges = useMemo(() => {
-    const draft = buildForumPostEditDraft(items, {
-      title: watchedTitle,
-      body: watchedBody,
-    })
+    const draft = buildForumPostEditDraft(
+      items,
+      { title: watchedTitle, body: watchedBody },
+      captions,
+      pendingFileKey
+    )
     const original = forumPostEditOriginalFromPost(post)
     return !isForumPostEditUnchanged(original, draft)
-  }, [items, watchedTitle, watchedBody, post])
+  }, [items, watchedTitle, watchedBody, captions, post])
 
   const onSubmit = (values: EditPostFormValues) => {
-    const draft = buildForumPostEditDraft(items, values)
+    const draft = buildForumPostEditDraft(items, values, captions, pendingFileKey)
     const original = forumPostEditOriginalFromPost(post)
     if (isForumPostEditUnchanged(original, draft)) {
       onOpenChange(false)
@@ -149,6 +162,7 @@ export function EditPostDialog({
       body: draft.body,
       order: draft.order ?? [],
       attachments: draft.attachments ?? [],
+      captions: draft.captions ?? {},
     })
   }
 
@@ -170,6 +184,7 @@ export function EditPostDialog({
                   `${appPath}/${post.forum}/-/attachments/${att.id}/thumbnail`
                 )
               : null,
+            caption: captions[att.id],
             // Saved attachments are not part of the save's upload, so they
             // keep the still state while the new files pulse.
             state: 'idle' as const,
@@ -185,6 +200,7 @@ export function EditPostDialog({
           previewKind: isVideo(file.type)
             ? ('video' as const)
             : ('image' as const),
+          caption: captions[pendingFileKey(file)],
           badge: (
             <span className='bg-primary/85 text-primary-foreground rounded px-1.5 py-0.5 text-[10px] font-bold uppercase'>
               <Trans>New</Trans>
@@ -196,7 +212,7 @@ export function EditPostDialog({
           progress: progress?.slices?.[newFiles.indexOf(file)],
         }
       }),
-    [items, appPath, post.forum, urlByNewFile, newFiles, progress]
+    [items, captions, appPath, post.forum, urlByNewFile, newFiles, progress]
   )
 
   // One staging path for the picker and for a drop. The list mixes saved
@@ -315,6 +331,20 @@ export function EditPostDialog({
                 onReorder={(from, to) =>
                   setItems((prev) => moveItem(prev, from, to))
                 }
+                onCaption={(index, caption) => {
+                  const item = items[index]
+                  if (!item) return
+                  const key =
+                    item.kind === 'existing'
+                      ? item.attachment.id
+                      : pendingFileKey(item.file)
+                  setCaptions((prev) => {
+                    const next = { ...prev }
+                    if (caption) next[key] = caption
+                    else delete next[key]
+                    return next
+                  })
+                }}
               />
             </div>
 

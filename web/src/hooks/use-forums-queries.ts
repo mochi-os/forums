@@ -274,6 +274,7 @@ export function useEditPost(forumId: string, postId: string) {
       body: string
       order?: string[]
       attachments?: File[]
+      captions?: Record<string, string>
       original: ForumPostEditOriginal
     }
   >({
@@ -284,6 +285,7 @@ export function useEditPost(forumId: string, postId: string) {
           body: data.body,
           order: data.order,
           attachments: data.attachments,
+          captions: data.captions,
         })
       ) {
         return MUTATION_SKIPPED
@@ -295,6 +297,7 @@ export function useEditPost(forumId: string, postId: string) {
         body: data.body,
         order: data.order,
         attachments: data.attachments,
+        captions: data.captions,
       }
       return data.attachments?.length
         ? upload((onProgress) => forumsApi.editPost(payload, onProgress), {

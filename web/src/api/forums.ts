@@ -186,6 +186,10 @@ const forumsApi = {
       payload.attachments.forEach((file) =>
         formData.append('attachments', file)
       )
+      // Per-file captions, aligned with the attachments' order
+      if (payload.captions?.some((caption) => caption)) {
+        formData.append('captions', JSON.stringify(payload.captions))
+      }
     }
     return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData, { timeout: 0, onUploadProgress: onProgress })
   },
@@ -216,6 +220,10 @@ const forumsApi = {
       payload.attachments.forEach((file) =>
         formData.append('attachments', file)
       )
+    }
+    // Caption edits, keyed by attachment id or "new:N" placeholder
+    if (payload.captions && Object.keys(payload.captions).length > 0) {
+      formData.append('captions', JSON.stringify(payload.captions))
     }
     return client.post<EditPostResponse>(
       endpoints.forums.post.edit(payload.forum, payload.post),

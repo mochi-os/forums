@@ -34,6 +34,7 @@ import {
   mergePendingFiles,
   removePendingFile,
   moveItem,
+  pendingFileKey,
   UploadProgress,
   type Upload,
 } from '@mochi/web'
@@ -53,6 +54,7 @@ type CreatePostDialogProps = {
     title: string
     body: string
     attachments?: File[]
+    captions?: string[]
   }) => void
   isPending?: boolean
   isSuccess?: boolean
@@ -86,6 +88,9 @@ export function CreatePostDialog({
   const isOpen = open ?? internalOpen
   const setIsOpen = onOpenChange ?? setInternalOpen
   const [attachments, setAttachments] = useState<File[]>([])
+  // Keyed by pendingFileKey so a reorder or removal never re-attaches a
+  // caption to the wrong file.
+  const [captions, setCaptions] = useState<Record<string, string>>({})
 
   const [wasSuccessHandled, setWasSuccessHandled] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -106,6 +111,10 @@ export function CreatePostDialog({
       title: values.title,
       body: values.body,
       attachments: attachments.length > 0 ? attachments : undefined,
+      captions:
+        attachments.length > 0
+          ? attachments.map((file) => captions[pendingFileKey(file)] ?? '')
+          : undefined,
     })
   }
 
@@ -116,6 +125,7 @@ export function CreatePostDialog({
       setIsOpen(false)
       form.reset()
       setAttachments([])
+      setCaptions({})
       onSuccess?.()
     }
     // Reset the handled flag when isSuccess becomes false (mutation reset)
@@ -153,6 +163,7 @@ export function CreatePostDialog({
     if (!open) {
       form.reset()
       setAttachments([])
+      setCaptions({})
     }
   }
 
@@ -241,6 +252,15 @@ export function CreatePostDialog({
                 }
                 onReorder={(from, to) =>
                   setAttachments((prev) => moveItem(prev, from, to))
+                }
+                captions={captions}
+                onCaption={(file, caption) =>
+                  setCaptions((prev) => {
+                    const next = { ...prev }
+                    if (caption) next[pendingFileKey(file)] = caption
+                    else delete next[pendingFileKey(file)]
+                    return next
+                  })
                 }
                 groupMedia
                 blockLabels={{

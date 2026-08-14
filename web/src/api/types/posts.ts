@@ -123,6 +123,7 @@ export interface CreatePostRequest {
   title: string
   body: string
   attachments?: File[]
+  captions?: string[] // aligned with attachments' order
 }
 
 export interface CreatePostResponse {
@@ -193,6 +194,7 @@ export interface EditPostRequest {
   body: string
   order?: string[] // Array of attachment IDs (existing) or "new:N" placeholders
   attachments?: File[] // New files to upload
+  captions?: Record<string, string> // keyed by attachment id or "new:N" placeholder
 }
 
 export interface EditPostResponse {

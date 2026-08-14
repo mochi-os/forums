@@ -438,6 +438,7 @@ export function ThreadDetail({
     body: string
     order: string[]
     attachments: File[]
+    captions: Record<string, string>
   }) => {
     editPostMutation.mutate(
       {
