@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type MutableRefObject, type ReactNode } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
 import {
@@ -35,6 +35,10 @@ interface ThreadContentProps {
   post: Post
   attachments?: Attachment[]
   server?: string
+  /** The lightbox comments slot, passed to the gallery. */
+  commentCount?: (attachmentId: string) => number
+  renderComments?: (attachmentId: string) => ReactNode
+  openerRef?: MutableRefObject<((attachmentId: string) => void) | null>
   forumName?: string
   showForumBadge?: boolean
   onVote: (vote: 'up' | 'down' | '') => void
@@ -69,6 +73,9 @@ interface ThreadContentProps {
 export function ThreadContent({
   post,
   attachments,
+  commentCount,
+  renderComments,
+  openerRef,
   server,
   forumName,
   showForumBadge = false,
@@ -209,6 +216,9 @@ export function ThreadContent({
         attachments={attachments || post.attachments || []}
         forumId={post.forum}
         server={server}
+        commentCount={commentCount}
+        renderComments={renderComments}
+        openerRef={openerRef}
       />
 
       {/* Actions row */}

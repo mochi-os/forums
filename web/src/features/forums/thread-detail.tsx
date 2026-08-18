@@ -68,6 +68,7 @@ import { EditPostDialog } from './components/edit-post-dialog'
 import { ReportDialog } from './components/report-dialog'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadComment } from './components/thread/thread-comment'
+import { AttachmentComments } from './components/thread/attachment-comments'
 import { ThreadContent } from './components/thread/thread-content'
 import { ThreadDetailSkeleton } from './components/thread/thread-detail-skeleton'
 
@@ -169,6 +170,9 @@ export function ThreadDetail({
     refetch: refetchPost,
   } = usePostDetail(forum, postId, server)
 
+  // The gallery fills this with "open the lightbox on this attachment,
+  // comments showing"; an anchored comment's image chip calls it.
+  const lightboxOpener = useRef<((attachmentId: string) => void) | null>(null)
   const [commentsListRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isLoading,
   })
@@ -487,6 +491,20 @@ export function ThreadDetail({
                 post={{ ...post, tags: localTags ?? post.tags }}
                 attachments={post.attachments}
                 server={server}
+                commentCount={(attachmentId) =>
+                  comments.filter((comment) => comment.attachment === attachmentId).length
+                }
+                renderComments={(attachmentId) => (
+                  <AttachmentComments
+                    comments={comments}
+                    attachmentId={attachmentId}
+                    canComment={can_comment && !post.locked}
+                    onAddComment={(body, attachment) =>
+                      createCommentMutation.mutateAsync({ body, attachment })
+                    }
+                  />
+                )}
+                openerRef={lightboxOpener}
                 forumName={forumData?.name}
                 showForumBadge={fromAllForums}
                 onVote={(vote) => votePostMutation.mutate(vote)}
@@ -641,6 +659,7 @@ export function ThreadDetail({
                       <ThreadComment
                         key={comment.id}
                         comment={comment}
+                        onOpenAttachment={(attachmentId) => lightboxOpener.current?.(attachmentId)}
                         onSearchPeople={(q) =>
                           forumsApi.searchMembers(forum, q)
                         }

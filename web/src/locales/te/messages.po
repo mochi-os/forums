@@ -19,15 +19,15 @@ msgid "Please check your internet connection and try again."
 msgstr "దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:995
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid " · Expires {0}"
 msgstr " · గడువు {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:996
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid " · Permanent"
 msgstr " · శాశ్వత"
 
-#: src/features/forums/components/thread/thread-comment.tsx:269
+#: src/features/forums/components/thread/thread-comment.tsx:280
 msgid " (edited)"
 msgstr " (సవరించబడింది)"
 
@@ -55,7 +55,7 @@ msgstr "{0, plural, one {# కొత్త పోస్ట్} other {# కొ�
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #. placeholder {0}: selectedValues.size
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:516
+#: src/routes/_authenticated/$forum_.moderation.tsx:523
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ఎంచుకోబడింది} other {# ఎంచుకోబడ్డాయి}}"
 
@@ -116,6 +116,10 @@ msgstr "{entityLabel} పేరు అవసరం"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} డ్రా అందించారు"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:92
+msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {{entityName} ఎంచుకోబడింది} other {{manyName} ఎంచుకోబడ్డాయి}}"
@@ -141,7 +145,7 @@ msgstr "{totalLabel}లో {sentLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# అంశం} other {# అంశాలు}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:255
+#: src/features/forums/components/thread/thread-comment.tsx:266
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# ప్రత్యుత్తరం} other {# ప్రత్యుత్తరాలు}}"
 
@@ -345,7 +349,7 @@ msgid "AI actions on posts"
 msgstr "పోస్ట్‌లపై AI చర్యలు"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "All"
 msgstr "అన్నీ"
 
@@ -400,8 +404,8 @@ msgstr "లాగిన్ అయిన ఎవరైనా"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "ఈ ఫీడ్‌కు సభ్యత్వం పొందిన ప్రతిదీ దాన్ని స్వీకరించడం ఆపేస్తుంది. ఆ తర్వాత మీరు కొత్త URLని కాపీ చేయవచ్చు."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:481
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "ఆమోదించండి"
 
@@ -418,11 +422,11 @@ msgstr "మీరు \"{name}\" కాలమ్‌ను తొలగించ�
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "మీరు ఈ వ్యాఖ్యను తొలగించాలనుకుంటున్నారా? ఇది అన్ని ప్రత్యుత్తరాలను కూడా తొలగిస్తుంది."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:545
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "మీరు ఈ వ్యాఖ్యను తొలగించాలనుకుంటున్నారా? ఇది అన్ని ప్రత్యుత్తరాలను కూడా తొలగిస్తుంది. ఈ చర్యను రద్దు చేయలేరు."
 
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-content.tsx:425
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "మీరు ఖచ్చితంగా ఈ పోస్ట్‌ను తొలగించాలనుకుంటున్నారా? ఇది అన్ని వ్యాఖ్యలను కూడా తొలగిస్తుంది. ఈ చర్యను రద్దు చేయలేరు."
 
@@ -445,10 +449,10 @@ msgstr "వ్యాఖ్య ఫైల్‌లను జతచేయండి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:592
-#: src/features/forums/components/thread/thread-comment.tsx:596
-#: src/features/forums/thread-detail.tsx:591
-#: src/features/forums/thread-detail.tsx:595
+#: src/features/forums/components/thread/thread-comment.tsx:626
+#: src/features/forums/components/thread/thread-comment.tsx:630
+#: src/features/forums/thread-detail.tsx:609
+#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "ప్రత్యుత్తర ఫైల్‌లను జతచేయండి"
 
@@ -478,10 +482,10 @@ msgid "Back"
 msgstr "వెనుకకు"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:368
-#: src/features/forums/thread-detail.tsx:380
-#: src/features/forums/thread-detail.tsx:401
-#: src/features/forums/thread-detail.tsx:476
+#: src/features/forums/thread-detail.tsx:372
+#: src/features/forums/thread-detail.tsx:384
+#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -499,16 +503,16 @@ msgstr "ఫోరమ్‌లకు తిరిగి"
 msgid "Back to home"
 msgstr "హోమ్‌కు తిరిగి వెళ్ళండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:507
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Ban"
 msgstr "నిషేధించండి"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:529
+#: src/features/forums/components/thread/thread-content.tsx:409
 msgid "Ban author"
 msgstr "రచయితను నిషేధించండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "banned"
 msgstr "నిషేధించబడింది"
 
@@ -557,12 +561,12 @@ msgid "Browser notifications"
 msgstr "బ్రౌజర్ నోటిఫికేషన్‌లు"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "by {0}"
 msgstr "{0} ద్వారా"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:993
+#: src/routes/_authenticated/$forum_.moderation.tsx:1000
 msgid "By {0}"
 msgstr "{0} ద్వారా"
 
@@ -583,7 +587,7 @@ msgstr "{0} ద్వారా"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:338
 msgid "Cancel"
 msgstr "రద్దు చేయండి"
 
@@ -594,10 +598,10 @@ msgstr "వ్యాఖ్యను రద్దు చేయండి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:607
-#: src/features/forums/components/thread/thread-comment.tsx:612
-#: src/features/forums/thread-detail.tsx:605
-#: src/features/forums/thread-detail.tsx:611
+#: src/features/forums/components/thread/thread-comment.tsx:641
+#: src/features/forums/components/thread/thread-comment.tsx:646
+#: src/features/forums/thread-detail.tsx:623
+#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "ప్రత్యుత్తరాన్ని రద్దు చేయండి"
 
@@ -701,8 +705,8 @@ msgstr "సేవ్ చేసిన పోస్ట్‌లను క్లి
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "మూసివేయండి"
@@ -768,6 +772,10 @@ msgstr "త్వరలో వస్తోంది!"
 msgid "Command Palette"
 msgstr "కమాండ్ ప్యాలెట్"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:119
+msgid "Comment"
+msgstr "వ్యాఖ్య"
+
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -784,6 +792,10 @@ msgstr "వ్యాఖ్య తొలగించబడింది"
 #: src/routes/_authenticated/$forum_.settings.tsx:1068
 msgid "Comment limit"
 msgstr "వ్యాఖ్య పరిమితి"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:103
+msgid "Comment on this image…"
+msgstr ""
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -804,6 +816,11 @@ msgstr "వ్యాఖ్య నవీకరించబడింది"
 #: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Comment, vote, and view"
 msgstr "వ్యాఖ్య, ఓటు, వీక్షణ"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+msgid "Comments"
+msgstr "వ్యాఖ్యలు"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
@@ -1006,10 +1023,10 @@ msgstr "డిఫాల్ట్ క్రమబద్ధీకరణ"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:336
-#: src/features/forums/components/thread/thread-content.tsx:416
+#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:426
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "తొలగించండి"
@@ -1023,7 +1040,7 @@ msgid "Delete column"
 msgstr "కాలమ్‌ను తొలగించండి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:544
 msgid "Delete comment"
 msgstr "వ్యాఖ్యను తొలగించండి"
 
@@ -1050,7 +1067,7 @@ msgstr "ఎంపికను తొలగించండి"
 msgid "Delete option {0}"
 msgstr "ఎంపిక {0}ని తొలగించండి"
 
-#: src/features/forums/components/thread/thread-content.tsx:414
+#: src/features/forums/components/thread/thread-content.tsx:424
 msgid "Delete post"
 msgstr "పోస్ట్‌ను తొలగించండి"
 
@@ -1124,7 +1141,7 @@ msgstr "డిస్‌కనెక్ట్ అయింది"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:94
 #: ../../../lib/web/src/components/restore-banner.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:708
+#: src/routes/_authenticated/$forum_.moderation.tsx:715
 msgid "Dismiss"
 msgstr "విస్మరించండి"
 
@@ -1143,12 +1160,12 @@ msgid "Done"
 msgstr "పూర్తయింది"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Download"
 msgstr "డౌన్‌లోడ్"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
 msgid "Download failed"
 msgstr "డౌన్‌లోడ్ విఫలమైంది"
 
@@ -1162,8 +1179,8 @@ msgstr "డిస్లెక్సియా-అనుకూలం"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:330
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Edit"
 msgstr "సవరించండి"
 
@@ -1254,14 +1271,14 @@ msgid "Failed to add account"
 msgstr "ఖాతాను జోడించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:278
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to add tag"
 msgstr "ట్యాగ్‌ను జోడించడంలో విఫలమైంది"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:289
-#: src/features/forums/thread-detail.tsx:301
+#: src/features/forums/thread-detail.tsx:293
+#: src/features/forums/thread-detail.tsx:305
 msgid "Failed to adjust interest"
 msgstr "ఆసక్తిని సర్దుబాటు చేయడంలో విఫలమైంది"
 
@@ -1269,7 +1286,7 @@ msgstr "ఆసక్తిని సర్దుబాటు చేయడంల�
 msgid "Failed to approve items"
 msgstr "అంశాలను ఆమోదించడంలో విఫలమైంది"
 
-#: src/features/forums/thread-detail.tsx:468
+#: src/features/forums/thread-detail.tsx:472
 msgid "Failed to ban user"
 msgstr "వినియోగదారుని నిషేధించడంలో విఫలమైంది"
 
@@ -1343,11 +1360,11 @@ msgstr "సమూహాలను లోడ్ చేయడంలో విఫల
 msgid "Failed to load history"
 msgstr "చరిత్రను లోడ్ చేయడంలో విఫలమైంది"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load image"
 msgstr "చిత్రాన్ని లోడ్ చేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Failed to load moderation log"
 msgstr "మోడరేషన్ లాగ్‌ను లోడ్ చేయడంలో విఫలమైంది"
 
@@ -1364,19 +1381,19 @@ msgstr "మోడరేషన్ సెట్టింగ్‌లను లో�
 msgid "Failed to load recommended forums"
 msgstr "సిఫార్సు చేసిన ఫోరమ్‌లను లోడ్ చేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:543
+#: src/routes/_authenticated/$forum_.moderation.tsx:550
 msgid "Failed to load reports"
 msgstr "నివేదికలను లోడ్ చేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:884
+#: src/routes/_authenticated/$forum_.moderation.tsx:891
 msgid "Failed to load restrictions"
 msgstr "పరిమితులను లోడ్ చేయడంలో విఫలమైంది"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load video"
 msgstr "వీడియోను లోడ్ చేయడంలో విఫలమైంది"
 
-#: src/features/forums/thread-detail.tsx:459
+#: src/features/forums/thread-detail.tsx:463
 msgid "Failed to mute user"
 msgstr "వినియోగదారుని మ్యూట్ చేయడంలో విఫలమైంది"
 
@@ -1401,11 +1418,11 @@ msgid "Failed to remove account"
 msgstr "ఖాతాను తీసివేయడంలో విఫలమైంది"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:313
+#: src/features/forums/thread-detail.tsx:317
 msgid "Failed to remove interest"
 msgstr "ఆసక్తిని తీసివేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:901
+#: src/routes/_authenticated/$forum_.moderation.tsx:908
 msgid "Failed to remove restriction"
 msgstr "పరిమితిని తీసివేయడంలో విఫలమైంది"
 
@@ -1421,7 +1438,7 @@ msgstr "ఫోరమ్ పేరు మార్చడంలో విఫలమ
 msgid "Failed to reset prompt"
 msgstr "ప్రాంప్ట్‌ను రీసెట్ చేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:567
 msgid "Failed to resolve report"
 msgstr "నివేదికను పరిష్కరించడంలో విఫలమైంది"
 
@@ -1535,7 +1552,7 @@ msgstr "ఫ్లోటింగ్"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:188
+#: src/features/forums/thread-detail.tsx:192
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ఫోరమ్"
@@ -1548,7 +1565,7 @@ msgstr "ఫోరమ్ సృష్టించబడింది"
 msgid "Forum deleted"
 msgstr "ఫోరమ్ తొలగించబడింది"
 
-#: src/hooks/use-forum-websocket.ts:72
+#: src/hooks/use-forum-websocket.ts:76
 msgid "Forum is no longer available"
 msgstr "ఫోరమ్ ఇకపై అందుబాటులో లేదు"
 
@@ -1648,12 +1665,12 @@ msgid "Group: {0}"
 msgstr "సమూహం: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Harassment"
 msgstr "వేధింపులు"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:747
+#: src/routes/_authenticated/$forum_.moderation.tsx:754
 msgid "Hate speech"
 msgstr "ద్వేషపూరిత ప్రసంగం"
 
@@ -1689,7 +1706,7 @@ msgid "Identity"
 msgstr "గుర్తింపు"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
 msgid "Image viewer: {0}"
 msgstr "చిత్ర వీక్షకం: {0}"
 
@@ -1713,16 +1730,16 @@ msgstr "{name} కోసం మొదటి అక్షరాల అవతా�
 msgid "Inset"
 msgstr "ఇన్‌సెట్"
 
-#: src/features/forums/thread-detail.tsx:287
+#: src/features/forums/thread-detail.tsx:291
 msgid "Interest boosted"
 msgstr "ఆసక్తి పెంచబడింది"
 
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:303
 msgid "Interest reduced"
 msgstr "ఆసక్తి తగ్గించబడింది"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:315
 msgid "Interest removed"
 msgstr "ఆసక్తి తీసివేయబడింది"
 
@@ -1808,11 +1825,11 @@ msgstr "కంటెంట్ లోడ్ అవుతోంది…"
 msgid "Loading..."
 msgstr "లోడ్ చేస్తోంది..."
 
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/features/forums/components/thread/thread-content.tsx:375
 msgid "Lock"
 msgstr "లాక్"
 
-#: src/features/forums/components/thread/thread-content.tsx:165
+#: src/features/forums/components/thread/thread-content.tsx:172
 msgid "Locked"
 msgstr "లాక్ చేయబడింది"
 
@@ -1890,7 +1907,7 @@ msgid "Minimum length"
 msgstr "కనిష్ట పొడవు"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:749
+#: src/routes/_authenticated/$forum_.moderation.tsx:756
 msgid "Misinformation"
 msgstr "తప్పుడు సమాచారం"
 
@@ -1923,23 +1940,23 @@ msgstr "సోమవారం"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:317
-#: src/features/forums/components/thread/thread-content.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:334
 msgid "More options"
 msgstr "మరిన్ని ఎంపికలు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:495
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Mute"
 msgstr "మ్యూట్"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:393
+#: src/features/forums/components/thread/thread-comment.tsx:521
+#: src/features/forums/components/thread/thread-content.tsx:403
 msgid "Mute author"
 msgstr "రచయితను మ్యూట్ చేయండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "muted"
 msgstr "మ్యూట్ చేయబడింది"
 
@@ -2000,8 +2017,8 @@ msgstr "కొత్త థ్రెడ్‌లు ఆమోదించబడ�
 msgid "New user threshold:"
 msgstr "కొత్త వినియోగదారు థ్రెషోల్డ్:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
 msgid "Next image"
 msgstr "తదుపరి చిత్రం"
 
@@ -2009,7 +2026,7 @@ msgstr "తదుపరి చిత్రం"
 msgid "No {parentClassNames} to add to"
 msgstr "జోడించడానికి {parentClassNames} లేదు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:640
+#: src/routes/_authenticated/$forum_.moderation.tsx:647
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} నివేదికలు కనుగొనబడలేదు"
 
@@ -2024,6 +2041,10 @@ msgstr "యాక్సెస్ నియమాలు ఏవీ కాన్ఫ
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "ఇంకా యాక్టివిటీ లేదు"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:66
+msgid "No comments on this image yet."
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2054,7 +2075,7 @@ msgstr "ఇంకా ఏ ఐటెం రకాలను సృష్టిం�
 msgid "No matching objects"
 msgstr "మ్యాచింగ్ ఆబ్జెక్ట్‌లు లేవు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:816
+#: src/routes/_authenticated/$forum_.moderation.tsx:823
 msgid "No moderation activity"
 msgstr "మోడరేషన్ యాక్టివిటీ లేదు"
 
@@ -2079,11 +2100,11 @@ msgstr "ఈ ఫోరంలో ఇంకా పోస్ట్‌లు లే�
 msgid "No profile"
 msgstr "ప్రొఫైల్ లేదు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:639
+#: src/routes/_authenticated/$forum_.moderation.tsx:646
 msgid "No reports"
 msgstr "రిపోర్ట్‌లు లేవు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:946
+#: src/routes/_authenticated/$forum_.moderation.tsx:953
 msgid "No restrictions"
 msgstr "పరిమితులు లేవు"
 
@@ -2120,7 +2141,7 @@ msgstr "చదవని నోటిఫికేషన్‌లు లేవు"
 msgid "No users found"
 msgstr "యూజర్‌లు ఎవరూ కనుగొనబడలేదు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:947
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "No users have been muted or banned"
 msgstr "ఏ యూజర్‌లూ మ్యూట్ లేదా బ్యాన్ చేయబడలేదు"
 
@@ -2185,13 +2206,22 @@ msgid "Number"
 msgstr "సంఖ్య"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:750
+#: src/routes/_authenticated/$forum_.moderation.tsx:757
 msgid "Off-topic"
 msgstr "విషయం వెలుపల"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "On"
 msgstr "ఆన్"
+
+#. placeholder {0}: comment.attachment_name
+#: src/routes/_authenticated/$forum_.moderation.tsx:445
+msgid "On image: {0}"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:290
+msgid "On this image"
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2261,7 +2291,7 @@ msgstr "ఆప్షన్‌లు"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/routes/_authenticated/$forum_.moderation.tsx:758
 msgid "Other"
 msgstr "ఇతర"
 
@@ -2295,12 +2325,12 @@ msgid "Pattern (regex)"
 msgstr "నమూనా (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "పెండింగ్"
 
-#: src/features/forums/components/thread/thread-content.tsx:153
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "ఆమోదం పెండింగ్‌లో"
 
@@ -2323,11 +2353,11 @@ msgstr "ఫోటోలు మరియు వీడియోలు"
 msgid "Pick a date"
 msgstr "తేదీని ఎంచుకోండి"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:388
 msgid "Pin"
 msgstr "పిన్"
 
-#: src/features/forums/components/thread/thread-content.tsx:171
+#: src/features/forums/components/thread/thread-content.tsx:178
 msgid "Pinned"
 msgstr "పిన్ చేయబడింది"
 
@@ -2341,11 +2371,11 @@ msgstr "దయచేసి మీ ఇంటర్నెట్ కనెక్ష
 msgid "Please describe the issue..."
 msgstr "దయచేసి సమస్యను వివరించండి..."
 
-#: src/features/forums/thread-detail.tsx:321
+#: src/features/forums/thread-detail.tsx:325
 msgid "Please enter a comment"
 msgstr "కామెంట్ ఎంటర్ చేయండి"
 
-#: src/features/forums/thread-detail.tsx:345
+#: src/features/forums/thread-detail.tsx:349
 msgid "Please enter a reply"
 msgstr "రిప్లై ఎంటర్ చేయండి"
 
@@ -2361,11 +2391,11 @@ msgstr "దయచేసి మళ్లీ ప్రయత్నించండ�
 msgid "Please wait a moment and try again."
 msgstr "కాసేపు వేచి ఉండి, మళ్లీ ప్రయత్నించండి."
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:72
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "పోస్ట్‌ను సేవ్ చేయలేకపోయాము — శీర్షిక లేదా కంటెంట్ చెల్లదు"
 
-#: src/hooks/use-forum-websocket.ts:75
+#: src/hooks/use-forum-websocket.ts:79
 msgid "Post couldn't be saved on the forum server"
 msgstr "ఫోరమ్ సర్వర్‌లో పోస్ట్‌ను సేవ్ చేయలేకపోయాము"
 
@@ -2437,8 +2467,8 @@ msgstr "ప్రీ-మోడరేషన్"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "యూజర్‌లు ఎంత తరచుగా పోస్ట్ చేయగలరో పరిమితం చేయడం ద్వారా స్పామ్‌ను నిరోధించండి"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
 msgid "Previous image"
 msgstr "మునుపటి చిత్రం"
 
@@ -2495,12 +2525,12 @@ msgstr "ఈ సర్వర్‌లో మీ ఖాతాలను మళ్�
 msgid "Re-register your passkeys on this server"
 msgstr "ఈ సర్వర్‌లో మీ పాస్‌కీలను మళ్లీ నమోదు చేయండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:689
+#: src/routes/_authenticated/$forum_.moderation.tsx:696
 msgid "Reason:"
 msgstr "కారణం:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:852
+#: src/routes/_authenticated/$forum_.moderation.tsx:859
 msgid "Reason: {0}"
 msgstr "కారణం: {0}"
 
@@ -2526,7 +2556,7 @@ msgstr "లాగిన్‌కు రీడైరెక్ట్ చేస్�
 msgid "Reduce interest"
 msgstr "ఆసక్తిని తగ్గించండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:469
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Reject"
 msgstr "తిరస్కరించండి"
 
@@ -2552,12 +2582,12 @@ msgstr "24 గంటల్లో సాపేక్ష, లేకపోతే �
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:430
-#: src/routes/_authenticated/$forum_.moderation.tsx:719
-#: src/routes/_authenticated/$forum_.moderation.tsx:1009
+#: src/features/forums/components/thread/thread-comment.tsx:502
+#: src/features/forums/components/thread/thread-comment.tsx:560
+#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/routes/_authenticated/$forum_.moderation.tsx:726
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
 msgstr "తొలగించండి"
 
@@ -2581,7 +2611,7 @@ msgstr "\"{0}\" కోసం యాక్సెస్ నియమాన్న�
 msgid "Remove access?"
 msgstr "యాక్సెస్‌ను తొలగించాలా?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:558
 msgid "Remove comment"
 msgstr "కామెంట్‌ను తొలగించండి"
 
@@ -2604,7 +2634,7 @@ msgstr "ఐటెంను తొలగించండి"
 msgid "Remove link"
 msgstr "లింక్‌ను తీసివేయి"
 
-#: src/features/forums/components/thread/thread-content.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:438
 msgid "Remove post"
 msgstr "పోస్ట్‌ను తొలగించండి"
 
@@ -2613,8 +2643,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "ఈ ఫోరంను మీ సైడ్‌బార్ నుండి తొలగించండి."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:159
+#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "తొలగించబడింది"
 
@@ -2653,22 +2683,22 @@ msgstr "రిప్లైలు ఆమోదించబడాలి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:296
-#: src/features/forums/components/thread/thread-content.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-content.tsx:315
 msgid "Reply"
 msgstr "రిప్లై"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:582
 msgid "Reply to {0}..."
 msgstr "{0} కి ప్రత్యుత్తరం..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:386
+#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-content.tsx:396
 msgid "Report"
 msgstr "రిపోర్ట్"
 
@@ -2680,7 +2710,7 @@ msgstr "వ్యాఖ్య నివేదించండి"
 msgid "Report post"
 msgstr "పోస్ట్ నివేదించండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:557
+#: src/routes/_authenticated/$forum_.moderation.tsx:564
 msgid "Report resolved"
 msgstr "రిపోర్ట్ పరిష్కరించబడింది"
 
@@ -2690,7 +2720,7 @@ msgid "Report submitted"
 msgstr "రిపోర్ట్ సమర్పించబడింది"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:697
+#: src/routes/_authenticated/$forum_.moderation.tsx:704
 msgid "Reported by {0}"
 msgstr "{0} నివేదించారు"
 
@@ -2736,16 +2766,16 @@ msgstr "{title} రీసెట్ చేయండి"
 msgid "Reset all settings to default values"
 msgstr "అన్ని సెట్టింగ్‌లను డిఫాల్ట్ విలువలకు రీసెట్ చేయండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Resolved"
 msgstr "పరిష్కరించబడింది"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-content.tsx:356
 msgid "Restore"
 msgstr "పునరుద్ధరించండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:898
+#: src/routes/_authenticated/$forum_.moderation.tsx:905
 msgid "Restriction removed"
 msgstr "నిషేధం తీసివేయబడింది"
 
@@ -2811,7 +2841,7 @@ msgstr "శనివారం"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:358
 #: src/routes/_authenticated/$forum_.settings.tsx:492
 #: src/routes/_authenticated/$forum_.settings.tsx:724
 msgid "Save"
@@ -2958,7 +2988,7 @@ msgstr "ఖాతాను ఎంచుకోండి"
 msgid "Select account type"
 msgstr "ఖాతా రకాన్ని ఎంచుకోండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select all"
 msgstr "అన్నీ ఎంచుకోండి"
 
@@ -2978,7 +3008,7 @@ msgstr "స్థానాన్ని ఎంచుకోండి"
 msgid "Select next card"
 msgstr "తదుపరి కార్డును ఎంచుకోండి"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select none"
 msgstr "ఏదీ ఎంచుకోవద్దు"
 
@@ -3069,6 +3099,10 @@ msgstr "క్లాస్‌లను చూపించు"
 msgid "Show fields"
 msgstr "ఫీల్డ్‌లను చూపించు"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:90
+msgid "Show only comments on this image"
+msgstr ""
+
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
 msgstr "పాస్‌వర్డ్‌ను చూపు"
@@ -3123,7 +3157,7 @@ msgid "Spacious"
 msgstr "విశాలమైన"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:745
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Spam"
 msgstr "స్పామ్"
 
@@ -3146,10 +3180,10 @@ msgstr "వ్యాఖ్యను సమర్పించండి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:622
-#: src/features/forums/components/thread/thread-comment.tsx:631
-#: src/features/forums/thread-detail.tsx:622
-#: src/features/forums/thread-detail.tsx:631
+#: src/features/forums/components/thread/thread-comment.tsx:656
+#: src/features/forums/components/thread/thread-comment.tsx:665
+#: src/features/forums/thread-detail.tsx:640
+#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "ప్రత్యుత్తరాన్ని సమర్పించండి"
 
@@ -3281,7 +3315,7 @@ msgstr "థీమ్"
 msgid "Theme Settings"
 msgstr "థీమ్ సెట్టింగ్‌లు"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:817
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "There are no moderation actions recorded yet"
 msgstr "ఇంకా ఏ మోడరేషన్ చర్యలు రికార్డ్ చేయబడలేదు"
 
@@ -3301,7 +3335,7 @@ msgstr "ఈ పేజీ ఇంకా సృష్టించబడలేదు
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ఈ పోస్ట్ తొలగించబడి ఉండవచ్చు లేదా ఉనికిలో లేదు."
 
-#: src/hooks/use-forum-websocket.ts:70
+#: src/hooks/use-forum-websocket.ts:74
 msgid "This post was already submitted"
 msgstr "ఈ పోస్ట్ ఇప్పటికే సమర్పించబడింది"
 
@@ -3309,11 +3343,11 @@ msgstr "ఈ పోస్ట్ ఇప్పటికే సమర్పించ
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "ఇది మీ సేవ్ చేసిన జాబితా నుండి ప్రతి పోస్ట్‌ను తీసివేస్తుంది. దీన్ని రద్దు చేయడం సాధ్యం కాదు."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:559
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "ఇది సాధారణ వినియోగదారుల నుండి వ్యాఖ్యను దాచిపెడుతుంది. మోడరేటర్లు ఇప్పటికీ దానిని చూడవచ్చు మరియు తర్వాత పునరుద్ధరించవచ్చు."
 
-#: src/features/forums/components/thread/thread-content.tsx:429
+#: src/features/forums/components/thread/thread-content.tsx:439
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "ఇది సాధారణ వినియోగదారుల నుండి పోస్ట్‌ను దాచిపెడుతుంది. మోడరేటర్లు ఇప్పటికీ దానిని చూడవచ్చు మరియు తర్వాత పునరుద్ధరించవచ్చు."
 
@@ -3322,7 +3356,7 @@ msgstr "ఇది సాధారణ వినియోగదారుల ను
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "ఇది \"{0}\" మరియు దాని అన్ని పోస్ట్‌లు మరియు వ్యాఖ్యలను శాశ్వతంగా తొలగిస్తుంది. ఈ చర్యను రద్దు చేయలేరు."
 
-#: src/features/forums/thread-detail.tsx:183
+#: src/features/forums/thread-detail.tsx:187
 msgid "Thread"
 msgstr "థ్రెడ్"
 
@@ -3468,15 +3502,15 @@ msgstr "యునైటెడ్ స్టేట్స్"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "Unknown"
 msgstr "తెలియదు"
 
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:369
 msgid "Unlock"
 msgstr "అన్‌లాక్ చేయండి"
 
-#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:382
 msgid "Unpin"
 msgstr "అన్‌పిన్ చేయండి"
 
@@ -3538,11 +3572,11 @@ msgstr "మీ పాస్‌కీని ఉపయోగించండి"
 msgid "User"
 msgstr "యూజర్"
 
-#: src/features/forums/thread-detail.tsx:466
+#: src/features/forums/thread-detail.tsx:470
 msgid "User banned"
 msgstr "యూజర్‌ను నిషేధించారు"
 
-#: src/features/forums/thread-detail.tsx:457
+#: src/features/forums/thread-detail.tsx:461
 msgid "User muted"
 msgstr "యూజర్ మ్యూట్ చేయబడ్డారు"
 
@@ -3572,12 +3606,12 @@ msgstr "ధృవీకరించండి"
 msgid "Verify email address"
 msgstr "ఇమెయిల్ చిరునామాను ధృవీకరించండి"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:85
+#: ../../../lib/web/src/components/attachment-gallery.tsx:94
 msgid "Video thumbnail"
 msgstr "వీడియో థంబ్‌నెయిల్"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Video viewer: {0}"
 msgstr "వీడియో వీక్షకం: {0}"
 
@@ -3602,8 +3636,12 @@ msgstr "కంట్రోల్‌లను వీక్షించండి"
 msgid "View only"
 msgstr "వీక్షణ మాత్రమే"
 
+#: src/features/forums/components/thread/thread-comment.tsx:291
+msgid "View the image this comment is about"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:748
+#: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "హింస"
 
@@ -3652,11 +3690,11 @@ msgstr "విండో వ్యవధి"
 msgid "You are already subscribed to this forum"
 msgstr "మీరు ఇప్పటికే ఈ ఫోరమ్‌కు చందా చేరారు"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:70
 msgid "You are posting too quickly — please wait and try again"
 msgstr "మీరు చాలా వేగంగా పోస్ట్ చేస్తున్నారు — దయచేసి వేచి ఉండి మళ్లీ ప్రయత్నించండి"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:68
 msgid "You are restricted from posting in this forum"
 msgstr "ఈ ఫోరమ్‌లో పోస్ట్ చేయడం నుండి మీరు పరిమితం చేయబడ్డారు"
 
@@ -3668,7 +3706,7 @@ msgstr "ఈ విభాగానికి మీకు యాక్సెస్
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "ఈ వనరును వీక్షించడానికి <0/>మీకు అవసరమైన అనుమతి లేదు."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:66
 msgid "You don't have permission to post in this forum"
 msgstr "ఈ ఫోరమ్‌లో పోస్ట్ చేయడానికి మీకు అనుమతి లేదు"
 

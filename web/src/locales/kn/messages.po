@@ -19,15 +19,15 @@ msgid "Please check your internet connection and try again."
 msgstr "ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:995
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid " · Expires {0}"
 msgstr " · ಅವಧಿ ಮುಗಿಯುತ್ತದೆ {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:996
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid " · Permanent"
 msgstr " · ಶಾಶ್ವತ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:269
+#: src/features/forums/components/thread/thread-comment.tsx:280
 msgid " (edited)"
 msgstr " (ಸಂಪಾದಿಸಲಾಗಿದೆ)"
 
@@ -55,7 +55,7 @@ msgstr "{0, plural, one {# ಹೊಸ ಪೋಸ್ಟ್} other {# ಹೊಸ ಪ�
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #. placeholder {0}: selectedValues.size
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:516
+#: src/routes/_authenticated/$forum_.moderation.tsx:523
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ} other {# ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ}}"
 
@@ -116,6 +116,10 @@ msgstr "{entityLabel} ಹೆಸರು ಅಗತ್ಯವಿದೆ"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ಡ್ರಾ ನೀಡಿದರು"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:92
+msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {{entityName} ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ} other {{manyName} ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ}}"
@@ -141,7 +145,7 @@ msgstr "{totalLabel}ರಲ್ಲಿ {sentLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# ಐಟಂ} other {# ಐಟಂಗಳು}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:255
+#: src/features/forums/components/thread/thread-comment.tsx:266
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# ಪ್ರತ್ಯುತ್ತರ} other {# ಪ್ರತ್ಯುತ್ತರಗಳು}}"
 
@@ -345,7 +349,7 @@ msgid "AI actions on posts"
 msgstr "ಪೋಸ್ಟ್‌ಗಳ ಮೇಲೆ AI ಕ್ರಿಯೆಗಳು"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "All"
 msgstr "ಎಲ್ಲಾ"
 
@@ -400,8 +404,8 @@ msgstr "ಲಾಗಿನ್ ಆಗಿರುವ ಯಾರಾದರೂ"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "ಈ ಫೀಡ್‌ಗೆ ಚಂದಾದಾರರಾದ ಎಲ್ಲವೂ ಅದನ್ನು ಸ್ವೀಕರಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ. ನಂತರ ನೀವು ಹೊಸ URL ಅನ್ನು ನಕಲಿಸಬಹುದು."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:481
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "ಅನುಮೋದಿಸಿ"
 
@@ -418,11 +422,11 @@ msgstr "\"{name}\" ಕಾಲಮ್ ಅನ್ನು ಅಳಿಸಲು ನೀವ�
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "ಈ ಕಾಮೆಂಟ್ ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಇದು ಎಲ್ಲಾ ಪ್ರತ್ಯುತ್ತರಗಳನ್ನು ಸಹ ಅಳಿಸುತ್ತದೆ."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:545
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "ಈ ಕಾಮೆಂಟ್ ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಇದು ಎಲ್ಲಾ ಪ್ರತ್ಯುತ್ತರಗಳನ್ನು ಸಹ ಅಳಿಸುತ್ತದೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-content.tsx:425
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "ಈ ಪೋಸ್ಟ್ ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿರುವಿರಾ? ಇದು ಎಲ್ಲಾ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಸಹ ಅಳಿಸುತ್ತದೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ."
 
@@ -445,10 +449,10 @@ msgstr "ಕಾಮೆಂಟ್ ಫೈಲ್‌ಗಳನ್ನು ಲಗತ್ತ�
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:592
-#: src/features/forums/components/thread/thread-comment.tsx:596
-#: src/features/forums/thread-detail.tsx:591
-#: src/features/forums/thread-detail.tsx:595
+#: src/features/forums/components/thread/thread-comment.tsx:626
+#: src/features/forums/components/thread/thread-comment.tsx:630
+#: src/features/forums/thread-detail.tsx:609
+#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "ಪ್ರತ್ಯುತ್ತರ ಫೈಲ್‌ಗಳನ್ನು ಲಗತ್ತಿಸಿ"
 
@@ -478,10 +482,10 @@ msgid "Back"
 msgstr "ಹಿಂದೆ"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:368
-#: src/features/forums/thread-detail.tsx:380
-#: src/features/forums/thread-detail.tsx:401
-#: src/features/forums/thread-detail.tsx:476
+#: src/features/forums/thread-detail.tsx:372
+#: src/features/forums/thread-detail.tsx:384
+#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -499,16 +503,16 @@ msgstr "ಫೋರಮ್‌ಗಳಿಗೆ ಹಿಂದೆ"
 msgid "Back to home"
 msgstr "ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:507
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Ban"
 msgstr "ನಿಷೇಧಿಸಿ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:529
+#: src/features/forums/components/thread/thread-content.tsx:409
 msgid "Ban author"
 msgstr "ಲೇಖಕರನ್ನು ನಿಷೇಧಿಸಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "banned"
 msgstr "ನಿಷೇಧಿಸಲಾಗಿದೆ"
 
@@ -557,12 +561,12 @@ msgid "Browser notifications"
 msgstr "ಬ್ರೌಸರ್ ಅಧಿಸೂಚನೆಗಳು"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "by {0}"
 msgstr "{0} ಮೂಲಕ"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:993
+#: src/routes/_authenticated/$forum_.moderation.tsx:1000
 msgid "By {0}"
 msgstr "{0} ಮೂಲಕ"
 
@@ -583,7 +587,7 @@ msgstr "{0} ಮೂಲಕ"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:338
 msgid "Cancel"
 msgstr "ರದ್ದುಮಾಡಿ"
 
@@ -594,10 +598,10 @@ msgstr "ಕಾಮೆಂಟ್ ರದ್ದುಮಾಡಿ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:607
-#: src/features/forums/components/thread/thread-comment.tsx:612
-#: src/features/forums/thread-detail.tsx:605
-#: src/features/forums/thread-detail.tsx:611
+#: src/features/forums/components/thread/thread-comment.tsx:641
+#: src/features/forums/components/thread/thread-comment.tsx:646
+#: src/features/forums/thread-detail.tsx:623
+#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "ಪ್ರತ್ಯುತ್ತರ ರದ್ದುಮಾಡಿ"
 
@@ -701,8 +705,8 @@ msgstr "ಉಳಿಸಿದ ಪೋಸ್ಟ್‌ಗಳನ್ನು ತೆರವ�
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "ಮುಚ್ಚಿ"
@@ -768,6 +772,10 @@ msgstr "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ!"
 msgid "Command Palette"
 msgstr "ಆಜ್ಞಾ ಪ್ಯಾಲೆಟ್"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:119
+msgid "Comment"
+msgstr "ಕಾಮೆಂಟ್"
+
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -784,6 +792,10 @@ msgstr "ಕಾಮೆಂಟ್ ಅಳಿಸಲಾಗಿದೆ"
 #: src/routes/_authenticated/$forum_.settings.tsx:1068
 msgid "Comment limit"
 msgstr "ಕಾಮೆಂಟ್ ಮಿತಿ"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:103
+msgid "Comment on this image…"
+msgstr ""
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -804,6 +816,11 @@ msgstr "ಕಾಮೆಂಟ್ ನವೀಕರಿಸಲಾಗಿದೆ"
 #: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Comment, vote, and view"
 msgstr "ಕಾಮೆಂಟ್, ಮತ ಮತ್ತು ವೀಕ್ಷಣೆ"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+msgid "Comments"
+msgstr "ಕಾಮೆಂಟ್‌ಗಳು"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
@@ -1006,10 +1023,10 @@ msgstr "ಡೀಫಾಲ್ಟ್ ವಿಂಗಡಣೆ"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:336
-#: src/features/forums/components/thread/thread-content.tsx:416
+#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:426
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "ಅಳಿಸಿ"
@@ -1023,7 +1040,7 @@ msgid "Delete column"
 msgstr "ಕಾಲಮ್ ಅಳಿಸಿ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:544
 msgid "Delete comment"
 msgstr "ಕಾಮೆಂಟ್ ಅಳಿಸಿ"
 
@@ -1050,7 +1067,7 @@ msgstr "ಆಯ್ಕೆ ಅಳಿಸಿ"
 msgid "Delete option {0}"
 msgstr "ಆಯ್ಕೆ {0} ಅಳಿಸಿ"
 
-#: src/features/forums/components/thread/thread-content.tsx:414
+#: src/features/forums/components/thread/thread-content.tsx:424
 msgid "Delete post"
 msgstr "ಪೋಸ್ಟ್ ಅಳಿಸಿ"
 
@@ -1124,7 +1141,7 @@ msgstr "ಸಂಪರ್ಕ ಕಡಿತಗೊಂಡಿದೆ"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:94
 #: ../../../lib/web/src/components/restore-banner.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:708
+#: src/routes/_authenticated/$forum_.moderation.tsx:715
 msgid "Dismiss"
 msgstr "ತಿರಸ್ಕರಿಸಿ"
 
@@ -1143,12 +1160,12 @@ msgid "Done"
 msgstr "ಮುಗಿಯಿತು"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Download"
 msgstr "ಡೌನ್‌ಲೋಡ್"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
 msgid "Download failed"
 msgstr "ಡೌನ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ"
 
@@ -1162,8 +1179,8 @@ msgstr "ಡಿಸ್ಲೆಕ್ಸಿಯಾ-ಸ್ನೇಹಿ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:330
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Edit"
 msgstr "ಸಂಪಾದಿಸಿ"
 
@@ -1254,14 +1271,14 @@ msgid "Failed to add account"
 msgstr "ಖಾತೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:278
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to add tag"
 msgstr "ಟ್ಯಾಗ್ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:289
-#: src/features/forums/thread-detail.tsx:301
+#: src/features/forums/thread-detail.tsx:293
+#: src/features/forums/thread-detail.tsx:305
 msgid "Failed to adjust interest"
 msgstr "ಆಸಕ್ತಿ ಹೊಂದಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1269,7 +1286,7 @@ msgstr "ಆಸಕ್ತಿ ಹೊಂದಿಸಲು ವಿಫಲವಾಗಿದ�
 msgid "Failed to approve items"
 msgstr "ಐಟಂಗಳನ್ನು ಅನುಮೋದಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/features/forums/thread-detail.tsx:468
+#: src/features/forums/thread-detail.tsx:472
 msgid "Failed to ban user"
 msgstr "ಬಳಕೆದಾರರನ್ನು ನಿಷೇಧಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1343,11 +1360,11 @@ msgstr "ಗುಂಪುಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫ
 msgid "Failed to load history"
 msgstr "ಇತಿಹಾಸ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load image"
 msgstr "ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Failed to load moderation log"
 msgstr "ಮಾಡರೇಶನ್ ಲಾಗ್ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1364,19 +1381,19 @@ msgstr "ಮಾಡರೇಶನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನ�
 msgid "Failed to load recommended forums"
 msgstr "ಶಿಫಾರಸು ಮಾಡಿದ ವೇದಿಕೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:543
+#: src/routes/_authenticated/$forum_.moderation.tsx:550
 msgid "Failed to load reports"
 msgstr "ರಿಪೋರ್ಟ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:884
+#: src/routes/_authenticated/$forum_.moderation.tsx:891
 msgid "Failed to load restrictions"
 msgstr "ನಿರ್ಬಂಧಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load video"
 msgstr "ವೀಡಿಯೊ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/features/forums/thread-detail.tsx:459
+#: src/features/forums/thread-detail.tsx:463
 msgid "Failed to mute user"
 msgstr "ಬಳಕೆದಾರರನ್ನು ಮ್ಯೂಟ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1401,11 +1418,11 @@ msgid "Failed to remove account"
 msgstr "ಖಾತೆ ತೆಗೆದುಹಾಕಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:313
+#: src/features/forums/thread-detail.tsx:317
 msgid "Failed to remove interest"
 msgstr "ಆಸಕ್ತಿ ತೆಗೆದುಹಾಕಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:901
+#: src/routes/_authenticated/$forum_.moderation.tsx:908
 msgid "Failed to remove restriction"
 msgstr "ನಿರ್ಬಂಧ ತೆಗೆದುಹಾಕಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1421,7 +1438,7 @@ msgstr "ಫೋರಮ್ ಮರುಹೆಸರಿಸಲು ವಿಫಲವಾಗ�
 msgid "Failed to reset prompt"
 msgstr "ಪ್ರಾಂಪ್ಟ್ ಮರುಹೊಂದಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:567
 msgid "Failed to resolve report"
 msgstr "ರಿಪೋರ್ಟ್ ಪರಿಹರಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1535,7 +1552,7 @@ msgstr "ಫ್ಲೋಟಿಂಗ್"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:188
+#: src/features/forums/thread-detail.tsx:192
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ಫೋರಮ್"
@@ -1548,7 +1565,7 @@ msgstr "ಫೋರಮ್ ರಚಿಸಲಾಗಿದೆ"
 msgid "Forum deleted"
 msgstr "ಫೋರಮ್ ಅಳಿಸಲಾಗಿದೆ"
 
-#: src/hooks/use-forum-websocket.ts:72
+#: src/hooks/use-forum-websocket.ts:76
 msgid "Forum is no longer available"
 msgstr "ವೇದಿಕೆ ಇನ್ನು ಲಭ್ಯವಿಲ್ಲ"
 
@@ -1648,12 +1665,12 @@ msgid "Group: {0}"
 msgstr "ಗುಂಪು: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Harassment"
 msgstr "ಕಿರುಕುಳ"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:747
+#: src/routes/_authenticated/$forum_.moderation.tsx:754
 msgid "Hate speech"
 msgstr "ದ್ವೇಷ ಭಾಷಣ"
 
@@ -1689,7 +1706,7 @@ msgid "Identity"
 msgstr "ಗುರುತು"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
 msgid "Image viewer: {0}"
 msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ: {0}"
 
@@ -1713,16 +1730,16 @@ msgstr "{name} ಗಾಗಿ ಆದ್ಯಕ್ಷರ ಅವತಾರ್"
 msgid "Inset"
 msgstr "ಇನ್‌ಸೆಟ್"
 
-#: src/features/forums/thread-detail.tsx:287
+#: src/features/forums/thread-detail.tsx:291
 msgid "Interest boosted"
 msgstr "ಆಸಕ್ತಿ ಬೂಸ್ಟ್ ಮಾಡಲಾಗಿದೆ"
 
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:303
 msgid "Interest reduced"
 msgstr "ಆಸಕ್ತಿ ಕಡಿಮೆ ಮಾಡಲಾಗಿದೆ"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:315
 msgid "Interest removed"
 msgstr "ಆಸಕ್ತಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 
@@ -1808,11 +1825,11 @@ msgstr "ವಿಷಯ ಲೋಡ್ ಆಗುತ್ತಿದೆ…"
 msgid "Loading..."
 msgstr "ಲೋಡ್ ಆಗುತ್ತಿದೆ..."
 
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/features/forums/components/thread/thread-content.tsx:375
 msgid "Lock"
 msgstr "ಲಾಕ್"
 
-#: src/features/forums/components/thread/thread-content.tsx:165
+#: src/features/forums/components/thread/thread-content.tsx:172
 msgid "Locked"
 msgstr "ಲಾಕ್ ಮಾಡಲಾಗಿದೆ"
 
@@ -1890,7 +1907,7 @@ msgid "Minimum length"
 msgstr "ಕನಿಷ್ಠ ಉದ್ದ"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:749
+#: src/routes/_authenticated/$forum_.moderation.tsx:756
 msgid "Misinformation"
 msgstr "ತಪ್ಪು ಮಾಹಿತಿ"
 
@@ -1923,23 +1940,23 @@ msgstr "ಸೋಮವಾರ"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:317
-#: src/features/forums/components/thread/thread-content.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:334
 msgid "More options"
 msgstr "ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳು"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:495
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Mute"
 msgstr "ಮ್ಯೂಟ್"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:393
+#: src/features/forums/components/thread/thread-comment.tsx:521
+#: src/features/forums/components/thread/thread-content.tsx:403
 msgid "Mute author"
 msgstr "ಲೇಖಕರನ್ನು ಮ್ಯೂಟ್ ಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "muted"
 msgstr "ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"
 
@@ -2000,8 +2017,8 @@ msgstr "ಹೊಸ ಥ್ರೆಡ್‌ಗಳಿಗೆ ಅನುಮೋದನೆ 
 msgid "New user threshold:"
 msgstr "ಹೊಸ ಬಳಕೆದಾರರ ಮಿತಿ:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
 msgid "Next image"
 msgstr "ಮುಂದಿನ ಚಿತ್ರ"
 
@@ -2009,7 +2026,7 @@ msgstr "ಮುಂದಿನ ಚಿತ್ರ"
 msgid "No {parentClassNames} to add to"
 msgstr "ಸೇರಿಸಲು {parentClassNames} ಇಲ್ಲ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:640
+#: src/routes/_authenticated/$forum_.moderation.tsx:647
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} ವರದಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
 
@@ -2024,6 +2041,10 @@ msgstr "ಯಾವುದೇ ಪ್ರವೇಶ ನಿಯಮಗಳನ್ನು ಕ
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "ಇನ್ನೂ ಯಾವುದೇ ಚಟುವಟಿಕೆ ಇಲ್ಲ"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:66
+msgid "No comments on this image yet."
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2054,7 +2075,7 @@ msgstr "ಇನ್ನೂ ಯಾವುದೇ ಐಟಂ ಪ್ರಕಾರಗಳನ
 msgid "No matching objects"
 msgstr "ಯಾವುದೇ ಹೊಂದಾಣಿಕೆಯ ಆಬ್ಜೆಕ್ಟ್‌ಗಳಿಲ್ಲ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:816
+#: src/routes/_authenticated/$forum_.moderation.tsx:823
 msgid "No moderation activity"
 msgstr "ಯಾವುದೇ ಮಾಡರೇಶನ್ ಚಟುವಟಿಕೆ ಇಲ್ಲ"
 
@@ -2079,11 +2100,11 @@ msgstr "ಈ ಫೋರಮ್‌ನಲ್ಲಿ ಇನ್ನೂ ಯಾವುದೇ
 msgid "No profile"
 msgstr "ಯಾವುದೇ ಪ್ರೊಫೈಲ್ ಇಲ್ಲ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:639
+#: src/routes/_authenticated/$forum_.moderation.tsx:646
 msgid "No reports"
 msgstr "ಯಾವುದೇ ರಿಪೋರ್ಟ್‌ಗಳಿಲ್ಲ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:946
+#: src/routes/_authenticated/$forum_.moderation.tsx:953
 msgid "No restrictions"
 msgstr "ಯಾವುದೇ ನಿರ್ಬಂಧಗಳಿಲ್ಲ"
 
@@ -2120,7 +2141,7 @@ msgstr "ಯಾವುದೇ ಓದದ ನೋಟಿಫಿಕೇಶನ್‌ಗಳ�
 msgid "No users found"
 msgstr "ಯಾವುದೇ ಬಳಕೆದಾರರು ಸಿಗಲಿಲ್ಲ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:947
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "No users have been muted or banned"
 msgstr "ಯಾವುದೇ ಬಳಕೆದಾರರನ್ನು ಮ್ಯೂಟ್ ಅಥವಾ ಬ್ಯಾನ್ ಮಾಡಿಲ್ಲ"
 
@@ -2185,13 +2206,22 @@ msgid "Number"
 msgstr "ಸಂಖ್ಯೆ"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:750
+#: src/routes/_authenticated/$forum_.moderation.tsx:757
 msgid "Off-topic"
 msgstr "ವಿಷಯದಿಂದ ಹೊರಗೆ"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "On"
 msgstr "ಆನ್"
+
+#. placeholder {0}: comment.attachment_name
+#: src/routes/_authenticated/$forum_.moderation.tsx:445
+msgid "On image: {0}"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:290
+msgid "On this image"
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2261,7 +2291,7 @@ msgstr "ಆಯ್ಕೆಗಳು"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/routes/_authenticated/$forum_.moderation.tsx:758
 msgid "Other"
 msgstr "ಇತರ"
 
@@ -2295,12 +2325,12 @@ msgid "Pattern (regex)"
 msgstr "ಮಾದರಿ (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "ಬಾಕಿ ಇದೆ"
 
-#: src/features/forums/components/thread/thread-content.tsx:153
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "ಅನುಮೋದನೆ ಬಾಕಿ ಇದೆ"
 
@@ -2323,11 +2353,11 @@ msgstr "ಫೋಟೋಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳು"
 msgid "Pick a date"
 msgstr "ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:388
 msgid "Pin"
 msgstr "ಪಿನ್"
 
-#: src/features/forums/components/thread/thread-content.tsx:171
+#: src/features/forums/components/thread/thread-content.tsx:178
 msgid "Pinned"
 msgstr "ಪಿನ್ ಮಾಡಲಾಗಿದೆ"
 
@@ -2341,11 +2371,11 @@ msgstr "ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್�
 msgid "Please describe the issue..."
 msgstr "ದಯವಿಟ್ಟು ಸಮಸ್ಯೆಯನ್ನು ವಿವರಿಸಿ..."
 
-#: src/features/forums/thread-detail.tsx:321
+#: src/features/forums/thread-detail.tsx:325
 msgid "Please enter a comment"
 msgstr "ದಯವಿಟ್ಟು ಕಾಮೆಂಟ್ ನಮೂದಿಸಿ"
 
-#: src/features/forums/thread-detail.tsx:345
+#: src/features/forums/thread-detail.tsx:349
 msgid "Please enter a reply"
 msgstr "ದಯವಿಟ್ಟು ರಿಪ್ಲೈ ನಮೂದಿಸಿ"
 
@@ -2361,11 +2391,11 @@ msgstr "ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.
 msgid "Please wait a moment and try again."
 msgstr "ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯ ನಿರೀಕ್ಷಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:72
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "ಪೋಸ್ಟ್ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ — ಶೀರ್ಷಿಕೆ ಅಥವಾ ವಿಷಯ ಮಾನ್ಯವಲ್ಲ"
 
-#: src/hooks/use-forum-websocket.ts:75
+#: src/hooks/use-forum-websocket.ts:79
 msgid "Post couldn't be saved on the forum server"
 msgstr "ವೇದಿಕೆ ಸರ್ವರ್‌ನಲ್ಲಿ ಪೋಸ್ಟ್ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
 
@@ -2437,8 +2467,8 @@ msgstr "ಪ್ರೀ-ಮಾಡರೇಶನ್"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "ಬಳಕೆದಾರರು ಎಷ್ಟು ಬಾರಿ ಪೋಸ್ಟ್ ಮಾಡಬಹುದು ಎಂಬುದನ್ನು ಮಿತಿಗೊಳಿಸಿ ಸ್ಪ್ಯಾಮ್ ತಡೆಗಟ್ಟಿ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
 msgid "Previous image"
 msgstr "ಹಿಂದಿನ ಚಿತ್ರ"
 
@@ -2495,12 +2525,12 @@ msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಖಾತೆಗ
 msgid "Re-register your passkeys on this server"
 msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಪಾಸ್‌ಕೀಗಳನ್ನು ಮರು-ನೋಂದಣಿ ಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:689
+#: src/routes/_authenticated/$forum_.moderation.tsx:696
 msgid "Reason:"
 msgstr "ಕಾರಣ:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:852
+#: src/routes/_authenticated/$forum_.moderation.tsx:859
 msgid "Reason: {0}"
 msgstr "ಕಾರಣ: {0}"
 
@@ -2526,7 +2556,7 @@ msgstr "ಲಾಗಿನ್‌ಗೆ ರಿಡೈರೆಕ್ಟ್ ಮಾಡಲ�
 msgid "Reduce interest"
 msgstr "ಆಸಕ್ತಿ ಕಡಿಮೆಗೊಳಿಸಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:469
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Reject"
 msgstr "ತಿರಸ್ಕರಿಸಿ"
 
@@ -2552,12 +2582,12 @@ msgstr "24 ಗಂಟೆಗಳ ಒಳಗೆ ಸಾಪೇಕ್ಷ, ಇಲ್ಲ�
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:430
-#: src/routes/_authenticated/$forum_.moderation.tsx:719
-#: src/routes/_authenticated/$forum_.moderation.tsx:1009
+#: src/features/forums/components/thread/thread-comment.tsx:502
+#: src/features/forums/components/thread/thread-comment.tsx:560
+#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/routes/_authenticated/$forum_.moderation.tsx:726
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
 msgstr "ತೆಗೆದುಹಾಕಿ"
 
@@ -2581,7 +2611,7 @@ msgstr "\"{0}\" ಗಾಗಿ ಪ್ರವೇಶ ನಿಯಮವನ್ನು ತ�
 msgid "Remove access?"
 msgstr "ಪ್ರವೇಶ ತೆಗೆದುಹಾಕಬೇಕೆ?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:558
 msgid "Remove comment"
 msgstr "ಕಾಮೆಂಟ್ ತೆಗೆದುಹಾಕಿ"
 
@@ -2604,7 +2634,7 @@ msgstr "ಐಟಂ ತೆಗೆದುಹಾಕಿ"
 msgid "Remove link"
 msgstr "ಲಿಂಕ್ ತೆಗೆದುಹಾಕಿ"
 
-#: src/features/forums/components/thread/thread-content.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:438
 msgid "Remove post"
 msgstr "ಪೋಸ್ಟ್ ತೆಗೆದುಹಾಕಿ"
 
@@ -2613,8 +2643,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "ಈ ಫೋರಮ್ ಅನ್ನು ನಿಮ್ಮ ಸೈಡ್‌ಬಾರ್‌ನಿಂದ ತೆಗೆದುಹಾಕಿ."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:159
+#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 
@@ -2653,22 +2683,22 @@ msgstr "ರಿಪ್ಲೈಗಳನ್ನು ಅನುಮೋದಿಸಬೇಕ�
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:296
-#: src/features/forums/components/thread/thread-content.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-content.tsx:315
 msgid "Reply"
 msgstr "ರಿಪ್ಲೈ"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:582
 msgid "Reply to {0}..."
 msgstr "{0} ಗೆ ಪ್ರತ್ಯುತ್ತರ..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:386
+#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-content.tsx:396
 msgid "Report"
 msgstr "ರಿಪೋರ್ಟ್"
 
@@ -2680,7 +2710,7 @@ msgstr "ಕಾಮೆಂಟ್ ವರದಿ ಮಾಡಿ"
 msgid "Report post"
 msgstr "ಪೋಸ್ಟ್ ವರದಿ ಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:557
+#: src/routes/_authenticated/$forum_.moderation.tsx:564
 msgid "Report resolved"
 msgstr "ರಿಪೋರ್ಟ್ ಪರಿಹರಿಸಲಾಗಿದೆ"
 
@@ -2690,7 +2720,7 @@ msgid "Report submitted"
 msgstr "ರಿಪೋರ್ಟ್ ಸಲ್ಲಿಸಲಾಗಿದೆ"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:697
+#: src/routes/_authenticated/$forum_.moderation.tsx:704
 msgid "Reported by {0}"
 msgstr "{0} ವರದಿ ಮಾಡಿದ್ದಾರೆ"
 
@@ -2736,16 +2766,16 @@ msgstr "{title} ಮರುಹೊಂದಿಸಿ"
 msgid "Reset all settings to default values"
 msgstr "ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳಿಗೆ ರೀಸೆಟ್ ಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Resolved"
 msgstr "ಪರಿಹರಿಸಲಾಗಿದೆ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-content.tsx:356
 msgid "Restore"
 msgstr "ಮರುಸ್ಥಾಪಿಸಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:898
+#: src/routes/_authenticated/$forum_.moderation.tsx:905
 msgid "Restriction removed"
 msgstr "ನಿರ್ಬಂಧ ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 
@@ -2811,7 +2841,7 @@ msgstr "ಶನಿವಾರ"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:358
 #: src/routes/_authenticated/$forum_.settings.tsx:492
 #: src/routes/_authenticated/$forum_.settings.tsx:724
 msgid "Save"
@@ -2958,7 +2988,7 @@ msgstr "ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ"
 msgid "Select account type"
 msgstr "ಖಾತೆಯ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select all"
 msgstr "ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ"
 
@@ -2978,7 +3008,7 @@ msgstr "ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 msgid "Select next card"
 msgstr "ಮುಂದಿನ ಕಾರ್ಡ್ ಆಯ್ಕೆ ಮಾಡಿ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select none"
 msgstr "ಯಾವುದನ್ನೂ ಆಯ್ಕೆ ಮಾಡಬೇಡಿ"
 
@@ -3069,6 +3099,10 @@ msgstr "ತರಗತಿಗಳನ್ನು ತೋರಿಸಿ"
 msgid "Show fields"
 msgstr "ಫೀಲ್ಡ್‌ಗಳನ್ನು ತೋರಿಸಿ"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:90
+msgid "Show only comments on this image"
+msgstr ""
+
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
 msgstr "ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ"
@@ -3123,7 +3157,7 @@ msgid "Spacious"
 msgstr "ವಿಶಾಲ"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:745
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Spam"
 msgstr "ಸ್ಪ್ಯಾಮ್"
 
@@ -3146,10 +3180,10 @@ msgstr "ಕಾಮೆಂಟ್ ಸಲ್ಲಿಸಿ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:622
-#: src/features/forums/components/thread/thread-comment.tsx:631
-#: src/features/forums/thread-detail.tsx:622
-#: src/features/forums/thread-detail.tsx:631
+#: src/features/forums/components/thread/thread-comment.tsx:656
+#: src/features/forums/components/thread/thread-comment.tsx:665
+#: src/features/forums/thread-detail.tsx:640
+#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "ಉತ್ತರ ಸಲ್ಲಿಸಿ"
 
@@ -3281,7 +3315,7 @@ msgstr "ಥೀಮ್"
 msgid "Theme Settings"
 msgstr "ಥೀಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:817
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "There are no moderation actions recorded yet"
 msgstr "ಇನ್ನೂ ಯಾವುದೇ ಮಾಡರೇಶನ್ ಕ್ರಿಯೆಗಳನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಲಾಗಿಲ್ಲ"
 
@@ -3301,7 +3335,7 @@ msgstr "ಈ ಪುಟವನ್ನು ಇನ್ನೂ ರಚಿಸಲಾಗಿಲ
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ಈ ಪೋಸ್ಟ್ ಅನ್ನು ಅಳಿಸಿರಬಹುದು ಅಥವಾ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
 
-#: src/hooks/use-forum-websocket.ts:70
+#: src/hooks/use-forum-websocket.ts:74
 msgid "This post was already submitted"
 msgstr "ಈ ಪೋಸ್ಟ್ ಈಗಾಗಲೇ ಸಲ್ಲಿಸಲಾಗಿದೆ"
 
@@ -3309,11 +3343,11 @@ msgstr "ಈ ಪೋಸ್ಟ್ ಈಗಾಗಲೇ ಸಲ್ಲಿಸಲಾಗಿ
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "ಇದು ನಿಮ್ಮ ಉಳಿಸಿದ ಪಟ್ಟಿಯಿಂದ ಪ್ರತಿ ಪೋಸ್ಟ್ ಅನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ. ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗದು."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:559
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "ಇದು ಸಾಮಾನ್ಯ ಬಳಕೆದಾರರಿಂದ ಕಾಮೆಂಟ್ ಅನ್ನು ಮರೆಮಾಡುತ್ತದೆ. ಮಾಡರೇಟರ್‌ಗಳು ಇನ್ನೂ ಅದನ್ನು ನೋಡಬಹುದು ಮತ್ತು ನಂತರ ಪುನಃಸ್ಥಾಪಿಸಬಹುದು."
 
-#: src/features/forums/components/thread/thread-content.tsx:429
+#: src/features/forums/components/thread/thread-content.tsx:439
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "ಇದು ಸಾಮಾನ್ಯ ಬಳಕೆದಾರರಿಂದ ಪೋಸ್ಟ್ ಅನ್ನು ಮರೆಮಾಡುತ್ತದೆ. ಮಾಡರೇಟರ್‌ಗಳು ಇನ್ನೂ ಅದನ್ನು ನೋಡಬಹುದು ಮತ್ತು ನಂತರ ಪುನಃಸ್ಥಾಪಿಸಬಹುದು."
 
@@ -3322,7 +3356,7 @@ msgstr "ಇದು ಸಾಮಾನ್ಯ ಬಳಕೆದಾರರಿಂದ ಪೋ
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "ಇದು \"{0}\" ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಪೋಸ್ಟ್‌ಗಳು ಮತ್ತು ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ."
 
-#: src/features/forums/thread-detail.tsx:183
+#: src/features/forums/thread-detail.tsx:187
 msgid "Thread"
 msgstr "ಥ್ರೆಡ್"
 
@@ -3468,15 +3502,15 @@ msgstr "ಯುನೈಟೆಡ್ ಸ್ಟೇಟ್ಸ್"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "Unknown"
 msgstr "ಅಜ್ಞಾತ"
 
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:369
 msgid "Unlock"
 msgstr "ಅನ್‌ಲಾಕ್ ಮಾಡಿ"
 
-#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:382
 msgid "Unpin"
 msgstr "ಪಿನ್ ತೆಗೆಯಿರಿ"
 
@@ -3538,11 +3572,11 @@ msgstr "ನಿಮ್ಮ ಪಾಸ್‌ಕೀ ಬಳಸಿ"
 msgid "User"
 msgstr "ಬಳಕೆದಾರ"
 
-#: src/features/forums/thread-detail.tsx:466
+#: src/features/forums/thread-detail.tsx:470
 msgid "User banned"
 msgstr "ಬಳಕೆದಾರರನ್ನು ಬ್ಯಾನ್ ಮಾಡಲಾಗಿದೆ"
 
-#: src/features/forums/thread-detail.tsx:457
+#: src/features/forums/thread-detail.tsx:461
 msgid "User muted"
 msgstr "ಬಳಕೆದಾರರನ್ನು ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"
 
@@ -3572,12 +3606,12 @@ msgstr "ಪರಿಶೀಲಿಸಿ"
 msgid "Verify email address"
 msgstr "ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:85
+#: ../../../lib/web/src/components/attachment-gallery.tsx:94
 msgid "Video thumbnail"
 msgstr "ವಿಡಿಯೋ ಥಂಬ್‌ನೇಲ್"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Video viewer: {0}"
 msgstr "ವೀಡಿಯೊ ವೀಕ್ಷಕ: {0}"
 
@@ -3602,8 +3636,12 @@ msgstr "ನಿಯಂತ್ರಣಗಳನ್ನು ವೀಕ್ಷಿಸಿ"
 msgid "View only"
 msgstr "ನೋಡುವುದು ಮಾತ್ರ"
 
+#: src/features/forums/components/thread/thread-comment.tsx:291
+msgid "View the image this comment is about"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:748
+#: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "ಹಿಂಸೆ"
 
@@ -3652,11 +3690,11 @@ msgstr "ವಿಂಡೋ ಅವಧಿ"
 msgid "You are already subscribed to this forum"
 msgstr "ನೀವು ಈಗಾಗಲೇ ಈ ಫೋರಂಗೆ ಚಂದಾದಾರರಾಗಿದ್ದೀರಿ"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:70
 msgid "You are posting too quickly — please wait and try again"
 msgstr "ನೀವು ತುಂಬಾ ವೇಗವಾಗಿ ಪೋಸ್ಟ್ ಮಾಡುತ್ತಿದ್ದೀರಿ — ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:68
 msgid "You are restricted from posting in this forum"
 msgstr "ಈ ವೇದಿಕೆಯಲ್ಲಿ ಪೋಸ್ಟ್ ಮಾಡುವುದರಿಂದ ನಿಮ್ಮನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ"
 
@@ -3668,7 +3706,7 @@ msgstr "ಈ ವಿಭಾಗಕ್ಕೆ ನಿಮಗೆ ಪ್ರವೇಶವಿ
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "ಈ ಸಂಪನ್ಮೂಲವನ್ನು ವೀಕ್ಷಿಸಲು <0/>ನಿಮಗೆ ಅಗತ್ಯವಿರುವ ಅನುಮತಿ ಇಲ್ಲ."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:66
 msgid "You don't have permission to post in this forum"
 msgstr "ಈ ವೇದಿಕೆಯಲ್ಲಿ ಪೋಸ್ಟ್ ಮಾಡಲು ನಿಮಗೆ ಅನುಮತಿ ಇಲ್ಲ"
 

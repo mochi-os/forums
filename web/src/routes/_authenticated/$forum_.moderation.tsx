@@ -438,6 +438,13 @@ function QueueTab({ forumId }: QueueTabProps) {
                       {comment.name} · {formatTimestamp(comment.created)}
                     </span>
                   </div>
+                  {/* An anchored comment says which image it is about, so the
+                      moderator judges it with its context. */}
+                  {comment.attachment_name && (
+                    <p className='text-muted-foreground mt-1 truncate text-xs'>
+                      <Trans>On image: {comment.attachment_name}</Trans>
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

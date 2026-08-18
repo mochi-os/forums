@@ -5,7 +5,7 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, mergePendingFiles, removePendingFile, moveItem, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
+import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, authenticatedUrl, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, mergePendingFiles, removePendingFile, moveItem, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -44,6 +44,10 @@ export interface ThreadCommentType {
   user_vote?: 'up' | 'down' | ''
   children: ThreadCommentType[]
   attachments?: AttachmentData[]
+  // Anchor: the id of one of the post's attachments this comment is about,
+  // and its display name (caption or file name). Empty when unanchored.
+  attachment?: string
+  attachment_name?: string
   can_vote: boolean
   can_comment: boolean
   // Moderation fields
@@ -84,6 +88,12 @@ interface ThreadCommentProps {
   onBanAuthor?: (userId: string) => void
   currentUserId?: string
   onSearchPeople?: (query: string) => Promise<MentionUser[]>
+  /**
+   * Opens the post's lightbox on an attachment, comments showing. Drawn as a
+   * thumbnail chip on a comment anchored to one of the post's images, so a
+   * remark about a particular photo shows which — and leads back to it.
+   */
+  onOpenAttachment?: (attachmentId: string) => void
 }
 
 export function ThreadComment({
@@ -114,6 +124,7 @@ export function ThreadComment({
   onBanAuthor,
   currentUserId,
   onSearchPeople,
+  onOpenAttachment,
 }: ThreadCommentProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
@@ -268,6 +279,29 @@ export function ThreadComment({
           {formatTimestamp(comment.created)}
           {comment.edited ? t` (edited)` : ''}
         </span>
+        {comment.attachment && (
+          <button
+            type='button'
+            className='text-muted-foreground hover:text-foreground ms-1 inline-flex min-w-0 items-center gap-1 rounded transition-colors'
+            onClick={(event) => {
+              event.stopPropagation()
+              onOpenAttachment?.(comment.attachment!)
+            }}
+            title={comment.attachment_name || t`On this image`}
+            aria-label={t`View the image this comment is about`}
+          >
+            <img
+              src={authenticatedUrl(
+                `${getAppPath()}/${comment.forum}/-/attachments/${comment.attachment}/thumbnail`
+              )}
+              alt=''
+              className='size-5 rounded object-cover text-transparent'
+            />
+            {comment.attachment_name && (
+              <span className='max-w-32 truncate'>{comment.attachment_name}</span>
+            )}
+          </button>
+        )}
         {/* Status badges */}
         {isPending && (
           <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-1.5 py-0.5 text-[10px] font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
@@ -642,6 +676,7 @@ export function ThreadComment({
         <ThreadComment
           key={reply.id}
           comment={reply}
+          onOpenAttachment={onOpenAttachment}
           onVote={onVote}
           canVote={canVote}
           votePendingId={votePendingId}

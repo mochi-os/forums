@@ -184,7 +184,7 @@ const forumsApi = {
     formData.append('body', payload.body)
     if (payload.attachments) {
       payload.attachments.forEach((file) =>
-        formData.append('attachments', file)
+        formData.append('files', file)
       )
       // Per-file captions, aligned with the attachments' order
       if (payload.captions?.some((caption) => caption)) {
@@ -218,7 +218,7 @@ const forumsApi = {
     if (payload.order) formData.append('order', JSON.stringify(payload.order))
     if (payload.attachments) {
       payload.attachments.forEach((file) =>
-        formData.append('attachments', file)
+        formData.append('files', file)
       )
     }
     // Caption edits, keyed by attachment id or "new:N" placeholder
@@ -248,6 +248,7 @@ const forumsApi = {
     formData.append('post', payload.post)
     formData.append('body', payload.body)
     if (payload.parent) formData.append('parent', payload.parent)
+    if (payload.attachment) formData.append('attachment', payload.attachment)
     if (payload.files) {
       for (const file of payload.files) {
         formData.append('files', file)

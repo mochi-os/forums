@@ -150,6 +150,54 @@ def database_upgrade(version):
         attachment_schema_create()
         attachment_migrate()
 
+    if version == 7:
+        # posts.forum and comments.forum carried a foreign key to forums(id),
+        # but both create paths deliberately record a submission to a forum the
+        # author does not hold locally: the entity forum page offers "new post"
+        # on a forum you are only browsing, and that row is what the owner's
+        # accept-time attachment pull resolves the forum through. Core enforces
+        # foreign keys, so the insert failed and the submission was never sent -
+        # a server error on every post or comment to an unsubscribed forum.
+        # SQLite cannot drop a constraint in place, so rebuild both tables.
+        mochi.db.execute("""create table posts_rebuilt (
+            id text not null primary key, forum text not null, member text not null, name text not null,
+            title text not null, body text not null, comments integer not null default 0,
+            up integer not null default 0, down integer not null default 0,
+            created integer not null, updated integer not null, edited integer not null default 0,
+            status text not null default 'approved', remover text, reason text not null default '',
+            locked integer not null default 0, pinned integer not null default 0 )""")
+        mochi.db.execute("""insert into posts_rebuilt ( id, forum, member, name, title, body, comments, up, down, created, updated, edited, status, remover, reason, locked, pinned )
+            select id, coalesce(forum, ''), member, name, title, body, comments, up, down, created, updated, edited, status, remover, reason, locked, pinned from posts""")
+        mochi.db.execute("drop table posts")
+        mochi.db.execute("alter table posts_rebuilt rename to posts")
+        mochi.db.execute("create index if not exists posts_forum on posts( forum )")
+        mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
+        mochi.db.execute("create index if not exists posts_created on posts( created )")
+        mochi.db.execute("create index if not exists posts_updated on posts( updated )")
+
+        mochi.db.execute("""create table comments_rebuilt (
+            id text not null primary key, forum text not null, post text not null, parent text not null,
+            member text not null, name text not null, body text not null,
+            up integer not null default 0, down integer not null default 0,
+            created integer not null, edited integer not null default 0,
+            status text not null default 'approved', remover text, reason text not null default '' )""")
+        mochi.db.execute("""insert into comments_rebuilt ( id, forum, post, parent, member, name, body, up, down, created, edited, status, remover, reason )
+            select id, coalesce(forum, ''), post, parent, member, name, body, up, down, created, edited, status, remover, reason from comments""")
+        mochi.db.execute("drop table comments")
+        mochi.db.execute("alter table comments_rebuilt rename to comments")
+        mochi.db.execute("create index if not exists comments_forum on comments( forum )")
+        mochi.db.execute("create index if not exists comments_post on comments( post )")
+        mochi.db.execute("create index if not exists comments_parent on comments( parent )")
+        mochi.db.execute("create index if not exists comments_created on comments( created )")
+
+    if version == 8:
+        # A comment may be anchored to one of its post's attachments: the
+        # discussion stays one thread, but a remark about a particular photo
+        # can say which. Empty for an ordinary comment. Idempotent via the
+        # column list, since a failed step re-runs under the next number.
+        if not any([c["name"] == "attachment" for c in mochi.db.table("comments")]):
+            mochi.db.execute("alter table comments add column attachment text not null default ''")
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
@@ -171,7 +219,7 @@ def database_create():
     mochi.db.execute("create index if not exists members_id on members( id )")
 
     mochi.db.execute("""create table if not exists posts (
-        id text not null primary key, forum references forums( id ), member text not null, name text not null,
+        id text not null primary key, forum text not null, member text not null, name text not null,
         title text not null, body text not null, comments integer not null default 0,
         up integer not null default 0, down integer not null default 0,
         created integer not null, updated integer not null, edited integer not null default 0,
@@ -183,11 +231,12 @@ def database_create():
     mochi.db.execute("create index if not exists posts_updated on posts( updated )")
 
     mochi.db.execute("""create table if not exists comments (
-        id text not null primary key, forum references forums( id ), post text not null, parent text not null,
+        id text not null primary key, forum text not null, post text not null, parent text not null,
         member text not null, name text not null, body text not null,
         up integer not null default 0, down integer not null default 0,
         created integer not null, edited integer not null default 0,
-        status text not null default 'approved', remover text, reason text not null default '' )""")
+        status text not null default 'approved', remover text, reason text not null default '',
+        attachment text not null default '' )""")
     mochi.db.execute("create index if not exists comments_forum on comments( forum )")
     mochi.db.execute("create index if not exists comments_post on comments( post )")
     mochi.db.execute("create index if not exists comments_parent on comments( parent )")
@@ -300,6 +349,43 @@ def resolve_attachment_order(order, current_ids, new_attachments):
             final_order.append(item)
     return final_order
 
+
+# comment_anchor reduces a caller's attachment reference to one this post
+# actually holds, or "". A comment may be anchored to a post's own attachment
+# and nothing else: an id from another post - or another forum - is refused
+# rather than stored. Bound to the POST's rows, exactly as caption edits are,
+# whether the reference arrives on an HTTP action or a P2P event.
+def comment_anchor(post_id, forum_id, value):
+    if type(value) != "string" or not value:
+        return ""
+    if not attachment_identifier(value):
+        return ""
+    for att in attachment_list(post_id, forum_id):
+        if att["id"] == value:
+            return value
+    return ""
+
+# comment_anchor_name resolves an anchored comment's attachment to a display
+# name (its caption when it has one, else the file name), so a client never
+# shows the raw id. Empty for an unanchored comment or one whose attachment
+# has since gone.
+def comment_anchor_name(comment):
+    anchor = comment.get("attachment", "")
+    if not anchor:
+        return ""
+    att = attachment_get(anchor)
+    if not att:
+        return ""
+    return att.get("caption") or att.get("name", "")
+
+# comment_anchors_prune unanchors every comment on post whose attachment is
+# no longer among the post's rows. Run after an edit removes attachments, on
+# whichever host applied the removal.
+def comment_anchors_prune(post_id, forum_id):
+    kept = [att["id"] for att in attachment_list(post_id, forum_id)]
+    for c in mochi.db.rows("select id, attachment from comments where post=? and attachment!=''", post_id):
+        if c["attachment"] not in kept:
+            mochi.db.execute("update comments set attachment='' where id=?", c["id"])
 
 # Captions for the files an edit uploads, aligned with the upload order the
 # "new:N" placeholders in `order` name. A companion to resolve_attachment_order
@@ -650,6 +736,21 @@ def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
         {"id": target_id, "reason": reason, "detail": detail}
     )
 
+# Helper: tell the author what became of the post or comment they submitted.
+# Their own copy is written 'pending' the moment they send it, and the only
+# thing that used to clear it was the members fan-out - so an author who is not
+# a member (a public forum accepts posts without a subscription) never learned
+# the outcome, and one whose fan-out was skipped or lost had no second chance,
+# because a resync applies the owner's dump with insert or ignore. Addressed to
+# the author directly, so it does not depend on membership or on the fan-out.
+def send_status(forum_id, author_id, kind, target_id, status):
+    if not forum_id or not author_id or not target_id:
+        return
+    mochi.message.send(
+        {"from": forum_id, "to": author_id, "service": "forums", "event": kind + "/status"},
+        {"id": target_id, "status": status}
+    )
+
 # Helper: Broadcast WebSocket notification to forum subscribers.
 # Uses fingerprint as key since that's what the frontend connects with.
 # Must use broadcast (not write) because inbound replication commits and
@@ -803,6 +904,39 @@ def check_rate_limit(forum, user_id, kind):
 
 # Helper: Send moderation notification to a user
 def notify_moderation_action(forum_id, user_id, action, target_type, reason, target_id=""):
+    if not user_id or not action:
+        return
+
+    # Converge the author's own copy on the new status. Restrict and unrestrict
+    # act on a user rather than on a row that carries a status, so there is
+    # nothing to converge for those.
+    if target_id and target_type in ("post", "comment"):
+        if action == "remove":
+            send_status(forum_id, user_id, target_type, target_id, "removed")
+        elif action == "approve":
+            send_status(forum_id, user_id, target_type, target_id, "approved")
+
+    # The author is usually remote - they submitted over P2P and need not be a
+    # member at all - so the notice travels to them as an event carrying the
+    # action code, which their side renders in their own language. Resolving
+    # the labels here would put the moderator's language on the author's
+    # screen. The local branch is for an author who owns the forum, where
+    # there is no hop to make.
+    entity = mochi.entity.info(forum_id)
+    owner_id = entity.get("creator", "") if entity else ""
+    if user_id == owner_id:
+        notify_moderation_local(forum_id, action, target_type, reason, target_id or user_id)
+        return
+
+    mochi.message.send(
+        {"from": forum_id, "to": user_id, "service": "forums", "event": "member/notify"},
+        {"action": action, "type": target_type, "reason": reason, "source": target_id or user_id}
+    )
+
+# Helper: raise the local notification for a moderation action taken on our own
+# content. Shared by the forum owner's path and by event_member_notify, so both
+# resolve the labels in the reader's own language.
+def notify_moderation_local(forum_id, action, target_type, reason, source_id):
     forum = get_forum(forum_id)
     forum_name = forum["name"] if forum else mochi.app.label("moderation.forum_unknown")
 
@@ -827,9 +961,26 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason, tar
 
     topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
     # event_id derived from the moderation target so the same action on the
-    # same row dedupes across replicas. target_id is the post/comment/user id.
-    event_id = topic + ":" + forum_id + ":" + action + ":" + target_type + ":" + (target_id or user_id)
+    # same row dedupes across replicas. source_id is the post/comment/user id.
+    event_id = topic + ":" + forum_id + ":" + action + ":" + target_type + ":" + source_id
     notify(topic, forum_id, title, body, "/forums/" + forum_id, event_id=event_id)
+
+# A forum tells us a moderator acted on our own post, comment or membership.
+# Accepted only for a forum we hold locally, on the same reasoning as
+# event_moderator_notify: core authenticates "from" to an entity the sender
+# owns, so this drops notices forged from a stranger's own forum.
+def event_member_notify(e):
+    forum_id = e.header("from")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    if not get_forum(forum_id):
+        return
+    notify_moderation_local(
+        forum_id,
+        e.content("action") or "",
+        e.content("type") or "",
+        e.content("reason") or "",
+        e.content("source") or forum_id)
 
 # Helper: Notify every moderator of a forum (entity owner + users with the
 # 'moderate' access level) that there's new work in the queue.
@@ -1934,7 +2085,7 @@ def action_post_create(a):
             members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
 
             # Save any uploaded attachments locally
-            attachments = attachment_save(a, id, field="attachments", captions=captions)
+            attachments = attachment_save(a, id, captions=captions)
 
             # Only broadcast if approved
             if status == "approved":
@@ -1971,7 +2122,7 @@ def action_post_create(a):
                 return
 
             # Save attachments locally
-            attachments = attachment_save(a, id, field="attachments", captions=captions)
+            attachments = attachment_save(a, id, captions=captions)
 
             submit_data = {"id": id, "title": title, "body": body}
             if attachments:
@@ -2012,7 +2163,7 @@ def action_post_create(a):
         return
 
     # Save attachments locally
-    attachments = attachment_save(a, id, field="attachments", captions=captions)
+    attachments = attachment_save(a, id, captions=captions)
 
     # Send post to remote forum owner with attachment metadata
     submit_data = {"id": id, "title": title, "body": body}
@@ -2859,6 +3010,7 @@ def action_post_view(a):
         for c in comments:
             c["children"] = get_comments(c["id"], depth + 1)
             c["attachments"] = attachment_list(c["id"], forum["id"])
+            c["attachment_name"] = comment_anchor_name(c)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
             # Get user's vote on this comment
@@ -2970,7 +3122,7 @@ def action_post_edit(a):
 
             current_attachments = attachment_list(post_id, forum["id"])
             current_ids = [att["id"] for att in current_attachments]
-            new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
+            new_attachments = attachment_save(a, post_id, captions=resolve_attachment_captions(order, captions))
 
             final_order = resolve_attachment_order(order, current_ids, new_attachments)
 
@@ -2983,6 +3135,10 @@ def action_post_edit(a):
             else:
                 for att_id in current_ids:
                     attachment_delete(att_id)
+            # Comments anchored to a removed image keep their text and become
+            # plain comments; a remark is not deleted with the photo it was
+            # about.
+            comment_anchors_prune(post_id, forum["id"])
 
             # Caption edits on attachments the post already holds. Bound to
             # this post's own rows, so an id from another post cannot be
@@ -3030,7 +3186,7 @@ def action_post_edit(a):
             current_ids = [att["id"] for att in current_attachments]
 
             # Save new attachments locally
-            new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
+            new_attachments = attachment_save(a, post_id, captions=resolve_attachment_captions(order, captions))
 
             # Build final order
             final_order = resolve_attachment_order(order, current_ids, new_attachments)
@@ -3088,7 +3244,7 @@ def action_post_edit(a):
         order = []
 
     # Save new attachments locally
-    new_attachments = attachment_save(a, post_id, field="attachments", captions=resolve_attachment_captions(order, captions))
+    new_attachments = attachment_save(a, post_id, captions=resolve_attachment_captions(order, captions))
 
     # Build final order (only new attachments, no existing ones locally).
     #
@@ -3270,6 +3426,9 @@ def action_comment_create(a):
     post_id = a.input("post")
     parent_id = a.input("parent")
     body = a.input("body")
+    # An optional anchor: the id of one of the post's attachments this
+    # comment is about. Resolved against the post's rows below.
+    anchor_input = a.input("attachment") or ""
 
     if not mochi.text.valid(body, "text"):
         a.error.label(400, "errors.invalid_body")
@@ -3317,6 +3476,13 @@ def action_comment_create(a):
                 a.error.label(404, "errors.parent_comment_not_found")
                 return
 
+            # A named anchor must be one of this post's own attachments; a
+            # reference the post does not hold is an error, not a silent drop.
+            anchor = comment_anchor(post_id, forum["id"], anchor_input)
+            if anchor_input and not anchor:
+                a.error.label(400, "errors.attachment_not_found")
+                return
+
             # Determine initial status (moderators skip pre-moderation)
             status = "approved"
             if is_shadowbanned(forum["id"], user_id):
@@ -3324,8 +3490,8 @@ def action_comment_create(a):
             elif not check_access(a, forum["id"], "moderate") and requires_premoderation(forum, user_id, "comment"):
                 status = "pending"
 
-            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now)
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, status, now, anchor)
 
             # Save comment attachments locally
             attachments = attachment_save(a, id)
@@ -3343,7 +3509,8 @@ def action_comment_create(a):
                     "member": user_id,
                     "name": user_name,
                     "body": body,
-                    "created": now
+                    "created": now,
+                    "attachment": anchor
                 }
                 if attachments:
                     comment_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
@@ -3368,8 +3535,10 @@ def action_comment_create(a):
             # Save comment attachments locally
             attachments = attachment_save(a, id)
 
-            # Send comment to forum owner with attachment metadata
-            submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+            # Send comment to forum owner with attachment metadata. The
+            # anchor goes as the raw claim for the OWNER to judge against
+            # the post's rows; locally it is only kept if our copy holds it.
+            submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body, "attachment": anchor_input}
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
@@ -3378,8 +3547,8 @@ def action_comment_create(a):
             # accepts the submit, and its fetch responder resolves the forum
             # through this row - announced first, the pull can race the insert
             # and find nothing to bind.
-            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ? )",
-                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+            mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
+                id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now, comment_anchor(post_id, forum["id"], anchor_input))
 
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "comment/submit"},
@@ -3413,8 +3582,9 @@ def action_comment_create(a):
     # Save comment attachments locally
     attachments = attachment_save(a, id)
 
-    # Send comment to remote forum owner with attachment metadata
-    submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body}
+    # Send comment to remote forum owner with attachment metadata; the anchor
+    # is the raw claim, judged by the owner who holds the post's rows.
+    submit_data = {"id": id, "post": post_id, "parent": parent_id or "", "body": body, "attachment": anchor_input}
     if attachments:
         submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
@@ -3750,6 +3920,10 @@ def action_post_restore(a):
 
         log_moderation(forum["id"], user, "restore", "post", post_id, post["member"], "")
 
+        # Converge the author's own copy: a restore is the one moderation
+        # outcome with no notification, so this is their only signal.
+        send_status(forum["id"], post["member"], "post", post_id, "approved")
+
         broadcast_event(forum["id"], "post/restore", {"id": post_id}, user)
         broadcast_websocket(forum["id"], {"type": "post/restore", "forum": forum["id"], "post": post_id, "sender": user})
     else:
@@ -4084,6 +4258,10 @@ def action_comment_restore(a):
         recount_post_comments(comment["post"])
 
         log_moderation(forum["id"], user, "restore", "comment", comment_id, comment["member"], "")
+
+        # Converge the author's own copy: a restore is the one moderation
+        # outcome with no notification, so this is their only signal.
+        send_status(forum["id"], comment["member"], "comment", comment_id, "approved")
 
         broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]}, user)
         broadcast_websocket(forum["id"], {"type": "comment/restore", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user})
@@ -4638,8 +4816,10 @@ def action_moderation_queue(a):
         p["attachments"] = attachment_list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
-        "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
+        "select id, body, post, member, name, created, attachment from comments where forum=? and status='pending' order by created asc",
         forum["id"])
+    for c in comments:
+        c["attachment_name"] = comment_anchor_name(c)
     reports = mochi.db.rows("""
         select type, target, author, reason, min(id) as id, min(details) as details,
                min(reporter) as reporter, min(created) as created, count(*) as count
@@ -5431,9 +5611,14 @@ def event_comment_create_event(e):
     if created > now + 86400 or created < now - 31536000:
         return
 
+    # The anchor is the owner's judgement, but bind against the attachment
+    # rows we hold rather than trusting the id blind; one we cannot resolve
+    # stores as unanchored (the caption path makes the same trade).
+    anchor = comment_anchor(post, forum["id"], e.content("attachment"))
+
     # insert or ignore (not replace): don't overwrite a colliding id from another forum.
-    mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post, parent, member, name, body, up, down, created)
+    mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], post, parent, member, name, body, up, down, created, anchor)
 
     # Store attachment metadata from the event
     attachments = e.content("attachments") or []
@@ -5520,10 +5705,20 @@ def event_comment_submit_event(e):
     elif requires_premoderation(forum, sender_id, "comment"):
         status = "pending"
 
-    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post_id, parent, sender_id, sender_name, body, status, now)
+    # The submitter's anchor is a claim; the owner bounds it to the post's
+    # own attachments, exactly as it bounds a caption edit. An id the post
+    # does not hold is dropped, never stored.
+    anchor = comment_anchor(post_id, forum["id"], e.content("attachment"))
+
+    mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], post_id, parent, sender_id, sender_name, body, status, now, anchor)
     if status == "approved":
         mochi.db.commit.fire("comments", "insert", id)
+
+    # Resolve the sender's optimistic pending row. Withheld for a shadowbanned
+    # sender, as in event_post_submit_event.
+    if status != "removed":
+        send_status(forum["id"], sender_id, "comment", id, status)
 
     # Store the submission's attachment metadata and take the bytes in from
     # the sender now, while it is online; a pull that fails heals on serve.
@@ -5544,7 +5739,8 @@ def event_comment_submit_event(e):
             "member": sender_id,
             "name": sender_name,
             "body": body,
-            "created": now
+            "created": now,
+            "attachment": anchor
         }
         if attachments:
             comment_data["attachments"] = attachments
@@ -5913,6 +6109,62 @@ def event_comment_reject_event(e):
         "detail": detail,
     })
 
+# The forum tells us what became of a post we submitted to it. Scoped to the
+# sending forum AND to a post we authored, so a forum can only ever correct the
+# status of our own submission in its own forum - every other member's rows
+# arrive through the normal fan-out and are not reachable from here.
+def event_post_status_event(e):
+    post_id = e.content("id")
+    if not mochi.text.valid(post_id, "id"):
+        return
+
+    status = e.content("status")
+    if status not in ("approved", "pending", "removed"):
+        return
+
+    forum_id = e.header("from")
+    author_id = e.header("to")
+    if not mochi.db.exists("select id from posts where id=? and forum=? and member=?", post_id, forum_id, author_id):
+        return
+
+    mochi.db.execute("update posts set status=? where id=? and forum=? and member=?",
+        status, post_id, forum_id, author_id)
+
+    broadcast_websocket(forum_id, {
+        "type": "post/status",
+        "forum": forum_id,
+        "post": post_id,
+        "status": status,
+    })
+
+# The forum tells us what became of a comment we submitted to it. Mirrors
+# event_post_status_event, including the author scope.
+def event_comment_status_event(e):
+    comment_id = e.content("id")
+    if not mochi.text.valid(comment_id, "id"):
+        return
+
+    status = e.content("status")
+    if status not in ("approved", "pending", "removed"):
+        return
+
+    forum_id = e.header("from")
+    author_id = e.header("to")
+    row = mochi.db.row("select post from comments where id=? and forum=? and member=?", comment_id, forum_id, author_id)
+    if not row:
+        return
+
+    mochi.db.execute("update comments set status=? where id=? and forum=? and member=?",
+        status, comment_id, forum_id, author_id)
+
+    broadcast_websocket(forum_id, {
+        "type": "comment/status",
+        "forum": forum_id,
+        "post": row["post"],
+        "comment": comment_id,
+        "status": status,
+    })
+
 # Received a post submission from member (we are forum owner)
 def event_post_submit_event(e):
     sender_id = e.header("from")
@@ -5979,6 +6231,12 @@ def event_post_submit_event(e):
         id, forum["id"], sender_id, sender_name, title, body, status, now, now)
     if status == "approved":
         mochi.db.commit.fire("posts", "insert", id)
+
+    # Resolve the sender's optimistic pending row. Not for a shadowbanned
+    # sender: that status is deliberately invisible to them, and their copy
+    # showing 'pending' is the point.
+    if status != "removed":
+        send_status(forum["id"], sender_id, "post", id, status)
 
     # Store the submission's attachment metadata and take the bytes in from
     # the sender now, while it is online; a pull that fails heals on serve.
@@ -6089,6 +6347,7 @@ def event_post_edit_submit_event(e):
     for att_id in current_ids:
         if att_id not in order:
             attachment_delete(att_id)
+    comment_anchors_prune(post_id, forum["id"])
 
     # Reorder attachments according to order
     for i, att_id in enumerate(order):
@@ -6222,6 +6481,9 @@ def event_post_edit_event(e):
         attachment_clear(id)
         if attachments:
             attachment_store(attachments, e.header("from"), id)
+        # Anchors that pointed at an attachment the edit removed become
+        # plain comments here too, matching the owner.
+        comment_anchors_prune(id, old_post["forum"])
 
     mochi.db.execute("update forums set updated=? where id=?", now, old_post["forum"])
 
@@ -6433,6 +6695,7 @@ def event_subscribe_event(e):
                     "up": c["up"],
                     "down": c["down"],
                     "created": c["created"],
+                    "attachment": c.get("attachment", ""),
                     "sync": True
                 }
                 comment_data["attachments"] = attachment_list(c["id"], forum["id"])
@@ -6593,6 +6856,10 @@ def event_post_restore_submit_event(e):
         now, post_id)
 
     log_moderation(forum["id"], sender, "restore", "post", post_id, post["member"], "")
+
+    # Converge the author's own copy: a restore is the one moderation
+    # outcome with no notification, so this is their only signal.
+    send_status(forum["id"], post["member"], "post", post_id, "approved")
     broadcast_event(forum["id"], "post/restore", {"id": post_id})
 
 # Received a post restoration from forum owner
@@ -6822,6 +7089,10 @@ def event_comment_restore_submit_event(e):
     mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
 
     log_moderation(forum["id"], sender, "restore", "comment", comment_id, comment["member"], "")
+
+    # Converge the author's own copy: a restore is the one moderation
+    # outcome with no notification, so this is their only signal.
+    send_status(forum["id"], comment["member"], "comment", comment_id, "approved")
     broadcast_event(forum["id"], "comment/restore", {"id": comment_id, "post": comment["post"]})
 
 # Received a comment restoration from forum owner
@@ -7183,7 +7454,7 @@ def event_schema(e):
     comments = []
     for pid in post_ids:
         rows = mochi.db.rows(
-            "select id, post, parent, member, name, body, up, down, created from comments where forum=? and post=? and status='approved' order by created",
+            "select id, post, parent, member, name, body, up, down, created, attachment from comments where forum=? and post=? and status='approved' order by created",
             forum_id, pid
         ) or []
         for r in rows:
@@ -7221,6 +7492,13 @@ def insert_forum_schema(forum_id, schema):
             p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
             p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
         )
+        # The dump carries approved content only (see event_schema), so a row
+        # the owner lists but we hold as pending or removed is provably stale -
+        # a status change whose event never reached us. insert or ignore leaves
+        # it that way forever, which is how an author's own post went on
+        # reading "Pending approval" long after the forum had accepted it.
+        mochi.db.execute("update posts set status='approved' where id=? and forum=? and status!='approved'",
+            p.get("id", ""), forum_id)
         atts = p.get("attachments") or []
         if atts:
             attachment_store(atts, forum_id, p.get("id", ""))
@@ -7229,11 +7507,15 @@ def insert_forum_schema(forum_id, schema):
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
             continue
         mochi.db.execute(
-            "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created, attachment) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
-            c.get("up", 0), c.get("down", 0), c.get("created", 0)
+            c.get("up", 0), c.get("down", 0), c.get("created", 0),
+            comment_anchor(c.get("post", ""), forum_id, c.get("attachment", ""))
         )
+        # Same staleness correction as the posts loop above.
+        mochi.db.execute("update comments set status='approved' where id=? and forum=? and status!='approved'",
+            c.get("id", ""), forum_id)
         atts = c.get("attachments") or []
         if atts:
             attachment_store(atts, forum_id, c.get("id", ""))
@@ -7464,8 +7746,10 @@ def event_moderation_queue(e):
         p["attachments"] = attachment_list(p["id"], forum["id"])
 
     comments = mochi.db.rows(
-        "select id, body, post, member, name, created from comments where forum=? and status='pending' order by created asc",
+        "select id, body, post, member, name, created, attachment from comments where forum=? and status='pending' order by created asc",
         forum["id"])
+    for c in comments:
+        c["attachment_name"] = comment_anchor_name(c)
     reports = mochi.db.rows("""
         select type, target, author, reason, min(id) as id, min(details) as details,
                min(reporter) as reporter, min(created) as created, count(*) as count

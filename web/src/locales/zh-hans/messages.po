@@ -19,15 +19,15 @@ msgid "Please check your internet connection and try again."
 msgstr "请检查您的网络连接后重试。"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:995
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid " · Expires {0}"
 msgstr " · 到期 {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:996
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid " · Permanent"
 msgstr " · 永久"
 
-#: src/features/forums/components/thread/thread-comment.tsx:269
+#: src/features/forums/components/thread/thread-comment.tsx:280
 msgid " (edited)"
 msgstr " (已编辑)"
 
@@ -55,7 +55,7 @@ msgstr "{0, plural, other {# 条新帖子}}"
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #. placeholder {0}: selectedValues.size
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:516
+#: src/routes/_authenticated/$forum_.moderation.tsx:523
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {已选 #} other {已选 #}}"
 
@@ -116,6 +116,10 @@ msgstr "{entityLabel}名称为必填项"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} 提议和棋"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:92
+msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
 msgstr "{selectedCount, plural, one {已选择 {entityName}} other {已选择 {manyName}}}"
@@ -141,7 +145,7 @@ msgstr "{sentLabel} / {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# 项} other {# 项}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:255
+#: src/features/forums/components/thread/thread-comment.tsx:266
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# 条回复} other {# 条回复}}"
 
@@ -345,7 +349,7 @@ msgid "AI actions on posts"
 msgstr "对帖子的 AI 操作"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "All"
 msgstr "全部"
 
@@ -400,8 +404,8 @@ msgstr "任何已登录的人"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "订阅此源的一切都将停止接收。之后你可以复制新的网址。"
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:481
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "批准"
 
@@ -418,11 +422,11 @@ msgstr "确定要删除列 \"{name}\" 吗?此操作无法撤销。"
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "确定要删除此评论吗?这将同时删除所有回复。"
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:545
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "确定要删除此评论吗?这将同时删除所有回复。此操作无法撤销。"
 
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-content.tsx:425
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "您确定要删除此帖子吗？此操作还将删除所有评论。此操作无法撤消。"
 
@@ -445,10 +449,10 @@ msgstr "附加评论文件"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:592
-#: src/features/forums/components/thread/thread-comment.tsx:596
-#: src/features/forums/thread-detail.tsx:591
-#: src/features/forums/thread-detail.tsx:595
+#: src/features/forums/components/thread/thread-comment.tsx:626
+#: src/features/forums/components/thread/thread-comment.tsx:630
+#: src/features/forums/thread-detail.tsx:609
+#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "附加回复文件"
 
@@ -478,10 +482,10 @@ msgid "Back"
 msgstr "返回"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:368
-#: src/features/forums/thread-detail.tsx:380
-#: src/features/forums/thread-detail.tsx:401
-#: src/features/forums/thread-detail.tsx:476
+#: src/features/forums/thread-detail.tsx:372
+#: src/features/forums/thread-detail.tsx:384
+#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
 #: src/routes/_authenticated/$forum_.settings.tsx:220
 #: src/routes/_authenticated/$forum_.settings.tsx:233
@@ -499,16 +503,16 @@ msgstr "返回论坛列表"
 msgid "Back to home"
 msgstr "返回首页"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:507
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Ban"
 msgstr "封禁"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:529
+#: src/features/forums/components/thread/thread-content.tsx:409
 msgid "Ban author"
 msgstr "封禁作者"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "banned"
 msgstr "已封禁"
 
@@ -557,12 +561,12 @@ msgid "Browser notifications"
 msgstr "浏览器通知"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "by {0}"
 msgstr "由 {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:993
+#: src/routes/_authenticated/$forum_.moderation.tsx:1000
 msgid "By {0}"
 msgstr "由 {0}"
 
@@ -583,7 +587,7 @@ msgstr "由 {0}"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:338
 msgid "Cancel"
 msgstr "取消"
 
@@ -594,10 +598,10 @@ msgstr "取消评论"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:607
-#: src/features/forums/components/thread/thread-comment.tsx:612
-#: src/features/forums/thread-detail.tsx:605
-#: src/features/forums/thread-detail.tsx:611
+#: src/features/forums/components/thread/thread-comment.tsx:641
+#: src/features/forums/components/thread/thread-comment.tsx:646
+#: src/features/forums/thread-detail.tsx:623
+#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "取消回复"
 
@@ -701,8 +705,8 @@ msgstr "正在清除已保存的帖子..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "关闭"
@@ -768,6 +772,10 @@ msgstr "即将推出!"
 msgid "Command Palette"
 msgstr "命令面板"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:119
+msgid "Comment"
+msgstr "评论"
+
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -784,6 +792,10 @@ msgstr "评论已删除"
 #: src/routes/_authenticated/$forum_.settings.tsx:1068
 msgid "Comment limit"
 msgstr "评论限制"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:103
+msgid "Comment on this image…"
+msgstr ""
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -804,6 +816,11 @@ msgstr "评论已更新"
 #: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Comment, vote, and view"
 msgstr "评论、投票和查看"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+msgid "Comments"
+msgstr "评论"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
@@ -1006,10 +1023,10 @@ msgstr "默认排序"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:336
-#: src/features/forums/components/thread/thread-content.tsx:416
+#: src/features/forums/components/thread/thread-comment.tsx:474
+#: src/features/forums/components/thread/thread-comment.tsx:546
+#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-content.tsx:426
 #: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "删除"
@@ -1023,7 +1040,7 @@ msgid "Delete column"
 msgstr "删除列"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:544
 msgid "Delete comment"
 msgstr "删除评论"
 
@@ -1050,7 +1067,7 @@ msgstr "删除选项"
 msgid "Delete option {0}"
 msgstr "删除选项 {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:414
+#: src/features/forums/components/thread/thread-content.tsx:424
 msgid "Delete post"
 msgstr "删除帖子"
 
@@ -1124,7 +1141,7 @@ msgstr "已断开"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:94
 #: ../../../lib/web/src/components/restore-banner.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:708
+#: src/routes/_authenticated/$forum_.moderation.tsx:715
 msgid "Dismiss"
 msgstr "关闭"
 
@@ -1143,12 +1160,12 @@ msgid "Done"
 msgstr "完成"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Download"
 msgstr "下载"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
 msgid "Download failed"
 msgstr "下载失败"
 
@@ -1162,8 +1179,8 @@ msgstr "阅读障碍友好"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:330
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-content.tsx:340
 msgid "Edit"
 msgstr "编辑"
 
@@ -1254,14 +1271,14 @@ msgid "Failed to add account"
 msgstr "添加账户失败"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:278
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to add tag"
 msgstr "添加标签失败"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:289
-#: src/features/forums/thread-detail.tsx:301
+#: src/features/forums/thread-detail.tsx:293
+#: src/features/forums/thread-detail.tsx:305
 msgid "Failed to adjust interest"
 msgstr "调整兴趣失败"
 
@@ -1269,7 +1286,7 @@ msgstr "调整兴趣失败"
 msgid "Failed to approve items"
 msgstr "审批条目失败"
 
-#: src/features/forums/thread-detail.tsx:468
+#: src/features/forums/thread-detail.tsx:472
 msgid "Failed to ban user"
 msgstr "封禁用户失败"
 
@@ -1343,11 +1360,11 @@ msgstr "加载群组失败"
 msgid "Failed to load history"
 msgstr "加载历史失败"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load image"
 msgstr "无法加载图片"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Failed to load moderation log"
 msgstr "加载审核日志失败"
 
@@ -1364,19 +1381,19 @@ msgstr "加载审核设置失败"
 msgid "Failed to load recommended forums"
 msgstr "加载推荐论坛失败"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:543
+#: src/routes/_authenticated/$forum_.moderation.tsx:550
 msgid "Failed to load reports"
 msgstr "加载举报失败"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:884
+#: src/routes/_authenticated/$forum_.moderation.tsx:891
 msgid "Failed to load restrictions"
 msgstr "加载限制失败"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
 msgid "Failed to load video"
 msgstr "无法加载视频"
 
-#: src/features/forums/thread-detail.tsx:459
+#: src/features/forums/thread-detail.tsx:463
 msgid "Failed to mute user"
 msgstr "静音用户失败"
 
@@ -1401,11 +1418,11 @@ msgid "Failed to remove account"
 msgstr "移除账户失败"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:313
+#: src/features/forums/thread-detail.tsx:317
 msgid "Failed to remove interest"
 msgstr "移除兴趣失败"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:901
+#: src/routes/_authenticated/$forum_.moderation.tsx:908
 msgid "Failed to remove restriction"
 msgstr "移除限制失败"
 
@@ -1421,7 +1438,7 @@ msgstr "重命名论坛失败"
 msgid "Failed to reset prompt"
 msgstr "重置提示词失败"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:567
 msgid "Failed to resolve report"
 msgstr "处理举报失败"
 
@@ -1535,7 +1552,7 @@ msgstr "浮动"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:188
+#: src/features/forums/thread-detail.tsx:192
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "论坛"
@@ -1548,7 +1565,7 @@ msgstr "已创建论坛"
 msgid "Forum deleted"
 msgstr "已删除论坛"
 
-#: src/hooks/use-forum-websocket.ts:72
+#: src/hooks/use-forum-websocket.ts:76
 msgid "Forum is no longer available"
 msgstr "论坛已不可用"
 
@@ -1648,12 +1665,12 @@ msgid "Group: {0}"
 msgstr "群组：{0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Harassment"
 msgstr "骚扰"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:747
+#: src/routes/_authenticated/$forum_.moderation.tsx:754
 msgid "Hate speech"
 msgstr "仇恨言论"
 
@@ -1689,7 +1706,7 @@ msgid "Identity"
 msgstr "身份"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
 msgid "Image viewer: {0}"
 msgstr "图片查看器：{0}"
 
@@ -1713,16 +1730,16 @@ msgstr "{name} 的首字母头像"
 msgid "Inset"
 msgstr "嵌入"
 
-#: src/features/forums/thread-detail.tsx:287
+#: src/features/forums/thread-detail.tsx:291
 msgid "Interest boosted"
 msgstr "兴趣已提升"
 
-#: src/features/forums/thread-detail.tsx:299
+#: src/features/forums/thread-detail.tsx:303
 msgid "Interest reduced"
 msgstr "兴趣已降低"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:311
+#: src/features/forums/thread-detail.tsx:315
 msgid "Interest removed"
 msgstr "兴趣已移除"
 
@@ -1808,11 +1825,11 @@ msgstr "正在加载内容…"
 msgid "Loading..."
 msgstr "加载中..."
 
-#: src/features/forums/components/thread/thread-content.tsx:365
+#: src/features/forums/components/thread/thread-content.tsx:375
 msgid "Lock"
 msgstr "锁定"
 
-#: src/features/forums/components/thread/thread-content.tsx:165
+#: src/features/forums/components/thread/thread-content.tsx:172
 msgid "Locked"
 msgstr "已锁定"
 
@@ -1890,7 +1907,7 @@ msgid "Minimum length"
 msgstr "最小长度"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:749
+#: src/routes/_authenticated/$forum_.moderation.tsx:756
 msgid "Misinformation"
 msgstr "错误信息"
 
@@ -1923,23 +1940,23 @@ msgstr "星期一"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:317
-#: src/features/forums/components/thread/thread-content.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:451
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-content.tsx:334
 msgid "More options"
 msgstr "更多选项"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:495
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Mute"
 msgstr "禁言"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:393
+#: src/features/forums/components/thread/thread-comment.tsx:521
+#: src/features/forums/components/thread/thread-content.tsx:403
 msgid "Mute author"
 msgstr "屏蔽作者"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:984
+#: src/routes/_authenticated/$forum_.moderation.tsx:991
 msgid "muted"
 msgstr "已禁言"
 
@@ -2000,8 +2017,8 @@ msgstr "新主题需经过审批"
 msgid "New user threshold:"
 msgstr "新用户阈值："
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
 msgid "Next image"
 msgstr "下一张图片"
 
@@ -2009,7 +2026,7 @@ msgstr "下一张图片"
 msgid "No {parentClassNames} to add to"
 msgstr "没有可添加到的 {parentClassNames}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:640
+#: src/routes/_authenticated/$forum_.moderation.tsx:647
 msgid "No {statusFilter} reports found"
 msgstr "未找到 {statusFilter} 举报"
 
@@ -2024,6 +2041,10 @@ msgstr "尚未配置访问规则。添加规则以控制谁可以访问此资源
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "暂无活动"
+
+#: src/features/forums/components/thread/attachment-comments.tsx:66
+msgid "No comments on this image yet."
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2054,7 +2075,7 @@ msgstr "尚无可创建的条目类型。请先创建所需的父级条目。"
 msgid "No matching objects"
 msgstr "无匹配的对象"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:816
+#: src/routes/_authenticated/$forum_.moderation.tsx:823
 msgid "No moderation activity"
 msgstr "无审核活动"
 
@@ -2079,11 +2100,11 @@ msgstr "此论坛暂无帖子"
 msgid "No profile"
 msgstr "无资料"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:639
+#: src/routes/_authenticated/$forum_.moderation.tsx:646
 msgid "No reports"
 msgstr "无举报"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:946
+#: src/routes/_authenticated/$forum_.moderation.tsx:953
 msgid "No restrictions"
 msgstr "无限制"
 
@@ -2120,7 +2141,7 @@ msgstr "无未读通知"
 msgid "No users found"
 msgstr "未找到用户"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:947
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "No users have been muted or banned"
 msgstr "没有用户被屏蔽或封禁"
 
@@ -2185,13 +2206,22 @@ msgid "Number"
 msgstr "数字"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:750
+#: src/routes/_authenticated/$forum_.moderation.tsx:757
 msgid "Off-topic"
 msgstr "离题"
 
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "On"
 msgstr "开启"
+
+#. placeholder {0}: comment.attachment_name
+#: src/routes/_authenticated/$forum_.moderation.tsx:445
+msgid "On image: {0}"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:290
+msgid "On this image"
+msgstr ""
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2261,7 +2291,7 @@ msgstr "选项"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/routes/_authenticated/$forum_.moderation.tsx:758
 msgid "Other"
 msgstr "其他"
 
@@ -2295,12 +2325,12 @@ msgid "Pattern (regex)"
 msgstr "模式(正则表达式)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "待处理"
 
-#: src/features/forums/components/thread/thread-content.tsx:153
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "等待审批"
 
@@ -2323,11 +2353,11 @@ msgstr "照片和视频"
 msgid "Pick a date"
 msgstr "选择日期"
 
-#: src/features/forums/components/thread/thread-content.tsx:378
+#: src/features/forums/components/thread/thread-content.tsx:388
 msgid "Pin"
 msgstr "置顶"
 
-#: src/features/forums/components/thread/thread-content.tsx:171
+#: src/features/forums/components/thread/thread-content.tsx:178
 msgid "Pinned"
 msgstr "已置顶"
 
@@ -2341,11 +2371,11 @@ msgstr "请检查您的网络连接后重试。"
 msgid "Please describe the issue..."
 msgstr "请描述问题..."
 
-#: src/features/forums/thread-detail.tsx:321
+#: src/features/forums/thread-detail.tsx:325
 msgid "Please enter a comment"
 msgstr "请输入评论"
 
-#: src/features/forums/thread-detail.tsx:345
+#: src/features/forums/thread-detail.tsx:349
 msgid "Please enter a reply"
 msgstr "请输入回复"
 
@@ -2361,11 +2391,11 @@ msgstr "请重试。"
 msgid "Please wait a moment and try again."
 msgstr "请稍等片刻，然后重试。"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:72
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "无法保存帖子 — 标题或正文无效"
 
-#: src/hooks/use-forum-websocket.ts:75
+#: src/hooks/use-forum-websocket.ts:79
 msgid "Post couldn't be saved on the forum server"
 msgstr "无法在论坛服务器上保存帖子"
 
@@ -2437,8 +2467,8 @@ msgstr "事前审核"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "通过限制用户发帖频率防止垃圾信息"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
 msgid "Previous image"
 msgstr "上一张图片"
 
@@ -2495,12 +2525,12 @@ msgstr "在此服务器上重新关联账户"
 msgid "Re-register your passkeys on this server"
 msgstr "在此服务器上重新注册您的通行密钥"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:689
+#: src/routes/_authenticated/$forum_.moderation.tsx:696
 msgid "Reason:"
 msgstr "原因："
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:852
+#: src/routes/_authenticated/$forum_.moderation.tsx:859
 msgid "Reason: {0}"
 msgstr "原因：{0}"
 
@@ -2526,7 +2556,7 @@ msgstr "正在重定向到登录。"
 msgid "Reduce interest"
 msgstr "降低兴趣"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:469
+#: src/routes/_authenticated/$forum_.moderation.tsx:476
 msgid "Reject"
 msgstr "拒绝"
 
@@ -2552,12 +2582,12 @@ msgstr "24 小时内显示相对时间,否则显示绝对时间"
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:430
-#: src/routes/_authenticated/$forum_.moderation.tsx:719
-#: src/routes/_authenticated/$forum_.moderation.tsx:1009
+#: src/features/forums/components/thread/thread-comment.tsx:502
+#: src/features/forums/components/thread/thread-comment.tsx:560
+#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/routes/_authenticated/$forum_.moderation.tsx:726
+#: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
 msgstr "移除"
 
@@ -2581,7 +2611,7 @@ msgstr "移除「{0}」的访问规则？"
 msgid "Remove access?"
 msgstr "移除访问权限?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:558
 msgid "Remove comment"
 msgstr "移除评论"
 
@@ -2604,7 +2634,7 @@ msgstr "移除条目"
 msgid "Remove link"
 msgstr "移除链接"
 
-#: src/features/forums/components/thread/thread-content.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:438
 msgid "Remove post"
 msgstr "移除帖子"
 
@@ -2613,8 +2643,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "从你的侧边栏中移除此论坛。"
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:159
+#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "已移除"
 
@@ -2653,22 +2683,22 @@ msgstr "回复需经过审批"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:296
-#: src/features/forums/components/thread/thread-content.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:433
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-content.tsx:315
 msgid "Reply"
 msgstr "回复"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:582
 msgid "Reply to {0}..."
 msgstr "回复 {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:386
+#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-content.tsx:396
 msgid "Report"
 msgstr "举报"
 
@@ -2680,7 +2710,7 @@ msgstr "举报评论"
 msgid "Report post"
 msgstr "举报帖子"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:557
+#: src/routes/_authenticated/$forum_.moderation.tsx:564
 msgid "Report resolved"
 msgstr "举报已解决"
 
@@ -2690,7 +2720,7 @@ msgid "Report submitted"
 msgstr "举报已提交"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:697
+#: src/routes/_authenticated/$forum_.moderation.tsx:704
 msgid "Reported by {0}"
 msgstr "由 {0} 举报"
 
@@ -2736,16 +2766,16 @@ msgstr "重置{title}"
 msgid "Reset all settings to default values"
 msgstr "将所有设置重置为默认值"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:630
+#: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Resolved"
 msgstr "已解决"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-content.tsx:356
 msgid "Restore"
 msgstr "恢复"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:898
+#: src/routes/_authenticated/$forum_.moderation.tsx:905
 msgid "Restriction removed"
 msgstr "已移除限制"
 
@@ -2811,7 +2841,7 @@ msgstr "星期六"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:358
 #: src/routes/_authenticated/$forum_.settings.tsx:492
 #: src/routes/_authenticated/$forum_.settings.tsx:724
 msgid "Save"
@@ -2958,7 +2988,7 @@ msgstr "选择账户"
 msgid "Select account type"
 msgstr "选择账户类型"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select all"
 msgstr "全选"
 
@@ -2978,7 +3008,7 @@ msgstr "选择位置"
 msgid "Select next card"
 msgstr "选择下一张卡片"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:455
+#: src/routes/_authenticated/$forum_.moderation.tsx:462
 msgid "Select none"
 msgstr "取消全选"
 
@@ -3069,6 +3099,10 @@ msgstr "显示分类"
 msgid "Show fields"
 msgstr "显示字段"
 
+#: src/features/forums/components/thread/attachment-comments.tsx:90
+msgid "Show only comments on this image"
+msgstr ""
+
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
 msgstr "显示密码"
@@ -3123,7 +3157,7 @@ msgid "Spacious"
 msgstr "宽松"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:745
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Spam"
 msgstr "垃圾信息"
 
@@ -3146,10 +3180,10 @@ msgstr "提交评论"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:622
-#: src/features/forums/components/thread/thread-comment.tsx:631
-#: src/features/forums/thread-detail.tsx:622
-#: src/features/forums/thread-detail.tsx:631
+#: src/features/forums/components/thread/thread-comment.tsx:656
+#: src/features/forums/components/thread/thread-comment.tsx:665
+#: src/features/forums/thread-detail.tsx:640
+#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "提交回复"
 
@@ -3281,7 +3315,7 @@ msgstr "主题"
 msgid "Theme Settings"
 msgstr "主题设置"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:817
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "There are no moderation actions recorded yet"
 msgstr "暂无审核操作记录"
 
@@ -3301,7 +3335,7 @@ msgstr "此页面尚未创建。"
 msgid "This post may have been deleted or doesn't exist."
 msgstr "此帖子可能已被删除或不存在。"
 
-#: src/hooks/use-forum-websocket.ts:70
+#: src/hooks/use-forum-websocket.ts:74
 msgid "This post was already submitted"
 msgstr "此帖子已提交"
 
@@ -3309,11 +3343,11 @@ msgstr "此帖子已提交"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "这将从你的已保存列表中移除每一条帖子。此操作无法撤销。"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:559
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "这将向普通用户隐藏评论。审核员仍然可以看到它并在稍后恢复。"
 
-#: src/features/forums/components/thread/thread-content.tsx:429
+#: src/features/forums/components/thread/thread-content.tsx:439
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "这将向普通用户隐藏帖子。审核员仍然可以看到它并在稍后恢复。"
 
@@ -3322,7 +3356,7 @@ msgstr "这将向普通用户隐藏帖子。审核员仍然可以看到它并在
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "这将永久删除 \"{0}\" 及其所有帖子和评论。此操作无法撤消。"
 
-#: src/features/forums/thread-detail.tsx:183
+#: src/features/forums/thread-detail.tsx:187
 msgid "Thread"
 msgstr "话题"
 
@@ -3468,15 +3502,15 @@ msgstr "美国"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:665
+#: src/routes/_authenticated/$forum_.moderation.tsx:672
 msgid "Unknown"
 msgstr "未知"
 
-#: src/features/forums/components/thread/thread-content.tsx:359
+#: src/features/forums/components/thread/thread-content.tsx:369
 msgid "Unlock"
 msgstr "解锁"
 
-#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:382
 msgid "Unpin"
 msgstr "取消置顶"
 
@@ -3538,11 +3572,11 @@ msgstr "使用您的通行密钥"
 msgid "User"
 msgstr "用户"
 
-#: src/features/forums/thread-detail.tsx:466
+#: src/features/forums/thread-detail.tsx:470
 msgid "User banned"
 msgstr "用户已封禁"
 
-#: src/features/forums/thread-detail.tsx:457
+#: src/features/forums/thread-detail.tsx:461
 msgid "User muted"
 msgstr "用户已静音"
 
@@ -3572,12 +3606,12 @@ msgstr "验证"
 msgid "Verify email address"
 msgstr "验证邮箱地址"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:85
+#: ../../../lib/web/src/components/attachment-gallery.tsx:94
 msgid "Video thumbnail"
 msgstr "视频缩略图"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Video viewer: {0}"
 msgstr "视频查看器：{0}"
 
@@ -3602,8 +3636,12 @@ msgstr "视图控制"
 msgid "View only"
 msgstr "仅查看"
 
+#: src/features/forums/components/thread/thread-comment.tsx:291
+msgid "View the image this comment is about"
+msgstr ""
+
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:748
+#: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "暴力"
 
@@ -3652,11 +3690,11 @@ msgstr "窗口时长"
 msgid "You are already subscribed to this forum"
 msgstr "您已订阅此论坛"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:70
 msgid "You are posting too quickly — please wait and try again"
 msgstr "您发帖太快 — 请稍等再试"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:68
 msgid "You are restricted from posting in this forum"
 msgstr "您被限制在此论坛发帖"
 
@@ -3668,7 +3706,7 @@ msgstr "您无权访问此部分。"
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "您没有查看此资源 <0/>所需的权限。"
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/hooks/use-forum-websocket.ts:66
 msgid "You don't have permission to post in this forum"
 msgstr "您没有在此论坛发帖的权限"
 

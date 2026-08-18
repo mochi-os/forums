@@ -243,8 +243,8 @@ export function useCreateComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   const { progress, upload } = useUploadProgress()
   const mutation = useMutation({
-    mutationFn: ({ body, parent, files }: { body: string; parent?: string; files?: File[] }) => {
-      const payload = { forum: forumId, post: postId, body, parent, files }
+    mutationFn: ({ body, parent, files, attachment }: { body: string; parent?: string; files?: File[]; attachment?: string }) => {
+      const payload = { forum: forumId, post: postId, body, parent, files, attachment }
       return files?.length
         ? upload((onProgress) => forumsApi.createComment(payload, onProgress), {
             sizes: files.map((file) => file.size),

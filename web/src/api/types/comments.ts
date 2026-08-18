@@ -18,6 +18,10 @@ export interface Comment {
   down: number
   created: number
   children: Comment[]
+  // Anchor: the id of one of the post's attachments this comment is about,
+  // and its display name (caption or file name). Empty when unanchored.
+  attachment?: string
+  attachment_name?: string
   can_vote: boolean
   can_comment: boolean
 }
@@ -41,6 +45,8 @@ export interface CreateCommentRequest {
   post: string
   body: string
   parent?: string
+  // Anchor the comment to one of the post's attachments
+  attachment?: string
 }
 
 export interface CreateCommentResponse {

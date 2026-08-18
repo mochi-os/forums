@@ -35,12 +35,14 @@ interface ForumWebsocketEvent {
     | 'post/reject'
     | 'post/remove'
     | 'post/restore'
+    | 'post/status'
     | 'comment/create'
     | 'comment/edit'
     | 'comment/update'
     | 'comment/delete'
     | 'comment/remove'
     | 'comment/restore'
+    | 'comment/status'
     | 'tag/add'
     | 'tag/remove'
     | 'forum/update'
@@ -52,6 +54,8 @@ interface ForumWebsocketEvent {
   reason?: string
   /** post/reject: optional human-readable detail (already localised by the owner side, may be in their language) */
   detail?: string
+  /** post/status and comment/status: the status the forum settled our own submission on */
+  status?: 'approved' | 'pending' | 'removed'
   /** Present on tag/add (object with id, label, source) and tag/remove (tag ID string) */
   tag?: { id: string; label: string; source: string } | string
 }
@@ -136,6 +140,7 @@ export function useForumWebsocket(
         case 'post/pin':
         case 'post/remove':
         case 'post/restore':
+        case 'post/status': // our own submission's outcome: clears the "Pending approval" badge
         case 'tag/add':
         case 'tag/remove':
           void queryClient.invalidateQueries({
@@ -161,6 +166,7 @@ export function useForumWebsocket(
         case 'comment/delete':
         case 'comment/remove':
         case 'comment/restore':
+        case 'comment/status':
           if (data.post) {
             void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
             if (forumKey && forumKey !== forumId) {

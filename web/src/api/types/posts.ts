@@ -154,6 +154,10 @@ export interface ViewPostComment {
   edited?: number
   user_vote?: 'up' | 'down' | ''
   children: ViewPostComment[]
+  // Anchor: the id of one of the post's attachments this comment is about,
+  // and its display name (caption or file name). Empty when unanchored.
+  attachment?: string
+  attachment_name?: string
   can_vote: boolean
   can_comment: boolean
   // Moderation fields
