@@ -27,7 +27,7 @@ msgstr " · Iraungitzen da {0}"
 msgid " · Permanent"
 msgstr " · Iraunkorra"
 
-#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/features/forums/components/thread/thread-comment.tsx:251
 msgid " (edited)"
 msgstr " (editatua)"
 
@@ -75,8 +75,8 @@ msgid "{0} option preview"
 msgstr "{0} aukeraren aurrebista"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "{0} settings"
 msgstr "{0} ezarpenak"
 
@@ -116,9 +116,9 @@ msgstr "{entityLabel} izena beharrezkoa da"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName}-(e)k berdinketa eskaini du"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:92
+#: src/features/forums/components/thread/attachment-comments.tsx:71
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
-msgstr ""
+msgstr "{others, plural, one {Erakutsi argitalpen honetako beste # iruzkin} other {Erakutsi argitalpen honetako beste # iruzkin}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -145,7 +145,7 @@ msgstr "{sentLabel} / {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {elementu #} other {# elementu}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:266
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# erantzun} other {# erantzun}}"
 
@@ -182,7 +182,7 @@ msgstr "Absolutua (data eta ordua)"
 msgid "Accept"
 msgstr "Onartu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "Sarbidea"
 
@@ -198,23 +198,23 @@ msgstr "Sarbidea debekatua"
 msgid "Access level"
 msgstr "Sarbide maila"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:848
 msgid "Access level updated"
 msgstr "Sarbide maila eguneratua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:857
 msgid "Access management"
 msgstr "Sarbide kudeaketa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:833
 msgid "Access removed"
 msgstr "Sarbidea kendua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:814
+#: src/routes/_authenticated/$forum_.settings.tsx:821
 msgid "Access set for {subjectName}"
 msgstr "Sarbidea ezarria {subjectName}-rentzat"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Account"
 msgstr "Kontua"
 
@@ -303,7 +303,7 @@ msgstr "Gehitu kontu berria"
 msgid "Add option"
 msgstr "Gehitu aukera"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:860
+#: src/routes/_authenticated/$forum_.settings.tsx:867
 msgid "Add rule"
 msgstr "Gehitu araua"
 
@@ -340,11 +340,11 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Doitu itxura eta diseinua zure lehentasunetara egokitzeko."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "AI"
 msgstr "AA"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "AI actions on posts"
 msgstr "AA ekintzak argitalpenetan"
 
@@ -404,7 +404,7 @@ msgstr "Saioa hasi duen edonor"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Jario honetara harpidetutako guztiak jasotzeari utziko dio. Ondoren URL berri bat kopia dezakezu."
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-comment.tsx:458
 #: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "Onartu"
@@ -422,11 +422,11 @@ msgstr "Ziur al zaude \"{name}\" zutabea ezabatu nahi duzula? Hau ezin da desegi
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Ziur al zaude iruzkin hau ezabatu nahi duzula? Honek erantzun guztiak ere ezabatuko ditu."
 
-#: src/features/forums/components/thread/thread-comment.tsx:545
+#: src/features/forums/components/thread/thread-comment.tsx:516
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Ziur al zaude iruzkin hau ezabatu nahi duzula? Honek erantzun guztiak ere ezabatuko ditu. Ekintza hau ezin da desegin."
 
-#: src/features/forums/components/thread/thread-content.tsx:425
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Ziur al zaude argitalpen hau ezabatu nahi duzula? Honek iruzkin guztiak ere ezabatuko ditu. Ekintza hau ezin da desegin."
 
@@ -442,17 +442,15 @@ msgstr "Goranzkoa"
 msgid "Ascending"
 msgstr "Gorakorra"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:408
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:413
 msgid "Attach comment files"
 msgstr "Erantsi iruzkin fitxategiak"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:626
-#: src/features/forums/components/thread/thread-comment.tsx:630
-#: src/features/forums/thread-detail.tsx:609
-#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "Erantsi erantzun fitxategiak"
 
@@ -482,14 +480,14 @@ msgid "Back"
 msgstr "Atzera"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:372
-#: src/features/forums/thread-detail.tsx:384
-#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:325
+#: src/features/forums/thread-detail.tsx:337
+#: src/features/forums/thread-detail.tsx:358
 #: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:227
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Back to forum"
 msgstr "Itzuli forora"
 
@@ -507,8 +505,8 @@ msgstr "Itzuli hasierara"
 msgid "Ban"
 msgstr "Debekatu"
 
-#: src/features/forums/components/thread/thread-comment.tsx:529
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:500
+#: src/features/forums/components/thread/thread-content.tsx:418
 msgid "Ban author"
 msgstr "Debekatu egilea"
 
@@ -517,15 +515,15 @@ msgid "banned"
 msgstr "debekatuta"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Banner"
 msgstr "Iragarki-banda"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner removed"
 msgstr "Iragarki-banda kendu da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner updated"
 msgstr "Iragarki-banda eguneratu da"
 
@@ -587,21 +585,19 @@ msgstr "{0}-(r)engatik"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Utzi"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:425
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:430
 msgid "Cancel comment"
 msgstr "Utzi iruzkina"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:641
-#: src/features/forums/components/thread/thread-comment.tsx:646
-#: src/features/forums/thread-detail.tsx:623
-#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "Utzi erantzuna"
 
@@ -666,7 +662,7 @@ msgstr "Aukeratu hizkuntza"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:508
 msgid "Clear"
 msgstr "Garbitu"
 
@@ -705,8 +701,8 @@ msgstr "Gordetako argitalpenak garbitzen..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:488
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:491
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Itxi"
@@ -772,10 +768,6 @@ msgstr "Laster dator!"
 msgid "Command Palette"
 msgstr "Komando-paleta"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:119
-msgid "Comment"
-msgstr "Iruzkina"
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -789,13 +781,13 @@ msgstr "Iruzkina onartua"
 msgid "Comment deleted"
 msgstr "Iruzkina ezabatu da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1075
 msgid "Comment limit"
 msgstr "Iruzkin muga"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:103
+#: src/features/forums/components/thread/attachment-comments.tsx:91
 msgid "Comment on this image…"
-msgstr ""
+msgstr "Iruzkindu irudi hau…"
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -813,12 +805,12 @@ msgstr "Iruzkina berreskuratu da"
 msgid "Comment updated"
 msgstr "Iruzkina eguneratu da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "Iruzkindu, bozkatu eta ikusi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:451
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Comments"
 msgstr "Iruzkinak"
 
@@ -857,7 +849,7 @@ msgstr "Konektatzen..."
 msgid "Content"
 msgstr "Edukia"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1018
+#: src/routes/_authenticated/$forum_.settings.tsx:1025
 msgid "Content from users below a threshold must be approved"
 msgstr "Atalase baten azpiko erabiltzaileen edukia onartu behar da"
 
@@ -966,7 +958,7 @@ msgid "Current location"
 msgstr "Uneko kokapena"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Custom"
 msgstr "Pertsonalizatua"
 
@@ -989,7 +981,7 @@ msgstr "Datu-gatazka"
 msgid "Date"
 msgstr "Data"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1040
+#: src/routes/_authenticated/$forum_.settings.tsx:1047
 msgid "days"
 msgstr "egunak"
 
@@ -998,11 +990,11 @@ msgid "Decline"
 msgstr "Ukatu"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:715
 msgid "Default"
 msgstr "Lehenetsia"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:571
+#: src/routes/_authenticated/$forum_.settings.tsx:578
 msgid "Default account"
 msgstr "Lehenetsitako kontua"
 
@@ -1023,11 +1015,11 @@ msgstr "Lehenetsitako ordena"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:474
-#: src/features/forums/components/thread/thread-comment.tsx:546
-#: src/features/forums/components/thread/thread-content.tsx:346
-#: src/features/forums/components/thread/thread-content.tsx:426
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:517
+#: src/features/forums/components/thread/thread-content.tsx:355
+#: src/features/forums/components/thread/thread-content.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "Delete"
 msgstr "Ezabatu"
 
@@ -1040,7 +1032,7 @@ msgid "Delete column"
 msgstr "Ezabatu zutabea"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:544
+#: src/features/forums/components/thread/thread-comment.tsx:515
 msgid "Delete comment"
 msgstr "Ezabatu iruzkina"
 
@@ -1048,12 +1040,12 @@ msgstr "Ezabatu iruzkina"
 msgid "Delete field"
 msgstr "Ezabatu eremua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:417
+#: src/routes/_authenticated/$forum_.settings.tsx:437
 msgid "Delete forum"
 msgstr "Ezabatu foroa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:435
 msgid "Delete forum?"
 msgstr "Ezabatu foroa?"
 
@@ -1067,7 +1059,7 @@ msgstr "Ezabatu aukera"
 msgid "Delete option {0}"
 msgstr "Ezabatu {0} aukera"
 
-#: src/features/forums/components/thread/thread-content.tsx:424
+#: src/features/forums/components/thread/thread-content.tsx:433
 msgid "Delete post"
 msgstr "Ezabatu argitalpena"
 
@@ -1122,15 +1114,15 @@ msgstr "Norabidea"
 msgid "Directory"
 msgstr "Direktorioa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Disabled"
 msgstr "Desgaituta"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:313
+#: ../../../lib/web/src/components/comment-composer.tsx:322
 msgid "Discard"
 msgstr "Baztertu"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:320
 msgid "Discard draft?"
 msgstr "Zirriborroa baztertu?"
 
@@ -1160,12 +1152,12 @@ msgid "Done"
 msgstr "Eginda"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 msgid "Download"
 msgstr "Deskargatu"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:111
 msgid "Download failed"
 msgstr "Deskargak huts egin du"
 
@@ -1179,8 +1171,8 @@ msgstr "Dislexiarako egokia"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Edit"
 msgstr "Editatu"
 
@@ -1231,7 +1223,7 @@ msgstr "Posta elektronikoa"
 msgid "Email code"
 msgstr "Posta elektronikoko kodea"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Enter banner text (markdown supported)..."
 msgstr "Sartu iragarki-testua (markdown onartzen da)..."
 
@@ -1243,7 +1235,7 @@ msgstr "Sartu zure mezu elektronikoko kodea"
 msgid "Enter your authenticator code"
 msgstr "Sartu zure autentifikazio-aplikazioaren kodea"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Entity ID"
 msgstr "Entitate IDa"
 
@@ -1271,14 +1263,14 @@ msgid "Failed to add account"
 msgstr "Ezin izan da kontua gehitu"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:247
 msgid "Failed to add tag"
 msgstr "Ezin izan da etiketa gehitu"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:293
-#: src/features/forums/thread-detail.tsx:305
+#: src/features/forums/thread-detail.tsx:258
+#: src/features/forums/thread-detail.tsx:270
 msgid "Failed to adjust interest"
 msgstr "Ezin izan da interesa doitu"
 
@@ -1286,7 +1278,7 @@ msgstr "Ezin izan da interesa doitu"
 msgid "Failed to approve items"
 msgstr "Ezin izan dira elementuak onartu"
 
-#: src/features/forums/thread-detail.tsx:472
+#: src/features/forums/thread-detail.tsx:425
 msgid "Failed to ban user"
 msgstr "Ezin izan da erabiltzailea debekatu"
 
@@ -1336,7 +1328,7 @@ msgstr "Ezin izan da RSS tokena lortu"
 msgid "Failed to load"
 msgstr "Ezin izan da kargatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:792
 msgid "Failed to load access rules"
 msgstr "Ezin izan dira sarbide-arauak kargatu"
 
@@ -1344,7 +1336,7 @@ msgstr "Ezin izan dira sarbide-arauak kargatu"
 msgid "Failed to load forum"
 msgstr "Ezin izan da foroa kargatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:155
+#: src/routes/_authenticated/$forum_.settings.tsx:158
 msgid "Failed to load forum settings"
 msgstr "Ezin izan dira foroaren ezarpenak kargatu"
 
@@ -1352,7 +1344,7 @@ msgstr "Ezin izan dira foroaren ezarpenak kargatu"
 msgid "Failed to load forums"
 msgstr "Ezin izan dira foroak kargatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:792
+#: src/routes/_authenticated/$forum_.settings.tsx:799
 msgid "Failed to load groups"
 msgstr "Ezin izan dira taldeak kargatu"
 
@@ -1360,7 +1352,7 @@ msgstr "Ezin izan dira taldeak kargatu"
 msgid "Failed to load history"
 msgstr "Ezin izan da historia kargatu"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load image"
 msgstr "Ezin izan da irudia kargatu"
 
@@ -1372,7 +1364,7 @@ msgstr "Ezin izan da moderazio-erregistroa kargatu"
 msgid "Failed to load moderation queue"
 msgstr "Ezin izan da moderazio-ilara kargatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:935
+#: src/routes/_authenticated/$forum_.settings.tsx:942
 msgid "Failed to load moderation settings"
 msgstr "Ezin izan dira moderazio-ezarpenak kargatu"
 
@@ -1389,11 +1381,11 @@ msgstr "Ezin izan dira txostenak kargatu"
 msgid "Failed to load restrictions"
 msgstr "Ezin izan dira murrizketak kargatu"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load video"
 msgstr "Ezin izan da bideoa kargatu"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:416
 msgid "Failed to mute user"
 msgstr "Ezin izan da erabiltzailea isilarazi"
 
@@ -1409,7 +1401,7 @@ msgstr "Ezin izan da iruzkina argitaratu"
 msgid "Failed to reject items"
 msgstr "Ezin izan dira elementuak errefusatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:836
 msgid "Failed to remove access"
 msgstr "Ezin izan da sarbidea kendu"
 
@@ -1418,7 +1410,7 @@ msgid "Failed to remove account"
 msgstr "Ezin izan da kontua kendu"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:317
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to remove interest"
 msgstr "Ezin izan da interesa kendu"
 
@@ -1430,11 +1422,11 @@ msgstr "Ezin izan da murrizketa kendu"
 msgid "Failed to remove saved post"
 msgstr "Ezin izan da gordetako argitalpena kendu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:205
+#: src/routes/_authenticated/$forum_.settings.tsx:208
 msgid "Failed to rename forum"
 msgstr "Ezin izan da foroa berrizendatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:679
+#: src/routes/_authenticated/$forum_.settings.tsx:686
 msgid "Failed to reset prompt"
 msgstr "Ezin izan da galdera berrezarri"
 
@@ -1446,7 +1438,7 @@ msgstr "Ezin izan da txostena konpondu"
 msgid "Failed to revoke RSS access"
 msgstr "Ezin izan da RSS sarbidea ezeztatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:959
 msgid "Failed to save moderation settings"
 msgstr "Ezin izan dira moderazio-ezarpenak gorde"
 
@@ -1454,7 +1446,7 @@ msgstr "Ezin izan dira moderazio-ezarpenak gorde"
 msgid "Failed to save post"
 msgstr "Ezin izan da argitalpena gorde"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:696
+#: src/routes/_authenticated/$forum_.settings.tsx:703
 msgid "Failed to save prompt"
 msgstr "Ezin izan da galdera gorde"
 
@@ -1463,7 +1455,7 @@ msgstr "Ezin izan da galdera gorde"
 msgid "Failed to search forums"
 msgstr "Ezin izan dira foroak bilatu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:789
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Failed to search users"
 msgstr "Ezin izan dira erabiltzaileak bilatu"
 
@@ -1471,7 +1463,7 @@ msgstr "Ezin izan dira erabiltzaileak bilatu"
 msgid "Failed to send verification code"
 msgstr "Ezin izan da egiaztapen-kodea bidali"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:817
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Failed to set access level"
 msgstr "Ezin izan da sarbide-maila ezarri"
 
@@ -1483,20 +1475,20 @@ msgid "Failed to subscribe"
 msgstr "Ezin izan da harpidetu"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:183
+#: src/routes/_authenticated/$forum_.settings.tsx:186
 msgid "Failed to unsubscribe"
 msgstr "Ezin izan da harpidetza utzi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:844
+#: src/routes/_authenticated/$forum_.settings.tsx:851
 msgid "Failed to update access level"
 msgstr "Ezin izan da sarbide-maila eguneratu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:539
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "Failed to update AI settings"
 msgstr "Ezin izan dira AA ezarpenak eguneratu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:470
 msgid "Failed to update banner"
 msgstr "Ezin izan da iragarkia eguneratu"
 
@@ -1529,7 +1521,7 @@ msgstr "Etiketaren arabera iragazia:"
 msgid "Find forums"
 msgstr "Aurkitu foroak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:379
 msgid "Fingerprint"
 msgstr "Hatz-marka"
 
@@ -1552,7 +1544,7 @@ msgstr "Flotatzailea"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:192
+#: src/features/forums/thread-detail.tsx:162
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Foroa"
@@ -1573,23 +1565,23 @@ msgstr "Foroa ez dago jadanik eskuragarri"
 msgid "Forum link"
 msgstr "Foroaren esteka"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:353
 msgid "Forum name is required"
 msgstr "Foroaren izena beharrezkoa da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum not found"
 msgstr "Foroa ez da aurkitu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:207
 msgid "Forum renamed"
 msgstr "Foroa berrizendatuta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:282
 msgid "Forum settings sections"
 msgstr "Foroaren ezarpenen atalak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum unavailable"
 msgstr "Foroa ez dago erabilgarri"
 
@@ -1701,12 +1693,12 @@ msgstr "Beroa"
 msgid "ID"
 msgstr "IDa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:362
 msgid "Identity"
 msgstr "Identitatea"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:336
 msgid "Image viewer: {0}"
 msgstr "Irudi-ikustailea: {0}"
 
@@ -1730,16 +1722,16 @@ msgstr "{name}(r)en inizialen avatarra"
 msgid "Inset"
 msgstr "Sartzea"
 
-#: src/features/forums/thread-detail.tsx:291
+#: src/features/forums/thread-detail.tsx:256
 msgid "Interest boosted"
 msgstr "Interesa handituta"
 
-#: src/features/forums/thread-detail.tsx:303
+#: src/features/forums/thread-detail.tsx:268
 msgid "Interest reduced"
 msgstr "Interesa murriztuta"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:315
+#: src/features/forums/thread-detail.tsx:280
 msgid "Interest removed"
 msgstr "Interesa kenduta"
 
@@ -1825,7 +1817,7 @@ msgstr "Edukia kargatzen…"
 msgid "Loading..."
 msgstr "Kargatzen..."
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Lock"
 msgstr "Blokeatu"
 
@@ -1915,14 +1907,14 @@ msgstr "Desinformazioa"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderatu, argitaratu, iruzkindu, bozkatu eta ikusi"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Moderazioa"
 
@@ -1940,10 +1932,10 @@ msgstr "Astelehena"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:451
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/features/forums/components/thread/thread-content.tsx:327
-#: src/features/forums/components/thread/thread-content.tsx:334
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:336
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "More options"
 msgstr "Aukera gehiago"
 
@@ -1951,8 +1943,8 @@ msgstr "Aukera gehiago"
 msgid "Mute"
 msgstr "Isilarazi"
 
-#: src/features/forums/components/thread/thread-comment.tsx:521
-#: src/features/forums/components/thread/thread-content.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-content.tsx:412
 msgid "Mute author"
 msgstr "Isilarazi egilea"
 
@@ -1965,11 +1957,11 @@ msgstr "isilarazia"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Name"
 msgstr "Izena"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Name cannot contain < or > characters"
 msgstr "Izenak ezin du < edo > karaktererik eduki"
 
@@ -1978,7 +1970,7 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "Izenak ezin du angeluzuzenik, alderantzizko barrarik, puntu eta komarik, komatxorik edo alderantzizko komatxorik izan"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Name must be 1000 characters or less"
 msgstr "Izenak 1000 karaktere edo gutxiago izan behar ditu"
 
@@ -2009,16 +2001,16 @@ msgstr "Joko berria"
 msgid "New post"
 msgstr "Argitalpen berria"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:996
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "New threads must be approved"
 msgstr "Hari berriak onartu behar dira"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1028
+#: src/routes/_authenticated/$forum_.settings.tsx:1035
 msgid "New user threshold:"
 msgstr "Erabiltzaile berrien atalasea:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:549
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:554
 msgid "Next image"
 msgstr "Hurrengo irudia"
 
@@ -2030,7 +2022,7 @@ msgstr "Ez dago {parentClassNames} gehitzeko"
 msgid "No {statusFilter} reports found"
 msgstr "Ez da {statusFilter} txostenik aurkitu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "Sarbiderik ez"
 
@@ -2042,9 +2034,9 @@ msgstr "Ez da sarbide-araurik konfiguratu. Gehitu arauak baliabide honetara nork
 msgid "No activity yet"
 msgstr "Oraindik jardueririk ez"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:66
+#: src/features/forums/components/thread/attachment-comments.tsx:54
 msgid "No comments on this image yet."
-msgstr ""
+msgstr "Oraindik ez dago iruzkinik irudi honetan."
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2217,11 +2209,11 @@ msgstr "Aktibatuta"
 #. placeholder {0}: comment.attachment_name
 #: src/routes/_authenticated/$forum_.moderation.tsx:445
 msgid "On image: {0}"
-msgstr ""
+msgstr "Irudian: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:290
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
-msgstr ""
+msgstr "Irudi honetan"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2280,7 +2272,7 @@ msgstr "Ireki ikuspegi-kontrolak"
 msgid "Option name"
 msgstr "Aukera-izena"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Markdown banner aukerakoa, zure foroaren goialdean erakutsia."
 
@@ -2325,7 +2317,7 @@ msgid "Pattern (regex)"
 msgstr "Eredua (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/features/forums/components/thread/thread-comment.tsx:280
 #: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "Zain"
@@ -2353,7 +2345,7 @@ msgstr "Argazkiak eta bideoak"
 msgid "Pick a date"
 msgstr "Hautatu data bat"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Pin"
 msgstr "Finkatu"
 
@@ -2361,7 +2353,7 @@ msgstr "Finkatu"
 msgid "Pinned"
 msgstr "Finkatuta"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:84
+#: ../../../lib/web/src/components/comment-composer.tsx:93
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2371,11 +2363,7 @@ msgstr "Egiaztatu zure interneteko konexioa eta saiatu berriro."
 msgid "Please describe the issue..."
 msgstr "Mesedez deskribatu arazoa..."
 
-#: src/features/forums/thread-detail.tsx:325
-msgid "Please enter a comment"
-msgstr "Mesedez sartu iruzkin bat"
-
-#: src/features/forums/thread-detail.tsx:349
+#: src/features/forums/thread-detail.tsx:302
 msgid "Please enter a reply"
 msgstr "Mesedez sartu erantzun bat"
 
@@ -2403,7 +2391,7 @@ msgstr "Bidalketa ezin izan da foro-zerbitzarian gorde"
 msgid "Post deleted"
 msgstr "Argitalpena ezabatu da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1060
 msgid "Post limit"
 msgstr "Argitalpenen muga"
 
@@ -2443,11 +2431,11 @@ msgstr "Argitalpena desfinkatu da"
 msgid "Post updated"
 msgstr "Argitalpena eguneratu da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:101
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "Argitaratu, iruzkindu, bozkatu eta ikusi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1063
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "posts"
 msgstr "argitalpen"
 
@@ -2459,16 +2447,16 @@ msgstr "Argitalpenak"
 msgid "Posts and comments"
 msgstr "Argitalpenak eta iruzkinak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:989
+#: src/routes/_authenticated/$forum_.settings.tsx:996
 msgid "Pre-moderation"
 msgstr "Aurre-moderazioa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1049
+#: src/routes/_authenticated/$forum_.settings.tsx:1056
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Saihestu spama erabiltzaileek zenbat aldiz argitara dezaketen mugatuz"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:533
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:538
 msgid "Previous image"
 msgstr "Aurreko irudia"
 
@@ -2489,7 +2477,7 @@ msgstr "Profila"
 msgid "Project members"
 msgstr "Proiektuko kideak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:694
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Prompt saved"
 msgstr "Galdera-aukera gorde da"
 
@@ -2513,7 +2501,7 @@ msgstr "Ilara"
 msgid "Raised"
 msgstr "Goratua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1048
+#: src/routes/_authenticated/$forum_.settings.tsx:1055
 msgid "Rate limiting"
 msgstr "Tasa-mugaketa"
 
@@ -2582,10 +2570,10 @@ msgstr "Erlatiboa 24 ordu barruan, bestela absolutua"
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:502
-#: src/features/forums/components/thread/thread-comment.tsx:560
-#: src/features/forums/components/thread/thread-content.tsx:362
-#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:531
+#: src/features/forums/components/thread/thread-content.tsx:371
+#: src/features/forums/components/thread/thread-content.tsx:449
 #: src/routes/_authenticated/$forum_.moderation.tsx:726
 #: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
@@ -2611,7 +2599,7 @@ msgstr "«{0}» sarbide-araua kendu?"
 msgid "Remove access?"
 msgstr "Sarbidea kendu?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:558
+#: src/features/forums/components/thread/thread-comment.tsx:529
 msgid "Remove comment"
 msgstr "Kendu iruzkina"
 
@@ -2634,16 +2622,16 @@ msgstr "Kendu elementua"
 msgid "Remove link"
 msgstr "Kendu esteka"
 
-#: src/features/forums/components/thread/thread-content.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:447
 msgid "Remove post"
 msgstr "Kendu argitalpena"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:397
 msgid "Remove this forum from your sidebar."
 msgstr "Kendu foro hau zure alboko barratik."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-comment.tsx:286
 #: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "Kenduta"
@@ -2669,36 +2657,36 @@ msgstr "Aldatu zutabearen izena"
 msgid "Rename this board column"
 msgstr "Aldatu taula honetako zutabearen izena"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:206
 msgid "Renaming forum..."
 msgstr "Foroa berrizendatzen..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1078
+#: src/routes/_authenticated/$forum_.settings.tsx:1085
 msgid "replies"
 msgstr "erantzun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1007
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Replies must be approved"
 msgstr "Erantzunak onartu behar dira"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:433
-#: src/features/forums/components/thread/thread-comment.tsx:439
-#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
 #: src/features/forums/components/thread/thread-content.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:324
 msgid "Reply"
 msgstr "Erantzun"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:582
+#: src/features/forums/components/thread/thread-comment.tsx:552
 msgid "Reply to {0}..."
 msgstr "Erantzun {0}-(r)i..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:510
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:405
 msgid "Report"
 msgstr "Salatu"
 
@@ -2728,19 +2716,19 @@ msgstr "{0}-(e)k salatua"
 msgid "Reports"
 msgstr "Salaketak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:990
+#: src/routes/_authenticated/$forum_.settings.tsx:997
 msgid "Require approval before content becomes visible"
 msgstr "Onarpena behar da edukia ikusgai egin aurretik"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1006
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new comments"
 msgstr "Onarpena behar da iruzkin berrietarako"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new posts"
 msgstr "Onarpena behar da argitalpen berrietarako"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1017
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "Require approval for new users"
 msgstr "Onarpena behar da erabiltzaile berrietarako"
 
@@ -2770,8 +2758,8 @@ msgstr "Berrezarri ezarpen guztiak balio lehenetsietara"
 msgid "Resolved"
 msgstr "Ebatzita"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Restore"
 msgstr "Berrezarri"
 
@@ -2841,9 +2829,9 @@ msgstr "Larunbata"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:358
-#: src/routes/_authenticated/$forum_.settings.tsx:492
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/features/forums/components/thread/thread-comment.tsx:329
+#: src/routes/_authenticated/$forum_.settings.tsx:499
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Save"
 msgstr "Gorde"
 
@@ -2869,11 +2857,11 @@ msgstr "Gordetako argitalpenak garbitu dira"
 
 #: src/features/forums/components/edit-post-dialog.tsx:379
 #: src/lib/saved.ts:31
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Saving..."
 msgstr "Gordetzen..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:610
 msgid "Score prompt"
 msgstr "Puntuazio-galdera"
 
@@ -2943,7 +2931,7 @@ msgstr "Bilatu..."
 msgid "Searching..."
 msgstr "Bilatzen..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1100
 msgid "seconds"
 msgstr "segundo"
 
@@ -3084,10 +3072,10 @@ msgstr "Ezarri jatorria eta helmuga"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 #: ../../../lib/web/src/components/options-menu.tsx:199
-#: src/routes/_authenticated/$forum_.settings.tsx:90
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "Settings"
 msgstr "Ezarpenak"
 
@@ -3099,9 +3087,9 @@ msgstr "Erakutsi klaseak"
 msgid "Show fields"
 msgstr "Erakutsi eremuak"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:90
+#: src/features/forums/components/thread/attachment-comments.tsx:69
 msgid "Show only comments on this image"
-msgstr ""
+msgstr "Erakutsi irudi honetako iruzkinak soilik"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
@@ -3173,17 +3161,15 @@ msgstr "Egon adi, ordea!"
 msgid "Subject"
 msgstr "Gaia"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
 msgid "Submit comment"
 msgstr "Bidali iruzkina"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:656
-#: src/features/forums/components/thread/thread-comment.tsx:665
-#: src/features/forums/thread-detail.tsx:640
-#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "Bidali erantzuna"
 
@@ -3244,7 +3230,7 @@ msgid "System"
 msgstr "Sistema"
 
 #: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:567
 msgid "Tag"
 msgstr "Etiketa"
 
@@ -3256,7 +3242,7 @@ msgstr "Etiketa lehendik dago"
 msgid "Tag must be 50 characters or less"
 msgstr "Etiketak gehienez 50 karaktere izan behar ditu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:609
 msgid "Tag prompt"
 msgstr "Etiketa-galdera"
 
@@ -3319,11 +3305,11 @@ msgstr "Gaiaren ezarpenak"
 msgid "There are no moderation actions recorded yet"
 msgstr "Oraindik ez dago moderazio-ekintzarik erregistratuta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:258
 msgid "This forum could not be loaded right now."
 msgstr "Foro hau ezin da orain kargatu."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Foro hau ezabatu da agian edo ez duzu sarbiderik."
 
@@ -3343,20 +3329,20 @@ msgstr "Bidalketa hau dagoeneko bidali da"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Honek argitalpen guztiak kentzen ditu zure gordeen zerrendatik. Ezin da desegin."
 
-#: src/features/forums/components/thread/thread-comment.tsx:559
+#: src/features/forums/components/thread/thread-comment.tsx:530
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Honek iruzkina ohiko erabiltzaileengandik ezkutatuko du. Moderatzaileek ikusi eta berreskuratu egin dezakete geroago."
 
-#: src/features/forums/components/thread/thread-content.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Honek mezua ohiko erabiltzaileengandik ezkutatuko du. Moderatzaileek ikusi eta berreskuratu egin dezakete geroago."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:436
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Honek \"{0}\" eta bere mezu eta iruzkin guztiak betiko ezabatuko ditu. Ekintza hau ezin da desegin."
 
-#: src/features/forums/thread-detail.tsx:187
+#: src/features/forums/thread-detail.tsx:157
 msgid "Thread"
 msgstr "Haria"
 
@@ -3506,21 +3492,21 @@ msgstr "Estatu Batuak"
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/features/forums/components/thread/thread-content.tsx:369
+#: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Unlock"
 msgstr "Desblokeatu"
 
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:391
 msgid "Unpin"
 msgstr "Desfinkatu"
 
 #: ../../../lib/web/src/components/options-menu.tsx:214
 #: src/features/forums/pages/entity-forum-page.tsx:393
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:408
 msgid "Unsubscribe"
 msgstr "Harpidetza kendu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:396
 msgid "Unsubscribe from forum"
 msgstr "Forotik harpidetza kendu"
 
@@ -3529,12 +3515,12 @@ msgid "Unsubscribe from forum?"
 msgstr "Forotik harpidetza kendu?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/routes/_authenticated/$forum_.settings.tsx:185
 msgid "Unsubscribed"
 msgstr "Harpidetza kenduta"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/routes/_authenticated/$forum_.settings.tsx:184
 msgid "Unsubscribing..."
 msgstr "Harpidetza kentzen..."
 
@@ -3572,15 +3558,15 @@ msgstr "Erabili zure sarbide-gakoa"
 msgid "User"
 msgstr "Erabiltzailea"
 
-#: src/features/forums/thread-detail.tsx:470
+#: src/features/forums/thread-detail.tsx:423
 msgid "User banned"
 msgstr "Erabiltzailea debekatu da"
 
-#: src/features/forums/thread-detail.tsx:461
+#: src/features/forums/thread-detail.tsx:414
 msgid "User muted"
 msgstr "Erabiltzailea isilarazi da"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:727
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Variables: {variables}"
 msgstr "Aldagaiak: {variables}"
 
@@ -3611,7 +3597,7 @@ msgid "Video thumbnail"
 msgstr "Bideoaren miniatura"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Video viewer: {0}"
 msgstr "Bideo-ikustailea: {0}"
 
@@ -3632,20 +3618,20 @@ msgstr "Ikusi jakinarazpen guztiak"
 msgid "View controls"
 msgstr "Ikuspegi-kontrolak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "Ikusi soilik"
 
-#: src/features/forums/components/thread/thread-comment.tsx:291
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
-msgstr ""
+msgstr "Ikusi iruzkin honek aipatzen duen irudia"
 
 #: src/features/forums/components/report-dialog.tsx:29
 #: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "Indarkeria"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "Bozkatu eta ikusi"
 
@@ -3679,7 +3665,7 @@ msgstr "Webgunea mantentze-lanetan dago!"
 msgid "Wednesday"
 msgstr "Asteazkena"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Window duration"
 msgstr "Leihoaren iraupena"
 
@@ -3726,14 +3712,14 @@ msgstr "Dena irakurri duzu!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Zure kontua {source}-etik hona mugitu da. Han ezabatu arte, mezuak eta jakinarazpenak bi zerbitzarietara irits daitezke, zure edukiaren zati bat zerbitzari zaharretik ematen jarraitzen du, eta jarraitzaileek minutu batzuk behar izan ditzakete zu hemen aurkitzeko."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Your attachments will be lost."
 msgstr "Zure eranskinak galduko dira."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text and attachments will be lost."
 msgstr "Zure testua eta eranskinak galduko dira."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:305
+#: ../../../lib/web/src/components/comment-composer.tsx:314
 msgid "Your text will be lost."
 msgstr "Zure testua galduko da."

@@ -44,7 +44,9 @@ import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'luc
 import forumsApi from '@/api/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { toError, getErrorStatus } from '@/lib/errors'
+import { useQueryClient } from '@tanstack/react-query'
 import {
+  forumsKeys,
   useDeleteForum,
   useForumAccess,
   useForumInfo,
@@ -133,6 +135,7 @@ function ForumSettingsPage() {
 
   // Keep forums list refetch for sidebar updates after changes
   const { refetch: refreshForums } = useForumsList()
+  const queryClient = useQueryClient()
 
   const deleteForum = useDeleteForum(() => {
     void navigate({ to: '/' })
@@ -204,9 +207,13 @@ function ForumSettingsPage() {
       success: t`Forum renamed`,
       error: (e) => getErrorMessage(e, t`Failed to rename forum`),
     })
+    // Every forum query, not just this page's two: the sidebar reads the
+    // lighter info-list query, which the two refetches below never touched,
+    // so the old name sat there until a reload. Same sweep the delete uses.
+    void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     void refreshForumInfo()
     void refreshForums()
-  }, [selectedForum, refreshForumInfo, refreshForums, t])
+  }, [selectedForum, refreshForumInfo, refreshForums, queryClient, t])
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)

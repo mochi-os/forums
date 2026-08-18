@@ -27,7 +27,7 @@ msgstr " · කල් ඉකුත් වේ {0}"
 msgid " · Permanent"
 msgstr " · ස්ථිර"
 
-#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/features/forums/components/thread/thread-comment.tsx:251
 msgid " (edited)"
 msgstr " (සංස්කරණය කළා)"
 
@@ -75,8 +75,8 @@ msgid "{0} option preview"
 msgstr "{0} විකල්පයේ පෙරදසුන"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "{0} settings"
 msgstr "{0} සැකසුම්"
 
@@ -116,9 +116,9 @@ msgstr "{entityLabel} නම අවශ්‍යයි"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ජය පරාජය ඉදිරිපත් කළා"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:92
+#: src/features/forums/components/thread/attachment-comments.tsx:71
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
-msgstr ""
+msgstr "{others, plural, one {මෙම පළ කිරීමේ තවත් අදහස් # පෙන්වන්න} other {මෙම පළ කිරීමේ තවත් අදහස් # පෙන්වන්න}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -145,7 +145,7 @@ msgstr "{totalLabel}න් {sentLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {අයිතම #} other {අයිතම #}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:266
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# පිළිතුරක්} other {# පිළිතුරු}}"
 
@@ -182,7 +182,7 @@ msgstr "නිරපේක්ෂ (දිනය සහ වේලාව)"
 msgid "Accept"
 msgstr "පිළිගන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "ප්‍රවේශය"
 
@@ -198,23 +198,23 @@ msgstr "ප්‍රවේශය තහනම්"
 msgid "Access level"
 msgstr "ප්‍රවේශ මට්ටම"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:848
 msgid "Access level updated"
 msgstr "ප්‍රවේශ මට්ටම යාවත්කාලීන කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:857
 msgid "Access management"
 msgstr "ප්‍රවේශ කළමනාකරණය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:833
 msgid "Access removed"
 msgstr "ප්‍රවේශය ඉවත් කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:814
+#: src/routes/_authenticated/$forum_.settings.tsx:821
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} සඳහා ප්‍රවේශය සකසා ඇත"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Account"
 msgstr "ගිණුම"
 
@@ -303,7 +303,7 @@ msgstr "නව ගිණුමක් එක් කරන්න"
 msgid "Add option"
 msgstr "විකල්පයක් එක් කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:860
+#: src/routes/_authenticated/$forum_.settings.tsx:867
 msgid "Add rule"
 msgstr "නියමයක් එක් කරන්න"
 
@@ -340,11 +340,11 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "ඔබේ අභිරුචීන්ට ගැළපෙන පරිදි පෙනුම සහ පිරිසැලසුම සකසන්න."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "AI actions on posts"
 msgstr "පළ කිරීම් මත AI ක්‍රියාමාර්ග"
 
@@ -404,7 +404,7 @@ msgstr "පිවිසී සිටින ඕනෑම කෙනෙක්"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "මෙම සංග්‍රහයට දායක වූ සියල්ල එය ලැබීම නවත්වනු ඇත. පසුව ඔබට නව URL එකක් පිටපත් කළ හැකිය."
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-comment.tsx:458
 #: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "අනුමත කරන්න"
@@ -422,11 +422,11 @@ msgstr "ඔබට \"{name}\" තීරුව මැකීමට අවශ්‍�
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "ඔබට මෙම අදහස මැකීමට අවශ්‍ය බව විශ්වාසද? මෙය සියලු පිළිතුරු ද මකා දමයි."
 
-#: src/features/forums/components/thread/thread-comment.tsx:545
+#: src/features/forums/components/thread/thread-comment.tsx:516
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "ඔබට මෙම අදහස මැකීමට අවශ්‍ය බව විශ්වාසද? මෙය සියලු පිළිතුරු ද මකා දමයි. මෙම ක්‍රියාව අහෝසි කළ නොහැක."
 
-#: src/features/forums/components/thread/thread-content.tsx:425
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "ඔබට මෙම පෝස්ටුව මැකීමට අවශ්‍ය බව ඔබට විශ්වාසද? මෙය සියලු අදහස්ද මකා දමයි. මෙම ක්‍රියාව ආපසු ලබා ගත නොහැක."
 
@@ -442,17 +442,15 @@ msgstr "ආරෝහණ"
 msgid "Ascending"
 msgstr "ආරෝහණ"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:408
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:413
 msgid "Attach comment files"
 msgstr "අදහස්වල ගොනු අමුණන්න"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:626
-#: src/features/forums/components/thread/thread-comment.tsx:630
-#: src/features/forums/thread-detail.tsx:609
-#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "පිළිතුරු ගොනු අමුණන්න"
 
@@ -482,14 +480,14 @@ msgid "Back"
 msgstr "ආපසු"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:372
-#: src/features/forums/thread-detail.tsx:384
-#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:325
+#: src/features/forums/thread-detail.tsx:337
+#: src/features/forums/thread-detail.tsx:358
 #: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:227
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Back to forum"
 msgstr "සංසදය වෙත ආපසු"
 
@@ -507,8 +505,8 @@ msgstr "මුල් පිටුවට ආපසු"
 msgid "Ban"
 msgstr "තහනම් කරන්න"
 
-#: src/features/forums/components/thread/thread-comment.tsx:529
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:500
+#: src/features/forums/components/thread/thread-content.tsx:418
 msgid "Ban author"
 msgstr "කතුවරයා තහනම් කරන්න"
 
@@ -517,15 +515,15 @@ msgid "banned"
 msgstr "තහනම්"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Banner"
 msgstr "බැනරය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner removed"
 msgstr "බැනරය ඉවත් කළා"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner updated"
 msgstr "බැනරය යාවත්කාලීන කළා"
 
@@ -587,21 +585,19 @@ msgstr "{0} විසින්"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:425
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:430
 msgid "Cancel comment"
 msgstr "අදහස අවලංගු කරන්න"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:641
-#: src/features/forums/components/thread/thread-comment.tsx:646
-#: src/features/forums/thread-detail.tsx:623
-#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "පිළිතුර අවලංගු කරන්න"
 
@@ -666,7 +662,7 @@ msgstr "භාෂාව තෝරන්න"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:508
 msgid "Clear"
 msgstr "හිස් කරන්න"
 
@@ -705,8 +701,8 @@ msgstr "සුරැකි පළකිරීම් හිස් කරමින
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:488
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:491
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "වසන්න"
@@ -772,10 +768,6 @@ msgstr "ළඟදීම පැමිණේ!"
 msgid "Command Palette"
 msgstr "විධාන පැලට්ටුව"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:119
-msgid "Comment"
-msgstr "අදහස"
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -789,13 +781,13 @@ msgstr "අදහස අනුමත කරන ලදී"
 msgid "Comment deleted"
 msgstr "අදහස මකන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1075
 msgid "Comment limit"
 msgstr "අදහස් සීමාව"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:103
+#: src/features/forums/components/thread/attachment-comments.tsx:91
 msgid "Comment on this image…"
-msgstr ""
+msgstr "මෙම රූපයට අදහස් දක්වන්න…"
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -813,12 +805,12 @@ msgstr "අදහස ප්‍රතිස්ථාපනය කරන ලදී
 msgid "Comment updated"
 msgstr "අදහස යාවත්කාලීන කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "අදහස් දැක්වීම, ඡන්දය සහ බැලීම"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:451
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Comments"
 msgstr "අදහස්"
 
@@ -857,7 +849,7 @@ msgstr "සම්බන්ධ වෙමින්..."
 msgid "Content"
 msgstr "අන්තර්ගතය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1018
+#: src/routes/_authenticated/$forum_.settings.tsx:1025
 msgid "Content from users below a threshold must be approved"
 msgstr "සීමාවකට පහළින් සිටින පරිශීලකයන්ගේ අන්තර්ගතය අනුමත විය යුතුය"
 
@@ -966,7 +958,7 @@ msgid "Current location"
 msgstr "වත්මන් ස්ථානය"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Custom"
 msgstr "අභිරුචි"
 
@@ -989,7 +981,7 @@ msgstr "දත්ත ගැටුමක්"
 msgid "Date"
 msgstr "දිනය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1040
+#: src/routes/_authenticated/$forum_.settings.tsx:1047
 msgid "days"
 msgstr "දින"
 
@@ -998,11 +990,11 @@ msgid "Decline"
 msgstr "ප්‍රතික්ෂේප කරන්න"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:715
 msgid "Default"
 msgstr "පෙරනිමි"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:571
+#: src/routes/_authenticated/$forum_.settings.tsx:578
 msgid "Default account"
 msgstr "පෙරනිමි ගිණුම"
 
@@ -1023,11 +1015,11 @@ msgstr "පෙරනිමි වර්ග කිරීම"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:474
-#: src/features/forums/components/thread/thread-comment.tsx:546
-#: src/features/forums/components/thread/thread-content.tsx:346
-#: src/features/forums/components/thread/thread-content.tsx:426
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:517
+#: src/features/forums/components/thread/thread-content.tsx:355
+#: src/features/forums/components/thread/thread-content.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "Delete"
 msgstr "මකන්න"
 
@@ -1040,7 +1032,7 @@ msgid "Delete column"
 msgstr "තීරුව මකන්න"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:544
+#: src/features/forums/components/thread/thread-comment.tsx:515
 msgid "Delete comment"
 msgstr "අදහස මකන්න"
 
@@ -1048,12 +1040,12 @@ msgstr "අදහස මකන්න"
 msgid "Delete field"
 msgstr "ක්ෂේත්‍රය මකන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:417
+#: src/routes/_authenticated/$forum_.settings.tsx:437
 msgid "Delete forum"
 msgstr "සංසදය මකන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:435
 msgid "Delete forum?"
 msgstr "සංසදය මකන්නද?"
 
@@ -1067,7 +1059,7 @@ msgstr "විකල්පය මකන්න"
 msgid "Delete option {0}"
 msgstr "විකල්පය {0} මකන්න"
 
-#: src/features/forums/components/thread/thread-content.tsx:424
+#: src/features/forums/components/thread/thread-content.tsx:433
 msgid "Delete post"
 msgstr "පළ කිරීම මකන්න"
 
@@ -1122,15 +1114,15 @@ msgstr "දිශාව"
 msgid "Directory"
 msgstr "නාමාවලිය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Disabled"
 msgstr "අක්‍රියයි"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:313
+#: ../../../lib/web/src/components/comment-composer.tsx:322
 msgid "Discard"
 msgstr "ඉවත ලන්න"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:320
 msgid "Discard draft?"
 msgstr "කෙටුම්පත ඉවත ලන්නද?"
 
@@ -1160,12 +1152,12 @@ msgid "Done"
 msgstr "නිමයි"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 msgid "Download"
 msgstr "බාගත කරන්න"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:111
 msgid "Download failed"
 msgstr "බාගත කිරීම අසාර්ථක විය"
 
@@ -1179,8 +1171,8 @@ msgstr "ඩිස්ලෙක්සියාවට මිත්‍ර"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Edit"
 msgstr "සංස්කරණය කරන්න"
 
@@ -1231,7 +1223,7 @@ msgstr "ඊමේල්"
 msgid "Email code"
 msgstr "ඊමේල් කේතය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Enter banner text (markdown supported)..."
 msgstr "බැනර් පෙළ ඇතුළු කරන්න (markdown සහාය දක්වයි)..."
 
@@ -1243,7 +1235,7 @@ msgstr "ඔබේ විද්‍යුත් තැපෑලෙහි ඇති
 msgid "Enter your authenticator code"
 msgstr "ඔබගේ සත්‍යාපන කේතය ඇතුළත් කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Entity ID"
 msgstr "ආයතන හැඳුනුම"
 
@@ -1271,14 +1263,14 @@ msgid "Failed to add account"
 msgstr "ගිණුම එක් කිරීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:247
 msgid "Failed to add tag"
 msgstr "ටැගය එක් කිරීමට අසමත් විය"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:293
-#: src/features/forums/thread-detail.tsx:305
+#: src/features/forums/thread-detail.tsx:258
+#: src/features/forums/thread-detail.tsx:270
 msgid "Failed to adjust interest"
 msgstr "උනන්දුව සකස් කිරීමට අසමත් විය"
 
@@ -1286,7 +1278,7 @@ msgstr "උනන්දුව සකස් කිරීමට අසමත් �
 msgid "Failed to approve items"
 msgstr "අයිතම අනුමත කිරීමට අසමත් විය"
 
-#: src/features/forums/thread-detail.tsx:472
+#: src/features/forums/thread-detail.tsx:425
 msgid "Failed to ban user"
 msgstr "පරිශීලකයා තහනම් කිරීමට අසමත් විය"
 
@@ -1336,7 +1328,7 @@ msgstr "RSS ටෝකනය ලබා ගැනීමට අසමත් වි�
 msgid "Failed to load"
 msgstr "පූරණය කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:792
 msgid "Failed to load access rules"
 msgstr "ප්‍රවේශ නීති පූරණය කිරීමට අසමත් විය"
 
@@ -1344,7 +1336,7 @@ msgstr "ප්‍රවේශ නීති පූරණය කිරීමට �
 msgid "Failed to load forum"
 msgstr "සභාව පූරණය කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:155
+#: src/routes/_authenticated/$forum_.settings.tsx:158
 msgid "Failed to load forum settings"
 msgstr "සංසද සැකසුම් පූරණය කිරීමට අසමත් විය"
 
@@ -1352,7 +1344,7 @@ msgstr "සංසද සැකසුම් පූරණය කිරීමට �
 msgid "Failed to load forums"
 msgstr "සභා පූරණය කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:792
+#: src/routes/_authenticated/$forum_.settings.tsx:799
 msgid "Failed to load groups"
 msgstr "කණ්ඩායම් පූරණය කිරීමට අසමත් විය"
 
@@ -1360,7 +1352,7 @@ msgstr "කණ්ඩායම් පූරණය කිරීමට අසමත
 msgid "Failed to load history"
 msgstr "ඉතිහාසය පූරණය කිරීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load image"
 msgstr "රූපය පූරණය කිරීමට අසමත් විය"
 
@@ -1372,7 +1364,7 @@ msgstr "මධ්‍යස්ථ ලොගය පූරණය කිරීමට
 msgid "Failed to load moderation queue"
 msgstr "මධ්‍යස්ථකරණ පෙළ පූරණය කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:935
+#: src/routes/_authenticated/$forum_.settings.tsx:942
 msgid "Failed to load moderation settings"
 msgstr "මධ්‍යස්ථකරණ සැකසුම් පූරණය කිරීමට අසමත් විය"
 
@@ -1389,11 +1381,11 @@ msgstr "වාර්තා පූරණය කිරීමට අසමත් �
 msgid "Failed to load restrictions"
 msgstr "සීමාවන් පූරණය කිරීමට අසමත් විය"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load video"
 msgstr "වීඩියෝව පූරණය කිරීමට අසමත් විය"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:416
 msgid "Failed to mute user"
 msgstr "පරිශීලකයා නිශ්ශබ්ද කිරීමට අසමත් විය"
 
@@ -1409,7 +1401,7 @@ msgstr "අදහස පළ කිරීමට අසමත් විය"
 msgid "Failed to reject items"
 msgstr "අයිතම ප්‍රතික්ෂේප කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:836
 msgid "Failed to remove access"
 msgstr "ප්‍රවේශය ඉවත් කිරීමට අසමත් විය"
 
@@ -1418,7 +1410,7 @@ msgid "Failed to remove account"
 msgstr "ගිණුම ඉවත් කිරීමට අසමත් විය"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:317
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to remove interest"
 msgstr "උනන්දුව ඉවත් කිරීමට අසමත් විය"
 
@@ -1430,11 +1422,11 @@ msgstr "සීමාව ඉවත් කිරීමට අසමත් වි�
 msgid "Failed to remove saved post"
 msgstr "සුරැකූ පළ කිරීම ඉවත් කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:205
+#: src/routes/_authenticated/$forum_.settings.tsx:208
 msgid "Failed to rename forum"
 msgstr "සභාව නැවත නම් කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:679
+#: src/routes/_authenticated/$forum_.settings.tsx:686
 msgid "Failed to reset prompt"
 msgstr "prompt එක යළි පිහිටුවීමට අසමත් විය"
 
@@ -1446,7 +1438,7 @@ msgstr "වාර්තාව විසඳීමට අසමත් විය"
 msgid "Failed to revoke RSS access"
 msgstr "RSS ප්‍රවේශය අවලංගු කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:959
 msgid "Failed to save moderation settings"
 msgstr "මධ්‍යස්ථ සැකසුම් සුරැකීමට අසමත් විය"
 
@@ -1454,7 +1446,7 @@ msgstr "මධ්‍යස්ථ සැකසුම් සුරැකීමට 
 msgid "Failed to save post"
 msgstr "පළ කිරීම සුරැකීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:696
+#: src/routes/_authenticated/$forum_.settings.tsx:703
 msgid "Failed to save prompt"
 msgstr "prompt එක සුරැකීමට අසමත් විය"
 
@@ -1463,7 +1455,7 @@ msgstr "prompt එක සුරැකීමට අසමත් විය"
 msgid "Failed to search forums"
 msgstr "සභා සෙවීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:789
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Failed to search users"
 msgstr "පරිශීලකයන් සෙවීමට අසමත් විය"
 
@@ -1471,7 +1463,7 @@ msgstr "පරිශීලකයන් සෙවීමට අසමත් වි
 msgid "Failed to send verification code"
 msgstr "සත්‍යාපන කේතය යැවීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:817
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Failed to set access level"
 msgstr "ප්‍රවේශ මට්ටම සැකසීමට අසමත් විය"
 
@@ -1483,20 +1475,20 @@ msgid "Failed to subscribe"
 msgstr "දායක වීමට අසමත් විය"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:183
+#: src/routes/_authenticated/$forum_.settings.tsx:186
 msgid "Failed to unsubscribe"
 msgstr "දායකත්වයෙන් ඉවත් වීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:844
+#: src/routes/_authenticated/$forum_.settings.tsx:851
 msgid "Failed to update access level"
 msgstr "ප්‍රවේශ මට්ටම යාවත්කාලීන කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:539
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "Failed to update AI settings"
 msgstr "AI සැකසුම් යාවත්කාලීන කිරීමට අසමත් විය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:470
 msgid "Failed to update banner"
 msgstr "බැනරය යාවත්කාලීන කිරීමට අසමත් විය"
 
@@ -1529,7 +1521,7 @@ msgstr "ටැගයෙන් පෙරන ලද:"
 msgid "Find forums"
 msgstr "සභා සොයන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:379
 msgid "Fingerprint"
 msgstr "ඇඟිලි සලකුණ"
 
@@ -1552,7 +1544,7 @@ msgstr "පාවෙන"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:192
+#: src/features/forums/thread-detail.tsx:162
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "සභාව"
@@ -1573,23 +1565,23 @@ msgstr "සංසදය තවදුරටත් ලබා ගත නොහැ�
 msgid "Forum link"
 msgstr "සංසද සබැඳිය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:353
 msgid "Forum name is required"
 msgstr "සභා නාමය අවශ්‍යයි"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum not found"
 msgstr "සභාව හමු නොවීය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:207
 msgid "Forum renamed"
 msgstr "සභාව නැවත නම් කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:282
 msgid "Forum settings sections"
 msgstr "සභා සැකසුම් කොටස්"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum unavailable"
 msgstr "සභාව නොතිබේ"
 
@@ -1701,12 +1693,12 @@ msgstr "උණුසුම්"
 msgid "ID"
 msgstr "හැඳුනුම්පත"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:362
 msgid "Identity"
 msgstr "අනන්‍යතාවය"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:336
 msgid "Image viewer: {0}"
 msgstr "රූප දර්ශකය: {0}"
 
@@ -1730,16 +1722,16 @@ msgstr "{name} සඳහා මුලකුරු අවතාරය"
 msgid "Inset"
 msgstr "ඇතුළත"
 
-#: src/features/forums/thread-detail.tsx:291
+#: src/features/forums/thread-detail.tsx:256
 msgid "Interest boosted"
 msgstr "උනන්දුව වැඩි කරන ලදී"
 
-#: src/features/forums/thread-detail.tsx:303
+#: src/features/forums/thread-detail.tsx:268
 msgid "Interest reduced"
 msgstr "උනන්දුව අඩු කරන ලදී"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:315
+#: src/features/forums/thread-detail.tsx:280
 msgid "Interest removed"
 msgstr "උනන්දුව ඉවත් කරන ලදී"
 
@@ -1825,7 +1817,7 @@ msgstr "අන්තර්ගතය පූරණය වෙමින්…"
 msgid "Loading..."
 msgstr "පූරණය වෙමින්..."
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Lock"
 msgstr "අගුළු දමන්න"
 
@@ -1915,14 +1907,14 @@ msgstr "වැරදි තොරතුරු"
 msgid "Mochi web"
 msgstr "Mochi වෙබ්"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "පාලනය කරන්න, පළ කරන්න, අදහස් දක්වන්න, ඡන්දය දෙන්න සහ බලන්න"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "මෝඩරේෂන්"
 
@@ -1940,10 +1932,10 @@ msgstr "සඳුදා"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:451
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/features/forums/components/thread/thread-content.tsx:327
-#: src/features/forums/components/thread/thread-content.tsx:334
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:336
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "More options"
 msgstr "තවත් විකල්ප"
 
@@ -1951,8 +1943,8 @@ msgstr "තවත් විකල්ප"
 msgid "Mute"
 msgstr "නිහඬ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:521
-#: src/features/forums/components/thread/thread-content.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-content.tsx:412
 msgid "Mute author"
 msgstr "කතුවරයා නිහඬ කරන්න"
 
@@ -1965,11 +1957,11 @@ msgstr "නිහඬ"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Name"
 msgstr "නම"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Name cannot contain < or > characters"
 msgstr "නම තුළ < හෝ > අක්ෂර තිබිය නොහැක"
 
@@ -1978,7 +1970,7 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "නමෙහි කෝණ වරහන්, පසුපස ඇල ඉරි, තිත් කොමා, උද්ධෘත ලකුණු හෝ පසුපස ලකුණු තිබිය නොහැක"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Name must be 1000 characters or less"
 msgstr "නම අක්ෂර 1000 ක් හෝ ඊට අඩු විය යුතුය"
 
@@ -2009,16 +2001,16 @@ msgstr "නව ක්‍රීඩාවක්"
 msgid "New post"
 msgstr "නව පළ කිරීම"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:996
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "New threads must be approved"
 msgstr "නව threads අනුමත කළ යුතුය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1028
+#: src/routes/_authenticated/$forum_.settings.tsx:1035
 msgid "New user threshold:"
 msgstr "නව පරිශීලක සීමාව:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:549
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:554
 msgid "Next image"
 msgstr "ඊළඟ පින්තූරය"
 
@@ -2030,7 +2022,7 @@ msgstr "එක් කිරීමට {parentClassNames} නොමැත"
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} වාර්තා හමු නොවීය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "ප්‍රවේශය නැත"
 
@@ -2042,9 +2034,9 @@ msgstr "ප්‍රවේශ නියමයන් කිසිවක් සැ
 msgid "No activity yet"
 msgstr "තවම ක්‍රියාකාරකම් නැත"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:66
+#: src/features/forums/components/thread/attachment-comments.tsx:54
 msgid "No comments on this image yet."
-msgstr ""
+msgstr "මෙම රූපයට තවම අදහස් නැත."
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2217,11 +2209,11 @@ msgstr "සක්‍රීයයි"
 #. placeholder {0}: comment.attachment_name
 #: src/routes/_authenticated/$forum_.moderation.tsx:445
 msgid "On image: {0}"
-msgstr ""
+msgstr "රූපය මත: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:290
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
-msgstr ""
+msgstr "මෙම රූපය මත"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2280,7 +2272,7 @@ msgstr "view පාලන විවෘත කරන්න"
 msgid "Option name"
 msgstr "විකල්ප නම"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "ඔබේ සංසදයේ ඉහළින් පෙන්වන විකල්ප markdown බැනරයක්."
 
@@ -2325,7 +2317,7 @@ msgid "Pattern (regex)"
 msgstr "රටාව (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/features/forums/components/thread/thread-comment.tsx:280
 #: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "සැලකිල්ලට පැමිණි"
@@ -2353,7 +2345,7 @@ msgstr "ඡායාරූප සහ වීඩියෝ"
 msgid "Pick a date"
 msgstr "දිනයක් තෝරන්න"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Pin"
 msgstr "pin කරන්න"
 
@@ -2361,7 +2353,7 @@ msgstr "pin කරන්න"
 msgid "Pinned"
 msgstr "pin කර ඇත"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:84
+#: ../../../lib/web/src/components/comment-composer.tsx:93
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2371,11 +2363,7 @@ msgstr "කරුණාකර ඔබගේ අන්තර්ජාල සම්
 msgid "Please describe the issue..."
 msgstr "කරුණාකර ගැටළුව විස්තර කරන්න..."
 
-#: src/features/forums/thread-detail.tsx:325
-msgid "Please enter a comment"
-msgstr "කරුණාකර අදහසක් ඇතුළත් කරන්න"
-
-#: src/features/forums/thread-detail.tsx:349
+#: src/features/forums/thread-detail.tsx:302
 msgid "Please enter a reply"
 msgstr "කරුණාකර පිළිතුරක් ඇතුළත් කරන්න"
 
@@ -2403,7 +2391,7 @@ msgstr "පළකිරීම සංසද සර්වරයේ සුරැක
 msgid "Post deleted"
 msgstr "පළ කිරීම මකන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1060
 msgid "Post limit"
 msgstr "පළ කිරීමේ සීමාව"
 
@@ -2443,11 +2431,11 @@ msgstr "පළ කිරීම unpin කරන ලදී"
 msgid "Post updated"
 msgstr "පළ කිරීම යාවත්කාලීන කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:101
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "පළ කිරීම, අදහස්, ඡන්දය සහ බැලීම"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1063
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "posts"
 msgstr "පළකිරීම්"
 
@@ -2459,16 +2447,16 @@ msgstr "පළ කිරීම්"
 msgid "Posts and comments"
 msgstr "පළ කිරීම් සහ අදහස්"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:989
+#: src/routes/_authenticated/$forum_.settings.tsx:996
 msgid "Pre-moderation"
 msgstr "පූර්ව මෝඩරේෂන්"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1049
+#: src/routes/_authenticated/$forum_.settings.tsx:1056
 msgid "Prevent spam by limiting how often users can post"
 msgstr "පරිශීලකයන්ට පළ කළ හැකි වාර ගණන සීමා කිරීමෙන් spam වළක්වා ගන්න"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:533
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:538
 msgid "Previous image"
 msgstr "පෙර පින්තූරය"
 
@@ -2489,7 +2477,7 @@ msgstr "පැතිකඩ"
 msgid "Project members"
 msgstr "ව්‍යාපෘති සාමාජිකයන්"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:694
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Prompt saved"
 msgstr "prompt එක සුරකින ලදී"
 
@@ -2513,7 +2501,7 @@ msgstr "පෙළ"
 msgid "Raised"
 msgstr "උස්කළ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1048
+#: src/routes/_authenticated/$forum_.settings.tsx:1055
 msgid "Rate limiting"
 msgstr "අනුපාත සීමා කිරීම"
 
@@ -2582,10 +2570,10 @@ msgstr "පැය 24 තුළ සාපේක්ෂ, නැතහොත් න�
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:502
-#: src/features/forums/components/thread/thread-comment.tsx:560
-#: src/features/forums/components/thread/thread-content.tsx:362
-#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:531
+#: src/features/forums/components/thread/thread-content.tsx:371
+#: src/features/forums/components/thread/thread-content.tsx:449
 #: src/routes/_authenticated/$forum_.moderation.tsx:726
 #: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
@@ -2611,7 +2599,7 @@ msgstr "\"{0}\" සඳහා ප්‍රවේශ නීතිය ඉවත් 
 msgid "Remove access?"
 msgstr "ප්‍රවේශය ඉවත් කරන්නද?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:558
+#: src/features/forums/components/thread/thread-comment.tsx:529
 msgid "Remove comment"
 msgstr "අදහස ඉවත් කරන්න"
 
@@ -2634,16 +2622,16 @@ msgstr "අයිතමය ඉවත් කරන්න"
 msgid "Remove link"
 msgstr "සබැඳිය ඉවත් කරන්න"
 
-#: src/features/forums/components/thread/thread-content.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:447
 msgid "Remove post"
 msgstr "පළ කිරීම ඉවත් කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:397
 msgid "Remove this forum from your sidebar."
 msgstr "මෙම සංසදය ඔබේ පැති තීරුවෙන් ඉවත් කරන්න."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-comment.tsx:286
 #: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "ඉවත් කරන ලදී"
@@ -2669,36 +2657,36 @@ msgstr "තීරුව නැවත නම් කරන්න"
 msgid "Rename this board column"
 msgstr "මෙම board තීරුව නැවත නම් කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:206
 msgid "Renaming forum..."
 msgstr "සංසදය නැවත නම් කරමින්..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1078
+#: src/routes/_authenticated/$forum_.settings.tsx:1085
 msgid "replies"
 msgstr "පිළිතුරු"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1007
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Replies must be approved"
 msgstr "පිළිතුරු අනුමත කළ යුතුය"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:433
-#: src/features/forums/components/thread/thread-comment.tsx:439
-#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
 #: src/features/forums/components/thread/thread-content.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:324
 msgid "Reply"
 msgstr "පිළිතුර"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:582
+#: src/features/forums/components/thread/thread-comment.tsx:552
 msgid "Reply to {0}..."
 msgstr "{0} ට පිළිතුරු දෙන්න..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:510
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:405
 msgid "Report"
 msgstr "වාර්තා කරන්න"
 
@@ -2728,19 +2716,19 @@ msgstr "{0} විසින් වාර්තා කරන ලදී"
 msgid "Reports"
 msgstr "වාර්තා"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:990
+#: src/routes/_authenticated/$forum_.settings.tsx:997
 msgid "Require approval before content becomes visible"
 msgstr "අන්තර්ගතය දෘශ්‍යමාන වීමට පෙර අනුමැතිය අවශ්‍ය කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1006
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new comments"
 msgstr "නව අදහස් සඳහා අනුමැතිය අවශ්‍ය කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new posts"
 msgstr "නව පළ කිරීම් සඳහා අනුමැතිය අවශ්‍ය කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1017
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "Require approval for new users"
 msgstr "නව පරිශීලකයින් සඳහා අනුමැතිය අවශ්‍ය කරන්න"
 
@@ -2770,8 +2758,8 @@ msgstr "සියලු සැකසුම් පෙරනිමි අගයන
 msgid "Resolved"
 msgstr "විසඳා ඇත"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Restore"
 msgstr "ප්‍රතිසාධනය කරන්න"
 
@@ -2841,9 +2829,9 @@ msgstr "සෙනසුරාදා"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:358
-#: src/routes/_authenticated/$forum_.settings.tsx:492
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/features/forums/components/thread/thread-comment.tsx:329
+#: src/routes/_authenticated/$forum_.settings.tsx:499
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Save"
 msgstr "සුරකින්න"
 
@@ -2869,11 +2857,11 @@ msgstr "සුරැකි පළකිරීම් හිස් කළා"
 
 #: src/features/forums/components/edit-post-dialog.tsx:379
 #: src/lib/saved.ts:31
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Saving..."
 msgstr "සුරකිමින්..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:610
 msgid "Score prompt"
 msgstr "ලකුණු විමසීම"
 
@@ -2943,7 +2931,7 @@ msgstr "සොයන්න..."
 msgid "Searching..."
 msgstr "සොයමින්..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1100
 msgid "seconds"
 msgstr "තත්පර"
 
@@ -3084,10 +3072,10 @@ msgstr "මූලාරම්භය සහ ගමනාන්තය සකසන
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 #: ../../../lib/web/src/components/options-menu.tsx:199
-#: src/routes/_authenticated/$forum_.settings.tsx:90
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "Settings"
 msgstr "සැකසුම්"
 
@@ -3099,9 +3087,9 @@ msgstr "classes පෙන්වන්න"
 msgid "Show fields"
 msgstr "ක්ෂේත්‍ර පෙන්වන්න"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:90
+#: src/features/forums/components/thread/attachment-comments.tsx:69
 msgid "Show only comments on this image"
-msgstr ""
+msgstr "මෙම රූපයේ අදහස් පමණක් පෙන්වන්න"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
@@ -3173,17 +3161,15 @@ msgstr "නමුත් රැඳී සිටින්න!"
 msgid "Subject"
 msgstr "විෂය"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
 msgid "Submit comment"
 msgstr "අදහස ඉදිරිපත් කරන්න"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:656
-#: src/features/forums/components/thread/thread-comment.tsx:665
-#: src/features/forums/thread-detail.tsx:640
-#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "පිළිතුර ඉදිරිපත් කරන්න"
 
@@ -3244,7 +3230,7 @@ msgid "System"
 msgstr "පද්ධතිය"
 
 #: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:567
 msgid "Tag"
 msgstr "ටැගය"
 
@@ -3256,7 +3242,7 @@ msgstr "ටැගය දැනටමත් පවතී"
 msgid "Tag must be 50 characters or less"
 msgstr "ටැගය අක්ෂර 50ක් හෝ ඊට අඩු විය යුතුය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:609
 msgid "Tag prompt"
 msgstr "ටැග විමසීම"
 
@@ -3319,11 +3305,11 @@ msgstr "theme සැකසුම්"
 msgid "There are no moderation actions recorded yet"
 msgstr "තවමත් කිසිදු මධ්‍යස්ථකරණ ක්‍රියාවක් වාර්තා කර නොමැත"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:258
 msgid "This forum could not be loaded right now."
 msgstr "මෙම සංසදය දැන් පූරණය කළ නොහැකි විය."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "මෙම සංසදය මකා දමා ඇති විය හැකිය හෝ ඔබට එයට ප්‍රවේශය නොමැත."
 
@@ -3343,20 +3329,20 @@ msgstr "මෙම පළකිරීම දැනටමත් ඉදිරිප
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "මෙය ඔබේ සුරැකූ ලැයිස්තුවෙන් සෑම පළ කිරීමක්ම ඉවත් කරයි. මෙය පෙරළිය නොහැක."
 
-#: src/features/forums/components/thread/thread-comment.tsx:559
+#: src/features/forums/components/thread/thread-comment.tsx:530
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "මෙය සාමාන්‍ය පරිශීලකයන්ගෙන් අදහස සඟවනු ඇත. මධ්‍යස්ථකරුවන්ට තවමත් එය බැලීමට සහ පසුව ප්‍රතිස්ථාපනය කළ හැකිය."
 
-#: src/features/forums/components/thread/thread-content.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "මෙය සාමාන්‍ය පරිශීලකයන්ගෙන් පෝස්ටුව සඟවනු ඇත. මධ්‍යස්ථකරුවන්ට තවමත් එය බැලීමට සහ පසුව ප්‍රතිස්ථාපනය කළ හැකිය."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:436
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "මෙය \"{0}\" සහ එහි සියලුම පෝස්ට් සහ අදහස් ස්ථිරවම මකා දමයි. මෙම ක්‍රියාව ආපසු ලබා ගත නොහැක."
 
-#: src/features/forums/thread-detail.tsx:187
+#: src/features/forums/thread-detail.tsx:157
 msgid "Thread"
 msgstr "තන්තුව"
 
@@ -3506,21 +3492,21 @@ msgstr "එක්සත් ජනපදය"
 msgid "Unknown"
 msgstr "නොදන්නා"
 
-#: src/features/forums/components/thread/thread-content.tsx:369
+#: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Unlock"
 msgstr "අගුළු හරින්න"
 
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:391
 msgid "Unpin"
 msgstr "unpin කරන්න"
 
 #: ../../../lib/web/src/components/options-menu.tsx:214
 #: src/features/forums/pages/entity-forum-page.tsx:393
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:408
 msgid "Unsubscribe"
 msgstr "දායකත්වය ඉවත් කරන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:396
 msgid "Unsubscribe from forum"
 msgstr "සංසදයෙන් දායකත්වය ඉවත් කරන්න"
 
@@ -3529,12 +3515,12 @@ msgid "Unsubscribe from forum?"
 msgstr "සංසදයෙන් දායකත්වය අවලංගු කරන්නද?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/routes/_authenticated/$forum_.settings.tsx:185
 msgid "Unsubscribed"
 msgstr "දායකත්වය ඉවත් කරන ලදී"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/routes/_authenticated/$forum_.settings.tsx:184
 msgid "Unsubscribing..."
 msgstr "දායකත්වය ඉවත් කරමින්..."
 
@@ -3572,15 +3558,15 @@ msgstr "ඔබගේ මුරයතුර භාවිතා කරන්න"
 msgid "User"
 msgstr "පරිශීලකයා"
 
-#: src/features/forums/thread-detail.tsx:470
+#: src/features/forums/thread-detail.tsx:423
 msgid "User banned"
 msgstr "පරිශීලකයා තහනම් කරන ලදී"
 
-#: src/features/forums/thread-detail.tsx:461
+#: src/features/forums/thread-detail.tsx:414
 msgid "User muted"
 msgstr "පරිශීලකයා නිහඬ කරන ලදී"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:727
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Variables: {variables}"
 msgstr "විචල්‍ය: {variables}"
 
@@ -3611,7 +3597,7 @@ msgid "Video thumbnail"
 msgstr "වීඩියෝ සංක්ෂිප්ත රූපය"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Video viewer: {0}"
 msgstr "වීඩියෝ දර්ශකය: {0}"
 
@@ -3632,20 +3618,20 @@ msgstr "සියලුම දැනුම්දීම් බලන්න"
 msgid "View controls"
 msgstr "පාලන බලන්න"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "බැලීම පමණි"
 
-#: src/features/forums/components/thread/thread-comment.tsx:291
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
-msgstr ""
+msgstr "මෙම අදහස අදාළ රූපය බලන්න"
 
 #: src/features/forums/components/report-dialog.tsx:29
 #: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "ප්‍රචණ්ඩත්වය"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "ඡන්දය සහ බැලීම"
 
@@ -3679,7 +3665,7 @@ msgstr "වෙබ් අඩවිය නඩත්තු යටතේ පවත�
 msgid "Wednesday"
 msgstr "බදාදා"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Window duration"
 msgstr "කවුළු කාලය"
 
@@ -3726,14 +3712,14 @@ msgstr "ඔබ සියල්ල බැලුවා!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ඔබේ ගිණුම {source} සිට මෙහි ගෙන ආවා. එතන ඉවත් කරන තෙක්, පණිවිඩ සහ දැනුම්දීම් සේවාදායකයන් දෙකටම ළඟා විය හැකිය, ඔබේ සමහර අන්තර්ගතය පැරණි සේවාදායකයෙන් ලබාදීම ඉදිරියටත් සිදු වේ, සහ අනුගාමිකයින්ට ඔබව මෙහිදී සොයා ගැනීමට මිනිත්තු කිහිපයක් ගත වනු ඇත."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Your attachments will be lost."
 msgstr "ඔබගේ ඇමුණුම් නැති වනු ඇත."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text and attachments will be lost."
 msgstr "ඔබගේ පෙළ සහ ඇමුණුම් නැති වනු ඇත."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:305
+#: ../../../lib/web/src/components/comment-composer.tsx:314
 msgid "Your text will be lost."
 msgstr "ඔබේ පෙළ නැති වී යයි."

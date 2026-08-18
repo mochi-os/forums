@@ -76,23 +76,25 @@ export function PostCard({
           </>
         }
         meta={
-          <span className='inline-flex items-center gap-1.5'>
+          // Three unbreakable units - forum, author, time - so a narrow card
+          // wraps between them, never inside a name or a date (see the
+          // matching note in ThreadContent).
+          <span className='inline-flex flex-wrap items-center gap-x-1.5 gap-y-1'>
             {showForumBadge ? (
-              <>
-                {forumName}
-                <span> · </span>
-              </>
+              <span className='whitespace-nowrap'>{forumName} · </span>
             ) : null}
-            <EntityAvatar
-              src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
-              styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
-              seed={post.member}
-              name={post.name}
-              size="xs"
-            />
-            <span>{post.name}</span>
-            <span> · </span>
-            <span>{timestamp}</span>
+            <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
+              <EntityAvatar
+                src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
+                seed={post.member}
+                name={post.name}
+                size="xs"
+              />
+              <span>{post.name}</span>
+              <span> · </span>
+            </span>
+            <span className='whitespace-nowrap'>{timestamp}</span>
           </span>
         }
         metaClassName='opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'

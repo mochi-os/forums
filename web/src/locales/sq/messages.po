@@ -27,7 +27,7 @@ msgstr " · Skadon {0}"
 msgid " · Permanent"
 msgstr " · Përhershëm"
 
-#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/features/forums/components/thread/thread-comment.tsx:251
 msgid " (edited)"
 msgstr " (redaktuar)"
 
@@ -75,8 +75,8 @@ msgid "{0} option preview"
 msgstr "Pamja paraprake e opsionit {0}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "{0} settings"
 msgstr "Cilësimet e {0}"
 
@@ -116,9 +116,9 @@ msgstr "Emri i {entityLabel} është i detyrueshëm"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ofroi një barazim"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:92
+#: src/features/forums/components/thread/attachment-comments.tsx:71
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
-msgstr ""
+msgstr "{others, plural, one {Shfaq # koment tjetër për këtë postim} other {Shfaq # komente të tjera për këtë postim}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -145,7 +145,7 @@ msgstr "{sentLabel} nga {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# artikull} other {# artikuj}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:266
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# përgjigje} other {# përgjigje}}"
 
@@ -182,7 +182,7 @@ msgstr "Absolut (data dhe ora)"
 msgid "Accept"
 msgstr "Prano"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "Qasja"
 
@@ -198,23 +198,23 @@ msgstr "Qasja e ndaluar"
 msgid "Access level"
 msgstr "Niveli i qasjes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:848
 msgid "Access level updated"
 msgstr "Niveli i qasjes u përditësua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:857
 msgid "Access management"
 msgstr "Menaxhimi i qasjes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:826
+#: src/routes/_authenticated/$forum_.settings.tsx:833
 msgid "Access removed"
 msgstr "Qasja u hoq"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:814
+#: src/routes/_authenticated/$forum_.settings.tsx:821
 msgid "Access set for {subjectName}"
 msgstr "Qasja u caktua për {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Account"
 msgstr "Llogaria"
 
@@ -303,7 +303,7 @@ msgstr "Shto llogari të re"
 msgid "Add option"
 msgstr "Shto opsion"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:860
+#: src/routes/_authenticated/$forum_.settings.tsx:867
 msgid "Add rule"
 msgstr "Shto rregull"
 
@@ -340,11 +340,11 @@ msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Rregullo paraqitjen dhe strukturën sipas preferencave të tua."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "AI actions on posts"
 msgstr "Veprime AI në postime"
 
@@ -404,7 +404,7 @@ msgstr "Kushdo që ka hyrë"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Gjithçka e abonuar në këtë prurje do të ndalojë ta marrë. Më pas mund të kopjoni një URL të ri."
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-comment.tsx:458
 #: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Approve"
 msgstr "Mirato"
@@ -422,11 +422,11 @@ msgstr "Je i sigurt që do të fshish kolonën \"{name}\"? Kjo nuk mund të zhb�
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Je i sigurt që do të fshish këtë koment? Kjo do të fshijë gjithashtu të gjitha përgjigjet."
 
-#: src/features/forums/components/thread/thread-comment.tsx:545
+#: src/features/forums/components/thread/thread-comment.tsx:516
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Je i sigurt që do të fshish këtë koment? Kjo do të fshijë gjithashtu të gjitha përgjigjet. Ky veprim nuk mund të zhbëhet."
 
-#: src/features/forums/components/thread/thread-content.tsx:425
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Je i sigurt që do të fshish këtë postim? Kjo do të fshijë gjithashtu të gjitha komentet. Ky veprim nuk mund të zhbëhet."
 
@@ -442,17 +442,15 @@ msgstr "Rritës"
 msgid "Ascending"
 msgstr "Në rritje"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:408
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:413
 msgid "Attach comment files"
 msgstr "Bashkëngjit skedarë komenti"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
-#: src/features/forums/components/thread/thread-comment.tsx:626
-#: src/features/forums/components/thread/thread-comment.tsx:630
-#: src/features/forums/thread-detail.tsx:609
-#: src/features/forums/thread-detail.tsx:613
 msgid "Attach reply files"
 msgstr "Bashkëngjit skedarë përgjigjeje"
 
@@ -482,14 +480,14 @@ msgid "Back"
 msgstr "Mbrapa"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:372
-#: src/features/forums/thread-detail.tsx:384
-#: src/features/forums/thread-detail.tsx:405
+#: src/features/forums/thread-detail.tsx:325
+#: src/features/forums/thread-detail.tsx:337
+#: src/features/forums/thread-detail.tsx:358
 #: src/features/forums/thread-detail.tsx:480
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:227
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Back to forum"
 msgstr "Mbrapa te forumi"
 
@@ -507,8 +505,8 @@ msgstr "Kthehu në fillim"
 msgid "Ban"
 msgstr "Përjashto"
 
-#: src/features/forums/components/thread/thread-comment.tsx:529
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:500
+#: src/features/forums/components/thread/thread-content.tsx:418
 msgid "Ban author"
 msgstr "Përjashto autorin"
 
@@ -517,15 +515,15 @@ msgid "banned"
 msgstr "i ndaluar"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Banner"
 msgstr "Banner-i"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner removed"
 msgstr "Banner-i u hoq"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: src/routes/_authenticated/$forum_.settings.tsx:468
 msgid "Banner updated"
 msgstr "Banner-i u përditësua"
 
@@ -587,21 +585,19 @@ msgstr "Nga {0}"
 #: src/features/forums/components/create-post-dialog.tsx:296
 #: src/features/forums/components/edit-post-dialog.tsx:370
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:338
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Anulo"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:425
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:430
 msgid "Cancel comment"
 msgstr "Anulo komentin"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
-#: src/features/forums/components/thread/thread-comment.tsx:641
-#: src/features/forums/components/thread/thread-comment.tsx:646
-#: src/features/forums/thread-detail.tsx:623
-#: src/features/forums/thread-detail.tsx:629
 msgid "Cancel reply"
 msgstr "Anulo përgjigjen"
 
@@ -666,7 +662,7 @@ msgstr "Zgjidh gjuhën"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:501
+#: src/routes/_authenticated/$forum_.settings.tsx:508
 msgid "Clear"
 msgstr "Pastro"
 
@@ -705,8 +701,8 @@ msgstr "Po pastrohen postimet e ruajtura..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:469
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:488
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:491
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Mbyll"
@@ -772,10 +768,6 @@ msgstr "Së shpejti!"
 msgid "Command Palette"
 msgstr "Paleta e komandave"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:119
-msgid "Comment"
-msgstr "Komenti"
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
@@ -789,13 +781,13 @@ msgstr "Komenti u miratua"
 msgid "Comment deleted"
 msgstr "Komenti u fshi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1075
 msgid "Comment limit"
 msgstr "Limiti i komenteve"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:103
+#: src/features/forums/components/thread/attachment-comments.tsx:91
 msgid "Comment on this image…"
-msgstr ""
+msgstr "Komento këtë imazh…"
 
 #: src/hooks/use-forums-queries.ts:258
 msgid "Comment posted"
@@ -813,12 +805,12 @@ msgstr "Komenti u rikthye"
 msgid "Comment updated"
 msgstr "Komenti u përditësua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "Komento, voto dhe shih"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:432
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:444
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:451
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
 msgid "Comments"
 msgstr "Komentet"
 
@@ -857,7 +849,7 @@ msgstr "Po lidhet..."
 msgid "Content"
 msgstr "Përmbajtja"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1018
+#: src/routes/_authenticated/$forum_.settings.tsx:1025
 msgid "Content from users below a threshold must be approved"
 msgstr "Përmbajtja nga përdoruesit nën një prag duhet të miratohet"
 
@@ -966,7 +958,7 @@ msgid "Current location"
 msgstr "Vendndodhja aktuale"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:709
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Custom"
 msgstr "Personalizuar"
 
@@ -989,7 +981,7 @@ msgstr "Konflikt të dhënash"
 msgid "Date"
 msgstr "Data"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1040
+#: src/routes/_authenticated/$forum_.settings.tsx:1047
 msgid "days"
 msgstr "ditë"
 
@@ -998,11 +990,11 @@ msgid "Decline"
 msgstr "Refuzo"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:708
+#: src/routes/_authenticated/$forum_.settings.tsx:715
 msgid "Default"
 msgstr "I parazgjedhur"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:571
+#: src/routes/_authenticated/$forum_.settings.tsx:578
 msgid "Default account"
 msgstr "Llogaria e parazgjedhur"
 
@@ -1023,11 +1015,11 @@ msgstr "Renditja e parazgjedhur"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:474
-#: src/features/forums/components/thread/thread-comment.tsx:546
-#: src/features/forums/components/thread/thread-content.tsx:346
-#: src/features/forums/components/thread/thread-content.tsx:426
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:517
+#: src/features/forums/components/thread/thread-content.tsx:355
+#: src/features/forums/components/thread/thread-content.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "Delete"
 msgstr "Fshi"
 
@@ -1040,7 +1032,7 @@ msgid "Delete column"
 msgstr "Fshi kolonën"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
-#: src/features/forums/components/thread/thread-comment.tsx:544
+#: src/features/forums/components/thread/thread-comment.tsx:515
 msgid "Delete comment"
 msgstr "Fshi komentin"
 
@@ -1048,12 +1040,12 @@ msgstr "Fshi komentin"
 msgid "Delete field"
 msgstr "Fshi fushën"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:417
+#: src/routes/_authenticated/$forum_.settings.tsx:437
 msgid "Delete forum"
 msgstr "Fshi forumin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:435
 msgid "Delete forum?"
 msgstr "Të fshihet forumi?"
 
@@ -1067,7 +1059,7 @@ msgstr "Fshi opsionin"
 msgid "Delete option {0}"
 msgstr "Fshi opsionin {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:424
+#: src/features/forums/components/thread/thread-content.tsx:433
 msgid "Delete post"
 msgstr "Fshi postimin"
 
@@ -1122,15 +1114,15 @@ msgstr "Drejtimi"
 msgid "Directory"
 msgstr "Drejtoria"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Disabled"
 msgstr "I çaktivizuar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:313
+#: ../../../lib/web/src/components/comment-composer.tsx:322
 msgid "Discard"
 msgstr "Hidh"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:320
 msgid "Discard draft?"
 msgstr "Ta hedhësh draftin?"
 
@@ -1160,12 +1152,12 @@ msgid "Done"
 msgstr "Përfunduar"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:453
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:472
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 msgid "Download"
 msgstr "Shkarko"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:92
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:111
 msgid "Download failed"
 msgstr "Shkarkimi dështoi"
 
@@ -1179,8 +1171,8 @@ msgstr "I përshtatshëm për disleksi"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:349
 msgid "Edit"
 msgstr "Modifiko"
 
@@ -1231,7 +1223,7 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Kodi me email"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Enter banner text (markdown supported)..."
 msgstr "Shkruani tekstin e banderolës (markdown i mbështetur)..."
 
@@ -1243,7 +1235,7 @@ msgstr "Vendosni kodin nga email-i juaj"
 msgid "Enter your authenticator code"
 msgstr "Vendosni kodin e aplikacionit të vërtetimit"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Entity ID"
 msgstr "ID e entitetit"
 
@@ -1271,14 +1263,14 @@ msgid "Failed to add account"
 msgstr "Shtimi i llogarisë dështoi"
 
 #: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/thread-detail.tsx:247
 msgid "Failed to add tag"
 msgstr "Shtimi i etiketës dështoi"
 
 #: src/features/forums/pages/entity-forum-page.tsx:232
 #: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:293
-#: src/features/forums/thread-detail.tsx:305
+#: src/features/forums/thread-detail.tsx:258
+#: src/features/forums/thread-detail.tsx:270
 msgid "Failed to adjust interest"
 msgstr "Rregullimi i interesit dështoi"
 
@@ -1286,7 +1278,7 @@ msgstr "Rregullimi i interesit dështoi"
 msgid "Failed to approve items"
 msgstr "Miratimi i artikujve dështoi"
 
-#: src/features/forums/thread-detail.tsx:472
+#: src/features/forums/thread-detail.tsx:425
 msgid "Failed to ban user"
 msgstr "Përjashtimi i përdoruesit dështoi"
 
@@ -1336,7 +1328,7 @@ msgstr "Marrja e token RSS dështoi"
 msgid "Failed to load"
 msgstr "Ngarkimi dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:785
+#: src/routes/_authenticated/$forum_.settings.tsx:792
 msgid "Failed to load access rules"
 msgstr "Ngarkimi i rregullave të qasjes dështoi"
 
@@ -1344,7 +1336,7 @@ msgstr "Ngarkimi i rregullave të qasjes dështoi"
 msgid "Failed to load forum"
 msgstr "Ngarkimi i forumit dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:155
+#: src/routes/_authenticated/$forum_.settings.tsx:158
 msgid "Failed to load forum settings"
 msgstr "Ngarkimi i cilësimeve të forumit dështoi"
 
@@ -1352,7 +1344,7 @@ msgstr "Ngarkimi i cilësimeve të forumit dështoi"
 msgid "Failed to load forums"
 msgstr "Ngarkimi i forumeve dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:792
+#: src/routes/_authenticated/$forum_.settings.tsx:799
 msgid "Failed to load groups"
 msgstr "Ngarkimi i grupeve dështoi"
 
@@ -1360,7 +1352,7 @@ msgstr "Ngarkimi i grupeve dështoi"
 msgid "Failed to load history"
 msgstr "Ngarkimi i historisë dështoi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load image"
 msgstr "Ngarkimi i figurës dështoi"
 
@@ -1372,7 +1364,7 @@ msgstr "Ngarkimi i regjistrit të moderimit dështoi"
 msgid "Failed to load moderation queue"
 msgstr "Ngarkimi i radhës së moderimit dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:935
+#: src/routes/_authenticated/$forum_.settings.tsx:942
 msgid "Failed to load moderation settings"
 msgstr "Ngarkimi i cilësimeve të moderimit dështoi"
 
@@ -1389,11 +1381,11 @@ msgstr "Ngarkimi i raporteve dështoi"
 msgid "Failed to load restrictions"
 msgstr "Ngarkimi i kufizimeve dështoi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:339
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 msgid "Failed to load video"
 msgstr "Ngarkimi i videos dështoi"
 
-#: src/features/forums/thread-detail.tsx:463
+#: src/features/forums/thread-detail.tsx:416
 msgid "Failed to mute user"
 msgstr "Heshtja e përdoruesit dështoi"
 
@@ -1409,7 +1401,7 @@ msgstr "Postimi i komentit dështoi"
 msgid "Failed to reject items"
 msgstr "Refuzimi i artikujve dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:836
 msgid "Failed to remove access"
 msgstr "Heqja e qasjes dështoi"
 
@@ -1418,7 +1410,7 @@ msgid "Failed to remove account"
 msgstr "Heqja e llogarisë dështoi"
 
 #: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:317
+#: src/features/forums/thread-detail.tsx:282
 msgid "Failed to remove interest"
 msgstr "Heqja e interesit dështoi"
 
@@ -1430,11 +1422,11 @@ msgstr "Heqja e kufizimit dështoi"
 msgid "Failed to remove saved post"
 msgstr "Heqja e postimit të ruajtur dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:205
+#: src/routes/_authenticated/$forum_.settings.tsx:208
 msgid "Failed to rename forum"
 msgstr "Riemërimi i forumit dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:679
+#: src/routes/_authenticated/$forum_.settings.tsx:686
 msgid "Failed to reset prompt"
 msgstr "Rivendosja e udhëzimit dështoi"
 
@@ -1446,7 +1438,7 @@ msgstr "Zgjidhja e raportit dështoi"
 msgid "Failed to revoke RSS access"
 msgstr "Anulimi i aksesit RSS dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:952
+#: src/routes/_authenticated/$forum_.settings.tsx:959
 msgid "Failed to save moderation settings"
 msgstr "Ruajtja e cilësimeve të moderimit dështoi"
 
@@ -1454,7 +1446,7 @@ msgstr "Ruajtja e cilësimeve të moderimit dështoi"
 msgid "Failed to save post"
 msgstr "Ruajtja e postimit dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:696
+#: src/routes/_authenticated/$forum_.settings.tsx:703
 msgid "Failed to save prompt"
 msgstr "Ruajtja e udhëzimit dështoi"
 
@@ -1463,7 +1455,7 @@ msgstr "Ruajtja e udhëzimit dështoi"
 msgid "Failed to search forums"
 msgstr "Kërkimi i forumeve dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:789
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Failed to search users"
 msgstr "Kërkimi i përdoruesve dështoi"
 
@@ -1471,7 +1463,7 @@ msgstr "Kërkimi i përdoruesve dështoi"
 msgid "Failed to send verification code"
 msgstr "Dërgimi i kodit të verifikimit dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:817
+#: src/routes/_authenticated/$forum_.settings.tsx:824
 msgid "Failed to set access level"
 msgstr "Vendosja e nivelit të qasjes dështoi"
 
@@ -1483,20 +1475,20 @@ msgid "Failed to subscribe"
 msgstr "Abonimi dështoi"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:183
+#: src/routes/_authenticated/$forum_.settings.tsx:186
 msgid "Failed to unsubscribe"
 msgstr "Çabonimi dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:844
+#: src/routes/_authenticated/$forum_.settings.tsx:851
 msgid "Failed to update access level"
 msgstr "Përditësimi i nivelit të qasjes dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:539
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "Failed to update AI settings"
 msgstr "Përditësimi i cilësimeve të AI dështoi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:470
 msgid "Failed to update banner"
 msgstr "Përditësimi i banderolës dështoi"
 
@@ -1529,7 +1521,7 @@ msgstr "Filtruar sipas etiketës:"
 msgid "Find forums"
 msgstr "Gjej forume"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:379
 msgid "Fingerprint"
 msgstr "Gjurma"
 
@@ -1552,7 +1544,7 @@ msgstr "Pluskues"
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:192
+#: src/features/forums/thread-detail.tsx:162
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Forumi"
@@ -1573,23 +1565,23 @@ msgstr "Forumi nuk është më i disponueshëm"
 msgid "Forum link"
 msgstr "Lidhja e forumit"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:353
 msgid "Forum name is required"
 msgstr "Emri i forumit është i detyrueshëm"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum not found"
 msgstr "Forumi nuk u gjet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:207
 msgid "Forum renamed"
 msgstr "Forumi u riemërua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:282
 msgid "Forum settings sections"
 msgstr "Seksionet e cilësimeve të forumit"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:254
 msgid "Forum unavailable"
 msgstr "Forumi nuk është i disponueshëm"
 
@@ -1701,12 +1693,12 @@ msgstr "Të nxehta"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:362
 msgid "Identity"
 msgstr "Identiteti"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:317
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:336
 msgid "Image viewer: {0}"
 msgstr "Shikuesi i figurave: {0}"
 
@@ -1730,16 +1722,16 @@ msgstr "Avatar me inicialet për {name}"
 msgid "Inset"
 msgstr "I brendshëm"
 
-#: src/features/forums/thread-detail.tsx:291
+#: src/features/forums/thread-detail.tsx:256
 msgid "Interest boosted"
 msgstr "Interesi u rrit"
 
-#: src/features/forums/thread-detail.tsx:303
+#: src/features/forums/thread-detail.tsx:268
 msgid "Interest reduced"
 msgstr "Interesi u zvogëlua"
 
 #: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:315
+#: src/features/forums/thread-detail.tsx:280
 msgid "Interest removed"
 msgstr "Interesi u hoq"
 
@@ -1825,7 +1817,7 @@ msgstr "Po ngarkohet përmbajtja…"
 msgid "Loading..."
 msgstr "Duke ngarkuar..."
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:384
 msgid "Lock"
 msgstr "Bllokim"
 
@@ -1915,14 +1907,14 @@ msgstr "Dezinformata"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modero, posto, komento, voto dhe shiko"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Moderimi"
 
@@ -1940,10 +1932,10 @@ msgstr "E hënë"
 
 #: ../../../lib/web/src/components/options-menu.tsx:148
 #: ../../../lib/web/src/components/options-menu.tsx:155
-#: src/features/forums/components/thread/thread-comment.tsx:451
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/features/forums/components/thread/thread-content.tsx:327
-#: src/features/forums/components/thread/thread-content.tsx:334
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:336
+#: src/features/forums/components/thread/thread-content.tsx:343
 msgid "More options"
 msgstr "Më shumë opsione"
 
@@ -1951,8 +1943,8 @@ msgstr "Më shumë opsione"
 msgid "Mute"
 msgstr "Hesht"
 
-#: src/features/forums/components/thread/thread-comment.tsx:521
-#: src/features/forums/components/thread/thread-content.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:492
+#: src/features/forums/components/thread/thread-content.tsx:412
 msgid "Mute author"
 msgstr "Hesht autorin"
 
@@ -1965,11 +1957,11 @@ msgstr "i heshtuar"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Name"
 msgstr "Emri"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Name cannot contain < or > characters"
 msgstr "Emri nuk mund të përmbajë karaktere < ose >"
 
@@ -1978,7 +1970,7 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "Emri nuk mund të përmbajë kllapa këndore, vijë të pjerrët mbrapsht, pikëpresje, thonjëza ose thonjëza mbrapsht"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Name must be 1000 characters or less"
 msgstr "Emri duhet të jetë 1000 karaktere ose më pak"
 
@@ -2009,16 +2001,16 @@ msgstr "Lojë e re"
 msgid "New post"
 msgstr "Postim i ri"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:996
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "New threads must be approved"
 msgstr "Temat e reja duhet të miratohen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1028
+#: src/routes/_authenticated/$forum_.settings.tsx:1035
 msgid "New user threshold:"
 msgstr "Pragu i përdoruesve të rinj:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:535
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:549
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:554
 msgid "Next image"
 msgstr "Imazhi tjetër"
 
@@ -2030,7 +2022,7 @@ msgstr "Asnjë {parentClassNames} për të shtuar"
 msgid "No {statusFilter} reports found"
 msgstr "S'u gjet asnjë raport {statusFilter}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "Pa qasje"
 
@@ -2042,9 +2034,9 @@ msgstr "Asnjë rregull qasjeje i konfiguruar. Shto rregulla për të kontrolluar
 msgid "No activity yet"
 msgstr "Ende pa aktivitet"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:66
+#: src/features/forums/components/thread/attachment-comments.tsx:54
 msgid "No comments on this image yet."
-msgstr ""
+msgstr "Ende nuk ka komente për këtë imazh."
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:460
 msgid "No comments yet"
@@ -2217,11 +2209,11 @@ msgstr "Aktiv"
 #. placeholder {0}: comment.attachment_name
 #: src/routes/_authenticated/$forum_.moderation.tsx:445
 msgid "On image: {0}"
-msgstr ""
+msgstr "Për imazhin: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:290
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
-msgstr ""
+msgstr "Për këtë imazh"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
@@ -2280,7 +2272,7 @@ msgstr "Hap kontrollet e pamjes"
 msgid "Option name"
 msgstr "Emri i opsionit"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Baner markdown opsional i shfaqur në krye të forumit tuaj."
 
@@ -2325,7 +2317,7 @@ msgid "Pattern (regex)"
 msgstr "Modeli (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:309
+#: src/features/forums/components/thread/thread-comment.tsx:280
 #: src/routes/_authenticated/$forum_.moderation.tsx:637
 msgid "Pending"
 msgstr "Në pritje"
@@ -2353,7 +2345,7 @@ msgstr "Foto dhe video"
 msgid "Pick a date"
 msgstr "Zgjidhni një datë"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:397
 msgid "Pin"
 msgstr "Fikso"
 
@@ -2361,7 +2353,7 @@ msgstr "Fikso"
 msgid "Pinned"
 msgstr "I fiksuar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:84
+#: ../../../lib/web/src/components/comment-composer.tsx:93
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2371,11 +2363,7 @@ msgstr "Kontrolloni lidhjen tuaj me internetin dhe provoni përsëri."
 msgid "Please describe the issue..."
 msgstr "Ju lutemi përshkruani problemin..."
 
-#: src/features/forums/thread-detail.tsx:325
-msgid "Please enter a comment"
-msgstr "Ju lutemi futni një koment"
-
-#: src/features/forums/thread-detail.tsx:349
+#: src/features/forums/thread-detail.tsx:302
 msgid "Please enter a reply"
 msgstr "Ju lutemi futni një përgjigje"
 
@@ -2403,7 +2391,7 @@ msgstr "Postimi nuk mund të ruhej në serverin e forumit"
 msgid "Post deleted"
 msgstr "Postimi u fshi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1060
 msgid "Post limit"
 msgstr "Kufiri i postimeve"
 
@@ -2443,11 +2431,11 @@ msgstr "Postimi u shkëput"
 msgid "Post updated"
 msgstr "Postimi u përditësua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:101
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "Posto, komento, voto dhe shiko"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1063
+#: src/routes/_authenticated/$forum_.settings.tsx:1070
 msgid "posts"
 msgstr "postime"
 
@@ -2459,16 +2447,16 @@ msgstr "Postimet"
 msgid "Posts and comments"
 msgstr "Postimet dhe komentet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:989
+#: src/routes/_authenticated/$forum_.settings.tsx:996
 msgid "Pre-moderation"
 msgstr "Para-moderim"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1049
+#: src/routes/_authenticated/$forum_.settings.tsx:1056
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Parandalo spam duke kufizuar sa shpesh mund të postojnë përdoruesit"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:519
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:533
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:538
 msgid "Previous image"
 msgstr "Imazhi i mëparshëm"
 
@@ -2489,7 +2477,7 @@ msgstr "Profili"
 msgid "Project members"
 msgstr "Anëtarët e projektit"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:694
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Prompt saved"
 msgstr "Prompti u ruajt"
 
@@ -2513,7 +2501,7 @@ msgstr "Radha"
 msgid "Raised"
 msgstr "Ngritur"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1048
+#: src/routes/_authenticated/$forum_.settings.tsx:1055
 msgid "Rate limiting"
 msgstr "Kufizimi i shpeshtësisë"
 
@@ -2582,10 +2570,10 @@ msgstr "Relative brenda 24 orëve, përndryshe absolute"
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:502
-#: src/features/forums/components/thread/thread-comment.tsx:560
-#: src/features/forums/components/thread/thread-content.tsx:362
-#: src/features/forums/components/thread/thread-content.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:531
+#: src/features/forums/components/thread/thread-content.tsx:371
+#: src/features/forums/components/thread/thread-content.tsx:449
 #: src/routes/_authenticated/$forum_.moderation.tsx:726
 #: src/routes/_authenticated/$forum_.moderation.tsx:1016
 msgid "Remove"
@@ -2611,7 +2599,7 @@ msgstr "Të hiqet rregulli i qasjes për \"{0}\"?"
 msgid "Remove access?"
 msgstr "Të hiqet qasja?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:558
+#: src/features/forums/components/thread/thread-comment.tsx:529
 msgid "Remove comment"
 msgstr "Hiq komentin"
 
@@ -2634,16 +2622,16 @@ msgstr "Hiq artikullin"
 msgid "Remove link"
 msgstr "Hiq lidhjen"
 
-#: src/features/forums/components/thread/thread-content.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:447
 msgid "Remove post"
 msgstr "Hiq postimin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:397
 msgid "Remove this forum from your sidebar."
 msgstr "Hiq këtë forum nga shiriti anësor."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:315
+#: src/features/forums/components/thread/thread-comment.tsx:286
 #: src/features/forums/components/thread/thread-content.tsx:166
 msgid "Removed"
 msgstr "I hequr"
@@ -2669,36 +2657,36 @@ msgstr "Riemërto kolonën"
 msgid "Rename this board column"
 msgstr "Riemërto këtë kolonë të tabelës"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:206
 msgid "Renaming forum..."
 msgstr "Po riemërtohet forumi..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1078
+#: src/routes/_authenticated/$forum_.settings.tsx:1085
 msgid "replies"
 msgstr "përgjigje"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1007
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Replies must be approved"
 msgstr "Përgjigjet duhet të miratohen"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:433
-#: src/features/forums/components/thread/thread-comment.tsx:439
-#: src/features/forums/components/thread/thread-content.tsx:306
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
 #: src/features/forums/components/thread/thread-content.tsx:315
+#: src/features/forums/components/thread/thread-content.tsx:324
 msgid "Reply"
 msgstr "Përgjigju"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
-#: src/features/forums/components/thread/thread-comment.tsx:582
+#: src/features/forums/components/thread/thread-comment.tsx:552
 msgid "Reply to {0}..."
 msgstr "Përgjigju {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:510
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:405
 msgid "Report"
 msgstr "Raporto"
 
@@ -2728,19 +2716,19 @@ msgstr "I raportuar nga {0}"
 msgid "Reports"
 msgstr "Raportet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:990
+#: src/routes/_authenticated/$forum_.settings.tsx:997
 msgid "Require approval before content becomes visible"
 msgstr "Kërko miratim para se përmbajtja të bëhet e dukshme"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1006
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new comments"
 msgstr "Kërko miratim për komente të reja"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new posts"
 msgstr "Kërko miratim për postime të reja"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1017
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "Require approval for new users"
 msgstr "Kërko miratim për përdorues të rinj"
 
@@ -2770,8 +2758,8 @@ msgstr "Rivendos të gjitha cilësimet në vlerat parazgjedhura"
 msgid "Resolved"
 msgstr "I zgjidhur"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:365
 msgid "Restore"
 msgstr "Rivendos"
 
@@ -2841,9 +2829,9 @@ msgstr "E shtunë"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:358
-#: src/routes/_authenticated/$forum_.settings.tsx:492
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/features/forums/components/thread/thread-comment.tsx:329
+#: src/routes/_authenticated/$forum_.settings.tsx:499
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Save"
 msgstr "Ruaj"
 
@@ -2869,11 +2857,11 @@ msgstr "Postimet e ruajtura u pastruan"
 
 #: src/features/forums/components/edit-post-dialog.tsx:379
 #: src/lib/saved.ts:31
-#: src/routes/_authenticated/$forum_.settings.tsx:724
+#: src/routes/_authenticated/$forum_.settings.tsx:731
 msgid "Saving..."
 msgstr "Duke ruajtur..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:610
 msgid "Score prompt"
 msgstr "Prompti i rezultatit"
 
@@ -2943,7 +2931,7 @@ msgstr "Kërko..."
 msgid "Searching..."
 msgstr "Duke kërkuar..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1093
+#: src/routes/_authenticated/$forum_.settings.tsx:1100
 msgid "seconds"
 msgstr "sekonda"
 
@@ -3084,10 +3072,10 @@ msgstr "Vendos origjinën dhe destinacionin"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 #: ../../../lib/web/src/components/options-menu.tsx:199
-#: src/routes/_authenticated/$forum_.settings.tsx:90
-#: src/routes/_authenticated/$forum_.settings.tsx:165
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:240
+#: src/routes/_authenticated/$forum_.settings.tsx:270
 msgid "Settings"
 msgstr "Cilësimet"
 
@@ -3099,9 +3087,9 @@ msgstr "Shfaq klasat"
 msgid "Show fields"
 msgstr "Shfaq fushat"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:90
+#: src/features/forums/components/thread/attachment-comments.tsx:69
 msgid "Show only comments on this image"
-msgstr ""
+msgstr "Shfaq vetëm komentet për këtë imazh"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
 msgid "Show password"
@@ -3173,17 +3161,15 @@ msgstr "Mbetuni të lidhur!"
 msgid "Subject"
 msgstr "Subjekti"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:442
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
 msgid "Submit comment"
 msgstr "Dërgo komentin"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:441
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
-#: src/features/forums/components/thread/thread-comment.tsx:656
-#: src/features/forums/components/thread/thread-comment.tsx:665
-#: src/features/forums/thread-detail.tsx:640
-#: src/features/forums/thread-detail.tsx:649
 msgid "Submit reply"
 msgstr "Dërgo përgjigjen"
 
@@ -3244,7 +3230,7 @@ msgid "System"
 msgstr "Sistemi"
 
 #: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:567
 msgid "Tag"
 msgstr "Etiketa"
 
@@ -3256,7 +3242,7 @@ msgstr "Etiketa ekziston tashmë"
 msgid "Tag must be 50 characters or less"
 msgstr "Etiketa duhet të jetë 50 karaktere ose më pak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:609
 msgid "Tag prompt"
 msgstr "Kërkesa e etiketës"
 
@@ -3319,11 +3305,11 @@ msgstr "Cilësimet e temës"
 msgid "There are no moderation actions recorded yet"
 msgstr "Nuk ka ende veprime moderimi të regjistruara"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:258
 msgid "This forum could not be loaded right now."
 msgstr "Ky forum nuk mund të ngarkohet tani."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:257
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ky forum mund të jetë fshirë ose nuk ke akses në të."
 
@@ -3343,20 +3329,20 @@ msgstr "Ky postim është dërguar tashmë"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Kjo heq çdo postim nga lista juaj e të ruajturave. Ky veprim nuk mund të zhbëhet."
 
-#: src/features/forums/components/thread/thread-comment.tsx:559
+#: src/features/forums/components/thread/thread-comment.tsx:530
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Kjo do të fshehë komentin nga përdoruesit e zakonshëm. Moderatorët mund ta shohin ende dhe ta rikthejnë më vonë."
 
-#: src/features/forums/components/thread/thread-content.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Kjo do të fshehë postimin nga përdoruesit e zakonshëm. Moderatorët mund ta shohin ende dhe ta rikthejnë më vonë."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:436
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Kjo do të fshijë përgjithmonë \"{0}\" dhe gjithë postimet dhe komentet e tij. Ky veprim nuk mund të zhbëhet."
 
-#: src/features/forums/thread-detail.tsx:187
+#: src/features/forums/thread-detail.tsx:157
 msgid "Thread"
 msgstr "Tema"
 
@@ -3506,21 +3492,21 @@ msgstr "Shtetet e Bashkuara"
 msgid "Unknown"
 msgstr "I panjohur"
 
-#: src/features/forums/components/thread/thread-content.tsx:369
+#: src/features/forums/components/thread/thread-content.tsx:378
 msgid "Unlock"
 msgstr "Hap kyçin"
 
-#: src/features/forums/components/thread/thread-content.tsx:382
+#: src/features/forums/components/thread/thread-content.tsx:391
 msgid "Unpin"
 msgstr "Hiq nga lart"
 
 #: ../../../lib/web/src/components/options-menu.tsx:214
 #: src/features/forums/pages/entity-forum-page.tsx:393
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:408
 msgid "Unsubscribe"
 msgstr "Çabonohu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:396
 msgid "Unsubscribe from forum"
 msgstr "Çabonohu nga forumi"
 
@@ -3529,12 +3515,12 @@ msgid "Unsubscribe from forum?"
 msgstr "Të çabonohesh nga forumi?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/routes/_authenticated/$forum_.settings.tsx:185
 msgid "Unsubscribed"
 msgstr "Çabonuar"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/routes/_authenticated/$forum_.settings.tsx:184
 msgid "Unsubscribing..."
 msgstr "Duke u çabonuar..."
 
@@ -3572,15 +3558,15 @@ msgstr "Përdorni çelësin tuaj të hyrjes"
 msgid "User"
 msgstr "Përdoruesi"
 
-#: src/features/forums/thread-detail.tsx:470
+#: src/features/forums/thread-detail.tsx:423
 msgid "User banned"
 msgstr "Përdoruesi u ndalua"
 
-#: src/features/forums/thread-detail.tsx:461
+#: src/features/forums/thread-detail.tsx:414
 msgid "User muted"
 msgstr "Përdoruesi u heshtua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:727
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Variables: {variables}"
 msgstr "Variablat: {variables}"
 
@@ -3611,7 +3597,7 @@ msgid "Video thumbnail"
 msgstr "Miniatura e videos"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Video viewer: {0}"
 msgstr "Shikuesi i videove: {0}"
 
@@ -3632,20 +3618,20 @@ msgstr "Shiko të gjitha njoftimet"
 msgid "View controls"
 msgstr "Kontrollet e pamjes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "Vetëm shikim"
 
-#: src/features/forums/components/thread/thread-comment.tsx:291
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
-msgstr ""
+msgstr "Shiko imazhin për të cilin bëhet fjalë në këtë koment"
 
 #: src/features/forums/components/report-dialog.tsx:29
 #: src/routes/_authenticated/$forum_.moderation.tsx:755
 msgid "Violence"
 msgstr "Dhuna"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "Voto dhe shiko"
 
@@ -3679,7 +3665,7 @@ msgstr "Faqja është nën mirëmbajtje!"
 msgid "Wednesday"
 msgstr "E mërkurë"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1090
 msgid "Window duration"
 msgstr "Kohëzgjatja e dritares"
 
@@ -3726,14 +3712,14 @@ msgstr "I keni parë të gjitha!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Llogaria juaj u zhvendos këtu nga {source}. Derisa ta fshini atje, mesazhet dhe njoftimet mund të arrijnë në të dy serverët, një pjesë e përmbajtjes suaj vazhdon të shërbejë nga serveri i vjetër dhe ndjekësit mund të kenë nevojë për disa minuta që t'ju gjejnë këtu."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Your attachments will be lost."
 msgstr "Bashkëngjitjet tuaja do të humbasin."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text and attachments will be lost."
 msgstr "Teksti dhe bashkëngjitjet tuaja do të humbasin."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:305
+#: ../../../lib/web/src/components/comment-composer.tsx:314
 msgid "Your text will be lost."
 msgstr "Teksti yt do të humbasë."

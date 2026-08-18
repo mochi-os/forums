@@ -158,6 +158,7 @@ export interface ViewPostComment {
   // and its display name (caption or file name). Empty when unanchored.
   attachment?: string
   attachment_name?: string
+  attachment_caption?: string
   can_vote: boolean
   can_comment: boolean
   // Moderation fields

@@ -8,7 +8,6 @@ import { useLingui } from '@lingui/react/macro'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   Main,
-  Button,
   usePageTitle,
   toast,
   getErrorMessage,
@@ -16,27 +15,13 @@ import {
   CardContent,
   PageHeader,
   GeneralError,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  useImageObjectUrls,
-  MentionTextarea,
+  CommentBox,
   useAuthStore,
   useListAutoAnimate,
   findCommentTextInTree,
-  cn,
-  mergePendingFiles,
-  removePendingFile,
-  moveItem,
-  ComposerAttachments,
-  SendShortcutHint,
-  dropActiveClass,
-  offlineBlocked,
-  useComposerDrop,
+  countCommentTree,
   useDiscardGuard,
-  UploadProgress,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
@@ -97,36 +82,21 @@ export function ThreadDetail({
   // Use forumOverride if provided (from domain context), otherwise use URL param
   const forum = forumOverride || urlForum
   const [commentBody, setCommentBody] = useState('')
-  const [commentFiles, setCommentFiles] = useState<File[]>([])
-  const commentFilePreviewUrls = useImageObjectUrls(commentFiles)
-  const commentFileRef = useRef<HTMLInputElement>(null)
   const [editPostDialogOpen, setEditPostDialogOpen] = useState(false)
   const [showReplyForm, setShowReplyForm] = useState(false)
-  const [commentFailed, setCommentFailed] = useState(false)
-  // The create-comment mutation is shared with every reply form in the thread,
-  // so its isPending cannot stand in for "this form is sending".
+  // The comment box owns its files and reports their count; the discard guard
+  // reads it. The create-comment mutation is shared with every reply form in
+  // the thread, so its isPending cannot stand in for "this form is sending".
+  const [commentFileCount, setCommentFileCount] = useState(0)
   const [isSendingComment, setIsSendingComment] = useState(false)
   useEffect(() => {
     if (!showReplyForm) {
-      if (commentFiles.length > 0) setCommentFiles([])
+      setCommentFileCount(0)
       if (commentBody) setCommentBody('')
-      if (commentFailed) setCommentFailed(false)
     }
     // Only the open/closed flip matters here; the values are read fresh.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showReplyForm])
-
-  const addCommentFiles = useCallback((incoming: File[]) => {
-    setCommentFailed(false)
-    setCommentFiles((prev) => mergePendingFiles(prev, incoming))
-  }, [])
-
-  // Editing the draft after a failure means the red attachments and the Retry
-  // button no longer describe what is in the box.
-  const handleCommentBodyChange = useCallback((value: string) => {
-    setCommentBody(value)
-    setCommentFailed(false)
-  }, [])
   const [replyingToComment, setReplyingToComment] = useState<string | null>(
     null
   )
@@ -223,14 +193,9 @@ export function ThreadDetail({
   const reportPostMutation = useReportPost(forum, postId)
   const reportCommentMutation = useReportComment(forum, postId)
 
-  const { isDragActive, dropzoneProps } = useComposerDrop({
-    onFiles: addCommentFiles,
-    disabled: isSendingComment,
-  })
-
   const { requestClose: requestCloseReplyForm, discardDialog } = useDiscardGuard({
     hasText: commentBody.trim().length > 0,
-    hasFiles: commentFiles.length > 0,
+    hasFiles: commentFileCount > 0,
     onDiscard: () => setShowReplyForm(false),
     locked: isSendingComment,
   })
@@ -320,28 +285,16 @@ export function ThreadDetail({
     [forum, t]
   )
 
-  const handleCommentSubmit = () => {
-    if (!commentBody.trim() || isSendingComment) {
-      if (!commentBody.trim()) toast.error(t`Please enter a comment`)
-      return
-    }
-    if (offlineBlocked()) return
-    setCommentFailed(false)
+  // Rejects on failure so the box keeps its draft and attachments for Retry.
+  const handleCommentSubmit = async (body: string, files?: File[]) => {
     setIsSendingComment(true)
-    createCommentMutation.mutate(
-      { body: commentBody, files: commentFiles.length > 0 ? commentFiles : undefined },
-      {
-        onSettled: () => setIsSendingComment(false),
-        onSuccess: () => {
-          setCommentBody('')
-          setCommentFiles([])
-          setShowReplyForm(false)
-        },
-        // Keep the form open with its draft and attachments so Retry can send
-        // exactly what failed.
-        onError: () => setCommentFailed(true),
-      }
-    )
+    try {
+      await createCommentMutation.mutateAsync({ body, files })
+      setCommentBody('')
+      setShowReplyForm(false)
+    } finally {
+      setIsSendingComment(false)
+    }
   }
 
   const handleCommentReplySubmit = async (parentId: string, files?: File[]) => {
@@ -473,6 +426,53 @@ export function ThreadDetail({
     }
   }
 
+  // Everything a comment needs to reply, vote, edit, delete and moderate,
+  // built once: the inline thread and the lightbox's comments panel both
+  // render the SAME ThreadComment with these, so the panel is the post's
+  // thread scoped to an image, not a second thread with fewer powers.
+  const commentProps = {
+    onOpenAttachment: (attachmentId: string) => lightboxOpener.current?.(attachmentId),
+    onSearchPeople: (q: string) => forumsApi.searchMembers(forum, q),
+    onVote: (commentId: string, vote: 'up' | 'down' | '') =>
+      voteCommentMutation.mutate({ commentId, vote }),
+    canVote: can_vote,
+    votePendingId: voteCommentMutation.isPending
+      ? (voteCommentMutation.variables?.commentId ?? null)
+      : null,
+    canReply: can_comment,
+    onReply: handleStartReply,
+    replyingToId: replyingToComment,
+    replyValue: commentReplyBody,
+    onReplyChange: setCommentReplyBody,
+    onReplySubmit: handleCommentReplySubmit,
+    replyProgress: createCommentMutation.progress,
+    onReplyCancel: cancelReply,
+    onReplyFilesChange: setReplyFileCount,
+    canEdit: canEditComment,
+    onEdit: (commentId: string, body: string) =>
+      editCommentMutation.mutate({
+        commentId,
+        body,
+        originalBody:
+          findCommentTextInTree(comments, commentId, {
+            getId: (c) => c.id,
+            getText: (c) => c.body,
+            getChildren: (c) => c.children,
+          }) ?? '',
+      }),
+    onDelete: (commentId: string) => deleteCommentMutation.mutate(commentId),
+    editPendingId: editCommentMutation.isPending
+      ? (editCommentMutation.variables?.commentId ?? null)
+      : null,
+    canModerate: can_moderate || isForumManager,
+    onRemove: (commentId: string) => removeCommentMutation.mutate({ commentId }),
+    onRestore: (commentId: string) => restoreCommentMutation.mutate(commentId),
+    onApprove: (commentId: string) => approveCommentMutation.mutate(commentId),
+    onMuteAuthor: (can_moderate || isForumManager) ? (userId: string) => void handleMuteAuthor(userId) : undefined,
+    onBanAuthor: (can_moderate || isForumManager) ? (userId: string) => void handleBanAuthor(userId) : undefined,
+    onReport: can_vote ? (commentId: string) => setReportingCommentId(commentId) : undefined,
+    currentUserId,
+  }
   return (
     <>
       <PageHeader
@@ -492,15 +492,19 @@ export function ThreadDetail({
                 attachments={post.attachments}
                 server={server}
                 commentCount={(attachmentId) =>
-                  comments.filter((comment) => comment.attachment === attachmentId).length
+                  countCommentTree(
+                    comments.filter((comment) => comment.attachment === attachmentId),
+                    (comment) => comment.children
+                  )
                 }
                 renderComments={(attachmentId) => (
                   <AttachmentComments
                     comments={comments}
                     attachmentId={attachmentId}
+                    commentProps={commentProps}
                     canComment={can_comment && !post.locked}
-                    onAddComment={(body, attachment) =>
-                      createCommentMutation.mutateAsync({ body, attachment })
+                    onAddComment={(body, files, attachment) =>
+                      createCommentMutation.mutateAsync({ body, files, attachment })
                     }
                   />
                 )}
@@ -537,119 +541,19 @@ export function ThreadDetail({
               <div className='border-border/60 mt-6 border-t pt-4'>
                 {/* Reply Form - shown above comments */}
                 {showReplyForm && (
-                  <div
-                    className={cn(
-                      'mb-4 space-y-2',
-                      isDragActive && dropActiveClass
-                    )}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Escape') requestCloseReplyForm()
-                    }}
-                    {...dropzoneProps}
-                  >
-                    <MentionTextarea
-                      className='placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50'
-                      value={commentBody}
-                      onValueChange={handleCommentBodyChange}
-                      onSearchPeople={(q) =>
-                        forumsApi.searchMembers(forum, q)
-                      }
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                          e.preventDefault()
-                          if (commentBody.trim()) {
-                            handleCommentSubmit()
-                          }
-                        } else if (e.key === 'Escape') {
-                          requestCloseReplyForm()
-                        }
-                      }}
-                      rows={3}
-                      autoFocus
-                      disabled={isSendingComment}
-                    />
-                    <ComposerAttachments
-                      files={commentFiles}
-                      previewUrls={commentFilePreviewUrls}
-                      state={
-                        isSendingComment
-                          ? 'uploading'
-                          : commentFailed
-                            ? 'error'
-                            : 'idle'
-                      }
-                      progress={createCommentMutation.progress?.slices}
-                      onRemove={(file) =>
-                        setCommentFiles((prev) => removePendingFile(prev, file))
-                      }
-                      onReorder={(from, to) =>
-                        setCommentFiles((prev) => moveItem(prev, from, to))
-                      }
-                      groupMedia
-                      // Retry sends the draft, so it is only offered while
-                      // there is one.
-                      onRetry={
-                        commentBody.trim() ? handleCommentSubmit : undefined
-                      }
-                    />
-                    {isSendingComment && (
-                      <UploadProgress progress={createCommentMutation.progress} />
-                    )}
-                    <div className='flex items-center justify-end gap-2'>
-                      <SendShortcutHint />
-                      <input
-                        ref={commentFileRef}
-                        type='file'
-                        multiple
-                        onChange={(e) => { if (e.target.files) { addCommentFiles(Array.from(e.target.files)) } e.target.value = '' }}
-                        className='hidden'
-                      />
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => commentFileRef.current?.click()} disabled={isSendingComment} aria-label={t`Attach reply files`}>
-                            <Paperclip className='size-4' />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>{t`Attach reply files`}</TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button
-                            type='button'
-                            size='icon'
-                            variant='ghost'
-                            className='size-8'
-                            onClick={requestCloseReplyForm}
-                            aria-label={t`Cancel reply`}
-                            disabled={isSendingComment}
-                          >
-                            <X className='size-4' />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>{t`Cancel reply`}</TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button
-                            size='icon'
-                            className='size-8'
-                            disabled={
-                              !commentBody.trim() || isSendingComment
-                            }
-                            onClick={handleCommentSubmit}
-                            aria-label={t`Submit reply`}
-                          >
-                            {isSendingComment ? (
-                              <Loader2 className='size-4 animate-spin' />
-                            ) : (
-                              <Send className='size-4' />
-                            )}
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>{t`Submit reply`}</TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </div>
+                  <CommentBox
+                    kind='reply'
+                    className='mb-4'
+                    value={commentBody}
+                    onValueChange={setCommentBody}
+                    onSubmit={handleCommentSubmit}
+                    onClose={requestCloseReplyForm}
+                    onFilesChange={setCommentFileCount}
+                    onSearchPeople={(q) => forumsApi.searchMembers(forum, q)}
+                    progress={createCommentMutation.progress}
+                    rows={3}
+                    autoFocus
+                  />
                 )}
 
                 {/* Comments List */}
@@ -659,63 +563,7 @@ export function ThreadDetail({
                       <ThreadComment
                         key={comment.id}
                         comment={comment}
-                        onOpenAttachment={(attachmentId) => lightboxOpener.current?.(attachmentId)}
-                        onSearchPeople={(q) =>
-                          forumsApi.searchMembers(forum, q)
-                        }
-                        onVote={(commentId, vote) =>
-                          voteCommentMutation.mutate({ commentId, vote })
-                        }
-                        canVote={can_vote}
-                        votePendingId={
-                          voteCommentMutation.isPending
-                            ? (voteCommentMutation.variables?.commentId ?? null)
-                            : null
-                        }
-                        canReply={can_comment}
-                        onReply={handleStartReply}
-                        replyingToId={replyingToComment}
-                        replyValue={commentReplyBody}
-                        onReplyChange={setCommentReplyBody}
-                        onReplySubmit={handleCommentReplySubmit}
-                        replyProgress={createCommentMutation.progress}
-                        onReplyCancel={cancelReply}
-                        onReplyFilesChange={setReplyFileCount}
-                        canEdit={canEditComment}
-                        onEdit={(commentId, body) =>
-                          editCommentMutation.mutate({
-                            commentId,
-                            body,
-                            originalBody:
-                              findCommentTextInTree(comments, commentId, {
-                                getId: (c) => c.id,
-                                getText: (c) => c.body,
-                                getChildren: (c) => c.children,
-                              }) ?? '',
-                          })
-                        }
-                        onDelete={(commentId) =>
-                          deleteCommentMutation.mutate(commentId)
-                        }
-                        editPendingId={
-                          editCommentMutation.isPending
-                            ? (editCommentMutation.variables?.commentId ?? null)
-                            : null
-                        }
-                        canModerate={can_moderate || isForumManager}
-                        onRemove={(commentId) =>
-                          removeCommentMutation.mutate({ commentId })
-                        }
-                        onRestore={(commentId) =>
-                          restoreCommentMutation.mutate(commentId)
-                        }
-                        onApprove={(commentId) =>
-                          approveCommentMutation.mutate(commentId)
-                        }
-                        onMuteAuthor={(can_moderate || isForumManager) ? (userId) => void handleMuteAuthor(userId) : undefined}
-                        onBanAuthor={(can_moderate || isForumManager) ? (userId) => void handleBanAuthor(userId) : undefined}
-                        onReport={can_vote ? (commentId) => setReportingCommentId(commentId) : undefined}
-                        currentUserId={currentUserId}
+                        {...commentProps}
                       />
                     ))}
                   </div>

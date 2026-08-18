@@ -378,6 +378,18 @@ def comment_anchor_name(comment):
         return ""
     return att.get("caption") or att.get("name", "")
 
+# comment_anchor_caption is the anchored attachment's caption alone - "" when
+# it has none - so a client can show a caption as text but keep a bare file
+# name to a hover: readers care what an image is, rarely what it was called.
+def comment_anchor_caption(comment):
+    anchor = comment.get("attachment", "")
+    if not anchor:
+        return ""
+    att = attachment_get(anchor)
+    if not att:
+        return ""
+    return att.get("caption", "")
+
 # comment_anchors_prune unanchors every comment on post whose attachment is
 # no longer among the post's rows. Run after an edit removes attachments, on
 # whichever host applied the removal.
@@ -3011,6 +3023,7 @@ def action_post_view(a):
             c["children"] = get_comments(c["id"], depth + 1)
             c["attachments"] = attachment_list(c["id"], forum["id"])
             c["attachment_name"] = comment_anchor_name(c)
+            c["attachment_caption"] = comment_anchor_caption(c)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
             # Get user's vote on this comment

@@ -119,7 +119,7 @@ export function ThreadContent({
     setLocalVote(post.user_vote || '')
     setLocalUp(post.up)
     setLocalDown(post.down)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [post.id, post.user_vote, post.up, post.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
@@ -140,10 +140,10 @@ export function ThreadContent({
   const isLocked = !!post.locked
   const isPinned = !!post.pinned
   const timestamp = formatTimestamp(post.created)
-  /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
+   
   const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  /* eslint-enable lingui/no-unlocalized-strings */
+   
 
   const hasActionsOrVotes = canVote || localUp > 0 || localDown > 0 || (canReply && onReply) || canEdit || canModerate || !!onReport
 
@@ -181,18 +181,27 @@ export function ThreadContent({
           </>
         }
         meta={
-          <span className='inline-flex items-center gap-1.5'>
-            {showForumBadge && forumName && <>{forumName} · </>}
-            <EntityAvatar
-              src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
-              styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
-              seed={post.member}
-              name={post.name}
-              size="xs"
-            />
-            <span>{post.name}</span>
-            <span> · </span>
-            <span>{timestamp}{post.edited ? ' (edited)' : ''}</span>
+          // Three units - forum, author, time - each unbreakable. The bar's
+          // right-hand cluster is allowed to wrap onto a second row when the
+          // card is narrow, but only BETWEEN units: as bare text the flex row
+          // broke inside the author's name and between the date and the
+          // time, which read as a broken header rather than a wrapped one.
+          <span className='inline-flex flex-wrap items-center gap-x-1.5 gap-y-1'>
+            {showForumBadge && forumName && (
+              <span className='whitespace-nowrap'>{forumName} · </span>
+            )}
+            <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
+              <EntityAvatar
+                src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
+                seed={post.member}
+                name={post.name}
+                size="xs"
+              />
+              <span>{post.name}</span>
+              <span> · </span>
+            </span>
+            <span className='whitespace-nowrap'>{timestamp}{post.edited ? ' (edited)' : ''}</span>
           </span>
         }
       />

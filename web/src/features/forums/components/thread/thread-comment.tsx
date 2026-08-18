@@ -3,18 +3,15 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useCallback, useRef, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, authenticatedUrl, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, useImageObjectUrls, getAppPath, textUnchanged, type MentionUser, mergePendingFiles, removePendingFile, moveItem, ActionPill, ActionPillSticky, ActionPillActions, ComposerAttachments, SendShortcutHint, dropActiveClass, offlineBlocked, useComposerDrop, useDiscardGuard, UploadProgress, type Upload } from '@mochi/web'
+import { Button, CommentBox, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, authenticatedUrl, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, getAppPath, textUnchanged, type MentionUser, ActionPill, ActionPillSticky, ActionPillActions, useDiscardGuard, type Upload } from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
-  Loader2,
   MessageSquare,
   Pencil,
   Trash2,
-  Send,
-  X,
   EyeOff,
   Eye,
   Check,
@@ -23,7 +20,6 @@ import {
   VolumeX,
   Ban,
   MoreHorizontal,
-  Paperclip,
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
 import { CommentAttachments } from '../comment-attachments'
@@ -48,6 +44,7 @@ export interface ThreadCommentType {
   // and its display name (caption or file name). Empty when unanchored.
   attachment?: string
   attachment_name?: string
+  attachment_caption?: string
   can_vote: boolean
   can_comment: boolean
   // Moderation fields
@@ -56,7 +53,7 @@ export interface ThreadCommentType {
   reason?: string
 }
 
-interface ThreadCommentProps {
+export interface ThreadCommentProps {
   comment: ThreadCommentType
   onVote: (commentId: string, vote: 'up' | 'down' | '') => void
   canVote?: boolean
@@ -133,26 +130,10 @@ export function ThreadComment({
   const [editBody, setEditBody] = useState('')
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
-  const [replyFiles, setReplyFiles] = useState<File[]>([])
+  // The reply box owns its files and reports their count; the guard here and
+  // the one above (which arbitrates switching between reply boxes) read it.
+  const [replyFileCount, setReplyFileCount] = useState(0)
   const [isSubmittingReply, setIsSubmittingReply] = useState(false)
-  const [replyFailed, setReplyFailed] = useState(false)
-  const replyPreviewUrls = useImageObjectUrls(replyFiles)
-  const replyFileRef = useRef<HTMLInputElement>(null)
-
-  const addReplyFiles = useCallback((incoming: File[]) => {
-    setReplyFailed(false)
-    setReplyFiles((prev) => mergePendingFiles(prev, incoming))
-  }, [])
-
-  // Editing the draft after a failure means the red attachments and the Retry
-  // button no longer describe what is in the box.
-  const handleReplyChange = useCallback(
-    (value: string) => {
-      setReplyFailed(false)
-      onReplyChange?.(value)
-    },
-    [onReplyChange]
-  )
 
   // Moderation status
   const isPending = comment.status === 'pending'
@@ -168,7 +149,7 @@ export function ThreadComment({
     setLocalVote(comment.user_vote || '')
     setLocalUp(comment.up)
     setLocalDown(comment.down)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [comment.id, comment.user_vote, comment.up, comment.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
@@ -184,55 +165,45 @@ export function ThreadComment({
   const isReplying = replyingToId === comment.id
 
   useEffect(() => {
-    if (!isReplying && replyFiles.length > 0) setReplyFiles([])
-  }, [isReplying, replyFiles.length])
+    if (!isReplying) setReplyFileCount(0)
+  }, [isReplying])
 
-  useEffect(() => {
-    if (!isReplying && replyFailed) setReplyFailed(false)
-  }, [isReplying, replyFailed])
+  const handleReplyFilesChange = useCallback(
+    (count: number) => {
+      setReplyFileCount(count)
+      onReplyFilesChange?.(count)
+    },
+    [onReplyFilesChange]
+  )
 
-  useEffect(() => {
-    if (isReplying) onReplyFilesChange?.(replyFiles.length)
-  }, [isReplying, replyFiles.length, onReplyFilesChange])
-
-  const submitReply = useCallback(async () => {
-    if (isSubmittingReply || !replyValue.trim() || offlineBlocked()) return
-    setIsSubmittingReply(true)
-    setReplyFailed(false)
-    try {
-      await onReplySubmit?.(
-        comment.id,
-        replyFiles.length > 0 ? replyFiles : undefined
-      )
-    } catch {
-      // Already reported upstream; hold the files so Retry can resend them.
-      setReplyFailed(true)
-    } finally {
-      setIsSubmittingReply(false)
-    }
-  }, [isSubmittingReply, replyValue, onReplySubmit, comment.id, replyFiles])
-
-  const replyBusy = isSubmittingReply
-
-  const { isDragActive, dropzoneProps } = useComposerDrop({
-    onFiles: addReplyFiles,
-    disabled: replyBusy,
-  })
+  // Rejects on failure so the box keeps its files for Retry: already reported
+  // upstream.
+  const submitReply = useCallback(
+    async (_body: string, files?: File[]) => {
+      setIsSubmittingReply(true)
+      try {
+        await onReplySubmit?.(comment.id, files)
+      } finally {
+        setIsSubmittingReply(false)
+      }
+    },
+    [onReplySubmit, comment.id]
+  )
 
   const { requestClose: requestCloseReply, discardDialog } = useDiscardGuard({
     hasText: replyValue.trim().length > 0,
-    hasFiles: replyFiles.length > 0,
+    hasFiles: replyFileCount > 0,
     onDiscard: () => onReplyCancel?.(),
-    locked: replyBusy,
+    locked: isSubmittingReply,
   })
 
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
-  /* eslint-disable lingui/no-unlocalized-strings -- Tailwind class names */
+   
   const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
   const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  /* eslint-enable lingui/no-unlocalized-strings */
+   
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
     if (!c.children) return 0
@@ -297,8 +268,8 @@ export function ThreadComment({
               alt=''
               className='size-5 rounded object-cover text-transparent'
             />
-            {comment.attachment_name && (
-              <span className='max-w-32 truncate'>{comment.attachment_name}</span>
+            {comment.attachment_caption && (
+              <span className='max-w-32 truncate'>{comment.attachment_caption}</span>
             )}
           </button>
         )}
@@ -568,104 +539,19 @@ export function ThreadComment({
 
       {/* Reply input */}
       {isReplying && (
-        <div
-          className={cn(
-            'mt-2 space-y-2 border-t pt-2',
-            isDragActive && dropActiveClass
-          )}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') requestCloseReply()
-          }}
-          {...dropzoneProps}
-        >
-          <MentionTextarea
-            placeholder={t`Reply to ${comment.name}...`}
-            value={replyValue}
-            onValueChange={handleReplyChange}
-            onSearchPeople={onSearchPeople}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault()
-                void submitReply()
-              } else if (e.key === 'Escape') {
-                requestCloseReply()
-              }
-            }}
-            className='placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 min-h-0'
-            rows={2}
-            autoFocus
-            disabled={replyBusy}
-          />
-          <ComposerAttachments
-            files={replyFiles}
-            previewUrls={replyPreviewUrls}
-            state={replyBusy ? 'uploading' : replyFailed ? 'error' : 'idle'}
-            progress={replyProgress?.slices}
-            onRemove={(file) =>
-              setReplyFiles((prev) => removePendingFile(prev, file))
-            }
-            onReorder={(from, to) =>
-              setReplyFiles((prev) => moveItem(prev, from, to))
-            }
-            groupMedia
-            // Retry sends the draft, so it is only offered while there is one.
-            onRetry={replyValue.trim() ? () => void submitReply() : undefined}
-          />
-          {replyBusy && <UploadProgress progress={replyProgress ?? null} />}
-          <div className='flex items-center justify-end gap-2'>
-            <SendShortcutHint />
-            <input
-              ref={replyFileRef}
-              type='file'
-              multiple
-              onChange={(e) => { if (e.target.files) { addReplyFiles(Array.from(e.target.files)) } e.target.value = '' }}
-              className='hidden'
-            />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button type='button' variant='ghost' size='icon' className='size-8' onClick={() => replyFileRef.current?.click()} disabled={replyBusy} aria-label={t`Attach reply files`}>
-                  <Paperclip className='size-4' />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Attach reply files`}</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type='button'
-                  size='icon'
-                  variant='ghost'
-                  className='size-8'
-                  onClick={requestCloseReply}
-                  disabled={replyBusy}
-                  aria-label={t`Cancel reply`}
-                >
-                  <X className='size-4' />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Cancel reply`}</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type='button'
-                  size='icon'
-                  className='size-8'
-                  disabled={!replyValue.trim() || replyBusy}
-                  onClick={() => void submitReply()}
-                  aria-label={t`Submit reply`}
-                >
-                  {replyBusy ? (
-                    <Loader2 className='size-4 animate-spin' />
-                  ) : (
-                    <Send className='size-4' />
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Submit reply`}</TooltipContent>
-            </Tooltip>
-          </div>
-        </div>
+        <CommentBox
+          kind='reply'
+          className='mt-2 border-t pt-2'
+          value={replyValue}
+          onValueChange={(value) => onReplyChange?.(value)}
+          onSubmit={submitReply}
+          onClose={requestCloseReply}
+          onFilesChange={handleReplyFilesChange}
+          onSearchPeople={onSearchPeople}
+          progress={replyProgress}
+          placeholder={t`Reply to ${comment.name}...`}
+          autoFocus
+        />
       )}
     </div>
   )
