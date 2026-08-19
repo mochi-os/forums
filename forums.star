@@ -144,9 +144,10 @@ def database_upgrade(version):
     	# schema with no attachments table. The step is idempotent, so a
     	# healthy database re-running it changes nothing.
         # Attachments live in this database, owned by the shared library:
-        # create the table and copy any rows still held by the transition
-        # bridge, aborting without advancing if the bridge is unavailable.
-        # Both calls are idempotent, so the step runs at either version.
+        # create the table and copy any rows core's store still held - through
+        # the transition bridge while a core still has one, else from the
+        # export file core's cleanup wrote before dropping it. Both calls are
+        # idempotent, so the step runs at either version.
         attachment_schema_create()
         attachment_migrate()
 
@@ -330,7 +331,7 @@ def strip_forum_config(forum):
 #
 # "new:N" indexes the attachments just uploaded in this request; anything else
 # must already belong to this object. Ids that belong to neither are dropped:
-# mochi.attachment.move is scoped to the owner's app database but NOT to this
+# attachment_move is scoped to the owner's whole database but NOT to this
 # object, so an arbitrary id in the order would let a crafted request perturb
 # another object's attachment ranks.
 #
@@ -5424,8 +5425,8 @@ def action_access_revoke(a):
 
 # HTTP handlers serving a forum's attachments (and thumbnails). Public routes,
 # so anonymous viewers can load a public forum's attachments; access is enforced
-# here on a.user, never on ambient ownership. Core's a.write.attachment serves
-# the bytes with no access check of its own, so this handler is the gate. It
+# here on a.user, never on ambient ownership. The library's attachment_serve performs
+# no access check of its own, so this handler is the gate. It
 # mirrors event_attachment_view (the P2P equivalent): private forums require
 # view access, and the attachment must belong to a post or comment in THIS
 # forum, so one forum's attachment can't be fetched via another forum's route.
@@ -5448,8 +5449,8 @@ def serve_attachment(a, variant):
     user_id = a.user.identity.id if a.user and a.user.identity else None
 
     # The gate and the binding both run for forums we own AND for replicas.
-    # Never defer to "the owning server enforces access when a.write.attachment
-    # fetches over P2P": that holds only until the bytes are cached locally,
+    # Never defer to "the owning server enforces access when the library
+    # pulls over P2P": that holds only until the bytes are cached locally,
     # after which core serves them from disk and the owner is never consulted
     # again - so a revoked or deleted source keeps serving. Do not gate on
     # mochi.entity.info() either: it returns None for a remote entity, which
@@ -6352,7 +6353,7 @@ def event_post_edit_submit_event(e):
 
     # Ignore any id in the sender-supplied order that isn't an attachment of this
     # post (newly-uploaded ones were just stored above, so they're in current_ids).
-    # mochi.attachment.move is scoped to the owner's app DB but not to this object,
+    # attachment_move is scoped to the owner's whole database but not to this object,
     # so an unfiltered order would let an author perturb another object's ranks.
     order = [att_id for att_id in order if att_id in current_ids]
 
