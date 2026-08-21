@@ -207,9 +207,8 @@ function ForumSettingsPage() {
       success: t`Forum renamed`,
       error: (e) => getErrorMessage(e, t`Failed to rename forum`),
     })
-    // Every forum query, not just this page's two: the sidebar reads the
-    // lighter info-list query, which the two refetches below never touched,
-    // so the old name sat there until a reload. Same sweep the delete uses.
+    // Invalidate every forum query: the sidebar reads the info-list query,
+    // which the two refetches below do not cover.
     void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     void refreshForumInfo()
     void refreshForums()

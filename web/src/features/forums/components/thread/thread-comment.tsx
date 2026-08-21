@@ -86,9 +86,8 @@ export interface ThreadCommentProps {
   currentUserId?: string
   onSearchPeople?: (query: string) => Promise<MentionUser[]>
   /**
-   * Opens the post's lightbox on an attachment, comments showing. Drawn as a
-   * thumbnail chip on a comment anchored to one of the post's images, so a
-   * remark about a particular photo shows which — and leads back to it.
+   * Opens the post's lightbox on the attachment a comment is anchored to,
+   * comments showing.
    */
   onOpenAttachment?: (attachmentId: string) => void
 }

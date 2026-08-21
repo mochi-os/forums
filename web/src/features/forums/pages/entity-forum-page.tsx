@@ -345,13 +345,10 @@ export function EntityForumPage({
             </div>
           )}
           {forum.populated === 0 && infinitePosts.length === 0 ? (
-            // Freshly subscribed and still syncing posts over P2P, with nothing
-            // to show yet: show the explicit "loading content" message, not
-            // skeleton post cards (which read as corrupt/blank entries). Gating
-            // on infinitePosts too means once any post has arrived we render it
-            // immediately — so the forum is never stuck behind the spinner when
-            // the owner runs old code (or is offline) and never sends the
-            // terminal update broadcast that would flip `populated`.
+            // Freshly subscribed with nothing synced yet: show the loading
+            // message, not skeletons. Gating on infinitePosts too means the
+            // first arrived post renders even if the owner never sends the
+            // update broadcast that flips `populated`.
             <LoadingContent />
           ) : postsError ? (
             <GeneralError

@@ -3,16 +3,6 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-/**
- * Forum WebSocket Hook
- *
- * Connections come from the shared entityWebsocketManager: one socket per
- * forum key shared by every subscriber, persisting across component remounts
- * and React StrictMode double-renders, with a close path that detaches
- * handlers so the resubscribe on a token refresh cannot orphan a socket that
- * keeps delivering events.
- */
-
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import {
@@ -81,14 +71,8 @@ function rejectMessage(reason: string | undefined, detail: string | undefined): 
 }
 
 /**
- * Hook to subscribe to forum WebSocket events.
- * Uses the shared singleton manager to prevent duplicate connections.
- *
- * @param forumKey - The forum fingerprint to subscribe to
- * @param userId - Current user ID, used to filter out self-events
- * @param onNewPost - When provided, incoming `post/create` events are routed
- *   here (with the new post id) instead of auto-invalidating the posts list,
- *   so the caller can queue them behind a "new posts available" pill.
+ * Subscribe to a forum's websocket events. With `onNewPost`, `post/create`
+ * events go to the callback instead of invalidating the posts list.
  */
 export function useForumWebsocket(
   forumKey?: string,

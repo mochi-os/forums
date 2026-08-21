@@ -45,16 +45,9 @@ ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 # action_recommendations). Kept as one constant so the id isn't duplicated.
 RECOMMENDATIONS_ENTITY = "1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P"
 
-# ---- Saved posts ----
-#
-# A user's saved ("read later") posts are private per-user data living in this
-# app's own per-user database on the user's own Mochi node. They persist across
-# reloads and logout, and replicate across the user's own devices via Mochi's
-# per-app replication. Identity comes from a.user.identity.id.
-#
-# Each row stores a JSON snapshot of the post (the same object the browser
-# already renders) so the saved list renders in one local query without fanning
-# out over P2P to each post's originating forum, which may be offline.
+# ---- Saved posts ---- Per-user rows in this app's own database. Each stores a
+# JSON snapshot of the post so the saved list renders from one local query
+# without fanning out to forums that may be offline.
 
 # List the current user's saved posts, most recently saved first.
 def action_saved_list(a):
@@ -118,10 +111,8 @@ def action_saved_clear(a):
 # Create database
 def database_upgrade(version):
     if version == 2:
-        # Forum creation used to grant view to "*" and post to "+" even for
-        # PRIVATE forums, so the ACL said "anyone can view" and the subscribe
-        # privacy gate was ineffective. Revoke the wildcard rules on private
-        # forums this user owns; public forums keep them by design.
+        # Revoke the wildcard view/post grants that forum creation once wrote on
+        # PRIVATE forums; public forums keep them.
         for f in mochi.db.rows("select id from forums"):
             entity = mochi.entity.info(f["id"])
             if not entity or entity.get("privacy", "public") != "private":
@@ -132,34 +123,23 @@ def database_upgrade(version):
             mochi.access.revoke("+", "forum/" + f["id"], "post")
 
     if version == 3:
-        # Drop the pre-2026-07 broadcast tables left in the app data DB when
-        # broadcast state moved to the per-app system DB - inert, but stale
-        # sequence/log copies mislead diagnosis.
+        # Drop the broadcast tables left in the app data DB when broadcast state
+        # moved to the per-app system DB - stale copies mislead diagnosis.
         for table in ["sequence", "log", "acknowledged", "received"]:
             mochi.db.execute("drop table if exists " + table)
     if version == 4 or version == 5 or version == 6:
-    	# The last number re-issues the step: a server that installed the
-    	# first library version ahead of its core update paid both earlier
-    	# numbers for a raise inside the bridge call and was left at full
-    	# schema with no attachments table. The step is idempotent, so a
-    	# healthy database re-running it changes nothing.
-        # Attachments live in this database, owned by the shared library:
-        # create the table and copy any rows core's store still held - through
-        # the transition bridge while a core still has one, else from the
-        # export file core's cleanup wrote before dropping it. Both calls are
-        # idempotent, so the step runs at either version.
+    	# Attachments move from core's store into this database (shared library).
+    	# Both calls are idempotent, so the step is safe under any of these
+    	# numbers.
         attachment_schema_create()
         attachment_migrate()
 
     if version == 7:
-        # posts.forum and comments.forum carried a foreign key to forums(id),
-        # but both create paths deliberately record a submission to a forum the
-        # author does not hold locally: the entity forum page offers "new post"
-        # on a forum you are only browsing, and that row is what the owner's
-        # accept-time attachment pull resolves the forum through. Core enforces
-        # foreign keys, so the insert failed and the submission was never sent -
-        # a server error on every post or comment to an unsubscribed forum.
-        # SQLite cannot drop a constraint in place, so rebuild both tables.
+        # Drop the posts.forum / comments.forum foreign key: both create paths
+        # deliberately record a submission to a forum the author does not hold
+        # locally, and the owner's accept-time attachment pull resolves the
+        # forum through that row. SQLite cannot drop a constraint in place, so
+        # rebuild.
         mochi.db.execute("""create table posts_rebuilt (
             id text not null primary key, forum text not null, member text not null, name text not null,
             title text not null, body text not null, comments integer not null default 0,
@@ -300,13 +280,10 @@ def get_forum(forum_id):
         forum = mochi.db.row("select * from forums where fingerprint=?", forum_id)
     return forum
 
-# Helper: deliver a subscription-lifecycle event (subscribe, unsubscribe) to an
-# owner whose entity may no longer be resolvable: private entities never list
-# in the directory, and public entries expire while the owner is offline. A
-# stored directory-form "p2p/<peer>" server pins the queue row to that peer, so
-# an undeliverable send parks and revives when the peer reconnects, instead of
-# parking unresolvable forever. Hostname servers still route via the directory -
-# resolving one here would put a network dial on a view path.
+# Send a subscribe/unsubscribe to an owner whose entity may not resolve (private
+# entities never list, public entries expire offline). A stored "p2p/<peer>"
+# server pins the queue row to that peer so the send parks until it reconnects;
+# hostname servers still route via the directory.
 def registration_send(server, headers, content):
     peer = server[len("p2p/"):] if server and server.startswith("p2p/") else ""
     if peer:
@@ -314,12 +291,9 @@ def registration_send(server, headers, content):
     else:
         mochi.message.send(headers, content)
 
-# Strip owner-only operational config from a forum row before returning it to a
-# viewer. Moderation thresholds, rate limits, and AI prompt text are reachable
-# only through the owner-gated settings endpoints (action_moderation_settings,
-# action_ai_prompts_get), so a general read response must not carry them. The
-# display fields and ai_mode/ai_account (read by the owner's settings screen)
-# are left in place. Mutates and returns the dict.
+# Strip owner-only configuration (moderation thresholds, rate limits, AI
+# prompts) from a forum row before returning it to a viewer; the owner-gated
+# settings actions serve them. Mutates and returns the dict.
 def strip_forum_config(forum):
     for key in ["moderation_posts", "moderation_comments", "moderation_new",
                 "new_user_days", "post_limit", "comment_limit", "limit_window",
@@ -327,18 +301,10 @@ def strip_forum_config(forum):
         forum.pop(key, None)
     return forum
 
-# Resolve a client-supplied attachment order into concrete attachment ids.
-#
-# "new:N" indexes the attachments just uploaded in this request; anything else
-# must already belong to this object. Ids that belong to neither are dropped:
-# attachment_move is scoped to the owner's whole database but NOT to this
-# object, so an arbitrary id in the order would let a crafted request perturb
-# another object's attachment ranks.
-#
-# Extracted from four identical copies across action_post_edit (three) and
-# action_comment_edit. The scoping check is the reason that mattered: a fix
-# applied to one copy and missed on another leaves the hole open on whichever
-# path was overlooked.
+# Resolve a client-supplied attachment order into ids. "new:N" indexes this
+# request's uploads; anything else must already belong to this object. Unknown
+# ids are dropped: attachment_move is scoped to the database, not the object, so
+# a foreign id could perturb another object's ranks.
 def resolve_attachment_order(order, current_ids, new_attachments):
     final_order = []
     for item in order:
@@ -351,11 +317,9 @@ def resolve_attachment_order(order, current_ids, new_attachments):
     return final_order
 
 
-# comment_anchor reduces a caller's attachment reference to one this post
-# actually holds, or "". A comment may be anchored to a post's own attachment
-# and nothing else: an id from another post - or another forum - is refused
-# rather than stored. Bound to the POST's rows, exactly as caption edits are,
-# whether the reference arrives on an HTTP action or a P2P event.
+# comment_anchor reduces a caller's attachment reference to one this post holds,
+# else "". Ids from another post or forum are refused, on HTTP actions and P2P
+# events alike.
 def comment_anchor(post_id, forum_id, value):
     if type(value) != "string" or not value:
         return ""
@@ -411,12 +375,9 @@ def resolve_attachment_captions(order, captions):
     return [captions.get("new:" + str(i), "") for i in range(total)]
 
 
-# Batch the per-post enrichment for a list view.
-#
-# comment counts, tags and the caller's votes were a query EACH per post, so a
-# landing page of ~100 posts cost ~400 round trips for data three whole-page
-# queries answer. The post list is already bounded by the page limit, so the
-# IN clauses are too.
+# Batch the per-post enrichment (comment counts, tags, caller's votes) for a
+# list view in three whole-page queries; the IN clauses are bounded by the page
+# limit.
 def enrich_posts_batch(posts, forum_ids, user_id, moderator):
     ids = [p["id"] for p in posts]
     counts = {}
@@ -439,12 +400,8 @@ def enrich_posts_batch(posts, forum_ids, user_id, moderator):
     return counts, tags, votes
 
 
-# Coerce a peer-supplied count to a non-negative integer.
-#
-# Vote tallies arrive from the forum owner, who is authoritative for them, but
-# authoritative is not the same as well-formed: the value lands in an integer
-# column that ORDER BY sorts on, and Starlark has no try/except, so a string
-# or a dict either corrupts the ordering or aborts the handler outright.
+# Coerce a peer-supplied count to a non-negative integer: it lands in a column
+# ORDER BY sorts on, and Starlark has no try/except for a malformed value.
 def count_content(e, key):
     value = e.content(key)
     if type(value) in ["int", "float"]:
@@ -548,24 +505,10 @@ def check_access(a, forum_id, operation):
 
     return False
 
-# Helper: may this caller view this forum?
-#
-# For a forum this host holds, the access rules are authoritative: check_access
-# derives its subject from a.user, so an anonymous caller is tested against the
-# "*" grant alone - a public forum carries it, a private one does not.
-#
-# A REPLICA of a remote forum carries no local access rules at all (subscribe
-# grants none) and check_access has no membership short-circuit, so a member's
-# own subscription is authorised by membership instead. That fallback is
-# deliberately limited to forums we do NOT host, so a stale members row can
-# never override a revoked grant on a forum we do.
-#
-# Never gate on mochi.entity.info()'s privacy field: it returns None for a
-# remote entity, which read as "public" and silently made the old checks a
-# no-op on every replica - anonymous callers were served subscribed private
-# forums' posts, comments and attachments. Here entity.info is used only as a
-# host-scoped "do we hold this entity" test (entity_by_any), which is what it
-# reliably answers.
+# May this caller view this forum? Access rules are authoritative for a forum
+# this host holds. A replica carries no local rules, so membership authorises
+# there - and only there, so a stale members row cannot override a revoked
+# grant. Never read entity.info's privacy: it is None for a remote entity.
 def can_view_forum(a, forum_id, user_id):
     if check_access(a, forum_id, "view"):
         return True
@@ -625,11 +568,8 @@ def broadcast_event(forum_id, event, data, exclude=None):
     member_ids = [m["id"] for m in members]
     mochi.broadcast.send(forum_id, forum_id, member_ids, "forums", event, data, exclude or "")
 
-# Re-derive the cached posts.up / posts.down for a single post from the
-# votes log. Replication-safe: the SQL replicates as one op whose SELECT
-# subqueries re-evaluate against each replica's local votes table, so
-# concurrent writers on paired hosts converge to the same count without
-# the counter-arithmetic anti-pattern.
+# Re-derive the cached posts.up / posts.down from the votes log; never patch
+# them with counter arithmetic.
 def recount_post_votes(post_id):
     if not post_id:
         return
@@ -690,12 +630,9 @@ def error_broadcast_gap(e):
 # long idle). Matches core's broadcast_log_age.
 idle_resync_age = 7 * 86400
 
-# request_resync pulls a fresh schema dump from the forum owner when an
-# incoming event references data we don't have yet (out-of-order delivery,
-# lost messages while offline). The owner's event_schema is the canonical
-# source; insert_forum_schema applies it idempotently. Throttled to one
-# call per 60 seconds per forum so a burst of bad events can't spam the
-# owner. Subscribers-only — owners are themselves the canonical source.
+# request_resync pulls a fresh schema dump from the owner when an incoming event
+# references data we lack; subscribers only, throttled to once per 60 seconds
+# per forum.
 def request_resync(forum_id):
     """Returns True iff a fresh schema was actually fetched and applied."""
     row = mochi.db.row("select server, synced from forums where id=?", forum_id)
@@ -718,11 +655,9 @@ def request_resync(forum_id):
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
     return True
 
-# maybe_resubscribe re-establishes a subscribed forum with its owner when the
-# subscription has gone idle (idle_resync_age). The owner's subscribe handler is
-# idempotent and pushes catch-up, so a bare re-subscribe re-adds us and re-syncs;
-# touch() stamps the idle timer so a quiet forum re-subscribes at most once per
-# window and a dead owner isn't re-poked per view.
+# maybe_resubscribe re-subscribes an idle forum (idle_resync_age). The owner's
+# subscribe handler is idempotent and pushes catch-up; touch() stamps the timer
+# so a dead owner is poked once per window.
 def maybe_resubscribe(a, forum_id):
     user_id = a.user.identity.id if a.user else None
     if not user_id:
@@ -749,13 +684,10 @@ def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
         {"id": target_id, "reason": reason, "detail": detail}
     )
 
-# Helper: tell the author what became of the post or comment they submitted.
-# Their own copy is written 'pending' the moment they send it, and the only
-# thing that used to clear it was the members fan-out - so an author who is not
-# a member (a public forum accepts posts without a subscription) never learned
-# the outcome, and one whose fan-out was skipped or lost had no second chance,
-# because a resync applies the owner's dump with insert or ignore. Addressed to
-# the author directly, so it does not depend on membership or on the fan-out.
+# Tell the author what became of their submission, which their copy holds as
+# 'pending'. Addressed directly so it depends on neither membership nor the
+# fan-out - a resync applies the owner's dump with insert or ignore and would
+# never clear it.
 def send_status(forum_id, author_id, kind, target_id, status):
     if not forum_id or not author_id or not target_id:
         return
@@ -764,12 +696,8 @@ def send_status(forum_id, author_id, kind, target_id, status):
         {"id": target_id, "status": status}
     )
 
-# Helper: Broadcast WebSocket notification to forum subscribers.
-# Uses fingerprint as key since that's what the frontend connects with.
-# Must use broadcast (not write) because inbound replication commits and
-# scheduled events run under the forum owner's thread user, while
-# subscribers' browsers are connected under their own UIDs. write would
-# only reach the emitter's own tabs.
+# Helper: notify forum subscribers over WebSocket, keyed on the fingerprint the
+# frontend connects with.
 def broadcast_websocket(forum_id, data):
     if not forum_id:
         return
@@ -929,12 +857,9 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason, tar
         elif action == "approve":
             send_status(forum_id, user_id, target_type, target_id, "approved")
 
-    # The author is usually remote - they submitted over P2P and need not be a
-    # member at all - so the notice travels to them as an event carrying the
-    # action code, which their side renders in their own language. Resolving
-    # the labels here would put the moderator's language on the author's
-    # screen. The local branch is for an author who owns the forum, where
-    # there is no hop to make.
+    # The author is usually remote: send the action code and let their side
+    # render it in their own language, not the moderator's. The local branch is
+    # an author who owns the forum.
     entity = mochi.entity.info(forum_id)
     owner_id = entity.get("creator", "") if entity else ""
     if user_id == owner_id:
@@ -995,12 +920,9 @@ def event_member_notify(e):
         e.content("reason") or "",
         e.content("source") or forum_id)
 
-# Helper: Notify every moderator of a forum (entity owner + users with the
-# 'moderate' access level) that there's new work in the queue.
-# `exclude_user_id` is the actor (post author, comment author, report
-# reporter) — they're not notified about their own submission. The local
-# owner gets a direct notify(); remote moderators get a P2P
-# 'moderator/notify' event that their side translates into a local notify().
+# Notify every moderator (owner + 'moderate' grantees) of new queue work, except
+# `exclude_user_id` (the actor). The local owner gets notify(); remote
+# moderators get a 'moderator/notify' event.
 def notify_moderators(forum_id, topic, title, body, url, exclude_user_id="", source_id=""):
     entity = mochi.entity.info(forum_id)
     if not entity:
@@ -1052,11 +974,9 @@ def event_moderator_notify(e):
     forum_id = e.header("from")
     if not mochi.text.valid(forum_id, "entity"):
         return
-    # Only accept a moderator notification for a forum we hold locally - i.e. one
-    # we subscribe to (moderating a forum requires a local subscription; see
-    # action_moderation_queue). Core authenticates "from" to an entity the sender
-    # owns, so this drops notifications forged by someone spamming from a forum of
-    # their own that we don't moderate.
+    # Only for a forum we hold locally (moderating requires a subscription).
+    # Core authenticates "from" to an entity the sender owns, so this drops
+    # notifications forged from a stranger's own forum.
     if not get_forum(forum_id):
         return
     topic = e.content("topic") or "moderation/queue"
@@ -1072,11 +992,9 @@ def event_moderator_notify(e):
     event_id = topic + ":" + (source or forum_id)
     notify(topic, forum_id, title, body, url, event_id=event_id)
 
-# Stream an entity's asset from its owning service via a Mochi stream.
-# Location-transparent: mochi.remote.stream() loops back in-process when the
-# entity lives on this server, or goes over P2P otherwise. Handles both binary
-# assets (avatar/banner/favicon — header + bytes) and JSON assets
-# (style/information — single JSON write with a "data" field).
+# Stream an entity's asset from its owning service; mochi.remote.stream() loops back
+# in-process for a local entity. Binary assets are header + bytes, JSON assets a
+# single write with "data".
 def stream_asset(a, entity_id, service, asset):
     if not entity_id:
         a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
@@ -1093,11 +1011,9 @@ def stream_asset(a, entity_id, service, asset):
     if "data" in header:
         return {"data": header["data"]}
     a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-    # Bytes to relay per slot, matching what the people app accepts on upload.
-    # Without a cap, a peer answering for a person can stream indefinitely through
-    # this route, which is public. Only the three binary slots reach here - style
-    # and information returned above as data - so an unrecognised slot falls back
-    # to the largest of them rather than breaking a route that would otherwise work.
+    # Per-slot byte caps matching what the people app accepts on upload; the
+    # route is public, so an uncapped stream could run indefinitely. Unknown
+    # slots fall back to the largest cap.
     caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
     a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
     return None
@@ -1138,15 +1054,9 @@ def action_comment_asset(a):
 
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
 
-# Helper: Get post sort order based on sort type
-# Build the ORDER BY for a post list. `prefix` qualifies the columns for the
-# joined tag query ("p."); empty for the plain one.
-#
-# The joined form used to be derived by running .replace() over the unjoined
-# string, column name by column name. That only survives because none of the
-# three sorts contains the word "updated": add one and the chain rewrites
-# "updated" to "p.updated", then matches the "up" inside it and produces
-# "p.p.updated". Emitting the prefix directly cannot go wrong that way.
+# Build the ORDER BY for a post list; `prefix` qualifies columns for the joined
+# tag query ("p."). Emit the prefix directly - deriving the joined form with
+# .replace() rewrites the "up" inside "updated".
 def get_post_order(sort, prefix=""):
     if sort == "top":
         return "(" + prefix + "up - " + prefix + "down) desc, " + prefix + "created desc"
@@ -1440,9 +1350,8 @@ def action_tags_list(a):
         a.error.label(404, "errors.forum_not_found")
         return
 
-    # Enforce view access for forums we host AND for replicas. The old gate
-    # read mochi.entity.info(), which returns None for a remote entity and so
-    # resolved to "public", making this a no-op on every subscription.
+    # View access for forums we host AND replicas; never via
+    # mochi.entity.info(), which is None for a remote entity.
     if not can_view_forum(a, forum["id"], a.user.identity.id if a.user and a.user.identity else None):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
@@ -1831,10 +1740,8 @@ def action_view(a):
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
             p["body_markdown"] = mochi.text.markdown(p["body"])
-            # Attachment metadata is stored locally when the post fans out
-            # (event_post_* call attachment_store), so the list returns it
-            # without a separate metadata fetch; the bytes pull on demand when
-            # served. The old fetch-from-owner fallback is obsolete.
+            # Attachment metadata is stored locally at fan-out; bytes pull on
+            # demand when served.
             p["attachments"] = attachment_list(p["id"], forum["id"])
             # Comment count, tags and the caller's vote all come from the
             # whole-page queries above.
@@ -2141,11 +2048,9 @@ def action_post_create(a):
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
-            # Save locally BEFORE announcing (status pending until the owner
-            # confirms): the owner pulls attachment bytes back the moment it
-            # accepts the submit, and its fetch responder resolves the forum
-            # through this row - announced first, the pull can race the insert
-            # and find nothing to bind.
+            # Save locally BEFORE announcing: the owner pulls attachment bytes
+            # the moment it accepts, and its fetch responder resolves the forum
+            # through this row.
             mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
                 id, forum["id"], user_id, user_name, title, body, now, now)
 
@@ -2552,13 +2457,6 @@ def action_members_save(a):
     # Handle member removal
     remove_id = a.input("remove")
     if remove_id and remove_id != a.user.identity.id:
-        # Collect the (post, comment) pairs the removed member voted on
-        # before deleting the rows, then derive-recount each affected
-        # post/comment after the delete. Per the new vote model, counts
-        # are always re-derived from the votes log — never patched by
-        # counter arithmetic — so removing votes is just delete + recount
-        # of the affected rows. (The old code only adjusted comment
-        # counts; post counts went out of sync on member removal.)
         affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum["id"], remove_id)
         mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], remove_id)
         for v in affected:
@@ -2975,14 +2873,10 @@ def action_post_view(a):
         can_vote = False
         can_comment = False
         can_moderate = False
-        # Only ask the owner on behalf of a REAL authenticated caller. For an
-        # anonymous request to a public action core substitutes the entity owner
-        # as the effective user, so mochi.remote.request would carry the local
-        # subscriber's identity and the owner would answer with THEIR
-        # permissions - handing an anonymous caller a moderator's view,
-        # including removed and shadowbanned posts and comments (the status
-        # filters below key off can_moderate). action_view and
-        # action_information_entity already guard the same call this way.
+        # Only ask the owner for a real authenticated caller: for an anonymous
+        # request core substitutes the entity owner as the effective user, so
+        # the request would carry the local subscriber's identity and return
+        # THEIR permissions, including a moderator's view.
         if user_id:
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["vote", "comment", "moderate"],
@@ -3260,13 +3154,9 @@ def action_post_edit(a):
     # Save new attachments locally
     new_attachments = attachment_save(a, post_id, captions=resolve_attachment_captions(order, captions))
 
-    # Build final order (only new attachments, no existing ones locally).
-    #
-    # Deliberately NOT resolve_attachment_order: this is the subscriber path
-    # for a forum we do not own, so there are no local attachment rows to
-    # check an id against. Passing an empty current_ids to the helper would
-    # drop every existing id instead of forwarding it. The order goes to the
-    # OWNER, who holds the rows and applies the same scoping check there.
+    # Not resolve_attachment_order: this is the subscriber path, with no local
+    # attachment rows to check against - an empty current_ids would drop every
+    # existing id. The owner holds the rows and applies the scoping check.
     final_order = []
     for item in order:
         if item.startswith("new:"):
@@ -5061,11 +4951,8 @@ def action_post_vote(a):
             if restriction:
                 a.error.label(403, "errors.restriction_" + restriction)
                 return
-            # We own the forum - process locally and broadcast to members.
-            # Upsert/delete the user's vote row; recount_post_votes then
-            # derives posts.up/posts.down from the votes log. This is the
-            # replication-safe shape: no counter arithmetic, the UPDATE's
-            # SELECT subqueries re-evaluate against each replica's votes.
+            # We own the forum: upsert or delete the vote row, then derive
+            # posts.up/down from the votes log.
             if vote == "":
                 mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
             else:
@@ -5106,14 +4993,9 @@ def action_post_vote(a):
                 {"post": post["id"], "vote": vote if vote else "none"}
             )
 
-            # Record the user's own vote locally so the UI can highlight
-            # the up/down arrow. We do NOT touch posts.up / posts.down
-            # here — the cached counts are the owner's authoritative
-            # snapshot and arrive via the post/update broadcast. (The
-            # previous optimistic counter-arithmetic update was both an
-            # anti-pattern under replication and only ever an
-            # approximation; the websocket round-trip from the owner
-            # arrives within sub-second on the same network.)
+            # Record the user's own vote for the arrow highlight only. Never
+            # touch posts.up / posts.down here - the owner's counts arrive via
+            # the post/update broadcast.
             if vote == "":
                 mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
             else:
@@ -5226,11 +5108,9 @@ def action_comment_vote(a):
                 {"comment": comment["id"], "vote": vote if vote else "none"}
             )
 
-            # Record the user's own vote locally for the up/down arrow
-            # highlight. The cached comments.up / comments.down stay as
-            # the owner's authoritative snapshot — they update when the
-            # comment/update broadcast arrives. See action_post_vote
-            # subscriber branch for the rationale.
+            # Record the user's own vote for the arrow highlight only;
+            # comments.up / comments.down arrive from the owner via the
+            # comment/update broadcast.
             if vote == "":
                 mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
             else:
@@ -5423,13 +5303,10 @@ def action_access_revoke(a):
     }
 
 
-# HTTP handlers serving a forum's attachments (and thumbnails). Public routes,
-# so anonymous viewers can load a public forum's attachments; access is enforced
-# here on a.user, never on ambient ownership. The library's attachment_serve performs
-# no access check of its own, so this handler is the gate. It
-# mirrors event_attachment_view (the P2P equivalent): private forums require
-# view access, and the attachment must belong to a post or comment in THIS
-# forum, so one forum's attachment can't be fetched via another forum's route.
+# Attachment routes are public so anonymous viewers can load a public forum's
+# files. attachment_serve does no access check, so serve_attachment is the gate:
+# view access on a.user, and the attachment bound to a post or comment in this
+# forum.
 def action_attachment(a):
     serve_attachment(a, "")
 
@@ -5462,11 +5339,9 @@ def serve_attachment(a, variant):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
-    # The library serves the bytes with no access check of its own. The forum
-    # view gate ran above; the per-attachment binding runs in `visible`, which
-    # also enforces the target object's visibility: a removed post/comment (or
-    # someone else's pending) must not leak its files. Mirrors the
-    # action_post_view status gate.
+    # attachment_serve does no access check: the view gate ran above and
+    # `visible` binds the attachment to this forum and hides a removed or
+    # someone else's pending object.
     def visible(obj):
         target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
         if not target:
@@ -5477,13 +5352,9 @@ def serve_attachment(a, variant):
             return True
         return target["status"] == "approved" or (target["status"] == "pending" and target["member"] == user_id)
 
-    # The forum's canonical host adopts legacy remote-provenance rows on first
-    # serve, taking the bytes in; member replicas keep pulling to cache.
-    # Ownership here is holding the forum entity: entity.get returns a list,
-    # empty for an anonymous caller or a non-owner, so only the owner adopts
-    # (the adopt pull opens as the forum entity, which sender_check refuses
-    # for anyone else). Non-owners fall through to the pull path, which opens
-    # as the viewer's own identity.
+    # Only the owner adopts legacy remote-provenance rows on first serve (the
+    # adopt pull opens as the forum entity, which sender_check refuses for
+    # anyone else); replicas pull to cache.
     attachment_serve(a, attachment, forum_id, variant=variant, member=visible,
         adopt=bool(mochi.entity.get(forum_id)))
 
@@ -5491,17 +5362,11 @@ def serve_attachment(a, variant):
 
 # Handle attachment view request (stream-based request/response)
 def event_attachment_fetch(e):
-    # The library runs the fixed responder sequence: requester from the signed
-    # header, authorized against this forum, the requested attachment bound to a
-    # post or comment in the forum, then the bytes (or a rendered variant). The
-    # callbacks are this app's judgement: a private forum needs view access; and
-    # the target post/comment must be visible to the requester (approved, or
-    # their own pending, or they moderate).
-    #
-    # `to` is routing only - the entity the puller dialled to reach these
-    # bytes. For a member-held upload that is this user's own identity, not a
-    # forum, so the container comes from the requested row: the attachment's
-    # post or comment, resolved to the forum it belongs to here.
+    # The library runs the responder sequence (requester from the signed header,
+    # authorize, bind, serve); the callbacks decide view access and that the
+    # target post/comment is visible to the requester. `to` is routing only -
+    # for a member-held upload it is the user's identity - so the forum comes
+    # from the requested row.
     id = e.content("id")
     forum_id = ""
     if attachment_identifier(id):
@@ -5546,11 +5411,9 @@ def event_attachment_fetch(e):
 def event_mention_notify(e):
     """Member receives a mention notification from a forum owner."""
     forum_id = e.header("from")
-    # Only accept a mention notification for a forum this user actually follows.
-    # Core authenticates "from" to an entity the sender owns, so this drops
-    # notifications forged by someone spamming from a forum of their own that we
-    # don't subscribe to. A genuine mention only ever targets a member, who by
-    # definition holds the forum locally.
+    # Only for a forum this user holds. Core authenticates "from" to an entity
+    # the sender owns, so this drops mentions forged from a stranger's own
+    # forum.
     if not get_forum(forum_id):
         return
     title = e.content("title") or ""
@@ -5567,13 +5430,10 @@ def event_mention_notify(e):
     body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
     notify("mention", forum_id, title, body, url, event_id=event_id)
 
-# unsubscribe_stale tells a forum owner to drop this member when a broadcast
-# arrives for a forum the member no longer holds locally. action_subscribe
-# writes the local forums row before it notifies the owner, so a missing row
-# in a broadcast handler always means a stale roster entry (the member left or
-# was wiped), never an in-flight subscribe. event_unsubscribe_event deletes by
-# (forum, member), so if we are not in the roster this is a harmless no-op.
-# The broadcast's headers invert directly: from=forum (owner), to=this member.
+# unsubscribe_stale asks the owner to drop us when a broadcast arrives for a
+# forum we no longer hold. action_subscribe writes the local row before
+# notifying the owner, so a missing row is always a stale roster entry, never an
+# in-flight subscribe. Headers invert: from=forum, to=this member.
 def unsubscribe_stale(e):
     forum_id = e.header("from")
     member_id = e.header("to")
@@ -5648,11 +5508,9 @@ def event_comment_create_event(e):
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
-    # Every refusal below tells the sender. The submitter stored the comment
-    # locally as pending for optimistic display; without a reject it has
-    # nothing to clear on, so a comment the owner declined sits pending on the
-    # member's screen forever. The post path has done this since it was
-    # written - send_reject plus the matching comment/reject handler.
+    # Every refusal below tells the sender: the submitter holds the comment as
+    # pending for optimistic display, and without a reject it sits pending
+    # forever.
     sender_id = e.header("from")
     comment_id = e.content("id")
 
@@ -6737,10 +6595,6 @@ def event_unsubscribe_event(e):
 
     member_id = e.header("from")
 
-    # Collect the (post, comment) pairs the departing member voted on,
-    # delete their vote rows, then recount each affected post/comment
-    # from the votes log. The old code only adjusted comment counts —
-    # post counts went out of sync on unsubscribe; both are fixed now.
     affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum["id"], member_id)
     mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], member_id)
     for v in affected:
@@ -7183,11 +7037,9 @@ def event_restrict_submit_event(e):
     reason = e.content("reason") or ""
     if not mochi.text.valid(reason, "text"):
         reason = ""
-    # expires is compared as `expires > <integer now>` when a restriction is
-    # read back, so it must be stored as a number or not at all. The action
-    # path stores now() + int(duration); a string arriving over the wire
-    # would compare by SQLite's type ordering rather than by time, and a
-    # restriction that never expires is not the one the moderator set.
+    # expires is compared numerically against now() when read back, so store a
+    # number or nothing; a string from the wire would compare by SQLite type
+    # ordering and never expire.
     expires = e.content("expires")
     if type(expires) == "string":
         expires = int(expires) if mochi.text.valid(expires, "integer") else None
@@ -7452,12 +7304,10 @@ def event_schema(e):
             e.stream.write({"error": "errors.not_allowed"})
             return
 
-    # Subscription sync populates a member's local replica via
-    # insert_forum_schema, which stores every row as status='approved' (the
-    # schema payload carries no status column). Only ever replicate approved
-    # content, so pending (pre-moderation) and removed/shadowbanned posts and
-    # comments never enter an ordinary member's database. Moderators fetch
-    # pending content live via the moderation queue, not the synced replica.
+    # Approved content only: insert_forum_schema stores every dumped row as
+    # status='approved' (the payload carries no status), so pending and removed
+    # content must never enter a member's replica. Moderators fetch pending
+    # content via the moderation queue.
     posts = mochi.db.rows(
         "select id, member, name, title, body, up, down, comments, created, updated from posts where forum=? and status='approved' order by created desc limit 100",
         forum_id
@@ -7506,11 +7356,9 @@ def insert_forum_schema(forum_id, schema):
             p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
             p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
         )
-        # The dump carries approved content only (see event_schema), so a row
-        # the owner lists but we hold as pending or removed is provably stale -
-        # a status change whose event never reached us. insert or ignore leaves
-        # it that way forever, which is how an author's own post went on
-        # reading "Pending approval" long after the forum had accepted it.
+        # The dump is approved-only, so a row we hold as pending or removed is a
+        # stale status whose event never reached us; insert or ignore alone
+        # would leave it that way forever.
         mochi.db.execute("update posts set status='approved' where id=? and forum=? and status!='approved'",
             p.get("id", ""), forum_id)
         atts = p.get("attachments") or []
@@ -7683,10 +7531,9 @@ def event_post_view(e):
     can_comment = check_event_access(requester, forum_id, "comment")
     can_moderate = check_event_access(requester, forum_id, "moderate")
 
-    # Don't disclose a pending or removed post to an ordinary viewer. Moderators
-    # see any status; the author sees their own PENDING post only; everyone else
-    # sees it once approved. Removed/shadowbanned is hidden even from the author,
-    # so a shadowbanned author can't confirm their post was removed.
+    # Moderators see any status; the author sees their own PENDING post only;
+    # removed is hidden even from the author, so a shadowbanned author cannot
+    # confirm the removal.
     if not can_moderate:
         visible = post["status"] == "approved" or (post["status"] == "pending" and post["member"] == requester)
         if not visible:
@@ -8207,11 +8054,9 @@ def action_rss(a):
 
     forum_id = forum["id"]
 
-    # Look up mode from token. The token authorises ONE forum, so a row
-    # matching this entity is itself the authorisation - checked before the
-    # access gate rather than after it, because a query token authenticates as
-    # its ISSUER, and letting that satisfy the gate would pass for any forum
-    # the issuer owns.
+    # A token authorises ONE forum, so a row matching this entity is the
+    # authorisation. Checked before the access gate: a query token authenticates
+    # as its ISSUER, which would pass the gate for any forum the issuer owns.
     token = a.input("token")
     mode = "posts"
     rss_row = None
@@ -8222,11 +8067,9 @@ def action_rss(a):
             return
         mode = rss_row["mode"]
 
-    # can_view_forum, not check_access. A member of a REMOTE forum holds no
-    # local ACL row - the owner does - so check_access alone refused the feed
-    # to exactly the subscribers it exists for. can_view_forum falls back to
-    # the members table when the forum is not a local entity, which is the
-    # subscribed-to-a-remote-forum case and only that case.
+    # can_view_forum, not check_access: a member of a REMOTE forum holds no
+    # local ACL row, so check_access alone refuses the feed to the subscribers
+    # it exists for.
     if not rss_row and not can_view_forum(a, forum_id, a.user.identity.id if a.user else None):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
@@ -8578,15 +8421,10 @@ def _subscribe_to_forum(user, forum_id, server):
     return {"fingerprint": fp, "already_subscribed": False}
 
 
-# Internal: post on `forum_id` on behalf of `user`, subscriber-side path.
-# Returns {"forum", "post", "fingerprint"} or {"error", "code"}.
-#
-# `post_id` is supplied by the caller, not minted here, so a future
-# multi-host invocation (event_app_post arriving on N replicas via
-# mochi.message.send fan-out) forwards the same id from every
-# replica - the owner's INSERT OR IGNORE on post id then dedups N
-# forwards to one accepted post. mochi.remote.request callers (single
-# fire) mint once before the request and pass through.
+# Internal: post on `forum_id` as `user`, subscriber-side path. Returns
+# {"forum", "post", "fingerprint"} or {"error", "code"}. `post_id` is
+# caller-minted so a retried or duplicated delivery forwards the same id and the
+# owner's insert or ignore dedups it.
 def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     user_id = user.identity.id
     user_name = user.identity.name
@@ -8639,13 +8477,10 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     return {"forum": forum_id, "post": post_id, "fingerprint": fp}
 
 
-# Internal: read-only accessibility check for `forum_id` on behalf of `user`.
-# Mirrors _subscribe_to_forum's resolution steps without writing anything: no
-# membership row, no schema fetch, no subscribe message. Unlike subscribe
-# (which tolerates an unreachable owner and lets the sync arrive later), an
-# unreachable owner fails the check — its purpose is to promise that a post
-# written now can be delivered.
-# Returns {"fingerprint", "already_subscribed"} or {"error", "code"}.
+# Internal: read-only check that `user` could post to `forum_id` -
+# _subscribe_to_forum's resolution without writes. An unreachable owner fails
+# the check, unlike subscribe. Returns {"fingerprint", "already_subscribed"} or
+# {"error", "code"}.
 def _check_forum(user, forum_id):
     user_id = user.identity.id
 
@@ -8674,30 +8509,18 @@ def _check_forum(user, forum_id):
     return {"fingerprint": fp, "already_subscribed": subscribed}
 
 
-# Whether an app/* service event really came from the user it acts for.
-#
-# These handlers subscribe the receiving user and post as them, and their only
-# gate used to be the `apps` allowlist in app.json. That allowlist is checked
-# against `from-app`, an UNSIGNED wire field the sender writes about itself
-# (core protocol2.go Frame.FromApp; the claim signature covers v, stream,
-# entity, receiver and protocol, and not this), so it constrained nobody: any
-# authenticated peer could name an allowed app and pass.
-#
-# The sender identity IS authenticated, and the callers are self-directed -
-# help.star sends these with mochi.remote.request(a.user.identity.id, ...), so
-# the sender and the recipient are the same person. Requiring that is both
-# enforceable and stronger than the allowlist ever was: only you can make
-# yourself subscribe and post, whatever app claims to be asking.
+# Whether an app/* service event came from the user it acts for. The app.json
+# `apps` allowlist is no gate: it checks `from-app`, an unsigned wire field the
+# sender writes about itself. The sender identity is signed and the callers
+# (help.star) are self-directed, so sender must equal recipient.
 def _app_event_is_self(e):
     sender = e.header("from")
     return bool(sender) and e.user and e.user.identity and sender == e.user.identity.id
 
 
 # Service event: another local app asks whether the user could subscribe and
-# post to a forum, without changing anything — the read-only counterpart of
-# event_app_subscribe. Help calls this when a contribute dialog opens, before
-# the user has committed to anything.
-# Caller restriction is declared in app.json events block.
+# post to a forum, without changing anything - the read-only counterpart of
+# event_app_subscribe.
 def event_app_check(e):
     if not _app_event_is_self(e):
         e.write({"error": "errors.access_denied", "code": 403})
@@ -8730,16 +8553,9 @@ def event_app_subscribe(e):
     })
 
 
-# Service event: another local app asks us to post on the user's behalf.
-# Subscribes first as a safety net (idempotent), then posts via the
-# subscriber-side path.
-#
-# The caller is required to supply `id` so a multi-host fan-out
-# (mochi.message.send to a user's paired hosts arrives on each one)
-# produces a single post: every replica forwards the same id to the
-# forum owner, who dedups via INSERT OR IGNORE. mochi.remote.request
-# callers (single-fire, the current path) still need to mint once and
-# pass through.
+# Service event: another local app asks us to post as the user. Subscribes first
+# (idempotent), then posts via the subscriber-side path. The caller supplies
+# `id` so a duplicated delivery forwards one id and the owner dedups it.
 def event_app_post(e):
     if not _app_event_is_self(e):
         e.write({"error": "errors.access_denied", "code": 403})

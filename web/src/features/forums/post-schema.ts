@@ -11,12 +11,9 @@ import { z } from 'zod'
 const DISALLOWED_CHARS = /[<>\r\n]/
 
 /**
- * Validation for the create and edit post forms, which check the same fields.
- *
- * The messages are built in a hook rather than in a plain function taking `t`:
- * the lingui macro only rewrites a `t` destructured from useLingui in the same
- * scope, so a `t` arriving as an argument stays untransformed, never reaches
- * the catalogs, and resolves to an empty string at runtime.
+ * Post form validation, built in a hook: the lingui macro only rewrites a `t`
+ * destructured from useLingui in the same scope, so a `t` passed as an argument
+ * never reaches the catalogs and resolves to an empty string.
  */
 export function usePostSchema() {
   const { t } = useLingui()

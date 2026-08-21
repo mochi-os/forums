@@ -36,11 +36,8 @@ const endpoints = {
     info: '-/information',
     list: '-/list',
     create: '-/create',
-    // The entries below have no caller in web/src yet, but every one resolves
-    // to a live action in app.json - they are unbuilt UI, not dead code, and
-    // deleting them would remove the only client-side record that the server
-    // offers these. postTagsRemove is the notable one: the server implements
-    // tag removal and nothing in the interface can reach it.
+    // Unused in web/src so far but each resolves to a live app.json action -
+    // unbuilt UI, not dead code.
     find: 'find',
     new: '-/new',
     search: '-/directory/search',

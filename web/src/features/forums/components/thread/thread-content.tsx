@@ -181,11 +181,9 @@ export function ThreadContent({
           </>
         }
         meta={
-          // Three units - forum, author, time - each unbreakable. The bar's
-          // right-hand cluster is allowed to wrap onto a second row when the
-          // card is narrow, but only BETWEEN units: as bare text the flex row
-          // broke inside the author's name and between the date and the
-          // time, which read as a broken header rather than a wrapped one.
+          // Three unbreakable units - forum, author, time - so the meta row
+          // wraps only between them, never inside a name or between date and
+          // time.
           <span className='inline-flex flex-wrap items-center gap-x-1.5 gap-y-1'>
             {showForumBadge && forumName && (
               <span className='whitespace-nowrap'>{forumName} · </span>

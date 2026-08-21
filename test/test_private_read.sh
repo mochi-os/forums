@@ -4,19 +4,10 @@
 # This file is part of Mochi, licensed under the GNU AGPL v3 with the
 # Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-# Forum read access-control test (privacy gate + moderation-status gate).
-#
-# Two regressions:
-#  1. Private forums: the public HTTP read actions :forum/-/posts (action_view)
-#     and :forum/-/:post (action_post_view) must gate on view access when the
-#     forum is private, so an anonymous or non-member caller cannot read a
-#     private forum's approved posts/comments from the owner's node. Public
-#     forums must stay fully readable (including anonymously).
-#  2. Moderation status: action_post_view must not serve a removed post to a
-#     non-moderator. An anonymous caller on a public forum runs as the ambient
-#     owner and loads the post from the owner's full DB, so without a status gate
-#     it could read a removed post by id.
-# Self-seeding and single-instance; leaves no test data.
+# Forum read access-control test: action_view and action_post_view must gate on
+# view access for a private forum (public forums stay readable anonymously), and
+# action_post_view must not serve a removed post to a non-moderator.
+# Self-seeding, single-instance, leaves no test data.
 
 set +e
 
