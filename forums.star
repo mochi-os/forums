@@ -20,10 +20,16 @@ def notify(topic, object="", title="", body="", url="", event_id=""):
     mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), "", "", None, event_id)
 
 # Helper: Build a map of qid -> weight from user interests
-def get_interest_map():
-    interests = mochi.interests.list()
+# Interest weights are the CALLER's, so an anonymous caller gets none. A public
+# action runs as the ambient owner, and mochi.interests.list() would then read
+# the owner's own weights and enrich_tags would stamp them onto the response.
+# The rule lives here rather than at each call site: three of the four sites had
+# forgotten it.
+def get_interest_map(a):
+    if not a.user:
+        return {}
     m = {}
-    for i in interests:
+    for i in mochi.interests.list():
         m[i["qid"]] = i["weight"]
     return m
 
@@ -1436,10 +1442,7 @@ def action_tags_list(a):
             a.error.label(404, "errors.post_not_found")
             return
 
-    # Only enrich with interests for an authenticated viewer. An anonymous caller
-    # runs as the ambient owner, so get_interest_map() would annotate the response
-    # with the owner's personal interest weights.
-    interest_map = get_interest_map() if a.user else {}
+    interest_map = get_interest_map(a)
     tags = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], interest_map)
     return {"data": {"tags": tags}}
 
@@ -1806,7 +1809,7 @@ def action_view(a):
         if has_more:
             posts = posts[:limit]
 
-        im = get_interest_map()
+        im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, [forum["id"]], user_id, can_moderate)
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
@@ -1915,7 +1918,7 @@ def action_view(a):
         # Build forum lookup map for O(1) access
         forum_map = {f["id"]: f for f in forums}
 
-        im = get_interest_map()
+        im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, [], user_id, False)
         for p in posts:
             # Get attachments for this post (local only - skip remote fetch for speed)
@@ -3006,7 +3009,7 @@ def action_post_view(a):
     # Metadata is stored locally on fan-out; bytes pull on demand at serve. The
     # old fetch-from-owner metadata fallback is obsolete.
     post["attachments"] = attachment_list(post_id, forum["id"])
-    post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map())
+    post["tags"] = enrich_tags(mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post_id) or [], get_interest_map(a))
 
     comments = get_comments("", 0)
 
