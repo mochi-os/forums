@@ -5455,11 +5455,10 @@ def event_attachment_fetch(e):
         # the owner taking a member's upload in (attachment_accept / adopt).
         if sender == container:
             return True
-        entity = mochi.entity.info(container)
-        privacy = entity.get("privacy", "public") if entity else "public"
-        if privacy == "private":
-            return check_event_access(sender, container, "view")
-        return True
+        # Access is grants plus membership, never the entity's privacy field -
+        # that decides directory publication only. A public forum carries the
+        # wildcard view grant creation writes, so it passes this same check.
+        return check_event_access(sender, container, "view")
 
     def visible(obj):
         target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
@@ -6584,10 +6583,8 @@ def event_subscribe_event(e):
     # an explicit ACL grant. Without this gate any peer that can reach the
     # owner could subscribe and be sent all content - knowing a forum's
     # location (e.g. from a share link) must never grant access (#209).
-    entity = mochi.entity.info(forum["id"])
-    if entity and entity.get("privacy", "public") == "private":
-        if not check_event_access(member_id, forum["id"], "view"):
-            return
+    if not check_event_access(member_id, forum["id"], "view"):
+        return
 
     # Add as subscriber if not already a member
     if not mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):
@@ -7346,10 +7343,9 @@ def event_information(e):
 
     # A private forum's name/fingerprint is only disclosed to a caller with
     # view access - knowing the id (e.g. from a share link) must not reveal it.
-    if entity.get("privacy", "public") == "private":
-        if not check_event_access(e.header("from"), forum_id, "view"):
-            e.stream.write({"error": "errors.not_allowed"})
-            return
+    if not check_event_access(e.header("from"), forum_id, "view"):
+        e.stream.write({"error": "errors.not_allowed"})
+        return
 
     e.stream.write({
         "id": entity["id"],
@@ -7370,10 +7366,9 @@ def event_schema(e):
     # caller who holds view access. Any peer can invoke this event directly
     # with the forum id, so gating registration (event_subscribe_event) is
     # not enough - the content dump itself must check the caller (#209).
-    if entity.get("privacy", "public") == "private":
-        if not check_event_access(e.header("from"), forum_id, "view"):
-            e.stream.write({"error": "errors.not_allowed"})
-            return
+    if not check_event_access(e.header("from"), forum_id, "view"):
+        e.stream.write({"error": "errors.not_allowed"})
+        return
 
     # Approved content only: insert_forum_schema stores every dumped row as
     # status='approved' (the payload carries no status), so pending and removed
@@ -7482,14 +7477,10 @@ def event_view(e):
 
     forum_name = entity.get("name", forum.get("name", ""))
     forum_fingerprint = entity.get("fingerprint", mochi.entity.fingerprint(forum_id))
-    forum_privacy = entity.get("privacy", "public")
 
-    # Check access for private forums
-    if forum_privacy == "private":
-        can_view = check_event_access(requester, forum_id, "view")
-        if not can_view:
-            e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
-            return
+    if not check_event_access(requester, forum_id, "view"):
+        e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
+        return
 
     can_post = check_event_access(requester, forum_id, "post")
     can_moderate = check_event_access(requester, forum_id, "moderate")
@@ -7614,14 +7605,10 @@ def event_post_view(e):
         e.stream.write({"error": "errors.forum_not_found"})
         return
 
-    forum_privacy = entity.get("privacy", "public")
 
-    # Check access for private forums
-    if forum_privacy == "private":
-        can_view = check_event_access(requester, forum_id, "view")
-        if not can_view:
-            e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
-            return
+    if not check_event_access(requester, forum_id, "view"):
+        e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
+        return
 
     # Get post
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum_id)
