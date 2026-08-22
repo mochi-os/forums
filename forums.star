@@ -179,6 +179,14 @@ def database_upgrade(version):
         if not any([c["name"] == "attachment" for c in mochi.db.table("comments")]):
             mochi.db.execute("alter table comments add column attachment text not null default ''")
 
+    if version == 9:
+        # When we last asked the forum's owner what became of our own posts and
+        # comments. 0 makes every existing replica ask on its next view, which
+        # is what clears a stale 'pending' left from before the owner started
+        # reporting status. Idempotent via the column list.
+        if not any([c["name"] == "checked" for c in mochi.db.table("forums")]):
+            mochi.db.execute("alter table forums add column checked integer not null default 0")
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
@@ -191,6 +199,7 @@ def database_create():
         ai_prompt_tag text not null default '', ai_prompt_score text not null default '',
         banner text not null default '', sort text not null default '',
         synced integer not null default 0,
+        checked integer not null default 0,
         populated integer not null default 1 )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
@@ -671,6 +680,65 @@ def maybe_resubscribe(a, forum_id):
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
         {"name": a.user.identity.name})
     mochi.broadcast.touch(forum_id)
+
+# own_status_interval: how long between status reconciliations of a subscribed
+# forum. The owner tells an author what became of their submission as it
+# happens; this only catches a copy whose message never arrived.
+own_status_interval = 3600
+
+# converge_own_status reconciles the user's own posts and comments in a
+# subscribed forum against the owner's, which is authoritative for status. Both
+# directions: an optimistic 'pending' that the acceptance never cleared, and an
+# 'approved' that the removal never reached. The resync dump cannot do this -
+# it is approved-only and bounded, so absence from it proves nothing. Throttled
+# per forum, stamped before the request so an unreachable owner is asked once
+# per window.
+#
+# Removable once no replica predates the owner reporting status directly
+# (send_status, schema 9): from then on nothing can strand a row, and this
+# whole reconciliation - helper, responder, call site and the forums.checked
+# column - is dead weight that can be deleted.
+def converge_own_status(a, forum_id):
+    user_id = a.user.identity.id if a.user else None
+    if not user_id:
+        return
+    row = mochi.db.row("select server, checked from forums where id=?", forum_id)
+    if not row or not row["server"]:
+        return
+    now = mochi.time.now()
+    if row["checked"] and now - row["checked"] < own_status_interval:
+        return
+    posts = mochi.db.rows("select id from posts where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
+    comments = mochi.db.rows("select id from comments where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
+    if not posts and not comments:
+        return
+    mochi.db.execute("update forums set checked=? where id=?", now, forum_id)
+    answer = mochi.remote.request(forum_id, "forums", "status/check", {
+        "posts": [p["id"] for p in posts],
+        "comments": [c["id"] for c in comments],
+    })
+    if not answer or answer.get("error"):
+        return
+    apply_own_status(forum_id, user_id, answer)
+
+# apply_own_status writes the owner's answer over our own rows only. Scoped to
+# the forum and to the author so a reply naming someone else's row, or a row of
+# another forum we subscribe to, cannot move it.
+def apply_own_status(forum_id, user_id, answer):
+    for id, status in (answer.get("posts") or {}).items():
+        if not mochi.text.valid(id, "id"):
+            continue
+        if status not in ("approved", "pending", "removed"):
+            continue
+        mochi.db.execute("update posts set status=? where id=? and forum=? and member=? and status!=?",
+            status, id, forum_id, user_id, status)
+    for id, status in (answer.get("comments") or {}).items():
+        if not mochi.text.valid(id, "id"):
+            continue
+        if status not in ("approved", "pending", "removed"):
+            continue
+        mochi.db.execute("update comments set status=? where id=? and forum=? and member=? and status!=?",
+            status, id, forum_id, user_id, status)
 
 # Helper: Send a rejection back to the original sender of a submit event.
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
@@ -1641,6 +1709,9 @@ def action_view(a):
 
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
+
+        # Converge our own content's status on the owner's before reading it.
+        converge_own_status(a, forum["id"])
 
         # a.owner: core answers for the routed entity against the AUTHENTICATED
         # caller. owned() resolved through mochi.entity.get, and an anonymous request
@@ -7489,6 +7560,37 @@ def event_access_check(e):
         result[op] = has_access
 
     e.stream.write(result)
+
+# The author asks what became of their own submissions. Answers only for rows
+# this forum holds that the caller wrote, so it cannot be used to read another
+# member's pending or removed content. An id we do not hold is left out rather
+# than reported, since a refused submission is already told so by post/reject.
+def event_status_check(e):
+    forum_id = e.header("to")
+    requester = e.header("from")
+
+    entity = mochi.entity.info(forum_id)
+    if not entity or entity.get("class") != "forum":
+        e.stream.write({"error": "errors.forum_not_found"})
+        return
+
+    posts = {}
+    for id in (e.content("posts") or [])[:100]:
+        if not mochi.text.valid(id, "id"):
+            continue
+        row = mochi.db.row("select status from posts where id=? and forum=? and member=?", id, forum_id, requester)
+        if row:
+            posts[id] = row["status"]
+
+    comments = {}
+    for id in (e.content("comments") or [])[:100]:
+        if not mochi.text.valid(id, "id"):
+            continue
+        row = mochi.db.row("select status from comments where id=? and forum=? and member=?", id, forum_id, requester)
+        if row:
+            comments[id] = row["status"]
+
+    e.stream.write({"posts": posts, "comments": comments})
 
 # Handle post view request for remote viewing
 def event_post_view(e):
