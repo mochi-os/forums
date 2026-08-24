@@ -705,46 +705,70 @@ own_status_interval = 3600
 # whole reconciliation - helper, responder, call site and the forums.checked
 # column - is dead weight that can be deleted.
 def converge_own_status(a, forum_id):
+    """Returns True iff a status actually moved."""
     user_id = a.user.identity.id if a.user else None
     if not user_id:
-        return
+        return False
     row = mochi.db.row("select server, checked from forums where id=?", forum_id)
     if not row or not row["server"]:
-        return
+        return False
     now = mochi.time.now()
     if row["checked"] and now - row["checked"] < own_status_interval:
-        return
+        return False
     posts = mochi.db.rows("select id from posts where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
     comments = mochi.db.rows("select id from comments where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
     if not posts and not comments:
-        return
+        return False
     mochi.db.execute("update forums set checked=? where id=?", now, forum_id)
     answer = mochi.remote.request(forum_id, "forums", "status/check", {
         "posts": [p["id"] for p in posts],
         "comments": [c["id"] for c in comments],
     })
     if not answer or answer.get("error"):
+        return False
+    return apply_own_status(forum_id, user_id, answer) > 0
+
+# converge_stale_status reconciles the forums the cross-forum landing view has
+# reason to doubt. That view names no forum, so there is nothing to reconcile
+# against; it works from the candidates instead - a post or comment of our own
+# that we hold at anything but approved. A row the owner really does hold as
+# pending stays a candidate, so the per-forum throttle is what bounds the cost,
+# not the candidate list. This gives up the approved-here-but-removed-there
+# direction, which the forum and post views still ask about in full.
+def converge_stale_status(a):
+    user_id = a.user.identity.id if a.user else None
+    if not user_id:
         return
-    apply_own_status(forum_id, user_id, answer)
+    rows = mochi.db.rows("""select distinct forum from posts where member=? and status!='approved'
+        union select distinct forum from comments where member=? and status!='approved' limit 10""",
+        user_id, user_id) or []
+    for row in rows:
+        converge_own_status(a, row["forum"])
 
 # apply_own_status writes the owner's answer over our own rows only. Scoped to
 # the forum and to the author so a reply naming someone else's row, or a row of
 # another forum we subscribe to, cannot move it.
 def apply_own_status(forum_id, user_id, answer):
+    moved = 0
     for id, status in (answer.get("posts") or {}).items():
         if not mochi.text.valid(id, "id"):
             continue
         if status not in ("approved", "pending", "removed"):
             continue
-        mochi.db.execute("update posts set status=? where id=? and forum=? and member=? and status!=?",
-            status, id, forum_id, user_id, status)
+        if mochi.db.exists("select 1 from posts where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status):
+            mochi.db.execute("update posts set status=? where id=? and forum=? and member=?",
+                status, id, forum_id, user_id)
+            moved = moved + 1
     for id, status in (answer.get("comments") or {}).items():
         if not mochi.text.valid(id, "id"):
             continue
         if status not in ("approved", "pending", "removed"):
             continue
-        mochi.db.execute("update comments set status=? where id=? and forum=? and member=? and status!=?",
-            status, id, forum_id, user_id, status)
+        if mochi.db.exists("select 1 from comments where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status):
+            mochi.db.execute("update comments set status=? where id=? and forum=? and member=?",
+                status, id, forum_id, user_id)
+            moved = moved + 1
+    return moved
 
 # Helper: Send a rejection back to the original sender of a submit event.
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
@@ -1889,6 +1913,10 @@ def action_view(a):
         sort = a.input("sort") or "new"
         order_by = get_post_order(sort)
 
+        # Converge any of our own content whose status we may be holding stale,
+        # before the query below reads it.
+        converge_stale_status(a)
+
         forums = mochi.db.rows("select * from forums order by updated desc")
         owned_ids = owned_set()
         # Only show approved posts or user's own pending posts. Bounded: this
@@ -2921,6 +2949,15 @@ def action_post_view(a):
     if not can_view_forum(a, forum["id"], user_id):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
+
+    # Converge our own content's status on the owner's. The row was read before
+    # this ran, so re-read it - otherwise the response still carries the status
+    # we came in with, and the gate below judges the stale one.
+    if converge_own_status(a, forum["id"]):
+        post = mochi.db.row("select * from posts where id=?", post_id)
+        if not post:
+            a.error.label(404, "errors.post_not_found")
+            return
 
     # a.owner: core answers for the routed entity against the AUTHENTICATED
     # caller. owned() resolved through mochi.entity.get, and an anonymous request
