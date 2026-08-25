@@ -57,7 +57,6 @@ export interface ThreadCommentProps {
   comment: ThreadCommentType
   onVote: (commentId: string, vote: 'up' | 'down' | '') => void
   canVote?: boolean
-  votePendingId?: string | null
   canReply?: boolean
   onReply?: (commentId: string) => void
   replyingToId?: string | null
@@ -73,7 +72,6 @@ export interface ThreadCommentProps {
   canEdit?: (commentMember: string) => boolean
   onEdit?: (commentId: string, body: string) => void
   onDelete?: (commentId: string) => void
-  editPendingId?: string | null
   depth?: number
   // Moderation
   canModerate?: boolean
@@ -96,7 +94,6 @@ export function ThreadComment({
   comment,
   onVote,
   canVote = true,
-  votePendingId = null,
   canReply = false,
   onReply,
   replyingToId = null,
@@ -109,7 +106,6 @@ export function ThreadComment({
   canEdit,
   onEdit,
   onDelete,
-  editPendingId = null,
   depth = 0,
   canModerate = false,
   onRemove,
@@ -564,7 +560,6 @@ export function ThreadComment({
           onOpenAttachment={onOpenAttachment}
           onVote={onVote}
           canVote={canVote}
-          votePendingId={votePendingId}
           canReply={canReply}
           onReply={onReply}
           replyingToId={replyingToId}
@@ -577,7 +572,6 @@ export function ThreadComment({
           canEdit={canEdit}
           onEdit={onEdit}
           onDelete={onDelete}
-          editPendingId={editPendingId}
           depth={depth + 1}
           canModerate={canModerate}
           onRemove={onRemove}

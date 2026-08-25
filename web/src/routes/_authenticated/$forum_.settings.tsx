@@ -42,7 +42,6 @@ import {
   SelectValue, naturalCompare, textUnchanged,} from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
-import { useSidebarContext } from '@/context/sidebar-context'
 import { toError, getErrorStatus } from '@/lib/errors'
 import { useQueryClient } from '@tanstack/react-query'
 import {
@@ -169,12 +168,6 @@ function ForumSettingsPage() {
   )
 
   // Register with sidebar context to keep forum expanded in sidebar
-  const { setForum } = useSidebarContext()
-  useEffect(() => {
-    setForum(forumId)
-    return () => setForum(null)
-  }, [forumId, setForum])
-
   const handleUnsubscribe = useCallback(async () => {
     if (!selectedForum || isUnsubscribing) return
 
@@ -551,8 +544,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
     }
   }
 
-  const showTag = mode !== 'off'
-  const showScore = mode !== 'off'
+  const showPrompts = mode !== 'off'
 
   return (
     <Section title={t`AI`}>
@@ -587,8 +579,7 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
       {mode !== 'off' && (
         <AiPromptsEditor
           forumId={forumId}
-          showTag={showTag}
-          showScore={showScore}
+          showPrompts={showPrompts}
         />
       )}
     </Section>
@@ -610,7 +601,7 @@ function usePromptLabels(): Record<string, string> {
   }
 }
 
-function AiPromptsEditor({ forumId, showTag, showScore }: { forumId: string; showTag: boolean; showScore: boolean }) {
+function AiPromptsEditor({ forumId, showPrompts }: { forumId: string; showPrompts: boolean }) {
   const PROMPT_LABELS = usePromptLabels()
   const [prompts, setPrompts] = useState<Record<string, string>>({})
   const [defaults, setDefaults] = useState<Record<string, string>>({})
@@ -629,8 +620,7 @@ function AiPromptsEditor({ forumId, showTag, showScore }: { forumId: string; sho
   if (!loaded) return null
 
   const types: string[] = []
-  if (showTag) types.push('tag')
-  if (showScore) types.push('score')
+  if (showPrompts) types.push('tag', 'score')
 
   return (
     <>
@@ -1090,7 +1080,7 @@ function ModerationTab({ forumId }: ModerationTabProps) {
             <div className="flex items-center gap-2">
               <Input
                 type='number'
-                min={0}
+                min={60}
                 value={settings.limit_window}
                 onChange={(e) => setSettings(s => ({ ...s, limit_window: parseInt(e.target.value) || 0 }))}
                 onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}

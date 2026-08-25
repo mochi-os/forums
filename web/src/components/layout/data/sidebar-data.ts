@@ -5,7 +5,7 @@
 
 import { type SidebarData } from '@mochi/web'
 import { useLingui } from '@lingui/react/macro'
-import { MessageSquare, Plus } from 'lucide-react'
+import { Hash } from 'lucide-react'
 
 // Static sidebar data for CommandMenu (Cmd+K)
 export function useSidebarData(): SidebarData {
@@ -15,8 +15,7 @@ export function useSidebarData(): SidebarData {
       {
         title: '',
         items: [
-          { title: t`All forums`, url: '/', icon: MessageSquare },
-          { title: t`New forum`, url: '/new', icon: Plus },
+          { title: t`All forums`, url: '/', icon: Hash },
         ],
       },
     ],

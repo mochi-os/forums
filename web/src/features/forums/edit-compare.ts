@@ -13,7 +13,7 @@ export interface ForumPostEditOriginal {
   captions: Record<string, string>
 }
 
-export interface ForumPostEditDraft {
+interface ForumPostEditDraft {
   title: string
   body: string
   order?: string[]

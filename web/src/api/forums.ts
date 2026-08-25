@@ -272,15 +272,11 @@ const forumsApi = {
       {}
     ),
 
+  // Body only: action_comment_edit forwards {id, body} to the forum owner and
+  // ignores anything else, so an order or file part would be silently dropped.
   editComment: (payload: EditCommentRequest) => {
     const formData = new FormData()
     formData.append('body', payload.body)
-    if (payload.order) formData.append('order', JSON.stringify(payload.order))
-    if (payload.files) {
-      for (const file of payload.files) {
-        formData.append('files', file)
-      }
-    }
     return client.post<EditCommentResponse>(
       endpoints.forums.comment.edit(
         payload.forum,

@@ -43,7 +43,7 @@ export interface Member {
 }
 
 // Access rule for a member (from mochi.access system)
-export interface MemberAccess {
+interface MemberAccess {
   id: string
   name: string
   level: AccessLevel | null // null = owner (implicit full access)
@@ -168,19 +168,10 @@ export interface RecommendationsResponse {
   }
 }
 
-export interface SubscribeForumRequest {
-  forum: string
-  server?: string
-}
-
 export interface SubscribeForumResponse {
   data: {
     already_subscribed: boolean
   }
-}
-
-export interface UnsubscribeForumRequest {
-  forum: string
 }
 
 export interface UnsubscribeForumResponse {

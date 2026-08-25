@@ -77,20 +77,7 @@ export function EntityForumPage({
   // Set page title to forum name
   usePageTitle(forum.name || t`Forum`)
 
-  // Sidebar context for state sync
-  const {
-    setForum,
-    setSubscription,
-    subscribeHandler,
-    unsubscribeHandler,
-    openPostDialog,
-  } = useSidebarContext()
-
-  // Sync forum ID to sidebar context
-  useEffect(() => {
-    setForum(forum.id)
-    return () => setForum(null)
-  }, [forum.id, setForum])
+  const { openPostDialog } = useSidebarContext()
 
   // Clear notifications for this forum
   useEffect(() => {
@@ -180,27 +167,6 @@ export function EntityForumPage({
   const unsubscribeMutation = useUnsubscribeForum(() => {
     navigate({ to: APP_ROUTES.HOME })
   })
-
-  // Register subscribe/unsubscribe handlers with sidebar
-  useEffect(() => {
-    subscribeHandler.current = () =>
-      subscribeMutation.mutate({ forumId: forum.id, server: forum.server })
-    unsubscribeHandler.current = () => setShowUnsubscribeConfirm(true)
-
-    // Update subscription state for sidebar
-    const localForum = forums.find((f) => f.id === forum.id)
-    setSubscription({
-      isRemote: !localForum,
-      isSubscribed: !!localForum,
-      canUnsubscribe: !!localForum && !canManage,
-    })
-
-    return () => {
-      subscribeHandler.current = null
-      unsubscribeHandler.current = null
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forum.id, forums, setSubscription, canManage])
 
   const handleCreatePost = (data: {
     title: string

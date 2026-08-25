@@ -16,7 +16,7 @@ export interface Tag {
 }
 
 // Match info for relevance scoring
-export interface RelevanceMatch {
+interface RelevanceMatch {
   qid: string
   label: string
   score: number

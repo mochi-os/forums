@@ -77,8 +77,6 @@ export interface EditCommentRequest {
   post: string
   comment: string
   body: string
-  order?: string[]
-  files?: File[]
 }
 
 export interface EditCommentResponse {

@@ -40,7 +40,7 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Save } from 'lucide-react'
+import { Check, Loader2 } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
 import {
   buildForumPostEditDraft,
@@ -353,6 +353,7 @@ export function EditPostDialog({
               ref={fileInputRef}
               type='file'
               multiple
+              accept='image/*,video/*,.pdf,.doc,.docx,.txt,.md'
               className='hidden'
               onChange={handleFileChange}
               disabled={isPending}
@@ -375,12 +376,12 @@ export function EditPostDialog({
               >
                 {isPending ? (
                   <>
-                    <Save className='size-4' />
+                    <Loader2 className='size-4 animate-spin' />
                     <Trans>Saving...</Trans>
                   </>
                 ) : (
                   <>
-                    <Save className='size-4' />
+                    <Check className='size-4' />
                     <Trans>Save changes</Trans>
                   </>
                 )}

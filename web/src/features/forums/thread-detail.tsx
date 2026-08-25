@@ -25,7 +25,6 @@ import {
 import forumsApi from '@/api/forums'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
-import { useSidebarContext } from '@/context/sidebar-context'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import {
   usePostDetail,
@@ -125,13 +124,6 @@ export function ThreadDetail({
   const [reportPostDialogOpen, setReportPostDialogOpen] = useState(false)
   const [reportingCommentId, setReportingCommentId] = useState<string | null>(null)
 
-  // Sync forum and post to sidebar context
-  const { setForum, setPost } = useSidebarContext()
-  useEffect(() => {
-    setForum(forum || null)
-    return () => setForum(null)
-  }, [forum, setForum])
-
   // Queries
   const {
     data: postData,
@@ -146,13 +138,6 @@ export function ThreadDetail({
   const [commentsListRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isLoading,
   })
-
-  // Sync post title to sidebar
-  useEffect(() => {
-    const title = postData?.data?.post?.title || null
-    setPost(postId || null, title)
-    return () => setPost(null, null)
-  }, [postId, postData?.data?.post?.title, setPost])
 
   usePageTitle(postData?.data?.post?.title ?? t`Thread`)
 
@@ -436,9 +421,6 @@ export function ThreadDetail({
     onVote: (commentId: string, vote: 'up' | 'down' | '') =>
       voteCommentMutation.mutate({ commentId, vote }),
     canVote: can_vote,
-    votePendingId: voteCommentMutation.isPending
-      ? (voteCommentMutation.variables?.commentId ?? null)
-      : null,
     canReply: can_comment,
     onReply: handleStartReply,
     replyingToId: replyingToComment,
@@ -461,9 +443,6 @@ export function ThreadDetail({
           }) ?? '',
       }),
     onDelete: (commentId: string) => deleteCommentMutation.mutate(commentId),
-    editPendingId: editCommentMutation.isPending
-      ? (editCommentMutation.variables?.commentId ?? null)
-      : null,
     canModerate: can_moderate || isForumManager,
     onRemove: (commentId: string) => removeCommentMutation.mutate({ commentId }),
     onRestore: (commentId: string) => restoreCommentMutation.mutate(commentId),
@@ -512,7 +491,6 @@ export function ThreadDetail({
                 forumName={forumData?.name}
                 showForumBadge={fromAllForums}
                 onVote={(vote) => votePostMutation.mutate(vote)}
-                isVotePending={votePostMutation.isPending}
                 canVote={can_vote}
                 canReply={can_comment && !post.locked}
                 onReply={() => setShowReplyForm(true)}

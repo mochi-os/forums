@@ -41,6 +41,7 @@ import {
 import {
   FileEdit,
   Send,
+  Loader2,
 } from 'lucide-react'
 import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
 
@@ -302,7 +303,7 @@ export function CreatePostDialog({
               >
                 {isPending ? (
                   <>
-                    <Send className='size-4' />
+                    <Loader2 className='size-4 animate-spin' />
                     <Trans>Publishing...</Trans>
                   </>
                 ) : (
@@ -320,4 +321,3 @@ export function CreatePostDialog({
   )
 }
 
-export { type CreatePostDialogProps }

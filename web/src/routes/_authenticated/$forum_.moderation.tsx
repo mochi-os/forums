@@ -27,6 +27,7 @@ import {
   Skeleton,
   GeneralError,
   useFormat,
+  getAppPath,
 } from '@mochi/web'
 import {
   Loader2,
@@ -43,7 +44,6 @@ import {
 import forumsApi from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
-import { useSidebarContext } from '@/context/sidebar-context'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
 import { toError } from '@/lib/errors'
 
@@ -100,12 +100,6 @@ function ModerationPage() {
   usePageTitle(t`Moderation`)
 
   // Register with sidebar context
-  const { setForum } = useSidebarContext()
-  useEffect(() => {
-    setForum(forumId)
-    return () => setForum(null)
-  }, [forumId, setForum])
-
   return (
     <>
       <PageHeader title={t`Moderation`} back={{ label: t`Back to forum`, onFallback: goBackToForum }} />
@@ -534,6 +528,8 @@ interface ReportsTabProps {
 function ReportsTab({ forumId }: ReportsTabProps) {
   const { t } = useLingui()
   const reasonLabels = useReasonLabels()
+  const statusLabels = useStatusLabels()
+  const targetLabels = useTargetLabels()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
@@ -663,10 +659,10 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                             : 'bg-success/15 text-success dark:bg-success/20'
                         )}
                       >
-                        {report.status}
+                        {statusLabels[report.status] ?? report.status}
                       </span>
                       <span className='text-muted-foreground text-xs'>
-                        {report.type}
+                        {targetLabels[report.type] ?? report.type}
                       </span>
                       <span className='text-muted-foreground text-xs'>
                         <Trans>by {report.author_name ?? t`Unknown`}</Trans>
@@ -744,6 +740,34 @@ interface LogTabProps {
 
 function formatAction(action: string): string {
   return action.replace(/_/g, ' ')
+}
+
+// The moderation UI renders three more server enums beside the reason. Same
+// shape as useReasonLabels: an unrecognised value falls back to itself rather
+// than rendering blank.
+function useStatusLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    pending: t`Pending`,
+    resolved: t`Resolved`,
+  }
+}
+
+function useTargetLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    post: t`Post`,
+    comment: t`Comment`,
+  }
+}
+
+function useRestrictionLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    banned: t`Banned`,
+    muted: t`Muted`,
+    shadowban: t`Shadowbanned`,
+  }
 }
 
 function useReasonLabels(): Record<string, string> {
@@ -836,8 +860,8 @@ function LogTab({ forumId }: LogTabProps) {
               <div className='flex items-start gap-2 text-sm'>
                 {entry.author && (
                   <EntityAvatar
-                    src={`/people/${entry.author}/-/avatar`}
-                    styleUrl={`/people/${entry.author}/-/style`}
+                    src={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/avatar`}
+                    styleUrl={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/style`}
                     name={entry.author_name}
                     size="sm"
                     className='mt-0.5 shrink-0'
@@ -876,6 +900,7 @@ interface RestrictionsTabProps {
 function RestrictionsTab({ forumId }: RestrictionsTabProps) {
   const { t } = useLingui()
   const { formatDate } = useFormat()
+  const restrictionLabels = useRestrictionLabels()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [restrictions, setRestrictions] = useState<Restriction[]>([])
@@ -967,8 +992,8 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
           >
             <div className='flex min-w-0 flex-1 items-center gap-3'>
               <EntityAvatar
-                src={`/people/${restriction.user}/-/avatar`}
-                styleUrl={`/people/${restriction.user}/-/style`}
+                src={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/style`}
                 name={restriction.name}
                 size="md"
                 className='shrink-0'
@@ -988,7 +1013,7 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                         : 'bg-muted text-muted-foreground'
                   )}
                 >
-                  {restriction.type === 'banned' ? <Trans>banned</Trans> : restriction.type === 'muted' ? <Trans>muted</Trans> : restriction.type}
+                  {restrictionLabels[restriction.type] ?? restriction.type}
                 </span>
               </div>
               {restriction.reason && (

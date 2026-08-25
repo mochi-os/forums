@@ -23,6 +23,7 @@ interface ForumWebsocketEvent {
     | 'post/lock'
     | 'post/pin'
     | 'post/reject'
+    | 'comment/reject'
     | 'post/remove'
     | 'post/restore'
     | 'post/status'
@@ -40,24 +41,22 @@ interface ForumWebsocketEvent {
   post?: string
   comment?: string
   sender?: string
-  /** post/reject: machine-readable reason code from the forum owner */
+  /** post/reject and comment/reject: machine-readable reason code from the forum owner */
   reason?: string
-  /** post/reject: optional human-readable detail (already localised by the owner side, may be in their language) */
-  detail?: string
   /** post/status and comment/status: the status the forum settled our own submission on */
   status?: 'approved' | 'pending' | 'removed'
   /** Present on tag/add (object with id, label, source) and tag/remove (tag ID string) */
   tag?: { id: string; label: string; source: string } | string
 }
 
-function rejectMessage(reason: string | undefined, detail: string | undefined): string {
+function rejectMessage(reason: string | undefined): string {
   switch (reason) {
     case 'access_denied':
       return t`You don't have permission to post in this forum`
     case 'restricted':
-      return detail || t`You are restricted from posting in this forum`
+      return t`You are restricted from posting in this forum`
     case 'rate_limited':
-      return detail || t`You are posting too quickly — please wait and try again`
+      return t`You are posting too quickly — please wait and try again`
     case 'invalid':
       return t`Post couldn't be saved — title or body is invalid`
     case 'duplicate':
@@ -162,7 +161,7 @@ export function useForumWebsocket(
           // The forum owner refused the post; the Starlark handler has already
           // deleted the optimistic pending row. Surface the reason and refresh
           // the post list so the row disappears from the UI.
-          toast.error(rejectMessage(data.reason, data.detail))
+          toast.error(rejectMessage(data.reason))
           void queryClient.invalidateQueries({
             queryKey: ['forum-posts'],
             predicate: (query) => {
@@ -173,6 +172,18 @@ export function useForumWebsocket(
               return queryForumId === forumKey || queryForumId === forumId
             },
           })
+          break
+        case 'comment/reject':
+          // Same shape as post/reject: the owner refused the comment and the
+          // Starlark handler has already deleted the optimistic pending row,
+          // so the thread has to be refetched or it keeps showing it.
+          toast.error(rejectMessage(data.reason))
+          if (data.post) {
+            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            if (forumKey && forumKey !== forumId) {
+              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+            }
+          }
           break
         case 'forum/update':
           // The owner finished pushing a fresh subscriber's initial content

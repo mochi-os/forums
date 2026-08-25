@@ -42,7 +42,6 @@ interface ThreadContentProps {
   forumName?: string
   showForumBadge?: boolean
   onVote: (vote: 'up' | 'down' | '') => void
-  isVotePending: boolean
   canVote?: boolean
   canReply?: boolean
   onReply?: () => void
@@ -80,7 +79,6 @@ export function ThreadContent({
   forumName,
   showForumBadge = false,
   onVote,
-  isVotePending: _isVotePending,
   canVote = true,
   canReply = true,
   onReply,
@@ -199,7 +197,7 @@ export function ThreadContent({
               <span>{post.name}</span>
               <span> · </span>
             </span>
-            <span className='whitespace-nowrap'>{timestamp}{post.edited ? ' (edited)' : ''}</span>
+            <span className='whitespace-nowrap'>{timestamp}{post.edited ? t` (edited)` : ''}</span>
           </span>
         }
       />

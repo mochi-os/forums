@@ -9,14 +9,11 @@ import type { Forum } from './forums'
 import type { Post, Attachment } from './posts'
 import type { Comment } from './comments'
 
-// Content status
-export type ContentStatus = 'approved' | 'pending' | 'removed'
-
 // Restriction types
-export type RestrictionType = 'muted' | 'banned' | 'shadowban'
+type RestrictionType = 'muted' | 'banned' | 'shadowban'
 
 // Moderation settings for a forum
-export interface ModerationSettings {
+interface ModerationSettings {
   moderation_posts: boolean
   moderation_comments: boolean
   moderation_new: boolean
@@ -74,19 +71,6 @@ export interface ModerationLogEntry {
   author?: string
   author_name?: string
   reason: string
-  created: number
-}
-
-// Moderation queue item (pending post or comment)
-export interface QueueItem {
-  type: 'post' | 'comment'
-  id: string
-  forum: string
-  post?: string
-  title?: string
-  body: string
-  author: string
-  author_name?: string
   created: number
 }
 
