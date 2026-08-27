@@ -14,24 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:223
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Интернет холболтоо шалгаад дахин оролдоно уу."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:1027
 msgid " · Expires {0}"
 msgstr " · {0}-д дуусна"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1028
 msgid " · Permanent"
 msgstr " · Байнгын"
 
-#: src/features/forums/components/thread/thread-comment.tsx:247
+#: src/features/forums/components/thread/thread-comment.tsx:246
+#: src/features/forums/components/thread/thread-content.tsx:200
 msgid " (edited)"
 msgstr " (засварласан)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
 msgid " or "
 msgstr " эсвэл "
 
@@ -43,64 +44,61 @@ msgstr "(засварласан)"
 msgid "(expand)"
 msgstr "(дэлгэх)"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:752
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:753
 msgid "[not set]"
 msgstr "[тогтоогоогүй]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:328
+#: src/features/forums/pages/entity-forum-page.tsx:294
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# шинэ нийтлэл} other {# шинэ нийтлэл}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#. placeholder {0}: selectedValues.size
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:523
+#: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# сонгогдсон} other {# сонгогдсон}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:304
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# хэрэглэгчийг хорьсон} other {# хэрэглэгчийг хорьсон}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:287
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# хэрэглэгчийг чимээгүй болгосон} other {# хэрэглэгчийг чимээгүй болгосон}}"
 
-#. placeholder {0}: item.label
 #: ../../../lib/web/src/components/config-drawer.tsx:160
-msgid "{0} option preview"
-msgstr "{0} сонголтын урьдчилан харах"
+#~ msgid "{0} option preview"
+#~ msgstr "{0} сонголтын урьдчилан харах"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "{0} settings"
 msgstr "{0}-н тохиргоо"
 
-#: ../../../lib/web/src/lib/locale-format.ts:175
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ө} other {#ө}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:171
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ц} other {#ц}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:167
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#мин} other {#мин}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:179
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#дол} other {#дол}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:236
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# зүйлийг зөвшөөрсөн} other {# зүйлийг зөвшөөрсөн}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:258
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# зүйлийг татгалзсан} other {# зүйлийг татгалзсан}}"
 
@@ -116,36 +114,36 @@ msgstr "{entityLabel}-ийн нэр шаардлагатай"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} тэнцлэлд санал болгосон"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:64
+#: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Энэ нийтлэлийн өөр # сэтгэгдлийг харуулах} other {Энэ нийтлэлийн өөр # сэтгэгдлийг харуулах}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:200
-msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
-msgstr "{selectedCount, plural, one {{entityName} сонгогдсон} other {{manyName} сонгогдсон}}"
+#~ msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+#~ msgstr "{selectedCount, plural, one {{entityName} сонгогдсон} other {{manyName} сонгогдсон}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:42
-msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
-msgstr "{selectedCount, plural, one {# {entityName} сонгогдсон. Бөөнөөр үйлдлийн хэрэгслийн мөр боломжтой.} other {# {manyName} сонгогдсон. Бөөнөөр үйлдлийн хэрэгслийн мөр боломжтой.}}"
+#~ msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+#~ msgstr "{selectedCount, plural, one {# {entityName} сонгогдсон. Бөөнөөр үйлдлийн хэрэгслийн мөр боломжтой.} other {# {manyName} сонгогдсон. Бөөнөөр үйлдлийн хэрэгслийн мөр боломжтой.}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:192
-msgid "{selectedCount, plural, one {# selected} other {# selected}}"
-msgstr "{selectedCount, plural, one {# сонгогдсон} other {# сонгогдсон}}"
+#~ msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+#~ msgstr "{selectedCount, plural, one {# сонгогдсон} other {# сонгогдсон}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:139
-msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
-msgstr "{selectedCount, plural, one {# сонгосон {entityName}-д зориулсан бөөнөөр үйлдэл} other {# сонгосон {manyName}-д зориулсан бөөнөөр үйлдэл}}"
+#~ msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+#~ msgstr "{selectedCount, plural, one {# сонгосон {entityName}-д зориулсан бөөнөөр үйлдэл} other {# сонгосон {manyName}-д зориулсан бөөнөөр үйлдэл}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:241
+#: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}-с {sentLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:528
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# зүйл} other {# зүйл}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:233
+#: src/features/forums/components/thread/thread-comment.tsx:232
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# хариу} other {# хариу}}"
 
@@ -182,7 +180,7 @@ msgstr "Үнэмлэхүй (огноо ба цаг)"
 msgid "Accept"
 msgstr "Зөвшөөрөх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Access"
 msgstr "Хандалт"
 
@@ -191,50 +189,50 @@ msgid "Access denied"
 msgstr "Хандалтыг татгалзсан"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
-msgid "Access Forbidden"
-msgstr "Хандалт хориотой"
+#~ msgid "Access Forbidden"
+#~ msgstr "Хандалт хориотой"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Хандалтын түвшин"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:846
+#: src/routes/_authenticated/$forum_.settings.tsx:837
 msgid "Access level updated"
 msgstr "Хандалтын түвшин шинэчлэгдсэн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:855
+#: src/routes/_authenticated/$forum_.settings.tsx:846
 msgid "Access management"
 msgstr "Хандалтын удирдлага"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:831
+#: src/routes/_authenticated/$forum_.settings.tsx:822
 msgid "Access removed"
 msgstr "Хандалтыг хассан"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Access set for {subjectName}"
 msgstr "{subjectName}-д хандалт тохируулсан"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:563
 msgid "Account"
 msgstr "Бүртгэл"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:216
-msgid "Account added"
-msgstr "Бүртгэл нэмэгдсэн"
+#~ msgid "Account added"
+#~ msgstr "Бүртгэл нэмэгдсэн"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:232
-msgid "Account removed"
-msgstr "Бүртгэл хасагдсан"
+#~ msgid "Account removed"
+#~ msgstr "Бүртгэл хасагдсан"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "Бүртгэлийн төрөл"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:242
-msgid "Account verified"
-msgstr "Бүртгэл баталгаажсан"
+#~ msgid "Account verified"
+#~ msgstr "Бүртгэл баталгаажсан"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:711
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
@@ -257,19 +255,18 @@ msgid "Add access"
 msgstr "Хандалт нэмэх"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:132
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:288
 msgid "Add account"
 msgstr "Бүртгэл нэмэх"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:297
-msgid "Add an account to receive notifications and use services."
-msgstr "Мэдэгдэл хүлээн авах болон үйлчилгээ ашиглахын тулд бүртгэл нэмнэ."
+#~ msgid "Add an account to receive notifications and use services."
+#~ msgstr "Мэдэгдэл хүлээн авах болон үйлчилгээ ашиглахын тулд бүртгэл нэмнэ."
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Add caption"
 msgstr "Тайлбар нэмэх"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:681
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Жагсаалтын зүйл нэмэх"
 
@@ -278,12 +275,12 @@ msgstr "Жагсаалтын зүйл нэмэх"
 msgid "Add field"
 msgstr "Талбар нэмэх"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:273
 #: src/features/forums/components/edit-post-dialog.tsx:323
 msgid "Add files"
 msgstr "Файл нэмэх"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:699
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Зүйл нэмэх..."
 
@@ -292,8 +289,8 @@ msgid "Add link"
 msgstr "Холбоос нэмэх"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
-msgid "Add new account"
-msgstr "Шинэ бүртгэл нэмэх"
+#~ msgid "Add new account"
+#~ msgstr "Шинэ бүртгэл нэмэх"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
@@ -303,18 +300,17 @@ msgstr "Шинэ бүртгэл нэмэх"
 msgid "Add option"
 msgstr "Сонголт нэмэх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:856
 msgid "Add rule"
 msgstr "Дүрэм нэмэх"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
-#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Шошго нэмэх..."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:83
-msgid "Add team/app"
-msgstr "Баг/апп нэмэх"
+#~ msgid "Add team/app"
+#~ msgstr "Баг/апп нэмэх"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:175
 msgid "Add to existing notifications"
@@ -336,20 +332,19 @@ msgid "Additional details (optional)"
 msgstr "Нэмэлт мэдээлэл (заавал биш)"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:72
-msgid "Adjust the appearance and layout to suit your preferences."
-msgstr "Тохиргоог өөрийнхөөрөө тохируулна."
+#~ msgid "Adjust the appearance and layout to suit your preferences."
+#~ msgstr "Тохиргоог өөрийнхөөрөө тохируулна."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:557
+#: src/routes/_authenticated/$forum_.settings.tsx:550
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI actions on posts"
 msgstr "Бичлэг дээрх AI үйлдлүүд"
 
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
 msgid "All"
 msgstr "Бүгд"
 
@@ -358,7 +353,7 @@ msgstr "Бүгд"
 msgid "All forums"
 msgstr "Бүх форумууд"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "Бүх бичлэг ба сэтгэгдлийг хянасан"
 
@@ -379,7 +374,7 @@ msgstr "Дараах байдлаар эрэмбэлэхийг зөвшөөрө�
 msgid "An error occurred"
 msgstr "Алдаа гарлаа"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:266
 msgid "An unexpected error occurred"
 msgstr "Гэнэтийн алдаа гарлаа"
 
@@ -392,11 +387,11 @@ msgid "Any additional context..."
 msgstr "Нэмэлт нөхцөл байдал..."
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Anyone"
 msgstr "Хэн ч"
 
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
 msgstr "Нэвтэрсэн хэн ч"
 
@@ -404,8 +399,8 @@ msgstr "Нэвтэрсэн хэн ч"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Энэ хангамжид бүртгүүлсэн бүх зүйл хүлээн авахаа болино. Дараа нь та шинэ URL хуулж болно."
 
-#: src/features/forums/components/thread/thread-comment.tsx:454
-#: src/routes/_authenticated/$forum_.moderation.tsx:488
+#: src/features/forums/components/thread/thread-comment.tsx:453
+#: src/routes/_authenticated/$forum_.moderation.tsx:482
 msgid "Approve"
 msgstr "Зөвшөөрөх"
 
@@ -414,7 +409,7 @@ msgstr "Зөвшөөрөх"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\"-г устгахдаа итгэлтэй байна уу?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:627
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" баганыг устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй."
 
@@ -422,11 +417,11 @@ msgstr "\"{name}\" баганыг устгахдаа итгэлтэй байна
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Энэ сэтгэгдлийг устгахдаа итгэлтэй байна уу? Энэ нь бүх хариултыг бас устгана."
 
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Энэ сэтгэгдлийг устгахдаа итгэлтэй байна уу? Энэ нь бүх хариултыг бас устгана. Энэ үйлдлийг буцаах боломжгүй."
 
-#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/features/forums/components/thread/thread-content.tsx:430
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Энэ бичлэгийг устгахдаа итгэлтэй байна уу? Энэ нь бүх сэтгэгдлийг бас устгана. Энэ үйлдлийг буцаах боломжгүй."
 
@@ -435,8 +430,8 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Гарахдаа итгэлтэй байна уу? Бүртгэлдээ дахин нэвтрэхдээ дахин нэвтрэх шаардлагатай."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:59
-msgid "Asc"
-msgstr "Өсөх"
+#~ msgid "Asc"
+#~ msgstr "Өсөх"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -451,11 +446,11 @@ msgid "Attach reply files"
 msgstr "Хариултын файл хавсаргах"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:46
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Authenticated users"
 msgstr "Баталгаажсан хэрэглэгчид"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:317
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Authenticator код"
 
@@ -476,14 +471,14 @@ msgid "Back"
 msgstr "Буцах"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:325
-#: src/features/forums/thread-detail.tsx:337
-#: src/features/forums/thread-detail.tsx:358
-#: src/features/forums/thread-detail.tsx:480
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:225
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:270
+#: src/features/forums/thread-detail.tsx:310
+#: src/features/forums/thread-detail.tsx:322
+#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:459
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:219
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:264
 msgid "Back to forum"
 msgstr "Форум руу буцах"
 
@@ -491,35 +486,38 @@ msgstr "Форум руу буцах"
 msgid "Back to forums"
 msgstr "Форумууд руу буцах"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:28
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Нүүр хуудас руу буцах"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:514
+#: src/routes/_authenticated/$forum_.moderation.tsx:508
 msgid "Ban"
 msgstr "Хориглох"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-comment.tsx:495
+#: src/features/forums/components/thread/thread-content.tsx:414
 msgid "Ban author"
 msgstr "Зохиогчид хориг тавих"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "banned"
-msgstr "хоригдсон"
+#~ msgid "banned"
+#~ msgstr "хоригдсон"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Banned"
+msgstr "Хориглосон"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Banner"
 msgstr "Баннер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner removed"
 msgstr "Баннер хасагдсан"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner updated"
 msgstr "Баннер шинэчлэгдсэн"
 
@@ -528,8 +526,8 @@ msgstr "Баннер шинэчлэгдсэн"
 msgid "Blocked by"
 msgstr "Блоклосон"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:225
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:235
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Найдвартай биш холбоос руу шилжихийг блоклосон"
 
@@ -555,22 +553,22 @@ msgid "Browser notifications"
 msgstr "Хөтчийн мэдэгдэл"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "by {0}"
 msgstr "{0}-аар"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1000
+#: src/routes/_authenticated/$forum_.moderation.tsx:1025
 msgid "By {0}"
 msgstr "{0}-аар"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:419
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:612
+#: ../../../lib/web/src/components/attachment-composer.tsx:426
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:365
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -578,10 +576,10 @@ msgstr "{0}-аар"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:296
-#: src/features/forums/components/edit-post-dialog.tsx:370
+#: src/features/forums/components/create-post-dialog.tsx:297
+#: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "Цуцлах"
 
@@ -593,23 +591,23 @@ msgstr "Сэтгэгдлийг цуцлах"
 msgid "Cancel reply"
 msgstr "Хариултыг цуцлах"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:379
-#: ../../../lib/web/src/components/attachment-composer.tsx:414
+#: ../../../lib/web/src/components/attachment-composer.tsx:386
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
 msgid "Caption"
 msgstr "Тайлбар"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:97
+#: ../../../lib/web/src/components/notification-category-button.tsx:99
 msgid "Category for these notifications"
 msgstr "Эдгээр мэдэгдлийн ангилал"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:78
-#: ../../../lib/web/src/components/notification-category-button.tsx:89
+#: ../../../lib/web/src/components/notification-category-button.tsx:80
+#: ../../../lib/web/src/components/notification-category-button.tsx:91
 msgid "Change notification category"
 msgstr "Мэдэгдлийн ангиллыг солих"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:198
-msgid "Check \"All\" to see your past notifications."
-msgstr "Өмнөх мэдэгдлүүдийг харахын тулд \"Бүгд\"-ийг сонгоно уу."
+#~ msgid "Check \"All\" to see your past notifications."
+#~ msgstr "Өмнөх мэдэгдлүүдийг харахын тулд \"Бүгд\"-ийг сонгоно уу."
 
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
@@ -623,28 +621,28 @@ msgstr "Чекбокс"
 msgid "Checklist"
 msgstr "Жагсаалт"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:33
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:35
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "Хажуугийн талбараас тоглоом сонгох эсвэл шинээр эхлүүлнэ үү."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
-msgid "Choose between default expanded, compact icon-only, or full layout mode"
-msgstr "Default expanded, compact icon-only, эсвэл full layout горимоос сонгоно"
+#~ msgid "Choose between default expanded, compact icon-only, or full layout mode"
+#~ msgstr "Default expanded, compact icon-only, эсвэл full layout горимоос сонгоно"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:271
-msgid "Choose between inset, floating, or standard sidebar layout"
-msgstr "Inset, floating эсвэл стандарт sidebar layout-аас сонгоно"
+#~ msgid "Choose between inset, floating, or standard sidebar layout"
+#~ msgstr "Inset, floating эсвэл стандарт sidebar layout-аас сонгоно"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:372
-msgid "Choose between left-to-right or right-to-left site direction"
-msgstr "Зүүнээс баруун эсвэл баруунаас зүүн чиглэлийг сонгоно"
+#~ msgid "Choose between left-to-right or right-to-left site direction"
+#~ msgstr "Зүүнээс баруун эсвэл баруунаас зүүн чиглэлийг сонгоно"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:227
-msgid "Choose between system preference, light mode, or dark mode"
-msgstr "Системийн тохиргоо, гэрэл горим, эсвэл харанхуй горимоос сонгоно"
+#~ msgid "Choose between system preference, light mode, or dark mode"
+#~ msgstr "Системийн тохиргоо, гэрэл горим, эсвэл харанхуй горимоос сонгоно"
 
-#: ../../../lib/web/src/components/language-picker.tsx:263
-#: ../../../lib/web/src/components/language-picker.tsx:270
+#: ../../../lib/web/src/components/language-picker.tsx:264
+#: ../../../lib/web/src/components/language-picker.tsx:271
 msgid "Choose language"
 msgstr "Хэл сонгох"
 
@@ -654,7 +652,7 @@ msgstr "Хэл сонгох"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:506
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Clear"
 msgstr "Цэвэрлэх"
 
@@ -669,8 +667,8 @@ msgid "Clear all saved posts?"
 msgstr "Хадгалсан бүх нийтлэлийг цэвэрлэх үү?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
-msgid "Clear filters"
-msgstr "Шүүлтүүрүүдийг арилгах"
+#~ msgid "Clear filters"
+#~ msgstr "Шүүлтүүрүүдийг арилгах"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 msgid "Clear search"
@@ -678,20 +676,20 @@ msgstr "Хайлтыг цэвэрлэх"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
-msgid "Clear selection"
-msgstr "Сонголтыг цэвэрлэх"
+#~ msgid "Clear selection"
+#~ msgstr "Сонголтыг цэвэрлэх"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:175
-msgid "Clear selection (Escape)"
-msgstr "Сонголтыг цэвэрлэх (Escape)"
+#~ msgid "Clear selection (Escape)"
+#~ msgstr "Сонголтыг цэвэрлэх (Escape)"
 
-#: src/lib/saved.ts:33
+#: src/lib/saved.ts:34
 msgid "Clearing saved posts..."
 msgstr "Хадгалсан нийтлэлийг цэвэрлэж байна..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:505
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
@@ -711,8 +709,8 @@ msgstr "Цонхыг хаах"
 msgid "Close navigation"
 msgstr "Навигацийг хаах"
 
-#: ../../../lib/web/src/components/layout/right-panel.tsx:265
-#: ../../../lib/web/src/components/layout/right-panel.tsx:268
+#: ../../../lib/web/src/components/layout/right-panel.tsx:234
+#: ../../../lib/web/src/components/layout/right-panel.tsx:237
 msgid "Close panel"
 msgstr "Самбарыг хаах"
 
@@ -739,8 +737,8 @@ msgstr "Sidebar хумих"
 msgid "Colour"
 msgstr "Өнгө"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:537
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:542
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Баганын үйлдлүүд"
 
@@ -753,12 +751,16 @@ msgid "Comfortable"
 msgstr "Тав тухтай"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:12
-msgid "Coming Soon!"
-msgstr "Удахгүй!"
+#~ msgid "Coming Soon!"
+#~ msgstr "Удахгүй!"
 
 #: ../../../lib/web/src/components/ui/command.tsx:34
 msgid "Command Palette"
 msgstr "Командын самбар"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:760
+msgid "Comment"
+msgstr "Сэтгэгдэл"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:292
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:299
@@ -773,11 +775,11 @@ msgstr "Сэтгэгдэл зөвшөөрөгдсөн"
 msgid "Comment deleted"
 msgstr "Сэтгэгдэл устгагдсан"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1073
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Comment limit"
 msgstr "Сэтгэгдлийн хязгаар"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:84
+#: src/features/forums/components/thread/attachment-comments.tsx:85
 msgid "Comment on this image…"
 msgstr "Энэ зурагт сэтгэгдэл бичих…"
 
@@ -797,7 +799,7 @@ msgstr "Сэтгэгдэл сэргээгдсэн"
 msgid "Comment updated"
 msgstr "Сэтгэгдэл шинэчлэгдсэн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Comment, vote, and view"
 msgstr "Сэтгэгдэл, санал өгөх, харах"
 
@@ -806,7 +808,6 @@ msgstr "Сэтгэгдэл, санал өгөх, харах"
 msgid "Comments"
 msgstr "Сэтгэгдэлүүд"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Хумисан"
@@ -829,19 +830,19 @@ msgid "Connected"
 msgstr "Холбогдсон"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:191
-msgid "Connected accounts"
-msgstr "Холбогдсон бүртгэлүүд"
+#~ msgid "Connected accounts"
+#~ msgstr "Холбогдсон бүртгэлүүд"
 
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Connecting..."
 msgstr "Холбогдож байна..."
 
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:227
 #: src/features/forums/components/edit-post-dialog.tsx:294
 msgid "Content"
 msgstr "Агуулга"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1023
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "Босгоос доош хэрэглэгчдийн агуулгыг зөвшөөрөх ёстой"
 
@@ -865,7 +866,7 @@ msgstr "Контекст мэдээлэл ба дэлгэрэнгүй."
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "{label}-р үргэлжлүүлэх"
 
@@ -885,26 +886,26 @@ msgstr "Хуулах"
 msgid "Could not load this document. Please try again later."
 msgstr "Энэ баримт бичгийг ачаалж чадсангүй. Дараа дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Мэдэгдлийг ачаалж чадсангүй"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Кодыг илгээж чадсангүй. Дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:135
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Дахин баталгаажуулалтыг эхлүүлж чадсангүй. Дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:223
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Тэр бүртгэлээр баталгаажуулж чадсангүй. Дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:548
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:687
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Үүсгэх"
@@ -918,7 +919,7 @@ msgstr "{0} үүсгэх"
 msgid "Create a new forum"
 msgstr "Шинэ форум үүсгэх"
 
-#: src/features/forums/components/create-post-dialog.tsx:198
+#: src/features/forums/components/create-post-dialog.tsx:199
 msgid "Create a new post"
 msgstr "Шинэ бичлэг үүсгэх"
 
@@ -940,7 +941,7 @@ msgstr "Үүсгэгдсэн"
 msgid "Creating forum..."
 msgstr "Форум үүсгэж байна..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Үүсгэж байна..."
@@ -950,22 +951,20 @@ msgid "Current location"
 msgstr "Одоогийн байршил"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "Захиалгат"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:219
-#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:15
 msgid "Dark"
 msgstr "Харанхуй"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:87
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
-msgid "Dark mode"
-msgstr "Харанхуй горим"
+#~ msgid "Dark mode"
+#~ msgstr "Харанхуй горим"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:250
 msgid "Data conflict"
 msgstr "Өгөгдлийн зөрчил"
 
@@ -973,7 +972,7 @@ msgstr "Өгөгдлийн зөрчил"
 msgid "Date"
 msgstr "Огноо"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1045
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
 msgid "days"
 msgstr "өдөр"
 
@@ -981,12 +980,11 @@ msgstr "өдөр"
 msgid "Decline"
 msgstr "Татгалзах"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:713
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "Үндсэн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:569
 msgid "Default account"
 msgstr "Үндсэн бүртгэл"
 
@@ -998,8 +996,8 @@ msgstr "Үндсэн AI бүртгэл"
 msgid "Default sort"
 msgstr "Үндсэн эрэмбэлэлт"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:567
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
@@ -1007,11 +1005,11 @@ msgstr "Үндсэн эрэмбэлэлт"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:441
-#: src/features/forums/components/thread/thread-comment.tsx:513
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:432
-#: src/routes/_authenticated/$forum_.settings.tsx:424
+#: src/features/forums/components/thread/thread-comment.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-content.tsx:351
+#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:418
 msgid "Delete"
 msgstr "Устгах"
 
@@ -1019,12 +1017,12 @@ msgstr "Устгах"
 msgid "Delete attachment"
 msgstr "Хавсралт устгах"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:626
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Багана устгах"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:510
 msgid "Delete comment"
 msgstr "Сэтгэгдэл устгах"
 
@@ -1032,12 +1030,12 @@ msgstr "Сэтгэгдэл устгах"
 msgid "Delete field"
 msgstr "Талбар устгах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
-#: src/routes/_authenticated/$forum_.settings.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:409
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "Delete forum"
 msgstr "Форум устгах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:433
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum?"
 msgstr "Форум устгах уу?"
 
@@ -1051,7 +1049,7 @@ msgstr "Сонголтыг устгах"
 msgid "Delete option {0}"
 msgstr "{0} сонголтыг устгах"
 
-#: src/features/forums/components/thread/thread-content.tsx:430
+#: src/features/forums/components/thread/thread-content.tsx:429
 msgid "Delete post"
 msgstr "Бичлэг устгах"
 
@@ -1068,8 +1066,8 @@ msgid "Deleting forum..."
 msgstr "Форум устгаж байна..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
-msgid "Desc"
-msgstr "Буурах"
+#~ msgid "Desc"
+#~ msgstr "Буурах"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
@@ -1087,7 +1085,7 @@ msgstr "Дэлгэрэнгүй (заавал)"
 msgid "Details Panel"
 msgstr "Дэлгэрэнгүй самбар"
 
-#: ../../../lib/web/src/components/language-picker.tsx:239
+#: ../../../lib/web/src/components/language-picker.tsx:240
 #: ../../../lib/web/src/components/timezone-select.tsx:46
 #: ../../../lib/web/src/components/timezone-select.tsx:83
 #: ../../../lib/web/src/lib/preference-utils.ts:23
@@ -1099,14 +1097,14 @@ msgid "Detect from web browser"
 msgstr "Хөтчөөс илрүүлэх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:341
-msgid "Direction"
-msgstr "Чиглэл"
+#~ msgid "Direction"
+#~ msgstr "Чиглэл"
 
 #: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Лавлах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:557
 msgid "Disabled"
 msgstr "Идэвхгүй"
 
@@ -1125,7 +1123,7 @@ msgstr "Салгагдсан"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:715
+#: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Болих"
 
@@ -1134,7 +1132,7 @@ msgstr "Болих"
 msgid "Dismiss banner"
 msgstr "Баннер хаах"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:238
+#: ../../../lib/web/src/components/ui/sidebar.tsx:258
 msgid "Displays the mobile sidebar."
 msgstr "Гар утасны хажуугийн самбарыг харуулна."
 
@@ -1149,7 +1147,7 @@ msgstr "Дууссан"
 msgid "Download"
 msgstr "Татах"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:99
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "Татаж чадсангүй"
 
@@ -1157,14 +1155,14 @@ msgstr "Татаж чадсангүй"
 msgid "Duplicates"
 msgstr "Давхардлууд"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:141
+#: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Dyslexia-friendly"
 msgstr "Дислексид зориулсан"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:435
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:434
+#: src/features/forums/components/thread/thread-content.tsx:345
 msgid "Edit"
 msgstr "Засах"
 
@@ -1172,7 +1170,7 @@ msgstr "Засах"
 msgid "Edit {label}"
 msgstr "{label} засах"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Edit caption"
 msgstr "Тайлбар засах"
 
@@ -1211,23 +1209,23 @@ msgstr "Харагдац засах"
 msgid "Email"
 msgstr "Имэйл"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:291
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "Имэйл код"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:482
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "Enter banner text (markdown supported)..."
 msgstr "Баннерын текст оруулна уу (markdown дэмждэг)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:301
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "Имэйлд ирсэн кодоо оруулна уу"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:326
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Баталгаажуулагчийн кодоо оруулна уу"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Entity ID"
 msgstr "Entity ID"
 
@@ -1246,39 +1244,38 @@ msgstr "Хажуугийн самбарыг тэлэх"
 msgid "External URL"
 msgstr "Гадаад URL"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:131
+#: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Маш том"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:225
-msgid "Failed to add account"
-msgstr "Бүртгэл нэмж чадсангүй"
+#~ msgid "Failed to add account"
+#~ msgstr "Бүртгэл нэмж чадсангүй"
 
-#: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:247
+#: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "Шошго нэмж чадсангүй"
 
-#: src/features/forums/pages/entity-forum-page.tsx:232
-#: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:258
-#: src/features/forums/thread-detail.tsx:270
+#: src/features/forums/pages/entity-forum-page.tsx:198
+#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/thread-detail.tsx:243
+#: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Сонирхлыг тохируулж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:239
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
 msgid "Failed to approve items"
 msgstr "Зүйлсийг батлаж чадсангүй"
 
-#: src/features/forums/thread-detail.tsx:425
+#: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Хэрэглэгчийг хориглож чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
 msgid "Failed to ban users"
 msgstr "Хэрэглэгчдийг хориглож чадсангүй"
 
-#: src/lib/saved.ts:35
+#: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
 msgstr "Хадгалсан нийтлэлүүдийг цэвэрлэж чадсангүй"
 
@@ -1316,11 +1313,11 @@ msgstr "Холбоос устгаж чадсангүй"
 msgid "Failed to get RSS token"
 msgstr "RSS token авч чадсангүй"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:77
+#: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
 msgstr "Хандалтын дүрмүүд ачаалж чадсангүй"
 
@@ -1328,7 +1325,7 @@ msgstr "Хандалтын дүрмүүд ачаалж чадсангүй"
 msgid "Failed to load forum"
 msgstr "Форум ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:157
 msgid "Failed to load forum settings"
 msgstr "Форумын тохиргоог ачаалж чадсангүй"
 
@@ -1336,11 +1333,11 @@ msgstr "Форумын тохиргоог ачаалж чадсангүй"
 msgid "Failed to load forums"
 msgstr "Форумууд ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:788
 msgid "Failed to load groups"
 msgstr "Бүлгүүд ачаалж чадсангүй"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:65
+#: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
 msgstr "Түүх ачаалж чадсангүй"
 
@@ -1348,15 +1345,15 @@ msgstr "Түүх ачаалж чадсангүй"
 msgid "Failed to load image"
 msgstr "Зургийг ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "Хяналтын лог ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:166
 msgid "Failed to load moderation queue"
 msgstr "Хяналтын дараалал ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:940
+#: src/routes/_authenticated/$forum_.settings.tsx:931
 msgid "Failed to load moderation settings"
 msgstr "Хяналтын тохиргоо ачаалж чадсангүй"
 
@@ -1365,11 +1362,11 @@ msgstr "Хяналтын тохиргоо ачаалж чадсангүй"
 msgid "Failed to load recommended forums"
 msgstr "Санал болгосон форумууд ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:550
+#: src/routes/_authenticated/$forum_.moderation.tsx:546
 msgid "Failed to load reports"
 msgstr "Тайлангууд ачаалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:891
+#: src/routes/_authenticated/$forum_.moderation.tsx:916
 msgid "Failed to load restrictions"
 msgstr "Хязгаарлалтууд ачаалж чадсангүй"
 
@@ -1377,11 +1374,11 @@ msgstr "Хязгаарлалтууд ачаалж чадсангүй"
 msgid "Failed to load video"
 msgstr "Видеог ачаалж чадсангүй"
 
-#: src/features/forums/thread-detail.tsx:416
+#: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Хэрэглэгчийг чимээгүй болгож чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:290
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
 msgid "Failed to mute users"
 msgstr "Хэрэглэгчдийг чимээгүй болгож чадсангүй"
 
@@ -1389,40 +1386,40 @@ msgstr "Хэрэглэгчдийг чимээгүй болгож чадсанг�
 msgid "Failed to post comment"
 msgstr "Сэтгэгдэл нийтэлж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:261
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
 msgid "Failed to reject items"
 msgstr "Зүйлсийг татгалзаж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:834
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to remove access"
 msgstr "Хандалтыг хасч чадсангүй"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
-msgid "Failed to remove account"
-msgstr "Бүртгэл хасч чадсангүй"
+#~ msgid "Failed to remove account"
+#~ msgstr "Бүртгэл хасч чадсангүй"
 
-#: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Сонирхол хасч чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:908
+#: src/routes/_authenticated/$forum_.moderation.tsx:933
 msgid "Failed to remove restriction"
 msgstr "Хязгаарлалт хасч чадсангүй"
 
-#: src/lib/saved.ts:32
+#: src/lib/saved.ts:33
 msgid "Failed to remove saved post"
 msgstr "Хадгалсан нийтлэлийг хасаж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:208
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Failed to rename forum"
 msgstr "Форумын нэрийг өөрчилж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:684
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Failed to reset prompt"
 msgstr "Промптыг дахин тохируулж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:567
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
 msgid "Failed to resolve report"
 msgstr "Тайланг шийдвэрлэж чадсангүй"
 
@@ -1430,15 +1427,15 @@ msgstr "Тайланг шийдвэрлэж чадсангүй"
 msgid "Failed to revoke RSS access"
 msgstr "RSS хандалтыг цуцалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:957
+#: src/routes/_authenticated/$forum_.settings.tsx:948
 msgid "Failed to save moderation settings"
 msgstr "Хяналтын тохиргоог хадгалж чадсангүй"
 
-#: src/lib/saved.ts:29
+#: src/lib/saved.ts:30
 msgid "Failed to save post"
 msgstr "Нийтлэлийг хадгалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to save prompt"
 msgstr "Промпт хадгалж чадсангүй"
 
@@ -1447,15 +1444,15 @@ msgstr "Промпт хадгалж чадсангүй"
 msgid "Failed to search forums"
 msgstr "Форум хайж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:794
+#: src/routes/_authenticated/$forum_.settings.tsx:785
 msgid "Failed to search users"
 msgstr "Хэрэглэгчдийг хайж чадсангүй"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:257
-msgid "Failed to send verification code"
-msgstr "Баталгаажуулах код илгээж чадсангүй"
+#~ msgid "Failed to send verification code"
+#~ msgstr "Баталгаажуулах код илгээж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:822
+#: src/routes/_authenticated/$forum_.settings.tsx:813
 msgid "Failed to set access level"
 msgstr "Хандалтын түвшинг тохируулж чадсангүй"
 
@@ -1467,20 +1464,20 @@ msgid "Failed to subscribe"
 msgstr "Захиалж чадсангүй"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:186
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Failed to unsubscribe"
 msgstr "Захиалга цуцалж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:840
 msgid "Failed to update access level"
 msgstr "Хандалтын түвшинг шинэчилж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:537
-#: src/routes/_authenticated/$forum_.settings.tsx:549
+#: src/routes/_authenticated/$forum_.settings.tsx:531
+#: src/routes/_authenticated/$forum_.settings.tsx:543
 msgid "Failed to update AI settings"
 msgstr "AI тохиргоог шинэчилж чадсангүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:468
+#: src/routes/_authenticated/$forum_.settings.tsx:462
 msgid "Failed to update banner"
 msgstr "Баннер шинэчилж чадсангүй"
 
@@ -1492,19 +1489,19 @@ msgstr "Сэтгэгдэл шинэчилж чадсангүй"
 msgid "Failed to upload attachment"
 msgstr "Хавсралт байршуулж чадсангүй"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:588
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
-#: src/features/forums/components/create-post-dialog.tsx:268
+#: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
 msgstr "Файлууд"
 
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
-msgid "Filter..."
-msgstr "Шүүх..."
+#~ msgid "Filter..."
+#~ msgstr "Шүүх..."
 
-#: src/features/forums/pages/entity-forum-page.tsx:336
+#: src/features/forums/pages/entity-forum-page.tsx:302
 msgid "Filtered by tag:"
 msgstr "Шошгоор шүүсэн:"
 
@@ -1513,7 +1510,7 @@ msgstr "Шошгоор шүүсэн:"
 msgid "Find forums"
 msgstr "Форум хайх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:377
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
@@ -1530,13 +1527,13 @@ msgid "Flat"
 msgstr "Хавтгай"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:258
-msgid "Floating"
-msgstr "Хөвөгч"
+#~ msgid "Floating"
+#~ msgstr "Хөвөгч"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:162
+#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/thread-detail.tsx:147
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Форум"
@@ -1549,7 +1546,7 @@ msgstr "Форум үүсгэгдсэн"
 msgid "Forum deleted"
 msgstr "Форум устгагдсан"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:65
 msgid "Forum is no longer available"
 msgstr "Форум хүртээмжтэй байхаа больсон"
 
@@ -1557,23 +1554,23 @@ msgstr "Форум хүртээмжтэй байхаа больсон"
 msgid "Forum link"
 msgstr "Форумын холбоос"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:351
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Forum name is required"
 msgstr "Форумын нэр шаардлагатай"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum not found"
 msgstr "Форум олдсонгүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:207
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Forum renamed"
 msgstr "Форумын нэр өөрчлөгдсөн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:280
+#: src/routes/_authenticated/$forum_.settings.tsx:274
 msgid "Forum settings sections"
 msgstr "Форумын тохиргооны хэсгүүд"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum unavailable"
 msgstr "Форум боломжгүй"
 
@@ -1599,41 +1596,39 @@ msgstr "Эхлэх"
 #: ../../../lib/web/src/lib/preference-utils.ts:89
 #: ../../../lib/web/src/lib/preference-utils.ts:99
 #: ../../../lib/web/src/lib/preference-utils.ts:110
-#: ../../../lib/web/src/lib/preference-utils.ts:119
-#: ../../../lib/web/src/lib/preference-utils.ts:127
-#: ../../../lib/web/src/lib/preference-utils.ts:138
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
 msgid "From theme"
 msgstr "Загвараас"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:321
-msgid "Full layout"
-msgstr "Бүрэн зохион байгуулалт"
+#~ msgid "Full layout"
+#~ msgstr "Бүрэн зохион байгуулалт"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Буцах"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:82
-msgid "Go to first page"
-msgstr "Эхний хуудас руу очих"
+#~ msgid "Go to first page"
+#~ msgstr "Эхний хуудас руу очих"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:128
-msgid "Go to last page"
-msgstr "Сүүлийн хуудас руу очих"
+#~ msgid "Go to last page"
+#~ msgstr "Сүүлийн хуудас руу очих"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:119
-msgid "Go to next page"
-msgstr "Дараагийн хуудас руу очих"
+#~ msgid "Go to next page"
+#~ msgstr "Дараагийн хуудас руу очих"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:106
-msgid "Go to page {pageNumber}"
-msgstr "{pageNumber} хуудас руу очих"
+#~ msgid "Go to page {pageNumber}"
+#~ msgstr "{pageNumber} хуудас руу очих"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:91
-msgid "Go to previous page"
-msgstr "Өмнөх хуудас руу очих"
+#~ msgid "Go to previous page"
+#~ msgstr "Өмнөх хуудас руу очих"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
@@ -1649,24 +1644,24 @@ msgid "Group: {0}"
 msgstr "Бүлэг: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:753
+#: src/routes/_authenticated/$forum_.moderation.tsx:777
 msgid "Harassment"
 msgstr "Дарамтлах"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:754
+#: src/routes/_authenticated/$forum_.moderation.tsx:778
 msgid "Hate speech"
 msgstr "Үзэн ядалтын яриа"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
-msgid "Hide"
-msgstr "Нуух"
+#~ msgid "Hide"
+#~ msgstr "Нуух"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Hide password"
-msgstr "Нууц үг нуух"
+#~ msgid "Hide password"
+#~ msgstr "Нууц үг нуух"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:58
+#: ../../../lib/web/src/components/audit-timeline.tsx:61
 msgid "History"
 msgstr "Түүх"
 
@@ -1685,7 +1680,7 @@ msgstr "Хот"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:360
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Identity"
 msgstr "Identity"
 
@@ -1698,7 +1693,7 @@ msgstr "Зураг үзэгч: {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Including anonymous users"
 msgstr "Нэргүй хэрэглэгчид оролцуулан"
 
@@ -1711,19 +1706,19 @@ msgid "Initials avatar for {name}"
 msgstr "{name}-ийн товч нэрийн аватар"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:253
-msgid "Inset"
-msgstr "Дотогшоо"
+#~ msgid "Inset"
+#~ msgstr "Дотогшоо"
 
-#: src/features/forums/thread-detail.tsx:256
+#: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Сонирхол нэмэгдсэн"
 
-#: src/features/forums/thread-detail.tsx:268
+#: src/features/forums/thread-detail.tsx:253
 msgid "Interest reduced"
 msgstr "Сонирхол багассан"
 
-#: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:280
+#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Сонирхол устгагдсан"
 
@@ -1731,23 +1726,23 @@ msgstr "Сонирхол устгагдсан"
 msgid "Interests"
 msgstr "Сонирхлууд"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:544
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Огноо хүчингүй"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
-msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
-msgstr "Буруу шошго: зөвхөн үсэг, тоо, зай, зураас, ташуу зураас (дээд тал нь 50 тэмдэгт)"
+#~ msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+#~ msgstr "Буруу шошго: зөвхөн үсэг, тоо, зай, зураас, ташуу зураас (дээд тал нь 50 тэмдэгт)"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
-msgid "Invalid verification code"
-msgstr "Баталгаажуулах код хүчингүй"
+#~ msgid "Invalid verification code"
+#~ msgstr "Баталгаажуулах код хүчингүй"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:18
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Таны хайж буй хуудас <0/>байхгүй эсвэл устгагдсан бололтой."
 
-#: ../../../lib/web/src/lib/locale-format.ts:164
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "Дөнгөж сая"
 
@@ -1756,30 +1751,27 @@ msgid "Keyboard shortcuts"
 msgstr "Гарын товчлолууд"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:103
-#: ../../../lib/web/src/lib/preference-utils.ts:130
+#: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "Том"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:287
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Зохион байгуулалт"
 
 #: ../../../lib/web/src/components/learn-more.tsx:33
 #: ../../../lib/web/src/components/learn-more.tsx:38
-msgid "Learn more"
-msgstr "Илүү ихийг мэдэх"
+#~ msgid "Learn more"
+#~ msgstr "Илүү ихийг мэдэх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:355
-msgid "Left to Right"
-msgstr "Зүүнээс баруун"
+#~ msgid "Left to Right"
+#~ msgstr "Зүүнээс баруун"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
 msgid "Letters, numbers, spaces, and hyphens only"
 msgstr "Зөвхөн үсэг, тоо, зай, зураас"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:214
-#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
 msgstr "Цайвар"
@@ -1800,7 +1792,7 @@ msgstr "Жагсаалт"
 msgid "Load more"
 msgstr "Илүү ачаалах"
 
-#: ../../../lib/web/src/components/ui/loading-content.tsx:25
+#: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Контент ачааллаж байна…"
 
@@ -1809,11 +1801,11 @@ msgstr "Контент ачааллаж байна…"
 msgid "Loading..."
 msgstr "Ачаалж байна..."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Lock"
 msgstr "Түгжих"
 
-#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/features/forums/components/thread/thread-content.tsx:170
 msgid "Locked"
 msgstr "Түгжигдсэн"
 
@@ -1821,8 +1813,6 @@ msgstr "Түгжигдсэн"
 msgid "Log"
 msgstr "Лог"
 
-#: ../../../lib/web/src/components/profile-dropdown.tsx:69
-#: ../../../lib/web/src/components/profile-dropdown.tsx:98
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:26
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:28
 msgid "Log out"
@@ -1840,25 +1830,24 @@ msgstr "Амжилттай гарлаа"
 msgid "Logging out…"
 msgstr "Гарч байна…"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
 msgid "Manage categories"
 msgstr "Ангиллуудыг удирдах"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:192
-msgid "Manage your connected accounts for notifications and services."
-msgstr "Мэдэгдэл, үйлчилгээнд зориулж холбогдсон дансаа удирдана уу."
+#~ msgid "Manage your connected accounts for notifications and services."
+#~ msgstr "Мэдэгдэл, үйлчилгээнд зориулж холбогдсон дансаа удирдана уу."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
 msgid "Manual"
 msgstr "Гар аргаар"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:190
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:197
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Бүгдийг уншсан гэж тэмдэглэх"
 
-#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/create-post-dialog.tsx:231
 msgid "Markdown supported"
 msgstr "Markdown дэмжигдсэн"
 
@@ -1891,7 +1880,7 @@ msgid "Minimum length"
 msgstr "Хамгийн бага урт"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:756
+#: src/routes/_authenticated/$forum_.moderation.tsx:780
 msgid "Misinformation"
 msgstr "Буруу мэдээлэл"
 
@@ -1899,22 +1888,22 @@ msgstr "Буруу мэдээлэл"
 msgid "Mochi web"
 msgstr "Mochi веб"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Хянах, нийтлэх, сэтгэгдэл бичих, санал өгөх, харах"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Moderation"
 msgstr "Хяналт"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:358
+#: src/routes/_authenticated/$forum_.moderation.tsx:352
 msgid "Moderation queue is empty"
 msgstr "Хяналтын дараалал хоосон"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:120
+#: src/routes/_authenticated/$forum_.moderation.tsx:114
 msgid "Moderation sections"
 msgstr "Хяналтын хэсгүүд"
 
@@ -1924,36 +1913,40 @@ msgstr "Даваа"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:418
-#: src/features/forums/components/thread/thread-comment.tsx:424
-#: src/features/forums/components/thread/thread-content.tsx:333
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:423
+#: src/features/forums/components/thread/thread-content.tsx:332
+#: src/features/forums/components/thread/thread-content.tsx:339
 msgid "More options"
 msgstr "Бусад сонголтууд"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:502
+#: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Чимээгүй болгох"
 
-#: src/features/forums/components/thread/thread-comment.tsx:488
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Mute author"
 msgstr "Зохиогчийг чимээгүй болгох"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "muted"
-msgstr "чимээгүй"
+#~ msgid "muted"
+#~ msgstr "чимээгүй"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Muted"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:358
 msgid "Name"
 msgstr "Нэр"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name cannot contain < or > characters"
 msgstr "Нэр < эсвэл > тэмдэгт агуулж болохгүй"
 
@@ -1962,42 +1955,42 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "Нэрэнд өнцөгт хаалт, ар налуу зураас, цэгтэй таслал, хашилт эсвэл ар хашилт байж болохгүй"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:352
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Name must be 1000 characters or less"
 msgstr "Нэр 1000 тэмдэгтээс хэтрэхгүй байх ёстой"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Сүлжээний алдаа"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
 msgstr "Шинэ"
 
 #: src/components/layout/data/sidebar-data.ts:19
-msgid "New forum"
-msgstr "Шинэ форум"
+#~ msgid "New forum"
+#~ msgstr "Шинэ форум"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:49
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:39
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "New game"
 msgstr "Шинэ тоглоом"
 
-#: src/features/forums/components/create-post-dialog.tsx:184
-#: src/features/forums/components/create-post-dialog.tsx:189
-#: src/features/forums/components/create-post-dialog.tsx:196
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/components/create-post-dialog.tsx:185
+#: src/features/forums/components/create-post-dialog.tsx:190
+#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Шинэ нийтлэл"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1001
+#: src/routes/_authenticated/$forum_.settings.tsx:992
 msgid "New threads must be approved"
 msgstr "Шинэ thread-уудыг батлах ёстой"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1033
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "New user threshold:"
 msgstr "Шинэ хэрэглэгчийн босго:"
 
@@ -2006,15 +1999,15 @@ msgstr "Шинэ хэрэглэгчийн босго:"
 msgid "Next image"
 msgstr "Дараагийн зураг"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Нэмэх {parentClassNames} алга"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:647
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} гомдол олдсонгүй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "No access"
 msgstr "Хандах эрх байхгүй"
 
@@ -2026,7 +2019,7 @@ msgstr "Хандалтын дүрэм тохируулагдаагүй байн�
 msgid "No activity yet"
 msgstr "Үйл ажиллагаа алга"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:47
+#: src/features/forums/components/thread/attachment-comments.tsx:48
 msgid "No comments on this image yet."
 msgstr "Энэ зурагт одоогоор сэтгэгдэл алга."
 
@@ -2035,15 +2028,15 @@ msgid "No comments yet"
 msgstr "Сэтгэгдэл алга"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
-msgid "No connected accounts"
-msgstr "Холбогдсон бүртгэл байхгүй"
+#~ msgid "No connected accounts"
+#~ msgstr "Холбогдсон бүртгэл байхгүй"
 
 #: src/features/forums/components/inline-forum-search.tsx:104
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Форум олдсонгүй"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:46
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:48
 msgid "No games yet"
 msgstr "Тоглоом алга"
 
@@ -2051,7 +2044,7 @@ msgstr "Тоглоом алга"
 msgid "No groups available"
 msgstr "Боломжит групп байхгүй"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:521
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Одоогоор зүйл үүсгэх боломжгүй. Эхлээд шаардлагатай эх зүйлийг үүсгэнэ үү."
 
@@ -2059,15 +2052,15 @@ msgstr "Одоогоор зүйл үүсгэх боломжгүй. Эхлээд 
 msgid "No matching objects"
 msgstr "Тохирох обьект алга"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:823
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "No moderation activity"
 msgstr "Модерацийн үйл ажиллагаа алга"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "No notifications yet"
-msgstr "Одоогоор мэдэгдэл алга"
+#~ msgid "No notifications yet"
+#~ msgstr "Одоогоор мэдэгдэл алга"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Хүн олдсонгүй"
@@ -2081,30 +2074,28 @@ msgid "No posts in this forum yet"
 msgstr "Энэ форумд нийтлэл алга"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:58
-msgid "No profile"
-msgstr "Профайл алга"
+#~ msgid "No profile"
+#~ msgstr "Профайл алга"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:646
+#: src/routes/_authenticated/$forum_.moderation.tsx:642
 msgid "No reports"
 msgstr "Гомдол алга"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:953
+#: src/routes/_authenticated/$forum_.moderation.tsx:978
 msgid "No restrictions"
 msgstr "Хязгаарлалт байхгүй"
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Үр дүн олдсонгүй"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Үр дүн олдсонгүй."
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:823
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:868
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Төлөв алга"
@@ -2113,11 +2104,11 @@ msgstr "Төлөв алга"
 msgid "No time zone found."
 msgstr "Цагийн бүс олдсонгүй."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:106
 msgid "No topic record yet — try again after the next notification."
 msgstr "Сэдвийн бичлэг алга — дараагийн мэдэгдлийн дараа дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:122
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Уншаагүй мэдэгдэл алга"
 
@@ -2125,7 +2116,7 @@ msgstr "Уншаагүй мэдэгдэл алга"
 msgid "No users found"
 msgstr "Хэрэглэгч олдсонгүй"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "No users have been muted or banned"
 msgstr "Хязгаарлагдсан эсвэл хориглогдсон хэрэглэгч алга"
 
@@ -2134,9 +2125,9 @@ msgid "No views"
 msgstr "Үзэлт алга"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:537
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:540
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
@@ -2146,15 +2137,14 @@ msgstr "Үзэлт алга"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
-#: ../../../lib/web/src/lib/preference-utils.ts:120
 msgid "None"
 msgstr "Алга"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:129
+#: ../../../lib/web/src/lib/preference-utils.ts:122
 msgid "Normal"
 msgstr "Энгийн"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 #: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Олдсонгүй"
@@ -2176,11 +2166,11 @@ msgstr "Одоохондоо юу ч хадгалаагүй байна"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:236
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:257
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
-msgid "Notifications"
-msgstr "Мэдэгдэл"
+#~ msgid "Notifications"
+#~ msgstr "Мэдэгдэл"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:183
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Мэдэгдэл: {0}"
 
@@ -2191,7 +2181,7 @@ msgid "Number"
 msgstr "Тоо"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:757
+#: src/routes/_authenticated/$forum_.moderation.tsx:781
 msgid "Off-topic"
 msgstr "Сэдвийн гадуур"
 
@@ -2200,11 +2190,11 @@ msgid "On"
 msgstr "Асаалттай"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:439
 msgid "On image: {0}"
 msgstr "Зураг дээр: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "On this image"
 msgstr "Энэ зураг дээр"
 
@@ -2214,8 +2204,8 @@ msgstr "Уучлаарай! Хуудас олдсонгүй!"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:156
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:166
-msgid "Open account actions"
-msgstr "Бүртгэлийн үйлдлүүдийг нээх"
+#~ msgid "Open account actions"
+#~ msgstr "Бүртгэлийн үйлдлүүдийг нээх"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:199
 #: ../../../lib/web/src/components/layout/nav-group.tsx:204
@@ -2233,8 +2223,8 @@ msgstr "Навигац нээх"
 
 #: ../../../lib/web/src/components/layout/top-nav.tsx:38
 #: ../../../lib/web/src/components/layout/top-nav.tsx:44
-msgid "Open navigation menu"
-msgstr "Навигацийн цэс нээх"
+#~ msgid "Open navigation menu"
+#~ msgstr "Навигацийн цэс нээх"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
@@ -2247,8 +2237,8 @@ msgstr "Сонгосон картыг нээх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:58
 #: ../../../lib/web/src/components/config-drawer.tsx:66
-msgid "Open theme settings"
-msgstr "Сэдвийн тохиргоо нээх"
+#~ msgid "Open theme settings"
+#~ msgstr "Сэдвийн тохиргоо нээх"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
@@ -2265,7 +2255,7 @@ msgstr "Үзэх удирдлагуудыг нээх"
 msgid "Option name"
 msgstr "Сонголтын нэр"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Таны форумын дээд талд харагдах сонголтот markdown баннер."
 
@@ -2276,7 +2266,7 @@ msgstr "Сонголтууд"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:758
+#: src/routes/_authenticated/$forum_.moderation.tsx:782
 msgid "Other"
 msgstr "Бусад"
 
@@ -2286,18 +2276,18 @@ msgstr "Эзэмшигч"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:43
 #: ../../../lib/web/src/components/data-table/pagination.tsx:71
-msgid "Page {currentPage} of {totalPages}"
-msgstr "{totalPages}-с {currentPage}-р хуудас"
+#~ msgid "Page {currentPage} of {totalPages}"
+#~ msgstr "{totalPages}-с {currentPage}-р хуудас"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:529
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Эх"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:336
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Нэвтрэх түлхүүр"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "Нэвтрэх түлхүүрийн баталгаажуулалт амжилтгүй боллоо. Дахин оролдоно уу."
 
@@ -2310,45 +2300,46 @@ msgid "Pattern (regex)"
 msgstr "Загвар (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:276
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/features/forums/components/thread/thread-comment.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:751
 msgid "Pending"
 msgstr "Хүлээгдэж буй"
 
-#: src/features/forums/components/thread/thread-content.tsx:160
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Pending approval"
 msgstr "Батлахыг хүлээж байна"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:417
+#: src/routes/_authenticated/$forum_.moderation.tsx:411
 msgid "Pending comments ({0})"
 msgstr "Хүлээгдэж буй сэтгэгдэл ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:372
+#: src/routes/_authenticated/$forum_.moderation.tsx:366
 msgid "Pending posts ({0})"
 msgstr "Хүлээгдэж буй нийтлэл ({0})"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
 msgstr "Зураг ба видео"
 
 #: ../../../lib/web/src/components/date-picker.tsx:20
-msgid "Pick a date"
-msgstr "Огноо сонгох"
+#~ msgid "Pick a date"
+#~ msgstr "Огноо сонгох"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Pin"
 msgstr "Бэхлэх"
 
-#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/features/forums/components/thread/thread-content.tsx:176
 msgid "Pinned"
 msgstr "Бэхлэгдсэн"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Интернет холболтоо шалгаад дахин оролдоно уу."
 
@@ -2356,7 +2347,7 @@ msgstr "Интернет холболтоо шалгаад дахин оролд
 msgid "Please describe the issue..."
 msgstr "Асуудлаа тайлбарлана уу..."
 
-#: src/features/forums/thread-detail.tsx:302
+#: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "Хариу оруулна уу"
 
@@ -2372,11 +2363,15 @@ msgstr "Дахин оролдоно уу."
 msgid "Please wait a moment and try again."
 msgstr "Түр хүлээгээд дахин оролдоно уу."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/routes/_authenticated/$forum_.moderation.tsx:759
+msgid "Post"
+msgstr "Нийтлэл"
+
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Нийтлэлийг хадгалж чадсангүй — гарчиг эсвэл агуулга буруу байна"
 
-#: src/hooks/use-forum-websocket.ts:69
+#: src/hooks/use-forum-websocket.ts:68
 msgid "Post couldn't be saved on the forum server"
 msgstr "Нийтлэлийг форумын сервер дээр хадгалж чадсангүй"
 
@@ -2384,7 +2379,7 @@ msgstr "Нийтлэлийг форумын сервер дээр хадгалж
 msgid "Post deleted"
 msgstr "Нийтлэл устгагдсан"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1058
+#: src/routes/_authenticated/$forum_.settings.tsx:1049
 msgid "Post limit"
 msgstr "Нийтлэлийн хязгаар"
 
@@ -2424,11 +2419,11 @@ msgstr "Нийтлэлийн бэхэлгээ авсан"
 msgid "Post updated"
 msgstr "Нийтлэл шинэчлэгдсэн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Post, comment, vote, and view"
 msgstr "Нийтлэх, сэтгэгдэл бичих, санал өгөх, үзэх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
 msgid "posts"
 msgstr "нийтлэл"
 
@@ -2440,11 +2435,11 @@ msgstr "Нийтлэлүүд"
 msgid "Posts and comments"
 msgstr "Нийтлэл болон сэтгэгдэл"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:994
+#: src/routes/_authenticated/$forum_.settings.tsx:985
 msgid "Pre-moderation"
 msgstr "Урьдчилсан модераци"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1054
+#: src/routes/_authenticated/$forum_.settings.tsx:1045
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Хэрэглэгч хэр давтамжтай нийтэлж болохыг хязгаарлаж спамаас сэргийлэх"
 
@@ -2463,22 +2458,22 @@ msgid "Processing…"
 msgstr "Боловсруулж байна…"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
-msgid "Profile"
-msgstr "Профайл"
+#~ msgid "Profile"
+#~ msgstr "Профайл"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
 msgid "Project members"
 msgstr "Төслийн гишүүд"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "Prompt хадгалагдсан"
 
-#: src/features/forums/components/create-post-dialog.tsx:311
+#: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "Нийтлэл нийтлэх"
 
-#: src/features/forums/components/create-post-dialog.tsx:306
+#: src/features/forums/components/create-post-dialog.tsx:307
 msgid "Publishing..."
 msgstr "Нийтэлж байна..."
 
@@ -2494,7 +2489,7 @@ msgstr "Дараалал"
 msgid "Raised"
 msgstr "Өргөгдсөн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1044
 msgid "Rate limiting"
 msgstr "Хязгаарлалтын хурд"
 
@@ -2506,16 +2501,15 @@ msgstr "Энэ серверт бүртгэлүүдээ дахин холбоно
 msgid "Re-register your passkeys on this server"
 msgstr "Энэ серверт нэвтрэх түлхүүрээ дахин бүртгүүлнэ үү"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:696
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reason:"
 msgstr "Шалтгаан:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:859
+#: src/routes/_authenticated/$forum_.moderation.tsx:883
 msgid "Reason: {0}"
 msgstr "Шалтгаан: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:220
 #: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Зөвлөмжтэй"
@@ -2537,12 +2531,12 @@ msgstr "Нэвтрэх рүү дахин чиглүүлж байна."
 msgid "Reduce interest"
 msgstr "Хүүг бууруулах"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:470
 msgid "Reject"
 msgstr "Татгалзах"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:251
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:245
+#: src/routes/_authenticated/$forum_.moderation.tsx:249
 msgid "Rejected"
 msgstr "Татгалзсан"
 
@@ -2558,17 +2552,16 @@ msgstr "Харьцангуй (5м, 3ц, 2ө)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 цагийн дотор харьцангуй, эс бөгөөс үнэмлэхүй"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:278
-#: ../../../lib/web/src/components/attachment-composer.tsx:323
+#: ../../../lib/web/src/components/attachment-composer.tsx:285
+#: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:469
-#: src/features/forums/components/thread/thread-comment.tsx:527
-#: src/features/forums/components/thread/thread-content.tsx:368
-#: src/features/forums/components/thread/thread-content.tsx:446
-#: src/routes/_authenticated/$forum_.moderation.tsx:726
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:722
+#: src/routes/_authenticated/$forum_.moderation.tsx:1041
 msgid "Remove"
 msgstr "Хасах"
 
@@ -2592,7 +2585,7 @@ msgstr "\"{0}\"-ийн хандалтын дүрмийг устгах уу?"
 msgid "Remove access?"
 msgstr "Хандалтыг хасах уу?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:524
 msgid "Remove comment"
 msgstr "Сэтгэгдэл хасах"
 
@@ -2606,7 +2599,7 @@ msgstr "Хадгалсанаас хасах"
 msgid "Remove interest"
 msgstr "Сонирхол хасах"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:665
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Зүйл хасах"
 
@@ -2615,71 +2608,71 @@ msgstr "Зүйл хасах"
 msgid "Remove link"
 msgstr "Холбоосыг хасах"
 
-#: src/features/forums/components/thread/thread-content.tsx:444
+#: src/features/forums/components/thread/thread-content.tsx:443
 msgid "Remove post"
 msgstr "Нийтлэл хасах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:395
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Remove this forum from your sidebar."
 msgstr "Энэ форумыг тал хавтсаас хасах."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:282
-#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/features/forums/components/thread/thread-comment.tsx:281
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
 msgstr "Хасагдсан"
 
-#: src/lib/saved.ts:31
+#: src/lib/saved.ts:32
 msgid "Removed from saved"
 msgstr "Хадгалснаас устгасан"
 
-#: src/lib/saved.ts:30
+#: src/lib/saved.ts:31
 msgid "Removing..."
 msgstr "Хасаж байна..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:559
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Нэр өөрчлөх"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:594
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Багана нэр өөрчлөх"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:595
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Энэ board-ын баганын нэр өөрчлөх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:206
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Renaming forum..."
 msgstr "Форумын нэрийг өөрчилж байна..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
 msgid "replies"
 msgstr "хариу"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1012
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "Хариуг батлах ёстой"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:400
-#: src/features/forums/components/thread/thread-comment.tsx:406
-#: src/features/forums/components/thread/thread-content.tsx:312
-#: src/features/forums/components/thread/thread-content.tsx:321
+#: src/features/forums/components/thread/thread-comment.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:405
+#: src/features/forums/components/thread/thread-content.tsx:311
+#: src/features/forums/components/thread/thread-content.tsx:320
 msgid "Reply"
 msgstr "Хариу"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:547
 msgid "Reply to {0}..."
 msgstr "{0}-д хариу..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:477
-#: src/features/forums/components/thread/thread-content.tsx:402
+#: src/features/forums/components/thread/thread-comment.tsx:476
+#: src/features/forums/components/thread/thread-content.tsx:401
 msgid "Report"
 msgstr "Гомдол"
 
@@ -2691,7 +2684,7 @@ msgstr "Сэтгэгдэл гомдол"
 msgid "Report post"
 msgstr "Нийтлэл гомдол"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:564
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Report resolved"
 msgstr "Гомдол шийдэгдсэн"
 
@@ -2701,7 +2694,7 @@ msgid "Report submitted"
 msgstr "Гомдол илгээгдсэн"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:704
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "Reported by {0}"
 msgstr "{0}-аас гомдол гарсан"
 
@@ -2709,19 +2702,19 @@ msgstr "{0}-аас гомдол гарсан"
 msgid "Reports"
 msgstr "Гомдол"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:986
 msgid "Require approval before content becomes visible"
 msgstr "Агуулгыг харагдахаас өмнө батлахыг шаардах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1011
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new comments"
 msgstr "Шинэ сэтгэгдэлд батлах хэрэгтэй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1000
+#: src/routes/_authenticated/$forum_.settings.tsx:991
 msgid "Require approval for new posts"
 msgstr "Шинэ нийтлэлд батлах хэрэгтэй"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1022
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new users"
 msgstr "Шинэ хэрэглэгчид батлах хэрэгтэй"
 
@@ -2729,34 +2722,35 @@ msgstr "Шинэ хэрэглэгчид батлах хэрэгтэй"
 msgid "Required"
 msgstr "Шаардлагатай"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:369
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "Имэйлийг дахин илгээх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:87
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:82
-msgid "Reset"
-msgstr "Шинэчлэх"
+#~ msgid "Reset"
+#~ msgstr "Шинэчлэх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:122
 #: ../../../lib/web/src/components/config-drawer.tsx:127
-msgid "Reset {title}"
-msgstr "{title}-ийг шинэчлэх"
+#~ msgid "Reset {title}"
+#~ msgstr "{title}-ийг шинэчлэх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:85
-msgid "Reset all settings to default values"
-msgstr "Бүх тохиргоог анхдагч утгад нь сэргээх"
+#~ msgid "Reset all settings to default values"
+#~ msgstr "Бүх тохиргоог анхдагч утгад нь сэргээх"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Resolved"
 msgstr "Шийдвэрлэгдсэн"
 
-#: src/features/forums/components/thread/thread-comment.tsx:463
-#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-comment.tsx:462
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Restore"
 msgstr "Сэргээх"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:905
+#: src/routes/_authenticated/$forum_.moderation.tsx:930
 msgid "Restriction removed"
 msgstr "Хязгаарлалт хасагдсан"
 
@@ -2764,7 +2758,7 @@ msgstr "Хязгаарлалт хасагдсан"
 msgid "Restrictions"
 msgstr "Хязгаарлалт"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:341
+#: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "Дахин оролдох"
 
@@ -2785,8 +2779,8 @@ msgid "Revoke RSS access?"
 msgstr "RSS хандалтыг цуцлах уу?"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
-msgid "Right to Left"
-msgstr "Баруунаас зүүн"
+#~ msgid "Right to Left"
+#~ msgstr "Баруунаас зүүн"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
@@ -2798,8 +2792,8 @@ msgid "Rows group by"
 msgstr "Мөрүүдийг группд хуваах"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
-msgid "Rows per page"
-msgstr "Хуудас тутамын мөр"
+#~ msgid "Rows per page"
+#~ msgstr "Хуудас тутамын мөр"
 
 #: ../../../lib/web/src/components/options-menu.tsx:131
 msgid "RSS access revoked"
@@ -2817,18 +2811,18 @@ msgstr "RSS URL clipboard руу хуулагдсан"
 msgid "Saturday"
 msgstr "Бямба"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:423
+#: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:325
-#: src/routes/_authenticated/$forum_.settings.tsx:497
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:491
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "Хадгалах"
 
-#: src/features/forums/components/edit-post-dialog.tsx:384
+#: src/features/forums/components/edit-post-dialog.tsx:385
 msgid "Save changes"
 msgstr "Өөрчлөлт хадгалах"
 
@@ -2840,21 +2834,21 @@ msgstr "Дараа үзэхээр хадгалах"
 #: src/components/layout/forums-layout.tsx:112
 #: src/features/forums/pages/saved-page.tsx:54
 #: src/features/forums/pages/saved-page.tsx:68
-#: src/lib/saved.ts:28
+#: src/lib/saved.ts:29
 msgid "Saved"
 msgstr "Хадгалагдсан"
 
-#: src/lib/saved.ts:34
+#: src/lib/saved.ts:35
 msgid "Saved posts cleared"
 msgstr "Хадгалсан нийтлэл цэвэрлэгдлээ"
 
-#: src/features/forums/components/edit-post-dialog.tsx:379
-#: src/lib/saved.ts:27
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/lib/saved.ts:28
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
 msgstr "Хадгалж байна..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:608
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Score prompt"
 msgstr "Оноо асуух"
 
@@ -2913,18 +2907,16 @@ msgstr "Энэ үзэмжээр хайх, ажиглах, эрэмбэлэх."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:63
 #: ../../../lib/web/src/components/person-picker.tsx:324
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Хайх..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:178
 #: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Хайж байна..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "секунд"
 
@@ -2932,16 +2924,15 @@ msgstr "секунд"
 msgid "Select"
 msgstr "Сонгох"
 
-#. placeholder {0}: item.label.toLowerCase()
 #: ../../../lib/web/src/components/config-drawer.tsx:149
-msgid "Select {0}"
-msgstr "{0} сонгох"
+#~ msgid "Select {0}"
+#~ msgstr "{0} сонгох"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Талбар сонгох"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:32
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Тоглоом сонгох"
 
@@ -2962,14 +2953,14 @@ msgid "Select access rule"
 msgstr "Хандалтын дүрэм сонгох"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:34
-msgid "Select account"
-msgstr "Данс сонгох"
+#~ msgid "Select account"
+#~ msgstr "Данс сонгох"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:142
 msgid "Select account type"
 msgstr "Бүртгэлийн төрөл сонгох"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select all"
 msgstr "Бүгдийг сонгох"
 
@@ -2978,8 +2969,8 @@ msgid "Select group"
 msgstr "Бүлэг сонгох"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:305
-msgid "Select layout style"
-msgstr "Байршуулалтын хэв сонгох"
+#~ msgid "Select layout style"
+#~ msgstr "Байршуулалтын хэв сонгох"
 
 #: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
@@ -2989,7 +2980,7 @@ msgstr "Байршил сонгох"
 msgid "Select next card"
 msgstr "Дараагийн карт сонгох"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select none"
 msgstr "Юу ч сонгохгүй"
 
@@ -3002,25 +2993,25 @@ msgid "Select previous card"
 msgstr "Өмнөх карт сонгох"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:247
-msgid "Select sidebar style"
-msgstr "Хажуугийн самбарын хэв сонгох"
+#~ msgid "Select sidebar style"
+#~ msgstr "Хажуугийн самбарын хэв сонгох"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:349
-msgid "Select site direction"
-msgstr "Сайтын чиглэл сонгох"
+#~ msgid "Select site direction"
+#~ msgstr "Сайтын чиглэл сонгох"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:203
-msgid "Select theme preference"
-msgstr "Загварын тохируулга сонгох"
+#~ msgid "Select theme preference"
+#~ msgstr "Загварын тохируулга сонгох"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Сонгох..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:206
-msgid "selected"
-msgstr "сонгогдсон"
+#~ msgid "selected"
+#~ msgstr "сонгогдсон"
 
 #. placeholder {0}: getSelectedName()
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
@@ -3031,7 +3022,7 @@ msgstr "Сонгогдсон: <0>{0}</0>"
 msgid "Send again"
 msgstr "Дахин илгээх"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:309
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "Имэйл илгээх"
 
@@ -3040,12 +3031,12 @@ msgstr "Имэйл илгээх"
 msgid "Send message"
 msgstr "Зурвас илгээх"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:140
+#: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Сериф"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:270
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:296
 msgid "Server error"
 msgstr "Серверийн алдаа"
 
@@ -3054,7 +3045,7 @@ msgstr "Серверийн алдаа"
 msgid "Server rules"
 msgstr "Серверийн дүрэм"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:220
 msgid "Session expired. Please log in again."
 msgstr "Сессийн хугацаа дууссан. Дахин нэвтэрнэ үү."
 
@@ -3065,12 +3056,16 @@ msgstr "Эхлэл, очих газрыг тогтоох"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Settings"
 msgstr "Тохиргоо"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Shadowbanned"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
@@ -3080,13 +3075,13 @@ msgstr "Ангиллуудыг харуулах"
 msgid "Show fields"
 msgstr "Талбаруудыг харуулах"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:62
+#: src/features/forums/components/thread/attachment-comments.tsx:63
 msgid "Show only comments on this image"
 msgstr "Зөвхөн энэ зургийн сэтгэгдлүүдийг харуулах"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Show password"
-msgstr "Нууц үг харуулах"
+#~ msgid "Show password"
+#~ msgstr "Нууц үг харуулах"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:33
 msgid "Show this help"
@@ -3096,9 +3091,7 @@ msgstr "Энэ тусламжийг харуулах"
 msgid "Showing {totalShown} of {total}"
 msgstr "Нийт {total}-аас {totalShown} харуулж байна"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:239
-#: ../../../lib/web/src/components/config-drawer.tsx:263
-#: ../../../lib/web/src/components/ui/sidebar.tsx:237
+#: ../../../lib/web/src/components/ui/sidebar.tsx:257
 msgid "Sidebar"
 msgstr "Хажуугийн самбар"
 
@@ -3117,11 +3110,11 @@ msgid "Single line of text only"
 msgstr "Зөвхөн нэг мөр текст"
 
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
-msgid "Skip to Main"
-msgstr "Үндсэн рүү алгасах"
+#~ msgid "Skip to Main"
+#~ msgstr "Үндсэн рүү алгасах"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:101
-#: ../../../lib/web/src/lib/preference-utils.ts:128
+#: ../../../lib/web/src/lib/preference-utils.ts:121
 msgid "Small"
 msgstr "Жижиг"
 
@@ -3138,7 +3131,7 @@ msgid "Spacious"
 msgstr "Уужим"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Spam"
 msgstr "Спам"
 
@@ -3147,8 +3140,8 @@ msgid "Start the discussion by adding the first comment."
 msgstr "Эхний сэтгэгдэл нэмж хэлэлцүүлэг эхлүүл."
 
 #: ../../../lib/web/src/components/coming-soon.tsx:15
-msgid "Stay tuned though!"
-msgstr "Гэхдээ хүлээж бай!"
+#~ msgid "Stay tuned though!"
+#~ msgstr "Гэхдээ хүлээж бай!"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
@@ -3172,11 +3165,10 @@ msgstr "Илгээж байна..."
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:66
 #: ../../../lib/web/src/components/recommended-entities.tsx:58
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:305
+#: src/features/forums/pages/entity-forum-page.tsx:271
 msgid "Subscribe"
 msgstr "Захиалах"
 
@@ -3196,7 +3188,7 @@ msgstr "Форум захиалсан"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:268
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
@@ -3210,16 +3202,13 @@ msgstr "Ням гараг"
 msgid "Switch to view 1-9"
 msgstr "1-9 харагдац руу шилжих"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:104
-#: ../../../lib/web/src/components/config-drawer.tsx:209
-#: ../../../lib/web/src/components/theme-switch.tsx:59
+#: ../../../lib/web/src/components/audit-timeline.tsx:107
 #: ../../../lib/web/src/lib/preference-utils.ts:16
-#: ../../../lib/web/src/lib/preference-utils.ts:139
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Систем"
 
-#: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Tag"
 msgstr "Тэг"
 
@@ -3231,7 +3220,7 @@ msgstr "Тэг аль хэдийн байна"
 msgid "Tag must be 50 characters or less"
 msgstr "Шошго 50 тэмдэгтээс ихгүй байх ёстой"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:607
+#: src/routes/_authenticated/$forum_.settings.tsx:599
 msgid "Tag prompt"
 msgstr "Тэг асуулт"
 
@@ -3245,8 +3234,8 @@ msgid "Tap the bookmark on any post to save it here for later."
 msgstr "Аливаа нийтлэлийг энд дараа үзэхээр хадгалахын тулд хавчуургад нь товшино уу."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:63
-msgid "Teams/Apps"
-msgstr "Баг/Программууд"
+#~ msgid "Teams/Apps"
+#~ msgstr "Баг/Программууд"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:19
 #: ../../../lib/web/src/features/document/document-page.tsx:42
@@ -3257,7 +3246,7 @@ msgstr "Нөхцөл"
 msgid "Text"
 msgstr "Текст"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Энэ код буруу эсвэл хугацаа нь дууссан байна."
 
@@ -3279,38 +3268,38 @@ msgid "The server returned a web page instead of data."
 msgstr "Сервер өгөгдлийн оронд вэб хуудас буцаалаа."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
-msgid "The site is not available at the moment."
-msgstr "Сайт одоогоор боломжгүй байна."
+#~ msgid "The site is not available at the moment."
+#~ msgstr "Сайт одоогоор боломжгүй байна."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
-msgid "Theme"
-msgstr "Загвар"
+#~ msgid "Theme"
+#~ msgstr "Загвар"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:70
-msgid "Theme Settings"
-msgstr "Загварын тохиргоо"
+#~ msgid "Theme Settings"
+#~ msgstr "Загварын тохиргоо"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "Одоохондоо модераторын үйлдлүүд бүртгэгдээгүй байна"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:256
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum could not be loaded right now."
 msgstr "Энэ форумыг одоо ачаалах боломжгүй байна."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Энэ форум устгагдсан байж болно эсвэл та хандах эрхгүй байна."
 
 #: ../../../lib/web/src/components/coming-soon.tsx:14
-msgid "This page has not been created yet."
-msgstr "Энэ хуудсыг хараахан үүсгээгүй байна."
+#~ msgid "This page has not been created yet."
+#~ msgstr "Энэ хуудсыг хараахан үүсгээгүй байна."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Энэ пост устгагдсан байж болно эсвэл байхгүй."
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:63
 msgid "This post was already submitted"
 msgstr "Энэ нийтлэлийг аль хэдийн илгээсэн байна"
 
@@ -3318,20 +3307,20 @@ msgstr "Энэ нийтлэлийг аль хэдийн илгээсэн бай�
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Энэ нь таны хадгалсан жагсаалтаас бүх нийтлэлийг хасна. Үүнийг буцаах боломжгүй."
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Энэ нь сэтгэгдлийг энгийн хэрэглэгчдээс далдална. Модераторууд харах ба дараа нь сэргээх боломжтой."
 
-#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/features/forums/components/thread/thread-content.tsx:444
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Энэ нь постыг энгийн хэрэглэгчдээс далдална. Модераторууд харах ба дараа нь сэргээх боломжтой."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:434
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Энэ нь \"{0}\" болон бүх постууд, сэтгэгдлүүдийг бүрмөсөн устгана. Үүнийг буцаах боломжгүй."
 
-#: src/features/forums/thread-detail.tsx:157
+#: src/features/forums/thread-detail.tsx:142
 msgid "Thread"
 msgstr "Хэлхээ"
 
@@ -3339,7 +3328,7 @@ msgstr "Хэлхээ"
 msgid "Thursday"
 msgstr "Пүрэв гараг"
 
-#: src/features/forums/components/create-post-dialog.tsx:209
+#: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/edit-post-dialog.tsx:277
 msgid "Title"
 msgstr "Гарчиг"
@@ -3361,13 +3350,13 @@ msgid "To"
 msgstr "Хаашаа"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
-msgid "Toggle columns"
-msgstr "Багануудыг сэлгэх"
+#~ msgid "Toggle columns"
+#~ msgstr "Багануудыг сэлгэх"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:233
 #: ../../../lib/web/src/components/layout/right-panel.tsx:236
-msgid "Toggle right panel"
-msgstr "Баруун самбарыг солих"
+#~ msgid "Toggle right panel"
+#~ msgstr "Баруун самбарыг солих"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:365
 #: ../../../lib/web/src/components/layout/nav-group.tsx:372
@@ -3376,20 +3365,20 @@ msgstr "Баруун самбарыг солих"
 msgid "Toggle section"
 msgstr "Хэсгийг сэлгэх"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:317
-#: ../../../lib/web/src/components/ui/sidebar.tsx:320
+#: ../../../lib/web/src/components/ui/sidebar.tsx:337
+#: ../../../lib/web/src/components/ui/sidebar.tsx:340
 msgid "Toggle sidebar"
 msgstr "Хажуугийн самбарыг солих"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:332
-#: ../../../lib/web/src/components/ui/sidebar.tsx:335
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle Sidebar"
 msgstr "Хажуугийн самбарыг сэлгэх"
 
 #: ../../../lib/web/src/components/theme-switch.tsx:37
 #: ../../../lib/web/src/components/theme-switch.tsx:41
-msgid "Toggle theme"
-msgstr "Загварыг сэлгэх"
+#~ msgid "Toggle theme"
+#~ msgstr "Загварыг сэлгэх"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3412,14 +3401,12 @@ msgstr "Дээд"
 msgid "Travelling"
 msgstr "Аялж байна"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:194
 #: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Хайлтын үгсээ засахыг туршаад үз"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:140
 #: ../../../lib/web/src/features/errors/general-error.tsx:180
-#: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "Дахин оролдох"
 
@@ -3448,7 +3435,7 @@ msgstr "Хэрэглэгч хайхын тулд бичих"
 msgid "Type to search..."
 msgstr "Хайхын тулд бичих..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:292
 msgid "Unable to connect to remote server"
 msgstr "Алсын сервер рүү холбогдож чадсангүй"
 
@@ -3457,7 +3444,7 @@ msgstr "Алсын сервер рүү холбогдож чадсангүй"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Нэвтрэлт рүү чиглүүлэх боломжгүй. Дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "Хариуцсан хүн оноогоогүй"
 
@@ -3465,7 +3452,7 @@ msgstr "Хариуцсан хүн оноогоогүй"
 msgid "Unauthorized Access"
 msgstr "Зөвшөөрөлгүй хандалт"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Боломжгүй"
 
@@ -3481,58 +3468,58 @@ msgstr "АНУ"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "Unknown"
 msgstr "Үл мэдэгдэх"
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:374
 msgid "Unlock"
 msgstr "Тайлах"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Unpin"
 msgstr "Хадаас тайлах"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:389
-#: src/routes/_authenticated/$forum_.settings.tsx:406
+#: src/features/forums/pages/entity-forum-page.tsx:356
+#: src/routes/_authenticated/$forum_.settings.tsx:400
 msgid "Unsubscribe"
 msgstr "Захиалгаас гарах"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:394
+#: src/routes/_authenticated/$forum_.settings.tsx:388
 msgid "Unsubscribe from forum"
 msgstr "Форумаас захиалгаа гаргах"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:353
 msgid "Unsubscribe from forum?"
 msgstr "Чуулгаас бүртгэлээ цуцлах уу?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:185
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribed"
 msgstr "Захиалгаас гарсан"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:184
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribing..."
 msgstr "Захиалгаас гарч байна..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:284
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Гарчиггүй"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
-msgid "Unverified"
-msgstr "Баталгаажаагүй"
+#~ msgid "Unverified"
+#~ msgstr "Баталгаажаагүй"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Шинэчлэгдсэн"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:637
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Байршуулах"
@@ -3541,7 +3528,7 @@ msgstr "Байршуулах"
 msgid "Upload progress"
 msgstr "Байршуулалтын явц"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:340
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Нэвтрэх түлхүүрээ ашиглах"
 
@@ -3551,15 +3538,15 @@ msgstr "Нэвтрэх түлхүүрээ ашиглах"
 msgid "User"
 msgstr "Хэрэглэгч"
 
-#: src/features/forums/thread-detail.tsx:423
+#: src/features/forums/thread-detail.tsx:408
 msgid "User banned"
 msgstr "Хэрэглэгч хорьсон"
 
-#: src/features/forums/thread-detail.tsx:414
+#: src/features/forums/thread-detail.tsx:399
 msgid "User muted"
 msgstr "Хэрэглэгч чимээгүй болгосон"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:732
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Variables: {variables}"
 msgstr "Хувьсагчид: {variables}"
 
@@ -3568,15 +3555,14 @@ msgid "Verification code"
 msgstr "Баталгаажуулах код"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:255
-msgid "Verification code sent"
-msgstr "Баталгаажуулах код илгээгдсэн"
+#~ msgid "Verification code sent"
+#~ msgstr "Баталгаажуулах код илгээгдсэн"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:248
-msgid "Verification failed"
-msgstr "Баталгаажуулалт амжилтгүй"
+#~ msgid "Verification failed"
+#~ msgstr "Баталгаажуулалт амжилтгүй"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:390
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Баталгаажуулах"
@@ -3585,7 +3571,7 @@ msgstr "Баталгаажуулах"
 msgid "Verify email address"
 msgstr "Имэйл хаягийг баталгаажуулах"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:94
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Видеоны жижиг зураг"
 
@@ -3595,15 +3581,15 @@ msgid "Video viewer: {0}"
 msgstr "Видео үзэгч: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
-msgid "View"
-msgstr "Үзэх"
+#~ msgid "View"
+#~ msgstr "Үзэх"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:177
-msgid "View all"
-msgstr "Бүгдийг үзэх"
+#~ msgid "View all"
+#~ msgstr "Бүгдийг үзэх"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:211
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Бүх мэдэгдлүүдийг үзэх"
 
@@ -3611,20 +3597,20 @@ msgstr "Бүх мэдэгдлүүдийг үзэх"
 msgid "View controls"
 msgstr "Хяналт үзэх"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "View only"
 msgstr "Зөвхөн үзэх"
 
-#: src/features/forums/components/thread/thread-comment.tsx:258
+#: src/features/forums/components/thread/thread-comment.tsx:257
 msgid "View the image this comment is about"
 msgstr "Энэ сэтгэгдлийн холбогдох зургийг үзэх"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:755
+#: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "Хүчирхийлэл"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Vote and view"
 msgstr "Санал өгч үзэх"
 
@@ -3643,22 +3629,22 @@ msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify
 msgstr "Бид <0>{0}</0> хаяг руу баталгаажуулах код илгээлээ. Имэйл хаягаа баталгаажуулахын тулд доор кодоо оруулна уу."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
-msgid "We'll be back online shortly."
-msgstr "Бид удахгүй буцаж онлайн болно."
+#~ msgid "We'll be back online shortly."
+#~ msgstr "Бид удахгүй буцаж онлайн болно."
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:197
-msgid "We'll notify you when something important happens."
-msgstr "Чухал зүйл болвол бид танд мэдэгдэнэ."
+#~ msgid "We'll notify you when something important happens."
+#~ msgstr "Чухал зүйл болвол бид танд мэдэгдэнэ."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
-msgid "Website is under maintenance!"
-msgstr "Вэбсайт засвартай байна!"
+#~ msgid "Website is under maintenance!"
+#~ msgstr "Вэбсайт засвартай байна!"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Wednesday"
 msgstr "Лхагва гараг"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1088
+#: src/routes/_authenticated/$forum_.settings.tsx:1079
 msgid "Window duration"
 msgstr "Цонхны үргэлжлэх хугацаа"
 
@@ -3669,11 +3655,11 @@ msgstr "Цонхны үргэлжлэх хугацаа"
 msgid "You are already subscribed to this forum"
 msgstr "Та энэ форумыг аль хэдийн захиалсан байна"
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:59
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Та хэт хурдан нийтэлж байна — түр хүлээгээд дахин оролдоно уу"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:57
 msgid "You are restricted from posting in this forum"
 msgstr "Танд энэ форум дээр нийтлэх боломж хязгаарлагдсан"
 
@@ -3682,10 +3668,10 @@ msgid "You do not have access to this section."
 msgstr "Та энэ хэсэгт хандах эрхгүй байна."
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:18
-msgid "You don't have necessary permission <0/>to view this resource."
-msgstr "Танд энэ нөөцийг үзэх <0/>шаардлагатай зөвшөөрөл байхгүй."
+#~ msgid "You don't have necessary permission <0/>to view this resource."
+#~ msgstr "Танд энэ нөөцийг үзэх <0/>шаардлагатай зөвшөөрөл байхгүй."
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:55
 msgid "You don't have permission to post in this forum"
 msgstr "Танд энэ форум дээр нийтлэх зөвшөөрөл байхгүй"
 
@@ -3693,13 +3679,13 @@ msgstr "Танд энэ форум дээр нийтлэх зөвшөөрөл б
 msgid "You have no forums yet."
 msgstr "Танд одоохондоо форум байхгүй байна."
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Та энэ чуулгаас шинэчлэлт хүлээж авахаа болино. Та хүссэн үедээ дахин бүртгүүлж болно."
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "You're all caught up!"
-msgstr "Та бүгдийг үзсэн!"
+#~ msgid "You're all caught up!"
+#~ msgstr "Та бүгдийг үзсэн!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

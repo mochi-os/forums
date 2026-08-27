@@ -14,24 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:223
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณแล้วลองอีกครั้ง"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:1027
 msgid " · Expires {0}"
 msgstr " · หมดอายุ {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1028
 msgid " · Permanent"
 msgstr " · ถาวร"
 
-#: src/features/forums/components/thread/thread-comment.tsx:247
+#: src/features/forums/components/thread/thread-comment.tsx:246
+#: src/features/forums/components/thread/thread-content.tsx:200
 msgid " (edited)"
 msgstr " (แก้ไขแล้ว)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
 msgid " or "
 msgstr " หรือ "
 
@@ -43,64 +44,61 @@ msgstr "(แก้ไขแล้ว)"
 msgid "(expand)"
 msgstr "(ขยาย)"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:752
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:753
 msgid "[not set]"
 msgstr "[ไม่ได้ตั้ง]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:328
+#: src/features/forums/pages/entity-forum-page.tsx:294
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, other {# โพสต์ใหม่}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#. placeholder {0}: selectedValues.size
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:523
+#: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {เลือกแล้ว #} other {เลือกแล้ว #}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:304
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {แบนผู้ใช้ # ราย} other {แบนผู้ใช้ # ราย}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:287
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {ปิดเสียงผู้ใช้ # ราย} other {ปิดเสียงผู้ใช้ # ราย}}"
 
-#. placeholder {0}: item.label
 #: ../../../lib/web/src/components/config-drawer.tsx:160
-msgid "{0} option preview"
-msgstr "ตัวอย่างตัวเลือก {0}"
+#~ msgid "{0} option preview"
+#~ msgstr "ตัวอย่างตัวเลือก {0}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "{0} settings"
 msgstr "การตั้งค่า {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:175
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ว} other {#ว}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:171
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ชม} other {#ชม}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:167
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#น} other {#น}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:179
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#สัป} other {#สัป}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:236
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {อนุมัติ # รายการ} other {อนุมัติ # รายการ}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:258
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {ปฏิเสธ # รายการ} other {ปฏิเสธ # รายการ}}"
 
@@ -116,36 +114,36 @@ msgstr "ต้องระบุชื่อ{entityLabel}"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} เสนอเสมอ"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:64
+#: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {แสดงความคิดเห็นอื่นอีก # รายการในโพสต์นี้} other {แสดงความคิดเห็นอื่นอีก # รายการในโพสต์นี้}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:200
-msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
-msgstr "{selectedCount, plural, one {เลือก {entityName} แล้ว} other {เลือก {manyName} แล้ว}}"
+#~ msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+#~ msgstr "{selectedCount, plural, one {เลือก {entityName} แล้ว} other {เลือก {manyName} แล้ว}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:42
-msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
-msgstr "{selectedCount, plural, one {เลือก {entityName} # รายการแล้ว แถบเครื่องมือดำเนินการเป็นกลุ่มพร้อมใช้งาน} other {เลือก {manyName} # รายการแล้ว แถบเครื่องมือดำเนินการเป็นกลุ่มพร้อมใช้งาน}}"
+#~ msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+#~ msgstr "{selectedCount, plural, one {เลือก {entityName} # รายการแล้ว แถบเครื่องมือดำเนินการเป็นกลุ่มพร้อมใช้งาน} other {เลือก {manyName} # รายการแล้ว แถบเครื่องมือดำเนินการเป็นกลุ่มพร้อมใช้งาน}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:192
-msgid "{selectedCount, plural, one {# selected} other {# selected}}"
-msgstr "{selectedCount, plural, one {# ที่เลือก} other {# ที่เลือก}}"
+#~ msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+#~ msgstr "{selectedCount, plural, one {# ที่เลือก} other {# ที่เลือก}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:139
-msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
-msgstr "{selectedCount, plural, one {การดำเนินการเป็นกลุ่มสำหรับ {entityName} # รายการที่เลือก} other {การดำเนินการเป็นกลุ่มสำหรับ {manyName} # รายการที่เลือก}}"
+#~ msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+#~ msgstr "{selectedCount, plural, one {การดำเนินการเป็นกลุ่มสำหรับ {entityName} # รายการที่เลือก} other {การดำเนินการเป็นกลุ่มสำหรับ {manyName} # รายการที่เลือก}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:241
+#: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} จาก {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:528
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# รายการ} other {# รายการ}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:233
+#: src/features/forums/components/thread/thread-comment.tsx:232
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# คำตอบ} other {# คำตอบ}}"
 
@@ -182,7 +180,7 @@ msgstr "สัมบูรณ์ (วันที่และเวลา)"
 msgid "Accept"
 msgstr "ยอมรับ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Access"
 msgstr "การเข้าถึง"
 
@@ -191,50 +189,50 @@ msgid "Access denied"
 msgstr "ปฏิเสธการเข้าถึง"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
-msgid "Access Forbidden"
-msgstr "ห้ามเข้าถึง"
+#~ msgid "Access Forbidden"
+#~ msgstr "ห้ามเข้าถึง"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "ระดับการเข้าถึง"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:846
+#: src/routes/_authenticated/$forum_.settings.tsx:837
 msgid "Access level updated"
 msgstr "อัปเดตระดับการเข้าถึงแล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:855
+#: src/routes/_authenticated/$forum_.settings.tsx:846
 msgid "Access management"
 msgstr "การจัดการการเข้าถึง"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:831
+#: src/routes/_authenticated/$forum_.settings.tsx:822
 msgid "Access removed"
 msgstr "ลบการเข้าถึงแล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Access set for {subjectName}"
 msgstr "ตั้งค่าการเข้าถึงสำหรับ{subjectName}แล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:563
 msgid "Account"
 msgstr "บัญชี"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:216
-msgid "Account added"
-msgstr "เพิ่มบัญชีแล้ว"
+#~ msgid "Account added"
+#~ msgstr "เพิ่มบัญชีแล้ว"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:232
-msgid "Account removed"
-msgstr "ลบบัญชีแล้ว"
+#~ msgid "Account removed"
+#~ msgstr "ลบบัญชีแล้ว"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "ประเภทบัญชี"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:242
-msgid "Account verified"
-msgstr "ยืนยันบัญชีแล้ว"
+#~ msgid "Account verified"
+#~ msgstr "ยืนยันบัญชีแล้ว"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:711
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
@@ -257,19 +255,18 @@ msgid "Add access"
 msgstr "เพิ่มการเข้าถึง"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:132
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:288
 msgid "Add account"
 msgstr "เพิ่มบัญชี"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:297
-msgid "Add an account to receive notifications and use services."
-msgstr "เพิ่มบัญชีเพื่อรับการแจ้งเตือนและใช้บริการ"
+#~ msgid "Add an account to receive notifications and use services."
+#~ msgstr "เพิ่มบัญชีเพื่อรับการแจ้งเตือนและใช้บริการ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Add caption"
 msgstr "เพิ่มคำบรรยายภาพ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:681
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "เพิ่มรายการเช็คลิสต์"
 
@@ -278,12 +275,12 @@ msgstr "เพิ่มรายการเช็คลิสต์"
 msgid "Add field"
 msgstr "เพิ่มฟิลด์"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:273
 #: src/features/forums/components/edit-post-dialog.tsx:323
 msgid "Add files"
 msgstr "เพิ่มไฟล์"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:699
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "เพิ่มรายการ..."
 
@@ -292,8 +289,8 @@ msgid "Add link"
 msgstr "เพิ่มลิงก์"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
-msgid "Add new account"
-msgstr "เพิ่มบัญชีใหม่"
+#~ msgid "Add new account"
+#~ msgstr "เพิ่มบัญชีใหม่"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
@@ -303,18 +300,17 @@ msgstr "เพิ่มบัญชีใหม่"
 msgid "Add option"
 msgstr "เพิ่มตัวเลือก"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:856
 msgid "Add rule"
 msgstr "เพิ่มกฎ"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
-#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "เพิ่มแท็ก..."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:83
-msgid "Add team/app"
-msgstr "เพิ่มทีม/แอป"
+#~ msgid "Add team/app"
+#~ msgstr "เพิ่มทีม/แอป"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:175
 msgid "Add to existing notifications"
@@ -336,20 +332,19 @@ msgid "Additional details (optional)"
 msgstr "รายละเอียดเพิ่มเติม (ไม่บังคับ)"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:72
-msgid "Adjust the appearance and layout to suit your preferences."
-msgstr "ปรับลักษณะและรูปแบบให้เหมาะกับความต้องการของคุณ"
+#~ msgid "Adjust the appearance and layout to suit your preferences."
+#~ msgstr "ปรับลักษณะและรูปแบบให้เหมาะกับความต้องการของคุณ"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:557
+#: src/routes/_authenticated/$forum_.settings.tsx:550
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI actions on posts"
 msgstr "การกระทำของ AI บนโพสต์"
 
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
 msgid "All"
 msgstr "ทั้งหมด"
 
@@ -358,7 +353,7 @@ msgstr "ทั้งหมด"
 msgid "All forums"
 msgstr "ฟอรัมทั้งหมด"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "โพสต์และความคิดเห็นทั้งหมดได้รับการตรวจสอบแล้ว"
 
@@ -379,7 +374,7 @@ msgstr "อนุญาตให้เรียงตาม"
 msgid "An error occurred"
 msgstr "เกิดข้อผิดพลาด"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:266
 msgid "An unexpected error occurred"
 msgstr "เกิดข้อผิดพลาดที่ไม่คาดคิด"
 
@@ -392,11 +387,11 @@ msgid "Any additional context..."
 msgstr "บริบทเพิ่มเติมใดๆ..."
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Anyone"
 msgstr "ใครก็ได้"
 
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
 msgstr "ใครก็ตามที่เข้าสู่ระบบ"
 
@@ -404,8 +399,8 @@ msgstr "ใครก็ตามที่เข้าสู่ระบบ"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "ทุกอย่างที่สมัครรับฟีดนี้จะหยุดรับ คุณสามารถคัดลอก URL ใหม่ได้ภายหลัง"
 
-#: src/features/forums/components/thread/thread-comment.tsx:454
-#: src/routes/_authenticated/$forum_.moderation.tsx:488
+#: src/features/forums/components/thread/thread-comment.tsx:453
+#: src/routes/_authenticated/$forum_.moderation.tsx:482
 msgid "Approve"
 msgstr "อนุมัติ"
 
@@ -414,7 +409,7 @@ msgstr "อนุมัติ"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบ\"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:627
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบคอลัมน์\"{name}\"? การกระทำนี้ไม่สามารถยกเลิกได้"
 
@@ -422,11 +417,11 @@ msgstr "คุณแน่ใจหรือไม่ว่าต้องกา
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบความคิดเห็นนี้? การตอบกลับทั้งหมดจะถูกลบด้วย"
 
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบความคิดเห็นนี้? การตอบกลับทั้งหมดจะถูกลบด้วย การกระทำนี้ไม่สามารถยกเลิกได้"
 
-#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/features/forums/components/thread/thread-content.tsx:430
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้? การดำเนินการนี้จะลบความคิดเห็นทั้งหมดด้วย ไม่สามารถเลิกทำได้"
 
@@ -435,8 +430,8 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ? คุณจะต้องเข้าสู่ระบบอีกครั้งเพื่อเข้าถึงบัญชีของคุณ"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:59
-msgid "Asc"
-msgstr "น้อยไปมาก"
+#~ msgid "Asc"
+#~ msgstr "น้อยไปมาก"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -451,11 +446,11 @@ msgid "Attach reply files"
 msgstr "แนบไฟล์ตอบกลับ"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:46
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Authenticated users"
 msgstr "ผู้ใช้ที่ยืนยันตัวตนแล้ว"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:317
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "รหัส Authenticator"
 
@@ -476,14 +471,14 @@ msgid "Back"
 msgstr "ย้อนกลับ"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:325
-#: src/features/forums/thread-detail.tsx:337
-#: src/features/forums/thread-detail.tsx:358
-#: src/features/forums/thread-detail.tsx:480
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:225
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:270
+#: src/features/forums/thread-detail.tsx:310
+#: src/features/forums/thread-detail.tsx:322
+#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:459
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:219
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:264
 msgid "Back to forum"
 msgstr "กลับไปยังฟอรัม"
 
@@ -491,35 +486,38 @@ msgstr "กลับไปยังฟอรัม"
 msgid "Back to forums"
 msgstr "กลับไปยังฟอรัม"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:28
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "กลับไปหน้าหลัก"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:514
+#: src/routes/_authenticated/$forum_.moderation.tsx:508
 msgid "Ban"
 msgstr "แบน"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-comment.tsx:495
+#: src/features/forums/components/thread/thread-content.tsx:414
 msgid "Ban author"
 msgstr "แบนผู้เขียน"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "banned"
+#~ msgid "banned"
+#~ msgstr "ถูกแบน"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Banned"
 msgstr "ถูกแบน"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Banner"
 msgstr "แบนเนอร์"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner removed"
 msgstr "ลบแบนเนอร์แล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner updated"
 msgstr "อัปเดตแบนเนอร์แล้ว"
 
@@ -528,8 +526,8 @@ msgstr "อัปเดตแบนเนอร์แล้ว"
 msgid "Blocked by"
 msgstr "ถูกบล็อกโดย"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:225
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:235
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "บล็อกการนำทางไปยังลิงก์ที่ไม่น่าเชื่อถือ"
 
@@ -555,22 +553,22 @@ msgid "Browser notifications"
 msgstr "การแจ้งเตือนของเบราว์เซอร์"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "by {0}"
 msgstr "โดย {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1000
+#: src/routes/_authenticated/$forum_.moderation.tsx:1025
 msgid "By {0}"
 msgstr "โดย {0}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:419
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:612
+#: ../../../lib/web/src/components/attachment-composer.tsx:426
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:365
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -578,10 +576,10 @@ msgstr "โดย {0}"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:296
-#: src/features/forums/components/edit-post-dialog.tsx:370
+#: src/features/forums/components/create-post-dialog.tsx:297
+#: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -593,23 +591,23 @@ msgstr "ยกเลิกความคิดเห็น"
 msgid "Cancel reply"
 msgstr "ยกเลิกการตอบกลับ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:379
-#: ../../../lib/web/src/components/attachment-composer.tsx:414
+#: ../../../lib/web/src/components/attachment-composer.tsx:386
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
 msgid "Caption"
 msgstr "คำบรรยายภาพ"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:97
+#: ../../../lib/web/src/components/notification-category-button.tsx:99
 msgid "Category for these notifications"
 msgstr "หมวดหมู่สำหรับการแจ้งเตือนเหล่านี้"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:78
-#: ../../../lib/web/src/components/notification-category-button.tsx:89
+#: ../../../lib/web/src/components/notification-category-button.tsx:80
+#: ../../../lib/web/src/components/notification-category-button.tsx:91
 msgid "Change notification category"
 msgstr "เปลี่ยนหมวดหมู่การแจ้งเตือน"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:198
-msgid "Check \"All\" to see your past notifications."
-msgstr "เลือก \"ทั้งหมด\" เพื่อดูการแจ้งเตือนที่ผ่านมา"
+#~ msgid "Check \"All\" to see your past notifications."
+#~ msgstr "เลือก \"ทั้งหมด\" เพื่อดูการแจ้งเตือนที่ผ่านมา"
 
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
@@ -623,28 +621,28 @@ msgstr "ช่องทำเครื่องหมาย"
 msgid "Checklist"
 msgstr "เช็คลิสต์"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:33
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:35
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "เลือกเกมจากแถบด้านข้างหรือเริ่มเกมใหม่"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
-msgid "Choose between default expanded, compact icon-only, or full layout mode"
-msgstr "เลือกระหว่างโหมดขยายปกติ ไอคอนกะทัดรัด หรือเต็มรูปแบบ"
+#~ msgid "Choose between default expanded, compact icon-only, or full layout mode"
+#~ msgstr "เลือกระหว่างโหมดขยายปกติ ไอคอนกะทัดรัด หรือเต็มรูปแบบ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:271
-msgid "Choose between inset, floating, or standard sidebar layout"
-msgstr "เลือกระหว่างเลย์เอาต์แถบด้านข้างแบบฝัง ลอย หรือมาตรฐาน"
+#~ msgid "Choose between inset, floating, or standard sidebar layout"
+#~ msgstr "เลือกระหว่างเลย์เอาต์แถบด้านข้างแบบฝัง ลอย หรือมาตรฐาน"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:372
-msgid "Choose between left-to-right or right-to-left site direction"
-msgstr "เลือกระหว่างทิศทางเว็บไซต์จากซ้ายไปขวาหรือขวาไปซ้าย"
+#~ msgid "Choose between left-to-right or right-to-left site direction"
+#~ msgstr "เลือกระหว่างทิศทางเว็บไซต์จากซ้ายไปขวาหรือขวาไปซ้าย"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:227
-msgid "Choose between system preference, light mode, or dark mode"
-msgstr "เลือกระหว่างการตั้งค่าระบบ โหมดสว่าง หรือโหมดมืด"
+#~ msgid "Choose between system preference, light mode, or dark mode"
+#~ msgstr "เลือกระหว่างการตั้งค่าระบบ โหมดสว่าง หรือโหมดมืด"
 
-#: ../../../lib/web/src/components/language-picker.tsx:263
-#: ../../../lib/web/src/components/language-picker.tsx:270
+#: ../../../lib/web/src/components/language-picker.tsx:264
+#: ../../../lib/web/src/components/language-picker.tsx:271
 msgid "Choose language"
 msgstr "เลือกภาษา"
 
@@ -654,7 +652,7 @@ msgstr "เลือกภาษา"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:506
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Clear"
 msgstr "ล้าง"
 
@@ -669,8 +667,8 @@ msgid "Clear all saved posts?"
 msgstr "ล้างโพสต์ที่บันทึกทั้งหมดไหม?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
-msgid "Clear filters"
-msgstr "ล้างตัวกรอง"
+#~ msgid "Clear filters"
+#~ msgstr "ล้างตัวกรอง"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 msgid "Clear search"
@@ -678,20 +676,20 @@ msgstr "ล้างการค้นหา"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
-msgid "Clear selection"
-msgstr "ล้างการเลือก"
+#~ msgid "Clear selection"
+#~ msgstr "ล้างการเลือก"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:175
-msgid "Clear selection (Escape)"
-msgstr "ล้างการเลือก (Escape)"
+#~ msgid "Clear selection (Escape)"
+#~ msgstr "ล้างการเลือก (Escape)"
 
-#: src/lib/saved.ts:33
+#: src/lib/saved.ts:34
 msgid "Clearing saved posts..."
 msgstr "กำลังล้างโพสต์ที่บันทึกไว้..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:505
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
@@ -711,8 +709,8 @@ msgstr "ปิดกล่องโต้ตอบ"
 msgid "Close navigation"
 msgstr "ปิดการนำทาง"
 
-#: ../../../lib/web/src/components/layout/right-panel.tsx:265
-#: ../../../lib/web/src/components/layout/right-panel.tsx:268
+#: ../../../lib/web/src/components/layout/right-panel.tsx:234
+#: ../../../lib/web/src/components/layout/right-panel.tsx:237
 msgid "Close panel"
 msgstr "ปิดแผง"
 
@@ -739,8 +737,8 @@ msgstr "ย่อแถบด้านข้าง"
 msgid "Colour"
 msgstr "สี"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:537
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:542
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "การดำเนินการคอลัมน์"
 
@@ -753,12 +751,16 @@ msgid "Comfortable"
 msgstr "สบาย"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:12
-msgid "Coming Soon!"
-msgstr "เร็วๆนี้!"
+#~ msgid "Coming Soon!"
+#~ msgstr "เร็วๆนี้!"
 
 #: ../../../lib/web/src/components/ui/command.tsx:34
 msgid "Command Palette"
 msgstr "แผงคำสั่ง"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:760
+msgid "Comment"
+msgstr "ความคิดเห็น"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:292
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:299
@@ -773,11 +775,11 @@ msgstr "อนุมัติความคิดเห็นแล้ว"
 msgid "Comment deleted"
 msgstr "ลบความคิดเห็นแล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1073
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Comment limit"
 msgstr "ขีดจำกัดความคิดเห็น"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:84
+#: src/features/forums/components/thread/attachment-comments.tsx:85
 msgid "Comment on this image…"
 msgstr "แสดงความคิดเห็นต่อรูปนี้…"
 
@@ -797,7 +799,7 @@ msgstr "กู้คืนความคิดเห็นแล้ว"
 msgid "Comment updated"
 msgstr "อัปเดตความคิดเห็นแล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Comment, vote, and view"
 msgstr "แสดงความคิดเห็น โหวต และดู"
 
@@ -806,7 +808,6 @@ msgstr "แสดงความคิดเห็น โหวต และด�
 msgid "Comments"
 msgstr "ความคิดเห็น"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "กะทัดรัด"
@@ -829,19 +830,19 @@ msgid "Connected"
 msgstr "เชื่อมต่อแล้ว"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:191
-msgid "Connected accounts"
-msgstr "บัญชีที่เชื่อมต่อ"
+#~ msgid "Connected accounts"
+#~ msgstr "บัญชีที่เชื่อมต่อ"
 
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Connecting..."
 msgstr "กำลังเชื่อมต่อ..."
 
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:227
 #: src/features/forums/components/edit-post-dialog.tsx:294
 msgid "Content"
 msgstr "เนื้อหา"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1023
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "เนื้อหาจากผู้ใช้ที่ต่ำกว่าเกณฑ์ต้องได้รับการอนุมัติ"
 
@@ -865,7 +866,7 @@ msgstr "ข้อมูลบริบทและรายละเอียด
 msgid "Continue"
 msgstr "ดำเนินการต่อ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "ดำเนินการต่อด้วย {label}"
 
@@ -885,26 +886,26 @@ msgstr "คัดลอก"
 msgid "Could not load this document. Please try again later."
 msgstr "ไม่สามารถโหลดเอกสารนี้ได้ โปรดลองอีกครั้งในภายหลัง"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "ไม่สามารถโหลดการแจ้งเตือนได้"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "ส่งรหัสไม่สำเร็จ โปรดลองอีกครั้ง"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:135
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "เริ่มการยืนยันตัวตนอีกครั้งไม่สำเร็จ โปรดลองอีกครั้ง"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:223
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "ไม่สามารถยืนยันด้วยบัญชีนั้นได้ โปรดลองอีกครั้ง"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:548
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:687
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "สร้าง"
@@ -918,7 +919,7 @@ msgstr "สร้าง{0}"
 msgid "Create a new forum"
 msgstr "สร้างฟอรัมใหม่"
 
-#: src/features/forums/components/create-post-dialog.tsx:198
+#: src/features/forums/components/create-post-dialog.tsx:199
 msgid "Create a new post"
 msgstr "สร้างโพสต์ใหม่"
 
@@ -940,7 +941,7 @@ msgstr "สร้างแล้ว"
 msgid "Creating forum..."
 msgstr "กำลังสร้างฟอรัม..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "กำลังสร้าง..."
@@ -950,22 +951,20 @@ msgid "Current location"
 msgstr "ตำแหน่งปัจจุบัน"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "กำหนดเอง"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:219
-#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:15
 msgid "Dark"
 msgstr "มืด"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:87
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
-msgid "Dark mode"
-msgstr "โหมดมืด"
+#~ msgid "Dark mode"
+#~ msgstr "โหมดมืด"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:250
 msgid "Data conflict"
 msgstr "ข้อมูลขัดแย้งกัน"
 
@@ -973,7 +972,7 @@ msgstr "ข้อมูลขัดแย้งกัน"
 msgid "Date"
 msgstr "วันที่"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1045
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
 msgid "days"
 msgstr "วัน"
 
@@ -981,12 +980,11 @@ msgstr "วัน"
 msgid "Decline"
 msgstr "ปฏิเสธ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:713
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "ค่าเริ่มต้น"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:569
 msgid "Default account"
 msgstr "บัญชีเริ่มต้น"
 
@@ -998,8 +996,8 @@ msgstr "บัญชี AI เริ่มต้น"
 msgid "Default sort"
 msgstr "การเรียงลำดับเริ่มต้น"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:567
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
@@ -1007,11 +1005,11 @@ msgstr "การเรียงลำดับเริ่มต้น"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:441
-#: src/features/forums/components/thread/thread-comment.tsx:513
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:432
-#: src/routes/_authenticated/$forum_.settings.tsx:424
+#: src/features/forums/components/thread/thread-comment.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-content.tsx:351
+#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:418
 msgid "Delete"
 msgstr "ลบ"
 
@@ -1019,12 +1017,12 @@ msgstr "ลบ"
 msgid "Delete attachment"
 msgstr "ลบไฟล์แนบ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:626
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "ลบคอลัมน์"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:510
 msgid "Delete comment"
 msgstr "ลบความคิดเห็น"
 
@@ -1032,12 +1030,12 @@ msgstr "ลบความคิดเห็น"
 msgid "Delete field"
 msgstr "ลบฟิลด์"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
-#: src/routes/_authenticated/$forum_.settings.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:409
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "Delete forum"
 msgstr "ลบฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:433
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum?"
 msgstr "ลบฟอรัมหรือไม่?"
 
@@ -1051,7 +1049,7 @@ msgstr "ลบตัวเลือก"
 msgid "Delete option {0}"
 msgstr "ลบตัวเลือก{0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:430
+#: src/features/forums/components/thread/thread-content.tsx:429
 msgid "Delete post"
 msgstr "ลบโพสต์"
 
@@ -1068,8 +1066,8 @@ msgid "Deleting forum..."
 msgstr "กำลังลบฟอรัม..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
-msgid "Desc"
-msgstr "มากไปน้อย"
+#~ msgid "Desc"
+#~ msgstr "มากไปน้อย"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
@@ -1087,7 +1085,7 @@ msgstr "รายละเอียด (จำเป็น)"
 msgid "Details Panel"
 msgstr "แผงรายละเอียด"
 
-#: ../../../lib/web/src/components/language-picker.tsx:239
+#: ../../../lib/web/src/components/language-picker.tsx:240
 #: ../../../lib/web/src/components/timezone-select.tsx:46
 #: ../../../lib/web/src/components/timezone-select.tsx:83
 #: ../../../lib/web/src/lib/preference-utils.ts:23
@@ -1099,14 +1097,14 @@ msgid "Detect from web browser"
 msgstr "ตรวจจับจากเว็บเบราว์เซอร์"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:341
-msgid "Direction"
-msgstr "ทิศทาง"
+#~ msgid "Direction"
+#~ msgstr "ทิศทาง"
 
 #: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "ไดเรกทอรี"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:557
 msgid "Disabled"
 msgstr "ปิดใช้งานแล้ว"
 
@@ -1125,7 +1123,7 @@ msgstr "ตัดการเชื่อมต่อแล้ว"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:715
+#: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "ปิด"
 
@@ -1134,7 +1132,7 @@ msgstr "ปิด"
 msgid "Dismiss banner"
 msgstr "ปิดแบนเนอร์"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:238
+#: ../../../lib/web/src/components/ui/sidebar.tsx:258
 msgid "Displays the mobile sidebar."
 msgstr "แสดงแถบด้านข้างบนมือถือ"
 
@@ -1149,7 +1147,7 @@ msgstr "เสร็จสิ้น"
 msgid "Download"
 msgstr "ดาวน์โหลด"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:99
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "ดาวน์โหลดไม่สำเร็จ"
 
@@ -1157,14 +1155,14 @@ msgstr "ดาวน์โหลดไม่สำเร็จ"
 msgid "Duplicates"
 msgstr "ทำซ้ำ"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:141
+#: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Dyslexia-friendly"
 msgstr "เหมาะสำหรับผู้บกพร่องการอ่าน"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:435
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:434
+#: src/features/forums/components/thread/thread-content.tsx:345
 msgid "Edit"
 msgstr "แก้ไข"
 
@@ -1172,7 +1170,7 @@ msgstr "แก้ไข"
 msgid "Edit {label}"
 msgstr "แก้ไข {label}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Edit caption"
 msgstr "แก้ไขคำบรรยายภาพ"
 
@@ -1211,23 +1209,23 @@ msgstr "แก้ไขมุมมอง"
 msgid "Email"
 msgstr "อีเมล"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:291
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "รหัสอีเมล"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:482
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "Enter banner text (markdown supported)..."
 msgstr "ป้อนข้อความแบนเนอร์ (รองรับ markdown)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:301
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "ป้อนรหัสจากอีเมลของคุณ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:326
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "ป้อนรหัสจากแอปยืนยันตัวตนของคุณ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Entity ID"
 msgstr "Entity ID"
 
@@ -1246,39 +1244,38 @@ msgstr "ขยายแถบด้านข้าง"
 msgid "External URL"
 msgstr "URL ภายนอก"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:131
+#: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "ใหญ่พิเศษ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:225
-msgid "Failed to add account"
-msgstr "ไม่สามารถเพิ่มบัญชีได้"
+#~ msgid "Failed to add account"
+#~ msgstr "ไม่สามารถเพิ่มบัญชีได้"
 
-#: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:247
+#: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "ไม่สามารถเพิ่มแท็กได้"
 
-#: src/features/forums/pages/entity-forum-page.tsx:232
-#: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:258
-#: src/features/forums/thread-detail.tsx:270
+#: src/features/forums/pages/entity-forum-page.tsx:198
+#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/thread-detail.tsx:243
+#: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "ไม่สามารถปรับความสนใจได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:239
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
 msgid "Failed to approve items"
 msgstr "ไม่สามารถอนุมัติรายการได้"
 
-#: src/features/forums/thread-detail.tsx:425
+#: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "ไม่สามารถแบนผู้ใช้ได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
 msgid "Failed to ban users"
 msgstr "ไม่สามารถแบนผู้ใช้ได้"
 
-#: src/lib/saved.ts:35
+#: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
 msgstr "ล้างโพสต์ที่บันทึกไม่สำเร็จ"
 
@@ -1316,11 +1313,11 @@ msgstr "ไม่สามารถลบลิงก์ได้"
 msgid "Failed to get RSS token"
 msgstr "ไม่สามารถรับ RSS token ได้"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:77
+#: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "ไม่สามารถโหลดได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
 msgstr "ไม่สามารถโหลดกฎการเข้าถึงได้"
 
@@ -1328,7 +1325,7 @@ msgstr "ไม่สามารถโหลดกฎการเข้าถึ
 msgid "Failed to load forum"
 msgstr "ไม่สามารถโหลดฟอรัมได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:157
 msgid "Failed to load forum settings"
 msgstr "โหลดการตั้งค่าฟอรัมไม่สำเร็จ"
 
@@ -1336,11 +1333,11 @@ msgstr "โหลดการตั้งค่าฟอรัมไม่สำ
 msgid "Failed to load forums"
 msgstr "ไม่สามารถโหลดฟอรัมได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:788
 msgid "Failed to load groups"
 msgstr "โหลดกลุ่มไม่สำเร็จ"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:65
+#: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
 msgstr "ไม่สามารถโหลดประวัติได้"
 
@@ -1348,15 +1345,15 @@ msgstr "ไม่สามารถโหลดประวัติได้"
 msgid "Failed to load image"
 msgstr "โหลดรูปภาพไม่สำเร็จ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "ไม่สามารถโหลดบันทึกการดูแลได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:166
 msgid "Failed to load moderation queue"
 msgstr "โหลดคิวการดูแลไม่สำเร็จ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:940
+#: src/routes/_authenticated/$forum_.settings.tsx:931
 msgid "Failed to load moderation settings"
 msgstr "โหลดการตั้งค่าการดูแลไม่สำเร็จ"
 
@@ -1365,11 +1362,11 @@ msgstr "โหลดการตั้งค่าการดูแลไม่
 msgid "Failed to load recommended forums"
 msgstr "โหลดฟอรัมแนะนำไม่สำเร็จ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:550
+#: src/routes/_authenticated/$forum_.moderation.tsx:546
 msgid "Failed to load reports"
 msgstr "ไม่สามารถโหลดรายงานได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:891
+#: src/routes/_authenticated/$forum_.moderation.tsx:916
 msgid "Failed to load restrictions"
 msgstr "โหลดข้อจำกัดไม่สำเร็จ"
 
@@ -1377,11 +1374,11 @@ msgstr "โหลดข้อจำกัดไม่สำเร็จ"
 msgid "Failed to load video"
 msgstr "โหลดวิดีโอไม่สำเร็จ"
 
-#: src/features/forums/thread-detail.tsx:416
+#: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "ไม่สามารถปิดเสียงผู้ใช้ได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:290
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
 msgid "Failed to mute users"
 msgstr "ไม่สามารถปิดเสียงผู้ใช้ได้"
 
@@ -1389,40 +1386,40 @@ msgstr "ไม่สามารถปิดเสียงผู้ใช้ไ
 msgid "Failed to post comment"
 msgstr "ไม่สามารถโพสต์ความคิดเห็นได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:261
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
 msgid "Failed to reject items"
 msgstr "ไม่สามารถปฏิเสธรายการได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:834
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to remove access"
 msgstr "ไม่สามารถเอาการเข้าถึงออกได้"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
-msgid "Failed to remove account"
-msgstr "ไม่สามารถเอาบัญชีออกได้"
+#~ msgid "Failed to remove account"
+#~ msgstr "ไม่สามารถเอาบัญชีออกได้"
 
-#: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "ไม่สามารถเอาความสนใจออกได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:908
+#: src/routes/_authenticated/$forum_.moderation.tsx:933
 msgid "Failed to remove restriction"
 msgstr "ไม่สามารถเอาข้อจำกัดออกได้"
 
-#: src/lib/saved.ts:32
+#: src/lib/saved.ts:33
 msgid "Failed to remove saved post"
 msgstr "นำโพสต์ที่บันทึกออกไม่สำเร็จ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:208
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Failed to rename forum"
 msgstr "ไม่สามารถเปลี่ยนชื่อฟอรัมได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:684
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Failed to reset prompt"
 msgstr "ไม่สามารถรีเซ็ต prompt ได้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:567
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
 msgid "Failed to resolve report"
 msgstr "ไม่สามารถแก้ไขรายงานได้"
 
@@ -1430,15 +1427,15 @@ msgstr "ไม่สามารถแก้ไขรายงานได้"
 msgid "Failed to revoke RSS access"
 msgstr "ไม่สามารถเพิกถอนการเข้าถึง RSS ได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:957
+#: src/routes/_authenticated/$forum_.settings.tsx:948
 msgid "Failed to save moderation settings"
 msgstr "ไม่สามารถบันทึกการตั้งค่าการดูแลได้"
 
-#: src/lib/saved.ts:29
+#: src/lib/saved.ts:30
 msgid "Failed to save post"
 msgstr "บันทึกโพสต์ไม่สำเร็จ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to save prompt"
 msgstr "ไม่สามารถบันทึก prompt ได้"
 
@@ -1447,15 +1444,15 @@ msgstr "ไม่สามารถบันทึก prompt ได้"
 msgid "Failed to search forums"
 msgstr "ไม่สามารถค้นหาฟอรัมได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:794
+#: src/routes/_authenticated/$forum_.settings.tsx:785
 msgid "Failed to search users"
 msgstr "ค้นหาผู้ใช้ไม่สำเร็จ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:257
-msgid "Failed to send verification code"
-msgstr "ไม่สามารถส่งรหัสยืนยันได้"
+#~ msgid "Failed to send verification code"
+#~ msgstr "ไม่สามารถส่งรหัสยืนยันได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:822
+#: src/routes/_authenticated/$forum_.settings.tsx:813
 msgid "Failed to set access level"
 msgstr "ไม่สามารถตั้งระดับการเข้าถึงได้"
 
@@ -1467,20 +1464,20 @@ msgid "Failed to subscribe"
 msgstr "ไม่สามารถสมัครติดตามได้"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:186
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Failed to unsubscribe"
 msgstr "ไม่สามารถยกเลิกการติดตามได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:840
 msgid "Failed to update access level"
 msgstr "ไม่สามารถอัปเดตระดับการเข้าถึงได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:537
-#: src/routes/_authenticated/$forum_.settings.tsx:549
+#: src/routes/_authenticated/$forum_.settings.tsx:531
+#: src/routes/_authenticated/$forum_.settings.tsx:543
 msgid "Failed to update AI settings"
 msgstr "ไม่สามารถอัปเดตการตั้งค่า AI ได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:468
+#: src/routes/_authenticated/$forum_.settings.tsx:462
 msgid "Failed to update banner"
 msgstr "ไม่สามารถอัปเดตแบนเนอร์ได้"
 
@@ -1492,19 +1489,19 @@ msgstr "ไม่สามารถอัปเดตความคิดเห
 msgid "Failed to upload attachment"
 msgstr "ไม่สามารถอัปโหลดไฟล์แนบได้"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:588
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
-#: src/features/forums/components/create-post-dialog.tsx:268
+#: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
 msgstr "ไฟล์"
 
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
-msgid "Filter..."
-msgstr "กรอง..."
+#~ msgid "Filter..."
+#~ msgstr "กรอง..."
 
-#: src/features/forums/pages/entity-forum-page.tsx:336
+#: src/features/forums/pages/entity-forum-page.tsx:302
 msgid "Filtered by tag:"
 msgstr "กรองตามแท็ก:"
 
@@ -1513,7 +1510,7 @@ msgstr "กรองตามแท็ก:"
 msgid "Find forums"
 msgstr "ค้นหาฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:377
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
@@ -1530,13 +1527,13 @@ msgid "Flat"
 msgstr "แบน"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:258
-msgid "Floating"
-msgstr "ลอย"
+#~ msgid "Floating"
+#~ msgstr "ลอย"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:162
+#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/thread-detail.tsx:147
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ฟอรัม"
@@ -1549,7 +1546,7 @@ msgstr "สร้างฟอรัมแล้ว"
 msgid "Forum deleted"
 msgstr "ลบฟอรัมแล้ว"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:65
 msgid "Forum is no longer available"
 msgstr "ฟอรัมไม่พร้อมใช้งานอีกต่อไป"
 
@@ -1557,23 +1554,23 @@ msgstr "ฟอรัมไม่พร้อมใช้งานอีกต่
 msgid "Forum link"
 msgstr "ลิงก์ฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:351
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Forum name is required"
 msgstr "ต้องระบุชื่อฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum not found"
 msgstr "ไม่พบฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:207
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Forum renamed"
 msgstr "เปลี่ยนชื่อฟอรัมแล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:280
+#: src/routes/_authenticated/$forum_.settings.tsx:274
 msgid "Forum settings sections"
 msgstr "ส่วนการตั้งค่าฟอรัม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum unavailable"
 msgstr "ฟอรัมไม่พร้อมใช้งาน"
 
@@ -1599,41 +1596,39 @@ msgstr "จาก"
 #: ../../../lib/web/src/lib/preference-utils.ts:89
 #: ../../../lib/web/src/lib/preference-utils.ts:99
 #: ../../../lib/web/src/lib/preference-utils.ts:110
-#: ../../../lib/web/src/lib/preference-utils.ts:119
-#: ../../../lib/web/src/lib/preference-utils.ts:127
-#: ../../../lib/web/src/lib/preference-utils.ts:138
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
 msgid "From theme"
 msgstr "จากธีม"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:321
-msgid "Full layout"
-msgstr "เลย์เอาต์เต็ม"
+#~ msgid "Full layout"
+#~ msgstr "เลย์เอาต์เต็ม"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "กลับ"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:82
-msgid "Go to first page"
-msgstr "ไปหน้าแรก"
+#~ msgid "Go to first page"
+#~ msgstr "ไปหน้าแรก"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:128
-msgid "Go to last page"
-msgstr "ไปหน้าสุดท้าย"
+#~ msgid "Go to last page"
+#~ msgstr "ไปหน้าสุดท้าย"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:119
-msgid "Go to next page"
-msgstr "ไปหน้าถัดไป"
+#~ msgid "Go to next page"
+#~ msgstr "ไปหน้าถัดไป"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:106
-msgid "Go to page {pageNumber}"
-msgstr "ไปที่หน้า {pageNumber}"
+#~ msgid "Go to page {pageNumber}"
+#~ msgstr "ไปที่หน้า {pageNumber}"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:91
-msgid "Go to previous page"
-msgstr "ไปหน้าก่อนหน้า"
+#~ msgid "Go to previous page"
+#~ msgstr "ไปหน้าก่อนหน้า"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
@@ -1649,24 +1644,24 @@ msgid "Group: {0}"
 msgstr "กลุ่ม: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:753
+#: src/routes/_authenticated/$forum_.moderation.tsx:777
 msgid "Harassment"
 msgstr "การคุกคาม"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:754
+#: src/routes/_authenticated/$forum_.moderation.tsx:778
 msgid "Hate speech"
 msgstr "วาจาสร้างความเกลียดชัง"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
-msgid "Hide"
-msgstr "ซ่อน"
+#~ msgid "Hide"
+#~ msgstr "ซ่อน"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Hide password"
-msgstr "ซ่อนรหัสผ่าน"
+#~ msgid "Hide password"
+#~ msgstr "ซ่อนรหัสผ่าน"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:58
+#: ../../../lib/web/src/components/audit-timeline.tsx:61
 msgid "History"
 msgstr "ประวัติ"
 
@@ -1685,7 +1680,7 @@ msgstr "ยอดนิยม"
 msgid "ID"
 msgstr "รหัส"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:360
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Identity"
 msgstr "Identity"
 
@@ -1698,7 +1693,7 @@ msgstr "โปรแกรมดูรูปภาพ: {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Including anonymous users"
 msgstr "รวมถึงผู้ใช้ที่ไม่ระบุตัวตน"
 
@@ -1711,19 +1706,19 @@ msgid "Initials avatar for {name}"
 msgstr "อวาตาร์ตัวย่อของ {name}"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:253
-msgid "Inset"
-msgstr "ฝังเข้าด้านใน"
+#~ msgid "Inset"
+#~ msgstr "ฝังเข้าด้านใน"
 
-#: src/features/forums/thread-detail.tsx:256
+#: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "เพิ่มความสนใจแล้ว"
 
-#: src/features/forums/thread-detail.tsx:268
+#: src/features/forums/thread-detail.tsx:253
 msgid "Interest reduced"
 msgstr "ลดความสนใจแล้ว"
 
-#: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:280
+#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "เอาความสนใจออกแล้ว"
 
@@ -1731,23 +1726,23 @@ msgstr "เอาความสนใจออกแล้ว"
 msgid "Interests"
 msgstr "ความสนใจ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:544
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "วันที่ไม่ถูกต้อง"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
-msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
-msgstr "แท็กไม่ถูกต้อง: ใช้ได้เฉพาะตัวอักษร ตัวเลข ช่องว่าง ยัติภังค์ และเครื่องหมายทับ (สูงสุด 50 อักขระ)"
+#~ msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+#~ msgstr "แท็กไม่ถูกต้อง: ใช้ได้เฉพาะตัวอักษร ตัวเลข ช่องว่าง ยัติภังค์ และเครื่องหมายทับ (สูงสุด 50 อักขระ)"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
-msgid "Invalid verification code"
-msgstr "รหัสยืนยันไม่ถูกต้อง"
+#~ msgid "Invalid verification code"
+#~ msgstr "รหัสยืนยันไม่ถูกต้อง"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:18
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "ดูเหมือนว่าหน้าที่คุณกำลังมองหา <0/>ไม่มีอยู่หรืออาจถูกลบไปแล้ว"
 
-#: ../../../lib/web/src/lib/locale-format.ts:164
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "เมื่อสักครู่"
 
@@ -1756,30 +1751,27 @@ msgid "Keyboard shortcuts"
 msgstr "ทางลัดแป้นพิมพ์"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:103
-#: ../../../lib/web/src/lib/preference-utils.ts:130
+#: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "ใหญ่"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:287
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "เลย์เอาต์"
 
 #: ../../../lib/web/src/components/learn-more.tsx:33
 #: ../../../lib/web/src/components/learn-more.tsx:38
-msgid "Learn more"
-msgstr "เรียนรู้เพิ่มเติม"
+#~ msgid "Learn more"
+#~ msgstr "เรียนรู้เพิ่มเติม"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:355
-msgid "Left to Right"
-msgstr "ซ้ายไปขวา"
+#~ msgid "Left to Right"
+#~ msgstr "ซ้ายไปขวา"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
 msgid "Letters, numbers, spaces, and hyphens only"
 msgstr "ตัวอักษร ตัวเลข เว้นวรรค และยัติภังค์เท่านั้น"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:214
-#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
 msgstr "สว่าง"
@@ -1800,7 +1792,7 @@ msgstr "รายการ"
 msgid "Load more"
 msgstr "โหลดเพิ่ม"
 
-#: ../../../lib/web/src/components/ui/loading-content.tsx:25
+#: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "กำลังโหลดเนื้อหา…"
 
@@ -1809,11 +1801,11 @@ msgstr "กำลังโหลดเนื้อหา…"
 msgid "Loading..."
 msgstr "กำลังโหลด..."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Lock"
 msgstr "ล็อก"
 
-#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/features/forums/components/thread/thread-content.tsx:170
 msgid "Locked"
 msgstr "ล็อกแล้ว"
 
@@ -1821,8 +1813,6 @@ msgstr "ล็อกแล้ว"
 msgid "Log"
 msgstr "บันทึก"
 
-#: ../../../lib/web/src/components/profile-dropdown.tsx:69
-#: ../../../lib/web/src/components/profile-dropdown.tsx:98
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:26
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:28
 msgid "Log out"
@@ -1840,25 +1830,24 @@ msgstr "ออกจากระบบเรียบร้อยแล้ว"
 msgid "Logging out…"
 msgstr "กำลังออกจากระบบ…"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
 msgid "Manage categories"
 msgstr "จัดการหมวดหมู่"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:192
-msgid "Manage your connected accounts for notifications and services."
-msgstr "จัดการบัญชีที่เชื่อมต่อของคุณสำหรับการแจ้งเตือนและบริการ"
+#~ msgid "Manage your connected accounts for notifications and services."
+#~ msgstr "จัดการบัญชีที่เชื่อมต่อของคุณสำหรับการแจ้งเตือนและบริการ"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
 msgid "Manual"
 msgstr "คู่มือ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:190
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:197
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด"
 
-#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/create-post-dialog.tsx:231
 msgid "Markdown supported"
 msgstr "รองรับ Markdown"
 
@@ -1891,7 +1880,7 @@ msgid "Minimum length"
 msgstr "ความยาวขั้นต่ำ"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:756
+#: src/routes/_authenticated/$forum_.moderation.tsx:780
 msgid "Misinformation"
 msgstr "ข้อมูลที่ผิด"
 
@@ -1899,22 +1888,22 @@ msgstr "ข้อมูลที่ผิด"
 msgid "Mochi web"
 msgstr "Mochi เว็บ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Moderate, post, comment, vote, and view"
 msgstr "ดูแล โพสต์ แสดงความคิดเห็น โหวต และดู"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Moderation"
 msgstr "การดูแล"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:358
+#: src/routes/_authenticated/$forum_.moderation.tsx:352
 msgid "Moderation queue is empty"
 msgstr "คิวการดูแลว่างเปล่า"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:120
+#: src/routes/_authenticated/$forum_.moderation.tsx:114
 msgid "Moderation sections"
 msgstr "ส่วนการดูแล"
 
@@ -1924,36 +1913,40 @@ msgstr "วันจันทร์"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:418
-#: src/features/forums/components/thread/thread-comment.tsx:424
-#: src/features/forums/components/thread/thread-content.tsx:333
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:423
+#: src/features/forums/components/thread/thread-content.tsx:332
+#: src/features/forums/components/thread/thread-content.tsx:339
 msgid "More options"
 msgstr "ตัวเลือกเพิ่มเติม"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:502
+#: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "ปิดเสียง"
 
-#: src/features/forums/components/thread/thread-comment.tsx:488
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Mute author"
 msgstr "ปิดเสียงผู้เขียน"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "muted"
-msgstr "ปิดเสียง"
+#~ msgid "muted"
+#~ msgstr "ปิดเสียง"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Muted"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:358
 msgid "Name"
 msgstr "ชื่อ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name cannot contain < or > characters"
 msgstr "ชื่อต้องไม่มีอักขระ < หรือ >"
 
@@ -1962,42 +1955,42 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "ชื่อต้องไม่มีวงเล็บมุม แบ็กสแลช อัฒภาค เครื่องหมายคำพูด หรือแบ็กทิก"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:352
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Name must be 1000 characters or less"
 msgstr "ชื่อต้องไม่เกิน 1000 ตัวอักษร"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "ข้อผิดพลาดของเครือข่าย"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
 msgstr "ใหม่"
 
 #: src/components/layout/data/sidebar-data.ts:19
-msgid "New forum"
-msgstr "ฟอรัมใหม่"
+#~ msgid "New forum"
+#~ msgstr "ฟอรัมใหม่"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:49
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:39
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "New game"
 msgstr "เกมใหม่"
 
-#: src/features/forums/components/create-post-dialog.tsx:184
-#: src/features/forums/components/create-post-dialog.tsx:189
-#: src/features/forums/components/create-post-dialog.tsx:196
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/components/create-post-dialog.tsx:185
+#: src/features/forums/components/create-post-dialog.tsx:190
+#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "โพสต์ใหม่"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1001
+#: src/routes/_authenticated/$forum_.settings.tsx:992
 msgid "New threads must be approved"
 msgstr "เธรดใหม่ต้องได้รับการอนุมัติ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1033
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "New user threshold:"
 msgstr "เกณฑ์ผู้ใช้ใหม่:"
 
@@ -2006,15 +1999,15 @@ msgstr "เกณฑ์ผู้ใช้ใหม่:"
 msgid "Next image"
 msgstr "รูปถัดไป"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "ไม่มี {parentClassNames} ให้เพิ่ม"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:647
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
 msgid "No {statusFilter} reports found"
 msgstr "ไม่พบรายงาน {statusFilter}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "No access"
 msgstr "ไม่มีสิทธิ์เข้าถึง"
 
@@ -2026,7 +2019,7 @@ msgstr "ยังไม่ได้ตั้งกฎการเข้าถึ
 msgid "No activity yet"
 msgstr "ยังไม่มีกิจกรรม"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:47
+#: src/features/forums/components/thread/attachment-comments.tsx:48
 msgid "No comments on this image yet."
 msgstr "ยังไม่มีความคิดเห็นต่อรูปนี้"
 
@@ -2035,15 +2028,15 @@ msgid "No comments yet"
 msgstr "ยังไม่มีความคิดเห็น"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
-msgid "No connected accounts"
-msgstr "ไม่มีบัญชีที่เชื่อมต่อ"
+#~ msgid "No connected accounts"
+#~ msgstr "ไม่มีบัญชีที่เชื่อมต่อ"
 
 #: src/features/forums/components/inline-forum-search.tsx:104
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "ไม่พบฟอรัม"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:46
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:48
 msgid "No games yet"
 msgstr "ยังไม่มีเกม"
 
@@ -2051,7 +2044,7 @@ msgstr "ยังไม่มีเกม"
 msgid "No groups available"
 msgstr "ไม่มีกลุ่มที่ใช้งานได้"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:521
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "ยังไม่สามารถสร้างประเภทรายการได้ กรุณาสร้างรายการแม่ที่จำเป็นก่อน"
 
@@ -2059,15 +2052,15 @@ msgstr "ยังไม่สามารถสร้างประเภทร
 msgid "No matching objects"
 msgstr "ไม่มีออบเจกต์ที่ตรงกัน"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:823
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "No moderation activity"
 msgstr "ไม่มีกิจกรรมการดูแล"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "No notifications yet"
-msgstr "ยังไม่มีการแจ้งเตือน"
+#~ msgid "No notifications yet"
+#~ msgstr "ยังไม่มีการแจ้งเตือน"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "ไม่พบผู้คน"
@@ -2081,30 +2074,28 @@ msgid "No posts in this forum yet"
 msgstr "ยังไม่มีโพสต์ในฟอรัมนี้"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:58
-msgid "No profile"
-msgstr "ไม่มีโปรไฟล์"
+#~ msgid "No profile"
+#~ msgstr "ไม่มีโปรไฟล์"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:646
+#: src/routes/_authenticated/$forum_.moderation.tsx:642
 msgid "No reports"
 msgstr "ไม่มีรายงาน"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:953
+#: src/routes/_authenticated/$forum_.moderation.tsx:978
 msgid "No restrictions"
 msgstr "ไม่มีข้อจำกัด"
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "ไม่พบผลลัพธ์"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "ไม่พบผลลัพธ์"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:823
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:868
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "ไม่มีสถานะ"
@@ -2113,11 +2104,11 @@ msgstr "ไม่มีสถานะ"
 msgid "No time zone found."
 msgstr "ไม่พบเขตเวลา"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:106
 msgid "No topic record yet — try again after the next notification."
 msgstr "ยังไม่มีบันทึกหัวข้อ — ลองอีกครั้งหลังการแจ้งเตือนครั้งถัดไป"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:122
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "ไม่มีการแจ้งเตือนที่ยังไม่ได้อ่าน"
 
@@ -2125,7 +2116,7 @@ msgstr "ไม่มีการแจ้งเตือนที่ยังไ
 msgid "No users found"
 msgstr "ไม่พบผู้ใช้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "No users have been muted or banned"
 msgstr "ไม่มีผู้ใช้ที่ถูกปิดเสียงหรือแบน"
 
@@ -2134,9 +2125,9 @@ msgid "No views"
 msgstr "ไม่มีการเข้าชม"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:537
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:540
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
@@ -2146,15 +2137,14 @@ msgstr "ไม่มีการเข้าชม"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
-#: ../../../lib/web/src/lib/preference-utils.ts:120
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:129
+#: ../../../lib/web/src/lib/preference-utils.ts:122
 msgid "Normal"
 msgstr "ปกติ"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 #: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "ไม่พบ"
@@ -2176,11 +2166,11 @@ msgstr "ยังไม่มีรายการที่บันทึก"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:236
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:257
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
-msgid "Notifications"
-msgstr "การแจ้งเตือน"
+#~ msgid "Notifications"
+#~ msgstr "การแจ้งเตือน"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:183
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "การแจ้งเตือน: {0}"
 
@@ -2191,7 +2181,7 @@ msgid "Number"
 msgstr "ตัวเลข"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:757
+#: src/routes/_authenticated/$forum_.moderation.tsx:781
 msgid "Off-topic"
 msgstr "นอกเรื่อง"
 
@@ -2200,11 +2190,11 @@ msgid "On"
 msgstr "เปิด"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:439
 msgid "On image: {0}"
 msgstr "ต่อรูป: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "On this image"
 msgstr "ต่อรูปนี้"
 
@@ -2214,8 +2204,8 @@ msgstr "ขออภัย! ไม่พบหน้านี้!"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:156
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:166
-msgid "Open account actions"
-msgstr "เปิดการดำเนินการของบัญชี"
+#~ msgid "Open account actions"
+#~ msgstr "เปิดการดำเนินการของบัญชี"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:199
 #: ../../../lib/web/src/components/layout/nav-group.tsx:204
@@ -2233,8 +2223,8 @@ msgstr "เปิดการนำทาง"
 
 #: ../../../lib/web/src/components/layout/top-nav.tsx:38
 #: ../../../lib/web/src/components/layout/top-nav.tsx:44
-msgid "Open navigation menu"
-msgstr "เปิดเมนูการนำทาง"
+#~ msgid "Open navigation menu"
+#~ msgstr "เปิดเมนูการนำทาง"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
@@ -2247,8 +2237,8 @@ msgstr "เปิดการ์ดที่เลือก"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:58
 #: ../../../lib/web/src/components/config-drawer.tsx:66
-msgid "Open theme settings"
-msgstr "เปิดการตั้งค่าธีม"
+#~ msgid "Open theme settings"
+#~ msgstr "เปิดการตั้งค่าธีม"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
@@ -2265,7 +2255,7 @@ msgstr "เปิดตัวควบคุมมุมมอง"
 msgid "Option name"
 msgstr "ชื่อตัวเลือก"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "แบนเนอร์ markdown ที่ไม่บังคับ แสดงที่ด้านบนของฟอรัมของคุณ"
 
@@ -2276,7 +2266,7 @@ msgstr "ตัวเลือก"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:758
+#: src/routes/_authenticated/$forum_.moderation.tsx:782
 msgid "Other"
 msgstr "อื่น ๆ"
 
@@ -2286,18 +2276,18 @@ msgstr "เจ้าของ"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:43
 #: ../../../lib/web/src/components/data-table/pagination.tsx:71
-msgid "Page {currentPage} of {totalPages}"
-msgstr "หน้า {currentPage} จาก {totalPages}"
+#~ msgid "Page {currentPage} of {totalPages}"
+#~ msgstr "หน้า {currentPage} จาก {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:529
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "แม่"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:336
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "พาสคีย์"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "การยืนยันด้วยพาสคีย์ล้มเหลว โปรดลองอีกครั้ง"
 
@@ -2310,45 +2300,46 @@ msgid "Pattern (regex)"
 msgstr "รูปแบบ (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:276
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/features/forums/components/thread/thread-comment.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:751
 msgid "Pending"
 msgstr "รอดำเนินการ"
 
-#: src/features/forums/components/thread/thread-content.tsx:160
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Pending approval"
 msgstr "รอการอนุมัติ"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:417
+#: src/routes/_authenticated/$forum_.moderation.tsx:411
 msgid "Pending comments ({0})"
 msgstr "ความคิดเห็นที่รอดำเนินการ ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:372
+#: src/routes/_authenticated/$forum_.moderation.tsx:366
 msgid "Pending posts ({0})"
 msgstr "โพสต์ที่รอดำเนินการ ({0})"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
 msgstr "รูปภาพและวิดีโอ"
 
 #: ../../../lib/web/src/components/date-picker.tsx:20
-msgid "Pick a date"
-msgstr "เลือกวันที่"
+#~ msgid "Pick a date"
+#~ msgstr "เลือกวันที่"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Pin"
 msgstr "ปักหมุด"
 
-#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/features/forums/components/thread/thread-content.tsx:176
 msgid "Pinned"
 msgstr "ปักหมุดแล้ว"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณแล้วลองอีกครั้ง"
 
@@ -2356,7 +2347,7 @@ msgstr "โปรดตรวจสอบการเชื่อมต่ออ
 msgid "Please describe the issue..."
 msgstr "กรุณาอธิบายปัญหา..."
 
-#: src/features/forums/thread-detail.tsx:302
+#: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "กรุณาป้อนการตอบกลับ"
 
@@ -2372,11 +2363,15 @@ msgstr "โปรดลองอีกครั้ง"
 msgid "Please wait a moment and try again."
 msgstr "โปรดรอสักครู่แล้วลองอีกครั้ง"
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/routes/_authenticated/$forum_.moderation.tsx:759
+msgid "Post"
+msgstr "โพสต์"
+
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "ไม่สามารถบันทึกโพสต์ได้ — ชื่อเรื่องหรือเนื้อหาไม่ถูกต้อง"
 
-#: src/hooks/use-forum-websocket.ts:69
+#: src/hooks/use-forum-websocket.ts:68
 msgid "Post couldn't be saved on the forum server"
 msgstr "ไม่สามารถบันทึกโพสต์บนเซิร์ฟเวอร์ฟอรัมได้"
 
@@ -2384,7 +2379,7 @@ msgstr "ไม่สามารถบันทึกโพสต์บนเซ
 msgid "Post deleted"
 msgstr "ลบโพสต์แล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1058
+#: src/routes/_authenticated/$forum_.settings.tsx:1049
 msgid "Post limit"
 msgstr "ขีดจำกัดการโพสต์"
 
@@ -2424,11 +2419,11 @@ msgstr "ยกเลิกการปักหมุดโพสต์แล้
 msgid "Post updated"
 msgstr "อัปเดตโพสต์แล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Post, comment, vote, and view"
 msgstr "โพสต์ แสดงความคิดเห็น โหวต และดู"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
 msgid "posts"
 msgstr "โพสต์"
 
@@ -2440,11 +2435,11 @@ msgstr "โพสต์"
 msgid "Posts and comments"
 msgstr "โพสต์และความคิดเห็น"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:994
+#: src/routes/_authenticated/$forum_.settings.tsx:985
 msgid "Pre-moderation"
 msgstr "การดูแลก่อนเผยแพร่"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1054
+#: src/routes/_authenticated/$forum_.settings.tsx:1045
 msgid "Prevent spam by limiting how often users can post"
 msgstr "ป้องกันสแปมโดยจำกัดความถี่ในการโพสต์ของผู้ใช้"
 
@@ -2463,22 +2458,22 @@ msgid "Processing…"
 msgstr "กำลังประมวลผล…"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
-msgid "Profile"
-msgstr "โปรไฟล์"
+#~ msgid "Profile"
+#~ msgstr "โปรไฟล์"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
 msgid "Project members"
 msgstr "สมาชิกโครงการ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "บันทึก prompt แล้ว"
 
-#: src/features/forums/components/create-post-dialog.tsx:311
+#: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "เผยแพร่โพสต์"
 
-#: src/features/forums/components/create-post-dialog.tsx:306
+#: src/features/forums/components/create-post-dialog.tsx:307
 msgid "Publishing..."
 msgstr "กำลังเผยแพร่..."
 
@@ -2494,7 +2489,7 @@ msgstr "คิว"
 msgid "Raised"
 msgstr "ยกขึ้น"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1044
 msgid "Rate limiting"
 msgstr "การจำกัดอัตรา"
 
@@ -2506,16 +2501,15 @@ msgstr "เชื่อมโยงบัญชีของคุณใหม่
 msgid "Re-register your passkeys on this server"
 msgstr "ลงทะเบียนพาสคีย์ของคุณใหม่บนเซิร์ฟเวอร์นี้"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:696
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reason:"
 msgstr "เหตุผล:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:859
+#: src/routes/_authenticated/$forum_.moderation.tsx:883
 msgid "Reason: {0}"
 msgstr "เหตุผล: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:220
 #: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "แนะนำ"
@@ -2537,12 +2531,12 @@ msgstr "กำลังเปลี่ยนเส้นทางไปยัง
 msgid "Reduce interest"
 msgstr "ลดความสนใจ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:470
 msgid "Reject"
 msgstr "ปฏิเสธ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:251
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:245
+#: src/routes/_authenticated/$forum_.moderation.tsx:249
 msgid "Rejected"
 msgstr "ปฏิเสธแล้ว"
 
@@ -2558,17 +2552,16 @@ msgstr "แบบสัมพัทธ์ (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "สัมพัทธ์ภายใน 24 ชั่วโมง นอกนั้นแบบสัมบูรณ์"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:278
-#: ../../../lib/web/src/components/attachment-composer.tsx:323
+#: ../../../lib/web/src/components/attachment-composer.tsx:285
+#: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:469
-#: src/features/forums/components/thread/thread-comment.tsx:527
-#: src/features/forums/components/thread/thread-content.tsx:368
-#: src/features/forums/components/thread/thread-content.tsx:446
-#: src/routes/_authenticated/$forum_.moderation.tsx:726
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:722
+#: src/routes/_authenticated/$forum_.moderation.tsx:1041
 msgid "Remove"
 msgstr "ลบ"
 
@@ -2592,7 +2585,7 @@ msgstr "นำกฎการเข้าถึงสำหรับ \"{0}\" อ
 msgid "Remove access?"
 msgstr "ลบสิทธิ์การเข้าถึง?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:524
 msgid "Remove comment"
 msgstr "ลบความคิดเห็น"
 
@@ -2606,7 +2599,7 @@ msgstr "นำออกจากที่บันทึก"
 msgid "Remove interest"
 msgstr "ลบความสนใจ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:665
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "ลบรายการ"
 
@@ -2615,71 +2608,71 @@ msgstr "ลบรายการ"
 msgid "Remove link"
 msgstr "ลบลิงก์"
 
-#: src/features/forums/components/thread/thread-content.tsx:444
+#: src/features/forums/components/thread/thread-content.tsx:443
 msgid "Remove post"
 msgstr "ลบโพสต์"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:395
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Remove this forum from your sidebar."
 msgstr "ลบฟอรัมนี้ออกจากแถบด้านข้างของคุณ"
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:282
-#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/features/forums/components/thread/thread-comment.tsx:281
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
 msgstr "ลบแล้ว"
 
-#: src/lib/saved.ts:31
+#: src/lib/saved.ts:32
 msgid "Removed from saved"
 msgstr "ลบออกจากที่บันทึกไว้แล้ว"
 
-#: src/lib/saved.ts:30
+#: src/lib/saved.ts:31
 msgid "Removing..."
 msgstr "กำลังลบ..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:559
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "เปลี่ยนชื่อ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:594
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "เปลี่ยนชื่อคอลัมน์"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:595
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "เปลี่ยนชื่อคอลัมน์ของบอร์ดนี้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:206
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Renaming forum..."
 msgstr "กำลังเปลี่ยนชื่อฟอรัม..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
 msgid "replies"
 msgstr "การตอบกลับ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1012
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "การตอบกลับต้องได้รับการอนุมัติ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:400
-#: src/features/forums/components/thread/thread-comment.tsx:406
-#: src/features/forums/components/thread/thread-content.tsx:312
-#: src/features/forums/components/thread/thread-content.tsx:321
+#: src/features/forums/components/thread/thread-comment.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:405
+#: src/features/forums/components/thread/thread-content.tsx:311
+#: src/features/forums/components/thread/thread-content.tsx:320
 msgid "Reply"
 msgstr "ตอบกลับ"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:547
 msgid "Reply to {0}..."
 msgstr "ตอบกลับ {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:477
-#: src/features/forums/components/thread/thread-content.tsx:402
+#: src/features/forums/components/thread/thread-comment.tsx:476
+#: src/features/forums/components/thread/thread-content.tsx:401
 msgid "Report"
 msgstr "รายงาน"
 
@@ -2691,7 +2684,7 @@ msgstr "รายงานความคิดเห็น"
 msgid "Report post"
 msgstr "รายงานโพสต์"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:564
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Report resolved"
 msgstr "แก้ไขรายงานแล้ว"
 
@@ -2701,7 +2694,7 @@ msgid "Report submitted"
 msgstr "ส่งรายงานแล้ว"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:704
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "Reported by {0}"
 msgstr "รายงานโดย {0}"
 
@@ -2709,19 +2702,19 @@ msgstr "รายงานโดย {0}"
 msgid "Reports"
 msgstr "รายงาน"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:986
 msgid "Require approval before content becomes visible"
 msgstr "ต้องได้รับการอนุมัติก่อนเนื้อหาจะแสดง"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1011
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new comments"
 msgstr "ต้องอนุมัติความคิดเห็นใหม่"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1000
+#: src/routes/_authenticated/$forum_.settings.tsx:991
 msgid "Require approval for new posts"
 msgstr "ต้องอนุมัติโพสต์ใหม่"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1022
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new users"
 msgstr "ต้องอนุมัติผู้ใช้ใหม่"
 
@@ -2729,34 +2722,35 @@ msgstr "ต้องอนุมัติผู้ใช้ใหม่"
 msgid "Required"
 msgstr "จำเป็น"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:369
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "ส่งอีเมลอีกครั้ง"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:87
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:82
-msgid "Reset"
-msgstr "รีเซ็ต"
+#~ msgid "Reset"
+#~ msgstr "รีเซ็ต"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:122
 #: ../../../lib/web/src/components/config-drawer.tsx:127
-msgid "Reset {title}"
-msgstr "รีเซ็ต{title}"
+#~ msgid "Reset {title}"
+#~ msgstr "รีเซ็ต{title}"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:85
-msgid "Reset all settings to default values"
-msgstr "รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น"
+#~ msgid "Reset all settings to default values"
+#~ msgstr "รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Resolved"
 msgstr "แก้ไขแล้ว"
 
-#: src/features/forums/components/thread/thread-comment.tsx:463
-#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-comment.tsx:462
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Restore"
 msgstr "กู้คืน"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:905
+#: src/routes/_authenticated/$forum_.moderation.tsx:930
 msgid "Restriction removed"
 msgstr "นำการจำกัดออกแล้ว"
 
@@ -2764,7 +2758,7 @@ msgstr "นำการจำกัดออกแล้ว"
 msgid "Restrictions"
 msgstr "ข้อจำกัด"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:341
+#: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "ลองอีกครั้ง"
 
@@ -2785,8 +2779,8 @@ msgid "Revoke RSS access?"
 msgstr "เพิกถอนการเข้าถึง RSS หรือไม่"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
-msgid "Right to Left"
-msgstr "ขวาไปซ้าย"
+#~ msgid "Right to Left"
+#~ msgstr "ขวาไปซ้าย"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
@@ -2798,8 +2792,8 @@ msgid "Rows group by"
 msgstr "จัดกลุ่มแถวตาม"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
-msgid "Rows per page"
-msgstr "แถวต่อหน้า"
+#~ msgid "Rows per page"
+#~ msgstr "แถวต่อหน้า"
 
 #: ../../../lib/web/src/components/options-menu.tsx:131
 msgid "RSS access revoked"
@@ -2817,18 +2811,18 @@ msgstr "คัดลอก URL RSS ไปยังคลิปบอร์ดแ
 msgid "Saturday"
 msgstr "วันเสาร์"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:423
+#: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:325
-#: src/routes/_authenticated/$forum_.settings.tsx:497
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:491
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "บันทึก"
 
-#: src/features/forums/components/edit-post-dialog.tsx:384
+#: src/features/forums/components/edit-post-dialog.tsx:385
 msgid "Save changes"
 msgstr "บันทึกการเปลี่ยนแปลง"
 
@@ -2840,21 +2834,21 @@ msgstr "บันทึกไว้ดูภายหลัง"
 #: src/components/layout/forums-layout.tsx:112
 #: src/features/forums/pages/saved-page.tsx:54
 #: src/features/forums/pages/saved-page.tsx:68
-#: src/lib/saved.ts:28
+#: src/lib/saved.ts:29
 msgid "Saved"
 msgstr "บันทึกแล้ว"
 
-#: src/lib/saved.ts:34
+#: src/lib/saved.ts:35
 msgid "Saved posts cleared"
 msgstr "ล้างโพสต์ที่บันทึกไว้แล้ว"
 
-#: src/features/forums/components/edit-post-dialog.tsx:379
-#: src/lib/saved.ts:27
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/lib/saved.ts:28
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
 msgstr "กำลังบันทึก..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:608
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Score prompt"
 msgstr "พรอมต์คะแนน"
 
@@ -2913,18 +2907,16 @@ msgstr "ค้นหา ติดตาม และจัดเรียงม�
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:63
 #: ../../../lib/web/src/components/person-picker.tsx:324
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "ค้นหา..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:178
 #: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "กำลังค้นหา..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "วินาที"
 
@@ -2932,16 +2924,15 @@ msgstr "วินาที"
 msgid "Select"
 msgstr "เลือก"
 
-#. placeholder {0}: item.label.toLowerCase()
 #: ../../../lib/web/src/components/config-drawer.tsx:149
-msgid "Select {0}"
-msgstr "เลือก{0}"
+#~ msgid "Select {0}"
+#~ msgstr "เลือก{0}"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "เลือกฟิลด์"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:32
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "เลือกเกม"
 
@@ -2962,14 +2953,14 @@ msgid "Select access rule"
 msgstr "เลือกกฎการเข้าถึง"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:34
-msgid "Select account"
-msgstr "เลือกบัญชี"
+#~ msgid "Select account"
+#~ msgstr "เลือกบัญชี"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:142
 msgid "Select account type"
 msgstr "เลือกประเภทบัญชี"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select all"
 msgstr "เลือกทั้งหมด"
 
@@ -2978,8 +2969,8 @@ msgid "Select group"
 msgstr "เลือกกลุ่ม"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:305
-msgid "Select layout style"
-msgstr "เลือกสไตล์เลย์เอาต์"
+#~ msgid "Select layout style"
+#~ msgstr "เลือกสไตล์เลย์เอาต์"
 
 #: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
@@ -2989,7 +2980,7 @@ msgstr "เลือกตำแหน่ง"
 msgid "Select next card"
 msgstr "เลือกการ์ดถัดไป"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select none"
 msgstr "ยกเลิกการเลือก"
 
@@ -3002,25 +2993,25 @@ msgid "Select previous card"
 msgstr "เลือกการ์ดก่อนหน้า"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:247
-msgid "Select sidebar style"
-msgstr "เลือกสไตล์แถบด้านข้าง"
+#~ msgid "Select sidebar style"
+#~ msgstr "เลือกสไตล์แถบด้านข้าง"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:349
-msgid "Select site direction"
-msgstr "เลือกทิศทางไซต์"
+#~ msgid "Select site direction"
+#~ msgstr "เลือกทิศทางไซต์"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:203
-msgid "Select theme preference"
-msgstr "เลือกการตั้งค่าธีม"
+#~ msgid "Select theme preference"
+#~ msgstr "เลือกการตั้งค่าธีม"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "เลือก..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:206
-msgid "selected"
-msgstr "ที่เลือก"
+#~ msgid "selected"
+#~ msgstr "ที่เลือก"
 
 #. placeholder {0}: getSelectedName()
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
@@ -3031,7 +3022,7 @@ msgstr "เลือก: <0>{0}</0>"
 msgid "Send again"
 msgstr "ส่งอีกครั้ง"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:309
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "ส่งอีเมล"
 
@@ -3040,12 +3031,12 @@ msgstr "ส่งอีเมล"
 msgid "Send message"
 msgstr "ส่งข้อความ"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:140
+#: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "เซริฟ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:270
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:296
 msgid "Server error"
 msgstr "ข้อผิดพลาดของเซิร์ฟเวอร์"
 
@@ -3054,7 +3045,7 @@ msgstr "ข้อผิดพลาดของเซิร์ฟเวอร์
 msgid "Server rules"
 msgstr "กฎของเซิร์ฟเวอร์"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:220
 msgid "Session expired. Please log in again."
 msgstr "เซสชันหมดอายุ โปรดเข้าสู่ระบบอีกครั้ง"
 
@@ -3065,12 +3056,16 @@ msgstr "ตั้งค่าต้นทางและปลายทาง"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Settings"
 msgstr "การตั้งค่า"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Shadowbanned"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
@@ -3080,13 +3075,13 @@ msgstr "แสดงคลาส"
 msgid "Show fields"
 msgstr "แสดงฟิลด์"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:62
+#: src/features/forums/components/thread/attachment-comments.tsx:63
 msgid "Show only comments on this image"
 msgstr "แสดงเฉพาะความคิดเห็นต่อรูปนี้"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Show password"
-msgstr "แสดงรหัสผ่าน"
+#~ msgid "Show password"
+#~ msgstr "แสดงรหัสผ่าน"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:33
 msgid "Show this help"
@@ -3096,9 +3091,7 @@ msgstr "แสดงความช่วยเหลือนี้"
 msgid "Showing {totalShown} of {total}"
 msgstr "แสดง {totalShown} จาก {total}"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:239
-#: ../../../lib/web/src/components/config-drawer.tsx:263
-#: ../../../lib/web/src/components/ui/sidebar.tsx:237
+#: ../../../lib/web/src/components/ui/sidebar.tsx:257
 msgid "Sidebar"
 msgstr "แถบด้านข้าง"
 
@@ -3117,11 +3110,11 @@ msgid "Single line of text only"
 msgstr "ข้อความบรรทัดเดียวเท่านั้น"
 
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
-msgid "Skip to Main"
-msgstr "ข้ามไปยังเนื้อหาหลัก"
+#~ msgid "Skip to Main"
+#~ msgstr "ข้ามไปยังเนื้อหาหลัก"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:101
-#: ../../../lib/web/src/lib/preference-utils.ts:128
+#: ../../../lib/web/src/lib/preference-utils.ts:121
 msgid "Small"
 msgstr "เล็ก"
 
@@ -3138,7 +3131,7 @@ msgid "Spacious"
 msgstr "กว้างขวาง"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Spam"
 msgstr "สแปม"
 
@@ -3147,8 +3140,8 @@ msgid "Start the discussion by adding the first comment."
 msgstr "เริ่มการสนทนาโดยเพิ่มความคิดเห็นแรก"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:15
-msgid "Stay tuned though!"
-msgstr "โปรดรอติดตาม!"
+#~ msgid "Stay tuned though!"
+#~ msgstr "โปรดรอติดตาม!"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
@@ -3172,11 +3165,10 @@ msgstr "กำลังส่ง..."
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:66
 #: ../../../lib/web/src/components/recommended-entities.tsx:58
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:305
+#: src/features/forums/pages/entity-forum-page.tsx:271
 msgid "Subscribe"
 msgstr "ติดตาม"
 
@@ -3196,7 +3188,7 @@ msgstr "ติดตามฟอรัมแล้ว"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:268
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
@@ -3210,16 +3202,13 @@ msgstr "วันอาทิตย์"
 msgid "Switch to view 1-9"
 msgstr "เปลี่ยนเป็นมุมมอง 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:104
-#: ../../../lib/web/src/components/config-drawer.tsx:209
-#: ../../../lib/web/src/components/theme-switch.tsx:59
+#: ../../../lib/web/src/components/audit-timeline.tsx:107
 #: ../../../lib/web/src/lib/preference-utils.ts:16
-#: ../../../lib/web/src/lib/preference-utils.ts:139
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "ระบบ"
 
-#: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Tag"
 msgstr "แท็ก"
 
@@ -3231,7 +3220,7 @@ msgstr "แท็กนี้มีอยู่แล้ว"
 msgid "Tag must be 50 characters or less"
 msgstr "แท็กต้องมีไม่เกิน 50 อักขระ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:607
+#: src/routes/_authenticated/$forum_.settings.tsx:599
 msgid "Tag prompt"
 msgstr "พรอมต์แท็ก"
 
@@ -3245,8 +3234,8 @@ msgid "Tap the bookmark on any post to save it here for later."
 msgstr "แตะที่บุ๊กมาร์กบนโพสต์ใดก็ได้เพื่อบันทึกไว้ที่นี่สำหรับดูภายหลัง"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:63
-msgid "Teams/Apps"
-msgstr "ทีม/แอป"
+#~ msgid "Teams/Apps"
+#~ msgstr "ทีม/แอป"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:19
 #: ../../../lib/web/src/features/document/document-page.tsx:42
@@ -3257,7 +3246,7 @@ msgstr "ข้อกำหนดและเงื่อนไข"
 msgid "Text"
 msgstr "ข้อความ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "รหัสนั้นไม่ถูกต้องหรือหมดอายุแล้ว"
 
@@ -3279,38 +3268,38 @@ msgid "The server returned a web page instead of data."
 msgstr "เซิร์ฟเวอร์ส่งคืนหน้าเว็บแทนข้อมูล"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
-msgid "The site is not available at the moment."
-msgstr "ไซต์ไม่พร้อมใช้งานในขณะนี้"
+#~ msgid "The site is not available at the moment."
+#~ msgstr "ไซต์ไม่พร้อมใช้งานในขณะนี้"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
-msgid "Theme"
-msgstr "ธีม"
+#~ msgid "Theme"
+#~ msgstr "ธีม"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:70
-msgid "Theme Settings"
-msgstr "การตั้งค่าธีม"
+#~ msgid "Theme Settings"
+#~ msgstr "การตั้งค่าธีม"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "ยังไม่มีการบันทึกการดำเนินการดูแลใดๆ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:256
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum could not be loaded right now."
 msgstr "ไม่สามารถโหลดฟอรัมนี้ในขณะนี้ได้"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ฟอรัมนี้อาจถูกลบหรือคุณไม่มีสิทธิ์เข้าถึง"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:14
-msgid "This page has not been created yet."
-msgstr "ยังไม่ได้สร้างหน้านี้"
+#~ msgid "This page has not been created yet."
+#~ msgstr "ยังไม่ได้สร้างหน้านี้"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "โพสต์นี้อาจถูกลบหรือไม่มีอยู่"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:63
 msgid "This post was already submitted"
 msgstr "โพสต์นี้ถูกส่งไปแล้ว"
 
@@ -3318,20 +3307,20 @@ msgstr "โพสต์นี้ถูกส่งไปแล้ว"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "การทำเช่นนี้จะนำทุกโพสต์ออกจากรายการที่บันทึกของคุณ ไม่สามารถเลิกทำได้"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "การดำเนินการนี้จะซ่อนความคิดเห็นจากผู้ใช้ทั่วไป ผู้ดูแลยังคงมองเห็นและกู้คืนได้ในภายหลัง"
 
-#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/features/forums/components/thread/thread-content.tsx:444
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "การดำเนินการนี้จะซ่อนโพสต์จากผู้ใช้ทั่วไป ผู้ดูแลยังคงมองเห็นและกู้คืนได้ในภายหลัง"
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:434
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "การดำเนินการนี้จะลบ \"{0}\" และโพสต์และความคิดเห็นทั้งหมดอย่างถาวร ไม่สามารถเลิกทำได้"
 
-#: src/features/forums/thread-detail.tsx:157
+#: src/features/forums/thread-detail.tsx:142
 msgid "Thread"
 msgstr "เธรด"
 
@@ -3339,7 +3328,7 @@ msgstr "เธรด"
 msgid "Thursday"
 msgstr "วันพฤหัสบดี"
 
-#: src/features/forums/components/create-post-dialog.tsx:209
+#: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/edit-post-dialog.tsx:277
 msgid "Title"
 msgstr "ชื่อ"
@@ -3361,13 +3350,13 @@ msgid "To"
 msgstr "ไปยัง"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
-msgid "Toggle columns"
-msgstr "สลับคอลัมน์"
+#~ msgid "Toggle columns"
+#~ msgstr "สลับคอลัมน์"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:233
 #: ../../../lib/web/src/components/layout/right-panel.tsx:236
-msgid "Toggle right panel"
-msgstr "สลับแผงด้านขวา"
+#~ msgid "Toggle right panel"
+#~ msgstr "สลับแผงด้านขวา"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:365
 #: ../../../lib/web/src/components/layout/nav-group.tsx:372
@@ -3376,20 +3365,20 @@ msgstr "สลับแผงด้านขวา"
 msgid "Toggle section"
 msgstr "สลับส่วน"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:317
-#: ../../../lib/web/src/components/ui/sidebar.tsx:320
+#: ../../../lib/web/src/components/ui/sidebar.tsx:337
+#: ../../../lib/web/src/components/ui/sidebar.tsx:340
 msgid "Toggle sidebar"
 msgstr "สลับแถบด้านข้าง"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:332
-#: ../../../lib/web/src/components/ui/sidebar.tsx:335
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle Sidebar"
 msgstr "สลับแถบด้านข้าง"
 
 #: ../../../lib/web/src/components/theme-switch.tsx:37
 #: ../../../lib/web/src/components/theme-switch.tsx:41
-msgid "Toggle theme"
-msgstr "สลับธีม"
+#~ msgid "Toggle theme"
+#~ msgstr "สลับธีม"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3412,14 +3401,12 @@ msgstr "บนสุด"
 msgid "Travelling"
 msgstr "กำลังเดินทาง"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:194
 #: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "ลองปรับคำค้นหาของคุณ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:140
 #: ../../../lib/web/src/features/errors/general-error.tsx:180
-#: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "ลองอีกครั้ง"
 
@@ -3448,7 +3435,7 @@ msgstr "พิมพ์เพื่อค้นหาผู้ใช้"
 msgid "Type to search..."
 msgstr "พิมพ์เพื่อค้นหา..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:292
 msgid "Unable to connect to remote server"
 msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ระยะไกลได้"
 
@@ -3457,7 +3444,7 @@ msgstr "ไม่สามารถเชื่อมต่อกับเซิ
 msgid "Unable to redirect to login. Please try again."
 msgstr "ไม่สามารถเปลี่ยนเส้นทางไปยังการเข้าสู่ระบบได้ โปรดลองอีกครั้ง"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "ยังไม่กำหนด"
 
@@ -3465,7 +3452,7 @@ msgstr "ยังไม่กำหนด"
 msgid "Unauthorized Access"
 msgstr "การเข้าถึงที่ไม่ได้รับอนุญาต"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "ไม่พร้อมใช้งาน"
 
@@ -3481,58 +3468,58 @@ msgstr "สหรัฐอเมริกา"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:374
 msgid "Unlock"
 msgstr "ปลดล็อก"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Unpin"
 msgstr "ยกเลิกการปักหมุด"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:389
-#: src/routes/_authenticated/$forum_.settings.tsx:406
+#: src/features/forums/pages/entity-forum-page.tsx:356
+#: src/routes/_authenticated/$forum_.settings.tsx:400
 msgid "Unsubscribe"
 msgstr "ยกเลิกการติดตาม"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:394
+#: src/routes/_authenticated/$forum_.settings.tsx:388
 msgid "Unsubscribe from forum"
 msgstr "ยกเลิกการติดตามฟอรัม"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:353
 msgid "Unsubscribe from forum?"
 msgstr "ยกเลิกการติดตามฟอรัมหรือไม่?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:185
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribed"
 msgstr "ยกเลิกการติดตามแล้ว"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:184
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribing..."
 msgstr "กำลังยกเลิกการติดตาม..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:284
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "ไม่มีชื่อ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
-msgid "Unverified"
-msgstr "ยังไม่ยืนยัน"
+#~ msgid "Unverified"
+#~ msgstr "ยังไม่ยืนยัน"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "อัปเดตแล้ว"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:637
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "อัปโหลด"
@@ -3541,7 +3528,7 @@ msgstr "อัปโหลด"
 msgid "Upload progress"
 msgstr "ความคืบหน้าการอัปโหลด"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:340
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "ใช้พาสคีย์ของคุณ"
 
@@ -3551,15 +3538,15 @@ msgstr "ใช้พาสคีย์ของคุณ"
 msgid "User"
 msgstr "ผู้ใช้"
 
-#: src/features/forums/thread-detail.tsx:423
+#: src/features/forums/thread-detail.tsx:408
 msgid "User banned"
 msgstr "แบนผู้ใช้แล้ว"
 
-#: src/features/forums/thread-detail.tsx:414
+#: src/features/forums/thread-detail.tsx:399
 msgid "User muted"
 msgstr "ปิดเสียงผู้ใช้แล้ว"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:732
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Variables: {variables}"
 msgstr "ตัวแปร: {variables}"
 
@@ -3568,15 +3555,14 @@ msgid "Verification code"
 msgstr "รหัสยืนยัน"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:255
-msgid "Verification code sent"
-msgstr "ส่งรหัสยืนยันแล้ว"
+#~ msgid "Verification code sent"
+#~ msgstr "ส่งรหัสยืนยันแล้ว"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:248
-msgid "Verification failed"
-msgstr "การยืนยันไม่สำเร็จ"
+#~ msgid "Verification failed"
+#~ msgstr "การยืนยันไม่สำเร็จ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:390
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ยืนยัน"
@@ -3585,7 +3571,7 @@ msgstr "ยืนยัน"
 msgid "Verify email address"
 msgstr "ยืนยันที่อยู่อีเมล"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:94
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "ภาพย่อวิดีโอ"
 
@@ -3595,15 +3581,15 @@ msgid "Video viewer: {0}"
 msgstr "โปรแกรมดูวิดีโอ: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
-msgid "View"
-msgstr "ดู"
+#~ msgid "View"
+#~ msgstr "ดู"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:177
-msgid "View all"
-msgstr "ดูทั้งหมด"
+#~ msgid "View all"
+#~ msgstr "ดูทั้งหมด"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:211
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "ดูการแจ้งเตือนทั้งหมด"
 
@@ -3611,20 +3597,20 @@ msgstr "ดูการแจ้งเตือนทั้งหมด"
 msgid "View controls"
 msgstr "ตัวควบคุมมุมมอง"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "View only"
 msgstr "ดูอย่างเดียว"
 
-#: src/features/forums/components/thread/thread-comment.tsx:258
+#: src/features/forums/components/thread/thread-comment.tsx:257
 msgid "View the image this comment is about"
 msgstr "ดูรูปที่ความคิดเห็นนี้กล่าวถึง"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:755
+#: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "ความรุนแรง"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Vote and view"
 msgstr "โหวตและดู"
 
@@ -3643,22 +3629,22 @@ msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify
 msgstr "เราส่งรหัสยืนยันไปที่ <0>{0}</0> แล้ว ป้อนรหัสด้านล่างเพื่อยืนยันที่อยู่อีเมลของคุณ"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
-msgid "We'll be back online shortly."
-msgstr "เราจะกลับมาออนไลน์เร็วๆ นี้"
+#~ msgid "We'll be back online shortly."
+#~ msgstr "เราจะกลับมาออนไลน์เร็วๆ นี้"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:197
-msgid "We'll notify you when something important happens."
-msgstr "เราจะแจ้งให้คุณทราบเมื่อมีเรื่องสำคัญเกิดขึ้น"
+#~ msgid "We'll notify you when something important happens."
+#~ msgstr "เราจะแจ้งให้คุณทราบเมื่อมีเรื่องสำคัญเกิดขึ้น"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
-msgid "Website is under maintenance!"
-msgstr "เว็บไซต์อยู่ระหว่างการบำรุงรักษา!"
+#~ msgid "Website is under maintenance!"
+#~ msgstr "เว็บไซต์อยู่ระหว่างการบำรุงรักษา!"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Wednesday"
 msgstr "วันพุธ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1088
+#: src/routes/_authenticated/$forum_.settings.tsx:1079
 msgid "Window duration"
 msgstr "ระยะเวลาหน้าต่าง"
 
@@ -3669,11 +3655,11 @@ msgstr "ระยะเวลาหน้าต่าง"
 msgid "You are already subscribed to this forum"
 msgstr "คุณติดตามฟอรัมนี้อยู่แล้ว"
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:59
 msgid "You are posting too quickly — please wait and try again"
 msgstr "คุณกำลังโพสต์เร็วเกินไป — โปรดรอและลองอีกครั้ง"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:57
 msgid "You are restricted from posting in this forum"
 msgstr "คุณถูกจำกัดไม่ให้โพสต์ในฟอรัมนี้"
 
@@ -3682,10 +3668,10 @@ msgid "You do not have access to this section."
 msgstr "คุณไม่มีสิทธิ์เข้าถึงส่วนนี้"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:18
-msgid "You don't have necessary permission <0/>to view this resource."
-msgstr "คุณไม่มีสิทธิ์ที่จำเป็น <0/>ในการดูทรัพยากรนี้"
+#~ msgid "You don't have necessary permission <0/>to view this resource."
+#~ msgstr "คุณไม่มีสิทธิ์ที่จำเป็น <0/>ในการดูทรัพยากรนี้"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:55
 msgid "You don't have permission to post in this forum"
 msgstr "คุณไม่มีสิทธิ์โพสต์ในฟอรัมนี้"
 
@@ -3693,13 +3679,13 @@ msgstr "คุณไม่มีสิทธิ์โพสต์ในฟอร
 msgid "You have no forums yet."
 msgstr "คุณยังไม่มีฟอรัม"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "คุณจะหยุดรับการอัปเดตจากฟอรัมนี้ คุณสามารถติดตามอีกครั้งได้ทุกเมื่อ"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "You're all caught up!"
-msgstr "คุณดูครบแล้ว!"
+#~ msgid "You're all caught up!"
+#~ msgstr "คุณดูครบแล้ว!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

@@ -14,24 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:223
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Sjekk internettforbindelsen din og prøv igjen."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:1027
 msgid " · Expires {0}"
 msgstr " · Utløper {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1028
 msgid " · Permanent"
 msgstr " · Permanent"
 
-#: src/features/forums/components/thread/thread-comment.tsx:247
+#: src/features/forums/components/thread/thread-comment.tsx:246
+#: src/features/forums/components/thread/thread-content.tsx:200
 msgid " (edited)"
 msgstr " (redigert)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
 msgid " or "
 msgstr " eller "
 
@@ -43,64 +44,61 @@ msgstr "(redigert)"
 msgid "(expand)"
 msgstr "(utvid)"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:752
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:753
 msgid "[not set]"
 msgstr "[ikke satt]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:328
+#: src/features/forums/pages/entity-forum-page.tsx:294
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# nytt innlegg} other {# nye innlegg}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#. placeholder {0}: selectedValues.size
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:523
+#: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# valgt} other {# valgt}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:304
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# bruker utestengt} other {# brukere utestengt}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:287
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# bruker dempet} other {# brukere dempet}}"
 
-#. placeholder {0}: item.label
 #: ../../../lib/web/src/components/config-drawer.tsx:160
-msgid "{0} option preview"
-msgstr "Forhåndsvisning av {0}-alternativet"
+#~ msgid "{0} option preview"
+#~ msgstr "Forhåndsvisning av {0}-alternativet"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "{0} settings"
 msgstr "{0}-innstillinger"
 
-#: ../../../lib/web/src/lib/locale-format.ts:175
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#d} other {#d}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:171
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#t} other {#t}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:167
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:179
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#u} other {#u}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:236
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# element godkjent} other {# elementer godkjent}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:258
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# element avvist} other {# elementer avvist}}"
 
@@ -116,36 +114,36 @@ msgstr "{entityLabel}-navn er påkrevd"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} tilbød remis"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:64
+#: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Vis # annen kommentar til dette innlegget} other {Vis # andre kommentarer til dette innlegget}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:200
-msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
-msgstr "{selectedCount, plural, one {{entityName} valgt} other {{manyName} valgt}}"
+#~ msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+#~ msgstr "{selectedCount, plural, one {{entityName} valgt} other {{manyName} valgt}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:42
-msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
-msgstr "{selectedCount, plural, one {# {entityName} valgt. Verktøylinjen for massehandlinger er tilgjengelig.} other {# {manyName} valgt. Verktøylinjen for massehandlinger er tilgjengelig.}}"
+#~ msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+#~ msgstr "{selectedCount, plural, one {# {entityName} valgt. Verktøylinjen for massehandlinger er tilgjengelig.} other {# {manyName} valgt. Verktøylinjen for massehandlinger er tilgjengelig.}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:192
-msgid "{selectedCount, plural, one {# selected} other {# selected}}"
-msgstr "{selectedCount, plural, one {# valgt} other {# valgt}}"
+#~ msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+#~ msgstr "{selectedCount, plural, one {# valgt} other {# valgt}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:139
-msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
-msgstr "{selectedCount, plural, one {Masse­handlinger for # valgt {entityName}} other {Masse­handlinger for # valgte {manyName}}}"
+#~ msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+#~ msgstr "{selectedCount, plural, one {Masse­handlinger for # valgt {entityName}} other {Masse­handlinger for # valgte {manyName}}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:241
+#: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} av {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:528
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# element} other {# elementer}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:233
+#: src/features/forums/components/thread/thread-comment.tsx:232
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# svar} other {# svar}}"
 
@@ -182,7 +180,7 @@ msgstr "Absolutt (dato og klokkeslett)"
 msgid "Accept"
 msgstr "Godta"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Access"
 msgstr "Tilgang"
 
@@ -191,50 +189,50 @@ msgid "Access denied"
 msgstr "Tilgang nektet"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
-msgid "Access Forbidden"
-msgstr "Tilgang forbudt"
+#~ msgid "Access Forbidden"
+#~ msgstr "Tilgang forbudt"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Tilgangsnivå"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:846
+#: src/routes/_authenticated/$forum_.settings.tsx:837
 msgid "Access level updated"
 msgstr "Tilgangsnivå oppdatert"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:855
+#: src/routes/_authenticated/$forum_.settings.tsx:846
 msgid "Access management"
 msgstr "Tilgangsstyring"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:831
+#: src/routes/_authenticated/$forum_.settings.tsx:822
 msgid "Access removed"
 msgstr "Tilgang fjernet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Access set for {subjectName}"
 msgstr "Tilgang angitt for {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:563
 msgid "Account"
 msgstr "Konto"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:216
-msgid "Account added"
-msgstr "Konto lagt til"
+#~ msgid "Account added"
+#~ msgstr "Konto lagt til"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:232
-msgid "Account removed"
-msgstr "Konto fjernet"
+#~ msgid "Account removed"
+#~ msgstr "Konto fjernet"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "Kontotype"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:242
-msgid "Account verified"
-msgstr "Konto bekreftet"
+#~ msgid "Account verified"
+#~ msgstr "Konto bekreftet"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:711
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
@@ -257,19 +255,18 @@ msgid "Add access"
 msgstr "Legg til tilgang"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:132
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:288
 msgid "Add account"
 msgstr "Legg til konto"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:297
-msgid "Add an account to receive notifications and use services."
-msgstr "Legg til en konto for å motta varsler og bruke tjenester."
+#~ msgid "Add an account to receive notifications and use services."
+#~ msgstr "Legg til en konto for å motta varsler og bruke tjenester."
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Add caption"
 msgstr "Legg til bildetekst"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:681
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Legg til sjekklisteelement"
 
@@ -278,12 +275,12 @@ msgstr "Legg til sjekklisteelement"
 msgid "Add field"
 msgstr "Legg til felt"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:273
 #: src/features/forums/components/edit-post-dialog.tsx:323
 msgid "Add files"
 msgstr "Legg til filer"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:699
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Legg til element …"
 
@@ -292,8 +289,8 @@ msgid "Add link"
 msgstr "Legg til lenke"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
-msgid "Add new account"
-msgstr "Legg til ny konto"
+#~ msgid "Add new account"
+#~ msgstr "Legg til ny konto"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
@@ -303,18 +300,17 @@ msgstr "Legg til ny konto"
 msgid "Add option"
 msgstr "Legg til alternativ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:856
 msgid "Add rule"
 msgstr "Legg til regel"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
-#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Legg til etikett …"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:83
-msgid "Add team/app"
-msgstr "Legg til team/app"
+#~ msgid "Add team/app"
+#~ msgstr "Legg til team/app"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:175
 msgid "Add to existing notifications"
@@ -336,20 +332,19 @@ msgid "Additional details (optional)"
 msgstr "Ytterligere detaljer (valgfritt)"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:72
-msgid "Adjust the appearance and layout to suit your preferences."
-msgstr "Juster utseendet og layouten etter dine preferanser."
+#~ msgid "Adjust the appearance and layout to suit your preferences."
+#~ msgstr "Juster utseendet og layouten etter dine preferanser."
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:557
+#: src/routes/_authenticated/$forum_.settings.tsx:550
 msgid "AI"
 msgstr "KI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI actions on posts"
 msgstr "KI-handlinger på innlegg"
 
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
 msgid "All"
 msgstr "Alle"
 
@@ -358,7 +353,7 @@ msgstr "Alle"
 msgid "All forums"
 msgstr "Alle forum"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "Alle innlegg og kommentarer er gjennomgått"
 
@@ -379,7 +374,7 @@ msgstr "Tillat sortering etter"
 msgid "An error occurred"
 msgstr "Det oppstod en feil"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:266
 msgid "An unexpected error occurred"
 msgstr "Det oppstod en uventet feil"
 
@@ -392,11 +387,11 @@ msgid "Any additional context..."
 msgstr "Eventuell ytterligere kontekst..."
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Anyone"
 msgstr "Alle"
 
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
 msgstr "Alle som er logget inn"
 
@@ -404,8 +399,8 @@ msgstr "Alle som er logget inn"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Alt som abonnerer på denne strømmen slutter å motta den. Du kan kopiere en ny URL etterpå."
 
-#: src/features/forums/components/thread/thread-comment.tsx:454
-#: src/routes/_authenticated/$forum_.moderation.tsx:488
+#: src/features/forums/components/thread/thread-comment.tsx:453
+#: src/routes/_authenticated/$forum_.moderation.tsx:482
 msgid "Approve"
 msgstr "Godkjenn"
 
@@ -414,7 +409,7 @@ msgstr "Godkjenn"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Er du sikker på at du vil slette «{0}»?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:627
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Er du sikker på at du vil slette kolonnen «{name}»? Dette kan ikke angres."
 
@@ -422,11 +417,11 @@ msgstr "Er du sikker på at du vil slette kolonnen «{name}»? Dette kan ikke an
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Er du sikker på at du vil slette denne kommentaren? Dette vil også slette alle svar."
 
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Er du sikker på at du vil slette denne kommentaren? Dette vil også slette alle svar. Denne handlingen kan ikke angres."
 
-#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/features/forums/components/thread/thread-content.tsx:430
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Er du sikker på at du vil slette dette innlegget? Dette vil også slette alle kommentarer. Denne handlingen kan ikke angres."
 
@@ -435,8 +430,8 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Er du sikker på at du vil logge ut? Du må logge inn igjen for å få tilgang til kontoen din."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:59
-msgid "Asc"
-msgstr "Stigende"
+#~ msgid "Asc"
+#~ msgstr "Stigende"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -451,11 +446,11 @@ msgid "Attach reply files"
 msgstr "Legg ved svarfiler"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:46
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Authenticated users"
 msgstr "Autentiserte brukere"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:317
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Autentiseringskode"
 
@@ -476,14 +471,14 @@ msgid "Back"
 msgstr "Tilbake"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:325
-#: src/features/forums/thread-detail.tsx:337
-#: src/features/forums/thread-detail.tsx:358
-#: src/features/forums/thread-detail.tsx:480
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:225
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:270
+#: src/features/forums/thread-detail.tsx:310
+#: src/features/forums/thread-detail.tsx:322
+#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:459
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:219
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:264
 msgid "Back to forum"
 msgstr "Tilbake til forum"
 
@@ -491,35 +486,38 @@ msgstr "Tilbake til forum"
 msgid "Back to forums"
 msgstr "Tilbake til forum"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:28
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Tilbake til start"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:514
+#: src/routes/_authenticated/$forum_.moderation.tsx:508
 msgid "Ban"
 msgstr "Utesteng"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-comment.tsx:495
+#: src/features/forums/components/thread/thread-content.tsx:414
 msgid "Ban author"
 msgstr "Utesteng forfatter"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "banned"
-msgstr "utestengt"
+#~ msgid "banned"
+#~ msgstr "utestengt"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Banned"
+msgstr "Utestengt"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner removed"
 msgstr "Banner fjernet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner updated"
 msgstr "Banner oppdatert"
 
@@ -528,8 +526,8 @@ msgstr "Banner oppdatert"
 msgid "Blocked by"
 msgstr "Blokkert av"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:225
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:235
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Blokkerte navigasjon til ikke-pålitelig lenke"
 
@@ -555,22 +553,22 @@ msgid "Browser notifications"
 msgstr "Nettleservarsler"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "by {0}"
 msgstr "av {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1000
+#: src/routes/_authenticated/$forum_.moderation.tsx:1025
 msgid "By {0}"
 msgstr "Av {0}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:419
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:612
+#: ../../../lib/web/src/components/attachment-composer.tsx:426
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:365
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -578,10 +576,10 @@ msgstr "Av {0}"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:296
-#: src/features/forums/components/edit-post-dialog.tsx:370
+#: src/features/forums/components/create-post-dialog.tsx:297
+#: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -593,23 +591,23 @@ msgstr "Avbryt kommentar"
 msgid "Cancel reply"
 msgstr "Avbryt svar"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:379
-#: ../../../lib/web/src/components/attachment-composer.tsx:414
+#: ../../../lib/web/src/components/attachment-composer.tsx:386
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
 msgid "Caption"
 msgstr "Bildetekst"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:97
+#: ../../../lib/web/src/components/notification-category-button.tsx:99
 msgid "Category for these notifications"
 msgstr "Kategori for disse varslene"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:78
-#: ../../../lib/web/src/components/notification-category-button.tsx:89
+#: ../../../lib/web/src/components/notification-category-button.tsx:80
+#: ../../../lib/web/src/components/notification-category-button.tsx:91
 msgid "Change notification category"
 msgstr "Endre varselkategori"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:198
-msgid "Check \"All\" to see your past notifications."
-msgstr "Velg «Alle» for å se tidligere varsler."
+#~ msgid "Check \"All\" to see your past notifications."
+#~ msgstr "Velg «Alle» for å se tidligere varsler."
 
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
@@ -623,28 +621,28 @@ msgstr "Avkrysningsboks"
 msgid "Checklist"
 msgstr "Sjekkliste"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:33
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:35
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "Velg et spill fra sidefeltet eller start et nytt."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
-msgid "Choose between default expanded, compact icon-only, or full layout mode"
-msgstr "Velg mellom standard utvidet, kompakt kun ikoner, eller full layout"
+#~ msgid "Choose between default expanded, compact icon-only, or full layout mode"
+#~ msgstr "Velg mellom standard utvidet, kompakt kun ikoner, eller full layout"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:271
-msgid "Choose between inset, floating, or standard sidebar layout"
-msgstr "Velg mellom innfelt, flytende eller standard sidefelt-layout"
+#~ msgid "Choose between inset, floating, or standard sidebar layout"
+#~ msgstr "Velg mellom innfelt, flytende eller standard sidefelt-layout"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:372
-msgid "Choose between left-to-right or right-to-left site direction"
-msgstr "Velg mellom retning fra venstre til høyre eller høyre til venstre for nettstedet"
+#~ msgid "Choose between left-to-right or right-to-left site direction"
+#~ msgstr "Velg mellom retning fra venstre til høyre eller høyre til venstre for nettstedet"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:227
-msgid "Choose between system preference, light mode, or dark mode"
-msgstr "Velg mellom systeminnstilling, lyst eller mørkt utseende"
+#~ msgid "Choose between system preference, light mode, or dark mode"
+#~ msgstr "Velg mellom systeminnstilling, lyst eller mørkt utseende"
 
-#: ../../../lib/web/src/components/language-picker.tsx:263
-#: ../../../lib/web/src/components/language-picker.tsx:270
+#: ../../../lib/web/src/components/language-picker.tsx:264
+#: ../../../lib/web/src/components/language-picker.tsx:271
 msgid "Choose language"
 msgstr "Velg språk"
 
@@ -654,7 +652,7 @@ msgstr "Velg språk"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:506
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Clear"
 msgstr "Tøm"
 
@@ -669,8 +667,8 @@ msgid "Clear all saved posts?"
 msgstr "Tømme alle lagrede innlegg?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
-msgid "Clear filters"
-msgstr "Tøm filtre"
+#~ msgid "Clear filters"
+#~ msgstr "Tøm filtre"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 msgid "Clear search"
@@ -678,20 +676,20 @@ msgstr "Tøm søk"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
-msgid "Clear selection"
-msgstr "Tøm utvalg"
+#~ msgid "Clear selection"
+#~ msgstr "Tøm utvalg"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:175
-msgid "Clear selection (Escape)"
-msgstr "Tøm utvalg (Escape)"
+#~ msgid "Clear selection (Escape)"
+#~ msgstr "Tøm utvalg (Escape)"
 
-#: src/lib/saved.ts:33
+#: src/lib/saved.ts:34
 msgid "Clearing saved posts..."
 msgstr "Fjerner lagrede innlegg..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:505
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
@@ -711,8 +709,8 @@ msgstr "Lukk dialog"
 msgid "Close navigation"
 msgstr "Lukk navigasjon"
 
-#: ../../../lib/web/src/components/layout/right-panel.tsx:265
-#: ../../../lib/web/src/components/layout/right-panel.tsx:268
+#: ../../../lib/web/src/components/layout/right-panel.tsx:234
+#: ../../../lib/web/src/components/layout/right-panel.tsx:237
 msgid "Close panel"
 msgstr "Lukk panel"
 
@@ -739,8 +737,8 @@ msgstr "Skjul sidefelt"
 msgid "Colour"
 msgstr "Farge"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:537
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:542
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Kolonnehandlinger"
 
@@ -753,12 +751,16 @@ msgid "Comfortable"
 msgstr "Behagelig"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:12
-msgid "Coming Soon!"
-msgstr "Kommer snart!"
+#~ msgid "Coming Soon!"
+#~ msgstr "Kommer snart!"
 
 #: ../../../lib/web/src/components/ui/command.tsx:34
 msgid "Command Palette"
 msgstr "Kommandopalett"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:760
+msgid "Comment"
+msgstr "Kommentar"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:292
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:299
@@ -773,11 +775,11 @@ msgstr "Kommentar godkjent"
 msgid "Comment deleted"
 msgstr "Kommentar slettet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1073
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Comment limit"
 msgstr "Kommentargrense"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:84
+#: src/features/forums/components/thread/attachment-comments.tsx:85
 msgid "Comment on this image…"
 msgstr "Kommenter dette bildet …"
 
@@ -797,7 +799,7 @@ msgstr "Kommentar gjenopprettet"
 msgid "Comment updated"
 msgstr "Kommentar oppdatert"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Comment, vote, and view"
 msgstr "Kommentér, stem og se"
 
@@ -806,7 +808,6 @@ msgstr "Kommentér, stem og se"
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Kompakt"
@@ -829,19 +830,19 @@ msgid "Connected"
 msgstr "Tilkoblet"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:191
-msgid "Connected accounts"
-msgstr "Tilkoblede kontoer"
+#~ msgid "Connected accounts"
+#~ msgstr "Tilkoblede kontoer"
 
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Connecting..."
 msgstr "Kobler til..."
 
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:227
 #: src/features/forums/components/edit-post-dialog.tsx:294
 msgid "Content"
 msgstr "Innhold"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1023
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "Innhold fra brukere under en terskel må godkjennes"
 
@@ -865,7 +866,7 @@ msgstr "Kontekstuell informasjon og detaljer."
 msgid "Continue"
 msgstr "Fortsett"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "Fortsett med {label}"
 
@@ -885,26 +886,26 @@ msgstr "Kopier"
 msgid "Could not load this document. Please try again later."
 msgstr "Kunne ikke laste dette dokumentet. Prøv igjen senere."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Kunne ikke laste varsler"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Kunne ikke sende koden. Prøv igjen."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:135
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Kunne ikke starte ny autentisering. Prøv igjen."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:223
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Kunne ikke verifisere med den kontoen. Prøv igjen."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:548
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:687
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Opprett"
@@ -918,7 +919,7 @@ msgstr "Opprett {0}"
 msgid "Create a new forum"
 msgstr "Opprett et nytt forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:198
+#: src/features/forums/components/create-post-dialog.tsx:199
 msgid "Create a new post"
 msgstr "Opprett et nytt innlegg"
 
@@ -940,7 +941,7 @@ msgstr "Opprettet"
 msgid "Creating forum..."
 msgstr "Oppretter forum..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Oppretter …"
@@ -950,22 +951,20 @@ msgid "Current location"
 msgstr "Nåværende posisjon"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "Tilpasset"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:219
-#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:15
 msgid "Dark"
 msgstr "Mørkt"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:87
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
-msgid "Dark mode"
-msgstr "Mørkt utseende"
+#~ msgid "Dark mode"
+#~ msgstr "Mørkt utseende"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:250
 msgid "Data conflict"
 msgstr "Datakonflikt"
 
@@ -973,7 +972,7 @@ msgstr "Datakonflikt"
 msgid "Date"
 msgstr "Dato"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1045
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
 msgid "days"
 msgstr "dager"
 
@@ -981,12 +980,11 @@ msgstr "dager"
 msgid "Decline"
 msgstr "Avslå"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:713
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "Standard"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:569
 msgid "Default account"
 msgstr "Standardkonto"
 
@@ -998,8 +996,8 @@ msgstr "Standard KI-konto"
 msgid "Default sort"
 msgstr "Standard sortering"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:567
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
@@ -1007,11 +1005,11 @@ msgstr "Standard sortering"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:441
-#: src/features/forums/components/thread/thread-comment.tsx:513
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:432
-#: src/routes/_authenticated/$forum_.settings.tsx:424
+#: src/features/forums/components/thread/thread-comment.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-content.tsx:351
+#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:418
 msgid "Delete"
 msgstr "Slett"
 
@@ -1019,12 +1017,12 @@ msgstr "Slett"
 msgid "Delete attachment"
 msgstr "Slett vedlegg"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:626
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Slett kolonne"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:510
 msgid "Delete comment"
 msgstr "Slett kommentar"
 
@@ -1032,12 +1030,12 @@ msgstr "Slett kommentar"
 msgid "Delete field"
 msgstr "Slett felt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
-#: src/routes/_authenticated/$forum_.settings.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:409
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "Delete forum"
 msgstr "Slett forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:433
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum?"
 msgstr "Slette forum?"
 
@@ -1051,7 +1049,7 @@ msgstr "Slett alternativ"
 msgid "Delete option {0}"
 msgstr "Slett alternativ {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:430
+#: src/features/forums/components/thread/thread-content.tsx:429
 msgid "Delete post"
 msgstr "Slett innlegg"
 
@@ -1068,8 +1066,8 @@ msgid "Deleting forum..."
 msgstr "Sletter forum..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
-msgid "Desc"
-msgstr "Synkende"
+#~ msgid "Desc"
+#~ msgstr "Synkende"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
@@ -1087,7 +1085,7 @@ msgstr "Detaljer (påkrevd)"
 msgid "Details Panel"
 msgstr "Detaljpanel"
 
-#: ../../../lib/web/src/components/language-picker.tsx:239
+#: ../../../lib/web/src/components/language-picker.tsx:240
 #: ../../../lib/web/src/components/timezone-select.tsx:46
 #: ../../../lib/web/src/components/timezone-select.tsx:83
 #: ../../../lib/web/src/lib/preference-utils.ts:23
@@ -1099,14 +1097,14 @@ msgid "Detect from web browser"
 msgstr "Oppdag fra nettleser"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:341
-msgid "Direction"
-msgstr "Retning"
+#~ msgid "Direction"
+#~ msgstr "Retning"
 
 #: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:557
 msgid "Disabled"
 msgstr "Deaktivert"
 
@@ -1125,7 +1123,7 @@ msgstr "Frakoblet"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:715
+#: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Lukk"
 
@@ -1134,7 +1132,7 @@ msgstr "Lukk"
 msgid "Dismiss banner"
 msgstr "Lukk banner"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:238
+#: ../../../lib/web/src/components/ui/sidebar.tsx:258
 msgid "Displays the mobile sidebar."
 msgstr "Viser sidefeltet for mobil."
 
@@ -1149,7 +1147,7 @@ msgstr "Ferdig"
 msgid "Download"
 msgstr "Last ned"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:99
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "Nedlastingen mislyktes"
 
@@ -1157,14 +1155,14 @@ msgstr "Nedlastingen mislyktes"
 msgid "Duplicates"
 msgstr "Dupliserer"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:141
+#: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Dyslexia-friendly"
 msgstr "Dyslektikervennlig"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:435
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:434
+#: src/features/forums/components/thread/thread-content.tsx:345
 msgid "Edit"
 msgstr "Rediger"
 
@@ -1172,7 +1170,7 @@ msgstr "Rediger"
 msgid "Edit {label}"
 msgstr "Rediger {label}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Edit caption"
 msgstr "Rediger bildetekst"
 
@@ -1211,23 +1209,23 @@ msgstr "Rediger visning"
 msgid "Email"
 msgstr "E-post"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:291
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "E-postkode"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:482
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "Enter banner text (markdown supported)..."
 msgstr "Skriv inn bannertekst (markdown støttes) ..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:301
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "Skriv inn koden fra e-posten din"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:326
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Skriv inn autentiseringskoden din"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Entity ID"
 msgstr "Entitets-ID"
 
@@ -1246,39 +1244,38 @@ msgstr "Utvid sidefelt"
 msgid "External URL"
 msgstr "Ekstern URL"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:131
+#: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Ekstra stor"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:225
-msgid "Failed to add account"
-msgstr "Kunne ikke legge til konto"
+#~ msgid "Failed to add account"
+#~ msgstr "Kunne ikke legge til konto"
 
-#: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:247
+#: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "Kunne ikke legge til tagg"
 
-#: src/features/forums/pages/entity-forum-page.tsx:232
-#: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:258
-#: src/features/forums/thread-detail.tsx:270
+#: src/features/forums/pages/entity-forum-page.tsx:198
+#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/thread-detail.tsx:243
+#: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Kunne ikke justere interesse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:239
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
 msgid "Failed to approve items"
 msgstr "Kunne ikke godkjenne elementer"
 
-#: src/features/forums/thread-detail.tsx:425
+#: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Kunne ikke utestenge bruker"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
 msgid "Failed to ban users"
 msgstr "Kunne ikke utestenge brukere"
 
-#: src/lib/saved.ts:35
+#: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
 msgstr "Kunne ikke tømme lagrede innlegg"
 
@@ -1316,11 +1313,11 @@ msgstr "Kunne ikke slette lenke"
 msgid "Failed to get RSS token"
 msgstr "Kunne ikke hente RSS-token"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:77
+#: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Kunne ikke laste"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
 msgstr "Kunne ikke laste tilgangsregler"
 
@@ -1328,7 +1325,7 @@ msgstr "Kunne ikke laste tilgangsregler"
 msgid "Failed to load forum"
 msgstr "Kunne ikke laste forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:157
 msgid "Failed to load forum settings"
 msgstr "Kunne ikke laste forum-innstillinger"
 
@@ -1336,11 +1333,11 @@ msgstr "Kunne ikke laste forum-innstillinger"
 msgid "Failed to load forums"
 msgstr "Kunne ikke laste forumer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:788
 msgid "Failed to load groups"
 msgstr "Kunne ikke laste grupper"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:65
+#: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
 msgstr "Kunne ikke laste historikk"
 
@@ -1348,15 +1345,15 @@ msgstr "Kunne ikke laste historikk"
 msgid "Failed to load image"
 msgstr "Kunne ikke laste bildet"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "Kunne ikke laste modereringslogg"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:166
 msgid "Failed to load moderation queue"
 msgstr "Kunne ikke laste modereringskø"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:940
+#: src/routes/_authenticated/$forum_.settings.tsx:931
 msgid "Failed to load moderation settings"
 msgstr "Kunne ikke laste modereringsinnstillinger"
 
@@ -1365,11 +1362,11 @@ msgstr "Kunne ikke laste modereringsinnstillinger"
 msgid "Failed to load recommended forums"
 msgstr "Kunne ikke laste anbefalte forum"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:550
+#: src/routes/_authenticated/$forum_.moderation.tsx:546
 msgid "Failed to load reports"
 msgstr "Kunne ikke laste rapporter"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:891
+#: src/routes/_authenticated/$forum_.moderation.tsx:916
 msgid "Failed to load restrictions"
 msgstr "Kunne ikke laste begrensninger"
 
@@ -1377,11 +1374,11 @@ msgstr "Kunne ikke laste begrensninger"
 msgid "Failed to load video"
 msgstr "Kunne ikke laste videoen"
 
-#: src/features/forums/thread-detail.tsx:416
+#: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Kunne ikke dempe bruker"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:290
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
 msgid "Failed to mute users"
 msgstr "Kunne ikke dempe brukere"
 
@@ -1389,40 +1386,40 @@ msgstr "Kunne ikke dempe brukere"
 msgid "Failed to post comment"
 msgstr "Kunne ikke legge ut kommentar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:261
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
 msgid "Failed to reject items"
 msgstr "Kunne ikke avvise elementer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:834
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to remove access"
 msgstr "Kunne ikke fjerne tilgang"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
-msgid "Failed to remove account"
-msgstr "Kunne ikke fjerne konto"
+#~ msgid "Failed to remove account"
+#~ msgstr "Kunne ikke fjerne konto"
 
-#: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Kunne ikke fjerne interesse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:908
+#: src/routes/_authenticated/$forum_.moderation.tsx:933
 msgid "Failed to remove restriction"
 msgstr "Kunne ikke fjerne begrensning"
 
-#: src/lib/saved.ts:32
+#: src/lib/saved.ts:33
 msgid "Failed to remove saved post"
 msgstr "Kunne ikke fjerne det lagrede innlegget"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:208
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Failed to rename forum"
 msgstr "Kunne ikke endre navn på forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:684
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Failed to reset prompt"
 msgstr "Kunne ikke tilbakestille ledetekst"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:567
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
 msgid "Failed to resolve report"
 msgstr "Kunne ikke løse rapport"
 
@@ -1430,15 +1427,15 @@ msgstr "Kunne ikke løse rapport"
 msgid "Failed to revoke RSS access"
 msgstr "Kunne ikke tilbakekalle RSS-tilgang"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:957
+#: src/routes/_authenticated/$forum_.settings.tsx:948
 msgid "Failed to save moderation settings"
 msgstr "Kunne ikke lagre modereringsinnstillinger"
 
-#: src/lib/saved.ts:29
+#: src/lib/saved.ts:30
 msgid "Failed to save post"
 msgstr "Kunne ikke lagre innlegget"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to save prompt"
 msgstr "Kunne ikke lagre ledetekst"
 
@@ -1447,15 +1444,15 @@ msgstr "Kunne ikke lagre ledetekst"
 msgid "Failed to search forums"
 msgstr "Kunne ikke søke i forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:794
+#: src/routes/_authenticated/$forum_.settings.tsx:785
 msgid "Failed to search users"
 msgstr "Kunne ikke søke etter brukere"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:257
-msgid "Failed to send verification code"
-msgstr "Kunne ikke sende bekreftelseskode"
+#~ msgid "Failed to send verification code"
+#~ msgstr "Kunne ikke sende bekreftelseskode"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:822
+#: src/routes/_authenticated/$forum_.settings.tsx:813
 msgid "Failed to set access level"
 msgstr "Kunne ikke angi tilgangsnivå"
 
@@ -1467,20 +1464,20 @@ msgid "Failed to subscribe"
 msgstr "Kunne ikke abonnere"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:186
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Failed to unsubscribe"
 msgstr "Kunne ikke avslutte abonnement"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:840
 msgid "Failed to update access level"
 msgstr "Kunne ikke oppdatere tilgangsnivå"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:537
-#: src/routes/_authenticated/$forum_.settings.tsx:549
+#: src/routes/_authenticated/$forum_.settings.tsx:531
+#: src/routes/_authenticated/$forum_.settings.tsx:543
 msgid "Failed to update AI settings"
 msgstr "Kunne ikke oppdatere KI-innstillinger"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:468
+#: src/routes/_authenticated/$forum_.settings.tsx:462
 msgid "Failed to update banner"
 msgstr "Kunne ikke oppdatere banner"
 
@@ -1492,19 +1489,19 @@ msgstr "Kunne ikke oppdatere kommentar"
 msgid "Failed to upload attachment"
 msgstr "Kunne ikke laste opp vedlegg"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:588
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
-#: src/features/forums/components/create-post-dialog.tsx:268
+#: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
 msgstr "Filer"
 
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
-msgid "Filter..."
-msgstr "Filtrer..."
+#~ msgid "Filter..."
+#~ msgstr "Filtrer..."
 
-#: src/features/forums/pages/entity-forum-page.tsx:336
+#: src/features/forums/pages/entity-forum-page.tsx:302
 msgid "Filtered by tag:"
 msgstr "Filtrert etter tagg:"
 
@@ -1513,7 +1510,7 @@ msgstr "Filtrert etter tagg:"
 msgid "Find forums"
 msgstr "Finn forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:377
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Fingerprint"
 msgstr "Fingeravtrykk"
 
@@ -1530,13 +1527,13 @@ msgid "Flat"
 msgstr "Flat"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:258
-msgid "Floating"
-msgstr "Flytende"
+#~ msgid "Floating"
+#~ msgstr "Flytende"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:162
+#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/thread-detail.tsx:147
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "Forum"
@@ -1549,7 +1546,7 @@ msgstr "Forum opprettet"
 msgid "Forum deleted"
 msgstr "Forum slettet"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:65
 msgid "Forum is no longer available"
 msgstr "Forumet er ikke lenger tilgjengelig"
 
@@ -1557,23 +1554,23 @@ msgstr "Forumet er ikke lenger tilgjengelig"
 msgid "Forum link"
 msgstr "Forumlenke"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:351
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Forum name is required"
 msgstr "Forumnavn er påkrevd"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum not found"
 msgstr "Fant ikke forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:207
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Forum renamed"
 msgstr "Forum har fått nytt navn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:280
+#: src/routes/_authenticated/$forum_.settings.tsx:274
 msgid "Forum settings sections"
 msgstr "Seksjoner for foruminnstillinger"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum unavailable"
 msgstr "Forum er utilgjengelig"
 
@@ -1599,41 +1596,39 @@ msgstr "Fra"
 #: ../../../lib/web/src/lib/preference-utils.ts:89
 #: ../../../lib/web/src/lib/preference-utils.ts:99
 #: ../../../lib/web/src/lib/preference-utils.ts:110
-#: ../../../lib/web/src/lib/preference-utils.ts:119
-#: ../../../lib/web/src/lib/preference-utils.ts:127
-#: ../../../lib/web/src/lib/preference-utils.ts:138
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
 msgid "From theme"
 msgstr "Fra tema"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:321
-msgid "Full layout"
-msgstr "Full layout"
+#~ msgid "Full layout"
+#~ msgstr "Full layout"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Tilbake"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:82
-msgid "Go to first page"
-msgstr "Gå til første side"
+#~ msgid "Go to first page"
+#~ msgstr "Gå til første side"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:128
-msgid "Go to last page"
-msgstr "Gå til siste side"
+#~ msgid "Go to last page"
+#~ msgstr "Gå til siste side"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:119
-msgid "Go to next page"
-msgstr "Gå til neste side"
+#~ msgid "Go to next page"
+#~ msgstr "Gå til neste side"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:106
-msgid "Go to page {pageNumber}"
-msgstr "Gå til side {pageNumber}"
+#~ msgid "Go to page {pageNumber}"
+#~ msgstr "Gå til side {pageNumber}"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:91
-msgid "Go to previous page"
-msgstr "Gå til forrige side"
+#~ msgid "Go to previous page"
+#~ msgstr "Gå til forrige side"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
@@ -1649,24 +1644,24 @@ msgid "Group: {0}"
 msgstr "Gruppe: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:753
+#: src/routes/_authenticated/$forum_.moderation.tsx:777
 msgid "Harassment"
 msgstr "Trakassering"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:754
+#: src/routes/_authenticated/$forum_.moderation.tsx:778
 msgid "Hate speech"
 msgstr "Hatefull tale"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
-msgid "Hide"
-msgstr "Skjul"
+#~ msgid "Hide"
+#~ msgstr "Skjul"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Hide password"
-msgstr "Skjul passord"
+#~ msgid "Hide password"
+#~ msgstr "Skjul passord"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:58
+#: ../../../lib/web/src/components/audit-timeline.tsx:61
 msgid "History"
 msgstr "Historikk"
 
@@ -1685,7 +1680,7 @@ msgstr "Populært"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:360
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Identity"
 msgstr "Identitet"
 
@@ -1698,7 +1693,7 @@ msgstr "Bildeviser: {0}"
 msgid "Imperial"
 msgstr "Imperialsk"
 
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Including anonymous users"
 msgstr "Inkludert anonyme brukere"
 
@@ -1711,19 +1706,19 @@ msgid "Initials avatar for {name}"
 msgstr "Initialavatar for {name}"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:253
-msgid "Inset"
-msgstr "Innfelt"
+#~ msgid "Inset"
+#~ msgstr "Innfelt"
 
-#: src/features/forums/thread-detail.tsx:256
+#: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Interesse økt"
 
-#: src/features/forums/thread-detail.tsx:268
+#: src/features/forums/thread-detail.tsx:253
 msgid "Interest reduced"
 msgstr "Interesse redusert"
 
-#: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:280
+#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Interesse fjernet"
 
@@ -1731,23 +1726,23 @@ msgstr "Interesse fjernet"
 msgid "Interests"
 msgstr "Interesser"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:544
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Ugyldig dato"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
-msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
-msgstr "Ugyldig etikett: kun bokstaver, tall, mellomrom, bindestreker og skråstreker (maks. 50 tegn)"
+#~ msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+#~ msgstr "Ugyldig etikett: kun bokstaver, tall, mellomrom, bindestreker og skråstreker (maks. 50 tegn)"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
-msgid "Invalid verification code"
-msgstr "Ugyldig bekreftelseskode"
+#~ msgid "Invalid verification code"
+#~ msgstr "Ugyldig bekreftelseskode"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:18
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Det ser ut til at siden du leter etter <0/>ikke finnes eller er blitt fjernet."
 
-#: ../../../lib/web/src/lib/locale-format.ts:164
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "Nettopp nå"
 
@@ -1756,30 +1751,27 @@ msgid "Keyboard shortcuts"
 msgstr "Tastatursnarveier"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:103
-#: ../../../lib/web/src/lib/preference-utils.ts:130
+#: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "Stor"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:287
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Layout"
 
 #: ../../../lib/web/src/components/learn-more.tsx:33
 #: ../../../lib/web/src/components/learn-more.tsx:38
-msgid "Learn more"
-msgstr "Les mer"
+#~ msgid "Learn more"
+#~ msgstr "Les mer"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:355
-msgid "Left to Right"
-msgstr "Venstre mot høyre"
+#~ msgid "Left to Right"
+#~ msgstr "Venstre mot høyre"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
 msgid "Letters, numbers, spaces, and hyphens only"
 msgstr "Kun bokstaver, tall, mellomrom og bindestreker"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:214
-#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
 msgstr "Lys"
@@ -1800,7 +1792,7 @@ msgstr "Liste"
 msgid "Load more"
 msgstr "Last inn flere"
 
-#: ../../../lib/web/src/components/ui/loading-content.tsx:25
+#: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Laster inn innhold…"
 
@@ -1809,11 +1801,11 @@ msgstr "Laster inn innhold…"
 msgid "Loading..."
 msgstr "Laster ..."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Lock"
 msgstr "Lås"
 
-#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/features/forums/components/thread/thread-content.tsx:170
 msgid "Locked"
 msgstr "Låst"
 
@@ -1821,8 +1813,6 @@ msgstr "Låst"
 msgid "Log"
 msgstr "Logg"
 
-#: ../../../lib/web/src/components/profile-dropdown.tsx:69
-#: ../../../lib/web/src/components/profile-dropdown.tsx:98
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:26
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:28
 msgid "Log out"
@@ -1840,25 +1830,24 @@ msgstr "Logget ut"
 msgid "Logging out…"
 msgstr "Logger ut …"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
 msgid "Manage categories"
 msgstr "Administrer kategorier"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:192
-msgid "Manage your connected accounts for notifications and services."
-msgstr "Administrer dine tilkoblede kontoer for varsler og tjenester."
+#~ msgid "Manage your connected accounts for notifications and services."
+#~ msgstr "Administrer dine tilkoblede kontoer for varsler og tjenester."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
 msgid "Manual"
 msgstr "Manuell"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:190
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:197
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Merk alle som lest"
 
-#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/create-post-dialog.tsx:231
 msgid "Markdown supported"
 msgstr "Markdown støttes"
 
@@ -1891,7 +1880,7 @@ msgid "Minimum length"
 msgstr "Min. lengde"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:756
+#: src/routes/_authenticated/$forum_.moderation.tsx:780
 msgid "Misinformation"
 msgstr "Feilinformasjon"
 
@@ -1899,22 +1888,22 @@ msgstr "Feilinformasjon"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modérer, publisér, kommentér, stem og se"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Moderation"
 msgstr "Moderering"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:358
+#: src/routes/_authenticated/$forum_.moderation.tsx:352
 msgid "Moderation queue is empty"
 msgstr "Modereringskøen er tom"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:120
+#: src/routes/_authenticated/$forum_.moderation.tsx:114
 msgid "Moderation sections"
 msgstr "Modereringsdeler"
 
@@ -1924,36 +1913,40 @@ msgstr "Mandag"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:418
-#: src/features/forums/components/thread/thread-comment.tsx:424
-#: src/features/forums/components/thread/thread-content.tsx:333
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:423
+#: src/features/forums/components/thread/thread-content.tsx:332
+#: src/features/forums/components/thread/thread-content.tsx:339
 msgid "More options"
 msgstr "Flere alternativer"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:502
+#: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Demp"
 
-#: src/features/forums/components/thread/thread-comment.tsx:488
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Mute author"
 msgstr "Demp forfatter"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "muted"
-msgstr "dempet"
+#~ msgid "muted"
+#~ msgstr "dempet"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Muted"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:358
 msgid "Name"
 msgstr "Navn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name cannot contain < or > characters"
 msgstr "Navn kan ikke inneholde tegnene < eller >"
 
@@ -1962,42 +1955,42 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "Navnet kan ikke inneholde vinkelparenteser, omvendt skråstrek, semikolon, anførselstegn eller backticks"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:352
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Name must be 1000 characters or less"
 msgstr "Navn må være 1000 tegn eller kortere"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Nettverksfeil"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
 msgstr "Ny"
 
 #: src/components/layout/data/sidebar-data.ts:19
-msgid "New forum"
-msgstr "Nytt forum"
+#~ msgid "New forum"
+#~ msgstr "Nytt forum"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:49
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:39
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "New game"
 msgstr "Nytt spill"
 
-#: src/features/forums/components/create-post-dialog.tsx:184
-#: src/features/forums/components/create-post-dialog.tsx:189
-#: src/features/forums/components/create-post-dialog.tsx:196
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/components/create-post-dialog.tsx:185
+#: src/features/forums/components/create-post-dialog.tsx:190
+#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Nytt innlegg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1001
+#: src/routes/_authenticated/$forum_.settings.tsx:992
 msgid "New threads must be approved"
 msgstr "Nye tråder må godkjennes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1033
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "New user threshold:"
 msgstr "Terskel for ny bruker:"
 
@@ -2006,15 +1999,15 @@ msgstr "Terskel for ny bruker:"
 msgid "Next image"
 msgstr "Neste bilde"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Ingen {parentClassNames} å legge til i"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:647
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
 msgid "No {statusFilter} reports found"
 msgstr "Ingen {statusFilter} rapporter funnet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "No access"
 msgstr "Ingen tilgang"
 
@@ -2026,7 +2019,7 @@ msgstr "Ingen tilgangsregler konfigurert. Legg til regler for å styre hvem som 
 msgid "No activity yet"
 msgstr "Ingen aktivitet ennå"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:47
+#: src/features/forums/components/thread/attachment-comments.tsx:48
 msgid "No comments on this image yet."
 msgstr "Ingen kommentarer til dette bildet ennå."
 
@@ -2035,15 +2028,15 @@ msgid "No comments yet"
 msgstr "Ingen kommentarer ennå"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
-msgid "No connected accounts"
-msgstr "Ingen tilkoblede kontoer"
+#~ msgid "No connected accounts"
+#~ msgstr "Ingen tilkoblede kontoer"
 
 #: src/features/forums/components/inline-forum-search.tsx:104
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "Ingen forumer funnet"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:46
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:48
 msgid "No games yet"
 msgstr "Ingen spill ennå"
 
@@ -2051,7 +2044,7 @@ msgstr "Ingen spill ennå"
 msgid "No groups available"
 msgstr "Ingen grupper tilgjengelig"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:521
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Ingen elementtyper kan opprettes ennå. Opprett de nødvendige overordnede elementene først."
 
@@ -2059,15 +2052,15 @@ msgstr "Ingen elementtyper kan opprettes ennå. Opprett de nødvendige overordne
 msgid "No matching objects"
 msgstr "Ingen samsvarende objekter"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:823
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "No moderation activity"
 msgstr "Ingen modereringsaktivitet"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "No notifications yet"
-msgstr "Ingen varsler ennå"
+#~ msgid "No notifications yet"
+#~ msgstr "Ingen varsler ennå"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Ingen personer funnet"
@@ -2081,30 +2074,28 @@ msgid "No posts in this forum yet"
 msgstr "Ingen innlegg i dette forumet ennå"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:58
-msgid "No profile"
-msgstr "Ingen profil"
+#~ msgid "No profile"
+#~ msgstr "Ingen profil"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:646
+#: src/routes/_authenticated/$forum_.moderation.tsx:642
 msgid "No reports"
 msgstr "Ingen rapporter"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:953
+#: src/routes/_authenticated/$forum_.moderation.tsx:978
 msgid "No restrictions"
 msgstr "Ingen begrensninger"
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Ingen resultater funnet"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Ingen resultater funnet."
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:823
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:868
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Ingen status"
@@ -2113,11 +2104,11 @@ msgstr "Ingen status"
 msgid "No time zone found."
 msgstr "Ingen tidssone funnet."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:106
 msgid "No topic record yet — try again after the next notification."
 msgstr "Ingen emnepost ennå – prøv igjen etter neste varsel."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:122
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Ingen uleste varsler"
 
@@ -2125,7 +2116,7 @@ msgstr "Ingen uleste varsler"
 msgid "No users found"
 msgstr "Ingen brukere funnet"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "No users have been muted or banned"
 msgstr "Ingen brukere har blitt dempet eller utestengt"
 
@@ -2134,9 +2125,9 @@ msgid "No views"
 msgstr "Ingen visninger"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:537
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:540
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
@@ -2146,15 +2137,14 @@ msgstr "Ingen visninger"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
-#: ../../../lib/web/src/lib/preference-utils.ts:120
 msgid "None"
 msgstr "Ingen"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:129
+#: ../../../lib/web/src/lib/preference-utils.ts:122
 msgid "Normal"
 msgstr "Normal"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 #: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Ikke funnet"
@@ -2176,11 +2166,11 @@ msgstr "Ingenting lagret ennå"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:236
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:257
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
-msgid "Notifications"
-msgstr "Varsler"
+#~ msgid "Notifications"
+#~ msgstr "Varsler"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:183
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Varsler: {0}"
 
@@ -2191,7 +2181,7 @@ msgid "Number"
 msgstr "Tall"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:757
+#: src/routes/_authenticated/$forum_.moderation.tsx:781
 msgid "Off-topic"
 msgstr "Utenfor tema"
 
@@ -2200,11 +2190,11 @@ msgid "On"
 msgstr "På"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:439
 msgid "On image: {0}"
 msgstr "Til bilde: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "On this image"
 msgstr "Til dette bildet"
 
@@ -2214,8 +2204,8 @@ msgstr "Ups! Side ikke funnet!"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:156
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:166
-msgid "Open account actions"
-msgstr "Åpne kontohandlinger"
+#~ msgid "Open account actions"
+#~ msgstr "Åpne kontohandlinger"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:199
 #: ../../../lib/web/src/components/layout/nav-group.tsx:204
@@ -2233,8 +2223,8 @@ msgstr "Åpne navigasjon"
 
 #: ../../../lib/web/src/components/layout/top-nav.tsx:38
 #: ../../../lib/web/src/components/layout/top-nav.tsx:44
-msgid "Open navigation menu"
-msgstr "Åpne navigasjonsmeny"
+#~ msgid "Open navigation menu"
+#~ msgstr "Åpne navigasjonsmeny"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
@@ -2247,8 +2237,8 @@ msgstr "Åpne valgt kort"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:58
 #: ../../../lib/web/src/components/config-drawer.tsx:66
-msgid "Open theme settings"
-msgstr "Åpne temainnstillinger"
+#~ msgid "Open theme settings"
+#~ msgstr "Åpne temainnstillinger"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
@@ -2265,7 +2255,7 @@ msgstr "Åpne visningskontroller"
 msgid "Option name"
 msgstr "Valgnavn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Valgfri markdown-banner som vises øverst i forumet ditt."
 
@@ -2276,7 +2266,7 @@ msgstr "Valg"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:758
+#: src/routes/_authenticated/$forum_.moderation.tsx:782
 msgid "Other"
 msgstr "Annet"
 
@@ -2286,18 +2276,18 @@ msgstr "Eier"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:43
 #: ../../../lib/web/src/components/data-table/pagination.tsx:71
-msgid "Page {currentPage} of {totalPages}"
-msgstr "Side {currentPage} av {totalPages}"
+#~ msgid "Page {currentPage} of {totalPages}"
+#~ msgstr "Side {currentPage} av {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:529
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Overordnet"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:336
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Passnøkkel"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "Verifisering med passnøkkel mislyktes. Prøv igjen."
 
@@ -2310,45 +2300,46 @@ msgid "Pattern (regex)"
 msgstr "Mønster (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:276
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/features/forums/components/thread/thread-comment.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:751
 msgid "Pending"
 msgstr "Venter"
 
-#: src/features/forums/components/thread/thread-content.tsx:160
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Pending approval"
 msgstr "Venter på godkjenning"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:417
+#: src/routes/_authenticated/$forum_.moderation.tsx:411
 msgid "Pending comments ({0})"
 msgstr "Ventende kommentarer ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:372
+#: src/routes/_authenticated/$forum_.moderation.tsx:366
 msgid "Pending posts ({0})"
 msgstr "Ventende innlegg ({0})"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
 msgstr "Bilder og videoer"
 
 #: ../../../lib/web/src/components/date-picker.tsx:20
-msgid "Pick a date"
-msgstr "Velg en dato"
+#~ msgid "Pick a date"
+#~ msgstr "Velg en dato"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Pin"
 msgstr "Fest"
 
-#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/features/forums/components/thread/thread-content.tsx:176
 msgid "Pinned"
 msgstr "Festet"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Sjekk internettforbindelsen din og prøv igjen."
 
@@ -2356,7 +2347,7 @@ msgstr "Sjekk internettforbindelsen din og prøv igjen."
 msgid "Please describe the issue..."
 msgstr "Vennligst beskriv problemet..."
 
-#: src/features/forums/thread-detail.tsx:302
+#: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "Skriv inn et svar"
 
@@ -2372,11 +2363,15 @@ msgstr "Prøv igjen."
 msgid "Please wait a moment and try again."
 msgstr "Vent litt og prøv igjen."
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/routes/_authenticated/$forum_.moderation.tsx:759
+msgid "Post"
+msgstr "Innlegg"
+
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Innlegget kunne ikke lagres — tittelen eller innholdet er ugyldig"
 
-#: src/hooks/use-forum-websocket.ts:69
+#: src/hooks/use-forum-websocket.ts:68
 msgid "Post couldn't be saved on the forum server"
 msgstr "Innlegget kunne ikke lagres på forumserveren"
 
@@ -2384,7 +2379,7 @@ msgstr "Innlegget kunne ikke lagres på forumserveren"
 msgid "Post deleted"
 msgstr "Innlegg slettet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1058
+#: src/routes/_authenticated/$forum_.settings.tsx:1049
 msgid "Post limit"
 msgstr "Innleggsgrense"
 
@@ -2424,11 +2419,11 @@ msgstr "Innlegg løsnet"
 msgid "Post updated"
 msgstr "Innlegg oppdatert"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Post, comment, vote, and view"
 msgstr "Innlegg, kommentér, stem og se"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
 msgid "posts"
 msgstr "innlegg"
 
@@ -2440,11 +2435,11 @@ msgstr "Innlegg"
 msgid "Posts and comments"
 msgstr "Innlegg og kommentarer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:994
+#: src/routes/_authenticated/$forum_.settings.tsx:985
 msgid "Pre-moderation"
 msgstr "Forhåndsmoderering"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1054
+#: src/routes/_authenticated/$forum_.settings.tsx:1045
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Forhindre søppelpost ved å begrense hvor ofte brukere kan publisere innlegg"
 
@@ -2463,22 +2458,22 @@ msgid "Processing…"
 msgstr "Behandler…"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
-msgid "Profile"
-msgstr "Profil"
+#~ msgid "Profile"
+#~ msgstr "Profil"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
 msgid "Project members"
 msgstr "Prosjektmedlemmer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "Ledetekst lagret"
 
-#: src/features/forums/components/create-post-dialog.tsx:311
+#: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "Publiser innlegg"
 
-#: src/features/forums/components/create-post-dialog.tsx:306
+#: src/features/forums/components/create-post-dialog.tsx:307
 msgid "Publishing..."
 msgstr "Publiserer …"
 
@@ -2494,7 +2489,7 @@ msgstr "Kø"
 msgid "Raised"
 msgstr "Hevet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1044
 msgid "Rate limiting"
 msgstr "Hastighetsbegrensning"
 
@@ -2506,16 +2501,15 @@ msgstr "Koble kontoene dine til på nytt på denne serveren"
 msgid "Re-register your passkeys on this server"
 msgstr "Registrer tilgangsnøklene dine på nytt på denne serveren"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:696
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reason:"
 msgstr "Grunn:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:859
+#: src/routes/_authenticated/$forum_.moderation.tsx:883
 msgid "Reason: {0}"
 msgstr "Grunn: {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:220
 #: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Anbefalt"
@@ -2537,12 +2531,12 @@ msgstr "Omdirigerer til innlogging."
 msgid "Reduce interest"
 msgstr "Reduser interesse"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:470
 msgid "Reject"
 msgstr "Avvis"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:251
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:245
+#: src/routes/_authenticated/$forum_.moderation.tsx:249
 msgid "Rejected"
 msgstr "Avvist"
 
@@ -2558,17 +2552,16 @@ msgstr "Relativ (5m, 3t, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativ innen 24 timer, ellers absolutt"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:278
-#: ../../../lib/web/src/components/attachment-composer.tsx:323
+#: ../../../lib/web/src/components/attachment-composer.tsx:285
+#: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:469
-#: src/features/forums/components/thread/thread-comment.tsx:527
-#: src/features/forums/components/thread/thread-content.tsx:368
-#: src/features/forums/components/thread/thread-content.tsx:446
-#: src/routes/_authenticated/$forum_.moderation.tsx:726
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:722
+#: src/routes/_authenticated/$forum_.moderation.tsx:1041
 msgid "Remove"
 msgstr "Fjern"
 
@@ -2592,7 +2585,7 @@ msgstr "Fjerne tilgangsregel for «{0}»?"
 msgid "Remove access?"
 msgstr "Fjerne tilgang?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:524
 msgid "Remove comment"
 msgstr "Fjern kommentar"
 
@@ -2606,7 +2599,7 @@ msgstr "Fjern fra lagrede"
 msgid "Remove interest"
 msgstr "Fjern interesse"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:665
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Fjern element"
 
@@ -2615,71 +2608,71 @@ msgstr "Fjern element"
 msgid "Remove link"
 msgstr "Fjern lenke"
 
-#: src/features/forums/components/thread/thread-content.tsx:444
+#: src/features/forums/components/thread/thread-content.tsx:443
 msgid "Remove post"
 msgstr "Fjern innlegg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:395
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Remove this forum from your sidebar."
 msgstr "Fjern dette forumet fra sidefeltet ditt."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:282
-#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/features/forums/components/thread/thread-comment.tsx:281
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
 msgstr "Fjernet"
 
-#: src/lib/saved.ts:31
+#: src/lib/saved.ts:32
 msgid "Removed from saved"
 msgstr "Fjernet fra lagrede"
 
-#: src/lib/saved.ts:30
+#: src/lib/saved.ts:31
 msgid "Removing..."
 msgstr "Fjerner …"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:559
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Gi nytt navn"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:594
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Gi kolonnen nytt navn"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:595
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Gi denne tavlekolonnen nytt navn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:206
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Renaming forum..."
 msgstr "Gir forumet nytt navn..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
 msgid "replies"
 msgstr "svar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1012
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "Svar må godkjennes"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:400
-#: src/features/forums/components/thread/thread-comment.tsx:406
-#: src/features/forums/components/thread/thread-content.tsx:312
-#: src/features/forums/components/thread/thread-content.tsx:321
+#: src/features/forums/components/thread/thread-comment.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:405
+#: src/features/forums/components/thread/thread-content.tsx:311
+#: src/features/forums/components/thread/thread-content.tsx:320
 msgid "Reply"
 msgstr "Svar"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:547
 msgid "Reply to {0}..."
 msgstr "Svar til {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:477
-#: src/features/forums/components/thread/thread-content.tsx:402
+#: src/features/forums/components/thread/thread-comment.tsx:476
+#: src/features/forums/components/thread/thread-content.tsx:401
 msgid "Report"
 msgstr "Rapporter"
 
@@ -2691,7 +2684,7 @@ msgstr "Rapporter kommentar"
 msgid "Report post"
 msgstr "Rapporter innlegg"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:564
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Report resolved"
 msgstr "Rapport løst"
 
@@ -2701,7 +2694,7 @@ msgid "Report submitted"
 msgstr "Rapport sendt"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:704
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "Reported by {0}"
 msgstr "Rapportert av {0}"
 
@@ -2709,19 +2702,19 @@ msgstr "Rapportert av {0}"
 msgid "Reports"
 msgstr "Rapporter"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:986
 msgid "Require approval before content becomes visible"
 msgstr "Krev godkjenning før innhold blir synlig"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1011
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new comments"
 msgstr "Krev godkjenning for nye kommentarer"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1000
+#: src/routes/_authenticated/$forum_.settings.tsx:991
 msgid "Require approval for new posts"
 msgstr "Krev godkjenning for nye innlegg"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1022
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new users"
 msgstr "Krev godkjenning for nye brukere"
 
@@ -2729,34 +2722,35 @@ msgstr "Krev godkjenning for nye brukere"
 msgid "Required"
 msgstr "Påkrevd"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:369
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "Send e-post på nytt"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:87
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:82
-msgid "Reset"
-msgstr "Tilbakestill"
+#~ msgid "Reset"
+#~ msgstr "Tilbakestill"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:122
 #: ../../../lib/web/src/components/config-drawer.tsx:127
-msgid "Reset {title}"
-msgstr "Tilbakestill {title}"
+#~ msgid "Reset {title}"
+#~ msgstr "Tilbakestill {title}"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:85
-msgid "Reset all settings to default values"
-msgstr "Tilbakestill alle innstillinger til standardverdier"
+#~ msgid "Reset all settings to default values"
+#~ msgstr "Tilbakestill alle innstillinger til standardverdier"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Resolved"
 msgstr "Løst"
 
-#: src/features/forums/components/thread/thread-comment.tsx:463
-#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-comment.tsx:462
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Restore"
 msgstr "Gjenopprett"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:905
+#: src/routes/_authenticated/$forum_.moderation.tsx:930
 msgid "Restriction removed"
 msgstr "Begrensning fjernet"
 
@@ -2764,7 +2758,7 @@ msgstr "Begrensning fjernet"
 msgid "Restrictions"
 msgstr "Begrensninger"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:341
+#: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -2785,8 +2779,8 @@ msgid "Revoke RSS access?"
 msgstr "Tilbakekall RSS-tilgang?"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
-msgid "Right to Left"
-msgstr "Høyre mot venstre"
+#~ msgid "Right to Left"
+#~ msgstr "Høyre mot venstre"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
@@ -2798,8 +2792,8 @@ msgid "Rows group by"
 msgstr "Rader gruppert etter"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
-msgid "Rows per page"
-msgstr "Rader per side"
+#~ msgid "Rows per page"
+#~ msgstr "Rader per side"
 
 #: ../../../lib/web/src/components/options-menu.tsx:131
 msgid "RSS access revoked"
@@ -2817,18 +2811,18 @@ msgstr "RSS-URL kopiert til utklippstavlen"
 msgid "Saturday"
 msgstr "Lørdag"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:423
+#: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:325
-#: src/routes/_authenticated/$forum_.settings.tsx:497
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:491
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "Lagre"
 
-#: src/features/forums/components/edit-post-dialog.tsx:384
+#: src/features/forums/components/edit-post-dialog.tsx:385
 msgid "Save changes"
 msgstr "Lagre endringer"
 
@@ -2840,21 +2834,21 @@ msgstr "Lagre til senere"
 #: src/components/layout/forums-layout.tsx:112
 #: src/features/forums/pages/saved-page.tsx:54
 #: src/features/forums/pages/saved-page.tsx:68
-#: src/lib/saved.ts:28
+#: src/lib/saved.ts:29
 msgid "Saved"
 msgstr "Lagret"
 
-#: src/lib/saved.ts:34
+#: src/lib/saved.ts:35
 msgid "Saved posts cleared"
 msgstr "Lagrede innlegg fjernet"
 
-#: src/features/forums/components/edit-post-dialog.tsx:379
-#: src/lib/saved.ts:27
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/lib/saved.ts:28
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
 msgstr "Lagrer ..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:608
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Score prompt"
 msgstr "Skår-melding"
 
@@ -2913,18 +2907,16 @@ msgstr "Søk, følg og sorter denne visningen."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:63
 #: ../../../lib/web/src/components/person-picker.tsx:324
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Søk ..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:178
 #: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Søker ..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "sekunder"
 
@@ -2932,16 +2924,15 @@ msgstr "sekunder"
 msgid "Select"
 msgstr "Velg"
 
-#. placeholder {0}: item.label.toLowerCase()
 #: ../../../lib/web/src/components/config-drawer.tsx:149
-msgid "Select {0}"
-msgstr "Velg {0}"
+#~ msgid "Select {0}"
+#~ msgstr "Velg {0}"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Velg et felt"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:32
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Velg et spill"
 
@@ -2962,14 +2953,14 @@ msgid "Select access rule"
 msgstr "Velg tilgangsregel"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:34
-msgid "Select account"
-msgstr "Velg konto"
+#~ msgid "Select account"
+#~ msgstr "Velg konto"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:142
 msgid "Select account type"
 msgstr "Velg kontotype"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select all"
 msgstr "Velg alle"
 
@@ -2978,8 +2969,8 @@ msgid "Select group"
 msgstr "Velg gruppe"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:305
-msgid "Select layout style"
-msgstr "Velg utformingsstil"
+#~ msgid "Select layout style"
+#~ msgstr "Velg utformingsstil"
 
 #: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
@@ -2989,7 +2980,7 @@ msgstr "Velg sted"
 msgid "Select next card"
 msgstr "Velg neste kort"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select none"
 msgstr "Velg ingen"
 
@@ -3002,25 +2993,25 @@ msgid "Select previous card"
 msgstr "Velg forrige kort"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:247
-msgid "Select sidebar style"
-msgstr "Velg sidefeltstil"
+#~ msgid "Select sidebar style"
+#~ msgstr "Velg sidefeltstil"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:349
-msgid "Select site direction"
-msgstr "Velg nettstedsretning"
+#~ msgid "Select site direction"
+#~ msgstr "Velg nettstedsretning"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:203
-msgid "Select theme preference"
-msgstr "Velg temapreferanse"
+#~ msgid "Select theme preference"
+#~ msgstr "Velg temapreferanse"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Velg ..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:206
-msgid "selected"
-msgstr "valgt"
+#~ msgid "selected"
+#~ msgstr "valgt"
 
 #. placeholder {0}: getSelectedName()
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
@@ -3031,7 +3022,7 @@ msgstr "Valgt: <0>{0}</0>"
 msgid "Send again"
 msgstr "Send på nytt"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:309
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "Send e-post"
 
@@ -3040,12 +3031,12 @@ msgstr "Send e-post"
 msgid "Send message"
 msgstr "Send melding"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:140
+#: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "Antikva"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:270
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:296
 msgid "Server error"
 msgstr "Tjenerfeil"
 
@@ -3054,7 +3045,7 @@ msgstr "Tjenerfeil"
 msgid "Server rules"
 msgstr "Serverregler"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:220
 msgid "Session expired. Please log in again."
 msgstr "Økten er utløpt. Logg inn på nytt."
 
@@ -3065,12 +3056,16 @@ msgstr "Angi opprinnelse og destinasjon"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Settings"
 msgstr "Innstillinger"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Shadowbanned"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
@@ -3080,13 +3075,13 @@ msgstr "Vis klasser"
 msgid "Show fields"
 msgstr "Vis felter"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:62
+#: src/features/forums/components/thread/attachment-comments.tsx:63
 msgid "Show only comments on this image"
 msgstr "Vis bare kommentarer til dette bildet"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Show password"
-msgstr "Vis passord"
+#~ msgid "Show password"
+#~ msgstr "Vis passord"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:33
 msgid "Show this help"
@@ -3096,9 +3091,7 @@ msgstr "Vis denne hjelpen"
 msgid "Showing {totalShown} of {total}"
 msgstr "Viser {totalShown} av {total}"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:239
-#: ../../../lib/web/src/components/config-drawer.tsx:263
-#: ../../../lib/web/src/components/ui/sidebar.tsx:237
+#: ../../../lib/web/src/components/ui/sidebar.tsx:257
 msgid "Sidebar"
 msgstr "Sidefelt"
 
@@ -3117,11 +3110,11 @@ msgid "Single line of text only"
 msgstr "Bare én tekstlinje"
 
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
-msgid "Skip to Main"
-msgstr "Hopp til hovedinnhold"
+#~ msgid "Skip to Main"
+#~ msgstr "Hopp til hovedinnhold"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:101
-#: ../../../lib/web/src/lib/preference-utils.ts:128
+#: ../../../lib/web/src/lib/preference-utils.ts:121
 msgid "Small"
 msgstr "Liten"
 
@@ -3138,7 +3131,7 @@ msgid "Spacious"
 msgstr "Romslig"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Spam"
 msgstr "Spam"
 
@@ -3147,8 +3140,8 @@ msgid "Start the discussion by adding the first comment."
 msgstr "Start diskusjonen ved å legge til den første kommentaren."
 
 #: ../../../lib/web/src/components/coming-soon.tsx:15
-msgid "Stay tuned though!"
-msgstr "Følg med likevel!"
+#~ msgid "Stay tuned though!"
+#~ msgstr "Følg med likevel!"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
@@ -3172,11 +3165,10 @@ msgstr "Sender inn ..."
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:66
 #: ../../../lib/web/src/components/recommended-entities.tsx:58
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:305
+#: src/features/forums/pages/entity-forum-page.tsx:271
 msgid "Subscribe"
 msgstr "Abonner"
 
@@ -3196,7 +3188,7 @@ msgstr "Abonnerer på forum"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:268
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
@@ -3210,16 +3202,13 @@ msgstr "Søndag"
 msgid "Switch to view 1-9"
 msgstr "Bytt til visning 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:104
-#: ../../../lib/web/src/components/config-drawer.tsx:209
-#: ../../../lib/web/src/components/theme-switch.tsx:59
+#: ../../../lib/web/src/components/audit-timeline.tsx:107
 #: ../../../lib/web/src/lib/preference-utils.ts:16
-#: ../../../lib/web/src/lib/preference-utils.ts:139
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "System"
 
-#: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Tag"
 msgstr "Etikett"
 
@@ -3231,7 +3220,7 @@ msgstr "Etiketten finnes allerede"
 msgid "Tag must be 50 characters or less"
 msgstr "Taggen kan være maks 50 tegn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:607
+#: src/routes/_authenticated/$forum_.settings.tsx:599
 msgid "Tag prompt"
 msgstr "Tagg-melding"
 
@@ -3245,8 +3234,8 @@ msgid "Tap the bookmark on any post to save it here for later."
 msgstr "Trykk på bokmerket på et innlegg for å lagre det her til senere."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:63
-msgid "Teams/Apps"
-msgstr "Lag/apper"
+#~ msgid "Teams/Apps"
+#~ msgstr "Lag/apper"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:19
 #: ../../../lib/web/src/features/document/document-page.tsx:42
@@ -3257,7 +3246,7 @@ msgstr "Vilkår og betingelser"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Den koden er feil eller har utløpt."
 
@@ -3279,38 +3268,38 @@ msgid "The server returned a web page instead of data."
 msgstr "Serveren returnerte en nettside i stedet for data."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
-msgid "The site is not available at the moment."
-msgstr "Nettstedet er ikke tilgjengelig for øyeblikket."
+#~ msgid "The site is not available at the moment."
+#~ msgstr "Nettstedet er ikke tilgjengelig for øyeblikket."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
-msgid "Theme"
-msgstr "Tema"
+#~ msgid "Theme"
+#~ msgstr "Tema"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:70
-msgid "Theme Settings"
-msgstr "Temainnstillinger"
+#~ msgid "Theme Settings"
+#~ msgstr "Temainnstillinger"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "Ingen modereringshandlinger er registrert ennå"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:256
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum could not be loaded right now."
 msgstr "Dette forumet kunne ikke lastes akkurat nå."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Dette forumet kan ha blitt slettet, eller så har du ikke tilgang til det."
 
 #: ../../../lib/web/src/components/coming-soon.tsx:14
-msgid "This page has not been created yet."
-msgstr "Denne siden er ikke opprettet ennå."
+#~ msgid "This page has not been created yet."
+#~ msgstr "Denne siden er ikke opprettet ennå."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Dette innlegget kan ha blitt slettet eller eksisterer ikke."
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:63
 msgid "This post was already submitted"
 msgstr "Dette innlegget er allerede sendt inn"
 
@@ -3318,20 +3307,20 @@ msgstr "Dette innlegget er allerede sendt inn"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Dette fjerner alle innlegg fra listen din over lagrede. Dette kan ikke angres."
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Dette vil skjule kommentaren for vanlige brukere. Moderatorer kan fortsatt se den og gjenopprette den senere."
 
-#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/features/forums/components/thread/thread-content.tsx:444
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Dette vil skjule innlegget for vanlige brukere. Moderatorer kan fortsatt se det og gjenopprette det senere."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:434
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Dette vil permanent slette \"{0}\" og alle innleggene og kommentarene dets. Denne handlingen kan ikke angres."
 
-#: src/features/forums/thread-detail.tsx:157
+#: src/features/forums/thread-detail.tsx:142
 msgid "Thread"
 msgstr "Tråd"
 
@@ -3339,7 +3328,7 @@ msgstr "Tråd"
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: src/features/forums/components/create-post-dialog.tsx:209
+#: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/edit-post-dialog.tsx:277
 msgid "Title"
 msgstr "Tittel"
@@ -3361,13 +3350,13 @@ msgid "To"
 msgstr "Til"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
-msgid "Toggle columns"
-msgstr "Slå av/på kolonner"
+#~ msgid "Toggle columns"
+#~ msgstr "Slå av/på kolonner"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:233
 #: ../../../lib/web/src/components/layout/right-panel.tsx:236
-msgid "Toggle right panel"
-msgstr "Veksle høyre panel"
+#~ msgid "Toggle right panel"
+#~ msgstr "Veksle høyre panel"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:365
 #: ../../../lib/web/src/components/layout/nav-group.tsx:372
@@ -3376,20 +3365,20 @@ msgstr "Veksle høyre panel"
 msgid "Toggle section"
 msgstr "Vis/skjul seksjon"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:317
-#: ../../../lib/web/src/components/ui/sidebar.tsx:320
+#: ../../../lib/web/src/components/ui/sidebar.tsx:337
+#: ../../../lib/web/src/components/ui/sidebar.tsx:340
 msgid "Toggle sidebar"
 msgstr "Veksle sidefelt"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:332
-#: ../../../lib/web/src/components/ui/sidebar.tsx:335
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle Sidebar"
 msgstr "Slå av/på sidefelt"
 
 #: ../../../lib/web/src/components/theme-switch.tsx:37
 #: ../../../lib/web/src/components/theme-switch.tsx:41
-msgid "Toggle theme"
-msgstr "Bytt tema"
+#~ msgid "Toggle theme"
+#~ msgstr "Bytt tema"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3412,14 +3401,12 @@ msgstr "Topp"
 msgid "Travelling"
 msgstr "På reise"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:194
 #: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Prøv å justere søkeordene"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:140
 #: ../../../lib/web/src/features/errors/general-error.tsx:180
-#: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "Prøv igjen"
 
@@ -3448,7 +3435,7 @@ msgstr "Skriv for å søke i brukere"
 msgid "Type to search..."
 msgstr "Skriv for å søke ..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:292
 msgid "Unable to connect to remote server"
 msgstr "Kan ikke koble til den eksterne tjeneren"
 
@@ -3457,7 +3444,7 @@ msgstr "Kan ikke koble til den eksterne tjeneren"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Kan ikke omdirigere til innlogging. Prøv igjen."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "Ikke tilordnet"
 
@@ -3465,7 +3452,7 @@ msgstr "Ikke tilordnet"
 msgid "Unauthorized Access"
 msgstr "Ikke tillatt tilgang"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Utilgjengelig"
 
@@ -3481,58 +3468,58 @@ msgstr "USA"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:374
 msgid "Unlock"
 msgstr "Lås opp"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Unpin"
 msgstr "Løsne"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:389
-#: src/routes/_authenticated/$forum_.settings.tsx:406
+#: src/features/forums/pages/entity-forum-page.tsx:356
+#: src/routes/_authenticated/$forum_.settings.tsx:400
 msgid "Unsubscribe"
 msgstr "Avslutt abonnement"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:394
+#: src/routes/_authenticated/$forum_.settings.tsx:388
 msgid "Unsubscribe from forum"
 msgstr "Avslutt abonnement på forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:353
 msgid "Unsubscribe from forum?"
 msgstr "Avslutte abonnementet på forumet?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:185
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribed"
 msgstr "Abonnement avsluttet"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:184
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribing..."
 msgstr "Avslutter abonnement ..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:284
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Uten tittel"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
-msgid "Unverified"
-msgstr "Ikke verifisert"
+#~ msgid "Unverified"
+#~ msgstr "Ikke verifisert"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Oppdatert"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:637
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Last opp"
@@ -3541,7 +3528,7 @@ msgstr "Last opp"
 msgid "Upload progress"
 msgstr "Fremdrift for opplasting"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:340
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Bruk passnøkkelen din"
 
@@ -3551,15 +3538,15 @@ msgstr "Bruk passnøkkelen din"
 msgid "User"
 msgstr "Bruker"
 
-#: src/features/forums/thread-detail.tsx:423
+#: src/features/forums/thread-detail.tsx:408
 msgid "User banned"
 msgstr "Bruker utestengt"
 
-#: src/features/forums/thread-detail.tsx:414
+#: src/features/forums/thread-detail.tsx:399
 msgid "User muted"
 msgstr "Bruker dempet"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:732
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Variables: {variables}"
 msgstr "Variabler: {variables}"
 
@@ -3568,15 +3555,14 @@ msgid "Verification code"
 msgstr "Verifiseringskode"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:255
-msgid "Verification code sent"
-msgstr "Verifiseringskode sendt"
+#~ msgid "Verification code sent"
+#~ msgstr "Verifiseringskode sendt"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:248
-msgid "Verification failed"
-msgstr "Verifiseringen mislyktes"
+#~ msgid "Verification failed"
+#~ msgstr "Verifiseringen mislyktes"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:390
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Verifiser"
@@ -3585,7 +3571,7 @@ msgstr "Verifiser"
 msgid "Verify email address"
 msgstr "Verifiser e-postadresse"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:94
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Videominiatyr"
 
@@ -3595,15 +3581,15 @@ msgid "Video viewer: {0}"
 msgstr "Videoviser: {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
-msgid "View"
-msgstr "Vis"
+#~ msgid "View"
+#~ msgstr "Vis"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:177
-msgid "View all"
-msgstr "Vis alle"
+#~ msgid "View all"
+#~ msgstr "Vis alle"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:211
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Vis alle varsler"
 
@@ -3611,20 +3597,20 @@ msgstr "Vis alle varsler"
 msgid "View controls"
 msgstr "Visningskontroller"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "View only"
 msgstr "Bare visning"
 
-#: src/features/forums/components/thread/thread-comment.tsx:258
+#: src/features/forums/components/thread/thread-comment.tsx:257
 msgid "View the image this comment is about"
 msgstr "Se bildet denne kommentaren handler om"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:755
+#: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "Vold"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Vote and view"
 msgstr "Stem og se"
 
@@ -3643,22 +3629,22 @@ msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify
 msgstr "Vi sendte en bekreftelseskode til <0>{0}</0>. Skriv inn koden nedenfor for å bekrefte e-postadressen din."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
-msgid "We'll be back online shortly."
-msgstr "Vi er snart tilbake på nett."
+#~ msgid "We'll be back online shortly."
+#~ msgstr "Vi er snart tilbake på nett."
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:197
-msgid "We'll notify you when something important happens."
-msgstr "Vi gir deg beskjed når noe viktig skjer."
+#~ msgid "We'll notify you when something important happens."
+#~ msgstr "Vi gir deg beskjed når noe viktig skjer."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
-msgid "Website is under maintenance!"
-msgstr "Nettstedet er under vedlikehold!"
+#~ msgid "Website is under maintenance!"
+#~ msgstr "Nettstedet er under vedlikehold!"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1088
+#: src/routes/_authenticated/$forum_.settings.tsx:1079
 msgid "Window duration"
 msgstr "Vindusvarighet"
 
@@ -3669,11 +3655,11 @@ msgstr "Vindusvarighet"
 msgid "You are already subscribed to this forum"
 msgstr "Du abonnerer allerede på dette forumet"
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:59
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Du publiserer for raskt — vent og prøv igjen"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:57
 msgid "You are restricted from posting in this forum"
 msgstr "Du er begrenset fra å publisere i dette forumet"
 
@@ -3682,10 +3668,10 @@ msgid "You do not have access to this section."
 msgstr "Du har ikke tilgang til denne delen."
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:18
-msgid "You don't have necessary permission <0/>to view this resource."
-msgstr "Du har ikke nødvendig tillatelse <0/>til å se denne ressursen."
+#~ msgid "You don't have necessary permission <0/>to view this resource."
+#~ msgstr "Du har ikke nødvendig tillatelse <0/>til å se denne ressursen."
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:55
 msgid "You don't have permission to post in this forum"
 msgstr "Du har ikke tillatelse til å publisere i dette forumet"
 
@@ -3693,13 +3679,13 @@ msgstr "Du har ikke tillatelse til å publisere i dette forumet"
 msgid "You have no forums yet."
 msgstr "Du har ingen forumer ennå."
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Du slutter å motta oppdateringer fra dette forumet. Du kan abonnere på nytt når som helst."
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "You're all caught up!"
-msgstr "Du er ajour!"
+#~ msgid "You're all caught up!"
+#~ msgstr "Du er ajour!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

@@ -14,24 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:223
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "သင့်အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်မံကြိုးစားပါ။"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:1027
 msgid " · Expires {0}"
 msgstr " · သက်တမ်းကုန် {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1028
 msgid " · Permanent"
 msgstr " · အမြဲတမ်း"
 
-#: src/features/forums/components/thread/thread-comment.tsx:247
+#: src/features/forums/components/thread/thread-comment.tsx:246
+#: src/features/forums/components/thread/thread-content.tsx:200
 msgid " (edited)"
 msgstr " (တည်းဖြတ်ပြီး)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
 msgid " or "
 msgstr " သို့မဟုတ် "
 
@@ -43,64 +44,61 @@ msgstr "(တည်းဖြတ်ပြီး)"
 msgid "(expand)"
 msgstr "(ချဲ့ရန်)"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:752
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:753
 msgid "[not set]"
 msgstr "[မသတ်မှတ်ရသေး]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:328
+#: src/features/forums/pages/entity-forum-page.tsx:294
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, other {ပို့စ်အသစ် #ခု}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#. placeholder {0}: selectedValues.size
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
-#: src/routes/_authenticated/$forum_.moderation.tsx:523
+#: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, other {# ရွေးထား}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:304
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, other {သုံးစွဲသူ # ဦးကို Ban လုပ်ပြီး}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:287
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, other {သုံးစွဲသူ # ဦးကို ပိတ်ဆို့ပြီး}}"
 
-#. placeholder {0}: item.label
 #: ../../../lib/web/src/components/config-drawer.tsx:160
-msgid "{0} option preview"
-msgstr "{0} ရွေးချယ်မှု အစမ်းကြည့်ရှုခြင်း"
+#~ msgid "{0} option preview"
+#~ msgstr "{0} ရွေးချယ်မှု အစမ်းကြည့်ရှုခြင်း"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "{0} settings"
 msgstr "{0} ဆက်တင်များ"
 
-#: ../../../lib/web/src/lib/locale-format.ts:175
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ရ} other {#ရ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:171
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#နာ} other {#နာ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:167
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#မိ} other {#မိ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:179
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ပတ်} other {#ပတ်}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:236
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, other {ပစ္စည်း # ခုကို အတည်ပြုပြီး}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:258
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, other {ပစ္စည်း # ခုကို ငြင်းပယ်ပြီး}}"
 
@@ -116,36 +114,36 @@ msgstr "{entityLabel} အမည် လိုအပ်သည်"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} က သရေ ပေးခဲ့သည်"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:64
+#: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {ဤပို့စ်အပေါ် အခြားမှတ်ချက် # ခုကို ပြရန်} other {ဤပို့စ်အပေါ် အခြားမှတ်ချက် # ခုကို ပြရန်}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:200
-msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
-msgstr "{selectedCount, plural, other {{manyName} ရွေးထားသည်}}"
+#~ msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+#~ msgstr "{selectedCount, plural, other {{manyName} ရွေးထားသည်}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:42
-msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
-msgstr "{selectedCount, plural, other {# {manyName} ရွေးထားသည်။ အစုလိုက်လုပ်ဆောင်ချက် ကိရိယာဘား ရနိုင်သည်။}}"
+#~ msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+#~ msgstr "{selectedCount, plural, other {# {manyName} ရွေးထားသည်။ အစုလိုက်လုပ်ဆောင်ချက် ကိရိယာဘား ရနိုင်သည်။}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:192
-msgid "{selectedCount, plural, one {# selected} other {# selected}}"
-msgstr "{selectedCount, plural, other {# ခု ရွေးထားသည်}}"
+#~ msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+#~ msgstr "{selectedCount, plural, other {# ခု ရွေးထားသည်}}"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:139
-msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
-msgstr "{selectedCount, plural, other {ရွေးချယ်ထားသော {manyName} # ခုအတွက် အစုလိုက်လုပ်ဆောင်ချက်များ}}"
+#~ msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+#~ msgstr "{selectedCount, plural, other {ရွေးချယ်ထားသော {manyName} # ခုအတွက် အစုလိုက်လုပ်ဆောင်ချက်များ}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:241
+#: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel} အနက် {sentLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:528
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, other {# ခု}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:233
+#: src/features/forums/components/thread/thread-comment.tsx:232
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, other {ပြန်ဖြေချက် #}}"
 
@@ -182,7 +180,7 @@ msgstr "အပြည့်အစုံ (ရက်စွဲနှင့် အခ
 msgid "Accept"
 msgstr "လက်ခံမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Access"
 msgstr "ဝင်ရောက်ခွင့်"
 
@@ -191,50 +189,50 @@ msgid "Access denied"
 msgstr "ဝင်ရောက်ခွင့် ငြင်းပယ်ခံရသည်"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
-msgid "Access Forbidden"
-msgstr "ဝင်ရောက်ခွင့် တားမြစ်ထားသည်"
+#~ msgid "Access Forbidden"
+#~ msgstr "ဝင်ရောက်ခွင့် တားမြစ်ထားသည်"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "ဝင်ရောက်ခွင့်အဆင့်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:846
+#: src/routes/_authenticated/$forum_.settings.tsx:837
 msgid "Access level updated"
 msgstr "ဝင်ရောက်ခွင့်အဆင့် ပြောင်းပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:855
+#: src/routes/_authenticated/$forum_.settings.tsx:846
 msgid "Access management"
 msgstr "ဝင်ရောက်ခွင့် စီမံခန့်ခွဲမှု"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:831
+#: src/routes/_authenticated/$forum_.settings.tsx:822
 msgid "Access removed"
 msgstr "ဝင်ရောက်ခွင့် ဖယ်ရှားပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} အတွက် ဝင်ရောက်ခွင့် သတ်မှတ်ပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:563
 msgid "Account"
 msgstr "အကောင့်"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:216
-msgid "Account added"
-msgstr "အကောင့် ထည့်ပြီး"
+#~ msgid "Account added"
+#~ msgstr "အကောင့် ထည့်ပြီး"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:232
-msgid "Account removed"
-msgstr "အကောင့် ဖယ်ရှားပြီး"
+#~ msgid "Account removed"
+#~ msgstr "အကောင့် ဖယ်ရှားပြီး"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "အကောင့်အမျိုးအစား"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:242
-msgid "Account verified"
-msgstr "အကောင့် အတည်ပြုပြီး"
+#~ msgid "Account verified"
+#~ msgstr "အကောင့် အတည်ပြုပြီး"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:711
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
@@ -257,19 +255,18 @@ msgid "Add access"
 msgstr "ဝင်ရောက်ခွင့် ထည့်မည်"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:132
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:288
 msgid "Add account"
 msgstr "အကောင့် ထည့်မည်"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:297
-msgid "Add an account to receive notifications and use services."
-msgstr "အကြောင်းကြားချက်များ ရရှိရန်နှင့် ဝန်ဆောင်မှုများ အသုံးပြုရန် အကောင့်တစ်ခု ထည့်မည်။"
+#~ msgid "Add an account to receive notifications and use services."
+#~ msgstr "အကြောင်းကြားချက်များ ရရှိရန်နှင့် ဝန်ဆောင်မှုများ အသုံးပြုရန် အကောင့်တစ်ခု ထည့်မည်။"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Add caption"
 msgstr "စာတန်းထည့်ရန်"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:681
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "checklist အရာ ထည့်မည်"
 
@@ -278,12 +275,12 @@ msgstr "checklist အရာ ထည့်မည်"
 msgid "Add field"
 msgstr "field ထည့်မည်"
 
-#: src/features/forums/components/create-post-dialog.tsx:272
+#: src/features/forums/components/create-post-dialog.tsx:273
 #: src/features/forums/components/edit-post-dialog.tsx:323
 msgid "Add files"
 msgstr "ဖိုင်များ ထည့်မည်"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:699
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "အရာ ထည့်ရန်..."
 
@@ -292,8 +289,8 @@ msgid "Add link"
 msgstr "လင့်ခ် ထည့်မည်"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
-msgid "Add new account"
-msgstr "အကောင့်အသစ် ထည့်မည်"
+#~ msgid "Add new account"
+#~ msgstr "အကောင့်အသစ် ထည့်မည်"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
@@ -303,18 +300,17 @@ msgstr "အကောင့်အသစ် ထည့်မည်"
 msgid "Add option"
 msgstr "ရွေးချယ်စရာ ထည့်မည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:856
 msgid "Add rule"
 msgstr "စည်းမျဉ်း ထည့်ပါ"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
-#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "tag ထည့်ရန်..."
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:83
-msgid "Add team/app"
-msgstr "အဖွဲ့/app ထည့်မည်"
+#~ msgid "Add team/app"
+#~ msgstr "အဖွဲ့/app ထည့်မည်"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:175
 msgid "Add to existing notifications"
@@ -336,20 +332,19 @@ msgid "Additional details (optional)"
 msgstr "အသေးစိတ်ထပ်ပိုင်း (မရွေးချယ်လည်းရသည်)"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:72
-msgid "Adjust the appearance and layout to suit your preferences."
-msgstr "သင့်စိတ်ကြိုက်အတိုင်း အသွင်အပြင်နှင့် အပြင်အဆင်ကို ချိန်ညှိပါ။"
+#~ msgid "Adjust the appearance and layout to suit your preferences."
+#~ msgstr "သင့်စိတ်ကြိုက်အတိုင်း အသွင်အပြင်နှင့် အပြင်အဆင်ကို ချိန်ညှိပါ။"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:557
+#: src/routes/_authenticated/$forum_.settings.tsx:550
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI actions on posts"
 msgstr "ပို့စ်များပေါ်တွင် AI လုပ်ဆောင်ချက်များ"
 
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:163
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
 msgid "All"
 msgstr "အားလုံး"
 
@@ -358,7 +353,7 @@ msgstr "အားလုံး"
 msgid "All forums"
 msgstr "forum အားလုံး"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:359
+#: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "ပို့စ်နှင့် မှတ်ချက်အားလုံးကို သုံးသပ်ပြီးပါပြီ"
 
@@ -379,7 +374,7 @@ msgstr "စီစဉ်ခွင့်ပြုသည်"
 msgid "An error occurred"
 msgstr "အမှားတစ်ခု ဖြစ်ပွားခဲ့သည်"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:275
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:266
 msgid "An unexpected error occurred"
 msgstr "မမျှော်လင့်ထားသော အမှားတစ်ခု ဖြစ်ပွားခဲ့သည်"
 
@@ -392,11 +387,11 @@ msgid "Any additional context..."
 msgstr "ထပ်ဆောင်းအချက်အလက်..."
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Anyone"
 msgstr "မည်သူမဆို"
 
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
 msgstr "ဝင်ရောက်ထားသူ မည်သူမဆို"
 
@@ -404,8 +399,8 @@ msgstr "ဝင်ရောက်ထားသူ မည်သူမဆို"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "ဤဖိဒ်ကို စာရင်းသွင်းထားသည့် အရာအားလုံး လက်ခံရရှိမှု ရပ်တန့်ပါမည်။ ထို့နောက် URL အသစ်ကို ကူးယူနိုင်ပါသည်။"
 
-#: src/features/forums/components/thread/thread-comment.tsx:454
-#: src/routes/_authenticated/$forum_.moderation.tsx:488
+#: src/features/forums/components/thread/thread-comment.tsx:453
+#: src/routes/_authenticated/$forum_.moderation.tsx:482
 msgid "Approve"
 msgstr "အတည်ပြုမည်"
 
@@ -414,7 +409,7 @@ msgstr "အတည်ပြုမည်"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" ကို ဖျက်မှာသေချာပါသလား?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:627
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" ကော်လံကို ဖျက်မှာသေချာပါသလား? ပြန်လည်ပြုပြင်၍မရပါ။"
 
@@ -422,11 +417,11 @@ msgstr "\"{name}\" ကော်လံကို ဖျက်မှာသေချ
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "ဤမှတ်ချက်ကို ဖျက်မှာသေချာပါသလား? ဤသည် အကြောင်းပြန်ချက်များအားလုံးကိုပါ ဖျက်မည်။"
 
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "ဤမှတ်ချက်ကို ဖျက်မှာသေချာပါသလား? ဤသည် အကြောင်းပြန်ချက်များအားလုံးကိုပါ ဖျက်မည်။ ဤလုပ်ဆောင်ချက်ကို ပြန်လည်ပြုပြင်၍မရပါ။"
 
-#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/features/forums/components/thread/thread-content.tsx:430
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "ဤပို့စ်ကို ဖျက်မှာသေချာပါသလား? မှတ်ချက်များအားလုံးကိုပါ ဖျက်မည်။ ဤလုပ်ဆောင်ချက်ကို ပြန်လည်ပြုပြင်၍မရပါ။"
 
@@ -435,8 +430,8 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "log out လုပ်မှာသေချာပါသလား? သင့်အကောင့်ကို ပြန်ဝင်ရန် log in ပြန်လုပ်ရမည်။"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:59
-msgid "Asc"
-msgstr "Asc"
+#~ msgid "Asc"
+#~ msgstr "Asc"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -451,11 +446,11 @@ msgid "Attach reply files"
 msgstr "အကြောင်းပြန်ဖိုင်များ ပူးတွဲမည်"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:46
-#: ../../../lib/web/src/features/access/types.ts:41
+#: ../../../lib/web/src/features/access/types.ts:35
 msgid "Authenticated users"
 msgstr "အတည်ပြုပြီး အသုံးပြုသူများ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:317
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Authenticator ကုဒ်"
 
@@ -476,14 +471,14 @@ msgid "Back"
 msgstr "နောက်သို့"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:19
-#: src/features/forums/thread-detail.tsx:325
-#: src/features/forums/thread-detail.tsx:337
-#: src/features/forums/thread-detail.tsx:358
-#: src/features/forums/thread-detail.tsx:480
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:225
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:270
+#: src/features/forums/thread-detail.tsx:310
+#: src/features/forums/thread-detail.tsx:322
+#: src/features/forums/thread-detail.tsx:343
+#: src/features/forums/thread-detail.tsx:459
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:219
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:264
 msgid "Back to forum"
 msgstr "forum သို့ ပြန်သွားမည်"
 
@@ -491,35 +486,38 @@ msgstr "forum သို့ ပြန်သွားမည်"
 msgid "Back to forums"
 msgstr "forum များသို့ ပြန်သွားမည်"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:28
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "ပင်မစာမျက်နှာ သို့ပြန်သွားရန်"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:514
+#: src/routes/_authenticated/$forum_.moderation.tsx:508
 msgid "Ban"
 msgstr "ပိတ်ပင်မည်"
 
-#: src/features/forums/components/thread/thread-comment.tsx:496
-#: src/features/forums/components/thread/thread-content.tsx:415
+#: src/features/forums/components/thread/thread-comment.tsx:495
+#: src/features/forums/components/thread/thread-content.tsx:414
 msgid "Ban author"
 msgstr "ရေးသူကို ပိတ်ပင်မည်"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "banned"
-msgstr "ban လုပ်ထား"
+#~ msgid "banned"
+#~ msgstr "ban လုပ်ထား"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:767
+msgid "Banned"
+msgstr "ပိတ်ပင်ထားသည်"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Banner"
 msgstr "ပိုစတာ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner removed"
 msgstr "ပိုစတာ ဖယ်ရှားပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:466
+#: src/routes/_authenticated/$forum_.settings.tsx:460
 msgid "Banner updated"
 msgstr "ပိုစတာ ပြောင်းပြီး"
 
@@ -528,8 +526,8 @@ msgstr "ပိုစတာ ပြောင်းပြီး"
 msgid "Blocked by"
 msgstr "ပိတ်ဆို့သူ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:225
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:235
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "မယုံကြည်ရသော လင့်ခ်သို့ သွားရောက်ခြင်းကို ပိတ်ဆို့ထားသည်"
 
@@ -555,22 +553,22 @@ msgid "Browser notifications"
 msgstr "Browser အကြောင်းကြားချက်များ"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "by {0}"
 msgstr "{0} မှ"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1000
+#: src/routes/_authenticated/$forum_.moderation.tsx:1025
 msgid "By {0}"
 msgstr "{0} မှ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:419
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:612
+#: ../../../lib/web/src/components/attachment-composer.tsx:426
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:365
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -578,10 +576,10 @@ msgstr "{0} မှ"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:296
-#: src/features/forums/components/edit-post-dialog.tsx:370
+#: src/features/forums/components/create-post-dialog.tsx:297
+#: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:305
+#: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "မလုပ်တော့ပါ"
 
@@ -593,23 +591,23 @@ msgstr "မှတ်ချက် မလုပ်တော့ပါ"
 msgid "Cancel reply"
 msgstr "အကြောင်းပြန်ချက် မလုပ်တော့ပါ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:379
-#: ../../../lib/web/src/components/attachment-composer.tsx:414
+#: ../../../lib/web/src/components/attachment-composer.tsx:386
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
 msgid "Caption"
 msgstr "စာတန်း"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:97
+#: ../../../lib/web/src/components/notification-category-button.tsx:99
 msgid "Category for these notifications"
 msgstr "ဤအကြောင်းကြားချက်များအတွက် အမျိုးအစား"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:78
-#: ../../../lib/web/src/components/notification-category-button.tsx:89
+#: ../../../lib/web/src/components/notification-category-button.tsx:80
+#: ../../../lib/web/src/components/notification-category-button.tsx:91
 msgid "Change notification category"
 msgstr "အကြောင်းကြားချက် အမျိုးအစား ပြောင်းမည်"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:198
-msgid "Check \"All\" to see your past notifications."
-msgstr "ယခင်အကြောင်းကြားချက်များကြည့်ရန် \"အားလုံး\" ကိုရွေးပါ။"
+#~ msgid "Check \"All\" to see your past notifications."
+#~ msgstr "ယခင်အကြောင်းကြားချက်များကြည့်ရန် \"အားလုံး\" ကိုရွေးပါ။"
 
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
@@ -623,28 +621,28 @@ msgstr "checkbox"
 msgid "Checklist"
 msgstr "Checklist"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:33
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:35
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "ဘေးဘားမှ ဂိမ်းတစ်ခုကို ရွေးချယ်ပါ သို့မဟုတ် အသစ်တစ်ခု စတင်ပါ။"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
-msgid "Choose between default expanded, compact icon-only, or full layout mode"
-msgstr "ပုံမှန်ချဲ့ထားသော၊ icon တင်ကျစ်ကျစ်၊ သို့မဟုတ် အပြည့်အစုံ layout အကြား ရွေးချယ်ပါ"
+#~ msgid "Choose between default expanded, compact icon-only, or full layout mode"
+#~ msgstr "ပုံမှန်ချဲ့ထားသော၊ icon တင်ကျစ်ကျစ်၊ သို့မဟုတ် အပြည့်အစုံ layout အကြား ရွေးချယ်ပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:271
-msgid "Choose between inset, floating, or standard sidebar layout"
-msgstr "inset၊ floating၊ သို့မဟုတ် စံပြ ဘေးဘား layout အကြား ရွေးချယ်ပါ"
+#~ msgid "Choose between inset, floating, or standard sidebar layout"
+#~ msgstr "inset၊ floating၊ သို့မဟုတ် စံပြ ဘေးဘား layout အကြား ရွေးချယ်ပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:372
-msgid "Choose between left-to-right or right-to-left site direction"
-msgstr "ဘယ်မှ ညာ သို့မဟုတ် ညာမှ ဘယ် site ဦးတည်ရာ အကြား ရွေးချယ်ပါ"
+#~ msgid "Choose between left-to-right or right-to-left site direction"
+#~ msgstr "ဘယ်မှ ညာ သို့မဟုတ် ညာမှ ဘယ် site ဦးတည်ရာ အကြား ရွေးချယ်ပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:227
-msgid "Choose between system preference, light mode, or dark mode"
-msgstr "system စိတ်ကြိုက်၊ အလင်းပုံစံ၊ သို့မဟုတ် အမှောင်ပုံစံ အကြား ရွေးချယ်ပါ"
+#~ msgid "Choose between system preference, light mode, or dark mode"
+#~ msgstr "system စိတ်ကြိုက်၊ အလင်းပုံစံ၊ သို့မဟုတ် အမှောင်ပုံစံ အကြား ရွေးချယ်ပါ"
 
-#: ../../../lib/web/src/components/language-picker.tsx:263
-#: ../../../lib/web/src/components/language-picker.tsx:270
+#: ../../../lib/web/src/components/language-picker.tsx:264
+#: ../../../lib/web/src/components/language-picker.tsx:271
 msgid "Choose language"
 msgstr "ဘာသာစကား ရွေးချယ်ပါ"
 
@@ -654,7 +652,7 @@ msgstr "ဘာသာစကား ရွေးချယ်ပါ"
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
 #: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:506
+#: src/routes/_authenticated/$forum_.settings.tsx:500
 msgid "Clear"
 msgstr "ရှင်းမည်"
 
@@ -669,8 +667,8 @@ msgid "Clear all saved posts?"
 msgstr "သိမ်းထားသော ပို့စ်အားလုံးကို ရှင်းမလား?"
 
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
-msgid "Clear filters"
-msgstr "filter များ ရှင်းမည်"
+#~ msgid "Clear filters"
+#~ msgstr "filter များ ရှင်းမည်"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 msgid "Clear search"
@@ -678,20 +676,20 @@ msgstr "ရှာဖွေမှု ရှင်းမည်"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
-msgid "Clear selection"
-msgstr "ရွေးချယ်မှု ရှင်းမည်"
+#~ msgid "Clear selection"
+#~ msgstr "ရွေးချယ်မှု ရှင်းမည်"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:175
-msgid "Clear selection (Escape)"
-msgstr "ရွေးချယ်မှု ရှင်းမည် (Escape)"
+#~ msgid "Clear selection (Escape)"
+#~ msgstr "ရွေးချယ်မှု ရှင်းမည် (Escape)"
 
-#: src/lib/saved.ts:33
+#: src/lib/saved.ts:34
 msgid "Clearing saved posts..."
 msgstr "သိမ်းဆည်းထားသော ပို့စ်များကို ရှင်းလင်းနေသည်..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:505
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
@@ -711,8 +709,8 @@ msgstr "dialog ပိတ်မည်"
 msgid "Close navigation"
 msgstr "navigation ပိတ်မည်"
 
-#: ../../../lib/web/src/components/layout/right-panel.tsx:265
-#: ../../../lib/web/src/components/layout/right-panel.tsx:268
+#: ../../../lib/web/src/components/layout/right-panel.tsx:234
+#: ../../../lib/web/src/components/layout/right-panel.tsx:237
 msgid "Close panel"
 msgstr "ပန်နယ်ပိတ်ပါ"
 
@@ -739,8 +737,8 @@ msgstr "ဘေးဘား ခေါက်မည်"
 msgid "Colour"
 msgstr "အရောင်"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:537
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:542
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "ကော်လံ လုပ်ဆောင်ချက်များ"
 
@@ -753,12 +751,16 @@ msgid "Comfortable"
 msgstr "အဆင်ပြေသည်"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:12
-msgid "Coming Soon!"
-msgstr "မကြာမီ ရောက်လာမည်!"
+#~ msgid "Coming Soon!"
+#~ msgstr "မကြာမီ ရောက်လာမည်!"
 
 #: ../../../lib/web/src/components/ui/command.tsx:34
 msgid "Command Palette"
 msgstr "အမိန့်ပလိတ်"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:760
+msgid "Comment"
+msgstr "မှတ်ချက်"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:292
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:299
@@ -773,11 +775,11 @@ msgstr "မှတ်ချက် အတည်ပြုပြီး"
 msgid "Comment deleted"
 msgstr "မှတ်ချက် ဖျက်ပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1073
+#: src/routes/_authenticated/$forum_.settings.tsx:1064
 msgid "Comment limit"
 msgstr "မှတ်ချက် ကန့်သတ်ချက်"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:84
+#: src/features/forums/components/thread/attachment-comments.tsx:85
 msgid "Comment on this image…"
 msgstr "ဤပုံအပေါ် မှတ်ချက်ပေးရန်…"
 
@@ -797,7 +799,7 @@ msgstr "မှတ်ချက် ပြန်ထည့်ပြီး"
 msgid "Comment updated"
 msgstr "မှတ်ချက် ပြောင်းပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Comment, vote, and view"
 msgstr "မှတ်ချက်၊ မဲပေးခြင်း၊ နှင့် ကြည့်ရှုခြင်း"
 
@@ -806,7 +808,6 @@ msgstr "မှတ်ချက်၊ မဲပေးခြင်း၊ နှင�
 msgid "Comments"
 msgstr "မှတ်ချက်များ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "ကျစ်လျစ်"
@@ -829,19 +830,19 @@ msgid "Connected"
 msgstr "ချိတ်ဆက်ပြီး"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:191
-msgid "Connected accounts"
-msgstr "ချိတ်ဆက်ထားသော အကောင့်များ"
+#~ msgid "Connected accounts"
+#~ msgstr "ချိတ်ဆက်ထားသော အကောင့်များ"
 
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Connecting..."
 msgstr "ချိတ်ဆက်နေသည်..."
 
-#: src/features/forums/components/create-post-dialog.tsx:226
+#: src/features/forums/components/create-post-dialog.tsx:227
 #: src/features/forums/components/edit-post-dialog.tsx:294
 msgid "Content"
 msgstr "အကြောင်းအရာ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1023
+#: src/routes/_authenticated/$forum_.settings.tsx:1014
 msgid "Content from users below a threshold must be approved"
 msgstr "သတ်မှတ်ချက်အောက်ရှိ သုံးစွဲသူများထံမှ အကြောင်းအရာများ အတည်ပြုခံရရမည်"
 
@@ -865,7 +866,7 @@ msgstr "ဆက်စပ်အချက်အလက်နှင့် အသေ�
 msgid "Continue"
 msgstr "ဆက်လက်လုပ်ဆောင်မည်"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "{label} ဖြင့် ဆက်လက်လုပ်ဆောင်ပါ"
 
@@ -885,26 +886,26 @@ msgstr "ကူးမည်"
 msgid "Could not load this document. Please try again later."
 msgstr "ဤစာရွက်စာတမ်းကို ဖွင့်၍ မရပါ။ နောက်မှ ထပ်စမ်းကြည့်ပါ။"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "အကြောင်းကြားချက်များ ဖွင့်၍မရပါ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "ကုဒ်ကို ပို့၍မရပါ။ ကျေးဇူးပြု၍ ထပ်စမ်းကြည့်ပါ။"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:135
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "ပြန်လည်အတည်ပြုခြင်းကို စတင်၍မရပါ။ ကျေးဇူးပြု၍ ထပ်စမ်းကြည့်ပါ။"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:223
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "ထိုအကောင့်ဖြင့် အတည်ပြု၍မရပါ။ ကျေးဇူးပြု၍ ထပ်မံကြိုးစားပါ။"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:548
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:687
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "ဖန်တီးမည်"
@@ -918,7 +919,7 @@ msgstr "{0} ဖန်တီးရန်"
 msgid "Create a new forum"
 msgstr "forum အသစ်တစ်ခု ဖန်တီးမည်"
 
-#: src/features/forums/components/create-post-dialog.tsx:198
+#: src/features/forums/components/create-post-dialog.tsx:199
 msgid "Create a new post"
 msgstr "ပို့စ်အသစ်တစ်ခု ဖန်တီးမည်"
 
@@ -940,7 +941,7 @@ msgstr "ဖန်တီးပြီး"
 msgid "Creating forum..."
 msgstr "ဖိုရမ်ကို ဖန်တီးနေသည်..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:654
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "ဖန်တီးနေသည်..."
@@ -950,22 +951,20 @@ msgid "Current location"
 msgstr "လက်ရှိတည်နေရာ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:265
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:705
 msgid "Custom"
 msgstr "စိတ်ကြိုက်"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:219
-#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:15
 msgid "Dark"
 msgstr "အမှောင်"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:87
 #: ../../../lib/web/src/components/profile-dropdown.tsx:123
-msgid "Dark mode"
-msgstr "အမှောင်ပုံစံ"
+#~ msgid "Dark mode"
+#~ msgstr "အမှောင်ပုံစံ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:259
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:250
 msgid "Data conflict"
 msgstr "ဒေတာ ကွဲလွဲမှု"
 
@@ -973,7 +972,7 @@ msgstr "ဒေတာ ကွဲလွဲမှု"
 msgid "Date"
 msgstr "ရက်စွဲ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1045
+#: src/routes/_authenticated/$forum_.settings.tsx:1036
 msgid "days"
 msgstr "ရက်များ"
 
@@ -981,12 +980,11 @@ msgstr "ရက်များ"
 msgid "Decline"
 msgstr "ငြင်းပယ်မည်"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:311
-#: src/routes/_authenticated/$forum_.settings.tsx:713
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Default"
 msgstr "မူရင်း"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:576
+#: src/routes/_authenticated/$forum_.settings.tsx:569
 msgid "Default account"
 msgstr "မူရင်း အကောင့်"
 
@@ -998,8 +996,8 @@ msgstr "မူရင်း AI အကောင့်"
 msgid "Default sort"
 msgstr "မူရင်း sort"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:567
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
@@ -1007,11 +1005,11 @@ msgstr "မူရင်း sort"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:441
-#: src/features/forums/components/thread/thread-comment.tsx:513
-#: src/features/forums/components/thread/thread-content.tsx:352
-#: src/features/forums/components/thread/thread-content.tsx:432
-#: src/routes/_authenticated/$forum_.settings.tsx:424
+#: src/features/forums/components/thread/thread-comment.tsx:440
+#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-content.tsx:351
+#: src/features/forums/components/thread/thread-content.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:418
 msgid "Delete"
 msgstr "ဖျက်မည်"
 
@@ -1019,12 +1017,12 @@ msgstr "ဖျက်မည်"
 msgid "Delete attachment"
 msgstr "ပူးတွဲဖိုင် ဖျက်မည်"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:626
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "ကော်လံ ဖျက်မည်"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:510
 msgid "Delete comment"
 msgstr "မှတ်ချက် ဖျက်မည်"
 
@@ -1032,12 +1030,12 @@ msgstr "မှတ်ချက် ဖျက်မည်"
 msgid "Delete field"
 msgstr "field ဖျက်မည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:415
-#: src/routes/_authenticated/$forum_.settings.tsx:435
+#: src/routes/_authenticated/$forum_.settings.tsx:409
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "Delete forum"
 msgstr "forum ဖျက်မည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:433
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum?"
 msgstr "forum ဖျက်မလား?"
 
@@ -1051,7 +1049,7 @@ msgstr "ရွေးချယ်စရာ ဖျက်မည်"
 msgid "Delete option {0}"
 msgstr "ရွေးချယ်စရာ {0} ဖျက်မည်"
 
-#: src/features/forums/components/thread/thread-content.tsx:430
+#: src/features/forums/components/thread/thread-content.tsx:429
 msgid "Delete post"
 msgstr "ပို့စ် ဖျက်မည်"
 
@@ -1068,8 +1066,8 @@ msgid "Deleting forum..."
 msgstr "ဖိုရမ်ကို ဖျက်နေသည်..."
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:63
-msgid "Desc"
-msgstr "Desc"
+#~ msgid "Desc"
+#~ msgstr "Desc"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
@@ -1087,7 +1085,7 @@ msgstr "အသေးစိတ်များ (လိုအပ်)"
 msgid "Details Panel"
 msgstr "အသေးစိတ် Panel"
 
-#: ../../../lib/web/src/components/language-picker.tsx:239
+#: ../../../lib/web/src/components/language-picker.tsx:240
 #: ../../../lib/web/src/components/timezone-select.tsx:46
 #: ../../../lib/web/src/components/timezone-select.tsx:83
 #: ../../../lib/web/src/lib/preference-utils.ts:23
@@ -1099,14 +1097,14 @@ msgid "Detect from web browser"
 msgstr "Web browser မှ ရှာဖွေဖော်ထုတ်မည်"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:341
-msgid "Direction"
-msgstr "ဦးတည်ရာ"
+#~ msgid "Direction"
+#~ msgstr "ဦးတည်ရာ"
 
 #: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "လမ်းညွှန်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:557
 msgid "Disabled"
 msgstr "ပိတ်ထားသည်"
 
@@ -1125,7 +1123,7 @@ msgstr "ချိတ်ဆက်မှု ပြတ်တောက်ပြီ�
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:715
+#: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "ပယ်မည်"
 
@@ -1134,7 +1132,7 @@ msgstr "ပယ်မည်"
 msgid "Dismiss banner"
 msgstr "ပိုစတာ ပယ်မည်"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:238
+#: ../../../lib/web/src/components/ui/sidebar.tsx:258
 msgid "Displays the mobile sidebar."
 msgstr "မိုဘိုင်း ဘေးဘားကို ပြသသည်။"
 
@@ -1149,7 +1147,7 @@ msgstr "ပြီးပါပြီ"
 msgid "Download"
 msgstr "ဒေါင်းလုဒ်"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:99
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "ဒေါင်းလုဒ် မအောင်မြင်ပါ"
 
@@ -1157,14 +1155,14 @@ msgstr "ဒေါင်းလုဒ် မအောင်မြင်ပါ"
 msgid "Duplicates"
 msgstr "ထပ်နေသော"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:141
+#: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Dyslexia-friendly"
 msgstr "စာဖတ်ရခက်သူများအတွက်ရိုးရှင်း"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:435
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:434
+#: src/features/forums/components/thread/thread-content.tsx:345
 msgid "Edit"
 msgstr "တည်းဖြတ်"
 
@@ -1172,7 +1170,7 @@ msgstr "တည်းဖြတ်"
 msgid "Edit {label}"
 msgstr "{label} ကို တည်းဖြတ်ပါ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:284
+#: ../../../lib/web/src/components/attachment-composer.tsx:291
 msgid "Edit caption"
 msgstr "စာတန်းကို ပြင်ဆင်ရန်"
 
@@ -1211,23 +1209,23 @@ msgstr "မြင်ကွင်း တည်းဖြတ်"
 msgid "Email"
 msgstr "အီးမေးလ်"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:291
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "အီးမေးလ် ကုဒ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:482
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "Enter banner text (markdown supported)..."
 msgstr "ဘန်နာ စာသား ထည့်ပါ (markdown ပံ့ပိုးသည်)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:301
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "သင့်အီးမေးလ်မှ ကုဒ်ကို ထည့်ပါ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:326
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "သင့်အထောက်အထားစိစစ်ရေးကုဒ်ကို ထည့်ပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:366
 msgid "Entity ID"
 msgstr "အကောင့် ID"
 
@@ -1246,39 +1244,38 @@ msgstr "ဘေးဘားကို ချဲ့ပါ"
 msgid "External URL"
 msgstr "ပြင်ပ URL"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:131
+#: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "အလွန်ကြီး"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:225
-msgid "Failed to add account"
-msgstr "အကောင့် ထည့်၍ မရပါ"
+#~ msgid "Failed to add account"
+#~ msgstr "အကောင့် ထည့်၍ မရပါ"
 
-#: ../../../lib/web/src/components/tag-input.tsx:39
-#: src/features/forums/thread-detail.tsx:247
+#: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "တဂ် ထည့်၍ မရပါ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:232
-#: src/features/forums/pages/entity-forum-page.tsx:243
-#: src/features/forums/thread-detail.tsx:258
-#: src/features/forums/thread-detail.tsx:270
+#: src/features/forums/pages/entity-forum-page.tsx:198
+#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/thread-detail.tsx:243
+#: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "စိတ်ဝင်စားမှု ချိန်ညှိ၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:239
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
 msgid "Failed to approve items"
 msgstr "ပစ္စည်းများ ခွင့်ပြု၍ မရပါ"
 
-#: src/features/forums/thread-detail.tsx:425
+#: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "အသုံးပြုသူ ပိတ်ပင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:307
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
 msgid "Failed to ban users"
 msgstr "အသုံးပြုသူများ ပိတ်ပင်၍ မရပါ"
 
-#: src/lib/saved.ts:35
+#: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
 msgstr "သိမ်းထားသောပို့စ်များကို ရှင်းရန် မအောင်မြင်ပါ"
 
@@ -1316,11 +1313,11 @@ msgstr "လင့် ဖျက်၍ မရပါ"
 msgid "Failed to get RSS token"
 msgstr "RSS တိုကင် ရယူ၍ မရပါ"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:77
+#: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:781
 msgid "Failed to load access rules"
 msgstr "ဝင်ရောက်ခွင့် စည်းမျဉ်းများ တင်၍ မရပါ"
 
@@ -1328,7 +1325,7 @@ msgstr "ဝင်ရောက်ခွင့် စည်းမျဉ်းမ�
 msgid "Failed to load forum"
 msgstr "ဖိုရမ် တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:157
 msgid "Failed to load forum settings"
 msgstr "ဖိုရမ် ဆက်တင်များ တင်၍ မရပါ"
 
@@ -1336,11 +1333,11 @@ msgstr "ဖိုရမ် ဆက်တင်များ တင်၍ မရပ
 msgid "Failed to load forums"
 msgstr "ဖိုရမ်များ တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:788
 msgid "Failed to load groups"
 msgstr "အုပ်စုများ တင်၍ မရပါ"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:65
+#: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
 msgstr "မှတ်တမ်း တင်၍ မရပါ"
 
@@ -1348,15 +1345,15 @@ msgstr "မှတ်တမ်း တင်၍ မရပါ"
 msgid "Failed to load image"
 msgstr "ပုံကို ဖွင့်၍မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "စိစစ်မှု မှတ်တမ်း တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:166
 msgid "Failed to load moderation queue"
 msgstr "စိစစ်မှု တန်းစီ တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:940
+#: src/routes/_authenticated/$forum_.settings.tsx:931
 msgid "Failed to load moderation settings"
 msgstr "စိစစ်မှု ဆက်တင်များ တင်၍ မရပါ"
 
@@ -1365,11 +1362,11 @@ msgstr "စိစစ်မှု ဆက်တင်များ တင်၍ မ
 msgid "Failed to load recommended forums"
 msgstr "အကြံပြု ဖိုရမ်များ တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:550
+#: src/routes/_authenticated/$forum_.moderation.tsx:546
 msgid "Failed to load reports"
 msgstr "အစီရင်ခံစာများ တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:891
+#: src/routes/_authenticated/$forum_.moderation.tsx:916
 msgid "Failed to load restrictions"
 msgstr "ကန့်သတ်ချက်များ တင်၍ မရပါ"
 
@@ -1377,11 +1374,11 @@ msgstr "ကန့်သတ်ချက်များ တင်၍ မရပါ"
 msgid "Failed to load video"
 msgstr "ဗီဒီယိုကို ဖွင့်၍မရပါ"
 
-#: src/features/forums/thread-detail.tsx:416
+#: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "အသုံးပြုသူ အသံပိတ်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:290
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
 msgid "Failed to mute users"
 msgstr "အသုံးပြုသူများ အသံပိတ်၍ မရပါ"
 
@@ -1389,40 +1386,40 @@ msgstr "အသုံးပြုသူများ အသံပိတ်၍ မ�
 msgid "Failed to post comment"
 msgstr "မှတ်ချက် တင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:261
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
 msgid "Failed to reject items"
 msgstr "ပစ္စည်းများ ငြင်းပယ်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:834
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to remove access"
 msgstr "ဝင်ရောက်ခွင့် ဖယ်ရှား၍ မရပါ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
-msgid "Failed to remove account"
-msgstr "အကောင့် ဖယ်ရှား၍ မရပါ"
+#~ msgid "Failed to remove account"
+#~ msgstr "အကောင့် ဖယ်ရှား၍ မရပါ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:255
-#: src/features/forums/thread-detail.tsx:282
+#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "စိတ်ဝင်စားမှု ဖယ်ရှား၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:908
+#: src/routes/_authenticated/$forum_.moderation.tsx:933
 msgid "Failed to remove restriction"
 msgstr "ကန့်သတ်ချက် ဖယ်ရှား၍ မရပါ"
 
-#: src/lib/saved.ts:32
+#: src/lib/saved.ts:33
 msgid "Failed to remove saved post"
 msgstr "သိမ်းထားသောပို့စ်ကို ဖယ်ရှားရန် မအောင်မြင်ပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:208
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Failed to rename forum"
 msgstr "ဖိုရမ် အမည်ပြောင်း၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:684
+#: src/routes/_authenticated/$forum_.settings.tsx:675
 msgid "Failed to reset prompt"
 msgstr "လမ်းညွှန် ပြန်လည်သတ်မှတ်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:567
+#: src/routes/_authenticated/$forum_.moderation.tsx:563
 msgid "Failed to resolve report"
 msgstr "အစီရင်ခံစာ ဖြေရှင်း၍ မရပါ"
 
@@ -1430,15 +1427,15 @@ msgstr "အစီရင်ခံစာ ဖြေရှင်း၍ မရပါ"
 msgid "Failed to revoke RSS access"
 msgstr "RSS အသုံးပြုခွင့် ရုပ်သိမ်း၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:957
+#: src/routes/_authenticated/$forum_.settings.tsx:948
 msgid "Failed to save moderation settings"
 msgstr "စိစစ်မှု ဆက်တင်များ သိမ်း၍ မရပါ"
 
-#: src/lib/saved.ts:29
+#: src/lib/saved.ts:30
 msgid "Failed to save post"
 msgstr "ပို့စ်သိမ်းရန် မအောင်မြင်ပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to save prompt"
 msgstr "လမ်းညွှန် သိမ်း၍ မရပါ"
 
@@ -1447,15 +1444,15 @@ msgstr "လမ်းညွှန် သိမ်း၍ မရပါ"
 msgid "Failed to search forums"
 msgstr "ဖိုရမ်များ ရှာ၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:794
+#: src/routes/_authenticated/$forum_.settings.tsx:785
 msgid "Failed to search users"
 msgstr "အသုံးပြုသူများ ရှာ၍ မရပါ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:257
-msgid "Failed to send verification code"
-msgstr "အတည်ပြုကုဒ် ပို့၍ မရပါ"
+#~ msgid "Failed to send verification code"
+#~ msgstr "အတည်ပြုကုဒ် ပို့၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:822
+#: src/routes/_authenticated/$forum_.settings.tsx:813
 msgid "Failed to set access level"
 msgstr "ဝင်ရောက်ခွင့် အဆင့် သတ်မှတ်၍ မရပါ"
 
@@ -1467,20 +1464,20 @@ msgid "Failed to subscribe"
 msgstr "စာရင်းသွင်း၍ မရပါ"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:186
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Failed to unsubscribe"
 msgstr "စာရင်းမှ ထွက်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:840
 msgid "Failed to update access level"
 msgstr "ဝင်ရောက်ခွင့် အဆင့် ပြင်ဆင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:537
-#: src/routes/_authenticated/$forum_.settings.tsx:549
+#: src/routes/_authenticated/$forum_.settings.tsx:531
+#: src/routes/_authenticated/$forum_.settings.tsx:543
 msgid "Failed to update AI settings"
 msgstr "AI ဆက်တင်များ ပြင်ဆင်၍ မရပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:468
+#: src/routes/_authenticated/$forum_.settings.tsx:462
 msgid "Failed to update banner"
 msgstr "ဘန်နာ ပြင်ဆင်၍ မရပါ"
 
@@ -1492,19 +1489,19 @@ msgstr "မှတ်ချက် ပြင်ဆင်၍ မရပါ"
 msgid "Failed to upload attachment"
 msgstr "တွဲဖက်ဖိုင် တင်၍ မရပါ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:588
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
-#: src/features/forums/components/create-post-dialog.tsx:268
+#: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
 msgstr "ဖိုင်များ"
 
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
-msgid "Filter..."
-msgstr "စစ်ထုတ်..."
+#~ msgid "Filter..."
+#~ msgstr "စစ်ထုတ်..."
 
-#: src/features/forums/pages/entity-forum-page.tsx:336
+#: src/features/forums/pages/entity-forum-page.tsx:302
 msgid "Filtered by tag:"
 msgstr "တဂ်အလိုက် စိစစ်ထား -"
 
@@ -1513,7 +1510,7 @@ msgstr "တဂ်အလိုက် စိစစ်ထား -"
 msgid "Find forums"
 msgstr "ဖိုရမ်များ ရှာ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:377
+#: src/routes/_authenticated/$forum_.settings.tsx:371
 msgid "Fingerprint"
 msgstr "လက်ဗွေ"
 
@@ -1530,13 +1527,13 @@ msgid "Flat"
 msgstr "ပြားသော"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:258
-msgid "Floating"
-msgstr "လွင့်မျော"
+#~ msgid "Floating"
+#~ msgstr "လွင့်မျော"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
 #: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:277
-#: src/features/forums/thread-detail.tsx:162
+#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/thread-detail.tsx:147
 #: src/routes/_authenticated/$forum/index.tsx:72
 msgid "Forum"
 msgstr "ဖိုရမ်"
@@ -1549,7 +1546,7 @@ msgstr "ဖိုရမ် ဖန်တီးပြီးပါပြီ"
 msgid "Forum deleted"
 msgstr "ဖိုရမ် ဖျက်ပြီးပါပြီ"
 
-#: src/hooks/use-forum-websocket.ts:66
+#: src/hooks/use-forum-websocket.ts:65
 msgid "Forum is no longer available"
 msgstr "ဖိုရမ်ကို မရရှိနိုင်တော့ပါ"
 
@@ -1557,23 +1554,23 @@ msgstr "ဖိုရမ်ကို မရရှိနိုင်တော့�
 msgid "Forum link"
 msgstr "ဖိုရမ်လင့်ခ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:351
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Forum name is required"
 msgstr "ဖိုရမ် အမည် လိုအပ်သည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum not found"
 msgstr "ဖိုရမ် မတွေ့ပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:207
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Forum renamed"
 msgstr "ဖိုရမ် အမည်ပြောင်းပြီးပါပြီ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:280
+#: src/routes/_authenticated/$forum_.settings.tsx:274
 msgid "Forum settings sections"
 msgstr "ဖိုရမ် ဆက်တင် ကဏ္ဍများ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:246
 msgid "Forum unavailable"
 msgstr "ဖိုရမ် မရရှိနိုင်ပါ"
 
@@ -1599,41 +1596,39 @@ msgstr "မှ"
 #: ../../../lib/web/src/lib/preference-utils.ts:89
 #: ../../../lib/web/src/lib/preference-utils.ts:99
 #: ../../../lib/web/src/lib/preference-utils.ts:110
-#: ../../../lib/web/src/lib/preference-utils.ts:119
-#: ../../../lib/web/src/lib/preference-utils.ts:127
-#: ../../../lib/web/src/lib/preference-utils.ts:138
+#: ../../../lib/web/src/lib/preference-utils.ts:120
+#: ../../../lib/web/src/lib/preference-utils.ts:131
 msgid "From theme"
 msgstr "အပြင်အဆင်မှ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:321
-msgid "Full layout"
-msgstr "အပြည့် အပြင်အဆင်"
+#~ msgid "Full layout"
+#~ msgstr "အပြည့် အပြင်အဆင်"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "ပြန်သွားပါ"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:82
-msgid "Go to first page"
-msgstr "ပထမစာမျက်နှာသို့"
+#~ msgid "Go to first page"
+#~ msgstr "ပထမစာမျက်နှာသို့"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:128
-msgid "Go to last page"
-msgstr "နောက်ဆုံးစာမျက်နှာသို့"
+#~ msgid "Go to last page"
+#~ msgstr "နောက်ဆုံးစာမျက်နှာသို့"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:119
-msgid "Go to next page"
-msgstr "နောက်စာမျက်နှာသို့"
+#~ msgid "Go to next page"
+#~ msgstr "နောက်စာမျက်နှာသို့"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:106
-msgid "Go to page {pageNumber}"
-msgstr "စာမျက်နှာ {pageNumber} သို့သွားပါ"
+#~ msgid "Go to page {pageNumber}"
+#~ msgstr "စာမျက်နှာ {pageNumber} သို့သွားပါ"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:91
-msgid "Go to previous page"
-msgstr "ယခင်စာမျက်နှာသို့"
+#~ msgid "Go to previous page"
+#~ msgstr "ယခင်စာမျက်နှာသို့"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:162
 msgid "Group"
@@ -1649,24 +1644,24 @@ msgid "Group: {0}"
 msgstr "အုပ်စု- {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:753
+#: src/routes/_authenticated/$forum_.moderation.tsx:777
 msgid "Harassment"
 msgstr "နှောင့်ယှက်မှု"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:754
+#: src/routes/_authenticated/$forum_.moderation.tsx:778
 msgid "Hate speech"
 msgstr "မုန်းတီးမှု စကား"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
-msgid "Hide"
-msgstr "ဝှက်"
+#~ msgid "Hide"
+#~ msgstr "ဝှက်"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Hide password"
-msgstr "စကားဝှက်ကို ဖျောက်ရန်"
+#~ msgid "Hide password"
+#~ msgstr "စကားဝှက်ကို ဖျောက်ရန်"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:58
+#: ../../../lib/web/src/components/audit-timeline.tsx:61
 msgid "History"
 msgstr "မှတ်တမ်း"
 
@@ -1685,7 +1680,7 @@ msgstr "လူကြိုက်များ"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:360
+#: src/routes/_authenticated/$forum_.settings.tsx:354
 msgid "Identity"
 msgstr "ကိုယ်ပိုင်"
 
@@ -1698,7 +1693,7 @@ msgstr "ပုံကြည့်ရှုစနစ်- {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
-#: ../../../lib/web/src/features/access/types.ts:42
+#: ../../../lib/web/src/features/access/types.ts:36
 msgid "Including anonymous users"
 msgstr "အမည်မသိအသုံးပြုသူများအပါအဝင်"
 
@@ -1711,19 +1706,19 @@ msgid "Initials avatar for {name}"
 msgstr "{name} အတွက် အမည်အစအက္ခရာ အသွင်ပုံ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:253
-msgid "Inset"
-msgstr "အတွင်းသို့"
+#~ msgid "Inset"
+#~ msgstr "အတွင်းသို့"
 
-#: src/features/forums/thread-detail.tsx:256
+#: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "စိတ်ဝင်စားမှု မြှင့်ပြီးပါပြီ"
 
-#: src/features/forums/thread-detail.tsx:268
+#: src/features/forums/thread-detail.tsx:253
 msgid "Interest reduced"
 msgstr "စိတ်ဝင်စားမှု လျှော့ပြီးပါပြီ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:253
-#: src/features/forums/thread-detail.tsx:280
+#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "စိတ်ဝင်စားမှု ဖယ်ရှားပြီးပါပြီ"
 
@@ -1731,23 +1726,23 @@ msgstr "စိတ်ဝင်စားမှု ဖယ်ရှားပြီ�
 msgid "Interests"
 msgstr "စိတ်ဝင်စားမှုများ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:544
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "မမှန်ကန်သော ရက်စွဲ"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
-msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
-msgstr "မမှန်ကန်သော အညွှန်း- စာလုံး၊ ဂဏန်း၊ ကွက်လပ်၊ အနှုတ်လက္ခဏာနှင့် မျဉ်းစောင်းများသာ (အများဆုံး ၅၀ လုံး)"
+#~ msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+#~ msgstr "မမှန်ကန်သော အညွှန်း- စာလုံး၊ ဂဏန်း၊ ကွက်လပ်၊ အနှုတ်လက္ခဏာနှင့် မျဉ်းစောင်းများသာ (အများဆုံး ၅၀ လုံး)"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
-msgid "Invalid verification code"
-msgstr "မမှန်ကန်သော အတည်ပြု ကုဒ်"
+#~ msgid "Invalid verification code"
+#~ msgstr "မမှန်ကန်သော အတည်ပြု ကုဒ်"
 
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:18
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "သင်ရှာဖွေနေသော စာမျက်နှာသည် <0/>မရှိတော့ပါ သို့မဟုတ် ဖယ်ရှားခံရပုံရသည်။"
 
-#: ../../../lib/web/src/lib/locale-format.ts:164
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "အခုပဲ"
 
@@ -1756,30 +1751,27 @@ msgid "Keyboard shortcuts"
 msgstr "ကီးဘုတ် ဖြတ်လမ်းများ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:103
-#: ../../../lib/web/src/lib/preference-utils.ts:130
+#: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "ကြီး"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:287
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "အပြင်အဆင်"
 
 #: ../../../lib/web/src/components/learn-more.tsx:33
 #: ../../../lib/web/src/components/learn-more.tsx:38
-msgid "Learn more"
-msgstr "ပိုလေ့လာ"
+#~ msgid "Learn more"
+#~ msgstr "ပိုလေ့လာ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:355
-msgid "Left to Right"
-msgstr "ဘယ်မှ ညာသို့"
+#~ msgid "Left to Right"
+#~ msgstr "ဘယ်မှ ညာသို့"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
 msgid "Letters, numbers, spaces, and hyphens only"
 msgstr "စာလုံး၊ ဂဏန်း၊ ကွက်လပ်နှင့် အလျားတံသာ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:214
-#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
 msgstr "အလင်း"
@@ -1800,7 +1792,7 @@ msgstr "စာရင်း"
 msgid "Load more"
 msgstr "ထပ်တင်"
 
-#: ../../../lib/web/src/components/ui/loading-content.tsx:25
+#: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "အကြောင်းအရာ ဖွင့်နေသည်…"
 
@@ -1809,11 +1801,11 @@ msgstr "အကြောင်းအရာ ဖွင့်နေသည်…"
 msgid "Loading..."
 msgstr "တင်နေသည်..."
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:380
 msgid "Lock"
 msgstr "လော့ခ်ချ"
 
-#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/features/forums/components/thread/thread-content.tsx:170
 msgid "Locked"
 msgstr "လော့ခ်ချထား"
 
@@ -1821,8 +1813,6 @@ msgstr "လော့ခ်ချထား"
 msgid "Log"
 msgstr "မှတ်တမ်း"
 
-#: ../../../lib/web/src/components/profile-dropdown.tsx:69
-#: ../../../lib/web/src/components/profile-dropdown.tsx:98
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:26
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:28
 msgid "Log out"
@@ -1840,25 +1830,24 @@ msgstr "အောင်မြင်စွာ ထွက်ပြီးပါပ�
 msgid "Logging out…"
 msgstr "ထွက်နေသည်…"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
 msgid "Manage categories"
 msgstr "အမျိုးအစားများ စီမံရန်"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:192
-msgid "Manage your connected accounts for notifications and services."
-msgstr "အကြောင်းကြားချက်များနှင့် ဝန်ဆောင်မှုများအတွက် ချိတ်ဆက်ထားသော အကောင့်များကို စီမံပါ။"
+#~ msgid "Manage your connected accounts for notifications and services."
+#~ msgstr "အကြောင်းကြားချက်များနှင့် ဝန်ဆောင်မှုများအတွက် ချိတ်ဆက်ထားသော အကောင့်များကို စီမံပါ။"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
 msgid "Manual"
 msgstr "ကိုယ်တိုင်"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:190
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:197
-#: ../../../lib/web/src/components/notifications-dropdown.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "အားလုံးကို ဖတ်ပြီးအဖြစ် မှတ်"
 
-#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/create-post-dialog.tsx:231
 msgid "Markdown supported"
 msgstr "Markdown ပံ့ပိုးသည်"
 
@@ -1891,7 +1880,7 @@ msgid "Minimum length"
 msgstr "အနည်းဆုံး အရှည်"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:756
+#: src/routes/_authenticated/$forum_.moderation.tsx:780
 msgid "Misinformation"
 msgstr "မှားယွင်းသော သတင်းအချက်အလက်"
 
@@ -1899,22 +1888,22 @@ msgstr "မှားယွင်းသော သတင်းအချက်အ�
 msgid "Mochi web"
 msgstr "Mochi ဝဘ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:101
 msgid "Moderate, post, comment, vote, and view"
 msgstr "စိစစ်၊ တင်၊ မှတ်ချက်ပေး၊ မဲပေး၊ ကြည့်"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:111
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:92
 msgid "Moderation"
 msgstr "စိစစ်မှု"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:358
+#: src/routes/_authenticated/$forum_.moderation.tsx:352
 msgid "Moderation queue is empty"
 msgstr "စိစစ်မှု တန်းစီ ဗလာဖြစ်သည်"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:120
+#: src/routes/_authenticated/$forum_.moderation.tsx:114
 msgid "Moderation sections"
 msgstr "စိစစ်မှု ကဏ္ဍများ"
 
@@ -1924,36 +1913,40 @@ msgstr "တနင်္လာ"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:418
-#: src/features/forums/components/thread/thread-comment.tsx:424
-#: src/features/forums/components/thread/thread-content.tsx:333
-#: src/features/forums/components/thread/thread-content.tsx:340
+#: src/features/forums/components/thread/thread-comment.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:423
+#: src/features/forums/components/thread/thread-content.tsx:332
+#: src/features/forums/components/thread/thread-content.tsx:339
 msgid "More options"
 msgstr "နောက်ထပ် ရွေးချယ်စရာများ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:502
+#: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "အသံပိတ်"
 
-#: src/features/forums/components/thread/thread-comment.tsx:488
-#: src/features/forums/components/thread/thread-content.tsx:409
+#: src/features/forums/components/thread/thread-comment.tsx:487
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Mute author"
 msgstr "ရေးသူကို အသံပိတ်"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:991
-msgid "muted"
-msgstr "ပိတ်ဆို့ထား"
+#~ msgid "muted"
+#~ msgstr "ပိတ်ဆို့ထား"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:768
+msgid "Muted"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:364
+#: src/routes/_authenticated/$forum_.settings.tsx:358
 msgid "Name"
 msgstr "အမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:353
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name cannot contain < or > characters"
 msgstr "အမည်တွင် < သို့မဟုတ် > စာလုံးများ မပါဝင်ရ"
 
@@ -1962,42 +1955,42 @@ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backt
 msgstr "အမည်တွင် ထောင့်ကွင်းများ၊ နောက်ပြန်မျဉ်းစောင်း၊ ဆီမီးကော်လံ၊ ကိုးကားမှတ်များ သို့မဟုတ် backtick များ မပါဝင်ရပါ"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:352
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Name must be 1000 characters or less"
 msgstr "အမည်သည် စာလုံး ၁၀၀၀ သို့မဟုတ် ထိုထက်နည်းရမည်"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:322
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "ကွန်ရက် အမှား"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
 msgstr "အသစ်"
 
 #: src/components/layout/data/sidebar-data.ts:19
-msgid "New forum"
-msgstr "ဆွေးနွေးပွဲအသစ်"
+#~ msgid "New forum"
+#~ msgstr "ဆွေးနွေးပွဲအသစ်"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:49
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:39
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
 msgid "New game"
 msgstr "ဂိမ်းအသစ်"
 
-#: src/features/forums/components/create-post-dialog.tsx:184
-#: src/features/forums/components/create-post-dialog.tsx:189
-#: src/features/forums/components/create-post-dialog.tsx:196
-#: src/features/forums/pages/entity-forum-page.tsx:284
+#: src/features/forums/components/create-post-dialog.tsx:185
+#: src/features/forums/components/create-post-dialog.tsx:190
+#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "ပို့စ်အသစ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1001
+#: src/routes/_authenticated/$forum_.settings.tsx:992
 msgid "New threads must be approved"
 msgstr "thread အသစ်များကို ခွင့်ပြုရမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1033
+#: src/routes/_authenticated/$forum_.settings.tsx:1024
 msgid "New user threshold:"
 msgstr "သုံးစွဲသူအသစ် ကန့်သတ်ချက် -"
 
@@ -2006,15 +1999,15 @@ msgstr "သုံးစွဲသူအသစ် ကန့်သတ်ချက�
 msgid "Next image"
 msgstr "နောက်ပုံ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "ထည့်ရန် {parentClassNames} မရှိပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:647
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} အစီရင်ခံစာများ မတွေ့ပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "No access"
 msgstr "ဝင်ရောက်ခွင့်မရှိ"
 
@@ -2026,7 +2019,7 @@ msgstr "ဝင်ရောက်ခွင့်စည်းမျဉ်းမျ
 msgid "No activity yet"
 msgstr "လှုပ်ရှားမှုများ မရှိသေးပါ"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:47
+#: src/features/forums/components/thread/attachment-comments.tsx:48
 msgid "No comments on this image yet."
 msgstr "ဤပုံအပေါ် မှတ်ချက် မရှိသေးပါ။"
 
@@ -2035,15 +2028,15 @@ msgid "No comments yet"
 msgstr "comment များ မရှိသေးပါ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
-msgid "No connected accounts"
-msgstr "ချိတ်ဆက်ထားသော အကောင့်များ မရှိပါ"
+#~ msgid "No connected accounts"
+#~ msgstr "ချိတ်ဆက်ထားသော အကောင့်များ မရှိပါ"
 
 #: src/features/forums/components/inline-forum-search.tsx:104
 #: src/routes/_authenticated/find.tsx:93
 msgid "No forums found"
 msgstr "ဆွေးနွေးပွဲများ မတွေ့ပါ"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:46
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:48
 msgid "No games yet"
 msgstr "ဂိမ်းများ မရှိသေးပါ"
 
@@ -2051,7 +2044,7 @@ msgstr "ဂိမ်းများ မရှိသေးပါ"
 msgid "No groups available"
 msgstr "အုပ်စုများ မရရှိနိုင်ပါ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:521
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "item အမျိုးအစားအသစ်များ မဖန်တီးနိုင်သေးပါ။ လိုအပ်သော parent item များကို ဦးစွာဖန်တီးပါ။"
 
@@ -2059,15 +2052,15 @@ msgstr "item အမျိုးအစားအသစ်များ မဖန်
 msgid "No matching objects"
 msgstr "ကိုက်ညီသော object များ မရှိပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:823
+#: src/routes/_authenticated/$forum_.moderation.tsx:847
 msgid "No moderation activity"
 msgstr "moderation လုပ်ဆောင်ချက်များ မရှိပါ"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "No notifications yet"
-msgstr "အကြောင်းကြားချက် မရှိသေးပါ"
+#~ msgid "No notifications yet"
+#~ msgstr "အကြောင်းကြားချက် မရှိသေးပါ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
 #: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "လူများ မတွေ့ပါ"
@@ -2081,30 +2074,28 @@ msgid "No posts in this forum yet"
 msgstr "ဤဆွေးနွေးပွဲတွင် ပို့စ်များ မရှိသေးပါ"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:58
-msgid "No profile"
-msgstr "ပရိုဖိုင် မရှိ"
+#~ msgid "No profile"
+#~ msgstr "ပရိုဖိုင် မရှိ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:646
+#: src/routes/_authenticated/$forum_.moderation.tsx:642
 msgid "No reports"
 msgstr "အစီရင်ခံစာများ မရှိပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:953
+#: src/routes/_authenticated/$forum_.moderation.tsx:978
 msgid "No restrictions"
 msgstr "ကန့်သတ်ချက်များ မရှိပါ"
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "ရလဒ်မတွေ့ပါ"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "ရလဒ်များ မတွေ့ပါ။"
 
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:823
-#: ../../../lib/web/src/components/entity/entity-board-container.tsx:868
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "အခြေအနေ မရှိ"
@@ -2113,11 +2104,11 @@ msgstr "အခြေအနေ မရှိ"
 msgid "No time zone found."
 msgstr "အချိန်ဇုန် မတွေ့ပါ။"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:106
 msgid "No topic record yet — try again after the next notification."
 msgstr "topic မှတ်တမ်း မရှိသေးပါ — နောက်အသိပေးချက်ပြီးနောက် ထပ်စမ်းကြည့်ပါ။"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:122
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "ဖတ်မပြီးသေးသော အသိပေးချက်များ မရှိ"
 
@@ -2125,7 +2116,7 @@ msgstr "ဖတ်မပြီးသေးသော အသိပေးချက�
 msgid "No users found"
 msgstr "သုံးစွဲသူများ မတွေ့ပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:979
 msgid "No users have been muted or banned"
 msgstr "သုံးစွဲသူများ ပိတ်ဆို့မထား သို့မဟုတ် ပိတ်ပင်မထားပါ"
 
@@ -2134,9 +2125,9 @@ msgid "No views"
 msgstr "view များ မရှိ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:537
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:540
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
@@ -2146,15 +2137,14 @@ msgstr "view များ မရှိ"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
-#: ../../../lib/web/src/lib/preference-utils.ts:120
 msgid "None"
 msgstr "မရှိ"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:129
+#: ../../../lib/web/src/lib/preference-utils.ts:122
 msgid "Normal"
 msgstr "ပုံမှန်"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 #: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "ရှာမတွေ့ပါ"
@@ -2176,11 +2166,11 @@ msgstr "ဘာမှ မသိမ်းရသေးပါ"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:236
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:257
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
-msgid "Notifications"
-msgstr "အသိပေးချက်များ"
+#~ msgid "Notifications"
+#~ msgstr "အသိပေးချက်များ"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:183
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "အကြောင်းကြားချက်များ- {0}"
 
@@ -2191,7 +2181,7 @@ msgid "Number"
 msgstr "နံပါတ်"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:757
+#: src/routes/_authenticated/$forum_.moderation.tsx:781
 msgid "Off-topic"
 msgstr "ခေါင်းစဉ်ပြင်ပ"
 
@@ -2200,11 +2190,11 @@ msgid "On"
 msgstr "ဖွင့်"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:439
 msgid "On image: {0}"
 msgstr "ပုံအပေါ်- {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:256
 msgid "On this image"
 msgstr "ဤပုံအပေါ်"
 
@@ -2214,8 +2204,8 @@ msgstr "အိုး! စာမျက်နှာ မတွေ့ပါ!"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:156
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:166
-msgid "Open account actions"
-msgstr "အကောင့် လုပ်ဆောင်ချက်များကို ဖွင့်"
+#~ msgid "Open account actions"
+#~ msgstr "အကောင့် လုပ်ဆောင်ချက်များကို ဖွင့်"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:199
 #: ../../../lib/web/src/components/layout/nav-group.tsx:204
@@ -2233,8 +2223,8 @@ msgstr "navigation ကို ဖွင့်"
 
 #: ../../../lib/web/src/components/layout/top-nav.tsx:38
 #: ../../../lib/web/src/components/layout/top-nav.tsx:44
-msgid "Open navigation menu"
-msgstr "navigation menu ကို ဖွင့်"
+#~ msgid "Open navigation menu"
+#~ msgstr "navigation menu ကို ဖွင့်"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
@@ -2247,8 +2237,8 @@ msgstr "ရွေးချယ်ထားသော card ကို ဖွင့�
 
 #: ../../../lib/web/src/components/config-drawer.tsx:58
 #: ../../../lib/web/src/components/config-drawer.tsx:66
-msgid "Open theme settings"
-msgstr "theme ဆက်တင်များကို ဖွင့်"
+#~ msgid "Open theme settings"
+#~ msgstr "theme ဆက်တင်များကို ဖွင့်"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
@@ -2265,7 +2255,7 @@ msgstr "view ထိန်းချုပ်မှုများကို ဖွ
 msgid "Option name"
 msgstr "ရွေးချယ်စရာ အမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: src/routes/_authenticated/$forum_.settings.tsx:471
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "သင့် ဆွေးနွေးပွဲထိပ်တွင် ပြသမည့် ရွေးချယ်နိုင်သော markdown banner။"
 
@@ -2276,7 +2266,7 @@ msgstr "ရွေးချယ်စရာများ"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:758
+#: src/routes/_authenticated/$forum_.moderation.tsx:782
 msgid "Other"
 msgstr "အခြား"
 
@@ -2286,18 +2276,18 @@ msgstr "ပိုင်ရှင်"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:43
 #: ../../../lib/web/src/components/data-table/pagination.tsx:71
-msgid "Page {currentPage} of {totalPages}"
-msgstr "စာမျက်နှာ {currentPage} / {totalPages}"
+#~ msgid "Page {currentPage} of {totalPages}"
+#~ msgstr "စာမျက်နှာ {currentPage} / {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:529
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Parent"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:336
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Passkey"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "ပတ်စ်ကီးအတည်ပြုခြင်း မအောင်မြင်ပါ။ ကျေးဇူးပြု၍ ထပ်စမ်းကြည့်ပါ။"
 
@@ -2310,45 +2300,46 @@ msgid "Pattern (regex)"
 msgstr "ပုံစံ (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:276
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/features/forums/components/thread/thread-comment.tsx:275
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:751
 msgid "Pending"
 msgstr "ဆိုင်းငံ့ထား"
 
-#: src/features/forums/components/thread/thread-content.tsx:160
+#: src/features/forums/components/thread/thread-content.tsx:158
 msgid "Pending approval"
 msgstr "အတည်ပြုရန် ဆိုင်းငံ့ထား"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:417
+#: src/routes/_authenticated/$forum_.moderation.tsx:411
 msgid "Pending comments ({0})"
 msgstr "ဆိုင်းငံ့ comment များ ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:372
+#: src/routes/_authenticated/$forum_.moderation.tsx:366
 msgid "Pending posts ({0})"
 msgstr "ဆိုင်းငံ့ ပို့စ်များ ({0})"
 
-#: src/features/forums/components/create-post-dialog.tsx:267
+#: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
 msgstr "ဓာတ်ပုံနှင့် ဗီဒီယိုများ"
 
 #: ../../../lib/web/src/components/date-picker.tsx:20
-msgid "Pick a date"
-msgstr "ရက်စွဲရွေးပါ"
+#~ msgid "Pick a date"
+#~ msgstr "ရက်စွဲရွေးပါ"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/features/forums/components/thread/thread-content.tsx:393
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/features/forums/components/thread/thread-content.tsx:176
 msgid "Pinned"
 msgstr "Pin ထားသည်"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:323
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "သင့်အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်မံကြိုးစားပါ။"
 
@@ -2356,7 +2347,7 @@ msgstr "သင့်အင်တာနက်ချိတ်ဆက်မှုက
 msgid "Please describe the issue..."
 msgstr "ပြဿနာကို ဖော်ပြပါ..."
 
-#: src/features/forums/thread-detail.tsx:302
+#: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "ပြန်ကြားချက် ရိုက်ထည့်ပါ"
 
@@ -2372,11 +2363,15 @@ msgstr "ကျေးဇူးပြု၍ ထပ်ကြိုးစားပ�
 msgid "Please wait a moment and try again."
 msgstr "ကျေးဇူးပြု၍ ခဏစောင့်ပြီး ထပ်စမ်းကြည့်ပါ။"
 
-#: src/hooks/use-forum-websocket.ts:62
+#: src/routes/_authenticated/$forum_.moderation.tsx:759
+msgid "Post"
+msgstr "ပို့စ်"
+
+#: src/hooks/use-forum-websocket.ts:61
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "ပို့စ်ကို သိမ်းဆည်း၍ မရပါ — ခေါင်းစဉ် သို့မဟုတ် အကြောင်းအရာ မှားယွင်းနေသည်"
 
-#: src/hooks/use-forum-websocket.ts:69
+#: src/hooks/use-forum-websocket.ts:68
 msgid "Post couldn't be saved on the forum server"
 msgstr "ဖိုရမ်ဆာဗာတွင် ပို့စ်ကို သိမ်းဆည်း၍ မရပါ"
 
@@ -2384,7 +2379,7 @@ msgstr "ဖိုရမ်ဆာဗာတွင် ပို့စ်ကို �
 msgid "Post deleted"
 msgstr "ပို့စ် ဖျက်ပြီးပါပြီ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1058
+#: src/routes/_authenticated/$forum_.settings.tsx:1049
 msgid "Post limit"
 msgstr "ပို့စ် ကန့်သတ်"
 
@@ -2424,11 +2419,11 @@ msgstr "ပို့စ် ပိုစ်ဖြုတ်ပြီးပါပ�
 msgid "Post updated"
 msgstr "ပို့စ် ပြင်ဆင်ပြီးပါပြီ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Post, comment, vote, and view"
 msgstr "ပို့စ်တင်၊ comment ပေး၊ မဲပေး၊ ကြည့်ရှု"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1068
+#: src/routes/_authenticated/$forum_.settings.tsx:1059
 msgid "posts"
 msgstr "ပို့စ်များ"
 
@@ -2440,11 +2435,11 @@ msgstr "ပို့စ်များ"
 msgid "Posts and comments"
 msgstr "ပို့စ်နှင့် comment များ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:994
+#: src/routes/_authenticated/$forum_.settings.tsx:985
 msgid "Pre-moderation"
 msgstr "ကြိုတင် moderation"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1054
+#: src/routes/_authenticated/$forum_.settings.tsx:1045
 msgid "Prevent spam by limiting how often users can post"
 msgstr "သုံးစွဲသူများ မည်မျှမကြာခဏ ပို့စ်တင်နိုင်သည်ကို ကန့်သတ်ခြင်းဖြင့် spam ကို ကာကွယ်ပါ"
 
@@ -2463,22 +2458,22 @@ msgid "Processing…"
 msgstr "လုပ်ဆောင်နေသည်…"
 
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
-msgid "Profile"
-msgstr "ပရိုဖိုင်"
+#~ msgid "Profile"
+#~ msgstr "ပရိုဖိုင်"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
 msgid "Project members"
 msgstr "ပရောဂျက်အဖွဲ့ဝင်များ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Prompt saved"
 msgstr "Prompt သိမ်းပြီးပါပြီ"
 
-#: src/features/forums/components/create-post-dialog.tsx:311
+#: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "ပို့စ် ထုတ်လွှင့်"
 
-#: src/features/forums/components/create-post-dialog.tsx:306
+#: src/features/forums/components/create-post-dialog.tsx:307
 msgid "Publishing..."
 msgstr "ထုတ်လွှင့်နေသည်..."
 
@@ -2494,7 +2489,7 @@ msgstr "Queue"
 msgid "Raised"
 msgstr "ဖော့တက်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1053
+#: src/routes/_authenticated/$forum_.settings.tsx:1044
 msgid "Rate limiting"
 msgstr "Rate ကန့်သတ်ခြင်း"
 
@@ -2506,16 +2501,15 @@ msgstr "ဤဆာဗာပေါ်တွင် သင်၏အကောင့�
 msgid "Re-register your passkeys on this server"
 msgstr "ဤဆာဗာတွင် သင်၏ passkey များကို ပြန်လည်မှတ်ပုံတင်ပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:696
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Reason:"
 msgstr "အကြောင်းပြချက် -"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:859
+#: src/routes/_authenticated/$forum_.moderation.tsx:883
 msgid "Reason: {0}"
 msgstr "အကြောင်းပြချက် - {0}"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:220
 #: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "အကြံပြုထား"
@@ -2537,12 +2531,12 @@ msgstr "Login သို့ redirect လုပ်နေသည်။"
 msgid "Reduce interest"
 msgstr "စိတ်ဝင်စားမှု လျှော့ချ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:470
 msgid "Reject"
 msgstr "ငြင်းပယ်"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:251
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:245
+#: src/routes/_authenticated/$forum_.moderation.tsx:249
 msgid "Rejected"
 msgstr "ငြင်းပယ်ပြီး"
 
@@ -2558,17 +2552,16 @@ msgstr "ဆက်စပ် (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "၂၄ နာရီအတွင်း ဆက်စပ်၊ ပြင်ပတွင် တိကျသော"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:278
-#: ../../../lib/web/src/components/attachment-composer.tsx:323
+#: ../../../lib/web/src/components/attachment-composer.tsx:285
+#: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/features/forums/components/thread/thread-comment.tsx:469
-#: src/features/forums/components/thread/thread-comment.tsx:527
-#: src/features/forums/components/thread/thread-content.tsx:368
-#: src/features/forums/components/thread/thread-content.tsx:446
-#: src/routes/_authenticated/$forum_.moderation.tsx:726
-#: src/routes/_authenticated/$forum_.moderation.tsx:1016
+#: src/features/forums/components/thread/thread-comment.tsx:468
+#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-content.tsx:367
+#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/routes/_authenticated/$forum_.moderation.tsx:722
+#: src/routes/_authenticated/$forum_.moderation.tsx:1041
 msgid "Remove"
 msgstr "ဖယ်ရှား"
 
@@ -2592,7 +2585,7 @@ msgstr "\"{0}\" အတွက် ဝင်ရောက်ခွင့်စည်
 msgid "Remove access?"
 msgstr "ဝင်ရောက်ခွင့် ဖယ်ရှားမလား?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:524
 msgid "Remove comment"
 msgstr "comment ဖယ်ရှား"
 
@@ -2606,7 +2599,7 @@ msgstr "သိမ်းထားသည်မှ ဖယ်ရှားပါ"
 msgid "Remove interest"
 msgstr "စိတ်ဝင်စားမှု ဖယ်ရှား"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:665
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "item ဖယ်ရှား"
 
@@ -2615,71 +2608,71 @@ msgstr "item ဖယ်ရှား"
 msgid "Remove link"
 msgstr "လင့်ခ် ဖယ်ရှားရန်"
 
-#: src/features/forums/components/thread/thread-content.tsx:444
+#: src/features/forums/components/thread/thread-content.tsx:443
 msgid "Remove post"
 msgstr "ပို့စ် ဖယ်ရှား"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:395
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Remove this forum from your sidebar."
 msgstr "သင့် sidebar မှ ဤ ဆွေးနွေးပွဲ ကို ဖယ်ရှားပါ။"
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:282
-#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/features/forums/components/thread/thread-comment.tsx:281
+#: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
 msgstr "ဖယ်ရှားပြီး"
 
-#: src/lib/saved.ts:31
+#: src/lib/saved.ts:32
 msgid "Removed from saved"
 msgstr "သိမ်းထားသည်မှ ဖယ်ထုတ်လိုက်ပါပြီ"
 
-#: src/lib/saved.ts:30
+#: src/lib/saved.ts:31
 msgid "Removing..."
 msgstr "ဖယ်ရှားနေသည်..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:559
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "အမည်ပြောင်း"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:594
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "ကော်လံ အမည်ပြောင်း"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:595
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "ဤ board column ကို အမည်ပြောင်း"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:206
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Renaming forum..."
 msgstr "ဖိုရမ်ကို အမည်ပြောင်းနေသည်..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1083
+#: src/routes/_authenticated/$forum_.settings.tsx:1074
 msgid "replies"
 msgstr "ပြန်စာများ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1012
+#: src/routes/_authenticated/$forum_.settings.tsx:1003
 msgid "Replies must be approved"
 msgstr "ပြန်ကြားချက်များကို ခွင့်ပြုရမည်"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:400
-#: src/features/forums/components/thread/thread-comment.tsx:406
-#: src/features/forums/components/thread/thread-content.tsx:312
-#: src/features/forums/components/thread/thread-content.tsx:321
+#: src/features/forums/components/thread/thread-comment.tsx:399
+#: src/features/forums/components/thread/thread-comment.tsx:405
+#: src/features/forums/components/thread/thread-content.tsx:311
+#: src/features/forums/components/thread/thread-content.tsx:320
 msgid "Reply"
 msgstr "ပြန်ကြား"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:548
+#: src/features/forums/components/thread/thread-comment.tsx:547
 msgid "Reply to {0}..."
 msgstr "{0} သို့ ပြန်ကြား..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:477
-#: src/features/forums/components/thread/thread-content.tsx:402
+#: src/features/forums/components/thread/thread-comment.tsx:476
+#: src/features/forums/components/thread/thread-content.tsx:401
 msgid "Report"
 msgstr "အစီရင်ခံ"
 
@@ -2691,7 +2684,7 @@ msgstr "comment ကို အစီရင်ခံ"
 msgid "Report post"
 msgstr "ပို့စ်ကို အစီရင်ခံ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:564
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Report resolved"
 msgstr "အစီရင်ခံစာ ဖြေရှင်းပြီး"
 
@@ -2701,7 +2694,7 @@ msgid "Report submitted"
 msgstr "အစီရင်ခံစာ တင်ပြီး"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:704
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "Reported by {0}"
 msgstr "{0} မှ အစီရင်ခံပြီး"
 
@@ -2709,19 +2702,19 @@ msgstr "{0} မှ အစီရင်ခံပြီး"
 msgid "Reports"
 msgstr "အစီရင်ခံစာများ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:995
+#: src/routes/_authenticated/$forum_.settings.tsx:986
 msgid "Require approval before content becomes visible"
 msgstr "အကြောင်းအရာ ပေါ်လာရန် အတည်ပြုခြင်း လိုအပ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1011
+#: src/routes/_authenticated/$forum_.settings.tsx:1002
 msgid "Require approval for new comments"
 msgstr "comment အသစ်များအတွက် အတည်ပြုခြင်း လိုအပ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1000
+#: src/routes/_authenticated/$forum_.settings.tsx:991
 msgid "Require approval for new posts"
 msgstr "ပို့စ်အသစ်များအတွက် အတည်ပြုခြင်း လိုအပ်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1022
+#: src/routes/_authenticated/$forum_.settings.tsx:1013
 msgid "Require approval for new users"
 msgstr "သုံးစွဲသူအသစ်များအတွက် အတည်ပြုခြင်း လိုအပ်"
 
@@ -2729,34 +2722,35 @@ msgstr "သုံးစွဲသူအသစ်များအတွက် အ�
 msgid "Required"
 msgstr "လိုအပ်"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:369
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "အီးမေးလ်ပြန်ပို့ရန်"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:87
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:82
-msgid "Reset"
-msgstr "ပြန်စတင်"
+#~ msgid "Reset"
+#~ msgstr "ပြန်စတင်"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:122
 #: ../../../lib/web/src/components/config-drawer.tsx:127
-msgid "Reset {title}"
-msgstr "{title} ပြန်လည်သတ်မှတ်ရန်"
+#~ msgid "Reset {title}"
+#~ msgstr "{title} ပြန်လည်သတ်မှတ်ရန်"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:85
-msgid "Reset all settings to default values"
-msgstr "ဆက်တင်အားလုံးကို ပုံသေတန်ဖိုးများသို့ ပြန်ထား"
+#~ msgid "Reset all settings to default values"
+#~ msgstr "ဆက်တင်အားလုံးကို ပုံသေတန်ဖိုးများသို့ ပြန်ထား"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:637
+#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:752
 msgid "Resolved"
 msgstr "ဖြေရှင်းပြီး"
 
-#: src/features/forums/components/thread/thread-comment.tsx:463
-#: src/features/forums/components/thread/thread-content.tsx:362
+#: src/features/forums/components/thread/thread-comment.tsx:462
+#: src/features/forums/components/thread/thread-content.tsx:361
 msgid "Restore"
 msgstr "ပြန်ဆယ်ယူ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:905
+#: src/routes/_authenticated/$forum_.moderation.tsx:930
 msgid "Restriction removed"
 msgstr "ကန့်သတ်ချက် ဖယ်ရှားပြီး"
 
@@ -2764,7 +2758,7 @@ msgstr "ကန့်သတ်ချက် ဖယ်ရှားပြီး"
 msgid "Restrictions"
 msgstr "ကန့်သတ်ချက်များ"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:341
+#: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "ထပ်စမ်းကြည့်ပါ"
 
@@ -2785,8 +2779,8 @@ msgid "Revoke RSS access?"
 msgstr "RSS ဝင်ရောက်ခွင့် ရုပ်သိမ်းမလား။"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
-msgid "Right to Left"
-msgstr "ညာမှ ဘယ်သို့"
+#~ msgid "Right to Left"
+#~ msgstr "ညာမှ ဘယ်သို့"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
@@ -2798,8 +2792,8 @@ msgid "Rows group by"
 msgstr "အတန်းများ စုစည်း"
 
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
-msgid "Rows per page"
-msgstr "စာမျက်နှာတစ်ခုစီ၏ အတန်းများ"
+#~ msgid "Rows per page"
+#~ msgstr "စာမျက်နှာတစ်ခုစီ၏ အတန်းများ"
 
 #: ../../../lib/web/src/components/options-menu.tsx:131
 msgid "RSS access revoked"
@@ -2817,18 +2811,18 @@ msgstr "RSS URL ကို clipboard သို့ ကူးယူပြီးပ�
 msgid "Saturday"
 msgstr "စနေနေ့"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:423
+#: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:325
-#: src/routes/_authenticated/$forum_.settings.tsx:497
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:491
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Save"
 msgstr "သိမ်းမည်"
 
-#: src/features/forums/components/edit-post-dialog.tsx:384
+#: src/features/forums/components/edit-post-dialog.tsx:385
 msgid "Save changes"
 msgstr "ပြောင်းလဲမှုများ သိမ်းမည်"
 
@@ -2840,21 +2834,21 @@ msgstr "နောက်မှကြည့်ရန် သိမ်းပါ"
 #: src/components/layout/forums-layout.tsx:112
 #: src/features/forums/pages/saved-page.tsx:54
 #: src/features/forums/pages/saved-page.tsx:68
-#: src/lib/saved.ts:28
+#: src/lib/saved.ts:29
 msgid "Saved"
 msgstr "သိမ်းပြီး"
 
-#: src/lib/saved.ts:34
+#: src/lib/saved.ts:35
 msgid "Saved posts cleared"
 msgstr "သိမ်းဆည်းထားသော ပို့စ်များကို ရှင်းလင်းပြီးပါပြီ"
 
-#: src/features/forums/components/edit-post-dialog.tsx:379
-#: src/lib/saved.ts:27
-#: src/routes/_authenticated/$forum_.settings.tsx:729
+#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/lib/saved.ts:28
+#: src/routes/_authenticated/$forum_.settings.tsx:720
 msgid "Saving..."
 msgstr "သိမ်းနေသည်..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:608
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Score prompt"
 msgstr "Score prompt"
 
@@ -2913,18 +2907,16 @@ msgstr "ဤ view ကို ရှာဖွေ၊ စောင့်ကြည့�
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:63
 #: ../../../lib/web/src/components/person-picker.tsx:324
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "ရှာဖွေ..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:178
 #: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "ရှာဖွေနေသည်..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1098
+#: src/routes/_authenticated/$forum_.settings.tsx:1089
 msgid "seconds"
 msgstr "စက္ကန့်"
 
@@ -2932,16 +2924,15 @@ msgstr "စက္ကန့်"
 msgid "Select"
 msgstr "ရွေးချယ်"
 
-#. placeholder {0}: item.label.toLowerCase()
 #: ../../../lib/web/src/components/config-drawer.tsx:149
-msgid "Select {0}"
-msgstr "{0} ရွေးပါ"
+#~ msgid "Select {0}"
+#~ msgstr "{0} ရွေးပါ"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "field တစ်ခုကို ရွေးချယ်ပါ"
 
-#: ../../../lib/web/src/components/game/game-empty-state.tsx:32
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "ဂိမ်းတစ်ခုကို ရွေးချယ်ပါ"
 
@@ -2962,14 +2953,14 @@ msgid "Select access rule"
 msgstr "ဝင်ရောက်ခွင့် စည်းမျဉ်း ရွေးချယ်"
 
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:34
-msgid "Select account"
-msgstr "အကောင့်ရွေးပါ"
+#~ msgid "Select account"
+#~ msgstr "အကောင့်ရွေးပါ"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:142
 msgid "Select account type"
 msgstr "အကောင့်အမျိုးအစား ရွေးချယ်"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select all"
 msgstr "အားလုံး ရွေးချယ်"
 
@@ -2978,8 +2969,8 @@ msgid "Select group"
 msgstr "အုပ်စုကို ရွေးပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:305
-msgid "Select layout style"
-msgstr "အပြင်အဆင်ပုံစံကို ရွေးပါ"
+#~ msgid "Select layout style"
+#~ msgstr "အပြင်အဆင်ပုံစံကို ရွေးပါ"
 
 #: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
@@ -2989,7 +2980,7 @@ msgstr "တည်နေရာကို ရွေးပါ"
 msgid "Select next card"
 msgstr "နောက်ကတ်ကို ရွေးပါ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:462
+#: src/routes/_authenticated/$forum_.moderation.tsx:456
 msgid "Select none"
 msgstr "မရွေးပါ"
 
@@ -3002,25 +2993,25 @@ msgid "Select previous card"
 msgstr "ယခင်ကတ်ကို ရွေးပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:247
-msgid "Select sidebar style"
-msgstr "ဘေးဘားပုံစံကို ရွေးပါ"
+#~ msgid "Select sidebar style"
+#~ msgstr "ဘေးဘားပုံစံကို ရွေးပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:349
-msgid "Select site direction"
-msgstr "ဆိုက်ဦးတည်ရာကို ရွေးပါ"
+#~ msgid "Select site direction"
+#~ msgstr "ဆိုက်ဦးတည်ရာကို ရွေးပါ"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:203
-msgid "Select theme preference"
-msgstr "အပြင်အဆင် ဦးစားပေးကို ရွေးပါ"
+#~ msgid "Select theme preference"
+#~ msgstr "အပြင်အဆင် ဦးစားပေးကို ရွေးပါ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "ရွေးပါ..."
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:206
-msgid "selected"
-msgstr "ရွေးချယ်ထားသည်"
+#~ msgid "selected"
+#~ msgstr "ရွေးချယ်ထားသည်"
 
 #. placeholder {0}: getSelectedName()
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
@@ -3031,7 +3022,7 @@ msgstr "ရွေးထား: <0>{0}</0>"
 msgid "Send again"
 msgstr "ထပ်ပို့ပါ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:309
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "အီးမေးလ်ပို့ရန်"
 
@@ -3040,12 +3031,12 @@ msgstr "အီးမေးလ်ပို့ရန်"
 msgid "Send message"
 msgstr "မက်ဆေ့ပို့မည်"
 
-#: ../../../lib/web/src/lib/preference-utils.ts:140
+#: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Serif"
 msgstr "ဆာရစ်ဖ်"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:279
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:305
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:270
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:296
 msgid "Server error"
 msgstr "ဆာဗာ အမှား"
 
@@ -3054,7 +3045,7 @@ msgstr "ဆာဗာ အမှား"
 msgid "Server rules"
 msgstr "ဆာဗာ စည်းမျဉ်းများ"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:229
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:220
 msgid "Session expired. Please log in again."
 msgstr "စက်ရှင်သက်တမ်း ကုန်သွားပါပြီ။ ကျေးဇူးပြု၍ ထပ်မံ အကောင့်ဝင်ပါ။"
 
@@ -3065,12 +3056,16 @@ msgstr "မူရင်းနှင့် ဦးတည်ရာ သတ်မှ�
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:238
-#: src/routes/_authenticated/$forum_.settings.tsx:268
+#: src/routes/_authenticated/$forum_.settings.tsx:91
+#: src/routes/_authenticated/$forum_.settings.tsx:167
+#: src/routes/_authenticated/$forum_.settings.tsx:232
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Settings"
 msgstr "ဆက်တင်များ"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:769
+msgid "Shadowbanned"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
@@ -3080,13 +3075,13 @@ msgstr "Class များ ပြမည်"
 msgid "Show fields"
 msgstr "ကွက်လပ်များ ပြမည်"
 
-#: src/features/forums/components/thread/attachment-comments.tsx:62
+#: src/features/forums/components/thread/attachment-comments.tsx:63
 msgid "Show only comments on this image"
 msgstr "ဤပုံအပေါ် မှတ်ချက်များကိုသာ ပြရန်"
 
 #: ../../../lib/web/src/components/password-input.tsx:27
-msgid "Show password"
-msgstr "စကားဝှက်ကို ပြရန်"
+#~ msgid "Show password"
+#~ msgstr "စကားဝှက်ကို ပြရန်"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:33
 msgid "Show this help"
@@ -3096,9 +3091,7 @@ msgstr "ဤ အကူအညီကို ပြမည်"
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} ထဲမှ {totalShown} ကို ပြသနေသည်"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:239
-#: ../../../lib/web/src/components/config-drawer.tsx:263
-#: ../../../lib/web/src/components/ui/sidebar.tsx:237
+#: ../../../lib/web/src/components/ui/sidebar.tsx:257
 msgid "Sidebar"
 msgstr "ဘေးဘား"
 
@@ -3117,11 +3110,11 @@ msgid "Single line of text only"
 msgstr "စာသား တစ်ကြောင်းတည်းသာ"
 
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
-msgid "Skip to Main"
-msgstr "Main သို့ ကျော်မည်"
+#~ msgid "Skip to Main"
+#~ msgstr "Main သို့ ကျော်မည်"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:101
-#: ../../../lib/web/src/lib/preference-utils.ts:128
+#: ../../../lib/web/src/lib/preference-utils.ts:121
 msgid "Small"
 msgstr "သေး"
 
@@ -3138,7 +3131,7 @@ msgid "Spacious"
 msgstr "ကျယ်ပြန့်သော"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Spam"
 msgstr "Spam"
 
@@ -3147,8 +3140,8 @@ msgid "Start the discussion by adding the first comment."
 msgstr "ပထမမှတ်ချက် ထည့်၍ ဆွေးနွေးချက် စတင်ပါ။"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:15
-msgid "Stay tuned though!"
-msgstr "သို့သော် ဆက်လက်စောင့်ကြည့်ပါ။"
+#~ msgid "Stay tuned though!"
+#~ msgstr "သို့သော် ဆက်လက်စောင့်ကြည့်ပါ။"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
@@ -3172,11 +3165,10 @@ msgstr "တင်ပြနေသည်..."
 
 #: ../../../lib/web/src/components/inline-entity-search.tsx:66
 #: ../../../lib/web/src/components/recommended-entities.tsx:58
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:305
+#: src/features/forums/pages/entity-forum-page.tsx:271
 msgid "Subscribe"
 msgstr "Subscribe လုပ်မည်"
 
@@ -3196,7 +3188,7 @@ msgstr "Forum ကို subscribe လုပ်ပြီး"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:268
 #: src/hooks/use-forums-queries.ts:138
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
@@ -3210,16 +3202,13 @@ msgstr "တနင်္ဂနွေ"
 msgid "Switch to view 1-9"
 msgstr "ကြည့်ရှုခြင်း 1-9 သို့ ပြောင်းမည်"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:104
-#: ../../../lib/web/src/components/config-drawer.tsx:209
-#: ../../../lib/web/src/components/theme-switch.tsx:59
+#: ../../../lib/web/src/components/audit-timeline.tsx:107
 #: ../../../lib/web/src/lib/preference-utils.ts:16
-#: ../../../lib/web/src/lib/preference-utils.ts:139
+#: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "စနစ်"
 
-#: ../../../lib/web/src/components/tag-input.tsx:95
-#: src/routes/_authenticated/$forum_.settings.tsx:565
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Tag"
 msgstr "Tag"
 
@@ -3231,7 +3220,7 @@ msgstr "Tag ရှိနှင့်ပြီးဖြစ်သည်"
 msgid "Tag must be 50 characters or less"
 msgstr "တဂ်သည် စာလုံး ၅၀ သို့မဟုတ် ထို့ထက်နည်းရမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:607
+#: src/routes/_authenticated/$forum_.settings.tsx:599
 msgid "Tag prompt"
 msgstr "Tag အကြောင်းပြချက်"
 
@@ -3245,8 +3234,8 @@ msgid "Tap the bookmark on any post to save it here for later."
 msgstr "မည်သည့်ပို့စ်ကိုမဆို နောက်မှကြည့်ရန် ဤနေရာတွင်သိမ်းရန် ၎င်း၏ booklink ကို တို့ပါ။"
 
 #: ../../../lib/web/src/components/layout/team-switcher.tsx:63
-msgid "Teams/Apps"
-msgstr "အဖွဲ့များ/Apps"
+#~ msgid "Teams/Apps"
+#~ msgstr "အဖွဲ့များ/Apps"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:19
 #: ../../../lib/web/src/features/document/document-page.tsx:42
@@ -3257,7 +3246,7 @@ msgstr "စည်းကမ်းချက်များ"
 msgid "Text"
 msgstr "စာသား"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "ထိုကုဒ်မှားနေသည် သို့မဟုတ် သက်တမ်းကုန်သွားပြီ။"
 
@@ -3279,38 +3268,38 @@ msgid "The server returned a web page instead of data."
 msgstr "ဆာဗာသည် ဒေတာအစား ဝဘ်စာမျက်နှာကို ပြန်ပေးခဲ့သည်။"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
-msgid "The site is not available at the moment."
-msgstr "ဤဆိုက်ကို ယခုအချိန်တွင် အသုံးပြု၍မရပါ။"
+#~ msgid "The site is not available at the moment."
+#~ msgstr "ဤဆိုက်ကို ယခုအချိန်တွင် အသုံးပြု၍မရပါ။"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:195
-msgid "Theme"
-msgstr "အပြင်အဆင်"
+#~ msgid "Theme"
+#~ msgstr "အပြင်အဆင်"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:70
-msgid "Theme Settings"
-msgstr "အပြင်အဆင် ဆက်တင်များ"
+#~ msgid "Theme Settings"
+#~ msgstr "အပြင်အဆင် ဆက်တင်များ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "မှတ်တမ်းတင်ထားသော moderation လုပ်ဆောင်ချက် မရှိသေးပါ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:256
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum could not be loaded right now."
 msgstr "ဤ forum ကို လောလောဆယ် ဝန်ပြီး မရနိုင်ပါ။"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:255
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ဤ forum ကို ဖျက်ထားနိုင်သည် သို့မဟုတ် သင်ဝင်ခွင့်မရှိနိုင်ပါ။"
 
 #: ../../../lib/web/src/components/coming-soon.tsx:14
-msgid "This page has not been created yet."
-msgstr "ဤစာမျက်နှာကို မဖန်တီးရသေးပါ။"
+#~ msgid "This page has not been created yet."
+#~ msgstr "ဤစာမျက်နှာကို မဖန်တီးရသေးပါ။"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "ဤ post ကို ဖျက်ထားနိုင်သည် သို့မဟုတ် မရှိပါ။"
 
-#: src/hooks/use-forum-websocket.ts:64
+#: src/hooks/use-forum-websocket.ts:63
 msgid "This post was already submitted"
 msgstr "ဤပို့စ်ကို တင်ပြခဲ့ပြီးပါပြီ"
 
@@ -3318,20 +3307,20 @@ msgstr "ဤပို့စ်ကို တင်ပြခဲ့ပြီးပ�
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "၎င်းသည် သင်၏သိမ်းထားသည့်စာရင်းမှ ပို့စ်တိုင်းကို ဖယ်ရှားသည်။ ၎င်းကို နောက်ပြန်လှည့်၍မရပါ။"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "၎င်းသည် မှတ်ချက်ကို ပုံမှန်သုံးစွဲသူများထံမှ ဝှက်ထားပါမည်။ Moderators တို့ မြင်ရဆဲဖြစ်ပြီး နောက်မှ ပြန်ပြသနိုင်သည်။"
 
-#: src/features/forums/components/thread/thread-content.tsx:445
+#: src/features/forums/components/thread/thread-content.tsx:444
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "၎င်းသည် post ကို ပုံမှန်သုံးစွဲသူများထံမှ ဝှက်ထားပါမည်။ Moderators တို့ မြင်ရဆဲဖြစ်ပြီး နောက်မှ ပြန်ပြသနိုင်သည်။"
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:434
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "၎င်းသည် \"{0}\" နှင့် ၎င်း၏ post များ၊ မှတ်ချက်များ အားလုံးကို အပြီးတိုင် ဖျက်ပါမည်။ ဤလုပ်ဆောင်ချက်ကို ပြန်လုပ်၍မရပါ။"
 
-#: src/features/forums/thread-detail.tsx:157
+#: src/features/forums/thread-detail.tsx:142
 msgid "Thread"
 msgstr "Thread"
 
@@ -3339,7 +3328,7 @@ msgstr "Thread"
 msgid "Thursday"
 msgstr "ကြာသပတေး"
 
-#: src/features/forums/components/create-post-dialog.tsx:209
+#: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/edit-post-dialog.tsx:277
 msgid "Title"
 msgstr "ခေါင်းစဉ်"
@@ -3361,13 +3350,13 @@ msgid "To"
 msgstr "သို့"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
-msgid "Toggle columns"
-msgstr "Column များ ဖွင့်/ပိတ်"
+#~ msgid "Toggle columns"
+#~ msgstr "Column များ ဖွင့်/ပိတ်"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:233
 #: ../../../lib/web/src/components/layout/right-panel.tsx:236
-msgid "Toggle right panel"
-msgstr "ညာဖက်ပန်နယ် ပြောင်းပါ"
+#~ msgid "Toggle right panel"
+#~ msgstr "ညာဖက်ပန်နယ် ပြောင်းပါ"
 
 #: ../../../lib/web/src/components/layout/nav-group.tsx:365
 #: ../../../lib/web/src/components/layout/nav-group.tsx:372
@@ -3376,20 +3365,20 @@ msgstr "ညာဖက်ပန်နယ် ပြောင်းပါ"
 msgid "Toggle section"
 msgstr "အပိုင်း ဖွင့်/ပိတ်ရန်"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:317
-#: ../../../lib/web/src/components/ui/sidebar.tsx:320
+#: ../../../lib/web/src/components/ui/sidebar.tsx:337
+#: ../../../lib/web/src/components/ui/sidebar.tsx:340
 msgid "Toggle sidebar"
 msgstr "ဘေးတန်း ပြောင်းပါ"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:332
-#: ../../../lib/web/src/components/ui/sidebar.tsx:335
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle Sidebar"
 msgstr "ဘေးဘား ဖွင့်/ပိတ်"
 
 #: ../../../lib/web/src/components/theme-switch.tsx:37
 #: ../../../lib/web/src/components/theme-switch.tsx:41
-msgid "Toggle theme"
-msgstr "အပြင်အဆင် ဖွင့်/ပိတ်"
+#~ msgid "Toggle theme"
+#~ msgstr "အပြင်အဆင် ဖွင့်/ပိတ်"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3412,14 +3401,12 @@ msgstr "ထိပ်"
 msgid "Travelling"
 msgstr "ခရီးသွားနေသည်"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:194
 #: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "သင်၏ ရှာဖွေစကားလုံးများကို ပြင်ဆင်ကြည့်ပါ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:140
 #: ../../../lib/web/src/features/errors/general-error.tsx:180
-#: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "ပြန်ကြိုးစားပါ"
 
@@ -3448,7 +3435,7 @@ msgstr "သုံးစွဲသူရှာရန် ရိုက်ပါ"
 msgid "Type to search..."
 msgstr "ရှာရန် ရိုက်ပါ..."
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:301
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:292
 msgid "Unable to connect to remote server"
 msgstr "အဝေးထိန်းဆာဗာသို့ ချိတ်ဆက်၍မရပါ"
 
@@ -3457,7 +3444,7 @@ msgstr "အဝေးထိန်းဆာဗာသို့ ချိတ်ဆ�
 msgid "Unable to redirect to login. Please try again."
 msgstr "Login သို့ redirect လုပ်၍ မရပါ။ ထပ်ကြိုးစားပါ။"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "မသတ်မှတ်ထား"
 
@@ -3465,7 +3452,7 @@ msgstr "မသတ်မှတ်ထား"
 msgid "Unauthorized Access"
 msgstr "ခွင့်ပြုမထားသော ဝင်ရောက်မှု"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:267
+#: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "မရရှိနိုင်ပါ"
 
@@ -3481,58 +3468,58 @@ msgstr "United States"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:672
+#: src/routes/_authenticated/$forum_.moderation.tsx:668
 msgid "Unknown"
 msgstr "မသိရသော"
 
-#: src/features/forums/components/thread/thread-content.tsx:375
+#: src/features/forums/components/thread/thread-content.tsx:374
 msgid "Unlock"
 msgstr "လော့ခ်ဖွင့်မည်"
 
-#: src/features/forums/components/thread/thread-content.tsx:388
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Unpin"
 msgstr "Pin ဖြုတ်မည်"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:389
-#: src/routes/_authenticated/$forum_.settings.tsx:406
+#: src/features/forums/pages/entity-forum-page.tsx:356
+#: src/routes/_authenticated/$forum_.settings.tsx:400
 msgid "Unsubscribe"
 msgstr "Subscribe ဖြုတ်မည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:394
+#: src/routes/_authenticated/$forum_.settings.tsx:388
 msgid "Unsubscribe from forum"
 msgstr "Forum မှ subscribe ဖြုတ်မည်"
 
-#: src/features/forums/pages/entity-forum-page.tsx:386
+#: src/features/forums/pages/entity-forum-page.tsx:353
 msgid "Unsubscribe from forum?"
 msgstr "ဖိုရမ်မှ စာရင်းသွင်းမှု ပယ်ဖျက်မလား။"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:185
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribed"
 msgstr "Subscribe ဖြုတ်ပြီး"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:184
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribing..."
 msgstr "Subscribe ဖြုတ်နေသည်..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:284
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "ခေါင်းစဉ်မရှိ"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
-msgid "Unverified"
-msgstr "အတည်ပြုမထား"
+#~ msgid "Unverified"
+#~ msgstr "အတည်ပြုမထား"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "အပ်ဒိတ်လုပ်ပြီး"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:637
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Upload လုပ်မည်"
@@ -3541,7 +3528,7 @@ msgstr "Upload လုပ်မည်"
 msgid "Upload progress"
 msgstr "အပ်လုဒ်တိုးတက်မှု"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:340
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "သင့်ပတ်စ်ကီးကို သုံးပါ"
 
@@ -3551,15 +3538,15 @@ msgstr "သင့်ပတ်စ်ကီးကို သုံးပါ"
 msgid "User"
 msgstr "သုံးစွဲသူ"
 
-#: src/features/forums/thread-detail.tsx:423
+#: src/features/forums/thread-detail.tsx:408
 msgid "User banned"
 msgstr "သုံးစွဲသူ ban လုပ်ပြီး"
 
-#: src/features/forums/thread-detail.tsx:414
+#: src/features/forums/thread-detail.tsx:399
 msgid "User muted"
 msgstr "သုံးစွဲသူ ပိတ်ဆို့ပြီး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:732
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Variables: {variables}"
 msgstr "Variables: {variables}"
 
@@ -3568,15 +3555,14 @@ msgid "Verification code"
 msgstr "အတည်ပြု ကုဒ်"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:255
-msgid "Verification code sent"
-msgstr "အတည်ပြု ကုဒ် ပို့ပြီး"
+#~ msgid "Verification code sent"
+#~ msgstr "အတည်ပြု ကုဒ် ပို့ပြီး"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:248
-msgid "Verification failed"
-msgstr "အတည်ပြုခြင်း မအောင်မြင်ပါ"
+#~ msgid "Verification failed"
+#~ msgstr "အတည်ပြုခြင်း မအောင်မြင်ပါ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:390
-#: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "အတည်ပြုမည်"
@@ -3585,7 +3571,7 @@ msgstr "အတည်ပြုမည်"
 msgid "Verify email address"
 msgstr "အီးမေးလ် လိပ်စာ အတည်ပြုမည်"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:94
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "ဗီဒီယို thumbnail"
 
@@ -3595,15 +3581,15 @@ msgid "Video viewer: {0}"
 msgstr "ဗီဒီယိုကြည့်ရှုစနစ်- {0}"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
-msgid "View"
-msgstr "ကြည့်ရှုမည်"
+#~ msgid "View"
+#~ msgstr "ကြည့်ရှုမည်"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:177
-msgid "View all"
-msgstr "အားလုံး ကြည့်ရှုမည်"
+#~ msgid "View all"
+#~ msgstr "အားလုံး ကြည့်ရှုမည်"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:211
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "အသိပေးချက်များ အားလုံး ကြည့်ရှုမည်"
 
@@ -3611,20 +3597,20 @@ msgstr "အသိပေးချက်များ အားလုံး ကြ�
 msgid "View controls"
 msgstr "ထိန်းချုပ်မှုများ ကြည့်ရှုမည်"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "View only"
 msgstr "ကြည့်ရှုရုံသာ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:258
+#: src/features/forums/components/thread/thread-comment.tsx:257
 msgid "View the image this comment is about"
 msgstr "ဤမှတ်ချက် ဆိုင်သောပုံကို ကြည့်ရန်"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:755
+#: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "အကြမ်းဖက်မှု"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Vote and view"
 msgstr "မဲပေး၍ ကြည့်ရှုမည်"
 
@@ -3643,22 +3629,22 @@ msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify
 msgstr "<0>{0}</0> သို့ အတည်ပြုကုဒ် ပို့လိုက်ပါပြီ။ သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုရန် အောက်တွင် ကုဒ်ထည့်ပါ။"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
-msgid "We'll be back online shortly."
-msgstr "မကြာမီ ပြန်လည် online ဖြစ်လာပါမည်။"
+#~ msgid "We'll be back online shortly."
+#~ msgstr "မကြာမီ ပြန်လည် online ဖြစ်လာပါမည်။"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:197
-msgid "We'll notify you when something important happens."
-msgstr "အရေးကြီးတာတစ်ခုခုဖြစ်ရင် အကြောင်းကြားပါမယ်။"
+#~ msgid "We'll notify you when something important happens."
+#~ msgstr "အရေးကြီးတာတစ်ခုခုဖြစ်ရင် အကြောင်းကြားပါမယ်။"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
-msgid "Website is under maintenance!"
-msgstr "ဝက်ဘ်ဆိုက်ကို ပြုပြင်နေပါသည်!"
+#~ msgid "Website is under maintenance!"
+#~ msgstr "ဝက်ဘ်ဆိုက်ကို ပြုပြင်နေပါသည်!"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Wednesday"
 msgstr "ဗုဒ္ဓဟူး"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:1088
+#: src/routes/_authenticated/$forum_.settings.tsx:1079
 msgid "Window duration"
 msgstr "ပြတင်းပေါက် ကြာချိန်"
 
@@ -3669,11 +3655,11 @@ msgstr "ပြတင်းပေါက် ကြာချိန်"
 msgid "You are already subscribed to this forum"
 msgstr "ဤ forum ကို subscribe လုပ်ထားပြီးဖြစ်သည်"
 
-#: src/hooks/use-forum-websocket.ts:60
+#: src/hooks/use-forum-websocket.ts:59
 msgid "You are posting too quickly — please wait and try again"
 msgstr "သင်သည် အလွန်မြန်ဆန်စွာ ပို့စ်တင်နေသည် — ခေတ္တစောင့်ပြီး ပြန်ကြိုးစားပါ"
 
-#: src/hooks/use-forum-websocket.ts:58
+#: src/hooks/use-forum-websocket.ts:57
 msgid "You are restricted from posting in this forum"
 msgstr "ဤဖိုရမ်တွင် ပို့စ်တင်ခြင်းကို သင်အား ကန့်သတ်ထားသည်"
 
@@ -3682,10 +3668,10 @@ msgid "You do not have access to this section."
 msgstr "ဤအပိုင်းသို့ သင့်တွင် ဝင်ရောက်ခွင့်မရှိပါ။"
 
 #: ../../../lib/web/src/features/errors/forbidden.tsx:18
-msgid "You don't have necessary permission <0/>to view this resource."
-msgstr "ဤအရင်းအမြစ်ကို ကြည့်ရှုရန် <0/>လိုအပ်သော ခွင့်ပြုချက် သင့်တွင်မရှိပါ။"
+#~ msgid "You don't have necessary permission <0/>to view this resource."
+#~ msgstr "ဤအရင်းအမြစ်ကို ကြည့်ရှုရန် <0/>လိုအပ်သော ခွင့်ပြုချက် သင့်တွင်မရှိပါ။"
 
-#: src/hooks/use-forum-websocket.ts:56
+#: src/hooks/use-forum-websocket.ts:55
 msgid "You don't have permission to post in this forum"
 msgstr "ဤဖိုရမ်တွင် ပို့စ်တင်ရန် သင်တွင် ခွင့်ပြုချက် မရှိပါ"
 
@@ -3693,13 +3679,13 @@ msgstr "ဤဖိုရမ်တွင် ပို့စ်တင်ရန် �
 msgid "You have no forums yet."
 msgstr "သင့်တွင် forum များ မရှိသေးပါ။"
 
-#: src/features/forums/pages/entity-forum-page.tsx:387
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "ဤဖိုရမ်မှ အပ်ဒိတ်များ လက်ခံရရှိခြင်း ရပ်တန့်သွားပါမည်။ အချိန်မရွေး ပြန်လည်စာရင်းသွင်းနိုင်ပါသည်။"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:193
-msgid "You're all caught up!"
-msgstr "အားလုံးကြည့်ပြီးပါပြီ။"
+#~ msgid "You're all caught up!"
+#~ msgstr "အားလုံးကြည့်ပြီးပါပြီ။"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
