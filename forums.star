@@ -522,12 +522,16 @@ def check_access(a, forum_id, operation):
                 # a "+" wildcard. Matches check_event_access (reconciled, #24).
                 return False
 
-    # No user-specific rule - use the normal wildcard/level access checks
+    # No user-specific rule - use the normal wildcard/level access checks. One
+    # check.any rather than one call per level: each check pays a fixed cost in
+    # core (identity lookup, db_app_system open, access_setup, db_user open,
+    # group_memberships walk) and only the select loop is per-operation. The
+    # "*" probe above is deliberately NOT folded in here: it has to stay ahead
+    # of the user-specific rule branch, which is authoritative and returns
+    # early, or a user capped at "view" would regain access through a wildcard.
     if operation in ACCESS_LEVELS:
-        op_index = ACCESS_LEVELS.index(operation)
-        for level in ACCESS_LEVELS[op_index:]:
-            if mochi.access.check(user, resource, level):
-                return True
+        if mochi.access.check.any(user, resource, ACCESS_LEVELS[ACCESS_LEVELS.index(operation):]):
+            return True
 
     return False
 
@@ -576,12 +580,12 @@ def check_event_access(user_id, forum_id, operation):
                 # Return false - don't fall through to wildcard checks
                 return False
 
-    # No user-specific rule - check normal access levels (including + and * wildcards)
+    # No user-specific rule - check normal access levels (including + and *
+    # wildcards). One check.any for the tail; the "*" probe above stays ahead
+    # of the authoritative user-specific rule. Mirrors check_access.
     if operation in ACCESS_LEVELS:
-        op_index = ACCESS_LEVELS.index(operation)
-        for level in ACCESS_LEVELS[op_index:]:
-            if mochi.access.check(user_id, resource, level):
-                return True
+        if mochi.access.check.any(user_id, resource, ACCESS_LEVELS[ACCESS_LEVELS.index(operation):]):
+            return True
 
     return False
 
@@ -5066,8 +5070,16 @@ def action_post_vote(a):
 
     user_id = a.user.identity.id
 
-    # Try to find post locally
-    post = mochi.db.row("select * from posts where id=?", post_id)
+    # Try to find the post locally, bound to the ROUTED forum: without the
+    # binding a vote addressed to forum A acts on a post in forum B. Not an
+    # escalation - the gate below keys on the row's own forum either way - but
+    # it is the binding every other entity-scoped handler here applies, and a
+    # miss simply falls through to the remote branch below, which is what "not
+    # held locally" already meant.
+    routed = get_forum(forum_id) if forum_id else None
+    post = None
+    if routed:
+        post = mochi.db.row("select * from posts where id=? and forum=?", post_id, routed["id"])
 
     if post:
         forum = get_forum(post["forum"])
@@ -5186,8 +5198,11 @@ def action_comment_vote(a):
 
     user_id = a.user.identity.id
 
-    # Try to find comment locally
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
+    # Bound to the ROUTED forum, exactly as action_post_vote is.
+    routed = get_forum(forum_id) if forum_id else None
+    comment = None
+    if routed:
+        comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, routed["id"])
 
     if comment:
         forum = get_forum(comment["forum"])
