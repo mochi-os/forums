@@ -6362,7 +6362,7 @@ def event_post_edit_submit_event(e):
     # post (newly-uploaded ones were just stored above, so they're in current_ids).
     # attachment_move is scoped to the owner's whole database but not to this object,
     # so an unfiltered order would let an author perturb another object's ranks.
-    if type(order) == "list":
+    if type(order) in ["list", "tuple"]:
         order = [att_id for att_id in order if att_id in current_ids]
 
         # Delete attachments not in order (those being removed)
