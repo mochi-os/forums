@@ -39,7 +39,10 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue, naturalCompare, textUnchanged,} from '@mochi/web'
+  SelectValue, naturalCompare,
+  AiPromptsEditor as SharedAiPromptsEditor,
+  type AiPromptType,
+} from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
@@ -586,147 +589,23 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   )
 }
 
-/* eslint-disable lingui/no-unlocalized-strings -- Template variable names, not UI labels */
-const PROMPT_VARIABLES: Record<string, string> = {
-  tag: '{{posts}}',
-  score: '{{interests}}, {{posts}}',
-}
-/* eslint-enable lingui/no-unlocalized-strings */
+// Template placeholder names, not UI labels, so they are not translated.
+const TAG_VARIABLES = '{{posts}}'
+const SCORE_VARIABLES = '{{interests}}, {{posts}}'
 
-function usePromptLabels(): Record<string, string> {
-  const { t } = useLingui()
-  return {
-    tag: t`Tag prompt`,
-    score: t`Score prompt`,
-  }
-}
-
+// The editor itself is AiPromptsEditor in @mochi/web, shared with the feeds
+// app. What stays here is which prompts this app offers and their wording.
 function AiPromptsEditor({ forumId, showPrompts }: { forumId: string; showPrompts: boolean }) {
-  const PROMPT_LABELS = usePromptLabels()
-  const [prompts, setPrompts] = useState<Record<string, string>>({})
-  const [defaults, setDefaults] = useState<Record<string, string>>({})
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    forumsApi.getAiPrompts(forumId).then((data) => {
-      setPrompts(data.prompts || {})
-      setDefaults(data.defaults || {})
-      setLoaded(true)
-    }).catch(() => {
-      setLoaded(true)
-    })
-  }, [forumId])
-
-  if (!loaded) return null
-
-  const types: string[] = []
-  if (showPrompts) types.push('tag', 'score')
-
-  return (
-    <>
-      {types.map((type) => (
-        <PromptEditor
-          key={type}
-          forumId={forumId}
-          type={type}
-          label={PROMPT_LABELS[type]}
-          variables={PROMPT_VARIABLES[type]}
-          customPrompt={prompts[type] || ''}
-          defaultPrompt={defaults[type] || ''}
-          onSave={(text) => setPrompts((prev) => {
-            const next = { ...prev }
-            if (text) {
-              next[type] = text
-            } else {
-              delete next[type]
-            }
-            return next
-          })}
-        />
-      ))}
-    </>
-  )
-}
-
-function PromptEditor({ forumId, type, label, variables, customPrompt, defaultPrompt, onSave }: {
-  forumId: string
-  type: string
-  label: string
-  variables: string
-  customPrompt: string
-  defaultPrompt: string
-  onSave: (text: string) => void
-}) {
   const { t } = useLingui()
-  const isCustom = customPrompt !== ''
-  const [custom, setCustom] = useState(isCustom)
-  const [text, setText] = useState(customPrompt || defaultPrompt)
-  const [saving, setSaving] = useState(false)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-  const handleToggle = (val: string) => {
-    if (val === 'default' && custom) {
-      setSaving(true)
-      forumsApi.setAiPrompt(forumId, type, '').then(() => {
-        setCustom(false)
-        setText(defaultPrompt)
-        onSave('')
-      }).catch((error) => {
-        toast.error(getErrorMessage(error, t`Failed to reset prompt`))
-      }).finally(() => setSaving(false))
-    } else if (val === 'custom' && !custom) {
-      setCustom(true)
-      setText(customPrompt || defaultPrompt)
-    }
-  }
-
-  const handleSave = () => {
-    if (textUnchanged(text, customPrompt)) {
-      return
-    }
-    setSaving(true)
-    forumsApi.setAiPrompt(forumId, type, text).then(() => {
-      onSave(text)
-      toast.success(t`Prompt saved`)
-    }).catch((error) => {
-      toast.error(getErrorMessage(error, t`Failed to save prompt`))
-    }).finally(() => setSaving(false))
-  }
+  const types: AiPromptType[] = showPrompts
+    ? [
+        { type: 'tag', label: t`Tag prompt`, variables: TAG_VARIABLES },
+        { type: 'score', label: t`Score prompt`, variables: SCORE_VARIABLES },
+      ]
+    : []
 
   return (
-    <FieldRow label={label} className="sm:items-start">
-      <div className="w-full space-y-2">
-        <Select value={custom ? 'custom' : 'default'} onValueChange={handleToggle} disabled={saving}>
-          <SelectTrigger className="w-full max-w-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="default"><Trans>Default</Trans></SelectItem>
-            <SelectItem value="custom"><Trans>Custom</Trans></SelectItem>
-          </SelectContent>
-        </Select>
-        {custom && (
-          <div className="space-y-2">
-            <textarea
-              ref={textareaRef}
-              className="w-full min-h-[240px] rounded-md border border-input bg-background px-3 py-2 text-sm font-mono resize-y"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              disabled={saving}
-            />
-            <div className="flex items-center gap-2">
-              <Button size="sm" onClick={handleSave} disabled={saving || textUnchanged(text, customPrompt)}>
-                {saving ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />}
-                {saving ? <Trans>Saving...</Trans> : <Trans>Save</Trans>}
-              </Button>
-              <span className="text-xs text-muted-foreground">
-                <Trans>Variables: {variables}</Trans>
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-    </FieldRow>
+    <SharedAiPromptsEditor entityId={forumId} types={types} api={forumsApi} />
   )
 }
 
