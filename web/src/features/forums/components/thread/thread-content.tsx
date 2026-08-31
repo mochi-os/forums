@@ -242,6 +242,9 @@ export function ThreadContent({
         {isLoggedIn && (
           <SavedButton
             post={post}
+            // The thread page keeps every action visible (the pill below is
+            // alwaysVisible too), so the bookmark stays with them.
+            alwaysVisible
             className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active"
           />
         )}
