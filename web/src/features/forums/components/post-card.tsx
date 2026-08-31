@@ -120,9 +120,6 @@ export function PostCard({
       {/* Action buttons row - interactive */}
       {(isLoggedIn || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
         <div className='text-muted-foreground flex items-center gap-4 md:gap-3 text-xs'>
-          {/* Save for later */}
-          {isLoggedIn && <SavedButton post={post} />}
-
           {/* Tags */}
           {isLoggedIn && post.tags && post.tags.length > 0 && (
             <PostTagsTooltip tags={post.tags} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} onInterestRemove={onInterestRemove} />
@@ -168,6 +165,9 @@ export function PostCard({
               <span>{getCommentCount(post.comments)}</span>
             </Link>
           )}
+
+          {/* Save for later */}
+          {isLoggedIn && <SavedButton post={post} />}
         </div>
       )}
     </div>
