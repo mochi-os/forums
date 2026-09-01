@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
@@ -34,7 +34,7 @@ import {
   useAccounts,
   getAppPath,
   GeneralError,
-  Textarea,
+  BannerSection,
   Select,
   SelectContent,
   SelectItem,
@@ -43,7 +43,7 @@ import {
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
 } from '@mochi/web'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
 import { useQueryClient } from '@tanstack/react-query'
@@ -379,7 +379,7 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
-        <BannerSection forumId={forum.id} />
+        <BannerSection entityId={forum.id} api={forumsApi} />
       )}
 
       {forum.can_manage && (
@@ -434,78 +434,6 @@ function GeneralTab({
         handleConfirm={onDelete}
       />
     </div>
-  )
-}
-
-function BannerSection({ forumId }: { forumId: string }) {
-  const { t } = useLingui()
-  const [banner, setBannerText] = useState('')
-  const [loaded, setLoaded] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [dirty, setDirty] = useState(false)
-  const savedRef = useRef('')
-
-  useEffect(() => {
-    forumsApi.getBanner(forumId).then((res) => {
-      const text = res.data?.banner ?? ''
-      setBannerText(text)
-      savedRef.current = text
-      setLoaded(true)
-    }).catch(() => setLoaded(true))
-  }, [forumId])
-
-  const handleSave = async () => {
-    setSaving(true)
-    try {
-      await forumsApi.setBanner(forumId, banner)
-      savedRef.current = banner
-      setDirty(false)
-      toast.success(banner ? t`Banner updated` : t`Banner removed`)
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to update banner`))
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  if (!loaded) return null
-
-  return (
-    <Section title={t`Banner`} description={t`Optional markdown banner shown at the top of your forum.`}>
-      <div className="space-y-3 max-w-lg">
-        <Textarea
-          value={banner}
-          onChange={(e) => { setBannerText(e.target.value); setDirty(e.target.value !== savedRef.current) }}
-          placeholder={t`Enter banner text (markdown supported)...`}
-          rows={3}
-          className="font-mono text-sm"
-        />
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            onClick={() => void handleSave()}
-            disabled={saving || !dirty}
-          >
-            {saving ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              <Check className="size-4" />
-            )}
-            <Trans>Save</Trans>
-          </Button>
-          {banner && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => { setBannerText(''); setDirty('' !== savedRef.current) }}
-              disabled={saving}
-            >
-              <Trans>Clear</Trans>
-            </Button>
-          )}
-        </div>
-      </div>
-    </Section>
   )
 }
 
