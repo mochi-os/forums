@@ -13,9 +13,11 @@ import { isSaved, onSavedChange, toggleSaved } from '@/lib/saved'
 interface SavedButtonProps {
   post: Post
   className?: string
+  /** Keep the hollow bookmark visible instead of revealing it on card hover. */
+  alwaysVisible?: boolean
 }
 
-export function SavedButton({ post, className }: SavedButtonProps) {
+export function SavedButton({ post, className, alwaysVisible = false }: SavedButtonProps) {
   const { t } = useLingui()
   const [active, setActive] = useState(false)
 
@@ -31,7 +33,19 @@ export function SavedButton({ post, className }: SavedButtonProps) {
           type='button'
           aria-label={active ? t`Remove from saved` : t`Save for later`}
           aria-pressed={active}
-          className={cn('text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors', className)}
+          className={cn(
+            'text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors',
+            // A filled bookmark is stored state and stays visible, like the
+            // vote counts; a hollow one is a transient action and reveals on
+            // card hover, always shown on mobile. Collapses its width rather
+            // than its display, so the row keeps its height even when the
+            // bookmark is its only child; it sits last in the row, so
+            // appearing pushes nothing.
+            !alwaysVisible &&
+              !active &&
+              'md:max-w-0 md:overflow-hidden md:opacity-0 md:pointer-events-none md:transition-all md:duration-200 md:group-hover/card:max-w-8 md:group-hover/card:opacity-100 md:group-hover/card:pointer-events-auto md:group-focus-within/card:max-w-8 md:group-focus-within/card:opacity-100 md:group-focus-within/card:pointer-events-auto',
+            className
+          )}
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
