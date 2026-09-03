@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά."
 
@@ -33,14 +33,14 @@ msgid " (edited)"
 msgstr " (επεξεργάστηκε)"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " ή "
+#~ msgid " or "
+#~ msgstr " ή "
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(επεξεργάστηκε)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(ανάπτυξη)"
 
@@ -53,10 +53,17 @@ msgstr "[χωρίς ορισμό]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# νέα δημοσίευση} other {# νέες δημοσιεύσεις}}"
 
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#: ../../../lib/web/src/components/person-picker.tsx:257
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# επιλεγμένο} other {# επιλεγμένα}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# ένθετο} other {+# ένθετα}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -69,8 +76,8 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {Σιγάστηκε # χρήστης} other {Σιγάστηκαν # χρήστες}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "{0} settings"
 msgstr "Ρυθμίσεις {0}"
 
@@ -98,13 +105,13 @@ msgstr "{count, plural, one {Εγκρίθηκε # στοιχείο} other {Εγ�
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Απορρίφθηκε # στοιχείο} other {Απορρίφθηκαν # στοιχεία}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Όνομα {entityLabel}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "Το όνομα {entityLabel} είναι υποχρεωτικό"
+#~ msgid "{entityLabel} name is required"
+#~ msgstr "Το όνομα {entityLabel} είναι υποχρεωτικό"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -119,7 +126,7 @@ msgstr "{others, plural, one {Εμφάνιση # ακόμη σχολίου σε 
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} από {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# στοιχείο} other {# στοιχεία}}"
 
@@ -127,22 +134,25 @@ msgstr "{totalCount, plural, one {# στοιχείο} other {# στοιχεία}
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# απάντηση} other {# απαντήσεις}}"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# απάντηση} other {+# ακόμα απαντήσεις}}"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Άνοιγμα μενού (# μη αναγνωσμένη ειδοποίηση)} other {Άνοιγμα μενού (# μη αναγνωσμένες ειδοποιήσεις)}}"
 
-#. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} ένθετα"
+#~ msgid "+{0} nested"
+#~ msgstr "+{0} ένθετα"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} περισσότερες απαντήσεις"
+#~ msgid "+{totalDescendants} more replies"
+#~ msgstr "+{totalDescendants} περισσότερες απαντήσεις"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 απάντηση"
+#~ msgid "1 reply"
+#~ msgstr "1 απάντηση"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -160,11 +170,12 @@ msgstr "Απόλυτη (ημερομηνία και ώρα)"
 msgid "Accept"
 msgstr "Αποδοχή"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "Πρόσβαση"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "Άρνηση πρόσβασης"
 
@@ -172,23 +183,23 @@ msgstr "Άρνηση πρόσβασης"
 msgid "Access level"
 msgstr "Επίπεδο πρόσβασης"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:714
 msgid "Access level updated"
 msgstr "Το επίπεδο πρόσβασης ενημερώθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Access management"
 msgstr "Διαχείριση πρόσβασης"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:699
 msgid "Access removed"
 msgstr "Η πρόσβαση αφαιρέθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:687
 msgid "Access set for {subjectName}"
 msgstr "Η πρόσβαση ορίστηκε για {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:564
 msgid "Account"
 msgstr "Λογαριασμός"
 
@@ -196,13 +207,13 @@ msgstr "Λογαριασμός"
 msgid "Account type"
 msgstr "Τύπος λογαριασμού"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "Προσθήκη σχολίου..."
 
@@ -210,7 +221,7 @@ msgstr "Προσθήκη σχολίου..."
 msgid "Add a new account"
 msgstr "Προσθήκη νέου λογαριασμού"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "Προσθήκη νέου πεδίου σε αυτήν την κλάση"
 
@@ -226,12 +237,12 @@ msgstr "Προσθήκη λογαριασμού"
 msgid "Add caption"
 msgstr "Προσθήκη λεζάντας"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "Προσθήκη στοιχείου λίστας ελέγχου"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "Προσθήκη πεδίου"
 
@@ -240,7 +251,7 @@ msgstr "Προσθήκη πεδίου"
 msgid "Add files"
 msgstr "Προσθήκη αρχείων"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "Προσθήκη στοιχείου..."
 
@@ -248,19 +259,19 @@ msgstr "Προσθήκη στοιχείου..."
 msgid "Add link"
 msgstr "Προσθήκη συνδέσμου"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "Προσθήκη επιλογής"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:733
 msgid "Add rule"
 msgstr "Προσθήκη κανόνα"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "Προσθήκη ετικέτας..."
 
@@ -268,8 +279,8 @@ msgstr "Προσθήκη ετικέτας..."
 msgid "Add to existing notifications"
 msgstr "Προσθήκη σε υπάρχουσες ειδοποιήσεις"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -284,11 +295,11 @@ msgid "Additional details (optional)"
 msgstr "Πρόσθετες λεπτομέρειες (προαιρετικό)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:552
 msgid "AI actions on posts"
 msgstr "Ενέργειες AI σε δημοσιεύσεις"
 
@@ -305,16 +316,19 @@ msgstr "Όλα τα forum"
 msgid "All posts and comments have been reviewed"
 msgstr "Όλες οι δημοσιεύσεις και τα σχόλια έχουν ελεγχθεί"
 
-#. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "Να επιτρέπεται σε οποιονδήποτε η αναζήτηση {0}"
+#~ msgid "Allow anyone to search for {0}"
+#~ msgstr "Να επιτρέπεται σε οποιονδήποτε η αναζήτηση {0}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "Να επιτρέπεται σε οποιονδήποτε η αναζήτηση για {entityLabel}"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Επιτρέπεται σε όλους η αναζήτηση του φόρουμ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "Να επιτρέπεται η ταξινόμηση κατά"
 
@@ -323,6 +337,7 @@ msgid "An error occurred"
 msgstr "Παρουσιάστηκε σφάλμα"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Παρουσιάστηκε απροσδόκητο σφάλμα"
 
@@ -353,11 +368,11 @@ msgid "Approve"
 msgstr "Έγκριση"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε \"{0}\";"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε τη στήλη \"{name}\"; Αυτό δεν μπορεί να αναιρεθεί."
 
@@ -381,11 +396,11 @@ msgstr "Είστε βέβαιοι ότι θέλετε να αποσυνδεθε�
 msgid "Ascending"
 msgstr "Αύξουσα"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Attach comment files"
 msgstr "Επισύναψη αρχείων σχολίου"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Attach reply files"
 msgstr "Επισύναψη αρχείων απάντησης"
 
@@ -394,7 +409,7 @@ msgstr "Επισύναψη αρχείων απάντησης"
 msgid "Authenticated users"
 msgstr "Πιστοποιημένοι χρήστες"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "Κωδικός ελέγχου ταυτότητας"
 
@@ -402,15 +417,15 @@ msgstr "Κωδικός ελέγχου ταυτότητας"
 msgid "Available keyboard shortcuts"
 msgstr "Διαθέσιμες συντομεύσεις πληκτρολογίου"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "Άβαταρ"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "Άβαταρ για {name}"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "Πίσω"
 
@@ -420,9 +435,9 @@ msgstr "Πίσω"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/routes/_authenticated/$forum_.settings.tsx:220
+#: src/routes/_authenticated/$forum_.settings.tsx:233
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Back to forum"
 msgstr "Πίσω στο forum"
 
@@ -430,8 +445,8 @@ msgstr "Πίσω στο forum"
 msgid "Back to forums"
 msgstr "Πίσω στα forum"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Επιστροφή στην αρχή"
 
@@ -449,15 +464,15 @@ msgid "Banned"
 msgstr "Αποκλεισμένος"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Μπάνερ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner removed"
 msgstr "Το banner αφαιρέθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "Το banner ενημερώθηκε"
 
@@ -466,8 +481,8 @@ msgstr "Το banner ενημερώθηκε"
 msgid "Blocked by"
 msgstr "Αποκλείεται από"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "Αποκλείστηκε η πλοήγηση σε μη αξιόπιστο σύνδεσμο"
 
@@ -475,16 +490,16 @@ msgstr "Αποκλείστηκε η πλοήγηση σε μη αξιόπιστ�
 msgid "Blocks"
 msgstr "Αποκλείει"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "Πίνακας"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "Ενίσχυση ενδιαφέροντος"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "Χρώμα περιγράμματος"
 
@@ -503,15 +518,15 @@ msgid "By {0}"
 msgstr "Από {0}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
@@ -523,11 +538,11 @@ msgstr "Από {0}"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Cancel comment"
 msgstr "Ακύρωση σχολίου"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "Ακύρωση απάντησης"
 
@@ -545,15 +560,23 @@ msgstr "Κατηγορία για αυτές τις ειδοποιήσεις"
 msgid "Change notification category"
 msgstr "Αλλαγή κατηγορίας ειδοποίησης"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "Άλλαξε"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "Άλλαξε {field}"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Επιστρέψτε αργότερα για νέο περιεχόμενο"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "Πλαίσιο ελέγχου"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "Λίστα ελέγχου"
 
@@ -568,11 +591,11 @@ msgstr "Επιλογή γλώσσας"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "Εκκαθάριση"
 
@@ -594,19 +617,19 @@ msgstr "Εκκαθάριση αναζήτησης"
 msgid "Clearing saved posts..."
 msgstr "Εκκαθάριση αποθηκευμένων αναρτήσεων..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "Κλείσιμο διαλόγου"
 
@@ -639,16 +662,16 @@ msgstr "Σύμπτυξη"
 msgid "Collapse sidebar"
 msgstr "Σύμπτυξη πλαϊνής στήλης"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "Χρώμα"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "Ενέργειες στήλης"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "Οι στήλες ομαδοποιούνται κατά"
 
@@ -677,7 +700,7 @@ msgstr "Το σχόλιο εγκρίθηκε"
 msgid "Comment deleted"
 msgstr "Το σχόλιο διαγράφηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Comment limit"
 msgstr "Όριο σχολίων"
 
@@ -701,12 +724,12 @@ msgstr "Το σχόλιο αποκαταστάθηκε"
 msgid "Comment updated"
 msgstr "Το σχόλιο ενημερώθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "Σχολιασμός, ψηφοφορία και προβολή"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
 msgid "Comments"
 msgstr "Σχόλια"
 
@@ -714,16 +737,16 @@ msgstr "Σχόλια"
 msgid "Compact"
 msgstr "Συμπαγές"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "Διαμόρφωση ρυθμίσεων επιλογής"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "Διαμόρφωση ρυθμίσεων προβολής"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "Επιβεβαίωση"
 
@@ -740,7 +763,7 @@ msgstr "Σύνδεση..."
 msgid "Content"
 msgstr "Περιεχόμενο"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Content from users below a threshold must be approved"
 msgstr "Το περιεχόμενο από χρήστες κάτω από ένα όριο πρέπει να εγκρίνεται"
 
@@ -752,7 +775,7 @@ msgstr "Το περιεχόμενο είναι υποχρεωτικό"
 msgid "Content not found."
 msgstr "Το περιεχόμενο δεν βρέθηκε."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "Το περιεχόμενο δεν τροποποιήθηκε"
 
@@ -764,7 +787,7 @@ msgstr "Πληροφορίες και λεπτομέρειες πλαισίου.
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "Συνέχεια με {label}"
 
@@ -784,34 +807,37 @@ msgstr "Αντιγραφή"
 msgid "Could not load this document. Please try again later."
 msgstr "Δεν ήταν δυνατή η φόρτωση αυτού του εγγράφου. Παρακαλώ δοκιμάστε ξανά αργότερα."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "Δεν ήταν δυνατή η φόρτωση των ειδοποιήσεων"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "Δεν ήταν δυνατή η αποστολή του κωδικού. Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Δεν ήταν δυνατή η έναρξη του εκ νέου ελέγχου ταυτότητας. Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Δεν ήταν δυνατή η επαλήθευση με αυτόν τον λογαριασμό. Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Δημιουργία"
 
-#. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "Δημιουργία {0}"
+#~ msgid "Create {0}"
+#~ msgstr "Δημιουργία {0}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "Δημιουργία {entityLabel}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -830,21 +856,26 @@ msgstr "Δημιουργία forum"
 msgid "Create new item"
 msgstr "Δημιουργία νέου στοιχείου"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "Δημιουργήθηκε"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "Δημιουργήθηκε {field}"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Δημιουργία φόρουμ..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Δημιουργία..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "Τρέχουσα τοποθεσία"
 
@@ -861,11 +892,11 @@ msgstr "Σκοτεινό"
 msgid "Data conflict"
 msgstr "Διένεξη δεδομένων"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:913
 msgid "days"
 msgstr "ημέρες"
 
@@ -877,7 +908,7 @@ msgstr "Απόρριψη"
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:570
 msgid "Default account"
 msgstr "Προεπιλεγμένος λογαριασμός"
 
@@ -885,32 +916,32 @@ msgstr "Προεπιλεγμένος λογαριασμός"
 msgid "Default AI account"
 msgstr "Προεπιλεγμένος λογαριασμός AI"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "Προεπιλεγμένη ταξινόμηση"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "Διαγραφή συνημμένου"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "Διαγραφή στήλης"
 
@@ -919,26 +950,26 @@ msgstr "Διαγραφή στήλης"
 msgid "Delete comment"
 msgstr "Διαγραφή σχολίου"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "Διαγραφή πεδίου"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:410
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum"
 msgstr "Διαγραφή forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "Διαγραφή forum;"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "Διαγραφή επιλογής"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "Διαγραφή επιλογής {0}"
 
@@ -946,13 +977,21 @@ msgstr "Διαγραφή επιλογής {0}"
 msgid "Delete post"
 msgstr "Διαγραφή δημοσίευσης"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "Διαγραφή προβολής"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:95
 msgid "Delete your account on the old server"
 msgstr "Διαγράψτε τον λογαριασμό σας στον παλιό διακομιστή"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "Διαγράφηκε"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "Διαγράφηκε {field}"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
@@ -962,7 +1001,7 @@ msgstr "Διαγραφή φόρουμ..."
 msgid "Descending"
 msgstr "Φθίνουσα"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "Περιγραφή"
 
@@ -985,11 +1024,11 @@ msgstr "Πίνακας λεπτομερειών"
 msgid "Detect from web browser"
 msgstr "Εντοπισμός από το πρόγραμμα περιήγησης"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:190
 msgid "Directory"
 msgstr "Κατάλογος"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
@@ -1006,8 +1045,8 @@ msgstr "Απόρριψη πρόχειρου;"
 msgid "Disconnected"
 msgstr "Αποσυνδεδεμένο"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:74
+#: ../../../lib/web/src/components/restore-banner.tsx:80
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Απόρριψη"
@@ -1021,18 +1060,23 @@ msgstr "Απόρριψη μπάνερ"
 msgid "Displays the mobile sidebar."
 msgstr "Εμφανίζει την πλευρική μπάρα κινητού."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "Δεν ταιριάζει με το απαιτούμενο μοτίβο"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Ολοκληρώθηκε"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
 msgid "Download"
 msgstr "Λήψη"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "Η λήψη απέτυχε"
 
@@ -1051,7 +1095,7 @@ msgstr "Φιλικό προς δυσλεξία"
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "Επεξεργασία {label}"
 
@@ -1059,21 +1103,21 @@ msgstr "Επεξεργασία {label}"
 msgid "Edit caption"
 msgstr "Επεξεργασία λεζάντας"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "Επεξεργασία πεδίου"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "Επεξεργασία ρυθμίσεων πεδίου"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "Επεξεργασία επιλογής"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "Επεξεργασία επιλογής {0}"
 
@@ -1086,7 +1130,7 @@ msgstr "Επεξεργασία ανάρτησης"
 msgid "Edit selected card"
 msgstr "Επεξεργασία επιλεγμένης κάρτας"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "Επεξεργασία προβολής"
 
@@ -1094,23 +1138,23 @@ msgstr "Επεξεργασία προβολής"
 msgid "Email"
 msgstr "Email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "Κωδικός email"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Enter banner text (markdown supported)..."
 msgstr "Εισαγάγετε κείμενο μπάνερ (υποστηρίζεται markdown)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "Εισαγάγετε τον κωδικό από το email σας"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "Εισαγάγετε τον κωδικό της εφαρμογής ελέγχου ταυτότητας"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "ID οντότητας"
 
@@ -1132,6 +1176,10 @@ msgstr "Εξωτερικό URL"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Πολύ μεγάλο"
+
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "Αποτυχία προσθήκης λογαριασμού"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1178,7 +1226,7 @@ msgstr "Αποτυχία δημιουργίας συνδέσμου"
 msgid "Failed to delete attachment"
 msgstr "Αποτυχία διαγραφής συνημμένου"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "Αποτυχία διαγραφής σχολίου"
 
@@ -1198,7 +1246,7 @@ msgstr "Αποτυχία λήψης διακριτικού RSS"
 msgid "Failed to load"
 msgstr "Αποτυχία φόρτωσης"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Failed to load access rules"
 msgstr "Αποτυχία φόρτωσης κανόνων πρόσβασης"
 
@@ -1206,7 +1254,7 @@ msgstr "Αποτυχία φόρτωσης κανόνων πρόσβασης"
 msgid "Failed to load forum"
 msgstr "Αποτυχία φόρτωσης φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:158
 msgid "Failed to load forum settings"
 msgstr "Αποτυχία φόρτωσης ρυθμίσεων φόρουμ"
 
@@ -1214,7 +1262,7 @@ msgstr "Αποτυχία φόρτωσης ρυθμίσεων φόρουμ"
 msgid "Failed to load forums"
 msgstr "Αποτυχία φόρτωσης φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:665
 msgid "Failed to load groups"
 msgstr "Αποτυχία φόρτωσης ομάδων"
 
@@ -1222,7 +1270,7 @@ msgstr "Αποτυχία φόρτωσης ομάδων"
 msgid "Failed to load history"
 msgstr "Αποτυχία φόρτωσης ιστορικού"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load image"
 msgstr "Αποτυχία φόρτωσης εικόνας"
 
@@ -1234,7 +1282,7 @@ msgstr "Αποτυχία φόρτωσης αρχείου καταγραφής ε
 msgid "Failed to load moderation queue"
 msgstr "Αποτυχία φόρτωσης ουράς συντονισμού"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Failed to load moderation settings"
 msgstr "Αποτυχία φόρτωσης ρυθμίσεων συντονισμού"
 
@@ -1255,7 +1303,7 @@ msgstr "Αποτυχία φόρτωσης αναφορών"
 msgid "Failed to load restrictions"
 msgstr "Αποτυχία φόρτωσης περιορισμών"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load video"
 msgstr "Αποτυχία φόρτωσης βίντεο"
 
@@ -1267,7 +1315,7 @@ msgstr "Αποτυχία σίγασης χρήστη"
 msgid "Failed to mute users"
 msgstr "Αποτυχία σίγασης χρηστών"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Αποτυχία ανάρτησης σχολίου"
 
@@ -1275,7 +1323,7 @@ msgstr "Αποτυχία ανάρτησης σχολίου"
 msgid "Failed to reject items"
 msgstr "Αποτυχία απόρριψης στοιχείων"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:702
 msgid "Failed to remove access"
 msgstr "Αποτυχία αφαίρεσης πρόσβασης"
 
@@ -1292,7 +1340,7 @@ msgstr "Αποτυχία αφαίρεσης περιορισμού"
 msgid "Failed to remove saved post"
 msgstr "Η αφαίρεση της αποθηκευμένης δημοσίευσης απέτυχε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Failed to rename forum"
 msgstr "Αποτυχία μετονομασίας φόρουμ"
 
@@ -1308,7 +1356,7 @@ msgstr "Αποτυχία επίλυσης αναφοράς"
 msgid "Failed to revoke RSS access"
 msgstr "Αποτυχία ανάκλησης πρόσβασης RSS"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to save moderation settings"
 msgstr "Αποτυχία αποθήκευσης ρυθμίσεων εποπτείας"
 
@@ -1325,11 +1373,11 @@ msgstr "Αποτυχία αποθήκευσης προτροπής"
 msgid "Failed to search forums"
 msgstr "Αποτυχία αναζήτησης φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:662
 msgid "Failed to search users"
 msgstr "Αποτυχία αναζήτησης χρηστών"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Failed to set access level"
 msgstr "Αποτυχία ορισμού επιπέδου πρόσβασης"
 
@@ -1341,24 +1389,24 @@ msgid "Failed to subscribe"
 msgstr "Αποτυχία εγγραφής"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Failed to unsubscribe"
 msgstr "Αποτυχία διαγραφής εγγραφής"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:717
 msgid "Failed to update access level"
 msgstr "Αποτυχία ενημέρωσης επιπέδου πρόσβασης"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:544
 msgid "Failed to update AI settings"
 msgstr "Αποτυχία ενημέρωσης ρυθμίσεων AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Failed to update banner"
 msgstr "Αποτυχία ενημέρωσης μπάνερ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "Αποτυχία ενημέρωσης σχολίου"
 
@@ -1366,9 +1414,9 @@ msgstr "Αποτυχία ενημέρωσης σχολίου"
 msgid "Failed to upload attachment"
 msgstr "Αποτυχία μεταφόρτωσης συνημμένου"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
@@ -1383,15 +1431,15 @@ msgstr "Φιλτραρισμένα κατά ετικέτα:"
 msgid "Find forums"
 msgstr "Εύρεση φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Fingerprint"
 msgstr "Αποτύπωμα"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:83
 msgid "Finish moving your account"
 msgstr "Ολοκληρώστε τη μεταφορά του λογαριασμού σας"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "Σημαίες"
 
@@ -1400,6 +1448,9 @@ msgid "Flat"
 msgstr "Επίπεδη"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
+msgid "forum"
+msgstr "φόρουμ"
+
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1423,23 +1474,23 @@ msgstr "Το φόρουμ δεν είναι πλέον διαθέσιμο"
 msgid "Forum link"
 msgstr "Σύνδεσμος φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Forum name is required"
 msgstr "Το όνομα φόρουμ είναι υποχρεωτικό"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:247
 msgid "Forum not found"
 msgstr "Το φόρουμ δεν βρέθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Forum renamed"
 msgstr "Το φόρουμ μετονομάστηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:275
 msgid "Forum settings sections"
 msgstr "Ενότητες ρυθμίσεων φόρουμ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:247
 msgid "Forum unavailable"
 msgstr "Το φόρουμ δεν είναι διαθέσιμο"
 
@@ -1454,11 +1505,11 @@ msgstr "Φόρουμ"
 msgid "Friday"
 msgstr "Παρασκευή"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:183
 msgid "Friends"
 msgstr "Φίλοι"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "Από"
 
@@ -1470,8 +1521,8 @@ msgstr "Από"
 msgid "From theme"
 msgstr "Από το θέμα"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Πίσω"
 
@@ -1479,7 +1530,7 @@ msgstr "Πίσω"
 msgid "Group"
 msgstr "Ομάδα"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "Ομαδοποίηση κατά"
 
@@ -1504,8 +1555,8 @@ msgstr "Ιστορικό"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "Αρχική"
 
@@ -1513,16 +1564,16 @@ msgstr "Αρχική"
 msgid "Hot"
 msgstr "Δημοφιλή"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "Αναγνωριστικό"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Identity"
 msgstr "Ταυτότητα"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Image viewer: {0}"
 msgstr "Προβολή εικόνας: {0}"
 
@@ -1542,6 +1593,10 @@ msgstr "Άβαταρ αρχικών"
 msgid "Initials avatar for {name}"
 msgstr "Άβαταρ αρχικών για {name}"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "Ενδιαφέρον {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Το ενδιαφέρον ενισχύθηκε"
@@ -1559,7 +1614,7 @@ msgstr "Το ενδιαφέρον αφαιρέθηκε"
 msgid "Interests"
 msgstr "Ενδιαφέροντα"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "Μη έγκυρη ημερομηνία"
 
@@ -1580,13 +1635,17 @@ msgstr "Συντομεύσεις πληκτρολογίου"
 msgid "Large"
 msgstr "Μεγάλο"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "Διάταξη"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "Μόνο γράμματα, αριθμοί, κενά και παύλες"
+#~ msgid "Letters, numbers, spaces, and hyphens only"
+#~ msgstr "Μόνο γράμματα, αριθμοί, κενά και παύλες"
+
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "Μόνο γράμματα, αριθμοί, κενά, παύλες και κάθετοι"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1600,11 +1659,11 @@ msgstr "Σύνδεσμος"
 msgid "Links"
 msgstr "Σύνδεσμοι"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "Λίστα"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "Φόρτωση περισσότερων"
 
@@ -1612,7 +1671,7 @@ msgstr "Φόρτωση περισσότερων"
 msgid "Loading content…"
 msgstr "Φόρτωση περιεχομένου…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Φόρτωση..."
@@ -1654,8 +1713,8 @@ msgstr "Διαχείριση κατηγοριών"
 msgid "Manual"
 msgstr "Χειροκίνητο"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "Σήμανση όλων ως αναγνωσμένα"
 
@@ -1663,7 +1722,7 @@ msgstr "Σήμανση όλων ως αναγνωσμένα"
 msgid "Markdown supported"
 msgstr "Υποστηρίζεται Markdown"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "Μέγιστο μήκος"
 
@@ -1674,6 +1733,10 @@ msgstr "Διακομιστής MCP"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Μεσαίο"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "Μέλη"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1687,7 +1750,7 @@ msgstr "Μήνυμα"
 msgid "Metric"
 msgstr "Μετρικό"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "Ελάχιστο μήκος"
 
@@ -1700,14 +1763,14 @@ msgstr "Παραπληροφόρηση"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Συντονισμός, δημοσίευση, σχόλιο, ψήφος και προβολή"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Συντονισμός"
 
@@ -1732,6 +1795,14 @@ msgstr "Δευτέρα"
 msgid "More options"
 msgstr "Περισσότερες επιλογές"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "Μετακινήθηκε"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "Μετακινήθηκε {field}"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Σίγαση"
@@ -1745,34 +1816,39 @@ msgstr "Σίγαση συντάκτη"
 msgid "Muted"
 msgstr "Σε σίγαση"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:359
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Name cannot contain < or > characters"
 msgstr "Το όνομα δεν μπορεί να περιέχει χαρακτήρες < ή >"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "Το όνομα δεν μπορεί να περιέχει γωνιακές αγκύλες, ανάστροφη κάθετο, ερωτηματικό, εισαγωγικά ή ανάστροφα εισαγωγικά"
+#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+#~ msgstr "Το όνομα δεν μπορεί να περιέχει γωνιακές αγκύλες, ανάστροφη κάθετο, ερωτηματικό, εισαγωγικά ή ανάστροφα εισαγωγικά"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "Το όνομα είναι υποχρεωτικό"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name must be 1000 characters or less"
 msgstr "Το όνομα πρέπει να είναι 1000 χαρακτήρες ή λιγότεροι"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Σφάλμα δικτύου"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1790,20 +1866,20 @@ msgstr "Νέο παιχνίδι"
 msgid "New post"
 msgstr "Νέα ανάρτηση"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "New threads must be approved"
 msgstr "Τα νέα νήματα πρέπει να εγκρίνονται"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:901
 msgid "New user threshold:"
 msgstr "Όριο νέου χρήστη:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
 msgid "Next image"
 msgstr "Επόμενη εικόνα"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
 msgid "No {parentClassNames} to add to"
 msgstr "Δεν υπάρχουν {parentClassNames} για προσθήκη"
 
@@ -1811,7 +1887,7 @@ msgstr "Δεν υπάρχουν {parentClassNames} για προσθήκη"
 msgid "No {statusFilter} reports found"
 msgstr "Δεν βρέθηκαν αναφορές {statusFilter}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "Χωρίς πρόσβαση"
 
@@ -1819,7 +1895,7 @@ msgstr "Χωρίς πρόσβαση"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Δεν έχουν διαμορφωθεί κανόνες πρόσβασης. Προσθέστε κανόνες για να ελέγξετε ποιος μπορεί να έχει πρόσβαση σε αυτόν τον πόρο."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "Δεν υπάρχει ακόμη δραστηριότητα"
 
@@ -1827,7 +1903,7 @@ msgstr "Δεν υπάρχει ακόμη δραστηριότητα"
 msgid "No comments on this image yet."
 msgstr "Δεν υπάρχουν ακόμη σχόλια σε αυτή την εικόνα."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "Δεν υπάρχουν ακόμη σχόλια"
 
@@ -1844,7 +1920,7 @@ msgstr "Δεν υπάρχουν ακόμη παιχνίδια"
 msgid "No groups available"
 msgstr "Δεν υπάρχουν διαθέσιμες ομάδες"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Δεν μπορούν να δημιουργηθούν ακόμη τύποι στοιχείων. Δημιουργήστε πρώτα τα απαιτούμενα γονικά στοιχεία."
 
@@ -1856,12 +1932,12 @@ msgstr "Δεν υπάρχουν αντίστοιχα αντικείμενα"
 msgid "No moderation activity"
 msgstr "Καμία δραστηριότητα συντονισμού"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "Δεν βρέθηκαν άτομα"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "Δεν βρέθηκαν τοποθεσίες"
 
@@ -1877,18 +1953,18 @@ msgstr "Καμία αναφορά"
 msgid "No restrictions"
 msgstr "Χωρίς περιορισμούς"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Δεν βρέθηκαν αποτελέσματα"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "Χωρίς κατάσταση"
 
@@ -1900,7 +1976,7 @@ msgstr "Δεν βρέθηκε ζώνη ώρας."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Δεν υπάρχει ακόμη εγγραφή θέματος — προσπαθήστε ξανά μετά την επόμενη ειδοποίηση."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "Καμία μη αναγνωσμένη ειδοποίηση"
 
@@ -1917,17 +1993,17 @@ msgid "No views"
 msgstr "Χωρίς προβολές"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:326
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Κανένα"
@@ -1937,15 +2013,15 @@ msgid "Normal"
 msgstr "Κανονικό"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "Δεν βρέθηκε"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "Δεν έχει οριστεί"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "Δεν βρέθηκε τίποτα"
 
@@ -1954,13 +2030,13 @@ msgid "Nothing saved yet"
 msgstr "Δεν έχει αποθηκευτεί τίποτα ακόμη"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "Ειδοποιήσεις: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "Αριθμός"
 
@@ -1986,8 +2062,8 @@ msgstr "Σε αυτή την εικόνα"
 msgid "Oops! Page Not Found!"
 msgstr "Ωχ! Η σελίδα δεν βρέθηκε!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "Άνοιγμα ενεργειών"
 
@@ -1995,13 +2071,13 @@ msgstr "Άνοιγμα ενεργειών"
 msgid "Open menu"
 msgstr "Άνοιγμα μενού"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "Άνοιγμα πλοήγησης"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "Άνοιγμα ενεργειών επιλογής"
 
@@ -2009,8 +2085,8 @@ msgstr "Άνοιγμα ενεργειών επιλογής"
 msgid "Open selected card"
 msgstr "Άνοιγμα επιλεγμένης κάρτας"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "Άνοιγμα ενεργειών προβολής"
 
@@ -2019,17 +2095,17 @@ msgstr "Άνοιγμα ενεργειών προβολής"
 msgid "Open view controls"
 msgstr "Άνοιγμα ελέγχων προβολής"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "Όνομα επιλογής"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "Προαιρετικό banner markdown που εμφανίζεται στην κορυφή του φόρουμ σας."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -2043,23 +2119,23 @@ msgstr "Άλλο"
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
 msgid "Parent"
 msgstr "Γονικό"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "Κλειδί πρόσβασης"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "Passkey verification failed. Please try again."
 msgstr "Η επαλήθευση με κλειδί πρόσβασης απέτυχε. Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Passkeys"
 msgstr "Κλειδιά πρόσβασης"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "Μοτίβο (regex)"
 
@@ -2084,6 +2160,10 @@ msgstr "Εκκρεμή σχόλια ({0})"
 msgid "Pending posts ({0})"
 msgstr "Εκκρεμείς αναρτήσεις ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:176
+msgid "People"
+msgstr "Άτομα"
+
 #: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
@@ -2098,7 +2178,7 @@ msgid "Pinned"
 msgstr "Καρφιτσωμένο"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά."
@@ -2112,14 +2192,14 @@ msgid "Please enter a reply"
 msgstr "Εισαγάγετε μια απάντηση"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "Συνδεθείτε με τα κατάλληλα διαπιστευτήρια <0/> για πρόσβαση σε αυτόν τον πόρο."
+#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
+#~ msgstr "Συνδεθείτε με τα κατάλληλα διαπιστευτήρια <0/> για πρόσβαση σε αυτόν τον πόρο."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "Δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "Περιμένετε λίγο και δοκιμάστε ξανά."
 
@@ -2139,7 +2219,7 @@ msgstr "Η ανάρτηση δεν μπόρεσε να αποθηκευτεί σ
 msgid "Post deleted"
 msgstr "Η ανάρτηση διαγράφηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Post limit"
 msgstr "Όριο αναρτήσεων"
 
@@ -2179,11 +2259,11 @@ msgstr "Η ανάρτηση ξεκαρφιτσώθηκε"
 msgid "Post updated"
 msgstr "Η ανάρτηση ενημερώθηκε"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "Δημοσίευση, σχόλιο, ψήφος και προβολή"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:936
 msgid "posts"
 msgstr "αναρτήσεις"
 
@@ -2195,16 +2275,16 @@ msgstr "Αναρτήσεις"
 msgid "Posts and comments"
 msgstr "Αναρτήσεις και σχόλια"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Pre-moderation"
 msgstr "Προ-συντονισμός"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:922
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Αποτρέψτε την ανεπιθύμητη αλληλογραφία περιορίζοντας πόσο συχνά μπορούν να αναρτούν οι χρήστες"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
 msgid "Previous image"
 msgstr "Προηγούμενη εικόνα"
 
@@ -2218,8 +2298,8 @@ msgid "Processing…"
 msgstr "Γίνεται επεξεργασία…"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "Μέλη έργου"
+#~ msgid "Project members"
+#~ msgstr "Μέλη έργου"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2245,15 +2325,15 @@ msgstr "Ουρά"
 msgid "Raised"
 msgstr "Ανυψωμένη"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:921
 msgid "Rate limiting"
 msgstr "Περιορισμός ρυθμού"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:104
 msgid "Re-link your accounts on this server"
 msgstr "Επανασυνδέστε τους λογαριασμούς σας σε αυτόν τον διακομιστή"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:126
 msgid "Re-register your passkeys on this server"
 msgstr "Καταχωρίστε ξανά τα κλειδιά πρόσβασής σας σε αυτόν τον διακομιστή"
 
@@ -2278,12 +2358,12 @@ msgstr "Συνιστώμενα φόρουμ"
 msgid "Reconnecting ({retries})..."
 msgstr "Επανασύνδεση ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "Ανακατεύθυνση στη σύνδεση."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "Μείωση ενδιαφέροντος"
 
@@ -2308,9 +2388,17 @@ msgstr "Σχετικό (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Σχετικό εντός 24 ωρών, αλλιώς απόλυτο"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "Συνάφεια {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "Συνάφεια {relevance}, ενδιαφέρον {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2350,12 +2438,12 @@ msgstr "Αφαίρεση σχολίου"
 msgid "Remove from saved"
 msgstr "Αφαίρεση από τα αποθηκευμένα"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "Αφαίρεση ενδιαφέροντος"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "Αφαίρεση στοιχείου"
 
@@ -2368,7 +2456,7 @@ msgstr "Αφαίρεση συνδέσμου"
 msgid "Remove post"
 msgstr "Αφαίρεση ανάρτησης"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:390
 msgid "Remove this forum from your sidebar."
 msgstr "Αφαιρέστε αυτό το φόρουμ από την πλαϊνή γραμμή σας."
 
@@ -2386,28 +2474,28 @@ msgstr "Καταργήθηκε από τα αποθηκευμένα"
 msgid "Removing..."
 msgstr "Αφαίρεση..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "Μετονομασία"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "Μετονομασία στήλης"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "Μετονομασία αυτής της στήλης πίνακα"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Renaming forum..."
 msgstr "Μετονομασία φόρουμ..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "replies"
 msgstr "απαντήσεις"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:880
 msgid "Replies must be approved"
 msgstr "Οι απαντήσεις πρέπει να εγκρίνονται"
 
@@ -2458,27 +2546,27 @@ msgstr "Αναφέρθηκε από {0}"
 msgid "Reports"
 msgstr "Αναφορές"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Require approval before content becomes visible"
 msgstr "Απαίτηση έγκρισης πριν το περιεχόμενο γίνει ορατό"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "Require approval for new comments"
 msgstr "Απαίτηση έγκρισης για νέα σχόλια"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:868
 msgid "Require approval for new posts"
 msgstr "Απαίτηση έγκρισης για νέες αναρτήσεις"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:890
 msgid "Require approval for new users"
 msgstr "Απαίτηση έγκρισης για νέους χρήστες"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "Υποχρεωτικό"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Επαναποστολή email"
 
@@ -2520,12 +2608,12 @@ msgstr "Ανάκληση πρόσβασης"
 msgid "Revoke RSS access?"
 msgstr "Ανάκληση πρόσβασης RSS;"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "Γραμμές"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "Ομαδοποίηση γραμμών κατά"
 
@@ -2548,11 +2636,11 @@ msgstr "Σάββατο"
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -2582,14 +2670,14 @@ msgstr "Οι αποθηκευμένες αναρτήσεις εκκαθαρίσ�
 msgid "Saving..."
 msgstr "Αποθήκευση..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:601
 msgid "Score prompt"
 msgstr "Προτροπή βαθμολογίας"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -2601,15 +2689,15 @@ msgstr "Αναζήτηση κατά όνομα, ID, αποτύπωμα ή URL...
 msgid "Search for a command to run..."
 msgstr "Αναζήτηση εντολής προς εκτέλεση..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "Αναζήτηση για τοποθεσία"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "Αναζήτηση τοποθεσίας..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "Αναζήτηση για προορισμό..."
 
@@ -2617,7 +2705,7 @@ msgstr "Αναζήτηση για προορισμό..."
 msgid "Search for forums..."
 msgstr "Αναζήτηση για φόρουμ..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "Αναζήτηση για αφετηρία..."
 
@@ -2639,8 +2727,8 @@ msgstr "Αναζήτηση, παρακολούθηση και ταξινόμησ
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:300
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Αναζήτηση..."
@@ -2650,15 +2738,15 @@ msgstr "Αναζήτηση..."
 msgid "Searching..."
 msgstr "Αναζήτηση..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:966
 msgid "seconds"
 msgstr "δευτερόλεπτα"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "Επιλογή"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "Επιλέξτε ένα πεδίο"
 
@@ -2694,7 +2782,7 @@ msgstr "Επιλογή όλων"
 msgid "Select group"
 msgstr "Επιλέξτε ομάδα"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "Επιλέξτε τοποθεσία"
 
@@ -2706,7 +2794,7 @@ msgstr "Επιλογή επόμενης κάρτας"
 msgid "Select none"
 msgstr "Καμία επιλογή"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "Επιλέξτε άτομο..."
 
@@ -2714,8 +2802,8 @@ msgstr "Επιλέξτε άτομο..."
 msgid "Select previous card"
 msgstr "Επιλογή προηγούμενης κάρτας"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "Επιλογή..."
 
@@ -2728,7 +2816,7 @@ msgstr "Επιλέχθηκε: <0>{0}</0>"
 msgid "Send again"
 msgstr "Αποστολή ξανά"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "Αποστολή email"
 
@@ -2755,17 +2843,17 @@ msgstr "Κανόνες του διακομιστή"
 msgid "Session expired. Please log in again."
 msgstr "Η συνεδρία έληξε. Συνδεθείτε ξανά."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "Ορίστε αφετηρία και προορισμό"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:233
+#: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
@@ -2773,11 +2861,11 @@ msgstr "Ρυθμίσεις"
 msgid "Shadowbanned"
 msgstr "Αποκλεισμένος κρυφά"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "Εμφάνιση κλάσεων"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "Εμφάνιση πεδίων"
 
@@ -2789,7 +2877,7 @@ msgstr "Εμφάνιση μόνο των σχολίων αυτής της εικ
 msgid "Show this help"
 msgstr "Εμφάνιση βοήθειας"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "Εμφανίζονται {totalShown} από {total}"
 
@@ -2797,17 +2885,21 @@ msgstr "Εμφανίζονται {totalShown} από {total}"
 msgid "Sidebar"
 msgstr "Πλευρική μπάρα"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "Συνδεθείτε με λογαριασμό που έχει πρόσβαση <0/> σε αυτόν τον πόρο."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Αποσύνδεση"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "Αποσύνδεση..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "Μόνο μία γραμμή κειμένου"
 
@@ -2833,7 +2925,7 @@ msgstr "Ευρύχωρο"
 msgid "Spam"
 msgstr "Ανεπιθύμητο"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "Ξεκινήστε τη συζήτηση προσθέτοντας το πρώτο σχόλιο."
 
@@ -2841,11 +2933,11 @@ msgstr "Ξεκινήστε τη συζήτηση προσθέτοντας το �
 msgid "Subject"
 msgstr "Θέμα"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Submit comment"
 msgstr "Υποβολή σχολίου"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Submit reply"
 msgstr "Υποβολή απάντησης"
 
@@ -2857,8 +2949,8 @@ msgstr "Υποβολή αναφοράς"
 msgid "Submitting..."
 msgstr "Υποβολή..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -2902,24 +2994,24 @@ msgstr "Εναλλαγή σε προβολή 1-9"
 msgid "System"
 msgstr "Σύστημα"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "Tag"
 msgstr "Ετικέτα"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "Η ετικέτα υπάρχει ήδη"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "Η ετικέτα πρέπει να έχει έως 50 χαρακτήρες"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Tag prompt"
 msgstr "Προτροπή ετικέτας"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "Ετικέτες"
 
@@ -2932,11 +3024,11 @@ msgstr "Πατήστε τον σελιδοδείκτη σε οποιαδήποτ
 msgid "Terms and conditions"
 msgstr "Όροι και προϋποθέσεις"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "Κείμενο"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "Αυτός ο κωδικός είναι λανθασμένος ή έχει λήξει."
 
@@ -2949,7 +3041,7 @@ msgstr "Δεν ήταν δυνατή η αποστολή. Τα αρχεία μπ
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Ήταν πολύ μεγάλο για μεταφόρτωση. Αφαιρέστε ή μικρύνετε αρχεία και δοκιμάστε ξανά."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "Το περιεχόμενο που ζητήσατε δεν βρέθηκε."
 
@@ -2961,11 +3053,11 @@ msgstr "Ο διακομιστής επέστρεψε ιστοσελίδα αντ
 msgid "There are no moderation actions recorded yet"
 msgstr "Δεν έχουν καταγραφεί ακόμα ενέργειες συντονισμού"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
 msgstr "Δεν ήταν δυνατή η φόρτωση αυτού του φόρουμ αυτή τη στιγμή."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Αυτό το φόρουμ ίσως έχει διαγραφεί ή δεν έχετε πρόσβαση σε αυτό."
 
@@ -2990,7 +3082,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Αυτό θα κρύψει την ανάρτηση από τους κανονικούς χρήστες. Οι συντονιστές μπορούν ακόμα να τη δουν και να την επαναφέρουν αργότερα."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Αυτό θα διαγράψει μόνιμα το \"{0}\" και όλες τις αναρτήσεις και τα σχόλιά του. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
@@ -3019,26 +3111,28 @@ msgstr "Ο τίτλος είναι υποχρεωτικός"
 msgid "Title must be 1000 characters or less"
 msgstr "Ο τίτλος πρέπει να είναι έως 1000 χαρακτήρες"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "Προς"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "Εναλλαγή ενότητας"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle sidebar"
 msgstr "Εναλλαγή πλαϊνής μπάρας"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
-msgstr "Εναλλαγή πλευρικής μπάρας"
+#~ msgid "Toggle Sidebar"
+#~ msgstr "Εναλλαγή πλευρικής μπάρας"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3049,7 +3143,7 @@ msgstr "Εναλλαγή επιλογών προβολής"
 msgid "Toggle watched filter"
 msgstr "Εναλλαγή φίλτρου παρακολούθησης"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "Πάρα πολλά αιτήματα"
 
@@ -3057,7 +3151,7 @@ msgstr "Πάρα πολλά αιτήματα"
 msgid "Top"
 msgstr "Κορυφή"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "Σε ταξίδι"
 
@@ -3065,8 +3159,8 @@ msgstr "Σε ταξίδι"
 msgid "Try adjusting your search terms"
 msgstr "Δοκιμάστε να προσαρμόσετε τους όρους αναζήτησής σας"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "Δοκιμάστε ξανά"
 
@@ -3074,12 +3168,12 @@ msgstr "Δοκιμάστε ξανά"
 msgid "Tuesday"
 msgstr "Τρίτη"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "Τύπος"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "Πληκτρολογήστε μια εντολή ή αναζητήστε..."
 
@@ -3099,8 +3193,8 @@ msgstr "Πληκτρολογήστε για αναζήτηση..."
 msgid "Unable to connect to remote server"
 msgstr "Δεν είναι δυνατή η σύνδεση με τον απομακρυσμένο διακομιστή"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "Δεν ήταν δυνατή η ανακατεύθυνση στη σύνδεση. Δοκιμάστε ξανά."
 
@@ -3109,15 +3203,15 @@ msgid "Unassigned"
 msgstr "Χωρίς ανάθεση"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "Μη εξουσιοδοτημένη πρόσβαση"
+#~ msgid "Unauthorized Access"
+#~ msgstr "Μη εξουσιοδοτημένη πρόσβαση"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Μη διαθέσιμο"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "Απροσδόκητο σφάλμα API"
 
@@ -3125,6 +3219,11 @@ msgstr "Απροσδόκητο σφάλμα API"
 msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3142,11 +3241,11 @@ msgstr "Ξεκαρφίτσωμα"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "Διαγραφή εγγραφής"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Unsubscribe from forum"
 msgstr "Διαγραφή εγγραφής από το φόρουμ"
 
@@ -3155,28 +3254,33 @@ msgid "Unsubscribe from forum?"
 msgstr "Κατάργηση εγγραφής από το φόρουμ;"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Unsubscribed"
 msgstr "Διαγραφή εγγραφής ολοκληρώθηκε"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribing..."
 msgstr "Διαγραφή εγγραφής..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Χωρίς τίτλο"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "Ενημερώθηκε"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "Ενημερώθηκε {field}"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Μεταφόρτωση"
 
@@ -3184,13 +3288,13 @@ msgstr "Μεταφόρτωση"
 msgid "Upload progress"
 msgstr "Πρόοδος μεταφόρτωσης"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "Χρησιμοποιήστε το κλειδί πρόσβασής σας"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Χρήστης"
 
@@ -3210,7 +3314,7 @@ msgstr "Μεταβλητές: {variables}"
 msgid "Verification code"
 msgstr "Κωδικός επαλήθευσης"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Επαλήθευση"
@@ -3219,17 +3323,17 @@ msgstr "Επαλήθευση"
 msgid "Verify email address"
 msgstr "Επαλήθευση διεύθυνσης email"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "Μικρογραφία βίντεο"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
 msgid "Video viewer: {0}"
 msgstr "Προβολή βίντεο: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "Προβολή όλων των ειδοποιήσεων"
 
@@ -3237,7 +3341,7 @@ msgstr "Προβολή όλων των ειδοποιήσεων"
 msgid "View controls"
 msgstr "Στοιχεία ελέγχου προβολής"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "Μόνο προβολή"
 
@@ -3250,7 +3354,7 @@ msgstr "Δείτε την εικόνα στην οποία αναφέρεται 
 msgid "Violence"
 msgstr "Βία"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "Ψηφοφορία και προβολή"
 
@@ -3272,7 +3376,7 @@ msgstr "Στείλαμε έναν κωδικό επαλήθευσης στο <0>
 msgid "Wednesday"
 msgstr "Τετάρτη"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:956
 msgid "Window duration"
 msgstr "Διάρκεια παραθύρου"
 
@@ -3291,7 +3395,7 @@ msgstr "Δημοσιεύετε πολύ γρήγορα — περιμένετε 
 msgid "You are restricted from posting in this forum"
 msgstr "Έχετε περιορισμό δημοσίευσης σε αυτό το φόρουμ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "Δεν έχετε πρόσβαση σε αυτήν την ενότητα."
 
@@ -3307,7 +3411,7 @@ msgstr "Δεν έχετε ακόμα φόρουμ."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Θα σταματήσετε να λαμβάνετε ενημερώσεις από αυτό το φόρουμ. Μπορείτε να εγγραφείτε ξανά οποιαδήποτε στιγμή."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ο λογαριασμός σας μεταφέρθηκε εδώ από {source}. Μέχρι να τον διαγράψετε εκεί, τα μηνύματα και οι ειδοποιήσεις μπορεί να φτάνουν και στους δύο διακομιστές, μέρος του περιεχομένου σας συνεχίζει να εξυπηρετείται από τον παλιό διακομιστή και οι ακόλουθοί σας ενδέχεται να χρειαστούν λίγα λεπτά για να σας βρουν εδώ."
 

@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "કૃપા કરી તમારું ઇન્ટરનેટ કનેક્શન તપાસો અને ફરી પ્રયાસ કરો."
 
@@ -33,14 +33,14 @@ msgid " (edited)"
 msgstr " (સંપાદિત)"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " અથવા "
+#~ msgid " or "
+#~ msgstr " અથવા "
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(સંપાદિત)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(વિસ્તાર કરો)"
 
@@ -53,10 +53,17 @@ msgstr "[સેટ નથી]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# નવી પોસ્ટ} other {# નવી પોસ્ટ}}"
 
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
+#: ../../../lib/web/src/components/person-picker.tsx:257
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# પસંદ કરેલ} other {# પસંદ કરેલ}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# નેસ્ટેડ} other {+# નેસ્ટેડ}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -69,8 +76,8 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# વપરાશકર્તાને મ્યૂટ} other {# વપરાશકર્તાઓને મ્યૂટ}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "{0} settings"
 msgstr "{0} સેટિંગ્સ"
 
@@ -98,13 +105,13 @@ msgstr "{count, plural, one {# આઇટમ મંજૂર} other {# આઇટ�
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# આઇટમ નકારી} other {# આઇટમ્સ નકારી}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} નામ"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "{entityLabel} નામ જરૂરી છે"
+#~ msgid "{entityLabel} name is required"
+#~ msgstr "{entityLabel} નામ જરૂરી છે"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -119,7 +126,7 @@ msgstr "{others, plural, one {આ પોસ્ટ પર # બીજી ટિ�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}માંથી {sentLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# વસ્તુ} other {# વસ્તુઓ}}"
 
@@ -127,22 +134,25 @@ msgstr "{totalCount, plural, one {# વસ્તુ} other {# વસ્તુઓ
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# જવાબ} other {# જવાબો}}"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# જવાબ} other {+# વધુ જવાબો}}"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {મેનૂ ખોલો (# વણવાંચેલ સૂચના)} other {મેનૂ ખોલો (# વણવાંચેલ સૂચનાઓ)}}"
 
-#. placeholder {0}: countDeepChildren(object.id)
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} નેસ્ટેડ"
+#~ msgid "+{0} nested"
+#~ msgstr "+{0} નેસ્ટેડ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} વધુ જવાબો"
+#~ msgid "+{totalDescendants} more replies"
+#~ msgstr "+{totalDescendants} વધુ જવાબો"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 જવાબ"
+#~ msgid "1 reply"
+#~ msgstr "1 જવાબ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -160,11 +170,12 @@ msgstr "નિરપેક્ષ (તારીખ અને સમય)"
 msgid "Accept"
 msgstr "સ્વીકારો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "ઍક્સેસ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "ઍક્સેસ નકારી"
 
@@ -172,23 +183,23 @@ msgstr "ઍક્સેસ નકારી"
 msgid "Access level"
 msgstr "ઍક્સેસ સ્તર"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:714
 msgid "Access level updated"
 msgstr "ઍક્સેસ સ્તર અપડેટ થયું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:723
 msgid "Access management"
 msgstr "ઍક્સેસ વ્યવસ્થાપન"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:699
 msgid "Access removed"
 msgstr "ઍક્સેસ દૂર કર્યું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:687
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} માટે ઍક્સેસ સેટ કર્યું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:564
 msgid "Account"
 msgstr "ખાતું"
 
@@ -196,13 +207,13 @@ msgstr "ખાતું"
 msgid "Account type"
 msgstr "ખાતાનો પ્રકાર"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "ટિપ્પણી ઉમેરો..."
 
@@ -210,7 +221,7 @@ msgstr "ટિપ્પણી ઉમેરો..."
 msgid "Add a new account"
 msgstr "નવું ખાતું ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "આ ક્લાસમાં નવું ફીલ્ડ ઉમેરો"
 
@@ -226,12 +237,12 @@ msgstr "ખાતું ઉમેરો"
 msgid "Add caption"
 msgstr "કૅપ્શન ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "ચેકલિસ્ટ આઇટમ ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "ફીલ્ડ ઉમેરો"
 
@@ -240,7 +251,7 @@ msgstr "ફીલ્ડ ઉમેરો"
 msgid "Add files"
 msgstr "ફાઇલો ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "આઇટમ ઉમેરો..."
 
@@ -248,19 +259,19 @@ msgstr "આઇટમ ઉમેરો..."
 msgid "Add link"
 msgstr "લિંક ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "વિકલ્પ ઉમેરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:733
 msgid "Add rule"
 msgstr "નિયમ ઉમેરો"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "ટૅગ ઉમેરો..."
 
@@ -268,8 +279,8 @@ msgstr "ટૅગ ઉમેરો..."
 msgid "Add to existing notifications"
 msgstr "વર્તમાન સૂચનાઓમાં ઉમેરો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -284,11 +295,11 @@ msgid "Additional details (optional)"
 msgstr "વધારાની વિગતો (વૈકલ્પિક)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:551
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:552
 msgid "AI actions on posts"
 msgstr "પોસ્ટ પર AI ક્રિયાઓ"
 
@@ -305,16 +316,19 @@ msgstr "બધા ફોરમ"
 msgid "All posts and comments have been reviewed"
 msgstr "બધી પોસ્ટ અને ટિપ્પણીઓની સમીક્ષા કરવામાં આવી છે"
 
-#. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "કોઈપણને {0} શોધવાની મંજૂરી આપો"
+#~ msgid "Allow anyone to search for {0}"
+#~ msgstr "કોઈપણને {0} શોધવાની મંજૂરી આપો"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "કોઈપણને {entityLabel} શોધવાની મંજૂરી આપો"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "કોઈને પણ ફોરમ શોધવાની મંજૂરી આપો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "આના દ્વારા સૉર્ટની મંજૂરી આપો"
 
@@ -323,6 +337,7 @@ msgid "An error occurred"
 msgstr "ભૂલ આવી"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "અણધારી ભૂલ આવી"
 
@@ -353,11 +368,11 @@ msgid "Approve"
 msgstr "મંજૂર કરો"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "શું તમે ખરેખર \"{0}\" કાઢી નાખવા માંગો છો?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "શું તમે ખરેખર \"{name}\" કૉલમ કાઢી નાખવા માંગો છો? આ પૂર્વવત્ કરી શકાતું નથી."
 
@@ -381,11 +396,11 @@ msgstr "શું તમે ખરેખર લૉગ આઉટ કરવા મ
 msgid "Ascending"
 msgstr "ચઢતો ક્રમ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Attach comment files"
 msgstr "ટિપ્પણી ફાઇલો જોડો"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Attach reply files"
 msgstr "જવાબ ફાઇલો જોડો"
 
@@ -394,7 +409,7 @@ msgstr "જવાબ ફાઇલો જોડો"
 msgid "Authenticated users"
 msgstr "પ્રમાણિત વપરાશકર્તાઓ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "Authenticator કોડ"
 
@@ -402,15 +417,15 @@ msgstr "Authenticator કોડ"
 msgid "Available keyboard shortcuts"
 msgstr "ઉપલબ્ધ કીબોર્ડ શૉર્ટકટ્સ"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "અવતાર"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "{name} માટે અવતાર"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "પાછળ"
 
@@ -420,9 +435,9 @@ msgstr "પાછળ"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/routes/_authenticated/$forum_.settings.tsx:220
+#: src/routes/_authenticated/$forum_.settings.tsx:233
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Back to forum"
 msgstr "ફોરમ પર પાછા"
 
@@ -430,8 +445,8 @@ msgstr "ફોરમ પર પાછા"
 msgid "Back to forums"
 msgstr "ફોરમ પર પાછા"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "મુખ્ય પૃષ્ઠ પર પાછા જાઓ"
 
@@ -449,15 +464,15 @@ msgid "Banned"
 msgstr "પ્રતિબંધિત"
 
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "બૅનર"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner removed"
 msgstr "બેનર દૂર કર્યું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: src/routes/_authenticated/$forum_.settings.tsx:461
 msgid "Banner updated"
 msgstr "બેનર અપડેટ કર્યું"
 
@@ -466,8 +481,8 @@ msgstr "બેનર અપડેટ કર્યું"
 msgid "Blocked by"
 msgstr "દ્વારા અવરોધિત"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "વિશ્વાસપાત્ર નથી તેવી લિંક પર નેવિગેશન અવરોધિત કર્યું"
 
@@ -475,16 +490,16 @@ msgstr "વિશ્વાસપાત્ર નથી તેવી લિંક
 msgid "Blocks"
 msgstr "અવરોધે છે"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "બોર્ડ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "રુચિ વધારો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "બોર્ડર રંગ"
 
@@ -503,15 +518,15 @@ msgid "By {0}"
 msgstr "{0} દ્વારા"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
@@ -523,11 +538,11 @@ msgstr "{0} દ્વારા"
 msgid "Cancel"
 msgstr "રદ કરો"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Cancel comment"
 msgstr "ટિપ્પણી રદ કરો"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "જવાબ રદ કરો"
 
@@ -545,15 +560,23 @@ msgstr "આ સૂચનાઓ માટેની શ્રેણી"
 msgid "Change notification category"
 msgstr "સૂચના શ્રેણી બદલો"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "બદલ્યું"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "{field} બદલ્યું"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "નવી સામગ્રી માટે પાછળથી પાછા તપાસો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "ચેકબૉક્સ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "ચેકલિસ્ટ"
 
@@ -568,11 +591,11 @@ msgstr "ભાષા પસંદ કરો"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "સાફ કરો"
 
@@ -594,19 +617,19 @@ msgstr "શોધ સાફ કરો"
 msgid "Clearing saved posts..."
 msgstr "સાચવેલી પોસ્ટ સાફ કરી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "બંધ કરો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "સંવાદ બંધ કરો"
 
@@ -639,16 +662,16 @@ msgstr "સંકોચો"
 msgid "Collapse sidebar"
 msgstr "સાઇડબાર સંકુચિત કરો"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "રંગ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "કૉલમ ક્રિયાઓ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "કૉલમ આના દ્વારા જૂથબદ્ધ"
 
@@ -677,7 +700,7 @@ msgstr "ટિપ્પણી મંજૂર"
 msgid "Comment deleted"
 msgstr "ટિપ્પણી કાઢી નાખી"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:941
 msgid "Comment limit"
 msgstr "ટિપ્પણી મર્યાદા"
 
@@ -701,12 +724,12 @@ msgstr "ટિપ્પણી પુનઃસ્થાપિત"
 msgid "Comment updated"
 msgstr "ટિપ્પણી અપડેટ થઈ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "ટિપ્પણી, મત અને જુઓ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
 msgid "Comments"
 msgstr "ટિપ્પણીઓ"
 
@@ -714,16 +737,16 @@ msgstr "ટિપ્પણીઓ"
 msgid "Compact"
 msgstr "કોમ્પેક્ટ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "વિકલ્પ સેટિંગ્સ કૉન્ફિગર કરો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "દૃશ્ય સેટિંગ્સ કૉન્ફિગર કરો"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "પુષ્ટિ કરો"
 
@@ -740,7 +763,7 @@ msgstr "કનેક્ટ થઈ રહ્યું છે..."
 msgid "Content"
 msgstr "સામગ્રી"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "Content from users below a threshold must be approved"
 msgstr "થ્રેશોલ્ડ નીચેના વપરાશકર્તાઓની સામગ્રી મંજૂર થવી જોઈએ"
 
@@ -752,7 +775,7 @@ msgstr "સામગ્રી આવશ્યક છે"
 msgid "Content not found."
 msgstr "સામગ્રી મળી નથી."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "સામગ્રી સુધારી નથી"
 
@@ -764,7 +787,7 @@ msgstr "સંદર્ભ માહિતી અને વિગતો."
 msgid "Continue"
 msgstr "ચાલુ રાખો"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "{label} વડે ચાલુ રાખો"
 
@@ -784,34 +807,37 @@ msgstr "કૉપિ કરો"
 msgid "Could not load this document. Please try again later."
 msgstr "આ દસ્તાવેજ લોડ કરી શક્યા નહીં. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "સૂચનાઓ લોડ કરી શકાઈ નથી"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "કોડ મોકલી શકાયો નહીં. કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "પુનઃપ્રમાણીકરણ શરૂ કરી શકાયું નહીં. કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "તે ખાતા વડે ચકાસણી કરી શકાઈ નહીં. કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "બનાવો"
 
-#. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "{0} બનાવો"
+#~ msgid "Create {0}"
+#~ msgstr "{0} બનાવો"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "{entityLabel} બનાવો"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -830,21 +856,26 @@ msgstr "ફોરમ બનાવો"
 msgid "Create new item"
 msgstr "નવી આઇટમ બનાવો"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "બનાવ્યું"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "{field} બનાવ્યું"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "ફોરમ બનાવી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "બનાવી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "વર્તમાન સ્થાન"
 
@@ -861,11 +892,11 @@ msgstr "ડાર્ક"
 msgid "Data conflict"
 msgstr "ડેટા સંઘર્ષ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "તારીખ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:913
 msgid "days"
 msgstr "દિવસો"
 
@@ -877,7 +908,7 @@ msgstr "નકારો"
 msgid "Default"
 msgstr "ડિફૉલ્ટ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:570
 msgid "Default account"
 msgstr "ડિફૉલ્ટ ખાતું"
 
@@ -885,32 +916,32 @@ msgstr "ડિફૉલ્ટ ખાતું"
 msgid "Default AI account"
 msgstr "ડિફૉલ્ટ AI ખાતું"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "ડિફૉલ્ટ સૉર્ટ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: src/routes/_authenticated/$forum_.settings.tsx:419
 msgid "Delete"
 msgstr "કાઢી નાખો"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "જોડાણ કાઢી નાખો"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "કૉલમ કાઢી નાખો"
 
@@ -919,26 +950,26 @@ msgstr "કૉલમ કાઢી નાખો"
 msgid "Delete comment"
 msgstr "ટિપ્પણી કાઢી નાખો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "ફીલ્ડ કાઢી નાખો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:410
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum"
 msgstr "ફોરમ કાઢી નાખો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "ફોરમ કાઢી નાખવો છે?"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "વિકલ્પ કાઢી નાખો"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "વિકલ્પ {0} કાઢી નાખો"
 
@@ -946,13 +977,21 @@ msgstr "વિકલ્પ {0} કાઢી નાખો"
 msgid "Delete post"
 msgstr "પોસ્ટ કાઢી નાખો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "દૃશ્ય કાઢી નાખો"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:95
 msgid "Delete your account on the old server"
 msgstr "જૂના સર્વર પર તમારું ખાતું કાઢી નાખો"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "કાઢી નાખ્યું"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "{field} કાઢી નાખ્યું"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
@@ -962,7 +1001,7 @@ msgstr "ફોરમ કાઢી રહ્યું છે..."
 msgid "Descending"
 msgstr "ઊતરતો ક્રમ"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "વર્ણન"
 
@@ -985,11 +1024,11 @@ msgstr "વિગતો પૅનલ"
 msgid "Detect from web browser"
 msgstr "વેબ બ્રાઉઝરમાંથી શોધો"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:190
 msgid "Directory"
 msgstr "નિર્દેશિકા"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:558
 msgid "Disabled"
 msgstr "નિષ્ક્રિય"
 
@@ -1006,8 +1045,8 @@ msgstr "ડ્રાફ્ટ રદ કરવો?"
 msgid "Disconnected"
 msgstr "ડિસ્કનેક્ટેડ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:74
+#: ../../../lib/web/src/components/restore-banner.tsx:80
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "રદ કરો"
@@ -1021,18 +1060,23 @@ msgstr "બેનર રદ કરો"
 msgid "Displays the mobile sidebar."
 msgstr "મોબાઇલ સાઇડબાર દર્શાવે છે."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "જરૂરી પેટર્ન સાથે મેળ ખાતું નથી"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "થઈ ગયું"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
 msgid "Download"
 msgstr "ડાઉનલોડ કરો"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "ડાઉનલોડ નિષ્ફળ"
 
@@ -1051,7 +1095,7 @@ msgstr "ડિસ્લેક્સિયા-મૈત્રીપૂર્ણ"
 msgid "Edit"
 msgstr "સંપાદિત કરો"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "{label} સંપાદિત કરો"
 
@@ -1059,21 +1103,21 @@ msgstr "{label} સંપાદિત કરો"
 msgid "Edit caption"
 msgstr "કૅપ્શન સંપાદિત કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "ફીલ્ડ એડિટ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "ફીલ્ડ સેટિંગ્સ એડિટ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "વિકલ્પ સંપાદિત કરો"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "વિકલ્પ {0} એડિટ કરો"
 
@@ -1086,7 +1130,7 @@ msgstr "પોસ્ટ એડિટ કરો"
 msgid "Edit selected card"
 msgstr "પસંદ કરેલ કાર્ડ સંપાદિત કરો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "વ્યૂ એડિટ કરો"
 
@@ -1094,23 +1138,23 @@ msgstr "વ્યૂ એડિટ કરો"
 msgid "Email"
 msgstr "ઇમેઇલ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "ઇમેઇલ કોડ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "Enter banner text (markdown supported)..."
 msgstr "બેનર ટેક્સ્ટ દાખલ કરો (માર્કડાઉન સપોર્ટેડ)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "તમારા ઈમેલમાંથી કોડ દાખલ કરો"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "તમારો ઑથેન્ટિકેટર કોડ દાખલ કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "એન્ટિટી ID"
 
@@ -1132,6 +1176,10 @@ msgstr "બાહ્ય URL"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "વધારાનું મોટું"
+
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "એકાઉન્ટ ઉમેરવામાં નિષ્ફળ"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1178,7 +1226,7 @@ msgstr "લિંક બનાવવામાં નિષ્ફળ"
 msgid "Failed to delete attachment"
 msgstr "એટેચમેન્ટ કાઢી નાખવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "કમેન્ટ કાઢી નાખવામાં નિષ્ફળ"
 
@@ -1198,7 +1246,7 @@ msgstr "RSS ટોકન મેળવવામાં નિષ્ફળ"
 msgid "Failed to load"
 msgstr "લોડ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Failed to load access rules"
 msgstr "ઍક્સેસ નિયમો લોડ કરવામાં નિષ્ફળ"
 
@@ -1206,7 +1254,7 @@ msgstr "ઍક્સેસ નિયમો લોડ કરવામાં ન�
 msgid "Failed to load forum"
 msgstr "ફોરમ લોડ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:158
 msgid "Failed to load forum settings"
 msgstr "ફોરમ સેટિંગ્સ લોડ કરવામાં નિષ્ફળ"
 
@@ -1214,7 +1262,7 @@ msgstr "ફોરમ સેટિંગ્સ લોડ કરવામાં �
 msgid "Failed to load forums"
 msgstr "ફોરમ્સ લોડ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:665
 msgid "Failed to load groups"
 msgstr "જૂથો લોડ કરવામાં નિષ્ફળ"
 
@@ -1222,7 +1270,7 @@ msgstr "જૂથો લોડ કરવામાં નિષ્ફળ"
 msgid "Failed to load history"
 msgstr "ઇતિહાસ લોડ કરવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load image"
 msgstr "છબી લોડ કરવામાં નિષ્ફળ"
 
@@ -1234,7 +1282,7 @@ msgstr "મૉડરેશન લૉગ લોડ કરવામાં નિ�
 msgid "Failed to load moderation queue"
 msgstr "મધ્યસ્થી કતાર લોડ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Failed to load moderation settings"
 msgstr "મધ્યસ્થી સેટિંગ્સ લોડ કરવામાં નિષ્ફળ"
 
@@ -1255,7 +1303,7 @@ msgstr "રિપોર્ટ્સ લોડ કરવામાં નિષ્
 msgid "Failed to load restrictions"
 msgstr "પ્રતિબંધો લોડ કરવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load video"
 msgstr "વિડિઓ લોડ કરવામાં નિષ્ફળ"
 
@@ -1267,7 +1315,7 @@ msgstr "યુઝરને મ્યૂટ કરવામાં નિષ્ફ
 msgid "Failed to mute users"
 msgstr "યુઝર્સને મ્યૂટ કરવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "કમેન્ટ પોસ્ટ કરવામાં નિષ્ફળ"
 
@@ -1275,7 +1323,7 @@ msgstr "કમેન્ટ પોસ્ટ કરવામાં નિષ્ફ
 msgid "Failed to reject items"
 msgstr "આઇટમ્સ નકારવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:702
 msgid "Failed to remove access"
 msgstr "ઍક્સેસ દૂર કરવામાં નિષ્ફળ"
 
@@ -1292,7 +1340,7 @@ msgstr "પ્રતિબંધ દૂર કરવામાં નિષ્ફ
 msgid "Failed to remove saved post"
 msgstr "સાચવેલ પોસ્ટ દૂર કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Failed to rename forum"
 msgstr "ફોરમનું નામ બદલવામાં નિષ્ફળ"
 
@@ -1308,7 +1356,7 @@ msgstr "રિપોર્ટ ઉકેલવામાં નિષ્ફળ"
 msgid "Failed to revoke RSS access"
 msgstr "RSS ઍક્સેસ રદ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: src/routes/_authenticated/$forum_.settings.tsx:825
 msgid "Failed to save moderation settings"
 msgstr "મૉડરેશન સેટિંગ્સ સેવ કરવામાં નિષ્ફળ"
 
@@ -1325,11 +1373,11 @@ msgstr "પ્રોમ્પ્ટ સેવ કરવામાં નિષ્
 msgid "Failed to search forums"
 msgstr "ફોરમ્સ સર્ચ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:662
 msgid "Failed to search users"
 msgstr "વપરાશકર્તાઓ શોધવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:690
 msgid "Failed to set access level"
 msgstr "ઍક્સેસ લેવલ સેટ કરવામાં નિષ્ફળ"
 
@@ -1341,24 +1389,24 @@ msgid "Failed to subscribe"
 msgstr "સબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Failed to unsubscribe"
 msgstr "અનસબ્સ્ક્રાઇબ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:717
 msgid "Failed to update access level"
 msgstr "ઍક્સેસ લેવલ અપડેટ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:532
+#: src/routes/_authenticated/$forum_.settings.tsx:544
 msgid "Failed to update AI settings"
 msgstr "AI સેટિંગ્સ અપડેટ કરવામાં નિષ્ફળ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Failed to update banner"
 msgstr "બેનર અપડેટ કરવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "કમેન્ટ અપડેટ કરવામાં નિષ્ફળ"
 
@@ -1366,9 +1414,9 @@ msgstr "કમેન્ટ અપડેટ કરવામાં નિષ્ફ
 msgid "Failed to upload attachment"
 msgstr "એટેચમેન્ટ અપલોડ કરવામાં નિષ્ફળ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
 #: src/features/forums/components/edit-post-dialog.tsx:319
 msgid "Files"
@@ -1383,15 +1431,15 @@ msgstr "ટેગ દ્વારા ફિલ્ટર કરેલું:"
 msgid "Find forums"
 msgstr "ફોરમ્સ શોધો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:372
 msgid "Fingerprint"
 msgstr "આંગળાની છાપ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:83
 msgid "Finish moving your account"
 msgstr "તમારું ખાતું ખસેડવાનું પૂર્ણ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "ફ્લેગ્સ"
 
@@ -1400,6 +1448,9 @@ msgid "Flat"
 msgstr "સપાટ"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
+msgid "forum"
+msgstr "ફોરમ"
+
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1423,23 +1474,23 @@ msgstr "ફોરમ હવે ઉપલબ્ધ નથી"
 msgid "Forum link"
 msgstr "ફોરમ લિંક"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:346
 msgid "Forum name is required"
 msgstr "ફોરમનું નામ જરૂરી છે"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:247
 msgid "Forum not found"
 msgstr "ફોરમ મળ્યું નહીં"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:201
 msgid "Forum renamed"
 msgstr "ફોરમનું નામ બદલ્યું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:275
 msgid "Forum settings sections"
 msgstr "ફોરમ સેટિંગ્સ વિભાગો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:247
 msgid "Forum unavailable"
 msgstr "ફોરમ અનુપલબ્ધ"
 
@@ -1454,11 +1505,11 @@ msgstr "ફોરમ્સ"
 msgid "Friday"
 msgstr "શુક્રવાર"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:183
 msgid "Friends"
 msgstr "મિત્રો"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "તરફથી"
 
@@ -1470,8 +1521,8 @@ msgstr "તરફથી"
 msgid "From theme"
 msgstr "થીમમાંથી"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "પાછા જાઓ"
 
@@ -1479,7 +1530,7 @@ msgstr "પાછા જાઓ"
 msgid "Group"
 msgstr "ગ્રુપ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "આના આધારે જૂથ કરો"
 
@@ -1504,8 +1555,8 @@ msgstr "ઇતિહાસ"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "હોમ"
 
@@ -1513,16 +1564,16 @@ msgstr "હોમ"
 msgid "Hot"
 msgstr "હૉટ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "આઈડી"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:355
 msgid "Identity"
 msgstr "ઓળખ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Image viewer: {0}"
 msgstr "છબી દર્શક: {0}"
 
@@ -1542,6 +1593,10 @@ msgstr "આદ્યાક્ષર અવતાર"
 msgid "Initials avatar for {name}"
 msgstr "{name} માટે આદ્યાક્ષર અવતાર"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "રુચિ {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "રુચિ વધારી"
@@ -1559,7 +1614,7 @@ msgstr "રુચિ દૂર કરી"
 msgid "Interests"
 msgstr "રુચિઓ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "અમાન્ય તારીખ"
 
@@ -1580,13 +1635,17 @@ msgstr "કીબોર્ડ શૉર્ટકટ્સ"
 msgid "Large"
 msgstr "મોટું"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "લેઆઉટ"
 
 #: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "ફક્ત અક્ષરો, અંકો, જગ્યાઓ અને હાઇફન"
+#~ msgid "Letters, numbers, spaces, and hyphens only"
+#~ msgstr "ફક્ત અક્ષરો, અંકો, જગ્યાઓ અને હાઇફન"
+
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "ફક્ત અક્ષરો, અંકો, જગ્યાઓ, હાઇફન અને સ્લેશ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1600,11 +1659,11 @@ msgstr "લિંક"
 msgid "Links"
 msgstr "લિંક્સ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "લિસ્ટ"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "વધુ લોડ કરો"
 
@@ -1612,7 +1671,7 @@ msgstr "વધુ લોડ કરો"
 msgid "Loading content…"
 msgstr "સામગ્રી લોડ થઈ રહી છે…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "લોડ થઈ રહ્યું છે..."
@@ -1654,8 +1713,8 @@ msgstr "શ્રેણીઓ મેનેજ કરો"
 msgid "Manual"
 msgstr "મેન્યુઅલ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "બધાને વાંચેલા તરીકે માર્ક કરો"
 
@@ -1663,7 +1722,7 @@ msgstr "બધાને વાંચેલા તરીકે માર્ક �
 msgid "Markdown supported"
 msgstr "Markdown સપોર્ટેડ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "મહત્તમ લંબાઈ"
 
@@ -1674,6 +1733,10 @@ msgstr "MCP સર્વર"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "મધ્યમ"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "સભ્યો"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1687,7 +1750,7 @@ msgstr "સંદેશ"
 msgid "Metric"
 msgstr "મેટ્રિક"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "ન્યૂનતમ લંબાઈ"
 
@@ -1700,14 +1763,14 @@ msgstr "ખોટી માહિતી"
 msgid "Mochi web"
 msgstr "Mochi વેબ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "મધ્યસ્થી, પોસ્ટ, ટિપ્પણી, મત અને જુઓ"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "મોડરેશન"
 
@@ -1732,6 +1795,14 @@ msgstr "સોમવાર"
 msgid "More options"
 msgstr "વધુ વિકલ્પો"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "ખસેડ્યું"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "{field} ખસેડ્યું"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "મ્યૂટ"
@@ -1745,34 +1816,39 @@ msgstr "લેખકને મ્યૂટ કરો"
 msgid "Muted"
 msgstr "મ્યૂટ કરેલ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:359
 msgid "Name"
 msgstr "નામ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Name cannot contain < or > characters"
 msgstr "નામમાં < અથવા > અક્ષરો ન હોઈ શકે"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "નામમાં ખૂણા કૌંસ, બેકસ્લેશ, અર્ધવિરામ, અવતરણ ચિહ્નો અથવા બેકટિક ન હોઈ શકે"
+#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+#~ msgstr "નામમાં ખૂણા કૌંસ, બેકસ્લેશ, અર્ધવિરામ, અવતરણ ચિહ્નો અથવા બેકટિક ન હોઈ શકે"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "નામ આવશ્યક છે"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:347
 msgid "Name must be 1000 characters or less"
 msgstr "નામ 1000 અક્ષરો અથવા તેથી ઓછું હોવું જોઈએ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "નેટવર્ક ભૂલ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1790,20 +1866,20 @@ msgstr "નવી ગેમ"
 msgid "New post"
 msgstr "નવી પોસ્ટ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "New threads must be approved"
 msgstr "નવા થ્રેડ્સ મંજૂર કરવા જરૂરી છે"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:901
 msgid "New user threshold:"
 msgstr "નવા વપરાશકર્તાની મર્યાદા:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
 msgid "Next image"
 msgstr "આગળની છબી"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
 msgid "No {parentClassNames} to add to"
 msgstr "ઉમેરવા માટે કોઈ {parentClassNames} નથી"
 
@@ -1811,7 +1887,7 @@ msgstr "ઉમેરવા માટે કોઈ {parentClassNames} નથી"
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} અહેવાલો મળ્યા નથી"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "કોઈ ઍક્સેસ નથી"
 
@@ -1819,7 +1895,7 @@ msgstr "કોઈ ઍક્સેસ નથી"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "કોઈ ઍક્સેસ નિયમો કન્ફિગર કર્યા નથી. આ રિસોર્સ કોણ ઍક્સેસ કરી શકે તે નિયંત્રિત કરવા માટે નિયમો ઉમેરો."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "હજુ સુધી કોઈ પ્રવૃત્તિ નથી"
 
@@ -1827,7 +1903,7 @@ msgstr "હજુ સુધી કોઈ પ્રવૃત્તિ નથી"
 msgid "No comments on this image yet."
 msgstr "આ છબી પર હજી કોઈ ટિપ્પણી નથી."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "હજુ સુધી કોઈ કૉમેન્ટ્સ નથી"
 
@@ -1844,7 +1920,7 @@ msgstr "હજુ સુધી કોઈ ગેમ્સ નથી"
 msgid "No groups available"
 msgstr "કોઈ ગ્રૂપ્સ ઉપલબ્ધ નથી"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "હજુ સુધી કોઈ આઇટમ પ્રકારો બનાવી શકાતા નથી. પહેલા જરૂરી પેરન્ટ આઇટમ્સ બનાવો."
 
@@ -1856,12 +1932,12 @@ msgstr "કોઈ મેળ ખાતી ઑબ્જેક્ટ્સ નથ�
 msgid "No moderation activity"
 msgstr "કોઈ મોડરેશન પ્રવૃત્તિ નથી"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "કોઈ લોકો મળ્યા નથી"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "કોઈ સ્થળો મળ્યા નથી"
 
@@ -1877,18 +1953,18 @@ msgstr "કોઈ રિપોર્ટ્સ નથી"
 msgid "No restrictions"
 msgstr "કોઈ પ્રતિબંધો નથી"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "કોઈ પરિણામ મળ્યું નથી"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "કોઈ પરિણામો મળ્યા નથી."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "કોઈ સ્થિતિ નથી"
 
@@ -1900,7 +1976,7 @@ msgstr "કોઈ ટાઇમ ઝોન મળ્યો નથી."
 msgid "No topic record yet — try again after the next notification."
 msgstr "હજુ સુધી કોઈ ટોપિક રેકોર્ડ નથી — પછીની સૂચના પછી ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "કોઈ વાંચ્યા વગરની સૂચનાઓ નથી"
 
@@ -1917,17 +1993,17 @@ msgid "No views"
 msgstr "કોઈ વ્યૂ નથી"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:326
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "કોઈ નહીં"
@@ -1937,15 +2013,15 @@ msgid "Normal"
 msgstr "સામાન્ય"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "મળ્યું નથી"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "સેટ કર્યું નથી"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "કંઈ મળ્યું નથી"
 
@@ -1954,13 +2030,13 @@ msgid "Nothing saved yet"
 msgstr "હજુ સુધી કંઈ સાચવ્યું નથી"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "સૂચનાઓ: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "સંખ્યા"
 
@@ -1986,8 +2062,8 @@ msgstr "આ છબી પર"
 msgid "Oops! Page Not Found!"
 msgstr "ઓહ! પેજ મળ્યું નથી!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "ક્રિયાઓ ખોલો"
 
@@ -1995,13 +2071,13 @@ msgstr "ક્રિયાઓ ખોલો"
 msgid "Open menu"
 msgstr "મેનૂ ખોલો"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "નેવિગેશન ખોલો"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "વિકલ્પ ક્રિયાઓ ખોલો"
 
@@ -2009,8 +2085,8 @@ msgstr "વિકલ્પ ક્રિયાઓ ખોલો"
 msgid "Open selected card"
 msgstr "પસંદ કરેલ કાર્ડ ખોલો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "વ્યૂ ક્રિયાઓ ખોલો"
 
@@ -2019,17 +2095,17 @@ msgstr "વ્યૂ ક્રિયાઓ ખોલો"
 msgid "Open view controls"
 msgstr "વ્યૂ કન્ટ્રોલ્સ ખોલો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "વિકલ્પ નામ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Optional markdown banner shown at the top of your forum."
 msgstr "તમારા ફોરમની ટોચ પર દર્શાવાતું વૈકલ્પિક markdown બેનર."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "વિકલ્પો"
 
@@ -2043,23 +2119,23 @@ msgstr "અન્ય"
 msgid "Owner"
 msgstr "માલિક"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
 msgid "Parent"
 msgstr "પેરન્ટ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "પાસકી"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "Passkey verification failed. Please try again."
 msgstr "પાસકી ચકાસણી નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Passkeys"
 msgstr "પાસકીઝ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "પૅટર્ન (regex)"
 
@@ -2084,6 +2160,10 @@ msgstr "બાકી ટિપ્પણીઓ ({0})"
 msgid "Pending posts ({0})"
 msgstr "બાકી પોસ્ટ્સ ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:176
+msgid "People"
+msgstr "લોકો"
+
 #: src/features/forums/components/create-post-dialog.tsx:268
 #: src/features/forums/components/edit-post-dialog.tsx:318
 msgid "Photos and videos"
@@ -2098,7 +2178,7 @@ msgid "Pinned"
 msgstr "પિન કરેલ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "કૃપા કરી તમારું ઇન્ટરનેટ કનેક્શન તપાસો અને ફરી પ્રયાસ કરો."
@@ -2112,14 +2192,14 @@ msgid "Please enter a reply"
 msgstr "કૃપા કરીને જવાબ દાખલ કરો"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "આ સંસાધનને ઍક્સેસ કરવા માટે <0/> કૃપા કરીને યોગ્ય ઓળખપત્રો સાથે લોગ ઇન કરો."
+#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
+#~ msgstr "આ સંસાધનને ઍક્સેસ કરવા માટે <0/> કૃપા કરીને યોગ્ય ઓળખપત્રો સાથે લોગ ઇન કરો."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "કૃપા કરીને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "કૃપા કરીને થોડી રાહ જુઓ અને ફરી પ્રયાસ કરો."
 
@@ -2139,7 +2219,7 @@ msgstr "પોસ્ટ ફોરમ સર્વર પર સાચવી શ�
 msgid "Post deleted"
 msgstr "પોસ્ટ ડિલીટ થઈ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:926
 msgid "Post limit"
 msgstr "પોસ્ટ મર્યાદા"
 
@@ -2179,11 +2259,11 @@ msgstr "પોસ્ટ અનપિન કરી"
 msgid "Post updated"
 msgstr "પોસ્ટ અપડેટ થઈ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "પોસ્ટ, ટિપ્પણી, મત અને જુઓ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:936
 msgid "posts"
 msgstr "પોસ્ટ"
 
@@ -2195,16 +2275,16 @@ msgstr "પોસ્ટ્સ"
 msgid "Posts and comments"
 msgstr "પોસ્ટ્સ અને કૉમેન્ટ્સ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Pre-moderation"
 msgstr "પ્રી-મોડરેશન"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:922
 msgid "Prevent spam by limiting how often users can post"
 msgstr "યુઝર્સ કેટલી વાર પોસ્ટ કરી શકે તે મર્યાદિત કરીને સ્પામ અટકાવો"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
 msgid "Previous image"
 msgstr "પાછળની છબી"
 
@@ -2218,8 +2298,8 @@ msgid "Processing…"
 msgstr "પ્રક્રિયા થઈ રહી છે…"
 
 #: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "પ્રોજેક્ટ સભ્યો"
+#~ msgid "Project members"
+#~ msgstr "પ્રોજેક્ટ સભ્યો"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2245,15 +2325,15 @@ msgstr "કતાર"
 msgid "Raised"
 msgstr "ઊંચું"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:921
 msgid "Rate limiting"
 msgstr "રેટ લિમિટિંગ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:104
 msgid "Re-link your accounts on this server"
 msgstr "આ સર્વર પર તમારા ખાતાઓ ફરીથી જોડો"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:126
 msgid "Re-register your passkeys on this server"
 msgstr "આ સર્વર પર તમારી પાસકી ફરીથી નોંધણી કરો"
 
@@ -2278,12 +2358,12 @@ msgstr "ભલામણ કરેલ ફોરમ્સ"
 msgid "Reconnecting ({retries})..."
 msgstr "ફરીથી કનેક્ટ થઈ રહ્યું છે ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "લોગિન પર રિડાયરેક્ટ થઈ રહ્યું છે."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "રસ ઘટાડો"
 
@@ -2308,9 +2388,17 @@ msgstr "સાપેક્ષ (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 કલાકની અંદર સાપેક્ષ, અન્યથા સંપૂર્ણ"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "સુસંગતતા {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "સુસંગતતા {relevance}, રુચિ {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2350,12 +2438,12 @@ msgstr "કૉમેન્ટ દૂર કરો"
 msgid "Remove from saved"
 msgstr "સાચવેલમાંથી દૂર કરો"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "રસ દૂર કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "આઇટમ દૂર કરો"
 
@@ -2368,7 +2456,7 @@ msgstr "લિંક દૂર કરો"
 msgid "Remove post"
 msgstr "પોસ્ટ દૂર કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:390
 msgid "Remove this forum from your sidebar."
 msgstr "તમારા સાઇડબારમાંથી આ ફોરમ દૂર કરો."
 
@@ -2386,28 +2474,28 @@ msgstr "સાચવેલમાંથી દૂર કરવામાં આવ
 msgid "Removing..."
 msgstr "દૂર કરી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "નામ બદલો"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "કૉલમનું નામ બદલો"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "આ બોર્ડ કૉલમનું નામ બદલો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Renaming forum..."
 msgstr "ફોરમનું નામ બદલી રહ્યું છે..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:951
 msgid "replies"
 msgstr "જવાબો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:880
 msgid "Replies must be approved"
 msgstr "જવાબો મંજૂર કરવા જરૂરી છે"
 
@@ -2458,27 +2546,27 @@ msgstr "{0} દ્વારા જાણ કરી"
 msgid "Reports"
 msgstr "રિપોર્ટ્સ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:863
 msgid "Require approval before content becomes visible"
 msgstr "સામગ્રી દેખાય તે પહેલાં મંજૂરી જરૂરી કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "Require approval for new comments"
 msgstr "નવી કૉમેન્ટ્સ માટે મંજૂરી જરૂરી કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:868
 msgid "Require approval for new posts"
 msgstr "નવી પોસ્ટ્સ માટે મંજૂરી જરૂરી કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:890
 msgid "Require approval for new users"
 msgstr "નવા યુઝર્સ માટે મંજૂરી જરૂરી કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "આવશ્યક"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "ઇમેઇલ ફરી મોકલો"
 
@@ -2520,12 +2608,12 @@ msgstr "ઍક્સેસ રદ કરો"
 msgid "Revoke RSS access?"
 msgstr "RSS ઍક્સેસ રદ કરવો છે?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "પંક્તિઓ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "પંક્તિઓ આ રીતે જૂથબદ્ધ કરો"
 
@@ -2548,11 +2636,11 @@ msgstr "શનિવાર"
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "સાચવો"
 
@@ -2582,14 +2670,14 @@ msgstr "સાચવેલી પોસ્ટ સાફ કરી"
 msgid "Saving..."
 msgstr "સાચવી રહ્યું છે..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:601
 msgid "Score prompt"
 msgstr "સ્કોર પ્રોમ્પ્ટ"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "શોધો"
 
@@ -2601,15 +2689,15 @@ msgstr "નામ, ID, ફિંગરપ્રિન્ટ, અથવા URL �
 msgid "Search for a command to run..."
 msgstr "ચલાવવા માટે કમાન્ડ શોધો..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "સ્થળ માટે શોધો"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "સ્થળ શોધો..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "ગંતવ્ય માટે શોધો..."
 
@@ -2617,7 +2705,7 @@ msgstr "ગંતવ્ય માટે શોધો..."
 msgid "Search for forums..."
 msgstr "ફોરમ માટે શોધો..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "મૂળ માટે શોધો..."
 
@@ -2639,8 +2727,8 @@ msgstr "આ વ્યૂને શોધો, જુઓ અને સોર્ટ
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:300
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "શોધો..."
@@ -2650,15 +2738,15 @@ msgstr "શોધો..."
 msgid "Searching..."
 msgstr "શોધી રહ્યું છે..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:966
 msgid "seconds"
 msgstr "સેકન્ડ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "પસંદ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "ફીલ્ડ પસંદ કરો"
 
@@ -2694,7 +2782,7 @@ msgstr "બધું પસંદ કરો"
 msgid "Select group"
 msgstr "જૂથ પસંદ કરો"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "સ્થાન પસંદ કરો"
 
@@ -2706,7 +2794,7 @@ msgstr "આગલું કાર્ડ પસંદ કરો"
 msgid "Select none"
 msgstr "કંઈપણ પસંદ ન કરો"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "વ્યક્તિ પસંદ કરો..."
 
@@ -2714,8 +2802,8 @@ msgstr "વ્યક્તિ પસંદ કરો..."
 msgid "Select previous card"
 msgstr "પાછલું કાર્ડ પસંદ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "પસંદ કરો..."
 
@@ -2728,7 +2816,7 @@ msgstr "પસંદ કરેલ: <0>{0}</0>"
 msgid "Send again"
 msgstr "ફરી મોકલો"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "ઇમેઇલ મોકલો"
 
@@ -2755,17 +2843,17 @@ msgstr "સર્વર નિયમો"
 msgid "Session expired. Please log in again."
 msgstr "સત્ર સમાપ્ત થયું છે. કૃપા કરીને ફરીથી લૉગ ઇન કરો."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "મૂળ અને ગંતવ્ય સેટ કરો"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:168
+#: src/routes/_authenticated/$forum_.settings.tsx:233
+#: src/routes/_authenticated/$forum_.settings.tsx:263
 msgid "Settings"
 msgstr "સેટિંગ્સ"
 
@@ -2773,11 +2861,11 @@ msgstr "સેટિંગ્સ"
 msgid "Shadowbanned"
 msgstr "છૂપી રીતે પ્રતિબંધિત"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "વર્ગો બતાવો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "ફીલ્ડ્સ બતાવો"
 
@@ -2789,7 +2877,7 @@ msgstr "માત્ર આ છબીની ટિપ્પણીઓ બતા�
 msgid "Show this help"
 msgstr "આ સહાય બતાવો"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} માંથી {totalShown} બતાવી રહ્યું છે"
 
@@ -2797,17 +2885,21 @@ msgstr "{total} માંથી {totalShown} બતાવી રહ્યું 
 msgid "Sidebar"
 msgstr "સાઇડબાર"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "આ સંસાધનની ઍક્સેસ ધરાવતા ખાતાથી <0/> સાઇન ઇન કરો."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "સાઇન આઉટ કરો"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "સાઇન આઉટ થઈ રહ્યું છે..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "ફક્ત ટેક્સ્ટની એક જ લાઇન"
 
@@ -2833,7 +2925,7 @@ msgstr "વિશાળ"
 msgid "Spam"
 msgstr "સ્પામ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "પ્રથમ ટિપ્પણી ઉમેરીને ચર્ચા શરૂ કરો."
 
@@ -2841,11 +2933,11 @@ msgstr "પ્રથમ ટિપ્પણી ઉમેરીને ચર્ચ
 msgid "Subject"
 msgstr "વિષય"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Submit comment"
 msgstr "ટિપ્પણી સબમિટ કરો"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Submit reply"
 msgstr "જવાબ સબમિટ કરો"
 
@@ -2857,8 +2949,8 @@ msgstr "રિપોર્ટ સબમિટ કરો"
 msgid "Submitting..."
 msgstr "સબમિટ કરી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -2902,24 +2994,24 @@ msgstr "દૃશ્ય 1-9 પર સ્વિચ કરો"
 msgid "System"
 msgstr "સિસ્ટમ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:559
 msgid "Tag"
 msgstr "ટૅગ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "ટૅગ પહેલેથી જ અસ્તિત્વમાં છે"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "ટૅગ 50 અક્ષરો કે તેથી ઓછા હોવા જોઈએ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:600
 msgid "Tag prompt"
 msgstr "ટૅગ પ્રોમ્પ્ટ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "ટૅગ્સ"
 
@@ -2932,11 +3024,11 @@ msgstr "કોઈપણ પોસ્ટને અહીં પછી માટ�
 msgid "Terms and conditions"
 msgstr "નિયમો અને શરતો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "ટેક્સ્ટ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "તે કોડ ખોટો છે અથવા સમયસમાપ્ત થઈ ગયો છે."
 
@@ -2949,7 +3041,7 @@ msgstr "મોકલી શકાયું નથી. ફાઇલો ખૂબ 
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "અપલોડ કરવા માટે ખૂબ મોટું હતું. ફાઇલો દૂર કરો કે નાની કરો અને ફરી પ્રયાસ કરો."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "વિનંતી કરેલી સામગ્રી મળી શકી નથી."
 
@@ -2961,11 +3053,11 @@ msgstr "સર્વરે ડેટાને બદલે વેબ પેજ �
 msgid "There are no moderation actions recorded yet"
 msgstr "હજુ સુધી કોઈ મોડરેશન ક્રિયાઓ રેકોર્ડ થઈ નથી"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
 msgstr "આ ફોરમ અત્યારે લોડ થઈ શક્યું નથી."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "આ ફોરમ કાઢી નાખવામાં આવ્યું હોઈ શકે છે અથવા તમને તેની ઍક્સેસ નથી."
 
@@ -2990,7 +3082,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "આ પોસ્ટને નિયમિત વપરાશકર્તાઓથી છુપાવશે. મધ્યસ્થીઓ હજુ પણ તેને જોઈ શકે છે અને પછી પુનઃસ્થાપિત કરી શકે છે."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:429
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "આ \"{0}\" અને તેની તમામ પોસ્ટ્સ અને ટિપ્પણીઓને કાયમી ધોરણે કાઢી નાખશે. આ ક્રિયા પાછી ખેંચી શકાતી નથી."
 
@@ -3019,26 +3111,28 @@ msgstr "શીર્ષક આવશ્યક છે"
 msgid "Title must be 1000 characters or less"
 msgstr "શીર્ષક 1000 અક્ષરો કે તેથી ઓછું હોવું જોઈએ"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "પ્રતિ"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "વિભાગ ટૉગલ કરો"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle sidebar"
 msgstr "સાઇડબાર ટૉગલ કરો"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
-msgstr "સાઇડબાર ટૉગલ કરો"
+#~ msgid "Toggle Sidebar"
+#~ msgstr "સાઇડબાર ટૉગલ કરો"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3049,7 +3143,7 @@ msgstr "દૃશ્ય વિકલ્પો ટૉગલ કરો"
 msgid "Toggle watched filter"
 msgstr "વૉચ કરેલ ફિલ્ટર ટૉગલ કરો"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "ઘણી બધી વિનંતીઓ"
 
@@ -3057,7 +3151,7 @@ msgstr "ઘણી બધી વિનંતીઓ"
 msgid "Top"
 msgstr "ટોચ"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "મુસાફરી કરી રહ્યું છે"
 
@@ -3065,8 +3159,8 @@ msgstr "મુસાફરી કરી રહ્યું છે"
 msgid "Try adjusting your search terms"
 msgstr "તમારી શોધ શરતોને સમાયોજિત કરવાનો પ્રયાસ કરો"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "ફરી પ્રયાસ કરો"
 
@@ -3074,12 +3168,12 @@ msgstr "ફરી પ્રયાસ કરો"
 msgid "Tuesday"
 msgstr "મંગળવાર"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "પ્રકાર"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "કમાન્ડ ટાઇપ કરો અથવા શોધો..."
 
@@ -3099,8 +3193,8 @@ msgstr "શોધવા માટે ટાઇપ કરો..."
 msgid "Unable to connect to remote server"
 msgstr "રિમોટ સર્વર સાથે કનેક્ટ કરી શકાયું નથી"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "લૉગિન પર રીડાયરેક્ટ કરી શકાતું નથી. કૃપા કરીને ફરી પ્રયાસ કરો."
 
@@ -3109,15 +3203,15 @@ msgid "Unassigned"
 msgstr "અસોંપાયેલ"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "અનધિકૃત ઍક્સેસ"
+#~ msgid "Unauthorized Access"
+#~ msgstr "અનધિકૃત ઍક્સેસ"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "અનુપલબ્ધ"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "અનપેક્ષિત API ભૂલ"
 
@@ -3125,6 +3219,11 @@ msgstr "અનપેક્ષિત API ભૂલ"
 msgid "United States"
 msgstr "યુનાઇટેડ સ્ટેટ્સ"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3142,11 +3241,11 @@ msgstr "અનપિન કરો"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/routes/_authenticated/$forum_.settings.tsx:401
 msgid "Unsubscribe"
 msgstr "અનસબ્સ્ક્રાઇબ કરો"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:389
 msgid "Unsubscribe from forum"
 msgstr "ફોરમ માંથી અનસબ્સ્ક્રાઇબ કરો"
 
@@ -3155,28 +3254,33 @@ msgid "Unsubscribe from forum?"
 msgstr "ફોરમમાંથી સબ્સ્ક્રિપ્શન રદ કરવું?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/routes/_authenticated/$forum_.settings.tsx:179
 msgid "Unsubscribed"
 msgstr "અનસબ્સ્ક્રાઇબ કર્યું"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Unsubscribing..."
 msgstr "અનસબ્સ્ક્રાઇબ કરી રહ્યું છે..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "શીર્ષક વગરનું"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "અપડેટ કર્યું"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "{field} અપડેટ કર્યું"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "અપલોડ કરો"
 
@@ -3184,13 +3288,13 @@ msgstr "અપલોડ કરો"
 msgid "Upload progress"
 msgstr "અપલોડ પ્રગતિ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "તમારી પાસકીનો ઉપયોગ કરો"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "વપરાશકર્તા"
 
@@ -3210,7 +3314,7 @@ msgstr "વેરિએબલ્સ: {variables}"
 msgid "Verification code"
 msgstr "ચકાસણી કોડ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ચકાસો"
@@ -3219,17 +3323,17 @@ msgstr "ચકાસો"
 msgid "Verify email address"
 msgstr "ઈમેઇલ સરનામું ચકાસો"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "વિડિયો થંબનેલ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
 msgid "Video viewer: {0}"
 msgstr "વિડિઓ દર્શક: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "બધી સૂચનાઓ જુઓ"
 
@@ -3237,7 +3341,7 @@ msgstr "બધી સૂચનાઓ જુઓ"
 msgid "View controls"
 msgstr "નિયંત્રણો જુઓ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "ફક્ત જુઓ"
 
@@ -3250,7 +3354,7 @@ msgstr "આ ટિપ્પણી જે છબી વિશે છે તે �
 msgid "Violence"
 msgstr "હિંસા"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "મત આપો અને જુઓ"
 
@@ -3272,7 +3376,7 @@ msgstr "અમે <0>{0}</0> પર ચકાસણી કોડ મોકલ્
 msgid "Wednesday"
 msgstr "બુધવાર"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:956
 msgid "Window duration"
 msgstr "વિન્ડો સમયગાળો"
 
@@ -3291,7 +3395,7 @@ msgstr "તમે ખૂબ ઝડપથી પોસ્ટ કરી રહ્�
 msgid "You are restricted from posting in this forum"
 msgstr "આ ફોરમમાં પોસ્ટ કરવા પર તમે પ્રતિબંધિત છો"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "તમારી પાસે આ વિભાગની ઍક્સેસ નથી."
 
@@ -3307,7 +3411,7 @@ msgstr "તમારી પાસે હજુ સુધી કોઈ ફોર�
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "તમે આ ફોરમમાંથી અપડેટ્સ મેળવવાનું બંધ કરશો. તમે કોઈપણ સમયે ફરીથી સબ્સ્ક્રાઇબ કરી શકો છો."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "તમારું ખાતું {source} પરથી અહીં ખસેડવામાં આવ્યું. જ્યાં સુધી તમે ત્યાં તેને કાઢી ન નાખો, સંદેશા અને સૂચનાઓ બંને સર્વર સુધી પહોંચી શકે, કેટલીક સામગ્રી જૂના સર્વરથી પ્રદાન કરાતી રહે, અને ફૉલોઅર્સ ને તમને અહીં શોધવામાં થોડી મિનિટ લાગી શકે."
 

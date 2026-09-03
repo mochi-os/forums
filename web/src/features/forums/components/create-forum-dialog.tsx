@@ -49,7 +49,7 @@ export function CreateForumDialog({
       onOpenChange={onOpenChange}
       icon={MessageSquare}
       title={t`Create forum`}
-      entityLabel={t`Forum`}
+      entityLabel={t`forum`}
       showPrivacyToggle
       privacyLabel={t`Allow anyone to search for forum`}
       onSubmit={handleSubmit}

@@ -42,6 +42,7 @@ import {
   SelectValue, naturalCompare,
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
+  DISALLOWED_NAME_CHARS,
 } from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
@@ -56,9 +57,6 @@ import {
   useGroups,
   useUserSearch,
 } from '@/hooks/use-forums-queries'
-
-// Characters disallowed in forum names (matches backend validation)
-const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 
 type TabId = 'general' | 'access' | 'moderation'
 
