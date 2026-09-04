@@ -32,10 +32,6 @@ msgstr " · مستقل"
 msgid " (edited)"
 msgstr " (تبديل ٿيل)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-#~ msgid " or "
-#~ msgstr " يا "
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(تبديل ٿيل)"
@@ -55,7 +51,7 @@ msgstr "{0, plural, one {# نئين پوسٽ} other {# نيون پوسٽون}}"
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# چونڊيل} other {# چونڊيل}}"
@@ -81,19 +77,19 @@ msgstr "{0, plural, one {# صارف خاموش ڪيو ويو} other {# صارف 
 msgid "{0} settings"
 msgstr "{0} سيٽنگون"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ڏ} other {#ڏ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ڪ} other {#ڪ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#م} other {#م}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ه} other {#ه}}"
 
@@ -108,10 +104,6 @@ msgstr "{count, plural, one {# شيء رد ٿي} other {# شيون رد ٿيون
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} جو نالو"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-#~ msgid "{entityLabel} name is required"
-#~ msgstr "{entityLabel} جو نالو گھربل آهي"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -142,18 +134,6 @@ msgstr "{totalDescendants, plural, one {# جواب} other {+# وڌيڪ جواب}
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {مينيو کوليو (# اڻ پڙهيل اطلاع)} other {مينيو کوليو (# اڻ پڙهيل اطلاعون)}}"
 
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-#~ msgid "+{0} nested"
-#~ msgstr "+{0} اندروني"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-#~ msgid "+{totalDescendants} more replies"
-#~ msgstr "+{totalDescendants} وڌيڪ جواب"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-#~ msgid "1 reply"
-#~ msgstr "1 جواب"
-
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
 msgstr "12 ڪلاڪ"
@@ -161,6 +141,10 @@ msgstr "12 ڪلاڪ"
 #: ../../../lib/web/src/lib/preference-utils.ts:36
 msgid "24 hours"
 msgstr "24 ڪلاڪ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "رڪارڊنگ اڳ ۾ ئي جاري آهي."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
@@ -315,10 +299,6 @@ msgstr "سڀ فورم"
 #: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "سڀ پوسٽون ۽ تبصرا جائزو ورتو ويو"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-#~ msgid "Allow anyone to search for {0}"
-#~ msgstr "ڪنھن کي به {0} ڳولڻ جي اجازت ڏيو"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
 msgid "Allow anyone to search for {entityLabel}"
@@ -517,6 +497,14 @@ msgstr "{0} طرفان"
 msgid "By {0}"
 msgstr "{0} پاران"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "ڪئميرا جي اجازت رد ڪئي وئي"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "ڪئميرا موجود ناهي"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -545,6 +533,12 @@ msgstr "تبصرو منسوخ ڪريو"
 #: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "جواب منسوخ ڪريو"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "منسوخ ٿيل"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -620,8 +614,8 @@ msgstr "محفوظ ٿيل پوسٽون صاف ٿي رهيون آهن..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "بند ڪريو"
@@ -728,8 +722,8 @@ msgstr "تبصرو اپڊيٽ"
 msgid "Comment, vote, and view"
 msgstr "تبصرو، ووٽ، ۽ ڏسو"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "تبصرا"
 
@@ -830,10 +824,6 @@ msgstr "ان اڪائونٽ سان تصديق نه ٿي سگهي. مهرباني
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "ٺاهيو"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-#~ msgid "Create {0}"
-#~ msgstr "{0} ٺاھيو"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
 msgid "Create {entityLabel}"
@@ -981,7 +971,7 @@ msgstr "پوسٽ ختم ڪريو"
 msgid "Delete view"
 msgstr "نظارو ختم ڪريو"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "پراڻي سرور تي پنهنجو اڪائونٽ ختم ڪريو"
 
@@ -1024,7 +1014,7 @@ msgstr "تفصيل پينل"
 msgid "Detect from web browser"
 msgstr "ويب براؤزر کان معلوم ڪريو"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "ڊائريڪٽري"
 
@@ -1045,8 +1035,8 @@ msgstr "مسودو رد ڪجي؟"
 msgid "Disconnected"
 msgstr "ڳنڍيل ناهي"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "رد ڪريو"
@@ -1070,8 +1060,8 @@ msgid "Done"
 msgstr "مڪمل"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "ڊائون لوڊ"
 
@@ -1270,7 +1260,7 @@ msgstr "گروپ لوڊ ڪرڻ ۾ ناڪام"
 msgid "Failed to load history"
 msgstr "تاريخ لوڊ ڪرڻ ۾ ناڪام"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "تصوير لوڊ ٿي نه سگهيو"
 
@@ -1303,7 +1293,7 @@ msgstr "رپورٽون لوڊ ڪرڻ ۾ ناڪام"
 msgid "Failed to load restrictions"
 msgstr "پابنديون لوڊ ڪرڻ ۾ ناڪام"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "وڊيو لوڊ ٿي نه سگهيو"
 
@@ -1435,7 +1425,7 @@ msgstr "فورمَ ڳوليو"
 msgid "Fingerprint"
 msgstr "فنگر پرنٽ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "پنهنجو اڪائونٽ منتقل ڪرڻ پورو ڪريو"
 
@@ -1505,7 +1495,7 @@ msgstr "فورمَ"
 msgid "Friday"
 msgstr "جمعو"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "دوست"
 
@@ -1573,7 +1563,7 @@ msgid "Identity"
 msgstr "سڃاڻپ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "تصوير ڏسڻ وارو: {0}"
 
@@ -1622,7 +1612,7 @@ msgstr "غلط تاريخ"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "لڳي ٿو ته جيڪو صفحو توھان ڳولي رھيا آھيو <0/>اھو موجود ناھي يا ھٽايو ويو آھي."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "هينئر ئي"
 
@@ -1638,10 +1628,6 @@ msgstr "وڏو"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "ليئوٽ"
-
-#: ../../../lib/web/src/components/post-tags.tsx:72
-#~ msgid "Letters, numbers, spaces, and hyphens only"
-#~ msgstr "صرف اکر، انگ، خالي جاءِ ۽ ڊيش"
 
 #: ../../../lib/web/src/components/post-tags.tsx:73
 msgid "Letters, numbers, spaces, hyphens, and slashes only"
@@ -1750,6 +1736,10 @@ msgstr "پيغام"
 msgid "Metric"
 msgstr "ميٽرڪ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "مائيڪروفون جي اجازت رد ٿيل"
+
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "گھٽ ۾ گھٽ ڊگھائي"
@@ -1830,10 +1820,6 @@ msgstr "نالو"
 msgid "Name cannot contain < or > characters"
 msgstr "نالي ۾ < يا > اکر شامل نه ٿي سگھن ٿا"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-#~ msgstr "نالي ۾ ڪنڊائتا ڏنگا، بيڪ سليش، سيمي ڪالن، اقتباسي نشان يا بيڪ ٽڪ نه ٿا ٿي سگهن"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
 msgid "Name is required"
 msgstr "نالو گهربل آهي"
@@ -1874,8 +1860,8 @@ msgstr "نيون ٿريڊون منظور ٿيڻ گهرجن"
 msgid "New user threshold:"
 msgstr "نئين يوزر جي حد:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "اڳيون تصوير"
 
@@ -2003,7 +1989,7 @@ msgstr "ڪا ڏيک نه آهي"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "ڪا به نه"
@@ -2128,12 +2114,17 @@ msgid "Passkey"
 msgstr "پاس ڪيئي"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "پاس ڪي جي تصديق ناڪام ٿي. مهرباني ڪري ٻيهر ڪوشش ڪريو."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "پاسي ڪيز"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Passkeys هن برائوزر ۾ موجود ناهن"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2160,7 +2151,7 @@ msgstr "زير التوا تبصرا ({0})"
 msgid "Pending posts ({0})"
 msgstr "زير التوا پوسٽون ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 msgid "People"
 msgstr "ماڻهو"
 
@@ -2190,10 +2181,6 @@ msgstr "مهرباني ڪري مسئلي جي وضاحت ڪريو..."
 #: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "مهرباني ڪري هڪ جواب داخل ڪريو"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
-#~ msgstr "مهرباني ڪري ھن وسيلي تائين رسائي لاءِ <0/> مناسب سندن سان لاگ ان ٿيو."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
@@ -2283,8 +2270,8 @@ msgstr "اڳ-اعتدال"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "اسپام کي روڪڻ لاءِ يوزر ڪيتري دفعا پوسٽ ڪري سگهن ٿا ان کي محدود ڪريو"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "پوئيون تصوير"
 
@@ -2296,10 +2283,6 @@ msgstr "رازداري"
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:50
 msgid "Processing…"
 msgstr "پروسيس ٿي رهيو آهي…"
-
-#: ../../../lib/web/src/components/person-picker.tsx:200
-#~ msgid "Project members"
-#~ msgstr "منصوبي جا ميمبر"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2329,11 +2312,11 @@ msgstr "مٿي ٿيل"
 msgid "Rate limiting"
 msgstr "ريٽ محدود ڪرڻ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "هن سرور تي پنهنجا اڪائونٽ ٻيهر ڳنڍيو"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "هن سرور تي پنهنجون پاسي ڪيز ٻيهر رجسٽر ڪريو"
 
@@ -2357,6 +2340,14 @@ msgstr "تجويز ڪيل فورم"
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Reconnecting ({retries})..."
 msgstr "ٻيهر ڳنڍجي رهيو آهي ({retries})..."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "رڪارڊنگ ناڪام ٿي. مهرباني ڪري ٻيهر ڪوشش ڪريو."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "رڪارڊنگ ۾ ڪو آواز ناهي"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
@@ -2728,7 +2719,7 @@ msgstr "هن ڏيک کي ڳوليو، ڏسو، ۽ ترتيب ڏيو."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "ڳوليو..."
@@ -3041,6 +3032,22 @@ msgstr "موڪلي نه سگهيو. ٿي سگهي ٿو فائلون تمام و�
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "اپلوڊ لاءِ تمام وڏو هو. فائلون هٽايو يا ننڍيون ڪريو ۽ ٻيهر ڪوشش ڪريو."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "ڪئميرا اڳ ۾ ئي استعمال ۾ آهي"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "ڪئميرا درخواست جو جواب نه مليو"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "مائڪروفون درخواست جو جواب نه مليو"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Passkey درخواست جو جواب نه مليو"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "گهربل مواد نه ملي سگهيو."
@@ -3052,6 +3059,10 @@ msgstr "سرور ڊيٽا جي بجاءِ ويب پيج موٽايو."
 #: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "اڃا تائين ڪا به ماڊريشن جا عمل رڪارڊ نه ٿيا آھن"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "هن ايپ کي توهان جي passkey استعمال ڪرڻ جي اجازت ناهي. سيٽنگن ۾، اجازتن هيٺ ان کي اجازت ڏيو."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
@@ -3129,11 +3140,6 @@ msgstr "سيڪشن ٽوگل ڪريو"
 msgid "Toggle sidebar"
 msgstr "سائڊبار ٽوگل ڪريو"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
-#~ msgid "Toggle Sidebar"
-#~ msgstr "سائيڊبار ٽوگل ڪريو"
-
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
 msgstr "ڏيک اختيار ٽوگل ڪريو"
@@ -3201,10 +3207,6 @@ msgstr "لاگ ان ڏانھن ريڊائريڪٽ ڪرڻ ۾ ناڪام. مھرب
 #: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "غير تفويض ٿيل"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-#~ msgid "Unauthorized Access"
-#~ msgstr "غير مجاز رسائي"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
@@ -3328,7 +3330,7 @@ msgid "Video thumbnail"
 msgstr "وڊيو ٿمب نيل"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "وڊيو ڏسڻ وارو: {0}"
 
@@ -3353,6 +3355,10 @@ msgstr "اها تصوير ڏسو جنهن بابت هي تبصرو آهي"
 #: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "تشدد"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "هن برائوزر ۾ آواز جي رڪارڊنگ جي سهولت ناهي"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
@@ -3411,7 +3417,7 @@ msgstr "توھان وٽ اڃا ڪو فورم نه آھن."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "توھان ھن فورم کان تازيون خبرون وصول ڪرڻ بند ڪندا. توھان ڪنھن به وقت ٻيھر رڪنيت وٺي سگھو ٿا."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "توهان جو اڪائونٽ {source} کان هتي منتقل ڪيو ويو. جيستائين توهان اتي ان کي نه ختم ڪيو، پيغام ۽ اطلاع ٻنهي سرورن تي پهچي سگهن ٿا، توهان جو ڪجهه مواد اڃا به پراڻي سرور کان فراهم ٿئي ٿو، ۽ پيروڪارن کي هتي توهان کي ڳولڻ ۾ ڪجهه منٽ لڳي سگهن ٿا."
 

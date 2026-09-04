@@ -32,10 +32,6 @@ msgstr " · Постоянно"
 msgid " (edited)"
 msgstr " (изменено)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-#~ msgid " or "
-#~ msgstr " или "
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(изменено)"
@@ -55,7 +51,7 @@ msgstr "{0, plural, one {# новая публикация} few {# новые п
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# выбран} few {# выбрано} many {# выбрано} other {# выбрано}}"
@@ -81,19 +77,19 @@ msgstr "{0, plural, one {Заглушен # пользователь} few {За�
 msgid "{0} settings"
 msgstr "Настройки {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#д} other {#д}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ч} other {#ч}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#мин} other {#мин}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#нед} other {#нед}}"
 
@@ -108,10 +104,6 @@ msgstr "{count, plural, one {Отклонён # элемент} few {Откло�
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Название {entityLabel}"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-#~ msgid "{entityLabel} name is required"
-#~ msgstr "Требуется название {entityLabel}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -142,18 +134,6 @@ msgstr "{totalDescendants, plural, one {# ответ} few {ещё +# ответ�
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Открыть меню (# непрочитанное уведомление)} few {Открыть меню (# непрочитанных уведомления)} many {Открыть меню (# непрочитанных уведомлений)} other {Открыть меню (# непрочитанного уведомления)}}"
 
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-#~ msgid "+{0} nested"
-#~ msgstr "+{0} вложенных"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-#~ msgid "+{totalDescendants} more replies"
-#~ msgstr "ещё +{totalDescendants} ответов"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-#~ msgid "1 reply"
-#~ msgstr "1 ответ"
-
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
 msgstr "12 часов"
@@ -161,6 +141,10 @@ msgstr "12 часов"
 #: ../../../lib/web/src/lib/preference-utils.ts:36
 msgid "24 hours"
 msgstr "24 часа"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "Запись уже идёт."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
@@ -315,10 +299,6 @@ msgstr "Все форумы"
 #: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "Все публикации и комментарии проверены"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-#~ msgid "Allow anyone to search for {0}"
-#~ msgstr "Разрешить всем искать {0}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
 msgid "Allow anyone to search for {entityLabel}"
@@ -517,6 +497,14 @@ msgstr "от {0}"
 msgid "By {0}"
 msgstr "От {0}"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Доступ к камере запрещён"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Камера недоступна"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -545,6 +533,12 @@ msgstr "Отменить комментарий"
 #: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "Отменить ответ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Отменено"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -620,8 +614,8 @@ msgstr "Очистка сохранённых публикаций..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Закрыть"
@@ -728,8 +722,8 @@ msgstr "Комментарий обновлён"
 msgid "Comment, vote, and view"
 msgstr "Комментирование, голосование и просмотр"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -830,10 +824,6 @@ msgstr "Не удалось выполнить проверку с этой уч
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Создать"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-#~ msgid "Create {0}"
-#~ msgstr "Создать {0}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
 msgid "Create {entityLabel}"
@@ -981,7 +971,7 @@ msgstr "Удалить публикацию"
 msgid "Delete view"
 msgstr "Удалить вид"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Удалите свой аккаунт на старом сервере"
 
@@ -1024,7 +1014,7 @@ msgstr "Панель подробностей"
 msgid "Detect from web browser"
 msgstr "Определить из веб-браузера"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Каталог"
 
@@ -1045,8 +1035,8 @@ msgstr "Отменить черновик?"
 msgid "Disconnected"
 msgstr "Отключено"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Закрыть"
@@ -1070,8 +1060,8 @@ msgid "Done"
 msgstr "Готово"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Скачать"
 
@@ -1270,7 +1260,7 @@ msgstr "Не удалось загрузить группы"
 msgid "Failed to load history"
 msgstr "Не удалось загрузить историю"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Не удалось загрузить изображение"
 
@@ -1303,7 +1293,7 @@ msgstr "Не удалось загрузить жалобы"
 msgid "Failed to load restrictions"
 msgstr "Не удалось загрузить ограничения"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Не удалось загрузить видео"
 
@@ -1435,7 +1425,7 @@ msgstr "Найти форумы"
 msgid "Fingerprint"
 msgstr "Отпечаток"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Завершите перенос аккаунта"
 
@@ -1505,7 +1495,7 @@ msgstr "Форумы"
 msgid "Friday"
 msgstr "Пятница"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "Друзья"
 
@@ -1573,7 +1563,7 @@ msgid "Identity"
 msgstr "Личность"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Просмотр изображений: {0}"
 
@@ -1622,7 +1612,7 @@ msgstr "Недопустимая дата"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Похоже, страница, которую вы ищете, <0/>не существует или была удалена."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Только что"
 
@@ -1638,10 +1628,6 @@ msgstr "Крупный"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "Макет"
-
-#: ../../../lib/web/src/components/post-tags.tsx:72
-#~ msgid "Letters, numbers, spaces, and hyphens only"
-#~ msgstr "Только буквы, цифры, пробелы и дефисы"
 
 #: ../../../lib/web/src/components/post-tags.tsx:73
 msgid "Letters, numbers, spaces, hyphens, and slashes only"
@@ -1750,6 +1736,10 @@ msgstr "Сообщение"
 msgid "Metric"
 msgstr "Метрический"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "Разрешение на микрофон отклонено"
+
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "Минимальная длина"
@@ -1830,10 +1820,6 @@ msgstr "Имя"
 msgid "Name cannot contain < or > characters"
 msgstr "Имя не может содержать символы < или >"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-#~ msgstr "Название не может содержать угловые скобки, обратную косую черту, точку с запятой, кавычки или обратные апострофы"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
 msgid "Name is required"
 msgstr "Требуется имя"
@@ -1874,8 +1860,8 @@ msgstr "Новые темы должны быть одобрены"
 msgid "New user threshold:"
 msgstr "Порог нового пользователя:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Следующее изображение"
 
@@ -2003,7 +1989,7 @@ msgstr "Нет просмотров"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Нет"
@@ -2128,12 +2114,17 @@ msgid "Passkey"
 msgstr "Ключ доступа"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Не удалось проверить ключ доступа. Попробуйте ещё раз."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Ключи доступа"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Passkeys недоступны в этом браузере"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2160,7 +2151,7 @@ msgstr "Ожидающие комментарии ({0})"
 msgid "Pending posts ({0})"
 msgstr "Ожидающие посты ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 msgid "People"
 msgstr "Люди"
 
@@ -2190,10 +2181,6 @@ msgstr "Опишите проблему..."
 #: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "Пожалуйста, введите ответ"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
-#~ msgstr "Пожалуйста, войдите с соответствующими учётными данными, <0/> чтобы получить доступ к этому ресурсу."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
@@ -2283,8 +2270,8 @@ msgstr "Премодерация"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Предотвращайте спам, ограничивая частоту публикаций пользователей"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Предыдущее изображение"
 
@@ -2296,10 +2283,6 @@ msgstr "Конфиденциальность"
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:50
 msgid "Processing…"
 msgstr "Обработка…"
-
-#: ../../../lib/web/src/components/person-picker.tsx:200
-#~ msgid "Project members"
-#~ msgstr "Участники проекта"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2329,11 +2312,11 @@ msgstr "Приподнятый"
 msgid "Rate limiting"
 msgstr "Ограничение частоты"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Повторно привяжите свои аккаунты на этом сервере"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Зарегистрируйте ключи доступа на этом сервере заново"
 
@@ -2357,6 +2340,14 @@ msgstr "Рекомендуемые форумы"
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Reconnecting ({retries})..."
 msgstr "Повторное подключение ({retries})..."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "Запись не удалась. Попробуйте снова."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "Запись не содержит звука"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
@@ -2728,7 +2719,7 @@ msgstr "Поиск, наблюдение и сортировка этого пр
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Поиск..."
@@ -3041,6 +3032,22 @@ msgstr "Не удалось отправить. Возможно, файлы с�
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Слишком большой размер для загрузки. Удалите или уменьшите файлы и повторите попытку."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Камера уже используется"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Запрос камеры остался без ответа"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Запрос микрофона остался без ответа"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Запрос passkey остался без ответа"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "Не удалось найти запрошенный контент."
@@ -3052,6 +3059,10 @@ msgstr "Сервер вернул веб-страницу вместо данн�
 #: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "Действия модерации ещё не зафиксированы"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Этому приложению не разрешено использовать ваш passkey. Разрешите это в Настройках, в разделе Разрешения."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
@@ -3129,11 +3140,6 @@ msgstr "Свернуть/развернуть раздел"
 msgid "Toggle sidebar"
 msgstr "Переключить боковую панель"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
-#~ msgid "Toggle Sidebar"
-#~ msgstr "Переключить боковую панель"
-
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
 msgstr "Переключить параметры вида"
@@ -3201,10 +3207,6 @@ msgstr "Не удалось перенаправить на страницу в�
 #: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "Не назначено"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-#~ msgid "Unauthorized Access"
-#~ msgstr "Несанкционированный доступ"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
@@ -3328,7 +3330,7 @@ msgid "Video thumbnail"
 msgstr "Миниатюра видео"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Просмотр видео: {0}"
 
@@ -3353,6 +3355,10 @@ msgstr "Посмотреть изображение, о котором этот 
 #: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "Насилие"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "Запись голоса не поддерживается в этом браузере"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
@@ -3411,7 +3417,7 @@ msgstr "У вас пока нет форумов."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Вы перестанете получать обновления с этого форума. Вы можете подписаться снова в любое время."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ваш аккаунт был перенесён сюда с {source}. Пока вы не удалите его там, сообщения и уведомления могут поступать на оба сервера, часть вашего контента по-прежнему обслуживается со старого сервера, а подписчикам может потребоваться несколько минут, чтобы найти вас здесь."
 

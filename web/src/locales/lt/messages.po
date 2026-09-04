@@ -32,10 +32,6 @@ msgstr " · Nuolatinis"
 msgid " (edited)"
 msgstr " (redaguota)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-#~ msgid " or "
-#~ msgstr " arba "
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(redaguota)"
@@ -55,7 +51,7 @@ msgstr "{0, plural, one {# naujas įrašas} few {# nauji įrašai} many {# naujo
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# pasirinktas} few {# pasirinkti} many {# pasirinktų} other {# pasirinktų}}"
@@ -81,19 +77,19 @@ msgstr "{0, plural, one {Nutildytas # vartotojas} few {Nutildyti # vartotojai} m
 msgid "{0} settings"
 msgstr "{0} nustatymai"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#d} other {#d}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#val} other {#val}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#sav} other {#sav}}"
 
@@ -108,10 +104,6 @@ msgstr "{count, plural, one {Atmestas # elementas} few {Atmesti # elementai} man
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} pavadinimas"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-#~ msgid "{entityLabel} name is required"
-#~ msgstr "{entityLabel} pavadinimas privalomas"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -142,18 +134,6 @@ msgstr "{totalDescendants, plural, one {# atsakymas} few {+# daugiau atsakymų} 
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Atidaryti meniu (# neperskaitytas pranešimas)} few {Atidaryti meniu (# neperskaityti pranešimai)} many {Atidaryti meniu (# neperskaityto pranešimo)} other {Atidaryti meniu (# neperskaitytų pranešimų)}}"
 
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-#~ msgid "+{0} nested"
-#~ msgstr "+{0} įdėtųjų"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-#~ msgid "+{totalDescendants} more replies"
-#~ msgstr "+{totalDescendants} daugiau atsakymų"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-#~ msgid "1 reply"
-#~ msgstr "1 atsakymas"
-
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
 msgstr "12 valandų"
@@ -161,6 +141,10 @@ msgstr "12 valandų"
 #: ../../../lib/web/src/lib/preference-utils.ts:36
 msgid "24 hours"
 msgstr "24 valandos"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "Įrašymas jau vyksta."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
@@ -315,10 +299,6 @@ msgstr "Visi forumai"
 #: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "Visi įrašai ir komentarai peržiūrėti"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-#~ msgid "Allow anyone to search for {0}"
-#~ msgstr "Leisti bet kam ieškoti {0}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
 msgid "Allow anyone to search for {entityLabel}"
@@ -517,6 +497,14 @@ msgstr "pateikė {0}"
 msgid "By {0}"
 msgstr "Pagal {0}"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Kameros leidimas atmestas"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Kamera nepasiekiama"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -545,6 +533,12 @@ msgstr "Atšaukti komentarą"
 #: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "Atšaukti atsakymą"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Atšaukta"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -620,8 +614,8 @@ msgstr "Valomi išsaugoti įrašai..."
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Uždaryti"
@@ -728,8 +722,8 @@ msgstr "Komentaras atnaujintas"
 msgid "Comment, vote, and view"
 msgstr "Komentuoti, balsuoti ir peržiūrėti"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Komentarai"
 
@@ -830,10 +824,6 @@ msgstr "Nepavyko patvirtinti su ta paskyra. Bandykite dar kartą."
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Sukurti"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-#~ msgid "Create {0}"
-#~ msgstr "Sukurti {0}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
 msgid "Create {entityLabel}"
@@ -981,7 +971,7 @@ msgstr "Ištrinti įrašą"
 msgid "Delete view"
 msgstr "Ištrinti rodinį"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Ištrinkite paskyrą senajame serveryje"
 
@@ -1024,7 +1014,7 @@ msgstr "Detalių skydelis"
 msgid "Detect from web browser"
 msgstr "Aptikti iš naršyklės"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Katalogas"
 
@@ -1045,8 +1035,8 @@ msgstr "Atmesti juodraštį?"
 msgid "Disconnected"
 msgstr "Atjungta"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Atmesti"
@@ -1070,8 +1060,8 @@ msgid "Done"
 msgstr "Atlikta"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Atsisiųsti"
 
@@ -1270,7 +1260,7 @@ msgstr "Nepavyko įkelti grupių"
 msgid "Failed to load history"
 msgstr "Nepavyko įkelti istorijos"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Nepavyko įkelti paveikslėlio"
 
@@ -1303,7 +1293,7 @@ msgstr "Nepavyko įkelti pranešimų apie pažeidimus"
 msgid "Failed to load restrictions"
 msgstr "Nepavyko įkelti apribojimų"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Nepavyko įkelti vaizdo įrašo"
 
@@ -1435,7 +1425,7 @@ msgstr "Rasti forumus"
 msgid "Fingerprint"
 msgstr "Pirštų atspaudas"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Užbaikite paskyros perkėlimą"
 
@@ -1505,7 +1495,7 @@ msgstr "Forumai"
 msgid "Friday"
 msgstr "Penktadienis"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "Draugai"
 
@@ -1573,7 +1563,7 @@ msgid "Identity"
 msgstr "Tapatybė"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Paveikslėlių peržiūra: {0}"
 
@@ -1622,7 +1612,7 @@ msgstr "Netinkama data"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Atrodo, kad ieškomo puslapio <0/>nėra arba jis buvo pašalintas."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Ką tik"
 
@@ -1638,10 +1628,6 @@ msgstr "Didelis"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "Išdėstymas"
-
-#: ../../../lib/web/src/components/post-tags.tsx:72
-#~ msgid "Letters, numbers, spaces, and hyphens only"
-#~ msgstr "Tik raidės, skaitmenys, tarpai ir brūkšneliai"
 
 #: ../../../lib/web/src/components/post-tags.tsx:73
 msgid "Letters, numbers, spaces, hyphens, and slashes only"
@@ -1750,6 +1736,10 @@ msgstr "Pranešimas"
 msgid "Metric"
 msgstr "Metrinė"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "Mikrofono leidimas uždraustas"
+
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "Mažiausias ilgis"
@@ -1830,10 +1820,6 @@ msgstr "Pavadinimas"
 msgid "Name cannot contain < or > characters"
 msgstr "Pavadinime negali būti < ar > simbolių"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-#~ msgstr "Pavadinime negali būti kampinių skliaustų, atbulinio pasvirojo brūkšnio, kabliataškio, kabučių ar atbulinių kabučių"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
 msgid "Name is required"
 msgstr "Pavadinimas yra privalomas"
@@ -1874,8 +1860,8 @@ msgstr "Nauji siūlai turi būti patvirtinti"
 msgid "New user threshold:"
 msgstr "Naujų vartotojų slenkstis:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Kitas paveikslėlis"
 
@@ -2003,7 +1989,7 @@ msgstr "Peržiūrų nėra"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Nėra"
@@ -2128,12 +2114,17 @@ msgid "Passkey"
 msgstr "Slaptaraktis"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Slaptarakčio patvirtinimas nepavyko. Bandykite dar kartą."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Slaptarakčiai"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Slaptaraktai šioje naršyklėje nepasiekiami"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2160,7 +2151,7 @@ msgstr "Laukiantys komentarai ({0})"
 msgid "Pending posts ({0})"
 msgstr "Laukiantys įrašai ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 msgid "People"
 msgstr "Žmonės"
 
@@ -2190,10 +2181,6 @@ msgstr "Aprašykite problemą..."
 #: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "Įveskite atsakymą"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
-#~ msgstr "Prisijunkite su tinkamais prisijungimo duomenimis, <0/> kad pasiektumėte šį išteklių."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
@@ -2283,8 +2270,8 @@ msgstr "Išankstinis moderavimas"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Užkirskite kelią šlamštui ribodami, kaip dažnai vartotojai gali rašyti"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Ankstesnis paveikslėlis"
 
@@ -2296,10 +2283,6 @@ msgstr "Privatumas"
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:50
 msgid "Processing…"
 msgstr "Apdorojama…"
-
-#: ../../../lib/web/src/components/person-picker.tsx:200
-#~ msgid "Project members"
-#~ msgstr "Projekto nariai"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2329,11 +2312,11 @@ msgstr "Iškilus"
 msgid "Rate limiting"
 msgstr "Dažnio ribojimas"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Iš naujo susiekite paskyras šiame serveryje"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Iš naujo užregistruokite prieigos raktus šiame serveryje"
 
@@ -2357,6 +2340,14 @@ msgstr "Rekomenduojami forumai"
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Reconnecting ({retries})..."
 msgstr "Jungiamasi iš naujo ({retries})..."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "Įrašymas nepavyko. Bandykite dar kartą."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "Įraše nėra garso"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
@@ -2728,7 +2719,7 @@ msgstr "Ieškoti, stebėti ir rūšiuoti šį rodinį."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Ieškoti..."
@@ -3041,6 +3032,22 @@ msgstr "Nepavyko išsiųsti. Failai gali būti per dideli arba nutrūko ryšys. 
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Per didelis įkelti. Pašalinkite arba sumažinkite failus ir bandykite dar kartą."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Kamera jau naudojama"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Į kameros užklausą neatsakyta"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Į mikrofono užklausą neatsakyta"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Į slaptarakčio užklausą neatsakyta"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "Prašomo turinio rasti nepavyko."
@@ -3052,6 +3059,10 @@ msgstr "Serveris grąžino tinklalapį vietoj duomenų."
 #: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "Dar nėra įrašytų moderavimo veiksmų"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Šiai programai neleidžiama naudoti jūsų slaptarakčio. Leiskite tai Nustatymuose, skiltyje Leidimai."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
@@ -3129,11 +3140,6 @@ msgstr "Perjungti skiltį"
 msgid "Toggle sidebar"
 msgstr "Perjungti šoninę juostą"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
-#~ msgid "Toggle Sidebar"
-#~ msgstr "Perjungti šoninę juostą"
-
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
 msgstr "Perjungti rodinio parinktis"
@@ -3201,10 +3207,6 @@ msgstr "Nepavyko peradresuoti į prisijungimą. Bandykite dar kartą."
 #: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "Nepriskirta"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-#~ msgid "Unauthorized Access"
-#~ msgstr "Neautorizuota prieiga"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
@@ -3328,7 +3330,7 @@ msgid "Video thumbnail"
 msgstr "Vaizdo įrašo miniatiūra"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Vaizdo įrašų peržiūra: {0}"
 
@@ -3353,6 +3355,10 @@ msgstr "Peržiūrėti vaizdą, apie kurį šis komentaras"
 #: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "Smurtas"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "Balso įrašymas šioje naršyklėje nepalaikomas"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
@@ -3411,7 +3417,7 @@ msgstr "Dar neturite jokių forumų."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nustosite gauti šio forumo naujienas. Galite vėl užsiprenumeruoti bet kuriuo metu."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Jūsų paskyra buvo perkelta čia iš {source}. Kol jos ten neištrinate, žinutės ir pranešimai gali pasiekti abu serverius, dalis jūsų turinio toliau pateikiama iš senojo serverio, o pasekėjams gali prireikti kelių minučių jus rasti čia."
 

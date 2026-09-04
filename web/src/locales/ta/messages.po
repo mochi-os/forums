@@ -32,10 +32,6 @@ msgstr " · நிரந்தர"
 msgid " (edited)"
 msgstr " (திருத்தப்பட்டது)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-#~ msgid " or "
-#~ msgstr " அல்லது "
-
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(திருத்தப்பட்டது)"
@@ -55,7 +51,7 @@ msgstr "{0, plural, one {# புதிய இடுகை} other {# புத�
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# தேர்ந்தெடுக்கப்பட்டது} other {# தேர்ந்தெடுக்கப்பட்டது}}"
@@ -81,19 +77,19 @@ msgstr "{0, plural, one {# பயனர் முடக்கப்பட்ட�
 msgid "{0} settings"
 msgstr "{0} அமைப்புகள்"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#நா} other {#நா}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ம} other {#ம}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#நி} other {#நி}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#வா} other {#வா}}"
 
@@ -108,10 +104,6 @@ msgstr "{count, plural, one {# உருப்படி நிராகரிக
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} பெயர்"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-#~ msgid "{entityLabel} name is required"
-#~ msgstr "{entityLabel} பெயர் தேவை"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -142,18 +134,6 @@ msgstr "{totalDescendants, plural, one {# பதில்} other {+# கூட�
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {மெனுவைத் திற (# படிக்காத அறிவிப்பு)} other {மெனுவைத் திற (# படிக்காத அறிவிப்புகள்)}}"
 
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-#~ msgid "+{0} nested"
-#~ msgstr "+{0} உள்ளடங்கியவை"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-#~ msgid "+{totalDescendants} more replies"
-#~ msgstr "+{totalDescendants} மேலும் பதில்கள்"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-#~ msgid "1 reply"
-#~ msgstr "1 பதில்"
-
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
 msgstr "12 மணிநேரம்"
@@ -161,6 +141,10 @@ msgstr "12 மணிநேரம்"
 #: ../../../lib/web/src/lib/preference-utils.ts:36
 msgid "24 hours"
 msgstr "24 மணிநேரம்"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "ஒரு பதிவு ஏற்கனவே நடைபெறுகிறது."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
@@ -315,10 +299,6 @@ msgstr "அனைத்து மன்றங்கள்"
 #: src/routes/_authenticated/$forum_.moderation.tsx:353
 msgid "All posts and comments have been reviewed"
 msgstr "அனைத்து பதிவுகளும் கருத்துகளும் மதிப்பாய்வு செய்யப்பட்டுள்ளன"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-#~ msgid "Allow anyone to search for {0}"
-#~ msgstr "யாரும் {0} தேட அனுமதிக்கவும்"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
 msgid "Allow anyone to search for {entityLabel}"
@@ -517,6 +497,14 @@ msgstr "{0} ஆல்"
 msgid "By {0}"
 msgstr "{0} ஆல்"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "கேமரா அனுமதி மறுக்கப்பட்டது"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "கேமரா கிடைக்கவில்லை"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -545,6 +533,12 @@ msgstr "கருத்தை ரத்துசெய்"
 #: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Cancel reply"
 msgstr "பதிலளிப்பை ரத்துசெய்"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "ரத்துசெய்யப்பட்டது"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -620,8 +614,8 @@ msgstr "சேமித்த இடுகைகளை அழிக்கிற�
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "மூடு"
@@ -728,8 +722,8 @@ msgstr "கருத்து புதுப்பிக்கப்பட்�
 msgid "Comment, vote, and view"
 msgstr "கருத்து, வாக்களி, பார்வை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "கருத்துகள்"
 
@@ -830,10 +824,6 @@ msgstr "அந்தக் கணக்கைச் சரிபார்க்�
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "உருவாக்கு"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-#~ msgid "Create {0}"
-#~ msgstr "{0} உருவாக்கு"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
 msgid "Create {entityLabel}"
@@ -981,7 +971,7 @@ msgstr "பதிவை நீக்கு"
 msgid "Delete view"
 msgstr "காட்சியை நீக்கு"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "பழைய சேவையகத்தில் உங்கள் கணக்கை நீக்கவும்"
 
@@ -1024,7 +1014,7 @@ msgstr "விவரங்கள் பலகம்"
 msgid "Detect from web browser"
 msgstr "வலை உலாவியிலிருந்து கண்டறி"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "கோப்பகம்"
 
@@ -1045,8 +1035,8 @@ msgstr "வரைவை நிராகரிக்கவா?"
 msgid "Disconnected"
 msgstr "துண்டிக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "நிராகரி"
@@ -1070,8 +1060,8 @@ msgid "Done"
 msgstr "முடிந்தது"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "பதிவிறக்கு"
 
@@ -1270,7 +1260,7 @@ msgstr "குழுக்களை ஏற்ற முடியவில்ல�
 msgid "Failed to load history"
 msgstr "வரலாற்றை ஏற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "படத்தை ஏற்ற முடியவில்லை"
 
@@ -1303,7 +1293,7 @@ msgstr "புகார்களை ஏற்ற முடியவில்ல�
 msgid "Failed to load restrictions"
 msgstr "கட்டுப்பாடுகளை ஏற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "வீடியோவை ஏற்ற முடியவில்லை"
 
@@ -1435,7 +1425,7 @@ msgstr "ஃபோரங்களைக் கண்டுபிடி"
 msgid "Fingerprint"
 msgstr "கைரேகை"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "கணக்கை நகர்த்துவதை முடிக்கவும்"
 
@@ -1505,7 +1495,7 @@ msgstr "ஃபோரங்கள்"
 msgid "Friday"
 msgstr "வெள்ளிக்கிழமை"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "நண்பர்கள்"
 
@@ -1573,7 +1563,7 @@ msgid "Identity"
 msgstr "அடையாளம்"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "பட காட்சி: {0}"
 
@@ -1622,7 +1612,7 @@ msgstr "தவறான தேதி"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "நீங்கள் தேடும் பக்கம் <0/>இல்லை அல்லது அகற்றப்பட்டிருக்கலாம்."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "இப்போதுதான்"
 
@@ -1638,10 +1628,6 @@ msgstr "பெரியது"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "தளவமைப்பு"
-
-#: ../../../lib/web/src/components/post-tags.tsx:72
-#~ msgid "Letters, numbers, spaces, and hyphens only"
-#~ msgstr "எழுத்துகள், எண்கள், இடைவெளிகள், இணைப்புக்குறிகள் மட்டும்"
 
 #: ../../../lib/web/src/components/post-tags.tsx:73
 msgid "Letters, numbers, spaces, hyphens, and slashes only"
@@ -1750,6 +1736,10 @@ msgstr "செய்தி"
 msgid "Metric"
 msgstr "மெட்ரிக்"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "மைக்ரோஃபோன் அனுமதி மறுக்கப்பட்டது"
+
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "குறைந்தபட்ச நீளம்"
@@ -1830,10 +1820,6 @@ msgstr "பெயர்"
 msgid "Name cannot contain < or > characters"
 msgstr "பெயரில் < அல்லது > எழுத்துக்கள் இருக்கக்கூடாது"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#~ msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-#~ msgstr "பெயரில் கோண அடைப்புக்குறிகள், பின்சாய்வுக்கோடு, அரைப்புள்ளி, மேற்கோள் குறிகள் அல்லது பின்குறிகள் இருக்கக்கூடாது"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
 msgid "Name is required"
 msgstr "பெயர் தேவை"
@@ -1874,8 +1860,8 @@ msgstr "புதிய த்ரெட்கள் அங்கீகரிக�
 msgid "New user threshold:"
 msgstr "புதிய பயனர் வரம்பு:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "அடுத்த படம்"
 
@@ -2003,7 +1989,7 @@ msgstr "காட்சிகள் இல்லை"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "ஒன்றுமில்லை"
@@ -2128,12 +2114,17 @@ msgid "Passkey"
 msgstr "கடவுக்குறி"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "கடவுவிசை சரிபார்ப்பு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Passkeyக்கள்"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "இந்த உலாவியில் passkeyக்கள் கிடைக்கவில்லை"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2160,7 +2151,7 @@ msgstr "நிலுவையில் உள்ள கருத்துகள�
 msgid "Pending posts ({0})"
 msgstr "நிலுவையில் உள்ள இடுகைகள் ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 msgid "People"
 msgstr "மக்கள்"
 
@@ -2190,10 +2181,6 @@ msgstr "சிக்கலை விவரிக்கவும்..."
 #: src/features/forums/thread-detail.tsx:287
 msgid "Please enter a reply"
 msgstr "பதிலை உள்ளிடவும்"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-#~ msgid "Please log in with the appropriate credentials <0/> to access this resource."
-#~ msgstr "இந்த ஆதாரத்தை அணுக <0/> சரியான சான்றுகளுடன் உள்நுழையவும்."
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
@@ -2283,8 +2270,8 @@ msgstr "முன்-மிதப்படுத்தல்"
 msgid "Prevent spam by limiting how often users can post"
 msgstr "பயனர்கள் எவ்வளவு அடிக்கடி பதிவிடலாம் என்பதைக் கட்டுப்படுத்துவதன் மூலம் ஸ்பேமைத் தடுக்கவும்"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "முந்தைய படம்"
 
@@ -2296,10 +2283,6 @@ msgstr "தனியுரிமை"
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:50
 msgid "Processing…"
 msgstr "செயலாக்கப்படுகிறது…"
-
-#: ../../../lib/web/src/components/person-picker.tsx:200
-#~ msgid "Project members"
-#~ msgstr "திட்ட உறுப்பினர்கள்"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
@@ -2329,11 +2312,11 @@ msgstr "உயர்த்தப்பட்டது"
 msgid "Rate limiting"
 msgstr "விகித வரம்பிடல்"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "இந்த சேவையகத்தில் உங்கள் கணக்குகளை மீண்டும் இணைக்கவும்"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "இந்த சேவையகத்தில் உங்கள் கடவுச்சாவிகளை மீண்டும் பதிவு செய்யவும்"
 
@@ -2357,6 +2340,14 @@ msgstr "பரிந்துரைக்கப்பட்ட மன்றங�
 #: ../../../lib/web/src/lib/chat-ui.ts:21
 msgid "Reconnecting ({retries})..."
 msgstr "மீண்டும் இணைக்கிறது ({retries})..."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "பதிவு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "பதிவில் ஒலி இல்லை"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
@@ -2728,7 +2719,7 @@ msgstr "இந்த காட்சியைத் தேடு, கவனி, 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "தேடு..."
@@ -3041,6 +3032,22 @@ msgstr "அனுப்ப முடியவில்லை. கோப்பு
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "பதிவேற்ற முடியாத அளவு பெரியது. கோப்புகளை நீக்கவும் அல்லது சிறிதாக்கி மீண்டும் முயற்சிக்கவும்."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "கேமரா ஏற்கனவே பயன்பாட்டில் உள்ளது"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "கேமரா கோரிக்கைக்கு பதில் இல்லை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "மைக்ரோஃபோன் கோரிக்கைக்கு பதில் இல்லை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Passkey கோரிக்கைக்கு பதில் இல்லை"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "கோரப்பட்ட உள்ளடக்கத்தைக் கண்டறிய முடியவில்லை."
@@ -3052,6 +3059,10 @@ msgstr "சேவையகம் தரவுக்குப் பதிலா�
 #: src/routes/_authenticated/$forum_.moderation.tsx:848
 msgid "There are no moderation actions recorded yet"
 msgstr "இதுவரை எந்த மாடரேஷன் நடவடிக்கைகளும் பதிவு செய்யப்படவில்லை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "இந்த ஆப்ஸுக்கு உங்கள் passkey-ஐப் பயன்படுத்த அனுமதி இல்லை. அமைப்புகளில், அனுமதிகள் பிரிவில் அதை அனுமதிக்கவும்."
 
 #: src/routes/_authenticated/$forum_.settings.tsx:251
 msgid "This forum could not be loaded right now."
@@ -3129,11 +3140,6 @@ msgstr "பிரிவை நிலைமாற்று"
 msgid "Toggle sidebar"
 msgstr "பக்கப்பட்டியை மாற்று"
 
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
-#~ msgid "Toggle Sidebar"
-#~ msgstr "பக்கப்பட்டியை மாற்று"
-
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
 msgstr "காட்சி விருப்பங்களை மாற்று"
@@ -3201,10 +3207,6 @@ msgstr "உள்நுழைவுக்கு திருப்பி வி�
 #: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Unassigned"
 msgstr "ஒதுக்கப்படாதது"
-
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-#~ msgid "Unauthorized Access"
-#~ msgstr "அனுமதிக்கப்படாத அணுகல்"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
@@ -3328,7 +3330,7 @@ msgid "Video thumbnail"
 msgstr "வீடியோ சிறுபடம்"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "வீடியோ காட்சி: {0}"
 
@@ -3353,6 +3355,10 @@ msgstr "இந்தக் கருத்து எந்தப் படத்
 #: src/routes/_authenticated/$forum_.moderation.tsx:779
 msgid "Violence"
 msgstr "வன்முறை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "இந்த உலாவியில் குரல் பதிவு ஆதரிக்கப்படவில்லை"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
@@ -3411,7 +3417,7 @@ msgstr "உங்களிடம் இன்னும் மன்றங்க�
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "இந்த மன்றத்திலிருந்து புதுப்பிப்புகளைப் பெறுவதை நிறுத்துவீர்கள். எந்த நேரத்திலும் மீண்டும் குழுச்சேரலாம்."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "உங்கள் கணக்கு {source} இலிருந்து இங்கே நகர்த்தப்பட்டது. நீங்கள் அதை அங்கே நீக்கும் வரை, செய்திகளும் அறிவிப்புகளும் இரண்டு சேவையகங்களையும் அடையலாம், உங்கள் சில உள்ளடக்கம் பழைய சேவையகத்தில் இருந்து தொடர்ந்து வழங்கப்படும், மேலும் உங்கள் பின்தொடர்பவர்கள் இங்கே உங்களை கண்டுபிடிக்க சில நிமிடங்கள் ஆகலாம்."
 
