@@ -4,14 +4,13 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState, useListAutoAnimate, type Upload } from '@mochi/web'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
 import { PostCard } from './post-card'
 import { InlineForumSearch } from './inline-forum-search'
 import { RecommendedForums } from './recommended-forums'
-import { t } from '@lingui/core/macro'
 
 interface ForumOverviewProps {
   forum: Forum | null
@@ -65,6 +64,7 @@ export function ForumOverview({
   onInterestRemove,
   isLoggedIn = true,
 }: ForumOverviewProps) {
+  const { t } = useLingui()
   const [listRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isFetchingNextPage,
   })

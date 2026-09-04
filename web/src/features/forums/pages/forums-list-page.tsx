@@ -67,7 +67,7 @@ export function ForumsListPage({
   } = useForumsList(userSort ?? undefined)
   const forums = useMemo(() => selectForums(forumsData), [forumsData])
   const allPosts = useMemo(() => selectPosts(forumsData), [forumsData])
-  const hasAi = !!(forumsData?.data as Record<string, unknown> | undefined)?.hasAi
+  const hasAi = !!forumsData?.data?.hasAi
   const defaultSort = selectDefaultSort(forumsData)
   const setDefaultSortMutation = useSetDefaultSort()
 

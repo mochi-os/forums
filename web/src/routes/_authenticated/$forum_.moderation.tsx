@@ -28,6 +28,7 @@ import {
   GeneralError,
   useFormat,
   getAppPath,
+  LoadMoreTrigger,
 } from '@mochi/web'
 import {
   Loader2,
@@ -45,6 +46,12 @@ import forumsApi from '@/api/forums'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
+import {
+  moderationActionLabel,
+  moderationTargetName,
+  runBulk,
+  truncateMiddle,
+} from '@/features/forums/moderation'
 import { toError } from '@/lib/errors'
 
 type TabId = 'queue' | 'reports' | 'log' | 'restrictions'
@@ -213,26 +220,41 @@ function QueueTab({ forumId }: QueueTabProps) {
     }
   }
 
+  // Report a bulk run's outcome: the success count and, separately, how many
+  // items the run could not process (it continues past each failure).
+  const reportBulk = (
+    succeeded: number,
+    failed: number,
+    success: (n: number) => string,
+    fail: (n: number) => string
+  ) => {
+    if (succeeded > 0) toast.success(success(succeeded))
+    if (failed > 0) toast.error(fail(failed))
+  }
+
+  const selectedCommentRows = () =>
+    pendingComments.filter((c) => selectedComments.has(c.id))
+
   // Bulk actions
   const handleBulkApprove = async () => {
     if (!hasSelection) return
     setActionInProgress('bulk')
     try {
-      // Approve selected posts
-      for (const postId of selectedPosts) {
-        await forumsApi.approvePost({ forum: forumId, post: postId })
-      }
-      // Approve selected comments
-      for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
-        await forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
-      }
-      const count = selectedPosts.size + selectedComments.size
-      toast.success(plural(count, { one: 'Approved # item', other: 'Approved # items' }))
-      void loadQueue()
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to approve items`))
+      const posts = await runBulk(selectedPosts, (postId) =>
+        forumsApi.approvePost({ forum: forumId, post: postId })
+      )
+      const comments = await runBulk(selectedCommentRows(), (comment) =>
+        forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
+      )
+      reportBulk(
+        posts.succeeded + comments.succeeded,
+        posts.failed + comments.failed,
+        (n) => plural(n, { one: 'Approved # item', other: 'Approved # items' }),
+        (n) => plural(n, { one: 'Failed to approve # item', other: 'Failed to approve # items' })
+      )
     } finally {
       setActionInProgress(null)
+      void loadQueue()
     }
   }
 
@@ -240,21 +262,21 @@ function QueueTab({ forumId }: QueueTabProps) {
     if (!hasSelection) return
     setActionInProgress('bulk')
     try {
-      // Remove selected posts
-      for (const postId of selectedPosts) {
-        await forumsApi.removePost({ forum: forumId, post: postId, reason: t`Rejected` })
-      }
-      // Remove selected comments
-      for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
-        await forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: t`Rejected` })
-      }
-      const count = selectedPosts.size + selectedComments.size
-      toast.success(plural(count, { one: 'Rejected # item', other: 'Rejected # items' }))
-      void loadQueue()
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to reject items`))
+      const posts = await runBulk(selectedPosts, (postId) =>
+        forumsApi.removePost({ forum: forumId, post: postId, reason: t`Rejected` })
+      )
+      const comments = await runBulk(selectedCommentRows(), (comment) =>
+        forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: t`Rejected` })
+      )
+      reportBulk(
+        posts.succeeded + comments.succeeded,
+        posts.failed + comments.failed,
+        (n) => plural(n, { one: 'Rejected # item', other: 'Rejected # items' }),
+        (n) => plural(n, { one: 'Failed to reject # item', other: 'Failed to reject # items' })
+      )
     } finally {
       setActionInProgress(null)
+      void loadQueue()
     }
   }
 
@@ -275,15 +297,18 @@ function QueueTab({ forumId }: QueueTabProps) {
     if (authors.size === 0) return
     setActionInProgress('mute')
     try {
-      for (const userId of authors) {
-        await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'muted' })
-      }
-      toast.success(plural(authors.size, { one: 'Muted # user', other: 'Muted # users' }))
-      void loadQueue()
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to mute users`))
+      const { succeeded, failed } = await runBulk(authors, (userId) =>
+        forumsApi.restrictUser({ forum: forumId, user: userId, type: 'muted' })
+      )
+      reportBulk(
+        succeeded,
+        failed,
+        (n) => plural(n, { one: 'Muted # user', other: 'Muted # users' }),
+        (n) => plural(n, { one: 'Failed to mute # user', other: 'Failed to mute # users' })
+      )
     } finally {
       setActionInProgress(null)
+      void loadQueue()
     }
   }
 
@@ -292,15 +317,18 @@ function QueueTab({ forumId }: QueueTabProps) {
     if (authors.size === 0) return
     setActionInProgress('ban')
     try {
-      for (const userId of authors) {
-        await forumsApi.restrictUser({ forum: forumId, user: userId, type: 'banned' })
-      }
-      toast.success(plural(authors.size, { one: 'Banned # user', other: 'Banned # users' }))
-      void loadQueue()
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to ban users`))
+      const { succeeded, failed } = await runBulk(authors, (userId) =>
+        forumsApi.restrictUser({ forum: forumId, user: userId, type: 'banned' })
+      )
+      reportBulk(
+        succeeded,
+        failed,
+        (n) => plural(n, { one: 'Banned # user', other: 'Banned # users' }),
+        (n) => plural(n, { one: 'Failed to ban # user', other: 'Failed to ban # users' })
+      )
     } finally {
       setActionInProgress(null)
+      void loadQueue()
     }
   }
 
@@ -640,7 +668,16 @@ function ReportsTab({ forumId }: ReportsTabProps) {
           <EmptyState
             icon={Flag}
             title={t`No reports`}
-            description={t`No ${statusFilter} reports found`}
+            description={
+              // Distinct sentences per filter rather than interpolating the raw
+              // status enum, which would leave "pending"/"resolved" untranslated
+              // inside a translated frame.
+              statusFilter === 'pending'
+                ? t`No pending reports found`
+                : statusFilter === 'resolved'
+                  ? t`No resolved reports found`
+                  : t`No reports found`
+            }
           />
         </div>
       ) : (
@@ -738,8 +775,23 @@ interface LogTabProps {
   forumId: string
 }
 
-function formatAction(action: string): string {
-  return action.replace(/_/g, ' ')
+// Past-tense labels for the recorded moderation actions, read as
+// "Removed <name> · <moderator>". An unrecognised action falls back to a
+// humanised form of the raw enum (moderationActionLabel).
+function useActionLabels(): Record<string, string> {
+  const { t } = useLingui()
+  return {
+    remove: t`Removed`,
+    restore: t`Restored`,
+    approve: t`Approved`,
+    lock: t`Locked`,
+    unlock: t`Unlocked`,
+    pin: t`Pinned`,
+    unpin: t`Unpinned`,
+    restrict: t`Restricted`,
+    unrestrict: t`Unrestricted`,
+    resolve_report: t`Resolved report`,
+  }
 }
 
 // The moderation UI renders three more server enums beside the reason. Same
@@ -783,29 +835,52 @@ function useReasonLabels(): Record<string, string> {
   }
 }
 
+// One page of the log, and the server's hard ceiling. The log action returns
+// the most recent `limit` rows (capped at 200 server-side); "Load more" raises
+// the limit and refetches so entries past the first page become reachable.
+const LOG_PAGE_SIZE = 50
+const LOG_LIMIT_MAXIMUM = 200
+
 function LogTab({ forumId }: LogTabProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
+  const actionLabels = useActionLabels()
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [entries, setEntries] = useState<ModerationLogEntry[]>([])
+  const [limit, setLimit] = useState(LOG_PAGE_SIZE)
+  const [hasMore, setHasMore] = useState(false)
 
-  const loadLog = useCallback(async () => {
-    setIsLoading(true)
-    setLoadError(null)
-    try {
-      const response = await forumsApi.getModerationLog({ forum: forumId, limit: 50 })
-      setEntries(response.data?.entries ?? [])
-    } catch (error) {
-      setLoadError(toError(error, t`Failed to load moderation log`))
-    } finally {
-      setIsLoading(false)
-    }
-  }, [forumId, t])
+  const loadLog = useCallback(
+    async (nextLimit: number, mode: 'initial' | 'more') => {
+      if (mode === 'more') setIsLoadingMore(true)
+      else setIsLoading(true)
+      setLoadError(null)
+      try {
+        const response = await forumsApi.getModerationLog({ forum: forumId, limit: nextLimit })
+        const rows = response.data?.entries ?? []
+        setEntries(rows)
+        // A full page back means there may be more; stop at the server ceiling.
+        setHasMore(rows.length >= nextLimit && nextLimit < LOG_LIMIT_MAXIMUM)
+        setLimit(nextLimit)
+      } catch (error) {
+        setLoadError(toError(error, t`Failed to load moderation log`))
+      } finally {
+        setIsLoading(false)
+        setIsLoadingMore(false)
+      }
+    },
+    [forumId, t]
+  )
 
   useEffect(() => {
-    void loadLog()
+    void loadLog(LOG_PAGE_SIZE, 'initial')
   }, [loadLog])
+
+  const handleLoadMore = () => {
+    void loadLog(Math.min(limit + LOG_PAGE_SIZE, LOG_LIMIT_MAXIMUM), 'more')
+  }
 
   if (isLoading) {
     return (
@@ -833,7 +908,7 @@ function LogTab({ forumId }: LogTabProps) {
         minimal
         mode='inline'
         reset={() => {
-          void loadLog()
+          void loadLog(LOG_PAGE_SIZE, 'initial')
         }}
       />
     )
@@ -855,6 +930,7 @@ function LogTab({ forumId }: LogTabProps) {
     <Card>
       <CardContent className='divide-y pt-4'>
         {entries.map((entry) => {
+          const targetName = moderationTargetName(entry)
           return (
             <div key={entry.id} className='py-3 first:pt-0 last:pb-0'>
               <div className='flex items-start gap-2 text-sm'>
@@ -870,9 +946,9 @@ function LogTab({ forumId }: LogTabProps) {
                 <div className='min-w-0 flex-1'>
                   <p>
                     <span className='text-muted-foreground'>{formatTimestamp(entry.created)}</span>{' '}
-                    {formatAction(entry.action)}{' '}
-                    <span className='font-medium'>
-                      {entry.author_name ?? entry.author ?? entry.target.slice(0, 8)}
+                    {moderationActionLabel(entry.action, actionLabels)}{' '}
+                    <span className='font-medium' title={targetName}>
+                      {truncateMiddle(targetName)}
                     </span>{' '}
                     <span className='text-muted-foreground'>
                       · {entry.moderator_name ?? entry.moderator}
@@ -888,6 +964,11 @@ function LogTab({ forumId }: LogTabProps) {
             </div>
           )
         })}
+        <LoadMoreTrigger
+          hasMore={hasMore}
+          isLoading={isLoadingMore}
+          onLoadMore={handleLoadMore}
+        />
       </CardContent>
     </Card>
   )

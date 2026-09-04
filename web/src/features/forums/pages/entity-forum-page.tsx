@@ -46,12 +46,15 @@ interface EntityForumPageProps {
   forum: Forum
   permissions?: ForumPermissions
   entityContext?: boolean
+  /** Remote server of a `?server=` view, carried into the posts query. */
+  server?: string
 }
 
 export function EntityForumPage({
   forum,
   permissions,
   entityContext = false,
+  server,
 }: EntityForumPageProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
@@ -77,10 +80,12 @@ export function EntityForumPage({
 
   const { openPostDialog } = useSidebarContext()
 
-  // Clear notifications for this forum
+  // Clear notifications for this forum. Fire-and-forget: a failed clear is a
+  // background nicety, not something to surface to the reader, but the
+  // rejection must still be caught so it isn't an unhandled promise rejection.
   useEffect(() => {
     if (isLoggedIn) {
-      forumsApi.clearNotifications(forum.fingerprint ?? forum.id)
+      void forumsApi.clearNotifications(forum.fingerprint ?? forum.id).catch(() => {})
     }
   }, [forum.id, forum.fingerprint, isLoggedIn])
 
@@ -122,7 +127,7 @@ export function EntityForumPage({
     hasAi,
     error: postsError,
     refetch,
-  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
+  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort, server })
 
   // Queue real-time new posts behind a "new posts available" pill instead of
   // injecting them while the user is reading.

@@ -128,6 +128,8 @@ export function ThreadComment({
   const [editBody, setEditBody] = useState('')
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
+  const [muting, setMuting] = useState(false)
+  const [banning, setBanning] = useState(false)
   // The reply box owns its files and reports their count; the guard here and
   // the one above (which arbitrates switching between reply boxes) read it.
   const [replyFileCount, setReplyFileCount] = useState(0)
@@ -483,17 +485,13 @@ export function ThreadComment({
                       <DropdownMenuSeparator />
                     )}
                     {canModerate && onMuteAuthor && (
-                      <DropdownMenuItem
-                        onClick={() => onMuteAuthor(comment.member)}
-                      >
+                      <DropdownMenuItem onClick={() => setMuting(true)}>
                         <VolumeX className='me-2 size-4' />
                         <Trans>Mute author</Trans>
                       </DropdownMenuItem>
                     )}
                     {canModerate && onBanAuthor && (
-                      <DropdownMenuItem
-                        onClick={() => onBanAuthor(comment.member)}
-                      >
+                      <DropdownMenuItem onClick={() => setBanning(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
@@ -530,6 +528,33 @@ export function ThreadComment({
         handleConfirm={() => {
           onRemove?.(comment.id)
           setRemoving(false)
+        }}
+      />
+
+      {/* Mute confirmation dialog */}
+      <ConfirmDialog
+        open={muting}
+        onOpenChange={setMuting}
+        title={t`Mute author`}
+        desc={t`Mute ${comment.name}? They will not be able to post or comment in this forum until unmuted.`}
+        confirmText={t`Mute`}
+        handleConfirm={() => {
+          onMuteAuthor?.(comment.member)
+          setMuting(false)
+        }}
+      />
+
+      {/* Ban confirmation dialog */}
+      <ConfirmDialog
+        open={banning}
+        onOpenChange={setBanning}
+        title={t`Ban author`}
+        desc={t`Ban ${comment.name} from this forum? They will no longer be able to participate.`}
+        confirmText={t`Ban`}
+        destructive
+        handleConfirm={() => {
+          onBanAuthor?.(comment.member)
+          setBanning(false)
         }}
       />
 

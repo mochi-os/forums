@@ -82,7 +82,9 @@ def action_saved_add(a):
         a.error.label(400, "errors.post_id_required")
         return
     data = a.input("data")
-    if not data or json.decode(data, None) == None:
+    # Cap the stored blob: this is per-user bookmark metadata, not a document,
+    # so anything beyond a few KB is malformed rather than legitimate.
+    if not data or len(data) > 10000 or json.decode(data, None) == None:
         a.error.label(400, "errors.invalid_data")
         return
     user = a.user.identity.id
@@ -312,7 +314,8 @@ def registration_send(server, headers, content):
 def strip_forum_config(forum):
     for key in ["moderation_posts", "moderation_comments", "moderation_new",
                 "new_user_days", "post_limit", "comment_limit", "limit_window",
-                "ai_prompt_tag", "ai_prompt_score"]:
+                "ai_prompt_tag", "ai_prompt_score", "ai_account",
+                "server", "synced", "checked", "populated"]:
         forum.pop(key, None)
     return forum
 
@@ -323,6 +326,8 @@ def strip_forum_config(forum):
 def resolve_attachment_order(order, current_ids, new_attachments):
     final_order = []
     for item in order:
+        if type(item) != "string":
+            continue
         if item.startswith("new:"):
             index = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
             if index < len(new_attachments):
@@ -646,6 +651,10 @@ def member_remove(member):
     for r in affected:
         # Drop the removed member's votes too, aligning with event_unsubscribe_event.
         mochi.db.execute("delete from votes where forum=? and voter=?", r["forum"], member)
+        # Drop them from the broadcast replay roster as well - event_subscribe
+        # added them there, and leaving the record keeps a live replica feeding
+        # a member we have just removed.
+        mochi.broadcast.subscriber.remove(r["forum"], member)
         mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", r["forum"], mochi.time.now(), r["forum"])
 
 # error_broadcast_gap: core calls this when an unfillable broadcast gap was
@@ -1055,12 +1064,25 @@ def event_member_notify(e):
         return
     if not get_forum(forum_id):
         return
-    notify_moderation_local(
-        forum_id,
-        e.content("action") or "",
-        e.content("type") or "",
-        e.content("reason") or "",
-        e.content("source") or forum_id)
+    # Constrain the peer's fields before they reach notify_moderation_local:
+    # `action` selects the branch, `type` is concatenated into a label key, and
+    # `reason`/`source` are concatenated into the body and the dedup id. A
+    # non-string or arbitrary value would build a junk label key or abort the
+    # handler mid-concatenation, so pin each to what the owner path can send.
+    action = e.content("action")
+    if action not in ("remove", "approve", "restrict", "unrestrict"):
+        return
+    target_type = e.content("type")
+    if target_type not in ("post", "comment"):
+        target_type = "post"
+    reason = e.content("reason")
+    if type(reason) != "string":
+        reason = ""
+    reason = reason[:200]
+    source = e.content("source")
+    if not mochi.text.valid(source, "id"):
+        source = forum_id
+    notify_moderation_local(forum_id, action, target_type, reason, source)
 
 # Notify every moderator (owner + 'moderate' grantees) of new queue work, except
 # `exclude_user_id` (the actor). The local owner gets notify(); remote
@@ -1121,12 +1143,18 @@ def event_moderator_notify(e):
     # notifications forged from a stranger's own forum.
     if not get_forum(forum_id):
         return
-    topic = e.content("topic") or "moderation/queue"
-    title = e.content("title") or ""
-    body = e.content("body") or ""
-    source = e.content("source") or ""
-    if not title or not body:
+    # A forged notification from any subscribed-forum owner must not carry a
+    # non-string or over-long topic/title/body into notify() (#283).
+    topic = e.content("topic")
+    if not mochi.text.valid(topic, "line"):
+        topic = "moderation/queue"
+    title = e.content("title")
+    body = e.content("body")
+    if not mochi.text.valid(title, "line") or not mochi.text.valid(body, "text"):
         return
+    source = e.content("source") or ""
+    if not mochi.text.valid(source, "line"):
+        source = ""
     # Build the link locally rather than trusting a sender-supplied url, so a
     # forged notification cannot carry an arbitrary click target.
     fp = mochi.entity.fingerprint(forum_id) or forum_id
@@ -1162,6 +1190,20 @@ def stream_asset(a, entity_id, service, asset):
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
 
+# Whether the caller may see this post/comment row, and so its author's asset.
+# An approved row is public within the forum; a removed or pending row is served
+# only to its own author or a moderator, so the proxy can't confirm the author
+# of content the caller isn't allowed to see.
+def asset_row_visible(a, forum_id, row):
+    if not row:
+        return False
+    if row["status"] == "approved":
+        return True
+    uid = a.user.identity.id if a.user and a.user.identity else None
+    if uid and row["member"] == uid:
+        return True
+    return check_access(a, forum_id, "manage")
+
 # Proxy a post author's person asset from the people service.
 def action_post_asset(a):
     asset = a.input("asset")
@@ -1176,8 +1218,11 @@ def action_post_asset(a):
         return
     # Bind the post to the route forum so this can't resolve a post (and its
     # author) in a forum the URL doesn't name.
-    row = mochi.db.row("select member from posts where id=? and forum=?", a.input("post"), forum_id)
-    return stream_asset(a, row["member"] if row else "", "people", asset)
+    row = mochi.db.row("select member, status from posts where id=? and forum=?", a.input("post"), forum_id)
+    if not asset_row_visible(a, forum_id, row):
+        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
+        return
+    return stream_asset(a, row["member"], "people", asset)
 
 # Proxy a moderation participant's person asset. The moderation log and the
 # restrictions list name moderators and their targets by id, and neither is a
@@ -1213,8 +1258,11 @@ def action_comment_asset(a):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
     # Bind the comment to the route forum.
-    row = mochi.db.row("select member from comments where id=? and forum=?", a.input("comment"), forum_id)
-    return stream_asset(a, row["member"] if row else "", "people", asset)
+    row = mochi.db.row("select member, status from comments where id=? and forum=?", a.input("comment"), forum_id)
+    if not asset_row_visible(a, forum_id, row):
+        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
+        return
+    return stream_asset(a, row["member"], "people", asset)
 
 VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
 
@@ -1493,7 +1541,9 @@ def action_ai_prompts_set(a):
         a.error.label(403, "errors.not_allowed")
         return
     prompt_type = a.input("type")
-    prompt_text = a.input("prompt", "")
+    # Cap the custom prompt template before it is stored and later fed to
+    # mochi.ai.prompt; owner-only, but still no reason to hold an unbounded blob.
+    prompt_text = cap_text(a.input("prompt", ""), 10000)
     if prompt_type not in ("tag", "score"):
         a.error.label(400, "errors.invalid_prompt_type")
         return
@@ -1768,7 +1818,7 @@ def action_view(a):
                 "data": {
                     "forum": {
                         "id": entity_id,
-                        "name": response.get("name", forum["name"] if forum else ""),
+                        "name": response.get("name", ""),
                         "fingerprint": response.get("fingerprint", mochi.entity.fingerprint(entity_id)),
                         "members": 0,
                         "updated": 0,
@@ -2888,10 +2938,15 @@ def action_delete(a):
     rss_tokens_revoke(forum["id"])
     mochi.db.execute("delete from forums where id=?", forum["id"])
 
-    # Revoke all access rules
+    # Revoke every access rule on this resource, not just the "*" subject's.
+    # Per-user grants (moderators, invited members) would otherwise be orphaned
+    # in the system database after the forum and its entity are gone.
     resource = "forum/" + forum["id"]
-    for op in ACCESS_LEVELS + ["manage", "*"]:
-        mochi.access.revoke("*", resource, op)
+    for rule in (mochi.access.list.resource(resource) or []):
+        subject = rule.get("subject")
+        operation = rule.get("operation")
+        if subject and operation:
+            mochi.access.revoke(subject, resource, operation)
 
     # Delete the entity
     mochi.entity.delete(forum["id"])
@@ -3347,6 +3402,8 @@ def action_post_edit(a):
     # existing id. The owner holds the rows and applies the scoping check.
     final_order = []
     for item in order:
+        if type(item) != "string":
+            continue
         if item.startswith("new:"):
             index = int(item[4:]) if mochi.text.valid(item[4:], "natural") else len(new_attachments)
             if index < len(new_attachments):
@@ -3376,6 +3433,14 @@ def action_post_edit(a):
     }
 
 # Delete a post
+# Clear the attachments of every comment on a post before the comment rows are
+# deleted; attachment_clear removes an object's rows, and the library sweep only
+# removes a file once no row references it, so skipping this orphans the comment
+# images on disk forever.
+def clear_post_comment_attachments(forum_id, post_id):
+    for _c in mochi.db.rows("select id from comments where forum=? and post=?", forum_id, post_id) or []:
+        attachment_clear(_c["id"])
+
 def action_post_delete(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -3414,6 +3479,9 @@ def action_post_delete(a):
             for att in attachments:
                 attachment_delete(att["id"])
 
+            # Clear each comment's attachments too before the comment rows go.
+            clear_post_comment_attachments(forum["id"], post_id)
+
             # Delete votes for all comments on this post
             mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
 
@@ -3444,6 +3512,8 @@ def action_post_delete(a):
             )
 
             # Delete locally for optimistic UI
+            attachment_clear(post_id)
+            clear_post_comment_attachments(forum["id"], post_id)
             mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
             mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
             mochi.db.execute("delete from posts where id=?", post_id)
@@ -4080,6 +4150,16 @@ def action_post_approve(a):
         if attachments:
             post_data["attachments"] = attachments
         broadcast_event(forum["id"], "post/create", post_data)
+
+        # Run the tail of the create path that a pending post skipped: the
+        # websocket fire (so connected members see the post appear), @mention
+        # notifications, and AI tagging. Approval is when the post becomes
+        # visible, so this is the moment those must fire.
+        mochi.db.commit.fire("posts", "insert", post_id)
+        if post["body"]:
+            notify_mentions(forum["id"], post_id, post["body"], post["member"], post["name"])
+        if forum.get("ai_mode", ""):
+            mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": post_id}, 0)
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "post/approve/submit"},
@@ -5747,10 +5827,12 @@ def event_comment_submit_event(e):
 
     parent = e.content("parent") or ""
     if parent and not mochi.db.exists("select id from comments where forum=? and post=? and id=?", forum["id"], post_id, parent):
+        send_reject(forum["id"], sender_id, "comment", id, "invalid")
         return
 
     body = e.content("body")
     if not mochi.text.valid(body, "text"):
+        send_reject(forum["id"], sender_id, "comment", id, "invalid")
         return
 
     now = mochi.time.now()
@@ -6046,17 +6128,6 @@ def event_comment_vote_event(e):
     broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": sender_id})
 
 # Received a member access update from forum owner
-def event_member_update_event(e):
-    forum = get_forum(e.header("from"))
-    if not forum:
-        unsubscribe_stale(e)
-        return
-
-    # Access is now managed via mochi.access, so this event is a no-op for subscribers.
-    # The forum owner grants/revokes access directly via mochi.access API.
-    # This event could be used for notifications in the future.
-
-# Received a post from forum owner
 def event_post_create_event(e):
     forum_id = e.header("from")
     forum = get_forum(forum_id)
@@ -7356,10 +7427,20 @@ def event_report_submit_event(e):
     if not check_event_access(sender, forum["id"], "view"):
         return
     report_id = e.content("id")
+    # The report id becomes this row's primary key, so reject a malformed or
+    # non-string one before the insert rather than storing junk (or a value
+    # that collides with a real id).
+    if not mochi.text.valid(report_id, "id"):
+        return
     report_type = e.content("type")
     target = e.content("target")
     reason = e.content("reason")
-    details = e.content("details") or ""
+    # Cap and type-check details, matching the 1000-char bound the local report
+    # path applies; a non-string peer value would otherwise abort the handler.
+    details = e.content("details")
+    if type(details) != "string":
+        details = ""
+    details = details[:1000]
 
     if report_type not in ["post", "comment"]:
         return
@@ -7580,6 +7661,13 @@ def insert_forum_schema(forum_id, schema):
         # insert or ignore (not replace): the dump comes from the forum owner, who
         # could name an id that already exists in another of the user's forums;
         # replace would delete that foreign row and move it into this forum.
+        # Apply the same validation the P2P submit path enforces; the dump is
+        # owner-supplied and could otherwise seed the replica with a title/body
+        # (bidi overrides, over-length) that event_post_submit_event rejects.
+        if not mochi.text.valid(p.get("title", ""), "name"):
+            continue
+        if not mochi.text.valid(p.get("body", ""), "text"):
+            continue
         mochi.db.execute(
             "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
@@ -7597,6 +7685,9 @@ def insert_forum_schema(forum_id, schema):
     for c in (schema.get("comments") or []):
         # Only accept a comment whose post is a post in THIS forum.
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
+            continue
+        # Same body validation the P2P submit path applies.
+        if not mochi.text.valid(c.get("body", ""), "text"):
             continue
         mochi.db.execute(
             "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created, attachment) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

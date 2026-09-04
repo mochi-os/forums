@@ -47,12 +47,22 @@ export function useForumInfo(forumId: string | null) {
   })
 }
 
-export function useForumsInfo() {
-  return useQuery({
-    queryKey: [...forumsKeys.all, 'info-list'],
+// Shared options for the class-level `-/information` query, so the landing
+// route loader (via ensureQueryData) and the layout's useForumsInfo hit ONE
+// cache entry instead of both fetching `-/information` on the same load. The
+// small staleTime keeps the loader-populated cache fresh across the immediate
+// layout mount; mutations still invalidate it explicitly.
+export function forumsInfoQueryOptions() {
+  return {
+    queryKey: [...forumsKeys.all, 'info-list'] as const,
     queryFn: () => forumsApi.getForumsInfo(),
+    staleTime: 30_000,
     refetchOnWindowFocus: false,
-  })
+  }
+}
+
+export function useForumsInfo() {
+  return useQuery(forumsInfoQueryOptions())
 }
 
 // Whether this user holds the forum, and the default sort, from the

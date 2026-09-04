@@ -36,14 +36,9 @@ const endpoints = {
     info: '-/information',
     list: '-/list',
     create: '-/create',
-    // Unused in web/src so far but each resolves to a live app.json action -
-    // unbuilt UI, not dead code.
-    find: 'find',
-    new: '-/new',
     search: '-/directory/search',
     recommendations: '-/recommendations',
     probe: '-/probe',
-    postNew: '-/post/new',
     postCreate: '-/post/create',
 
     // Entity-level endpoints (use /-/ separator)
@@ -77,21 +72,14 @@ const endpoints = {
     aiPromptsSet: (forumId: string) => `${getEntityBase(forumId)}/-/ai/prompts/set`,
 
     // Tag endpoints
-    tags: (forumId: string) => `${getEntityBase(forumId)}/-/tags`,
-    postTags: (forumId: string, postId: string) =>
-      `${getEntityBase(forumId)}/-/${postId}/tags`,
     postTagsAdd: (forumId: string, postId: string) =>
       `${getEntityBase(forumId)}/-/${postId}/tags/add`,
-    postTagsRemove: (forumId: string, postId: string) =>
-      `${getEntityBase(forumId)}/-/${postId}/tags/remove`,
 
     // Interest/scoring endpoints
     tagInterest: (forumId: string) => `${getEntityBase(forumId)}/-/tags/interest`,
 
     // Comment endpoints
     comment: {
-      new: (forumId: string, postId: string) =>
-        `${getEntityBase(forumId)}/-/${postId}/comment`,
       create: (forumId: string, postId: string) =>
         `${getEntityBase(forumId)}/-/${postId}/create`,
       edit: (forumId: string, postId: string, commentId: string) =>

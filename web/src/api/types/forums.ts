@@ -94,14 +94,14 @@ export interface InfoClassResponse {
   }
 }
 
-// Union type for info response
-export type InfoResponse = InfoEntityResponse | InfoClassResponse
-
 export interface ListForumsResponse {
   data: {
     forums: Forum[]
     posts: Post[]
     settings?: { sort: string }
+    // True when the class has at least one AI-enabled forum, so the list page
+    // can offer the "AI" sort option.
+    hasAi?: boolean
   }
 }
 
@@ -148,12 +148,6 @@ export interface SearchForumsResponse {
   }
 }
 
-export interface FindForumsResponse {
-  data: {
-    forums: DirectoryEntry[]
-  }
-}
-
 export interface RecommendedForum {
   id: string
   name: string
@@ -175,10 +169,6 @@ export interface SubscribeForumResponse {
 }
 
 export interface UnsubscribeForumResponse {
-  data: Record<string, never>
-}
-
-export interface GetNewForumResponse {
   data: Record<string, never>
 }
 

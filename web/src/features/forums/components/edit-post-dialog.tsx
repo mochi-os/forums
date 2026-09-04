@@ -100,29 +100,37 @@ export function EditPostDialog({
     },
   })
 
-  // Reset form when dialog opens/closes or post changes
+  // Reset the draft when the dialog opens, or when it is switched to a
+  // different post. Keyed on post.id (via the ref guard), NOT the post object:
+  // a thread refetch hands back an equal-but-new Post object while the dialog
+  // is open, and resetting on that identity change wiped the user's edits.
+  const lastResetPostId = useRef<string | null>(null)
   useEffect(() => {
-    if (open) {
-      form.reset({
-        title: post.title,
-        body: post.body,
+    if (!open) {
+      lastResetPostId.current = null
+      return
+    }
+    if (lastResetPostId.current === post.id) return
+    lastResetPostId.current = post.id
+    form.reset({
+      title: post.title,
+      body: post.body,
+    })
+    // Initialize attachment items from existing attachments
+    const existingItems: EditingAttachment[] = (post.attachments || []).map(
+      (att) => ({
+        kind: 'existing' as const,
+        attachment: att,
       })
-      // Initialize attachment items from existing attachments
-      const existingItems: EditingAttachment[] = (post.attachments || []).map(
-        (att) => ({
-          kind: 'existing' as const,
-          attachment: att,
-        })
-      )
-      setItems(existingItems)
-      setCaptions(
-        Object.fromEntries(
-          (post.attachments || []).flatMap((att) =>
-            att.caption ? [[att.id, att.caption]] : []
-          )
+    )
+    setItems(existingItems)
+    setCaptions(
+      Object.fromEntries(
+        (post.attachments || []).flatMap((att) =>
+          att.caption ? [[att.id, att.caption]] : []
         )
       )
-    }
+    )
   }, [open, post, form])
 
   const newFiles = useMemo(

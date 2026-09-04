@@ -108,16 +108,6 @@ export interface SavedItem {
   created: number
 }
 
-export interface GetNewPostParams {
-  forum: string
-}
-
-export interface GetNewPostResponse {
-  data: {
-    forum: Forum
-  }
-}
-
 export interface CreatePostRequest {
   forum: string
   title: string

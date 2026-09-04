@@ -4,11 +4,11 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { Button, EmptyState } from '@mochi/web'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { ChevronLeft, FileQuestion } from 'lucide-react'
-import { t } from '@lingui/core/macro'
 
 export function EmptyThreadState({ onBack }: { onBack: () => void }) {
+  const { t } = useLingui()
   return (
     <div className='flex h-full flex-col items-center justify-center p-8'>
       <EmptyState

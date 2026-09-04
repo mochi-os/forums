@@ -46,6 +46,7 @@ import {
 } from '@mochi/web'
 import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
+import { clampLimitWindow } from '@/features/forums/moderation'
 import { toError, getErrorStatus } from '@/lib/errors'
 import { useQueryClient } from '@tanstack/react-query'
 import {
@@ -706,7 +707,8 @@ interface ModerationTabProps {
   forumId: string
 }
 
-function ModerationTab({ forumId }: ModerationTabProps) {
+// Exported for the revert-on-rejection test; not a route entry point.
+export function ModerationTab({ forumId }: ModerationTabProps) {
   const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -739,23 +741,37 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     void loadSettings()
   }, [loadSettings])
 
-  const saveSettings = useCallback(async (newSettings: typeof settings) => {
-    try {
-      await forumsApi.saveModerationSettings({
-        forum: forumId,
-        ...newSettings,
-      })
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
-    }
-  }, [forumId, t])
+  const saveSettings = useCallback(
+    async (newSettings: typeof settings, previous: typeof settings) => {
+      try {
+        await forumsApi.saveModerationSettings({
+          forum: forumId,
+          ...newSettings,
+        })
+      } catch (error) {
+        // The server rejected the change: roll the optimistic value back so the
+        // UI reflects what is actually stored, not the value that failed.
+        setSettings(previous)
+        toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
+      }
+    },
+    [forumId, t]
+  )
 
-  const updateSetting = <K extends keyof typeof settings>(key: K, value: typeof settings[K]) => {
-    setSettings((s) => {
-      const newSettings = { ...s, [key]: value }
-      void saveSettings(newSettings)
-      return newSettings
-    })
+  const updateSetting = <K extends keyof typeof settings>(
+    key: K,
+    value: (typeof settings)[K]
+  ) => {
+    const nextValue =
+      key === 'limit_window'
+        ? (clampLimitWindow(value as number) as (typeof settings)[K])
+        : value
+    const previous = settings
+    const next = { ...previous, [key]: nextValue }
+    // Apply optimistically, then fire the network save OUTSIDE the state
+    // updater: the updater must stay a pure function React can call twice.
+    setSettings(next)
+    void saveSettings(next, previous)
   }
 
   if (isLoading) {

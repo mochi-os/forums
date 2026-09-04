@@ -27,12 +27,26 @@ const iframeHostFilter = (node: Node, data: { tagName: string }): void => {
   }
 }
 
+// `rel` is in ALLOWED_ATTR so a post can keep rel="nofollow" etc., but that
+// also lets remote HTML ship <a target="_blank" rel="opener"> and reach
+// window.opener on the app (reverse-tabnabbing). Force the safe rel on every
+// target="_blank" anchor after DOMPurify has finished with its attributes,
+// overriding whatever the author supplied.
+const targetBlankRelFilter = (node: Node): void => {
+  if (!(node instanceof Element) || node.tagName !== 'A') return
+  if (node.getAttribute('target') === '_blank') {
+    node.setAttribute('rel', 'noopener noreferrer')
+  }
+}
+
 export const sanitizeHtml = (html: string): string => {
   DOMPurify.addHook('uponSanitizeElement', iframeHostFilter)
+  DOMPurify.addHook('afterSanitizeAttributes', targetBlankRelFilter)
   try {
     return sanitizeWithConfig(html)
   } finally {
     DOMPurify.removeHook('uponSanitizeElement')
+    DOMPurify.removeHook('afterSanitizeAttributes')
   }
 }
 
