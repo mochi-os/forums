@@ -48,7 +48,24 @@ export function PostCard({
     <div className='relative space-y-3 p-4'>
       <PostTitleBar
         size='card'
-        title={<h3>{post.title}</h3>}
+        title={
+          <h3>
+            {/* The card's own onClick is mouse-only. This is the keyboard and
+                screen-reader route into the post, and it takes the title as its
+                name rather than the whole card's text. Propagation stops here so
+                the card handler doesn't select a second time. */}
+            <button
+              type='button'
+              className='cursor-pointer rounded-sm text-start outline-none focus-visible:ring-[3px] focus-visible:ring-primary-foreground/70'
+              onClick={(e) => {
+                e.stopPropagation()
+                onSelect(post.fingerprint ?? post.forum, post.id)
+              }}
+            >
+              {post.title}
+            </button>
+          </h3>
+        }
         trailing={
           <>
             {post.status === 'pending' && (
