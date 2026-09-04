@@ -381,10 +381,13 @@ export function EditPostDialog({
             </div>
             <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>
+              {/* Through the guard, not onOpenChange: this button closes the
+                  dialog itself rather than going back through the root, so it
+                  would otherwise be the one exit that still drops the draft. */}
               <Button
                 type='button'
                 variant='outline'
-                onClick={() => onOpenChange(false)}
+                onClick={requestClose}
                 disabled={isPending}
               >
                 <Trans>Cancel</Trans>
