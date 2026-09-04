@@ -416,6 +416,7 @@ export function ThreadDetail({
   // render the SAME ThreadComment with these, so the panel is the post's
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
+    server,
     onOpenAttachment: (attachmentId: string) => lightboxOpener.current?.(attachmentId),
     onSearchPeople: (q: string) => forumsApi.searchMembers(forum, q),
     onVote: (commentId: string, vote: 'up' | 'down' | '') =>

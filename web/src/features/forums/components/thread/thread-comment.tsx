@@ -65,6 +65,8 @@ export interface ThreadCommentProps {
   /** Reports how many files this comment has staged while it is the one being
    * replied to, so the thread can warn before a switch throws them away. */
   onReplyFilesChange?: (count: number) => void
+  /** The remote server of a `?server=` view, carried into the attachment routes. */
+  server?: string
   onReplySubmit?: (commentId: string, files?: File[]) => void | Promise<void>
   /** Byte progress of an in-flight reply upload */
   replyProgress?: Upload | null
@@ -100,6 +102,7 @@ export function ThreadComment({
   replyValue = '',
   onReplyChange,
   onReplyFilesChange,
+  server,
   onReplySubmit,
   replyProgress,
   onReplyCancel,
@@ -336,7 +339,7 @@ export function ThreadComment({
         </p>
       )}
 
-      <CommentAttachments attachments={comment.attachments} />
+      <CommentAttachments attachments={comment.attachments} forumId={comment.forum} server={server} />
 
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
@@ -557,6 +560,7 @@ export function ThreadComment({
         <ThreadComment
           key={reply.id}
           comment={reply}
+          server={server}
           onOpenAttachment={onOpenAttachment}
           onVote={onVote}
           canVote={canVote}

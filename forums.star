@@ -789,6 +789,35 @@ def apply_own_status(forum_id, user_id, answer):
 # Reason is a stable code string (e.g. "access_denied"). The receiver translates
 # it via Lingui on the web. Detail is an optional message-bearing detail (e.g.
 # the rate-limit window for "rate_limited"); kept short.
+# A remote server's attachment rows carry url / thumbnail_url / preview_url
+# built for its own routes. The client must never fetch an authenticated
+# resource at a path another server chose, so they are dropped from
+# every attachments list in a remote answer; the client builds the URL from
+# the id and this app's own route, with ?server= for the proxy.
+def strip_remote_urls(value):
+    # A remote answer's arrays arrive as tuples (immutable), so this rebuilds
+    # rather than mutating in place - popping from a tuple is not possible, and
+    # it was the reason an earlier in-place version left every url untouched.
+    kind = type(value)
+    if kind == "dict":
+        result = {}
+        for key in value:
+            item = value[key]
+            if key == "attachments" and type(item) in ("list", "tuple"):
+                cleaned = []
+                for attachment in item:
+                    if type(attachment) == "dict":
+                        cleaned.append({field: attachment[field] for field in attachment if field not in ("url", "thumbnail_url", "preview_url")})
+                    else:
+                        cleaned.append(strip_remote_urls(attachment))
+                result[key] = cleaned
+            else:
+                result[key] = strip_remote_urls(item)
+        return result
+    if kind in ("list", "tuple"):
+        return [strip_remote_urls(item) for item in value]
+    return value
+
 def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
     if not sender_id or not target_id:
         return
@@ -1748,7 +1777,7 @@ def action_view(a):
                         "banner": response.get("banner", ""),
                         "banner_html": response.get("banner_html", ""),
                     },
-                    "posts": response.get("posts", []),
+                    "posts": strip_remote_urls(response.get("posts", [])),
                     "member": None,
                     "can_manage": False,
                     "can_moderate": response.get("can_moderate", False),
@@ -2732,7 +2761,7 @@ def action_subscribe(a):
     # asynchronously from the owner; event_update_event flips it to 1 when the
     # owner's post-subscribe "update" broadcast lands.
     mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
-        forum_id, forum_name, 0, now, server or "", fp)
+        forum_id, forum_name, 0, now, server or ("p2p/" + peer if peer else ""), fp)
 
     # Add self as subscriber
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, a.user.identity.id, a.user.identity.name, now)
@@ -2828,6 +2857,10 @@ def purge_forum_rows(forum_id):
     mochi.db.execute("delete from restrictions where forum=?", forum_id)
     mochi.db.execute("delete from moderation where forum=?", forum_id)
     mochi.db.execute("delete from votes where forum=?", forum_id)
+    # The library sweep only removes files with no row, so the rows must go
+    # here or every image the forum carried stays on disk forever.
+    for row in mochi.db.rows("select id from posts where forum=? union select id from comments where forum=?", forum_id, forum_id) or []:
+        attachment_clear(row["id"])
     mochi.db.execute("delete from comments where forum=?", forum_id)
     mochi.db.execute("delete from posts where forum=?", forum_id)
 
@@ -2968,7 +3001,7 @@ def action_post_view(a):
             return
 
         # Return remote data
-        return {"data": response}
+        return {"data": strip_remote_urls(response)}
 
     if not post:
         a.error.label(404, "errors.post_not_found")
@@ -6233,6 +6266,13 @@ def event_post_submit_event(e):
         return
     id = post_id
 
+    existing = mochi.db.row("select member, status from posts where id=? and forum=?", id, forum["id"])
+    if existing and existing["member"] == sender_id:
+        # A re-delivered submit of the author's own post. A reject would make
+        # the author's copy delete itself while this side still holds the post;
+        # the status message is what their pending row is waiting for.
+        send_status(forum["id"], sender_id, "post", id, existing["status"])
+        return
     if mochi.db.exists("select id from posts where id=?", id):
         send_reject(forum["id"], sender_id, "post", id, "duplicate")
         return
@@ -7305,6 +7345,11 @@ def event_report_submit_event(e):
         return
 
     sender = e.header("from")
+    # Core delivers an unclaimed frame with an empty from, and an empty subject
+    # matches the * view grant every public forum carries, so fail closed on
+    # it before the access check - as event_subscribe_event does.
+    if not mochi.text.valid(sender, "entity"):
+        return
     # Require view access before accepting a report - a peer that merely knows a
     # target id shouldn't be able to file reports on a private forum. Matches the
     # other owner-path handlers.

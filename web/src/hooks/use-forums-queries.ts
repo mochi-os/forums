@@ -55,6 +55,20 @@ export function useForumsInfo() {
   })
 }
 
+// Whether this user holds the forum, and the default sort, from the
+// information query the layout already holds. Not the list query: that one
+// renders up to a hundred posts across every subscribed forum to answer the
+// same question.
+export function useForumMembership(forumId: string) {
+  const { data, isLoading } = useForumsInfo()
+  const forums = data?.data?.forums ?? []
+  return {
+    isSubscribed: forums.some((f) => f.id === forumId),
+    defaultSort: data?.data?.settings?.sort ?? '',
+    isLoading,
+  }
+}
+
 export function useForumAccess(
   forumId: string,
   options?: { enabled?: boolean }

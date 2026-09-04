@@ -29,12 +29,10 @@ import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
-  useForumsList,
+  useForumMembership,
   useCreatePost,
   useSubscribeForum,
   useUnsubscribeForum,
-  selectForums,
-  selectDefaultSort,
   useSetForumSort,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
@@ -86,10 +84,9 @@ export function EntityForumPage({
     }
   }, [forum.id, forum.fingerprint, isLoggedIn])
 
-  // Queries for subscription status
-  const { data: forumsData, isLoading: isLoadingForums } = useForumsList()
-  const forums = useMemo(() => selectForums(forumsData), [forumsData])
-  const defaultSort = selectDefaultSort(forumsData)
+  // Subscription state and the default sort, from the information query the
+  // layout already holds rather than a listing of every forum's posts.
+  const { isSubscribed, defaultSort, isLoading: isLoadingForums } = useForumMembership(forum.id)
 
   // Adopt the global default once it loads, unless the user has overridden
   // (or this forum already has its own override from forum.sort).
@@ -233,7 +230,6 @@ export function EntityForumPage({
 
   // Use values from hook
   const canPost = forumData?.can_post ?? permissions?.post ?? false
-  const isSubscribed = !!forums.find((f) => f.id === forum.id)
   const isRemoteForum = !isSubscribed
   const canUnsubscribe = isSubscribed && !canManage
 

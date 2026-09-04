@@ -53,7 +53,6 @@ import {
   useDeleteForum,
   useForumAccess,
   useForumInfo,
-  useForumsList,
   useGroups,
   useUserSearch,
 } from '@/hooks/use-forums-queries'
@@ -133,8 +132,6 @@ function ForumSettingsPage() {
     refetch: refreshForumInfo,
   } = useForumInfo(forumId)
 
-  // Keep forums list refetch for sidebar updates after changes
-  const { refetch: refreshForums } = useForumsList()
   const queryClient = useQueryClient()
 
   const deleteForum = useDeleteForum(() => {
@@ -179,14 +176,14 @@ function ForumSettingsPage() {
         success: t`Unsubscribed`,
         error: (e) => getErrorMessage(e, t`Failed to unsubscribe`),
       })
-      void refreshForums()
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       void navigate({ to: '/' })
     } catch {
       // toast already shown
     } finally {
       setIsUnsubscribing(false)
     }
-  }, [selectedForum, isUnsubscribing, refreshForums, navigate, t])
+  }, [selectedForum, isUnsubscribing, queryClient, navigate, t])
 
   const handleDelete = useCallback(() => {
     if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending) return
@@ -202,11 +199,10 @@ function ForumSettingsPage() {
       error: (e) => getErrorMessage(e, t`Failed to rename forum`),
     })
     // Invalidate every forum query: the sidebar reads the info-list query,
-    // which the two refetches below do not cover.
+    // which the refetch below does not cover.
     void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     void refreshForumInfo()
-    void refreshForums()
-  }, [selectedForum, refreshForumInfo, refreshForums, queryClient, t])
+  }, [selectedForum, refreshForumInfo, queryClient, t])
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)

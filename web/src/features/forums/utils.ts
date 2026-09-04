@@ -48,11 +48,14 @@ const sanitizeWithConfig = (html: string): string => {
     // No 'style': author-supplied inline styles are a clickjacking-overlay
     // vector (position:fixed/opacity), and DOMPurify doesn't strip those. The
     // app's own video-embed styles are added by embedVideos AFTER sanitizing,
-    // so they're unaffected; images size via width/height.
+    // so they're unaffected; images size via width/height. No 'class' or
+    // 'id' either: the app's own utilities (fixed, inset-0, z-50, opacity-0)
+    // are in the stylesheet, so a class is the same overlay by another route,
+    // and an id can shadow the app's own anchors.
     ALLOWED_ATTR: [
-      'href', 'target', 'rel', 'class', 'src', 'alt', 'title',
+      'href', 'target', 'rel', 'src', 'alt', 'title',
       'width', 'height', 'allow', 'allowfullscreen', 'frameborder',
-      'id', 'colspan', 'rowspan',
+      'colspan', 'rowspan',
     ],
     ADD_ATTR: ['target'],
   })
