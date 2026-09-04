@@ -167,29 +167,33 @@ msgstr "접근이 거부되었어요"
 msgid "Access level"
 msgstr "접근 수준"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Access level updated"
 msgstr "접근 수준이 업데이트되었어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:723
+#: src/routes/_authenticated/$forum_.settings.tsx:651
 msgid "Access management"
 msgstr "접근 관리"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Access removed"
 msgstr "접근이 제거되었어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:687
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Access set for {subjectName}"
 msgstr "{subjectName}에 대한 접근이 설정되었어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Account"
 msgstr "계정"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "계정 유형"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "활동"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
@@ -239,7 +243,7 @@ msgstr "파일 추가"
 msgid "Add item..."
 msgstr "항목 추가..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "링크 추가"
 
@@ -251,7 +255,7 @@ msgstr "링크 추가"
 msgid "Add option"
 msgstr "옵션 추가"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:733
+#: src/routes/_authenticated/$forum_.settings.tsx:661
 msgid "Add rule"
 msgstr "규칙 추가"
 
@@ -279,11 +283,11 @@ msgid "Additional details (optional)"
 msgstr "추가 세부정보 (선택사항)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:551
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:480
 msgid "AI actions on posts"
 msgstr "게시물에 대한 AI 작업"
 
@@ -352,6 +356,10 @@ msgstr "승인"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\"을(를) 삭제할까요?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\"을(를) 삭제할까요? 이 작업은 되돌릴 수 없어요."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" 컬럼을 삭제할까요? 이 작업은 되돌릴 수 없어요."
@@ -371,6 +379,14 @@ msgstr "정말로 이 게시물을 삭제하시겠습니까? 모든 댓글도 �
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:27
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "로그아웃할까요? 계정에 다시 접근하려면 다시 로그인해야 해요."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "정말 기권하시겠습니까?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "정말 기권하시겠습니까? {opponentName}이(가) 게임에서 이깁니다."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -443,21 +459,21 @@ msgstr "작성자 차단"
 msgid "Banned"
 msgstr "차단됨"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "배너"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner removed"
 msgstr "배너 제거됨"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner updated"
 msgstr "배너 업데이트됨"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "차단됨"
 
@@ -466,7 +482,7 @@ msgstr "차단됨"
 msgid "Blocked navigation to untrusted link"
 msgstr "신뢰할 수 없는 링크로의 이동이 차단되었어요"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "차단"
 
@@ -583,13 +599,13 @@ msgstr "사이드바에서 게임을 선택하거나 새로 시작하세요."
 msgid "Choose language"
 msgstr "언어 선택"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 #: ../../../lib/web/src/components/travelling-picker.tsx:151
 #: ../../../lib/web/src/components/travelling-picker.tsx:212
 #: ../../../lib/web/src/components/travelling-picker.tsx:218
-#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "지우기"
 
@@ -611,8 +627,8 @@ msgstr "검색 지우기"
 msgid "Clearing saved posts..."
 msgstr "저장된 게시물 지우는 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -694,7 +710,7 @@ msgstr "댓글이 승인되었어요"
 msgid "Comment deleted"
 msgstr "댓글이 삭제되었어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:941
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "Comment limit"
 msgstr "댓글 제한"
 
@@ -727,6 +743,11 @@ msgstr "댓글, 투표 및 보기"
 msgid "Comments"
 msgstr "댓글"
 
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "댓글 ({0})"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "컴팩트"
@@ -757,7 +778,7 @@ msgstr "연결 중..."
 msgid "Content"
 msgstr "콘텐츠"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Content from users below a threshold must be approved"
 msgstr "기준 미만 사용자의 콘텐츠는 승인이 필요해요"
 
@@ -819,8 +840,8 @@ msgstr "해당 계정으로 인증하지 못했습니다. 다시 시도해 주�
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "생성"
@@ -860,7 +881,7 @@ msgstr "{field} 생성됨"
 msgid "Creating forum..."
 msgstr "포럼 생성 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "생성 중..."
@@ -886,7 +907,7 @@ msgstr "데이터 충돌"
 msgid "Date"
 msgstr "날짜"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:913
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "days"
 msgstr "일"
 
@@ -898,7 +919,7 @@ msgstr "거절"
 msgid "Default"
 msgstr "기본값"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:498
 msgid "Default account"
 msgstr "기본 계정"
 
@@ -919,6 +940,8 @@ msgstr "기본 정렬"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
@@ -952,6 +975,16 @@ msgstr "포럼 삭제"
 #: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "포럼을 삭제할까요?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "게임을 삭제할까요?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "항목 삭제"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
@@ -987,6 +1020,10 @@ msgstr "{field} 삭제됨"
 msgid "Deleting forum..."
 msgstr "포럼 삭제 중..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "삭제 중..."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "내림차순"
@@ -1018,7 +1055,7 @@ msgstr "웹 브라우저에서 감지"
 msgid "Directory"
 msgstr "디렉터리"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:486
 msgid "Disabled"
 msgstr "비활성화됨"
 
@@ -1055,6 +1092,7 @@ msgid "Does not match the required pattern"
 msgstr "필요한 패턴과 일치하지 않습니다"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "완료"
@@ -1070,7 +1108,7 @@ msgstr "다운로드"
 msgid "Download failed"
 msgstr "다운로드 실패"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "중복"
 
@@ -1132,7 +1170,7 @@ msgstr "이메일"
 msgid "Email code"
 msgstr "이메일 코드"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: ../../../lib/web/src/components/banner-section.tsx:88
 msgid "Enter banner text (markdown supported)..."
 msgstr "배너 텍스트를 입력하세요 (마크다운 지원)..."
 
@@ -1147,6 +1185,10 @@ msgstr "인증 앱 코드를 입력하세요"
 #: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "엔티티 ID"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "오류"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1207,10 +1249,14 @@ msgstr "복사에 실패했어요"
 msgid "Failed to create forum"
 msgstr "포럼 생성에 실패했습니다"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "링크 생성에 실패했어요"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "삭제에 실패했어요"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
@@ -1224,7 +1270,7 @@ msgstr "댓글 삭제에 실패했어요"
 msgid "Failed to delete forum"
 msgstr "포럼 삭제에 실패했습니다"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "링크 삭제에 실패했어요"
 
@@ -1236,7 +1282,7 @@ msgstr "RSS 토큰을 가져오지 못했어요"
 msgid "Failed to load"
 msgstr "불러오기에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:586
 msgid "Failed to load access rules"
 msgstr "접근 규칙 불러오기에 실패했어요"
 
@@ -1252,7 +1298,7 @@ msgstr "포럼 설정 로드 실패"
 msgid "Failed to load forums"
 msgstr "포럼 불러오기에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:593
 msgid "Failed to load groups"
 msgstr "그룹 로드 실패"
 
@@ -1264,6 +1310,11 @@ msgstr "기록 불러오기에 실패했어요"
 msgid "Failed to load image"
 msgstr "이미지를 불러오지 못했어요"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "항목 불러오기에 실패했어요"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "조정 로그 불러오기에 실패했어요"
@@ -1272,7 +1323,7 @@ msgstr "조정 로그 불러오기에 실패했어요"
 msgid "Failed to load moderation queue"
 msgstr "관리 대기열 로드 실패"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:736
 msgid "Failed to load moderation settings"
 msgstr "관리 설정 로드 실패"
 
@@ -1297,6 +1348,10 @@ msgstr "제한 로드 실패"
 msgid "Failed to load video"
 msgstr "동영상을 불러오지 못했어요"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "이동 실패"
+
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "사용자 음소거에 실패했어요"
@@ -1313,7 +1368,7 @@ msgstr "댓글 게시에 실패했어요"
 msgid "Failed to reject items"
 msgstr "항목 거부에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:702
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "Failed to remove access"
 msgstr "접근 권한 제거에 실패했어요"
 
@@ -1346,7 +1401,11 @@ msgstr "신고 해결에 실패했어요"
 msgid "Failed to revoke RSS access"
 msgstr "RSS 액세스 취소에 실패했습니다"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:825
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "저장에 실패했어요"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:753
 msgid "Failed to save moderation settings"
 msgstr "조정 설정 저장에 실패했어요"
 
@@ -1363,11 +1422,11 @@ msgstr "프롬프트 저장에 실패했어요"
 msgid "Failed to search forums"
 msgstr "포럼 검색에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to search users"
 msgstr "사용자 검색 실패"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:690
+#: src/routes/_authenticated/$forum_.settings.tsx:618
 msgid "Failed to set access level"
 msgstr "접근 레벨 설정에 실패했어요"
 
@@ -1383,16 +1442,16 @@ msgstr "구독에 실패했어요"
 msgid "Failed to unsubscribe"
 msgstr "구독 취소에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:717
+#: src/routes/_authenticated/$forum_.settings.tsx:645
 msgid "Failed to update access level"
 msgstr "접근 레벨 업데이트에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:460
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Failed to update AI settings"
 msgstr "AI 설정 업데이트에 실패했어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:71
 msgid "Failed to update banner"
 msgstr "배너 업데이트에 실패했어요"
 
@@ -1400,11 +1459,15 @@ msgstr "배너 업데이트에 실패했어요"
 msgid "Failed to update comment"
 msgstr "댓글 업데이트에 실패했어요"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "알림 설정 업데이트 실패"
+
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "첨부 파일 업로드에 실패했어요"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
@@ -1612,6 +1675,10 @@ msgstr "잘못된 날짜"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "찾으시는 페이지가 <0/>존재하지 않거나 삭제된 것 같아요."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "항목 세부 정보"
+
 #: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "방금"
@@ -1641,7 +1708,7 @@ msgstr "라이트"
 msgid "Link"
 msgstr "링크"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "링크"
 
@@ -1656,6 +1723,14 @@ msgstr "더 보기"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "콘텐츠 로드 중…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "항목 로딩 중"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "항목 세부 정보 로딩 중"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1834,7 +1909,7 @@ msgstr "이름은 1000자 이하여야 해요"
 msgid "Network error"
 msgstr "네트워크 오류"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1852,11 +1927,11 @@ msgstr "새 게임"
 msgid "New post"
 msgstr "새 게시물"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "New threads must be approved"
 msgstr "새 스레드는 승인이 필요해요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:901
+#: src/routes/_authenticated/$forum_.settings.tsx:829
 msgid "New user threshold:"
 msgstr "신규 사용자 임계값:"
 
@@ -1865,7 +1940,7 @@ msgstr "신규 사용자 임계값:"
 msgid "Next image"
 msgstr "다음 이미지"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "추가할 {parentClassNames}이(가) 없음"
 
@@ -1906,11 +1981,11 @@ msgstr "아직 게임이 없어요"
 msgid "No groups available"
 msgstr "이용 가능한 그룹이 없어요"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "아직 항목 유형을 만들 수 없어요. 먼저 필요한 상위 항목을 만들어 주세요."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "일치하는 객체가 없어요"
 
@@ -1979,9 +2054,13 @@ msgid "No views"
 msgstr "조회수가 없어요"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2086,10 +2165,6 @@ msgstr "보기 컨트롤 열기"
 msgid "Option name"
 msgstr "옵션 이름"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "포럼 상단에 표시되는 선택적 마크다운 배너예요."
-
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
@@ -2105,7 +2180,9 @@ msgstr "기타"
 msgid "Owner"
 msgstr "소유자"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "상위"
 
@@ -2206,7 +2283,7 @@ msgstr "포럼 서버에 게시물을 저장할 수 없습니다"
 msgid "Post deleted"
 msgstr "게시물이 삭제되었어요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:926
+#: src/routes/_authenticated/$forum_.settings.tsx:854
 msgid "Post limit"
 msgstr "게시물 한도"
 
@@ -2250,7 +2327,7 @@ msgstr "게시물이 업데이트되었어요"
 msgid "Post, comment, vote, and view"
 msgstr "게시, 댓글, 투표 및 보기"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "posts"
 msgstr "개의 게시물"
 
@@ -2262,11 +2339,11 @@ msgstr "게시물"
 msgid "Posts and comments"
 msgstr "게시물 및 댓글"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:862
+#: src/routes/_authenticated/$forum_.settings.tsx:790
 msgid "Pre-moderation"
 msgstr "사전 모더레이션"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:922
+#: src/routes/_authenticated/$forum_.settings.tsx:850
 msgid "Prevent spam by limiting how often users can post"
 msgstr "사용자가 게시할 수 있는 빈도를 제한하여 스팸을 방지해요"
 
@@ -2288,6 +2365,10 @@ msgstr "처리 중…"
 msgid "Prompt saved"
 msgstr "프롬프트가 저장되었어요"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "속성"
+
 #: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "게시물 게시"
@@ -2308,7 +2389,7 @@ msgstr "대기열"
 msgid "Raised"
 msgstr "돌출"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:921
+#: src/routes/_authenticated/$forum_.settings.tsx:849
 msgid "Rate limiting"
 msgstr "속도 제한"
 
@@ -2367,7 +2448,7 @@ msgstr "거부"
 msgid "Rejected"
 msgstr "거부됨"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "관련"
 
@@ -2438,8 +2519,8 @@ msgstr "관심사 제거"
 msgid "Remove item"
 msgstr "항목 제거"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "링크 제거"
 
@@ -2482,11 +2563,11 @@ msgstr "이 보드 열 이름 변경"
 msgid "Renaming forum..."
 msgstr "포럼 이름 변경 중..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:951
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "replies"
 msgstr "개의 답글"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:880
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Replies must be approved"
 msgstr "답글은 승인이 필요해요"
 
@@ -2537,19 +2618,19 @@ msgstr "{0} 신고"
 msgid "Reports"
 msgstr "신고"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:863
+#: src/routes/_authenticated/$forum_.settings.tsx:791
 msgid "Require approval before content becomes visible"
 msgstr "콘텐츠가 표시되기 전에 승인이 필요해요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:807
 msgid "Require approval for new comments"
 msgstr "새 댓글에 승인이 필요해요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:868
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Require approval for new posts"
 msgstr "새 게시물에 승인이 필요해요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:890
+#: src/routes/_authenticated/$forum_.settings.tsx:818
 msgid "Require approval for new users"
 msgstr "새 사용자에 승인이 필요해요"
 
@@ -2560,6 +2641,18 @@ msgstr "필수"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "이메일 다시 보내기"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "기권"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "게임을 기권할까요?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "기권 중..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2626,12 +2719,12 @@ msgstr "토요일"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "저장"
 
@@ -2661,7 +2754,7 @@ msgstr "저장된 게시물이 지워졌습니다"
 msgid "Saving..."
 msgstr "저장 중..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:529
 msgid "Score prompt"
 msgstr "점수 프롬프트"
 
@@ -2700,7 +2793,7 @@ msgstr "포럼 검색..."
 msgid "Search for origin..."
 msgstr "출발지 검색..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "개체 검색..."
 
@@ -2729,7 +2822,7 @@ msgstr "검색..."
 msgid "Searching..."
 msgstr "검색 중..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:966
+#: src/routes/_authenticated/$forum_.settings.tsx:894
 msgid "seconds"
 msgstr "초"
 
@@ -2920,6 +3013,11 @@ msgstr "스팸"
 msgid "Start the discussion by adding the first comment."
 msgstr "첫 번째 댓글을 추가하여 토론을 시작해 주세요."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "관찰 중지"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "제목"
@@ -2985,7 +3083,7 @@ msgstr "보기 1-9로 전환"
 msgid "System"
 msgstr "시스템"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:487
 msgid "Tag"
 msgstr "태그"
 
@@ -2997,7 +3095,7 @@ msgstr "이미 존재하는 태그예요"
 msgid "Tag must be 50 characters or less"
 msgstr "태그는 50자 이하여야 해요"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:600
+#: src/routes/_authenticated/$forum_.settings.tsx:528
 msgid "Tag prompt"
 msgstr "태그 프롬프트"
 
@@ -3071,6 +3169,10 @@ msgstr "이 포럼을 지금 로드할 수 없습니다."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "이 포럼이 삭제되었거나 액세스 권한이 없을 수 있습니다."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "이 작업은 게임과 채팅을 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3265,9 +3367,8 @@ msgstr "구독이 취소되었어요"
 msgid "Unsubscribing..."
 msgstr "구독 취소 중..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "제목 없음"
 
@@ -3281,7 +3382,7 @@ msgstr "업데이트됨"
 msgid "Updated {field}"
 msgstr "{field} 업데이트됨"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "업로드"
@@ -3339,6 +3440,10 @@ msgstr "동영상 뷰어: {0}"
 msgid "View all notifications"
 msgstr "모든 알림 보기"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "항목 세부 정보 보기 및 수정"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "보기 컨트롤"
@@ -3364,6 +3469,11 @@ msgstr "이 브라우저에서는 음성 녹음이 지원되지 않습니다"
 msgid "Vote and view"
 msgstr "투표 및 보기"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "관찰"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
@@ -3382,7 +3492,7 @@ msgstr "<0>{0}</0>(으)로 인증 코드를 보냈어요. 이메일 주소를 �
 msgid "Wednesday"
 msgstr "수요일"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:956
+#: src/routes/_authenticated/$forum_.settings.tsx:884
 msgid "Window duration"
 msgstr "창 지속 시간"
 

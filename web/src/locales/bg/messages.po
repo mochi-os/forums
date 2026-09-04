@@ -167,29 +167,33 @@ msgstr "Достъпът е отказан"
 msgid "Access level"
 msgstr "Ниво на достъп"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Access level updated"
 msgstr "Нивото на достъп е обновено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:723
+#: src/routes/_authenticated/$forum_.settings.tsx:651
 msgid "Access management"
 msgstr "Управление на достъпа"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Access removed"
 msgstr "Достъпът е премахнат"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:687
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Access set for {subjectName}"
 msgstr "Достъпът е зададен за {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Account"
 msgstr "Акаунт"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "Тип акаунт"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Активност"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
@@ -239,7 +243,7 @@ msgstr "Добави файлове"
 msgid "Add item..."
 msgstr "Добави елемент..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Добави връзка"
 
@@ -251,7 +255,7 @@ msgstr "Добави връзка"
 msgid "Add option"
 msgstr "Добави опция"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:733
+#: src/routes/_authenticated/$forum_.settings.tsx:661
 msgid "Add rule"
 msgstr "Добави правило"
 
@@ -279,11 +283,11 @@ msgid "Additional details (optional)"
 msgstr "Допълнителни детайли (по избор)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:551
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:480
 msgid "AI actions on posts"
 msgstr "AI действия върху публикации"
 
@@ -352,6 +356,10 @@ msgstr "Одобри"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Сигурни ли сте, че искате да изтриете \"{0}\"?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "Сигурни ли сте, че искате да изтриете \"{title}\"? Това действие не може да бъде отменено."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Сигурни ли сте, че искате да изтриете колоната \"{name}\"? Това не може да бъде отменено."
@@ -371,6 +379,14 @@ msgstr "Сигурни ли сте, че искате да изтриете та
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:27
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Сигурни ли сте, че искате да излезете? Ще трябва да влезете отново, за да достъпите акаунта си."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Сигурни ли сте, че искате да се откажете?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Сигурни ли сте, че искате да се откажете? {opponentName} ще спечели играта."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -443,21 +459,21 @@ msgstr "Блокирай автора"
 msgid "Banned"
 msgstr "Блокиран"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Банер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner removed"
 msgstr "Банерът е премахнат"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner updated"
 msgstr "Банерът е обновен"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Блокирано от"
 
@@ -466,7 +482,7 @@ msgstr "Блокирано от"
 msgid "Blocked navigation to untrusted link"
 msgstr "Блокирана навигация към ненадеждна връзка"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Блокове"
 
@@ -583,13 +599,13 @@ msgstr "Изберете игра от страничната лента или 
 msgid "Choose language"
 msgstr "Изберете език"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 #: ../../../lib/web/src/components/travelling-picker.tsx:151
 #: ../../../lib/web/src/components/travelling-picker.tsx:212
 #: ../../../lib/web/src/components/travelling-picker.tsx:218
-#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "Изчисти"
 
@@ -611,8 +627,8 @@ msgstr "Изчисти търсенето"
 msgid "Clearing saved posts..."
 msgstr "Изчистване на запазените публикации..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -694,7 +710,7 @@ msgstr "Коментарът е одобрен"
 msgid "Comment deleted"
 msgstr "Коментарът е изтрит"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:941
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "Comment limit"
 msgstr "Лимит на коментарите"
 
@@ -727,6 +743,11 @@ msgstr "Коментирай, гласувай и преглеждай"
 msgid "Comments"
 msgstr "Коментари"
 
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Коментари ({0})"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Компактно"
@@ -757,7 +778,7 @@ msgstr "Свързване..."
 msgid "Content"
 msgstr "Съдържание"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Content from users below a threshold must be approved"
 msgstr "Съдържанието от потребители под определен праг трябва да бъде одобрено"
 
@@ -819,8 +840,8 @@ msgstr "Потвърждаването с този акаунт не бе усп
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Създай"
@@ -860,7 +881,7 @@ msgstr "Създадено {field}"
 msgid "Creating forum..."
 msgstr "Създаване на форум..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Създаване..."
@@ -886,7 +907,7 @@ msgstr "Конфликт в данните"
 msgid "Date"
 msgstr "Дата"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:913
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "days"
 msgstr "дни"
 
@@ -898,7 +919,7 @@ msgstr "Откажи"
 msgid "Default"
 msgstr "По подразбиране"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:498
 msgid "Default account"
 msgstr "Акаунт по подразбиране"
 
@@ -919,6 +940,8 @@ msgstr "Сортиране по подразбиране"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
@@ -952,6 +975,16 @@ msgstr "Изтрий форума"
 #: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "Изтриване на форума?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Да се изтрие ли играта?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Изтрий елемента"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
@@ -987,6 +1020,10 @@ msgstr "Изтрито {field}"
 msgid "Deleting forum..."
 msgstr "Изтриване на форум..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "Изтриване..."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Низходящ"
@@ -1018,7 +1055,7 @@ msgstr "Засечи от уеб браузъра"
 msgid "Directory"
 msgstr "Указател"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:486
 msgid "Disabled"
 msgstr "Изключено"
 
@@ -1055,6 +1092,7 @@ msgid "Does not match the required pattern"
 msgstr "Не съответства на изисквания шаблон"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Готово"
@@ -1070,7 +1108,7 @@ msgstr "Изтегляне"
 msgid "Download failed"
 msgstr "Изтеглянето е неуспешно"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Дубликати"
 
@@ -1132,7 +1170,7 @@ msgstr "Имейл"
 msgid "Email code"
 msgstr "Имейл код"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: ../../../lib/web/src/components/banner-section.tsx:88
 msgid "Enter banner text (markdown supported)..."
 msgstr "Въведете текст на банера (поддържа се markdown)..."
 
@@ -1147,6 +1185,10 @@ msgstr "Въведете кода от приложението за удост�
 #: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "ID на обект"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Грешка"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1207,10 +1249,14 @@ msgstr "Неуспешно копиране"
 msgid "Failed to create forum"
 msgstr "Неуспешно създаване на форум"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Неуспешно създаване на връзка"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "Неуспешно изтриване"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
@@ -1224,7 +1270,7 @@ msgstr "Неуспешно изтриване на коментар"
 msgid "Failed to delete forum"
 msgstr "Неуспешно изтриване на форум"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Неуспешно изтриване на връзка"
 
@@ -1236,7 +1282,7 @@ msgstr "Неуспешно получаване на RSS токен"
 msgid "Failed to load"
 msgstr "Неуспешно зареждане"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:586
 msgid "Failed to load access rules"
 msgstr "Неуспешно зареждане на правила за достъп"
 
@@ -1252,7 +1298,7 @@ msgstr "Неуспешно зареждане на настройки на фо�
 msgid "Failed to load forums"
 msgstr "Неуспешно зареждане на форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:593
 msgid "Failed to load groups"
 msgstr "Неуспешно зареждане на групи"
 
@@ -1264,6 +1310,11 @@ msgstr "Неуспешно зареждане на история"
 msgid "Failed to load image"
 msgstr "Изображението не можа да се зареди"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Неуспешно зареждане на елемент"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "Неуспешно зареждане на дневник за модерация"
@@ -1272,7 +1323,7 @@ msgstr "Неуспешно зареждане на дневник за моде�
 msgid "Failed to load moderation queue"
 msgstr "Неуспешно зареждане на опашка за модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:736
 msgid "Failed to load moderation settings"
 msgstr "Неуспешно зареждане на настройки за модерация"
 
@@ -1297,6 +1348,10 @@ msgstr "Неуспешно зареждане на ограничения"
 msgid "Failed to load video"
 msgstr "Видеото не можа да се зареди"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Неуспешно преместване"
+
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Неуспешно заглушаване на потребител"
@@ -1313,7 +1368,7 @@ msgstr "Неуспешно публикуване на коментар"
 msgid "Failed to reject items"
 msgstr "Неуспешно отхвърляне на елементи"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:702
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "Failed to remove access"
 msgstr "Неуспешно премахване на достъп"
 
@@ -1346,7 +1401,11 @@ msgstr "Неуспешно разрешаване на доклад"
 msgid "Failed to revoke RSS access"
 msgstr "Неуспешно отменяне на достъпа до RSS"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:825
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "Неуспешно записване"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:753
 msgid "Failed to save moderation settings"
 msgstr "Неуспешно записване на настройки за модерация"
 
@@ -1363,11 +1422,11 @@ msgstr "Неуспешно записване на подсказка"
 msgid "Failed to search forums"
 msgstr "Неуспешно търсене на форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to search users"
 msgstr "Неуспешно търсене на потребители"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:690
+#: src/routes/_authenticated/$forum_.settings.tsx:618
 msgid "Failed to set access level"
 msgstr "Неуспешно задаване на ниво на достъп"
 
@@ -1383,16 +1442,16 @@ msgstr "Неуспешно абониране"
 msgid "Failed to unsubscribe"
 msgstr "Неуспешно отписване"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:717
+#: src/routes/_authenticated/$forum_.settings.tsx:645
 msgid "Failed to update access level"
 msgstr "Неуспешна актуализация на ниво на достъп"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:460
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Failed to update AI settings"
 msgstr "Неуспешна актуализация на AI настройките"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:71
 msgid "Failed to update banner"
 msgstr "Неуспешна актуализация на банер"
 
@@ -1400,11 +1459,15 @@ msgstr "Неуспешна актуализация на банер"
 msgid "Failed to update comment"
 msgstr "Неуспешна актуализация на коментар"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Неуспешно обновяване на следенето"
+
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Неуспешно качване на прикачен файл"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
@@ -1612,6 +1675,10 @@ msgstr "Невалидна дата"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Изглежда, че страницата, която търсите, <0/>не съществува или е премахната."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Подробности за елемента"
+
 #: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Току-що"
@@ -1641,7 +1708,7 @@ msgstr "Светъл"
 msgid "Link"
 msgstr "Връзка"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Връзки"
 
@@ -1656,6 +1723,14 @@ msgstr "Зареди още"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Зареждане на съдържанието…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Зареждане на елемент"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Зареждане на детайли за елемент"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1834,7 +1909,7 @@ msgstr "Името трябва да е до 1000 символа"
 msgid "Network error"
 msgstr "Мрежова грешка"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1852,11 +1927,11 @@ msgstr "Нова игра"
 msgid "New post"
 msgstr "Нова публикация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "New threads must be approved"
 msgstr "Новите теми изискват одобрение"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:901
+#: src/routes/_authenticated/$forum_.settings.tsx:829
 msgid "New user threshold:"
 msgstr "Праг за нови потребители:"
 
@@ -1865,7 +1940,7 @@ msgstr "Праг за нови потребители:"
 msgid "Next image"
 msgstr "Следващо изображение"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Няма {parentClassNames} за добавяне"
 
@@ -1906,11 +1981,11 @@ msgstr "Все още няма игри"
 msgid "No groups available"
 msgstr "Няма налични групи"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Все още не може да се създават типове елементи. Първо създайте необходимите родителски елементи."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Няма съвпадащи обекти"
 
@@ -1979,9 +2054,13 @@ msgid "No views"
 msgstr "Няма прегледи"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2086,10 +2165,6 @@ msgstr "Отвори контролите на изгледа"
 msgid "Option name"
 msgstr "Име на опцията"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "Незадължителен markdown банер, показан в горната част на форума."
-
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
@@ -2105,7 +2180,9 @@ msgstr "Друго"
 msgid "Owner"
 msgstr "Собственик"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Родител"
 
@@ -2206,7 +2283,7 @@ msgstr "Публикацията не можа да бъде запазена н
 msgid "Post deleted"
 msgstr "Публикацията е изтрита"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:926
+#: src/routes/_authenticated/$forum_.settings.tsx:854
 msgid "Post limit"
 msgstr "Лимит на публикациите"
 
@@ -2250,7 +2327,7 @@ msgstr "Публикацията е обновена"
 msgid "Post, comment, vote, and view"
 msgstr "Публикувай, коментирай, гласувай и преглеждай"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "posts"
 msgstr "публикации"
 
@@ -2262,11 +2339,11 @@ msgstr "Публикации"
 msgid "Posts and comments"
 msgstr "Публикации и коментари"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:862
+#: src/routes/_authenticated/$forum_.settings.tsx:790
 msgid "Pre-moderation"
 msgstr "Предварителна модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:922
+#: src/routes/_authenticated/$forum_.settings.tsx:850
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Предотвратете спам, като ограничите колко често потребителите могат да публикуват"
 
@@ -2288,6 +2365,10 @@ msgstr "Обработва се…"
 msgid "Prompt saved"
 msgstr "Промптът е запазен"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Свойства"
+
 #: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "Публикувай публикацията"
@@ -2308,7 +2389,7 @@ msgstr "Опашка"
 msgid "Raised"
 msgstr "Повдигнат"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:921
+#: src/routes/_authenticated/$forum_.settings.tsx:849
 msgid "Rate limiting"
 msgstr "Ограничаване на честотата"
 
@@ -2367,7 +2448,7 @@ msgstr "Отхвърли"
 msgid "Rejected"
 msgstr "Отхвърлено"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Свързано"
 
@@ -2438,8 +2519,8 @@ msgstr "Премахни интерес"
 msgid "Remove item"
 msgstr "Премахни елемент"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Премахване на връзката"
 
@@ -2482,11 +2563,11 @@ msgstr "Преименувай тази колона"
 msgid "Renaming forum..."
 msgstr "Преименуване на форум..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:951
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "replies"
 msgstr "отговори"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:880
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Replies must be approved"
 msgstr "Отговорите изискват одобрение"
 
@@ -2537,19 +2618,19 @@ msgstr "Докладвано от {0}"
 msgid "Reports"
 msgstr "Доклади"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:863
+#: src/routes/_authenticated/$forum_.settings.tsx:791
 msgid "Require approval before content becomes visible"
 msgstr "Изисквай одобрение преди съдържанието да стане видимо"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:807
 msgid "Require approval for new comments"
 msgstr "Изисквай одобрение за нови коментари"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:868
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Require approval for new posts"
 msgstr "Изисквай одобрение за нови публикации"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:890
+#: src/routes/_authenticated/$forum_.settings.tsx:818
 msgid "Require approval for new users"
 msgstr "Изисквай одобрение за нови потребители"
 
@@ -2560,6 +2641,18 @@ msgstr "Задължително"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Изпрати имейла отново"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Предай се"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Да се предадеш ли в играта?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Предава се..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2626,12 +2719,12 @@ msgstr "Събота"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "Запази"
 
@@ -2661,7 +2754,7 @@ msgstr "Запазените публикации са изчистени"
 msgid "Saving..."
 msgstr "Запазва се..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:529
 msgid "Score prompt"
 msgstr "Промпт за резултат"
 
@@ -2700,7 +2793,7 @@ msgstr "Търси форуми..."
 msgid "Search for origin..."
 msgstr "Търси произход..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Търси обекти..."
 
@@ -2729,7 +2822,7 @@ msgstr "Търси..."
 msgid "Searching..."
 msgstr "Търси се..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:966
+#: src/routes/_authenticated/$forum_.settings.tsx:894
 msgid "seconds"
 msgstr "секунди"
 
@@ -2920,6 +3013,11 @@ msgstr "Спам"
 msgid "Start the discussion by adding the first comment."
 msgstr "Започнете дискусията, като добавите първия коментар."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Спри да следиш"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Тема"
@@ -2985,7 +3083,7 @@ msgstr "Превключи към изглед 1-9"
 msgid "System"
 msgstr "Система"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:487
 msgid "Tag"
 msgstr "Етикет"
 
@@ -2997,7 +3095,7 @@ msgstr "Етикетът вече съществува"
 msgid "Tag must be 50 characters or less"
 msgstr "Етикетът трябва да е най-много 50 знака"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:600
+#: src/routes/_authenticated/$forum_.settings.tsx:528
 msgid "Tag prompt"
 msgstr "Покана за етикет"
 
@@ -3071,6 +3169,10 @@ msgstr "Този форум не може да бъде зареден в мом
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Този форум може да е изтрит или нямате достъп до него."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Това ще изтрие завинаги играта и нейния чат. Това действие не може да бъде отменено."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3265,9 +3367,8 @@ msgstr "Отписан"
 msgid "Unsubscribing..."
 msgstr "Отписване..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Без заглавие"
 
@@ -3281,7 +3382,7 @@ msgstr "Обновено"
 msgid "Updated {field}"
 msgstr "Обновено {field}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Качи"
@@ -3339,6 +3440,10 @@ msgstr "Преглед на видео: {0}"
 msgid "View all notifications"
 msgstr "Виж всички известия"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Преглед и редакция на детайлите за елемента"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Контроли за изглед"
@@ -3364,6 +3469,11 @@ msgstr "Гласовият запис не се поддържа в този б�
 msgid "Vote and view"
 msgstr "Гласувай и виж"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Наблюдавай"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
@@ -3382,7 +3492,7 @@ msgstr "Изпратихме код за потвърждение на <0>{0}</0
 msgid "Wednesday"
 msgstr "Сряда"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:956
+#: src/routes/_authenticated/$forum_.settings.tsx:884
 msgid "Window duration"
 msgstr "Продължителност на прозореца"
 

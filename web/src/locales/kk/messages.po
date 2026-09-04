@@ -167,29 +167,33 @@ msgstr "Қол жеткізу қабылданбады"
 msgid "Access level"
 msgstr "Қол жеткізу деңгейі"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Access level updated"
 msgstr "Қол жеткізу деңгейі жаңартылды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:723
+#: src/routes/_authenticated/$forum_.settings.tsx:651
 msgid "Access management"
 msgstr "Қол жеткізуді басқару"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Access removed"
 msgstr "Қол жеткізу алып тасталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:687
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} үшін қол жеткізу орнатылды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Account"
 msgstr "Тіркелгі"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "Тіркелгі түрі"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Әрекет"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
@@ -239,7 +243,7 @@ msgstr "Файлдар қосу"
 msgid "Add item..."
 msgstr "Тармақ қосу..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Сілтеме қосу"
 
@@ -251,7 +255,7 @@ msgstr "Сілтеме қосу"
 msgid "Add option"
 msgstr "Опция қосу"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:733
+#: src/routes/_authenticated/$forum_.settings.tsx:661
 msgid "Add rule"
 msgstr "Ереже қосу"
 
@@ -279,11 +283,11 @@ msgid "Additional details (optional)"
 msgstr "Қосымша мәліметтер (міндетті емес)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:551
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:480
 msgid "AI actions on posts"
 msgstr "Жазбаларға AI әрекеттері"
 
@@ -352,6 +356,10 @@ msgstr "Мақұлдау"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" жойылғанына сенімдісіз бе?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\" жойылғанына сенімдісіз бе? Бұл әрекетті қайтару мүмкін емес."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" бағанын жойғыңыз келетініне сенімдісіз бе? Бұны қайтару мүмкін емес."
@@ -371,6 +379,14 @@ msgstr "Бұл жазбаны жойғыңыз келетініне сенімд
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:27
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Шынымен шыққыңыз келе ме? Тіркелгіге қол жеткізу үшін қайта кіруге тура келеді."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Шынымен бас тартқыңыз келе ме?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Шынымен бас тартқыңыз келе ме? {opponentName} ойынды жеңеді."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -443,21 +459,21 @@ msgstr "Авторға тыйым салу"
 msgid "Banned"
 msgstr "Тыйым салынды"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Баннер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner removed"
 msgstr "Баннер алып тасталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner updated"
 msgstr "Баннер жаңартылды"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Бөгелді"
 
@@ -466,7 +482,7 @@ msgstr "Бөгелді"
 msgid "Blocked navigation to untrusted link"
 msgstr "Сенімсіз сілтемеге өту бөгелді"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Bloks"
 
@@ -583,13 +599,13 @@ msgstr "Бүйір тақтадан ойынды таңдаңыз немесе �
 msgid "Choose language"
 msgstr "Тілді таңдау"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 #: ../../../lib/web/src/components/travelling-picker.tsx:151
 #: ../../../lib/web/src/components/travelling-picker.tsx:212
 #: ../../../lib/web/src/components/travelling-picker.tsx:218
-#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "Тазалау"
 
@@ -611,8 +627,8 @@ msgstr "Іздеуді тазалау"
 msgid "Clearing saved posts..."
 msgstr "Сақталған жазбалар тазартылуда..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -694,7 +710,7 @@ msgstr "Пікір мақұлданды"
 msgid "Comment deleted"
 msgstr "Пікір жойылды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:941
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "Comment limit"
 msgstr "Пікір шегі"
 
@@ -727,6 +743,11 @@ msgstr "Пікір қалдыру, дауыс беру және көру"
 msgid "Comments"
 msgstr "Пікірлер"
 
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Пікірлер ({0})"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Ықшам"
@@ -757,7 +778,7 @@ msgstr "Қосылуда..."
 msgid "Content"
 msgstr "Мазмұн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Content from users below a threshold must be approved"
 msgstr "Шектен төмен пайдаланушылардың мазмұны мақұлдануы керек"
 
@@ -819,8 +840,8 @@ msgstr "Бұл тіркелгі арқылы тексеру мүмкін бол�
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Құру"
@@ -860,7 +881,7 @@ msgstr "{field} жасалды"
 msgid "Creating forum..."
 msgstr "Форум құрылуда..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Құрылуда..."
@@ -886,7 +907,7 @@ msgstr "Деректер қайшылығы"
 msgid "Date"
 msgstr "Күн"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:913
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "days"
 msgstr "күн"
 
@@ -898,7 +919,7 @@ msgstr "Қабылдамау"
 msgid "Default"
 msgstr "Әдепкі"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:498
 msgid "Default account"
 msgstr "Әдепкі тіркелгі"
 
@@ -919,6 +940,8 @@ msgstr "Әдепкі сұрыптау"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
@@ -952,6 +975,16 @@ msgstr "Форумды жою"
 #: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "Форумды жою керек пе?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Ойын жойылсын ба?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Тармақты жою"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
@@ -987,6 +1020,10 @@ msgstr "{field} жойылды"
 msgid "Deleting forum..."
 msgstr "Форум жойылуда..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "Жойылуда..."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Кему реті"
@@ -1018,7 +1055,7 @@ msgstr "Веб-браузерден анықтау"
 msgid "Directory"
 msgstr "Каталог"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:486
 msgid "Disabled"
 msgstr "Өшірілген"
 
@@ -1055,6 +1092,7 @@ msgid "Does not match the required pattern"
 msgstr "Қажетті үлгіге сәйкес келмейді"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Дайын"
@@ -1070,7 +1108,7 @@ msgstr "Жүктеп алу"
 msgid "Download failed"
 msgstr "Жүктеп алу сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Қайталанулар"
 
@@ -1132,7 +1170,7 @@ msgstr "Электрондық пошта"
 msgid "Email code"
 msgstr "Электрондық пошта коды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: ../../../lib/web/src/components/banner-section.tsx:88
 msgid "Enter banner text (markdown supported)..."
 msgstr "Баннер мәтінін енгізіңіз (markdown қолдау көрсетіледі)..."
 
@@ -1147,6 +1185,10 @@ msgstr "Authenticator кодын енгізіңіз"
 #: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "Нысан идентификаторы"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Қате"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1207,10 +1249,14 @@ msgstr "Көшіру сәтсіз аяқталды"
 msgid "Failed to create forum"
 msgstr "Форум құру сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Сілтеме жасау сәтсіз аяқталды"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "Жою сәтсіз аяқталды"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
@@ -1224,7 +1270,7 @@ msgstr "Пікірді жою сәтсіз аяқталды"
 msgid "Failed to delete forum"
 msgstr "Форум жою сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Сілтемені жою сәтсіз аяқталды"
 
@@ -1236,7 +1282,7 @@ msgstr "RSS токенін алу сәтсіз аяқталды"
 msgid "Failed to load"
 msgstr "Жүктеу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:586
 msgid "Failed to load access rules"
 msgstr "Кіру ережелерін жүктеу сәтсіз аяқталды"
 
@@ -1252,7 +1298,7 @@ msgstr "Форум параметрлерін жүктеу сәтсіз аяқт
 msgid "Failed to load forums"
 msgstr "Форумдарды жүктеу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:593
 msgid "Failed to load groups"
 msgstr "Топтарды жүктеу сәтсіз аяқталды"
 
@@ -1264,6 +1310,11 @@ msgstr "Тарихты жүктеу сәтсіз аяқталды"
 msgid "Failed to load image"
 msgstr "Суретті жүктеу мүмкін болмады"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Элементті жүктеу сәтсіз аяқталды"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "Модерация журналын жүктеу сәтсіз аяқталды"
@@ -1272,7 +1323,7 @@ msgstr "Модерация журналын жүктеу сәтсіз аяқта
 msgid "Failed to load moderation queue"
 msgstr "Модерация кезегін жүктеу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:736
 msgid "Failed to load moderation settings"
 msgstr "Модерация параметрлерін жүктеу сәтсіз аяқталды"
 
@@ -1297,6 +1348,10 @@ msgstr "Шектеулерді жүктеу сәтсіз аяқталды"
 msgid "Failed to load video"
 msgstr "Бейнені жүктеу мүмкін болмады"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Жылжыту сәтсіз аяқталды"
+
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Пайдаланушыны үнсіз қылу сәтсіз аяқталды"
@@ -1313,7 +1368,7 @@ msgstr "Пікір қосу сәтсіз аяқталды"
 msgid "Failed to reject items"
 msgstr "Элементтерді қабылдамау сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:702
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "Failed to remove access"
 msgstr "Кіруді жою сәтсіз аяқталды"
 
@@ -1346,7 +1401,11 @@ msgstr "Хабарландыруды шешу сәтсіз аяқталды"
 msgid "Failed to revoke RSS access"
 msgstr "RSS кіру құқығын қайтарып алу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:825
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "Сақтау сәтсіз аяқталды"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:753
 msgid "Failed to save moderation settings"
 msgstr "Модерация параметрлерін сақтау сәтсіз аяқталды"
 
@@ -1363,11 +1422,11 @@ msgstr "Жолдамасын сақтау сәтсіз аяқталды"
 msgid "Failed to search forums"
 msgstr "Форумдарды іздеу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to search users"
 msgstr "Пайдаланушыларды іздеу сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:690
+#: src/routes/_authenticated/$forum_.settings.tsx:618
 msgid "Failed to set access level"
 msgstr "Кіру деңгейін орнату сәтсіз аяқталды"
 
@@ -1383,16 +1442,16 @@ msgstr "Жазылу сәтсіз аяқталды"
 msgid "Failed to unsubscribe"
 msgstr "Жазылудан бас тарту сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:717
+#: src/routes/_authenticated/$forum_.settings.tsx:645
 msgid "Failed to update access level"
 msgstr "Кіру деңгейін жаңарту сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:460
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Failed to update AI settings"
 msgstr "AI параметрлерін жаңарту сәтсіз аяқталды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:71
 msgid "Failed to update banner"
 msgstr "Баннерді жаңарту сәтсіз аяқталды"
 
@@ -1400,11 +1459,15 @@ msgstr "Баннерді жаңарту сәтсіз аяқталды"
 msgid "Failed to update comment"
 msgstr "Пікірді жаңарту сәтсіз аяқталды"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Бақылауды жаңарту сәтсіз аяқталды"
+
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Тіркемені жүктеп салу сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
@@ -1612,6 +1675,10 @@ msgstr "Жарамсыз күн"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Сіз іздеген бет <0/>жоқ немесе жойылған сияқты."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Элемент мәліметтері"
+
 #: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Дәл қазір"
@@ -1641,7 +1708,7 @@ msgstr "Ашық"
 msgid "Link"
 msgstr "Сілтеме"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Сілтемелер"
 
@@ -1656,6 +1723,14 @@ msgstr "Көбірек жүктеу"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Мазмұн жүктелуде…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Элемент жүктелуде"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Элемент мәліметтері жүктелуде"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1834,7 +1909,7 @@ msgstr "Аты 1000 таңбадан аспауы керек"
 msgid "Network error"
 msgstr "Желі қатесі"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1852,11 +1927,11 @@ msgstr "Жаңа ойын"
 msgid "New post"
 msgstr "Жаңа жазба"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "New threads must be approved"
 msgstr "Жаңа тақырыптарды бекіту керек"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:901
+#: src/routes/_authenticated/$forum_.settings.tsx:829
 msgid "New user threshold:"
 msgstr "Жаңа қолданушы шегі:"
 
@@ -1865,7 +1940,7 @@ msgstr "Жаңа қолданушы шегі:"
 msgid "Next image"
 msgstr "Келесі сурет"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Қосуға болатын {parentClassNames} жоқ"
 
@@ -1906,11 +1981,11 @@ msgstr "Ойындар әлі жоқ"
 msgid "No groups available"
 msgstr "Топтар қолжетімсіз"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Әлі бірде-бір элемент түрі жасалмайды. Алдымен қажетті ата-аналық элементтерді жасаңыз."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Сәйкес нысандар жоқ"
 
@@ -1979,9 +2054,13 @@ msgid "No views"
 msgstr "Көріністер жоқ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2086,10 +2165,6 @@ msgstr "Көрініс басқаруларын ашу"
 msgid "Option name"
 msgstr "Опция аты"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "Форумыңыздың жоғарғы жағында көрсетілетін қосымша markdown баннері."
-
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
@@ -2105,7 +2180,9 @@ msgstr "Басқа"
 msgid "Owner"
 msgstr "Иесі"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Ата-ана"
 
@@ -2206,7 +2283,7 @@ msgstr "Жазбаны форум серверінде сақтау мүмкін
 msgid "Post deleted"
 msgstr "Жазба жойылды"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:926
+#: src/routes/_authenticated/$forum_.settings.tsx:854
 msgid "Post limit"
 msgstr "Жазба шегі"
 
@@ -2250,7 +2327,7 @@ msgstr "Жазба жаңартылды"
 msgid "Post, comment, vote, and view"
 msgstr "Жариялау, пікір қалдыру, дауыс беру және қарау"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "posts"
 msgstr "жазба"
 
@@ -2262,11 +2339,11 @@ msgstr "Жазбалар"
 msgid "Posts and comments"
 msgstr "Жазбалар мен пікірлер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:862
+#: src/routes/_authenticated/$forum_.settings.tsx:790
 msgid "Pre-moderation"
 msgstr "Алдын ала модерация"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:922
+#: src/routes/_authenticated/$forum_.settings.tsx:850
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Қолданушылардың жазба жариялау жиілігін шектеу арқылы спамды болдырмау"
 
@@ -2288,6 +2365,10 @@ msgstr "Өңделуде…"
 msgid "Prompt saved"
 msgstr "Сұрау сақталды"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Қасиеттер"
+
 #: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "Жазбаны жариялау"
@@ -2308,7 +2389,7 @@ msgstr "Кезек"
 msgid "Raised"
 msgstr "Көтерілген"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:921
+#: src/routes/_authenticated/$forum_.settings.tsx:849
 msgid "Rate limiting"
 msgstr "Жылдамдық шектеуі"
 
@@ -2367,7 +2448,7 @@ msgstr "Қабылдамау"
 msgid "Rejected"
 msgstr "Қабылданбады"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Байланысты"
 
@@ -2438,8 +2519,8 @@ msgstr "Қызығушылықты жою"
 msgid "Remove item"
 msgstr "Элементті жою"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Сілтемені жою"
 
@@ -2482,11 +2563,11 @@ msgstr "Бұл тақта бағанының атын өзгерту"
 msgid "Renaming forum..."
 msgstr "Форум атауы өзгертілуде..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:951
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "replies"
 msgstr "жауап"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:880
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Replies must be approved"
 msgstr "Жауаптарды бекіту керек"
 
@@ -2537,19 +2618,19 @@ msgstr "{0} шағымданды"
 msgid "Reports"
 msgstr "Шағымдар"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:863
+#: src/routes/_authenticated/$forum_.settings.tsx:791
 msgid "Require approval before content becomes visible"
 msgstr "Мазмұн көрінбес бұрын бекіту керек"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:807
 msgid "Require approval for new comments"
 msgstr "Жаңа пікірлерді бекіту керек"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:868
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Require approval for new posts"
 msgstr "Жаңа жазбаларды бекіту керек"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:890
+#: src/routes/_authenticated/$forum_.settings.tsx:818
 msgid "Require approval for new users"
 msgstr "Жаңа қолданушыларды бекіту керек"
 
@@ -2560,6 +2641,18 @@ msgstr "Міндетті"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Хатты қайта жіберу"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Бас тарту"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Ойыннан бас тарту керек пе?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Бас тарту..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2626,12 +2719,12 @@ msgstr "Сенбі"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "Сақтау"
 
@@ -2661,7 +2754,7 @@ msgstr "Сақталған жазбалар тазартылды"
 msgid "Saving..."
 msgstr "Сақталуда..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:529
 msgid "Score prompt"
 msgstr "Ұпай сұрауы"
 
@@ -2700,7 +2793,7 @@ msgstr "Форумдарды іздеу..."
 msgid "Search for origin..."
 msgstr "Шығу нүктесін іздеу..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Нысандарды іздеу..."
 
@@ -2729,7 +2822,7 @@ msgstr "Іздеу..."
 msgid "Searching..."
 msgstr "Іздеуде..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:966
+#: src/routes/_authenticated/$forum_.settings.tsx:894
 msgid "seconds"
 msgstr "секунд"
 
@@ -2920,6 +3013,11 @@ msgstr "Спам"
 msgid "Start the discussion by adding the first comment."
 msgstr "Бірінші пікір қосып талқылауды бастаңыз."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Қарауды тоқтату"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Тақырып"
@@ -2985,7 +3083,7 @@ msgstr "1-9 көрінісіне ауысу"
 msgid "System"
 msgstr "Жүйе"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:487
 msgid "Tag"
 msgstr "Тег"
 
@@ -2997,7 +3095,7 @@ msgstr "Тег бұрыннан бар"
 msgid "Tag must be 50 characters or less"
 msgstr "Тег ең көбі 50 таңба болуы керек"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:600
+#: src/routes/_authenticated/$forum_.settings.tsx:528
 msgid "Tag prompt"
 msgstr "Тег ұсынысы"
 
@@ -3071,6 +3169,10 @@ msgstr "Бұл форум қазір жүктелмейді."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Бұл форум жойылған болуы мүмкін немесе сізде оған қолжетімділік жоқ."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Бұл ойын мен оның чатын біржола жояды. Бұл әрекетті болдырмауға болмайды."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3265,9 +3367,8 @@ msgstr "Жазылудан бас тартылды"
 msgid "Unsubscribing..."
 msgstr "Жазылудан бас тартылуда..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Атаусыз"
 
@@ -3281,7 +3382,7 @@ msgstr "Жаңартылды"
 msgid "Updated {field}"
 msgstr "{field} жаңартылды"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Жүктеп салу"
@@ -3339,6 +3440,10 @@ msgstr "Бейне көрушісі: {0}"
 msgid "View all notifications"
 msgstr "Барлық хабарландыруларды көру"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Элемент мәліметтерін көру және өңдеу"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Көру басқару элементтері"
@@ -3364,6 +3469,11 @@ msgstr "Дауыс жазу бұл браузерде қолдау таппай�
 msgid "Vote and view"
 msgstr "Дауыс беру және көру"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Бақылау"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
@@ -3382,7 +3492,7 @@ msgstr "Біз <0>{0}</0> мекенжайына растау кодын жіб�
 msgid "Wednesday"
 msgstr "Сәрсенбі"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:956
+#: src/routes/_authenticated/$forum_.settings.tsx:884
 msgid "Window duration"
 msgstr "Терезе ұзақтығы"
 

@@ -167,29 +167,33 @@ msgstr "Kirish rad etildi"
 msgid "Access level"
 msgstr "Kirish darajasi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:714
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Access level updated"
 msgstr "Kirish darajasi yangilandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:723
+#: src/routes/_authenticated/$forum_.settings.tsx:651
 msgid "Access management"
 msgstr "Kirishni boshqarish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:699
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Access removed"
 msgstr "Kirish olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:687
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} uchun kirish oʻrnatildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:564
+#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Account"
 msgstr "Hisob"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:139
 msgid "Account type"
 msgstr "Hisob turi"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Faollik"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
@@ -239,7 +243,7 @@ msgstr "Fayllar qoʻshish"
 msgid "Add item..."
 msgstr "Element qoʻshish..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Havola qoʻshish"
 
@@ -251,7 +255,7 @@ msgstr "Havola qoʻshish"
 msgid "Add option"
 msgstr "Variant qoʻshish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:733
+#: src/routes/_authenticated/$forum_.settings.tsx:661
 msgid "Add rule"
 msgstr "Qoida qoʻshish"
 
@@ -279,11 +283,11 @@ msgid "Additional details (optional)"
 msgstr "Qoʻshimcha tafsilotlar (ixtiyoriy)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:551
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:552
+#: src/routes/_authenticated/$forum_.settings.tsx:480
 msgid "AI actions on posts"
 msgstr "Postlarga AI amallari"
 
@@ -352,6 +356,10 @@ msgstr "Tasdiqlash"
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" ni oʻchirmoqchimisiz?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\" ni oʻchirmoqchimisiz? Bu amalni qaytarib boʻlmaydi."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" ustunini oʻchirmoqchimisiz? Buni qaytarib boʻlmaydi."
@@ -371,6 +379,14 @@ msgstr "Bu postni oʻchirmoqchimisiz? Bu barcha izohlarni ham oʻchiradi. Bu ama
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:27
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Chiqishga ishonchingiz komilmi? Hisobingizga kirish uchun yana kirishingiz kerak boʻladi."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Taslim boʻlishga ishonchingiz komilmi?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Taslim boʻlishga ishonchingiz komilmi? {opponentName} oʻyinda gʻalaba qozonadi."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -443,21 +459,21 @@ msgstr "Muallifni bloklash"
 msgid "Banned"
 msgstr "Bloklangan"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner removed"
 msgstr "Banner olib tashlandi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:461
+#: ../../../lib/web/src/components/banner-section.tsx:69
 msgid "Banner updated"
 msgstr "Banner yangilandi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Bloklagan"
 
@@ -466,7 +482,7 @@ msgstr "Bloklagan"
 msgid "Blocked navigation to untrusted link"
 msgstr "Ishonchsiz havolaga oʻtish bloklandi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Bloklar"
 
@@ -583,13 +599,13 @@ msgstr "Yon paneldan oʻyin tanlang yoki yangisini boshlang."
 msgid "Choose language"
 msgstr "Tilni tanlang"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 #: ../../../lib/web/src/components/travelling-picker.tsx:151
 #: ../../../lib/web/src/components/travelling-picker.tsx:212
 #: ../../../lib/web/src/components/travelling-picker.tsx:218
-#: src/routes/_authenticated/$forum_.settings.tsx:501
 msgid "Clear"
 msgstr "Tozalash"
 
@@ -611,8 +627,8 @@ msgstr "Qidiruvni tozalash"
 msgid "Clearing saved posts..."
 msgstr "Saqlangan postlar tozalanmoqda..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -694,7 +710,7 @@ msgstr "Izoh tasdiqlandi"
 msgid "Comment deleted"
 msgstr "Izoh oʻchirildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:941
+#: src/routes/_authenticated/$forum_.settings.tsx:869
 msgid "Comment limit"
 msgstr "Izoh chegarasi"
 
@@ -727,6 +743,11 @@ msgstr "Izoh, ovoz va koʻrish"
 msgid "Comments"
 msgstr "Izohlar"
 
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Izohlar ({0})"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Ixcham"
@@ -757,7 +778,7 @@ msgstr "Ulanmoqda..."
 msgid "Content"
 msgstr "Mazmun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:891
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Content from users below a threshold must be approved"
 msgstr "Chegaradan past foydalanuvchilar mazmuni tasdiqlanishi kerak"
 
@@ -819,8 +840,8 @@ msgstr "Ushbu hisob bilan tasdiqlab bo‘lmadi. Iltimos, qayta urinib ko‘ring.
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Yaratish"
@@ -860,7 +881,7 @@ msgstr "{field} yaratildi"
 msgid "Creating forum..."
 msgstr "Forum yaratilmoqda..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Yaratilmoqda..."
@@ -886,7 +907,7 @@ msgstr "Maʼlumotlar ziddiyati"
 msgid "Date"
 msgstr "Sana"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:913
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "days"
 msgstr "kunlar"
 
@@ -898,7 +919,7 @@ msgstr "Rad etish"
 msgid "Default"
 msgstr "Standart"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:570
+#: src/routes/_authenticated/$forum_.settings.tsx:498
 msgid "Default account"
 msgstr "Standart hisob"
 
@@ -919,6 +940,8 @@ msgstr "Standart saralash"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
@@ -952,6 +975,16 @@ msgstr "Forumni oʻchirish"
 #: src/routes/_authenticated/$forum_.settings.tsx:428
 msgid "Delete forum?"
 msgstr "Forum oʻchirilsinmi?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Oʻyin oʻchirilsinmi?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Elementni oʻchirish"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
@@ -987,6 +1020,10 @@ msgstr "{field} oʻchirildi"
 msgid "Deleting forum..."
 msgstr "Forum o'chirilmoqda..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "Oʻchirilmoqda..."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Kamayish boʻyicha"
@@ -1018,7 +1055,7 @@ msgstr "Veb-brauzerdan aniqlash"
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:558
+#: src/routes/_authenticated/$forum_.settings.tsx:486
 msgid "Disabled"
 msgstr "Oʻchirilgan"
 
@@ -1055,6 +1092,7 @@ msgid "Does not match the required pattern"
 msgstr "Talab qilingan namunaga mos kelmaydi"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Bajarildi"
@@ -1070,7 +1108,7 @@ msgstr "Yuklab olish"
 msgid "Download failed"
 msgstr "Yuklab olib boʻlmadi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Dublikatlar"
 
@@ -1132,7 +1170,7 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Email kodi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:477
+#: ../../../lib/web/src/components/banner-section.tsx:88
 msgid "Enter banner text (markdown supported)..."
 msgstr "Banner matnini kiriting (markdown qoʻllanadi)..."
 
@@ -1147,6 +1185,10 @@ msgstr "Autentifikator kodingizni kiriting"
 #: src/routes/_authenticated/$forum_.settings.tsx:367
 msgid "Entity ID"
 msgstr "Obyekt ID"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Xato"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1207,10 +1249,14 @@ msgstr "Nusxalab boʻlmadi"
 msgid "Failed to create forum"
 msgstr "Forum yaratib bo'lmadi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Havola yaratib boʻlmadi"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "Oʻchirib boʻlmadi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
@@ -1224,7 +1270,7 @@ msgstr "Izohni oʻchirib boʻlmadi"
 msgid "Failed to delete forum"
 msgstr "Forum o'chirib bo'lmadi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Havolani oʻchirib boʻlmadi"
 
@@ -1236,7 +1282,7 @@ msgstr "RSS tokenini olib boʻlmadi"
 msgid "Failed to load"
 msgstr "Yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:658
+#: src/routes/_authenticated/$forum_.settings.tsx:586
 msgid "Failed to load access rules"
 msgstr "Kirish qoidalarini yuklab boʻlmadi"
 
@@ -1252,7 +1298,7 @@ msgstr "Forum sozlamalarini yuklab boʻlmadi"
 msgid "Failed to load forums"
 msgstr "Forumlarni yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:665
+#: src/routes/_authenticated/$forum_.settings.tsx:593
 msgid "Failed to load groups"
 msgstr "Guruhlarni yuklab boʻlmadi"
 
@@ -1264,6 +1310,11 @@ msgstr "Tarixni yuklab boʻlmadi"
 msgid "Failed to load image"
 msgstr "Rasmni yuklab bo'lmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Elementni yuklab boʻlmadi"
+
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
 msgstr "Moderatsiya jurnalini yuklab boʻlmadi"
@@ -1272,7 +1323,7 @@ msgstr "Moderatsiya jurnalini yuklab boʻlmadi"
 msgid "Failed to load moderation queue"
 msgstr "Moderatsiya navbatini yuklab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:736
 msgid "Failed to load moderation settings"
 msgstr "Moderatsiya sozlamalarini yuklab boʻlmadi"
 
@@ -1297,6 +1348,10 @@ msgstr "Cheklovlarni yuklab boʻlmadi"
 msgid "Failed to load video"
 msgstr "Videoni yuklab bo'lmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Ko'chirib bo'lmadi"
+
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Foydalanuvchini ovozsizlantirib boʻlmadi"
@@ -1313,7 +1368,7 @@ msgstr "Izoh joylashtirib boʻlmadi"
 msgid "Failed to reject items"
 msgstr "Elementlarni rad etib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:702
+#: src/routes/_authenticated/$forum_.settings.tsx:630
 msgid "Failed to remove access"
 msgstr "Kirishni olib tashlab boʻlmadi"
 
@@ -1346,7 +1401,11 @@ msgstr "Hisobotni hal qilib boʻlmadi"
 msgid "Failed to revoke RSS access"
 msgstr "RSS kirishini bekor qilib bo'lmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:825
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "Saqlab boʻlmadi"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:753
 msgid "Failed to save moderation settings"
 msgstr "Moderatsiya sozlamalarini saqlab boʻlmadi"
 
@@ -1363,11 +1422,11 @@ msgstr "Soʻrovni saqlab boʻlmadi"
 msgid "Failed to search forums"
 msgstr "Forumlarni qidirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:662
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to search users"
 msgstr "Foydalanuvchilarni qidirib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:690
+#: src/routes/_authenticated/$forum_.settings.tsx:618
 msgid "Failed to set access level"
 msgstr "Kirish darajasini oʻrnatib boʻlmadi"
 
@@ -1383,16 +1442,16 @@ msgstr "Obuna boʻlib boʻlmadi"
 msgid "Failed to unsubscribe"
 msgstr "Obunani bekor qilib boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:717
+#: src/routes/_authenticated/$forum_.settings.tsx:645
 msgid "Failed to update access level"
 msgstr "Kirish darajasini yangilab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:532
-#: src/routes/_authenticated/$forum_.settings.tsx:544
+#: src/routes/_authenticated/$forum_.settings.tsx:460
+#: src/routes/_authenticated/$forum_.settings.tsx:472
 msgid "Failed to update AI settings"
 msgstr "AI sozlamalarini yangilab boʻlmadi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:71
 msgid "Failed to update banner"
 msgstr "Bannerni yangilab boʻlmadi"
 
@@ -1400,11 +1459,15 @@ msgstr "Bannerni yangilab boʻlmadi"
 msgid "Failed to update comment"
 msgstr "Izohni yangilab boʻlmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Kuzatuvni yangilab bo'lmadi"
+
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Ilovani yuklab boʻlmadi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:269
@@ -1612,6 +1675,10 @@ msgstr "Notoʻgʻri sana"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Siz qidirayotgan sahifa <0/>mavjud emas yoki o'chirilgan ko'rinadi."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Element tafsilotlari"
+
 #: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Hozirgina"
@@ -1641,7 +1708,7 @@ msgstr "Yorugʻ"
 msgid "Link"
 msgstr "Havola"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Havolalar"
 
@@ -1656,6 +1723,14 @@ msgstr "Koʻproq yuklash"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Kontent yuklanmoqda…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Element yuklanmoqda"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Element tafsilotlari yuklanmoqda"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1834,7 +1909,7 @@ msgstr "Nom 1000 ta belgidan oshmasligi kerak"
 msgid "Network error"
 msgstr "Tarmoq xatosi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 #: src/features/forums/components/edit-post-dialog.tsx:206
 msgid "New"
@@ -1852,11 +1927,11 @@ msgstr "Yangi oʻyin"
 msgid "New post"
 msgstr "Yangi post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:797
 msgid "New threads must be approved"
 msgstr "Yangi mavzular tasdiqlanishi kerak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:901
+#: src/routes/_authenticated/$forum_.settings.tsx:829
 msgid "New user threshold:"
 msgstr "Yangi foydalanuvchi chegarasi:"
 
@@ -1865,7 +1940,7 @@ msgstr "Yangi foydalanuvchi chegarasi:"
 msgid "Next image"
 msgstr "Keyingi rasm"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Qoʻshish uchun {parentClassNames} yoʻq"
 
@@ -1906,11 +1981,11 @@ msgstr "Hozircha oʻyinlar yoʻq"
 msgid "No groups available"
 msgstr "Mavjud guruhlar yoʻq"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Hozircha hech qanday element turi yaratib boʻlmaydi. Avval kerakli ota elementlarni yarating."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Mos obyektlar yoʻq"
 
@@ -1979,9 +2054,13 @@ msgid "No views"
 msgstr "Koʻrishlar yoʻq"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2086,10 +2165,6 @@ msgstr "Koʻrinish boshqaruvlarini ochish"
 msgid "Option name"
 msgstr "Variant nomi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:472
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "Forumingiz tepasida koʻrsatiladigan ixtiyoriy markdown banner."
-
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
@@ -2105,7 +2180,9 @@ msgstr "Boshqa"
 msgid "Owner"
 msgstr "Egasi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Ota"
 
@@ -2206,7 +2283,7 @@ msgstr "Postni forum serverida saqlab bo'lmadi"
 msgid "Post deleted"
 msgstr "Post oʻchirildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:926
+#: src/routes/_authenticated/$forum_.settings.tsx:854
 msgid "Post limit"
 msgstr "Post chegarasi"
 
@@ -2250,7 +2327,7 @@ msgstr "Post yangilandi"
 msgid "Post, comment, vote, and view"
 msgstr "Post yozish, izohlash, ovoz berish va koʻrish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:936
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "posts"
 msgstr "post"
 
@@ -2262,11 +2339,11 @@ msgstr "Postlar"
 msgid "Posts and comments"
 msgstr "Postlar va izohlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:862
+#: src/routes/_authenticated/$forum_.settings.tsx:790
 msgid "Pre-moderation"
 msgstr "Oldindan moderatsiya"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:922
+#: src/routes/_authenticated/$forum_.settings.tsx:850
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Foydalanuvchilarning post yozish chastotasini cheklash orqali spamning oldini olish"
 
@@ -2288,6 +2365,10 @@ msgstr "Qayta ishlanmoqda…"
 msgid "Prompt saved"
 msgstr "Soʻrov saqlandi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Xususiyatlar"
+
 #: src/features/forums/components/create-post-dialog.tsx:312
 msgid "Publish post"
 msgstr "Postni nashr etish"
@@ -2308,7 +2389,7 @@ msgstr "Navbat"
 msgid "Raised"
 msgstr "Koʻtarilgan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:921
+#: src/routes/_authenticated/$forum_.settings.tsx:849
 msgid "Rate limiting"
 msgstr "Tezlik chegarasi"
 
@@ -2367,7 +2448,7 @@ msgstr "Rad etish"
 msgid "Rejected"
 msgstr "Rad etildi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Aloqador"
 
@@ -2438,8 +2519,8 @@ msgstr "Qiziqishni olib tashlash"
 msgid "Remove item"
 msgstr "Elementni olib tashlash"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Havolani olib tashlash"
 
@@ -2482,11 +2563,11 @@ msgstr "Bu doska ustunining nomini oʻzgartirish"
 msgid "Renaming forum..."
 msgstr "Forum nomi o'zgartirilmoqda..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:951
+#: src/routes/_authenticated/$forum_.settings.tsx:879
 msgid "replies"
 msgstr "javob"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:880
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Replies must be approved"
 msgstr "Javoblar tasdiqlanishi kerak"
 
@@ -2537,19 +2618,19 @@ msgstr "{0} tomonidan hisobot berilgan"
 msgid "Reports"
 msgstr "Hisobotlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:863
+#: src/routes/_authenticated/$forum_.settings.tsx:791
 msgid "Require approval before content becomes visible"
 msgstr "Tarkib koʻrinishidan oldin tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:807
 msgid "Require approval for new comments"
 msgstr "Yangi izohlar uchun tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:868
+#: src/routes/_authenticated/$forum_.settings.tsx:796
 msgid "Require approval for new posts"
 msgstr "Yangi postlar uchun tasdiqlash talab qilish"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:890
+#: src/routes/_authenticated/$forum_.settings.tsx:818
 msgid "Require approval for new users"
 msgstr "Yangi foydalanuvchilar uchun tasdiqlash talab qilish"
 
@@ -2560,6 +2641,18 @@ msgstr "Talab qilinadi"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Xatni qayta yuborish"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Taslim boʻlish"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Oʻyindan voz kechilsinmi?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Taslim boʻlinmoqda..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2626,12 +2719,12 @@ msgstr "Shanba"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
-#: src/routes/_authenticated/$forum_.settings.tsx:492
 msgid "Save"
 msgstr "Saqlash"
 
@@ -2661,7 +2754,7 @@ msgstr "Saqlangan postlar tozalandi"
 msgid "Saving..."
 msgstr "Saqlanmoqda..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:601
+#: src/routes/_authenticated/$forum_.settings.tsx:529
 msgid "Score prompt"
 msgstr "Hisob uchun soʻrov"
 
@@ -2700,7 +2793,7 @@ msgstr "Forumlar qidirish..."
 msgid "Search for origin..."
 msgstr "Boshlanish nuqtasini qidirish..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Obyektlar qidirish..."
 
@@ -2729,7 +2822,7 @@ msgstr "Qidirish..."
 msgid "Searching..."
 msgstr "Qidirilmoqda..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:966
+#: src/routes/_authenticated/$forum_.settings.tsx:894
 msgid "seconds"
 msgstr "soniya"
 
@@ -2920,6 +3013,11 @@ msgstr "Spam"
 msgid "Start the discussion by adding the first comment."
 msgstr "Birinchi izohni qoʻshib muhokamani boshlang."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Kuzatishni toʻxtatish"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Mavzu"
@@ -2985,7 +3083,7 @@ msgstr "1-9 koʻrinishiga oʻtish"
 msgid "System"
 msgstr "Tizim"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:559
+#: src/routes/_authenticated/$forum_.settings.tsx:487
 msgid "Tag"
 msgstr "Teg"
 
@@ -2997,7 +3095,7 @@ msgstr "Teg allaqachon mavjud"
 msgid "Tag must be 50 characters or less"
 msgstr "Teg 50 ta belgidan oshmasligi kerak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:600
+#: src/routes/_authenticated/$forum_.settings.tsx:528
 msgid "Tag prompt"
 msgstr "Teg soʻrovi"
 
@@ -3071,6 +3169,10 @@ msgstr "Ushbu forumni hozir yuklab boʻlmaydi."
 #: src/routes/_authenticated/$forum_.settings.tsx:250
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ushbu forum oʻchirilgan boʻlishi mumkin yoki sizda unga kirish ruxsati yoʻq."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Bu oʻyin va uning chatini butunlay oʻchirib tashlaydi. Bu amalni bekor qilib boʻlmaydi."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3265,9 +3367,8 @@ msgstr "Obunadan chiqildi"
 msgid "Unsubscribing..."
 msgstr "Obunadan chiqilmoqda..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Sarlavhasiz"
 
@@ -3281,7 +3382,7 @@ msgstr "Yangilangan"
 msgid "Updated {field}"
 msgstr "{field} yangilandi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Yuklash"
@@ -3339,6 +3440,10 @@ msgstr "Video ko'ruvchi: {0}"
 msgid "View all notifications"
 msgstr "Barcha bildirishnomalarni koʻrish"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Element tafsilotlarini koʻrish va tahrirlash"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Boshqaruvni koʻrish"
@@ -3364,6 +3469,11 @@ msgstr "Ovoz yozish bu brauzerda qoʻllab-quvvatlanmaydi"
 msgid "Vote and view"
 msgstr "Ovoz berish va koʻrish"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Kuzatish"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
@@ -3382,7 +3492,7 @@ msgstr "Biz <0>{0}</0> manziliga tasdiqlash kodini yubordik. Elektron pochta man
 msgid "Wednesday"
 msgstr "Chorshanba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:956
+#: src/routes/_authenticated/$forum_.settings.tsx:884
 msgid "Window duration"
 msgstr "Oyna davomiyligi"
 
