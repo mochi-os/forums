@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -37,6 +37,7 @@ import {
   type ComposerItem,
   moveItem,
   useImageObjectUrls,
+  useDiscardGuard,
   UploadProgress,
   type Upload,
 } from '@mochi/web'
@@ -83,6 +84,7 @@ export function EditPostDialog({
   isError = false,
   progress,
 }: EditPostDialogProps) {
+  const { t } = useLingui()
   const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
   // Keyed by attachment id (existing) or pendingFileKey (new), so neither
@@ -253,10 +255,27 @@ export function EditPostDialog({
     setItems((prev) => prev.filter((_, i) => i !== index))
   }
 
+  // An editor guards a change to a post that already exists, so it asks only
+  // once the draft differs from what was opened, and it names the change
+  // rather than the text - the post's own body is not what would be lost.
+  const { requestClose, discardDialog } = useDiscardGuard({
+    hasText: hasChanges,
+    hasFiles: false,
+    onDiscard: () => onOpenChange(false),
+    locked: isPending,
+    desc: t`Your changes will be lost.`,
+  })
+
   return (
     <ResponsiveDialog
       open={open}
-      onOpenChange={onOpenChange}
+      onOpenChange={(next) => {
+        if (next) {
+          onOpenChange(true)
+          return
+        }
+        requestClose()
+      }}
       shouldCloseOnInteractOutside={false}
     >
       <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
@@ -390,6 +409,7 @@ export function EditPostDialog({
           </form>
         </Form>
       </ResponsiveDialogContent>
+      {discardDialog}
     </ResponsiveDialog>
   )
 }

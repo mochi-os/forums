@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,6 +26,7 @@ import {
   FormLabel,
   FormMessage,
   useImageObjectUrls,
+  useDiscardGuard,
   ComposerAttachments,
   AttachmentAddTile,
   cn,
@@ -159,13 +160,32 @@ export function CreatePostDialog({
     addFiles(picked)
   }
 
+  const watchedTitle = form.watch('title')
+  const watchedBody = form.watch('body')
+
+  const closeAndReset = useCallback(() => {
+    setIsOpen(false)
+    form.reset()
+    setAttachments([])
+    setCaptions({})
+  }, [form, setIsOpen])
+
+  // Guarding the root's onOpenChange covers every way out of the dialog at
+  // once - Escape, the close button, Cancel, and a drag down on the mobile
+  // drawer - rather than only the one Escape fires.
+  const { requestClose, discardDialog } = useDiscardGuard({
+    hasText: Boolean(watchedTitle?.trim() || watchedBody?.trim()),
+    hasFiles: attachments.length > 0,
+    onDiscard: closeAndReset,
+    locked: isPending,
+  })
+
   const handleOpenChange = (open: boolean) => {
-    setIsOpen(open)
-    if (!open) {
-      form.reset()
-      setAttachments([])
-      setCaptions({})
+    if (open) {
+      setIsOpen(true)
+      return
     }
+    requestClose()
   }
 
   // Tracks object URLs for image previews and revokes them on change/unmount
@@ -317,6 +337,7 @@ export function CreatePostDialog({
           </form>
         </Form>
       </ResponsiveDialogContent>
+      {discardDialog}
     </ResponsiveDialog>
   )
 }
