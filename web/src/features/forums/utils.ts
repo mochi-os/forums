@@ -27,12 +27,26 @@ const iframeHostFilter = (node: Node, data: { tagName: string }): void => {
   }
 }
 
+// A posted image is fetched by every reader's browser, so an author who points
+// one at a server they control collects each reader's IP and the thread URL
+// from the Referer header. Set on the parsed DOM for the same reason the iframe
+// allowlist is: a regex over the serialized output misses odd markup.
+// 'referrerpolicy' is deliberately NOT in ALLOWED_ATTR below, so an
+// author-supplied value is stripped first and cannot survive as unsafe-url.
+const forceImageNoReferrer = (node: Element): void => {
+  if (node.tagName === 'IMG') {
+    node.setAttribute('referrerpolicy', 'no-referrer')
+  }
+}
+
 export const sanitizeHtml = (html: string): string => {
   DOMPurify.addHook('uponSanitizeElement', iframeHostFilter)
+  DOMPurify.addHook('afterSanitizeAttributes', forceImageNoReferrer)
   try {
     return sanitizeWithConfig(html)
   } finally {
     DOMPurify.removeHook('uponSanitizeElement')
+    DOMPurify.removeHook('afterSanitizeAttributes')
   }
 }
 
