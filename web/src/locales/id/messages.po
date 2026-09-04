@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "Periksa koneksi internet Anda dan coba lagi."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1051
 msgid " · Expires {0}"
 msgstr " · Berakhir {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1052
 msgid " · Permanent"
 msgstr " · Permanen"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:250
+#: src/features/forums/components/thread/thread-content.tsx:204
 msgid " (edited)"
 msgstr " (diedit)"
 
@@ -54,17 +54,17 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# kiriman baru} other {# kiriman baru}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:521
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# dipilih} other {# dipilih}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# pengguna diblokir} other {# pengguna diblokir}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# pengguna dibisukan} other {# pengguna dibisukan}}"
 
@@ -90,11 +90,11 @@ msgstr "{count, plural, one {#mnt} other {#mnt}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#mg} other {#mg}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# item disetujui} other {# item disetujui}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# item ditolak} other {# item ditolak}}"
 
@@ -114,6 +114,10 @@ msgstr "{opponentName} menawarkan remis"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Tampilkan # komentar lain pada kiriman ini} other {Tampilkan # komentar lain pada kiriman ini}}"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:533
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
@@ -123,7 +127,7 @@ msgstr "{sentLabel} dari {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# item} other {# item}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:236
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# balasan} other {# balasan}}"
 
@@ -292,7 +296,7 @@ msgstr "AI"
 msgid "AI actions on posts"
 msgstr "Tindakan AI pada postingan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
 msgid "All"
 msgstr "Semua"
 
@@ -301,7 +305,7 @@ msgstr "Semua"
 msgid "All forums"
 msgstr "Semua forum"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:357
 msgid "All posts and comments have been reviewed"
 msgstr "Semua postingan dan komentar telah ditinjau"
 
@@ -347,8 +351,8 @@ msgstr "Siapa pun yang masuk"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Apa pun yang berlangganan umpan ini akan berhenti menerimanya. Anda dapat menyalin URL baru setelahnya."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/routes/_authenticated/$forum_.moderation.tsx:486
 msgid "Approve"
 msgstr "Setujui"
 
@@ -365,11 +369,11 @@ msgstr "Apakah Anda yakin ingin menghapus kolom \"{name}\"? Ini tidak dapat diba
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Apakah Anda yakin ingin menghapus komentar ini? Ini juga akan menghapus semua balasan."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:513
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Apakah Anda yakin ingin menghapus komentar ini? Ini juga akan menghapus semua balasan. Tindakan ini tidak dapat dibatalkan."
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:437
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Apakah Anda yakin ingin menghapus postingan ini? Ini juga akan menghapus semua komentar. Tindakan ini tidak dapat dibatalkan."
 
@@ -381,11 +385,11 @@ msgstr "Apakah Anda yakin ingin keluar? Anda perlu masuk kembali untuk mengakses
 msgid "Ascending"
 msgstr "Naik"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "Lampirkan file komentar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "Lampirkan file balasan"
 
@@ -419,7 +423,7 @@ msgstr "Kembali"
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:222
 #: src/routes/_authenticated/$forum_.settings.tsx:235
 #: src/routes/_authenticated/$forum_.settings.tsx:267
@@ -435,16 +439,25 @@ msgstr "Kembali ke forum"
 msgid "Back to home"
 msgstr "Kembali ke beranda"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:541
+#: src/features/forums/components/thread/thread-content.tsx:465
+#: src/routes/_authenticated/$forum_.moderation.tsx:512
+#: src/routes/_authenticated/$forum_.moderation.tsx:537
 msgid "Ban"
 msgstr "Blokir"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:497
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:421
+#: src/features/forums/components/thread/thread-content.tsx:463
 msgid "Ban author"
 msgstr "Blokir penulis"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:532
+msgid "Ban authors"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:791
 msgid "Banned"
 msgstr "Diblokir"
 
@@ -493,12 +506,12 @@ msgid "Browser notifications"
 msgstr "Notifikasi browser"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "by {0}"
 msgstr "oleh {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1049
 msgid "By {0}"
 msgstr "Oleh {0}"
 
@@ -519,15 +532,15 @@ msgstr "Oleh {0}"
 #: src/features/forums/components/create-post-dialog.tsx:297
 #: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:308
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "Batalkan komentar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "Batalkan balasan"
 
@@ -660,7 +673,7 @@ msgstr "Nyaman"
 msgid "Command Palette"
 msgstr "Palet perintah"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:784
 msgid "Comment"
 msgstr "Komentar"
 
@@ -898,10 +911,10 @@ msgstr "Pengurutan default"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
+#: src/features/forums/components/thread/thread-comment.tsx:444
+#: src/features/forums/components/thread/thread-comment.tsx:514
+#: src/features/forums/components/thread/thread-content.tsx:358
+#: src/features/forums/components/thread/thread-content.tsx:438
 #: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "Hapus"
@@ -915,7 +928,7 @@ msgid "Delete column"
 msgstr "Hapus kolom"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Delete comment"
 msgstr "Hapus komentar"
 
@@ -942,7 +955,7 @@ msgstr "Hapus opsi"
 msgid "Delete option {0}"
 msgstr "Hapus opsi {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:436
 msgid "Delete post"
 msgstr "Hapus postingan"
 
@@ -993,11 +1006,11 @@ msgstr "Direktori"
 msgid "Disabled"
 msgstr "Dinonaktifkan"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Buang"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Buang draf?"
 
@@ -1008,7 +1021,7 @@ msgstr "Terputus"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:735
 msgid "Dismiss"
 msgstr "Tutup"
 
@@ -1046,8 +1059,8 @@ msgstr "Ramah disleksia"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:352
 msgid "Edit"
 msgstr "Edit"
 
@@ -1144,7 +1157,7 @@ msgstr "Gagal menambahkan tag"
 msgid "Failed to adjust interest"
 msgstr "Gagal menyesuaikan minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "Gagal menyetujui item"
 
@@ -1152,7 +1165,7 @@ msgstr "Gagal menyetujui item"
 msgid "Failed to ban user"
 msgstr "Gagal memblokir pengguna"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#: src/routes/_authenticated/$forum_.moderation.tsx:305
 msgid "Failed to ban users"
 msgstr "Gagal memblokir pengguna"
 
@@ -1226,11 +1239,11 @@ msgstr "Gagal memuat riwayat"
 msgid "Failed to load image"
 msgstr "Gagal memuat gambar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "Failed to load moderation log"
 msgstr "Gagal memuat log moderasi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "Gagal memuat antrean moderasi"
 
@@ -1247,11 +1260,11 @@ msgstr "Gagal memuat prompt"
 msgid "Failed to load recommended forums"
 msgstr "Gagal memuat forum yang direkomendasikan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:570
 msgid "Failed to load reports"
 msgstr "Gagal memuat laporan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:940
 msgid "Failed to load restrictions"
 msgstr "Gagal memuat pembatasan"
 
@@ -1263,7 +1276,7 @@ msgstr "Gagal memuat video"
 msgid "Failed to mute user"
 msgstr "Gagal membisukan pengguna"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#: src/routes/_authenticated/$forum_.moderation.tsx:288
 msgid "Failed to mute users"
 msgstr "Gagal membisukan pengguna"
 
@@ -1271,7 +1284,7 @@ msgstr "Gagal membisukan pengguna"
 msgid "Failed to post comment"
 msgstr "Gagal mengirim komentar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "Gagal menolak item"
 
@@ -1284,7 +1297,7 @@ msgstr "Gagal menghapus akses"
 msgid "Failed to remove interest"
 msgstr "Gagal menghapus minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:957
 msgid "Failed to remove restriction"
 msgstr "Gagal menghapus pembatasan"
 
@@ -1300,7 +1313,7 @@ msgstr "Gagal mengganti nama forum"
 msgid "Failed to reset prompt"
 msgstr "Gagal mengatur ulang prompt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:587
 msgid "Failed to resolve report"
 msgstr "Gagal menyelesaikan laporan"
 
@@ -1489,12 +1502,12 @@ msgid "Group: {0}"
 msgstr "Grup: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:801
 msgid "Harassment"
 msgstr "Pelecehan"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:802
 msgid "Hate speech"
 msgstr "Ujaran kebencian"
 
@@ -1617,15 +1630,15 @@ msgstr "Memuat konten…"
 msgid "Loading..."
 msgstr "Memuat..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Lock"
 msgstr "Kunci"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:174
 msgid "Locked"
 msgstr "Terkunci"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:82
 msgid "Log"
 msgstr "Log"
 
@@ -1692,7 +1705,7 @@ msgid "Minimum length"
 msgstr "Panjang minimum"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:804
 msgid "Misinformation"
 msgstr "Informasi salah"
 
@@ -1705,17 +1718,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderasi, post, komentar, voting, dan lihat"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:101
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "Moderasi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:356
 msgid "Moderation queue is empty"
 msgstr "Antrean moderasi kosong"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "Bagian moderasi"
 
@@ -1725,23 +1738,23 @@ msgstr "Senin"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:427
+#: src/features/forums/components/thread/thread-content.tsx:339
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "More options"
 msgstr "Opsi lainnya"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/routes/_authenticated/$forum_.moderation.tsx:500
 msgid "Mute"
 msgstr "Bisukan"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#: src/features/forums/components/thread/thread-comment.tsx:491
+#: src/features/forums/components/thread/thread-content.tsx:415
 msgid "Mute author"
 msgstr "Bisukan penulis"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:792
 msgid "Muted"
 msgstr "Dibisukan"
 
@@ -1807,7 +1820,7 @@ msgstr "Gambar berikutnya"
 msgid "No {parentClassNames} to add to"
 msgstr "Tidak ada {parentClassNames} untuk ditambahkan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#: src/routes/_authenticated/$forum_.moderation.tsx:667
 msgid "No {statusFilter} reports found"
 msgstr "Tidak ditemukan laporan {statusFilter}"
 
@@ -1852,7 +1865,7 @@ msgstr "Belum ada jenis item yang dapat dibuat. Buat item induk yang diperlukan 
 msgid "No matching objects"
 msgstr "Tidak ada objek yang cocok"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:871
 msgid "No moderation activity"
 msgstr "Tidak ada aktivitas moderasi"
 
@@ -1869,11 +1882,11 @@ msgstr "Tidak ada tempat yang ditemukan"
 msgid "No posts in this forum yet"
 msgstr "Belum ada postingan di forum ini"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:666
 msgid "No reports"
 msgstr "Tidak ada laporan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid "No restrictions"
 msgstr "Tidak ada pembatasan"
 
@@ -1908,7 +1921,7 @@ msgstr "Tidak ada notifikasi yang belum dibaca"
 msgid "No users found"
 msgstr "Tidak ada pengguna yang ditemukan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid "No users have been muted or banned"
 msgstr "Tidak ada pengguna yang dibisukan atau diblokir"
 
@@ -1965,7 +1978,7 @@ msgid "Number"
 msgstr "Angka"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:805
 msgid "Off-topic"
 msgstr "Di luar topik"
 
@@ -1974,11 +1987,11 @@ msgid "On"
 msgstr "Aktif"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "On image: {0}"
 msgstr "Pada gambar: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:260
 msgid "On this image"
 msgstr "Pada gambar ini"
 
@@ -2035,7 +2048,7 @@ msgstr "Opsi"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:806
 msgid "Other"
 msgstr "Lainnya"
 
@@ -2064,23 +2077,23 @@ msgid "Pattern (regex)"
 msgstr "Pola (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:775
 msgid "Pending"
 msgstr "Tertunda"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:162
 msgid "Pending approval"
 msgstr "Menunggu persetujuan"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:415
 msgid "Pending comments ({0})"
 msgstr "Komentar tertunda ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:370
 msgid "Pending posts ({0})"
 msgstr "Postingan tertunda ({0})"
 
@@ -2089,11 +2102,11 @@ msgstr "Postingan tertunda ({0})"
 msgid "Photos and videos"
 msgstr "Foto dan video"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:400
 msgid "Pin"
 msgstr "Sematkan"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:180
 msgid "Pinned"
 msgstr "Disematkan"
 
@@ -2123,7 +2136,7 @@ msgstr "Silakan coba lagi."
 msgid "Please wait a moment and try again."
 msgstr "Harap tunggu sebentar, lalu coba lagi."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
 msgid "Post"
 msgstr "Postingan"
 
@@ -2237,7 +2250,7 @@ msgstr "Menerbitkan..."
 msgid "Push notification"
 msgstr "Notifikasi push"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:79
 msgid "Queue"
 msgstr "Antrean"
 
@@ -2257,12 +2270,12 @@ msgstr "Tautkan ulang akun Anda di server ini"
 msgid "Re-register your passkeys on this server"
 msgstr "Daftarkan ulang kunci sandi Anda di server ini"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:716
 msgid "Reason:"
 msgstr "Alasan:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:907
 msgid "Reason: {0}"
 msgstr "Alasan: {0}"
 
@@ -2287,12 +2300,12 @@ msgstr "Mengalihkan ke login."
 msgid "Reduce interest"
 msgstr "Kurangi minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:474
 msgid "Reject"
 msgstr "Tolak"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "Ditolak"
 
@@ -2312,12 +2325,12 @@ msgstr "Relatif dalam 24 jam, selainnya absolut"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:472
+#: src/features/forums/components/thread/thread-comment.tsx:528
+#: src/features/forums/components/thread/thread-content.tsx:374
+#: src/features/forums/components/thread/thread-content.tsx:452
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:1065
 msgid "Remove"
 msgstr "Hapus"
 
@@ -2341,7 +2354,7 @@ msgstr "Hapus aturan akses untuk \"{0}\"?"
 msgid "Remove access?"
 msgstr "Hapus akses?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "Remove comment"
 msgstr "Hapus komentar"
 
@@ -2364,7 +2377,7 @@ msgstr "Hapus item"
 msgid "Remove link"
 msgstr "Hapus tautan"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:450
 msgid "Remove post"
 msgstr "Hapus postingan"
 
@@ -2373,8 +2386,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "Hapus forum ini dari sidebar Anda."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/thread/thread-comment.tsx:285
+#: src/features/forums/components/thread/thread-content.tsx:168
 msgid "Removed"
 msgstr "Dihapus"
 
@@ -2413,22 +2426,22 @@ msgstr "Balasan harus disetujui"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:409
+#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Reply"
 msgstr "Balas"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:563
 msgid "Reply to {0}..."
 msgstr "Balas {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:480
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Report"
 msgstr "Laporkan"
 
@@ -2440,7 +2453,7 @@ msgstr "Laporkan komentar"
 msgid "Report post"
 msgstr "Laporkan postingan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:584
 msgid "Report resolved"
 msgstr "Laporan diselesaikan"
 
@@ -2450,11 +2463,11 @@ msgid "Report submitted"
 msgstr "Laporan dikirim"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:724
 msgid "Reported by {0}"
 msgstr "Dilaporkan oleh {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:80
 msgid "Reports"
 msgstr "Laporan"
 
@@ -2482,21 +2495,21 @@ msgstr "Wajib"
 msgid "Resend email"
 msgstr "Kirim ulang email"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Resolved"
 msgstr "Diselesaikan"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/features/forums/components/thread/thread-comment.tsx:466
+#: src/features/forums/components/thread/thread-content.tsx:368
 msgid "Restore"
 msgstr "Pulihkan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "Restriction removed"
 msgstr "Pembatasan dihapus"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:81
 msgid "Restrictions"
 msgstr "Pembatasan"
 
@@ -2551,7 +2564,7 @@ msgstr "Sabtu"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:328
 #: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "Simpan"
@@ -2686,7 +2699,7 @@ msgstr "Pilih aturan akses"
 msgid "Select account type"
 msgstr "Pilih jenis akun"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select all"
 msgstr "Pilih semua"
 
@@ -2702,7 +2715,7 @@ msgstr "Pilih lokasi"
 msgid "Select next card"
 msgstr "Pilih kartu berikutnya"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select none"
 msgstr "Batal pilih"
 
@@ -2769,7 +2782,7 @@ msgstr "Tetapkan asal dan tujuan"
 msgid "Settings"
 msgstr "Pengaturan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:793
 msgid "Shadowbanned"
 msgstr "Diblokir diam-diam"
 
@@ -2829,7 +2842,7 @@ msgid "Spacious"
 msgstr "Luas"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Spam"
 msgstr "Spam"
 
@@ -2841,11 +2854,11 @@ msgstr "Mulai diskusi dengan menambahkan komentar pertama."
 msgid "Subject"
 msgstr "Subjek"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "Kirim komentar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "Kirim balasan"
 
@@ -2957,9 +2970,14 @@ msgstr "Konten yang diminta tidak dapat ditemukan."
 msgid "The server returned a web page instead of data."
 msgstr "Server mengembalikan halaman web alih-alih data."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
 msgid "There are no moderation actions recorded yet"
 msgstr "Belum ada tindakan moderasi yang tercatat"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:464
+msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
@@ -2981,11 +2999,11 @@ msgstr "Kiriman ini sudah dikirim sebelumnya"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Ini menghapus setiap kiriman dari daftar tersimpan Anda. Tindakan ini tidak dapat dibatalkan."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:527
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Ini akan menyembunyikan komentar dari pengguna biasa. Moderator masih dapat melihatnya dan memulihkannya nanti."
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:451
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Ini akan menyembunyikan postingan dari pengguna biasa. Moderator masih dapat melihatnya dan memulihkannya nanti."
 
@@ -3128,15 +3146,15 @@ msgstr "Amerika Serikat"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Unknown"
 msgstr "Tidak diketahui"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:381
 msgid "Unlock"
 msgstr "Buka kunci"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Unpin"
 msgstr "Lepas sematan"
 
@@ -3241,12 +3259,12 @@ msgstr "Kontrol tampilan"
 msgid "View only"
 msgstr "Hanya lihat"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "View the image this comment is about"
 msgstr "Lihat gambar yang dibahas komentar ini"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:803
 msgid "Violence"
 msgstr "Kekerasan"
 
@@ -3311,14 +3329,14 @@ msgstr "Anda akan berhenti menerima pembaruan dari forum ini. Anda dapat berlang
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Akun Anda telah dipindahkan ke sini dari {source}. Sampai Anda menghapusnya di sana, pesan dan notifikasi mungkin menjangkau kedua server, sebagian konten Anda tetap disajikan dari server lama, dan pengikut mungkin membutuhkan beberapa menit untuk menemukan Anda di sini."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Lampiran Anda akan hilang."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Teks dan lampiran Anda akan hilang."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Teksmu akan hilang."

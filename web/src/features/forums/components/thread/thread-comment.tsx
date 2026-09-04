@@ -125,6 +125,10 @@ export function ThreadComment({
   const [editBody, setEditBody] = useState('')
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
+  // Banning sits one row below Approve in the same menu and takes a person's
+  // access to the forum, so it confirms the way Delete and Remove above it
+  // already do. Muting does not: it is narrower and lifts as easily.
+  const [banning, setBanning] = useState(false)
   // The reply box owns its files and reports their count; the guard here and
   // the one above (which arbitrates switching between reply boxes) read it.
   const [replyFileCount, setReplyFileCount] = useState(0)
@@ -488,9 +492,7 @@ export function ThreadComment({
                       </DropdownMenuItem>
                     )}
                     {canModerate && onBanAuthor && (
-                      <DropdownMenuItem
-                        onClick={() => onBanAuthor(comment.member)}
-                      >
+                      <DropdownMenuItem onClick={() => setBanning(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
@@ -527,6 +529,20 @@ export function ThreadComment({
         handleConfirm={() => {
           onRemove?.(comment.id)
           setRemoving(false)
+        }}
+      />
+
+      {/* Ban confirmation dialog */}
+      <ConfirmDialog
+        open={banning}
+        onOpenChange={setBanning}
+        title={t`Ban author`}
+        desc={t`They will lose access to this forum. You can lift it later from the Restrictions tab.`}
+        confirmText={t`Ban`}
+        destructive={true}
+        handleConfirm={() => {
+          onBanAuthor?.(comment.member)
+          setBanning(false)
         }}
       />
 

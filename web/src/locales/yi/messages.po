@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "זײַט אַזוי גוט קאָנטראָלירט אײַער אינטערנעץ פֿאַרבינדונג און פּרוּווט נאָך אַ מאָל."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1051
 msgid " · Expires {0}"
 msgstr " · גייט אויס {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1052
 msgid " · Permanent"
 msgstr " · שטענדיק"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:250
+#: src/features/forums/components/thread/thread-content.tsx:204
 msgid " (edited)"
 msgstr " (רעדאַגירט)"
 
@@ -54,17 +54,17 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# נײַער אַרײַנשרײַב} other {# נײַע אַרײַנשרײַבן}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:521
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# אויסגעקליבן} other {# אויסגעקליבן}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {געבאַנד # באַניצער} other {געבאַנד # באַניצערס}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {פֿאַרשטילט # באַניצער} other {פֿאַרשטילט # באַניצערס}}"
 
@@ -90,11 +90,11 @@ msgstr "{count, plural, one {#מינ} other {#מינ}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#וואָך} other {#וואָך}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {אַפּראָוווד # אַרטיקל} other {אַפּראָוווד # אַרטיקלען}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {אָפּגעוואָרפֿן # אַרטיקל} other {אָפּגעוואָרפֿן # אַרטיקלען}}"
 
@@ -114,6 +114,10 @@ msgstr "{opponentName} האָט פֿאָרגעלייגט אַ תּיקו"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {ווײַזן נאָך # קאָמענטאַר אויף דעם פּאָסט} other {ווײַזן נאָך # קאָמענטאַרן אויף דעם פּאָסט}}"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:533
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
@@ -123,7 +127,7 @@ msgstr "{sentLabel} פֿון {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# איינס} other {# זאַכן}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:236
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# ענטפֿער} other {# ענטפֿערס}}"
 
@@ -292,7 +296,7 @@ msgstr "AI"
 msgid "AI actions on posts"
 msgstr "AI אַקציעס אויף פּאָסטן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
 msgid "All"
 msgstr "אַלע"
 
@@ -301,7 +305,7 @@ msgstr "אַלע"
 msgid "All forums"
 msgstr "אַלע פֿאָרומען"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:357
 msgid "All posts and comments have been reviewed"
 msgstr "אַלע פּאָסטן און קאָמענטאַרן זענען איבערגעקוקט"
 
@@ -347,8 +351,8 @@ msgstr "װער עס איז אײַנגעלאָגט"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "אַלץ וואָס איז אַבאָנירט אויף דעם פֿיד וועט אויפֿהערן עס צו באַקומען. איר קענט קאָפּירן אַ נייַעם URL דערנאָך."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/routes/_authenticated/$forum_.moderation.tsx:486
 msgid "Approve"
 msgstr "באַשטעטיקן"
 
@@ -365,11 +369,11 @@ msgstr "זענט איר זיכער איר ווילט אויסמעקן די \"{na
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "זענט איר זיכער איר ווילט אויסמעקן דעם קאָמענטאַר? דאָס וועט אויך אויסמעקן אַלע ענטפֿערס."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:513
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "זענט איר זיכער איר ווילט אויסמעקן דעם קאָמענטאַר? דאָס וועט אויך אויסמעקן אַלע ענטפֿערס. די אַקציע קען נישט ווערן אומגעקערט."
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:437
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "זענט איר זיכער איר ווילט אויסמעקן דעם פּאָסט? דאָס וועט אויך אויסמעקן אַלע קאָמענטאַרן. די אַקציע קען נישט ווערן אומגעקערט."
 
@@ -381,11 +385,11 @@ msgstr "זענט איר זיכער איר ווילט אַרויסלאָגן? א�
 msgid "Ascending"
 msgstr "אַרויפֿגייענדיק"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "צוהענקען קאָמענטאַר פֿײַלן"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "צוהענקען ענטפֿער פֿײַלן"
 
@@ -419,7 +423,7 @@ msgstr "צוריק"
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:222
 #: src/routes/_authenticated/$forum_.settings.tsx:235
 #: src/routes/_authenticated/$forum_.settings.tsx:267
@@ -435,16 +439,25 @@ msgstr "צוריק צו פֿאָרומען"
 msgid "Back to home"
 msgstr "צוריק צום הויז"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:541
+#: src/features/forums/components/thread/thread-content.tsx:465
+#: src/routes/_authenticated/$forum_.moderation.tsx:512
+#: src/routes/_authenticated/$forum_.moderation.tsx:537
 msgid "Ban"
 msgstr "פֿאַרבאָטן"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:497
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:421
+#: src/features/forums/components/thread/thread-content.tsx:463
 msgid "Ban author"
 msgstr "פֿאַרבאָטן מחבר"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:532
+msgid "Ban authors"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:791
 msgid "Banned"
 msgstr "פֿאַרבאָטן"
 
@@ -493,12 +506,12 @@ msgid "Browser notifications"
 msgstr "בראָוזער נאָטיפֿיקאַציעס"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "by {0}"
 msgstr "פֿון {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1049
 msgid "By {0}"
 msgstr "פֿון {0}"
 
@@ -519,15 +532,15 @@ msgstr "פֿון {0}"
 #: src/features/forums/components/create-post-dialog.tsx:297
 #: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:308
 msgid "Cancel"
 msgstr "אָפּזאָגן"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "אָפּזאָגן קאָמענטאַר"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "אָפּזאָגן ענטפֿער"
 
@@ -660,7 +673,7 @@ msgstr "באַקוועם"
 msgid "Command Palette"
 msgstr "באַפֿעל־פּאַליטרע"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:784
 msgid "Comment"
 msgstr "קאָמענטאַר"
 
@@ -898,10 +911,10 @@ msgstr "פֿאַרשטאַנדלעך סאָרט"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
+#: src/features/forums/components/thread/thread-comment.tsx:444
+#: src/features/forums/components/thread/thread-comment.tsx:514
+#: src/features/forums/components/thread/thread-content.tsx:358
+#: src/features/forums/components/thread/thread-content.tsx:438
 #: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "אויסמעקן"
@@ -915,7 +928,7 @@ msgid "Delete column"
 msgstr "אויסמעקן זײַל"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Delete comment"
 msgstr "אויסמעקן קאָמענטאַר"
 
@@ -942,7 +955,7 @@ msgstr "אויסמעקן אָפּציע"
 msgid "Delete option {0}"
 msgstr "אויסמעקן אָפּציע {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:436
 msgid "Delete post"
 msgstr "אויסמעקן פּאָסט"
 
@@ -993,11 +1006,11 @@ msgstr "פֿאַרצײכעניש"
 msgid "Disabled"
 msgstr "אומדערלויבט"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "אַװעקװאַרפֿן"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "אַװעקװאַרפֿן דעם פּראָיעקט?"
 
@@ -1008,7 +1021,7 @@ msgstr "אפגעשניטן"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:735
 msgid "Dismiss"
 msgstr "אַראָפּזאָגן"
 
@@ -1046,8 +1059,8 @@ msgstr "דיסלעקסיע פֿרײַנדלעך"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:352
 msgid "Edit"
 msgstr "רעדאַקטירן"
 
@@ -1144,7 +1157,7 @@ msgstr "ניט געלונגען צוצוגעבן טאַג"
 msgid "Failed to adjust interest"
 msgstr "ניט געלונגען צו רעגולירן אינטערעס"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "ניט געלונגען צו באַשטעטיקן פּונקטן"
 
@@ -1152,7 +1165,7 @@ msgstr "ניט געלונגען צו באַשטעטיקן פּונקטן"
 msgid "Failed to ban user"
 msgstr "ניט געלונגען צו פֿאַרווערן באַניצער"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#: src/routes/_authenticated/$forum_.moderation.tsx:305
 msgid "Failed to ban users"
 msgstr "ניט געלונגען צו פֿאַרווערן באַניצערס"
 
@@ -1226,11 +1239,11 @@ msgstr "ניט געלונגען צו לאָדן היסטאָריע"
 msgid "Failed to load image"
 msgstr "נישט געקאָנט לאָדן דאָס בילד"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "Failed to load moderation log"
 msgstr "ניט געלונגען צו לאָדן מאָדעראַציע־לאָג"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "ניט געלונגען צו לאָדן מאָדעראַציע־ריי"
 
@@ -1247,11 +1260,11 @@ msgstr "ניט געלונגען צו לאָדן פּראָמפּטן"
 msgid "Failed to load recommended forums"
 msgstr "ניט געלונגען צו לאָדן רעקאָמענדירטע פֿאָרומס"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:570
 msgid "Failed to load reports"
 msgstr "ניט געלונגען צו לאָדן באַריכטן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:940
 msgid "Failed to load restrictions"
 msgstr "ניט געלונגען צו לאָדן באַגרענעצונגען"
 
@@ -1263,7 +1276,7 @@ msgstr "נישט געקאָנט לאָדן דעם ווידעאָ"
 msgid "Failed to mute user"
 msgstr "ניט געלונגען צו פֿאַרשטומען באַניצער"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#: src/routes/_authenticated/$forum_.moderation.tsx:288
 msgid "Failed to mute users"
 msgstr "ניט געלונגען צו פֿאַרשטומען באַניצערס"
 
@@ -1271,7 +1284,7 @@ msgstr "ניט געלונגען צו פֿאַרשטומען באַניצערס"
 msgid "Failed to post comment"
 msgstr "ניט געלונגען צו פּאָסטן קאָמענטאַר"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "ניט געלונגען צו אָפּזאָגן פּונקטן"
 
@@ -1284,7 +1297,7 @@ msgstr "ניט געלונגען צו אַראָפּנעמען צוטריט"
 msgid "Failed to remove interest"
 msgstr "ניט געלונגען צו אַראָפּנעמען אינטערעס"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:957
 msgid "Failed to remove restriction"
 msgstr "ניט געלונגען צו אַראָפּנעמען באַגרענעצונג"
 
@@ -1300,7 +1313,7 @@ msgstr "ניט געלונגען צו איבערנעמען פֿאָרום"
 msgid "Failed to reset prompt"
 msgstr "ניט געלונגען צו אָפּשטעלן פּראָמפּט"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:587
 msgid "Failed to resolve report"
 msgstr "ניט געלונגען צו לייזן באַריכט"
 
@@ -1489,12 +1502,12 @@ msgid "Group: {0}"
 msgstr "גרופּע: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:801
 msgid "Harassment"
 msgstr "באַלעסטיקונג"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:802
 msgid "Hate speech"
 msgstr "האַס־רעדע"
 
@@ -1617,15 +1630,15 @@ msgstr "לאָדט אינהאַלט…"
 msgid "Loading..."
 msgstr "לאָדט..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Lock"
 msgstr "שלאָס"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:174
 msgid "Locked"
 msgstr "פֿאַרשלאָסן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:82
 msgid "Log"
 msgstr "לאָג"
 
@@ -1692,7 +1705,7 @@ msgid "Minimum length"
 msgstr "מינימאַלע לענג"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:804
 msgid "Misinformation"
 msgstr "פֿאַלשע אינפֿאָרמאַציע"
 
@@ -1705,17 +1718,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "מאָדערירן, פּאָסטן, קאָמענטירן, שטימען, און זען"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:101
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "מאָדעראַציע"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:356
 msgid "Moderation queue is empty"
 msgstr "מאָדעראַציע־ריי איז ליידיק"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "מאָדעראַציע־אָפּטיילן"
 
@@ -1725,23 +1738,23 @@ msgstr "מאָנטיק"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:427
+#: src/features/forums/components/thread/thread-content.tsx:339
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "More options"
 msgstr "מער אָפּציעס"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/routes/_authenticated/$forum_.moderation.tsx:500
 msgid "Mute"
 msgstr "פֿאַרשטומען"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#: src/features/forums/components/thread/thread-comment.tsx:491
+#: src/features/forums/components/thread/thread-content.tsx:415
 msgid "Mute author"
 msgstr "פֿאַרשטומען מחבר"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:792
 msgid "Muted"
 msgstr "פֿאַרשטילט"
 
@@ -1807,7 +1820,7 @@ msgstr "ווײַטערדיק בילד"
 msgid "No {parentClassNames} to add to"
 msgstr "קיין {parentClassNames} צוצולייגן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#: src/routes/_authenticated/$forum_.moderation.tsx:667
 msgid "No {statusFilter} reports found"
 msgstr "קיין {statusFilter} באַריכטן ניט געפֿונען"
 
@@ -1852,7 +1865,7 @@ msgstr "קיין עלעמענט טיפּן קענען נאָך ניט זײַן �
 msgid "No matching objects"
 msgstr "קיין שטימענדיקע אָביעקטן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:871
 msgid "No moderation activity"
 msgstr "קיין מאָדעראַציע אַקטיוויטעט"
 
@@ -1869,11 +1882,11 @@ msgstr "קיין ערטער ניט געפֿונען"
 msgid "No posts in this forum yet"
 msgstr "נאָך קיין פּאָסטן אין דעם פֿאָרום"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:666
 msgid "No reports"
 msgstr "קיין באַריכטן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid "No restrictions"
 msgstr "קיין באַגרענעצונגען"
 
@@ -1908,7 +1921,7 @@ msgstr "קיין אומגעלייענטע מעלדונגען"
 msgid "No users found"
 msgstr "קיין באַניצערס ניט געפֿונען"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid "No users have been muted or banned"
 msgstr "קיין באַניצערס זענען ניט פֿאַרשטומט אָדער פֿאַרבאָטן"
 
@@ -1965,7 +1978,7 @@ msgid "Number"
 msgstr "נומער"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:805
 msgid "Off-topic"
 msgstr "ניט-טעמע"
 
@@ -1974,11 +1987,11 @@ msgid "On"
 msgstr "אָן"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "On image: {0}"
 msgstr "אויפֿן בילד: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:260
 msgid "On this image"
 msgstr "אויף דעם בילד"
 
@@ -2035,7 +2048,7 @@ msgstr "אָפּציעס"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:806
 msgid "Other"
 msgstr "אַנדער"
 
@@ -2064,23 +2077,23 @@ msgid "Pattern (regex)"
 msgstr "מוסטער (regex)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:775
 msgid "Pending"
 msgstr "וואַרטנדיק"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:162
 msgid "Pending approval"
 msgstr "וואַרטנדיק אויף באַשטעטיקונג"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:415
 msgid "Pending comments ({0})"
 msgstr "וואַרטנדיקע באַמערקונגען ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:370
 msgid "Pending posts ({0})"
 msgstr "וואַרטנדיקע פּאָסטן ({0})"
 
@@ -2089,11 +2102,11 @@ msgstr "וואַרטנדיקע פּאָסטן ({0})"
 msgid "Photos and videos"
 msgstr "בילדער און ווידעאָס"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:400
 msgid "Pin"
 msgstr "פֿעסטמאַכן"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:180
 msgid "Pinned"
 msgstr "פֿעסטגעמאַכט"
 
@@ -2123,7 +2136,7 @@ msgstr "ביטע פּרוביר ווידער."
 msgid "Please wait a moment and try again."
 msgstr "ביטע וואַרט אַ מאָמענט און פּרוּווט ווידער."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
 msgid "Post"
 msgstr "פּאָסט"
 
@@ -2237,7 +2250,7 @@ msgstr "פֿאַרעפֿנטלעכן..."
 msgid "Push notification"
 msgstr "פּוש־מעלדונג"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:79
 msgid "Queue"
 msgstr "ריי"
 
@@ -2257,12 +2270,12 @@ msgstr "פארבינד ווידער דיינע קאנטעס אויף דעם סע
 msgid "Re-register your passkeys on this server"
 msgstr "רעגיסטרירט איבער אייערע צוטריט שליסלען אויף דעם סערווער"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:716
 msgid "Reason:"
 msgstr "סיבה:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:907
 msgid "Reason: {0}"
 msgstr "סיבה: {0}"
 
@@ -2287,12 +2300,12 @@ msgstr "רעדירעקטירן צו לאָגן."
 msgid "Reduce interest"
 msgstr "פֿאַרמינער אינטערעס"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:474
 msgid "Reject"
 msgstr "אָפּזאָגן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "אָפּגעזאָגט"
 
@@ -2312,12 +2325,12 @@ msgstr "רעלאַטיוו אין 24 שעה, אַנדערש אַבסאָלוט"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:472
+#: src/features/forums/components/thread/thread-comment.tsx:528
+#: src/features/forums/components/thread/thread-content.tsx:374
+#: src/features/forums/components/thread/thread-content.tsx:452
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:1065
 msgid "Remove"
 msgstr "אַראָפּנעמען"
 
@@ -2341,7 +2354,7 @@ msgstr "אַראָפּנעמען די צוטריט־כּלל פֿאַר \"{0}\"?
 msgid "Remove access?"
 msgstr "אַראָפּנעמען צוטריט?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "Remove comment"
 msgstr "אַראָפּנעמען באַמערקונג"
 
@@ -2364,7 +2377,7 @@ msgstr "אַראָפּנעמען עלעמענט"
 msgid "Remove link"
 msgstr "אַראָפּנעמען לינק"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:450
 msgid "Remove post"
 msgstr "אַראָפּנעמען פּאָסט"
 
@@ -2373,8 +2386,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "אַראָפּנעמען דעם פֿאָרום פֿון אײַער זײַטבאַלקן."
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/thread/thread-comment.tsx:285
+#: src/features/forums/components/thread/thread-content.tsx:168
 msgid "Removed"
 msgstr "אַראָפּגענומען"
 
@@ -2413,22 +2426,22 @@ msgstr "ענטפֿערס מוזן זײַן באַשטעטיקט"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:409
+#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Reply"
 msgstr "ענטפֿער"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:563
 msgid "Reply to {0}..."
 msgstr "ענטפֿער צו {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:480
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Report"
 msgstr "באַריכט"
 
@@ -2440,7 +2453,7 @@ msgstr "באַריכט באַמערקונג"
 msgid "Report post"
 msgstr "באַריכט פּאָסט"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:584
 msgid "Report resolved"
 msgstr "באַריכט אויפֿגעלייזט"
 
@@ -2450,11 +2463,11 @@ msgid "Report submitted"
 msgstr "באַריכט אײַנגעגעבן"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:724
 msgid "Reported by {0}"
 msgstr "באַריכטעט פֿון {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:80
 msgid "Reports"
 msgstr "באַריכטן"
 
@@ -2482,21 +2495,21 @@ msgstr "נייטיק"
 msgid "Resend email"
 msgstr "שיק די בליצפּאָסט נאָך אַ מאָל"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Resolved"
 msgstr "אויפֿגעלייזט"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/features/forums/components/thread/thread-comment.tsx:466
+#: src/features/forums/components/thread/thread-content.tsx:368
 msgid "Restore"
 msgstr "אויפֿשטעלן"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "Restriction removed"
 msgstr "באַגרענעצונג אַראָפּגענומען"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:81
 msgid "Restrictions"
 msgstr "באַגרענעצונגען"
 
@@ -2551,7 +2564,7 @@ msgstr "שבת"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:328
 #: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "היט אויף"
@@ -2686,7 +2699,7 @@ msgstr "קלײַב צוטריט כּלל"
 msgid "Select account type"
 msgstr "קלײַב קאָנטע טיפּ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select all"
 msgstr "קלײַב אַלע"
 
@@ -2702,7 +2715,7 @@ msgstr "קלײַב אָרט"
 msgid "Select next card"
 msgstr "קלײַב נעקסטע קאַרטל"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select none"
 msgstr "קלײַב קיינס נישט"
 
@@ -2769,7 +2782,7 @@ msgstr "שטעל אָנהייב און ציל"
 msgid "Settings"
 msgstr "אײַנשטעלונגען"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:793
 msgid "Shadowbanned"
 msgstr "בסוד פֿאַרבאָטן"
 
@@ -2829,7 +2842,7 @@ msgid "Spacious"
 msgstr "ברייט"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Spam"
 msgstr "ספּאַם"
 
@@ -2841,11 +2854,11 @@ msgstr "הייב אָן די דיסקוסיע מיטן צולייגן דעם ע�
 msgid "Subject"
 msgstr "טעמע"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "געב אונטער קאָמענטאַר"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "געב אונטער ענטפֿער"
 
@@ -2957,9 +2970,14 @@ msgstr "דער פֿאַרלאַנגטער אינהאַלט איז נישט גע�
 msgid "The server returned a web page instead of data."
 msgstr "דער סערװער האָט צוריקגעגעבן אַ וועב-בלאַט אַנשטאָט דאַטן."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
 msgid "There are no moderation actions recorded yet"
 msgstr "עס זײַנען נאָך קיין מאָדעראַציע־אַקציעס פֿאַרצייכנט"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:464
+msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
@@ -2981,11 +2999,11 @@ msgstr "די פּאָסט איז שוין געשיקט געוואָרן"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "דאָס נעמט אַראָפּ יעדן אַרײַנשרײַב פֿון דײַן רשימה פֿון געהיטענע. דאָס קען מען נישט צוריקדרייען."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:527
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "דאָס וועט באַהאַלטן דעם קאָמענטאַר פֿון רעגולערע באַניצערס. מאָדעראַטאָרן קאָנען אים נאָך זען און שפּעטער צוריקקערן."
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:451
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "דאָס וועט באַהאַלטן דעם פּאָסט פֿון רעגולערע באַניצערס. מאָדעראַטאָרן קאָנען אים נאָך זען און שפּעטער צוריקקערן."
 
@@ -3128,15 +3146,15 @@ msgstr "פֿאַראייניקטע שטאַטן"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Unknown"
 msgstr "אומבאַקאַנט"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:381
 msgid "Unlock"
 msgstr "אַנטשליסן"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Unpin"
 msgstr "אומפּינען"
 
@@ -3241,12 +3259,12 @@ msgstr "בליק־קאָנטראָלן"
 msgid "View only"
 msgstr "בלויז זען"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "View the image this comment is about"
 msgstr "זען דאָס בילד וועגן וועלכן דער קאָמענטאַר איז"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:803
 msgid "Violence"
 msgstr "גוואַלד"
 
@@ -3311,14 +3329,14 @@ msgstr "איר וועט אויפֿהערן צו באַקומען דערהײַנ�
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "דיין קאנטע איז אהערגעברענגט ווארן פון {source}. ביז דו לעשסט עס דארט, קענען מעסאזשן און הודעות דערגרייכן ביידע סערווערס, עטלעכע פון דיין אינהאלט ווערט ווייטאר פארזאמלט פונם אלטן סערווער, און פאלגערס קענען נעמען עטלעכע מינוטן צו דיך דא געפינען."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "דײַנע צוגעלייגטע טעקעס וועלן פֿאַרלוירן גיין."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "דײַן טעקסט און צוגעלייגטע טעקעס וועלן פֿאַרלוירן גיין."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "אײַער טעקסט װעט פֿאַרלוירן װערן."

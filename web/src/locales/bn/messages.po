@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1051
 msgid " · Expires {0}"
 msgstr " · মেয়াদ শেষ {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1052
 msgid " · Permanent"
 msgstr " · স্থায়ী"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:250
+#: src/features/forums/components/thread/thread-content.tsx:204
 msgid " (edited)"
 msgstr " (সম্পাদিত)"
 
@@ -54,17 +54,17 @@ msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# নতুন পোস্ট} other {# নতুন পোস্ট}}"
 
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:521
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# নির্বাচিত} other {# নির্বাচিত}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#: src/routes/_authenticated/$forum_.moderation.tsx:302
 msgid "{0, plural, one {Banned # user} other {Banned # users}}"
 msgstr "{0, plural, one {# জনকে নিষিদ্ধ} other {# জনকে নিষিদ্ধ}}"
 
 #. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#: src/routes/_authenticated/$forum_.moderation.tsx:285
 msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# জনকে নীরব} other {# জনকে নীরব}}"
 
@@ -90,11 +90,11 @@ msgstr "{count, plural, one {#মি} other {#মি}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#সপ্তা} other {#সপ্তা}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#: src/routes/_authenticated/$forum_.moderation.tsx:231
 msgid "{count, plural, one {Approved # item} other {Approved # items}}"
 msgstr "{count, plural, one {# টি অনুমোদিত} other {# টি অনুমোদিত}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# টি প্রত্যাখ্যাত} other {# টি প্রত্যাখ্যাত}}"
 
@@ -114,6 +114,10 @@ msgstr "{opponentName} ড্র প্রস্তাব করেছে"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {এই পোস্টের আরও # মন্তব্য দেখান} other {এই পোস্টের আরও # মন্তব্য দেখান}}"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:533
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr ""
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
@@ -123,7 +127,7 @@ msgstr "{totalLabel}-এর মধ্যে {sentLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# আইটেম} other {# আইটেম}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:236
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# উত্তর} other {# উত্তর}}"
 
@@ -292,7 +296,7 @@ msgstr "AI"
 msgid "AI actions on posts"
 msgstr "পোস্টে AI অ্যাকশন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
 msgid "All"
 msgstr "সব"
 
@@ -301,7 +305,7 @@ msgstr "সব"
 msgid "All forums"
 msgstr "সব ফোরাম"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:357
 msgid "All posts and comments have been reviewed"
 msgstr "সব পোস্ট এবং মন্তব্য পর্যালোচনা করা হয়েছে"
 
@@ -347,8 +351,8 @@ msgstr "যে কেউ লগ ইন করেছেন"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "এই ফিডে সাবস্ক্রাইব করা সবকিছু এটি পাওয়া বন্ধ করবে। পরে আপনি একটি নতুন URL কপি করতে পারেন।"
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:457
+#: src/routes/_authenticated/$forum_.moderation.tsx:486
 msgid "Approve"
 msgstr "অনুমোদন করুন"
 
@@ -365,11 +369,11 @@ msgstr "আপনি কি নিশ্চিত \"{name}\" কলাম মু
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "আপনি কি নিশ্চিত এই মন্তব্যটি মুছতে চান? এটি সব উত্তরও মুছে ফেলবে।"
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:513
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "আপনি কি নিশ্চিত এই মন্তব্যটি মুছতে চান? এটি সব উত্তরও মুছে ফেলবে। এই অ্যাকশন পূর্বাবস্থায় ফেরানো যাবে না।"
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:437
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "আপনি কি নিশ্চিত যে আপনি এই পোস্টটি মুছে ফেলতে চান? এটি সমস্ত মন্তব্যও মুছে ফেলবে। এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না।"
 
@@ -381,11 +385,11 @@ msgstr "আপনি কি নিশ্চিত লগআউট করতে �
 msgid "Ascending"
 msgstr "ঊর্ধ্বক্রম"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "মন্তব্যের ফাইল সংযুক্ত করুন"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "উত্তরের ফাইল সংযুক্ত করুন"
 
@@ -419,7 +423,7 @@ msgstr "ফিরে যান"
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:222
 #: src/routes/_authenticated/$forum_.settings.tsx:235
 #: src/routes/_authenticated/$forum_.settings.tsx:267
@@ -435,16 +439,25 @@ msgstr "ফোরামে ফিরে যান"
 msgid "Back to home"
 msgstr "হোমে ফিরে যান"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:541
+#: src/features/forums/components/thread/thread-content.tsx:465
+#: src/routes/_authenticated/$forum_.moderation.tsx:512
+#: src/routes/_authenticated/$forum_.moderation.tsx:537
 msgid "Ban"
 msgstr "নিষিদ্ধ করুন"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#: src/features/forums/components/thread/thread-comment.tsx:497
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:421
+#: src/features/forums/components/thread/thread-content.tsx:463
 msgid "Ban author"
 msgstr "লেখককে নিষিদ্ধ করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:532
+msgid "Ban authors"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:791
 msgid "Banned"
 msgstr "নিষিদ্ধ"
 
@@ -493,12 +506,12 @@ msgid "Browser notifications"
 msgstr "ব্রাউজার নোটিফিকেশন"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "by {0}"
 msgstr "{0} দ্বারা"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1049
 msgid "By {0}"
 msgstr "{0} দ্বারা"
 
@@ -519,15 +532,15 @@ msgstr "{0} দ্বারা"
 #: src/features/forums/components/create-post-dialog.tsx:297
 #: src/features/forums/components/edit-post-dialog.tsx:371
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:308
 msgid "Cancel"
 msgstr "বাতিল করুন"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "মন্তব্য বাতিল করুন"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "উত্তর বাতিল করুন"
 
@@ -660,7 +673,7 @@ msgstr "আরামদায়ক"
 msgid "Command Palette"
 msgstr "কমান্ড প্যালেট"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:784
 msgid "Comment"
 msgstr "মন্তব্য"
 
@@ -898,10 +911,10 @@ msgstr "ডিফল্ট সাজানো"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
+#: src/features/forums/components/thread/thread-comment.tsx:444
+#: src/features/forums/components/thread/thread-comment.tsx:514
+#: src/features/forums/components/thread/thread-content.tsx:358
+#: src/features/forums/components/thread/thread-content.tsx:438
 #: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "মুছুন"
@@ -915,7 +928,7 @@ msgid "Delete column"
 msgstr "কলাম মুছুন"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Delete comment"
 msgstr "মন্তব্য মুছুন"
 
@@ -942,7 +955,7 @@ msgstr "অপশন মুছুন"
 msgid "Delete option {0}"
 msgstr "অপশন {0} মুছুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:436
 msgid "Delete post"
 msgstr "পোস্ট মুছুন"
 
@@ -993,11 +1006,11 @@ msgstr "ডিরেক্টরি"
 msgid "Disabled"
 msgstr "নিষ্ক্রিয়"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "বাতিল করুন"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "খসড়া বাতিল করবেন?"
 
@@ -1008,7 +1021,7 @@ msgstr "সংযোগ বিচ্ছিন্ন"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 #: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:735
 msgid "Dismiss"
 msgstr "বাতিল করুন"
 
@@ -1046,8 +1059,8 @@ msgstr "ডিসলেক্সিয়া-বান্ধব"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:438
+#: src/features/forums/components/thread/thread-content.tsx:352
 msgid "Edit"
 msgstr "সম্পাদনা"
 
@@ -1144,7 +1157,7 @@ msgstr "ট্যাগ যোগ করতে ব্যর্থ"
 msgid "Failed to adjust interest"
 msgstr "আগ্রহ সামঞ্জস্য করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#: src/routes/_authenticated/$forum_.moderation.tsx:234
 msgid "Failed to approve items"
 msgstr "আইটেম অনুমোদন করতে ব্যর্থ"
 
@@ -1152,7 +1165,7 @@ msgstr "আইটেম অনুমোদন করতে ব্যর্থ"
 msgid "Failed to ban user"
 msgstr "ব্যবহারকারীকে নিষিদ্ধ করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#: src/routes/_authenticated/$forum_.moderation.tsx:305
 msgid "Failed to ban users"
 msgstr "ব্যবহারকারীদের নিষিদ্ধ করতে ব্যর্থ"
 
@@ -1226,11 +1239,11 @@ msgstr "ইতিহাস লোড করতে ব্যর্থ"
 msgid "Failed to load image"
 msgstr "ছবি লোড করা যায়নি"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:824
 msgid "Failed to load moderation log"
 msgstr "মডারেশন লগ লোড করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:167
 msgid "Failed to load moderation queue"
 msgstr "মডারেশন কিউ লোড করতে ব্যর্থ"
 
@@ -1247,11 +1260,11 @@ msgstr "প্রম্পট লোড করতে ব্যর্থ"
 msgid "Failed to load recommended forums"
 msgstr "প্রস্তাবিত ফোরাম লোড করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:570
 msgid "Failed to load reports"
 msgstr "রিপোর্টসমূহ লোড করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:940
 msgid "Failed to load restrictions"
 msgstr "বিধিনিষেধ লোড করতে ব্যর্থ"
 
@@ -1263,7 +1276,7 @@ msgstr "ভিডিও লোড করা যায়নি"
 msgid "Failed to mute user"
 msgstr "ব্যবহারকারীকে মিউট করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#: src/routes/_authenticated/$forum_.moderation.tsx:288
 msgid "Failed to mute users"
 msgstr "ব্যবহারকারীদের মিউট করতে ব্যর্থ"
 
@@ -1271,7 +1284,7 @@ msgstr "ব্যবহারকারীদের মিউট করতে ব
 msgid "Failed to post comment"
 msgstr "মন্তব্য পোস্ট করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#: src/routes/_authenticated/$forum_.moderation.tsx:256
 msgid "Failed to reject items"
 msgstr "আইটেম প্রত্যাখ্যান করতে ব্যর্থ"
 
@@ -1284,7 +1297,7 @@ msgstr "অ্যাক্সেস সরাতে ব্যর্থ"
 msgid "Failed to remove interest"
 msgstr "আগ্রহ সরাতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:957
 msgid "Failed to remove restriction"
 msgstr "নিষেধাজ্ঞা সরাতে ব্যর্থ"
 
@@ -1300,7 +1313,7 @@ msgstr "ফোরামের নাম পরিবর্তন করতে �
 msgid "Failed to reset prompt"
 msgstr "প্রম্পট রিসেট করতে ব্যর্থ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:587
 msgid "Failed to resolve report"
 msgstr "রিপোর্ট সমাধান করতে ব্যর্থ"
 
@@ -1489,12 +1502,12 @@ msgid "Group: {0}"
 msgstr "গোষ্ঠী: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:801
 msgid "Harassment"
 msgstr "হয়রানি"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:802
 msgid "Hate speech"
 msgstr "ঘৃণার বক্তব্য"
 
@@ -1617,15 +1630,15 @@ msgstr "কন্টেন্ট লোড হচ্ছে…"
 msgid "Loading..."
 msgstr "লোড হচ্ছে..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:387
 msgid "Lock"
 msgstr "লক করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:174
 msgid "Locked"
 msgstr "লক করা"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:82
 msgid "Log"
 msgstr "লগ"
 
@@ -1692,7 +1705,7 @@ msgid "Minimum length"
 msgstr "ন্যূনতম দৈর্ঘ্য"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:804
 msgid "Misinformation"
 msgstr "ভুল তথ্য"
 
@@ -1705,17 +1718,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "মডারেট, পোস্ট, মন্তব্য, ভোট এবং দেখা"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:101
+#: src/routes/_authenticated/$forum_.moderation.tsx:106
 #: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "মডারেশন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:356
 msgid "Moderation queue is empty"
 msgstr "মডারেশন কিউ খালি"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:115
 msgid "Moderation sections"
 msgstr "মডারেশন বিভাগ"
 
@@ -1725,23 +1738,23 @@ msgstr "সোমবার"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:421
+#: src/features/forums/components/thread/thread-comment.tsx:427
+#: src/features/forums/components/thread/thread-content.tsx:339
+#: src/features/forums/components/thread/thread-content.tsx:346
 msgid "More options"
 msgstr "আরও বিকল্প"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/routes/_authenticated/$forum_.moderation.tsx:500
 msgid "Mute"
 msgstr "নিঃশব্দ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#: src/features/forums/components/thread/thread-comment.tsx:491
+#: src/features/forums/components/thread/thread-content.tsx:415
 msgid "Mute author"
 msgstr "লেখককে মিউট করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:792
 msgid "Muted"
 msgstr "মিউট করা"
 
@@ -1807,7 +1820,7 @@ msgstr "পরবর্তী ছবি"
 msgid "No {parentClassNames} to add to"
 msgstr "যোগ করার জন্য কোনো {parentClassNames} নেই"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#: src/routes/_authenticated/$forum_.moderation.tsx:667
 msgid "No {statusFilter} reports found"
 msgstr "কোন {statusFilter} প্রতিবেদন পাওয়া যায়নি"
 
@@ -1852,7 +1865,7 @@ msgstr "এখনও কোনো আইটেম টাইপ তৈরি ক�
 msgid "No matching objects"
 msgstr "কোনো মিলে যাওয়া অবজেক্ট নেই"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:871
 msgid "No moderation activity"
 msgstr "কোনো মডারেশন কার্যকলাপ নেই"
 
@@ -1869,11 +1882,11 @@ msgstr "কোনো স্থান পাওয়া যায়নি"
 msgid "No posts in this forum yet"
 msgstr "এই ফোরামে এখনও কোনো পোস্ট নেই"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:666
 msgid "No reports"
 msgstr "কোনো রিপোর্ট নেই"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:1002
 msgid "No restrictions"
 msgstr "কোনো বিধিনিষেধ নেই"
 
@@ -1908,7 +1921,7 @@ msgstr "কোনো অপঠিত বিজ্ঞপ্তি নেই"
 msgid "No users found"
 msgstr "কোনো ব্যবহারকারী পাওয়া যায়নি"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1003
 msgid "No users have been muted or banned"
 msgstr "কোনো ব্যবহারকারীকে মিউট বা ব্যান করা হয়নি"
 
@@ -1965,7 +1978,7 @@ msgid "Number"
 msgstr "সংখ্যা"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:805
 msgid "Off-topic"
 msgstr "বিষয় বহির্ভূত"
 
@@ -1974,11 +1987,11 @@ msgid "On"
 msgstr "চালু"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "On image: {0}"
 msgstr "ছবিতে: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:260
 msgid "On this image"
 msgstr "এই ছবিতে"
 
@@ -2035,7 +2048,7 @@ msgstr "অপশন"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:806
 msgid "Other"
 msgstr "অন্যান্য"
 
@@ -2064,23 +2077,23 @@ msgid "Pattern (regex)"
 msgstr "প্যাটার্ন (রেজেক্স)"
 
 #: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/thread/thread-comment.tsx:279
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:775
 msgid "Pending"
 msgstr "মুলতুবি"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:162
 msgid "Pending approval"
 msgstr "অনুমোদনের অপেক্ষায়"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:415
 msgid "Pending comments ({0})"
 msgstr "অপেক্ষমান মন্তব্য ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:370
 msgid "Pending posts ({0})"
 msgstr "অপেক্ষমান পোস্ট ({0})"
 
@@ -2089,11 +2102,11 @@ msgstr "অপেক্ষমান পোস্ট ({0})"
 msgid "Photos and videos"
 msgstr "ছবি ও ভিডিও"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:400
 msgid "Pin"
 msgstr "পিন করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:180
 msgid "Pinned"
 msgstr "পিন করা হয়েছে"
 
@@ -2123,7 +2136,7 @@ msgstr "অনুগ্রহ করে আবার চেষ্টা কর�
 msgid "Please wait a moment and try again."
 msgstr "অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করে আবার চেষ্টা করুন।"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
 msgid "Post"
 msgstr "পোস্ট"
 
@@ -2237,7 +2250,7 @@ msgstr "প্রকাশ করা হচ্ছে..."
 msgid "Push notification"
 msgstr "পুশ বিজ্ঞপ্তি"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:79
 msgid "Queue"
 msgstr "সারি"
 
@@ -2257,12 +2270,12 @@ msgstr "এই সার্ভারে আপনার অ্যাকাউন
 msgid "Re-register your passkeys on this server"
 msgstr "এই সার্ভারে আপনার পাসকি পুনরায় নিবন্ধন করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:716
 msgid "Reason:"
 msgstr "কারণ:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:907
 msgid "Reason: {0}"
 msgstr "কারণ: {0}"
 
@@ -2287,12 +2300,12 @@ msgstr "লগইনে রিডাইরেক্ট করা হচ্ছে
 msgid "Reduce interest"
 msgstr "আগ্রহ কমান"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:474
 msgid "Reject"
 msgstr "প্রত্যাখ্যান করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:246
+#: src/routes/_authenticated/$forum_.moderation.tsx:250
 msgid "Rejected"
 msgstr "প্রত্যাখ্যাত"
 
@@ -2312,12 +2325,12 @@ msgstr "২৪ ঘণ্টার মধ্যে আপেক্ষিক, অ�
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:472
+#: src/features/forums/components/thread/thread-comment.tsx:528
+#: src/features/forums/components/thread/thread-content.tsx:374
+#: src/features/forums/components/thread/thread-content.tsx:452
+#: src/routes/_authenticated/$forum_.moderation.tsx:746
+#: src/routes/_authenticated/$forum_.moderation.tsx:1065
 msgid "Remove"
 msgstr "সরান"
 
@@ -2341,7 +2354,7 @@ msgstr "\"{0}\" এর জন্য অ্যাক্সেস নিয়ম 
 msgid "Remove access?"
 msgstr "অ্যাক্সেস সরাবেন?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "Remove comment"
 msgstr "মন্তব্য সরান"
 
@@ -2364,7 +2377,7 @@ msgstr "আইটেম সরান"
 msgid "Remove link"
 msgstr "লিঙ্ক সরান"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:450
 msgid "Remove post"
 msgstr "পোস্ট সরান"
 
@@ -2373,8 +2386,8 @@ msgid "Remove this forum from your sidebar."
 msgstr "আপনার সাইডবার থেকে এই ফোরামটি সরান।"
 
 #: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/thread/thread-comment.tsx:285
+#: src/features/forums/components/thread/thread-content.tsx:168
 msgid "Removed"
 msgstr "সরানো হয়েছে"
 
@@ -2413,22 +2426,22 @@ msgstr "উত্তর অনুমোদিত হতে হবে"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:403
+#: src/features/forums/components/thread/thread-comment.tsx:409
+#: src/features/forums/components/thread/thread-content.tsx:318
+#: src/features/forums/components/thread/thread-content.tsx:327
 msgid "Reply"
 msgstr "উত্তর দিন"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:563
 msgid "Reply to {0}..."
 msgstr "{0} কে উত্তর দিন..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:480
+#: src/features/forums/components/thread/thread-content.tsx:408
 msgid "Report"
 msgstr "রিপোর্ট"
 
@@ -2440,7 +2453,7 @@ msgstr "মন্তব্য রিপোর্ট করুন"
 msgid "Report post"
 msgstr "পোস্ট রিপোর্ট করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:584
 msgid "Report resolved"
 msgstr "রিপোর্ট সমাধান করা হয়েছে"
 
@@ -2450,11 +2463,11 @@ msgid "Report submitted"
 msgstr "রিপোর্ট জমা দেওয়া হয়েছে"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:724
 msgid "Reported by {0}"
 msgstr "{0} দ্বারা রিপোর্ট করা হয়েছে"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:80
 msgid "Reports"
 msgstr "রিপোর্ট"
 
@@ -2482,21 +2495,21 @@ msgstr "প্রয়োজনীয়"
 msgid "Resend email"
 msgstr "ইমেল আবার পাঠান"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:776
 msgid "Resolved"
 msgstr "সমাধান হয়েছে"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/features/forums/components/thread/thread-comment.tsx:466
+#: src/features/forums/components/thread/thread-content.tsx:368
 msgid "Restore"
 msgstr "পুনরুদ্ধার করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:954
 msgid "Restriction removed"
 msgstr "সীমাবদ্ধতা সরানো হয়েছে"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:81
 msgid "Restrictions"
 msgstr "বিধিনিষেধ"
 
@@ -2551,7 +2564,7 @@ msgstr "শনিবার"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:328
 #: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "সংরক্ষণ করুন"
@@ -2686,7 +2699,7 @@ msgstr "অ্যাক্সেস নিয়ম নির্বাচন ক
 msgid "Select account type"
 msgstr "অ্যাকাউন্টের ধরন নির্বাচন করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select all"
 msgstr "সব নির্বাচন করুন"
 
@@ -2702,7 +2715,7 @@ msgstr "অবস্থান নির্বাচন করুন"
 msgid "Select next card"
 msgstr "পরবর্তী কার্ড নির্বাচন করুন"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:460
 msgid "Select none"
 msgstr "কোনটিই নয়"
 
@@ -2769,7 +2782,7 @@ msgstr "উৎস ও গন্তব্য সেট করুন"
 msgid "Settings"
 msgstr "সেটিংস"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:793
 msgid "Shadowbanned"
 msgstr "গোপনে নিষিদ্ধ"
 
@@ -2829,7 +2842,7 @@ msgid "Spacious"
 msgstr "প্রশস্ত"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Spam"
 msgstr "স্প্যাম"
 
@@ -2841,11 +2854,11 @@ msgstr "প্রথম মন্তব্য যোগ করে আলোচ�
 msgid "Subject"
 msgstr "বিষয়"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "মন্তব্য জমা দিন"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "জবাব জমা দিন"
 
@@ -2957,9 +2970,14 @@ msgstr "অনুরোধ করা কনটেন্ট খুঁজে প�
 msgid "The server returned a web page instead of data."
 msgstr "সার্ভার ডেটার পরিবর্তে একটি ওয়েব পেজ ফেরত দিয়েছে।"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:872
 msgid "There are no moderation actions recorded yet"
 msgstr "এখনও কোন মডারেশন অ্যাকশন রেকর্ড করা হয়নি"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:464
+msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
+msgstr ""
 
 #: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
@@ -2981,11 +2999,11 @@ msgstr "এই পোস্টটি ইতিমধ্যে জমা দে�
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "এটি আপনার সংরক্ষিত তালিকা থেকে প্রতিটি পোস্ট সরিয়ে দেবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:527
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "এটি সাধারণ ব্যবহারকারীদের কাছ থেকে মন্তব্যটি লুকিয়ে রাখবে। মডারেটররা এখনও এটি দেখতে পারেন এবং পরে পুনরুদ্ধার করতে পারেন।"
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:451
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "এটি সাধারণ ব্যবহারকারীদের কাছ থেকে পোস্টটি লুকিয়ে রাখবে। মডারেটররা এখনও এটি দেখতে পারেন এবং পরে পুনরুদ্ধার করতে পারেন।"
 
@@ -3128,15 +3146,15 @@ msgstr "যুক্তরাষ্ট্র"
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:692
 msgid "Unknown"
 msgstr "অজানা"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:381
 msgid "Unlock"
 msgstr "আনলক করুন"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/features/forums/components/thread/thread-content.tsx:394
 msgid "Unpin"
 msgstr "আনপিন করুন"
 
@@ -3241,12 +3259,12 @@ msgstr "কন্ট্রোল দেখুন"
 msgid "View only"
 msgstr "শুধুমাত্র দেখুন"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "View the image this comment is about"
 msgstr "এই মন্তব্যটি যে ছবি নিয়ে সেটি দেখুন"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:803
 msgid "Violence"
 msgstr "সহিংসতা"
 
@@ -3311,14 +3329,14 @@ msgstr "আপনি এই ফোরাম থেকে আপডেট পা�
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "আপনার অ্যাকাউন্ট {source} থেকে এখানে স্থানান্তরিত হয়েছে। আপনি সেখানে এটি মুছে না দেওয়া পর্যন্ত, বার্তা ও বিজ্ঞপ্তি উভয় সার্ভারে পৌঁছাতে পারে, আপনার কিছু বিষয়বস্তু পুরানো সার্ভার থেকে পরিবেশিত হতে পারে, এবং অনুসরণকারীদের আপনাকে এখানে খুঁজে পেতে কয়েক মিনিট লাগতে পারে।"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "আপনার সংযুক্তিগুলি হারিয়ে যাবে।"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "আপনার লেখা ও সংযুক্তিগুলি হারিয়ে যাবে।"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "আপনার লেখা হারিয়ে যাবে।"

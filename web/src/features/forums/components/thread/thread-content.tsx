@@ -106,6 +106,10 @@ export function ThreadContent({
   const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
+  // Banning sits one row below Approve in the same menu and takes a person's
+  // access to the forum, so it confirms the way Delete and Remove above it
+  // already do. Muting does not: it is narrower and lifts as easily.
+  const [banDialogOpen, setBanDialogOpen] = useState(false)
 
   // Local vote state to prevent re-render flicker
   const [localVote, setLocalVote] = useState(post.user_vote || '')
@@ -412,7 +416,7 @@ export function ThreadContent({
                       </DropdownMenuItem>
                     )}
                     {canModerate && onBanAuthor && (
-                      <DropdownMenuItem onClick={onBanAuthor}>
+                      <DropdownMenuItem onClick={() => setBanDialogOpen(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
@@ -449,6 +453,20 @@ export function ThreadContent({
         handleConfirm={() => {
           setRemoveDialogOpen(false)
           onRemove?.()
+        }}
+      />
+
+      {/* Ban confirmation dialog */}
+      <ConfirmDialog
+        open={banDialogOpen}
+        onOpenChange={setBanDialogOpen}
+        title={t`Ban author`}
+        desc={t`They will lose access to this forum. You can lift it later from the Restrictions tab.`}
+        confirmText={t`Ban`}
+        destructive={true}
+        handleConfirm={() => {
+          setBanDialogOpen(false)
+          onBanAuthor?.()
         }}
       />
     </div>

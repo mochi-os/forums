@@ -12,6 +12,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  ConfirmDialog,
   EntityAvatar,
   PageHeader,
   Main,
@@ -270,6 +271,9 @@ function QueueTab({ forumId }: QueueTabProps) {
     return authors
   }
 
+  const [bulkBanOpen, setBulkBanOpen] = useState(false)
+  const selectedAuthorCount = getSelectedAuthors().size
+
   const handleBulkMute = async () => {
     const authors = getSelectedAuthors()
     if (authors.size === 0) return
@@ -499,7 +503,7 @@ function QueueTab({ forumId }: QueueTabProps) {
           <Button
             variant='outline'
             size='sm'
-            onClick={() => void handleBulkBan()}
+            onClick={() => setBulkBanOpen(true)}
             disabled={!hasSelection || !!actionInProgress}
           >
             {actionInProgress === 'ban' ? (
@@ -517,6 +521,26 @@ function QueueTab({ forumId }: QueueTabProps) {
           {hasSelection ? plural(selectedPosts.size + selectedComments.size, { one: '# selected', other: '# selected' }) : ''}
         </span>
       </div>
+
+      {/* The selection is made of posts and comments, so the moderator cannot
+          see from it how many people the ban lands on - several rows are
+          often the same author. The count is named here rather than left to
+          be inferred. */}
+      <ConfirmDialog
+        open={bulkBanOpen}
+        onOpenChange={setBulkBanOpen}
+        title={t`Ban authors`}
+        desc={plural(selectedAuthorCount, {
+          one: '# author will lose access to this forum. You can lift it later from the Restrictions tab.',
+          other: '# authors will lose access to this forum. You can lift it later from the Restrictions tab.',
+        })}
+        confirmText={t`Ban`}
+        destructive={true}
+        handleConfirm={() => {
+          setBulkBanOpen(false)
+          void handleBulkBan()
+        }}
+      />
     </div>
   )
 }
