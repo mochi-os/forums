@@ -420,16 +420,56 @@ def enrich_posts_batch(posts, user_id, moderator):
     return counts, tags, votes
 
 
-# Coerce a peer-supplied count to a non-negative integer: it lands in a column
-# ORDER BY sorts on, and Starlark has no try/except for a malformed value.
-def count_content(e, key):
-    value = e.content(key)
+# Coerce a peer-supplied value to a non-negative integer: it lands in a column
+# ORDER BY sorts on (counts, timestamps), and Starlark has no try/except for a
+# malformed value.
+def number(value):
     if type(value) in ["int", "float"]:
         return int(value) if value >= 0 else 0
     if type(value) == "string" and mochi.text.valid(value, "integer"):
-        number = int(value)
-        return number if number >= 0 else 0
+        n = int(value)
+        return n if n >= 0 else 0
     return 0
+
+
+def count_content(e, key):
+    return number(e.content(key))
+
+
+# Resolve a set of member ids to their display names in one query, so a
+# moderation view doesn't issue a per-row `select name from members`. Returns
+# {id: name} for every id that has a member row (the name may be ""); the caller
+# keeps its own entity.name fallback for ids not present.
+def member_names(forum_id, ids):
+    unique = []
+    for i in ids:
+        if i and i not in unique:
+            unique.append(i)
+    if not unique:
+        return {}
+    placeholders = ",".join(["?"] * len(unique))
+    rows = mochi.db.rows("select id, name from members where forum=? and id in (" + placeholders + ")", forum_id, *unique) or []
+    names = {}
+    for r in rows:
+        names[r["id"]] = r["name"]
+    return names
+
+
+# comment_descendants(forum_id, post_id, parent_id) returns every descendant
+# comment id of parent_id, in one query rather than one per level. The delete
+# paths (owner action and P2P submit) both need it; keeping one copy means the
+# tree walk and its query cannot drift between them.
+def comment_descendants(forum_id, post_id, parent_id):
+    children = {}
+    for row in mochi.db.rows("select id, parent from comments where forum=? and post=?", forum_id, post_id) or []:
+        children.setdefault(row["parent"], []).append(row["id"])
+    ids = []
+    def walk(id):
+        for child in children.get(id, []):
+            ids.append(child)
+            walk(child)
+    walk(parent_id)
+    return ids
 
 
 # The attachment shape both create paths put on the wire and
@@ -716,6 +756,14 @@ def maybe_resubscribe(a, forum_id):
 # happens; this only catches a copy whose message never arrived.
 own_status_interval = 3600
 
+# converge_stale_maximum: how many stale forums the cross-forum landing view
+# reconciles per request. Each reconciliation is a synchronous P2P round-trip
+# on the response path, so a cold landing with many stale forums must not pay
+# for all of them at once; the rest converge over the next few landings (each
+# converge_own_status stamps `checked`, so a reconciled forum is skipped next
+# time).
+converge_stale_maximum = 3
+
 # converge_own_status reconciles the user's own posts and comments in a
 # subscribed forum against the owner's, which is authoritative for status. Both
 # directions: an optimistic 'pending' that the acceptance never cleared, and an
@@ -764,10 +812,23 @@ def converge_stale_status(a):
     if not user_id:
         return
     rows = mochi.db.rows("""select distinct forum from posts where member=? and status!='approved'
-        union select distinct forum from comments where member=? and status!='approved' limit 10""",
+        union select distinct forum from comments where member=? and status!='approved' limit 100""",
         user_id, user_id) or []
+    now = mochi.time.now()
+    budget = converge_stale_maximum
     for row in rows:
-        converge_own_status(a, row["forum"])
+        if budget <= 0:
+            break
+        forum_id = row["forum"]
+        # converge_own_status only pays a round-trip when the per-forum throttle
+        # has lapsed, so spend the budget on the cold forums and let the warm
+        # ones cost nothing. A cold landing thus does at most converge_stale_maximum
+        # blocking round-trips; the rest reconcile over the next few landings.
+        checked = mochi.db.row("select checked from forums where id=?", forum_id)
+        if checked and checked["checked"] and now - checked["checked"] < own_status_interval:
+            continue
+        converge_own_status(a, forum_id)
+        budget = budget - 1
 
 # apply_own_status writes the owner's answer over our own rows only. Scoped to
 # the forum and to the author so a reply naming someone else's row, or a row of
@@ -833,6 +894,36 @@ def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
     mochi.message.send(
         {"from": forum_id, "to": sender_id, "service": "forums", "event": kind + "/reject"},
         {"id": target_id, "reason": reason, "detail": detail}
+    )
+
+# A subscriber applies an edit or delete to its replica optimistically, before
+# the owner rules on it (the "optimistic UI" branches of action_post_edit /
+# action_post_delete and their comment twins). When the owner refuses, re-push
+# the canonical row to just that sender so their replica converges back to the
+# truth: their event_post_edit_event overwrites a bad edit in place, and asks
+# for a full resync when it finds the row gone (an optimistic delete). No effect
+# when the owner no longer holds the row.
+def send_post_correction(forum_id, sender_id, post_id):
+    if not forum_id or not sender_id:
+        return
+    post = mochi.db.row("select id, title, body, edited from posts where forum=? and id=?", forum_id, post_id)
+    if not post:
+        return
+    mochi.message.send(
+        {"from": forum_id, "to": sender_id, "service": "forums", "event": "post/edit"},
+        {"id": post_id, "title": post["title"], "body": post["body"],
+         "edited": post.get("edited", 0), "attachments": attachment_list(post_id, forum_id)}
+    )
+
+def send_comment_correction(forum_id, sender_id, comment_id):
+    if not forum_id or not sender_id:
+        return
+    comment = mochi.db.row("select id, body, edited from comments where forum=? and id=?", forum_id, comment_id)
+    if not comment:
+        return
+    mochi.message.send(
+        {"from": forum_id, "to": sender_id, "service": "forums", "event": "comment/edit"},
+        {"id": comment_id, "body": comment["body"], "edited": comment.get("edited", 0)}
     )
 
 # Tell the author what became of their submission, which their copy holds as
@@ -1819,7 +1910,7 @@ def action_view(a):
                     "forum": {
                         "id": entity_id,
                         "name": response.get("name", ""),
-                        "fingerprint": response.get("fingerprint", mochi.entity.fingerprint(entity_id)),
+                        "fingerprint": response.get("fingerprint") or (mochi.entity.fingerprint(entity_id) if mochi.text.valid(entity_id, "entity") else ""),
                         "members": 0,
                         "updated": 0,
                         "can_manage": False,
@@ -2199,8 +2290,13 @@ def action_post_create(a):
                 a.error.label(403, "errors.restriction_" + restriction)
                 return
 
+            # Moderator grant, computed once (the owner path is local, so
+            # check_access equals check_access_remote here): it skips both the
+            # rate limit and pre-moderation.
+            is_moderator = check_access(a, forum["id"], "moderate")
+
             # Check rate limit (skip for moderators)
-            if not check_access_remote(a, forum["id"], "moderate"):
+            if not is_moderator:
                 if check_rate_limit(forum, user_id, "post"):
                     a.error.label(429, "errors.rate_limit_post")
                     return
@@ -2209,7 +2305,7 @@ def action_post_create(a):
             status = "approved"
             if is_shadowbanned(forum["id"], user_id):
                 status = "removed"
-            elif not check_access(a, forum["id"], "moderate") and requires_premoderation(forum, user_id, "post"):
+            elif not is_moderator and requires_premoderation(forum, user_id, "post"):
                 status = "pending"
 
             mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
@@ -2401,20 +2497,18 @@ def action_search(a):
                             break
                     if not found:
                         results.append(entry)
-            # Try as fingerprint
+            # Try as fingerprint - filter in the directory query rather than
+            # loading every forum and scanning (matches the standalone case).
             elif mochi.text.valid(forum_id, "fingerprint"):
-                all_forums = mochi.directory.search("forum", "", True)
-                for entry in all_forums:
-                    entry_fp = entry.get("fingerprint", "").replace("-", "")
-                    if entry_fp == forum_id.replace("-", ""):
-                        found = False
-                        for r in results:
-                            if r.get("id") == entry.get("id"):
-                                found = True
-                                break
-                        if not found:
-                            results.append(entry)
-                        break
+                for entry in mochi.directory.search("forum", "", True, fingerprint=forum_id.replace("-", "")):
+                    found = False
+                    for r in results:
+                        if r.get("id") == entry.get("id"):
+                            found = True
+                            break
+                    if not found:
+                        results.append(entry)
+                    break
 
     # Also search by name
     name_results = mochi.directory.search("forum", search, True)
@@ -2484,7 +2578,9 @@ def action_recommendations(a):
 
     for item in items:
         entity_id = item.get("entity", "")
-        if entity_id and entity_id not in existing_ids:
+        # The recommendations service is remote; a malformed entity would raise
+        # in mochi.entity.fingerprint and abort the handler, so skip it.
+        if entity_id and mochi.text.valid(entity_id, "entity") and entity_id not in existing_ids:
             recommendations.append({
                 "id": entity_id,
                 "name": item.get("name", ""),
@@ -2931,6 +3027,11 @@ def action_delete(a):
         a.error.label(403, "errors.only_the_owner_can_delete_this_forum")
         return
 
+    # Tell subscribers to purge their replica, while the fan-out roster and the
+    # entity still exist. Without this a deleted forum lingers as live rows on
+    # every far side forever (handled by event_forum_delete_event).
+    broadcast_event(forum["id"], "forum/delete", {})
+
     # Delete all local data
     purge_forum_rows(forum["id"])
     for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
@@ -3035,7 +3136,15 @@ def action_post_view(a):
     server = a.input("server")
     user_id = a.user.identity.id if a.user else None
 
-    post = mochi.db.row("select * from posts where id=?", post_id)
+    # Bind the post to the route forum when we hold that forum, so a post can't
+    # be rendered through a different forum's URL (event_post_view already scopes
+    # by forum). A route naming a forum we don't hold locally falls through to
+    # the remote fetch below.
+    route = get_forum(forum_id) if forum_id else None
+    if route:
+        post = mochi.db.row("select * from posts where id=? and forum=?", post_id, route["id"])
+    else:
+        post = mochi.db.row("select * from posts where id=?", post_id)
 
     # If post not found locally, fetch remotely (via server param or directory lookup)
     if not post and forum_id:
@@ -3136,34 +3245,40 @@ def action_post_view(a):
         if vote_row:
             user_post_vote = vote_row["vote"]
 
-    # Get comments recursively
+    # Fetch every visible comment for the post in one query, then assemble the
+    # tree in memory. Votes and attachments are batched too, so a thread of any
+    # depth costs a fixed handful of queries instead of one per comment.
+    if can_moderate:
+        all_comments = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+            forum["id"], post_id) or []
+    else:
+        all_comments = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+            forum["id"], post_id, user_id or "") or []
+
+    comment_votes = {}
+    if a.user:
+        for v in mochi.db.rows("select comment, vote from votes where post=? and comment!='' and voter=?", post_id, a.user.identity.id) or []:
+            comment_votes[v["comment"]] = v["vote"]
+    comment_attachments = attachment_list_many([c["id"] for c in all_comments], forum["id"])
+
+    children = {}
+    for c in all_comments:
+        children.setdefault(c["parent"], []).append(c)
+
     def get_comments(parent_id, depth):
         if depth > 100:  # Prevent infinite recursion
             return []
-
-        # Moderators see every status; others see approved plus their own pending.
-        if can_moderate:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
-                forum["id"], post_id, parent_id)
-        else:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and (status='approved' or (status='pending' and member=?)) order by created desc",
-                forum["id"], post_id, parent_id, user_id or "")
-
-        for c in comments:
+        out = []
+        for c in children.get(parent_id, []):
             c["children"] = get_comments(c["id"], depth + 1)
-            c["attachments"] = attachment_list(c["id"], forum["id"])
+            c["attachments"] = comment_attachments.get(c["id"], [])
             c["attachment_name"] = comment_anchor_name(c)
             c["attachment_caption"] = comment_anchor_caption(c)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
-            # Get user's vote on this comment
-            c["user_vote"] = ""
-            if a.user:
-                cv = mochi.db.row("select vote from votes where comment=? and voter=?", c["id"], a.user.identity.id)
-                if cv:
-                    c["user_vote"] = cv["vote"]
-
-        return comments
+            c["user_vote"] = comment_votes.get(c["id"], "")
+            out.append(c)
+        return out
 
     post["user_vote"] = user_post_vote
     post["body_markdown"] = mochi.text.markdown(post["body"])
@@ -3618,8 +3733,12 @@ def action_comment_create(a):
                 a.error.label(403, "errors.restriction_" + restriction)
                 return
 
+            # Moderator grant, computed once (owner path is local): skips the
+            # rate limit and pre-moderation.
+            is_moderator = check_access(a, forum["id"], "moderate")
+
             # Check rate limit (skip for moderators)
-            if not check_access_remote(a, forum["id"], "moderate"):
+            if not is_moderator:
                 if check_rate_limit(forum, user_id, "comment"):
                     a.error.label(429, "errors.rate_limit_comment")
                     return
@@ -3649,7 +3768,7 @@ def action_comment_create(a):
             status = "approved"
             if is_shadowbanned(forum["id"], user_id):
                 status = "removed"
-            elif not check_access(a, forum["id"], "moderate") and requires_premoderation(forum, user_id, "comment"):
+            elif not is_moderator and requires_premoderation(forum, user_id, "comment"):
                 status = "pending"
 
             mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
@@ -3903,16 +4022,6 @@ def action_comment_delete(a):
     if forum:
         comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
 
-    # Helper to recursively collect descendant comment IDs
-    def collect_descendants(forum_id, post_id, parent_id):
-        ids = []
-        children = mochi.db.rows("select id from comments where forum=? and post=? and parent=?",
-            forum_id, post_id, parent_id)
-        for child in children:
-            ids.append(child["id"])
-            ids.extend(collect_descendants(forum_id, post_id, child["id"]))
-        return ids
-
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
@@ -3926,7 +4035,7 @@ def action_comment_delete(a):
                 a.error.label(403, "errors.not_allowed_to_delete_this_comment")
                 return
 
-            comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
+            comment_ids = [comment_id] + comment_descendants(forum["id"], comment["post"], comment_id)
 
             # Delete attachments for all comments being deleted
             for cid in comment_ids:
@@ -3962,7 +4071,7 @@ def action_comment_delete(a):
             )
 
             # Delete locally for optimistic UI
-            comment_ids = [comment_id] + collect_descendants(forum["id"], comment["post"], comment_id)
+            comment_ids = [comment_id] + comment_descendants(forum["id"], comment["post"], comment_id)
 
             for cid in comment_ids:
                 mochi.db.execute("delete from votes where comment=?", cid)
@@ -4618,6 +4727,20 @@ def action_unrestrict(a):
     return {"data": {"success": True}}
 
 # List restrictions for a forum
+# The owner-side restrictions payload for a forum this host owns: every
+# restriction with user and moderator names resolved in one query. Shared by the
+# HTTP owner path and the delegated-moderator P2P path.
+def moderation_restrictions_data(forum):
+    restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
+    names = member_names(forum["id"], [r["user"] for r in restrictions] + [r["moderator"] for r in restrictions])
+    for r in restrictions:
+        if r["user"] in names:
+            r["name"] = names[r["user"]]
+        if r["moderator"] in names:
+            r["moderator_name"] = names[r["moderator"]]
+    return {"restrictions": restrictions}
+
+
 def action_restrictions(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -4640,18 +4763,7 @@ def action_restrictions(a):
             return
         return {"data": response}
 
-    restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
-
-    # Look up names from members table
-    for r in restrictions:
-        member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["user"])
-        if member:
-            r["name"] = member["name"]
-        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["moderator"])
-        if moderator:
-            r["moderator_name"] = moderator["name"]
-
-    return {"data": {"restrictions": restrictions}}
+    return {"data": moderation_restrictions_data(forum)}
 
 # REPORTING ACTIONS
 
@@ -4786,6 +4898,48 @@ def action_comment_report(a):
     return {"data": {"success": True}}
 
 # List reports for a forum (moderator view)
+# The owner-side moderation reports payload for a forum this host owns. `status`
+# is already validated to pending/resolved/all. Names are resolved in one query,
+# falling back to the entity directory only for ids no member row covers, and
+# each report is enriched with a preview of the content it targets. Shared by
+# the HTTP owner path and the delegated-moderator P2P path.
+def moderation_reports_data(forum, status):
+    if status == "all":
+        reports = mochi.db.rows(
+            "select * from reports where forum=? order by created desc limit 100",
+            forum["id"])
+    else:
+        reports = mochi.db.rows(
+            "select * from reports where forum=? and status=? order by created desc limit 100",
+            forum["id"], status)
+
+    name_ids = []
+    for r in reports:
+        name_ids.append(r["reporter"])
+        name_ids.append(r["author"])
+        if r.get("resolver"):
+            name_ids.append(r["resolver"])
+    names = member_names(forum["id"], name_ids)
+
+    for r in reports:
+        r["reporter_name"] = names.get(r["reporter"]) or (mochi.entity.name(r["reporter"]) or r["reporter"])
+        r["author_name"] = names.get(r["author"]) or (mochi.entity.name(r["author"]) or r["author"])
+        if r.get("resolver"):
+            r["resolver_name"] = names.get(r["resolver"]) or (mochi.entity.name(r["resolver"]) or r["resolver"])
+        if r["type"] == "post":
+            post = mochi.db.row("select title, body from posts where id=?", r["target"])
+            if post:
+                r["content_title"] = post["title"]
+                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
+                r["attachments"] = attachment_list(r["target"], forum["id"])
+        elif r["type"] == "comment":
+            comment = mochi.db.row("select body from comments where id=?", r["target"])
+            if comment:
+                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
+
+    return {"forum": strip_forum_config(forum), "reports": reports}
+
+
 def action_moderation_reports(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -4814,49 +4968,7 @@ def action_moderation_reports(a):
         a.error.label(400, "errors.invalid_status")
         return
 
-    if status == "all":
-        reports = mochi.db.rows(
-            "select * from reports where forum=? order by created desc limit 100",
-            forum["id"])
-    else:
-        reports = mochi.db.rows(
-            "select * from reports where forum=? and status=? order by created desc limit 100",
-            forum["id"], status)
-
-    # Enrich reports with content and names
-    for r in reports:
-        # Get reporter name (try members first, then entity name)
-        reporter = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["reporter"])
-        if reporter and reporter["name"]:
-            r["reporter_name"] = reporter["name"]
-        else:
-            r["reporter_name"] = mochi.entity.name(r["reporter"]) or r["reporter"]
-        # Get author name (try members first, then entity name)
-        author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["author"])
-        if author and author["name"]:
-            r["author_name"] = author["name"]
-        else:
-            r["author_name"] = mochi.entity.name(r["author"]) or r["author"]
-        # Get resolver name if resolved
-        if r.get("resolver"):
-            resolver = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["resolver"])
-            if resolver and resolver["name"]:
-                r["resolver_name"] = resolver["name"]
-            else:
-                r["resolver_name"] = mochi.entity.name(r["resolver"]) or r["resolver"]
-        # Get content being reported
-        if r["type"] == "post":
-            post = mochi.db.row("select title, body from posts where id=?", r["target"])
-            if post:
-                r["content_title"] = post["title"]
-                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = attachment_list(r["target"], forum["id"])
-        elif r["type"] == "comment":
-            comment = mochi.db.row("select body from comments where id=?", r["target"])
-            if comment:
-                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
-
-    return {"data": {"forum": strip_forum_config(forum), "reports": reports}}
+    return {"data": moderation_reports_data(forum, status)}
 
 # Resolve a report
 def action_report_resolve(a):
@@ -4945,28 +5057,12 @@ def action_report_resolve(a):
 # MODERATION QUEUE ACTION
 
 # Get the moderation queue (pending posts, comments, and reports)
-def action_moderation_queue(a):
-    if not a.user:
-        a.error.label(401, "errors.not_logged_in")
-        return
-
-    forum = get_forum(a.input("forum"))
-    if not forum:
-        a.error.label(404, "errors.forum_not_found")
-        return
-
-    if not check_access_remote(a, forum["id"], "moderate"):
-        a.error.label(403, "errors.not_allowed_to_moderate")
-        return
-
-    # If we don't own the forum, proxy request to owner via P2P event
-    if not owned(forum["id"]):
-        response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
-        if response and response.get("error"):
-            remote_error(a, response, 403)
-            return
-        return {"data": response}
-
+# The owner-side moderation queue payload: pending posts, comments and grouped
+# reports for a forum this host owns. Both the HTTP owner path
+# (action_moderation_queue) and the delegated-moderator P2P path
+# (event_moderation_queue) return exactly this, so the queries and the counts
+# cannot drift between them.
+def moderation_queue_data(forum):
     posts = mochi.db.rows(
         "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
         forum["id"])
@@ -4989,19 +5085,42 @@ def action_moderation_queue(a):
     """, forum["id"])
 
     return {
-        "data": {
-            "forum": strip_forum_config(forum),
-            "posts": posts,
-            "comments": comments,
-            "reports": reports,
-            "counts": {
-                "posts": len(posts),
-                "comments": len(comments),
-                "reports": len(reports),
-                "total": len(posts) + len(comments) + len(reports)
-            }
+        "forum": strip_forum_config(forum),
+        "posts": posts,
+        "comments": comments,
+        "reports": reports,
+        "counts": {
+            "posts": len(posts),
+            "comments": len(comments),
+            "reports": len(reports),
+            "total": len(posts) + len(comments) + len(reports)
         }
     }
+
+
+def action_moderation_queue(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+
+    if not check_access_remote(a, forum["id"], "moderate"):
+        a.error.label(403, "errors.not_allowed_to_moderate")
+        return
+
+    # If we don't own the forum, proxy request to owner via P2P event
+    if not owned(forum["id"]):
+        response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
+        if response and response.get("error"):
+            remote_error(a, response, 403)
+            return
+        return {"data": response}
+
+    return {"data": moderation_queue_data(forum)}
 
 # MODERATION SETTINGS ACTIONS
 
@@ -5114,6 +5233,37 @@ def action_moderation_settings_save(a):
     return {"data": {"success": True}}
 
 # View moderation log
+# The owner-side moderation log payload for a forum this host owns. `limit` is
+# already parsed and clamped by the caller. Names are resolved in one query; for
+# a restriction the subject is the target, and author_name is the field the
+# moderation UI reads for both kinds of entry. Shared by the HTTP owner path and
+# the delegated-moderator P2P path.
+def moderation_log_data(forum, limit):
+    logs = mochi.db.rows(
+        "select * from moderation where forum=? order by created desc limit ?",
+        forum["id"], limit)
+
+    name_ids = []
+    for entry in logs:
+        name_ids.append(entry["moderator"])
+        if entry["author"]:
+            name_ids.append(entry["author"])
+        elif entry["type"] == "user":
+            name_ids.append(entry["target"])
+    names = member_names(forum["id"], name_ids)
+    for entry in logs:
+        if entry["moderator"] in names:
+            entry["moderator_name"] = names[entry["moderator"]]
+        if entry["author"]:
+            if entry["author"] in names:
+                entry["author_name"] = names[entry["author"]]
+        elif entry["type"] == "user":
+            if entry["target"] in names:
+                entry["author_name"] = names[entry["target"]]
+
+    return {"entries": logs}
+
+
 def action_moderation_log(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -5142,27 +5292,7 @@ def action_moderation_log(a):
     if limit_str and mochi.text.valid(limit_str, "natural"):
         limit = min(int(limit_str), 200)
 
-    logs = mochi.db.rows(
-        "select * from moderation where forum=? order by created desc limit ?",
-        forum["id"], limit)
-
-    # Look up names from members table
-    for entry in logs:
-        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["moderator"])
-        if moderator:
-            entry["moderator_name"] = moderator["name"]
-        # Look up author/target name
-        if entry["author"]:
-            author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["author"])
-            if author:
-                entry["author_name"] = author["name"]
-        elif entry["type"] == "user":
-            # For user restrictions, target is the user ID
-            target = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["target"])
-            if target:
-                entry["author_name"] = target["name"]
-
-    return {"data": {"entries": logs}}
+    return {"data": moderation_log_data(forum, limit)}
 
 # Vote on a post
 def action_post_vote(a):
@@ -5745,9 +5875,11 @@ def event_comment_create_event(e):
     if not mochi.text.valid(body, "text"):
         return
 
-    # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
+    # Validate timestamp is within reasonable range (not more than 1 day in future
+    # or 1 year in past). A non-numeric peer value would raise the comparison, so
+    # reject the event as malformed first.
     now = mochi.time.now()
-    if created > now + 86400 or created < now - 31536000:
+    if type(created) not in ("int", "float") or created > now + 86400 or created < now - 31536000:
         return
 
     # The anchor is the owner's judgement, but bind against the attachment
@@ -5915,15 +6047,18 @@ def event_comment_edit_submit_event(e):
 
     # Check authorization: must be comment author
     if sender_id != comment["member"]:
+        send_comment_correction(forum["id"], sender_id, comment_id)
         return
 
     # As for posts: the HTTP owner path refuses a removed comment, and this is
     # the only gate the subscriber path passes through.
     if comment.get("status") == "removed":
+        send_comment_correction(forum["id"], sender_id, comment_id)
         return
 
     body = e.content("body")
     if not mochi.text.valid(body, "text"):
+        send_comment_correction(forum["id"], sender_id, comment_id)
         return
 
     now = mochi.time.now()
@@ -5959,20 +6094,11 @@ def event_comment_delete_submit_event(e):
 
     # Check authorization: must be comment author
     if sender_id != comment["member"]:
+        send_comment_correction(forum["id"], sender_id, comment_id)
         return
 
-    # Recursively collect all descendant comment IDs
-    def collect_descendants(parent_id):
-        ids = []
-        children = mochi.db.rows("select id from comments where forum=? and post=? and parent=?",
-            forum["id"], comment["post"], parent_id)
-        for child in children:
-            ids.append(child["id"])
-            ids.extend(collect_descendants(child["id"]))
-        return ids
-
     # Get all comment IDs to delete (this comment + descendants)
-    comment_ids = [comment_id] + collect_descendants(comment_id)
+    comment_ids = [comment_id] + comment_descendants(forum["id"], comment["post"], comment_id)
 
     # Delete attachments for these comments
     for cid in comment_ids:
@@ -6022,6 +6148,10 @@ def event_comment_edit_event(e):
     forum_id = e.header("from")
     old_comment = mochi.db.row("select * from comments where forum=? and id=?", forum_id, id)
     if not old_comment:
+        # The edit arrived for a comment we don't hold (an ordering race, or a
+        # correction re-push after we optimistically deleted it). Pull the dump
+        # to converge, exactly as event_post_edit_event does.
+        request_resync(forum_id)
         return
 
     body = e.content("body")
@@ -6164,9 +6294,11 @@ def event_post_create_event(e):
     if not mochi.text.valid(body, "text"):
         return
 
-    # Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
+    # Validate timestamp is within reasonable range (not more than 1 day in future
+    # or 1 year in past). A non-numeric peer value would raise the comparison, so
+    # reject the event as malformed first.
     now = mochi.time.now()
-    if created > now + 86400 or created < now - 31536000:
+    if type(created) not in ("int", "float") or created > now + 86400 or created < now - 31536000:
         return
 
     # insert or ignore (not replace): a genuinely new post inserts, but a colliding
@@ -6452,20 +6584,24 @@ def event_post_edit_submit_event(e):
 
     # Check authorization: must be post author
     if sender_id != post["member"]:
+        send_post_correction(forum["id"], sender_id, post_id)
         return
 
     # A removed post is not editable. The HTTP owner path refuses it
     # (errors.this_post_has_been_removed); without the same check here an author
     # can rewrite what a moderator removed, and the rewrite is re-broadcast.
     if post.get("status") == "removed":
+        send_post_correction(forum["id"], sender_id, post_id)
         return
 
     title = e.content("title")
     if not mochi.text.valid(title, "name"):
+        send_post_correction(forum["id"], sender_id, post_id)
         return
 
     body = e.content("body")
     if not mochi.text.valid(body, "text"):
+        send_post_correction(forum["id"], sender_id, post_id)
         return
 
     now = mochi.time.now()
@@ -6548,6 +6684,7 @@ def event_post_delete_submit_event(e):
 
     # Check authorization: must be post author
     if sender_id != post["member"]:
+        send_post_correction(forum["id"], sender_id, post_id)
         return
 
     # Delete tags for this post
@@ -6671,6 +6808,24 @@ def event_post_delete_event(e):
     mochi.db.execute("update forums set updated=? where id=?", now, forum_id)
 
     broadcast_websocket(forum_id, {"type": "post/delete", "forum": forum_id, "post": id, "sender": old_post["member"]})
+
+# Received a forum deletion from the owner (we are a subscriber). Purge the whole
+# local replica so a deleted forum stops lingering as live rows. Scoped to a
+# forum we actually subscribe to (server set) so a peer can't make us drop a
+# forum we own, nor one addressed by a spoofed id we don't hold.
+def event_forum_delete_event(e):
+    forum_id = e.header("from")
+    row = mochi.db.row("select id, server from forums where id=?", forum_id)
+    if not row or not row["server"]:
+        return
+    purge_forum_rows(forum_id)
+    for _row in mochi.db.rows("select forum, id from members where forum=?", forum_id) or []:
+        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    rss_tokens_revoke(forum_id)
+    mochi.db.execute("delete from forums where id=?", forum_id)
+    fp = mochi.entity.fingerprint(forum_id)
+    if fp:
+        mochi.websocket.write(fp, {"type": "forum/deleted", "forum": forum_id})
 
 # Received a post vote from member (we are forum owner)
 def event_post_vote_event(e):
@@ -7671,8 +7826,8 @@ def insert_forum_schema(forum_id, schema):
         mochi.db.execute(
             "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
-            p.get("title", ""), p.get("body", ""), p.get("up", 0), p.get("down", 0),
-            p.get("comments", 0), p.get("created", 0), p.get("updated", 0)
+            p.get("title", ""), p.get("body", ""), number(p.get("up", 0)), number(p.get("down", 0)),
+            number(p.get("comments", 0)), number(p.get("created", 0)), number(p.get("updated", 0))
         )
         # The dump is approved-only, so a row we hold as pending or removed is a
         # stale status whose event never reached us; insert or ignore alone
@@ -7693,7 +7848,7 @@ def insert_forum_schema(forum_id, schema):
             "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created, attachment) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
-            c.get("up", 0), c.get("down", 0), c.get("created", 0),
+            number(c.get("up", 0)), number(c.get("down", 0)), number(c.get("created", 0)),
             comment_anchor(c.get("post", ""), forum_id, c.get("attachment", ""))
         )
         # Same staleness correction as the posts loop above.
@@ -7893,28 +8048,35 @@ def event_post_view(e):
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
     post_data["user_vote"] = post_vote["vote"] if post_vote else ""
 
-    # Get comments recursively
+    # Fetch every visible comment for the post in one query, then assemble the
+    # tree in memory, batching the requester's votes, so the thread costs a
+    # fixed handful of queries instead of one per comment.
+    if can_moderate:
+        all_comments = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
+            forum_id, post_id) or []
+    else:
+        all_comments = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
+            forum_id, post_id, requester) or []
+
+    comment_votes = {}
+    for v in mochi.db.rows("select comment, vote from votes where post=? and comment!='' and voter=?", post_id, requester) or []:
+        comment_votes[v["comment"]] = v["vote"]
+
+    children = {}
+    for c in all_comments:
+        children.setdefault(c["parent"], []).append(c)
+
     def get_comments(parent_id, depth):
         if depth > 100:
             return []
-
-        # Moderators see every status; others see approved plus their own pending.
-        if can_moderate:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? order by created desc",
-                forum_id, post_id, parent_id)
-        else:
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and parent=? and (status='approved' or (status='pending' and member=?)) order by created desc",
-                forum_id, post_id, parent_id, requester)
-
-        for c in comments:
+        out = []
+        for c in children.get(parent_id, []):
             c["children"] = get_comments(c["id"], depth + 1)
             c["can_vote"] = can_vote
             c["can_comment"] = can_comment
-            # Get requester's vote on this comment
-            comment_vote = mochi.db.row("select vote from votes where comment=? and voter=?", c["id"], requester)
-            c["user_vote"] = comment_vote["vote"] if comment_vote else ""
-
-        return comments
+            c["user_vote"] = comment_votes.get(c["id"], "")
+            out.append(c)
+        return out
 
     comments = get_comments("", 0)
 
@@ -7944,39 +8106,7 @@ def event_moderation_queue(e):
         e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
-    posts = mochi.db.rows(
-        "select id, forum, title, body, member, name, created from posts where forum=? and status='pending' order by created asc",
-        forum["id"])
-    for p in posts:
-        p["attachments"] = attachment_list(p["id"], forum["id"])
-
-    comments = mochi.db.rows(
-        "select id, body, post, member, name, created, attachment from comments where forum=? and status='pending' order by created asc",
-        forum["id"])
-    for c in comments:
-        c["attachments"] = attachment_list(c["id"], forum["id"])
-        c["attachment_name"] = comment_anchor_name(c)
-    reports = mochi.db.rows("""
-        select type, target, author, reason, min(id) as id, min(details) as details,
-               min(reporter) as reporter, min(created) as created, count(*) as count
-        from reports
-        where forum=? and status='pending'
-        group by type, target
-        order by count desc, created asc
-    """, forum["id"])
-
-    e.stream.write({
-        "forum": strip_forum_config(forum),
-        "posts": posts,
-        "comments": comments,
-        "reports": reports,
-        "counts": {
-            "posts": len(posts),
-            "comments": len(comments),
-            "reports": len(reports),
-            "total": len(posts) + len(comments) + len(reports)
-        }
-    })
+    e.stream.write(moderation_queue_data(forum))
 
 # Handle moderation reports request from delegated moderators
 def event_moderation_reports(e):
@@ -7997,44 +8127,7 @@ def event_moderation_reports(e):
         e.stream.write({"error": "errors.invalid_status"})
         return
 
-    if status == "all":
-        reports = mochi.db.rows(
-            "select * from reports where forum=? order by created desc limit 100",
-            forum["id"])
-    else:
-        reports = mochi.db.rows(
-            "select * from reports where forum=? and status=? order by created desc limit 100",
-            forum["id"], status)
-
-    for r in reports:
-        reporter = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["reporter"])
-        if reporter and reporter["name"]:
-            r["reporter_name"] = reporter["name"]
-        else:
-            r["reporter_name"] = mochi.entity.name(r["reporter"]) or r["reporter"]
-        author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["author"])
-        if author and author["name"]:
-            r["author_name"] = author["name"]
-        else:
-            r["author_name"] = mochi.entity.name(r["author"]) or r["author"]
-        if r["resolver"]:
-            resolver = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["resolver"])
-            if resolver and resolver["name"]:
-                r["resolver_name"] = resolver["name"]
-            else:
-                r["resolver_name"] = mochi.entity.name(r["resolver"]) or r["resolver"]
-        if r["type"] == "post":
-            post = mochi.db.row("select title, body from posts where id=?", r["target"])
-            if post:
-                r["content_title"] = post["title"]
-                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
-                r["attachments"] = attachment_list(r["target"], forum["id"])
-        elif r["type"] == "comment":
-            comment = mochi.db.row("select body from comments where id=?", r["target"])
-            if comment:
-                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
-
-    e.stream.write({"forum": strip_forum_config(forum), "reports": reports})
+    e.stream.write(moderation_reports_data(forum, status))
 
 # Handle moderation log request from delegated moderators
 def event_moderation_log(e):
@@ -8055,27 +8148,7 @@ def event_moderation_log(e):
     if limit_str and mochi.text.valid(str(limit_str), "natural"):
         limit = min(int(limit_str), 200)
 
-    logs = mochi.db.rows(
-        "select * from moderation where forum=? order by created desc limit ?",
-        forum["id"], limit)
-
-    for entry in logs:
-        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["moderator"])
-        if moderator:
-            entry["moderator_name"] = moderator["name"]
-        # Same resolution the owner-served action_moderation_log performs: for a
-        # restriction the subject is the target, and author_name is the field
-        # the moderation UI reads for both kinds of entry.
-        if entry["author"]:
-            author = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["author"])
-            if author:
-                entry["author_name"] = author["name"]
-        elif entry["type"] == "user":
-            target = mochi.db.row("select name from members where forum=? and id=?", forum["id"], entry["target"])
-            if target:
-                entry["author_name"] = target["name"]
-
-    e.stream.write({"entries": logs})
+    e.stream.write(moderation_log_data(forum, limit))
 
 # Handle restrictions list request from delegated moderators
 def event_restrictions(e):
@@ -8091,17 +8164,7 @@ def event_restrictions(e):
         e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
-    restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
-
-    for r in restrictions:
-        member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["user"])
-        if member:
-            r["name"] = member["name"]
-        moderator = mochi.db.row("select name from members where forum=? and id=?", forum["id"], r["moderator"])
-        if moderator:
-            r["moderator_name"] = moderator["name"]
-
-    e.stream.write({"restrictions": restrictions})
+    e.stream.write(moderation_restrictions_data(forum))
 
 # Handle report resolution request from delegated moderators
 def event_report_resolve_action(e):
