@@ -2112,8 +2112,8 @@ def action_view(a):
         owned_ids = owned_set()
         # Only show approved posts or user's own pending posts. Bounded: this
         # cross-forum landing view runs per-post queries (attachments, comment
-        # count, tags, vote), so an unbounded scan could approach the 90s Starlark
-        # cap on a large instance. The single-forum view paginates for older posts.
+        # count, tags, vote), so an unbounded scan could approach the Starlark
+        # compute limit on a large instance. The single-forum view paginates for older posts.
         if user_id:
             posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by + " limit 100", user_id)
         else:
