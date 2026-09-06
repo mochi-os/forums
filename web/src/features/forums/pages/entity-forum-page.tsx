@@ -342,6 +342,7 @@ export function EntityForumPage({
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
               onLoadMore={fetchNextPage}
+              scrollRoot={scrollRef}
               isLoading={isLoadingForum}
             />
           )}

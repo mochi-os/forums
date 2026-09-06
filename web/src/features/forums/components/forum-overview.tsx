@@ -38,6 +38,8 @@ interface ForumOverviewProps {
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   onLoadMore?: () => void
+  /** The page's scroll container, handed to the load-more trigger as its root */
+  scrollRoot?: React.RefObject<HTMLElement | null>
   isLoading?: boolean
   onCreateForum?: () => void
 }
@@ -55,6 +57,7 @@ export function ForumOverview({
   hasNextPage = false,
   isFetchingNextPage = false,
   onLoadMore,
+  scrollRoot,
   isLoading = false,
   onCreateForum,
   subscribedIds = new Set(),
@@ -142,6 +145,7 @@ export function ForumOverview({
               hasMore={hasNextPage}
               isLoading={isFetchingNextPage}
               onLoadMore={onLoadMore}
+              root={scrollRoot}
             />
           )}
         </>
