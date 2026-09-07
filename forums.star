@@ -5610,7 +5610,7 @@ def action_access(a):
             "id": subject,
             "name": name,
             "level": level,
-            "isOwner": is_owner
+            "owner": is_owner
         })
 
     return {

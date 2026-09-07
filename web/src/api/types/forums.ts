@@ -47,7 +47,7 @@ interface MemberAccess {
   id: string
   name: string
   level: AccessLevel | null // null = owner (implicit full access)
-  isOwner?: boolean // True if this is the resource owner
+  owner?: boolean // True if this is the resource owner
 }
 
 export interface DirectoryEntry {

@@ -567,16 +567,16 @@ function AccessTab({ forumId }: AccessTabProps) {
       id: string
       level: string | null
       name?: string
-      isOwner?: boolean
+      owner?: boolean
     }>(accessData?.data?.access)
     return accessList
-      .filter((item) => item.level !== null || item.isOwner)
+      .filter((item) => item.level !== null || item.owner)
       .map((item) => ({
         subject: item.id,
         operation: item.level ?? '*',
         grant: 1,
         name: item.name,
-        isOwner: item.isOwner,
+        owner: item.owner,
       }))
   }, [accessData])
   const rulesError = rulesErrorRaw
