@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "Mangga pariksa sambungan internet anjeun teras cobian deui."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · Béak {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · Permanén"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (diédit)"
 
@@ -45,14 +45,19 @@ msgid "[not set]"
 msgstr "[teu disetel]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# kintunan anyar} other {# kintunan anyar}}"
+
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr "{0, plural, one {# hasil} other {# hasil}}"
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: ../../../lib/web/src/components/person-picker.tsx:260
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# dipilih} other {# dipilih}}"
 
@@ -61,19 +66,9 @@ msgstr "{0, plural, one {# dipilih} other {# dipilih}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# turunan}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {Dilarang # pamaké} other {Dilarang # pamaké}}"
-
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {Dijempékeun # pamaké} other {Dijempékeun # pamaké}}"
-
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "Setélan {0}"
 
@@ -93,17 +88,41 @@ msgstr "{count, plural, one {#mnt} other {#mnt}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#mgg} other {#mgg}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {Disatujuan # item} other {Disatujuan # item}}"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {Ditolak # item} other {Ditolak # item}}"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Ngaran {entityLabel}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -112,6 +131,10 @@ msgstr "{opponentName} nawarkeun séri"
 #: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Tampilkeun # koméntar séjén dina kiriman ieu} other {Tampilkeun # koméntar séjén dina kiriman ieu}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr "{selectedAuthorCount, plural, one {# pangarang bakal leungit aksés ka forum ieu. Anjeun bisa nyabut deui engké tina tab Watesan.} other {# pangarang bakal leungit aksés ka forum ieu. Anjeun bisa nyabut deui engké tina tab Watesan.}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
@@ -122,7 +145,7 @@ msgstr "{sentLabel} tina {totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# barang} other {# barang}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# balesan} other {# balesan}}"
 
@@ -167,23 +190,23 @@ msgstr "Aksés ditolak"
 msgid "Access level"
 msgstr "Tingkat aksés"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "Tingkat aksés diropéa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "Manajemén Aksés"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "Aksés dipiceun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "Aksés diatur pikeun {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "Akun"
 
@@ -191,7 +214,7 @@ msgstr "Akun"
 msgid "Account type"
 msgstr "Tipe akun"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:423
 msgid "Activity"
 msgstr "Aktivitas"
 
@@ -234,8 +257,8 @@ msgstr "Tambah item ceklis"
 msgid "Add field"
 msgstr "Tambah field"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "Tambah file"
 
@@ -255,7 +278,7 @@ msgstr "Tambah link"
 msgid "Add option"
 msgstr "Tambah pilihan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "Tambah aturan"
 
@@ -283,15 +306,15 @@ msgid "Additional details (optional)"
 msgstr "Détil tambahan (opsional)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "Aksi AI dina pos"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "Sadaya"
 
@@ -300,7 +323,7 @@ msgstr "Sadaya"
 msgid "All forums"
 msgstr "Sadaya forum"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "Sadaya pos jeung koméntar geus diréviu"
 
@@ -308,7 +331,7 @@ msgstr "Sadaya pos jeung koméntar geus diréviu"
 msgid "Allow anyone to search for {entityLabel}"
 msgstr "Idinan saha waé néangan {entityLabel}"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "Idinkeun saha waé néangan forum"
 
@@ -346,17 +369,21 @@ msgstr "Saha waé anu asup"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Sagala nu ngalanggan feed ieu bakal eureun narima. Anjeun bisa nyalin URL anyar sanggeusna."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "Satujuan"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr "Disatujuan"
 
 #. placeholder {0}: deleteTarget?.name
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Anjeun yakin hayang ngahapus \"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:679
 msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
 msgstr "Anjeun yakin hayang ngahapus \"{title}\"? Aksi ieu teu bisa dibalikeun."
 
@@ -368,11 +395,11 @@ msgstr "Anjeun yakin hayang ngahapus kolom \"{name}\"? Ieu teu bisa dibalikeun."
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Anjeun yakin hayang ngahapus koméntar ieu? Ieu ogé bakal ngahapus sadaya balesan."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Anjeun yakin hayang ngahapus koméntar ieu? Ieu ogé bakal ngahapus sadaya balesan. Aksi ieu teu bisa dibalikeun."
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Anjeun yakin hayang ngahapus pos ieu? Ieu ogé bakal ngahapus sadaya koméntar. Aksi ieu teu bisa dibalikeun."
 
@@ -392,11 +419,11 @@ msgstr "Anjeun yakin hayang nyerah? {opponentName} bakal meunang kaulinan."
 msgid "Ascending"
 msgstr "Naek"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "Lampirkeun file koméntar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "Lampirkeun file balesan"
 
@@ -429,15 +456,15 @@ msgstr "Tukang"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "Balik ka forum"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "Balik ka forum"
 
@@ -446,29 +473,45 @@ msgstr "Balik ka forum"
 msgid "Back to home"
 msgstr "Balik ka imah"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "Blokir"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "Blokir pangarang"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
+msgid "Ban authors"
+msgstr "Blokir pangarang"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "Diblokir"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banner"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Banner dipiceun"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Banner diropéa"
 
@@ -504,12 +547,12 @@ msgid "Browser notifications"
 msgstr "Béwara browser"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "ku {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "Ku {0}"
 
@@ -535,18 +578,18 @@ msgstr "Kaméra teu sayogi"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Batalkeun"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "Batalkeun koméntar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "Batalkeun balesan"
 
@@ -578,7 +621,7 @@ msgstr "Diganti"
 msgid "Changed {field}"
 msgstr "{field} diganti"
 
-#: src/features/forums/components/forum-overview.tsx:153
+#: src/features/forums/components/forum-overview.tsx:157
 msgid "Check back later for new content"
 msgstr "Cek deui engké pikeun eusi anyar"
 
@@ -599,7 +642,7 @@ msgstr "Pilih kaulinan ti sidebar atawa mimitian nu anyar."
 msgid "Choose language"
 msgstr "Pilih basa"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -693,7 +736,7 @@ msgstr "Lugina"
 msgid "Command Palette"
 msgstr "Palét paréntah"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "Koméntar"
 
@@ -702,15 +745,23 @@ msgstr "Koméntar"
 msgid "Comment actions"
 msgstr "Peta koméntar"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "Koméntar disatujuan"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "Koméntar dihapus"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "Wates koméntar"
 
@@ -718,19 +769,19 @@ msgstr "Wates koméntar"
 msgid "Comment on this image…"
 msgstr "Koméntar gambar ieu…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "Koméntar dipasang"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "Koméntar dipiceun"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "Koméntar dibalikeun"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "Koméntar diropéa"
 
@@ -743,8 +794,8 @@ msgstr "Koméntar, vote, jeung tempo"
 msgid "Comments"
 msgstr "Koméntar"
 
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+#. placeholder {0}: data.comments.count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:419
 msgid "Comments ({0})"
 msgstr "Koméntar ({0})"
 
@@ -773,12 +824,12 @@ msgstr "Tersambung"
 msgid "Connecting..."
 msgstr "Nyambungkeun..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "Eusi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "Eusi ti pamaké di handapeun ambang kudu disatujuan"
 
@@ -850,16 +901,16 @@ msgstr "Jieun"
 msgid "Create {entityLabel}"
 msgstr "Jieun {entityLabel}"
 
-#: src/features/forums/components/forum-overview.tsx:106
+#: src/features/forums/components/forum-overview.tsx:109
 msgid "Create a new forum"
 msgstr "Jieun forum anyar"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Jieun pos anyar"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "Jieun forum"
 
@@ -877,7 +928,7 @@ msgstr "Dijieun"
 msgid "Created {field}"
 msgstr "{field} dijieun"
 
-#: src/hooks/use-forums-queries.ts:81
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "Nyieun forum..."
 
@@ -907,7 +958,7 @@ msgstr "Konflik data"
 msgid "Date"
 msgstr "Tanggal"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "dinten"
 
@@ -919,7 +970,7 @@ msgstr "Tolak"
 msgid "Default"
 msgstr "Standar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "Akun standar"
 
@@ -940,13 +991,13 @@ msgstr "Urutan standar"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:680
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "Hapus"
 
@@ -959,7 +1010,7 @@ msgid "Delete column"
 msgstr "Hapus kolom"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Hapus koméntar"
 
@@ -967,12 +1018,12 @@ msgstr "Hapus koméntar"
 msgid "Delete field"
 msgstr "Hapus field"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "Hapus forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "Hapus forum?"
 
@@ -980,9 +1031,9 @@ msgstr "Hapus forum?"
 msgid "Delete game?"
 msgstr "Hapus kaulinan?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:494
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:499
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:678
 msgid "Delete item"
 msgstr "Hapus item"
 
@@ -996,7 +1047,7 @@ msgstr "Hapus pilihan"
 msgid "Delete option {0}"
 msgstr "Hapus pilihan {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "Hapus pos"
 
@@ -1016,7 +1067,7 @@ msgstr "Dipupus"
 msgid "Deleted {field}"
 msgstr "{field} dipupus"
 
-#: src/hooks/use-forums-queries.ts:97
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "Ngahapus forum..."
 
@@ -1055,15 +1106,15 @@ msgstr "Deteksi ti browser web"
 msgid "Directory"
 msgstr "Diréktori"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "Dipareuman"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Piceun"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Piceun draf?"
 
@@ -1074,12 +1125,12 @@ msgstr "Pegat"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:80
 #: ../../../lib/web/src/components/restore-banner.tsx:86
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "Pasini"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "Pasini banner"
 
@@ -1092,7 +1143,7 @@ msgid "Does not match the required pattern"
 msgstr "Teu cocog jeung pola nu diperlukeun"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:503
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Beres"
@@ -1118,8 +1169,8 @@ msgstr "Cocog pikeun disléksia"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "Édit"
 
@@ -1149,8 +1200,8 @@ msgstr "Édit pilihan"
 msgid "Edit option {0}"
 msgstr "Édit pilihan {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "Édit pos"
 
@@ -1170,7 +1221,7 @@ msgstr "Surélék"
 msgid "Email code"
 msgstr "Kode surélék"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Asupkeun téks spanduk (markdown didukung)..."
 
@@ -1182,11 +1233,11 @@ msgstr "Lebetkeun kode tina email anjeun"
 msgid "Enter your authenticator code"
 msgstr "Lebetkeun kode aplikasi pamariksa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "ID Éntitas"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:389
 msgid "Error"
 msgstr "Kasalahan"
 
@@ -1217,23 +1268,15 @@ msgstr "Gagal nambahkeun akun"
 msgid "Failed to add tag"
 msgstr "Gagal nambahkeun tag"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Gagal ngajustér minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
-msgid "Failed to approve items"
-msgstr "Gagal nyatujuan item"
-
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
-msgstr "Gagal ngalarang pamake"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
-msgid "Failed to ban users"
 msgstr "Gagal ngalarang pamake"
 
 #: src/lib/saved.ts:36
@@ -1245,7 +1288,7 @@ msgstr "Gagal mupus kintunan nu disimpen"
 msgid "Failed to copy"
 msgstr "Gagal nyalin"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "Gagal nyieun forum"
 
@@ -1266,7 +1309,7 @@ msgstr "Gagal mupus lampiran"
 msgid "Failed to delete comment"
 msgstr "Gagal mupus koméntar"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "Gagal ngahapus forum"
 
@@ -1282,27 +1325,32 @@ msgstr "Gagal meunangkeun token RSS"
 msgid "Failed to load"
 msgstr "Gagal mungkahan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "Gagal mungkahan aturan aksés"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Gagal ngamuat spanduk"
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "Gagal mungkahan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "Gagal mungkahan setélan forum"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "Gagal mungkahan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "Gagal mungkahan grup"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:68
+#: ../../../lib/web/src/components/audit-timeline.tsx:70
 msgid "Failed to load history"
 msgstr "Gagal mungkahan riwayat"
 
@@ -1310,20 +1358,20 @@ msgstr "Gagal mungkahan riwayat"
 msgid "Failed to load image"
 msgstr "Gagal ngamuat gambar"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:390
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:393
 msgid "Failed to load item"
 msgstr "Gagal mungkahan item"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "Gagal mungkahan log moderasi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "Gagal mungkahan antrian moderasi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "Gagal mungkahan setélan moderasi"
 
@@ -1336,11 +1384,11 @@ msgstr "Gagal mungkahan prompt"
 msgid "Failed to load recommended forums"
 msgstr "Gagal mungkahan forum nu disarankeun"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "Gagal mungkahan laporan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "Gagal mungkahan watesan"
 
@@ -1356,28 +1404,20 @@ msgstr "Gagal mindahkeun"
 msgid "Failed to mute user"
 msgstr "Gagal ngabungkem pamake"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
-msgid "Failed to mute users"
-msgstr "Gagal ngabungkem pamake"
-
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Gagal ngirim koméntar"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
-msgid "Failed to reject items"
-msgstr "Gagal nampik item"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "Gagal mupus aksés"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Gagal mupus minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "Gagal mupus watesan"
 
@@ -1385,7 +1425,7 @@ msgstr "Gagal mupus watesan"
 msgid "Failed to remove saved post"
 msgstr "Gagal miceun kintunan nu disimpen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "Gagal ngaganti ngaran forum"
 
@@ -1393,7 +1433,7 @@ msgstr "Gagal ngaganti ngaran forum"
 msgid "Failed to reset prompt"
 msgstr "Gagal ngareset prompt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "Gagal ngarengsekeun laporan"
 
@@ -1405,7 +1445,7 @@ msgstr "Gagal nyabut aksés RSS"
 msgid "Failed to save"
 msgstr "Gagal nyimpen"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "Gagal nyimpen setélan moderasi"
 
@@ -1422,36 +1462,36 @@ msgstr "Gagal nyimpen prompt"
 msgid "Failed to search forums"
 msgstr "Gagal néangan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "Gagal néangan pamake"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "Gagal nyetél level aksés"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Gagal langganan"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Gagal eureun langganan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "Gagal ngamutahirkeun level aksés"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "Gagal ngamutahirkeun setélan AI"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Gagal ngamutahirkeun spanduk"
 
@@ -1470,12 +1510,12 @@ msgstr "Gagal ngunggah lampiran"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "Berkas"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "Disaring dumasar tag:"
 
@@ -1484,7 +1524,7 @@ msgstr "Disaring dumasar tag:"
 msgid "Find forums"
 msgstr "Téangan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
@@ -1500,26 +1540,26 @@ msgstr "Bandéra"
 msgid "Flat"
 msgstr "Datar"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
+#: src/features/forums/components/create-forum-dialog.tsx:53
 msgid "forum"
 msgstr "forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "Forum"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "Forum dijieun"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "Forum dihapus"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "Forum henteu sayagi deui"
 
@@ -1527,28 +1567,29 @@ msgstr "Forum henteu sayagi deui"
 msgid "Forum link"
 msgstr "Tumbu forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "Ngaran forum diperlukeun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "Forum teu kapanggih"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "Ngaran forum diganti"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "Bagéan setélan forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "Forum teu sadia"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1593,16 +1634,16 @@ msgid "Group: {0}"
 msgstr "Grup: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "Gangguan"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "Ucapan hina"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:61
+#: ../../../lib/web/src/components/audit-timeline.tsx:63
 msgid "History"
 msgstr "Riwayat"
 
@@ -1621,7 +1662,7 @@ msgstr "Panas"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "Identitas"
 
@@ -1658,7 +1699,7 @@ msgstr "Minat ditambahan"
 msgid "Interest reduced"
 msgstr "Minat dikurangan"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Minat dipupus"
@@ -1675,7 +1716,7 @@ msgstr "Tanggal teu sah"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Sigana kaca anu ditéangan ku anjeun <0/>henteu aya atawa geus dipiceun."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:449
 msgid "Item details"
 msgstr "Detil item"
 
@@ -1724,11 +1765,11 @@ msgstr "Muat leuwih loba"
 msgid "Loading content…"
 msgstr "Ngamuat eusi…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:373
 msgid "Loading item"
 msgstr "Muat item"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:374
 msgid "Loading item details"
 msgstr "Muat detil item"
 
@@ -1737,15 +1778,16 @@ msgstr "Muat detil item"
 msgid "Loading..."
 msgstr "Muat..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "Konci"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "Dikonci"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "Log"
 
@@ -1779,7 +1821,7 @@ msgstr "Manual"
 msgid "Mark all as read"
 msgstr "Tandaan sadayana sakumaha dibaca"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown didukung"
 
@@ -1820,7 +1862,7 @@ msgid "Minimum length"
 msgstr "Panjang minimum"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "Inpormasi salah"
 
@@ -1833,17 +1875,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "Modérasi, pos, koméntar, vote, jeung tinggali"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
 #: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Modérasi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "Antrian modérasi kosong"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "Bagéan modérasi"
 
@@ -1853,10 +1895,10 @@ msgstr "Senén"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "Pilihan séjén"
 
@@ -1868,16 +1910,27 @@ msgstr "Dipindahkeun"
 msgid "Moved {field}"
 msgstr "{field} dipindahkeun"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "Bungkem"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "Bungkem panulis"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "Dijempékeun"
 
@@ -1886,12 +1939,12 @@ msgstr "Dijempékeun"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "Ngaran"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "Ngaran teu meunang ngandung karakter < atawa >"
 
@@ -1900,7 +1953,7 @@ msgid "Name is required"
 msgstr "Ngaran kudu diisi"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "Ngaran kudu 1000 karakter atawa kurang"
 
@@ -1911,7 +1964,7 @@ msgstr "Kasalahan jaringan"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "Anyar"
 
@@ -1920,18 +1973,18 @@ msgstr "Anyar"
 msgid "New game"
 msgstr "Game anyar"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "Pos anyar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "Thread anyar kudu disatujuan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "Wates pamaké anyar:"
 
@@ -1943,10 +1996,6 @@ msgstr "Gambar salajengna"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Teu aya {parentClassNames} pikeun ditambahkeun"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
-msgid "No {statusFilter} reports found"
-msgstr "Teu manggih laporan {statusFilter}"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
@@ -1989,9 +2038,13 @@ msgstr "Teu aya jenis item nu bisa dijieun. Jieun heula item kolot nu diperlukeu
 msgid "No matching objects"
 msgstr "Teu aya objék cocog"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "Tacan aya kagiatan moderasi"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2002,15 +2055,23 @@ msgstr "Teu manggih jalma"
 msgid "No places found"
 msgstr "Teu manggih tempat"
 
-#: src/features/forums/components/forum-overview.tsx:152
+#: src/features/forums/components/forum-overview.tsx:156
 msgid "No posts in this forum yet"
 msgstr "Tacan aya pos dina forum ieu"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "Teu aya laporan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "Teu aya larangan"
 
@@ -2045,7 +2106,7 @@ msgstr "Teu aya bewara nu can dibaca"
 msgid "No users found"
 msgstr "Teu manggih pamaké"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "Euweuh pamaké nu dibungkem atawa dilarang"
 
@@ -2057,10 +2118,10 @@ msgstr "Teu aya tempoan"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:565
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:578
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:579
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:583
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2106,7 +2167,7 @@ msgid "Number"
 msgstr "Wilangan"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "Lain topik"
 
@@ -2115,11 +2176,11 @@ msgid "On"
 msgstr "Hurung"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "Dina gambar: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "Dina gambar ieu"
 
@@ -2172,7 +2233,7 @@ msgstr "Pilihan"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "Séjén"
 
@@ -2181,8 +2242,8 @@ msgid "Owner"
 msgstr "Nu boga"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:577
 msgid "Parent"
 msgstr "Kolot"
 
@@ -2207,24 +2268,24 @@ msgstr "Passkey teu sayaga dina browser ieu"
 msgid "Pattern (regex)"
 msgstr "Pola (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "Antri"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "Antri persetujuan"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "Koméntar antri ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "Pos antri ({0})"
 
@@ -2232,16 +2293,17 @@ msgstr "Pos antri ({0})"
 msgid "People"
 msgstr "Jalma"
 
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "Poto sareng video"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Dipin"
 
@@ -2267,27 +2329,27 @@ msgstr "Mangga cobian deui."
 msgid "Please wait a moment and try again."
 msgstr "Mangga antosan sakedap teras cobian deui."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "Pos"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Kintunan henteu tiasa disimpen — judul atanapi eusi henteu sah"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "Kintunan henteu tiasa disimpen dina pangladén forum"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "Pos dipupus"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "Wates pos"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "Pos dikonci"
 
@@ -2295,31 +2357,31 @@ msgstr "Pos dikonci"
 msgid "Post not found"
 msgstr "Pos teu kapanggih"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "Pos dipin"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "Pos dipublikasikeun."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "Pos dipupus"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "Pos dipulihkeun"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "Pos teu dikonci"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "Pos teu dipin"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "Pos diropéa"
 
@@ -2327,7 +2389,7 @@ msgstr "Pos diropéa"
 msgid "Post, comment, vote, and view"
 msgstr "Pos, koméntar, vote, jeung tempo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "tulisan"
 
@@ -2339,11 +2401,11 @@ msgstr "Pos"
 msgid "Posts and comments"
 msgstr "Pos jeung koméntar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "Pra-moderasi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Hindarkeun spam ku ngawatesan sabaraha sering pamaké bisa ngirim"
 
@@ -2365,15 +2427,15 @@ msgstr "Ngolah…"
 msgid "Prompt saved"
 msgstr "Prompt disimpen"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:416
 msgid "Properties"
 msgstr "Sipat"
 
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Pasarkeun pos"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Mublikasikeun..."
 
@@ -2381,7 +2443,7 @@ msgstr "Mublikasikeun..."
 msgid "Push notification"
 msgstr "Wawaran push"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "Antrian"
 
@@ -2389,7 +2451,7 @@ msgstr "Antrian"
 msgid "Raised"
 msgstr "Diangkat"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "Watesan Laju"
 
@@ -2401,12 +2463,12 @@ msgstr "Sambungkeun deui akun anjeun dina server ieu"
 msgid "Re-register your passkeys on this server"
 msgstr "Daptarkeun deui konci akses anjeun dina ieu server"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "Alesan:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "Alesan: {0}"
 
@@ -2439,12 +2501,12 @@ msgstr "Ngalihkeun ka login."
 msgid "Reduce interest"
 msgstr "Kurangan minat"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "Tolak"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "Ditolak"
 
@@ -2472,12 +2534,12 @@ msgstr "Relevansi {relevance}, minat {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "Pupus"
 
@@ -2501,7 +2563,7 @@ msgstr "Piceun aturan aksés pikeun \"{0}\"?"
 msgid "Remove access?"
 msgstr "Cabut aksés?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Pupus koméntar"
 
@@ -2524,17 +2586,18 @@ msgstr "Cabut item"
 msgid "Remove link"
 msgstr "Hapus tautan"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "Cabut pos"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "Cabut forum ieu tina sidebar anjeun."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "Dicabut"
 
@@ -2559,36 +2622,36 @@ msgstr "Ganti ngaran kolom"
 msgid "Rename this board column"
 msgstr "Ganti ngaran kolom papan ieu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "Ngaganti ngaran forum..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "waleran"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "Balesan kudu disatujuan"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "Bales"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "Bales ka {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "Laporkeun"
 
@@ -2600,37 +2663,37 @@ msgstr "Laporkeun koméntar"
 msgid "Report post"
 msgstr "Laporkeun pos"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "Laporan direngsekeun"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "Laporan dikirim"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "Dilaporkeun ku {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "Laporan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "Peryogikeun persetujuan saméméh eusi katémbong"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "Peryogikeun persetujuan pikeun koméntar anyar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "Peryogikeun persetujuan pikeun pos anyar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "Peryogikeun persetujuan pikeun pamaké anyar"
 
@@ -2654,21 +2717,33 @@ msgstr "Nyerah tina kaulinan?"
 msgid "Resigning..."
 msgstr "Nyerah..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "Direngsékeun"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "Pulihkeun"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr "Diwatesan"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "Watesan dicabut"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "Watesan"
 
@@ -2719,16 +2794,16 @@ msgstr "Saptu"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "Simpen"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "Simpen parobahan"
 
@@ -2749,12 +2824,12 @@ msgid "Saved posts cleared"
 msgstr "Pos nu disimpen geus dipupus"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Nyimpen..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Prompt skor"
 
@@ -2822,7 +2897,7 @@ msgstr "Paluruh..."
 msgid "Searching..."
 msgstr "Maluruh..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "detik"
 
@@ -2858,7 +2933,7 @@ msgstr "Pilih aturan aksés"
 msgid "Select account type"
 msgstr "Pilih jenis akun"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "Pilih sadayana"
 
@@ -2874,7 +2949,7 @@ msgstr "Pilih lokasi"
 msgid "Select next card"
 msgstr "Pilih kartu salajengna"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "Pilih euweuh"
 
@@ -2935,13 +3010,13 @@ msgstr "Atur asal jeung tujuan"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
 #: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "Setélan"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "Dilarang cicing-cicing"
 
@@ -3005,7 +3080,7 @@ msgid "Spacious"
 msgstr "Lega"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "Spam"
 
@@ -3013,8 +3088,8 @@ msgstr "Spam"
 msgid "Start the discussion by adding the first comment."
 msgstr "Mimitian diskusi ku nambahkeun koméntar nu munggaran."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Stop watching"
 msgstr "Eureun nempo"
 
@@ -3022,11 +3097,11 @@ msgstr "Eureun nempo"
 msgid "Subject"
 msgstr "Subjek"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "Kirim koméntar"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "Kirim balesan"
 
@@ -3043,7 +3118,7 @@ msgstr "Ngirim..."
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "Langgan"
 
@@ -3057,14 +3132,14 @@ msgstr "Dilanggan"
 msgid "Subscribed to {0}"
 msgstr "Dilanggan kana {0}"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "Dilanggan kana forum"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Ngalanggan..."
@@ -3077,13 +3152,13 @@ msgstr "Minggu"
 msgid "Switch to view 1-9"
 msgstr "Pindah ka tampilan 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:107
+#: ../../../lib/web/src/components/audit-timeline.tsx:109
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 #: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Sistem"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "Tag"
 
@@ -3095,7 +3170,7 @@ msgstr "Tag tos aya"
 msgid "Tag must be 50 characters or less"
 msgstr "Tag kudu 50 karakter atawa kurang"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "Prompt tag"
 
@@ -3154,7 +3229,7 @@ msgstr "Eusi anu dipénta teu kapanggih."
 msgid "The server returned a web page instead of data."
 msgstr "Server malikeun kaca wéb lain data."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "Tacan aya aksi modérasi nu kacatet"
 
@@ -3162,11 +3237,16 @@ msgstr "Tacan aya aksi modérasi nu kacatet"
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Aplikasi ieu teu diidinan ngagunakeun passkey anjeun. Idinan dina Setélan, dina bagian Idin."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "Forum ieu teu tiasa dimuat ayeuna."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Forum ieu meureun tos dihapus atawa anjeun teu boga aksés."
 
@@ -3178,7 +3258,7 @@ msgstr "Ieu bakal ngahapus kaulinan sareng obrolanana sacara permanén. Tindakan
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Postingan ieu meureun tos dihapus atawa teu aya."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "Kintunan ieu parantos dikintunkeun"
 
@@ -3186,16 +3266,16 @@ msgstr "Kintunan ieu parantos dikintunkeun"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Ieu mupus unggal kintunan tina daptar disimpen anjeun. Ieu teu tiasa dibatalkeun."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Ieu bakal nyumputkeun koméntar ti pamaké biasa. Modérator masih tiasa nempo sarta malikkeun deui."
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Ieu bakal nyumputkeun postingan ti pamaké biasa. Modérator masih tiasa nempo sarta malikkeun deui."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Ieu bakal ngahapus permanén \"{0}\" sarta sagala postingan jeung koméntarna. Aksi ieu teu tiasa dibatalkeun."
 
@@ -3207,8 +3287,8 @@ msgstr "Thread"
 msgid "Thursday"
 msgstr "Kemis"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "Judul"
 
@@ -3323,47 +3403,59 @@ msgstr "Kasalahan API anu teu disangka"
 msgid "United States"
 msgstr "Amérika Serikat"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/audit-timeline.tsx:105
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
 #: ../../../lib/web/src/components/tree-row.tsx:219
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:84
+#: src/features/forums/components/forum-overview.tsx:87
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "Teu dipikanyaho"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "Buka konci"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "Cabut pin"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/features/forums/pages/entity-forum-page.tsx:358
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "Hentikeun langganan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "Hentikeun langganan ti forum"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "Unsubscribe from forum?"
 msgstr "Eureun langganan tina forum?"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "Henteu langganan"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "Hentikeun langganan..."
 
@@ -3440,7 +3532,7 @@ msgstr "Panempo video: {0}"
 msgid "View all notifications"
 msgstr "Tingali sagala bewara"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:450
 msgid "View and edit item details"
 msgstr "Tingali sarta édit rincian item"
 
@@ -3452,12 +3544,12 @@ msgstr "Kontrol tampilan"
 msgid "View only"
 msgstr "Tingali wungkul"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "Tingali gambar nu dibahas ku koméntar ieu"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "Kekerasan"
 
@@ -3469,8 +3561,8 @@ msgstr "Rékaman sora teu dirojong dina browser ieu"
 msgid "Vote and view"
 msgstr "Vote sarta tingali"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Watch"
 msgstr "Awas"
 
@@ -3492,22 +3584,30 @@ msgstr "Kami ngirim kode verifikasi ka <0>{0}</0>. Lebetkeun kode di handap pike
 msgid "Wednesday"
 msgstr "Rebo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "Lila jandela"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Anjeun tos langganan kana forum ieu"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Anjeun ngintunkeun teuing gancang — punten antosan sareng cobian deui"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "Anjeun diwatesan ngintunkeun di forum ieu"
 
@@ -3515,15 +3615,19 @@ msgstr "Anjeun diwatesan ngintunkeun di forum ieu"
 msgid "You do not have access to this section."
 msgstr "Anjeun teu gaduh aksés kana bagian ieu."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "Anjeun teu gaduh idin pikeun ngintunkeun di forum ieu"
 
-#: src/features/forums/components/forum-overview.tsx:101
+#: src/features/forums/components/forum-overview.tsx:104
 msgid "You have no forums yet."
 msgstr "Anjeun tacan boga forum."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:356
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Anjeun bakal eureun nampi apdet tina forum ieu. Anjeun tiasa langganan deui iraha waé."
 
@@ -3531,14 +3635,18 @@ msgstr "Anjeun bakal eureun nampi apdet tina forum ieu. Anjeun tiasa langganan d
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Akun anjeun dipindahkeun ka dieu ti {source}. Dugi ka anjeun mupus éta di ditu, pesen jeung béwara tiasa dugi ka dua server, sababaraha konten anjeun tetep disajikan ti server lami, sareng pangéntép tiasa butuh sababaraha menit pikeun mendakan anjeun di dieu."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Lampiran anjeun bakal leungit."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:274
+msgid "Your changes will be lost."
+msgstr "Parobahan anjeun bakal leungit."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Téks sareng lampiran anjeun bakal leungit."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Téks anjeun bakal leungit."

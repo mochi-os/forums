@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "Nceda ukhangele uqhagamshelwano lwakho lwe-intanethi uze uzame kwakhona."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · Iphelelwa {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · Esisigxina"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (kuhleliwe)"
 
@@ -45,14 +45,19 @@ msgid "[not set]"
 msgstr "[ayisetwanga]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# iposti entsha} other {# iiposti ezintsha}}"
+
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr "{0, plural, one {Iziphumo #} other {Iziphumo #}}"
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: ../../../lib/web/src/components/person-picker.tsx:260
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ekhethiweyo} other {# ekhethiweyo}}"
 
@@ -61,19 +66,9 @@ msgstr "{0, plural, one {# ekhethiweyo} other {# ekhethiweyo}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# efakiweyo} other {+# ezifakiweyo}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {Kuvalwe umsebenzisi #} other {Kuvalwe abasebenzisi #}}"
-
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {Kuthuliswe umsebenzisi #} other {Kuthuliswe abasebenzisi #}}"
-
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "Iisetingi ze-{0}"
 
@@ -93,17 +88,41 @@ msgstr "{count, plural, one {#mzu} other {#mzu}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#vk} other {#vk}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {Kuvunyiwe into #} other {Kuvunyiwe izinto #}}"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {Kwaliwe into #} other {Kwaliwe izinto #}}"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Igama le-{entityLabel}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -112,6 +131,10 @@ msgstr "{opponentName} unike idrowu"
 #: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Bonisa olunye uluvo # kwesi sithuba} other {Bonisa ezinye izimvo # kwesi sithuba}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr "{selectedAuthorCount, plural, one {Umbhali omnye (#) uya kuphulukana nofikelelo kolu qulunqo. Ungayisusa kamva kwithebhu yeMithetho.} other {Ababhali abangu-# baya kuphulukana nofikelelo kolu qulunqo. Ungayisusa kamva kwithebhu yeMithetho.}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
@@ -122,7 +145,7 @@ msgstr "{sentLabel} kwi-{totalLabel}"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {into e-#} other {izinto ezi-#}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# impendulo} other {# iimpendulo}}"
 
@@ -167,23 +190,23 @@ msgstr "Ufikelelo lwaliwe"
 msgid "Access level"
 msgstr "Inqanaba lofikelelo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "Inqanaba lofikelelo lihlaziyiwe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "Ulawulo Lofikelelo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "Ufikelelo lususiwe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "Ufikelelo lusetelwe ku-{subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "I-akhawunti"
 
@@ -191,7 +214,7 @@ msgstr "I-akhawunti"
 msgid "Account type"
 msgstr "Uhlobo lwe-akhawunti"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:423
 msgid "Activity"
 msgstr "Umsebenzi"
 
@@ -234,8 +257,8 @@ msgstr "Yongeza into yoluhlu lokuhlola"
 msgid "Add field"
 msgstr "Yongeza intsimi"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "Yongeza iifayile"
 
@@ -255,7 +278,7 @@ msgstr "Yongeza ikhonkco"
 msgid "Add option"
 msgstr "Yongeza ukhetho"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "Yongeza umthetho"
 
@@ -283,15 +306,15 @@ msgid "Additional details (optional)"
 msgstr "Iinkcukacha ezongezelelweyo (ezizithathela)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "Izenzo ze-AI kwiiposi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "Konke"
 
@@ -300,7 +323,7 @@ msgstr "Konke"
 msgid "All forums"
 msgstr "Zonke iifora"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "Zonke iiposi nezimvo ziphononongiwe"
 
@@ -308,7 +331,7 @@ msgstr "Zonke iiposi nezimvo ziphononongiwe"
 msgid "Allow anyone to search for {entityLabel}"
 msgstr "Vumela nabani na ukukhangela {entityLabel}"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "Vumela nabani na ukukhangela iforum"
 
@@ -346,17 +369,21 @@ msgstr "Nabani na ongenileyo"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Nantoni na ebhalisele olu suselo iya kuyeka ukulufumana. Ungakhuphela i-URL entsha emva koko."
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "Yamkela"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr "Kuvunyiwe"
 
 #. placeholder {0}: deleteTarget?.name
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Uqinisekile ufuna ukucima \"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:679
 msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
 msgstr "Uqinisekile ufuna ukucima \"{title}\"? Esi senzo asinakubuyiswa."
 
@@ -368,11 +395,11 @@ msgstr "Uqinisekile ufuna ukucima ikholamu \"{name}\"? Oku akunakubuyiswa."
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Uqinisekile ufuna ukucima esi siphawuli? Oku kuya kucima zonke iimpendulo."
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Uqinisekile ufuna ukucima esi siphawuli? Oku kuya kucima zonke iimpendulo. Esi senzo asinakubuyiswa."
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Uqinisekile ufuna ukucima esi sithuba? Le nto iya kucima zonke izimvo. Esi senzo asinakurhoxiswa."
 
@@ -392,11 +419,11 @@ msgstr "Uqinisekile ukuba ufuna ukunikezela? {opponentName} uza kuphumelela umdl
 msgid "Ascending"
 msgstr "Ukunyuka"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "Qhoboshela iifayile zesiphawuli"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "Qhoboshela iifayile zempendulo"
 
@@ -429,15 +456,15 @@ msgstr "Buyela"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "Buyela kwiforam"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "Buyela kwiifora"
 
@@ -446,29 +473,45 @@ msgstr "Buyela kwiifora"
 msgid "Back to home"
 msgstr "Buyela ekhaya"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "Vala"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "Vala umbhali"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
+msgid "Ban authors"
+msgstr "Vala ababhali"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "Kuvaliwe"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Ibhena"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Ibhena isusiwe"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Ibhena ihlaziyiwe"
 
@@ -504,12 +547,12 @@ msgid "Browser notifications"
 msgstr "Izaziso zebhrawuza"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "ngu {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "Ngu {0}"
 
@@ -535,18 +578,18 @@ msgstr "Ikhamera ayifumaneki"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Rhoxisa"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "Rhoxisa isiphawuli"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "Rhoxisa impendulo"
 
@@ -578,7 +621,7 @@ msgstr "Kutshintshiwe"
 msgid "Changed {field}"
 msgstr "Kutshintshiwe {field}"
 
-#: src/features/forums/components/forum-overview.tsx:153
+#: src/features/forums/components/forum-overview.tsx:157
 msgid "Check back later for new content"
 msgstr "Buya emva kwexesha ngomxholo omtsha"
 
@@ -599,7 +642,7 @@ msgstr "Khetha umdlalo kwibha esecaleni okanye qalisa omtsha."
 msgid "Choose language"
 msgstr "Khetha ulwimi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -693,7 +736,7 @@ msgstr "Kumnandi"
 msgid "Command Palette"
 msgstr "Ipalethi yemiyalelo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "Isiphawuli"
 
@@ -702,15 +745,23 @@ msgstr "Isiphawuli"
 msgid "Comment actions"
 msgstr "Izenzo zezimvo"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "Isiphawuli samkelwe"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "Isiphawuli sicinyiwe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "Umda wesiphawuli"
 
@@ -718,19 +769,19 @@ msgstr "Umda wesiphawuli"
 msgid "Comment on this image…"
 msgstr "Phawula ngalo mfanekiso…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "Isiphawuli sithunyelwe"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "Isiphawuli sisusiwe"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "Isiphawuli sibuyiselwe"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "Isiphawuli sihlaziyiwe"
 
@@ -743,8 +794,8 @@ msgstr "Phawula, vota, kunye nokujonga"
 msgid "Comments"
 msgstr "Izimvo"
 
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+#. placeholder {0}: data.comments.count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:419
 msgid "Comments ({0})"
 msgstr "Izimvo ({0})"
 
@@ -773,12 +824,12 @@ msgstr "Idibene"
 msgid "Connecting..."
 msgstr "Iyaqhagamshela..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "Umxholo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "Umxholo ovela kubasebenzisi abangezantsi komda kufuneka uvunywe"
 
@@ -850,16 +901,16 @@ msgstr "Yenza"
 msgid "Create {entityLabel}"
 msgstr "Yenza {entityLabel}"
 
-#: src/features/forums/components/forum-overview.tsx:106
+#: src/features/forums/components/forum-overview.tsx:109
 msgid "Create a new forum"
 msgstr "Yenza iforam entsha"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Yenza iposi entsha"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "Yenza iforam"
 
@@ -877,7 +928,7 @@ msgstr "Yenziwe"
 msgid "Created {field}"
 msgstr "Kwenziwe {field}"
 
-#: src/hooks/use-forums-queries.ts:81
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "Idala iforamu..."
 
@@ -907,7 +958,7 @@ msgstr "Ungquzulwano lwedatha"
 msgid "Date"
 msgstr "Umhla"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "iintsuku"
 
@@ -919,7 +970,7 @@ msgstr "Yala"
 msgid "Default"
 msgstr "Eyoqobo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "I-akhawunti yoqobo"
 
@@ -940,13 +991,13 @@ msgstr "Ukuhlela koqobo"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:680
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "Cima"
 
@@ -959,7 +1010,7 @@ msgid "Delete column"
 msgstr "Cima ikholamu"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Cima isiphawuli"
 
@@ -967,12 +1018,12 @@ msgstr "Cima isiphawuli"
 msgid "Delete field"
 msgstr "Cima intsimi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "Cima iforam"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "Cima iforam?"
 
@@ -980,9 +1031,9 @@ msgstr "Cima iforam?"
 msgid "Delete game?"
 msgstr "Cima umdlalo?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:494
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:499
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:678
 msgid "Delete item"
 msgstr "Cima into"
 
@@ -996,7 +1047,7 @@ msgstr "Cima ukhetho"
 msgid "Delete option {0}"
 msgstr "Cima ukhetho {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "Cima iposi"
 
@@ -1016,7 +1067,7 @@ msgstr "Kucinyiwe"
 msgid "Deleted {field}"
 msgstr "Kucinyiwe {field}"
 
-#: src/hooks/use-forums-queries.ts:97
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "Icima iforamu..."
 
@@ -1055,15 +1106,15 @@ msgstr "Bhaqa kwibhrawuza yewebhu"
 msgid "Directory"
 msgstr "Uluhlu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "Icinyiwe"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Lahla"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Lahla uyilo?"
 
@@ -1074,12 +1125,12 @@ msgstr "Iqhawukile"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:80
 #: ../../../lib/web/src/components/restore-banner.tsx:86
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "Yikhabe"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "Yikhabe ibhena"
 
@@ -1092,7 +1143,7 @@ msgid "Does not match the required pattern"
 msgstr "Ayihambelani nepateni efunekayo"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:503
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Kwenziwe"
@@ -1118,8 +1169,8 @@ msgstr "Yamkelekile kwidyslexia"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "Hlela"
 
@@ -1149,8 +1200,8 @@ msgstr "Hlela ukhetho"
 msgid "Edit option {0}"
 msgstr "Hlela ukhetho {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "Hlela umyalezo"
 
@@ -1170,7 +1221,7 @@ msgstr "I-imeyili"
 msgid "Email code"
 msgstr "Ikhowudi ye-imeyili"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Faka umbhalo webhena (i-markdown iyaxhaswa)..."
 
@@ -1182,11 +1233,11 @@ msgstr "Faka ikhowudi evela kwi-imeyile yakho"
 msgid "Enter your authenticator code"
 msgstr "Faka ikhowudi yakho yesiqinisekisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "I-ID yequmrhu"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:389
 msgid "Error"
 msgstr "Impazamo"
 
@@ -1217,24 +1268,16 @@ msgstr "Ayiphumelelanga ukongeza iakhawunti"
 msgid "Failed to add tag"
 msgstr "Ayiphumelelanga ukongeza ithegi"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Ayiphumelelanga ukulungisa umdla"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
-msgid "Failed to approve items"
-msgstr "Ayiphumelelanga ukuvuma izinto"
-
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Ayiphumelelanga ukuvalela umsebenzisi"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
-msgid "Failed to ban users"
-msgstr "Ayiphumelelanga ukuvalela abasebenzisi"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1245,7 +1288,7 @@ msgstr "Akuphumelelanga ukucima iiposti ezigciniweyo"
 msgid "Failed to copy"
 msgstr "Ayiphumelelanga ukukhuphela"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "Akuphumelelanga ukudala iforamu"
 
@@ -1266,7 +1309,7 @@ msgstr "Ayiphumelelanga ukucima isiqhoboshelo"
 msgid "Failed to delete comment"
 msgstr "Ayiphumelelanga ukucima uluvo"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "Akuphumelelanga ukucima iforamu"
 
@@ -1282,27 +1325,32 @@ msgstr "Ayiphumelelanga ukufumana ithokheni ye-RSS"
 msgid "Failed to load"
 msgstr "Ayiphumelelanga ukulayisha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "Ayiphumelelanga ukulayisha imithetho yofikelelo"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Ayikwazanga ukulayisha ibhena"
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "Ayiphumelelanga ukulayisha iforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "Kuhlulekile ukufaka iizicwangciso zeforum"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "Ayiphumelelanga ukulayisha iiforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "Kuhlulekile ukufaka amaqela"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:68
+#: ../../../lib/web/src/components/audit-timeline.tsx:70
 msgid "Failed to load history"
 msgstr "Ayiphumelelanga ukulayisha imbali"
 
@@ -1310,20 +1358,20 @@ msgstr "Ayiphumelelanga ukulayisha imbali"
 msgid "Failed to load image"
 msgstr "Ayikwazanga ukulayisha umfanekiso"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:390
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:393
 msgid "Failed to load item"
 msgstr "Ayiphumelelanga ukulayisha into"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "Ayiphumelelanga ukulayisha ilog yolawulo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "Kuhlulekile ukufaka umgca wolawulo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "Kuhlulekile ukufaka iizicwangciso zolawulo"
 
@@ -1336,11 +1384,11 @@ msgstr "Ayiphumelelanga ukulayisha izikhumbuzo"
 msgid "Failed to load recommended forums"
 msgstr "Kuhlulekile ukufaka iiforum ezicetyisiweyo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "Ayiphumelelanga ukulayisha iingxelo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "Kuhlulekile ukufaka imithetho"
 
@@ -1356,28 +1404,20 @@ msgstr "Akuphumelelanga ukushenxisa"
 msgid "Failed to mute user"
 msgstr "Ayiphumelelanga ukuthulisa umsebenzisi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
-msgid "Failed to mute users"
-msgstr "Ayiphumelelanga ukuthulisa abasebenzisi"
-
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Ayiphumelelanga ukuposa uluvo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
-msgid "Failed to reject items"
-msgstr "Ayiphumelelanga ukwala izinto"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "Ayiphumelelanga ukususa ufikelelo"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Ayiphumelelanga ukususa umdla"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "Ayiphumelelanga ukususa isithintelo"
 
@@ -1385,7 +1425,7 @@ msgstr "Ayiphumelelanga ukususa isithintelo"
 msgid "Failed to remove saved post"
 msgstr "Akuphumelelanga ukususa iposti egciniweyo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "Ayiphumelelanga ukunika igama elitsha iforamu"
 
@@ -1393,7 +1433,7 @@ msgstr "Ayiphumelelanga ukunika igama elitsha iforamu"
 msgid "Failed to reset prompt"
 msgstr "Ayiphumelelanga ukusetha kwakhona isikhumbuzo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "Ayiphumelelanga ukusombulula ingxelo"
 
@@ -1405,7 +1445,7 @@ msgstr "Ayiphumelelanga ukurhoxisa ufikelelo lwe-RSS"
 msgid "Failed to save"
 msgstr "Ayiphumelelanga ukugcina"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "Ayiphumelelanga ukugcina iisetingi zolawulo"
 
@@ -1422,36 +1462,36 @@ msgstr "Ayiphumelelanga ukugcina isikhumbuzo"
 msgid "Failed to search forums"
 msgstr "Ayiphumelelanga ukukhangela iiforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "Kuhlulekile ukukhangela abasebenzisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "Ayiphumelelanga ukubeka inqanaba lofikelelo"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Ayiphumelelanga ukurhuma"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Ayiphumelelanga ukurhoxa kurhumo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "Ayiphumelelanga ukuhlaziya inqanaba lofikelelo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "Ayiphumelelanga ukuhlaziya iisetingi ze-AI"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Ayiphumelelanga ukuhlaziya ibhena"
 
@@ -1470,12 +1510,12 @@ msgstr "Ayiphumelelanga ukulayisha isiqhoboshelo"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "Iifayile"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "Kuhluzwe ngethegi:"
 
@@ -1484,7 +1524,7 @@ msgstr "Kuhluzwe ngethegi:"
 msgid "Find forums"
 msgstr "Fumana iiforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "Uphawu lomnwe"
 
@@ -1500,26 +1540,26 @@ msgstr "Iiflegi"
 msgid "Flat"
 msgstr "Isicaba"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
+#: src/features/forums/components/create-forum-dialog.tsx:53
 msgid "forum"
 msgstr "iforam"
 
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "Iforamu"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "Iforamu idaliwe"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "Iforamu icinyiwe"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "Iqonga aliphinde lifumaneke"
 
@@ -1527,28 +1567,29 @@ msgstr "Iqonga aliphinde lifumaneke"
 msgid "Forum link"
 msgstr "Ikhonkco leforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "Igama leforamu liyafuneka"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "Iforamu ayifumanekanga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "Iforamu inikwe igama elitsha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "Amacandelo eesetingi zeforamu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "Iforamu ayifumaneki"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1593,16 +1634,16 @@ msgid "Group: {0}"
 msgstr "Iqela: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "Ukuhlukunyezwa"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "Intetho yenzondo"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:61
+#: ../../../lib/web/src/components/audit-timeline.tsx:63
 msgid "History"
 msgstr "Imbali"
 
@@ -1621,7 +1662,7 @@ msgstr "Ishushu"
 msgid "ID"
 msgstr "Isazisi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "Isazisi"
 
@@ -1658,7 +1699,7 @@ msgstr "Umdla wandisiwe"
 msgid "Interest reduced"
 msgstr "Umdla uncitshisiwe"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Umdla ususiwe"
@@ -1675,7 +1716,7 @@ msgstr "Umhla ongasebenziyo"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Kubonakala ngathi iphepha olikhangelayo <0/>alikho okanye lisusiwe."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:449
 msgid "Item details"
 msgstr "Iinkcukacha zento"
 
@@ -1724,11 +1765,11 @@ msgstr "Layisha okungakumbi"
 msgid "Loading content…"
 msgstr "Iyalayisha umxholo…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:373
 msgid "Loading item"
 msgstr "Kulayishwa into"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:374
 msgid "Loading item details"
 msgstr "Kulayishwa iinkcukacha zento"
 
@@ -1737,15 +1778,16 @@ msgstr "Kulayishwa iinkcukacha zento"
 msgid "Loading..."
 msgstr "Kulayishwa..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "Tshixa"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "Itshixiwe"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "Irekhodi"
 
@@ -1779,7 +1821,7 @@ msgstr "Ngesandla"
 msgid "Mark all as read"
 msgstr "Phawula konke njengokufundiwe"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "I-Markdown iyaxhaswa"
 
@@ -1820,7 +1862,7 @@ msgid "Minimum length"
 msgstr "Ubude obuncinane"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "Ulwazi olungachanekanga"
 
@@ -1833,17 +1875,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "Lawula, posa, phawula, vota, kunye nokujonga"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
 #: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Ulungelelwaniso"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "Umgca wolungelelwaniso uze"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "Amacandelo olungelelwaniso"
 
@@ -1853,10 +1895,10 @@ msgstr "Umvulo"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "Ezinye iinketho"
 
@@ -1868,16 +1910,27 @@ msgstr "Kufuduswe"
 msgid "Moved {field}"
 msgstr "Kufuduswe {field}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "Thulisa"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "Thulisa umbhali"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "Uthuliswe"
 
@@ -1886,12 +1939,12 @@ msgstr "Uthuliswe"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "Igama"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "Igama alikwazi ukuba neempawu ze-< okanye ze->"
 
@@ -1900,7 +1953,7 @@ msgid "Name is required"
 msgstr "Igama liyafuneka"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "Igama kufuneka libe yimpawu eziyi-1000 okanye ngaphantsi"
 
@@ -1911,7 +1964,7 @@ msgstr "Impazamo yothungelwano"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "Entsha"
 
@@ -1920,18 +1973,18 @@ msgstr "Entsha"
 msgid "New game"
 msgstr "Umdlalo omtsha"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "Umyalezo omtsha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "Imixholo emitsha kufuneka ivunywe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "Umlinganiselo womsebenzisi omtsha:"
 
@@ -1943,10 +1996,6 @@ msgstr "Umfanekiso olandelayo"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Akukho {parentClassNames} ongathela kuyo"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
-msgid "No {statusFilter} reports found"
-msgstr "Akukho zixelo ze-{statusFilter} ezifumanekayo"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
@@ -1989,9 +2038,13 @@ msgstr "Akukho ntlobo zezinto ezinokwenziwa okwangoku. Yenza izinto zomzali ezif
 msgid "No matching objects"
 msgstr "Akukho zinto zifananisayo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "Akukho msebenzi wolungelelwaniso"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2002,15 +2055,23 @@ msgstr "Akukho bantu bafumanekileyo"
 msgid "No places found"
 msgstr "Akukho ndawo zifumanekileyo"
 
-#: src/features/forums/components/forum-overview.tsx:152
+#: src/features/forums/components/forum-overview.tsx:156
 msgid "No posts in this forum yet"
 msgstr "Akukho miyalezo kule foramu okwangoku"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "Akukho ngxelo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "Akukho zithintelo"
 
@@ -2045,7 +2106,7 @@ msgstr "Akukho zaziso ezingafundwanga"
 msgid "No users found"
 msgstr "Akukho basebenzisi bafumanekileyo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "Akukho basebenzisi abathuliswe okanye abavinjelweyo"
 
@@ -2057,10 +2118,10 @@ msgstr "Akukho zinkangeleko"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:565
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:578
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:579
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:583
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2106,7 +2167,7 @@ msgid "Number"
 msgstr "Inani"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "Ngaphandle komxholo"
 
@@ -2115,11 +2176,11 @@ msgid "On"
 msgstr "Ivuliwe"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "Kumfanekiso: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "Kulo mfanekiso"
 
@@ -2172,7 +2233,7 @@ msgstr "Iikhetho"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "Okunye"
 
@@ -2181,8 +2242,8 @@ msgid "Owner"
 msgstr "Umnini"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:577
 msgid "Parent"
 msgstr "Umzali"
 
@@ -2207,24 +2268,24 @@ msgstr "Ii-passkey azifumaneki kule bhrawuza"
 msgid "Pattern (regex)"
 msgstr "Ipateni (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "Ilindile"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "Ilindele uvumo"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "Izimvo ezilindileyo ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "Izithuba ezilindileyo ({0})"
 
@@ -2232,16 +2293,17 @@ msgstr "Izithuba ezilindileyo ({0})"
 msgid "People"
 msgstr "Abantu"
 
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "Iifoto neevidiyo"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Ncamathisa"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Incamathiselwe"
 
@@ -2267,27 +2329,27 @@ msgstr "Nceda uzame kwakhona."
 msgid "Please wait a moment and try again."
 msgstr "Nceda ulinde umzuzwana uze uzame kwakhona."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "Umpapasho"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Iposti ayikwazanga ukugcinwa — isihloko okanye umxholo awufanelekanga"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "Iposti ayikwazanga ukugcinwa kwiseva yeqonga"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "Umyalezo ucimiwe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "Umda womyalezo"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "Umyalezo utshixiwe"
 
@@ -2295,31 +2357,31 @@ msgstr "Umyalezo utshixiwe"
 msgid "Post not found"
 msgstr "Umyalezo awufumaneki"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "Umyalezo uncanyathiselwe"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "Umyalezo upapashiwe."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "Umyalezo ususiwe"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "Umyalezo ubuyiselwe"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "Umyalezo uvuliwe"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "Umyalezo ususiwe ekuncanyathisweni"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "Umyalezo uhlaziyiwe"
 
@@ -2327,7 +2389,7 @@ msgstr "Umyalezo uhlaziyiwe"
 msgid "Post, comment, vote, and view"
 msgstr "Posa, phawula, vota, kunye nokujonga"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "iiposti"
 
@@ -2339,11 +2401,11 @@ msgstr "Iimpapasho"
 msgid "Posts and comments"
 msgstr "Imiyalezo nezimvo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "Ulungelelwaniso lwangaphambili"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Thintela i-spam ngokunqumela ukuba abasebenzisi banokuposta kangakanani"
 
@@ -2365,15 +2427,15 @@ msgstr "Iyasetyenzwa…"
 msgid "Prompt saved"
 msgstr "Isikhumbuzi sigciniwe"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:416
 msgid "Properties"
 msgstr "Iimpawu"
 
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Papasha umyalezo"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Iyapapasha..."
 
@@ -2381,7 +2443,7 @@ msgstr "Iyapapasha..."
 msgid "Push notification"
 msgstr "Isaziso se-push"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "Umgca"
 
@@ -2389,7 +2451,7 @@ msgstr "Umgca"
 msgid "Raised"
 msgstr "Iphakanyisiwe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "Ukunqumela Ireyithi"
 
@@ -2401,12 +2463,12 @@ msgstr "Phinda udibanise iiakhawunti zakho kwiseva yesi"
 msgid "Re-register your passkeys on this server"
 msgstr "Phinda ubhalise izitshixo zakho zokufikelela kule seva"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "Isizathu:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "Isizathu: {0}"
 
@@ -2439,12 +2501,12 @@ msgstr "Iyahanjiswa kwiportal yokungena."
 msgid "Reduce interest"
 msgstr "Nciphisa umnxili"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "Khaba"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "Ikhatyiwe"
 
@@ -2472,12 +2534,12 @@ msgstr "Ukufaneleka {relevance}, umdla {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "Susa"
 
@@ -2501,7 +2563,7 @@ msgstr "Susa umthetho wofikelelo we-\"{0}\"?"
 msgid "Remove access?"
 msgstr "Susa ufikelelo?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Susa uluvo"
 
@@ -2524,17 +2586,18 @@ msgstr "Susa into"
 msgid "Remove link"
 msgstr "Susa ikhonkco"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "Susa umyalezo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "Susa le foramu kwibar yecala lakho."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "Isusiwe"
 
@@ -2559,36 +2622,36 @@ msgstr "Guqula igama lekholamu"
 msgid "Rename this board column"
 msgstr "Guqula igama lale kholamu yebhodi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "Inika igama elitsha iforamu..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "iimpendulo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "Iimpendulo kufuneka zivunywe"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "Phendula"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "Phendula u-{0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "Ingxelo"
 
@@ -2600,37 +2663,37 @@ msgstr "Xela isiphawuli"
 msgid "Report post"
 msgstr "Xela isithuba"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "Ingxelo isonjululwe"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "Ingxelo ingenisiwe"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "Kuxelwe ngu {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "Iingxelo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "Funa uvumo ngaphambi kokuba okuqulethwe kubonakale"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "Funa uvumo lwezimvo ezintsha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "Funa uvumo lwemiyalezo emitsha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "Funa uvumo lwabasebenzisi abatsha"
 
@@ -2654,21 +2717,33 @@ msgstr "Rhoxa kumdlalo?"
 msgid "Resigning..."
 msgstr "Iyarhoxa..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "Kucalulwe"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "Buyisela"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr "Kuthintelwe"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "Isithintelo sisusiwe"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "Imithetho"
 
@@ -2719,16 +2794,16 @@ msgstr "Umgqibelo"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "Gcina"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "Gcina utshintsho"
 
@@ -2749,12 +2824,12 @@ msgid "Saved posts cleared"
 msgstr "Iziposti ezigciniweyo zisusiwe"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Iyagcina..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Isikhuthazi seqela"
 
@@ -2822,7 +2897,7 @@ msgstr "Khangela..."
 msgid "Searching..."
 msgstr "Iyakhangela..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "imizuzwana"
 
@@ -2858,7 +2933,7 @@ msgstr "Khetha umgaqo wofikelelo"
 msgid "Select account type"
 msgstr "Khetha uhlobo lwe-akhawunti"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "Khetha konke"
 
@@ -2874,7 +2949,7 @@ msgstr "Khetha indawo"
 msgid "Select next card"
 msgstr "Khetha ikhadi elilandelayo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "Sukukhetha nto"
 
@@ -2935,13 +3010,13 @@ msgstr "Misa indawo yokuqala neyokugqibela"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
 #: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "Iisetingi"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "Uvalelwe ngasese"
 
@@ -3005,7 +3080,7 @@ msgid "Spacious"
 msgstr "Banzi"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "Igqibhi"
 
@@ -3013,8 +3088,8 @@ msgstr "Igqibhi"
 msgid "Start the discussion by adding the first comment."
 msgstr "Qalisa ingxoxo ngokongeza ilizwi lokuqala."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Stop watching"
 msgstr "Yeka ukubukela"
 
@@ -3022,11 +3097,11 @@ msgstr "Yeka ukubukela"
 msgid "Subject"
 msgstr "Isihloko"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "Ngenisa ilizwi"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "Ngenisa impendulo"
 
@@ -3043,7 +3118,7 @@ msgstr "Iyangenisa..."
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "Rhuma"
 
@@ -3057,14 +3132,14 @@ msgstr "Kurhunyiwe"
 msgid "Subscribed to {0}"
 msgstr "Kurhunyelwe {0}"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "Kurhunyelwe isithili"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Iyarhuma..."
@@ -3077,13 +3152,13 @@ msgstr "Icawa"
 msgid "Switch to view 1-9"
 msgstr "Tshintshela kwijongo 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:107
+#: ../../../lib/web/src/components/audit-timeline.tsx:109
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 #: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Inkqubo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "Iletile"
 
@@ -3095,7 +3170,7 @@ msgstr "Iletile sele ikhona"
 msgid "Tag must be 50 characters or less"
 msgstr "Ithegi kufuneka ibe ngamagama angama-50 okanye ngaphantsi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "Isikhuthazi sephawu"
 
@@ -3154,7 +3229,7 @@ msgstr "Umxholo oceliweyo awufumanekanga."
 msgid "The server returned a web page instead of data."
 msgstr "Iseva ibuyise iphepha lewebhu endaweni yedatha."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "Akukho zenzo zolawulo zibhaliweyo okwangoku"
 
@@ -3162,11 +3237,16 @@ msgstr "Akukho zenzo zolawulo zibhaliweyo okwangoku"
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Le app ayivumelekanga ukusebenzisa i-passkey yakho. Yivumele kwiiSetingi, phantsi kweeMvume."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "Le forum ayikwazanga ukufakwa ngoku."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Le forum kusenokwenzeka yacinywa okanye akukho ungene kuyo."
 
@@ -3178,7 +3258,7 @@ msgstr "Oku kuza kucima umdlalo nengxoxo yawo ngokusisigxina. Esi senzo asinakug
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Esi sithuba kusenokwenzeka sacinywa okanye asikho."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "Le posti sele ithunyelwe"
 
@@ -3186,16 +3266,16 @@ msgstr "Le posti sele ithunyelwe"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Oku kususa yonke iposti kuluhlu lwakho lwezigciniweyo. Oku akunakubuyiselwa."
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Oku kuya kufihla isimvo kubasebenzisi abaqhelekileyo. Abalawuli basenokusibona kwaye basibuyisele kamva."
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Oku kuya kufihla isithuba kubasebenzisi abaqhelekileyo. Abalawuli basenokusibona kwaye basibuyisele kamva."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Oku kuya kususa ngokusisigxina \"{0}\" kunye nazo zonke izithuba nezimvo zayo. Esi senzo asinakurhoxiswa."
 
@@ -3207,8 +3287,8 @@ msgstr "Umsonto"
 msgid "Thursday"
 msgstr "Ulwesine"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "Isihloko"
 
@@ -3323,47 +3403,59 @@ msgstr "Impazamo ye-API engalindelekanga"
 msgid "United States"
 msgstr "United States"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/audit-timeline.tsx:105
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
 #: ../../../lib/web/src/components/tree-row.tsx:219
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:84
+#: src/features/forums/components/forum-overview.tsx:87
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "Akwaziwa"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "Vula"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "Susa kwiipini"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/features/forums/pages/entity-forum-page.tsx:358
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "Yeka ukurhuma"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "Yeka ukurhuma kwisithili"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "Unsubscribe from forum?"
 msgstr "Rhoxa kwiqonga?"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "Kuyekiwe ukurhuma"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "Iyayeka ukurhuma..."
 
@@ -3440,7 +3532,7 @@ msgstr "Umboniso wevidiyo: {0}"
 msgid "View all notifications"
 msgstr "Bonisa zonke izaziso"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:450
 msgid "View and edit item details"
 msgstr "Bonisa kwaye uhlele iinkcukacha zento"
 
@@ -3452,12 +3544,12 @@ msgstr "Bonisa izilawuli"
 msgid "View only"
 msgstr "Bonisa kuphela"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "Jonga umfanekiso olu luvo luthetha ngawo"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "Ubundlobongela"
 
@@ -3469,8 +3561,8 @@ msgstr "Ushicilelo lwelizwi aluxhaswa kule bhrawuza"
 msgid "Vote and view"
 msgstr "Vota kunye nokujonga"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Watch"
 msgstr "Bukela"
 
@@ -3492,22 +3584,30 @@ msgstr "Sithumele ikhowudi yoqinisekiso ku-<0>{0}</0>. Faka ikhowudi ngezantsi u
 msgid "Wednesday"
 msgstr "Ulwesithathu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "Ubude bewindow"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Sele urhumele kwesi sithili"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Uposta ngokukhawuleza kakhulu — nceda linda uze uzame kwakhona"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "Uthintelwe ukuba uposte kweli qonga"
 
@@ -3515,15 +3615,19 @@ msgstr "Uthintelwe ukuba uposte kweli qonga"
 msgid "You do not have access to this section."
 msgstr "Awunalo ufikelelo kweli candelo."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "Akunamvume yokuposta kweli qonga"
 
-#: src/features/forums/components/forum-overview.tsx:101
+#: src/features/forums/components/forum-overview.tsx:104
 msgid "You have no forums yet."
 msgstr "Awunazo izithili okwangoku."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:356
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Uya kuyeka ukufumana uhlaziyo kweli qonga. Ungaphinda ubhalise nanini na."
 
@@ -3531,14 +3635,18 @@ msgstr "Uya kuyeka ukufumana uhlaziyo kweli qonga. Ungaphinda ubhalise nanini na
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "I-akhawunti yakho ihanjiswe apha ukusuka ku-{source}. Kude ukuze uyicime apho, iimessage nezaziso zingafika kumaseva omabini, inxalenye yemixholo yakho iqhubeka isebenziswa kwiseva endala, kwaye abalandeli bangathatha imizuzu embalwa ukukufumana apha."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Iziqhoboshelo zakho ziza kulahleka."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:274
+msgid "Your changes will be lost."
+msgstr "Utshintsho lwakho luya kulahleka."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Umbhalo neziqhoboshelo zakho ziza kulahleka."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Umbhalo wakho uya kulahleka."

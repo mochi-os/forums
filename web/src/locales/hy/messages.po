@@ -19,16 +19,16 @@ msgid "Please check your internet connection and try again."
 msgstr "Ստուգեք ձեր ինտերնետ կապը և կրկին փորձեք։"
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1027
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · Ավարտվում է {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1028
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · Մշտական"
 
-#: src/features/forums/components/thread/thread-comment.tsx:246
-#: src/features/forums/components/thread/thread-content.tsx:200
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (խմբագրված)"
 
@@ -45,14 +45,19 @@ msgid "[not set]"
 msgstr "[չի սահմանվել]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# նոր գրառում} other {# նոր գրառում}}"
+
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr "{0, plural, one {# արդյունք} other {# արդյունք}}"
 
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
 #: ../../../lib/web/src/components/person-picker.tsx:260
-#: src/routes/_authenticated/$forum_.moderation.tsx:517
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ընտրված} other {# ընտրված}}"
 
@@ -61,19 +66,9 @@ msgstr "{0, plural, one {# ընտրված} other {# ընտրված}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ներդրված} other {+# ներդրված}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:298
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {Արգելվեց # օգտատեր} other {Արգելվեցին # օգտատեր}}"
-
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:281
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {Լռեցվեց # օգտատեր} other {Լռեցվեցին # օգտատեր}}"
-
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "{0} կարգավորումներ"
 
@@ -93,17 +88,41 @@ msgstr "{count, plural, one {#ր} other {#ր}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#շաբ} other {#շաբ}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:230
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {Հաստատվեց # տարր} other {Հաստատվեցին # տարր}}"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:252
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {Մերժվեց # տարր} other {Մերժվեցին # տարր}}"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel}-ի անունը"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -112,6 +131,10 @@ msgstr "{opponentName}-ը առաջարկեց ոչ-ոքի"
 #: src/features/forums/components/thread/attachment-comments.tsx:65
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Ցուցադրել այս գրառման ևս # մեկնաբանություն} other {Ցուցադրել այս գրառման ևս # մեկնաբանություն}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
+msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
+msgstr "{selectedAuthorCount, plural, one {# հեղինակ կկորցնի այս ֆորումի հասանելիությունը։ Կարող ես ավելի ուշ հանել այն Սահմանափակումներ ներդիրից։} other {# հեղինակ կկորցնի այս ֆորումի հասանելիությունը։ Կարող ես ավելի ուշ հանել այն Սահմանափակումներ ներդիրից։}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:248
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
@@ -122,7 +145,7 @@ msgstr "{sentLabel}՝ {totalLabel}-ից"
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# տարր} other {# տարր}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:232
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# պատասխան} other {# պատասխան}}"
 
@@ -167,23 +190,23 @@ msgstr "Մուտքը մերժված է"
 msgid "Access level"
 msgstr "Մուտքի մակարդակ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "Մուտքի մակարդակը թարմացված է"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "Մուտքի կառավարում"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "Մուտքը հանված է"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "Մուտքը սահմանված է {subjectName}-ի համար"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "Հաշիվ"
 
@@ -191,7 +214,7 @@ msgstr "Հաշիվ"
 msgid "Account type"
 msgstr "Հաշվի տեսակ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:423
 msgid "Activity"
 msgstr "Ակտիվություն"
 
@@ -234,8 +257,8 @@ msgstr "Ավելացնել ստուգաթերթիկի կետ"
 msgid "Add field"
 msgstr "Ավելացնել դաշտ"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "Ավելացնել ֆայլեր"
 
@@ -255,7 +278,7 @@ msgstr "Ավելացնել հղում"
 msgid "Add option"
 msgstr "Ավելացնել տարբերակ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "Ավելացնել կանոն"
 
@@ -283,15 +306,15 @@ msgid "Additional details (optional)"
 msgstr "Լրացուցիչ մանրամասներ (ոչ պարտադիր)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "AI գործողություններ գրառումների վրա"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "Բոլորը"
 
@@ -300,7 +323,7 @@ msgstr "Բոլորը"
 msgid "All forums"
 msgstr "Բոլոր ֆորումները"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:353
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "Բոլոր գրառումներն ու մեկնաբանությունները վերանայվել են"
 
@@ -308,7 +331,7 @@ msgstr "Բոլոր գրառումներն ու մեկնաբանությունն�
 msgid "Allow anyone to search for {entityLabel}"
 msgstr "Թույլատրել բոլորին որոնել {entityLabel}"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "Թույլատրել բոլորին որոնել ֆորում"
 
@@ -346,17 +369,21 @@ msgstr "Ցանկացած մուտք գործած անձ"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Այս հոսքին բաժանորդագրված ամեն ինչ կդադարի ստանալ այն։ Դրանից հետո կարող եք պատճենել նոր URL։"
 
-#: src/features/forums/components/thread/thread-comment.tsx:453
-#: src/routes/_authenticated/$forum_.moderation.tsx:482
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "Հաստատել"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr "Հաստատված է"
 
 #. placeholder {0}: deleteTarget?.name
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Վստա՞հ եք, որ ուզում եք ջնջել «{0}»-ը։"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:679
 msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
 msgstr "Վստա՞հ եք, որ ուզում եք ջնջել «{title}»-ը։ Այս գործողությունը հնարավոր չէ հետարկել։"
 
@@ -368,11 +395,11 @@ msgstr "Վստա՞հ եք, որ ուզում եք ջնջել «{name}» սյու
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Վստա՞հ եք, որ ուզում եք ջնջել այս մեկնաբանությունը։ Սա կջնջի նաև բոլոր պատասխանները։"
 
-#: src/features/forums/components/thread/thread-comment.tsx:511
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Վստա՞հ եք, որ ուզում եք ջնջել այս կետը։ Այս գործողությունն անդառնալի է։"
 
-#: src/features/forums/components/thread/thread-content.tsx:433
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Վստա՞հ եք, որ ուզում եք ջնջել այս գրառումը։ Կջնջվեն նաև բոլոր մեկնաբանությունները։ Այս գործողությունը հնարավոր չէ հետարկել։"
 
@@ -392,11 +419,11 @@ msgstr "Վստա՞հ եք, որ ուզում եք հանձնվել։ {opponentNa
 msgid "Ascending"
 msgstr "Աճման կարգով"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "Կցել մեկնաբանության ֆայլեր"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "Կցել պատասխանի ֆայլեր"
 
@@ -429,15 +456,15 @@ msgstr "Հետ"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "Հետ դեպի ֆորում"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "Հետ դեպի ֆորումներ"
 
@@ -446,29 +473,45 @@ msgstr "Հետ դեպի ֆորումներ"
 msgid "Back to home"
 msgstr "Վերադառնալ տուն"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:508
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "Արգելել"
 
-#: src/features/forums/components/thread/thread-comment.tsx:495
-#: src/features/forums/components/thread/thread-content.tsx:417
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "Արգելել հեղինակին"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:767
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
+msgid "Ban authors"
+msgstr "Արգելել հեղինակներին"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "Արգելված"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Բաններ"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Բանները հեռացվեց"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Բանները թարմացվեց"
 
@@ -504,12 +547,12 @@ msgid "Browser notifications"
 msgstr "Բրաուզերի ծանուցումներ"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "{0}-ի կողմից"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1025
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "Հեղինակ՝ {0}"
 
@@ -535,18 +578,18 @@ msgstr "Տեսախցիկը հասանելի չէ"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:304
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Չեղարկել"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "Չեղարկել մեկնաբանությունը"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "Չեղարկել պատասխանը"
 
@@ -578,7 +621,7 @@ msgstr "Փոփոխվել է"
 msgid "Changed {field}"
 msgstr "Փոփոխվել է {field}"
 
-#: src/features/forums/components/forum-overview.tsx:153
+#: src/features/forums/components/forum-overview.tsx:157
 msgid "Check back later for new content"
 msgstr "Ստուգեք ավելի ուշ՝ նոր բովանդակության համար"
 
@@ -599,7 +642,7 @@ msgstr "Ընտրեք խաղ կողագոտուց կամ սկսեք նորը։"
 msgid "Choose language"
 msgstr "Ընտրել լեզուն"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -693,7 +736,7 @@ msgstr "Հարմարավետ"
 msgid "Command Palette"
 msgstr "Հրամանների վահանակ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:760
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "Մեկնաբանել"
 
@@ -702,15 +745,23 @@ msgstr "Մեկնաբանել"
 msgid "Comment actions"
 msgstr "Մեկնաբանության գործողություններ"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "Մեկնաբանությունը հաստատվեց"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "Մեկնաբանությունը ջնջվեց"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "Մեկնաբանությունների սահմանաչափ"
 
@@ -718,19 +769,19 @@ msgstr "Մեկնաբանությունների սահմանաչափ"
 msgid "Comment on this image…"
 msgstr "Մեկնաբանել այս պատկերը…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "Մեկնաբանությունը հրապարակվեց"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "Մեկնաբանությունը հեռացվեց"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "Մեկնաբանությունը վերականգնվեց"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "Մեկնաբանությունը թարմացվեց"
 
@@ -743,8 +794,8 @@ msgstr "Մեկնաբանել, քվեարկել և դիտել"
 msgid "Comments"
 msgstr "Մեկնաբանություններ"
 
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+#. placeholder {0}: data.comments.count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:419
 msgid "Comments ({0})"
 msgstr "Մեկնաբանություններ ({0})"
 
@@ -773,12 +824,12 @@ msgstr "Միացված"
 msgid "Connecting..."
 msgstr "Միանում է..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "Բովանդակություն"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "Շեմից ցածր օգտատերերի բովանդակությունը պետք է հաստատվի"
 
@@ -850,16 +901,16 @@ msgstr "Ստեղծել"
 msgid "Create {entityLabel}"
 msgstr "Ստեղծել {entityLabel}"
 
-#: src/features/forums/components/forum-overview.tsx:106
+#: src/features/forums/components/forum-overview.tsx:109
 msgid "Create a new forum"
 msgstr "Ստեղծել նոր ֆորում"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Ստեղծել նոր գրառում"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "Ստեղծել ֆորում"
 
@@ -877,7 +928,7 @@ msgstr "Ստեղծված"
 msgid "Created {field}"
 msgstr "Ստեղծվել է {field}"
 
-#: src/hooks/use-forums-queries.ts:81
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "Ֆորումը ստեղծվում է..."
 
@@ -907,7 +958,7 @@ msgstr "Տվյալների կոնֆլիկտ"
 msgid "Date"
 msgstr "Ամսաթիվ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "օրեր"
 
@@ -919,7 +970,7 @@ msgstr "Մերժել"
 msgid "Default"
 msgstr "Լռելյայն"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "Լռելյայն հաշիվ"
 
@@ -940,13 +991,13 @@ msgstr "Լռելյայն տեսակավորում"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:680
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
-#: src/features/forums/components/thread/thread-comment.tsx:440
-#: src/features/forums/components/thread/thread-comment.tsx:512
-#: src/features/forums/components/thread/thread-content.tsx:354
-#: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "Ջնջել"
 
@@ -959,7 +1010,7 @@ msgid "Delete column"
 msgstr "Ջնջել սյունակը"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:510
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Ջնջել մեկնաբանությունը"
 
@@ -967,12 +1018,12 @@ msgstr "Ջնջել մեկնաբանությունը"
 msgid "Delete field"
 msgstr "Ջնջել դաշտը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "Ջնջել ֆորումը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "Ջնջե՞լ ֆորումը։"
 
@@ -980,9 +1031,9 @@ msgstr "Ջնջե՞լ ֆորումը։"
 msgid "Delete game?"
 msgstr "Ջնջե՞լ խաղը։"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:494
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:499
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:678
 msgid "Delete item"
 msgstr "Ջնջել կետը"
 
@@ -996,7 +1047,7 @@ msgstr "Ջնջել տարբերակը"
 msgid "Delete option {0}"
 msgstr "Ջնջել {0} տարբերակը"
 
-#: src/features/forums/components/thread/thread-content.tsx:432
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "Ջնջել գրառումը"
 
@@ -1016,7 +1067,7 @@ msgstr "Ջնջվել է"
 msgid "Deleted {field}"
 msgstr "Ջնջվել է {field}"
 
-#: src/hooks/use-forums-queries.ts:97
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "Ֆորումը ջնջվում է..."
 
@@ -1055,15 +1106,15 @@ msgstr "Հայտնաբերել վեբ բրաուզերից"
 msgid "Directory"
 msgstr "Տեղեկագիրք"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "Անջատված է"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Հրաժարվել"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Հրաժարվե՞լ սևագրից։"
 
@@ -1074,12 +1125,12 @@ msgstr "Անջատված"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:80
 #: ../../../lib/web/src/components/restore-banner.tsx:86
-#: src/routes/_authenticated/$forum_.moderation.tsx:711
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "Հեռացնել"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "Հեռացնել բաններն"
 
@@ -1092,7 +1143,7 @@ msgid "Does not match the required pattern"
 msgstr "Չի համապատասխանում պահանջվող ձևանմուշին"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:503
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Կատարված է"
@@ -1118,8 +1169,8 @@ msgstr "Դիսլեքսիայի հարմար"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:434
-#: src/features/forums/components/thread/thread-content.tsx:348
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "Խմբագրել"
 
@@ -1149,8 +1200,8 @@ msgstr "Խմբագրել տարբերակը"
 msgid "Edit option {0}"
 msgstr "Խմբագրել տարբերակ {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "Խմբագրել գրառումը"
 
@@ -1170,7 +1221,7 @@ msgstr "Էլ․ փոստ"
 msgid "Email code"
 msgstr "Էլ․ փոստի կոդ"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Մուտքագրեք պաստառի տեքստը (markdown-ը աջակցվում է)..."
 
@@ -1182,11 +1233,11 @@ msgstr "Մուտքագրեք ձեր էլ. փոստից ստացած կոդը"
 msgid "Enter your authenticator code"
 msgstr "Մուտքագրեք ձեր նույնականացուցիչի կոդը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "Էնտիտետի ID"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:389
 msgid "Error"
 msgstr "Սխալ"
 
@@ -1217,24 +1268,16 @@ msgstr "Չհաջողվեց ավելացնել հաշիվը"
 msgid "Failed to add tag"
 msgstr "Չհաջողվեց ավելացնել պիտակը"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Չհաջողվեց կարգավորել հետաքրքրությունը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:233
-msgid "Failed to approve items"
-msgstr "Չհաջողվեց հաստատել տարրերը"
-
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Չհաջողվեց արգելափակել օգտատիրոջը"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:301
-msgid "Failed to ban users"
-msgstr "Չհաջողվեց արգելափակել օգտատերերին"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1245,7 +1288,7 @@ msgstr "Չհաջողվեց մաքրել պահված գրառումները"
 msgid "Failed to copy"
 msgstr "Չհաջողվեց պատճենել"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "Ֆորումը ստեղծել չհաջողվեց"
 
@@ -1266,7 +1309,7 @@ msgstr "Չհաջողվեց ջնջել կցորդը"
 msgid "Failed to delete comment"
 msgstr "Չհաջողվեց ջնջել մեկնաբանությունը"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "Ֆորումը ջնջել չհաջողվեց"
 
@@ -1282,27 +1325,32 @@ msgstr "Չհաջողվեց ստանալ RSS տոկենը"
 msgid "Failed to load"
 msgstr "Չհաջողվեց բեռնել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "Չհաջողվեց բեռնել մուտքի կանոնները"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Չհաջողվեց բեռնել պաստառը"
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "Չհաջողվեց բեռնել ֆորումը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "Չհաջողվեց բեռնել ֆորումի կարգավորումները"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "Չհաջողվեց բեռնել ֆորումները"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "Չհաջողվեց բեռնել խմբերը"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:68
+#: ../../../lib/web/src/components/audit-timeline.tsx:70
 msgid "Failed to load history"
 msgstr "Չհաջողվեց բեռնել պատմությունը"
 
@@ -1310,20 +1358,20 @@ msgstr "Չհաջողվեց բեռնել պատմությունը"
 msgid "Failed to load image"
 msgstr "Չհաջողվեց բեռնել պատկերը"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:390
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:393
 msgid "Failed to load item"
 msgstr "Չհաջողվեց բեռնել տարրը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "Չհաջողվեց բեռնել մոդերացիայի մատյանը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "Չհաջողվեց բեռնել մոդերացիայի հերթը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "Չհաջողվեց բեռնել մոդերացիայի կարգավորումները"
 
@@ -1336,11 +1384,11 @@ msgstr "Չհաջողվեց բեռնել հուշումները"
 msgid "Failed to load recommended forums"
 msgstr "Չհաջողվեց բեռնել խորհուրդ տրվող ֆորումները"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:546
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "Չհաջողվեց բեռնել զեկույցները"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:916
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "Չհաջողվեց բեռնել սահմանափակումները"
 
@@ -1356,28 +1404,20 @@ msgstr "Չհաջողվեց տեղափոխել"
 msgid "Failed to mute user"
 msgstr "Չհաջողվեց անձայնեցնել օգտատիրոջը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:284
-msgid "Failed to mute users"
-msgstr "Չհաջողվեց անձայնեցնել օգտատերերին"
-
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Չհաջողվեց հրապարակել մեկնաբանությունը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:255
-msgid "Failed to reject items"
-msgstr "Չհաջողվեց մերժել տարրերը"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "Չհաջողվեց հեռացնել մուտքը"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Չհաջողվեց հեռացնել հետաքրքրությունը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:933
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "Չհաջողվեց հեռացնել սահմանափակումը"
 
@@ -1385,7 +1425,7 @@ msgstr "Չհաջողվեց հեռացնել սահմանափակումը"
 msgid "Failed to remove saved post"
 msgstr "Չհաջողվեց հեռացնել պահված գրառումը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "Չհաջողվեց վերանվանել ֆորումը"
 
@@ -1393,7 +1433,7 @@ msgstr "Չհաջողվեց վերանվանել ֆորումը"
 msgid "Failed to reset prompt"
 msgstr "Չհաջողվեց զրոյացնել հուշումը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:563
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "Չհաջողվեց լուծել զեկույցը"
 
@@ -1405,7 +1445,7 @@ msgstr "RSS մուտքի չեղարկումը ձախողվեց"
 msgid "Failed to save"
 msgstr "Չհաջողվեց պահպանել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "Չհաջողվեց պահպանել մոդերացիայի կարգավորումները"
 
@@ -1422,36 +1462,36 @@ msgstr "Չհաջողվեց պահպանել հուշումը"
 msgid "Failed to search forums"
 msgstr "Չհաջողվեց որոնել ֆորումները"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "Չհաջողվեց որոնել օգտատերերին"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "Չհաջողվեց սահմանել մուտքի մակարդակը"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Չհաջողվեց բաժանորդագրվել"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Չհաջողվեց ապաբաժանորդագրվել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "Չհաջողվեց թարմացնել մուտքի մակարդակը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "Չհաջողվեց թարմացնել AI կարգավորումները"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Չհաջողվեց թարմացնել պաստառը"
 
@@ -1470,12 +1510,12 @@ msgstr "Չհաջողվեց վերբեռնել կցորդը"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "Ֆայլեր"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "Զտված ըստ պիտակի՝"
 
@@ -1484,7 +1524,7 @@ msgstr "Զտված ըստ պիտակի՝"
 msgid "Find forums"
 msgstr "Գտնել ֆորումներ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "Մատնահետք"
 
@@ -1500,26 +1540,26 @@ msgstr "Դրոշներ"
 msgid "Flat"
 msgstr "Հարթ"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
+#: src/features/forums/components/create-forum-dialog.tsx:53
 msgid "forum"
 msgstr "ֆորում"
 
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "Ֆորում"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "Ֆորումը ստեղծվեց"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "Ֆորումը ջնջվեց"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "Ֆորումն այլևս հասանելի չէ"
 
@@ -1527,28 +1567,29 @@ msgstr "Ֆորումն այլևս հասանելի չէ"
 msgid "Forum link"
 msgstr "Ֆորումի հղում"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "Ֆորումի անունը պարտադիր է"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "Ֆորումը չի գտնվել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "Ֆորումը վերանվանվեց"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "Ֆորումի կարգավորումների բաժիններ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "Ֆորումն անհասանելի է"
 
 #: src/components/layout/forums-layout.tsx:123
-#: src/features/forums/components/forum-overview.tsx:100
+#: src/features/forums/components/forum-overview.tsx:103
 #: src/features/forums/pages/forums-list-page.tsx:45
 #: src/features/forums/pages/forums-list-page.tsx:130
 msgid "Forums"
@@ -1593,16 +1634,16 @@ msgid "Group: {0}"
 msgstr "Խումբ՝ {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:777
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "Ոտնձգություն"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:778
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "Ատելության խոսք"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:61
+#: ../../../lib/web/src/components/audit-timeline.tsx:63
 msgid "History"
 msgstr "Պատմություն"
 
@@ -1621,7 +1662,7 @@ msgstr "Թեժ"
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "Ինքնություն"
 
@@ -1658,7 +1699,7 @@ msgstr "Հետաքրքրությունը բարձրացվեց"
 msgid "Interest reduced"
 msgstr "Հետաքրքրությունը նվազեցվեց"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Հետաքրքրությունը հեռացվեց"
@@ -1675,7 +1716,7 @@ msgstr "Անվավեր ամսաթիվ"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Կարծես թե ձեր փնտրած էջը <0/>գոյություն չունի կամ հեռացվել է։"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:449
 msgid "Item details"
 msgstr "Տարրի մանրամասներ"
 
@@ -1724,11 +1765,11 @@ msgstr "Բեռնել ավելին"
 msgid "Loading content…"
 msgstr "Բովանդակությունը բեռնվում է…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:373
 msgid "Loading item"
 msgstr "Տարրը բեռնվում է"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:374
 msgid "Loading item details"
 msgstr "Տարրի մանրամասները բեռնվում են"
 
@@ -1737,15 +1778,16 @@ msgstr "Տարրի մանրամասները բեռնվում են"
 msgid "Loading..."
 msgstr "Բեռնվում է..."
 
-#: src/features/forums/components/thread/thread-content.tsx:383
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "Կողպել"
 
-#: src/features/forums/components/thread/thread-content.tsx:170
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "Կողպված"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "Մատյան"
 
@@ -1779,7 +1821,7 @@ msgstr "Ձեռքով"
 msgid "Mark all as read"
 msgstr "Նշել բոլորը կարդացված"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown-ը աջակցվում է"
 
@@ -1820,7 +1862,7 @@ msgid "Minimum length"
 msgstr "Նվազագույն երկարություն"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:780
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "Ապատեղեկատվություն"
 
@@ -1833,17 +1875,17 @@ msgid "Moderate, post, comment, vote, and view"
 msgstr "Մոդերացնել, գրառել, մեկնաբանել, քվեարկել և դիտել"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:100
-#: src/routes/_authenticated/$forum_.moderation.tsx:105
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
 #: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Մոդերացիայի բաժիններ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:352
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "Մոդերացիայի հերթը դատարկ է"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:114
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "Մոդերացիայի բաժիններ"
 
@@ -1853,10 +1895,10 @@ msgstr "Երկուշաբթի"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:417
-#: src/features/forums/components/thread/thread-comment.tsx:423
-#: src/features/forums/components/thread/thread-content.tsx:335
-#: src/features/forums/components/thread/thread-content.tsx:342
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "Լրացուցիչ ընտրանքներ"
 
@@ -1868,16 +1910,27 @@ msgstr "Տեղափոխվել է"
 msgid "Moved {field}"
 msgstr "Տեղափոխվել է {field}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "Անձայնեցնել"
 
-#: src/features/forums/components/thread/thread-comment.tsx:487
-#: src/features/forums/components/thread/thread-content.tsx:411
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "Անձայնեցնել հեղինակին"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:768
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "Լռեցված"
 
@@ -1886,12 +1939,12 @@ msgstr "Լռեցված"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "Անուն"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "Անունը չի կարող պարունակել < կամ > նիշերը"
 
@@ -1900,7 +1953,7 @@ msgid "Name is required"
 msgstr "Անունը պարտադիր է"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "Անունը պետք է լինի 1000 նիշից ոչ ավելի"
 
@@ -1911,7 +1964,7 @@ msgstr "Ցանցի սխալ"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "Նոր"
 
@@ -1920,18 +1973,18 @@ msgstr "Նոր"
 msgid "New game"
 msgstr "Նոր խաղ"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "Նոր գրառում"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "Նոր թեմաները պետք է հաստատվեն"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "Նոր օգտատիրոջ շեմը՝"
 
@@ -1943,10 +1996,6 @@ msgstr "Հաջորդ նկարը"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Ավելացնելու {parentClassNames} չկան"
-
-#: src/routes/_authenticated/$forum_.moderation.tsx:643
-msgid "No {statusFilter} reports found"
-msgstr "{statusFilter} հաղորդումներ չեն գտնվել"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
@@ -1989,9 +2038,13 @@ msgstr "Տարրերի տեսակներ դեռ հնարավոր չէ ստեղծ�
 msgid "No matching objects"
 msgstr "Համապատասխան օբյեկտներ չկան"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:847
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "Մոդերացիայի ակտիվություն չկա"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2002,15 +2055,23 @@ msgstr "Մարդիկ չեն գտնվել"
 msgid "No places found"
 msgstr "Վայրեր չեն գտնվել"
 
-#: src/features/forums/components/forum-overview.tsx:152
+#: src/features/forums/components/forum-overview.tsx:156
 msgid "No posts in this forum yet"
 msgstr "Այս ֆորումում դեռ գրառումներ չկան"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:642
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "Հաղորդումներ չկան"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:978
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "Սահմանափակումներ չկան"
 
@@ -2045,7 +2106,7 @@ msgstr "Չկարդացված ծանուցումներ չկան"
 msgid "No users found"
 msgstr "Օգտատերեր չեն գտնվել"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:979
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "Որևէ օգտատեր չի լռեցվել կամ արգելափակվել"
 
@@ -2057,10 +2118,10 @@ msgstr "Դիտումներ չկան"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:565
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:578
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:579
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:583
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2106,7 +2167,7 @@ msgid "Number"
 msgstr "Թիվ"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:781
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "Թեմայից դուրս"
 
@@ -2115,11 +2176,11 @@ msgid "On"
 msgstr "Միացված"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:439
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "Պատկերի վերաբերյալ՝ {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:256
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "Այս պատկերի վերաբերյալ"
 
@@ -2172,7 +2233,7 @@ msgstr "Տարբերակներ"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:782
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "Այլ"
 
@@ -2181,8 +2242,8 @@ msgid "Owner"
 msgstr "Սեփականատեր"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:577
 msgid "Parent"
 msgstr "Ծնող"
 
@@ -2207,24 +2268,24 @@ msgstr "Անցաբանալիները հասանելի չեն այս դիտարկ
 msgid "Pattern (regex)"
 msgstr "Ձևանմուշ (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:275
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:751
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "Սպասվող"
 
-#: src/features/forums/components/thread/thread-content.tsx:158
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "Սպասվող հաստատման"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:411
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "Սպասվող մեկնաբանություններ ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:366
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "Սպասվող գրառումներ ({0})"
 
@@ -2232,16 +2293,17 @@ msgstr "Սպասվող գրառումներ ({0})"
 msgid "People"
 msgstr "Մարդիկ"
 
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "Լուսանկարներ և տեսանյութեր"
 
-#: src/features/forums/components/thread/thread-content.tsx:396
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Ամրացնել"
 
-#: src/features/forums/components/thread/thread-content.tsx:176
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Ամրացված"
 
@@ -2267,27 +2329,27 @@ msgstr "Խնդրում ենք կրկին փորձել։"
 msgid "Please wait a moment and try again."
 msgstr "Խնդրում ենք մի փոքր սպասել և նորից փորձել։"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:759
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "Գրառում"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Հնարավոր չեղավ պահպանել գրառումը — վերնագիրը կամ բովանդակությունն անվավեր է"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "Հնարավոր չեղավ պահպանել գրառումը ֆորումի սերվերում"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "Գրառումը ջնջվեց"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "Գրառումների սահմանաչափ"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "Գրառումը կողպված է"
 
@@ -2295,31 +2357,31 @@ msgstr "Գրառումը կողպված է"
 msgid "Post not found"
 msgstr "Գրառումը չի գտնվել"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "Գրառումը ամրացվեց"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "Գրառումը հրապարակվեց։"
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "Գրառումը հեռացվեց"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "Գրառումը վերականգնվեց"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "Գրառման կողպումը հանվեց"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "Գրառման ամրացումը հանվեց"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "Գրառումը թարմացվեց"
 
@@ -2327,7 +2389,7 @@ msgstr "Գրառումը թարմացվեց"
 msgid "Post, comment, vote, and view"
 msgstr "Գրառել, մեկնաբանել, քվեարկել և դիտել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "գրառում"
 
@@ -2339,11 +2401,11 @@ msgstr "Գրառումներ"
 msgid "Posts and comments"
 msgstr "Գրառումներ և մեկնաբանություններ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "Նախնական մոդերացիա"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Կանխել սպամը՝ սահմանափակելով, թե որքան հաճախ կարող են օգտատերերը գրառել"
 
@@ -2365,15 +2427,15 @@ msgstr "Մշակվում է…"
 msgid "Prompt saved"
 msgstr "Հուշումը պահպանվեց"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:416
 msgid "Properties"
 msgstr "Հատկություններ"
 
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Հրապարակել գրառումը"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Հրապարակում..."
 
@@ -2381,7 +2443,7 @@ msgstr "Հրապարակում..."
 msgid "Push notification"
 msgstr "Push ծանուցում"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:78
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "Հերթ"
 
@@ -2389,7 +2451,7 @@ msgstr "Հերթ"
 msgid "Raised"
 msgstr "Բարձրացված"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "Արագության սահմանափակում"
 
@@ -2401,12 +2463,12 @@ msgstr "Նորից կապեք ձեր հաշիվները այս սերվերու�
 msgid "Re-register your passkeys on this server"
 msgstr "Կրկին գրանցեք ձեր անցաբառերը այս սերվերում"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "Պատճառ՝"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:883
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "Պատճառ՝ {0}"
 
@@ -2439,12 +2501,12 @@ msgstr "Վերահղում մուտք էջ։"
 msgid "Reduce interest"
 msgstr "Նվազեցնել հետաքրքրությունը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:470
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "Մերժել"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:245
-#: src/routes/_authenticated/$forum_.moderation.tsx:249
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "Մերժված է"
 
@@ -2472,12 +2534,12 @@ msgstr "Համապատասխանություն՝ {relevance}, հետաքրքրո
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:468
-#: src/features/forums/components/thread/thread-comment.tsx:526
-#: src/features/forums/components/thread/thread-content.tsx:370
-#: src/features/forums/components/thread/thread-content.tsx:448
-#: src/routes/_authenticated/$forum_.moderation.tsx:722
-#: src/routes/_authenticated/$forum_.moderation.tsx:1041
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "Հեռացնել"
 
@@ -2501,7 +2563,7 @@ msgstr "Հեռացնե՞լ «{0}»-ի մուտքի կանոնը։"
 msgid "Remove access?"
 msgstr "Հեռացնե՞լ մուտքը։"
 
-#: src/features/forums/components/thread/thread-comment.tsx:524
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Հեռացնել մեկնաբանությունը"
 
@@ -2524,17 +2586,18 @@ msgstr "Հեռացնել տարրը"
 msgid "Remove link"
 msgstr "Հեռացնել հղումը"
 
-#: src/features/forums/components/thread/thread-content.tsx:446
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "Հեռացնել գրառումը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "Հեռացնել այս ֆորումը ձեր կողաձողից։"
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:281
-#: src/features/forums/components/thread/thread-content.tsx:164
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "Հեռացված է"
 
@@ -2559,36 +2622,36 @@ msgstr "Վերանվանել սյունակը"
 msgid "Rename this board column"
 msgstr "Վերանվանել այս տախտակի սյունակը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "Ֆորումը վերանվանվում է..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "պատասխան"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "Պատասխանները պետք է հաստատվեն"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:399
-#: src/features/forums/components/thread/thread-comment.tsx:405
-#: src/features/forums/components/thread/thread-content.tsx:314
-#: src/features/forums/components/thread/thread-content.tsx:323
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "Պատասխանել"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:547
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "Պատասխանել {0}-ին..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:476
-#: src/features/forums/components/thread/thread-content.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "Հաղորդել"
 
@@ -2600,37 +2663,37 @@ msgstr "Հաղորդել մեկնաբանության մասին"
 msgid "Report post"
 msgstr "Հաղորդել գրառման մասին"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:560
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "Հաղորդումը լուծվեց"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "Հաղորդումը ներկայացվեց"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:700
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "Հաղորդել է {0}-ը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "Հաղորդումներ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "Պահանջել հաստատում նախքան բովանդակությունը տեսանելի դառնալը"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "Պահանջել հաստատում նոր մեկնաբանությունների համար"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "Պահանջել հաստատում նոր գրառումների համար"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "Պահանջել հաստատում նոր օգտատերերի համար"
 
@@ -2654,21 +2717,33 @@ msgstr "Հանձնվե՞լ խաղում։"
 msgid "Resigning..."
 msgstr "Հանձնվում..."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:633
-#: src/routes/_authenticated/$forum_.moderation.tsx:752
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "Լուծվել է"
 
-#: src/features/forums/components/thread/thread-comment.tsx:462
-#: src/features/forums/components/thread/thread-content.tsx:364
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "Վերականգնել"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:930
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr "Սահմանափակված"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "Սահմանափակումը հեռացվեց"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "Սահմանափակումներ"
 
@@ -2719,16 +2794,16 @@ msgstr "Շաբաթ"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "Պահպանել"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "Պահպանել փոփոխությունները"
 
@@ -2749,12 +2824,12 @@ msgid "Saved posts cleared"
 msgstr "Պահպանված գրառումները մաքրվեցին"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Պահպանում..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Միավորի հուշում"
 
@@ -2822,7 +2897,7 @@ msgstr "Որոնում..."
 msgid "Searching..."
 msgstr "Որոնում..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "վայրկյան"
 
@@ -2858,7 +2933,7 @@ msgstr "Ընտրել մուտքի կանոնը"
 msgid "Select account type"
 msgstr "Ընտրել հաշվի տեսակը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "Ընտրել բոլորը"
 
@@ -2874,7 +2949,7 @@ msgstr "Ընտրել գտնվելու վայրը"
 msgid "Select next card"
 msgstr "Ընտրել հաջորդ քարտը"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:456
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "Ընտրել ոչ մեկը"
 
@@ -2935,13 +3010,13 @@ msgstr "Սահմանել ծագումը և նպատակակետը"
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
 #: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "Կարգավորումներ"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:769
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "Թաքուն արգելափակված"
 
@@ -3005,7 +3080,7 @@ msgid "Spacious"
 msgstr "Ընդարձակ"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "Սպամ"
 
@@ -3013,8 +3088,8 @@ msgstr "Սպամ"
 msgid "Start the discussion by adding the first comment."
 msgstr "Սկսեք քննարկումը՝ ավելացնելով առաջին մեկնաբանությունը:"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Stop watching"
 msgstr "Դադարեցնել դիտումը"
 
@@ -3022,11 +3097,11 @@ msgstr "Դադարեցնել դիտումը"
 msgid "Subject"
 msgstr "Թեմա"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "Ներկայացնել մեկնաբանությունը"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "Ներկայացնել պատասխանը"
 
@@ -3043,7 +3118,7 @@ msgstr "Ներկայացվում է..."
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "Բաժանորդագրվել"
 
@@ -3057,14 +3132,14 @@ msgstr "Բաժանորդագրված"
 msgid "Subscribed to {0}"
 msgstr "Բաժանորդագրված է {0}-ին"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "Բաժանորդագրված է ֆորումին"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Բաժանորդագրվում է..."
@@ -3077,13 +3152,13 @@ msgstr "Կիրակի"
 msgid "Switch to view 1-9"
 msgstr "Անցնել 1-9 տեսքի"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:107
+#: ../../../lib/web/src/components/audit-timeline.tsx:109
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 #: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
 msgstr "Համակարգ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "Թեգ"
 
@@ -3095,7 +3170,7 @@ msgstr "Թեգն արդեն գոյություն ունի"
 msgid "Tag must be 50 characters or less"
 msgstr "Պիտակը պետք է լինի առավելագույնը 50 նիշ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "Թեգի հուշում"
 
@@ -3154,7 +3229,7 @@ msgstr "Հնարավոր չեղավ գտնել պահանջված բովանդա
 msgid "The server returned a web page instead of data."
 msgstr "Սերվերը տվյալների փոխարեն վերադարձրեց վեբ էջ։"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:848
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "Մոդերացիայի գործողություններ դեռ չեն արձանագրվել"
 
@@ -3162,11 +3237,16 @@ msgstr "Մոդերացիայի գործողություններ դեռ չեն ա
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Այս հավելվածին թույլատրված չէ օգտագործել ձեր անցաբանալին։ Թույլատրեք այն Կարգավորումներում՝ Թույլտվություններ բաժնում։"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "Այս ֆորումը հնարավոր չէ բեռնել հենց հիմա:"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Այս ֆորումը կարող է ջնջվել, կամ դուք մուտք չունեք դրան:"
 
@@ -3178,7 +3258,7 @@ msgstr "Սա ընդմիշտ կջնջի խաղը և դրա չաթը։ Այս գո
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Այս գրառումը կարող է ջնջվել կամ չգոյանալ:"
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "Այս գրառումն արդեն ուղարկվել է"
 
@@ -3186,16 +3266,16 @@ msgstr "Այս գրառումն արդեն ուղարկվել է"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Սա հեռացնում է բոլոր գրառումները ձեր պահվածների ցանկից։ Սա հնարավոր չէ հետարկել։"
 
-#: src/features/forums/components/thread/thread-comment.tsx:525
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Սա կթաքցնի մեկնաբանությունը սովորական օգտատերերից: Մոդերատորները դեռ կարող են տեսնել այն և հետագայում վերականգնել:"
 
-#: src/features/forums/components/thread/thread-content.tsx:447
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Սա կթաքցնի գրառումը սովորական օգտատերերից: Մոդերատորները դեռ կարող են տեսնել այն և հետագայում վերականգնել:"
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Սա մշտապես կջնջի \"{0}\"-ը և նրա բոլոր գրառումները և մեկնաբանությունները: Այս գործողությունը հնարավոր չէ չեղարկել:"
 
@@ -3207,8 +3287,8 @@ msgstr "Թեմա"
 msgid "Thursday"
 msgstr "Հինգշաբթի"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "Վերնագիր"
 
@@ -3323,47 +3403,59 @@ msgstr "API-ի անսպասելի սխալ"
 msgid "United States"
 msgstr "Միացյալ Նահանգներ"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/audit-timeline.tsx:105
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
 #: ../../../lib/web/src/components/tree-row.tsx:219
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/features/forums/components/forum-overview.tsx:84
+#: src/features/forums/components/forum-overview.tsx:87
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:668
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "Անհայտ"
 
-#: src/features/forums/components/thread/thread-content.tsx:377
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "Բացել կողպեքը"
 
-#: src/features/forums/components/thread/thread-content.tsx:390
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "Ապամրացնել"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/features/forums/pages/entity-forum-page.tsx:358
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "Բաժանորդագրությունից հրաժարվել"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "Հրաժարվել ֆորումի բաժանորդագրությունից"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "Unsubscribe from forum?"
 msgstr "Չեղարկե՞լ բաժանորդագրությունը ֆորումից։"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "Բաժանորդագրությունից հրաժարված"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "Հրաժարվում է բաժանորդագրությունից..."
 
@@ -3440,7 +3532,7 @@ msgstr "Տեսանյութի դիտիչ՝ {0}"
 msgid "View all notifications"
 msgstr "Դիտել բոլոր ծանուցումները"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:450
 msgid "View and edit item details"
 msgstr "Դիտել և խմբագրել տարրի մանրամասները"
 
@@ -3452,12 +3544,12 @@ msgstr "Դիտել կառավարակետերը"
 msgid "View only"
 msgstr "Միայն դիտել"
 
-#: src/features/forums/components/thread/thread-comment.tsx:257
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "Դիտել այն պատկերը, որին վերաբերում է այս մեկնաբանությունը"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:779
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "Բռնություն"
 
@@ -3469,8 +3561,8 @@ msgstr "Ձայնագրումն այս դիտարկիչում չի աջակցվո
 msgid "Vote and view"
 msgstr "Քվեարկել և դիտել"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Watch"
 msgstr "Հետևել"
 
@@ -3492,22 +3584,30 @@ msgstr "Մենք հաստատման կոդ ուղարկեցինք <0>{0}</0> հ�
 msgid "Wednesday"
 msgstr "Չորեքշաբթի"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "Պատուհանի տևողություն"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Դուք արդեն բաժանորդագրված եք այս ֆորումին"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Դուք գրառումներ եք կատարում չափազանց արագ — խնդրում ենք սպասել և կրկին փորձել"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "Դուք սահմանափակված եք այս ֆորումում գրառումներ կատարելու համար"
 
@@ -3515,15 +3615,19 @@ msgstr "Դուք սահմանափակված եք այս ֆորումում գր�
 msgid "You do not have access to this section."
 msgstr "Այս բաժինը ձեզ հասանելի չէ։"
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "Դուք չունեք թույլտվություն այս ֆորումում գրառումներ կատարելու համար"
 
-#: src/features/forums/components/forum-overview.tsx:101
+#: src/features/forums/components/forum-overview.tsx:104
 msgid "You have no forums yet."
 msgstr "Դուք դեռ չունեք ֆորումներ:"
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:356
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Դուք այլևս թարմացումներ չեք ստանա այս ֆորումից։ Կարող եք ցանկացած պահի կրկին բաժանորդագրվել։"
 
@@ -3531,14 +3635,18 @@ msgstr "Դուք այլևս թարմացումներ չեք ստանա այս ֆ
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ձեր հաշիվը տեղափոխվել է այստեղ {source}-ից: Մինչ այն ջնջեք այնտեղ, հաղորդագրություններն ու ծանուցումները կարող են հասնել երկու սերվերներին, ձեր որոշ բովանդակություն դեռ մատուցվում է հին սերվերից, և հետևորդները կարող են մի քանի րոպե պահանջել ձեզ գտնելու համար:"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Ձեր կցորդները կկորչեն։"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:274
+msgid "Your changes will be lost."
+msgstr "Քո փոփոխությունները կկորչեն։"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Ձեր տեքստը և կցորդները կկորչեն։"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Քո տեքստը կկորչի։"
