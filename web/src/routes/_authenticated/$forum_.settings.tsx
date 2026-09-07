@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
@@ -34,7 +34,7 @@ import {
   useAccounts,
   getAppPath,
   GeneralError,
-  Textarea,
+  BannerSection,
   Select,
   SelectContent,
   SelectItem,
@@ -42,9 +42,11 @@ import {
   SelectValue, naturalCompare,
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
+  DISALLOWED_NAME_CHARS,
 } from '@mochi/web'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Check, Gavel } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
+import { clampLimitWindow } from '@/features/forums/moderation'
 import { toError, getErrorStatus } from '@/lib/errors'
 import { useQueryClient } from '@tanstack/react-query'
 import {
@@ -52,13 +54,9 @@ import {
   useDeleteForum,
   useForumAccess,
   useForumInfo,
-  useForumsList,
   useGroups,
   useUserSearch,
 } from '@/hooks/use-forums-queries'
-
-// Characters disallowed in forum names (matches backend validation)
-const DISALLOWED_NAME_CHARS = /[<>\r\n]/
 
 type TabId = 'general' | 'access' | 'moderation'
 
@@ -135,8 +133,6 @@ function ForumSettingsPage() {
     refetch: refreshForumInfo,
   } = useForumInfo(forumId)
 
-  // Keep forums list refetch for sidebar updates after changes
-  const { refetch: refreshForums } = useForumsList()
   const queryClient = useQueryClient()
 
   const deleteForum = useDeleteForum(() => {
@@ -181,14 +177,14 @@ function ForumSettingsPage() {
         success: t`Unsubscribed`,
         error: (e) => getErrorMessage(e, t`Failed to unsubscribe`),
       })
-      void refreshForums()
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       void navigate({ to: '/' })
     } catch {
       // toast already shown
     } finally {
       setIsUnsubscribing(false)
     }
-  }, [selectedForum, isUnsubscribing, refreshForums, navigate, t])
+  }, [selectedForum, isUnsubscribing, queryClient, navigate, t])
 
   const handleDelete = useCallback(() => {
     if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending) return
@@ -204,11 +200,10 @@ function ForumSettingsPage() {
       error: (e) => getErrorMessage(e, t`Failed to rename forum`),
     })
     // Invalidate every forum query: the sidebar reads the info-list query,
-    // which the two refetches below do not cover.
+    // which the refetch below does not cover.
     void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     void refreshForumInfo()
-    void refreshForums()
-  }, [selectedForum, refreshForumInfo, refreshForums, queryClient, t])
+  }, [selectedForum, refreshForumInfo, queryClient, t])
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)
@@ -379,7 +374,7 @@ function GeneralTab({
       </Section>
 
       {forum.can_manage && (
-        <BannerSection forumId={forum.id} />
+        <BannerSection entityId={forum.id} api={forumsApi} />
       )}
 
       {forum.can_manage && (
@@ -434,78 +429,6 @@ function GeneralTab({
         handleConfirm={onDelete}
       />
     </div>
-  )
-}
-
-function BannerSection({ forumId }: { forumId: string }) {
-  const { t } = useLingui()
-  const [banner, setBannerText] = useState('')
-  const [loaded, setLoaded] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [dirty, setDirty] = useState(false)
-  const savedRef = useRef('')
-
-  useEffect(() => {
-    forumsApi.getBanner(forumId).then((res) => {
-      const text = res.data?.banner ?? ''
-      setBannerText(text)
-      savedRef.current = text
-      setLoaded(true)
-    }).catch(() => setLoaded(true))
-  }, [forumId])
-
-  const handleSave = async () => {
-    setSaving(true)
-    try {
-      await forumsApi.setBanner(forumId, banner)
-      savedRef.current = banner
-      setDirty(false)
-      toast.success(banner ? t`Banner updated` : t`Banner removed`)
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to update banner`))
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  if (!loaded) return null
-
-  return (
-    <Section title={t`Banner`} description={t`Optional markdown banner shown at the top of your forum.`}>
-      <div className="space-y-3 max-w-lg">
-        <Textarea
-          value={banner}
-          onChange={(e) => { setBannerText(e.target.value); setDirty(e.target.value !== savedRef.current) }}
-          placeholder={t`Enter banner text (markdown supported)...`}
-          rows={3}
-          className="font-mono text-sm"
-        />
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            onClick={() => void handleSave()}
-            disabled={saving || !dirty}
-          >
-            {saving ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              <Check className="size-4" />
-            )}
-            <Trans>Save</Trans>
-          </Button>
-          {banner && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => { setBannerText(''); setDirty('' !== savedRef.current) }}
-              disabled={saving}
-            >
-              <Trans>Clear</Trans>
-            </Button>
-          )}
-        </div>
-      </div>
-    </Section>
   )
 }
 
@@ -784,7 +707,8 @@ interface ModerationTabProps {
   forumId: string
 }
 
-function ModerationTab({ forumId }: ModerationTabProps) {
+// Exported for the revert-on-rejection test; not a route entry point.
+export function ModerationTab({ forumId }: ModerationTabProps) {
   const { t } = useLingui()
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
@@ -817,23 +741,37 @@ function ModerationTab({ forumId }: ModerationTabProps) {
     void loadSettings()
   }, [loadSettings])
 
-  const saveSettings = useCallback(async (newSettings: typeof settings) => {
-    try {
-      await forumsApi.saveModerationSettings({
-        forum: forumId,
-        ...newSettings,
-      })
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
-    }
-  }, [forumId, t])
+  const saveSettings = useCallback(
+    async (newSettings: typeof settings, previous: typeof settings) => {
+      try {
+        await forumsApi.saveModerationSettings({
+          forum: forumId,
+          ...newSettings,
+        })
+      } catch (error) {
+        // The server rejected the change: roll the optimistic value back so the
+        // UI reflects what is actually stored, not the value that failed.
+        setSettings(previous)
+        toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
+      }
+    },
+    [forumId, t]
+  )
 
-  const updateSetting = <K extends keyof typeof settings>(key: K, value: typeof settings[K]) => {
-    setSettings((s) => {
-      const newSettings = { ...s, [key]: value }
-      void saveSettings(newSettings)
-      return newSettings
-    })
+  const updateSetting = <K extends keyof typeof settings>(
+    key: K,
+    value: (typeof settings)[K]
+  ) => {
+    const nextValue =
+      key === 'limit_window'
+        ? (clampLimitWindow(value as number) as (typeof settings)[K])
+        : value
+    const previous = settings
+    const next = { ...previous, [key]: nextValue }
+    // Apply optimistically, then fire the network save OUTSIDE the state
+    // updater: the updater must stay a pure function React can call twice.
+    setSettings(next)
+    void saveSettings(next, previous)
   }
 
   if (isLoading) {

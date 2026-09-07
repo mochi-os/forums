@@ -6,8 +6,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { X } from 'lucide-react'
 import { shellStorage, Tooltip, TooltipContent, TooltipTrigger } from '@mochi/web'
+import { useLingui } from '@lingui/react/macro'
 import { sanitizeHtml } from '../utils'
-import { t } from '@lingui/core/macro'
 
 interface ForumBannerProps {
   bannerHtml: string
@@ -23,6 +23,7 @@ function hashContent(content: string): string {
 }
 
 export function ForumBanner({ bannerHtml, forumId }: ForumBannerProps) {
+  const { t } = useLingui()
   const storageKey = `forums-banner-dismissed-${forumId}`
   const contentHash = hashContent(bannerHtml)
   const [dismissed, setDismissed] = useState<boolean | null>(null)

@@ -4,7 +4,6 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 // Comment Types - Based on forums.yaml specification
-import type { Forum } from './forums'
 
 export interface Comment {
   id: string
@@ -25,20 +24,6 @@ export interface Comment {
   attachment_caption?: string
   can_vote: boolean
   can_comment: boolean
-}
-
-export interface GetNewCommentParams {
-  forum: string
-  post: string
-  parent?: string
-}
-
-export interface GetNewCommentResponse {
-  data: {
-    forum: Forum
-    post: string
-    parent?: string
-  }
 }
 
 export interface CreateCommentRequest {

@@ -3,16 +3,12 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import {
-  createFileRoute,
-  redirect,
-  useNavigate,
-  useRouter,
-} from '@tanstack/react-router'
+import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 import { z } from 'zod'
 import { t } from '@lingui/core/macro'
 import { useLingui } from '@lingui/react/macro'
-import { GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
+import { EmptyState, GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
+import { Hash } from 'lucide-react'
 import { getErrorStatus } from '@/lib/errors'
 import { EntityForumPage } from '@/features/forums/pages'
 import forumsApi from '@/api/forums'
@@ -23,26 +19,45 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/_authenticated/$forum/')({
   validateSearch: searchSchema,
-  loader: async ({ params }) => {
+  // Carry ?server= into the loader so a remote forum is viewed against the
+  // right server rather than being looked up locally and 404ing.
+  loaderDeps: ({ search: { server } }) => ({ server }),
+  loader: async ({ params, deps }) => {
     const { forum: forumId } = params
+    const { server } = deps
     let response: Awaited<ReturnType<typeof forumsApi.viewForum>>
     try {
-      response = await forumsApi.viewForum({ forum: forumId })
+      response = await forumsApi.viewForum({ forum: forumId, server })
     } catch (error) {
       const status = getErrorStatus(error)
       if (status === 403 || status === 404) {
-        throw redirect({ to: '/' })
+        // Don't bounce silently to the forums list: show a message so the user
+        // knows the forum is gone or out of reach, rather than being teleported.
+        return {
+          forum: null,
+          permissions: undefined,
+          server,
+          notFound: true,
+          loaderError: null,
+        }
       }
       return {
         forum: null,
         permissions: undefined,
-        loaderError:
-          getErrorMessage(error, t`Failed to load forum`),
+        server,
+        notFound: false,
+        loaderError: getErrorMessage(error, t`Failed to load forum`),
       }
     }
 
     if (!response.data?.forum) {
-      throw redirect({ to: '/' })
+      return {
+        forum: null,
+        permissions: undefined,
+        server,
+        notFound: true,
+        loaderError: null,
+      }
     }
 
     return {
@@ -53,6 +68,8 @@ export const Route = createFileRoute('/_authenticated/$forum/')({
         manage: response.data.can_manage ?? false,
         moderate: response.data.can_moderate ?? false,
       },
+      server,
+      notFound: false,
       loaderError: null,
     }
   },
@@ -73,17 +90,32 @@ function ForumPage() {
           back={{ label: t`Back to forums`, onFallback: () => navigate({ to: '/' }) }}
         />
         <Main>
-          <GeneralError
-            error={new Error(data.loaderError ?? 'Failed to load forum')}
-            minimal
-            mode='inline'
-            reset={() => void router.invalidate()}
-          />
+          {data.notFound ? (
+            <div className='py-12'>
+              <EmptyState
+                icon={Hash}
+                title={t`Forum not found`}
+                description={t`This forum may have been deleted or you don't have access to it.`}
+              />
+            </div>
+          ) : (
+            <GeneralError
+              error={new Error(data.loaderError ?? t`Failed to load forum`)}
+              minimal
+              mode='inline'
+              reset={() => void router.invalidate()}
+            />
+          )}
         </Main>
       </>
     )
   }
 
-  return <EntityForumPage forum={data.forum} permissions={data.permissions} />
+  return (
+    <EntityForumPage
+      forum={data.forum}
+      permissions={data.permissions}
+      server={data.server}
+    />
+  )
 }
-

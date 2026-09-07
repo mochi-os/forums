@@ -65,6 +65,8 @@ export interface ThreadCommentProps {
   /** Reports how many files this comment has staged while it is the one being
    * replied to, so the thread can warn before a switch throws them away. */
   onReplyFilesChange?: (count: number) => void
+  /** The remote server of a `?server=` view, carried into the attachment routes. */
+  server?: string
   onReplySubmit?: (commentId: string, files?: File[]) => void | Promise<void>
   /** Byte progress of an in-flight reply upload */
   replyProgress?: Upload | null
@@ -100,6 +102,7 @@ export function ThreadComment({
   replyValue = '',
   onReplyChange,
   onReplyFilesChange,
+  server,
   onReplySubmit,
   replyProgress,
   onReplyCancel,
@@ -125,6 +128,8 @@ export function ThreadComment({
   const [editBody, setEditBody] = useState('')
   const [deleting, setDeleting] = useState(false)
   const [removing, setRemoving] = useState(false)
+  const [muting, setMuting] = useState(false)
+  const [banning, setBanning] = useState(false)
   // The reply box owns its files and reports their count; the guard here and
   // the one above (which arbitrates switching between reply boxes) read it.
   const [replyFileCount, setReplyFileCount] = useState(0)
@@ -336,7 +341,7 @@ export function ThreadComment({
         </p>
       )}
 
-      <CommentAttachments attachments={comment.attachments} />
+      <CommentAttachments attachments={comment.attachments} forumId={comment.forum} server={server} />
 
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
@@ -480,17 +485,13 @@ export function ThreadComment({
                       <DropdownMenuSeparator />
                     )}
                     {canModerate && onMuteAuthor && (
-                      <DropdownMenuItem
-                        onClick={() => onMuteAuthor(comment.member)}
-                      >
+                      <DropdownMenuItem onClick={() => setMuting(true)}>
                         <VolumeX className='me-2 size-4' />
                         <Trans>Mute author</Trans>
                       </DropdownMenuItem>
                     )}
                     {canModerate && onBanAuthor && (
-                      <DropdownMenuItem
-                        onClick={() => onBanAuthor(comment.member)}
-                      >
+                      <DropdownMenuItem onClick={() => setBanning(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
@@ -530,6 +531,33 @@ export function ThreadComment({
         }}
       />
 
+      {/* Mute confirmation dialog */}
+      <ConfirmDialog
+        open={muting}
+        onOpenChange={setMuting}
+        title={t`Mute author`}
+        desc={t`Mute ${comment.name}? They will not be able to post or comment in this forum until unmuted.`}
+        confirmText={t`Mute`}
+        handleConfirm={() => {
+          onMuteAuthor?.(comment.member)
+          setMuting(false)
+        }}
+      />
+
+      {/* Ban confirmation dialog */}
+      <ConfirmDialog
+        open={banning}
+        onOpenChange={setBanning}
+        title={t`Ban author`}
+        desc={t`Ban ${comment.name} from this forum? They will no longer be able to participate.`}
+        confirmText={t`Ban`}
+        destructive
+        handleConfirm={() => {
+          onBanAuthor?.(comment.member)
+          setBanning(false)
+        }}
+      />
+
       {discardDialog}
 
       {/* Reply input */}
@@ -557,6 +585,7 @@ export function ThreadComment({
         <ThreadComment
           key={reply.id}
           comment={reply}
+          server={server}
           onOpenAttachment={onOpenAttachment}
           onVote={onVote}
           canVote={canVote}
