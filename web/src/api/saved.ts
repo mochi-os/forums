@@ -33,4 +33,11 @@ export const savedApi = createSavedApi<Post, SavedItem>({
   appName: 'forums',
   endpoints: endpoints.saved,
   toSnapshot,
+  // Forums unwraps plainly. Feeds routes the same envelope through
+  // toDataResponse, which logs an unexpected shape; forums has no equivalent
+  // yet, so the context label goes unused here rather than being invented.
+  unwrap: (payload) =>
+    payload && typeof payload === 'object' && 'data' in payload
+      ? payload.data
+      : payload,
 })
