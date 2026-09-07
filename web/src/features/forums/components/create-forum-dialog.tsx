@@ -5,9 +5,9 @@
 
 import { useNavigate } from '@tanstack/react-router'
 import { CreateEntityDialog, type CreateEntityValues } from '@mochi/web'
+import { useLingui } from '@lingui/react/macro'
 import { MessageSquare } from 'lucide-react'
 import { useCreateForum } from '@/hooks/use-forums-queries'
-import { t } from '@lingui/core/macro'
 
 type CreateForumDialogProps = {
   open?: boolean
@@ -20,6 +20,7 @@ export function CreateForumDialog({
   onOpenChange,
   hideTrigger,
 }: CreateForumDialogProps) {
+  const { t } = useLingui()
   const navigate = useNavigate()
   const createForum = useCreateForum()
 
@@ -49,7 +50,7 @@ export function CreateForumDialog({
       onOpenChange={onOpenChange}
       icon={MessageSquare}
       title={t`Create forum`}
-      entityLabel={t`Forum`}
+      entityLabel={t`forum`}
       showPrivacyToggle
       privacyLabel={t`Allow anyone to search for forum`}
       onSubmit={handleSubmit}

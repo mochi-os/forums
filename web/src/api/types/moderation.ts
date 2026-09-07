@@ -171,7 +171,6 @@ export interface RestrictUserRequest {
   user: string
   type: RestrictionType
   reason?: string
-  expires?: number
 }
 
 export interface RestrictUserResponse {

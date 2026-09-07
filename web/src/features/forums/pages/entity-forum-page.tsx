@@ -29,12 +29,10 @@ import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
-  useForumsList,
+  useForumMembership,
   useCreatePost,
   useSubscribeForum,
   useUnsubscribeForum,
-  selectForums,
-  selectDefaultSort,
   useSetForumSort,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
@@ -48,12 +46,15 @@ interface EntityForumPageProps {
   forum: Forum
   permissions?: ForumPermissions
   entityContext?: boolean
+  /** Remote server of a `?server=` view, carried into the posts query. */
+  server?: string
 }
 
 export function EntityForumPage({
   forum,
   permissions,
   entityContext = false,
+  server,
 }: EntityForumPageProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
@@ -79,17 +80,18 @@ export function EntityForumPage({
 
   const { openPostDialog } = useSidebarContext()
 
-  // Clear notifications for this forum
+  // Clear notifications for this forum. Fire-and-forget: a failed clear is a
+  // background nicety, not something to surface to the reader, but the
+  // rejection must still be caught so it isn't an unhandled promise rejection.
   useEffect(() => {
     if (isLoggedIn) {
-      forumsApi.clearNotifications(forum.fingerprint ?? forum.id)
+      void forumsApi.clearNotifications(forum.fingerprint ?? forum.id).catch(() => {})
     }
   }, [forum.id, forum.fingerprint, isLoggedIn])
 
-  // Queries for subscription status
-  const { data: forumsData, isLoading: isLoadingForums } = useForumsList()
-  const forums = useMemo(() => selectForums(forumsData), [forumsData])
-  const defaultSort = selectDefaultSort(forumsData)
+  // Subscription state and the default sort, from the information query the
+  // layout already holds rather than a listing of every forum's posts.
+  const { isSubscribed, defaultSort, isLoading: isLoadingForums } = useForumMembership(forum.id)
 
   // Adopt the global default once it loads, unless the user has overridden
   // (or this forum already has its own override from forum.sort).
@@ -125,7 +127,7 @@ export function EntityForumPage({
     hasAi,
     error: postsError,
     refetch,
-  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort })
+  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort, server })
 
   // Queue real-time new posts behind a "new posts available" pill instead of
   // injecting them while the user is reading.
@@ -233,7 +235,6 @@ export function EntityForumPage({
 
   // Use values from hook
   const canPost = forumData?.can_post ?? permissions?.post ?? false
-  const isSubscribed = !!forums.find((f) => f.id === forum.id)
   const isRemoteForum = !isSubscribed
   const canUnsubscribe = isSubscribed && !canManage
 

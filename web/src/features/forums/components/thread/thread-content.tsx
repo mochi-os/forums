@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { useState, useEffect, type MutableRefObject, type ReactNode } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
 import {
   ThumbsUp,
@@ -29,7 +29,6 @@ import { PostAttachments } from './post-attachments'
 import { PostTagsTooltip } from '../post-tags'
 import { SavedButton } from '../saved-button'
 import { embedVideos, sanitizeHtml } from '../../utils'
-import { t } from '@lingui/core/macro'
 
 interface ThreadContentProps {
   post: Post
@@ -103,9 +102,12 @@ export function ThreadContent({
   onMuteAuthor,
   onBanAuthor,
 }: ThreadContentProps) {
+  const { t } = useLingui()
   const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
+  const [muteDialogOpen, setMuteDialogOpen] = useState(false)
+  const [banDialogOpen, setBanDialogOpen] = useState(false)
 
   // Local vote state to prevent re-render flicker
   const [localVote, setLocalVote] = useState(post.user_vote || '')
@@ -406,13 +408,13 @@ export function ThreadContent({
                     )}
                     {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
                     {canModerate && onMuteAuthor && (
-                      <DropdownMenuItem onClick={onMuteAuthor}>
+                      <DropdownMenuItem onClick={() => setMuteDialogOpen(true)}>
                         <VolumeX className='me-2 size-4' />
                         <Trans>Mute author</Trans>
                       </DropdownMenuItem>
                     )}
                     {canModerate && onBanAuthor && (
-                      <DropdownMenuItem onClick={onBanAuthor}>
+                      <DropdownMenuItem onClick={() => setBanDialogOpen(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
@@ -449,6 +451,33 @@ export function ThreadContent({
         handleConfirm={() => {
           setRemoveDialogOpen(false)
           onRemove?.()
+        }}
+      />
+
+      {/* Mute confirmation dialog */}
+      <ConfirmDialog
+        open={muteDialogOpen}
+        onOpenChange={setMuteDialogOpen}
+        title={t`Mute author`}
+        desc={t`Mute ${post.name}? They will not be able to post or comment in this forum until unmuted.`}
+        confirmText={t`Mute`}
+        handleConfirm={() => {
+          setMuteDialogOpen(false)
+          onMuteAuthor?.()
+        }}
+      />
+
+      {/* Ban confirmation dialog */}
+      <ConfirmDialog
+        open={banDialogOpen}
+        onOpenChange={setBanDialogOpen}
+        title={t`Ban author`}
+        desc={t`Ban ${post.name} from this forum? They will no longer be able to participate.`}
+        confirmText={t`Ban`}
+        destructive
+        handleConfirm={() => {
+          setBanDialogOpen(false)
+          onBanAuthor?.()
         }}
       />
     </div>

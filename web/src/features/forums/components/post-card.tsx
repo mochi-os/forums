@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
+import { useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Trans } from '@lingui/react/macro'
 import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat, getAppPath } from '@mochi/web'
@@ -43,6 +44,12 @@ export function PostCard({
 }: PostCardProps) {
   const { formatTimestamp } = useFormat()
   const timestamp = formatTimestamp(post.created)
+  // Sanitising HTML is not free; the card re-renders on hover/selection state,
+  // so memoise on the raw markdown rather than re-running it every render.
+  const sanitizedBody = useMemo(
+    () => (post.body_markdown ? sanitizeHtml(post.body_markdown) : ''),
+    [post.body_markdown]
+  )
 
   const content = (
     <div className='relative space-y-3 p-4'>
@@ -104,7 +111,7 @@ export function PostCard({
       {post.body_markdown ? (
         <div
           className='text-foreground max-w-none text-sm leading-normal line-clamp-2 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:ps-6 [&_li]:my-0'
-          dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body_markdown) }}
+          dangerouslySetInnerHTML={{ __html: sanitizedBody }}
         />
       ) : (
         <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
