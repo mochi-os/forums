@@ -94,35 +94,35 @@ msgstr "Tên {entityLabel}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
-msgstr ""
+msgstr "{n, plural, other {Đã duyệt # mục}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:330
 msgid "{n, plural, one {Banned # user} other {Banned # users}}"
-msgstr ""
+msgstr "{n, plural, other {Đã cấm # người dùng}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:254
 msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
-msgstr ""
+msgstr "{n, plural, other {Không duyệt được # mục}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:331
 msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
-msgstr ""
+msgstr "{n, plural, other {Không cấm được # người dùng}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:311
 msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
-msgstr ""
+msgstr "{n, plural, other {Không tắt tiếng được # người dùng}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:276
 msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
-msgstr ""
+msgstr "{n, plural, other {Không từ chối được # mục}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "{n, plural, one {Muted # user} other {Muted # users}}"
-msgstr ""
+msgstr "{n, plural, other {Đã tắt tiếng # người dùng}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:275
 msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr ""
+msgstr "{n, plural, other {Đã từ chối # mục}}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -485,7 +485,7 @@ msgstr "Cấm"
 #: src/features/forums/components/thread/thread-comment.tsx:552
 #: src/features/forums/components/thread/thread-content.tsx:475
 msgid "Ban {0} from this forum? They will no longer be able to participate."
-msgstr ""
+msgstr "Cấm {0} khỏi diễn đàn này? Họ sẽ không thể tham gia nữa."
 
 #: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-comment.tsx:551
@@ -751,11 +751,11 @@ msgstr "Đã phê duyệt bình luận"
 
 #: src/hooks/use-forum-websocket.ts:74
 msgid "Comment couldn't be saved — it is invalid"
-msgstr ""
+msgstr "Không thể lưu bình luận — bình luận không hợp lệ"
 
 #: src/hooks/use-forum-websocket.ts:85
 msgid "Comment couldn't be saved on the forum server"
-msgstr ""
+msgstr "Không thể lưu bình luận trên máy chủ diễn đàn"
 
 #: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
@@ -1921,7 +1921,7 @@ msgstr "Tắt tiếng"
 #: src/features/forums/components/thread/thread-comment.tsx:539
 #: src/features/forums/components/thread/thread-content.tsx:462
 msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
-msgstr ""
+msgstr "Tắt tiếng {0}? Họ sẽ không thể đăng bài hoặc bình luận trong diễn đàn này cho đến khi được bật tiếng lại."
 
 #: src/features/forums/components/thread/thread-comment.tsx:490
 #: src/features/forums/components/thread/thread-comment.tsx:538
@@ -2044,7 +2044,7 @@ msgstr "Không có hoạt động kiểm duyệt"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "No pending reports found"
-msgstr ""
+msgstr "Không tìm thấy báo cáo đang chờ"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2065,11 +2065,11 @@ msgstr "Không có báo cáo"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "No reports found"
-msgstr ""
+msgstr "Không tìm thấy báo cáo"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:702
 msgid "No resolved reports found"
-msgstr ""
+msgstr "Không tìm thấy báo cáo đã giải quyết"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
@@ -2724,7 +2724,7 @@ msgstr "Đã giải quyết"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:817
 msgid "Resolved report"
-msgstr ""
+msgstr "Báo cáo đã giải quyết"
 
 #: src/features/forums/components/thread/thread-comment.tsx:467
 #: src/features/forums/components/thread/thread-content.tsx:366
@@ -2733,7 +2733,7 @@ msgstr "Khôi phục"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:809
 msgid "Restored"
-msgstr ""
+msgstr "Đã khôi phục"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:815
 msgid "Restricted"
@@ -3239,7 +3239,7 @@ msgstr "Ứng dụng này không được phép sử dụng passkey của bạn.
 
 #: src/hooks/use-forum-websocket.ts:78
 msgid "This comment was already submitted"
-msgstr ""
+msgstr "Bình luận này đã được gửi"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
@@ -3421,7 +3421,7 @@ msgstr "Mở khóa"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "Unlocked"
-msgstr ""
+msgstr "Đã mở khóa"
 
 #: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
@@ -3429,11 +3429,11 @@ msgstr "Bỏ ghim"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:814
 msgid "Unpinned"
-msgstr ""
+msgstr "Đã bỏ ghim"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "Unrestricted"
-msgstr ""
+msgstr "Đã bỏ hạn chế"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:358
@@ -3597,7 +3597,7 @@ msgstr "Bạn đã đăng ký diễn đàn này"
 
 #: src/hooks/use-forum-websocket.ts:70
 msgid "You are commenting too quickly — please wait and try again"
-msgstr ""
+msgstr "Bạn đang bình luận quá nhanh — vui lòng đợi rồi thử lại"
 
 #: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
@@ -3605,7 +3605,7 @@ msgstr "Bạn đang đăng quá nhanh — vui lòng đợi và thử lại"
 
 #: src/hooks/use-forum-websocket.ts:66
 msgid "You are restricted from commenting in this forum"
-msgstr ""
+msgstr "Bạn bị hạn chế bình luận trong diễn đàn này"
 
 #: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
@@ -3617,7 +3617,7 @@ msgstr "Bạn không có quyền truy cập vào phần này."
 
 #: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to comment in this forum"
-msgstr ""
+msgstr "Bạn không có quyền bình luận trong diễn đàn này"
 
 #: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"

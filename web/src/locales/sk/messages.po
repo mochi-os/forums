@@ -94,35 +94,35 @@ msgstr "Názov {entityLabel}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
-msgstr ""
+msgstr "{n, plural, one {Schválená # položka} few {Schválené # položky} many {Schválených # položky} other {Schválených # položiek}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:330
 msgid "{n, plural, one {Banned # user} other {Banned # users}}"
-msgstr ""
+msgstr "{n, plural, one {Zablokovaný # používateľ} few {Zablokovaní # používatelia} many {Zablokovaných # používateľa} other {Zablokovaných # používateľov}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:254
 msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
-msgstr ""
+msgstr "{n, plural, one {Nepodarilo sa schváliť # položku} few {Nepodarilo sa schváliť # položky} many {Nepodarilo sa schváliť # položky} other {Nepodarilo sa schváliť # položiek}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:331
 msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
-msgstr ""
+msgstr "{n, plural, one {Nepodarilo sa zablokovať # používateľa} few {Nepodarilo sa zablokovať # používateľov} many {Nepodarilo sa zablokovať # používateľa} other {Nepodarilo sa zablokovať # používateľov}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:311
 msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
-msgstr ""
+msgstr "{n, plural, one {Nepodarilo sa stlmiť # používateľa} few {Nepodarilo sa stlmiť # používateľov} many {Nepodarilo sa stlmiť # používateľa} other {Nepodarilo sa stlmiť # používateľov}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:276
 msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
-msgstr ""
+msgstr "{n, plural, one {Nepodarilo sa zamietnuť # položku} few {Nepodarilo sa zamietnuť # položky} many {Nepodarilo sa zamietnuť # položky} other {Nepodarilo sa zamietnuť # položiek}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "{n, plural, one {Muted # user} other {Muted # users}}"
-msgstr ""
+msgstr "{n, plural, one {Stlmený # používateľ} few {Stlmení # používatelia} many {Stlmených # používateľa} other {Stlmených # používateľov}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:275
 msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr ""
+msgstr "{n, plural, one {Zamietnutá # položka} few {Zamietnuté # položky} many {Zamietnutých # položky} other {Zamietnutých # položiek}}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -485,7 +485,7 @@ msgstr "Zablokovať"
 #: src/features/forums/components/thread/thread-comment.tsx:552
 #: src/features/forums/components/thread/thread-content.tsx:475
 msgid "Ban {0} from this forum? They will no longer be able to participate."
-msgstr ""
+msgstr "Zablokovať používateľa {0} na tomto fóre? Už sa nebude môcť zapájať."
 
 #: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-comment.tsx:551
@@ -751,11 +751,11 @@ msgstr "Komentár schválený"
 
 #: src/hooks/use-forum-websocket.ts:74
 msgid "Comment couldn't be saved — it is invalid"
-msgstr ""
+msgstr "Komentár sa nepodarilo uložiť — je neplatný"
 
 #: src/hooks/use-forum-websocket.ts:85
 msgid "Comment couldn't be saved on the forum server"
-msgstr ""
+msgstr "Komentár sa nepodarilo uložiť na serveri fóra"
 
 #: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
@@ -1921,7 +1921,7 @@ msgstr "Stlmiť"
 #: src/features/forums/components/thread/thread-comment.tsx:539
 #: src/features/forums/components/thread/thread-content.tsx:462
 msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
-msgstr ""
+msgstr "Stlmiť používateľa {0}? Kým stlmenie nezrušíte, nebude môcť v tomto fóre uverejňovať ani komentovať."
 
 #: src/features/forums/components/thread/thread-comment.tsx:490
 #: src/features/forums/components/thread/thread-comment.tsx:538
@@ -2044,7 +2044,7 @@ msgstr "Žiadna moderátorská aktivita"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "No pending reports found"
-msgstr ""
+msgstr "Nenašli sa žiadne čakajúce hlásenia"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2065,11 +2065,11 @@ msgstr "Žiadne hlásenia"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "No reports found"
-msgstr ""
+msgstr "Nenašli sa žiadne hlásenia"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:702
 msgid "No resolved reports found"
-msgstr ""
+msgstr "Nenašli sa žiadne vyriešené hlásenia"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
@@ -2724,7 +2724,7 @@ msgstr "Vyriešené"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:817
 msgid "Resolved report"
-msgstr ""
+msgstr "Vyriešené hlásenie"
 
 #: src/features/forums/components/thread/thread-comment.tsx:467
 #: src/features/forums/components/thread/thread-content.tsx:366
@@ -2733,7 +2733,7 @@ msgstr "Obnoviť"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:809
 msgid "Restored"
-msgstr ""
+msgstr "Obnovené"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:815
 msgid "Restricted"
@@ -3239,7 +3239,7 @@ msgstr "Táto aplikácia nemá povolenie používať váš prístupový kľúč.
 
 #: src/hooks/use-forum-websocket.ts:78
 msgid "This comment was already submitted"
-msgstr ""
+msgstr "Tento komentár už bol odoslaný"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
@@ -3421,7 +3421,7 @@ msgstr "Odomknúť"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "Unlocked"
-msgstr ""
+msgstr "Odomknuté"
 
 #: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
@@ -3429,11 +3429,11 @@ msgstr "Odopnúť"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:814
 msgid "Unpinned"
-msgstr ""
+msgstr "Odopnuté"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "Unrestricted"
-msgstr ""
+msgstr "Obmedzenie zrušené"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:358
@@ -3597,7 +3597,7 @@ msgstr "Už ste prihlásený na odber tohto fóra"
 
 #: src/hooks/use-forum-websocket.ts:70
 msgid "You are commenting too quickly — please wait and try again"
-msgstr ""
+msgstr "Komentujete príliš rýchlo — počkajte a skúste to znova"
 
 #: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
@@ -3605,7 +3605,7 @@ msgstr "Uverejňujete príliš rýchlo — počkajte a skúste to znova"
 
 #: src/hooks/use-forum-websocket.ts:66
 msgid "You are restricted from commenting in this forum"
-msgstr ""
+msgstr "Máte obmedzené komentovanie v tomto fóre"
 
 #: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
@@ -3617,7 +3617,7 @@ msgstr "Nemáte prístup k tejto sekcii."
 
 #: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to comment in this forum"
-msgstr ""
+msgstr "Nemáte povolenie komentovať v tomto fóre"
 
 #: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"

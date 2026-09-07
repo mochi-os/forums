@@ -94,35 +94,35 @@ msgstr "{entityLabel}名称"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
-msgstr ""
+msgstr "{n, plural, other {已批准 # 个项目}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:330
 msgid "{n, plural, one {Banned # user} other {Banned # users}}"
-msgstr ""
+msgstr "{n, plural, other {已封禁 # 位用户}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:254
 msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
-msgstr ""
+msgstr "{n, plural, other {# 个项目批准失败}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:331
 msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
-msgstr ""
+msgstr "{n, plural, other {# 位用户封禁失败}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:311
 msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
-msgstr ""
+msgstr "{n, plural, other {# 位用户禁言失败}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:276
 msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
-msgstr ""
+msgstr "{n, plural, other {# 个项目拒绝失败}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "{n, plural, one {Muted # user} other {Muted # users}}"
-msgstr ""
+msgstr "{n, plural, other {已禁言 # 位用户}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:275
 msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr ""
+msgstr "{n, plural, other {已拒绝 # 个项目}}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -485,7 +485,7 @@ msgstr "封禁"
 #: src/features/forums/components/thread/thread-comment.tsx:552
 #: src/features/forums/components/thread/thread-content.tsx:475
 msgid "Ban {0} from this forum? They will no longer be able to participate."
-msgstr ""
+msgstr "要将 {0} 从该论坛封禁吗？该用户将无法再参与。"
 
 #: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-comment.tsx:551
@@ -751,11 +751,11 @@ msgstr "评论已批准"
 
 #: src/hooks/use-forum-websocket.ts:74
 msgid "Comment couldn't be saved — it is invalid"
-msgstr ""
+msgstr "评论未能保存——内容无效"
 
 #: src/hooks/use-forum-websocket.ts:85
 msgid "Comment couldn't be saved on the forum server"
-msgstr ""
+msgstr "评论未能保存到论坛服务器"
 
 #: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
@@ -1921,7 +1921,7 @@ msgstr "禁言"
 #: src/features/forums/components/thread/thread-comment.tsx:539
 #: src/features/forums/components/thread/thread-content.tsx:462
 msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
-msgstr ""
+msgstr "要将 {0} 禁言吗？在解除禁言前，该用户将无法在该论坛发帖或评论。"
 
 #: src/features/forums/components/thread/thread-comment.tsx:490
 #: src/features/forums/components/thread/thread-comment.tsx:538
@@ -2044,7 +2044,7 @@ msgstr "无审核活动"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "No pending reports found"
-msgstr ""
+msgstr "未找到待处理的举报"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2065,11 +2065,11 @@ msgstr "无举报"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "No reports found"
-msgstr ""
+msgstr "未找到举报"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:702
 msgid "No resolved reports found"
-msgstr ""
+msgstr "未找到已解决的举报"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
@@ -2724,7 +2724,7 @@ msgstr "已解决"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:817
 msgid "Resolved report"
-msgstr ""
+msgstr "已解决的举报"
 
 #: src/features/forums/components/thread/thread-comment.tsx:467
 #: src/features/forums/components/thread/thread-content.tsx:366
@@ -2733,7 +2733,7 @@ msgstr "恢复"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:809
 msgid "Restored"
-msgstr ""
+msgstr "已恢复"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:815
 msgid "Restricted"
@@ -3239,7 +3239,7 @@ msgstr "此应用无权使用您的通行密钥。请在“设置”的“权限
 
 #: src/hooks/use-forum-websocket.ts:78
 msgid "This comment was already submitted"
-msgstr ""
+msgstr "该评论已提交"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
@@ -3421,7 +3421,7 @@ msgstr "解锁"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "Unlocked"
-msgstr ""
+msgstr "已解锁"
 
 #: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
@@ -3429,11 +3429,11 @@ msgstr "取消置顶"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:814
 msgid "Unpinned"
-msgstr ""
+msgstr "已取消置顶"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "Unrestricted"
-msgstr ""
+msgstr "已解除限制"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:358
@@ -3597,7 +3597,7 @@ msgstr "您已订阅此论坛"
 
 #: src/hooks/use-forum-websocket.ts:70
 msgid "You are commenting too quickly — please wait and try again"
-msgstr ""
+msgstr "你评论得太快了——请稍候再试"
 
 #: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
@@ -3605,7 +3605,7 @@ msgstr "您发帖太快 — 请稍等再试"
 
 #: src/hooks/use-forum-websocket.ts:66
 msgid "You are restricted from commenting in this forum"
-msgstr ""
+msgstr "你被限制在该论坛发表评论"
 
 #: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
@@ -3617,7 +3617,7 @@ msgstr "您无权访问此部分。"
 
 #: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to comment in this forum"
-msgstr ""
+msgstr "你没有权限在该论坛发表评论"
 
 #: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"

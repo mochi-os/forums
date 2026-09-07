@@ -94,35 +94,35 @@ msgstr "Назва {entityLabel}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
-msgstr ""
+msgstr "{n, plural, one {Схвалено # елемент} few {Схвалено # елементи} many {Схвалено # елементів} other {Схвалено # елемента}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:330
 msgid "{n, plural, one {Banned # user} other {Banned # users}}"
-msgstr ""
+msgstr "{n, plural, one {Заблоковано # користувача} few {Заблоковано # користувачів} many {Заблоковано # користувачів} other {Заблоковано # користувача}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:254
 msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
-msgstr ""
+msgstr "{n, plural, one {Не вдалося схвалити # елемент} few {Не вдалося схвалити # елементи} many {Не вдалося схвалити # елементів} other {Не вдалося схвалити # елемента}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:331
 msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
-msgstr ""
+msgstr "{n, plural, one {Не вдалося заблокувати # користувача} few {Не вдалося заблокувати # користувачів} many {Не вдалося заблокувати # користувачів} other {Не вдалося заблокувати # користувача}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:311
 msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
-msgstr ""
+msgstr "{n, plural, one {Не вдалося приглушити # користувача} few {Не вдалося приглушити # користувачів} many {Не вдалося приглушити # користувачів} other {Не вдалося приглушити # користувача}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:276
 msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
-msgstr ""
+msgstr "{n, plural, one {Не вдалося відхилити # елемент} few {Не вдалося відхилити # елементи} many {Не вдалося відхилити # елементів} other {Не вдалося відхилити # елемента}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "{n, plural, one {Muted # user} other {Muted # users}}"
-msgstr ""
+msgstr "{n, plural, one {Приглушено # користувача} few {Приглушено # користувачів} many {Приглушено # користувачів} other {Приглушено # користувача}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:275
 msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr ""
+msgstr "{n, plural, one {Відхилено # елемент} few {Відхилено # елементи} many {Відхилено # елементів} other {Відхилено # елемента}}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -485,7 +485,7 @@ msgstr "Заблокувати"
 #: src/features/forums/components/thread/thread-comment.tsx:552
 #: src/features/forums/components/thread/thread-content.tsx:475
 msgid "Ban {0} from this forum? They will no longer be able to participate."
-msgstr ""
+msgstr "Заблокувати {0} на цьому форумі? Користувач більше не зможе брати участь."
 
 #: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-comment.tsx:551
@@ -751,11 +751,11 @@ msgstr "Коментар схвалено"
 
 #: src/hooks/use-forum-websocket.ts:74
 msgid "Comment couldn't be saved — it is invalid"
-msgstr ""
+msgstr "Не вдалося зберегти коментар — він недійсний"
 
 #: src/hooks/use-forum-websocket.ts:85
 msgid "Comment couldn't be saved on the forum server"
-msgstr ""
+msgstr "Не вдалося зберегти коментар на сервері форуму"
 
 #: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
@@ -1921,7 +1921,7 @@ msgstr "Заглушити"
 #: src/features/forums/components/thread/thread-comment.tsx:539
 #: src/features/forums/components/thread/thread-content.tsx:462
 msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
-msgstr ""
+msgstr "Приглушити {0}? Користувач не зможе публікувати дописи чи коментувати на цьому форумі, доки приглушення не буде знято."
 
 #: src/features/forums/components/thread/thread-comment.tsx:490
 #: src/features/forums/components/thread/thread-comment.tsx:538
@@ -2044,7 +2044,7 @@ msgstr "Немає активності з модерації"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "No pending reports found"
-msgstr ""
+msgstr "Скарг в очікуванні не знайдено"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2065,11 +2065,11 @@ msgstr "Немає скарг"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "No reports found"
-msgstr ""
+msgstr "Скарг не знайдено"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:702
 msgid "No resolved reports found"
-msgstr ""
+msgstr "Вирішених скарг не знайдено"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
@@ -2724,7 +2724,7 @@ msgstr "Вирішено"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:817
 msgid "Resolved report"
-msgstr ""
+msgstr "Вирішена скарга"
 
 #: src/features/forums/components/thread/thread-comment.tsx:467
 #: src/features/forums/components/thread/thread-content.tsx:366
@@ -2733,7 +2733,7 @@ msgstr "Відновити"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:809
 msgid "Restored"
-msgstr ""
+msgstr "Відновлено"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:815
 msgid "Restricted"
@@ -3239,7 +3239,7 @@ msgstr "Цьому застосунку не дозволено використ
 
 #: src/hooks/use-forum-websocket.ts:78
 msgid "This comment was already submitted"
-msgstr ""
+msgstr "Цей коментар уже надіслано"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
@@ -3421,7 +3421,7 @@ msgstr "Розблокувати"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "Unlocked"
-msgstr ""
+msgstr "Розблоковано"
 
 #: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
@@ -3429,11 +3429,11 @@ msgstr "Відкріпити"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:814
 msgid "Unpinned"
-msgstr ""
+msgstr "Відкріплено"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "Unrestricted"
-msgstr ""
+msgstr "Обмеження знято"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:358
@@ -3597,7 +3597,7 @@ msgstr "Ви вже підписані на цей форум"
 
 #: src/hooks/use-forum-websocket.ts:70
 msgid "You are commenting too quickly — please wait and try again"
-msgstr ""
+msgstr "Ви коментуєте занадто швидко — зачекайте та спробуйте ще раз"
 
 #: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
@@ -3605,7 +3605,7 @@ msgstr "Ви публікуєте надто швидко — зачекайте
 
 #: src/hooks/use-forum-websocket.ts:66
 msgid "You are restricted from commenting in this forum"
-msgstr ""
+msgstr "Вам обмежено коментування на цьому форумі"
 
 #: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
@@ -3617,7 +3617,7 @@ msgstr "Ви не маєте доступу до цього розділу."
 
 #: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to comment in this forum"
-msgstr ""
+msgstr "У вас немає дозволу коментувати на цьому форумі"
 
 #: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"

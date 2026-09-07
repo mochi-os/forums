@@ -94,35 +94,35 @@ msgstr "{entityLabel} nosaukums"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:253
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
-msgstr ""
+msgstr "{n, plural, zero {Apstiprināti # vienumu} one {Apstiprināts # vienums} other {Apstiprināti # vienumi}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:330
 msgid "{n, plural, one {Banned # user} other {Banned # users}}"
-msgstr ""
+msgstr "{n, plural, zero {Bloķēti # lietotāju} one {Bloķēts # lietotājs} other {Bloķēti # lietotāji}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:254
 msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
-msgstr ""
+msgstr "{n, plural, zero {Neizdevās apstiprināt # vienumu} one {Neizdevās apstiprināt # vienumu} other {Neizdevās apstiprināt # vienumus}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:331
 msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
-msgstr ""
+msgstr "{n, plural, zero {Neizdevās bloķēt # lietotāju} one {Neizdevās bloķēt # lietotāju} other {Neizdevās bloķēt # lietotājus}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:311
 msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
-msgstr ""
+msgstr "{n, plural, zero {Neizdevās apklusināt # lietotāju} one {Neizdevās apklusināt # lietotāju} other {Neizdevās apklusināt # lietotājus}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:276
 msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
-msgstr ""
+msgstr "{n, plural, zero {Neizdevās noraidīt # vienumu} one {Neizdevās noraidīt # vienumu} other {Neizdevās noraidīt # vienumus}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:310
 msgid "{n, plural, one {Muted # user} other {Muted # users}}"
-msgstr ""
+msgstr "{n, plural, zero {Apklusināti # lietotāju} one {Apklusināts # lietotājs} other {Apklusināti # lietotāji}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:275
 msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr ""
+msgstr "{n, plural, zero {Noraidīti # vienumu} one {Noraidīts # vienums} other {Noraidīti # vienumi}}"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -485,7 +485,7 @@ msgstr "Bloķēt"
 #: src/features/forums/components/thread/thread-comment.tsx:552
 #: src/features/forums/components/thread/thread-content.tsx:475
 msgid "Ban {0} from this forum? They will no longer be able to participate."
-msgstr ""
+msgstr "Bloķēt {0} šajā forumā? Viņi vairs nevarēs piedalīties."
 
 #: src/features/forums/components/thread/thread-comment.tsx:496
 #: src/features/forums/components/thread/thread-comment.tsx:551
@@ -751,11 +751,11 @@ msgstr "Komentārs apstiprināts"
 
 #: src/hooks/use-forum-websocket.ts:74
 msgid "Comment couldn't be saved — it is invalid"
-msgstr ""
+msgstr "Komentāru neizdevās saglabāt — tas nav derīgs"
 
 #: src/hooks/use-forum-websocket.ts:85
 msgid "Comment couldn't be saved on the forum server"
-msgstr ""
+msgstr "Komentāru neizdevās saglabāt foruma serverī"
 
 #: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
@@ -1921,7 +1921,7 @@ msgstr "Apklusināt"
 #: src/features/forums/components/thread/thread-comment.tsx:539
 #: src/features/forums/components/thread/thread-content.tsx:462
 msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
-msgstr ""
+msgstr "Apklusināt {0}? Viņi nevarēs publicēt ierakstus vai komentēt šajā forumā, kamēr apklusinājums netiks noņemts."
 
 #: src/features/forums/components/thread/thread-comment.tsx:490
 #: src/features/forums/components/thread/thread-comment.tsx:538
@@ -2044,7 +2044,7 @@ msgstr "Nav moderācijas aktivitātes"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:700
 msgid "No pending reports found"
-msgstr ""
+msgstr "Gaidošie ziņojumi nav atrasti"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
 #: ../../../lib/web/src/components/person-picker.tsx:71
@@ -2065,11 +2065,11 @@ msgstr "Nav ziņojumu"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:703
 msgid "No reports found"
-msgstr ""
+msgstr "Ziņojumi nav atrasti"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:702
 msgid "No resolved reports found"
-msgstr ""
+msgstr "Atrisināti ziņojumi nav atrasti"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
@@ -2724,7 +2724,7 @@ msgstr "Atrisināts"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:817
 msgid "Resolved report"
-msgstr ""
+msgstr "Atrisināts ziņojums"
 
 #: src/features/forums/components/thread/thread-comment.tsx:467
 #: src/features/forums/components/thread/thread-content.tsx:366
@@ -2733,7 +2733,7 @@ msgstr "Atjaunot"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:809
 msgid "Restored"
-msgstr ""
+msgstr "Atjaunots"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:815
 msgid "Restricted"
@@ -3239,7 +3239,7 @@ msgstr "Šai lietotnei nav atļauts izmantot jūsu piekļuves atslēgu. Atļauji
 
 #: src/hooks/use-forum-websocket.ts:78
 msgid "This comment was already submitted"
-msgstr ""
+msgstr "Šis komentārs jau ir nosūtīts"
 
 #: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
@@ -3421,7 +3421,7 @@ msgstr "Atbloķēt"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:812
 msgid "Unlocked"
-msgstr ""
+msgstr "Atbloķēts"
 
 #: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
@@ -3429,11 +3429,11 @@ msgstr "Atspraust"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:814
 msgid "Unpinned"
-msgstr ""
+msgstr "Atsprausts"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:816
 msgid "Unrestricted"
-msgstr ""
+msgstr "Ierobežojums noņemts"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:358
@@ -3597,7 +3597,7 @@ msgstr "Jūs jau abonējat šo forumu"
 
 #: src/hooks/use-forum-websocket.ts:70
 msgid "You are commenting too quickly — please wait and try again"
-msgstr ""
+msgstr "Jūs komentējat pārāk ātri — lūdzu, uzgaidiet un mēģiniet vēlreiz"
 
 #: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
@@ -3605,7 +3605,7 @@ msgstr "Jūs publicējat pārāk ātri — lūdzu, uzgaidiet un mēģiniet vēlr
 
 #: src/hooks/use-forum-websocket.ts:66
 msgid "You are restricted from commenting in this forum"
-msgstr ""
+msgstr "Jums ir ierobežota komentēšana šajā forumā"
 
 #: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
@@ -3617,7 +3617,7 @@ msgstr "Jums nav piekļuves šai sadaļai."
 
 #: src/hooks/use-forum-websocket.ts:62
 msgid "You don't have permission to comment in this forum"
-msgstr ""
+msgstr "Jums nav atļaujas komentēt šajā forumā"
 
 #: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
