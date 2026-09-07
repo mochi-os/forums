@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:219
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Internet birikmäňizi barlaň we täzeden synanyşyň."
 
@@ -32,11 +32,15 @@ msgstr " · Hemişelik"
 msgid " (edited)"
 msgstr " (redaktirlendi)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
+msgid " or "
+msgstr " ýa-da "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
 msgid "(edited)"
 msgstr "(redaktirlendi)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
 msgid "(expand)"
 msgstr "(giňelt)"
 
@@ -49,17 +53,10 @@ msgstr "[bellenilmedik]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# täze ýazgy} other {# täze ýazgy}}"
 
-#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# saýlandy} other {# saýlandy}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
-msgid "{0, plural, one {+# nested} other {+# nested}}"
-msgstr "{0, plural, one {+# içki} other {+# içki}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -72,24 +69,24 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# ulanyjy sessiz edildi} other {# ulanyjy sessiz edildi}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "{0} settings"
 msgstr "{0} sazlamalary"
 
-#: ../../../lib/web/src/lib/locale-format.ts:191
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#gün} other {#gün}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:187
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#sag} other {#sag}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:183
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:195
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#hep} other {#hep}}"
 
@@ -101,9 +98,13 @@ msgstr "{count, plural, one {# element tassyklandy} other {# element tassyklandy
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# element ret edildi} other {# element ret edildi}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} ady"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr "{entityLabel} ady gerek"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -118,7 +119,7 @@ msgstr "{others, plural, one {Bu ýazgydaky ýene # teswiri görkez} other {Bu �
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}-den {sentLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# element} other {# element}}"
 
@@ -126,13 +127,22 @@ msgstr "{totalCount, plural, one {# element} other {# element}}"
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# jogap} other {# jogap}}"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
-msgstr "{totalDescendants, plural, one {# jogap} other {+# köp jogap}}"
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menýuny aç (# okalmadyk bildiriş)} other {Menýuny aç (# okalmadyk bildiriş)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
+msgid "+{0} nested"
+msgstr "+{0} içki"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} ýene jogaplar"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "1 reply"
+msgstr "1 jogap"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -142,10 +152,6 @@ msgstr "12 sagat"
 msgid "24 hours"
 msgstr "24 sagat"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:35
-msgid "A recording is already in progress."
-msgstr "Ýazgy eýýäm dowam edýär."
-
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Mutlak (sene we wagt)"
@@ -154,12 +160,11 @@ msgstr "Mutlak (sene we wagt)"
 msgid "Accept"
 msgstr "Kabul etmek"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Access"
 msgstr "Giriş"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
-#: ../../../lib/web/src/features/errors/general-error.tsx:58
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
 msgstr "Giriş ret edildi"
 
@@ -167,23 +172,23 @@ msgstr "Giriş ret edildi"
 msgid "Access level"
 msgstr "Giriş derejesi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Access level updated"
 msgstr "Giriş derejesi täzelendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:725
 msgid "Access management"
 msgstr "Giriş dolandyryşy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Access removed"
 msgstr "Giriş aýryldy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:689
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} üçin giriş bellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Account"
 msgstr "Hasap"
 
@@ -191,17 +196,13 @@ msgstr "Hasap"
 msgid "Account type"
 msgstr "Hasap görnüşi"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
-msgid "Activity"
-msgstr "Hereketlilik"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Goşmak"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
 msgid "Add a comment..."
 msgstr "Teswir goşuň..."
 
@@ -209,7 +210,7 @@ msgstr "Teswir goşuň..."
 msgid "Add a new account"
 msgstr "Täze hasap goşmak"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
 msgid "Add a new field to this class"
 msgstr "Bu klassa täze meýdan goşmak"
 
@@ -225,41 +226,41 @@ msgstr "Hasap goşmak"
 msgid "Add caption"
 msgstr "Düşündiriş goşmak"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Kontrol sanawynyň elementi goşmak"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
 msgid "Add field"
 msgstr "Meýdan goşmak"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:342
 msgid "Add files"
 msgstr "Faýllar goşmak"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Element goşuň..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
 msgid "Add link"
 msgstr "Baglanyşyk goşmak"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
 msgid "Add option"
 msgstr "Wariant goşmak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:735
 msgid "Add rule"
 msgstr "Düzgün goş"
 
-#: ../../../lib/web/src/components/post-tags.tsx:138
+#: ../../../lib/web/src/components/post-tags.tsx:137
 msgid "Add tag..."
 msgstr "Bellik goşuň..."
 
@@ -267,8 +268,8 @@ msgstr "Bellik goşuň..."
 msgid "Add to existing notifications"
 msgstr "Bar bolan bildirişlere goşmak"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -283,11 +284,11 @@ msgid "Additional details (optional)"
 msgstr "Goşmaça maglumat (hökmany däl)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:553
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:554
 msgid "AI actions on posts"
 msgstr "Ýazgylarda AI hereketleri"
 
@@ -304,15 +305,16 @@ msgstr "Ähli forumlar"
 msgid "All posts and comments have been reviewed"
 msgstr "Ähli ýazgylar we teswirler gözden geçirildi"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
-msgid "Allow anyone to search for {entityLabel}"
-msgstr "Islendik adama {entityLabel} gözlemäge rugsat ber"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr "Islendik adama {0} gözlemäge rugsat ber"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Islendik adamyň forum gözlemegine rugsat bermek"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Allow sort by"
 msgstr "Tertipleşdirmäge rugsat bermek"
 
@@ -321,7 +323,6 @@ msgid "An error occurred"
 msgstr "Ýalňyşlyk ýüze çykdy"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
-#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Garaşylmadyk ýalňyşlyk ýüze çykdy"
 
@@ -352,15 +353,11 @@ msgid "Approve"
 msgstr "Tassyklamak"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" pozmak isleýändigiňize ynamlymy?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
-msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
-msgstr "\"{title}\" pozmak isleýändigiňize ynamlymy? Bu hereket yzyna gaýtarylyp bilinmez."
-
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" sütünini pozmak isleýändigiňize ynamlymy? Bu yzyna gaýtarylyp bilinmez."
 
@@ -380,23 +377,15 @@ msgstr "Bu ýazgyny pozmak isleýärsiňizmi? Bu ähli teswirleri hem pozar. Bu 
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Çykmak isleýärsiňizmi? Hasabyňyza girmek üçin täzeden girmeli bolarsyňyz."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
-msgid "Are you sure you want to resign?"
-msgstr "Boýun egmek isleýärsiňizmi?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
-msgid "Are you sure you want to resign? {opponentName} will win the game."
-msgstr "Boýun egmek isleýärsiňizmi? {opponentName} oýny utar."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Artýan tertipde"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "Teswir faýllaryny goşmak"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "Jogap faýllaryny goşmak"
 
@@ -405,7 +394,7 @@ msgstr "Jogap faýllaryny goşmak"
 msgid "Authenticated users"
 msgstr "Tassyklanan ulanyjylar"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:306
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Autentifikator kody"
 
@@ -413,15 +402,15 @@ msgstr "Autentifikator kody"
 msgid "Available keyboard shortcuts"
 msgstr "Elýeterli klawiatura gysga ýollary"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar"
 msgstr "Awatar"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar for {name}"
 msgstr "{name} üçin awatar"
 
-#: ../../../lib/web/src/components/place-picker.tsx:142
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Yza"
 
@@ -431,9 +420,9 @@ msgstr "Yza"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:222
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Back to forum"
 msgstr "Foruma yza"
 
@@ -441,8 +430,8 @@ msgstr "Foruma yza"
 msgid "Back to forums"
 msgstr "Forumlara yza"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Baş sahypa dolan"
 
@@ -459,43 +448,43 @@ msgstr "Awtory gadagan etmek"
 msgid "Banned"
 msgstr "Gadagan edildi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
+#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Banner"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner removed"
 msgstr "Banner aýryldy"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner updated"
 msgstr "Banner täzelendi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
 msgid "Blocked by"
 msgstr "Gabsalanan tarapyndan"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Ynamsyz baglanyşyga geçiş gabsaldy"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
 msgid "Blocks"
 msgstr "Bloklar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Board"
 msgstr "Tagta"
 
-#: ../../../lib/web/src/components/post-tags.tsx:194
-#: ../../../lib/web/src/components/post-tags.tsx:206
+#: ../../../lib/web/src/components/post-tags.tsx:180
+#: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "Gyzyklanmany ýokarlandyrmak"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
 msgid "Border colour"
 msgstr "Çäk reňki"
 
@@ -513,48 +502,34 @@ msgstr "{0} tarapyndan"
 msgid "By {0}"
 msgstr "{0} tarapyndan"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:48
-msgid "Camera permission denied"
-msgstr "Kamera rugsady ret edildi"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:56
-msgid "Camera unavailable"
-msgstr "Kamera elýeterli däl"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
-#: ../../../lib/web/src/components/travelling-picker.tsx:288
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
+#: ../../../lib/web/src/components/travelling-picker.tsx:308
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:393
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "Ýatyrmak"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "Teswiri ýatyrmak"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "Jogaby ýatyrmak"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:24
-#: ../../../lib/web/src/lib/shell-errors.ts:37
-#: ../../../lib/web/src/lib/shell-errors.ts:52
-msgid "Cancelled"
-msgstr "Ýatyryldy"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -570,23 +545,15 @@ msgstr "Bu bildirişler üçin kategoriýa"
 msgid "Change notification category"
 msgstr "Bildiriş kategoriýasyny üýtgetmek"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed"
-msgstr "Üýtgedildi"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed {field}"
-msgstr "{field} üýtgedildi"
-
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Täze mazmun üçin soň gaýdyp geliň"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
 msgid "Checkbox"
 msgstr "Bellik gutusy"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
 msgid "Checklist"
 msgstr "Kontrol sanawy"
 
@@ -599,13 +566,13 @@ msgstr "Gapdal panelden oýun saýlaň ýa-da täzesini başlaň."
 msgid "Choose language"
 msgstr "Dil saýlaň"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
-#: ../../../lib/web/src/components/travelling-picker.tsx:151
-#: ../../../lib/web/src/components/travelling-picker.tsx:212
-#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:170
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Clear"
 msgstr "Arassalamak"
 
@@ -627,19 +594,19 @@ msgstr "Gözlegi arassalamak"
 msgid "Clearing saved posts..."
 msgstr "Saklanan ýazgylar arassalanýar..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Ýapmak"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
 msgid "Close dialog"
 msgstr "Dialogy ýapmak"
 
@@ -672,16 +639,16 @@ msgstr "Ýygnamak"
 msgid "Collapse sidebar"
 msgstr "Gapdal paneli ýygyrmak"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
 msgid "Colour"
 msgstr "Reňk"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Sütün hereketleri"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Columns group by"
 msgstr "Sütünler boýunça toparlamak"
 
@@ -710,7 +677,7 @@ msgstr "Teswir tassyklandy"
 msgid "Comment deleted"
 msgstr "Teswir pozuldy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:943
 msgid "Comment limit"
 msgstr "Teswir çägi"
 
@@ -734,34 +701,29 @@ msgstr "Teswir dikeldildi"
 msgid "Comment updated"
 msgstr "Teswir täzelendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "Comment, vote, and view"
 msgstr "Teswir, ses we görmek"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Teswirler"
-
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
-msgid "Comments ({0})"
-msgstr "Teswirler ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Gysga"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
 msgid "Configure option settings"
 msgstr "Wariant sazlamalaryny düzediň"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
 msgid "Configure view settings"
 msgstr "Görnüş sazlamalaryny düzediň"
 
-#: ../../../lib/web/src/components/place-picker.tsx:146
-#: ../../../lib/web/src/components/travelling-picker.tsx:296
+#: ../../../lib/web/src/components/place-picker.tsx:160
+#: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Tassyklamak"
 
@@ -773,12 +735,12 @@ msgstr "Baglandy"
 msgid "Connecting..."
 msgstr "Birikdirilýär..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:313
 msgid "Content"
 msgstr "Mazmun"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:893
 msgid "Content from users below a threshold must be approved"
 msgstr "Çäkden pesdäki ulanyjylaryň mazmuny tassyklanmaly"
 
@@ -790,7 +752,7 @@ msgstr "Mazmun gerekli"
 msgid "Content not found."
 msgstr "Mazmun tapylmady."
 
-#: ../../../lib/web/src/lib/query-client.ts:73
+#: ../../../lib/web/src/lib/query-client.ts:78
 msgid "Content not modified"
 msgstr "Mazmun üýtgemedi"
 
@@ -802,7 +764,7 @@ msgstr "Kontekstual maglumat we jikme-jiklikler."
 msgid "Continue"
 msgstr "Dowam etmek"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:343
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "{label} bilen dowam et"
 
@@ -822,39 +784,40 @@ msgstr "Nusgalamak"
 msgid "Could not load this document. Please try again later."
 msgstr "Bu resminamany ýüklemedi. Soň gaýtadan synanyşyň."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Habarnamalar ýüklenip bilmedi"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:170
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Kody ugratmak başartmady. Täzeden synanyşyň."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:124
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Gaýtadan tassyklamany başlatmak başartmady. Täzeden synanyşyň."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:212
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Şol hasap bilen barlap bolmady. Täzeden synanyşyň."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Döretmek"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
-msgid "Create {entityLabel}"
-msgstr "{entityLabel} döret"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr "{0} döret"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
 msgstr "Täze forum döretmek"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Täze ýazgy döretmek"
 
@@ -867,26 +830,21 @@ msgstr "Forum döretmek"
 msgid "Create new item"
 msgstr "Täze element döretmek"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
 msgid "Created"
 msgstr "Döredildi"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
-msgid "Created {field}"
-msgstr "{field} döredildi"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Forum döredilýär..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Döredilýär..."
 
-#: ../../../lib/web/src/components/map-view.tsx:249
+#: ../../../lib/web/src/components/map-view.tsx:217
 msgid "Current location"
 msgstr "Häzirki ýer"
 
@@ -903,11 +861,11 @@ msgstr "Goýy"
 msgid "Data conflict"
 msgstr "Maglumat gapma-garşylygy"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
 msgid "Date"
 msgstr "Sene"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "days"
 msgstr "günler"
 
@@ -919,7 +877,7 @@ msgstr "Ret etmek"
 msgid "Default"
 msgstr "Adaty"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Default account"
 msgstr "Adaty hasap"
 
@@ -927,34 +885,32 @@ msgstr "Adaty hasap"
 msgid "Default AI account"
 msgstr "Adaty AI hasap"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
 msgid "Default sort"
 msgstr "Adaty tertipleşdirme"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "Pozmak"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
 msgid "Delete attachment"
 msgstr "Goşundy pozmak"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Sütüni pozmak"
 
@@ -963,36 +919,26 @@ msgstr "Sütüni pozmak"
 msgid "Delete comment"
 msgstr "Teswiri pozmak"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
 msgid "Delete field"
 msgstr "Meýdany pozmak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:432
 msgid "Delete forum"
 msgstr "Forum pozmak"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum?"
 msgstr "Forum pozmaly?"
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
-msgid "Delete game?"
-msgstr "Oýun pozulsynmy?"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
-msgid "Delete item"
-msgstr "Element pozmak"
-
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
 msgid "Delete option"
 msgstr "Wariant pozmak"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
 msgid "Delete option {0}"
 msgstr "{0} wariant pozmak"
 
@@ -1000,35 +946,23 @@ msgstr "{0} wariant pozmak"
 msgid "Delete post"
 msgstr "Ýazgyny pozmak"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
 msgid "Delete view"
 msgstr "Görnüşi pozmak"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:101
+#: ../../../lib/web/src/components/restore-banner.tsx:109
 msgid "Delete your account on the old server"
 msgstr "Köne serwerdäki hasabyňyzy pozy"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted"
-msgstr "Pozuldy"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted {field}"
-msgstr "{field} pozuldy"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Forum pozulýar..."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-msgid "Deleting..."
-msgstr "Pozulýar..."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Kemelýän tertipde"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
 msgid "Description"
 msgstr "Düşündiriş"
 
@@ -1051,19 +985,19 @@ msgstr "Jikme-jiklikler paneli"
 msgid "Detect from web browser"
 msgstr "Web brauzerden anyklamak"
 
-#: ../../../lib/web/src/components/person-picker.tsx:193
+#: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "Disabled"
 msgstr "Öçürildi"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Taşla"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Taslamany taşlamaly?"
 
@@ -1072,8 +1006,8 @@ msgstr "Taslamany taşlamaly?"
 msgid "Disconnected"
 msgstr "Aýryldy"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:80
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:94
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Goýbermek"
@@ -1087,28 +1021,22 @@ msgstr "Banneri goýbermek"
 msgid "Displays the mobile sidebar."
 msgstr "Mobil gapdal paneli görkezýär."
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
-msgid "Does not match the required pattern"
-msgstr "Talap edilýän nusga gabat gelmeýär"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 msgid "Done"
 msgstr "Taýýar"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
 msgid "Download"
 msgstr "Ýükläp al"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "Ýükläp almak başartmady"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
 msgid "Duplicates"
 msgstr "Gaýtalanmalar"
 
@@ -1123,7 +1051,7 @@ msgstr "Disleksiýa uýgunlaşan"
 msgid "Edit"
 msgstr "Düzet"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "{label} redaktirle"
 
@@ -1131,26 +1059,26 @@ msgstr "{label} redaktirle"
 msgid "Edit caption"
 msgstr "Düşündirişi üýtgetmek"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
 msgstr "Meýdany düzet"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
 msgid "Edit field settings"
 msgstr "Meýdan sazlamalaryny düzet"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
 msgid "Edit option"
 msgstr "Saýlawy düzet"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
 msgid "Edit option {0}"
 msgstr "{0} saýlawyny düzet"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:283
+#: src/features/forums/components/edit-post-dialog.tsx:285
 msgid "Edit post"
 msgstr "Ýazgyny düzet"
 
@@ -1158,7 +1086,7 @@ msgstr "Ýazgyny düzet"
 msgid "Edit selected card"
 msgstr "Saýlanan kartoçkany düzet"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
 msgid "Edit view"
 msgstr "Görnüşi düzet"
 
@@ -1166,29 +1094,25 @@ msgstr "Görnüşi düzet"
 msgid "Email"
 msgstr "E-poçta"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:280
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "E-poçta kody"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Enter banner text (markdown supported)..."
 msgstr "Baner tekstini giriziň (markdown goldanýar)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:290
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "E-poçtaňyzdaky kody giriziň"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Autentifikator koduňyzy giriziň"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Entity ID"
 msgstr "Essas ID"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
-msgid "Error"
-msgstr "Ýalňyşlyk"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1208,10 +1132,6 @@ msgstr "Daşarky URL"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Goşmaça uly"
-
-#: ../../../lib/web/src/hooks/use-accounts.ts:213
-msgid "Failed to add account"
-msgstr "Hasap goşulmady"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1249,20 +1169,16 @@ msgstr "Göçürilmedi"
 msgid "Failed to create forum"
 msgstr "Forum döredip bolmady"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Baglanyşyk döredilmedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-msgid "Failed to delete"
-msgstr "Pozulmady"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Goşundy pozulmady"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
 msgid "Failed to delete comment"
 msgstr "Teswir pozulmady"
 
@@ -1270,7 +1186,7 @@ msgstr "Teswir pozulmady"
 msgid "Failed to delete forum"
 msgstr "Forum pozup bolmady"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
 msgid "Failed to delete link"
 msgstr "Baglanyşyk pozulmady"
 
@@ -1282,7 +1198,7 @@ msgstr "RSS tokeni alynmady"
 msgid "Failed to load"
 msgstr "Ýüklenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:660
 msgid "Failed to load access rules"
 msgstr "Rugsat düzgünleri ýüklenmedi"
 
@@ -1290,7 +1206,7 @@ msgstr "Rugsat düzgünleri ýüklenmedi"
 msgid "Failed to load forum"
 msgstr "Forum ýüklenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:160
 msgid "Failed to load forum settings"
 msgstr "Forum sazlamalary ýüklenmedi"
 
@@ -1298,7 +1214,7 @@ msgstr "Forum sazlamalary ýüklenmedi"
 msgid "Failed to load forums"
 msgstr "Forumlar ýüklenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:667
 msgid "Failed to load groups"
 msgstr "Toparlar ýüklenmedi"
 
@@ -1306,14 +1222,9 @@ msgstr "Toparlar ýüklenmedi"
 msgid "Failed to load history"
 msgstr "Taryh ýüklenmedi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load image"
 msgstr "Surat ýüklenip bilinmedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
-msgid "Failed to load item"
-msgstr "Element ýüklenmedi"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
@@ -1323,7 +1234,7 @@ msgstr "Moderasiýa žurnaly ýüklenmedi"
 msgid "Failed to load moderation queue"
 msgstr "Moderasiýa nobaty ýüklenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Failed to load moderation settings"
 msgstr "Moderasiýa sazlamalary ýüklenmedi"
 
@@ -1344,13 +1255,9 @@ msgstr "Hasabatlar ýüklenmedi"
 msgid "Failed to load restrictions"
 msgstr "Çäklendirmeler ýüklenmedi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load video"
 msgstr "Wideo ýüklenip bilinmedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
-msgid "Failed to move"
-msgstr "Göçürmek başartmady"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
@@ -1360,7 +1267,7 @@ msgstr "Ulanyjy sessiz edilmedi"
 msgid "Failed to mute users"
 msgstr "Ulanyjylar sessiz edilmedi"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
 msgid "Failed to post comment"
 msgstr "Teswir ýerleşdirilmedi"
 
@@ -1368,7 +1275,7 @@ msgstr "Teswir ýerleşdirilmedi"
 msgid "Failed to reject items"
 msgstr "Elementler ret edilmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Failed to remove access"
 msgstr "Rugsat aýrylmady"
 
@@ -1385,7 +1292,7 @@ msgstr "Çäklendirme aýrylmady"
 msgid "Failed to remove saved post"
 msgstr "Ýatda saklanan ýazgyny aýyryp bolmady"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Failed to rename forum"
 msgstr "Forumyň ady üýtgedilmedi"
 
@@ -1401,11 +1308,7 @@ msgstr "Hasabat çözülmedi"
 msgid "Failed to revoke RSS access"
 msgstr "RSS elýeterliligini ýatyrmak başartmady"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-msgid "Failed to save"
-msgstr "Saklanyp galynmady"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:827
 msgid "Failed to save moderation settings"
 msgstr "Moderasiýa sazlamalary saklanyp galynmady"
 
@@ -1422,11 +1325,11 @@ msgstr "Görkezme saklanyp galynmady"
 msgid "Failed to search forums"
 msgstr "Forumlar gözlenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Failed to search users"
 msgstr "Ulanyjylar gözlenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to set access level"
 msgstr "Rugsat derejesi düzülmedi"
 
@@ -1438,40 +1341,36 @@ msgid "Failed to subscribe"
 msgstr "Abuna bolunmady"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Failed to unsubscribe"
 msgstr "Abunalyk ýatyrylmady"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:719
 msgid "Failed to update access level"
 msgstr "Rugsat derejesi täzelenmedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:546
 msgid "Failed to update AI settings"
 msgstr "AI sazlamalary täzelenmedi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: src/routes/_authenticated/$forum_.settings.tsx:465
 msgid "Failed to update banner"
 msgstr "Baner täzelenmedi"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
 msgid "Failed to update comment"
 msgstr "Teswir täzelenmedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
-msgid "Failed to update watching"
-msgstr "Yzarlamany täzelemek başartmady"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Goşundy ýüklenmedi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:338
 msgid "Files"
 msgstr "Faýllar"
 
@@ -1484,15 +1383,15 @@ msgstr "Bellik boýunça süzüldi:"
 msgid "Find forums"
 msgstr "Forumlary tap"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Fingerprint"
 msgstr "Barmak yzy"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:89
+#: ../../../lib/web/src/components/restore-banner.tsx:97
 msgid "Finish moving your account"
 msgstr "Hasabyňyzy göçürip gutaryň"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
 msgid "Flags"
 msgstr "Belliler"
 
@@ -1501,9 +1400,6 @@ msgid "Flat"
 msgstr "Tekiz"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-msgid "forum"
-msgstr "forum"
-
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1527,23 +1423,23 @@ msgstr "Forum indi elýeterli däl"
 msgid "Forum link"
 msgstr "Forum salgysy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Forum name is required"
 msgstr "Forumyň ady hökmany"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum not found"
 msgstr "Forum tapylmady"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Forum renamed"
 msgstr "Forumyň ady üýtgedildi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:277
 msgid "Forum settings sections"
 msgstr "Forum sazlamalary bölümleri"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum unavailable"
 msgstr "Forum elýeterli däl"
 
@@ -1558,11 +1454,11 @@ msgstr "Forumlar"
 msgid "Friday"
 msgstr "Anna"
 
-#: ../../../lib/web/src/components/person-picker.tsx:186
+#: ../../../lib/web/src/components/person-picker.tsx:207
 msgid "Friends"
 msgstr "Dostlar"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:134
+#: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "Kimden"
 
@@ -1574,8 +1470,8 @@ msgstr "Kimden"
 msgid "From theme"
 msgstr "Temadan"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Yza"
 
@@ -1583,7 +1479,7 @@ msgstr "Yza"
 msgid "Group"
 msgstr "Topar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Group by"
 msgstr "Boýunça topla"
 
@@ -1608,8 +1504,8 @@ msgstr "Taryh"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:86
-#: ../../../lib/web/src/components/layout/top-bar.tsx:115
+#: ../../../lib/web/src/components/layout/top-bar.tsx:71
+#: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
 msgstr "Baş sahypa"
 
@@ -1617,16 +1513,16 @@ msgstr "Baş sahypa"
 msgid "Hot"
 msgstr "Gyzgyn"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:357
 msgid "Identity"
 msgstr "Şahsyýet"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Image viewer: {0}"
 msgstr "Surat görkeziji: {0}"
 
@@ -1646,10 +1542,6 @@ msgstr "Baş harplar awatary"
 msgid "Initials avatar for {name}"
 msgstr "{name} üçin baş harplar awatary"
 
-#: ../../../lib/web/src/components/post-tags.tsx:168
-msgid "Interest {weight}"
-msgstr "Gyzyklanma {weight}"
-
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Gyzyklanma artdyryldy"
@@ -1667,7 +1559,7 @@ msgstr "Gyzyklanma aýryldy"
 msgid "Interests"
 msgstr "Gyzyklanmalar"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Nädogry sene"
 
@@ -1675,11 +1567,7 @@ msgstr "Nädogry sene"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Görnüşinden, gözleýän sahypaňyz <0/>ýok ýa-da aýrylan."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
-msgid "Item details"
-msgstr "Element jikme-jiklikleri"
-
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "Häzir"
 
@@ -1692,13 +1580,13 @@ msgstr "Klawiatura gysga ýollary"
 msgid "Large"
 msgstr "Uly"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Ýerleşiş"
 
-#: ../../../lib/web/src/components/post-tags.tsx:73
-msgid "Letters, numbers, spaces, hyphens, and slashes only"
-msgstr "Diňe harplar, sanlar, boşluklar, defisler we kese çyzyklar"
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Diňe harplar, sanlar, boşluklar we defisler"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1708,15 +1596,15 @@ msgstr "Açyk"
 msgid "Link"
 msgstr "Salgy"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
 msgid "Links"
 msgstr "Baglanyşyklar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
 msgid "List"
 msgstr "Sanaw"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Has köp ýükle"
 
@@ -1724,15 +1612,7 @@ msgstr "Has köp ýükle"
 msgid "Loading content…"
 msgstr "Mazmun ýüklenýär…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
-msgid "Loading item"
-msgstr "Element ýüklenýär"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
-msgid "Loading item details"
-msgstr "Element jikme-jiklikleri ýüklenýär"
-
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Ýüklenýär..."
@@ -1774,16 +1654,16 @@ msgstr "Kategoriýalary dolandyr"
 msgid "Manual"
 msgstr "El bilen"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Hemmesini okaldy diýip belgile"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown goldanýar"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
 msgid "Maximum length"
 msgstr "Iň köp uzynlyk"
 
@@ -1794,10 +1674,6 @@ msgstr "MCP serweri"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Orta"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-msgid "Members"
-msgstr "Agzalar"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1811,11 +1687,7 @@ msgstr "Habar"
 msgid "Metric"
 msgstr "Metrik"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:31
-msgid "Microphone permission denied"
-msgstr "Mikrofon rugsady ret edildi"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
 msgid "Minimum length"
 msgstr "Iň az uzynlyk"
 
@@ -1828,14 +1700,14 @@ msgstr "Nädogry maglumat"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderasiýa et, ýerleşdir, teswir et, sesle we gör"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "Moderasiýa"
 
@@ -1860,14 +1732,6 @@ msgstr "Duşenbe"
 msgid "More options"
 msgstr "Köp opsiýalar"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved"
-msgstr "Göçürildi"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved {field}"
-msgstr "{field} göçürildi"
-
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Sessiz et"
@@ -1881,37 +1745,36 @@ msgstr "Awtory sessiz et"
 msgid "Muted"
 msgstr "Sessiz edildi"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
+#: src/routes/_authenticated/$forum_.settings.tsx:361
 msgid "Name"
 msgstr "At"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Name cannot contain < or > characters"
 msgstr "At < ýa-da > nyşanlaryny saklap bilmez"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
-msgid "Name is required"
-msgstr "At hökmandyr"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr "Atda burçly ýaýlar, tersine egik çyzyk, nokatly otyr, dyrnak belgileri ýa-da backtick bolup bilmez"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:349
 msgid "Name must be 1000 characters or less"
 msgstr "At 1000 nyşandan az bolmaly"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:51
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Tor ýalňyşlygy"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "New"
 msgstr "Täze"
 
@@ -1920,27 +1783,27 @@ msgstr "Täze"
 msgid "New game"
 msgstr "Täze oýun"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
 #: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Täze post"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:871
 msgid "New threads must be approved"
 msgstr "Täze temalar tassyklanmaly"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "New user threshold:"
 msgstr "Täze ulanyjy çägi:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
 msgid "Next image"
 msgstr "Indiki surat"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Goşmak üçin {parentClassNames} ýok"
 
@@ -1948,7 +1811,7 @@ msgstr "Goşmak üçin {parentClassNames} ýok"
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} hasabatlary tapylmady"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:109
 msgid "No access"
 msgstr "Girip bolmaýar"
 
@@ -1956,7 +1819,7 @@ msgstr "Girip bolmaýar"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Giriş düzgünleri ýok. Bu çeşmä kim girip biljekdigini dolandyrmak üçin düzgünler goşuň."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "Heniz işjeňlik ýok"
 
@@ -1964,7 +1827,7 @@ msgstr "Heniz işjeňlik ýok"
 msgid "No comments on this image yet."
 msgstr "Bu surata entek teswir ýok."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
 msgid "No comments yet"
 msgstr "Heniz teswirler ýok"
 
@@ -1981,11 +1844,11 @@ msgstr "Heniz oýunlar ýok"
 msgid "No groups available"
 msgstr "Elýeterli toparlar ýok"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Heniz hiç bir element görnüşi döredilip bilinmez. Ilki bilen zerur ene-atalar elementlerini dörediň."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
 msgid "No matching objects"
 msgstr "Gabat gelýän obýektler ýok"
 
@@ -1993,12 +1856,12 @@ msgstr "Gabat gelýän obýektler ýok"
 msgid "No moderation activity"
 msgstr "Moderasiýa işjeňligi ýok"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
-#: ../../../lib/web/src/components/person-picker.tsx:71
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
+#: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Adamlar tapylmady"
 
-#: ../../../lib/web/src/components/place-picker.tsx:120
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Ýerler tapylmady"
 
@@ -2014,18 +1877,18 @@ msgstr "Hasabatlar ýok"
 msgid "No restrictions"
 msgstr "Çäklendirmeler ýok"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:65
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Netije tapylmady"
 
-#: ../../../lib/web/src/components/command-menu.tsx:57
+#: ../../../lib/web/src/components/command-menu.tsx:55
 msgid "No results found."
 msgstr "Netijeler tapylmady."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Ýagdaý ýok"
 
@@ -2037,7 +1900,7 @@ msgstr "Wagt zolagy tapylmady."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Heniz mowzuk ýazgysy ýok — indiki bildirişden soň gaýtadan synanyşyň."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Okalmadyk bildirişler ýok"
 
@@ -2054,21 +1917,17 @@ msgid "No views"
 msgstr "Görnüşler ýok"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:329
+#: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Hiç biri"
@@ -2078,15 +1937,15 @@ msgid "Normal"
 msgstr "Adaty"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:65
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Tapylmady"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
 msgstr "Bellenilmedik"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
 msgid "Nothing found"
 msgstr "Hiç zat tapylmady"
 
@@ -2095,13 +1954,13 @@ msgid "Nothing saved yet"
 msgstr "Hiç zat heniz ýazga geçirilmedi"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Bildirişler: {0}"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
 msgid "Number"
 msgstr "San"
 
@@ -2127,8 +1986,8 @@ msgstr "Bu suratda"
 msgid "Oops! Page Not Found!"
 msgstr "Eý dostum! Sahypa tapylmady!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:227
-#: ../../../lib/web/src/components/layout/nav-group.tsx:232
+#: ../../../lib/web/src/components/layout/nav-group.tsx:199
+#: ../../../lib/web/src/components/layout/nav-group.tsx:204
 msgid "Open actions"
 msgstr "Amallary aç"
 
@@ -2136,13 +1995,13 @@ msgstr "Amallary aç"
 msgid "Open menu"
 msgstr "Menýuny aç"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:78
-#: ../../../lib/web/src/components/layout/top-bar.tsx:83
+#: ../../../lib/web/src/components/layout/top-bar.tsx:63
+#: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
 msgstr "Nawigasiýany aç"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
 msgid "Open option actions"
 msgstr "Wariant hereketlerini aç"
 
@@ -2150,8 +2009,8 @@ msgstr "Wariant hereketlerini aç"
 msgid "Open selected card"
 msgstr "Saýlanan kartoçkany aç"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
 msgid "Open view actions"
 msgstr "Görnüş hereketlerini aç"
 
@@ -2160,13 +2019,17 @@ msgstr "Görnüş hereketlerini aç"
 msgid "Open view controls"
 msgstr "Görnüş dolandyryşlaryny aç"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
 msgid "Option name"
 msgstr "Wariantyň ady"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
+#: src/routes/_authenticated/$forum_.settings.tsx:474
+msgid "Optional markdown banner shown at the top of your forum."
+msgstr "Forumyňyzyň ýokarsynda görkezilýän hökman däl markdown banner."
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
 msgid "Options"
 msgstr "Wariantlar"
 
@@ -2180,34 +2043,27 @@ msgstr "Beýleki"
 msgid "Owner"
 msgstr "Eýesi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Ene-ata"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:325
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Geçiş açary"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
-#: ../../../lib/web/src/lib/shell-errors.ts:26
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "Giriş açary bilen tassyklamak şowsuz boldy. Täzeden synanyşyň."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:138
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Passkeys"
 msgstr "Giriş açarlary"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:19
-msgid "Passkeys are not available in this browser"
-msgstr "Passkeys bu brauzerde elýeterli däl"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
 msgid "Pattern (regex)"
 msgstr "Nusga (regex)"
 
-#: src/features/forums/components/post-card.tsx:74
+#: src/features/forums/components/post-card.tsx:57
 #: src/features/forums/components/thread/thread-comment.tsx:275
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:751
@@ -2228,12 +2084,8 @@ msgstr "Garaşylýan teswirler ({0})"
 msgid "Pending posts ({0})"
 msgstr "Garaşylýan postlar ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:179
-msgid "People"
-msgstr "Adamlar"
-
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:337
 msgid "Photos and videos"
 msgstr "Suratlar we wideolar"
 
@@ -2246,7 +2098,7 @@ msgid "Pinned"
 msgstr "Berkidilen"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:52
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Internet birikmäňizi barlaň we täzeden synanyşyň."
@@ -2259,11 +2111,15 @@ msgstr "Meseläni düşündiriň..."
 msgid "Please enter a reply"
 msgstr "Jogap giriziň"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:81
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Bu çeşmä girmek üçin <0/> degişli maglumatlar bilen giriň."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Haýyş, gaýtadan synanyşyň."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:73
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
 msgid "Please wait a moment and try again."
 msgstr "Biraz garaşyň we täzeden synanyşyň."
 
@@ -2283,7 +2139,7 @@ msgstr "Habary forum serwerinde saklap bolmady"
 msgid "Post deleted"
 msgstr "Post pozuldy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:928
 msgid "Post limit"
 msgstr "Post çägi"
 
@@ -2323,11 +2179,11 @@ msgstr "Post berkidilmedi"
 msgid "Post updated"
 msgstr "Post täzelendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Post, comment, vote, and view"
 msgstr "Post, teswir, ses ber we gör"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:938
 msgid "posts"
 msgstr "ýazgy"
 
@@ -2339,16 +2195,16 @@ msgstr "Postlar"
 msgid "Posts and comments"
 msgstr "Postlar we teswirler"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "Pre-moderation"
 msgstr "Öňünden moderasiýa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Ulanyjylaryň post goýup bilýän ýygylygyny çäklendirip spam-y öňüni alyň"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
 msgid "Previous image"
 msgstr "Öňki surat"
 
@@ -2361,19 +2217,19 @@ msgstr "Gizlinlik"
 msgid "Processing…"
 msgstr "Işlenýär…"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Taslama agzalary"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Soraw saklandy"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
-msgid "Properties"
-msgstr "Häsiýetler"
-
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Posty çap et"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Çap edilýär..."
 
@@ -2389,15 +2245,15 @@ msgstr "Nobat"
 msgid "Raised"
 msgstr "Galdyrylan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:923
 msgid "Rate limiting"
 msgstr "Tizlik çäklendirmesi"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:110
+#: ../../../lib/web/src/components/restore-banner.tsx:118
 msgid "Re-link your accounts on this server"
 msgstr "Bu serwerde hasaplaryňyzy täzeden baglanyşdyryň"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:140
 msgid "Re-register your passkeys on this server"
 msgstr "Bu serwerde giriş açarlaryňyzy gaýtadan hasaba alyň"
 
@@ -2422,20 +2278,12 @@ msgstr "Maslahat berilýän forumlar"
 msgid "Reconnecting ({retries})..."
 msgstr "Täzeden birikdirilýär ({retries})..."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:43
-msgid "Recording failed. Please try again."
-msgstr "Ýazgy şowsuz boldy. Gaýtadan synanyşyň."
-
-#: ../../../lib/web/src/lib/shell-errors.ts:39
-msgid "Recording produced no audio"
-msgstr "Ýazgyda ses ýok"
-
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
 msgid "Redirecting to login."
 msgstr "Girişe gönükdirilýär."
 
-#: ../../../lib/web/src/components/post-tags.tsx:214
-#: ../../../lib/web/src/components/post-tags.tsx:226
+#: ../../../lib/web/src/components/post-tags.tsx:200
+#: ../../../lib/web/src/components/post-tags.tsx:212
 msgid "Reduce interest"
 msgstr "Gyzyklanmany azalt"
 
@@ -2448,7 +2296,7 @@ msgstr "Ret et"
 msgid "Rejected"
 msgstr "Ret edildi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
 msgid "Relates"
 msgstr "Baglanyşygy bar"
 
@@ -2460,17 +2308,9 @@ msgstr "Otnositel (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 sagat içinde otnositel, başga absolýut"
 
-#: ../../../lib/web/src/components/post-tags.tsx:166
-msgid "Relevance {relevance}"
-msgstr "Degişlilik {relevance}"
-
-#: ../../../lib/web/src/components/post-tags.tsx:164
-msgid "Relevance {relevance}, interest {weight}"
-msgstr "Degişlilik {relevance}, gyzyklanma {weight}"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2510,17 +2350,17 @@ msgstr "Teswiri aýyr"
 msgid "Remove from saved"
 msgstr "Ýatda saklananlardan aýyr"
 
-#: ../../../lib/web/src/components/post-tags.tsx:234
-#: ../../../lib/web/src/components/post-tags.tsx:246
+#: ../../../lib/web/src/components/post-tags.tsx:220
+#: ../../../lib/web/src/components/post-tags.tsx:232
 msgid "Remove interest"
 msgstr "Gyzyklanmany aýyr"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Elementi aýyr"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
 msgid "Remove link"
 msgstr "Baglanyşygy aýyr"
 
@@ -2528,11 +2368,11 @@ msgstr "Baglanyşygy aýyr"
 msgid "Remove post"
 msgstr "Posty aýyr"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:392
 msgid "Remove this forum from your sidebar."
 msgstr "Bu forumy gapdal panelden aýyr."
 
-#: src/features/forums/components/post-card.tsx:80
+#: src/features/forums/components/post-card.tsx:63
 #: src/features/forums/components/thread/thread-comment.tsx:281
 #: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
@@ -2546,28 +2386,28 @@ msgstr "Ýatda saklananlardan aýryldy"
 msgid "Removing..."
 msgstr "Aýrylýar..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Adyny üýtget"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Sütünüň adyny üýtget"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Bu tagta sütüniniň adyny üýtget"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Renaming forum..."
 msgstr "Forumyň ady üýtgedilýär..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "replies"
 msgstr "jogap"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:882
 msgid "Replies must be approved"
 msgstr "Jogaplar tassyklanmaly"
 
@@ -2618,41 +2458,29 @@ msgstr "{0} tarapyndan hasabat berildi"
 msgid "Reports"
 msgstr "Hasabatlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:865
 msgid "Require approval before content becomes visible"
 msgstr "Mazmuny görnüp başlamazdan ozal tassyklama talap et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Require approval for new comments"
 msgstr "Täze teswirler üçin tassyklama talap et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:870
 msgid "Require approval for new posts"
 msgstr "Täze postlar üçin tassyklama talap et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:892
 msgid "Require approval for new users"
 msgstr "Täze ulanyjylar üçin tassyklama talap et"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
 msgid "Required"
 msgstr "Talap edilýär"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:358
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "E-poçtany gaýtadan iber"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
-msgid "Resign"
-msgstr "Resign et"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
-msgid "Resign game?"
-msgstr "Oýny resign etmek?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
-msgid "Resigning..."
-msgstr "Resign edilýär..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2692,12 +2520,12 @@ msgstr "Elýeterliligi ýatyr"
 msgid "Revoke RSS access?"
 msgstr "RSS elýeterliligi ýatyrylsynmy?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
 msgid "Rows"
 msgstr "Hatarlar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
 msgid "Rows group by"
 msgstr "Hatarlary toparlamak"
 
@@ -2719,16 +2547,16 @@ msgstr "Şenbe"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "Saklaýyş"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:407
 msgid "Save changes"
 msgstr "Üýtgeşiklikleri saklaýyş"
 
@@ -2749,19 +2577,19 @@ msgid "Saved posts cleared"
 msgstr "Saklanan ýazgylar arassalandy"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:402
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Saklanýar..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:603
 msgid "Score prompt"
 msgstr "Bal sorag"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:17
+#: ../../../lib/web/src/components/search.tsx:18
 msgid "Search"
 msgstr "Gözle"
 
@@ -2773,15 +2601,15 @@ msgstr "At, ID, fingerprint ýa-da URL boýunça gözle..."
 msgid "Search for a command to run..."
 msgstr "Işletmek üçin buýruk gözle..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:73
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Ýer gözle"
 
-#: ../../../lib/web/src/components/place-picker.tsx:37
+#: ../../../lib/web/src/components/place-picker.tsx:50
 msgid "Search for a place..."
 msgstr "Ýer gözle..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
 msgstr "Mejburyýet ýerini gözle..."
 
@@ -2789,11 +2617,11 @@ msgstr "Mejburyýet ýerini gözle..."
 msgid "Search for forums..."
 msgstr "Forumlary gözle..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:183
 msgid "Search for origin..."
 msgstr "Gelen ýeri gözle..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
 msgid "Search objects..."
 msgstr "Obýektleri gözle..."
 
@@ -2811,8 +2639,8 @@ msgstr "Bu görnüşi gözle, syna we tertipleşdir."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:303
+#: ../../../lib/web/src/components/inline-entity-search.tsx:63
+#: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Gözle..."
@@ -2822,15 +2650,15 @@ msgstr "Gözle..."
 msgid "Searching..."
 msgstr "Gözlenýär..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:968
 msgid "seconds"
 msgstr "sekunt"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 msgid "Select"
 msgstr "Saýla"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Meýdan saýla"
 
@@ -2866,7 +2694,7 @@ msgstr "Hemmesini saýla"
 msgid "Select group"
 msgstr "Topary saýla"
 
-#: ../../../lib/web/src/components/place-picker.tsx:36
+#: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
 msgstr "Ýerleşýän ýerini saýla"
 
@@ -2878,7 +2706,7 @@ msgstr "Indiki kartoçkany saýla"
 msgid "Select none"
 msgstr "Hiç birini saýlama"
 
-#: ../../../lib/web/src/components/person-picker.tsx:70
+#: ../../../lib/web/src/components/person-picker.tsx:83
 msgid "Select person..."
 msgstr "Adam saýlaň..."
 
@@ -2886,8 +2714,8 @@ msgstr "Adam saýlaň..."
 msgid "Select previous card"
 msgstr "Öňki kartoçkany saýla"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Saýla..."
 
@@ -2900,7 +2728,7 @@ msgstr "Saýlanan: <0>{0}</0>"
 msgid "Send again"
 msgstr "Täzeden iber"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:298
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "E-poçt iber"
 
@@ -2927,17 +2755,17 @@ msgstr "Server düzgünleri"
 msgid "Session expired. Please log in again."
 msgstr "Sessiýanyň möhleti gutardy. Täzeden giriň."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:128
+#: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
 msgstr "Başlangyç we baryljak ýeri belle"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Settings"
 msgstr "Sazlamalar"
 
@@ -2945,11 +2773,11 @@ msgstr "Sazlamalar"
 msgid "Shadowbanned"
 msgstr "Gizlin gadagan edildi"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
 msgstr "Synplary görkez"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
 msgid "Show fields"
 msgstr "Meýdanlary görkez"
 
@@ -2961,7 +2789,7 @@ msgstr "Diňe bu suratyň teswirlerini görkez"
 msgid "Show this help"
 msgstr "Bu kömegi görkez"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:43
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} sany {totalShown} görkezilýär"
 
@@ -2969,21 +2797,17 @@ msgstr "{total} sany {totalShown} görkezilýär"
 msgid "Sidebar"
 msgstr "Gapdal panel"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
-msgid "Sign in with an account that has access <0/> to this resource."
-msgstr "Bu çeşmä <0/> girip bilýän hasap bilen giriň."
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Çykyş et"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
 msgid "Signing out..."
 msgstr "Çykylýar..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
 msgid "Single line of text only"
 msgstr "Diňe bir setir tekst"
 
@@ -3009,24 +2833,19 @@ msgstr "Giňiş"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
 msgid "Start the discussion by adding the first comment."
 msgstr "Birinji teswiri goşup, ara alyp maslahatlaşmagy başla."
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Stop watching"
-msgstr "Synlamagy bes et"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Mowzuk"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "Teswiri tabşyr"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "Jogap tabşyr"
 
@@ -3038,8 +2857,8 @@ msgstr "Hasabat tabşyr"
 msgid "Submitting..."
 msgstr "Tabşyrylýar..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:67
-#: ../../../lib/web/src/components/recommended-entities.tsx:59
+#: ../../../lib/web/src/components/inline-entity-search.tsx:66
+#: ../../../lib/web/src/components/recommended-entities.tsx:58
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -3083,24 +2902,24 @@ msgstr "1-9 görnüşine geç"
 msgid "System"
 msgstr "Ulgam"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Tag"
 msgstr "Bellik"
 
-#: ../../../lib/web/src/components/post-tags.tsx:77
+#: ../../../lib/web/src/components/post-tags.tsx:76
 msgid "Tag already exists"
 msgstr "Bellik eýýäm bar"
 
-#: ../../../lib/web/src/components/post-tags.tsx:69
+#: ../../../lib/web/src/components/post-tags.tsx:68
 msgid "Tag must be 50 characters or less"
 msgstr "Bellik iň köp 50 harp bolmaly"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:602
 msgid "Tag prompt"
 msgstr "Bellik soragy"
 
-#: ../../../lib/web/src/components/post-tags.tsx:102
-#: ../../../lib/web/src/components/post-tags.tsx:116
+#: ../../../lib/web/src/components/post-tags.tsx:101
+#: ../../../lib/web/src/components/post-tags.tsx:115
 msgid "Tags"
 msgstr "Bellikler"
 
@@ -3113,11 +2932,11 @@ msgstr "Islendik ýazgyny şu ýerde soňra üçin ýatda saklamak üçin onuň 
 msgid "Terms and conditions"
 msgstr "Şertler"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
 msgid "Text"
 msgstr "Tekst"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Ol kod nädogry ýa-da möhleti geçen."
 
@@ -3130,23 +2949,7 @@ msgstr "Iberip bolmady. Faýllar gaty uly bolup biler ýa-da baglanyşygyňyz ke
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Ýüklemek üçin gaty uludy. Faýllary aýryň ýa-da kiçeldiň-de, gaýtadan synanyşyň."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:50
-msgid "The camera is already in use"
-msgstr "Kamera eýýäm ulanylýar"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:54
-msgid "The camera request was not answered"
-msgstr "Kamera haýyşyna jogap berilmedi"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:41
-msgid "The microphone request was not answered"
-msgstr "Mikrofon haýyşyna jogap berilmedi"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:21
-msgid "The passkey request was not answered"
-msgstr "Passkey haýyşyna jogap berilmedi"
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:66
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "Soralan mazmun tapylmady."
 
@@ -3158,21 +2961,13 @@ msgstr "Serwer maglumatyň ýerine web sahypasyny gaýtardy."
 msgid "There are no moderation actions recorded yet"
 msgstr "Entek ýazga geçirilen moderasiýa hereketleri ýok"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:17
-msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
-msgstr "Bu programma siziň passkey-iňizi ulanmaga rugsat berilmedi. Sazlamalarda, Rugsatlar bölüminde rugsat beriň."
-
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
 msgstr "Bu forum häzir ýüklenip bilinmedi."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:252
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Bu forum pozulan bolup biler ýa-da rugsadyň ýok."
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
-msgid "This permanently deletes the game and its chat. This cannot be undone."
-msgstr "Bu oýny we onuň söhbetdeşligini hemişelik pozar. Bu hereketi yzyna gaýtaryp bolmaz."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3195,7 +2990,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Bu posty adaty ulanyjylardan gizlär. Moderatorlar henizem ony görüp we soň dikeldip bilerler."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:431
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Bu \"{0}\" we ähli postlaryny we teswirlerini hemişelik pozar. Bu hereketi yza gaýtaryp bolmaz."
 
@@ -3207,8 +3002,8 @@ msgstr "Pikir alyşma"
 msgid "Thursday"
 msgstr "Penşenbe"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:296
 msgid "Title"
 msgstr "At"
 
@@ -3224,23 +3019,26 @@ msgstr "At gerekli"
 msgid "Title must be 1000 characters or less"
 msgstr "At 1000 nyşandan köp bolmaly däl"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:201
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
 msgid "To"
 msgstr "Nirä"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:393
-#: ../../../lib/web/src/components/layout/nav-group.tsx:400
-#: ../../../lib/web/src/components/layout/nav-group.tsx:522
-#: ../../../lib/web/src/components/layout/nav-group.tsx:529
+#: ../../../lib/web/src/components/layout/nav-group.tsx:365
+#: ../../../lib/web/src/components/layout/nav-group.tsx:372
+#: ../../../lib/web/src/components/layout/nav-group.tsx:490
+#: ../../../lib/web/src/components/layout/nav-group.tsx:497
 msgid "Toggle section"
 msgstr "Bölümi açyp/ýap"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle sidebar"
 msgstr "Gapdal paneli çalşyr"
+
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
+msgid "Toggle Sidebar"
+msgstr "Gapdal paneli geçir"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3251,7 +3049,7 @@ msgstr "Görnüş saýlawlaryny geçir"
 msgid "Toggle watched filter"
 msgstr "Görülen filtri geçir"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:72
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Aşa köp haýyş"
 
@@ -3259,7 +3057,7 @@ msgstr "Aşa köp haýyş"
 msgid "Top"
 msgstr "Ýokarky"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:126
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
 msgstr "Sapar"
 
@@ -3267,8 +3065,8 @@ msgstr "Sapar"
 msgid "Try adjusting your search terms"
 msgstr "Gözleg sözleriňi düzelt"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:138
-#: ../../../lib/web/src/features/errors/general-error.tsx:178
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 msgid "Try again"
 msgstr "Gaýtadan synanyş"
 
@@ -3276,12 +3074,12 @@ msgstr "Gaýtadan synanyş"
 msgid "Tuesday"
 msgstr "Sişenbe"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
 msgid "Type"
 msgstr "Görnüş"
 
-#: ../../../lib/web/src/components/command-menu.tsx:54
+#: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
 msgstr "Buýruk ýa-da gözleg ýaz..."
 
@@ -3301,8 +3099,8 @@ msgstr "Gözlemek üçin ýaz..."
 msgid "Unable to connect to remote server"
 msgstr "Uzakdaky servere birikmek başartmady"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:89
-#: ../../../lib/web/src/lib/auth-manager.ts:101
+#: ../../../lib/web/src/lib/auth-manager.ts:92
+#: ../../../lib/web/src/lib/auth-manager.ts:104
 msgid "Unable to redirect to login. Please try again."
 msgstr "Girişe ugradyp bolmady. Gaýtadan synanyş."
 
@@ -3310,12 +3108,16 @@ msgstr "Girişe ugradyp bolmady. Gaýtadan synanyş."
 msgid "Unassigned"
 msgstr "Bellenilmedik"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
+msgid "Unauthorized Access"
+msgstr "Rugsatsyz giriş"
+
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Elýeterli däl"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:209
+#: ../../../lib/web/src/lib/request.ts:206
 msgid "Unexpected API error"
 msgstr "Garaşylmadyk API ýalňyşlygy"
 
@@ -3323,11 +3125,6 @@ msgstr "Garaşylmadyk API ýalňyşlygy"
 msgid "United States"
 msgstr "Birleşen Ştatlar"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
-#: ../../../lib/web/src/components/tree-row.tsx:219
-#: ../../../lib/web/src/components/tree-row.tsx:373
-#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3345,11 +3142,11 @@ msgstr "Berkitmäni aýyr"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:403
 msgid "Unsubscribe"
 msgstr "Abunadan çyk"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:391
 msgid "Unsubscribe from forum"
 msgstr "Forumdan abuna ýazylyşygy ýatyr"
 
@@ -3358,32 +3155,28 @@ msgid "Unsubscribe from forum?"
 msgstr "Forumdan ýazylyşygy ýatyrylsynmy?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribed"
 msgstr "Abuna ýazylyşygy ýatyryldy"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Unsubscribing..."
 msgstr "Abuna ýazylyşygy ýatyrylýar..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
-#: ../../../lib/web/src/lib/entity-title.ts:40
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Atsyz"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Täzelendi"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
-msgid "Updated {field}"
-msgstr "{field} täzelendi"
-
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Ýükle"
 
@@ -3391,13 +3184,13 @@ msgstr "Ýükle"
 msgid "Upload progress"
 msgstr "Ýükleme ýagdaýy"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:329
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Giriş açaryňyzy ulanyň"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Ulanyjy"
 
@@ -3417,7 +3210,7 @@ msgstr "Üýtgeýjiler: {variables}"
 msgid "Verification code"
 msgstr "Tassyklama kody"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:379
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Tassykla"
@@ -3426,29 +3219,25 @@ msgstr "Tassykla"
 msgid "Verify email address"
 msgstr "E-poçta salgysyny tassykla"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:96
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Wideo eskizi"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
 msgid "Video viewer: {0}"
 msgstr "Wideo görkeziji: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Ähli bildirişleri görkez"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
-msgid "View and edit item details"
-msgstr "Element jikme-jikliklerini görkez we redaktirle"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Görnüş dolandyryşlary"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:108
 msgid "View only"
 msgstr "Diňe görkez"
 
@@ -3461,18 +3250,9 @@ msgstr "Bu teswiriň degişli suratyny görüň"
 msgid "Violence"
 msgstr "Zorluk"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:33
-msgid "Voice recording is not supported in this browser"
-msgstr "Ses ýazgysy bu brauzerde goldanylmaýar"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "Vote and view"
 msgstr "Ses ber we görkez"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Watch"
-msgstr "Synla"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3492,7 +3272,7 @@ msgstr "Biz <0>{0}</0> salgysyna tassyklaýyş kody iberdik. E-poçta salgyňyzy
 msgid "Wednesday"
 msgstr "Çarşenbe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:958
 msgid "Window duration"
 msgstr "Penjire dowamlylygy"
 
@@ -3511,7 +3291,7 @@ msgstr "Siz gaty çalt ýerleşdirýärsiňiz — garaşyň we ýene synanyşyň
 msgid "You are restricted from posting in this forum"
 msgstr "Bu forumda ýerleşdirmek size çäklendirildi"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:59
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Bu bölüme girmäge rugsadyňyz ýok."
 
@@ -3527,18 +3307,22 @@ msgstr "Entek forumlaryň ýok."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bu forumdan täzelenmeleri almagy bes edersiňiz. Islän wagtyňyz gaýtadan ýazylyp bilersiňiz."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:92
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Hasabyňyz {source} serwерinden bu ýere geçirildi. Şol ýerden pozýançaňyz, habarlar we duýduryşlar iki serwere hem ýetip biler, käbir mazmunyňyz köne serweriň üsti bilen berler, yzarlaýanlar sizi bu ýerde tapmak üçin birnäçe minut gerek bolup biler."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Goşundylaryňyz ýitiriler."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:266
+msgid "Your changes will be lost."
+msgstr "Üýtgeşmeleriňiz ýitiriler."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Tekstiňiz we goşundylaryňyz ýitiriler."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Tekstiňiz ýitiriler."

@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:219
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Ehechami nde internet conexión ha eha'ã jey."
 
@@ -32,11 +32,15 @@ msgstr " · Opaite ára"
 msgid " (edited)"
 msgstr " (oñembojeguáva)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
+msgid " or "
+msgstr " térã "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
 msgid "(edited)"
 msgstr "(oñembojeguáva)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
 msgid "(expand)"
 msgstr "(emyenyhẽ)"
 
@@ -49,17 +53,10 @@ msgstr "[noñemoĩva]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# marandu pyahu} other {# marandu pyahu}}"
 
-#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# poravopyre} other {# poravopyre}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
-msgid "{0, plural, one {+# nested} other {+# nested}}"
-msgstr "{0, plural, one {+# ipypegua} other {+# ipypegua}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -72,24 +69,24 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# mboapurevahára okirirĩva} other {# mboapurevahárakuéra okirirĩva}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "{0} settings"
 msgstr "{0} ñemboheko"
 
-#: ../../../lib/web/src/lib/locale-format.ts:191
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ára} other {#ára}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:187
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ar} other {#ar}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:183
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:195
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#arap} other {#arap}}"
 
@@ -101,9 +98,13 @@ msgstr "{count, plural, one {Oñemoĩporã # mba'e} other {Oñemoĩporã # mba'e
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {Oñembojere # mba'e} other {Oñembojere # mba'e}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} réra"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr "{entityLabel} réra tekotevẽ"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -118,7 +119,7 @@ msgstr "{others, plural, one {Ehechauka # ambue temiandu ko jehaipyrére} other 
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# mba'e} other {# mba'e}}"
 
@@ -126,13 +127,22 @@ msgstr "{totalCount, plural, one {# mba'e} other {# mba'e}}"
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# ñembohovái} other {# ñembohovái}}"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
-msgstr "{totalDescendants, plural, one {# ñembohovái} other {+# ñembohovái ambue}}"
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Embojuruja menu (# marandu ojeleeʼỹva)} other {Embojuruja menu (# marandu ojeleeʼỹva)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
+msgid "+{0} nested"
+msgstr "+{0} oñemboheáva"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} mbohovái hetave"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "1 reply"
+msgstr "1 mbohovái"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -142,10 +152,6 @@ msgstr "12 aravo"
 msgid "24 hours"
 msgstr "24 aravo"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:35
-msgid "A recording is already in progress."
-msgstr "Peteĩ grabación oñepyrũma."
-
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Sa'ipýpe (ára ha aravo)"
@@ -154,12 +160,11 @@ msgstr "Sa'ipýpe (ára ha aravo)"
 msgid "Accept"
 msgstr "Hekoite"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Access"
 msgstr "Jeike"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
-#: ../../../lib/web/src/features/errors/general-error.tsx:58
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
 msgstr "Jeike noñemoneĩri"
 
@@ -167,23 +172,23 @@ msgstr "Jeike noñemoneĩri"
 msgid "Access level"
 msgstr "Jeike rupa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Access level updated"
 msgstr "Jeike rupa oñembojeguáma"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:725
 msgid "Access management"
 msgstr "Jeike Sãmbyhy"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Access removed"
 msgstr "Jeike oñehundi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:689
 msgid "Access set for {subjectName}"
 msgstr "Jeike oñemoĩ {subjectName}-pe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Account"
 msgstr "Tetãygua"
 
@@ -191,17 +196,13 @@ msgstr "Tetãygua"
 msgid "Account type"
 msgstr "Tetãygua peteĩchagua"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
-msgid "Activity"
-msgstr "Tembiaporã"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Embojuaju"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
 msgid "Add a comment..."
 msgstr "Embojuaju peteĩ comentario..."
 
@@ -209,7 +210,7 @@ msgstr "Embojuaju peteĩ comentario..."
 msgid "Add a new account"
 msgstr "Embojuaju tetãygua pyahu"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
 msgid "Add a new field to this class"
 msgstr "Embojuaju peteĩ campo pyahu ko classpe"
 
@@ -225,41 +226,41 @@ msgstr "Embojuaju tetãygua"
 msgid "Add caption"
 msgstr "Embojoapy ñemyesakã"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Embojuaju checklist mba'e"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
 msgid "Add field"
 msgstr "Embojuaju campo"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:342
 msgid "Add files"
 msgstr "Embojuaju archivokuéra"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Embojuaju mba'e..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
 msgid "Add link"
 msgstr "Embojuaju link"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
 msgid "Add option"
 msgstr "Embojuaju opción"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:735
 msgid "Add rule"
 msgstr "Embojuruja peteĩ tembiapouka"
 
-#: ../../../lib/web/src/components/post-tags.tsx:138
+#: ../../../lib/web/src/components/post-tags.tsx:137
 msgid "Add tag..."
 msgstr "Embojuaju tag..."
 
@@ -267,8 +268,8 @@ msgstr "Embojuaju tag..."
 msgid "Add to existing notifications"
 msgstr "Embojuaju ñe'ẽmondo oĩvape"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -283,11 +284,11 @@ msgid "Additional details (optional)"
 msgstr "Detalle hetave (rejeporavóva)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:553
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:554
 msgid "AI actions on posts"
 msgstr "AI tembiapo postre"
 
@@ -304,15 +305,16 @@ msgstr "Opaite forum"
 msgid "All posts and comments have been reviewed"
 msgstr "Opaite post ha mbohovái ojehecháma"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
-msgid "Allow anyone to search for {entityLabel}"
-msgstr "Emoneĩ opavavépe oheka {entityLabel}"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr "Emoneĩ opavavépe oheka {0}"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Eipysyrõ opavavépe oheka forum"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Allow sort by"
 msgstr "Eipysyrõ orden ko'ãva rupive"
 
@@ -321,7 +323,6 @@ msgid "An error occurred"
 msgstr "Oĩ peteĩ jejavy"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
-#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Oĩ peteĩ jejavy ñeha'ãrõ'ỹva"
 
@@ -352,15 +353,11 @@ msgid "Approve"
 msgstr "Emoneĩ"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Añetehápe ehundise \"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
-msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
-msgstr "Añetehápe ehundise \"{title}\"? Ko tembiapo ndojeapojeýiva."
-
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Añetehápe ehundise \"{name}\" columna? Ko ndojeapojeýiva."
 
@@ -380,23 +377,15 @@ msgstr "Añetehápe ehundise ko post? Ehundíta avei opa comentario. Ko tembiapo
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Añetehápe esẽse? Eñepyrũjeýta hag̃ua eike ne tetãyguápe."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
-msgid "Are you sure you want to resign?"
-msgstr "Añetehápe eikese?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
-msgid "Are you sure you want to resign? {opponentName} will win the game."
-msgstr "Añetehápe eikese? {opponentName} ogana ñembosarái."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Ojupíva"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "Embojuaju comentario archivokuéra"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "Embojuaju mbohovái archivokuéra"
 
@@ -405,7 +394,7 @@ msgstr "Embojuaju mbohovái archivokuéra"
 msgid "Authenticated users"
 msgstr "Puruhára oñemoañetéva"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:306
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Authenticator código"
 
@@ -413,15 +402,15 @@ msgstr "Authenticator código"
 msgid "Available keyboard shortcuts"
 msgstr "Teclado atajo oĩva"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar"
 msgstr "Avatar"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar for {name}"
 msgstr "{name} avatar"
 
-#: ../../../lib/web/src/components/place-picker.tsx:142
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Tapykuépe"
 
@@ -431,9 +420,9 @@ msgstr "Tapykuépe"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:222
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Back to forum"
 msgstr "Tapykuépe forum-pe"
 
@@ -441,8 +430,8 @@ msgstr "Tapykuépe forum-pe"
 msgid "Back to forums"
 msgstr "Tapykuépe forums-pe"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Eju jey ógape"
 
@@ -459,43 +448,43 @@ msgstr "Emboyke apohára"
 msgid "Banned"
 msgstr "Oñemboyke"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
+#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Banner"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner removed"
 msgstr "Banner oñehundi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner updated"
 msgstr "Banner oñembojeguáma"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
 msgid "Blocked by"
 msgstr "Ojejokóva"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Tape ojejokóma jehegui'ỹva-pe"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
 msgid "Blocks"
 msgstr "Bloques"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Board"
 msgstr "Tablero"
 
-#: ../../../lib/web/src/components/post-tags.tsx:194
-#: ../../../lib/web/src/components/post-tags.tsx:206
+#: ../../../lib/web/src/components/post-tags.tsx:180
+#: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "Boost mba'erekohápe"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
 msgid "Border colour"
 msgstr "Borde sa'y"
 
@@ -513,48 +502,34 @@ msgstr "{0}-gui"
 msgid "By {0}"
 msgstr "{0}-gui"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:48
-msgid "Camera permission denied"
-msgstr "Cámara permiso ojeheja"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:56
-msgid "Camera unavailable"
-msgstr "Cámara ndaipóri"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
-#: ../../../lib/web/src/components/travelling-picker.tsx:288
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
+#: ../../../lib/web/src/components/travelling-picker.tsx:308
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:393
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "Heja"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "Heja comentario"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "Heja mbohovái"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:24
-#: ../../../lib/web/src/lib/shell-errors.ts:37
-#: ../../../lib/web/src/lib/shell-errors.ts:52
-msgid "Cancelled"
-msgstr "Oñehéja"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -570,23 +545,15 @@ msgstr "Categoría ko'ã ñe'ẽmondo-pegua"
 msgid "Change notification category"
 msgstr "Embojere ñe'ẽmondo categoría"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed"
-msgstr "Oñemoambue"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed {field}"
-msgstr "{field} oñemoambue"
-
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Ehechajey upéi tembikuaa pyahu rehe"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
 msgid "Checkbox"
 msgstr "Checkbox"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
 msgid "Checklist"
 msgstr "Checklist"
 
@@ -599,13 +566,13 @@ msgstr "Eiporavo peteĩ ñembosarái sidebar-gui térã eñepyrũ peteĩ pyahu."
 msgid "Choose language"
 msgstr "Eiporavo ñe'ẽ"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
-#: ../../../lib/web/src/components/travelling-picker.tsx:151
-#: ../../../lib/web/src/components/travelling-picker.tsx:212
-#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:170
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Clear"
 msgstr "Embopotĩ"
 
@@ -627,19 +594,19 @@ msgstr "Embopotĩ jeheka"
 msgid "Clearing saved posts..."
 msgstr "Omopotĩ jehai ñongatupyre..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Mboty"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
 msgid "Close dialog"
 msgstr "Mboty diálogo"
 
@@ -672,16 +639,16 @@ msgstr "Mbojaʼo"
 msgid "Collapse sidebar"
 msgstr "Mbohypy'ũ sidebar"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
 msgid "Colour"
 msgstr "Sa'y"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Columna rembiapo"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Columns group by"
 msgstr "Columnas mbojuajuva"
 
@@ -710,7 +677,7 @@ msgstr "Comentario oñemoneĩma"
 msgid "Comment deleted"
 msgstr "Comentario oñehundi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:943
 msgid "Comment limit"
 msgstr "Comentario ipysyrõ"
 
@@ -734,34 +701,29 @@ msgstr "Comentario oñembojere"
 msgid "Comment updated"
 msgstr "Comentario oñembojeguáma"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "Comment, vote, and view"
 msgstr "Comentario, voto, ha hecha"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Comentariokuéra"
-
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
-msgid "Comments ({0})"
-msgstr "Comentariokuéra ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Compact"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
 msgid "Configure option settings"
 msgstr "Embohekombo'e opción hekombo'e"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
 msgid "Configure view settings"
 msgstr "Embohekombo'e view hekombo'e"
 
-#: ../../../lib/web/src/components/place-picker.tsx:146
-#: ../../../lib/web/src/components/travelling-picker.tsx:296
+#: ../../../lib/web/src/components/place-picker.tsx:160
+#: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Emoneĩ"
 
@@ -773,12 +735,12 @@ msgstr "Oñembojuaju"
 msgid "Connecting..."
 msgstr "Ojoajúhína..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:313
 msgid "Content"
 msgstr "Tembikuaa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:893
 msgid "Content from users below a threshold must be approved"
 msgstr "Tembikuaa puruhára gui ipoguypegua tekotevẽ oñemoneĩ"
 
@@ -790,7 +752,7 @@ msgstr "Contenido tekotevẽ"
 msgid "Content not found."
 msgstr "Ndojejuhúi tetepy."
 
-#: ../../../lib/web/src/lib/query-client.ts:73
+#: ../../../lib/web/src/lib/query-client.ts:78
 msgid "Content not modified"
 msgstr "Tembikuaa nojembojeguáiri"
 
@@ -802,7 +764,7 @@ msgstr "Marandu rehegua ha detalle."
 msgid "Continue"
 msgstr "Tenonde"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:343
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "Eku tenonde {label} ndive"
 
@@ -822,39 +784,40 @@ msgstr "Kopia"
 msgid "Could not load this document. Please try again later."
 msgstr "Ndaikatúi oñemyenyhẽ ko documento. Eha'ã jeýta upéi."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Ndaikatúi omyanyhẽ marandu"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:170
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Ndaikatúi oñemondo pe código. Eñehaʼã jey."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:124
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Ndaikatúi oñepyrũ ñemoneʼẽ jey. Eñehaʼã jey."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:212
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Ndaikatúi ojehechajey upe mba'ete ndive. Eha'ã jey."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Embojeguáva"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
-msgid "Create {entityLabel}"
-msgstr "Ejapo {entityLabel}"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr "Ejapo {0}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
 msgstr "Embojeguáva peteĩ forum pyahu"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Embojeguáva peteĩ post pyahu"
 
@@ -867,26 +830,21 @@ msgstr "Embojeguáva forum"
 msgid "Create new item"
 msgstr "Embojeguáva mba'e pyahu"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
 msgid "Created"
 msgstr "Oñembojeguáma"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
-msgid "Created {field}"
-msgstr "{field} ojejapo"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Ojejapohína forum..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Embojeguávahína..."
 
-#: ../../../lib/web/src/components/map-view.tsx:249
+#: ../../../lib/web/src/components/map-view.tsx:217
 msgid "Current location"
 msgstr "Tenda ag̃agua"
 
@@ -903,11 +861,11 @@ msgstr "Yvotypaha"
 msgid "Data conflict"
 msgstr "Mba'ekuaarã joavy"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
 msgid "Date"
 msgstr "Ára"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "days"
 msgstr "ára"
 
@@ -919,7 +877,7 @@ msgstr "Joha"
 msgid "Default"
 msgstr "Default"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Default account"
 msgstr "Default tetãygua"
 
@@ -927,34 +885,32 @@ msgstr "Default tetãygua"
 msgid "Default AI account"
 msgstr "Default AI tetãygua"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
 msgid "Default sort"
 msgstr "Default sort"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "Hundi"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
 msgid "Delete attachment"
 msgstr "Hundi archivo"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Hundi columna"
 
@@ -963,36 +919,26 @@ msgstr "Hundi columna"
 msgid "Delete comment"
 msgstr "Hundi comentario"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
 msgid "Delete field"
 msgstr "Hundi campo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:432
 msgid "Delete forum"
 msgstr "Hundi forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum?"
 msgstr "Hundi forum?"
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
-msgid "Delete game?"
-msgstr "Ehundi ñembosarái?"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
-msgid "Delete item"
-msgstr "Hundi mba'e"
-
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
 msgid "Delete option"
 msgstr "Hundi opción"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
 msgid "Delete option {0}"
 msgstr "Hundi opción {0}"
 
@@ -1000,35 +946,23 @@ msgstr "Hundi opción {0}"
 msgid "Delete post"
 msgstr "Hundi post"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
 msgid "Delete view"
 msgstr "Hundi view"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:101
+#: ../../../lib/web/src/components/restore-banner.tsx:109
 msgid "Delete your account on the old server"
 msgstr "Emomba'apo nde cuenta ypykue servidor-pe"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted"
-msgstr "Oñemboguete"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted {field}"
-msgstr "{field} oñemboguete"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Ojejukahína forum..."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-msgid "Deleting..."
-msgstr "Hundihína..."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Oguejýva"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
 msgid "Description"
 msgstr "Mbohekoha"
 
@@ -1051,19 +985,19 @@ msgstr "Detalle Panel"
 msgid "Detect from web browser"
 msgstr "Heka web browser-gui"
 
-#: ../../../lib/web/src/components/person-picker.tsx:193
+#: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Ñongatuha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "Disabled"
 msgstr "Oñemboty"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Mboyke"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "¿Reipotapa rembyai pe haipyre?"
 
@@ -1072,8 +1006,8 @@ msgstr "¿Reipotapa rembyai pe haipyre?"
 msgid "Disconnected"
 msgstr "Ndojuajúi"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:80
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:94
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Mbohovái"
@@ -1087,28 +1021,22 @@ msgstr "Mbohovái banner"
 msgid "Displays the mobile sidebar."
 msgstr "Ohechauka mobile sidebar."
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
-msgid "Does not match the required pattern"
-msgstr "Ndojojái pe ta'ãnga ojejeruréva ndive"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 msgid "Done"
 msgstr "Apopyre"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
 msgid "Download"
 msgstr "Emboguejy"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "Ndaikatúi oñemboguejy"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
 msgid "Duplicates"
 msgstr "Duplicados"
 
@@ -1123,7 +1051,7 @@ msgstr "Disléxia peguarã iporãva"
 msgid "Edit"
 msgstr "Embojuruja"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "Embosako'i {label}"
 
@@ -1131,26 +1059,26 @@ msgstr "Embosako'i {label}"
 msgid "Edit caption"
 msgstr "Emboheko ñemyesakã"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
 msgstr "Embojuruja campo"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
 msgid "Edit field settings"
 msgstr "Embojuruja campo configuración"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
 msgid "Edit option"
 msgstr "Embojuruja opción"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
 msgid "Edit option {0}"
 msgstr "Embojuruja opción {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:283
+#: src/features/forums/components/edit-post-dialog.tsx:285
 msgid "Edit post"
 msgstr "Embojuruja publicación"
 
@@ -1158,7 +1086,7 @@ msgstr "Embojuruja publicación"
 msgid "Edit selected card"
 msgstr "Embojuruja tarjeta poravopyre"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
 msgid "Edit view"
 msgstr "Embojuruja vista"
 
@@ -1166,29 +1094,25 @@ msgstr "Embojuruja vista"
 msgid "Email"
 msgstr "Email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:280
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "Código email"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Enter banner text (markdown supported)..."
 msgstr "Emoinge banner moñe'ẽ (markdown ojepuru)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:290
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "Emoinge code ne email-pegua"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Emoinge nde código autenticador rehegua"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Entity ID"
 msgstr "Entidad ID"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
-msgid "Error"
-msgstr "Jejavy"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1208,10 +1132,6 @@ msgstr "URL okápe"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Tuichavéva"
-
-#: ../../../lib/web/src/hooks/use-accounts.ts:213
-msgid "Failed to add account"
-msgstr "Ndaikatúi oñembojuaju cuenta"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1249,20 +1169,16 @@ msgstr "Ndaikatúi oñemonguatia"
 msgid "Failed to create forum"
 msgstr "Ndaikatúi ojejapo forum"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Ndaikatúi oñembojuaju link"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-msgid "Failed to delete"
-msgstr "Ndaikatúi ojejuka"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Ndaikatúi ojejuka archivo"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
 msgid "Failed to delete comment"
 msgstr "Ndaikatúi ojejuka comentario"
 
@@ -1270,7 +1186,7 @@ msgstr "Ndaikatúi ojejuka comentario"
 msgid "Failed to delete forum"
 msgstr "Ndaikatúi ojejuka forum"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
 msgid "Failed to delete link"
 msgstr "Ndaikatúi ojejuka link"
 
@@ -1282,7 +1198,7 @@ msgstr "Ndaikatúi oguenohẽ RSS token"
 msgid "Failed to load"
 msgstr "Ndaikatúi oñembogue"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:660
 msgid "Failed to load access rules"
 msgstr "Ndaikatúi oñembogue acceso reglas"
 
@@ -1290,7 +1206,7 @@ msgstr "Ndaikatúi oñembogue acceso reglas"
 msgid "Failed to load forum"
 msgstr "Ndaikatúi oñembogue foro"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:160
 msgid "Failed to load forum settings"
 msgstr "Ndaikatúi oñembogue foro configuración"
 
@@ -1298,7 +1214,7 @@ msgstr "Ndaikatúi oñembogue foro configuración"
 msgid "Failed to load forums"
 msgstr "Ndaikatúi oñembogue forokuéra"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:667
 msgid "Failed to load groups"
 msgstr "Ndaikatúi oñembogue grupos"
 
@@ -1306,14 +1222,9 @@ msgstr "Ndaikatúi oñembogue grupos"
 msgid "Failed to load history"
 msgstr "Ndaikatúi oñembogue tembiasakue"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load image"
 msgstr "Ndaikatúi omyanyhẽ ta'anga"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
-msgid "Failed to load item"
-msgstr "Ndaikatúi oñembogue artículo"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
@@ -1323,7 +1234,7 @@ msgstr "Ndaikatúi oñembogue moderación log"
 msgid "Failed to load moderation queue"
 msgstr "Ndaikatúi oñembogue moderación tysýi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Failed to load moderation settings"
 msgstr "Ndaikatúi oñembogue moderación configuración"
 
@@ -1344,13 +1255,9 @@ msgstr "Ndaikatúi oñembogue reportes"
 msgid "Failed to load restrictions"
 msgstr "Ndaikatúi oñembogue restricciones"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load video"
 msgstr "Ndaikatúi omyanyhẽ video"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
-msgid "Failed to move"
-msgstr "Ndaikatúi omongu'e"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
@@ -1360,7 +1267,7 @@ msgstr "Ndaikatúi oñemoneĩ usuario"
 msgid "Failed to mute users"
 msgstr "Ndaikatúi oñemoneĩ usuariokuéra"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
 msgid "Failed to post comment"
 msgstr "Ndaikatúi oñemonde comentario"
 
@@ -1368,7 +1275,7 @@ msgstr "Ndaikatúi oñemonde comentario"
 msgid "Failed to reject items"
 msgstr "Ndaikatúi oñerechaza items"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Failed to remove access"
 msgstr "Ndaikatúi oñembogue acceso"
 
@@ -1385,7 +1292,7 @@ msgstr "Ndaikatúi oñembogue restricción"
 msgid "Failed to remove saved post"
 msgstr "Ndaikatúi oñeñe'ẽ pe marandu ñongatupyre"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Failed to rename forum"
 msgstr "Ndaikatúi oñembohera'ã foro"
 
@@ -1401,11 +1308,7 @@ msgstr "Ndaikatúi oñembojepyru reporte"
 msgid "Failed to revoke RSS access"
 msgstr "Ndaikatúi omboyke RSS jeike"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-msgid "Failed to save"
-msgstr "Ndaikatúi oñongatu"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:827
 msgid "Failed to save moderation settings"
 msgstr "Ndaikatúi oñongatu moderación configuración"
 
@@ -1422,11 +1325,11 @@ msgstr "Ndaikatúi oñongatu prompt"
 msgid "Failed to search forums"
 msgstr "Ndaikatúi oñehekapy forokuéra"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Failed to search users"
 msgstr "Ndaikatúi oñehekapy usuariokuéra"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to set access level"
 msgstr "Ndaikatúi oñemboheko acceso jeporavo"
 
@@ -1438,40 +1341,36 @@ msgid "Failed to subscribe"
 msgstr "Ndaikatúi oñesuscribi"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Failed to unsubscribe"
 msgstr "Ndaikatúi oñesuscribi'ỹ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:719
 msgid "Failed to update access level"
 msgstr "Ndaikatúi oñembohera'ã pyahu acceso jeporavo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:546
 msgid "Failed to update AI settings"
 msgstr "Ndaikatúi oñembohera'ã pyahu AI configuración"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: src/routes/_authenticated/$forum_.settings.tsx:465
 msgid "Failed to update banner"
 msgstr "Ndaikatúi oñembohera'ã pyahu banner"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
 msgid "Failed to update comment"
 msgstr "Ndaikatúi oñembohera'ã pyahu comentario"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
-msgid "Failed to update watching"
-msgstr "Ndaikatúi omoĩmbaite ñemaña"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Ndaikatúi oñemondo archivo"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:338
 msgid "Files"
 msgstr "Archivos"
 
@@ -1484,15 +1383,15 @@ msgstr "Oñemboaty tag rupive:"
 msgid "Find forums"
 msgstr "Eheka foros"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:89
+#: ../../../lib/web/src/components/restore-banner.tsx:97
 msgid "Finish moving your account"
 msgstr "Oñepyrũ nde cuenta mbojuaju"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
 msgid "Flags"
 msgstr "Banderakuéra"
 
@@ -1501,9 +1400,6 @@ msgid "Flat"
 msgstr "Ipe"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-msgid "forum"
-msgstr "aty"
-
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1527,23 +1423,23 @@ msgstr "Foro ndaipóri vai voi"
 msgid "Forum link"
 msgstr "Foro ñeꞌẽ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Forum name is required"
 msgstr "Tekotevẽ foro téra"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum not found"
 msgstr "Foro nojetopái"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Forum renamed"
 msgstr "Oñembohera'ã foro"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:277
 msgid "Forum settings sections"
 msgstr "Foro configuración secciones"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum unavailable"
 msgstr "Foro ndaikatúi"
 
@@ -1558,11 +1454,11 @@ msgstr "Foros"
 msgid "Friday"
 msgstr "Arapokõi"
 
-#: ../../../lib/web/src/components/person-picker.tsx:186
+#: ../../../lib/web/src/components/person-picker.tsx:207
 msgid "Friends"
 msgstr "Iru"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:134
+#: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "Oguõva"
 
@@ -1574,8 +1470,8 @@ msgstr "Oguõva"
 msgid "From theme"
 msgstr "Téma guive"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Tereje jey"
 
@@ -1583,7 +1479,7 @@ msgstr "Tereje jey"
 msgid "Group"
 msgstr "Atypy"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Group by"
 msgstr "Embyaty rupive"
 
@@ -1608,8 +1504,8 @@ msgstr "Tembiasakue"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:86
-#: ../../../lib/web/src/components/layout/top-bar.tsx:115
+#: ../../../lib/web/src/components/layout/top-bar.tsx:71
+#: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
 msgstr "Óga"
 
@@ -1617,16 +1513,16 @@ msgstr "Óga"
 msgid "Hot"
 msgstr "Akúva"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:357
 msgid "Identity"
 msgstr "Identidad"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Image viewer: {0}"
 msgstr "Ta'anga jehecha: {0}"
 
@@ -1646,10 +1542,6 @@ msgstr "Avatar tai ñepyrũrãva"
 msgid "Initials avatar for {name}"
 msgstr "{name} avatar tai ñepyrũrãva"
 
-#: ../../../lib/web/src/components/post-tags.tsx:168
-msgid "Interest {weight}"
-msgstr "Temimbota {weight}"
-
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Oikoteveva oñemyendyve"
@@ -1667,7 +1559,7 @@ msgstr "Oikoteveva oñembogue"
 msgid "Interests"
 msgstr "Oikotevevakuéra"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Arange ndoikóiva"
 
@@ -1675,11 +1567,7 @@ msgstr "Arange ndoikóiva"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Ojehecha pe kuatiarogue rehekáva <0/>ndaipóri térã oñemboguéma."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
-msgid "Item details"
-msgstr "Artículo detalles"
-
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "Ko'ág̃aite"
 
@@ -1692,13 +1580,13 @@ msgstr "Teclado mboypýi"
 msgid "Large"
 msgstr "Tuicha"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Layout"
 
-#: ../../../lib/web/src/components/post-tags.tsx:73
-msgid "Letters, numbers, spaces, hyphens, and slashes only"
-msgstr "Achegety, papapy, pa'ũ, guión ha barra añoite"
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Tai, papapy, pa'ũ ha guión añoite"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1708,15 +1596,15 @@ msgstr "Hesakã"
 msgid "Link"
 msgstr "Ñeꞌẽ"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
 msgid "Links"
 msgstr "Linkkuéra"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
 msgid "List"
 msgstr "Tysýi"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Embojuaju hetave"
 
@@ -1724,15 +1612,7 @@ msgstr "Embojuaju hetave"
 msgid "Loading content…"
 msgstr "Contenido henyhẽhína…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
-msgid "Loading item"
-msgstr "Ojembogue artículo"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
-msgid "Loading item details"
-msgstr "Ojembogue artículo detalles"
-
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Ojembogue..."
@@ -1774,16 +1654,16 @@ msgstr "Eñangareko categoríakuéra rehe"
 msgid "Manual"
 msgstr "Manual"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Ehecha pyre opavave"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown ojepuru"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
 msgid "Maximum length"
 msgstr "Pukutuichavéva"
 
@@ -1794,10 +1674,6 @@ msgstr "MCP mohendaha"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Mbyte"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-msgid "Members"
-msgstr "Memberskuera"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1811,11 +1687,7 @@ msgstr "Mensaje"
 msgid "Metric"
 msgstr "Métrico"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:31
-msgid "Microphone permission denied"
-msgstr "Ojejokóma micrófono ñemoneĩ"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
 msgid "Minimum length"
 msgstr "Pukuvevéva"
 
@@ -1828,14 +1700,14 @@ msgstr "Mba'evaikuaa"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modera, eipublicá, ecomenta, evota, ha ehecha"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "Moderación"
 
@@ -1860,14 +1732,6 @@ msgstr "Arakõi"
 msgid "More options"
 msgstr "Opción hetave"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved"
-msgstr "Oñemongu'e"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved {field}"
-msgstr "{field} oñemongu'e"
-
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Emokirirĩ"
@@ -1881,37 +1745,36 @@ msgstr "Emokirirĩ autor"
 msgid "Muted"
 msgstr "Okirirĩva"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
+#: src/routes/_authenticated/$forum_.settings.tsx:361
 msgid "Name"
 msgstr "Téra"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Name cannot contain < or > characters"
 msgstr "Téra ndaikatúi oguereko < térã > tai'ã"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
-msgid "Name is required"
-msgstr "Téra oñeikotevẽ"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr "Téra ndaikatúi oguereko paréntesis angular, backslash, punto y coma, comilla térã backtick"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:349
 msgid "Name must be 1000 characters or less"
 msgstr "Téra ojejapo va'erã 1000 tai'ã térã sa'ive ndive"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:51
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Jejavy ñanduti rehegua"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "New"
 msgstr "Pyahu"
 
@@ -1920,27 +1783,27 @@ msgstr "Pyahu"
 msgid "New game"
 msgstr "Ñembosarái pyahu"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
 #: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Marandu pyahu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:871
 msgid "New threads must be approved"
 msgstr "Mba'apohaty pyahu oñemoneĩ va'erã"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "New user threshold:"
 msgstr "Marandu pyahu raha:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
 msgid "Next image"
 msgstr "Ta'anga oseguíva"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Ndaipóri {parentClassNames} oñembojuajúva"
 
@@ -1948,7 +1811,7 @@ msgstr "Ndaipóri {parentClassNames} oñembojuajúva"
 msgid "No {statusFilter} reports found"
 msgstr "Ndojejuhúi {statusFilter} reportes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:109
 msgid "No access"
 msgstr "Ojeikese'ỹ"
 
@@ -1956,7 +1819,7 @@ msgstr "Ojeikese'ỹ"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Ndaiporivéi reglas oñembosako'íva. Embojuaju reglas remohenondévo mávapa ikatúta oike ko mba'épe."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "Ndaipóri tembiapo gueteri"
 
@@ -1964,7 +1827,7 @@ msgstr "Ndaipóri tembiapo gueteri"
 msgid "No comments on this image yet."
 msgstr "Ne'ĩra gueteri temiandu ko ta'angáre."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
 msgid "No comments yet"
 msgstr "Ndaipóri comentario gueteri"
 
@@ -1981,11 +1844,11 @@ msgstr "Ndaipóri ñembosarái gueteri"
 msgid "No groups available"
 msgstr "Ndaipóri grupos oĩva"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Ndaikatúi oñemoheñói item peteĩchagua. Emoheñói raẽ peteĩchagua oñeikotevẽva."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
 msgid "No matching objects"
 msgstr "Ndaipóri mba'e ojuajúva"
 
@@ -1993,12 +1856,12 @@ msgstr "Ndaipóri mba'e ojuajúva"
 msgid "No moderation activity"
 msgstr "Ndaipóri tembiapo moderación rehegua"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
-#: ../../../lib/web/src/components/person-picker.tsx:71
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
+#: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Ndojejuhúi tapichakuéra"
 
-#: ../../../lib/web/src/components/place-picker.tsx:120
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Ndojejuhúi tenda"
 
@@ -2014,18 +1877,18 @@ msgstr "Ndaipóri reportes"
 msgid "No restrictions"
 msgstr "Ndaipóri ñembojoavy"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:65
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Ndojejuhúi mba'eve"
 
-#: ../../../lib/web/src/components/command-menu.tsx:57
+#: ../../../lib/web/src/components/command-menu.tsx:55
 msgid "No results found."
 msgstr "Ndojejuhúi resultados."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Ndaipóri estado"
 
@@ -2037,7 +1900,7 @@ msgstr "Ndojejuhúi tiempo zona."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Ndaipóri tópico marandu gueteri — eha'ã jey notificación pyahu rire."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Ndaipóri marandu omoñe'ẽ'ỹva"
 
@@ -2054,21 +1917,17 @@ msgid "No views"
 msgstr "Ndaipóri jehecha"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:329
+#: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Mba'eve"
@@ -2078,15 +1937,15 @@ msgid "Normal"
 msgstr "Iko háicha"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:65
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Ndojejuhúi"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
 msgstr "Noñemoĩri"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
 msgid "Nothing found"
 msgstr "Ndojejuhúi mba'eve"
 
@@ -2095,13 +1954,13 @@ msgid "Nothing saved yet"
 msgstr "Ndaipóri gueteri mba'eve oñongatupyre"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Marandu: {0}"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
 msgid "Number"
 msgstr "Papapy"
 
@@ -2127,8 +1986,8 @@ msgstr "Ko ta'angáre"
 msgid "Oops! Page Not Found!"
 msgstr "Hetia'epa! ¡Kuatiarogue ndojejuhúi!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:227
-#: ../../../lib/web/src/components/layout/nav-group.tsx:232
+#: ../../../lib/web/src/components/layout/nav-group.tsx:199
+#: ../../../lib/web/src/components/layout/nav-group.tsx:204
 msgid "Open actions"
 msgstr "Eipe'a tembiaporã"
 
@@ -2136,13 +1995,13 @@ msgstr "Eipe'a tembiaporã"
 msgid "Open menu"
 msgstr "Eipe'a menú"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:78
-#: ../../../lib/web/src/components/layout/top-bar.tsx:83
+#: ../../../lib/web/src/components/layout/top-bar.tsx:63
+#: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
 msgstr "Eipe'a navegación"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
 msgid "Open option actions"
 msgstr "Eipe'a opción tembiapo"
 
@@ -2150,8 +2009,8 @@ msgstr "Eipe'a opción tembiapo"
 msgid "Open selected card"
 msgstr "Eipe'a card oñeporavóva"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
 msgid "Open view actions"
 msgstr "Eipe'a vista tembiapo"
 
@@ -2160,13 +2019,17 @@ msgstr "Eipe'a vista tembiapo"
 msgid "Open view controls"
 msgstr "Eipe'a vista mba'embokuaaha"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
 msgid "Option name"
 msgstr "Opción téra"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
+#: src/routes/_authenticated/$forum_.settings.tsx:474
+msgid "Optional markdown banner shown at the top of your forum."
+msgstr "Markdown banner opcional ojechauka ne forum yvategua."
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
 msgid "Options"
 msgstr "Opciones"
 
@@ -2180,34 +2043,27 @@ msgstr "Ambue"
 msgid "Owner"
 msgstr "Mburuvicha"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Sy/ru"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:325
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Jeike rape"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
-#: ../../../lib/web/src/lib/shell-errors.ts:26
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "Passkey ñemyatã ndoikói. Eñehaʼã jey."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:138
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Passkeys"
 msgstr "Jeike rape kuéra"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:19
-msgid "Passkeys are not available in this browser"
-msgstr "Passkeys ndaipóri ko navegador-pe"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
 msgid "Pattern (regex)"
 msgstr "Tape (regex)"
 
-#: src/features/forums/components/post-card.tsx:74
+#: src/features/forums/components/post-card.tsx:57
 #: src/features/forums/components/thread/thread-comment.tsx:275
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:751
@@ -2228,12 +2084,8 @@ msgstr "Comentarios oha'arõva ({0})"
 msgid "Pending posts ({0})"
 msgstr "Marandu oha'arõva ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:179
-msgid "People"
-msgstr "Tapichakuéra"
-
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:337
 msgid "Photos and videos"
 msgstr "Ta'anga ha video"
 
@@ -2246,7 +2098,7 @@ msgid "Pinned"
 msgstr "Oñepin"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:52
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Ehechami nde internet conexión ha eha'ã jey."
@@ -2259,11 +2111,15 @@ msgstr "Emyesakã apañuãi..."
 msgid "Please enter a reply"
 msgstr "Emoinge ñembohovái"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:81
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Eike ehecha hag̃ua ko mba'e <0/> kuatia'atã hekopeguáva reheve."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Eha'ãjey angána."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:73
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
 msgid "Please wait a moment and try again."
 msgstr "Eha'arõmi sapy'aite ha eha'ã jey."
 
@@ -2283,7 +2139,7 @@ msgstr "Ndaikatúi oñeñongatu publicación foro servidor-pe"
 msgid "Post deleted"
 msgstr "Marandu oñembogue"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:928
 msgid "Post limit"
 msgstr "Marandu límite"
 
@@ -2323,11 +2179,11 @@ msgstr "Marandu oñepin'ỹma"
 msgid "Post updated"
 msgstr "Marandu oñembohekopyahu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Post, comment, vote, and view"
 msgstr "Emoinge marandu, comentario, voto, ha jehecha"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:938
 msgid "posts"
 msgstr "jehaipyre"
 
@@ -2339,16 +2195,16 @@ msgstr "Marandu"
 msgid "Posts and comments"
 msgstr "Marandu ha comentarios"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "Pre-moderation"
 msgstr "Pre-moderación"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Embotove spam emboaja mboýpa usuarios ikatu omoĩ marandu"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
 msgid "Previous image"
 msgstr "Ta'anga tenondete"
 
@@ -2361,19 +2217,19 @@ msgstr "Privacidad"
 msgid "Processing…"
 msgstr "Oñemba'apo hína…"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Proyecto pehẽnguéra"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Prompt oñeñongatu"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
-msgid "Properties"
-msgstr "Mba'éichagua"
-
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Emoherakuã marandu"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Oñemoherakuãhína..."
 
@@ -2389,15 +2245,15 @@ msgstr "Cola"
 msgid "Raised"
 msgstr "Yvate"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:923
 msgid "Rate limiting"
 msgstr "Limitación de frecuencia"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:110
+#: ../../../lib/web/src/components/restore-banner.tsx:118
 msgid "Re-link your accounts on this server"
 msgstr "Embojoja jey nde cuenta ko servidor-pe"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:140
 msgid "Re-register your passkeys on this server"
 msgstr "Emoinge jey nde passkeys ko servidor-pe"
 
@@ -2422,20 +2278,12 @@ msgstr "Forums ojeporavóva"
 msgid "Reconnecting ({retries})..."
 msgstr "Ojoajujey ({retries})..."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:43
-msgid "Recording failed. Please try again."
-msgstr "Grabación ndoikói. Eha'ã jey."
-
-#: ../../../lib/web/src/lib/shell-errors.ts:39
-msgid "Recording produced no audio"
-msgstr "Pe grabación ndoguerekói mba'epu"
-
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
 msgid "Redirecting to login."
 msgstr "Oñembojevyhína login-pe."
 
-#: ../../../lib/web/src/components/post-tags.tsx:214
-#: ../../../lib/web/src/components/post-tags.tsx:226
+#: ../../../lib/web/src/components/post-tags.tsx:200
+#: ../../../lib/web/src/components/post-tags.tsx:212
 msgid "Reduce interest"
 msgstr "Embogue ñembyeko'ói"
 
@@ -2448,7 +2296,7 @@ msgstr "Embotove"
 msgid "Rejected"
 msgstr "Oñembotovéma"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
 msgid "Relates"
 msgstr "Ojuajúva"
 
@@ -2460,17 +2308,9 @@ msgstr "Mbytetégua (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Mbytetégua 24 hora ndive, ambue tiempo absoluto"
 
-#: ../../../lib/web/src/components/post-tags.tsx:166
-msgid "Relevance {relevance}"
-msgstr "Relevancia {relevance}"
-
-#: ../../../lib/web/src/components/post-tags.tsx:164
-msgid "Relevance {relevance}, interest {weight}"
-msgstr "Relevancia {relevance}, temimbota {weight}"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2510,17 +2350,17 @@ msgstr "Embogue comentario"
 msgid "Remove from saved"
 msgstr "Eipe'a ñongatupývagui"
 
-#: ../../../lib/web/src/components/post-tags.tsx:234
-#: ../../../lib/web/src/components/post-tags.tsx:246
+#: ../../../lib/web/src/components/post-tags.tsx:220
+#: ../../../lib/web/src/components/post-tags.tsx:232
 msgid "Remove interest"
 msgstr "Embogue ñembyeko'ói"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Embogue mba'e"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
 msgid "Remove link"
 msgstr "Emboguepa juajuha"
 
@@ -2528,11 +2368,11 @@ msgstr "Emboguepa juajuha"
 msgid "Remove post"
 msgstr "Embogue marandu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:392
 msgid "Remove this forum from your sidebar."
 msgstr "Embogue ko forum ne sidebarpe."
 
-#: src/features/forums/components/post-card.tsx:80
+#: src/features/forums/components/post-card.tsx:63
 #: src/features/forums/components/thread/thread-comment.tsx:281
 #: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
@@ -2546,28 +2386,28 @@ msgstr "Oguenohẽ ñongatupyrégui"
 msgid "Removing..."
 msgstr "Oñemboguehína..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Embohera jey"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Embohera jey columna"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Embohera jey ko board columna"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Renaming forum..."
 msgstr "Oñembohérajeyhína forum..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "replies"
 msgstr "mbohovái"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:882
 msgid "Replies must be approved"
 msgstr "Ñembohovái oñemoneĩ va'erã"
 
@@ -2618,41 +2458,29 @@ msgstr "Oñereporta {0} rehe"
 msgid "Reports"
 msgstr "Reportes"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:865
 msgid "Require approval before content becomes visible"
 msgstr "Aprobación oñeikotevẽ contenido ojechaukauka mboyve"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Require approval for new comments"
 msgstr "Aprobación oñeikotevẽ comentario pyahu rehe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:870
 msgid "Require approval for new posts"
 msgstr "Aprobación oñeikotevẽ marandu pyahu rehe"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:892
 msgid "Require approval for new users"
 msgstr "Aprobación oñeikotevẽ usuario pyahu rehe"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
 msgid "Required"
 msgstr "Oñeikotevẽ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:358
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "Embou jey ñe'ẽveve"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
-msgid "Resign"
-msgstr "Ehasa"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
-msgid "Resign game?"
-msgstr "Ehasa ñembosarái?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
-msgid "Resigning..."
-msgstr "Ohasahína..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2692,12 +2520,12 @@ msgstr "Emboyke jeike"
 msgid "Revoke RSS access?"
 msgstr "¿Emboyke RSS jeike?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
 msgid "Rows"
 msgstr "Rows"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
 msgid "Rows group by"
 msgstr "Rows oñembyaty rehe"
 
@@ -2719,16 +2547,16 @@ msgstr "Saturday"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "Ñongatu"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:407
 msgid "Save changes"
 msgstr "Ñongatu ñemoambue"
 
@@ -2749,19 +2577,19 @@ msgid "Saved posts cleared"
 msgstr "Jehai ñongatupyre oñemopotĩma"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:402
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Oñeñongatuhína..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:603
 msgid "Score prompt"
 msgstr "Puntaje prompt"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:17
+#: ../../../lib/web/src/components/search.tsx:18
 msgid "Search"
 msgstr "Eheka"
 
@@ -2773,15 +2601,15 @@ msgstr "Eheka téra, ID, fingerprint, térã URL rupive..."
 msgid "Search for a command to run..."
 msgstr "Eheka tembiapoukapy rejapo hag̃ua..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:73
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Eheka peteĩ tenda"
 
-#: ../../../lib/web/src/components/place-picker.tsx:37
+#: ../../../lib/web/src/components/place-picker.tsx:50
 msgid "Search for a place..."
 msgstr "Eheka peteĩ tenda..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
 msgstr "Eheka tenda destino..."
 
@@ -2789,11 +2617,11 @@ msgstr "Eheka tenda destino..."
 msgid "Search for forums..."
 msgstr "Eheka forums..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:183
 msgid "Search for origin..."
 msgstr "Eheka tenda origen..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
 msgid "Search objects..."
 msgstr "Eheka mba'ekuéra..."
 
@@ -2811,8 +2639,8 @@ msgstr "Eheka, ema'ẽ, ha emoseguir ko vista."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:303
+#: ../../../lib/web/src/components/inline-entity-search.tsx:63
+#: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Eheka..."
@@ -2822,15 +2650,15 @@ msgstr "Eheka..."
 msgid "Searching..."
 msgstr "Ohekahína..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:968
 msgid "seconds"
 msgstr "aravo'ive"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 msgid "Select"
 msgstr "Eporavo"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Eporavo peteĩ field"
 
@@ -2866,7 +2694,7 @@ msgstr "Eporavo opa"
 msgid "Select group"
 msgstr "Eiporavo aty"
 
-#: ../../../lib/web/src/components/place-picker.tsx:36
+#: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
 msgstr "Eiporavo tenda"
 
@@ -2878,7 +2706,7 @@ msgstr "Eiporavo ojope kuatia"
 msgid "Select none"
 msgstr "Eiporavo mba'eve"
 
-#: ../../../lib/web/src/components/person-picker.tsx:70
+#: ../../../lib/web/src/components/person-picker.tsx:83
 msgid "Select person..."
 msgstr "Eiporavo tapicha..."
 
@@ -2886,8 +2714,8 @@ msgstr "Eiporavo tapicha..."
 msgid "Select previous card"
 msgstr "Eiporavo tenonderã kuatia"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Eiporavo..."
 
@@ -2900,7 +2728,7 @@ msgstr "Poravopyre: <0>{0}</0>"
 msgid "Send again"
 msgstr "Emondo jey"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:298
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "Emondo email"
 
@@ -2927,17 +2755,17 @@ msgstr "Mohendaha mbojeguatára"
 msgid "Session expired. Please log in again."
 msgstr "Pe tembiapo opáma. Eñepyrũ jey tembiapo."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:128
+#: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
 msgstr "Emoĩ ñepyrũmby ha ohohaguã"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Settings"
 msgstr "Ñemboheko"
 
@@ -2945,11 +2773,11 @@ msgstr "Ñemboheko"
 msgid "Shadowbanned"
 msgstr "Oñemboyke kañyhápe"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
 msgstr "Ohechauka aty"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
 msgid "Show fields"
 msgstr "Ohechauka tendaguakuéra"
 
@@ -2961,7 +2789,7 @@ msgstr "Ehechauka ko ta'anga rehegua temiandu añónte"
 msgid "Show this help"
 msgstr "Ohechauka ko ñepytyvõ"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:43
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Showing {totalShown} of {total}"
 msgstr "Ojehechauka {totalShown} {total} apytégui"
 
@@ -2969,21 +2797,17 @@ msgstr "Ojehechauka {totalShown} {total} apytégui"
 msgid "Sidebar"
 msgstr "Yke"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
-msgid "Sign in with an account that has access <0/> to this resource."
-msgstr "Eike peteĩ mba'ete oguerekóva jeike <0/> ko mba'etépe."
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Esẽ tembiapógui"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
 msgid "Signing out..."
 msgstr "Sesionhápe oñesẽva..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
 msgid "Single line of text only"
 msgstr "Petei tai mante"
 
@@ -3009,24 +2833,19 @@ msgstr "Ipa'ũva"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
 msgid "Start the discussion by adding the first comment."
 msgstr "Eñepyrũ ñomongeta embojuaju peteĩha ñe'ẽmbyre."
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Stop watching"
-msgstr "Ñehapykuere'ỹ"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Mba'erã"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "Emondo ñe'ẽmbyre"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "Emondo ñembohovái"
 
@@ -3038,8 +2857,8 @@ msgstr "Emondo marandu"
 msgid "Submitting..."
 msgstr "Mondohápe..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:67
-#: ../../../lib/web/src/components/recommended-entities.tsx:59
+#: ../../../lib/web/src/components/inline-entity-search.tsx:66
+#: ../../../lib/web/src/components/recommended-entities.tsx:58
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -3083,24 +2902,24 @@ msgstr "Eike vista 1-9"
 msgid "System"
 msgstr "Sistema"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Tag"
 msgstr "Tag"
 
-#: ../../../lib/web/src/components/post-tags.tsx:77
+#: ../../../lib/web/src/components/post-tags.tsx:76
 msgid "Tag already exists"
 msgstr "Tag oĩma"
 
-#: ../../../lib/web/src/components/post-tags.tsx:69
+#: ../../../lib/web/src/components/post-tags.tsx:68
 msgid "Tag must be 50 characters or less"
 msgstr "Etiqueta oguereko va'erã 50 tai térã sa'ive"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:602
 msgid "Tag prompt"
 msgstr "Tag jeporu"
 
-#: ../../../lib/web/src/components/post-tags.tsx:102
-#: ../../../lib/web/src/components/post-tags.tsx:116
+#: ../../../lib/web/src/components/post-tags.tsx:101
+#: ../../../lib/web/src/components/post-tags.tsx:115
 msgid "Tags"
 msgstr "Tagskuéra"
 
@@ -3113,11 +2932,11 @@ msgstr "Eñongatu haguã peteĩ marandu ko'ápe upe rireguarã, ekutu marcador h
 msgid "Terms and conditions"
 msgstr "Ñe'ẽmecha ha tekorosã rehegua"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
 msgid "Text"
 msgstr "Tai"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Upe código ndoikoporãi térã hiʼaravoʼimáma."
 
@@ -3130,23 +2949,7 @@ msgstr "Ndaikatúi oñemondo. Umi archivo ikatu tuichaiterei, térã ne conexió
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Tuichaiterei ojehupi hag̃ua. Eipe'a térã emomichĩ archivo ha eha'ã jey."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:50
-msgid "The camera is already in use"
-msgstr "Cámara ojeporúma"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:54
-msgid "The camera request was not answered"
-msgstr "Cámara jerure ndojehechái mbohovái"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:41
-msgid "The microphone request was not answered"
-msgstr "Micrófono jerure ndojehechái mbohovái"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:21
-msgid "The passkey request was not answered"
-msgstr "Passkey jerure ndojehechái mbohovái"
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:66
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "Ndaikatúi ojejuhu tetepy ojejeruréva."
 
@@ -3158,21 +2961,13 @@ msgstr "Servidor ombohovái peteĩ web rogue, datos rangue."
 msgid "There are no moderation actions recorded yet"
 msgstr "Ndaipóri gueteri moderación tembiapo oñembyatyva"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:17
-msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
-msgstr "Ko aplicación ndaikatúi oiporu nde passkey. Emoneĩ Ajustes-pe, Permisos guýpe."
-
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
 msgstr "Ko forum ndaikatúi oñehenoi ko'ág̃a."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:252
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ko forum ikatu oñembogueva térã ndereguerekói permiso."
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
-msgid "This permanently deletes the game and its chat. This cannot be undone."
-msgstr "Kóva ohundíta opa árape g̃uarã ñembosarái ha ijoayhuháicha. Ndaikatuvéima ojejapo jey."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3195,7 +2990,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Kóva omõ'ãta ñemoñe'ẽ mboapurevahára okê apytégui. Moderadorkuéra ohecha gueteri ha ikatu omoĩjey."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:431
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Kóva oguéta tapiarã \"{0}\" ha opa imba'éva ha ñemoñe'ẽ. Kóva ndaikatúi oñembojevy."
 
@@ -3207,8 +3002,8 @@ msgstr "Hilo"
 msgid "Thursday"
 msgstr "Yvateára"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:296
 msgid "Title"
 msgstr "Téra"
 
@@ -3224,23 +3019,26 @@ msgstr "Téra tekotevẽ"
 msgid "Title must be 1000 characters or less"
 msgstr "Téra ndaikatúi ohasa 1000 jehai"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:201
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
 msgid "To"
 msgstr "Peve"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:393
-#: ../../../lib/web/src/components/layout/nav-group.tsx:400
-#: ../../../lib/web/src/components/layout/nav-group.tsx:522
-#: ../../../lib/web/src/components/layout/nav-group.tsx:529
+#: ../../../lib/web/src/components/layout/nav-group.tsx:365
+#: ../../../lib/web/src/components/layout/nav-group.tsx:372
+#: ../../../lib/web/src/components/layout/nav-group.tsx:490
+#: ../../../lib/web/src/components/layout/nav-group.tsx:497
 msgid "Toggle section"
 msgstr "Embojere pehẽ"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-#: ../../../lib/web/src/components/ui/sidebar.tsx:352
-#: ../../../lib/web/src/components/ui/sidebar.tsx:355
 msgid "Toggle sidebar"
 msgstr "Emoambue ykepegua"
+
+#: ../../../lib/web/src/components/ui/sidebar.tsx:352
+#: ../../../lib/web/src/components/ui/sidebar.tsx:355
+msgid "Toggle Sidebar"
+msgstr "Embojere Yke"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
 msgid "Toggle view options"
@@ -3251,7 +3049,7 @@ msgstr "Embojere vista poravopyrã"
 msgid "Toggle watched filter"
 msgstr "Embojere watched mbogua"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:72
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Hetaiterei mba'ejerure"
 
@@ -3259,7 +3057,7 @@ msgstr "Hetaiterei mba'ejerure"
 msgid "Top"
 msgstr "Yvate"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:126
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
 msgstr "Ojeguatáva"
 
@@ -3267,8 +3065,8 @@ msgstr "Ojeguatáva"
 msgid "Try adjusting your search terms"
 msgstr "Eha'ã embohekopyahu ne jeheka peha"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:138
-#: ../../../lib/web/src/features/errors/general-error.tsx:178
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 msgid "Try again"
 msgstr "Eha'ã jey"
 
@@ -3276,12 +3074,12 @@ msgstr "Eha'ã jey"
 msgid "Tuesday"
 msgstr "Mokõiha"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
 msgid "Type"
 msgstr "Mba'éichagua"
 
-#: ../../../lib/web/src/components/command-menu.tsx:54
+#: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
 msgstr "Ehai comando térã eheka..."
 
@@ -3301,8 +3099,8 @@ msgstr "Ehai eheka..."
 msgid "Unable to connect to remote server"
 msgstr "Ndaikatúi ojeike servidor mombyrýpe"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:89
-#: ../../../lib/web/src/lib/auth-manager.ts:101
+#: ../../../lib/web/src/lib/auth-manager.ts:92
+#: ../../../lib/web/src/lib/auth-manager.ts:104
 msgid "Unable to redirect to login. Please try again."
 msgstr "Ndaikatúi ohohag̃ua login-pe. Eha'ã jey."
 
@@ -3310,12 +3108,16 @@ msgstr "Ndaikatúi ohohag̃ua login-pe. Eha'ã jey."
 msgid "Unassigned"
 msgstr "Mavevenoĩva"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
+msgid "Unauthorized Access"
+msgstr "Eike'ỹva Permiso'ỹre"
+
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Ndaipóri"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:209
+#: ../../../lib/web/src/lib/request.ts:206
 msgid "Unexpected API error"
 msgstr "API javy ñeha'arõ'ỹva"
 
@@ -3323,11 +3125,6 @@ msgstr "API javy ñeha'arõ'ỹva"
 msgid "United States"
 msgstr "Estados Unidos"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
-#: ../../../lib/web/src/components/tree-row.tsx:219
-#: ../../../lib/web/src/components/tree-row.tsx:373
-#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3345,11 +3142,11 @@ msgstr "Embogue alfiler"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:403
 msgid "Unsubscribe"
 msgstr "Eñemboaty'ỹ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:391
 msgid "Unsubscribe from forum"
 msgstr "Eñemboaty'ỹ forum-gui"
 
@@ -3358,32 +3155,28 @@ msgid "Unsubscribe from forum?"
 msgstr "Resẽse foro-gui?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribed"
 msgstr "Oñemboaty'ỹ"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Unsubscribing..."
 msgstr "Eñemboaty'ỹ hína..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
-#: ../../../lib/web/src/lib/entity-title.ts:40
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Téra'ỹva"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Hekopyahúpyre"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
-msgid "Updated {field}"
-msgstr "{field} oñembohekopyahu"
-
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Ehupi"
 
@@ -3391,13 +3184,13 @@ msgstr "Ehupi"
 msgid "Upload progress"
 msgstr "Jehupi jeku'e"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:329
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Eipuru nde passkey"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Mboapurevahára"
 
@@ -3417,7 +3210,7 @@ msgstr "Variableskuéra: {variables}"
 msgid "Verification code"
 msgstr "Verificación código"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:379
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Ehesa'ỹijo"
@@ -3426,29 +3219,25 @@ msgstr "Ehesa'ỹijo"
 msgid "Verify email address"
 msgstr "Ehesa'ỹijo email tape"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:96
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Video ta'ãnga'i"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
 msgid "Video viewer: {0}"
 msgstr "Video jehecha: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Ehecha opa marandu"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
-msgid "View and edit item details"
-msgstr "Ehecha ha embogua mba'e marandu"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Ehecha control"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:108
 msgid "View only"
 msgstr "Ehecha mante"
 
@@ -3461,18 +3250,9 @@ msgstr "Ehecha ta'anga ko temiandu oñe'ẽha"
 msgid "Violence"
 msgstr "Mbarete"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:33
-msgid "Voice recording is not supported in this browser"
-msgstr "Ko navegador ndoipytyvõi ñe'ẽ grabación"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "Vote and view"
 msgstr "Eporavo ha ehecha"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Watch"
-msgstr "Ehecha"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3492,7 +3272,7 @@ msgstr "Romondo peteĩ código jehechajeýva <0>{0}</0> peg̃uarã. Emoinge cód
 msgid "Wednesday"
 msgstr "Mba'embohopapa"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:958
 msgid "Window duration"
 msgstr "Aravo aréhápe"
 
@@ -3511,7 +3291,7 @@ msgstr "Remoĩ pya'eterei — eha'arõ ha eha'ã jey"
 msgid "You are restricted from posting in this forum"
 msgstr "Nde rejejokóva remoĩ haguã ko foro-pe"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:59
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Ndereguerekói jeike ko vorépe."
 
@@ -3527,18 +3307,22 @@ msgstr "Ndereguerekói gueteri forum."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Nereñemoĩ mo'ãvéima ko foro mbohekopyahúre. Ikatu reñemoinge jey jepiveguáicha."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:92
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Nde cuenta oiko ko'ápe {source} guive. Peve reipe'a upépe, marandu ha mba'emimi ikatu ogueru servidor mokõive-pe, nde mba'e mba'eapo ambuéva ohasave ypykue servidor guive, ha erekopy'araka'e minutopi peve reko'ata ko'ápe."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Ne archivo mbojoapypyre okañýta."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:266
+msgid "Your changes will be lost."
+msgstr "Ne ñemoambue okañyta."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Ne ñe'ẽ ha ne archivo mbojoapypyre okañýta."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Ne moñe'ẽrã okañyta."

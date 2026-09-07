@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:219
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
 
@@ -32,11 +32,15 @@ msgstr " · Kalıcı"
 msgid " (edited)"
 msgstr " (düzenlendi)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
+msgid " or "
+msgstr " veya "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
 msgid "(edited)"
 msgstr "(düzenlendi)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
 msgid "(expand)"
 msgstr "(genişlet)"
 
@@ -49,17 +53,10 @@ msgstr "[ayarlanmamış]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# yeni gönderi} other {# yeni gönderi}}"
 
-#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# seçili} other {# seçili}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
-msgid "{0, plural, one {+# nested} other {+# nested}}"
-msgstr "{0, plural, one {+# iç içe} other {+# iç içe}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -72,24 +69,24 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# kullanıcı susturuldu} other {# kullanıcı susturuldu}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "{0} settings"
 msgstr "{0} ayarları"
 
-#: ../../../lib/web/src/lib/locale-format.ts:191
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#g} other {#g}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:187
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#sa} other {#sa}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:183
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#dk} other {#dk}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:195
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#hf} other {#hf}}"
 
@@ -101,9 +98,13 @@ msgstr "{count, plural, one {# öğe onaylandı} other {# öğe onaylandı}}"
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# öğe reddedildi} other {# öğe reddedildi}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} adı"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr "{entityLabel} adı gerekli"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -118,7 +119,7 @@ msgstr "{others, plural, one {Bu gönderideki # yorumu daha göster} other {Bu g
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# öğe} other {# öğe}}"
 
@@ -126,13 +127,22 @@ msgstr "{totalCount, plural, one {# öğe} other {# öğe}}"
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# yanıt} other {# yanıt}}"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
-msgstr "{totalDescendants, plural, one {# yanıt} other {+# yanıt daha}}"
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menüyü aç (# okunmamış bildirim)} other {Menüyü aç (# okunmamış bildirim)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
+msgid "+{0} nested"
+msgstr "+{0} iç içe"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} yanıt daha"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "1 reply"
+msgstr "1 yanıt"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -142,10 +152,6 @@ msgstr "12 saat"
 msgid "24 hours"
 msgstr "24 saat"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:35
-msgid "A recording is already in progress."
-msgstr "Zaten bir kayıt devam ediyor."
-
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Mutlak (tarih ve saat)"
@@ -154,12 +160,11 @@ msgstr "Mutlak (tarih ve saat)"
 msgid "Accept"
 msgstr "Kabul et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Access"
 msgstr "Erişim"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
-#: ../../../lib/web/src/features/errors/general-error.tsx:58
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
 msgstr "Erişim reddedildi"
 
@@ -167,23 +172,23 @@ msgstr "Erişim reddedildi"
 msgid "Access level"
 msgstr "Erişim düzeyi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Access level updated"
 msgstr "Erişim düzeyi güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:725
 msgid "Access management"
 msgstr "Erişim yönetimi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Access removed"
 msgstr "Erişim kaldırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:689
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} için erişim ayarlandı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Account"
 msgstr "Hesap"
 
@@ -191,17 +196,13 @@ msgstr "Hesap"
 msgid "Account type"
 msgstr "Hesap türü"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
-msgid "Activity"
-msgstr "Etkinlik"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Ekle"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
 msgid "Add a comment..."
 msgstr "Yorum ekle..."
 
@@ -209,7 +210,7 @@ msgstr "Yorum ekle..."
 msgid "Add a new account"
 msgstr "Yeni bir hesap ekle"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
 msgid "Add a new field to this class"
 msgstr "Bu sınıfa yeni bir alan ekle"
 
@@ -225,41 +226,41 @@ msgstr "Hesap ekle"
 msgid "Add caption"
 msgstr "Resim yazısı ekle"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Kontrol listesi öğesi ekle"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
 msgid "Add field"
 msgstr "Alan ekle"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:342
 msgid "Add files"
 msgstr "Dosya ekle"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Öğe ekle..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
 msgid "Add link"
 msgstr "Bağlantı ekle"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
 msgid "Add option"
 msgstr "Seçenek ekle"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:735
 msgid "Add rule"
 msgstr "Kural ekle"
 
-#: ../../../lib/web/src/components/post-tags.tsx:138
+#: ../../../lib/web/src/components/post-tags.tsx:137
 msgid "Add tag..."
 msgstr "Etiket ekle..."
 
@@ -267,8 +268,8 @@ msgstr "Etiket ekle..."
 msgid "Add to existing notifications"
 msgstr "Mevcut bildirimlere ekle"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -283,11 +284,11 @@ msgid "Additional details (optional)"
 msgstr "Ek bilgiler (isteğe bağlı)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:553
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:554
 msgid "AI actions on posts"
 msgstr "Gönderilerde AI eylemleri"
 
@@ -304,15 +305,16 @@ msgstr "Tüm forumlar"
 msgid "All posts and comments have been reviewed"
 msgstr "Tüm gönderiler ve yorumlar incelendi"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
-msgid "Allow anyone to search for {entityLabel}"
-msgstr "Herkesin {entityLabel} aramasına izin ver"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr "Herkesin {0} aramasına izin ver"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Herkesin forumu aramasına izin ver"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Allow sort by"
 msgstr "Şuna göre sıralamaya izin ver"
 
@@ -321,7 +323,6 @@ msgid "An error occurred"
 msgstr "Bir hata oluştu"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
-#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Beklenmeyen bir hata oluştu"
 
@@ -352,15 +353,11 @@ msgid "Approve"
 msgstr "Onayla"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" öğesini silmek istediğinizden emin misiniz?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
-msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
-msgstr "\"{title}\" öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
-
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" sütununu silmek istediğinizden emin misiniz? Bu geri alınamaz."
 
@@ -380,23 +377,15 @@ msgstr "Bu gönderiyi silmek istediğinizden emin misiniz? Bu, tüm yorumları d
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Çıkış yapmak istediğinizden emin misiniz? Hesabınıza erişmek için tekrar giriş yapmanız gerekecek."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
-msgid "Are you sure you want to resign?"
-msgstr "Çekilmek istediğinizden emin misiniz?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
-msgid "Are you sure you want to resign? {opponentName} will win the game."
-msgstr "Çekilmek istediğinizden emin misiniz? {opponentName} oyunu kazanacak."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Artan"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "Yorum dosyalarını ekle"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "Yanıt dosyalarını ekle"
 
@@ -405,7 +394,7 @@ msgstr "Yanıt dosyalarını ekle"
 msgid "Authenticated users"
 msgstr "Kimliği doğrulanmış kullanıcılar"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:306
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Authenticator kodu"
 
@@ -413,15 +402,15 @@ msgstr "Authenticator kodu"
 msgid "Available keyboard shortcuts"
 msgstr "Mevcut klavye kısayolları"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar"
 msgstr "Avatar"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar for {name}"
 msgstr "{name} için avatar"
 
-#: ../../../lib/web/src/components/place-picker.tsx:142
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Geri"
 
@@ -431,9 +420,9 @@ msgstr "Geri"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:222
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Back to forum"
 msgstr "Foruma dön"
 
@@ -441,8 +430,8 @@ msgstr "Foruma dön"
 msgid "Back to forums"
 msgstr "Forumlara dön"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Ana sayfaya dön"
 
@@ -459,43 +448,43 @@ msgstr "Yazarı yasakla"
 msgid "Banned"
 msgstr "Yasaklandı"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
+#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Banner"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner removed"
 msgstr "Banner kaldırıldı"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner updated"
 msgstr "Banner güncellendi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
 msgid "Blocked by"
 msgstr "Engelleyen"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Güvenilmeyen bağlantıya gezinme engellendi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
 msgid "Blocks"
 msgstr "Bloklar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Board"
 msgstr "Tahta"
 
-#: ../../../lib/web/src/components/post-tags.tsx:194
-#: ../../../lib/web/src/components/post-tags.tsx:206
+#: ../../../lib/web/src/components/post-tags.tsx:180
+#: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "İlgiyi artır"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
 msgid "Border colour"
 msgstr "Kenarlık rengi"
 
@@ -513,48 +502,34 @@ msgstr "{0} tarafından"
 msgid "By {0}"
 msgstr "{0} tarafından"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:48
-msgid "Camera permission denied"
-msgstr "Kamera izni reddedildi"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:56
-msgid "Camera unavailable"
-msgstr "Kamera kullanılamıyor"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
-#: ../../../lib/web/src/components/travelling-picker.tsx:288
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
+#: ../../../lib/web/src/components/travelling-picker.tsx:308
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:393
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "İptal"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "Yorumu iptal et"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "Yanıtı iptal et"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:24
-#: ../../../lib/web/src/lib/shell-errors.ts:37
-#: ../../../lib/web/src/lib/shell-errors.ts:52
-msgid "Cancelled"
-msgstr "İptal edildi"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -570,23 +545,15 @@ msgstr "Bu bildirimler için kategori"
 msgid "Change notification category"
 msgstr "Bildirim kategorisini değiştir"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed"
-msgstr "Değiştirildi"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed {field}"
-msgstr "{field} değiştirildi"
-
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Yeni içerik için daha sonra tekrar bakın"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
 msgid "Checkbox"
 msgstr "Onay kutusu"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
 msgid "Checklist"
 msgstr "Kontrol listesi"
 
@@ -599,13 +566,13 @@ msgstr "Kenar çubuğundan bir oyun seçin veya yenisini başlatın."
 msgid "Choose language"
 msgstr "Dil seçin"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
-#: ../../../lib/web/src/components/travelling-picker.tsx:151
-#: ../../../lib/web/src/components/travelling-picker.tsx:212
-#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:170
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Clear"
 msgstr "Temizle"
 
@@ -627,19 +594,19 @@ msgstr "Aramayı temizle"
 msgid "Clearing saved posts..."
 msgstr "Kaydedilen gönderiler temizleniyor..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Kapat"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
 msgid "Close dialog"
 msgstr "İletişim kutusunu kapat"
 
@@ -672,16 +639,16 @@ msgstr "Daralt"
 msgid "Collapse sidebar"
 msgstr "Kenar çubuğunu daralt"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
 msgid "Colour"
 msgstr "Renk"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Sütun işlemleri"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Columns group by"
 msgstr "Sütunlar şuna göre gruplanır"
 
@@ -710,7 +677,7 @@ msgstr "Yorum onaylandı"
 msgid "Comment deleted"
 msgstr "Yorum silindi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:943
 msgid "Comment limit"
 msgstr "Yorum sınırı"
 
@@ -734,34 +701,29 @@ msgstr "Yorum geri yüklendi"
 msgid "Comment updated"
 msgstr "Yorum güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "Comment, vote, and view"
 msgstr "Yorum yap, oy ver ve görüntüle"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Yorumlar"
-
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
-msgid "Comments ({0})"
-msgstr "Yorumlar ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Kompakt"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
 msgid "Configure option settings"
 msgstr "Seçenek ayarlarını yapılandır"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
 msgid "Configure view settings"
 msgstr "Görünüm ayarlarını yapılandır"
 
-#: ../../../lib/web/src/components/place-picker.tsx:146
-#: ../../../lib/web/src/components/travelling-picker.tsx:296
+#: ../../../lib/web/src/components/place-picker.tsx:160
+#: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Onayla"
 
@@ -773,12 +735,12 @@ msgstr "Bağlandı"
 msgid "Connecting..."
 msgstr "Bağlanıyor..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:313
 msgid "Content"
 msgstr "İçerik"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:893
 msgid "Content from users below a threshold must be approved"
 msgstr "Eşiğin altındaki kullanıcılardan gelen içerik onaylanmalı"
 
@@ -790,7 +752,7 @@ msgstr "İçerik gerekli"
 msgid "Content not found."
 msgstr "İçerik bulunamadı."
 
-#: ../../../lib/web/src/lib/query-client.ts:73
+#: ../../../lib/web/src/lib/query-client.ts:78
 msgid "Content not modified"
 msgstr "İçerik değiştirilmedi"
 
@@ -802,7 +764,7 @@ msgstr "Bağlamsal bilgi ve ayrıntılar."
 msgid "Continue"
 msgstr "Devam et"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:343
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "{label} ile devam et"
 
@@ -822,39 +784,40 @@ msgstr "Kopyala"
 msgid "Could not load this document. Please try again later."
 msgstr "Bu belge yüklenemedi. Lütfen daha sonra tekrar deneyin."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Bildirimler yüklenemedi"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:170
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Kod gönderilemedi. Lütfen tekrar deneyin."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:124
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Yeniden kimlik doğrulama başlatılamadı. Lütfen tekrar deneyin."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:212
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Bu hesapla doğrulama yapılamadı. Lütfen tekrar deneyin."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Oluştur"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
-msgid "Create {entityLabel}"
-msgstr "{entityLabel} oluştur"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr "{0} oluştur"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
 msgstr "Yeni bir forum oluştur"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Yeni bir gönderi oluştur"
 
@@ -867,26 +830,21 @@ msgstr "Forum oluştur"
 msgid "Create new item"
 msgstr "Yeni öğe oluştur"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
 msgid "Created"
 msgstr "Oluşturuldu"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
-msgid "Created {field}"
-msgstr "{field} oluşturuldu"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Forum oluşturuluyor..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Oluşturuluyor..."
 
-#: ../../../lib/web/src/components/map-view.tsx:249
+#: ../../../lib/web/src/components/map-view.tsx:217
 msgid "Current location"
 msgstr "Mevcut konum"
 
@@ -903,11 +861,11 @@ msgstr "Koyu"
 msgid "Data conflict"
 msgstr "Veri çakışması"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
 msgid "Date"
 msgstr "Tarih"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "days"
 msgstr "gün"
 
@@ -919,7 +877,7 @@ msgstr "Reddet"
 msgid "Default"
 msgstr "Varsayılan"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Default account"
 msgstr "Varsayılan hesap"
 
@@ -927,34 +885,32 @@ msgstr "Varsayılan hesap"
 msgid "Default AI account"
 msgstr "Varsayılan AI hesabı"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
 msgid "Default sort"
 msgstr "Varsayılan sıralama"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "Sil"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
 msgid "Delete attachment"
 msgstr "Eki sil"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Sütunu sil"
 
@@ -963,36 +919,26 @@ msgstr "Sütunu sil"
 msgid "Delete comment"
 msgstr "Yorumu sil"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
 msgid "Delete field"
 msgstr "Alanı sil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:432
 msgid "Delete forum"
 msgstr "Forumu sil"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum?"
 msgstr "Forum silinsin mi?"
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
-msgid "Delete game?"
-msgstr "Oyun silinsin mi?"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
-msgid "Delete item"
-msgstr "Öğeyi sil"
-
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
 msgid "Delete option"
 msgstr "Seçeneği sil"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
 msgid "Delete option {0}"
 msgstr "{0} seçeneğini sil"
 
@@ -1000,35 +946,23 @@ msgstr "{0} seçeneğini sil"
 msgid "Delete post"
 msgstr "Gönderiyi sil"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
 msgid "Delete view"
 msgstr "Görünümü sil"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:101
+#: ../../../lib/web/src/components/restore-banner.tsx:109
 msgid "Delete your account on the old server"
 msgstr "Eski sunucudaki hesabınızı silin"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted"
-msgstr "Silindi"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted {field}"
-msgstr "{field} silindi"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Forum siliniyor..."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-msgid "Deleting..."
-msgstr "Siliniyor..."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Azalan"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
 msgid "Description"
 msgstr "Açıklama"
 
@@ -1051,19 +985,19 @@ msgstr "Ayrıntılar paneli"
 msgid "Detect from web browser"
 msgstr "Web tarayıcıdan algıla"
 
-#: ../../../lib/web/src/components/person-picker.tsx:193
+#: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Dizin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "Disabled"
 msgstr "Devre dışı"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Vazgeç"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Taslak silinsin mi?"
 
@@ -1072,8 +1006,8 @@ msgstr "Taslak silinsin mi?"
 msgid "Disconnected"
 msgstr "Bağlantı kesildi"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:80
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:94
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Kapat"
@@ -1087,28 +1021,22 @@ msgstr "Banner'ı kapat"
 msgid "Displays the mobile sidebar."
 msgstr "Mobil kenar çubuğunu görüntüler."
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
-msgid "Does not match the required pattern"
-msgstr "Gerekli kalıpla eşleşmiyor"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 msgid "Done"
 msgstr "Tamamlandı"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
 msgid "Download"
 msgstr "İndir"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "İndirme başarısız oldu"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
 msgid "Duplicates"
 msgstr "Yinelenenler"
 
@@ -1123,7 +1051,7 @@ msgstr "Disleksi dostu"
 msgid "Edit"
 msgstr "Düzenle"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "{label} düzenle"
 
@@ -1131,26 +1059,26 @@ msgstr "{label} düzenle"
 msgid "Edit caption"
 msgstr "Resim yazısını düzenle"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
 msgstr "Alanı düzenle"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
 msgid "Edit field settings"
 msgstr "Alan ayarlarını düzenle"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
 msgid "Edit option"
 msgstr "Seçeneği düzenle"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
 msgid "Edit option {0}"
 msgstr "{0} seçeneğini düzenle"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:283
+#: src/features/forums/components/edit-post-dialog.tsx:285
 msgid "Edit post"
 msgstr "Gönderiyi düzenle"
 
@@ -1158,7 +1086,7 @@ msgstr "Gönderiyi düzenle"
 msgid "Edit selected card"
 msgstr "Seçili kartı düzenle"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
 msgid "Edit view"
 msgstr "Görünümü düzenle"
 
@@ -1166,29 +1094,25 @@ msgstr "Görünümü düzenle"
 msgid "Email"
 msgstr "E-posta"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:280
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "E-posta kodu"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Enter banner text (markdown supported)..."
 msgstr "Afiş metnini girin (markdown destekli)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:290
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "E-postanızdaki kodu girin"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Kimlik doğrulayıcı kodunuzu girin"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Entity ID"
 msgstr "Varlık kimliği"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
-msgid "Error"
-msgstr "Hata"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1208,10 +1132,6 @@ msgstr "Harici URL"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Çok büyük"
-
-#: ../../../lib/web/src/hooks/use-accounts.ts:213
-msgid "Failed to add account"
-msgstr "Hesap eklenemedi"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1249,20 +1169,16 @@ msgstr "Kopyalanamadı"
 msgid "Failed to create forum"
 msgstr "Forum oluşturulamadı"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Bağlantı oluşturulamadı"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-msgid "Failed to delete"
-msgstr "Silinemedi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Ek silinemedi"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
 msgid "Failed to delete comment"
 msgstr "Yorum silinemedi"
 
@@ -1270,7 +1186,7 @@ msgstr "Yorum silinemedi"
 msgid "Failed to delete forum"
 msgstr "Forum silinemedi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
 msgid "Failed to delete link"
 msgstr "Bağlantı silinemedi"
 
@@ -1282,7 +1198,7 @@ msgstr "RSS belirteci alınamadı"
 msgid "Failed to load"
 msgstr "Yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:660
 msgid "Failed to load access rules"
 msgstr "Erişim kuralları yüklenemedi"
 
@@ -1290,7 +1206,7 @@ msgstr "Erişim kuralları yüklenemedi"
 msgid "Failed to load forum"
 msgstr "Forum yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:160
 msgid "Failed to load forum settings"
 msgstr "Forum ayarları yüklenemedi"
 
@@ -1298,7 +1214,7 @@ msgstr "Forum ayarları yüklenemedi"
 msgid "Failed to load forums"
 msgstr "Forumlar yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:667
 msgid "Failed to load groups"
 msgstr "Gruplar yüklenemedi"
 
@@ -1306,14 +1222,9 @@ msgstr "Gruplar yüklenemedi"
 msgid "Failed to load history"
 msgstr "Geçmiş yüklenemedi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load image"
 msgstr "Görsel yüklenemedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
-msgid "Failed to load item"
-msgstr "Öğe yüklenemedi"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
@@ -1323,7 +1234,7 @@ msgstr "Moderasyon günlüğü yüklenemedi"
 msgid "Failed to load moderation queue"
 msgstr "Moderasyon kuyruğu yüklenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Failed to load moderation settings"
 msgstr "Moderasyon ayarları yüklenemedi"
 
@@ -1344,13 +1255,9 @@ msgstr "Raporlar yüklenemedi"
 msgid "Failed to load restrictions"
 msgstr "Kısıtlamalar yüklenemedi"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load video"
 msgstr "Video yüklenemedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
-msgid "Failed to move"
-msgstr "Taşınamadı"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
@@ -1360,7 +1267,7 @@ msgstr "Kullanıcı sessize alınamadı"
 msgid "Failed to mute users"
 msgstr "Kullanıcılar sessize alınamadı"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
 msgid "Failed to post comment"
 msgstr "Yorum gönderilemedi"
 
@@ -1368,7 +1275,7 @@ msgstr "Yorum gönderilemedi"
 msgid "Failed to reject items"
 msgstr "Öğeler reddedilemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Failed to remove access"
 msgstr "Erişim kaldırılamadı"
 
@@ -1385,7 +1292,7 @@ msgstr "Kısıtlama kaldırılamadı"
 msgid "Failed to remove saved post"
 msgstr "Kaydedilen gönderi kaldırılamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Failed to rename forum"
 msgstr "Forum yeniden adlandırılamadı"
 
@@ -1401,11 +1308,7 @@ msgstr "Rapor çözülemedi"
 msgid "Failed to revoke RSS access"
 msgstr "RSS erişimi iptal edilemedi"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-msgid "Failed to save"
-msgstr "Kaydedilemedi"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:827
 msgid "Failed to save moderation settings"
 msgstr "Moderasyon ayarları kaydedilemedi"
 
@@ -1422,11 +1325,11 @@ msgstr "Komut kaydedilemedi"
 msgid "Failed to search forums"
 msgstr "Forumlar aranamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Failed to search users"
 msgstr "Kullanıcılar aranamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to set access level"
 msgstr "Erişim düzeyi ayarlanamadı"
 
@@ -1438,40 +1341,36 @@ msgid "Failed to subscribe"
 msgstr "Abone olunamadı"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Failed to unsubscribe"
 msgstr "Abonelikten çıkılamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:719
 msgid "Failed to update access level"
 msgstr "Erişim düzeyi güncellenemedi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:546
 msgid "Failed to update AI settings"
 msgstr "AI ayarları güncellenemedi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: src/routes/_authenticated/$forum_.settings.tsx:465
 msgid "Failed to update banner"
 msgstr "Afiş güncellenemedi"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
 msgid "Failed to update comment"
 msgstr "Yorum güncellenemedi"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
-msgid "Failed to update watching"
-msgstr "İzleme güncellenemedi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Ek yüklenemedi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:338
 msgid "Files"
 msgstr "Dosyalar"
 
@@ -1484,15 +1383,15 @@ msgstr "Etikete göre filtrelendi:"
 msgid "Find forums"
 msgstr "Forum bul"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Fingerprint"
 msgstr "Parmak izi"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:89
+#: ../../../lib/web/src/components/restore-banner.tsx:97
 msgid "Finish moving your account"
 msgstr "Hesap taşımayı tamamlayın"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
 msgid "Flags"
 msgstr "Bayraklar"
 
@@ -1501,9 +1400,6 @@ msgid "Flat"
 msgstr "Düz"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-msgid "forum"
-msgstr "forum"
-
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1527,23 +1423,23 @@ msgstr "Forum artık kullanılamıyor"
 msgid "Forum link"
 msgstr "Forum bağlantısı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Forum name is required"
 msgstr "Forum adı gereklidir"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum not found"
 msgstr "Forum bulunamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Forum renamed"
 msgstr "Forum yeniden adlandırıldı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:277
 msgid "Forum settings sections"
 msgstr "Forum ayar bölümleri"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum unavailable"
 msgstr "Forum kullanılamıyor"
 
@@ -1558,11 +1454,11 @@ msgstr "Forumlar"
 msgid "Friday"
 msgstr "Cuma"
 
-#: ../../../lib/web/src/components/person-picker.tsx:186
+#: ../../../lib/web/src/components/person-picker.tsx:207
 msgid "Friends"
 msgstr "Arkadaşlar"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:134
+#: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "Kimden"
 
@@ -1574,8 +1470,8 @@ msgstr "Kimden"
 msgid "From theme"
 msgstr "Temadan"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Geri"
 
@@ -1583,7 +1479,7 @@ msgstr "Geri"
 msgid "Group"
 msgstr "Grup"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Group by"
 msgstr "Şuna göre grupla"
 
@@ -1608,8 +1504,8 @@ msgstr "Geçmiş"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:86
-#: ../../../lib/web/src/components/layout/top-bar.tsx:115
+#: ../../../lib/web/src/components/layout/top-bar.tsx:71
+#: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
 msgstr "Ana sayfa"
 
@@ -1617,16 +1513,16 @@ msgstr "Ana sayfa"
 msgid "Hot"
 msgstr "Popüler"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
 msgid "ID"
 msgstr "Kimlik"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:357
 msgid "Identity"
 msgstr "Kimlik"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Image viewer: {0}"
 msgstr "Görsel görüntüleyici: {0}"
 
@@ -1646,10 +1542,6 @@ msgstr "Baş harf avatarı"
 msgid "Initials avatar for {name}"
 msgstr "{name} için baş harf avatarı"
 
-#: ../../../lib/web/src/components/post-tags.tsx:168
-msgid "Interest {weight}"
-msgstr "İlgi {weight}"
-
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "İlgi alanı öne çıkarıldı"
@@ -1667,7 +1559,7 @@ msgstr "İlgi alanı kaldırıldı"
 msgid "Interests"
 msgstr "İlgi alanları"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Geçersiz tarih"
 
@@ -1675,11 +1567,7 @@ msgstr "Geçersiz tarih"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Aradığınız sayfa <0/>mevcut değil veya kaldırılmış görünüyor."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
-msgid "Item details"
-msgstr "Öğe ayrıntıları"
-
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "Az önce"
 
@@ -1692,13 +1580,13 @@ msgstr "Klavye kısayolları"
 msgid "Large"
 msgstr "Büyük"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Düzen"
 
-#: ../../../lib/web/src/components/post-tags.tsx:73
-msgid "Letters, numbers, spaces, hyphens, and slashes only"
-msgstr "Yalnızca harfler, rakamlar, boşluklar, tireler ve eğik çizgiler"
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Yalnızca harf, rakam, boşluk ve kısa çizgi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1708,15 +1596,15 @@ msgstr "Açık"
 msgid "Link"
 msgstr "Bağlantı"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
 msgid "Links"
 msgstr "Bağlantılar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
 msgid "List"
 msgstr "Liste"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Daha fazla yükle"
 
@@ -1724,15 +1612,7 @@ msgstr "Daha fazla yükle"
 msgid "Loading content…"
 msgstr "İçerik yükleniyor…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
-msgid "Loading item"
-msgstr "Öğe yükleniyor"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
-msgid "Loading item details"
-msgstr "Öğe ayrıntıları yükleniyor"
-
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Yükleniyor..."
@@ -1774,16 +1654,16 @@ msgstr "Kategorileri yönet"
 msgid "Manual"
 msgstr "Elle"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Tümünü okundu olarak işaretle"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown destekli"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
 msgid "Maximum length"
 msgstr "Azami uzunluk"
 
@@ -1794,10 +1674,6 @@ msgstr "MCP sunucusu"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Orta"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-msgid "Members"
-msgstr "Üyeler"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1811,11 +1687,7 @@ msgstr "Mesaj"
 msgid "Metric"
 msgstr "Metrik"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:31
-msgid "Microphone permission denied"
-msgstr "Mikrofon izni reddedildi"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
 msgid "Minimum length"
 msgstr "Asgari uzunluk"
 
@@ -1828,14 +1700,14 @@ msgstr "Yanlış bilgi"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Moderasyon, gönderme, yorum, oy ve görüntüleme"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "Moderasyon"
 
@@ -1860,14 +1732,6 @@ msgstr "Pazartesi"
 msgid "More options"
 msgstr "Diğer seçenekler"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved"
-msgstr "Taşındı"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved {field}"
-msgstr "{field} taşındı"
-
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Sessize al"
@@ -1881,37 +1745,36 @@ msgstr "Yazarı sessize al"
 msgid "Muted"
 msgstr "Susturuldu"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
+#: src/routes/_authenticated/$forum_.settings.tsx:361
 msgid "Name"
 msgstr "Ad"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Name cannot contain < or > characters"
 msgstr "Ad < veya > karakterleri içeremez"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
-msgid "Name is required"
-msgstr "Ad gerekli"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr "Ad açılı ayraç, ters eğik çizgi, noktalı virgül, tırnak işareti veya ters tırnak içeremez"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:349
 msgid "Name must be 1000 characters or less"
 msgstr "Ad 1000 karakter veya daha az olmalı"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:51
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Ağ hatası"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "New"
 msgstr "Yeni"
 
@@ -1920,27 +1783,27 @@ msgstr "Yeni"
 msgid "New game"
 msgstr "Yeni oyun"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
 #: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Yeni gönderi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:871
 msgid "New threads must be approved"
 msgstr "Yeni konuların onaylanması gerekir"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "New user threshold:"
 msgstr "Yeni kullanıcı eşiği:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
 msgid "Next image"
 msgstr "Sonraki görsel"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Eklenecek {parentClassNames} yok"
 
@@ -1948,7 +1811,7 @@ msgstr "Eklenecek {parentClassNames} yok"
 msgid "No {statusFilter} reports found"
 msgstr "{statusFilter} raporu bulunamadı"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:109
 msgid "No access"
 msgstr "Erişim yok"
 
@@ -1956,7 +1819,7 @@ msgstr "Erişim yok"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Erişim kuralı yapılandırılmamış. Bu kaynağa kimin erişebileceğini kontrol etmek için kural ekleyin."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "Henüz aktivite yok"
 
@@ -1964,7 +1827,7 @@ msgstr "Henüz aktivite yok"
 msgid "No comments on this image yet."
 msgstr "Bu görselde henüz yorum yok."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
 msgid "No comments yet"
 msgstr "Henüz yorum yok"
 
@@ -1981,11 +1844,11 @@ msgstr "Henüz oyun yok"
 msgid "No groups available"
 msgstr "Grup yok"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Henüz oluşturulabilecek öge türü yok. Önce gerekli üst ögeleri oluşturun."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
 msgid "No matching objects"
 msgstr "Eşleşen nesne yok"
 
@@ -1993,12 +1856,12 @@ msgstr "Eşleşen nesne yok"
 msgid "No moderation activity"
 msgstr "Moderasyon aktivitesi yok"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
-#: ../../../lib/web/src/components/person-picker.tsx:71
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
+#: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Kişi bulunamadı"
 
-#: ../../../lib/web/src/components/place-picker.tsx:120
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Yer bulunamadı"
 
@@ -2014,18 +1877,18 @@ msgstr "Rapor yok"
 msgid "No restrictions"
 msgstr "Kısıtlama yok"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:65
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Sonuç bulunamadı"
 
-#: ../../../lib/web/src/components/command-menu.tsx:57
+#: ../../../lib/web/src/components/command-menu.tsx:55
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Durum yok"
 
@@ -2037,7 +1900,7 @@ msgstr "Saat dilimi bulunamadı."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Henüz konu kaydı yok — bir sonraki bildirimden sonra tekrar deneyin."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Okunmamış bildirim yok"
 
@@ -2054,21 +1917,17 @@ msgid "No views"
 msgstr "Görüntüleme yok"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:329
+#: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Yok"
@@ -2078,15 +1937,15 @@ msgid "Normal"
 msgstr "Normal"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:65
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Bulunamadı"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
 msgstr "Ayarlanmamış"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
 msgid "Nothing found"
 msgstr "Bir şey bulunamadı"
 
@@ -2095,13 +1954,13 @@ msgid "Nothing saved yet"
 msgstr "Henüz hiçbir şey kaydedilmedi"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Bildirimler: {0}"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
 msgid "Number"
 msgstr "Sayı"
 
@@ -2127,8 +1986,8 @@ msgstr "Bu görselde"
 msgid "Oops! Page Not Found!"
 msgstr "Hata! Sayfa bulunamadı!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:227
-#: ../../../lib/web/src/components/layout/nav-group.tsx:232
+#: ../../../lib/web/src/components/layout/nav-group.tsx:199
+#: ../../../lib/web/src/components/layout/nav-group.tsx:204
 msgid "Open actions"
 msgstr "İşlemleri aç"
 
@@ -2136,13 +1995,13 @@ msgstr "İşlemleri aç"
 msgid "Open menu"
 msgstr "Menüyü aç"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:78
-#: ../../../lib/web/src/components/layout/top-bar.tsx:83
+#: ../../../lib/web/src/components/layout/top-bar.tsx:63
+#: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
 msgstr "Gezinmeyi aç"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
 msgid "Open option actions"
 msgstr "Seçenek eylemlerini aç"
 
@@ -2150,8 +2009,8 @@ msgstr "Seçenek eylemlerini aç"
 msgid "Open selected card"
 msgstr "Seçili kartı aç"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
 msgid "Open view actions"
 msgstr "Görünüm eylemlerini aç"
 
@@ -2160,13 +2019,17 @@ msgstr "Görünüm eylemlerini aç"
 msgid "Open view controls"
 msgstr "Görünüm kontrollerini aç"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
 msgid "Option name"
 msgstr "Seçenek adı"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
+#: src/routes/_authenticated/$forum_.settings.tsx:474
+msgid "Optional markdown banner shown at the top of your forum."
+msgstr "Forumunuzun üstünde gösterilen isteğe bağlı markdown banner."
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
 msgid "Options"
 msgstr "Seçenekler"
 
@@ -2180,34 +2043,27 @@ msgstr "Diğer"
 msgid "Owner"
 msgstr "Sahip"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Üst"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:325
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Geçiş anahtarı"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
-#: ../../../lib/web/src/lib/shell-errors.ts:26
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "Geçiş anahtarı doğrulaması başarısız oldu. Lütfen tekrar deneyin."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:138
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Passkeys"
 msgstr "Passkey'ler"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:19
-msgid "Passkeys are not available in this browser"
-msgstr "Passkey'ler bu tarayıcıda kullanılamıyor"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
 msgid "Pattern (regex)"
 msgstr "Desen (regex)"
 
-#: src/features/forums/components/post-card.tsx:74
+#: src/features/forums/components/post-card.tsx:57
 #: src/features/forums/components/thread/thread-comment.tsx:275
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:751
@@ -2228,12 +2084,8 @@ msgstr "Bekleyen yorumlar ({0})"
 msgid "Pending posts ({0})"
 msgstr "Bekleyen gönderiler ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:179
-msgid "People"
-msgstr "Kişiler"
-
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:337
 msgid "Photos and videos"
 msgstr "Fotoğraflar ve videolar"
 
@@ -2246,7 +2098,7 @@ msgid "Pinned"
 msgstr "Sabitlendi"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:52
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
@@ -2259,11 +2111,15 @@ msgstr "Lütfen sorunu açıklayın..."
 msgid "Please enter a reply"
 msgstr "Lütfen bir yanıt girin"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:81
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Bu kaynağa erişmek için <0/> lütfen uygun kimlik bilgileriyle giriş yapın."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Lütfen tekrar deneyin."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:73
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
 msgid "Please wait a moment and try again."
 msgstr "Lütfen biraz bekleyip tekrar deneyin."
 
@@ -2283,7 +2139,7 @@ msgstr "Gönderi forum sunucusuna kaydedilemedi"
 msgid "Post deleted"
 msgstr "Gönderi silindi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:928
 msgid "Post limit"
 msgstr "Gönderi limiti"
 
@@ -2323,11 +2179,11 @@ msgstr "Gönderinin sabitlemesi kaldırıldı"
 msgid "Post updated"
 msgstr "Gönderi güncellendi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Post, comment, vote, and view"
 msgstr "Gönderi, yorum, oy ve görüntüleme"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:938
 msgid "posts"
 msgstr "gönderi"
 
@@ -2339,16 +2195,16 @@ msgstr "Gönderiler"
 msgid "Posts and comments"
 msgstr "Gönderiler ve yorumlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "Pre-moderation"
 msgstr "Ön moderasyon"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Kullanıcıların ne sıklıkla gönderi yapabileceğini sınırlayarak spam'i önleyin"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
 msgid "Previous image"
 msgstr "Önceki görsel"
 
@@ -2361,19 +2217,19 @@ msgstr "Gizlilik"
 msgid "Processing…"
 msgstr "İşleniyor…"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Proje üyeleri"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "İstem kaydedildi"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
-msgid "Properties"
-msgstr "Özellikler"
-
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Gönderiyi yayınla"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Yayınlanıyor..."
 
@@ -2389,15 +2245,15 @@ msgstr "Kuyruk"
 msgid "Raised"
 msgstr "Yükseltilmiş"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:923
 msgid "Rate limiting"
 msgstr "Hız sınırlama"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:110
+#: ../../../lib/web/src/components/restore-banner.tsx:118
 msgid "Re-link your accounts on this server"
 msgstr "Hesaplarınızı bu sunucuda yeniden bağlayın"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:140
 msgid "Re-register your passkeys on this server"
 msgstr "Bu sunucuda parola anahtarlarınızı yeniden kaydedin"
 
@@ -2422,20 +2278,12 @@ msgstr "Önerilen forumlar"
 msgid "Reconnecting ({retries})..."
 msgstr "Yeniden bağlanıyor ({retries})..."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:43
-msgid "Recording failed. Please try again."
-msgstr "Kayıt başarısız oldu. Lütfen tekrar deneyin."
-
-#: ../../../lib/web/src/lib/shell-errors.ts:39
-msgid "Recording produced no audio"
-msgstr "Kayıtta ses yok"
-
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
 msgid "Redirecting to login."
 msgstr "Girişe yönlendiriliyor."
 
-#: ../../../lib/web/src/components/post-tags.tsx:214
-#: ../../../lib/web/src/components/post-tags.tsx:226
+#: ../../../lib/web/src/components/post-tags.tsx:200
+#: ../../../lib/web/src/components/post-tags.tsx:212
 msgid "Reduce interest"
 msgstr "İlgiyi azalt"
 
@@ -2448,7 +2296,7 @@ msgstr "Reddet"
 msgid "Rejected"
 msgstr "Reddedildi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
 msgid "Relates"
 msgstr "İlişkili"
 
@@ -2460,17 +2308,9 @@ msgstr "Göreceli (5d, 3s, 2g)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 saat içinde göreceli, aksi halde mutlak"
 
-#: ../../../lib/web/src/components/post-tags.tsx:166
-msgid "Relevance {relevance}"
-msgstr "Alaka {relevance}"
-
-#: ../../../lib/web/src/components/post-tags.tsx:164
-msgid "Relevance {relevance}, interest {weight}"
-msgstr "Alaka {relevance}, ilgi {weight}"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2510,17 +2350,17 @@ msgstr "Yorumu kaldır"
 msgid "Remove from saved"
 msgstr "Kaydedilenlerden kaldır"
 
-#: ../../../lib/web/src/components/post-tags.tsx:234
-#: ../../../lib/web/src/components/post-tags.tsx:246
+#: ../../../lib/web/src/components/post-tags.tsx:220
+#: ../../../lib/web/src/components/post-tags.tsx:232
 msgid "Remove interest"
 msgstr "İlgiyi kaldır"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Ögeyi kaldır"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
 msgid "Remove link"
 msgstr "Bağlantıyı kaldır"
 
@@ -2528,11 +2368,11 @@ msgstr "Bağlantıyı kaldır"
 msgid "Remove post"
 msgstr "Gönderiyi kaldır"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:392
 msgid "Remove this forum from your sidebar."
 msgstr "Bu forumu kenar çubuğunuzdan kaldırın."
 
-#: src/features/forums/components/post-card.tsx:80
+#: src/features/forums/components/post-card.tsx:63
 #: src/features/forums/components/thread/thread-comment.tsx:281
 #: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
@@ -2546,28 +2386,28 @@ msgstr "Kayıtlılardan kaldırıldı"
 msgid "Removing..."
 msgstr "Kaldırılıyor..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Yeniden adlandır"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Sütunu yeniden adlandır"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Bu pano sütununu yeniden adlandır"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Renaming forum..."
 msgstr "Forum yeniden adlandırılıyor..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "replies"
 msgstr "yanıt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:882
 msgid "Replies must be approved"
 msgstr "Yanıtların onaylanması gerekir"
 
@@ -2618,41 +2458,29 @@ msgstr "{0} tarafından bildirildi"
 msgid "Reports"
 msgstr "Raporlar"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:865
 msgid "Require approval before content becomes visible"
 msgstr "İçerik görünür olmadan önce onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Require approval for new comments"
 msgstr "Yeni yorumlar için onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:870
 msgid "Require approval for new posts"
 msgstr "Yeni gönderiler için onay zorunlu kıl"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:892
 msgid "Require approval for new users"
 msgstr "Yeni kullanıcılar için onay zorunlu kıl"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
 msgid "Required"
 msgstr "Gerekli"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:358
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "E-postayı yeniden gönder"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
-msgid "Resign"
-msgstr "Çekil"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
-msgid "Resign game?"
-msgstr "Oyundan çekilsin mi?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
-msgid "Resigning..."
-msgstr "Çekiliyor..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2692,12 +2520,12 @@ msgstr "Erişimi iptal et"
 msgid "Revoke RSS access?"
 msgstr "RSS erişimi iptal edilsin mi?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
 msgid "Rows"
 msgstr "Satırlar"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
 msgid "Rows group by"
 msgstr "Satırları gruplama"
 
@@ -2719,16 +2547,16 @@ msgstr "Cumartesi"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:407
 msgid "Save changes"
 msgstr "Değişiklikleri kaydet"
 
@@ -2749,19 +2577,19 @@ msgid "Saved posts cleared"
 msgstr "Kaydedilen gönderiler temizlendi"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:402
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:603
 msgid "Score prompt"
 msgstr "Skor istemi"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:17
+#: ../../../lib/web/src/components/search.tsx:18
 msgid "Search"
 msgstr "Ara"
 
@@ -2773,15 +2601,15 @@ msgstr "Ad, kimlik, parmak izi veya URL ile ara..."
 msgid "Search for a command to run..."
 msgstr "Çalıştırılacak bir komut arayın..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:73
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Bir yer ara"
 
-#: ../../../lib/web/src/components/place-picker.tsx:37
+#: ../../../lib/web/src/components/place-picker.tsx:50
 msgid "Search for a place..."
 msgstr "Bir yer arayın..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
 msgstr "Hedef ara..."
 
@@ -2789,11 +2617,11 @@ msgstr "Hedef ara..."
 msgid "Search for forums..."
 msgstr "Forum ara..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:183
 msgid "Search for origin..."
 msgstr "Kaynak ara..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
 msgid "Search objects..."
 msgstr "Nesnelerde ara..."
 
@@ -2811,8 +2639,8 @@ msgstr "Bu görünümü arayın, izleyin ve sıralayın."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:303
+#: ../../../lib/web/src/components/inline-entity-search.tsx:63
+#: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Ara..."
@@ -2822,15 +2650,15 @@ msgstr "Ara..."
 msgid "Searching..."
 msgstr "Aranıyor..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:968
 msgid "seconds"
 msgstr "saniye"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 msgid "Select"
 msgstr "Seç"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Bir alan seç"
 
@@ -2866,7 +2694,7 @@ msgstr "Tümünü seç"
 msgid "Select group"
 msgstr "Grup seç"
 
-#: ../../../lib/web/src/components/place-picker.tsx:36
+#: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
 msgstr "Konum seç"
 
@@ -2878,7 +2706,7 @@ msgstr "Sonraki kartı seç"
 msgid "Select none"
 msgstr "Hiçbirini seçme"
 
-#: ../../../lib/web/src/components/person-picker.tsx:70
+#: ../../../lib/web/src/components/person-picker.tsx:83
 msgid "Select person..."
 msgstr "Kişi seçin..."
 
@@ -2886,8 +2714,8 @@ msgstr "Kişi seçin..."
 msgid "Select previous card"
 msgstr "Önceki kartı seç"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Seç..."
 
@@ -2900,7 +2728,7 @@ msgstr "Seçili: <0>{0}</0>"
 msgid "Send again"
 msgstr "Tekrar gönder"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:298
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "E-posta gönder"
 
@@ -2927,17 +2755,17 @@ msgstr "Sunucu kuralları"
 msgid "Session expired. Please log in again."
 msgstr "Oturumun süresi doldu. Lütfen tekrar giriş yapın."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:128
+#: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
 msgstr "Başlangıç ve hedef belirle"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -2945,11 +2773,11 @@ msgstr "Ayarlar"
 msgid "Shadowbanned"
 msgstr "Gizlice yasaklandı"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
 msgstr "Sınıfları göster"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
 msgid "Show fields"
 msgstr "Alanları göster"
 
@@ -2961,7 +2789,7 @@ msgstr "Yalnızca bu görselin yorumlarını göster"
 msgid "Show this help"
 msgstr "Bu yardımı göster"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:43
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} öğenin {totalShown} tanesi gösteriliyor"
 
@@ -2969,21 +2797,17 @@ msgstr "{total} öğenin {totalShown} tanesi gösteriliyor"
 msgid "Sidebar"
 msgstr "Kenar çubuğu"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
-msgid "Sign in with an account that has access <0/> to this resource."
-msgstr "Bu kaynağa <0/> erişimi olan bir hesapla oturum açın."
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Oturumu kapat"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
 msgid "Signing out..."
 msgstr "Çıkış yapılıyor..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
 msgid "Single line of text only"
 msgstr "Yalnızca tek satır metin"
 
@@ -3009,24 +2833,19 @@ msgstr "Geniş"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
 msgid "Start the discussion by adding the first comment."
 msgstr "İlk yorumu ekleyerek tartışmayı başlat."
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Stop watching"
-msgstr "İzlemeyi bırak"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Konu"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "Yorum gönder"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "Yanıt gönder"
 
@@ -3038,8 +2857,8 @@ msgstr "Rapor gönder"
 msgid "Submitting..."
 msgstr "Gönderiliyor..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:67
-#: ../../../lib/web/src/components/recommended-entities.tsx:59
+#: ../../../lib/web/src/components/inline-entity-search.tsx:66
+#: ../../../lib/web/src/components/recommended-entities.tsx:58
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -3083,24 +2902,24 @@ msgstr "Görünüm 1-9'a geç"
 msgid "System"
 msgstr "Sistem"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Tag"
 msgstr "Etiket"
 
-#: ../../../lib/web/src/components/post-tags.tsx:77
+#: ../../../lib/web/src/components/post-tags.tsx:76
 msgid "Tag already exists"
 msgstr "Etiket zaten mevcut"
 
-#: ../../../lib/web/src/components/post-tags.tsx:69
+#: ../../../lib/web/src/components/post-tags.tsx:68
 msgid "Tag must be 50 characters or less"
 msgstr "Etiket en fazla 50 karakter olmalıdır"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:602
 msgid "Tag prompt"
 msgstr "Etiket promptu"
 
-#: ../../../lib/web/src/components/post-tags.tsx:102
-#: ../../../lib/web/src/components/post-tags.tsx:116
+#: ../../../lib/web/src/components/post-tags.tsx:101
+#: ../../../lib/web/src/components/post-tags.tsx:115
 msgid "Tags"
 msgstr "Etiketler"
 
@@ -3113,11 +2932,11 @@ msgstr "Herhangi bir gönderiyi sonrası için buraya kaydetmek için yer iminiz
 msgid "Terms and conditions"
 msgstr "Şartlar ve koşullar"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
 msgid "Text"
 msgstr "Metin"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Bu kod yanlış veya süresi dolmuş."
 
@@ -3130,23 +2949,7 @@ msgstr "Gönderilemedi. Dosyalar çok büyük olabilir veya bağlantınız kesil
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Yüklemek için çok büyüktü. Dosyaları kaldırın veya küçültün ve yeniden deneyin."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:50
-msgid "The camera is already in use"
-msgstr "Kamera zaten kullanımda"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:54
-msgid "The camera request was not answered"
-msgstr "Kamera isteği yanıtlanmadı"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:41
-msgid "The microphone request was not answered"
-msgstr "Mikrofon isteği yanıtlanmadı"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:21
-msgid "The passkey request was not answered"
-msgstr "Passkey isteği yanıtlanmadı"
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:66
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "İstenen içerik bulunamadı."
 
@@ -3158,21 +2961,13 @@ msgstr "Sunucu veri yerine bir web sayfası döndürdü."
 msgid "There are no moderation actions recorded yet"
 msgstr "Henüz kaydedilmiş moderasyon eylemi yok"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:17
-msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
-msgstr "Bu uygulamanın passkey'inizi kullanmasına izin verilmiyor. Ayarlar'da, İzinler altında izin verin."
-
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
 msgstr "Bu forum şu anda yüklenemedi."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:252
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Bu forum silinmiş olabilir veya erişimin yok."
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
-msgid "This permanently deletes the game and its chat. This cannot be undone."
-msgstr "Bu işlem oyunu ve sohbetini kalıcı olarak siler. Bu işlem geri alınamaz."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3195,7 +2990,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Bu işlem gönderiyi sıradan kullanıcılardan gizleyecek. Moderatörler hâlâ görebilir ve daha sonra geri yükleyebilir."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:431
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Bu işlem \"{0}\" ve tüm gönderilerini ve yorumlarını kalıcı olarak silecek. Bu işlem geri alınamaz."
 
@@ -3207,8 +3002,8 @@ msgstr "Thread"
 msgid "Thursday"
 msgstr "Perşembe"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:296
 msgid "Title"
 msgstr "Başlık"
 
@@ -3224,22 +3019,25 @@ msgstr "Başlık gerekli"
 msgid "Title must be 1000 characters or less"
 msgstr "Başlık en fazla 1000 karakter olmalıdır"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:201
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
 msgid "To"
 msgstr "Nereye"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:393
-#: ../../../lib/web/src/components/layout/nav-group.tsx:400
-#: ../../../lib/web/src/components/layout/nav-group.tsx:522
-#: ../../../lib/web/src/components/layout/nav-group.tsx:529
+#: ../../../lib/web/src/components/layout/nav-group.tsx:365
+#: ../../../lib/web/src/components/layout/nav-group.tsx:372
+#: ../../../lib/web/src/components/layout/nav-group.tsx:490
+#: ../../../lib/web/src/components/layout/nav-group.tsx:497
 msgid "Toggle section"
 msgstr "Bölümü aç/kapat"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
+msgid "Toggle sidebar"
+msgstr "Kenar çubuğunu aç/kapat"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle sidebar"
+msgid "Toggle Sidebar"
 msgstr "Kenar çubuğunu aç/kapat"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3251,7 +3049,7 @@ msgstr "Görünüm seçeneklerini aç/kapat"
 msgid "Toggle watched filter"
 msgstr "İzlenen filtresini aç/kapat"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:72
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Çok fazla istek"
 
@@ -3259,7 +3057,7 @@ msgstr "Çok fazla istek"
 msgid "Top"
 msgstr "Üst"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:126
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
 msgstr "Yolda"
 
@@ -3267,8 +3065,8 @@ msgstr "Yolda"
 msgid "Try adjusting your search terms"
 msgstr "Arama terimlerini ayarlamayı dene"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:138
-#: ../../../lib/web/src/features/errors/general-error.tsx:178
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 msgid "Try again"
 msgstr "Tekrar dene"
 
@@ -3276,12 +3074,12 @@ msgstr "Tekrar dene"
 msgid "Tuesday"
 msgstr "Salı"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
 msgid "Type"
 msgstr "Tür"
 
-#: ../../../lib/web/src/components/command-menu.tsx:54
+#: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
 msgstr "Bir komut yaz veya ara..."
 
@@ -3301,8 +3099,8 @@ msgstr "Aramak için yaz..."
 msgid "Unable to connect to remote server"
 msgstr "Uzak sunucuya bağlanılamadı"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:89
-#: ../../../lib/web/src/lib/auth-manager.ts:101
+#: ../../../lib/web/src/lib/auth-manager.ts:92
+#: ../../../lib/web/src/lib/auth-manager.ts:104
 msgid "Unable to redirect to login. Please try again."
 msgstr "Giriş sayfasına yönlendirilemedi. Lütfen tekrar dene."
 
@@ -3310,12 +3108,16 @@ msgstr "Giriş sayfasına yönlendirilemedi. Lütfen tekrar dene."
 msgid "Unassigned"
 msgstr "Atanmamış"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
+msgid "Unauthorized Access"
+msgstr "Yetkisiz erişim"
+
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Kullanılamıyor"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:209
+#: ../../../lib/web/src/lib/request.ts:206
 msgid "Unexpected API error"
 msgstr "Beklenmeyen API hatası"
 
@@ -3323,11 +3125,6 @@ msgstr "Beklenmeyen API hatası"
 msgid "United States"
 msgstr "Amerika Birleşik Devletleri"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
-#: ../../../lib/web/src/components/tree-row.tsx:219
-#: ../../../lib/web/src/components/tree-row.tsx:373
-#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3345,11 +3142,11 @@ msgstr "Sabitlemeyi kaldır"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:403
 msgid "Unsubscribe"
 msgstr "Aboneliği iptal et"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:391
 msgid "Unsubscribe from forum"
 msgstr "Forum aboneliğini iptal et"
 
@@ -3358,32 +3155,28 @@ msgid "Unsubscribe from forum?"
 msgstr "Forum aboneliğinden çıkılsın mı?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribed"
 msgstr "Abonelik iptal edildi"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Unsubscribing..."
 msgstr "Abonelik iptal ediliyor..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
-#: ../../../lib/web/src/lib/entity-title.ts:40
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Başlıksız"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Güncellendi"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
-msgid "Updated {field}"
-msgstr "{field} güncellendi"
-
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Yükle"
 
@@ -3391,13 +3184,13 @@ msgstr "Yükle"
 msgid "Upload progress"
 msgstr "Yükleme ilerlemesi"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:329
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Geçiş anahtarınızı kullanın"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Kullanıcı"
 
@@ -3417,7 +3210,7 @@ msgstr "Değişkenler: {variables}"
 msgid "Verification code"
 msgstr "Doğrulama kodu"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:379
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Doğrula"
@@ -3426,29 +3219,25 @@ msgstr "Doğrula"
 msgid "Verify email address"
 msgstr "E-posta adresini doğrula"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:96
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Video küçük resmi"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
 msgid "Video viewer: {0}"
 msgstr "Video görüntüleyici: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Tüm bildirimleri görüntüle"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
-msgid "View and edit item details"
-msgstr "Öğe detaylarını görüntüle ve düzenle"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Kontrolleri görüntüle"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:108
 msgid "View only"
 msgstr "Yalnızca görüntüleme"
 
@@ -3461,18 +3250,9 @@ msgstr "Bu yorumun ilgili olduğu görseli görüntüle"
 msgid "Violence"
 msgstr "Şiddet"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:33
-msgid "Voice recording is not supported in this browser"
-msgstr "Ses kaydı bu tarayıcıda desteklenmiyor"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "Vote and view"
 msgstr "Oy ver ve görüntüle"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Watch"
-msgstr "İzle"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3492,7 +3272,7 @@ msgstr "<0>{0}</0> adresine bir doğrulama kodu gönderdik. E-posta adresinizi d
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:958
 msgid "Window duration"
 msgstr "Pencere süresi"
 
@@ -3511,7 +3291,7 @@ msgstr "Çok hızlı gönderi paylaşıyorsunuz — lütfen bekleyin ve tekrar d
 msgid "You are restricted from posting in this forum"
 msgstr "Bu forumda gönderi paylaşmanız kısıtlanmıştır"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:59
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Bu bölüme erişiminiz yok."
 
@@ -3527,18 +3307,22 @@ msgstr "Henüz forumun yok."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bu forumdan güncelleme almayı bırakacaksınız. İstediğiniz zaman yeniden abone olabilirsiniz."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:92
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Hesabınız {source} adresinden buraya taşındı. Orada silene kadar mesajlar ve bildirimler her iki sunucuya da ulaşabilir, bazı içerikleriniz eski sunucudan sunulmaya devam eder ve takipçileriniz sizi burada bulmak için birkaç dakika bekleyebilir."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Ekleriniz kaybolacak."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:266
+msgid "Your changes will be lost."
+msgstr "Değişiklikleriniz kaybolacak."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Metniniz ve ekleriniz kaybolacak."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Metniniz kaybolacak."

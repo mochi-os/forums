@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:219
+#: ../../../lib/web/src/lib/error-normalizer.ts:215
 msgid "Please check your internet connection and try again."
 msgstr "Veuillez vérifier votre connexion Internet et réessayer."
 
@@ -32,11 +32,15 @@ msgstr " · Permanent"
 msgid " (edited)"
 msgstr " (modifié)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
+msgid " or "
+msgstr " ou "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
 msgid "(edited)"
 msgstr "(modifié)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
 msgid "(expand)"
 msgstr "(développer)"
 
@@ -49,17 +53,10 @@ msgstr "[non défini]"
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# nouvelle publication} other {# nouvelles publications}}"
 
-#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: ../../../lib/web/src/components/person-picker.tsx:260
 #: src/routes/_authenticated/$forum_.moderation.tsx:517
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# sélectionné} other {# sélectionnés}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
-msgid "{0, plural, one {+# nested} other {+# nested}}"
-msgstr "{0, plural, one {+# imbriqué} other {+# imbriqués}}"
 
 #. placeholder {0}: authors.size
 #: src/routes/_authenticated/$forum_.moderation.tsx:298
@@ -72,24 +69,24 @@ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
 msgstr "{0, plural, one {# utilisateur muté} other {# utilisateurs mutés}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "{0} settings"
 msgstr "Paramètres de {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:191
+#: ../../../lib/web/src/lib/locale-format.ts:176
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#j} other {#j}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:187
+#: ../../../lib/web/src/lib/locale-format.ts:172
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#h} other {#h}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:183
+#: ../../../lib/web/src/lib/locale-format.ts:168
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:195
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#sem} other {#sem}}"
 
@@ -101,9 +98,13 @@ msgstr "{count, plural, one {# élément approuvé} other {# éléments approuv�
 msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
 msgstr "{count, plural, one {# élément rejeté} other {# éléments rejetés}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "Nom du {entityLabel}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr "Le nom de {entityLabel} est obligatoire"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -118,7 +119,7 @@ msgstr "{others, plural, one {Afficher # autre commentaire sur cette publication
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} sur {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# élément} other {# éléments}}"
 
@@ -126,13 +127,22 @@ msgstr "{totalCount, plural, one {# élément} other {# éléments}}"
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# réponse} other {# réponses}}"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
-msgstr "{totalDescendants, plural, one {# réponse} other {+# autres réponses}}"
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Ouvrir le menu (# notification non lue)} other {Ouvrir le menu (# notifications non lues)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
+msgid "+{0} nested"
+msgstr "+{0} imbriqués"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} autres réponses"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "1 reply"
+msgstr "1 réponse"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -142,10 +152,6 @@ msgstr "12 heures"
 msgid "24 hours"
 msgstr "24 heures"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:35
-msgid "A recording is already in progress."
-msgstr "Un enregistrement est déjà en cours."
-
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Absolu (date et heure)"
@@ -154,12 +160,11 @@ msgstr "Absolu (date et heure)"
 msgid "Accept"
 msgstr "Accepter"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:96
 msgid "Access"
 msgstr "Accès"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
-#: ../../../lib/web/src/features/errors/general-error.tsx:58
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
 msgstr "Accès refusé"
 
@@ -167,23 +172,23 @@ msgstr "Accès refusé"
 msgid "Access level"
 msgstr "Niveau d'accès"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:642
+#: src/routes/_authenticated/$forum_.settings.tsx:716
 msgid "Access level updated"
 msgstr "Niveau d'accès mis à jour"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:651
+#: src/routes/_authenticated/$forum_.settings.tsx:725
 msgid "Access management"
 msgstr "Gestion des accès"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:627
+#: src/routes/_authenticated/$forum_.settings.tsx:701
 msgid "Access removed"
 msgstr "Accès retiré"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:615
+#: src/routes/_authenticated/$forum_.settings.tsx:689
 msgid "Access set for {subjectName}"
 msgstr "Accès défini pour {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:492
+#: src/routes/_authenticated/$forum_.settings.tsx:566
 msgid "Account"
 msgstr "Compte"
 
@@ -191,17 +196,13 @@ msgstr "Compte"
 msgid "Account type"
 msgstr "Type de compte"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
-msgid "Activity"
-msgstr "Activité"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
 msgid "Add a comment..."
 msgstr "Ajouter un commentaire…"
 
@@ -209,7 +210,7 @@ msgstr "Ajouter un commentaire…"
 msgid "Add a new account"
 msgstr "Ajouter un nouveau compte"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
 msgid "Add a new field to this class"
 msgstr "Ajouter un nouveau champ à cette classe"
 
@@ -225,41 +226,41 @@ msgstr "Ajouter un compte"
 msgid "Add caption"
 msgstr "Ajouter une légende"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
 msgid "Add checklist item"
 msgstr "Ajouter un élément"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
 msgid "Add field"
 msgstr "Ajouter un champ"
 
-#: src/features/forums/components/create-post-dialog.tsx:273
-#: src/features/forums/components/edit-post-dialog.tsx:323
+#: src/features/forums/components/create-post-dialog.tsx:293
+#: src/features/forums/components/edit-post-dialog.tsx:342
 msgid "Add files"
 msgstr "Ajouter des fichiers"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
 msgid "Add item..."
 msgstr "Ajouter un élément…"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
 msgid "Add link"
 msgstr "Ajouter un lien"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
 msgid "Add option"
 msgstr "Ajouter une option"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:661
+#: src/routes/_authenticated/$forum_.settings.tsx:735
 msgid "Add rule"
 msgstr "Ajouter une règle"
 
-#: ../../../lib/web/src/components/post-tags.tsx:138
+#: ../../../lib/web/src/components/post-tags.tsx:137
 msgid "Add tag..."
 msgstr "Ajouter un tag…"
 
@@ -267,8 +268,8 @@ msgstr "Ajouter un tag…"
 msgid "Add to existing notifications"
 msgstr "Ajouter aux notifications existantes"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -283,11 +284,11 @@ msgid "Additional details (optional)"
 msgstr "Détails supplémentaires (facultatif)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: src/routes/_authenticated/$forum_.settings.tsx:553
 msgid "AI"
 msgstr "IA"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:480
+#: src/routes/_authenticated/$forum_.settings.tsx:554
 msgid "AI actions on posts"
 msgstr "Actions IA sur les publications"
 
@@ -304,15 +305,16 @@ msgstr "Tous les forums"
 msgid "All posts and comments have been reviewed"
 msgstr "Tous les messages et commentaires ont été examinés"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
-msgid "Allow anyone to search for {entityLabel}"
-msgstr "Autoriser tout le monde à rechercher {entityLabel}"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr "Autoriser tout le monde à rechercher {0}"
 
 #: src/features/forums/components/create-forum-dialog.tsx:54
 msgid "Allow anyone to search for forum"
 msgstr "Autoriser n'importe qui à rechercher le forum"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Allow sort by"
 msgstr "Autoriser le tri"
 
@@ -321,7 +323,6 @@ msgid "An error occurred"
 msgstr "Une erreur s'est produite"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
-#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Une erreur inattendue s'est produite"
 
@@ -352,15 +353,11 @@ msgid "Approve"
 msgstr "Approuver"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Voulez-vous vraiment supprimer « {0} » ?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
-msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
-msgstr "Voulez-vous vraiment supprimer « {title} » ? Cette action est irréversible."
-
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Voulez-vous vraiment supprimer la colonne « {name} » ? Cette action est irréversible."
 
@@ -380,23 +377,15 @@ msgstr "Êtes-vous sûr de vouloir supprimer cette publication ? Cela supprimera
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Voulez-vous vraiment vous déconnecter ? Vous devrez vous reconnecter pour accéder à votre compte."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
-msgid "Are you sure you want to resign?"
-msgstr "Voulez-vous vraiment abandonner ?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
-msgid "Are you sure you want to resign? {opponentName} will win the game."
-msgstr "Êtes-vous sûr de vouloir abandonner ? {opponentName} gagnera la partie."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Croissant"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Attach comment files"
 msgstr "Joindre des fichiers au commentaire"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Attach reply files"
 msgstr "Joindre des fichiers à la réponse"
 
@@ -405,7 +394,7 @@ msgstr "Joindre des fichiers à la réponse"
 msgid "Authenticated users"
 msgstr "Utilisateurs authentifiés"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:306
+#: ../../../lib/web/src/components/step-up-dialog.tsx:318
 msgid "Authenticator code"
 msgstr "Code d'authentification"
 
@@ -413,15 +402,15 @@ msgstr "Code d'authentification"
 msgid "Available keyboard shortcuts"
 msgstr "Raccourcis clavier disponibles"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar"
 msgstr "Avatar"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:98
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
 msgid "Avatar for {name}"
 msgstr "Avatar de {name}"
 
-#: ../../../lib/web/src/components/place-picker.tsx:142
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Retour"
 
@@ -431,9 +420,9 @@ msgstr "Retour"
 #: src/features/forums/thread-detail.tsx:343
 #: src/features/forums/thread-detail.tsx:459
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:220
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:222
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:267
 msgid "Back to forum"
 msgstr "Retour au forum"
 
@@ -441,8 +430,8 @@ msgstr "Retour au forum"
 msgid "Back to forums"
 msgstr "Retour aux forums"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Retour à l’accueil"
 
@@ -459,43 +448,43 @@ msgstr "Bannir l'auteur"
 msgid "Banned"
 msgstr "Banni"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
+#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Bannière"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner removed"
 msgstr "Bannière supprimée"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: src/routes/_authenticated/$forum_.settings.tsx:463
 msgid "Banner updated"
 msgstr "Bannière mise à jour"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
 msgid "Blocked by"
 msgstr "Bloqué par"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
 msgid "Blocked navigation to untrusted link"
 msgstr "Navigation vers un lien non fiable bloquée"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
 msgid "Blocks"
 msgstr "Bloque"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Board"
 msgstr "Tableau"
 
-#: ../../../lib/web/src/components/post-tags.tsx:194
-#: ../../../lib/web/src/components/post-tags.tsx:206
+#: ../../../lib/web/src/components/post-tags.tsx:180
+#: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "Augmenter l'intérêt"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
 msgid "Border colour"
 msgstr "Couleur de la bordure"
 
@@ -513,48 +502,34 @@ msgstr "par {0}"
 msgid "By {0}"
 msgstr "Par {0}"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:48
-msgid "Camera permission denied"
-msgstr "Autorisation de la caméra refusée"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:56
-msgid "Camera unavailable"
-msgstr "Caméra indisponible"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:354
-#: ../../../lib/web/src/components/travelling-picker.tsx:288
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
+#: ../../../lib/web/src/components/travelling-picker.tsx:308
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/forums/components/create-post-dialog.tsx:297
-#: src/features/forums/components/edit-post-dialog.tsx:371
+#: src/features/forums/components/create-post-dialog.tsx:317
+#: src/features/forums/components/edit-post-dialog.tsx:393
 #: src/features/forums/components/report-dialog.tsx:115
 #: src/features/forums/components/thread/thread-comment.tsx:304
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Cancel comment"
 msgstr "Annuler le commentaire"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Cancel reply"
 msgstr "Annuler la réponse"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:24
-#: ../../../lib/web/src/lib/shell-errors.ts:37
-#: ../../../lib/web/src/lib/shell-errors.ts:52
-msgid "Cancelled"
-msgstr "Annulé"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -570,23 +545,15 @@ msgstr "Catégorie de ces notifications"
 msgid "Change notification category"
 msgstr "Changer la catégorie de notification"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed"
-msgstr "Modifié"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
-msgid "Changed {field}"
-msgstr "{field} modifié"
-
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Revenez plus tard pour du nouveau contenu"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
 msgid "Checkbox"
 msgstr "Case à cocher"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
 msgid "Checklist"
 msgstr "Checklist"
 
@@ -599,13 +566,13 @@ msgstr "Choisissez une partie dans la barre latérale ou commencez-en une nouvel
 msgid "Choose language"
 msgstr "Choisir la langue"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
-#: ../../../lib/web/src/components/travelling-picker.tsx:151
-#: ../../../lib/web/src/components/travelling-picker.tsx:212
-#: ../../../lib/web/src/components/travelling-picker.tsx:218
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:170
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:237
+#: src/routes/_authenticated/$forum_.settings.tsx:503
 msgid "Clear"
 msgstr "Effacer"
 
@@ -627,19 +594,19 @@ msgstr "Effacer la recherche"
 msgid "Clearing saved posts..."
 msgstr "Effacement des publications enregistrées..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Fermer"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
 msgid "Close dialog"
 msgstr "Fermer la boîte de dialogue"
 
@@ -672,16 +639,16 @@ msgstr "Réduire"
 msgid "Collapse sidebar"
 msgstr "Réduire la barre latérale"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
 msgid "Colour"
 msgstr "Couleur"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
 msgid "Column actions"
 msgstr "Actions de colonne"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Columns group by"
 msgstr "Colonnes regroupées par"
 
@@ -710,7 +677,7 @@ msgstr "Commentaire approuvé"
 msgid "Comment deleted"
 msgstr "Commentaire supprimé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:869
+#: src/routes/_authenticated/$forum_.settings.tsx:943
 msgid "Comment limit"
 msgstr "Limite de commentaires"
 
@@ -734,34 +701,29 @@ msgstr "Commentaire restauré"
 msgid "Comment updated"
 msgstr "Commentaire modifié"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "Comment, vote, and view"
 msgstr "Commenter, voter et voir"
 
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Commentaires"
-
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
-msgid "Comments ({0})"
-msgstr "Commentaires ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Compact"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
 msgid "Configure option settings"
 msgstr "Configurer les paramètres de l'option"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
 msgid "Configure view settings"
 msgstr "Configurer les paramètres de la vue"
 
-#: ../../../lib/web/src/components/place-picker.tsx:146
-#: ../../../lib/web/src/components/travelling-picker.tsx:296
+#: ../../../lib/web/src/components/place-picker.tsx:160
+#: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -773,12 +735,12 @@ msgstr "Connecté"
 msgid "Connecting..."
 msgstr "Connexion..."
 
-#: src/features/forums/components/create-post-dialog.tsx:227
-#: src/features/forums/components/edit-post-dialog.tsx:294
+#: src/features/forums/components/create-post-dialog.tsx:247
+#: src/features/forums/components/edit-post-dialog.tsx:313
 msgid "Content"
 msgstr "Contenu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:819
+#: src/routes/_authenticated/$forum_.settings.tsx:893
 msgid "Content from users below a threshold must be approved"
 msgstr "Le contenu des utilisateurs en dessous d'un seuil doit être approuvé"
 
@@ -790,7 +752,7 @@ msgstr "Le contenu est obligatoire"
 msgid "Content not found."
 msgstr "Contenu introuvable."
 
-#: ../../../lib/web/src/lib/query-client.ts:73
+#: ../../../lib/web/src/lib/query-client.ts:78
 msgid "Content not modified"
 msgstr "Contenu non modifié"
 
@@ -802,7 +764,7 @@ msgstr "Informations contextuelles et détails."
 msgid "Continue"
 msgstr "Continuer"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:343
+#: ../../../lib/web/src/components/step-up-dialog.tsx:355
 msgid "Continue with {label}"
 msgstr "Continuer avec {label}"
 
@@ -822,39 +784,40 @@ msgstr "Copier"
 msgid "Could not load this document. Please try again later."
 msgstr "Impossible de charger ce document. Veuillez réessayer plus tard."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
 msgid "Couldn't load notifications"
 msgstr "Impossible de charger les notifications"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:170
+#: ../../../lib/web/src/components/step-up-dialog.tsx:182
 msgid "Couldn't send the code. Please try again."
 msgstr "Impossible d'envoyer le code. Veuillez réessayer."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:124
+#: ../../../lib/web/src/components/step-up-dialog.tsx:136
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Impossible de démarrer la réauthentification. Veuillez réessayer."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:212
+#: ../../../lib/web/src/components/step-up-dialog.tsx:224
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Impossible de vérifier avec ce compte. Veuillez réessayer."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
 msgid "Create"
 msgstr "Créer"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
-msgid "Create {entityLabel}"
-msgstr "Créer {entityLabel}"
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr "Créer {0}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
 msgstr "Créer un nouveau forum"
 
-#: src/features/forums/components/create-post-dialog.tsx:199
+#: src/features/forums/components/create-post-dialog.tsx:219
 msgid "Create a new post"
 msgstr "Créer une nouvelle publication"
 
@@ -867,26 +830,21 @@ msgstr "Créer le forum"
 msgid "Create new item"
 msgstr "Créer un nouvel élément"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
 msgid "Created"
 msgstr "Créé"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
-msgid "Created {field}"
-msgstr "{field} créé"
 
 #: src/hooks/use-forums-queries.ts:81
 msgid "Creating forum..."
 msgstr "Création du forum..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 msgid "Creating..."
 msgstr "Création..."
 
-#: ../../../lib/web/src/components/map-view.tsx:249
+#: ../../../lib/web/src/components/map-view.tsx:217
 msgid "Current location"
 msgstr "Position actuelle"
 
@@ -903,11 +861,11 @@ msgstr "Sombre"
 msgid "Data conflict"
 msgstr "Conflit de données"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
 msgid "Date"
 msgstr "Date"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:841
+#: src/routes/_authenticated/$forum_.settings.tsx:915
 msgid "days"
 msgstr "jours"
 
@@ -919,7 +877,7 @@ msgstr "Refuser"
 msgid "Default"
 msgstr "Par défaut"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:498
+#: src/routes/_authenticated/$forum_.settings.tsx:572
 msgid "Default account"
 msgstr "Compte par défaut"
 
@@ -927,34 +885,32 @@ msgstr "Compte par défaut"
 msgid "Default AI account"
 msgstr "Compte IA par défaut"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
 msgid "Default sort"
 msgstr "Tri par défaut"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/forums/components/thread/thread-comment.tsx:440
 #: src/features/forums/components/thread/thread-comment.tsx:512
 #: src/features/forums/components/thread/thread-content.tsx:354
 #: src/features/forums/components/thread/thread-content.tsx:434
-#: src/routes/_authenticated/$forum_.settings.tsx:419
+#: src/routes/_authenticated/$forum_.settings.tsx:421
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
 msgid "Delete attachment"
 msgstr "Supprimer la pièce jointe"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 msgid "Delete column"
 msgstr "Supprimer la colonne"
 
@@ -963,36 +919,26 @@ msgstr "Supprimer la colonne"
 msgid "Delete comment"
 msgstr "Supprimer le commentaire"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
 msgid "Delete field"
 msgstr "Supprimer le champ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:410
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:412
+#: src/routes/_authenticated/$forum_.settings.tsx:432
 msgid "Delete forum"
 msgstr "Supprimer le forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:428
+#: src/routes/_authenticated/$forum_.settings.tsx:430
 msgid "Delete forum?"
 msgstr "Supprimer le forum ?"
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
-msgid "Delete game?"
-msgstr "Supprimer la partie ?"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
-msgid "Delete item"
-msgstr "Supprimer l'élément"
-
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
 msgid "Delete option"
 msgstr "Supprimer l'option"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
 msgid "Delete option {0}"
 msgstr "Supprimer l'option {0}"
 
@@ -1000,35 +946,23 @@ msgstr "Supprimer l'option {0}"
 msgid "Delete post"
 msgstr "Supprimer le message"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
 msgid "Delete view"
 msgstr "Supprimer la vue"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:101
+#: ../../../lib/web/src/components/restore-banner.tsx:109
 msgid "Delete your account on the old server"
 msgstr "Supprimez votre compte sur l'ancien serveur"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted"
-msgstr "Supprimé"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
-msgid "Deleted {field}"
-msgstr "{field} supprimé"
 
 #: src/hooks/use-forums-queries.ts:97
 msgid "Deleting forum..."
 msgstr "Suppression du forum..."
 
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-msgid "Deleting..."
-msgstr "Suppression..."
-
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Décroissant"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
 msgid "Description"
 msgstr "Description"
 
@@ -1051,19 +985,19 @@ msgstr "Panneau des détails"
 msgid "Detect from web browser"
 msgstr "Détecter depuis le navigateur web"
 
-#: ../../../lib/web/src/components/person-picker.tsx:193
+#: ../../../lib/web/src/components/person-picker.tsx:214
 msgid "Directory"
 msgstr "Annuaire"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:486
+#: src/routes/_authenticated/$forum_.settings.tsx:560
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "Abandonner"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "Abandonner le brouillon ?"
 
@@ -1072,8 +1006,8 @@ msgstr "Abandonner le brouillon ?"
 msgid "Disconnected"
 msgstr "Déconnecté"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:80
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:94
 #: src/routes/_authenticated/$forum_.moderation.tsx:711
 msgid "Dismiss"
 msgstr "Ignorer"
@@ -1087,28 +1021,22 @@ msgstr "Masquer la bannière"
 msgid "Displays the mobile sidebar."
 msgstr "Affiche la barre latérale mobile."
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
-msgid "Does not match the required pattern"
-msgstr "Ne correspond pas au motif requis"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 msgid "Done"
 msgstr "Terminé"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
 msgid "Download"
 msgstr "Télécharger"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
 msgid "Download failed"
 msgstr "Échec du téléchargement"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
 msgid "Duplicates"
 msgstr "Duplique"
 
@@ -1123,7 +1051,7 @@ msgstr "Adapté à la dyslexie"
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "Modifier {label}"
 
@@ -1131,26 +1059,26 @@ msgstr "Modifier {label}"
 msgid "Edit caption"
 msgstr "Modifier la légende"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
 msgstr "Modifier le champ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
 msgid "Edit field settings"
 msgstr "Modifier les paramètres du champ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
 msgid "Edit option"
 msgstr "Modifier l'option"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
 msgid "Edit option {0}"
 msgstr "Modifier l'option {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:264
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:283
+#: src/features/forums/components/edit-post-dialog.tsx:285
 msgid "Edit post"
 msgstr "Modifier la publication"
 
@@ -1158,7 +1086,7 @@ msgstr "Modifier la publication"
 msgid "Edit selected card"
 msgstr "Modifier la carte sélectionnée"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
 msgid "Edit view"
 msgstr "Modifier la vue"
 
@@ -1166,29 +1094,25 @@ msgstr "Modifier la vue"
 msgid "Email"
 msgstr "E-mail"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:280
+#: ../../../lib/web/src/components/step-up-dialog.tsx:292
 msgid "Email code"
 msgstr "Code par e-mail"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: src/routes/_authenticated/$forum_.settings.tsx:479
 msgid "Enter banner text (markdown supported)..."
 msgstr "Entrez le texte de la bannière (markdown pris en charge)…"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:290
+#: ../../../lib/web/src/components/step-up-dialog.tsx:302
 msgid "Enter the code from your email"
 msgstr "Saisissez le code reçu par e-mail"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:327
 msgid "Enter your authenticator code"
 msgstr "Saisissez le code de votre application d'authentification"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:367
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Entity ID"
 msgstr "ID d'entité"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
-msgid "Error"
-msgstr "Erreur"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1208,10 +1132,6 @@ msgstr "URL externe"
 #: ../../../lib/web/src/lib/preference-utils.ts:124
 msgid "Extra large"
 msgstr "Très grand"
-
-#: ../../../lib/web/src/hooks/use-accounts.ts:213
-msgid "Failed to add account"
-msgstr "Échec de l'ajout du compte"
 
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
@@ -1249,20 +1169,16 @@ msgstr "Échec de la copie"
 msgid "Failed to create forum"
 msgstr "Échec de la création du forum"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Échec de la création du lien"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-msgid "Failed to delete"
-msgstr "Échec de la suppression"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Échec de la suppression de la pièce jointe"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
 msgid "Failed to delete comment"
 msgstr "Échec de la suppression du commentaire"
 
@@ -1270,7 +1186,7 @@ msgstr "Échec de la suppression du commentaire"
 msgid "Failed to delete forum"
 msgstr "Échec de la suppression du forum"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
 msgid "Failed to delete link"
 msgstr "Échec de la suppression du lien"
 
@@ -1282,7 +1198,7 @@ msgstr "Échec de la récupération du jeton RSS"
 msgid "Failed to load"
 msgstr "Échec du chargement"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:586
+#: src/routes/_authenticated/$forum_.settings.tsx:660
 msgid "Failed to load access rules"
 msgstr "Échec du chargement des règles d'accès"
 
@@ -1290,7 +1206,7 @@ msgstr "Échec du chargement des règles d'accès"
 msgid "Failed to load forum"
 msgstr "Échec du chargement du forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:158
+#: src/routes/_authenticated/$forum_.settings.tsx:160
 msgid "Failed to load forum settings"
 msgstr "Échec du chargement des paramètres du forum"
 
@@ -1298,7 +1214,7 @@ msgstr "Échec du chargement des paramètres du forum"
 msgid "Failed to load forums"
 msgstr "Échec du chargement des forums"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:593
+#: src/routes/_authenticated/$forum_.settings.tsx:667
 msgid "Failed to load groups"
 msgstr "Échec du chargement des groupes"
 
@@ -1306,14 +1222,9 @@ msgstr "Échec du chargement des groupes"
 msgid "Failed to load history"
 msgstr "Échec du chargement de l'historique"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load image"
 msgstr "Échec du chargement de l'image"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
-msgid "Failed to load item"
-msgstr "Échec du chargement de l'élément"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:800
 msgid "Failed to load moderation log"
@@ -1323,7 +1234,7 @@ msgstr "Échec du chargement du journal de modération"
 msgid "Failed to load moderation queue"
 msgstr "Échec du chargement de la file de modération"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:736
+#: src/routes/_authenticated/$forum_.settings.tsx:810
 msgid "Failed to load moderation settings"
 msgstr "Échec du chargement des paramètres de modération"
 
@@ -1344,13 +1255,9 @@ msgstr "Échec du chargement des signalements"
 msgid "Failed to load restrictions"
 msgstr "Échec du chargement des restrictions"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 msgid "Failed to load video"
 msgstr "Échec du chargement de la vidéo"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
-msgid "Failed to move"
-msgstr "Échec du déplacement"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
@@ -1360,7 +1267,7 @@ msgstr "Échec de la mise en sourdine de l'utilisateur"
 msgid "Failed to mute users"
 msgstr "Échec de la mise en sourdine des utilisateurs"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
 msgid "Failed to post comment"
 msgstr "Échec de la publication du commentaire"
 
@@ -1368,7 +1275,7 @@ msgstr "Échec de la publication du commentaire"
 msgid "Failed to reject items"
 msgstr "Échec du rejet des éléments"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:630
+#: src/routes/_authenticated/$forum_.settings.tsx:704
 msgid "Failed to remove access"
 msgstr "Échec du retrait de l'accès"
 
@@ -1385,7 +1292,7 @@ msgstr "Échec de la suppression de la restriction"
 msgid "Failed to remove saved post"
 msgstr "Échec du retrait de la publication enregistrée"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:204
 msgid "Failed to rename forum"
 msgstr "Échec du renommage du forum"
 
@@ -1401,11 +1308,7 @@ msgstr "Échec de la résolution du signalement"
 msgid "Failed to revoke RSS access"
 msgstr "Échec de la révocation de l'accès RSS"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-msgid "Failed to save"
-msgstr "Échec de l'enregistrement"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:753
+#: src/routes/_authenticated/$forum_.settings.tsx:827
 msgid "Failed to save moderation settings"
 msgstr "Échec de l'enregistrement des paramètres de modération"
 
@@ -1422,11 +1325,11 @@ msgstr "Échec de l'enregistrement de l'invite"
 msgid "Failed to search forums"
 msgstr "Échec de la recherche de forums"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:590
+#: src/routes/_authenticated/$forum_.settings.tsx:664
 msgid "Failed to search users"
 msgstr "Échec de la recherche d'utilisateurs"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:618
+#: src/routes/_authenticated/$forum_.settings.tsx:692
 msgid "Failed to set access level"
 msgstr "Échec de la définition du niveau d'accès"
 
@@ -1438,40 +1341,36 @@ msgid "Failed to subscribe"
 msgstr "Échec de l'abonnement"
 
 #: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/routes/_authenticated/$forum_.settings.tsx:182
 msgid "Failed to unsubscribe"
 msgstr "Échec du désabonnement"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:645
+#: src/routes/_authenticated/$forum_.settings.tsx:719
 msgid "Failed to update access level"
 msgstr "Échec de la mise à jour du niveau d'accès"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:460
-#: src/routes/_authenticated/$forum_.settings.tsx:472
+#: src/routes/_authenticated/$forum_.settings.tsx:534
+#: src/routes/_authenticated/$forum_.settings.tsx:546
 msgid "Failed to update AI settings"
 msgstr "Échec de la mise à jour des paramètres d'IA"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: src/routes/_authenticated/$forum_.settings.tsx:465
 msgid "Failed to update banner"
 msgstr "Échec de la mise à jour de la bannière"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
 msgid "Failed to update comment"
 msgstr "Échec de la mise à jour du commentaire"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
-msgid "Failed to update watching"
-msgstr "Échec de la mise à jour du suivi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Échec du téléversement de la pièce jointe"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
-#: src/features/forums/components/create-post-dialog.tsx:269
-#: src/features/forums/components/edit-post-dialog.tsx:319
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: src/features/forums/components/create-post-dialog.tsx:289
+#: src/features/forums/components/edit-post-dialog.tsx:338
 msgid "Files"
 msgstr "Fichiers"
 
@@ -1484,15 +1383,15 @@ msgstr "Filtré par étiquette :"
 msgid "Find forums"
 msgstr "Trouver des forums"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:372
+#: src/routes/_authenticated/$forum_.settings.tsx:374
 msgid "Fingerprint"
 msgstr "Empreinte"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:89
+#: ../../../lib/web/src/components/restore-banner.tsx:97
 msgid "Finish moving your account"
 msgstr "Terminez de déplacer votre compte"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
 msgid "Flags"
 msgstr "Indicateurs"
 
@@ -1501,9 +1400,6 @@ msgid "Flat"
 msgstr "Plat"
 
 #: src/features/forums/components/create-forum-dialog.tsx:52
-msgid "forum"
-msgstr "forum"
-
 #: src/features/forums/pages/entity-forum-page.tsx:78
 #: src/features/forums/pages/entity-forum-page.tsx:243
 #: src/features/forums/thread-detail.tsx:147
@@ -1527,23 +1423,23 @@ msgstr "Le forum n'est plus disponible"
 msgid "Forum link"
 msgstr "Lien du forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:346
+#: src/routes/_authenticated/$forum_.settings.tsx:348
 msgid "Forum name is required"
 msgstr "Le nom du forum est requis"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum not found"
 msgstr "Forum introuvable"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:201
+#: src/routes/_authenticated/$forum_.settings.tsx:203
 msgid "Forum renamed"
 msgstr "Forum renommé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:275
+#: src/routes/_authenticated/$forum_.settings.tsx:277
 msgid "Forum settings sections"
 msgstr "Sections des paramètres du forum"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum_.settings.tsx:249
 msgid "Forum unavailable"
 msgstr "Forum indisponible"
 
@@ -1558,11 +1454,11 @@ msgstr "Forums"
 msgid "Friday"
 msgstr "Vendredi"
 
-#: ../../../lib/web/src/components/person-picker.tsx:186
+#: ../../../lib/web/src/components/person-picker.tsx:207
 msgid "Friends"
 msgstr "Amis"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:134
+#: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
 msgstr "De"
 
@@ -1574,8 +1470,8 @@ msgstr "De"
 msgid "From theme"
 msgstr "Du thème"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Retour"
 
@@ -1583,7 +1479,7 @@ msgstr "Retour"
 msgid "Group"
 msgstr "Groupe"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
 msgid "Group by"
 msgstr "Grouper par"
 
@@ -1608,8 +1504,8 @@ msgstr "Historique"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:86
-#: ../../../lib/web/src/components/layout/top-bar.tsx:115
+#: ../../../lib/web/src/components/layout/top-bar.tsx:71
+#: ../../../lib/web/src/components/layout/top-bar.tsx:100
 msgid "Home"
 msgstr "Accueil"
 
@@ -1617,16 +1513,16 @@ msgstr "Accueil"
 msgid "Hot"
 msgstr "Populaire"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
 msgid "ID"
 msgstr "Identifiant"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:355
+#: src/routes/_authenticated/$forum_.settings.tsx:357
 msgid "Identity"
 msgstr "Identité"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
 msgid "Image viewer: {0}"
 msgstr "Visionneuse d'images : {0}"
 
@@ -1646,10 +1542,6 @@ msgstr "Avatar avec initiales"
 msgid "Initials avatar for {name}"
 msgstr "Avatar avec initiales de {name}"
 
-#: ../../../lib/web/src/components/post-tags.tsx:168
-msgid "Interest {weight}"
-msgstr "Intérêt {weight}"
-
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Centre d'intérêt renforcé"
@@ -1667,7 +1559,7 @@ msgstr "Centre d'intérêt retiré"
 msgid "Interests"
 msgstr "Centres d'intérêt"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
 msgid "Invalid date"
 msgstr "Date invalide"
 
@@ -1675,11 +1567,7 @@ msgstr "Date invalide"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Il semble que la page que vous recherchez <0/>n'existe pas ou a été supprimée."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
-msgid "Item details"
-msgstr "Détails de l'élément"
-
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:165
 msgid "Just now"
 msgstr "À l'instant"
 
@@ -1692,13 +1580,13 @@ msgstr "Raccourcis clavier"
 msgid "Large"
 msgstr "Grand"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
 msgid "Layout"
 msgstr "Disposition"
 
-#: ../../../lib/web/src/components/post-tags.tsx:73
-msgid "Letters, numbers, spaces, hyphens, and slashes only"
-msgstr "Lettres, chiffres, espaces, traits d'union et barres obliques uniquement"
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Lettres, chiffres, espaces et traits d'union uniquement"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1708,15 +1596,15 @@ msgstr "Clair"
 msgid "Link"
 msgstr "Lien"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
 msgid "Links"
 msgstr "Liens"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
 msgid "List"
 msgstr "Liste"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Charger plus"
 
@@ -1724,15 +1612,7 @@ msgstr "Charger plus"
 msgid "Loading content…"
 msgstr "Chargement du contenu…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
-msgid "Loading item"
-msgstr "Chargement de l'élément"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
-msgid "Loading item details"
-msgstr "Chargement des détails de l'élément"
-
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:35
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Chargement..."
@@ -1774,16 +1654,16 @@ msgstr "Gérer les catégories"
 msgid "Manual"
 msgstr "Manuel"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
 msgid "Mark all as read"
 msgstr "Tout marquer comme lu"
 
-#: src/features/forums/components/create-post-dialog.tsx:231
+#: src/features/forums/components/create-post-dialog.tsx:251
 msgid "Markdown supported"
 msgstr "Markdown pris en charge"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
 msgid "Maximum length"
 msgstr "Longueur maximale"
 
@@ -1794,10 +1674,6 @@ msgstr "Serveur MCP"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Moyen"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-msgid "Members"
-msgstr "Membres"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1811,11 +1687,7 @@ msgstr "Message"
 msgid "Metric"
 msgstr "Métrique"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:31
-msgid "Microphone permission denied"
-msgstr "Autorisation du microphone refusée"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
 msgid "Minimum length"
 msgstr "Longueur minimale"
 
@@ -1828,14 +1700,14 @@ msgstr "Désinformation"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Modérer, publier, commenter, voter et voir"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
 #: src/routes/_authenticated/$forum_.moderation.tsx:100
 #: src/routes/_authenticated/$forum_.moderation.tsx:105
-#: src/routes/_authenticated/$forum_.settings.tsx:93
+#: src/routes/_authenticated/$forum_.settings.tsx:95
 msgid "Moderation"
 msgstr "Modération"
 
@@ -1860,14 +1732,6 @@ msgstr "Lundi"
 msgid "More options"
 msgstr "Plus d'options"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved"
-msgstr "Déplacé"
-
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
-msgid "Moved {field}"
-msgstr "{field} déplacé"
-
 #: src/routes/_authenticated/$forum_.moderation.tsx:496
 msgid "Mute"
 msgstr "Muet"
@@ -1881,37 +1745,36 @@ msgstr "Mettre l'auteur en sourdine"
 msgid "Muted"
 msgstr "Muet"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
-#: src/routes/_authenticated/$forum_.settings.tsx:359
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
+#: src/routes/_authenticated/$forum_.settings.tsx:361
 msgid "Name"
 msgstr "Nom"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:350
 msgid "Name cannot contain < or > characters"
 msgstr "Le nom ne peut pas contenir les caractères < ou >"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
-msgid "Name is required"
-msgstr "Le nom est obligatoire"
-
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-#: src/routes/_authenticated/$forum_.settings.tsx:347
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr "Le nom ne peut pas contenir de chevrons, barre oblique inverse, point-virgule, guillemets ni accents graves"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+#: src/routes/_authenticated/$forum_.settings.tsx:349
 msgid "Name must be 1000 characters or less"
 msgstr "Le nom doit comporter 1000 caractères ou moins"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:51
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Erreur réseau"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:206
+#: src/features/forums/components/edit-post-dialog.tsx:208
 msgid "New"
 msgstr "Nouveau"
 
@@ -1920,27 +1783,27 @@ msgstr "Nouveau"
 msgid "New game"
 msgstr "Nouvelle partie"
 
-#: src/features/forums/components/create-post-dialog.tsx:185
-#: src/features/forums/components/create-post-dialog.tsx:190
-#: src/features/forums/components/create-post-dialog.tsx:197
+#: src/features/forums/components/create-post-dialog.tsx:205
+#: src/features/forums/components/create-post-dialog.tsx:210
+#: src/features/forums/components/create-post-dialog.tsx:217
 #: src/features/forums/pages/entity-forum-page.tsx:250
 msgid "New post"
 msgstr "Nouvelle publication"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:797
+#: src/routes/_authenticated/$forum_.settings.tsx:871
 msgid "New threads must be approved"
 msgstr "Les nouveaux fils doivent être approuvés"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:829
+#: src/routes/_authenticated/$forum_.settings.tsx:903
 msgid "New user threshold:"
 msgstr "Seuil de nouvel utilisateur :"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
 msgid "Next image"
 msgstr "Image suivante"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
 msgid "No {parentClassNames} to add to"
 msgstr "Aucun {parentClassNames} auquel ajouter"
 
@@ -1948,7 +1811,7 @@ msgstr "Aucun {parentClassNames} auquel ajouter"
 msgid "No {statusFilter} reports found"
 msgstr "Aucun signalement {statusFilter} trouvé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: src/routes/_authenticated/$forum_.settings.tsx:109
 msgid "No access"
 msgstr "Aucun accès"
 
@@ -1956,7 +1819,7 @@ msgstr "Aucun accès"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Aucune règle d'accès configurée. Ajoutez des règles pour contrôler qui peut accéder à cette ressource."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
 msgid "No activity yet"
 msgstr "Aucune activité pour le moment"
 
@@ -1964,7 +1827,7 @@ msgstr "Aucune activité pour le moment"
 msgid "No comments on this image yet."
 msgstr "Aucun commentaire sur cette image pour l'instant."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
 msgid "No comments yet"
 msgstr "Aucun commentaire pour le moment"
 
@@ -1981,11 +1844,11 @@ msgstr "Aucune partie pour le moment"
 msgid "No groups available"
 msgstr "Aucun groupe disponible"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Aucun type d'élément ne peut encore être créé. Créez d'abord les éléments parents requis."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
 msgid "No matching objects"
 msgstr "Aucun objet correspondant"
 
@@ -1993,12 +1856,12 @@ msgstr "Aucun objet correspondant"
 msgid "No moderation activity"
 msgstr "Aucune activité de modération"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
-#: ../../../lib/web/src/components/person-picker.tsx:71
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
+#: ../../../lib/web/src/components/person-picker.tsx:84
 msgid "No people found"
 msgstr "Aucune personne trouvée"
 
-#: ../../../lib/web/src/components/place-picker.tsx:120
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Aucun lieu trouvé"
 
@@ -2014,18 +1877,18 @@ msgstr "Aucun signalement"
 msgid "No restrictions"
 msgstr "Aucune restriction"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:65
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
 
-#: ../../../lib/web/src/components/command-menu.tsx:57
+#: ../../../lib/web/src/components/command-menu.tsx:55
 msgid "No results found."
 msgstr "Aucun résultat trouvé."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
 msgid "No status"
 msgstr "Sans statut"
 
@@ -2037,7 +1900,7 @@ msgstr "Aucun fuseau horaire trouvé."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Aucun enregistrement de sujet pour le moment — réessayez après la prochaine notification."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "No unread notifications"
 msgstr "Aucune notification non lue"
 
@@ -2054,21 +1917,17 @@ msgid "No views"
 msgstr "Aucune vue"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:329
+#: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Aucun"
@@ -2078,15 +1937,15 @@ msgid "Normal"
 msgstr "Normal"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:65
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
 msgid "Not found"
 msgstr "Introuvable"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
 msgstr "Non défini"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
 msgid "Nothing found"
 msgstr "Rien trouvé"
 
@@ -2095,13 +1954,13 @@ msgid "Nothing saved yet"
 msgstr "Rien d'enregistré pour l'instant"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
 msgid "Notifications: {0}"
 msgstr "Notifications : {0}"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
 msgid "Number"
 msgstr "Nombre"
 
@@ -2127,8 +1986,8 @@ msgstr "Sur cette image"
 msgid "Oops! Page Not Found!"
 msgstr "Oups ! Page introuvable !"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:227
-#: ../../../lib/web/src/components/layout/nav-group.tsx:232
+#: ../../../lib/web/src/components/layout/nav-group.tsx:199
+#: ../../../lib/web/src/components/layout/nav-group.tsx:204
 msgid "Open actions"
 msgstr "Ouvrir les actions"
 
@@ -2136,13 +1995,13 @@ msgstr "Ouvrir les actions"
 msgid "Open menu"
 msgstr "Ouvrir le menu"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:78
-#: ../../../lib/web/src/components/layout/top-bar.tsx:83
+#: ../../../lib/web/src/components/layout/top-bar.tsx:63
+#: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
 msgstr "Ouvrir la navigation"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
 msgid "Open option actions"
 msgstr "Ouvrir les actions de l'option"
 
@@ -2150,8 +2009,8 @@ msgstr "Ouvrir les actions de l'option"
 msgid "Open selected card"
 msgstr "Ouvrir la carte sélectionnée"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
 msgid "Open view actions"
 msgstr "Ouvrir les actions de la vue"
 
@@ -2160,13 +2019,17 @@ msgstr "Ouvrir les actions de la vue"
 msgid "Open view controls"
 msgstr "Ouvrir les contrôles de la vue"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
 msgid "Option name"
 msgstr "Nom de l'option"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
+#: src/routes/_authenticated/$forum_.settings.tsx:474
+msgid "Optional markdown banner shown at the top of your forum."
+msgstr "Bannière Markdown optionnelle affichée en haut de votre forum."
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
 msgid "Options"
 msgstr "Options"
 
@@ -2180,34 +2043,27 @@ msgstr "Autre"
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
 msgid "Parent"
 msgstr "Parent"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:325
+#: ../../../lib/web/src/components/step-up-dialog.tsx:337
 msgid "Passkey"
 msgstr "Clé d'accès"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
-#: ../../../lib/web/src/lib/shell-errors.ts:26
+#: ../../../lib/web/src/components/step-up-dialog.tsx:207
 msgid "Passkey verification failed. Please try again."
 msgstr "La vérification par clé d'accès a échoué. Veuillez réessayer."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:138
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Passkeys"
 msgstr "Clés d'accès"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:19
-msgid "Passkeys are not available in this browser"
-msgstr "Les clés d'accès ne sont pas disponibles dans ce navigateur"
-
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
 msgid "Pattern (regex)"
 msgstr "Motif (regex)"
 
-#: src/features/forums/components/post-card.tsx:74
+#: src/features/forums/components/post-card.tsx:57
 #: src/features/forums/components/thread/thread-comment.tsx:275
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:751
@@ -2228,12 +2084,8 @@ msgstr "Commentaires en attente ({0})"
 msgid "Pending posts ({0})"
 msgstr "Publications en attente ({0})"
 
-#: ../../../lib/web/src/components/person-picker.tsx:179
-msgid "People"
-msgstr "Personnes"
-
-#: src/features/forums/components/create-post-dialog.tsx:268
-#: src/features/forums/components/edit-post-dialog.tsx:318
+#: src/features/forums/components/create-post-dialog.tsx:288
+#: src/features/forums/components/edit-post-dialog.tsx:337
 msgid "Photos and videos"
 msgstr "Photos et vidéos"
 
@@ -2246,7 +2098,7 @@ msgid "Pinned"
 msgstr "Épinglé"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:52
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Veuillez vérifier votre connexion Internet et réessayer."
@@ -2259,11 +2111,15 @@ msgstr "Veuillez décrire le problème..."
 msgid "Please enter a reply"
 msgstr "Veuillez saisir une réponse"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:81
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Veuillez vous connecter avec les identifiants appropriés <0/> pour accéder à cette ressource."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
 msgstr "Veuillez réessayer."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:73
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
 msgid "Please wait a moment and try again."
 msgstr "Veuillez patienter un instant, puis réessayer."
 
@@ -2283,7 +2139,7 @@ msgstr "Impossible d'enregistrer la publication sur le serveur du forum"
 msgid "Post deleted"
 msgstr "Publication supprimée"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:854
+#: src/routes/_authenticated/$forum_.settings.tsx:928
 msgid "Post limit"
 msgstr "Limite de publications"
 
@@ -2323,11 +2179,11 @@ msgstr "Publication désépinglée"
 msgid "Post updated"
 msgstr "Publication modifiée"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:103
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Post, comment, vote, and view"
 msgstr "Publier, commenter, voter et voir"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:938
 msgid "posts"
 msgstr "publications"
 
@@ -2339,16 +2195,16 @@ msgstr "Publications"
 msgid "Posts and comments"
 msgstr "Publications et commentaires"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:790
+#: src/routes/_authenticated/$forum_.settings.tsx:864
 msgid "Pre-moderation"
 msgstr "Pré-modération"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:850
+#: src/routes/_authenticated/$forum_.settings.tsx:924
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Limitez le spam en restreignant la fréquence des publications"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
 msgid "Previous image"
 msgstr "Image précédente"
 
@@ -2361,19 +2217,19 @@ msgstr "Confidentialité"
 msgid "Processing…"
 msgstr "Traitement…"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Membres du projet"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Invite enregistrée"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
-msgid "Properties"
-msgstr "Propriétés"
-
-#: src/features/forums/components/create-post-dialog.tsx:312
+#: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
 msgstr "Publier la publication"
 
-#: src/features/forums/components/create-post-dialog.tsx:307
+#: src/features/forums/components/create-post-dialog.tsx:327
 msgid "Publishing..."
 msgstr "Publication..."
 
@@ -2389,15 +2245,15 @@ msgstr "File d'attente"
 msgid "Raised"
 msgstr "Surélevé"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:849
+#: src/routes/_authenticated/$forum_.settings.tsx:923
 msgid "Rate limiting"
 msgstr "Limitation du débit"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:110
+#: ../../../lib/web/src/components/restore-banner.tsx:118
 msgid "Re-link your accounts on this server"
 msgstr "Relinkez vos comptes sur ce serveur"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:140
 msgid "Re-register your passkeys on this server"
 msgstr "Réenregistrez vos clés d'accès sur ce serveur"
 
@@ -2422,20 +2278,12 @@ msgstr "Forums recommandés"
 msgid "Reconnecting ({retries})..."
 msgstr "Reconnexion ({retries})..."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:43
-msgid "Recording failed. Please try again."
-msgstr "Échec de l'enregistrement. Veuillez réessayer."
-
-#: ../../../lib/web/src/lib/shell-errors.ts:39
-msgid "Recording produced no audio"
-msgstr "L'enregistrement n'a produit aucun son"
-
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
 msgid "Redirecting to login."
 msgstr "Redirection vers la connexion."
 
-#: ../../../lib/web/src/components/post-tags.tsx:214
-#: ../../../lib/web/src/components/post-tags.tsx:226
+#: ../../../lib/web/src/components/post-tags.tsx:200
+#: ../../../lib/web/src/components/post-tags.tsx:212
 msgid "Reduce interest"
 msgstr "Réduire l'intérêt"
 
@@ -2448,7 +2296,7 @@ msgstr "Rejeter"
 msgid "Rejected"
 msgstr "Rejeté"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
 msgid "Relates"
 msgstr "Se rapporte à"
 
@@ -2460,17 +2308,9 @@ msgstr "Relatif (5min, 3h, 2j)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relatif dans les 24 heures, sinon absolu"
 
-#: ../../../lib/web/src/components/post-tags.tsx:166
-msgid "Relevance {relevance}"
-msgstr "Pertinence {relevance}"
-
-#: ../../../lib/web/src/components/post-tags.tsx:164
-msgid "Relevance {relevance}, interest {weight}"
-msgstr "Pertinence {relevance}, intérêt {weight}"
-
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/features/forums/components/thread/thread-comment.tsx:468
 #: src/features/forums/components/thread/thread-comment.tsx:526
@@ -2510,17 +2350,17 @@ msgstr "Supprimer le commentaire"
 msgid "Remove from saved"
 msgstr "Retirer des enregistrés"
 
-#: ../../../lib/web/src/components/post-tags.tsx:234
-#: ../../../lib/web/src/components/post-tags.tsx:246
+#: ../../../lib/web/src/components/post-tags.tsx:220
+#: ../../../lib/web/src/components/post-tags.tsx:232
 msgid "Remove interest"
 msgstr "Supprimer l'intérêt"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
 msgid "Remove item"
 msgstr "Supprimer l'élément"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
 msgid "Remove link"
 msgstr "Supprimer le lien"
 
@@ -2528,11 +2368,11 @@ msgstr "Supprimer le lien"
 msgid "Remove post"
 msgstr "Supprimer le message"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:390
+#: src/routes/_authenticated/$forum_.settings.tsx:392
 msgid "Remove this forum from your sidebar."
 msgstr "Retirer ce forum de votre barre latérale."
 
-#: src/features/forums/components/post-card.tsx:80
+#: src/features/forums/components/post-card.tsx:63
 #: src/features/forums/components/thread/thread-comment.tsx:281
 #: src/features/forums/components/thread/thread-content.tsx:164
 msgid "Removed"
@@ -2546,28 +2386,28 @@ msgstr "Supprimé des favoris"
 msgid "Removing..."
 msgstr "Suppression..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
 msgid "Rename"
 msgstr "Renommer"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
 msgid "Rename column"
 msgstr "Renommer la colonne"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename this board column"
 msgstr "Renommer cette colonne du tableau"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:200
+#: src/routes/_authenticated/$forum_.settings.tsx:202
 msgid "Renaming forum..."
 msgstr "Renommage du forum..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:879
+#: src/routes/_authenticated/$forum_.settings.tsx:953
 msgid "replies"
 msgstr "réponses"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:808
+#: src/routes/_authenticated/$forum_.settings.tsx:882
 msgid "Replies must be approved"
 msgstr "Les réponses doivent être approuvées"
 
@@ -2618,41 +2458,29 @@ msgstr "Signalé par {0}"
 msgid "Reports"
 msgstr "Signalements"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:791
+#: src/routes/_authenticated/$forum_.settings.tsx:865
 msgid "Require approval before content becomes visible"
 msgstr "Exiger une approbation avant la publication du contenu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:807
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Require approval for new comments"
 msgstr "Exiger une approbation pour les nouveaux commentaires"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:796
+#: src/routes/_authenticated/$forum_.settings.tsx:870
 msgid "Require approval for new posts"
 msgstr "Exiger une approbation pour les nouvelles publications"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:818
+#: src/routes/_authenticated/$forum_.settings.tsx:892
 msgid "Require approval for new users"
 msgstr "Exiger une approbation pour les nouveaux utilisateurs"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
 msgid "Required"
 msgstr "Requis"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:358
+#: ../../../lib/web/src/components/step-up-dialog.tsx:370
 msgid "Resend email"
 msgstr "Renvoyer l'e-mail"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
-msgid "Resign"
-msgstr "Abandonner"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
-msgid "Resign game?"
-msgstr "Abandonner la partie ?"
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
-msgid "Resigning..."
-msgstr "Abandon..."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx:633
 #: src/routes/_authenticated/$forum_.moderation.tsx:752
@@ -2692,12 +2520,12 @@ msgstr "Révoquer l'accès"
 msgid "Revoke RSS access?"
 msgstr "Révoquer l'accès RSS ?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
 msgid "Rows"
 msgstr "Lignes"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
 msgid "Rows group by"
 msgstr "Lignes regroupées par"
 
@@ -2719,16 +2547,16 @@ msgstr "Samedi"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/forums/components/thread/thread-comment.tsx:324
+#: src/routes/_authenticated/$forum_.settings.tsx:494
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/features/forums/components/edit-post-dialog.tsx:385
+#: src/features/forums/components/edit-post-dialog.tsx:407
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
@@ -2749,19 +2577,19 @@ msgid "Saved posts cleared"
 msgstr "Publications enregistrées effacées"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:380
+#: src/features/forums/components/edit-post-dialog.tsx:402
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Enregistrement…"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:529
+#: src/routes/_authenticated/$forum_.settings.tsx:603
 msgid "Score prompt"
 msgstr "Invite de notation"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:17
+#: ../../../lib/web/src/components/search.tsx:18
 msgid "Search"
 msgstr "Rechercher"
 
@@ -2773,15 +2601,15 @@ msgstr "Rechercher par nom, ID, empreinte ou URL..."
 msgid "Search for a command to run..."
 msgstr "Rechercher une commande à exécuter..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:73
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Rechercher un lieu"
 
-#: ../../../lib/web/src/components/place-picker.tsx:37
+#: ../../../lib/web/src/components/place-picker.tsx:50
 msgid "Search for a place..."
 msgstr "Rechercher un lieu..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
+#: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
 msgstr "Rechercher une destination…"
 
@@ -2789,11 +2617,11 @@ msgstr "Rechercher une destination…"
 msgid "Search for forums..."
 msgstr "Rechercher des forums…"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
+#: ../../../lib/web/src/components/travelling-picker.tsx:183
 msgid "Search for origin..."
 msgstr "Rechercher une origine…"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
 msgid "Search objects..."
 msgstr "Rechercher des objets…"
 
@@ -2811,8 +2639,8 @@ msgstr "Rechercher, surveiller et trier cette vue."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:303
+#: ../../../lib/web/src/components/inline-entity-search.tsx:63
+#: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Rechercher…"
@@ -2822,15 +2650,15 @@ msgstr "Rechercher…"
 msgid "Searching..."
 msgstr "Recherche..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:894
+#: src/routes/_authenticated/$forum_.settings.tsx:968
 msgid "seconds"
 msgstr "secondes"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 msgid "Select"
 msgstr "Sélection"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
 msgid "Select a field"
 msgstr "Sélectionner un champ"
 
@@ -2866,7 +2694,7 @@ msgstr "Tout sélectionner"
 msgid "Select group"
 msgstr "Sélectionner un groupe"
 
-#: ../../../lib/web/src/components/place-picker.tsx:36
+#: ../../../lib/web/src/components/place-picker.tsx:49
 msgid "Select location"
 msgstr "Sélectionner l'emplacement"
 
@@ -2878,7 +2706,7 @@ msgstr "Sélectionner la carte suivante"
 msgid "Select none"
 msgstr "Tout désélectionner"
 
-#: ../../../lib/web/src/components/person-picker.tsx:70
+#: ../../../lib/web/src/components/person-picker.tsx:83
 msgid "Select person..."
 msgstr "Sélectionner une personne..."
 
@@ -2886,8 +2714,8 @@ msgstr "Sélectionner une personne..."
 msgid "Select previous card"
 msgstr "Sélectionner la carte précédente"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
 msgid "Select..."
 msgstr "Sélectionner…"
 
@@ -2900,7 +2728,7 @@ msgstr "Sélectionné : <0>{0}</0>"
 msgid "Send again"
 msgstr "Renvoyer"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:298
+#: ../../../lib/web/src/components/step-up-dialog.tsx:310
 msgid "Send email"
 msgstr "Envoyer l'e-mail"
 
@@ -2927,17 +2755,17 @@ msgstr "Règles du serveur"
 msgid "Session expired. Please log in again."
 msgstr "Session expirée. Veuillez vous reconnecter."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:128
+#: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
 msgstr "Définir l'origine et la destination"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:92
-#: src/routes/_authenticated/$forum_.settings.tsx:168
-#: src/routes/_authenticated/$forum_.settings.tsx:233
-#: src/routes/_authenticated/$forum_.settings.tsx:263
+#: src/routes/_authenticated/$forum_.settings.tsx:94
+#: src/routes/_authenticated/$forum_.settings.tsx:170
+#: src/routes/_authenticated/$forum_.settings.tsx:235
+#: src/routes/_authenticated/$forum_.settings.tsx:265
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -2945,11 +2773,11 @@ msgstr "Paramètres"
 msgid "Shadowbanned"
 msgstr "Banni en sourdine"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
 msgid "Show classes"
 msgstr "Afficher les classes"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
 msgid "Show fields"
 msgstr "Afficher les champs"
 
@@ -2961,7 +2789,7 @@ msgstr "Afficher uniquement les commentaires sur cette image"
 msgid "Show this help"
 msgstr "Afficher cette aide"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:43
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Showing {totalShown} of {total}"
 msgstr "Affichage de {totalShown} sur {total}"
 
@@ -2969,21 +2797,17 @@ msgstr "Affichage de {totalShown} sur {total}"
 msgid "Sidebar"
 msgstr "Barre latérale"
 
-#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
-msgid "Sign in with an account that has access <0/> to this resource."
-msgstr "Connectez-vous avec un compte qui a accès <0/> à cette ressource."
-
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Se déconnecter"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
 msgid "Signing out..."
 msgstr "Déconnexion..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
 msgid "Single line of text only"
 msgstr "Une seule ligne de texte"
 
@@ -3009,24 +2833,19 @@ msgstr "Spacieux"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
 msgid "Start the discussion by adding the first comment."
 msgstr "Lancez la discussion en ajoutant le premier commentaire."
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Stop watching"
-msgstr "Arrêter de suivre"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Sujet"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:435
 msgid "Submit comment"
 msgstr "Envoyer le commentaire"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:434
 msgid "Submit reply"
 msgstr "Envoyer la réponse"
 
@@ -3038,8 +2857,8 @@ msgstr "Envoyer le signalement"
 msgid "Submitting..."
 msgstr "Envoi..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:67
-#: ../../../lib/web/src/components/recommended-entities.tsx:59
+#: ../../../lib/web/src/components/inline-entity-search.tsx:66
+#: ../../../lib/web/src/components/recommended-entities.tsx:58
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
@@ -3083,24 +2902,24 @@ msgstr "Basculer vers la vue 1-9"
 msgid "System"
 msgstr "Système"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:487
+#: src/routes/_authenticated/$forum_.settings.tsx:561
 msgid "Tag"
 msgstr "Étiquette"
 
-#: ../../../lib/web/src/components/post-tags.tsx:77
+#: ../../../lib/web/src/components/post-tags.tsx:76
 msgid "Tag already exists"
 msgstr "L'étiquette existe déjà"
 
-#: ../../../lib/web/src/components/post-tags.tsx:69
+#: ../../../lib/web/src/components/post-tags.tsx:68
 msgid "Tag must be 50 characters or less"
 msgstr "L'étiquette ne doit pas dépasser 50 caractères"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:528
+#: src/routes/_authenticated/$forum_.settings.tsx:602
 msgid "Tag prompt"
 msgstr "Invite d'étiquette"
 
-#: ../../../lib/web/src/components/post-tags.tsx:102
-#: ../../../lib/web/src/components/post-tags.tsx:116
+#: ../../../lib/web/src/components/post-tags.tsx:101
+#: ../../../lib/web/src/components/post-tags.tsx:115
 msgid "Tags"
 msgstr "Étiquettes"
 
@@ -3113,11 +2932,11 @@ msgstr "Touchez le marque-page d'une publication pour l'enregistrer ici pour plu
 msgid "Terms and conditions"
 msgstr "Conditions générales"
 
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
 msgid "Text"
 msgstr "Texte"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "That code is incorrect or has expired."
 msgstr "Ce code est incorrect ou a expiré."
 
@@ -3130,23 +2949,7 @@ msgstr "L'envoi a échoué. Les fichiers sont peut-être trop volumineux, ou vot
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "C'était trop volumineux pour être téléversé. Supprimez ou réduisez des fichiers et réessayez."
 
-#: ../../../lib/web/src/lib/shell-errors.ts:50
-msgid "The camera is already in use"
-msgstr "La caméra est déjà utilisée"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:54
-msgid "The camera request was not answered"
-msgstr "La demande de caméra est restée sans réponse"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:41
-msgid "The microphone request was not answered"
-msgstr "La demande de microphone est restée sans réponse"
-
-#: ../../../lib/web/src/lib/shell-errors.ts:21
-msgid "The passkey request was not answered"
-msgstr "La demande de clé d'accès est restée sans réponse"
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:66
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "Le contenu demandé est introuvable."
 
@@ -3158,21 +2961,13 @@ msgstr "Le serveur a renvoyé une page web au lieu de données."
 msgid "There are no moderation actions recorded yet"
 msgstr "Aucune action de modération enregistrée pour le moment"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:17
-msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
-msgstr "Cette application n'est pas autorisée à utiliser votre clé d'accès. Autorisez-la dans Paramètres, sous Autorisations."
-
-#: src/routes/_authenticated/$forum_.settings.tsx:251
+#: src/routes/_authenticated/$forum_.settings.tsx:253
 msgid "This forum could not be loaded right now."
 msgstr "Ce forum n'a pas pu être chargé pour le moment."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:250
+#: src/routes/_authenticated/$forum_.settings.tsx:252
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Ce forum a peut-être été supprimé ou vous n'y avez pas accès."
-
-#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
-msgid "This permanently deletes the game and its chat. This cannot be undone."
-msgstr "Cette action supprime définitivement la partie et son chat. Cette action est irréversible."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
@@ -3195,7 +2990,7 @@ msgid "This will hide the post from regular users. Moderators can still see it a
 msgstr "Cela masquera la publication pour les utilisateurs normaux. Les modérateurs peuvent toujours la voir et la restaurer plus tard."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:429
+#: src/routes/_authenticated/$forum_.settings.tsx:431
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Cela supprimera définitivement \"{0}\" et toutes ses publications et commentaires. Cette action ne peut pas être annulée."
 
@@ -3207,8 +3002,8 @@ msgstr "Fil de discussion"
 msgid "Thursday"
 msgstr "Jeudi"
 
-#: src/features/forums/components/create-post-dialog.tsx:210
-#: src/features/forums/components/edit-post-dialog.tsx:277
+#: src/features/forums/components/create-post-dialog.tsx:230
+#: src/features/forums/components/edit-post-dialog.tsx:296
 msgid "Title"
 msgstr "Titre"
 
@@ -3224,22 +3019,25 @@ msgstr "Le titre est obligatoire"
 msgid "Title must be 1000 characters or less"
 msgstr "Le titre doit contenir 1000 caractères ou moins"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:201
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
 msgid "To"
 msgstr "Vers"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:393
-#: ../../../lib/web/src/components/layout/nav-group.tsx:400
-#: ../../../lib/web/src/components/layout/nav-group.tsx:522
-#: ../../../lib/web/src/components/layout/nav-group.tsx:529
+#: ../../../lib/web/src/components/layout/nav-group.tsx:365
+#: ../../../lib/web/src/components/layout/nav-group.tsx:372
+#: ../../../lib/web/src/components/layout/nav-group.tsx:490
+#: ../../../lib/web/src/components/layout/nav-group.tsx:497
 msgid "Toggle section"
 msgstr "Afficher ou masquer la section"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
+msgid "Toggle sidebar"
+msgstr "Basculer la barre latérale"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle sidebar"
+msgid "Toggle Sidebar"
 msgstr "Basculer la barre latérale"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3251,7 +3049,7 @@ msgstr "Basculer les options d'affichage"
 msgid "Toggle watched filter"
 msgstr "Basculer le filtre suivi"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:72
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Trop de requêtes"
 
@@ -3259,7 +3057,7 @@ msgstr "Trop de requêtes"
 msgid "Top"
 msgstr "Meilleur"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:126
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
 msgstr "En déplacement"
 
@@ -3267,8 +3065,8 @@ msgstr "En déplacement"
 msgid "Try adjusting your search terms"
 msgstr "Essayez d'ajuster vos termes de recherche"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:138
-#: ../../../lib/web/src/features/errors/general-error.tsx:178
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 msgid "Try again"
 msgstr "Réessayer"
 
@@ -3276,12 +3074,12 @@ msgstr "Réessayer"
 msgid "Tuesday"
 msgstr "Mardi"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
 msgid "Type"
 msgstr "Type"
 
-#: ../../../lib/web/src/components/command-menu.tsx:54
+#: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
 msgstr "Tapez une commande ou recherchez…"
 
@@ -3301,8 +3099,8 @@ msgstr "Tapez pour rechercher…"
 msgid "Unable to connect to remote server"
 msgstr "Impossible de se connecter au serveur distant"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:89
-#: ../../../lib/web/src/lib/auth-manager.ts:101
+#: ../../../lib/web/src/lib/auth-manager.ts:92
+#: ../../../lib/web/src/lib/auth-manager.ts:104
 msgid "Unable to redirect to login. Please try again."
 msgstr "Impossible de rediriger vers la page de connexion. Veuillez réessayer."
 
@@ -3310,12 +3108,16 @@ msgstr "Impossible de rediriger vers la page de connexion. Veuillez réessayer."
 msgid "Unassigned"
 msgstr "Non assigné"
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
+msgid "Unauthorized Access"
+msgstr "Accès non autorisé"
+
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Indisponible"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:209
+#: ../../../lib/web/src/lib/request.ts:206
 msgid "Unexpected API error"
 msgstr "Erreur d'API inattendue"
 
@@ -3323,11 +3125,6 @@ msgstr "Erreur d'API inattendue"
 msgid "United States"
 msgstr "États-Unis"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
-#: ../../../lib/web/src/components/tree-row.tsx:219
-#: ../../../lib/web/src/components/tree-row.tsx:373
-#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
@@ -3345,11 +3142,11 @@ msgstr "Désépingler"
 
 #: ../../../lib/web/src/components/options-menu.tsx:211
 #: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:401
+#: src/routes/_authenticated/$forum_.settings.tsx:403
 msgid "Unsubscribe"
 msgstr "Se désabonner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:389
+#: src/routes/_authenticated/$forum_.settings.tsx:391
 msgid "Unsubscribe from forum"
 msgstr "Se désabonner du forum"
 
@@ -3358,32 +3155,28 @@ msgid "Unsubscribe from forum?"
 msgstr "Se désabonner du forum ?"
 
 #: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:179
+#: src/routes/_authenticated/$forum_.settings.tsx:181
 msgid "Unsubscribed"
 msgstr "Désabonné"
 
 #: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:178
+#: src/routes/_authenticated/$forum_.settings.tsx:180
 msgid "Unsubscribing..."
 msgstr "Désabonnement..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
-#: ../../../lib/web/src/lib/entity-title.ts:40
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
 msgid "Updated"
 msgstr "Mis à jour"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
-msgid "Updated {field}"
-msgstr "{field} mis à jour"
-
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
 msgid "Upload"
 msgstr "Téléverser"
 
@@ -3391,13 +3184,13 @@ msgstr "Téléverser"
 msgid "Upload progress"
 msgstr "Progression du téléversement"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:329
+#: ../../../lib/web/src/components/step-up-dialog.tsx:341
 msgid "Use your passkey"
 msgstr "Utiliser votre clé d'accès"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Utilisateur"
 
@@ -3417,7 +3210,7 @@ msgstr "Variables : {variables}"
 msgid "Verification code"
 msgstr "Code de vérification"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:379
+#: ../../../lib/web/src/components/step-up-dialog.tsx:391
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Vérifier"
@@ -3426,29 +3219,25 @@ msgstr "Vérifier"
 msgid "Verify email address"
 msgstr "Vérifier l'adresse e-mail"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:96
+#: ../../../lib/web/src/components/attachment-gallery.tsx:95
 msgid "Video thumbnail"
 msgstr "Miniature de la vidéo"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
 msgid "Video viewer: {0}"
 msgstr "Lecteur vidéo : {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
 msgid "View all notifications"
 msgstr "Voir toutes les notifications"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
-msgid "View and edit item details"
-msgstr "Voir et modifier les détails de l'élément"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Contrôles de la vue"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:108
 msgid "View only"
 msgstr "Lecture seule"
 
@@ -3461,18 +3250,9 @@ msgstr "Voir l'image dont parle ce commentaire"
 msgid "Violence"
 msgstr "Violence"
 
-#: ../../../lib/web/src/lib/shell-errors.ts:33
-msgid "Voice recording is not supported in this browser"
-msgstr "L'enregistrement vocal n'est pas pris en charge par ce navigateur"
-
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "Vote and view"
 msgstr "Voter et voir"
-
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
-msgid "Watch"
-msgstr "Suivre"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3492,7 +3272,7 @@ msgstr "Nous avons envoyé un code de vérification à <0>{0}</0>. Saisissez le 
 msgid "Wednesday"
 msgstr "Mercredi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:884
+#: src/routes/_authenticated/$forum_.settings.tsx:958
 msgid "Window duration"
 msgstr "Durée de la fenêtre"
 
@@ -3511,7 +3291,7 @@ msgstr "Vous publiez trop rapidement — veuillez patienter et réessayer"
 msgid "You are restricted from posting in this forum"
 msgstr "Vous êtes restreint pour publier dans ce forum"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:59
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Vous n'avez pas accès à cette section."
 
@@ -3527,18 +3307,22 @@ msgstr "Vous n'avez pas encore de forums."
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Vous ne recevrez plus les mises à jour de ce forum. Vous pouvez vous réabonner à tout moment."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:92
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Votre compte a été déplacé ici depuis {source}. Tant que vous ne le supprimez pas là-bas, les messages et notifications peuvent parvenir aux deux serveurs, une partie de votre contenu continue d'être servie depuis l'ancien serveur, et vos abonnés peuvent avoir besoin de quelques minutes pour vous trouver ici."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "Vos pièces jointes seront perdues."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: src/features/forums/components/edit-post-dialog.tsx:266
+msgid "Your changes will be lost."
+msgstr "Vos modifications seront perdues."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "Votre texte et vos pièces jointes seront perdus."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "Votre texte sera perdu."
