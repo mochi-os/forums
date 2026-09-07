@@ -14,33 +14,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1051
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · காலாவதியாகும் {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1052
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · நிரந்தர"
 
-#: src/features/forums/components/thread/thread-comment.tsx:250
-#: src/features/forums/components/thread/thread-content.tsx:204
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (திருத்தப்பட்டது)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " அல்லது "
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(திருத்தப்பட்டது)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(விரிவாக்கு)"
 
@@ -49,62 +45,100 @@ msgid "[not set]"
 msgstr "[அமைக்கப்படவில்லை]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# புதிய இடுகை} other {# புதிய இடுகைகள்}}"
 
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr ""
+
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:521
+#: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# தேர்ந்தெடுக்கப்பட்டது} other {# தேர்ந்தெடுக்கப்பட்டது}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:302
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {# பயனர் தடை} other {# பயனர்கள் தடை}}"
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# உள்ளமை} other {+# உள்ளமை}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:285
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {# பயனர் முடக்கப்பட்டார்} other {# பயனர்கள் முடக்கப்பட்டனர்}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#~ msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+#~ msgstr "{0, plural, one {# பயனர் தடை} other {# பயனர்கள் தடை}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#~ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+#~ msgstr "{0, plural, one {# பயனர் முடக்கப்பட்டார்} other {# பயனர்கள் முடக்கப்பட்டனர்}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "{0} அமைப்புகள்"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#நா} other {#நா}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ம} other {#ம}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#நி} other {#நி}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#வா} other {#வா}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:231
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {# உருப்படி அங்கீகரிக்கப்பட்டது} other {# உருப்படிகள் அங்கீகரிக்கப்பட்டன}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#~ msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+#~ msgstr "{count, plural, one {# உருப்படி அங்கீகரிக்கப்பட்டது} other {# உருப்படிகள் அங்கீகரிக்கப்பட்டன}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:253
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {# உருப்படி நிராகரிக்கப்பட்டது} other {# உருப்படிகள் நிராகரிக்கப்பட்டன}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#~ msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+#~ msgstr "{count, plural, one {# உருப்படி நிராகரிக்கப்பட்டது} other {# உருப்படிகள் நிராகரிக்கப்பட்டன}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} பெயர்"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "{entityLabel} பெயர் தேவை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -114,7 +148,7 @@ msgstr "{opponentName} சமநிலை வழங்கினார்"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {இந்தப் பதிவில் மேலும் # கருத்தைக் காட்டு} other {இந்தப் பதிவில் மேலும் # கருத்துகளைக் காட்டு}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:533
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
 msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
 msgstr "{selectedAuthorCount, plural, one {# ஆசிரியர் இந்த மன்றத்திற்கான அணுகலை இழப்பார். பின்னர் கட்டுப்பாடுகள் தாவலில் இருந்து இதை நீக்கலாம்.} other {# ஆசிரியர்கள் இந்த மன்றத்திற்கான அணுகலை இழப்பார்கள். பின்னர் கட்டுப்பாடுகள் தாவலில் இருந்து இதை நீக்கலாம்.}}"
 
@@ -123,30 +157,21 @@ msgstr "{selectedAuthorCount, plural, one {# ஆசிரியர் இந்�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}இல் {sentLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# உருப்படி} other {# உருப்படிகள்}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:236
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# பதில்} other {# பதில்கள்}}"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# பதில்} other {+# கூடுதல் பதில்கள்}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {மெனுவைத் திற (# படிக்காத அறிவிப்பு)} other {மெனுவைத் திற (# படிக்காத அறிவிப்புகள்)}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} உள்ளடங்கியவை"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} மேலும் பதில்கள்"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 பதில்"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -156,6 +181,10 @@ msgstr "12 மணிநேரம்"
 msgid "24 hours"
 msgstr "24 மணிநேரம்"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "ஒரு பதிவு ஏற்கனவே நடைபெறுகிறது."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "முழுமையானது (தேதி மற்றும் நேரம்)"
@@ -164,11 +193,12 @@ msgstr "முழுமையானது (தேதி மற்றும் �
 msgid "Accept"
 msgstr "ஏற்றுக்கொள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "அணுகல்"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "அணுகல் மறுக்கப்பட்டது"
 
@@ -176,23 +206,23 @@ msgstr "அணுகல் மறுக்கப்பட்டது"
 msgid "Access level"
 msgstr "அணுகல் நிலை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "அணுகல் நிலை புதுப்பிக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "அணுகல் மேலாண்மை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "அணுகல் அகற்றப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "{subjectName}-க்கு அணுகல் அமைக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "கணக்கு"
 
@@ -200,13 +230,17 @@ msgstr "கணக்கு"
 msgid "Account type"
 msgstr "கணக்கு வகை"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "செயல்பாடு"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "சேர்"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "ஒரு கருத்து சேர்..."
 
@@ -214,7 +248,7 @@ msgstr "ஒரு கருத்து சேர்..."
 msgid "Add a new account"
 msgstr "புதிய கணக்கு சேர்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "இந்த வகுப்பிற்கு புதிய புலம் சேர்"
 
@@ -230,41 +264,41 @@ msgstr "கணக்கு சேர்"
 msgid "Add caption"
 msgstr "படக்குறிப்பைச் சேர்"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "சரிபார்ப்பு பட்டியல் உருப்படி சேர்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "புலம் சேர்"
 
 #: src/features/forums/components/create-post-dialog.tsx:293
-#: src/features/forums/components/edit-post-dialog.tsx:342
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "கோப்புகள் சேர்"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "உருப்படி சேர்..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "இணைப்பு சேர்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "விருப்பம் சேர்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "விதியைச் சேர்"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "டேக் சேர்..."
 
@@ -272,8 +306,8 @@ msgstr "டேக் சேர்..."
 msgid "Add to existing notifications"
 msgstr "உள்ள அறிவிப்புகளுக்குச் சேர்"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -288,15 +322,15 @@ msgid "Additional details (optional)"
 msgstr "கூடுதல் விவரங்கள் (விருப்பமான)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "பதிவுகளில் AI செயல்கள்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "அனைத்தும்"
 
@@ -305,20 +339,19 @@ msgstr "அனைத்தும்"
 msgid "All forums"
 msgstr "அனைத்து மன்றங்கள்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:357
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "அனைத்து பதிவுகளும் கருத்துகளும் மதிப்பாய்வு செய்யப்பட்டுள்ளன"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "யாரும் {0} தேட அனுமதிக்கவும்"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "{entityLabel} தேட அனைவரையும் அனுமதி"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "எவருக்கும் மன்றத்தைத் தேட அனுமதி"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "வரிசைப்படுத்துதலை அனுமதி"
 
@@ -327,6 +360,7 @@ msgid "An error occurred"
 msgstr "பிழை ஏற்பட்டது"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "எதிர்பாராத பிழை ஏற்பட்டது"
 
@@ -351,17 +385,25 @@ msgstr "உள்நுழைந்த யாரும்"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "இந்த ஊட்டத்திற்கு குழுசேர்ந்த அனைத்தும் அதைப் பெறுவதை நிறுத்தும். பிறகு நீங்கள் புதிய URL ஐ நகலெடுக்கலாம்."
 
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/routes/_authenticated/$forum_.moderation.tsx:486
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "அங்கீகரி"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\"-ஐ நீக்க விரும்புகிறீர்களா?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\"-ஐ நீக்க விரும்புகிறீர்களா? இந்த செயலை மாற்ற முடியாது."
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" நெடுவரிசையை நீக்க விரும்புகிறீர்களா? இதை மாற்ற முடியாது."
 
@@ -369,11 +411,11 @@ msgstr "\"{name}\" நெடுவரிசையை நீக்க விர�
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "இந்த கருத்தை நீக்க விரும்புகிறீர்களா? இது அனைத்து பதிலளிப்புகளையும் நீக்கும்."
 
-#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "இந்த கருத்தை நீக்க விரும்புகிறீர்களா? இது அனைத்து பதிலளிப்புகளையும் நீக்கும். இந்த செயலை மாற்ற முடியாது."
 
-#: src/features/forums/components/thread/thread-content.tsx:437
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "இந்த இடுகையை நீக்க விரும்புகிறீர்களா? இது அனைத்து கருத்துகளையும் நீக்கும். இந்தச் செயலைச் செயல்தவிர்க்க முடியாது."
 
@@ -381,15 +423,23 @@ msgstr "இந்த இடுகையை நீக்க விரும்ப
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "வெளியேற விரும்புகிறீர்களா? உங்கள் கணக்கை அணுக மீண்டும் உள்நுழைய வேண்டும்."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "நீங்கள் விட்டுக்கொடுக்க விரும்புகிறீர்களா?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "நீங்கள் சரணடைய விரும்புகிறீர்களா? {opponentName} விளையாட்டை வெல்வார்."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "ஏறுவரிசை"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "கருத்து கோப்புகளை இணை"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "பதிலளிப்பு கோப்புகளை இணை"
 
@@ -398,7 +448,7 @@ msgstr "பதிலளிப்பு கோப்புகளை இணை"
 msgid "Authenticated users"
 msgstr "அங்கீகரிக்கப்பட்ட பயனர்கள்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "அங்கீகரிப்பு குறியீடு"
 
@@ -406,15 +456,15 @@ msgstr "அங்கீகரிப்பு குறியீடு"
 msgid "Available keyboard shortcuts"
 msgstr "கிடைக்கும் விசைப்பலகை குறுக்குவழிகள்"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "அவதாரம்"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "{name} இன் அவதாரம்"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "பின்"
 
@@ -422,82 +472,89 @@ msgstr "பின்"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "மன்றத்திற்கு திரும்பு"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "மன்றங்களுக்கு திரும்பு"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "முகப்புக்குத் திரும்பு"
 
-#: src/features/forums/components/thread/thread-comment.tsx:541
-#: src/features/forums/components/thread/thread-content.tsx:465
-#: src/routes/_authenticated/$forum_.moderation.tsx:512
-#: src/routes/_authenticated/$forum_.moderation.tsx:537
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "தடைசெய்"
 
-#: src/features/forums/components/thread/thread-comment.tsx:497
-#: src/features/forums/components/thread/thread-comment.tsx:539
-#: src/features/forums/components/thread/thread-content.tsx:421
-#: src/features/forums/components/thread/thread-content.tsx:463
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "ஆசிரியரைத் தடைசெய்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:532
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Ban authors"
 msgstr "ஆசிரியர்களைத் தடைசெய்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:791
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "தடைசெய்யப்பட்டது"
 
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "பேனர்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "பேனர் அகற்றப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "பேனர் புதுப்பிக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "தடுக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "நம்பகமற்ற இணைப்புக்கு வழிசெலுத்தல் தடுக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "தடுக்கிறது"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "பலகை"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "ஆர்வத்தை அதிகரி"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "எல்லை நிறம்"
 
@@ -506,43 +563,57 @@ msgid "Browser notifications"
 msgstr "உலாவி அறிவிப்புகள்"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "{0} ஆல்"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1049
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "{0} ஆல்"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "கேமரா அனுமதி மறுக்கப்பட்டது"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "கேமரா கிடைக்கவில்லை"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:317
-#: src/features/forums/components/edit-post-dialog.tsx:393
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:308
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "கருத்தை ரத்துசெய்"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "பதிலளிப்பை ரத்துசெய்"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "ரத்துசெய்யப்பட்டது"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -558,15 +629,23 @@ msgstr "இந்த அறிவிப்புகளுக்கான வக�
 msgid "Change notification category"
 msgstr "அறிவிப்பு வகையை மாற்று"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "மாற்றப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "{field} மாற்றப்பட்டது"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "புதிய உள்ளடக்கத்திற்காக பின்னர் சரிபார்க்கவும்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "தேர்வுப் பெட்டி"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "சரிபார்ப்பு பட்டியல்"
 
@@ -579,13 +658,13 @@ msgstr "பக்கப்பட்டியில் இருந்து ஒ�
 msgid "Choose language"
 msgstr "மொழியைத் தேர்ந்தெடுக்கவும்"
 
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
 msgid "Clear"
 msgstr "அழி"
 
@@ -607,19 +686,19 @@ msgstr "தேடலை அழி"
 msgid "Clearing saved posts..."
 msgstr "சேமித்த இடுகைகளை அழிக்கிறது..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "மூடு"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "உரையாடலை மூடு"
 
@@ -652,16 +731,16 @@ msgstr "சுருக்கு"
 msgid "Collapse sidebar"
 msgstr "பக்கப்பட்டியைச் சுருக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "நிறம்"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "நெடுவரிசை செயல்கள்"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "நெடுவரிசைகள் தொகுக்கப்படுகின்றன"
 
@@ -673,7 +752,7 @@ msgstr "வசதியான"
 msgid "Command Palette"
 msgstr "கட்டளைப் பலகை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:784
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "கருத்து"
 
@@ -682,15 +761,23 @@ msgstr "கருத்து"
 msgid "Comment actions"
 msgstr "கருத்து செயல்கள்"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "கருத்து அங்கீகரிக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "கருத்து நீக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "கருத்து வரம்பு"
 
@@ -698,45 +785,50 @@ msgstr "கருத்து வரம்பு"
 msgid "Comment on this image…"
 msgstr "இந்தப் படத்தில் கருத்திடவும்…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "கருத்து இடப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "கருத்து அகற்றப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "கருத்து மீட்டமைக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "கருத்து புதுப்பிக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "கருத்து, வாக்களி, பார்வை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "கருத்துகள்"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "கருத்துகள் ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "சுருக்கமான"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "விருப்ப அமைப்புகளை உள்ளமைக்கவும்"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "காட்சி அமைப்புகளை உள்ளமைக்கவும்"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "உறுதிசெய்"
 
@@ -749,11 +841,11 @@ msgid "Connecting..."
 msgstr "இணைக்கிறது..."
 
 #: src/features/forums/components/create-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:313
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "உள்ளடக்கம்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "வரம்புக்குக் கீழே உள்ள பயனர்களின் உள்ளடக்கம் அங்கீகரிக்கப்பட வேண்டும்"
 
@@ -765,7 +857,7 @@ msgstr "உள்ளடக்கம் தேவை"
 msgid "Content not found."
 msgstr "உள்ளடக்கம் கிடைக்கவில்லை."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "உள்ளடக்கம் மாற்றப்படவில்லை"
 
@@ -777,7 +869,7 @@ msgstr "சூழல் சார்ந்த தகவல் மற்றும
 msgid "Continue"
 msgstr "தொடர்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "{label} மூலம் தொடரவும்"
 
@@ -797,34 +889,33 @@ msgstr "நகலெடு"
 msgid "Could not load this document. Please try again later."
 msgstr "இந்த ஆவணத்தை ஏற்ற முடியவில்லை. பிறகு மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "அறிவிப்புகளை ஏற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "குறியீட்டை அனுப்ப முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "மறுஅங்கீகாரத்தைத் தொடங்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "அந்தக் கணக்கைச் சரிபார்க்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "உருவாக்கு"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "{0} உருவாக்கு"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "{entityLabel} உருவாக்கு"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -835,7 +926,7 @@ msgid "Create a new post"
 msgstr "புதிய பதிவு உருவாக்கு"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "மன்றம் உருவாக்கு"
 
@@ -843,21 +934,26 @@ msgstr "மன்றம் உருவாக்கு"
 msgid "Create new item"
 msgstr "புதிய உருப்படி உருவாக்கு"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "உருவாக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:81
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "{field} உருவாக்கப்பட்டது"
+
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "மன்றத்தை உருவாக்குகிறது..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "உருவாக்குகிறது..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "தற்போதைய இடம்"
 
@@ -874,11 +970,11 @@ msgstr "இருள்"
 msgid "Data conflict"
 msgstr "தரவு முரண்பாடு"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "தேதி"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "நாட்கள்"
 
@@ -890,7 +986,7 @@ msgstr "மறு"
 msgid "Default"
 msgstr "இயல்புநிலை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "இயல்புநிலை கணக்கு"
 
@@ -898,84 +994,108 @@ msgstr "இயல்புநிலை கணக்கு"
 msgid "Default AI account"
 msgstr "இயல்புநிலை AI கணக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "இயல்புநிலை வரிசை"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:444
-#: src/features/forums/components/thread/thread-comment.tsx:514
-#: src/features/forums/components/thread/thread-content.tsx:358
-#: src/features/forums/components/thread/thread-content.tsx:438
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "இணைப்பை நீக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "நெடுவரிசையை நீக்கு"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "கருத்தை நீக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "புலத்தை நீக்கு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "மன்றத்தை நீக்கு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "மன்றத்தை நீக்கவா?"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "விளையாட்டை நீக்கவா?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "உருப்படியை நீக்கு"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "விருப்பத்தை நீக்கு"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "விருப்பம் {0}-ஐ நீக்கு"
 
-#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "பதிவை நீக்கு"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "காட்சியை நீக்கு"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "பழைய சேவையகத்தில் உங்கள் கணக்கை நீக்கவும்"
 
-#: src/hooks/use-forums-queries.ts:97
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "நீக்கப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "{field} நீக்கப்பட்டது"
+
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "மன்றத்தை நீக்குகிறது..."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "நீக்குகிறது..."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "இறங்குவரிசை"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "விளக்கம்"
 
@@ -998,11 +1118,11 @@ msgstr "விவரங்கள் பலகம்"
 msgid "Detect from web browser"
 msgstr "வலை உலாவியிலிருந்து கண்டறி"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "கோப்பகம்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "முடக்கப்பட்டது"
 
@@ -1019,14 +1139,14 @@ msgstr "வரைவை நிராகரிக்கவா?"
 msgid "Disconnected"
 msgstr "துண்டிக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:735
+#: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "நிராகரி"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "பேனரை நிராகரி"
 
@@ -1034,22 +1154,28 @@ msgstr "பேனரை நிராகரி"
 msgid "Displays the mobile sidebar."
 msgstr "மொபைல் பக்கப்பட்டியைக் காட்டுகிறது."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "தேவையான வடிவத்துடன் பொருந்தவில்லை"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "முடிந்தது"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "பதிவிறக்கு"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "பதிவிறக்கம் தோல்வியடைந்தது"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "நகலெடுக்கிறது"
 
@@ -1059,12 +1185,12 @@ msgstr "டிஸ்லெக்சியாவுக்கு உகந்த�
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-content.tsx:352
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "திருத்து"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "{label} திருத்து"
 
@@ -1072,26 +1198,26 @@ msgstr "{label} திருத்து"
 msgid "Edit caption"
 msgstr "படக்குறிப்பைத் திருத்து"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "புலத்தைத் திருத்து"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "புல அமைப்புகளைத் திருத்து"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "விருப்பத்தை திருத்து"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "விருப்பம் {0} திருத்து"
 
-#: src/features/forums/components/edit-post-dialog.tsx:283
-#: src/features/forums/components/edit-post-dialog.tsx:285
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "பதிவைத் திருத்து"
 
@@ -1099,7 +1225,7 @@ msgstr "பதிவைத் திருத்து"
 msgid "Edit selected card"
 msgstr "தேர்ந்தெடுத்த அட்டையை திருத்து"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "காட்சியைத் திருத்து"
 
@@ -1107,25 +1233,29 @@ msgstr "காட்சியைத் திருத்து"
 msgid "Email"
 msgstr "மின்னஞ்சல்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "மின்னஞ்சல் குறியீடு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "பேனர் உரையை உள்ளிடவும் (மார்க்டவுன் ஆதரிக்கப்படுகிறது)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "உங்கள் மின்னஞ்சலில் உள்ள குறியீட்டை உள்ளிடவும்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "உங்கள் அங்கீகரிப்பான் குறியீட்டை உள்ளிடவும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "எண்ட்டிட்டி ID"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "பிழை"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1146,28 +1276,32 @@ msgstr "வெளிப்புற URL"
 msgid "Extra large"
 msgstr "மிகப் பெரியது"
 
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "கணக்கைச் சேர்க்க முடியவில்லை"
+
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "டேக்கைச் சேர்க்க முடியவில்லை"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "ஆர்வத்தைச் சரிசெய்ய முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:234
-msgid "Failed to approve items"
-msgstr "உருப்படிகளை அங்கீகரிக்க முடியவில்லை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#~ msgid "Failed to approve items"
+#~ msgstr "உருப்படிகளை அங்கீகரிக்க முடியவில்லை"
 
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "பயனரைத் தடை செய்ய முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:305
-msgid "Failed to ban users"
-msgstr "பயனர்களைத் தடை செய்ய முடியவில்லை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#~ msgid "Failed to ban users"
+#~ msgstr "பயனர்களைத் தடை செய்ய முடியவில்லை"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1178,28 +1312,32 @@ msgstr "சேமித்த இடுகைகளை அழிக்க மு
 msgid "Failed to copy"
 msgstr "நகலெடுக்க முடியவில்லை"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "மன்றத்தை உருவாக்க முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "இணைப்பை உருவாக்க முடியவில்லை"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "நீக்க முடியவில்லை"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "இணைப்பை நீக்க முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "கருத்தை நீக்க முடியவில்லை"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "மன்றத்தை நீக்க முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "இணைப்பை நீக்க முடியவில்லை"
 
@@ -1211,23 +1349,28 @@ msgstr "RSS டோக்கனைப் பெற முடியவில்ல
 msgid "Failed to load"
 msgstr "ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "அணுகல் விதிகளை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr ""
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "ஃபோரத்தை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "மன்ற அமைப்புகளை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "ஃபோரங்களை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "குழுக்களை ஏற்ற முடியவில்லை"
 
@@ -1235,19 +1378,24 @@ msgstr "குழுக்களை ஏற்ற முடியவில்ல�
 msgid "Failed to load history"
 msgstr "வரலாற்றை ஏற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "படத்தை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "உருப்படியை ஏற்ற முடியவில்லை"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "மாடரேஷன் பதிவை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:167
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "மிதமான வரிசையை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "மிதப்படுத்தும் அமைப்புகளை ஏற்ற முடியவில்லை"
 
@@ -1260,44 +1408,48 @@ msgstr "ப்ராம்ப்ட்களை ஏற்ற முடியவ�
 msgid "Failed to load recommended forums"
 msgstr "பரிந்துரைக்கப்பட்ட மன்றங்களை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:570
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "புகார்களை ஏற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:940
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "கட்டுப்பாடுகளை ஏற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "வீடியோவை ஏற்ற முடியவில்லை"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "நகர்த்த முடியவில்லை"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "பயனரை மியூட் செய்ய முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:288
-msgid "Failed to mute users"
-msgstr "பயனர்களை மியூட் செய்ய முடியவில்லை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#~ msgid "Failed to mute users"
+#~ msgstr "பயனர்களை மியூட் செய்ய முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "கருத்தைப் பதிவிட முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
-msgid "Failed to reject items"
-msgstr "உருப்படிகளை நிராகரிக்க முடியவில்லை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#~ msgid "Failed to reject items"
+#~ msgstr "உருப்படிகளை நிராகரிக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "அணுகலை நீக்க முடியவில்லை"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "ஆர்வத்தை நீக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:957
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "கட்டுப்பாட்டை நீக்க முடியவில்லை"
 
@@ -1305,7 +1457,7 @@ msgstr "கட்டுப்பாட்டை நீக்க முடிய�
 msgid "Failed to remove saved post"
 msgstr "சேமித்த இடுகையை அகற்ற முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "ஃபோரம் பெயரை மாற்ற முடியவில்லை"
 
@@ -1313,7 +1465,7 @@ msgstr "ஃபோரம் பெயரை மாற்ற முடியவி
 msgid "Failed to reset prompt"
 msgstr "ப்ராம்ப்டை மீட்டமைக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:587
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "புகாரை தீர்க்க முடியவில்லை"
 
@@ -1321,7 +1473,11 @@ msgstr "புகாரை தீர்க்க முடியவில்ல�
 msgid "Failed to revoke RSS access"
 msgstr "RSS அணுகலை நீக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "சேமிக்க முடியவில்லை"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "மாடரேஷன் அமைப்புகளை சேமிக்க முடியவில்லை"
 
@@ -1338,56 +1494,60 @@ msgstr "ப்ராம்ப்டை சேமிக்க முடியவ�
 msgid "Failed to search forums"
 msgstr "ஃபோரங்களைத் தேட முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "பயனர்களைத் தேட முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "அணுகல் நிலையை அமைக்க முடியவில்லை"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "சந்தா செய்ய முடியவில்லை"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "சந்தாவை ரத்து செய்ய முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "அணுகல் நிலையைப் புதுப்பிக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "AI அமைப்புகளைப் புதுப்பிக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "பேனரைப் புதுப்பிக்க முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "கருத்தைப் புதுப்பிக்க முடியவில்லை"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "கண்காணிப்பைப் புதுப்பிக்க முடியவில்லை"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "இணைப்பைப் பதிவேற்ற முடியவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:289
-#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "கோப்புகள்"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "டேக் மூலம் வடிகட்டப்பட்டது:"
 
@@ -1396,15 +1556,15 @@ msgstr "டேக் மூலம் வடிகட்டப்பட்டத�
 msgid "Find forums"
 msgstr "ஃபோரங்களைக் கண்டுபிடி"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "கைரேகை"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "கணக்கை நகர்த்துவதை முடிக்கவும்"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "கொடிகள்"
 
@@ -1412,23 +1572,26 @@ msgstr "கொடிகள்"
 msgid "Flat"
 msgstr "தட்டையானது"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/components/create-forum-dialog.tsx:53
+msgid "forum"
+msgstr "மன்றம்"
+
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "ஃபோரம்"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "ஃபோரம் உருவாக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "ஃபோரம் நீக்கப்பட்டது"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "மன்றம் இனி கிடைக்காது"
 
@@ -1436,23 +1599,24 @@ msgstr "மன்றம் இனி கிடைக்காது"
 msgid "Forum link"
 msgstr "மன்ற இணைப்பு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "ஃபோரம் பெயர் தேவை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "ஃபோரம் கிடைக்கவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "ஃபோரம் பெயர் மாற்றப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "ஃபோரம் அமைப்புகள் பிரிவுகள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "ஃபோரம் கிடைக்கவில்லை"
 
@@ -1467,11 +1631,11 @@ msgstr "ஃபோரங்கள்"
 msgid "Friday"
 msgstr "வெள்ளிக்கிழமை"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "நண்பர்கள்"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "இருந்து"
 
@@ -1483,8 +1647,8 @@ msgstr "இருந்து"
 msgid "From theme"
 msgstr "தீமிலிருந்து"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "திரும்பு"
 
@@ -1492,7 +1656,7 @@ msgstr "திரும்பு"
 msgid "Group"
 msgstr "குழு"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "இதன்படி தொகுக்கவும்"
 
@@ -1502,12 +1666,12 @@ msgid "Group: {0}"
 msgstr "குழு: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:801
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "துன்புறுத்தல்"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:802
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "வெறுப்பு பேச்சு"
 
@@ -1517,8 +1681,8 @@ msgstr "வரலாறு"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "முகப்பு"
 
@@ -1526,16 +1690,16 @@ msgstr "முகப்பு"
 msgid "Hot"
 msgstr "பிரபலமான"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "ஐடி"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "அடையாளம்"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "பட காட்சி: {0}"
 
@@ -1555,6 +1719,10 @@ msgstr "முதலெழுத்து அவதாரம்"
 msgid "Initials avatar for {name}"
 msgstr "{name} இன் முதலெழுத்து அவதாரம்"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "ஆர்வம் {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "ஆர்வம் அதிகரிக்கப்பட்டது"
@@ -1563,7 +1731,7 @@ msgstr "ஆர்வம் அதிகரிக்கப்பட்டது"
 msgid "Interest reduced"
 msgstr "ஆர்வம் குறைக்கப்பட்டது"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "ஆர்வம் நீக்கப்பட்டது"
@@ -1572,7 +1740,7 @@ msgstr "ஆர்வம் நீக்கப்பட்டது"
 msgid "Interests"
 msgstr "ஆர்வங்கள்"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "தவறான தேதி"
 
@@ -1580,7 +1748,11 @@ msgstr "தவறான தேதி"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "நீங்கள் தேடும் பக்கம் <0/>இல்லை அல்லது அகற்றப்பட்டிருக்கலாம்."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "உருப்படி விவரங்கள்"
+
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "இப்போதுதான்"
 
@@ -1593,13 +1765,13 @@ msgstr "விசைப்பலகை குறுக்குவழிகள�
 msgid "Large"
 msgstr "பெரியது"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "தளவமைப்பு"
 
-#: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "எழுத்துகள், எண்கள், இடைவெளிகள், இணைப்புக்குறிகள் மட்டும்"
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "எழுத்துகள், எண்கள், இடைவெளிகள், இணைப்புக்கோடுகள், சாய்வுக்கோடுகள் மட்டும்"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1609,15 +1781,15 @@ msgstr "லைட்"
 msgid "Link"
 msgstr "இணைப்பு"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "இணைப்புகள்"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "பட்டியல்"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "மேலும் ஏற்று"
 
@@ -1625,20 +1797,29 @@ msgstr "மேலும் ஏற்று"
 msgid "Loading content…"
 msgstr "உள்ளடக்கம் ஏற்றப்படுகிறது…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "உருப்படியை ஏற்றுகிறது"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "உருப்படி விவரங்களை ஏற்றுகிறது"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "ஏற்றுகிறது..."
 
-#: src/features/forums/components/thread/thread-content.tsx:387
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "பூட்டு"
 
-#: src/features/forums/components/thread/thread-content.tsx:174
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "பூட்டப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "பதிவேடு"
 
@@ -1667,8 +1848,8 @@ msgstr "வகைகளை நிர்வகி"
 msgid "Manual"
 msgstr "கைமுறை"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "அனைத்தையும் படித்ததாகக் குறிக்கவும்"
 
@@ -1676,7 +1857,7 @@ msgstr "அனைத்தையும் படித்ததாகக் க�
 msgid "Markdown supported"
 msgstr "Markdown ஆதரிக்கப்படுகிறது"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "அதிகபட்ச நீளம்"
 
@@ -1687,6 +1868,10 @@ msgstr "MCP சேவையகம்"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "நடுத்தரம்"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "உறுப்பினர்கள்"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1700,12 +1885,16 @@ msgstr "செய்தி"
 msgid "Metric"
 msgstr "மெட்ரிக்"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "மைக்ரோஃபோன் அனுமதி மறுக்கப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "குறைந்தபட்ச நீளம்"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:804
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "தவறான தகவல்"
 
@@ -1713,22 +1902,22 @@ msgstr "தவறான தகவல்"
 msgid "Mochi web"
 msgstr "Mochi வலை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "மிதப்படுத்து, இடுகை, கருத்து, வாக்கு, பார்வை"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:101
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "மிதப்படுத்தல்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:356
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "மிதப்படுத்தல் வரிசை காலியாக உள்ளது"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:115
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "மிதப்படுத்தல் பிரிவுகள்"
 
@@ -1738,56 +1927,76 @@ msgstr "திங்கட்கிழமை"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:421
-#: src/features/forums/components/thread/thread-comment.tsx:427
-#: src/features/forums/components/thread/thread-content.tsx:339
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "மேலும் விருப்பங்கள்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:500
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "நகர்த்தப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "{field} நகர்த்தப்பட்டது"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "முடக்கு"
 
-#: src/features/forums/components/thread/thread-comment.tsx:491
-#: src/features/forums/components/thread/thread-content.tsx:415
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "ஆசிரியரை மியூட் செய்யவும்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:792
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "முடக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "பெயர்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "பெயரில் < அல்லது > எழுத்துக்கள் இருக்கக்கூடாது"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "பெயரில் கோண அடைப்புக்குறிகள், பின்சாய்வுக்கோடு, அரைப்புள்ளி, மேற்கோள் குறிகள் அல்லது பின்குறிகள் இருக்கக்கூடாது"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "பெயர் தேவை"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "பெயர் 1000 எழுத்துக்கள் அல்லது அதற்கும் குறைவாக இருக்க வேண்டும்"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "பிணையப் பிழை"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:208
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "புதியது"
 
@@ -1799,32 +2008,32 @@ msgstr "புதிய விளையாட்டு"
 #: src/features/forums/components/create-post-dialog.tsx:205
 #: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/create-post-dialog.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "புதிய பதிவு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "புதிய த்ரெட்கள் அங்கீகரிக்கப்பட வேண்டும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "புதிய பயனர் வரம்பு:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "அடுத்த படம்"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "சேர்க்க {parentClassNames} இல்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:667
-msgid "No {statusFilter} reports found"
-msgstr "{statusFilter} அறிக்கைகள் எதுவும் காணப்படவில்லை"
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#~ msgid "No {statusFilter} reports found"
+#~ msgstr "{statusFilter} அறிக்கைகள் எதுவும் காணப்படவில்லை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "அணுகல் இல்லை"
 
@@ -1832,7 +2041,7 @@ msgstr "அணுகல் இல்லை"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "அணுகல் விதிகள் எதுவும் கட்டமைக்கப்படவில்லை. இந்த ஆதாரத்தை யார் அணுகலாம் என்பதைக் கட்டுப்படுத்த விதிகளைச் சேர்க்கவும்."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "செயல்பாடு இன்னும் இல்லை"
 
@@ -1840,7 +2049,7 @@ msgstr "செயல்பாடு இன்னும் இல்லை"
 msgid "No comments on this image yet."
 msgstr "இந்தப் படத்தில் இன்னும் கருத்துகள் இல்லை."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "கருத்துகள் இன்னும் இல்லை"
 
@@ -1857,24 +2066,28 @@ msgstr "விளையாட்டுகள் இன்னும் இல்�
 msgid "No groups available"
 msgstr "குழுக்கள் கிடைக்கவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "உருப்படி வகைகள் எதையும் இன்னும் உருவாக்க முடியாது. முதலில் தேவையான பெற்றோர் உருப்படிகளை உருவாக்கவும்."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "பொருந்தும் ஆப்ஜெக்ட்கள் இல்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:871
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "மிதப்படுத்தல் செயல்பாடு இல்லை"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "நபர்கள் எதுவும் கிடைக்கவில்லை"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "இடங்கள் எதுவும் கிடைக்கவில்லை"
 
@@ -1882,26 +2095,34 @@ msgstr "இடங்கள் எதுவும் கிடைக்கவி�
 msgid "No posts in this forum yet"
 msgstr "இந்த மன்றத்தில் பதிவுகள் இன்னும் இல்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:666
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "அறிக்கைகள் இல்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "கட்டுப்பாடுகள் இல்லை"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "முடிவுகள் எதுவும் இல்லை"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "முடிவுகள் எதுவும் கிடைக்கவில்லை."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "நிலை இல்லை"
 
@@ -1913,7 +2134,7 @@ msgstr "நேர மண்டலம் எதுவும் கிடைக்
 msgid "No topic record yet — try again after the next notification."
 msgstr "தலைப்புப் பதிவு இன்னும் இல்லை — அடுத்த அறிவிப்புக்குப் பிறகு மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "படிக்காத அறிவிப்புகள் இல்லை"
 
@@ -1921,7 +2142,7 @@ msgstr "படிக்காத அறிவிப்புகள் இல்�
 msgid "No users found"
 msgstr "பயனர்கள் எதுவும் கிடைக்கவில்லை"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "எந்த பயனர்களும் மியூட் செய்யப்படவில்லை அல்லது தடை செய்யப்படவில்லை"
 
@@ -1930,17 +2151,21 @@ msgid "No views"
 msgstr "காட்சிகள் இல்லை"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "ஒன்றுமில்லை"
@@ -1950,15 +2175,15 @@ msgid "Normal"
 msgstr "சாதாரணம்"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "கிடைக்கவில்லை"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "அமைக்கப்படவில்லை"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "எதுவும் கிடைக்கவில்லை"
 
@@ -1967,18 +2192,18 @@ msgid "Nothing saved yet"
 msgstr "இன்னும் எதுவும் சேமிக்கப்படவில்லை"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "அறிவிப்புகள்: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "எண்"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:805
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "தலைப்புக்கு வெளியே"
 
@@ -1987,11 +2212,11 @@ msgid "On"
 msgstr "இயக்கத்தில்"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:443
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "படத்தில்: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:260
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "இந்தப் படத்தில்"
 
@@ -1999,8 +2224,8 @@ msgstr "இந்தப் படத்தில்"
 msgid "Oops! Page Not Found!"
 msgstr "அய்யோ! பக்கம் கிடைக்கவில்லை!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "செயல்களைத் திற"
 
@@ -2008,13 +2233,13 @@ msgstr "செயல்களைத் திற"
 msgid "Open menu"
 msgstr "மெனுவைத் திறக்கவும்"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "வழிசெலுத்தலைத் திறக்கவும்"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "விருப்பத் செயல்களைத் திறக்கவும்"
 
@@ -2022,8 +2247,8 @@ msgstr "விருப்பத் செயல்களைத் திறக�
 msgid "Open selected card"
 msgstr "தேர்ந்தெடுத்த அட்டையை திற"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "காட்சி செயல்களைத் திறக்கவும்"
 
@@ -2032,23 +2257,19 @@ msgstr "காட்சி செயல்களைத் திறக்கவ�
 msgid "Open view controls"
 msgstr "காட்சி கட்டுப்பாடுகளைத் திறக்கவும்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "விருப்பத்தின் பெயர்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "உங்கள் மன்றத்தின் மேற்பகுதியில் காட்டப்படும் விருப்ப markdown பேனர்."
-
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:806
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "மற்றவை"
 
@@ -2056,62 +2277,74 @@ msgstr "மற்றவை"
 msgid "Owner"
 msgstr "உரிமையாளர்"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "பெற்றோர்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "கடவுக்குறி"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "கடவுவிசை சரிபார்ப்பு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Passkeyக்கள்"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "இந்த உலாவியில் passkeyக்கள் கிடைக்கவில்லை"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "வடிவம் (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:279
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:775
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "நிலுவையில்"
 
-#: src/features/forums/components/thread/thread-content.tsx:162
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "ஒப்புதலுக்காக நிலுவையில்"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:415
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "நிலுவையில் உள்ள கருத்துகள் ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:370
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "நிலுவையில் உள்ள இடுகைகள் ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:179
+msgid "People"
+msgstr "மக்கள்"
+
 #: src/features/forums/components/create-post-dialog.tsx:288
-#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "புகைப்படங்களும் வீடியோக்களும்"
 
-#: src/features/forums/components/thread/thread-content.tsx:400
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Pin"
 
-#: src/features/forums/components/thread/thread-content.tsx:180
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Pin செய்யப்பட்டது"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
@@ -2124,39 +2357,35 @@ msgstr "சிக்கலை விவரிக்கவும்..."
 msgid "Please enter a reply"
 msgstr "பதிலை உள்ளிடவும்"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "இந்த ஆதாரத்தை அணுக <0/> சரியான சான்றுகளுடன் உள்நுழையவும்."
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "சிறிது நேரம் காத்திருந்து மீண்டும் முயற்சிக்கவும்."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "பதிவு"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "இடுகையை சேமிக்க முடியவில்லை — தலைப்பு அல்லது உள்ளடக்கம் தவறானது"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "மன்ற சேவையகத்தில் இடுகையை சேமிக்க முடியவில்லை"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "பதிவு நீக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "பதிவு வரம்பு"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "பதிவு பூட்டப்பட்டது"
 
@@ -2164,39 +2393,39 @@ msgstr "பதிவு பூட்டப்பட்டது"
 msgid "Post not found"
 msgstr "பதிவு கிடைக்கவில்லை"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "பதிவு pin செய்யப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "பதிவு வெளியிடப்பட்டது."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "பதிவு அகற்றப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "பதிவு மீட்டெடுக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "பதிவு திறக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "பதிவு unpin செய்யப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "பதிவு புதுப்பிக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "இடுகை, கருத்து, வாக்கு, பார்வை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "இடுகைகள்"
 
@@ -2208,16 +2437,16 @@ msgstr "பதிவுகள்"
 msgid "Posts and comments"
 msgstr "பதிவுகள் மற்றும் கருத்துகள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "முன்-மிதப்படுத்தல்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "பயனர்கள் எவ்வளவு அடிக்கடி பதிவிடலாம் என்பதைக் கட்டுப்படுத்துவதன் மூலம் ஸ்பேமைத் தடுக்கவும்"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "முந்தைய படம்"
 
@@ -2230,13 +2459,13 @@ msgstr "தனியுரிமை"
 msgid "Processing…"
 msgstr "செயலாக்கப்படுகிறது…"
 
-#: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "திட்ட உறுப்பினர்கள்"
-
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Prompt சேமிக்கப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "பண்புகள்"
 
 #: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
@@ -2250,7 +2479,7 @@ msgstr "வெளியிடப்படுகிறது..."
 msgid "Push notification"
 msgstr "புஷ் அறிவிப்பு"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "வரிசை"
 
@@ -2258,24 +2487,24 @@ msgstr "வரிசை"
 msgid "Raised"
 msgstr "உயர்த்தப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "விகித வரம்பிடல்"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "இந்த சேவையகத்தில் உங்கள் கணக்குகளை மீண்டும் இணைக்கவும்"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "இந்த சேவையகத்தில் உங்கள் கடவுச்சாவிகளை மீண்டும் பதிவு செய்யவும்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:716
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "காரணம்:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:907
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "காரணம்: {0}"
 
@@ -2291,25 +2520,33 @@ msgstr "பரிந்துரைக்கப்பட்ட மன்றங�
 msgid "Reconnecting ({retries})..."
 msgstr "மீண்டும் இணைக்கிறது ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "பதிவு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "பதிவில் ஒலி இல்லை"
+
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "உள்நுழைவுக்கு redirect ஆகிறது."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "ஆர்வத்தைக் குறைக்கவும்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:474
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "நிராகரி"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:246
-#: src/routes/_authenticated/$forum_.moderation.tsx:250
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "நிராகரிக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "தொடர்புடையது"
 
@@ -2321,16 +2558,24 @@ msgstr "சார்பு (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 மணி நேரத்திற்குள் சார்பு, இல்லையெனில் முழுமையானது"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "தொடர்புடைமை {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "தொடர்புடைமை {relevance}, ஆர்வம் {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:472
-#: src/features/forums/components/thread/thread-comment.tsx:528
-#: src/features/forums/components/thread/thread-content.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:452
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
-#: src/routes/_authenticated/$forum_.moderation.tsx:1065
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "அகற்று"
 
@@ -2354,7 +2599,7 @@ msgstr "\"{0}\" க்கான அணுகல் விதியை அகற�
 msgid "Remove access?"
 msgstr "அணுகலை அகற்றவா?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "கருத்தை அகற்று"
 
@@ -2363,31 +2608,32 @@ msgstr "கருத்தை அகற்று"
 msgid "Remove from saved"
 msgstr "சேமித்தவற்றிலிருந்து அகற்று"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "ஆர்வத்தை அகற்று"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "உருப்படியை அகற்று"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "இணைப்பை அகற்று"
 
-#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "பதிவை அகற்று"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "உங்கள் sidebar-லிருந்து இந்த மன்றத்தை அகற்றவும்."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:285
-#: src/features/forums/components/thread/thread-content.tsx:168
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "அகற்றப்பட்டது"
 
@@ -2399,49 +2645,49 @@ msgstr "சேமிக்கப்பட்டவற்றிலிருந்
 msgid "Removing..."
 msgstr "அகற்றப்படுகிறது..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "பெயர் மாற்று"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "நெடுவரிசையின் பெயரை மாற்று"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "இந்த போர்டு நெடுவரிசையின் பெயரை மாற்று"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "மன்றத்தை மறுபெயரிடுகிறது..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "பதில்கள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "பதில்கள் அங்கீகரிக்கப்பட வேண்டும்"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:403
-#: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:318
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "பதில்"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:563
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "{0} க்கு பதிலளி..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:480
-#: src/features/forums/components/thread/thread-content.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "புகார்"
 
@@ -2453,63 +2699,87 @@ msgstr "கருத்தை புகாரளி"
 msgid "Report post"
 msgstr "இடுகையை புகாரளி"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:584
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "புகார் தீர்க்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "புகார் சமர்ப்பிக்கப்பட்டது"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:724
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "{0} ஆல் புகாரளிக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "புகார்கள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "உள்ளடக்கம் தெரியும் முன் ஒப்புதலைத் தேவைப்படுத்தவும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "புதிய கருத்துகளுக்கு ஒப்புதலைத் தேவைப்படுத்தவும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "புதிய பதிவுகளுக்கு ஒப்புதலைத் தேவைப்படுத்தவும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "புதிய பயனர்களுக்கு ஒப்புதலைத் தேவைப்படுத்தவும்"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "தேவை"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "மின்னஞ்சலை மீண்டும் அனுப்பு"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "விலகு"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "விளையாட்டிலிருந்து விலகவா?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "விலகுகிறது..."
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "தீர்க்கப்பட்டது"
 
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-content.tsx:368
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "மீட்டெடு"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "கட்டுப்பாடு நீக்கப்பட்டது"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "கட்டுப்பாடுகள்"
 
@@ -2533,12 +2803,12 @@ msgstr "அணுகலை நீக்கு"
 msgid "Revoke RSS access?"
 msgstr "RSS அணுகலை ரத்துசெய்யவா?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "வரிசைகள்"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "வரிசைகள் இதன்படி குழுவாக்கம்"
 
@@ -2560,16 +2830,16 @@ msgstr "சனிக்கிழமை"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:328
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "சேமி"
 
-#: src/features/forums/components/edit-post-dialog.tsx:407
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "மாற்றங்களை சேமி"
 
@@ -2590,19 +2860,19 @@ msgid "Saved posts cleared"
 msgstr "சேமித்த இடுகைகள் அழிக்கப்பட்டன"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:402
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "சேமிக்கிறது..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "மதிப்பெண் வினவல்"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "தேடு"
 
@@ -2614,15 +2884,15 @@ msgstr "பெயர், ID, ஃபிங்கர்பிரிண்ட் �
 msgid "Search for a command to run..."
 msgstr "இயக்க ஒரு கட்டளையைத் தேடு..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "இடத்தைத் தேடு"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "இடத்தைத் தேடு..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "சேருமிடத்தைத் தேடு..."
 
@@ -2630,11 +2900,11 @@ msgstr "சேருமிடத்தைத் தேடு..."
 msgid "Search for forums..."
 msgstr "மன்றங்களைத் தேடு..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "துவக்கத்தைத் தேடு..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "பொருள்களைத் தேடு..."
 
@@ -2652,8 +2922,8 @@ msgstr "இந்த காட்சியைத் தேடு, கவனி, 
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "தேடு..."
@@ -2663,15 +2933,15 @@ msgstr "தேடு..."
 msgid "Searching..."
 msgstr "தேடுகிறது..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "வினாடிகள்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "தேர்ந்தெடு"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "ஒரு புலத்தை தேர்ந்தெடு"
 
@@ -2699,7 +2969,7 @@ msgstr "அணுகல் விதியை தேர்ந்தெடு"
 msgid "Select account type"
 msgstr "கணக்கு வகையை தேர்ந்தெடு"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "அனைத்தையும் தேர்ந்தெடு"
 
@@ -2707,7 +2977,7 @@ msgstr "அனைத்தையும் தேர்ந்தெடு"
 msgid "Select group"
 msgstr "குழுவை தேர்ந்தெடு"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "இடத்தைத் தேர்ந்தெடுக்கவும்"
 
@@ -2715,11 +2985,11 @@ msgstr "இடத்தைத் தேர்ந்தெடுக்கவு�
 msgid "Select next card"
 msgstr "அடுத்த அட்டையை தேர்ந்தெடு"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "எதையும் தேர்வு செய்யாதே"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "நபரைத் தேர்ந்தெடுக்கவும்..."
 
@@ -2727,8 +2997,8 @@ msgstr "நபரைத் தேர்ந்தெடுக்கவும்..
 msgid "Select previous card"
 msgstr "முந்தைய அட்டையை தேர்ந்தெடு"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "தேர்ந்தெடு..."
 
@@ -2741,7 +3011,7 @@ msgstr "தேர்ந்தெடுக்கப்பட்டது: <0>{0}<
 msgid "Send again"
 msgstr "மீண்டும் அனுப்பு"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "மின்னஞ்சல் அனுப்பு"
 
@@ -2768,29 +3038,29 @@ msgstr "சேவையக விதிகள்"
 msgid "Session expired. Please log in again."
 msgstr "அமர்வு காலாவதியானது. மீண்டும் உள்நுழையவும்."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "துவக்கம் மற்றும் சேருமிடத்தை அமை"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "அமைப்புகள்"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:793
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "இரகசியமாக தடைசெய்யப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "வகுப்புகளை காட்டு"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "புலங்களை காட்டு"
 
@@ -2802,7 +3072,7 @@ msgstr "இந்தப் படத்தின் கருத்துகள�
 msgid "Show this help"
 msgstr "இந்த உதவியைக் காட்டு"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "{total}-ல் {totalShown} காட்டப்படுகிறது"
 
@@ -2810,17 +3080,21 @@ msgstr "{total}-ல் {totalShown} காட்டப்படுகிறத�
 msgid "Sidebar"
 msgstr "பக்கப்பட்டி"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "இந்த வளத்திற்கான அணுகல் <0/> உள்ள கணக்குடன் உள்நுழையவும்."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "வெளியேறு"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "வெளியேறுகிறது..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "ஒரே வரி உரை மட்டும்"
 
@@ -2842,23 +3116,28 @@ msgid "Spacious"
 msgstr "விரிவான"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "ஸ்பேம்"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "முதல் கருத்தை சேர்த்து விவாதத்தை தொடங்குங்கள்."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "பார்ப்பதை நிறுத்து"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "பொருள்"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "கருத்தை சமர்ப்பி"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "பதிலை சமர்ப்பி"
 
@@ -2870,12 +3149,12 @@ msgstr "புகாரை சமர்ப்பி"
 msgid "Submitting..."
 msgstr "சமர்ப்பிக்கிறது..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "சந்தாதாராக"
 
@@ -2889,14 +3168,14 @@ msgstr "சந்தாதாரர் ஆனார்"
 msgid "Subscribed to {0}"
 msgstr "{0}-க்கு சந்தாதாரர் ஆனார்"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "மன்றத்திற்கு சந்தாதாரர் ஆனார்"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "சந்தாதாராகிறது..."
@@ -2915,24 +3194,24 @@ msgstr "காட்சி 1-9 க்கு மாறு"
 msgid "System"
 msgstr "சிஸ்டம்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "டேக்"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "டேக் ஏற்கனவே உள்ளது"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "குறிச்சொல் 50 எழுத்துகள் அல்லது குறைவாக இருக்க வேண்டும்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "குறிச்சொல் வினவல்"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "டேக்குகள்"
 
@@ -2945,11 +3224,11 @@ msgstr "எந்த இடுகையையும் இங்கே பின
 msgid "Terms and conditions"
 msgstr "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "உரை"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "அந்தக் குறியீடு தவறானது அல்லது காலாவதியாகிவிட்டது."
 
@@ -2962,7 +3241,23 @@ msgstr "அனுப்ப முடியவில்லை. கோப்பு
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "பதிவேற்ற முடியாத அளவு பெரியது. கோப்புகளை நீக்கவும் அல்லது சிறிதாக்கி மீண்டும் முயற்சிக்கவும்."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "கேமரா ஏற்கனவே பயன்பாட்டில் உள்ளது"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "கேமரா கோரிக்கைக்கு பதில் இல்லை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "மைக்ரோஃபோன் கோரிக்கைக்கு பதில் இல்லை"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Passkey கோரிக்கைக்கு பதில் இல்லை"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "கோரப்பட்ட உள்ளடக்கத்தைக் கண்டறிய முடியவில்லை."
 
@@ -2970,28 +3265,36 @@ msgstr "கோரப்பட்ட உள்ளடக்கத்தைக் �
 msgid "The server returned a web page instead of data."
 msgstr "சேவையகம் தரவுக்குப் பதிலாக ஒரு வலைப் பக்கத்தை வழங்கியது."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "இதுவரை எந்த மாடரேஷன் நடவடிக்கைகளும் பதிவு செய்யப்படவில்லை"
 
-#: src/features/forums/components/thread/thread-comment.tsx:540
-#: src/features/forums/components/thread/thread-content.tsx:464
-msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
-msgstr "இந்த மன்றத்திற்கான அணுகலை அவர்கள் இழப்பார்கள். பின்னர் கட்டுப்பாடுகள் தாவலில் இருந்து இதை நீக்கலாம்."
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "இந்த ஆப்ஸுக்கு உங்கள் passkey-ஐப் பயன்படுத்த அனுமதி இல்லை. அமைப்புகளில், அனுமதிகள் பிரிவில் அதை அனுமதிக்கவும்."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "இந்த மன்றத்தை இப்போது ஏற்ற முடியவில்லை."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "இந்த மன்றம் நீக்கப்பட்டிருக்கலாம் அல்லது உங்களுக்கு அதற்கான அணுகல் இல்லை."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "இது விளையாட்டையும் அதன் அரட்டையையும் நிரந்தரமாக நீக்கும். இந்தச் செயலை மாற்ற முடியாது."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "இந்த இடுகை நீக்கப்பட்டிருக்கலாம் அல்லது இல்லை."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "இந்த இடுகை ஏற்கனவே சமர்ப்பிக்கப்பட்டுள்ளது"
 
@@ -2999,16 +3302,16 @@ msgstr "இந்த இடுகை ஏற்கனவே சமர்ப்ப
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "இது உங்கள் சேமித்த பட்டியலிலிருந்து ஒவ்வொரு இடுகையையும் அகற்றும். இதை மீட்டெடுக்க முடியாது."
 
-#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "இது வழக்கமான பயனர்களிடமிருந்து கருத்தை மறைக்கும். மிதவாதிகள் இன்னும் அதைப் பார்க்கலாம் மற்றும் பின்னர் மீட்டெடுக்கலாம்."
 
-#: src/features/forums/components/thread/thread-content.tsx:451
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "இது வழக்கமான பயனர்களிடமிருந்து இடுகையை மறைக்கும். மிதவாதிகள் இன்னும் அதைப் பார்க்கலாம் மற்றும் பின்னர் மீட்டெடுக்கலாம்."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "இது \"{0}\" மற்றும் அதன் அனைத்து இடுகைகள் மற்றும் கருத்துகளையும் நிரந்தரமாக நீக்கும். இந்தச் செயலைச் செயல்தவிர்க்க முடியாது."
 
@@ -3021,7 +3324,7 @@ msgid "Thursday"
 msgstr "வியாழக்கிழமை"
 
 #: src/features/forums/components/create-post-dialog.tsx:230
-#: src/features/forums/components/edit-post-dialog.tsx:296
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "தலைப்பு"
 
@@ -3037,25 +3340,22 @@ msgstr "தலைப்பு தேவை"
 msgid "Title must be 1000 characters or less"
 msgstr "தலைப்பு 1000 எழுத்துகள் அல்லது அதற்குக் குறைவாக இருக்க வேண்டும்"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "நோக்கி"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "பிரிவை நிலைமாற்று"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-msgid "Toggle sidebar"
-msgstr "பக்கப்பட்டியை மாற்று"
-
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
+msgid "Toggle sidebar"
 msgstr "பக்கப்பட்டியை மாற்று"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3067,7 +3367,7 @@ msgstr "காட்சி விருப்பங்களை மாற்ற�
 msgid "Toggle watched filter"
 msgstr "கவனிக்கப்பட்ட வடிகட்டியை மாற்று"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "மிக அதிகமான கோரிக்கைகள்"
 
@@ -3075,7 +3375,7 @@ msgstr "மிக அதிகமான கோரிக்கைகள்"
 msgid "Top"
 msgstr "மேல்"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "பயணிக்கிறது"
 
@@ -3083,8 +3383,8 @@ msgstr "பயணிக்கிறது"
 msgid "Try adjusting your search terms"
 msgstr "உங்கள் தேடல் சொற்களை சரிசெய்ய முயற்சி செய்யுங்கள்"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "மீண்டும் முயற்சி செய்"
 
@@ -3092,12 +3392,12 @@ msgstr "மீண்டும் முயற்சி செய்"
 msgid "Tuesday"
 msgstr "செவ்வாய்க்கிழமை"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "வகை"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "ஒரு கட்டளை அல்லது தேடலை தட்டச்சு செய்..."
 
@@ -3117,8 +3417,8 @@ msgstr "தேட தட்டச்சு செய்..."
 msgid "Unable to connect to remote server"
 msgstr "தொலை சேவையகத்துடன் இணைக்க முடியவில்லை"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "உள்நுழைவுக்கு திருப்பி விட முடியவில்லை. தயவுசெய்து மீண்டும் முயற்சி செய்யுங்கள்."
 
@@ -3126,16 +3426,12 @@ msgstr "உள்நுழைவுக்கு திருப்பி வி�
 msgid "Unassigned"
 msgstr "ஒதுக்கப்படாதது"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "அனுமதிக்கப்படாத அணுகல்"
-
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "கிடைக்கவில்லை"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "எதிர்பாராத API பிழை"
 
@@ -3143,58 +3439,79 @@ msgstr "எதிர்பாராத API பிழை"
 msgid "United States"
 msgstr "ஐக்கிய அமெரிக்கா"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "தெரியாதது"
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "திற"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "பின் நீக்கு"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/features/forums/pages/entity-forum-page.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "சந்தா நீக்கு"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "மன்றத்திலிருந்து சந்தா நீக்கு"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "Unsubscribe from forum?"
 msgstr "மன்றத்திலிருந்து குழுச்சேர்க்கையை நீக்கவா?"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "சந்தா நீக்கப்பட்டது"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "சந்தா நீக்குகிறது..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "தலைப்பிடாதது"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "புதுப்பிக்கப்பட்டது"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "{field} புதுப்பிக்கப்பட்டது"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "பதிவேற்று"
 
@@ -3202,13 +3519,13 @@ msgstr "பதிவேற்று"
 msgid "Upload progress"
 msgstr "பதிவேற்ற முன்னேற்றம்"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "உங்கள் கடவுவிசையைப் பயன்படுத்தவும்"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "பயனர்"
 
@@ -3228,7 +3545,7 @@ msgstr "மாறிகள்: {variables}"
 msgid "Verification code"
 msgstr "சரிபார்ப்பு குறியீடு"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "சரிபார்"
@@ -3237,40 +3554,53 @@ msgstr "சரிபார்"
 msgid "Verify email address"
 msgstr "மின்னஞ்சல் முகவரியை சரிபார்"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "வீடியோ சிறுபடம்"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "வீடியோ காட்சி: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "அனைத்து அறிவிப்புகளையும் காட்டு"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "உருப்படி விவரங்களை பார்த்து திருத்து"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "காட்சி கட்டுப்பாடுகள்"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "காட்சி மட்டும்"
 
-#: src/features/forums/components/thread/thread-comment.tsx:261
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "இந்தக் கருத்து எந்தப் படத்தைப் பற்றியதோ அதைப் பார்க்கவும்"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:803
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "வன்முறை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "இந்த உலாவியில் குரல் பதிவு ஆதரிக்கப்படவில்லை"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "வாக்களி மற்றும் பார்வை"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "பார்"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3290,30 +3620,42 @@ msgstr "நாங்கள் <0>{0}</0> க்கு சரிபார்ப�
 msgid "Wednesday"
 msgstr "புதன்கிழமை"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "சாளர காலம்"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "நீங்கள் ஏற்கனவே இந்த மன்றத்திற்கு சந்தாதாராக உள்ளீர்கள்"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "நீங்கள் மிக வேகமாக இடுகிறீர்கள் — காத்திருந்து மீண்டும் முயற்சிக்கவும்"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "இந்த மன்றத்தில் இடுவதிலிருந்து நீங்கள் கட்டுப்படுத்தப்பட்டுள்ளீர்கள்"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "இந்தப் பிரிவுக்கான அணுகல் உங்களுக்கு இல்லை."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "இந்த மன்றத்தில் இட உங்களுக்கு அனுமதி இல்லை"
 
@@ -3321,11 +3663,11 @@ msgstr "இந்த மன்றத்தில் இட உங்களுக
 msgid "You have no forums yet."
 msgstr "உங்களிடம் இன்னும் மன்றங்கள் இல்லை."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "இந்த மன்றத்திலிருந்து புதுப்பிப்புகளைப் பெறுவதை நிறுத்துவீர்கள். எந்த நேரத்திலும் மீண்டும் குழுச்சேரலாம்."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "உங்கள் கணக்கு {source} இலிருந்து இங்கே நகர்த்தப்பட்டது. நீங்கள் அதை அங்கே நீக்கும் வரை, செய்திகளும் அறிவிப்புகளும் இரண்டு சேவையகங்களையும் அடையலாம், உங்கள் சில உள்ளடக்கம் பழைய சேவையகத்தில் இருந்து தொடர்ந்து வழங்கப்படும், மேலும் உங்கள் பின்தொடர்பவர்கள் இங்கே உங்களை கண்டுபிடிக்க சில நிமிடங்கள் ஆகலாம்."
 
@@ -3333,7 +3675,7 @@ msgstr "உங்கள் கணக்கு {source} இலிருந்த�
 msgid "Your attachments will be lost."
 msgstr "உங்கள் இணைப்புகள் இழக்கப்படும்."
 
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:274
 msgid "Your changes will be lost."
 msgstr "உங்கள் மாற்றங்கள் இழக்கப்படும்."
 

@@ -14,33 +14,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "Vui lòng kiểm tra kết nối internet và thử lại."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1051
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · Hết hạn {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1052
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · Vĩnh viễn"
 
-#: src/features/forums/components/thread/thread-comment.tsx:250
-#: src/features/forums/components/thread/thread-content.tsx:204
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (đã chỉnh sửa)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " hoặc "
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(đã chỉnh sửa)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(mở rộng)"
 
@@ -49,62 +45,100 @@ msgid "[not set]"
 msgstr "[chưa đặt]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, other {# bài viết mới}}"
 
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr ""
+
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:521
+#: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# đã chọn} other {# đã chọn}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:302
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {Đã cấm # người dùng} other {Đã cấm # người dùng}}"
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, other {+# lồng nhau}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:285
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {Đã tắt tiếng # người dùng} other {Đã tắt tiếng # người dùng}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#~ msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+#~ msgstr "{0, plural, one {Đã cấm # người dùng} other {Đã cấm # người dùng}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#~ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+#~ msgstr "{0, plural, one {Đã tắt tiếng # người dùng} other {Đã tắt tiếng # người dùng}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "Cài đặt {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ng} other {#ng}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#g} other {#g}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#ph} other {#ph}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#tu} other {#tu}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:231
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {Đã duyệt # mục} other {Đã duyệt # mục}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#~ msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+#~ msgstr "{count, plural, one {Đã duyệt # mục} other {Đã duyệt # mục}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:253
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {Đã từ chối # mục} other {Đã từ chối # mục}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#~ msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+#~ msgstr "{count, plural, one {Đã từ chối # mục} other {Đã từ chối # mục}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Tên {entityLabel}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "Bắt buộc nhập tên {entityLabel}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -114,7 +148,7 @@ msgstr "{opponentName} đã đề nghị hòa"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Hiển thị # bình luận khác trên bài đăng này} other {Hiển thị # bình luận khác trên bài đăng này}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:533
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
 msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
 msgstr "{selectedAuthorCount, plural, one {# tác giả sẽ mất quyền truy cập diễn đàn này. Bạn có thể gỡ bỏ sau trong tab Hạn chế.} other {# tác giả sẽ mất quyền truy cập diễn đàn này. Bạn có thể gỡ bỏ sau trong tab Hạn chế.}}"
 
@@ -123,30 +157,21 @@ msgstr "{selectedAuthorCount, plural, one {# tác giả sẽ mất quyền truy 
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} trên {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# mục} other {# mục}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:236
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# trả lời} other {# trả lời}}"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# phản hồi} other {+# phản hồi nữa}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Mở menu (# thông báo chưa đọc)} other {Mở menu (# thông báo chưa đọc)}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} lồng nhau"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} phản hồi khác"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 phản hồi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -156,6 +181,10 @@ msgstr "12 giờ"
 msgid "24 hours"
 msgstr "24 giờ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "Đang có một bản ghi âm được thực hiện."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Tuyệt đối (ngày và giờ)"
@@ -164,11 +193,12 @@ msgstr "Tuyệt đối (ngày và giờ)"
 msgid "Accept"
 msgstr "Chấp nhận"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "Truy cập"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "Truy cập bị từ chối"
 
@@ -176,23 +206,23 @@ msgstr "Truy cập bị từ chối"
 msgid "Access level"
 msgstr "Cấp độ truy cập"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "Đã cập nhật cấp độ truy cập"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "Quản lý truy cập"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "Đã gỡ truy cập"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "Đã thiết lập truy cập cho {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "Tài khoản"
 
@@ -200,13 +230,17 @@ msgstr "Tài khoản"
 msgid "Account type"
 msgstr "Loại tài khoản"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Hoạt động"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Thêm"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "Thêm bình luận..."
 
@@ -214,7 +248,7 @@ msgstr "Thêm bình luận..."
 msgid "Add a new account"
 msgstr "Thêm tài khoản mới"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "Thêm trường mới vào class này"
 
@@ -230,41 +264,41 @@ msgstr "Thêm tài khoản"
 msgid "Add caption"
 msgstr "Thêm chú thích"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "Thêm mục danh sách kiểm tra"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "Thêm trường"
 
 #: src/features/forums/components/create-post-dialog.tsx:293
-#: src/features/forums/components/edit-post-dialog.tsx:342
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "Thêm tệp"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "Thêm mục..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Thêm liên kết"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "Thêm tùy chọn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "Thêm quy tắc"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "Thêm thẻ..."
 
@@ -272,8 +306,8 @@ msgstr "Thêm thẻ..."
 msgid "Add to existing notifications"
 msgstr "Thêm vào thông báo hiện có"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -288,15 +322,15 @@ msgid "Additional details (optional)"
 msgstr "Thông tin chi tiết bổ sung (tùy chọn)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "Hành động AI trên bài viết"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "Tất cả"
 
@@ -305,20 +339,19 @@ msgstr "Tất cả"
 msgid "All forums"
 msgstr "Tất cả diễn đàn"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:357
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "Đã duyệt tất cả bài viết và bình luận"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "Cho phép bất kỳ ai tìm kiếm {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "Cho phép mọi người tìm kiếm {entityLabel}"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "Cho phép bất kỳ ai tìm kiếm diễn đàn"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "Cho phép sắp xếp theo"
 
@@ -327,6 +360,7 @@ msgid "An error occurred"
 msgstr "Đã xảy ra lỗi"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Đã xảy ra lỗi không mong muốn"
 
@@ -351,17 +385,25 @@ msgstr "Bất kỳ ai đã đăng nhập"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Mọi thứ đã đăng ký nguồn cấp này sẽ ngừng nhận. Bạn có thể sao chép URL mới sau đó."
 
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/routes/_authenticated/$forum_.moderation.tsx:486
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "Phê duyệt"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Bạn có chắc muốn xóa \"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "Bạn có chắc muốn xóa \"{title}\"? Hành động này không thể hoàn tác."
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Bạn có chắc muốn xóa cột \"{name}\"? Không thể hoàn tác."
 
@@ -369,11 +411,11 @@ msgstr "Bạn có chắc muốn xóa cột \"{name}\"? Không thể hoàn tác."
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Bạn có chắc muốn xóa bình luận này? Tất cả phản hồi cũng sẽ bị xóa."
 
-#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Bạn có chắc muốn xóa bình luận này? Tất cả phản hồi cũng sẽ bị xóa. Hành động này không thể hoàn tác."
 
-#: src/features/forums/components/thread/thread-content.tsx:437
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Bạn có chắc chắn muốn xóa bài đăng này không? Điều này cũng sẽ xóa tất cả bình luận. Hành động này không thể hoàn tác."
 
@@ -381,15 +423,23 @@ msgstr "Bạn có chắc chắn muốn xóa bài đăng này không? Điều nà
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Bạn có chắc muốn đăng xuất? Bạn sẽ cần đăng nhập lại để truy cập tài khoản."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Bạn có chắc chắn muốn đầu hàng?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Bạn có chắc muốn xin thua không? {opponentName} sẽ thắng ván cờ."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Tăng dần"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "Đính kèm tệp bình luận"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "Đính kèm tệp phản hồi"
 
@@ -398,7 +448,7 @@ msgstr "Đính kèm tệp phản hồi"
 msgid "Authenticated users"
 msgstr "Người dùng đã xác thực"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "Mã xác thực"
 
@@ -406,15 +456,15 @@ msgstr "Mã xác thực"
 msgid "Available keyboard shortcuts"
 msgstr "Phím tắt khả dụng"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "Ảnh đại diện"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "Ảnh đại diện của {name}"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "Quay lại"
 
@@ -422,82 +472,89 @@ msgstr "Quay lại"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "Quay lại diễn đàn"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "Quay lại diễn đàn"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Về trang chủ"
 
-#: src/features/forums/components/thread/thread-comment.tsx:541
-#: src/features/forums/components/thread/thread-content.tsx:465
-#: src/routes/_authenticated/$forum_.moderation.tsx:512
-#: src/routes/_authenticated/$forum_.moderation.tsx:537
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "Cấm"
 
-#: src/features/forums/components/thread/thread-comment.tsx:497
-#: src/features/forums/components/thread/thread-comment.tsx:539
-#: src/features/forums/components/thread/thread-content.tsx:421
-#: src/features/forums/components/thread/thread-content.tsx:463
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "Cấm tác giả"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:532
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Ban authors"
 msgstr "Cấm tác giả"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:791
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "Đã cấm"
 
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Đã xóa banner"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Đã cập nhật banner"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Bị chặn bởi"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "Đã chặn điều hướng tới liên kết không tin cậy"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Chặn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "Bảng"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "Đẩy mạnh sở thích"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "Màu viền"
 
@@ -506,43 +563,57 @@ msgid "Browser notifications"
 msgstr "Thông báo trình duyệt"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "bởi {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1049
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "Bởi {0}"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Quyền truy cập máy ảnh bị từ chối"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Camera không khả dụng"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:317
-#: src/features/forums/components/edit-post-dialog.tsx:393
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:308
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Hủy"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "Hủy bình luận"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "Hủy phản hồi"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Đã hủy"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -558,15 +629,23 @@ msgstr "Danh mục cho các thông báo này"
 msgid "Change notification category"
 msgstr "Đổi danh mục thông báo"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "Đã thay đổi"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "Đã thay đổi {field}"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Quay lại sau để xem nội dung mới"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "Hộp kiểm"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "Danh sách kiểm tra"
 
@@ -579,13 +658,13 @@ msgstr "Chọn một ván chơi ở thanh bên hoặc bắt đầu ván mới."
 msgid "Choose language"
 msgstr "Chọn ngôn ngữ"
 
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
 msgid "Clear"
 msgstr "Xóa"
 
@@ -607,19 +686,19 @@ msgstr "Xóa tìm kiếm"
 msgid "Clearing saved posts..."
 msgstr "Đang xóa các bài viết đã lưu..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Đóng"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "Đóng hộp thoại"
 
@@ -652,16 +731,16 @@ msgstr "Thu gọn"
 msgid "Collapse sidebar"
 msgstr "Thu gọn thanh bên"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "Màu"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "Thao tác cột"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "Cột nhóm theo"
 
@@ -673,7 +752,7 @@ msgstr "Thoải mái"
 msgid "Command Palette"
 msgstr "Bảng lệnh"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:784
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "Bình luận"
 
@@ -682,15 +761,23 @@ msgstr "Bình luận"
 msgid "Comment actions"
 msgstr "Thao tác bình luận"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "Đã phê duyệt bình luận"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "Đã xóa bình luận"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "Giới hạn bình luận"
 
@@ -698,45 +785,50 @@ msgstr "Giới hạn bình luận"
 msgid "Comment on this image…"
 msgstr "Bình luận về hình ảnh này…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "Đã đăng bình luận"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "Đã gỡ bình luận"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "Đã khôi phục bình luận"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "Đã cập nhật bình luận"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "Bình luận, bỏ phiếu và xem"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Bình luận"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Bình luận ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Gọn"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "Cấu hình tùy chọn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "Cấu hình chế độ xem"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "Xác nhận"
 
@@ -749,11 +841,11 @@ msgid "Connecting..."
 msgstr "Đang kết nối..."
 
 #: src/features/forums/components/create-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:313
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "Nội dung"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "Nội dung từ người dùng dưới ngưỡng phải được phê duyệt"
 
@@ -765,7 +857,7 @@ msgstr "Nội dung là bắt buộc"
 msgid "Content not found."
 msgstr "Không tìm thấy nội dung."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "Nội dung không thay đổi"
 
@@ -777,7 +869,7 @@ msgstr "Thông tin và chi tiết theo ngữ cảnh."
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "Tiếp tục với {label}"
 
@@ -797,34 +889,33 @@ msgstr "Sao chép"
 msgid "Could not load this document. Please try again later."
 msgstr "Không thể tải tài liệu này. Vui lòng thử lại sau."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "Không thể tải thông báo"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "Không thể gửi mã. Vui lòng thử lại."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Không thể bắt đầu xác thực lại. Vui lòng thử lại."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Không thể xác minh bằng tài khoản đó. Vui lòng thử lại."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Tạo"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "Tạo {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "Tạo {entityLabel}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -835,7 +926,7 @@ msgid "Create a new post"
 msgstr "Tạo bài viết mới"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "Tạo diễn đàn"
 
@@ -843,21 +934,26 @@ msgstr "Tạo diễn đàn"
 msgid "Create new item"
 msgstr "Tạo mục mới"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "Đã tạo"
 
-#: src/hooks/use-forums-queries.ts:81
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "Đã tạo {field}"
+
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "Đang tạo diễn đàn..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Đang tạo..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "Vị trí hiện tại"
 
@@ -874,11 +970,11 @@ msgstr "Tối"
 msgid "Data conflict"
 msgstr "Xung đột dữ liệu"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "Ngày"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "ngày"
 
@@ -890,7 +986,7 @@ msgstr "Từ chối"
 msgid "Default"
 msgstr "Mặc định"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "Tài khoản mặc định"
 
@@ -898,84 +994,108 @@ msgstr "Tài khoản mặc định"
 msgid "Default AI account"
 msgstr "Tài khoản AI mặc định"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "Sắp xếp mặc định"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:444
-#: src/features/forums/components/thread/thread-comment.tsx:514
-#: src/features/forums/components/thread/thread-content.tsx:358
-#: src/features/forums/components/thread/thread-content.tsx:438
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "Xóa"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "Xóa tệp đính kèm"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "Xóa cột"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Xóa bình luận"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "Xóa trường"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "Xóa diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "Xóa diễn đàn?"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Xóa trận đấu?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Xóa mục"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "Xóa tùy chọn"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "Xóa tùy chọn {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "Xóa bài viết"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "Xóa chế độ xem"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Xóa tài khoản của bạn trên máy chủ cũ"
 
-#: src/hooks/use-forums-queries.ts:97
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "Đã xóa"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "Đã xóa {field}"
+
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "Đang xóa diễn đàn..."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "Đang xóa..."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "Giảm dần"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "Mô tả"
 
@@ -998,11 +1118,11 @@ msgstr "Bảng chi tiết"
 msgid "Detect from web browser"
 msgstr "Phát hiện từ trình duyệt web"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Danh bạ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "Đã tắt"
 
@@ -1019,14 +1139,14 @@ msgstr "Hủy bản nháp?"
 msgid "Disconnected"
 msgstr "Đã ngắt kết nối"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:735
+#: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "Bỏ qua"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "Bỏ qua biểu ngữ"
 
@@ -1034,22 +1154,28 @@ msgstr "Bỏ qua biểu ngữ"
 msgid "Displays the mobile sidebar."
 msgstr "Hiển thị thanh bên di động."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "Không khớp với mẫu bắt buộc"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Xong"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Tải xuống"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "Tải xuống thất bại"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Trùng lặp"
 
@@ -1059,12 +1185,12 @@ msgstr "Thân thiện với chứng khó đọc"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-content.tsx:352
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "Sửa"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "Chỉnh sửa {label}"
 
@@ -1072,26 +1198,26 @@ msgstr "Chỉnh sửa {label}"
 msgid "Edit caption"
 msgstr "Sửa chú thích"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "Sửa trường"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "Sửa cài đặt trường"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "Chỉnh sửa tùy chọn"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "Sửa tuỳ chọn {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:283
-#: src/features/forums/components/edit-post-dialog.tsx:285
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "Sửa bài đăng"
 
@@ -1099,7 +1225,7 @@ msgstr "Sửa bài đăng"
 msgid "Edit selected card"
 msgstr "Sửa thẻ đã chọn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "Sửa chế độ xem"
 
@@ -1107,25 +1233,29 @@ msgstr "Sửa chế độ xem"
 msgid "Email"
 msgstr "Email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "Mã email"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Nhập nội dung biểu ngữ (hỗ trợ markdown)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "Nhập mã từ email của bạn"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "Nhập mã từ ứng dụng xác thực của bạn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "ID thực thể"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Lỗi"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1146,28 +1276,32 @@ msgstr "URL bên ngoài"
 msgid "Extra large"
 msgstr "Rất lớn"
 
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "Không thêm tài khoản được"
+
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "Không thêm thẻ được"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Không điều chỉnh sở thích được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:234
-msgid "Failed to approve items"
-msgstr "Không phê duyệt mục được"
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#~ msgid "Failed to approve items"
+#~ msgstr "Không phê duyệt mục được"
 
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Không cấm người dùng được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:305
-msgid "Failed to ban users"
-msgstr "Không cấm người dùng được"
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#~ msgid "Failed to ban users"
+#~ msgstr "Không cấm người dùng được"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1178,28 +1312,32 @@ msgstr "Không xóa được các bài viết đã lưu"
 msgid "Failed to copy"
 msgstr "Không sao chép được"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "Không thể tạo diễn đàn"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Không tạo liên kết được"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "Không xoá được"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Không xoá tệp đính kèm được"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "Không xoá bình luận được"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "Không thể xóa diễn đàn"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Không xoá liên kết được"
 
@@ -1211,23 +1349,28 @@ msgstr "Không lấy token RSS được"
 msgid "Failed to load"
 msgstr "Không tải được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "Không tải quy tắc truy cập được"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr ""
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "Không tải diễn đàn được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "Không thể tải cài đặt diễn đàn"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "Không tải các diễn đàn được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "Không thể tải nhóm"
 
@@ -1235,19 +1378,24 @@ msgstr "Không thể tải nhóm"
 msgid "Failed to load history"
 msgstr "Không tải lịch sử được"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Không tải được hình ảnh"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Không tải mục được"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "Không tải nhật ký kiểm duyệt được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:167
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "Không thể tải hàng đợi kiểm duyệt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "Không thể tải cài đặt kiểm duyệt"
 
@@ -1260,44 +1408,48 @@ msgstr "Không tải lời nhắc được"
 msgid "Failed to load recommended forums"
 msgstr "Không thể tải diễn đàn được đề xuất"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:570
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "Không tải báo cáo được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:940
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "Không thể tải hạn chế"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Không tải được video"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Không thể di chuyển"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Không tắt tiếng người dùng được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:288
-msgid "Failed to mute users"
-msgstr "Không tắt tiếng người dùng được"
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#~ msgid "Failed to mute users"
+#~ msgstr "Không tắt tiếng người dùng được"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Không đăng bình luận được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
-msgid "Failed to reject items"
-msgstr "Không từ chối mục được"
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#~ msgid "Failed to reject items"
+#~ msgstr "Không từ chối mục được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "Không xoá quyền truy cập được"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Không xoá sở thích được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:957
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "Không xoá hạn chế được"
 
@@ -1305,7 +1457,7 @@ msgstr "Không xoá hạn chế được"
 msgid "Failed to remove saved post"
 msgstr "Không xóa được bài viết đã lưu"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "Không đổi tên diễn đàn được"
 
@@ -1313,7 +1465,7 @@ msgstr "Không đổi tên diễn đàn được"
 msgid "Failed to reset prompt"
 msgstr "Không đặt lại lời nhắc được"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:587
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "Không giải quyết báo cáo được"
 
@@ -1321,7 +1473,11 @@ msgstr "Không giải quyết báo cáo được"
 msgid "Failed to revoke RSS access"
 msgstr "Không thể thu hồi quyền truy cập RSS"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "Không lưu được"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "Không lưu cài đặt kiểm duyệt được"
 
@@ -1338,56 +1494,60 @@ msgstr "Không lưu lời nhắc được"
 msgid "Failed to search forums"
 msgstr "Không tìm kiếm diễn đàn được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "Không thể tìm kiếm người dùng"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "Không đặt mức truy cập được"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Không đăng ký được"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Không huỷ đăng ký được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "Không cập nhật mức truy cập được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "Không cập nhật cài đặt AI được"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Không cập nhật biểu ngữ được"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "Không cập nhật bình luận được"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Không thể cập nhật theo dõi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Không tải tệp đính kèm lên được"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:289
-#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "Tệp"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "Đã lọc theo thẻ:"
 
@@ -1396,15 +1556,15 @@ msgstr "Đã lọc theo thẻ:"
 msgid "Find forums"
 msgstr "Tìm diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "Dấu vân tay"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Hoàn tất việc chuyển tài khoản của bạn"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "Cờ"
 
@@ -1412,23 +1572,26 @@ msgstr "Cờ"
 msgid "Flat"
 msgstr "Phẳng"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/components/create-forum-dialog.tsx:53
+msgid "forum"
+msgstr "diễn đàn"
+
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "Diễn đàn"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "Đã tạo diễn đàn"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "Đã xoá diễn đàn"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "Diễn đàn không còn khả dụng"
 
@@ -1436,23 +1599,24 @@ msgstr "Diễn đàn không còn khả dụng"
 msgid "Forum link"
 msgstr "Liên kết diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "Tên diễn đàn là bắt buộc"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "Không tìm thấy diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "Đã đổi tên diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "Các mục cài đặt diễn đàn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "Diễn đàn không khả dụng"
 
@@ -1467,11 +1631,11 @@ msgstr "Diễn đàn"
 msgid "Friday"
 msgstr "Thứ Sáu"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "Bạn bè"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "Từ"
 
@@ -1483,8 +1647,8 @@ msgstr "Từ"
 msgid "From theme"
 msgstr "Từ giao diện"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Quay lại"
 
@@ -1492,7 +1656,7 @@ msgstr "Quay lại"
 msgid "Group"
 msgstr "Nhóm"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "Nhóm theo"
 
@@ -1502,12 +1666,12 @@ msgid "Group: {0}"
 msgstr "Nhóm: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:801
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "Quấy rối"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:802
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "Ngôn từ thù ghét"
 
@@ -1517,8 +1681,8 @@ msgstr "Lịch sử"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "Trang chủ"
 
@@ -1526,16 +1690,16 @@ msgstr "Trang chủ"
 msgid "Hot"
 msgstr "Nóng"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "ID"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "Danh tính"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Trình xem ảnh: {0}"
 
@@ -1555,6 +1719,10 @@ msgstr "Ảnh đại diện chữ cái đầu"
 msgid "Initials avatar for {name}"
 msgstr "Ảnh đại diện chữ cái đầu của {name}"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "Mức quan tâm {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Đã tăng sở thích"
@@ -1563,7 +1731,7 @@ msgstr "Đã tăng sở thích"
 msgid "Interest reduced"
 msgstr "Đã giảm sở thích"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Đã xoá sở thích"
@@ -1572,7 +1740,7 @@ msgstr "Đã xoá sở thích"
 msgid "Interests"
 msgstr "Sở thích"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "Ngày không hợp lệ"
 
@@ -1580,7 +1748,11 @@ msgstr "Ngày không hợp lệ"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Có vẻ như trang bạn đang tìm <0/>không tồn tại hoặc đã bị xóa."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Chi tiết mục"
+
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Vừa xong"
 
@@ -1593,13 +1765,13 @@ msgstr "Phím tắt"
 msgid "Large"
 msgstr "Lớn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "Bố cục"
 
-#: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "Chỉ chữ cái, chữ số, khoảng trắng và dấu gạch nối"
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "Chỉ chữ cái, chữ số, dấu cách, dấu gạch nối và dấu gạch chéo"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1609,15 +1781,15 @@ msgstr "Sáng"
 msgid "Link"
 msgstr "Liên kết"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Liên kết"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "Danh sách"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "Tải thêm"
 
@@ -1625,20 +1797,29 @@ msgstr "Tải thêm"
 msgid "Loading content…"
 msgstr "Đang tải nội dung…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Đang tải mục"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Đang tải chi tiết mục"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Đang tải..."
 
-#: src/features/forums/components/thread/thread-content.tsx:387
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "Khoá"
 
-#: src/features/forums/components/thread/thread-content.tsx:174
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "Đã khoá"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "Nhật ký"
 
@@ -1667,8 +1848,8 @@ msgstr "Quản lý danh mục"
 msgid "Manual"
 msgstr "Thủ công"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "Đánh dấu tất cả là đã đọc"
 
@@ -1676,7 +1857,7 @@ msgstr "Đánh dấu tất cả là đã đọc"
 msgid "Markdown supported"
 msgstr "Hỗ trợ Markdown"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "Độ dài tối đa"
 
@@ -1687,6 +1868,10 @@ msgstr "Máy chủ MCP"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Vừa"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "Thành viên"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1700,12 +1885,16 @@ msgstr "Tin nhắn"
 msgid "Metric"
 msgstr "Hệ mét"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "Quyền micrô bị từ chối"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "Độ dài tối thiểu"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:804
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "Thông tin sai lệch"
 
@@ -1713,22 +1902,22 @@ msgstr "Thông tin sai lệch"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Kiểm duyệt, đăng, bình luận, bỏ phiếu và xem"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:101
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Kiểm duyệt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:356
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "Hàng đợi kiểm duyệt trống"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:115
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "Mục kiểm duyệt"
 
@@ -1738,56 +1927,76 @@ msgstr "Thứ Hai"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:421
-#: src/features/forums/components/thread/thread-comment.tsx:427
-#: src/features/forums/components/thread/thread-content.tsx:339
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "Tùy chọn khác"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:500
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "Đã di chuyển"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "Đã di chuyển {field}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "Tắt tiếng"
 
-#: src/features/forums/components/thread/thread-comment.tsx:491
-#: src/features/forums/components/thread/thread-content.tsx:415
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "Tắt tiếng tác giả"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:792
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "Đã tắt tiếng"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "Tên"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "Tên không được chứa ký tự < hoặc >"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "Tên không được chứa dấu ngoặc nhọn, dấu gạch chéo ngược, dấu chấm phẩy, dấu nháy hoặc dấu huyền"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "Tên là bắt buộc"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "Tên phải có 1000 ký tự trở xuống"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Lỗi mạng"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:208
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "Mới"
 
@@ -1799,32 +2008,32 @@ msgstr "Trò chơi mới"
 #: src/features/forums/components/create-post-dialog.tsx:205
 #: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/create-post-dialog.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "Bài viết mới"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "Chủ đề mới phải được duyệt"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "Ngưỡng người dùng mới:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Hình tiếp theo"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Không có {parentClassNames} để thêm vào"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:667
-msgid "No {statusFilter} reports found"
-msgstr "Không tìm thấy báo cáo {statusFilter}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#~ msgid "No {statusFilter} reports found"
+#~ msgstr "Không tìm thấy báo cáo {statusFilter}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "Không có quyền truy cập"
 
@@ -1832,7 +2041,7 @@ msgstr "Không có quyền truy cập"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Chưa cấu hình quy tắc truy cập. Thêm quy tắc để kiểm soát ai có thể truy cập tài nguyên này."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "Chưa có hoạt động"
 
@@ -1840,7 +2049,7 @@ msgstr "Chưa có hoạt động"
 msgid "No comments on this image yet."
 msgstr "Chưa có bình luận nào về hình ảnh này."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "Chưa có bình luận"
 
@@ -1857,24 +2066,28 @@ msgstr "Chưa có trò chơi"
 msgid "No groups available"
 msgstr "Không có nhóm nào"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Chưa thể tạo loại mục nào. Hãy tạo các mục cha cần thiết trước."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Không có đối tượng khớp"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:871
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "Không có hoạt động kiểm duyệt"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "Không tìm thấy người nào"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "Không tìm thấy địa điểm nào"
 
@@ -1882,26 +2095,34 @@ msgstr "Không tìm thấy địa điểm nào"
 msgid "No posts in this forum yet"
 msgstr "Chưa có bài viết nào trong diễn đàn này"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:666
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "Không có báo cáo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "Không có hạn chế"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Không tìm thấy kết quả"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "Không tìm thấy kết quả nào."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "Không có trạng thái"
 
@@ -1913,7 +2134,7 @@ msgstr "Không tìm thấy múi giờ."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Chưa có bản ghi chủ đề — hãy thử lại sau thông báo tiếp theo."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "Không có thông báo chưa đọc"
 
@@ -1921,7 +2142,7 @@ msgstr "Không có thông báo chưa đọc"
 msgid "No users found"
 msgstr "Không tìm thấy người dùng nào"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "Chưa có người dùng nào bị tắt tiếng hoặc cấm"
 
@@ -1930,17 +2151,21 @@ msgid "No views"
 msgstr "Không có lượt xem"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Không có"
@@ -1950,15 +2175,15 @@ msgid "Normal"
 msgstr "Thường"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "Không tìm thấy"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "Chưa đặt"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "Không tìm thấy gì"
 
@@ -1967,18 +2192,18 @@ msgid "Nothing saved yet"
 msgstr "Chưa lưu gì cả"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "Thông báo: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "Số"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:805
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "Ngoài chủ đề"
 
@@ -1987,11 +2212,11 @@ msgid "On"
 msgstr "Bật"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:443
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "Về hình ảnh: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:260
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "Về hình ảnh này"
 
@@ -1999,8 +2224,8 @@ msgstr "Về hình ảnh này"
 msgid "Oops! Page Not Found!"
 msgstr "Rất tiếc! Không tìm thấy trang!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "Mở thao tác"
 
@@ -2008,13 +2233,13 @@ msgstr "Mở thao tác"
 msgid "Open menu"
 msgstr "Mở menu"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "Mở điều hướng"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "Mở thao tác tuỳ chọn"
 
@@ -2022,8 +2247,8 @@ msgstr "Mở thao tác tuỳ chọn"
 msgid "Open selected card"
 msgstr "Mở thẻ đã chọn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "Mở thao tác chế độ xem"
 
@@ -2032,23 +2257,19 @@ msgstr "Mở thao tác chế độ xem"
 msgid "Open view controls"
 msgstr "Mở điều khiển chế độ xem"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "Tên tuỳ chọn"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "Banner markdown không bắt buộc hiển thị ở đầu diễn đàn của bạn."
-
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "Tuỳ chọn"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:806
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "Khác"
 
@@ -2056,62 +2277,74 @@ msgstr "Khác"
 msgid "Owner"
 msgstr "Chủ sở hữu"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Cha"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "Mã khóa"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Xác minh mã khóa không thành công. Vui lòng thử lại."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Passkey"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Passkey không khả dụng trên trình duyệt này"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "Mẫu (biểu thức chính quy)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:279
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:775
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "Đang chờ"
 
-#: src/features/forums/components/thread/thread-content.tsx:162
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "Đang chờ duyệt"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:415
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "Bình luận đang chờ ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:370
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "Bài đăng đang chờ ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:179
+msgid "People"
+msgstr "Mọi người"
+
 #: src/features/forums/components/create-post-dialog.tsx:288
-#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "Ảnh và video"
 
-#: src/features/forums/components/thread/thread-content.tsx:400
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Ghim"
 
-#: src/features/forums/components/thread/thread-content.tsx:180
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Đã ghim"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Vui lòng kiểm tra kết nối internet và thử lại."
@@ -2124,39 +2357,35 @@ msgstr "Vui lòng mô tả vấn đề..."
 msgid "Please enter a reply"
 msgstr "Vui lòng nhập phản hồi"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "Vui lòng đăng nhập bằng thông tin đăng nhập phù hợp <0/> để truy cập tài nguyên này."
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "Vui lòng thử lại."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "Vui lòng đợi một lát rồi thử lại."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "Bài viết"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Không thể lưu bài đăng — tiêu đề hoặc nội dung không hợp lệ"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "Không thể lưu bài đăng trên máy chủ diễn đàn"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "Đã xoá bài viết"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "Giới hạn bài viết"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "Đã khoá bài viết"
 
@@ -2164,39 +2393,39 @@ msgstr "Đã khoá bài viết"
 msgid "Post not found"
 msgstr "Không tìm thấy bài viết"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "Đã ghim bài viết"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "Đã xuất bản bài viết."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "Đã gỡ bài viết"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "Đã khôi phục bài viết"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "Đã mở khoá bài viết"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "Đã bỏ ghim bài viết"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "Đã cập nhật bài viết"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "Đăng, bình luận, bỏ phiếu và xem"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "bài viết"
 
@@ -2208,16 +2437,16 @@ msgstr "Bài viết"
 msgid "Posts and comments"
 msgstr "Bài viết và bình luận"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "Kiểm duyệt trước"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Ngăn spam bằng cách giới hạn tần suất đăng bài của người dùng"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Hình trước"
 
@@ -2230,13 +2459,13 @@ msgstr "Quyền riêng tư"
 msgid "Processing…"
 msgstr "Đang xử lý…"
 
-#: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "Thành viên dự án"
-
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Đã lưu prompt"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Thuộc tính"
 
 #: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
@@ -2250,7 +2479,7 @@ msgstr "Đang xuất bản..."
 msgid "Push notification"
 msgstr "Thông báo đẩy"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "Hàng đợi"
 
@@ -2258,24 +2487,24 @@ msgstr "Hàng đợi"
 msgid "Raised"
 msgstr "Nổi lên"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "Giới hạn tần suất"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Liên kết lại các tài khoản của bạn trên máy chủ này"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Đăng ký lại mã khóa của bạn trên máy chủ này"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:716
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "Lý do:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:907
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "Lý do: {0}"
 
@@ -2291,25 +2520,33 @@ msgstr "Diễn đàn được đề xuất"
 msgid "Reconnecting ({retries})..."
 msgstr "Đang kết nối lại ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "Ghi âm thất bại. Vui lòng thử lại."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "Bản ghi âm không có âm thanh"
+
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "Đang chuyển hướng đến đăng nhập."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "Giảm sự quan tâm"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:474
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "Từ chối"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:246
-#: src/routes/_authenticated/$forum_.moderation.tsx:250
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "Đã từ chối"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Liên quan đến"
 
@@ -2321,16 +2558,24 @@ msgstr "Tương đối (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Tương đối trong vòng 24 giờ, ngoài ra dùng tuyệt đối"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "Mức liên quan {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "Mức liên quan {relevance}, mức quan tâm {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:472
-#: src/features/forums/components/thread/thread-comment.tsx:528
-#: src/features/forums/components/thread/thread-content.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:452
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
-#: src/routes/_authenticated/$forum_.moderation.tsx:1065
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "Xoá"
 
@@ -2354,7 +2599,7 @@ msgstr "Xóa quy tắc truy cập cho \"{0}\"?"
 msgid "Remove access?"
 msgstr "Xoá quyền truy cập?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Xoá bình luận"
 
@@ -2363,31 +2608,32 @@ msgstr "Xoá bình luận"
 msgid "Remove from saved"
 msgstr "Xóa khỏi mục đã lưu"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "Xoá sở thích"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "Xoá mục"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Xóa liên kết"
 
-#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "Xoá bài viết"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "Xoá diễn đàn này khỏi thanh bên của bạn."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:285
-#: src/features/forums/components/thread/thread-content.tsx:168
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "Đã xoá"
 
@@ -2399,49 +2645,49 @@ msgstr "Đã xóa khỏi mục đã lưu"
 msgid "Removing..."
 msgstr "Đang xoá..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "Đổi tên"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "Đổi tên cột"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "Đổi tên cột bảng này"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "Đang đổi tên diễn đàn..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "phản hồi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "Phản hồi phải được duyệt"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:403
-#: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:318
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "Trả lời"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:563
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "Trả lời {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:480
-#: src/features/forums/components/thread/thread-content.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "Báo cáo"
 
@@ -2453,63 +2699,87 @@ msgstr "Báo cáo bình luận"
 msgid "Report post"
 msgstr "Báo cáo bài viết"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:584
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "Đã giải quyết báo cáo"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "Đã gửi báo cáo"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:724
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "Báo cáo bởi {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "Báo cáo"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "Yêu cầu duyệt trước khi nội dung được hiển thị"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "Yêu cầu duyệt cho bình luận mới"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "Yêu cầu duyệt cho bài viết mới"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "Yêu cầu duyệt cho người dùng mới"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "Bắt buộc"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Gửi lại email"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Đầu hàng"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Đầu hàng trận đấu?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Đang đầu hàng..."
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "Đã giải quyết"
 
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-content.tsx:368
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "Khôi phục"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "Đã gỡ bỏ hạn chế"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "Hạn chế"
 
@@ -2533,12 +2803,12 @@ msgstr "Thu hồi quyền truy cập"
 msgid "Revoke RSS access?"
 msgstr "Thu hồi quyền truy cập RSS?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "Hàng"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "Nhóm hàng theo"
 
@@ -2560,16 +2830,16 @@ msgstr "Thứ bảy"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:328
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "Lưu"
 
-#: src/features/forums/components/edit-post-dialog.tsx:407
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "Lưu thay đổi"
 
@@ -2590,19 +2860,19 @@ msgid "Saved posts cleared"
 msgstr "Đã xóa các bài viết đã lưu"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:402
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Đang lưu..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Lời nhắc điểm"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -2614,15 +2884,15 @@ msgstr "Tìm kiếm theo tên, ID, dấu vân tay hoặc URL..."
 msgid "Search for a command to run..."
 msgstr "Tìm lệnh để chạy..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "Tìm kiếm một địa điểm"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "Tìm địa điểm..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "Tìm kiếm điểm đến..."
 
@@ -2630,11 +2900,11 @@ msgstr "Tìm kiếm điểm đến..."
 msgid "Search for forums..."
 msgstr "Tìm kiếm diễn đàn..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "Tìm kiếm điểm xuất phát..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Tìm kiếm đối tượng..."
 
@@ -2652,8 +2922,8 @@ msgstr "Tìm kiếm, theo dõi và sắp xếp chế độ xem này."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Tìm kiếm..."
@@ -2663,15 +2933,15 @@ msgstr "Tìm kiếm..."
 msgid "Searching..."
 msgstr "Đang tìm kiếm..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "giây"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "Chọn"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "Chọn một trường"
 
@@ -2699,7 +2969,7 @@ msgstr "Chọn quy tắc truy cập"
 msgid "Select account type"
 msgstr "Chọn loại tài khoản"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "Chọn tất cả"
 
@@ -2707,7 +2977,7 @@ msgstr "Chọn tất cả"
 msgid "Select group"
 msgstr "Chọn nhóm"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "Chọn vị trí"
 
@@ -2715,11 +2985,11 @@ msgstr "Chọn vị trí"
 msgid "Select next card"
 msgstr "Chọn thẻ tiếp theo"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "Bỏ chọn tất cả"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "Chọn người..."
 
@@ -2727,8 +2997,8 @@ msgstr "Chọn người..."
 msgid "Select previous card"
 msgstr "Chọn thẻ trước"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "Chọn..."
 
@@ -2741,7 +3011,7 @@ msgstr "Đã chọn: <0>{0}</0>"
 msgid "Send again"
 msgstr "Gửi lại"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "Gửi email"
 
@@ -2768,29 +3038,29 @@ msgstr "Quy tắc máy chủ"
 msgid "Session expired. Please log in again."
 msgstr "Phiên đã hết hạn. Vui lòng đăng nhập lại."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "Đặt điểm xuất phát và điểm đến"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "Cài đặt"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:793
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "Bị cấm ngầm"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "Hiển thị lớp"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "Hiển thị trường"
 
@@ -2802,7 +3072,7 @@ msgstr "Chỉ hiển thị bình luận về hình ảnh này"
 msgid "Show this help"
 msgstr "Hiển thị trợ giúp này"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "Đang hiển thị {totalShown} trên {total}"
 
@@ -2810,17 +3080,21 @@ msgstr "Đang hiển thị {totalShown} trên {total}"
 msgid "Sidebar"
 msgstr "Thanh bên"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "Hãy đăng nhập bằng tài khoản có quyền truy cập <0/> vào tài nguyên này."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Đăng xuất"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "Đang đăng xuất..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "Chỉ một dòng văn bản"
 
@@ -2842,23 +3116,28 @@ msgid "Spacious"
 msgstr "Rộng rãi"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "Spam"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "Bắt đầu thảo luận bằng cách thêm bình luận đầu tiên."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Ngừng theo dõi"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Tiêu đề"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "Gửi bình luận"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "Gửi trả lời"
 
@@ -2870,12 +3149,12 @@ msgstr "Gửi báo cáo"
 msgid "Submitting..."
 msgstr "Đang gửi..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "Đăng ký"
 
@@ -2889,14 +3168,14 @@ msgstr "Đã đăng ký"
 msgid "Subscribed to {0}"
 msgstr "Đã đăng ký {0}"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "Đã đăng ký diễn đàn"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Đang đăng ký..."
@@ -2915,24 +3194,24 @@ msgstr "Chuyển sang chế độ xem 1-9"
 msgid "System"
 msgstr "Hệ thống"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "Thẻ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "Thẻ đã tồn tại"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "Thẻ phải có tối đa 50 ký tự"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "Lời nhắc thẻ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "Các thẻ"
 
@@ -2945,11 +3224,11 @@ msgstr "Chạm vào dấu trang trên bất kỳ bài viết nào để lưu và
 msgid "Terms and conditions"
 msgstr "Điều khoản và điều kiện"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "Văn bản"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "Mã đó không đúng hoặc đã hết hạn."
 
@@ -2962,7 +3241,23 @@ msgstr "Không thể gửi. Tệp có thể quá lớn, hoặc kết nối của
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Quá lớn để tải lên. Hãy xóa hoặc thu nhỏ tệp rồi thử lại."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Máy ảnh đang được sử dụng"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Yêu cầu máy ảnh không được trả lời"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Yêu cầu micrô không được trả lời"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Yêu cầu passkey không được trả lời"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "Không tìm thấy nội dung được yêu cầu."
 
@@ -2970,28 +3265,36 @@ msgstr "Không tìm thấy nội dung được yêu cầu."
 msgid "The server returned a web page instead of data."
 msgstr "Máy chủ đã trả về một trang web thay vì dữ liệu."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "Chưa có hành động kiểm duyệt nào được ghi lại"
 
-#: src/features/forums/components/thread/thread-comment.tsx:540
-#: src/features/forums/components/thread/thread-content.tsx:464
-msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
-msgstr "Họ sẽ mất quyền truy cập diễn đàn này. Bạn có thể gỡ bỏ sau trong tab Hạn chế."
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Ứng dụng này không được phép sử dụng passkey của bạn. Hãy cho phép trong Cài đặt, mục Quyền."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "Không thể tải diễn đàn này ngay bây giờ."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Diễn đàn này có thể đã bị xóa hoặc bạn không có quyền truy cập."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Thao tác này sẽ xóa vĩnh viễn trận đấu và cuộc trò chuyện của nó. Không thể hoàn tác thao tác này."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Bài đăng này có thể đã bị xóa hoặc không tồn tại."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "Bài đăng này đã được gửi"
 
@@ -2999,16 +3302,16 @@ msgstr "Bài đăng này đã được gửi"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Thao tác này xóa mọi bài viết khỏi danh sách đã lưu của bạn. Không thể hoàn tác."
 
-#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Điều này sẽ ẩn bình luận khỏi người dùng thông thường. Người kiểm duyệt vẫn có thể xem và khôi phục sau."
 
-#: src/features/forums/components/thread/thread-content.tsx:451
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Điều này sẽ ẩn bài đăng khỏi người dùng thông thường. Người kiểm duyệt vẫn có thể xem và khôi phục sau."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Điều này sẽ xóa vĩnh viễn \"{0}\" và tất cả bài đăng và bình luận của nó. Hành động này không thể hoàn tác."
 
@@ -3021,7 +3324,7 @@ msgid "Thursday"
 msgstr "Thứ năm"
 
 #: src/features/forums/components/create-post-dialog.tsx:230
-#: src/features/forums/components/edit-post-dialog.tsx:296
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "Tiêu đề"
 
@@ -3037,25 +3340,22 @@ msgstr "Tiêu đề là bắt buộc"
 msgid "Title must be 1000 characters or less"
 msgstr "Tiêu đề phải có 1000 ký tự trở xuống"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "Đến"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "Bật/tắt mục"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-msgid "Toggle sidebar"
-msgstr "Bật/tắt thanh bên"
-
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
+msgid "Toggle sidebar"
 msgstr "Bật/tắt thanh bên"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3067,7 +3367,7 @@ msgstr "Bật/tắt tùy chọn xem"
 msgid "Toggle watched filter"
 msgstr "Bật/tắt bộ lọc đã theo dõi"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "Quá nhiều yêu cầu"
 
@@ -3075,7 +3375,7 @@ msgstr "Quá nhiều yêu cầu"
 msgid "Top"
 msgstr "Đầu"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "Đang di chuyển"
 
@@ -3083,8 +3383,8 @@ msgstr "Đang di chuyển"
 msgid "Try adjusting your search terms"
 msgstr "Hãy thử điều chỉnh từ khóa tìm kiếm"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "Thử lại"
 
@@ -3092,12 +3392,12 @@ msgstr "Thử lại"
 msgid "Tuesday"
 msgstr "Thứ ba"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "Loại"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "Nhập lệnh hoặc tìm kiếm..."
 
@@ -3117,8 +3417,8 @@ msgstr "Nhập để tìm kiếm..."
 msgid "Unable to connect to remote server"
 msgstr "Không thể kết nối đến máy chủ từ xa"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "Không thể chuyển hướng đến trang đăng nhập. Vui lòng thử lại."
 
@@ -3126,16 +3426,12 @@ msgstr "Không thể chuyển hướng đến trang đăng nhập. Vui lòng th�
 msgid "Unassigned"
 msgstr "Chưa phân công"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "Truy cập không được phép"
-
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Không khả dụng"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "Lỗi API không mong muốn"
 
@@ -3143,58 +3439,79 @@ msgstr "Lỗi API không mong muốn"
 msgid "United States"
 msgstr "Hoa Kỳ"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "Không rõ"
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "Mở khóa"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "Bỏ ghim"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/features/forums/pages/entity-forum-page.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "Hủy đăng ký"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "Hủy đăng ký diễn đàn"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "Unsubscribe from forum?"
 msgstr "Hủy theo dõi diễn đàn?"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "Đã hủy đăng ký"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "Đang hủy đăng ký..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Không có tiêu đề"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "Đã cập nhật"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "Đã cập nhật {field}"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Tải lên"
 
@@ -3202,13 +3519,13 @@ msgstr "Tải lên"
 msgid "Upload progress"
 msgstr "Tiến trình tải lên"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "Dùng mã khóa của bạn"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Người dùng"
 
@@ -3228,7 +3545,7 @@ msgstr "Biến: {variables}"
 msgid "Verification code"
 msgstr "Mã xác minh"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Xác minh"
@@ -3237,40 +3554,53 @@ msgstr "Xác minh"
 msgid "Verify email address"
 msgstr "Xác minh địa chỉ email"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "Hình thu nhỏ video"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Trình xem video: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "Xem tất cả thông báo"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Xem và chỉnh sửa chi tiết mục"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Điều khiển xem"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "Chỉ xem"
 
-#: src/features/forums/components/thread/thread-comment.tsx:261
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "Xem hình ảnh mà bình luận này nói đến"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:803
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "Bạo lực"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "Trình duyệt này không hỗ trợ ghi âm giọng nói"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "Bỏ phiếu và xem"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Theo dõi"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3290,30 +3620,42 @@ msgstr "Chúng tôi đã gửi mã xác minh đến <0>{0}</0>. Nhập mã bên 
 msgid "Wednesday"
 msgstr "Thứ tư"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "Thời lượng cửa sổ"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Bạn đã đăng ký diễn đàn này"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Bạn đang đăng quá nhanh — vui lòng đợi và thử lại"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "Bạn bị hạn chế đăng bài trong diễn đàn này"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "Bạn không có quyền truy cập vào phần này."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "Bạn không có quyền đăng bài trong diễn đàn này"
 
@@ -3321,11 +3663,11 @@ msgstr "Bạn không có quyền đăng bài trong diễn đàn này"
 msgid "You have no forums yet."
 msgstr "Bạn chưa có diễn đàn nào."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Bạn sẽ ngừng nhận cập nhật từ diễn đàn này. Bạn có thể theo dõi lại bất cứ lúc nào."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Tài khoản của bạn đã được chuyển đến đây từ {source}. Cho đến khi bạn xóa nó ở đó, tin nhắn và thông báo có thể đến cả hai máy chủ, một số nội dung của bạn vẫn được phục vụ từ máy chủ cũ và người theo dõi có thể mất vài phút để tìm thấy bạn ở đây."
 
@@ -3333,7 +3675,7 @@ msgstr "Tài khoản của bạn đã được chuyển đến đây từ {sourc
 msgid "Your attachments will be lost."
 msgstr "Tệp đính kèm của bạn sẽ bị mất."
 
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:274
 msgid "Your changes will be lost."
 msgstr "Các thay đổi của bạn sẽ bị mất."
 

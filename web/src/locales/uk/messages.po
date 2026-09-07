@@ -14,33 +14,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "Будь ласка, перевірте підключення до Інтернету та спробуйте ще раз."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1051
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · Закінчується {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1052
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · Постійно"
 
-#: src/features/forums/components/thread/thread-comment.tsx:250
-#: src/features/forums/components/thread/thread-content.tsx:204
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (відредаговано)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " або "
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(відредаговано)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(розгорнути)"
 
@@ -49,62 +45,100 @@ msgid "[not set]"
 msgstr "[не задано]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# новий допис} few {# нові дописи} many {# нових дописів} other {# нового допису}}"
 
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr ""
+
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:521
+#: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# вибрано} few {# вибрано} many {# вибрано} other {# вибрано}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:302
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {Заблоковано # користувача} few {Заблоковано # користувачів} many {Заблоковано # користувачів} other {Заблоковано # користувачів}}"
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# вкладений} few {+# вкладені} many {+# вкладених} other {+# вкладених}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:285
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {Заглушено # користувача} few {Заглушено # користувачів} many {Заглушено # користувачів} other {Заглушено # користувачів}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#~ msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+#~ msgstr "{0, plural, one {Заблоковано # користувача} few {Заблоковано # користувачів} many {Заблоковано # користувачів} other {Заблоковано # користувачів}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#~ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+#~ msgstr "{0, plural, one {Заглушено # користувача} few {Заглушено # користувачів} many {Заглушено # користувачів} other {Заглушено # користувачів}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "Налаштування {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#д} other {#д}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#год} other {#год}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#хв} other {#хв}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#тиж} other {#тиж}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:231
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {Схвалено # елемент} few {Схвалено # елементів} many {Схвалено # елементів} other {Схвалено # елементів}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#~ msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+#~ msgstr "{count, plural, one {Схвалено # елемент} few {Схвалено # елементів} many {Схвалено # елементів} other {Схвалено # елементів}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:253
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {Відхилено # елемент} few {Відхилено # елементів} many {Відхилено # елементів} other {Відхилено # елементів}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#~ msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+#~ msgstr "{count, plural, one {Відхилено # елемент} few {Відхилено # елементів} many {Відхилено # елементів} other {Відхилено # елементів}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "Назва {entityLabel}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "Потрібна назва {entityLabel}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -114,7 +148,7 @@ msgstr "{opponentName} запропонував нічию"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {Показати ще # коментар до цього допису} few {Показати ще # коментарі до цього допису} many {Показати ще # коментарів до цього допису} other {Показати ще # коментаря до цього допису}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:533
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
 msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
 msgstr "{selectedAuthorCount, plural, one {# автор втратить доступ до цього форуму. Пізніше ви зможете зняти блокування на вкладці «Обмеження».} few {# автори втратять доступ до цього форуму. Пізніше ви зможете зняти блокування на вкладці «Обмеження».} many {# авторів втратять доступ до цього форуму. Пізніше ви зможете зняти блокування на вкладці «Обмеження».} other {# автора втратять доступ до цього форуму. Пізніше ви зможете зняти блокування на вкладці «Обмеження».}}"
 
@@ -123,30 +157,21 @@ msgstr "{selectedAuthorCount, plural, one {# автор втратить дос�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} з {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# елемент} few {# елементи} many {# елементів} other {# елемента}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:236
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# відповідь} few {# відповідей} many {# відповідей} other {# відповідей}}"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# відповідь} few {ще +# відповідей} many {ще +# відповідей} other {ще +# відповідей}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Відкрити меню (# непрочитане сповіщення)} few {Відкрити меню (# непрочитаних сповіщення)} many {Відкрити меню (# непрочитаних сповіщень)} other {Відкрити меню (# непрочитаного сповіщення)}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} вкладених"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} інших відповідей"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 відповідь"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -156,6 +181,10 @@ msgstr "12 годин"
 msgid "24 hours"
 msgstr "24 години"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "Запис уже триває."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "Абсолютне (дата й час)"
@@ -164,11 +193,12 @@ msgstr "Абсолютне (дата й час)"
 msgid "Accept"
 msgstr "Прийняти"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "Доступ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "Доступ заборонено"
 
@@ -176,23 +206,23 @@ msgstr "Доступ заборонено"
 msgid "Access level"
 msgstr "Рівень доступу"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "Рівень доступу оновлено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "Керування доступом"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "Доступ скасовано"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "Доступ налаштовано для {subjectName}"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "Обліковий запис"
 
@@ -200,13 +230,17 @@ msgstr "Обліковий запис"
 msgid "Account type"
 msgstr "Тип облікового запису"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Активність"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "Додати"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "Додати коментар..."
 
@@ -214,7 +248,7 @@ msgstr "Додати коментар..."
 msgid "Add a new account"
 msgstr "Додати новий обліковий запис"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "Додати нове поле до цього класу"
 
@@ -230,41 +264,41 @@ msgstr "Додати обліковий запис"
 msgid "Add caption"
 msgstr "Додати підпис"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "Додати пункт списку"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "Додати поле"
 
 #: src/features/forums/components/create-post-dialog.tsx:293
-#: src/features/forums/components/edit-post-dialog.tsx:342
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "Додати файли"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "Додати елемент..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Додати посилання"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "Додати варіант"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "Додати правило"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "Додати тег..."
 
@@ -272,8 +306,8 @@ msgstr "Додати тег..."
 msgid "Add to existing notifications"
 msgstr "Додати до наявних сповіщень"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -288,15 +322,15 @@ msgid "Additional details (optional)"
 msgstr "Додаткові відомості (необов'язково)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "AI-дії над дописами"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "Усі"
 
@@ -305,20 +339,19 @@ msgstr "Усі"
 msgid "All forums"
 msgstr "Усі форуми"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:357
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "Усі дописи та коментарі переглянуто"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "Дозволити всім шукати {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "Дозволити всім шукати {entityLabel}"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "Дозволити будь-кому шукати форум"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "Дозволити сортування за"
 
@@ -327,6 +360,7 @@ msgid "An error occurred"
 msgstr "Сталася помилка"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "Сталася неочікувана помилка"
 
@@ -351,17 +385,25 @@ msgstr "Будь-хто, хто увійшов"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "Усе, що підписане на цей канал, перестане його отримувати. Після цього ви зможете скопіювати нову URL-адресу."
 
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/routes/_authenticated/$forum_.moderation.tsx:486
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "Схвалити"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Ви впевнені, що хочете видалити \"{0}\"?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "Ви впевнені, що хочете видалити \"{title}\"? Цю дію не можна скасувати."
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Ви впевнені, що хочете видалити стовпець \"{name}\"? Цю дію не можна скасувати."
 
@@ -369,11 +411,11 @@ msgstr "Ви впевнені, що хочете видалити стовпец
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Ви впевнені, що хочете видалити цей коментар? Це також видалить усі відповіді."
 
-#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "Ви впевнені, що хочете видалити цей коментар? Це також видалить усі відповіді. Цю дію не можна скасувати."
 
-#: src/features/forums/components/thread/thread-content.tsx:437
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "Ви впевнені, що хочете видалити цей допис? Це також видалить усі коментарі. Цю дію не можна скасувати."
 
@@ -381,15 +423,23 @@ msgstr "Ви впевнені, що хочете видалити цей доп�
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Ви впевнені, що хочете вийти? Вам доведеться увійти знову, щоб отримати доступ до облікового запису."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Ви впевнені, що хочете здатися?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Ви впевнені, що хочете здатися? {opponentName} виграє партію."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "За зростанням"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "Додати файли коментаря"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "Додати файли відповіді"
 
@@ -398,7 +448,7 @@ msgstr "Додати файли відповіді"
 msgid "Authenticated users"
 msgstr "Автентифіковані користувачі"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "Код автентифікатора"
 
@@ -406,15 +456,15 @@ msgstr "Код автентифікатора"
 msgid "Available keyboard shortcuts"
 msgstr "Доступні комбінації клавіш"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "Аватар"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "Аватар для {name}"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "Назад"
 
@@ -422,82 +472,89 @@ msgstr "Назад"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "Назад до форуму"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "Назад до форумів"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "На головну"
 
-#: src/features/forums/components/thread/thread-comment.tsx:541
-#: src/features/forums/components/thread/thread-content.tsx:465
-#: src/routes/_authenticated/$forum_.moderation.tsx:512
-#: src/routes/_authenticated/$forum_.moderation.tsx:537
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "Заблокувати"
 
-#: src/features/forums/components/thread/thread-comment.tsx:497
-#: src/features/forums/components/thread/thread-comment.tsx:539
-#: src/features/forums/components/thread/thread-content.tsx:421
-#: src/features/forums/components/thread/thread-content.tsx:463
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "Заблокувати автора"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:532
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Ban authors"
 msgstr "Заблокувати авторів"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:791
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "Заблоковано"
 
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "Банер"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Банер видалено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Банер оновлено"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Блокується"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "Перехід за недовіреним посиланням заблоковано"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Блокує"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "Дошка"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "Підвищити інтерес"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "Колір рамки"
 
@@ -506,43 +563,57 @@ msgid "Browser notifications"
 msgstr "Сповіщення браузера"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "від {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1049
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "Від {0}"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Дозвіл на камеру відхилено"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Камера недоступна"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:317
-#: src/features/forums/components/edit-post-dialog.tsx:393
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:308
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "Скасувати коментар"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "Скасувати відповідь"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Скасовано"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -558,15 +629,23 @@ msgstr "Категорія цих сповіщень"
 msgid "Change notification category"
 msgstr "Змінити категорію сповіщення"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "Змінено"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "Змінено {field}"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "Зайдіть пізніше за новим вмістом"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "Прапорець"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "Контрольний список"
 
@@ -579,13 +658,13 @@ msgstr "Виберіть гру на бічній панелі або почні
 msgid "Choose language"
 msgstr "Виберіть мову"
 
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
 msgid "Clear"
 msgstr "Очистити"
 
@@ -607,19 +686,19 @@ msgstr "Очистити пошук"
 msgid "Clearing saved posts..."
 msgstr "Очищення збережених дописів..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Закрити"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "Закрити діалог"
 
@@ -652,16 +731,16 @@ msgstr "Згорнути"
 msgid "Collapse sidebar"
 msgstr "Згорнути бічну панель"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "Колір"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "Дії зі стовпцем"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "Стовпці згруповано за"
 
@@ -673,7 +752,7 @@ msgstr "Зручний"
 msgid "Command Palette"
 msgstr "Палітра команд"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:784
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "Коментар"
 
@@ -682,15 +761,23 @@ msgstr "Коментар"
 msgid "Comment actions"
 msgstr "Дії з коментарем"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "Коментар схвалено"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "Коментар видалено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "Обмеження коментарів"
 
@@ -698,45 +785,50 @@ msgstr "Обмеження коментарів"
 msgid "Comment on this image…"
 msgstr "Прокоментувати це зображення…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "Коментар опубліковано"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "Коментар видалено"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "Коментар відновлено"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "Коментар оновлено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "Коментування, голосування та перегляд"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Коментарі"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Коментарі ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "Компактний"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "Налаштувати параметри варіанта"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "Налаштувати параметри подання"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "Підтвердити"
 
@@ -749,11 +841,11 @@ msgid "Connecting..."
 msgstr "З'єднання..."
 
 #: src/features/forums/components/create-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:313
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "Вміст"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "Вміст від користувачів нижче порогового рівня має бути схвалено"
 
@@ -765,7 +857,7 @@ msgstr "Вміст обовʼязковий"
 msgid "Content not found."
 msgstr "Вміст не знайдено."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "Вміст не змінено"
 
@@ -777,7 +869,7 @@ msgstr "Контекстна інформація та деталі."
 msgid "Continue"
 msgstr "Продовжити"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "Продовжити з {label}"
 
@@ -797,34 +889,33 @@ msgstr "Копіювати"
 msgid "Could not load this document. Please try again later."
 msgstr "Не вдалося завантажити цей документ. Спробуйте пізніше."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "Не вдалося завантажити сповіщення"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "Не вдалося надіслати код. Спробуйте ще раз."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Не вдалося розпочати повторну автентифікацію. Спробуйте ще раз."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Не вдалося підтвердити за допомогою цього облікового запису. Спробуйте ще раз."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Створити"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "Створити {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "Створити {entityLabel}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -835,7 +926,7 @@ msgid "Create a new post"
 msgstr "Створити новий допис"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "Створити форум"
 
@@ -843,21 +934,26 @@ msgstr "Створити форум"
 msgid "Create new item"
 msgstr "Створити новий елемент"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "Створено"
 
-#: src/hooks/use-forums-queries.ts:81
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "Створено {field}"
+
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "Створення форуму..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "Створення..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "Поточне місце"
 
@@ -874,11 +970,11 @@ msgstr "Темна"
 msgid "Data conflict"
 msgstr "Конфлікт даних"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "Дата"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "днів"
 
@@ -890,7 +986,7 @@ msgstr "Відхилити"
 msgid "Default"
 msgstr "За замовчуванням"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "Обліковий запис за замовчуванням"
 
@@ -898,84 +994,108 @@ msgstr "Обліковий запис за замовчуванням"
 msgid "Default AI account"
 msgstr "AI-обліковий запис за замовчуванням"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "Сортування за замовчуванням"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:444
-#: src/features/forums/components/thread/thread-comment.tsx:514
-#: src/features/forums/components/thread/thread-content.tsx:358
-#: src/features/forums/components/thread/thread-content.tsx:438
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "Видалити"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "Видалити вкладення"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "Видалити стовпець"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "Видалити коментар"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "Видалити поле"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "Видалити форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "Видалити форум?"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Видалити гру?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Видалити елемент"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "Видалити варіант"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "Видалити варіант {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "Видалити допис"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "Видалити подання"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Видаліть свій обліковий запис на старому сервері"
 
-#: src/hooks/use-forums-queries.ts:97
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "Видалено"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "Видалено {field}"
+
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "Видалення форуму..."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "Видалення..."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "За спаданням"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "Опис"
 
@@ -998,11 +1118,11 @@ msgstr "Панель деталей"
 msgid "Detect from web browser"
 msgstr "Визначати з веббраузера"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Каталог"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "Вимкнено"
 
@@ -1019,14 +1139,14 @@ msgstr "Відхилити чернетку?"
 msgid "Disconnected"
 msgstr "Відключено"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:735
+#: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "Закрити"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "Закрити банер"
 
@@ -1034,22 +1154,28 @@ msgstr "Закрити банер"
 msgid "Displays the mobile sidebar."
 msgstr "Відображає мобільну бічну панель."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "Не відповідає потрібному шаблону"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Готово"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Завантажити"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "Не вдалося завантажити"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Дублює"
 
@@ -1059,12 +1185,12 @@ msgstr "Підходить при дислексії"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-content.tsx:352
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "Редагувати"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "Редагувати {label}"
 
@@ -1072,26 +1198,26 @@ msgstr "Редагувати {label}"
 msgid "Edit caption"
 msgstr "Редагувати підпис"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "Редагувати поле"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "Редагувати налаштування поля"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "Редагувати варіант"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "Редагувати параметр {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:283
-#: src/features/forums/components/edit-post-dialog.tsx:285
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "Редагувати допис"
 
@@ -1099,7 +1225,7 @@ msgstr "Редагувати допис"
 msgid "Edit selected card"
 msgstr "Редагувати вибрану картку"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "Редагувати вигляд"
 
@@ -1107,25 +1233,29 @@ msgstr "Редагувати вигляд"
 msgid "Email"
 msgstr "Електронна пошта"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "Код електронної пошти"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Введіть текст банера (підтримується markdown)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "Введіть код зі свого електронного листа"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "Введіть код з програми автентифікації"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "ID сутності"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Помилка"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1146,28 +1276,32 @@ msgstr "Зовнішній URL"
 msgid "Extra large"
 msgstr "Дуже великий"
 
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "Не вдалося додати обліковий запис"
+
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "Не вдалося додати тег"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "Не вдалося скоригувати інтерес"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:234
-msgid "Failed to approve items"
-msgstr "Не вдалося схвалити елементи"
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#~ msgid "Failed to approve items"
+#~ msgstr "Не вдалося схвалити елементи"
 
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "Не вдалося заблокувати користувача"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:305
-msgid "Failed to ban users"
-msgstr "Не вдалося заблокувати користувачів"
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#~ msgid "Failed to ban users"
+#~ msgstr "Не вдалося заблокувати користувачів"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1178,28 +1312,32 @@ msgstr "Не вдалося очистити збережені дописи"
 msgid "Failed to copy"
 msgstr "Не вдалося скопіювати"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "Не вдалося створити форум"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Не вдалося створити посилання"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "Не вдалося видалити"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "Не вдалося видалити вкладення"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "Не вдалося видалити коментар"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "Не вдалося видалити форум"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Не вдалося видалити посилання"
 
@@ -1211,23 +1349,28 @@ msgstr "Не вдалося отримати RSS-токен"
 msgid "Failed to load"
 msgstr "Не вдалося завантажити"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "Не вдалося завантажити правила доступу"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr ""
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "Не вдалося завантажити форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "Не вдалося завантажити налаштування форуму"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "Не вдалося завантажити форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "Не вдалося завантажити групи"
 
@@ -1235,19 +1378,24 @@ msgstr "Не вдалося завантажити групи"
 msgid "Failed to load history"
 msgstr "Не вдалося завантажити історію"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Не вдалося завантажити зображення"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Не вдалося завантажити елемент"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "Не вдалося завантажити журнал модерації"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:167
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "Не вдалося завантажити чергу модерації"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "Не вдалося завантажити налаштування модерації"
 
@@ -1260,44 +1408,48 @@ msgstr "Не вдалося завантажити запити"
 msgid "Failed to load recommended forums"
 msgstr "Не вдалося завантажити рекомендовані форуми"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:570
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "Не вдалося завантажити скарги"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:940
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "Не вдалося завантажити обмеження"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Не вдалося завантажити відео"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Не вдалося перемістити"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "Не вдалося приглушити користувача"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:288
-msgid "Failed to mute users"
-msgstr "Не вдалося приглушити користувачів"
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#~ msgid "Failed to mute users"
+#~ msgstr "Не вдалося приглушити користувачів"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "Не вдалося опублікувати коментар"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
-msgid "Failed to reject items"
-msgstr "Не вдалося відхилити елементи"
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#~ msgid "Failed to reject items"
+#~ msgstr "Не вдалося відхилити елементи"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "Не вдалося видалити доступ"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "Не вдалося видалити інтерес"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:957
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "Не вдалося зняти обмеження"
 
@@ -1305,7 +1457,7 @@ msgstr "Не вдалося зняти обмеження"
 msgid "Failed to remove saved post"
 msgstr "Не вдалося видалити збережений допис"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "Не вдалося перейменувати форум"
 
@@ -1313,7 +1465,7 @@ msgstr "Не вдалося перейменувати форум"
 msgid "Failed to reset prompt"
 msgstr "Не вдалося скинути запит"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:587
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "Не вдалося вирішити скаргу"
 
@@ -1321,7 +1473,11 @@ msgstr "Не вдалося вирішити скаргу"
 msgid "Failed to revoke RSS access"
 msgstr "Не вдалося відкликати доступ RSS"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "Не вдалося зберегти"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "Не вдалося зберегти налаштування модерації"
 
@@ -1338,56 +1494,60 @@ msgstr "Не вдалося зберегти запит"
 msgid "Failed to search forums"
 msgstr "Не вдалося виконати пошук форумів"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "Не вдалося знайти користувачів"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "Не вдалося встановити рівень доступу"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "Не вдалося підписатися"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "Не вдалося відписатися"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "Не вдалося оновити рівень доступу"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "Не вдалося оновити налаштування ШІ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Не вдалося оновити банер"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "Не вдалося оновити коментар"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Не вдалося оновити стеження"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Не вдалося завантажити вкладення"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:289
-#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "Файли"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "Фільтр за тегом:"
 
@@ -1396,15 +1556,15 @@ msgstr "Фільтр за тегом:"
 msgid "Find forums"
 msgstr "Знайти форуми"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "Відбиток"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Завершіть переміщення облікового запису"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "Прапорці"
 
@@ -1412,23 +1572,26 @@ msgstr "Прапорці"
 msgid "Flat"
 msgstr "Плаский"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/components/create-forum-dialog.tsx:53
+msgid "forum"
+msgstr "форум"
+
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "Форум"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "Форум створено"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "Форум видалено"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "Форум більше недоступний"
 
@@ -1436,23 +1599,24 @@ msgstr "Форум більше недоступний"
 msgid "Forum link"
 msgstr "Посилання на форум"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "Назва форуму є обов'язковою"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "Форум не знайдено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "Форум перейменовано"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "Розділи налаштувань форуму"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "Форум недоступний"
 
@@ -1467,11 +1631,11 @@ msgstr "Форуми"
 msgid "Friday"
 msgstr "П'ятниця"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "Друзі"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "Від"
 
@@ -1483,8 +1647,8 @@ msgstr "Від"
 msgid "From theme"
 msgstr "З теми"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Назад"
 
@@ -1492,7 +1656,7 @@ msgstr "Назад"
 msgid "Group"
 msgstr "Група"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "Групувати за"
 
@@ -1502,12 +1666,12 @@ msgid "Group: {0}"
 msgstr "Група: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:801
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "Переслідування"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:802
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "Мова ворожнечі"
 
@@ -1517,8 +1681,8 @@ msgstr "Історія"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "Головна"
 
@@ -1526,16 +1690,16 @@ msgstr "Головна"
 msgid "Hot"
 msgstr "Популярне"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "Ідентифікатор"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "Ідентичність"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Перегляд зображень: {0}"
 
@@ -1555,6 +1719,10 @@ msgstr "Аватар з ініціалів"
 msgid "Initials avatar for {name}"
 msgstr "Аватар з ініціалів для {name}"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "Інтерес {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "Інтерес підвищено"
@@ -1563,7 +1731,7 @@ msgstr "Інтерес підвищено"
 msgid "Interest reduced"
 msgstr "Інтерес знижено"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "Інтерес видалено"
@@ -1572,7 +1740,7 @@ msgstr "Інтерес видалено"
 msgid "Interests"
 msgstr "Інтереси"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "Недійсна дата"
 
@@ -1580,7 +1748,11 @@ msgstr "Недійсна дата"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Схоже, сторінка, яку ви шукаєте, <0/>не існує або була вилучена."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Деталі елемента"
+
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Щойно"
 
@@ -1593,13 +1765,13 @@ msgstr "Комбінації клавіш"
 msgid "Large"
 msgstr "Великий"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "Макет"
 
-#: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "Лише літери, цифри, пробіли та дефіси"
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "Лише літери, цифри, пробіли, дефіси та скісні риски"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1609,15 +1781,15 @@ msgstr "Світла"
 msgid "Link"
 msgstr "Посилання"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Посилання"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "Список"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "Завантажити більше"
 
@@ -1625,20 +1797,29 @@ msgstr "Завантажити більше"
 msgid "Loading content…"
 msgstr "Завантаження вмісту…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Завантаження елемента"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Завантаження деталей елемента"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "Завантаження..."
 
-#: src/features/forums/components/thread/thread-content.tsx:387
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "Заблокувати"
 
-#: src/features/forums/components/thread/thread-content.tsx:174
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "Заблоковано"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "Журнал"
 
@@ -1667,8 +1848,8 @@ msgstr "Керувати категоріями"
 msgid "Manual"
 msgstr "Вручну"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "Позначити все як прочитане"
 
@@ -1676,7 +1857,7 @@ msgstr "Позначити все як прочитане"
 msgid "Markdown supported"
 msgstr "Markdown підтримується"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "Максимальна довжина"
 
@@ -1687,6 +1868,10 @@ msgstr "MCP-сервер"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "Середній"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "Учасники"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1700,12 +1885,16 @@ msgstr "Повідомлення"
 msgid "Metric"
 msgstr "Метричні"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "Дозвіл на мікрофон відхилено"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "Мінімальна довжина"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:804
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "Дезінформація"
 
@@ -1713,22 +1902,22 @@ msgstr "Дезінформація"
 msgid "Mochi web"
 msgstr "Mochi веб"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "Модерування, публікація, коментування, голосування та перегляд"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:101
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "Модерація"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:356
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "Черга модерації порожня"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:115
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "Розділи модерації"
 
@@ -1738,56 +1927,76 @@ msgstr "Понеділок"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:421
-#: src/features/forums/components/thread/thread-comment.tsx:427
-#: src/features/forums/components/thread/thread-content.tsx:339
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "Більше параметрів"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:500
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "Переміщено"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "Переміщено {field}"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "Заглушити"
 
-#: src/features/forums/components/thread/thread-comment.tsx:491
-#: src/features/forums/components/thread/thread-content.tsx:415
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "Заглушити автора"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:792
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "Приглушено"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "Ім'я"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "Ім'я не може містити символи < або >"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "Назва не може містити кутові дужки, зворотну скісну риску, крапку з комою, лапки або зворотні апострофи"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "Ім'я обов'язкове"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "Ім'я має містити 1000 символів або менше"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "Помилка мережі"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:208
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "Нове"
 
@@ -1799,32 +2008,32 @@ msgstr "Нова гра"
 #: src/features/forums/components/create-post-dialog.tsx:205
 #: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/create-post-dialog.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "Новий допис"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "Нові теми мають бути схвалені"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "Поріг нового користувача:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Наступне зображення"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Немає {parentClassNames} для додавання"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:667
-msgid "No {statusFilter} reports found"
-msgstr "Скарг {statusFilter} не знайдено"
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#~ msgid "No {statusFilter} reports found"
+#~ msgstr "Скарг {statusFilter} не знайдено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "Немає доступу"
 
@@ -1832,7 +2041,7 @@ msgstr "Немає доступу"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Правила доступу не налаштовано. Додайте правила, щоб керувати, хто може мати доступ до цього ресурсу."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "Активності ще немає"
 
@@ -1840,7 +2049,7 @@ msgstr "Активності ще немає"
 msgid "No comments on this image yet."
 msgstr "До цього зображення ще немає коментарів."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "Коментарів ще немає"
 
@@ -1857,24 +2066,28 @@ msgstr "Ігор ще немає"
 msgid "No groups available"
 msgstr "Немає доступних груп"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Жоден тип елемента ще не можна створити. Спершу створіть необхідні батьківські елементи."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Немає відповідних об'єктів"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:871
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "Немає активності з модерації"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "Людей не знайдено"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "Місць не знайдено"
 
@@ -1882,26 +2095,34 @@ msgstr "Місць не знайдено"
 msgid "No posts in this forum yet"
 msgstr "У цьому форумі ще немає дописів"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:666
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "Немає скарг"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "Без обмежень"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "Результатів не знайдено"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "Результатів не знайдено."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "Немає статусу"
 
@@ -1913,7 +2134,7 @@ msgstr "Часовий пояс не знайдено."
 msgid "No topic record yet — try again after the next notification."
 msgstr "Запису про тему ще немає — спробуйте ще раз після наступного сповіщення."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "Немає непрочитаних сповіщень"
 
@@ -1921,7 +2142,7 @@ msgstr "Немає непрочитаних сповіщень"
 msgid "No users found"
 msgstr "Користувачів не знайдено"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "Жоден користувач не був заглушений або заблокований"
 
@@ -1930,17 +2151,21 @@ msgid "No views"
 msgstr "Немає переглядів"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Немає"
@@ -1950,15 +2175,15 @@ msgid "Normal"
 msgstr "Звичайний"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "Не знайдено"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "Не встановлено"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "Нічого не знайдено"
 
@@ -1967,18 +2192,18 @@ msgid "Nothing saved yet"
 msgstr "Поки нічого не збережено"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "Сповіщення: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "Число"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:805
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "Поза темою"
 
@@ -1987,11 +2212,11 @@ msgid "On"
 msgstr "Увімк."
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:443
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "До зображення: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:260
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "До цього зображення"
 
@@ -1999,8 +2224,8 @@ msgstr "До цього зображення"
 msgid "Oops! Page Not Found!"
 msgstr "Ой! Сторінку не знайдено!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "Відкрити дії"
 
@@ -2008,13 +2233,13 @@ msgstr "Відкрити дії"
 msgid "Open menu"
 msgstr "Відкрити меню"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "Відкрити навігацію"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "Відкрити дії параметра"
 
@@ -2022,8 +2247,8 @@ msgstr "Відкрити дії параметра"
 msgid "Open selected card"
 msgstr "Відкрити вибрану картку"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "Відкрити дії перегляду"
 
@@ -2032,23 +2257,19 @@ msgstr "Відкрити дії перегляду"
 msgid "Open view controls"
 msgstr "Відкрити елементи керування переглядом"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "Назва параметра"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "Необов'язковий markdown-банер, що відображається у верхній частині вашого форуму."
-
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "Параметри"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:806
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "Інше"
 
@@ -2056,62 +2277,74 @@ msgstr "Інше"
 msgid "Owner"
 msgstr "Власник"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Батьківський"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "Ключ доступу"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Не вдалося перевірити ключ доступу. Спробуйте ще раз."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Ключі доступу"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Ключі доступу недоступні в цьому браузері"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "Шаблон (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:279
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:775
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "В очікуванні"
 
-#: src/features/forums/components/thread/thread-content.tsx:162
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "Очікує затвердження"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:415
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "Очікувані коментарі ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:370
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "Очікувані дописи ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:179
+msgid "People"
+msgstr "Люди"
+
 #: src/features/forums/components/create-post-dialog.tsx:288
-#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "Фото та відео"
 
-#: src/features/forums/components/thread/thread-content.tsx:400
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "Закріпити"
 
-#: src/features/forums/components/thread/thread-content.tsx:180
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "Закріплено"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "Будь ласка, перевірте підключення до Інтернету та спробуйте ще раз."
@@ -2124,39 +2357,35 @@ msgstr "Опишіть проблему..."
 msgid "Please enter a reply"
 msgstr "Будь ласка, введіть відповідь"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "Будь ласка, увійдіть із відповідними обліковими даними, <0/> щоб отримати доступ до цього ресурсу."
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "Спробуйте ще раз."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "Зачекайте трохи та повторіть спробу."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "Допис"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "Не вдалося зберегти допис — заголовок або вміст недійсні"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "Не вдалося зберегти допис на сервері форуму"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "Допис видалено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "Ліміт дописів"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "Допис заблоковано"
 
@@ -2164,39 +2393,39 @@ msgstr "Допис заблоковано"
 msgid "Post not found"
 msgstr "Допис не знайдено"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "Допис закріплено"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "Допис опубліковано."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "Допис видалено"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "Допис відновлено"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "Допис розблоковано"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "Допис відкріплено"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "Допис оновлено"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "Публікація, коментування, голосування та перегляд"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "дописів"
 
@@ -2208,16 +2437,16 @@ msgstr "Дописи"
 msgid "Posts and comments"
 msgstr "Дописи та коментарі"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "Премодерація"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "Запобігайте спаму, обмежуючи частоту публікацій користувачів"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Попереднє зображення"
 
@@ -2230,13 +2459,13 @@ msgstr "Приватність"
 msgid "Processing…"
 msgstr "Обробка…"
 
-#: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "Учасники проєкту"
-
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Запит збережено"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Властивості"
 
 #: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
@@ -2250,7 +2479,7 @@ msgstr "Публікація..."
 msgid "Push notification"
 msgstr "Push-сповіщення"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "Черга"
 
@@ -2258,24 +2487,24 @@ msgstr "Черга"
 msgid "Raised"
 msgstr "Піднятий"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "Обмеження частоти"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Повторно прив'яжіть облікові записи на цьому сервері"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Зареєструйте свої ключі доступу на цьому сервері знову"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:716
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "Причина:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:907
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "Причина: {0}"
 
@@ -2291,25 +2520,33 @@ msgstr "Рекомендовані форуми"
 msgid "Reconnecting ({retries})..."
 msgstr "Повторне підключення ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "Запис не вдався. Спробуйте ще раз."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "Запис не містить звуку"
+
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "Перенаправлення на сторінку входу."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "Зменшити інтерес"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:474
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "Відхилити"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:246
-#: src/routes/_authenticated/$forum_.moderation.tsx:250
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "Відхилено"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Стосується"
 
@@ -2321,16 +2558,24 @@ msgstr "Відносний (5хв, 3год, 2д)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Відносний протягом 24 годин, інакше абсолютний"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "Релевантність {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "Релевантність {relevance}, інтерес {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:472
-#: src/features/forums/components/thread/thread-comment.tsx:528
-#: src/features/forums/components/thread/thread-content.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:452
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
-#: src/routes/_authenticated/$forum_.moderation.tsx:1065
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "Видалити"
 
@@ -2354,7 +2599,7 @@ msgstr "Вилучити правило доступу для «{0}»?"
 msgid "Remove access?"
 msgstr "Видалити доступ?"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "Видалити коментар"
 
@@ -2363,31 +2608,32 @@ msgstr "Видалити коментар"
 msgid "Remove from saved"
 msgstr "Видалити зі збережених"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "Видалити інтерес"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "Видалити елемент"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Видалити посилання"
 
-#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "Видалити допис"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "Видалити цей форум з вашої бічної панелі."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:285
-#: src/features/forums/components/thread/thread-content.tsx:168
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "Видалено"
 
@@ -2399,49 +2645,49 @@ msgstr "Видалено зі збережених"
 msgid "Removing..."
 msgstr "Видалення..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "Перейменувати стовпець"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "Перейменувати цей стовпець дошки"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "Перейменування форуму..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "відповідей"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "Відповіді мають бути схвалені"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:403
-#: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:318
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "Відповісти"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:563
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "Відповісти {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:480
-#: src/features/forums/components/thread/thread-content.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "Поскаржитися"
 
@@ -2453,63 +2699,87 @@ msgstr "Поскаржитися на коментар"
 msgid "Report post"
 msgstr "Поскаржитися на допис"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:584
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "Скаргу вирішено"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "Скаргу подано"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:724
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "Поскаржився {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "Скарги"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "Вимагати схвалення, перш ніж вміст стане видимим"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "Вимагати схвалення нових коментарів"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "Вимагати схвалення нових дописів"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "Вимагати схвалення нових користувачів"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "Обов'язково"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "Надіслати лист повторно"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Здатися"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Здатися у грі?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Здача..."
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "Вирішено"
 
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-content.tsx:368
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "Відновити"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "Обмеження знято"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "Обмеження"
 
@@ -2533,12 +2803,12 @@ msgstr "Відкликати доступ"
 msgid "Revoke RSS access?"
 msgstr "Відкликати доступ RSS?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "Рядки"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "Рядки згруповані за"
 
@@ -2560,16 +2830,16 @@ msgstr "Субота"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:328
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/features/forums/components/edit-post-dialog.tsx:407
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "Зберегти зміни"
 
@@ -2590,19 +2860,19 @@ msgid "Saved posts cleared"
 msgstr "Збережені дописи очищено"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:402
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "Збереження..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Запит на оцінку"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "Пошук"
 
@@ -2614,15 +2884,15 @@ msgstr "Пошук за назвою, ID, відбитком або URL..."
 msgid "Search for a command to run..."
 msgstr "Пошук команди для виконання..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "Пошук місця"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "Пошук місця..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "Пошук пункту призначення..."
 
@@ -2630,11 +2900,11 @@ msgstr "Пошук пункту призначення..."
 msgid "Search for forums..."
 msgstr "Пошук форумів..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "Пошук пункту відправлення..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Пошук обʼєктів..."
 
@@ -2652,8 +2922,8 @@ msgstr "Шукайте, відстежуйте та сортуйте цей ви
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Пошук..."
@@ -2663,15 +2933,15 @@ msgstr "Пошук..."
 msgid "Searching..."
 msgstr "Пошук..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "секунд"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "Вибрати"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "Виберіть поле"
 
@@ -2699,7 +2969,7 @@ msgstr "Виберіть правило доступу"
 msgid "Select account type"
 msgstr "Виберіть тип облікового запису"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "Вибрати все"
 
@@ -2707,7 +2977,7 @@ msgstr "Вибрати все"
 msgid "Select group"
 msgstr "Виберіть групу"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "Вибрати місцезнаходження"
 
@@ -2715,11 +2985,11 @@ msgstr "Вибрати місцезнаходження"
 msgid "Select next card"
 msgstr "Вибрати наступну картку"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "Зняти вибір"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "Виберіть людину..."
 
@@ -2727,8 +2997,8 @@ msgstr "Виберіть людину..."
 msgid "Select previous card"
 msgstr "Вибрати попередню картку"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "Виберіть..."
 
@@ -2741,7 +3011,7 @@ msgstr "Вибрано: <0>{0}</0>"
 msgid "Send again"
 msgstr "Надіслати ще раз"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "Надіслати лист"
 
@@ -2768,29 +3038,29 @@ msgstr "Правила сервера"
 msgid "Session expired. Please log in again."
 msgstr "Термін дії сеансу минув. Увійдіть ще раз."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "Встановити пункти відправлення та призначення"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "Налаштування"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:793
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "Приховано заблоковано"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "Показати класи"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "Показати поля"
 
@@ -2802,7 +3072,7 @@ msgstr "Показувати лише коментарі до цього зоб�
 msgid "Show this help"
 msgstr "Показати цю довідку"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "Показано {totalShown} з {total}"
 
@@ -2810,17 +3080,21 @@ msgstr "Показано {totalShown} з {total}"
 msgid "Sidebar"
 msgstr "Бічна панель"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "Увійдіть в обліковий запис, який має доступ <0/> до цього ресурсу."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "Вийти"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "Вихід..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "Тільки один рядок тексту"
 
@@ -2842,23 +3116,28 @@ msgid "Spacious"
 msgstr "Просторий"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "Спам"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "Почніть обговорення, додавши перший коментар."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Припинити стеження"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Тема"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "Надіслати коментар"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "Надіслати відповідь"
 
@@ -2870,12 +3149,12 @@ msgstr "Надіслати скаргу"
 msgid "Submitting..."
 msgstr "Надсилання..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "Підписатися"
 
@@ -2889,14 +3168,14 @@ msgstr "Підписано"
 msgid "Subscribed to {0}"
 msgstr "Підписано на {0}"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "Підписано на форум"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "Підписка..."
@@ -2915,24 +3194,24 @@ msgstr "Перейти до вигляду 1-9"
 msgid "System"
 msgstr "Система"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "Тег"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "Тег уже існує"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "Тег має бути не довшим за 50 символів"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "Запит на тег"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "Теги"
 
@@ -2945,11 +3224,11 @@ msgstr "Торкніться закладки на будь-якому допи�
 msgid "Terms and conditions"
 msgstr "Умови та правила"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "Текст"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "Цей код неправильний або його термін дії минув."
 
@@ -2962,7 +3241,23 @@ msgstr "Не вдалося надіслати. Можливо, файли за�
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Завеликий розмір для завантаження. Видаліть або зменшіть файли й повторіть спробу."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Камера вже використовується"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Запит камери залишився без відповіді"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Запит мікрофона залишився без відповіді"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Запит ключа доступу залишився без відповіді"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "Запитаний вміст не знайдено."
 
@@ -2970,28 +3265,36 @@ msgstr "Запитаний вміст не знайдено."
 msgid "The server returned a web page instead of data."
 msgstr "Сервер повернув вебсторінку замість даних."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "Поки що не зафіксовано жодної дії модерації"
 
-#: src/features/forums/components/thread/thread-comment.tsx:540
-#: src/features/forums/components/thread/thread-content.tsx:464
-msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
-msgstr "Вони втратять доступ до цього форуму. Пізніше ви зможете зняти блокування на вкладці «Обмеження»."
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Цьому застосунку не дозволено використовувати ваш ключ доступу. Дозвольте це в Налаштуваннях, у розділі Дозволи."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "Не вдалося завантажити цей форум зараз."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Цей форум, можливо, був видалений або у вас немає до нього доступу."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Це назавжди видалить гру та її чат. Цю дію не можна скасувати."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "Цей допис, можливо, був видалений або не існує."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "Цей допис вже надіслано"
 
@@ -2999,16 +3302,16 @@ msgstr "Цей допис вже надіслано"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "Це видалить кожен допис із вашого списку збережених. Цю дію не можна скасувати."
 
-#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "Це сховає коментар від звичайних користувачів. Модератори все ще можуть його бачити та відновити пізніше."
 
-#: src/features/forums/components/thread/thread-content.tsx:451
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "Це сховає допис від звичайних користувачів. Модератори все ще можуть його бачити та відновити пізніше."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "Це назавжди видалить \"{0}\" та всі його дописи й коментарі. Цю дію не можна скасувати."
 
@@ -3021,7 +3324,7 @@ msgid "Thursday"
 msgstr "Четвер"
 
 #: src/features/forums/components/create-post-dialog.tsx:230
-#: src/features/forums/components/edit-post-dialog.tsx:296
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "Заголовок"
 
@@ -3037,25 +3340,22 @@ msgstr "Заголовок обовʼязковий"
 msgid "Title must be 1000 characters or less"
 msgstr "Заголовок має бути не довшим за 1000 символів"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "Куди"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "Розгорнути/згорнути розділ"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-msgid "Toggle sidebar"
-msgstr "Перемкнути бічну панель"
-
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
+msgid "Toggle sidebar"
 msgstr "Перемкнути бічну панель"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3067,7 +3367,7 @@ msgstr "Перемкнути параметри вигляду"
 msgid "Toggle watched filter"
 msgstr "Перемкнути фільтр відстежуваних"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "Забагато запитів"
 
@@ -3075,7 +3375,7 @@ msgstr "Забагато запитів"
 msgid "Top"
 msgstr "Верх"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "Подорож"
 
@@ -3083,8 +3383,8 @@ msgstr "Подорож"
 msgid "Try adjusting your search terms"
 msgstr "Спробуйте змінити пошукові терміни"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "Спробувати знову"
 
@@ -3092,12 +3392,12 @@ msgstr "Спробувати знову"
 msgid "Tuesday"
 msgstr "Вівторок"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "Тип"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "Введіть команду або пошук..."
 
@@ -3117,8 +3417,8 @@ msgstr "Введіть для пошуку..."
 msgid "Unable to connect to remote server"
 msgstr "Не вдалося підключитися до віддаленого сервера"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "Не вдається перенаправити на сторінку входу. Спробуйте ще раз."
 
@@ -3126,16 +3426,12 @@ msgstr "Не вдається перенаправити на сторінку �
 msgid "Unassigned"
 msgstr "Не призначено"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "Неавторизований доступ"
-
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "Недоступно"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "Неочікувана помилка API"
 
@@ -3143,58 +3439,79 @@ msgstr "Неочікувана помилка API"
 msgid "United States"
 msgstr "Сполучені Штати"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "Розблокувати"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "Відкріпити"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/features/forums/pages/entity-forum-page.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "Відписатися"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "Відписатися від форуму"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "Unsubscribe from forum?"
 msgstr "Скасувати підписку на форум?"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "Відписано"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "Відписування..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Без назви"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "Оновлено"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "Оновлено {field}"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Завантажити"
 
@@ -3202,13 +3519,13 @@ msgstr "Завантажити"
 msgid "Upload progress"
 msgstr "Хід завантаження"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "Скористайтеся ключем доступу"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "Користувач"
 
@@ -3228,7 +3545,7 @@ msgstr "Змінні: {variables}"
 msgid "Verification code"
 msgstr "Код підтвердження"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Перевірити"
@@ -3237,40 +3554,53 @@ msgstr "Перевірити"
 msgid "Verify email address"
 msgstr "Підтвердити електронну адресу"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "Мініатюра відео"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Перегляд відео: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "Переглянути всі сповіщення"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Переглянути та змінити деталі елемента"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Елементи керування виглядом"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "Лише перегляд"
 
-#: src/features/forums/components/thread/thread-comment.tsx:261
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "Переглянути зображення, про яке цей коментар"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:803
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "Насильство"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "Запис голосу не підтримується в цьому браузері"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "Голосування та перегляд"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Стежити"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3290,30 +3620,42 @@ msgstr "Ми надіслали код підтвердження на <0>{0}</0
 msgid "Wednesday"
 msgstr "Середа"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "Тривалість вікна"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "Ви вже підписані на цей форум"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "Ви публікуєте надто швидко — зачекайте і спробуйте знову"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "Вам обмежено публікацію на цьому форумі"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "Ви не маєте доступу до цього розділу."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "У вас немає дозволу публікувати на цьому форумі"
 
@@ -3321,11 +3663,11 @@ msgstr "У вас немає дозволу публікувати на цьом
 msgid "You have no forums yet."
 msgstr "У вас поки немає форумів."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "Ви більше не отримуватимете оновлення з цього форуму. Ви можете підписатися знову будь-коли."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ваш обліковий запис переміщено сюди з {source}. Поки ви не видалите його там, повідомлення та сповіщення можуть надходити на обидва сервери, частина вашого вмісту продовжить надаватися зі старого сервера, а підписникам може знадобитися кілька хвилин, щоб знайти вас тут."
 
@@ -3333,7 +3675,7 @@ msgstr "Ваш обліковий запис переміщено сюди з {s
 msgid "Your attachments will be lost."
 msgstr "Ваші вкладення буде втрачено."
 
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:274
 msgid "Your changes will be lost."
 msgstr "Ваші зміни буде втрачено."
 

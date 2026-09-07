@@ -14,33 +14,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "لطفاً اتصال اینترنت خود را بررسی کرده و دوباره تلاش کنید."
 
 #. placeholder {0}: formatDate(new Date(restriction.expires * 1000))
-#: src/routes/_authenticated/$forum_.moderation.tsx:1051
+#: src/routes/_authenticated/$forum_.moderation.tsx:1132
 msgid " · Expires {0}"
 msgstr " · انقضا {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1052
+#: src/routes/_authenticated/$forum_.moderation.tsx:1133
 msgid " · Permanent"
 msgstr " · دائمی"
 
-#: src/features/forums/components/thread/thread-comment.tsx:250
-#: src/features/forums/components/thread/thread-content.tsx:204
+#: src/features/forums/components/thread/thread-comment.tsx:251
+#: src/features/forums/components/thread/thread-content.tsx:202
 msgid " (edited)"
 msgstr " (ویرایش‌شده)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " یا "
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 msgid "(edited)"
 msgstr "(ویرایش‌شده)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(باز کردن)"
 
@@ -49,62 +45,100 @@ msgid "[not set]"
 msgstr "[تنظیم نشده]"
 
 #. placeholder {0}: newPosts.count
-#: src/features/forums/pages/entity-forum-page.tsx:294
+#: src/features/forums/pages/entity-forum-page.tsx:295
 msgid "{0, plural, one {# new post} other {# new posts}}"
 msgstr "{0, plural, one {# پست جدید} other {# پست جدید}}"
 
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr ""
+
+#. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedPosts.size + selectedComments.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:521
+#: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/routes/_authenticated/$forum_.moderation.tsx:549
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# انتخاب‌شده} other {# انتخاب‌شده}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:302
-msgid "{0, plural, one {Banned # user} other {Banned # users}}"
-msgstr "{0, plural, one {# کاربر مسدود شد} other {# کاربر مسدود شد}}"
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# تودرتو} other {+# تودرتو}}"
 
-#. placeholder {0}: authors.size
-#: src/routes/_authenticated/$forum_.moderation.tsx:285
-msgid "{0, plural, one {Muted # user} other {Muted # users}}"
-msgstr "{0, plural, one {# کاربر بی‌صدا شد} other {# کاربر بی‌صدا شد}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:298
+#~ msgid "{0, plural, one {Banned # user} other {Banned # users}}"
+#~ msgstr "{0, plural, one {# کاربر مسدود شد} other {# کاربر مسدود شد}}"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:281
+#~ msgid "{0, plural, one {Muted # user} other {Muted # users}}"
+#~ msgstr "{0, plural, one {# کاربر بی‌صدا شد} other {# کاربر بی‌صدا شد}}"
 
 #. placeholder {0}: selectedForum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "{0} settings"
 msgstr "تنظیمات {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ر} other {#ر}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#س} other {#س}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#د} other {#د}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ه} other {#ه}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:231
-msgid "{count, plural, one {Approved # item} other {Approved # items}}"
-msgstr "{count, plural, one {# مورد تأیید شد} other {# مورد تأیید شد}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:230
+#~ msgid "{count, plural, one {Approved # item} other {Approved # items}}"
+#~ msgstr "{count, plural, one {# مورد تأیید شد} other {# مورد تأیید شد}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:253
-msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
-msgstr "{count, plural, one {# مورد رد شد} other {# مورد رد شد}}"
+#: src/routes/_authenticated/$forum_.moderation.tsx:252
+#~ msgid "{count, plural, one {Rejected # item} other {Rejected # items}}"
+#~ msgstr "{count, plural, one {# مورد رد شد} other {# مورد رد شد}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "نام {entityLabel}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "نام {entityLabel} الزامی است"
+#: src/routes/_authenticated/$forum_.moderation.tsx:253
+msgid "{n, plural, one {Approved # item} other {Approved # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:330
+msgid "{n, plural, one {Banned # user} other {Banned # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:254
+msgid "{n, plural, one {Failed to approve # item} other {Failed to approve # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:331
+msgid "{n, plural, one {Failed to ban # user} other {Failed to ban # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:311
+msgid "{n, plural, one {Failed to mute # user} other {Failed to mute # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:276
+msgid "{n, plural, one {Failed to reject # item} other {Failed to reject # items}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:310
+msgid "{n, plural, one {Muted # user} other {Muted # users}}"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:275
+msgid "{n, plural, one {Rejected # item} other {Rejected # items}}"
+msgstr ""
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
 msgid "{opponentName} offered a draw"
@@ -114,7 +148,7 @@ msgstr "{opponentName} پیشنهاد مساوی داد"
 msgid "{others, plural, one {Show # other comment on this post} other {Show # other comments on this post}}"
 msgstr "{others, plural, one {# نظر دیگر دربارهٔ این پست را نشان بده} other {# نظر دیگر دربارهٔ این پست را نشان بده}}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:533
+#: src/routes/_authenticated/$forum_.moderation.tsx:561
 msgid "{selectedAuthorCount, plural, one {# author will lose access to this forum. You can lift it later from the Restrictions tab.} other {# authors will lose access to this forum. You can lift it later from the Restrictions tab.}}"
 msgstr "{selectedAuthorCount, plural, one {دسترسی # نویسنده به این انجمن از بین می‌رود. می‌توانید بعداً از زبانهٔ محدودیت‌ها آن را بردارید.} other {دسترسی # نویسنده به این انجمن از بین می‌رود. می‌توانید بعداً از زبانهٔ محدودیت‌ها آن را بردارید.}}"
 
@@ -123,30 +157,21 @@ msgstr "{selectedAuthorCount, plural, one {دسترسی # نویسنده به ا
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} از {totalLabel}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# مورد} other {# مورد}}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:236
+#: src/features/forums/components/thread/thread-comment.tsx:237
 msgid "{totalDescendants, plural, one {# reply} other {# replies}}"
 msgstr "{totalDescendants, plural, one {# پاسخ} other {# پاسخ}}"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# پاسخ} other {+# پاسخ دیگر}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {باز کردن منو (# اعلان خوانده‌نشده)} other {باز کردن منو (# اعلان خوانده‌نشده)}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} تودرتو"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} پاسخ دیگر"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "۱ پاسخ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -156,6 +181,10 @@ msgstr "۱۲ ساعت"
 msgid "24 hours"
 msgstr "۲۴ ساعت"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
+msgid "A recording is already in progress."
+msgstr "ضبط از قبل در حال انجام است."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:46
 msgid "Absolute (date and time)"
 msgstr "مطلق (تاریخ و زمان)"
@@ -164,11 +193,12 @@ msgstr "مطلق (تاریخ و زمان)"
 msgid "Accept"
 msgstr "پذیرش"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:96
+#: src/routes/_authenticated/$forum_.settings.tsx:94
 msgid "Access"
 msgstr "دسترسی"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "دسترسی رد شد"
 
@@ -176,23 +206,23 @@ msgstr "دسترسی رد شد"
 msgid "Access level"
 msgstr "سطح دسترسی"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:716
+#: src/routes/_authenticated/$forum_.settings.tsx:639
 msgid "Access level updated"
 msgstr "سطح دسترسی به‌روزرسانی شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:725
+#: src/routes/_authenticated/$forum_.settings.tsx:648
 msgid "Access management"
 msgstr "مدیریت دسترسی"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:701
+#: src/routes/_authenticated/$forum_.settings.tsx:624
 msgid "Access removed"
 msgstr "دسترسی حذف شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:689
+#: src/routes/_authenticated/$forum_.settings.tsx:612
 msgid "Access set for {subjectName}"
 msgstr "دسترسی برای {subjectName} تنظیم شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:566
+#: src/routes/_authenticated/$forum_.settings.tsx:489
 msgid "Account"
 msgstr "حساب"
 
@@ -200,13 +230,17 @@ msgstr "حساب"
 msgid "Account type"
 msgstr "نوع حساب"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "فعالیت"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
 msgstr "افزودن"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "افزودن نظر..."
 
@@ -214,7 +248,7 @@ msgstr "افزودن نظر..."
 msgid "Add a new account"
 msgstr "افزودن حساب جدید"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "افزودن فیلد جدید به این کلاس"
 
@@ -230,41 +264,41 @@ msgstr "افزودن حساب"
 msgid "Add caption"
 msgstr "افزودن شرح"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "افزودن مورد چک‌لیست"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "افزودن فیلد"
 
 #: src/features/forums/components/create-post-dialog.tsx:293
-#: src/features/forums/components/edit-post-dialog.tsx:342
+#: src/features/forums/components/edit-post-dialog.tsx:350
 msgid "Add files"
 msgstr "افزودن فایل"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "افزودن مورد..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "افزودن پیوند"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "افزودن گزینه"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:735
+#: src/routes/_authenticated/$forum_.settings.tsx:658
 msgid "Add rule"
 msgstr "افزودن قانون"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "افزودن برچسب..."
 
@@ -272,8 +306,8 @@ msgstr "افزودن برچسب..."
 msgid "Add to existing notifications"
 msgstr "افزودن به اعلان‌های موجود"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -288,15 +322,15 @@ msgid "Additional details (optional)"
 msgstr "جزئیات بیشتر (اختیاری)"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:41
-#: src/routes/_authenticated/$forum_.settings.tsx:553
+#: src/routes/_authenticated/$forum_.settings.tsx:476
 msgid "AI"
 msgstr "هوش مصنوعی"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:554
+#: src/routes/_authenticated/$forum_.settings.tsx:477
 msgid "AI actions on posts"
 msgstr "عملیات هوش مصنوعی روی پست‌ها"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
 msgid "All"
 msgstr "همه"
 
@@ -305,20 +339,19 @@ msgstr "همه"
 msgid "All forums"
 msgstr "همهٔ انجمن‌ها"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:357
+#: src/routes/_authenticated/$forum_.moderation.tsx:385
 msgid "All posts and comments have been reviewed"
 msgstr "همهٔ پست‌ها و نظرها بررسی شده‌اند"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "اجازه دادن به همه برای جستجوی {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "به همه اجازه بده {entityLabel} را جستجو کنند"
 
-#: src/features/forums/components/create-forum-dialog.tsx:54
+#: src/features/forums/components/create-forum-dialog.tsx:55
 msgid "Allow anyone to search for forum"
 msgstr "همه بتوانند انجمن را جست‌وجو کنند"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "اجازهٔ مرتب‌سازی بر اساس"
 
@@ -327,6 +360,7 @@ msgid "An error occurred"
 msgstr "خطایی رخ داد"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "خطای غیرمنتظره‌ای رخ داد"
 
@@ -351,17 +385,25 @@ msgstr "هر کسی که وارد شده باشد"
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
 msgstr "هر چیزی که مشترک این خوراک است دیگر آن را دریافت نمی‌کند. پس از آن می‌توانید نشانی جدیدی کپی کنید."
 
-#: src/features/forums/components/thread/thread-comment.tsx:457
-#: src/routes/_authenticated/$forum_.moderation.tsx:486
+#: src/features/forums/components/thread/thread-comment.tsx:458
+#: src/routes/_authenticated/$forum_.moderation.tsx:514
 msgid "Approve"
 msgstr "تأیید"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:810
+msgid "Approved"
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "آیا از حذف «{0}» مطمئن هستید؟"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "آیا از حذف «{title}» مطمئن هستید؟ این عمل قابل بازگشت نیست."
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "آیا از حذف ستون «{name}» مطمئن هستید؟ این عمل قابل بازگشت نیست."
 
@@ -369,11 +411,11 @@ msgstr "آیا از حذف ستون «{name}» مطمئن هستید؟ این ع
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "آیا از حذف این نظر مطمئن هستید؟ همهٔ پاسخ‌ها نیز حذف خواهند شد."
 
-#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-comment.tsx:512
 msgid "Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone."
 msgstr "آیا از حذف این نظر مطمئن هستید؟ همهٔ پاسخ‌ها نیز حذف خواهند شد. این عمل قابل بازگشت نیست."
 
-#: src/features/forums/components/thread/thread-content.tsx:437
+#: src/features/forums/components/thread/thread-content.tsx:435
 msgid "Are you sure you want to delete this post? This will also delete all comments. This action cannot be undone."
 msgstr "آیا از حذف این پست مطمئن هستید؟ همهٔ نظرها نیز حذف خواهند شد. این عمل قابل بازگشت نیست."
 
@@ -381,15 +423,23 @@ msgstr "آیا از حذف این پست مطمئن هستید؟ همهٔ نظر
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "آیا از خروج از حساب مطمئن هستید؟ برای دسترسی به حساب باید دوباره وارد شوید."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "آیا از تسلیم شدن مطمئن هستید؟"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "آیا از تسلیم شدن مطمئن هستید؟ {opponentName} برندهٔ بازی می‌شود."
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "صعودی"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "پیوست فایل‌های نظر"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "پیوست فایل‌های پاسخ"
 
@@ -398,7 +448,7 @@ msgstr "پیوست فایل‌های پاسخ"
 msgid "Authenticated users"
 msgstr "کاربران احرازهویت‌شده"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "کد احراز هویت"
 
@@ -406,15 +456,15 @@ msgstr "کد احراز هویت"
 msgid "Available keyboard shortcuts"
 msgstr "میان‌برهای صفحه‌کلید موجود"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "آواتار"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "آواتار {name}"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "بازگشت"
 
@@ -422,82 +472,89 @@ msgstr "بازگشت"
 #: src/features/forums/thread-detail.tsx:310
 #: src/features/forums/thread-detail.tsx:322
 #: src/features/forums/thread-detail.tsx:343
-#: src/features/forums/thread-detail.tsx:459
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:222
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:267
+#: src/features/forums/thread-detail.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:217
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:262
 msgid "Back to forum"
 msgstr "بازگشت به انجمن"
 
-#: src/routes/_authenticated/$forum/index.tsx:73
+#: src/routes/_authenticated/$forum/index.tsx:90
 msgid "Back to forums"
 msgstr "بازگشت به انجمن‌ها"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "بازگشت به خانه"
 
-#: src/features/forums/components/thread/thread-comment.tsx:541
-#: src/features/forums/components/thread/thread-content.tsx:465
-#: src/routes/_authenticated/$forum_.moderation.tsx:512
-#: src/routes/_authenticated/$forum_.moderation.tsx:537
+#: src/features/forums/components/thread/thread-comment.tsx:553
+#: src/features/forums/components/thread/thread-content.tsx:476
+#: src/routes/_authenticated/$forum_.moderation.tsx:540
+#: src/routes/_authenticated/$forum_.moderation.tsx:565
 msgid "Ban"
 msgstr "مسدود کردن"
 
-#: src/features/forums/components/thread/thread-comment.tsx:497
-#: src/features/forums/components/thread/thread-comment.tsx:539
-#: src/features/forums/components/thread/thread-content.tsx:421
-#: src/features/forums/components/thread/thread-content.tsx:463
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:552
+#: src/features/forums/components/thread/thread-content.tsx:475
+msgid "Ban {0} from this forum? They will no longer be able to participate."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:496
+#: src/features/forums/components/thread/thread-comment.tsx:551
+#: src/features/forums/components/thread/thread-content.tsx:419
+#: src/features/forums/components/thread/thread-content.tsx:474
 msgid "Ban author"
 msgstr "مسدود کردن نویسنده"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:532
+#: src/routes/_authenticated/$forum_.moderation.tsx:560
 msgid "Ban authors"
 msgstr "مسدود کردن نویسندگان"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:791
+#: src/routes/_authenticated/$forum_.moderation.tsx:843
 msgid "Banned"
 msgstr "مسدود"
 
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
-#: src/routes/_authenticated/$forum_.settings.tsx:474
 msgid "Banner"
 msgstr "بنر"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "بنر حذف شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:463
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "بنر به‌روزرسانی شد"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "مسدود توسط"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "هدایت به پیوند نامعتبر مسدود شد"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "بلوک‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "تخته"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "تقویت علاقه"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "رنگ حاشیه"
 
@@ -506,43 +563,57 @@ msgid "Browser notifications"
 msgstr "اعلان‌های مرورگر"
 
 #. placeholder {0}: report.author_name ?? t`Unknown`
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "by {0}"
 msgstr "توسط {0}"
 
 #. placeholder {0}: restriction.moderator_name ?? restriction.moderator
-#: src/routes/_authenticated/$forum_.moderation.tsx:1049
+#: src/routes/_authenticated/$forum_.moderation.tsx:1130
 msgid "By {0}"
 msgstr "توسط {0}"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "مجوز دوربین رد شد"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "دوربین در دسترس نیست"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/forums/components/create-post-dialog.tsx:317
-#: src/features/forums/components/edit-post-dialog.tsx:393
+#: src/features/forums/components/edit-post-dialog.tsx:401
 #: src/features/forums/components/report-dialog.tsx:115
-#: src/features/forums/components/thread/thread-comment.tsx:308
+#: src/features/forums/components/thread/thread-comment.tsx:309
 msgid "Cancel"
 msgstr "لغو"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "لغو نظر"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Cancel reply"
 msgstr "لغو پاسخ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "لغو شد"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -558,15 +629,23 @@ msgstr "دستهٔ این اعلان‌ها"
 msgid "Change notification category"
 msgstr "تغییر دستهٔ اعلان"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "تغییر کرد"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "{field} تغییر کرد"
+
 #: src/features/forums/components/forum-overview.tsx:153
 msgid "Check back later for new content"
 msgstr "بعداً برای محتوای جدید سر بزنید"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "کادر انتخاب"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "چک‌لیست"
 
@@ -579,13 +658,13 @@ msgstr "از نوار کناری یک بازی انتخاب کنید یا باز
 msgid "Choose language"
 msgstr "انتخاب زبان"
 
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
-#: src/routes/_authenticated/$forum_.settings.tsx:503
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
 msgid "Clear"
 msgstr "پاک کردن"
 
@@ -607,19 +686,19 @@ msgstr "پاک کردن جست‌وجو"
 msgid "Clearing saved posts..."
 msgstr "در حال پاک کردن نوشته‌های ذخیره‌شده..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "بستن"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "بستن گفت‌وگو"
 
@@ -652,16 +731,16 @@ msgstr "جمع کردن"
 msgid "Collapse sidebar"
 msgstr "جمع کردن نوار کناری"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "رنگ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "کنش‌های ستون"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "گروه‌بندی ستون‌ها بر اساس"
 
@@ -673,7 +752,7 @@ msgstr "راحت"
 msgid "Command Palette"
 msgstr "پالت فرمان"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:784
+#: src/routes/_authenticated/$forum_.moderation.tsx:836
 msgid "Comment"
 msgstr "نظر"
 
@@ -682,15 +761,23 @@ msgstr "نظر"
 msgid "Comment actions"
 msgstr "کنش‌های نظر"
 
-#: src/hooks/use-forums-queries.ts:587
+#: src/hooks/use-forums-queries.ts:611
 msgid "Comment approved"
 msgstr "نظر تأیید شد"
 
-#: src/hooks/use-forums-queries.ts:393
+#: src/hooks/use-forum-websocket.ts:74
+msgid "Comment couldn't be saved — it is invalid"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:85
+msgid "Comment couldn't be saved on the forum server"
+msgstr ""
+
+#: src/hooks/use-forums-queries.ts:417
 msgid "Comment deleted"
 msgstr "نظر حذف شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:943
+#: src/routes/_authenticated/$forum_.settings.tsx:881
 msgid "Comment limit"
 msgstr "محدودیت نظر"
 
@@ -698,45 +785,50 @@ msgstr "محدودیت نظر"
 msgid "Comment on this image…"
 msgstr "دربارهٔ این تصویر نظر بدهید…"
 
-#: src/hooks/use-forums-queries.ts:258
+#: src/hooks/use-forums-queries.ts:282
 msgid "Comment posted"
 msgstr "نظر ثبت شد"
 
-#: src/hooks/use-forums-queries.ts:559
+#: src/hooks/use-forums-queries.ts:583
 msgid "Comment removed"
 msgstr "نظر حذف شد"
 
-#: src/hooks/use-forums-queries.ts:573
+#: src/hooks/use-forums-queries.ts:597
 msgid "Comment restored"
 msgstr "نظر بازیابی شد"
 
-#: src/hooks/use-forums-queries.ts:373
+#: src/hooks/use-forums-queries.ts:397
 msgid "Comment updated"
 msgstr "نظر به‌روزرسانی شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:106
+#: src/routes/_authenticated/$forum_.settings.tsx:104
 msgid "Comment, vote, and view"
 msgstr "نظر دادن، رأی دادن و دیدن"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "نظرها"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "نظرها ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
 msgstr "فشرده"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "پیکربندی تنظیمات گزینه"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "پیکربندی تنظیمات نما"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "تأیید"
 
@@ -749,11 +841,11 @@ msgid "Connecting..."
 msgstr "در حال اتصال..."
 
 #: src/features/forums/components/create-post-dialog.tsx:247
-#: src/features/forums/components/edit-post-dialog.tsx:313
+#: src/features/forums/components/edit-post-dialog.tsx:321
 msgid "Content"
 msgstr "محتوا"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:893
+#: src/routes/_authenticated/$forum_.settings.tsx:831
 msgid "Content from users below a threshold must be approved"
 msgstr "محتوای کاربران زیر یک آستانه باید تأیید شود"
 
@@ -765,7 +857,7 @@ msgstr "محتوا الزامی است"
 msgid "Content not found."
 msgstr "محتوا یافت نشد."
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "محتوا تغییری نکرده است"
 
@@ -777,7 +869,7 @@ msgstr "اطلاعات زمینه‌ای و جزئیات."
 msgid "Continue"
 msgstr "ادامه"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "ادامه با {label}"
 
@@ -797,34 +889,33 @@ msgstr "کپی"
 msgid "Could not load this document. Please try again later."
 msgstr "بارگذاری این سند ممکن نشد. لطفاً بعداً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "بارگیری اعلان‌ها ممکن نشد"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "ارسال کد ممکن نشد. لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "شروع احراز هویت مجدد ممکن نشد. لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "تأیید با آن حساب ممکن نشد. لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "ساختن"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "ایجاد {0}"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "ایجاد {entityLabel}"
 
 #: src/features/forums/components/forum-overview.tsx:106
 msgid "Create a new forum"
@@ -835,7 +926,7 @@ msgid "Create a new post"
 msgstr "ساخت پست جدید"
 
 #: src/components/layout/forums-layout.tsx:115
-#: src/features/forums/components/create-forum-dialog.tsx:51
+#: src/features/forums/components/create-forum-dialog.tsx:52
 msgid "Create forum"
 msgstr "ساخت انجمن"
 
@@ -843,21 +934,26 @@ msgstr "ساخت انجمن"
 msgid "Create new item"
 msgstr "ساخت مورد جدید"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "ساخته شد"
 
-#: src/hooks/use-forums-queries.ts:81
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "{field} ایجاد شد"
+
+#: src/hooks/use-forums-queries.ts:105
 msgid "Creating forum..."
 msgstr "در حال ایجاد انجمن..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 msgid "Creating..."
 msgstr "در حال ساخت..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "موقعیت فعلی"
 
@@ -874,11 +970,11 @@ msgstr "تیره"
 msgid "Data conflict"
 msgstr "تعارض داده‌ها"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "تاریخ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:915
+#: src/routes/_authenticated/$forum_.settings.tsx:853
 msgid "days"
 msgstr "روز"
 
@@ -890,7 +986,7 @@ msgstr "رد"
 msgid "Default"
 msgstr "پیش‌فرض"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:572
+#: src/routes/_authenticated/$forum_.settings.tsx:495
 msgid "Default account"
 msgstr "حساب پیش‌فرض"
 
@@ -898,84 +994,108 @@ msgstr "حساب پیش‌فرض"
 msgid "Default AI account"
 msgstr "حساب پیش‌فرض هوش مصنوعی"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "مرتب‌سازی پیش‌فرض"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:444
-#: src/features/forums/components/thread/thread-comment.tsx:514
-#: src/features/forums/components/thread/thread-content.tsx:358
-#: src/features/forums/components/thread/thread-content.tsx:438
-#: src/routes/_authenticated/$forum_.settings.tsx:421
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
+#: src/features/forums/components/thread/thread-comment.tsx:445
+#: src/features/forums/components/thread/thread-comment.tsx:513
+#: src/features/forums/components/thread/thread-content.tsx:356
+#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/routes/_authenticated/$forum_.settings.tsx:416
 msgid "Delete"
 msgstr "حذف"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "حذف پیوست"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "حذف ستون"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:351
-#: src/features/forums/components/thread/thread-comment.tsx:512
+#: src/features/forums/components/thread/thread-comment.tsx:511
 msgid "Delete comment"
 msgstr "حذف نظر"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "حذف فیلد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:412
-#: src/routes/_authenticated/$forum_.settings.tsx:432
+#: src/routes/_authenticated/$forum_.settings.tsx:407
+#: src/routes/_authenticated/$forum_.settings.tsx:427
 msgid "Delete forum"
 msgstr "حذف انجمن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:430
+#: src/routes/_authenticated/$forum_.settings.tsx:425
 msgid "Delete forum?"
 msgstr "حذف انجمن؟"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "بازی حذف شود؟"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "حذف مورد"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "حذف گزینه"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "حذف گزینهٔ {0}"
 
-#: src/features/forums/components/thread/thread-content.tsx:436
+#: src/features/forums/components/thread/thread-content.tsx:434
 msgid "Delete post"
 msgstr "حذف پست"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "حذف نما"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "حساب کاربری خود را در سرور قدیمی حذف کنید"
 
-#: src/hooks/use-forums-queries.ts:97
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "حذف شد"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "{field} حذف شد"
+
+#: src/hooks/use-forums-queries.ts:121
 msgid "Deleting forum..."
 msgstr "در حال حذف انجمن..."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
+msgid "Deleting..."
+msgstr "در حال حذف..."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Descending"
 msgstr "نزولی"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "توضیحات"
 
@@ -998,11 +1118,11 @@ msgstr "پنل جزئیات"
 msgid "Detect from web browser"
 msgstr "تشخیص از مرورگر وب"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "فهرست"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:560
+#: src/routes/_authenticated/$forum_.settings.tsx:483
 msgid "Disabled"
 msgstr "غیرفعال"
 
@@ -1019,14 +1139,14 @@ msgstr "پیش‌نویس دور انداخته شود؟"
 msgid "Disconnected"
 msgstr "قطع شده"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
-#: src/routes/_authenticated/$forum_.moderation.tsx:735
+#: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: src/routes/_authenticated/$forum_.moderation.tsx:772
 msgid "Dismiss"
 msgstr "بستن"
 
-#: src/features/forums/components/forum-banner.tsx:52
-#: src/features/forums/components/forum-banner.tsx:57
+#: src/features/forums/components/forum-banner.tsx:53
+#: src/features/forums/components/forum-banner.tsx:58
 msgid "Dismiss banner"
 msgstr "بستن بنر"
 
@@ -1034,22 +1154,28 @@ msgstr "بستن بنر"
 msgid "Displays the mobile sidebar."
 msgstr "نوار کناری موبایل را نمایش می‌دهد."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "با الگوی موردنیاز مطابقت ندارد"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "انجام شد"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "دانلود"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "دانلود ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "موارد تکراری"
 
@@ -1059,12 +1185,12 @@ msgstr "مناسب برای دیسلکسی"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:314
-#: src/features/forums/components/thread/thread-comment.tsx:438
-#: src/features/forums/components/thread/thread-content.tsx:352
+#: src/features/forums/components/thread/thread-comment.tsx:439
+#: src/features/forums/components/thread/thread-content.tsx:350
 msgid "Edit"
 msgstr "ویرایش"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "ویرایش {label}"
 
@@ -1072,26 +1198,26 @@ msgstr "ویرایش {label}"
 msgid "Edit caption"
 msgstr "ویرایش شرح"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "ویرایش فیلد"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "ویرایش تنظیمات فیلد"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "ویرایش گزینه"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "ویرایش گزینه {0}"
 
-#: src/features/forums/components/edit-post-dialog.tsx:283
-#: src/features/forums/components/edit-post-dialog.tsx:285
+#: src/features/forums/components/edit-post-dialog.tsx:291
+#: src/features/forums/components/edit-post-dialog.tsx:293
 msgid "Edit post"
 msgstr "ویرایش پست"
 
@@ -1099,7 +1225,7 @@ msgstr "ویرایش پست"
 msgid "Edit selected card"
 msgstr "ویرایش کارت انتخاب‌شده"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "ویرایش نما"
 
@@ -1107,25 +1233,29 @@ msgstr "ویرایش نما"
 msgid "Email"
 msgstr "ایمیل"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "کد ایمیل"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:479
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "متن بنر را وارد کنید (markdown پشتیبانی می‌شود)..."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "کد دریافتی از ایمیل خود را وارد کنید"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "کد برنامه احرازکننده هویت خود را وارد کنید"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:369
+#: src/routes/_authenticated/$forum_.settings.tsx:364
 msgid "Entity ID"
 msgstr "شناسه موجودیت"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "خطا"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1146,28 +1276,32 @@ msgstr "آدرس خارجی"
 msgid "Extra large"
 msgstr "خیلی بزرگ"
 
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "افزودن حساب ناموفق بود"
+
 #: src/features/forums/thread-detail.tsx:232
 msgid "Failed to add tag"
 msgstr "افزودن برچسب ناموفق بود"
 
-#: src/features/forums/pages/entity-forum-page.tsx:198
-#: src/features/forums/pages/entity-forum-page.tsx:209
+#: src/features/forums/pages/entity-forum-page.tsx:200
+#: src/features/forums/pages/entity-forum-page.tsx:211
 #: src/features/forums/thread-detail.tsx:243
 #: src/features/forums/thread-detail.tsx:255
 msgid "Failed to adjust interest"
 msgstr "تنظیم علاقه‌مندی ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:234
-msgid "Failed to approve items"
-msgstr "تأیید موارد ناموفق بود"
+#: src/routes/_authenticated/$forum_.moderation.tsx:233
+#~ msgid "Failed to approve items"
+#~ msgstr "تأیید موارد ناموفق بود"
 
 #: src/features/forums/thread-detail.tsx:410
 msgid "Failed to ban user"
 msgstr "مسدود کردن کاربر ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:305
-msgid "Failed to ban users"
-msgstr "مسدود کردن کاربران ناموفق بود"
+#: src/routes/_authenticated/$forum_.moderation.tsx:301
+#~ msgid "Failed to ban users"
+#~ msgstr "مسدود کردن کاربران ناموفق بود"
 
 #: src/lib/saved.ts:36
 msgid "Failed to clear saved posts"
@@ -1178,28 +1312,32 @@ msgstr "پاک‌کردن پست‌های ذخیره‌شده ناموفق بو�
 msgid "Failed to copy"
 msgstr "کپی ناموفق بود"
 
-#: src/hooks/use-forums-queries.ts:83
+#: src/hooks/use-forums-queries.ts:107
 msgid "Failed to create forum"
 msgstr "ایجاد انجمن ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "ایجاد لینک ناموفق بود"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
+msgid "Failed to delete"
+msgstr "حذف ناموفق بود"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:130
 msgid "Failed to delete attachment"
 msgstr "حذف پیوست ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "حذف دیدگاه ناموفق بود"
 
-#: src/hooks/use-forums-queries.ts:99
+#: src/hooks/use-forums-queries.ts:123
 msgid "Failed to delete forum"
 msgstr "حذف انجمن ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "حذف لینک ناموفق بود"
 
@@ -1211,23 +1349,28 @@ msgstr "دریافت توکن RSS ناموفق بود"
 msgid "Failed to load"
 msgstr "بارگذاری ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:660
+#: src/routes/_authenticated/$forum_.settings.tsx:583
 msgid "Failed to load access rules"
 msgstr "بارگذاری قوانین دسترسی ناموفق بود"
 
-#: src/routes/_authenticated/$forum/index.tsx:40
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr ""
+
+#: src/routes/_authenticated/$forum/index.tsx:49
+#: src/routes/_authenticated/$forum/index.tsx:103
 msgid "Failed to load forum"
 msgstr "بارگذاری انجمن ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:160
+#: src/routes/_authenticated/$forum_.settings.tsx:156
 msgid "Failed to load forum settings"
 msgstr "بارگذاری تنظیمات انجمن ناموفق بود"
 
-#: src/routes/_authenticated/index.tsx:37
+#: src/routes/_authenticated/index.tsx:42
 msgid "Failed to load forums"
 msgstr "بارگذاری انجمن‌ها ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:667
+#: src/routes/_authenticated/$forum_.settings.tsx:590
 msgid "Failed to load groups"
 msgstr "بارگذاری گروه‌ها ناموفق بود"
 
@@ -1235,19 +1378,24 @@ msgstr "بارگذاری گروه‌ها ناموفق بود"
 msgid "Failed to load history"
 msgstr "بارگذاری تاریخچه ناموفق بود"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "بارگذاری تصویر ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:824
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "بارگذاری مورد ناموفق بود"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:892
 msgid "Failed to load moderation log"
 msgstr "بارگذاری گزارش نظارت ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:167
+#: src/routes/_authenticated/$forum_.moderation.tsx:174
 msgid "Failed to load moderation queue"
 msgstr "بارگذاری صف نظارت ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:810
+#: src/routes/_authenticated/$forum_.settings.tsx:734
 msgid "Failed to load moderation settings"
 msgstr "بارگذاری تنظیمات نظارت ناموفق بود"
 
@@ -1260,44 +1408,48 @@ msgstr "بارگذاری promptها ناموفق بود"
 msgid "Failed to load recommended forums"
 msgstr "بارگذاری انجمن‌های پیشنهادی ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:570
+#: src/routes/_authenticated/$forum_.moderation.tsx:598
 msgid "Failed to load reports"
 msgstr "بارگذاری گزارش‌ها ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:940
+#: src/routes/_authenticated/$forum_.moderation.tsx:1021
 msgid "Failed to load restrictions"
 msgstr "بارگذاری محدودیت‌ها ناموفق بود"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "بارگذاری ویدیو ناموفق بود"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "انتقال ناموفق بود"
 
 #: src/features/forums/thread-detail.tsx:401
 msgid "Failed to mute user"
 msgstr "بی‌صدا کردن کاربر ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:288
-msgid "Failed to mute users"
-msgstr "بی‌صدا کردن کاربران ناموفق بود"
+#: src/routes/_authenticated/$forum_.moderation.tsx:284
+#~ msgid "Failed to mute users"
+#~ msgstr "بی‌صدا کردن کاربران ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "ارسال دیدگاه ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:256
-msgid "Failed to reject items"
-msgstr "رد موارد ناموفق بود"
+#: src/routes/_authenticated/$forum_.moderation.tsx:255
+#~ msgid "Failed to reject items"
+#~ msgstr "رد موارد ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:704
+#: src/routes/_authenticated/$forum_.settings.tsx:627
 msgid "Failed to remove access"
 msgstr "حذف دسترسی ناموفق بود"
 
-#: src/features/forums/pages/entity-forum-page.tsx:221
+#: src/features/forums/pages/entity-forum-page.tsx:223
 #: src/features/forums/thread-detail.tsx:267
 msgid "Failed to remove interest"
 msgstr "حذف علاقه‌مندی ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:957
+#: src/routes/_authenticated/$forum_.moderation.tsx:1038
 msgid "Failed to remove restriction"
 msgstr "حذف محدودیت ناموفق بود"
 
@@ -1305,7 +1457,7 @@ msgstr "حذف محدودیت ناموفق بود"
 msgid "Failed to remove saved post"
 msgstr "حذف پست ذخیره‌شده ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:204
+#: src/routes/_authenticated/$forum_.settings.tsx:200
 msgid "Failed to rename forum"
 msgstr "تغییر نام انجمن ناموفق بود"
 
@@ -1313,7 +1465,7 @@ msgstr "تغییر نام انجمن ناموفق بود"
 msgid "Failed to reset prompt"
 msgstr "بازنشانی prompt ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:587
+#: src/routes/_authenticated/$forum_.moderation.tsx:615
 msgid "Failed to resolve report"
 msgstr "حل گزارش ناموفق بود"
 
@@ -1321,7 +1473,11 @@ msgstr "حل گزارش ناموفق بود"
 msgid "Failed to revoke RSS access"
 msgstr "لغو دسترسی RSS ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:827
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
+msgid "Failed to save"
+msgstr "ذخیره ناموفق بود"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:755
 msgid "Failed to save moderation settings"
 msgstr "ذخیره تنظیمات نظارت ناموفق بود"
 
@@ -1338,56 +1494,60 @@ msgstr "ذخیره prompt ناموفق بود"
 msgid "Failed to search forums"
 msgstr "جستجوی انجمن‌ها ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:664
+#: src/routes/_authenticated/$forum_.settings.tsx:587
 msgid "Failed to search users"
 msgstr "جستجوی کاربران ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:692
+#: src/routes/_authenticated/$forum_.settings.tsx:615
 msgid "Failed to set access level"
 msgstr "تنظیم سطح دسترسی ناموفق بود"
 
 #: src/features/forums/components/inline-forum-search.tsx:83
 #: src/features/forums/components/recommended-forums.tsx:49
-#: src/hooks/use-forums-queries.ts:140
+#: src/hooks/use-forums-queries.ts:164
 #: src/routes/_authenticated/find.tsx:57
 msgid "Failed to subscribe"
 msgstr "اشتراک ناموفق بود"
 
-#: src/hooks/use-forums-queries.ts:162
-#: src/routes/_authenticated/$forum_.settings.tsx:182
+#: src/hooks/use-forums-queries.ts:186
+#: src/routes/_authenticated/$forum_.settings.tsx:178
 msgid "Failed to unsubscribe"
 msgstr "لغو اشتراک ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:719
+#: src/routes/_authenticated/$forum_.settings.tsx:642
 msgid "Failed to update access level"
 msgstr "به‌روزرسانی سطح دسترسی ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:534
-#: src/routes/_authenticated/$forum_.settings.tsx:546
+#: src/routes/_authenticated/$forum_.settings.tsx:457
+#: src/routes/_authenticated/$forum_.settings.tsx:469
 msgid "Failed to update AI settings"
 msgstr "به‌روزرسانی تنظیمات AI ناموفق بود"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:465
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "به‌روزرسانی بنر ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "به‌روزرسانی دیدگاه ناموفق بود"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "به‌روزرسانی دنبال‌کردن ناموفق بود"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "بارگذاری پیوست ناموفق بود"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 #: src/features/forums/components/create-post-dialog.tsx:289
-#: src/features/forums/components/edit-post-dialog.tsx:338
+#: src/features/forums/components/edit-post-dialog.tsx:346
 msgid "Files"
 msgstr "فایل‌ها"
 
-#: src/features/forums/pages/entity-forum-page.tsx:302
+#: src/features/forums/pages/entity-forum-page.tsx:303
 msgid "Filtered by tag:"
 msgstr "فیلتر شده با برچسب:"
 
@@ -1396,15 +1556,15 @@ msgstr "فیلتر شده با برچسب:"
 msgid "Find forums"
 msgstr "یافتن انجمن‌ها"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:374
+#: src/routes/_authenticated/$forum_.settings.tsx:369
 msgid "Fingerprint"
 msgstr "اثر انگشت"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "انتقال حساب کاربری خود را تکمیل کنید"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "پرچم‌ها"
 
@@ -1412,23 +1572,26 @@ msgstr "پرچم‌ها"
 msgid "Flat"
 msgstr "تخت"
 
-#: src/features/forums/components/create-forum-dialog.tsx:52
-#: src/features/forums/pages/entity-forum-page.tsx:78
-#: src/features/forums/pages/entity-forum-page.tsx:243
+#: src/features/forums/components/create-forum-dialog.tsx:53
+msgid "forum"
+msgstr "انجمن"
+
+#: src/features/forums/pages/entity-forum-page.tsx:79
+#: src/features/forums/pages/entity-forum-page.tsx:244
 #: src/features/forums/thread-detail.tsx:147
-#: src/routes/_authenticated/$forum/index.tsx:72
+#: src/routes/_authenticated/$forum/index.tsx:89
 msgid "Forum"
 msgstr "انجمن"
 
-#: src/hooks/use-forums-queries.ts:82
+#: src/hooks/use-forums-queries.ts:106
 msgid "Forum created"
 msgstr "انجمن ایجاد شد"
 
-#: src/hooks/use-forums-queries.ts:98
+#: src/hooks/use-forums-queries.ts:122
 msgid "Forum deleted"
 msgstr "انجمن حذف شد"
 
-#: src/hooks/use-forum-websocket.ts:65
+#: src/hooks/use-forum-websocket.ts:81
 msgid "Forum is no longer available"
 msgstr "انجمن دیگر در دسترس نیست"
 
@@ -1436,23 +1599,24 @@ msgstr "انجمن دیگر در دسترس نیست"
 msgid "Forum link"
 msgstr "پیوند انجمن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:348
+#: src/routes/_authenticated/$forum_.settings.tsx:343
 msgid "Forum name is required"
 msgstr "نام انجمن الزامی است"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
+#: src/routes/_authenticated/$forum/index.tsx:97
 msgid "Forum not found"
 msgstr "انجمن یافت نشد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:203
+#: src/routes/_authenticated/$forum_.settings.tsx:199
 msgid "Forum renamed"
 msgstr "نام انجمن تغییر کرد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:277
+#: src/routes/_authenticated/$forum_.settings.tsx:272
 msgid "Forum settings sections"
 msgstr "بخش‌های تنظیمات انجمن"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:249
+#: src/routes/_authenticated/$forum_.settings.tsx:244
 msgid "Forum unavailable"
 msgstr "انجمن در دسترس نیست"
 
@@ -1467,11 +1631,11 @@ msgstr "انجمن‌ها"
 msgid "Friday"
 msgstr "جمعه"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:186
 msgid "Friends"
 msgstr "دوستان"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "از"
 
@@ -1483,8 +1647,8 @@ msgstr "از"
 msgid "From theme"
 msgstr "از تم"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "بازگشت"
 
@@ -1492,7 +1656,7 @@ msgstr "بازگشت"
 msgid "Group"
 msgstr "گروه"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "گروه‌بندی بر اساس"
 
@@ -1502,12 +1666,12 @@ msgid "Group: {0}"
 msgstr "گروه: {0}"
 
 #: src/features/forums/components/report-dialog.tsx:27
-#: src/routes/_authenticated/$forum_.moderation.tsx:801
+#: src/routes/_authenticated/$forum_.moderation.tsx:853
 msgid "Harassment"
 msgstr "آزار و اذیت"
 
 #: src/features/forums/components/report-dialog.tsx:28
-#: src/routes/_authenticated/$forum_.moderation.tsx:802
+#: src/routes/_authenticated/$forum_.moderation.tsx:854
 msgid "Hate speech"
 msgstr "نفرت‌پراکنی"
 
@@ -1517,8 +1681,8 @@ msgstr "تاریخچه"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "خانه"
 
@@ -1526,16 +1690,16 @@ msgstr "خانه"
 msgid "Hot"
 msgstr "داغ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "شناسه"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:352
 msgid "Identity"
 msgstr "هویت"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "نمایشگر تصویر: {0}"
 
@@ -1555,6 +1719,10 @@ msgstr "آواتار حروف اول"
 msgid "Initials avatar for {name}"
 msgstr "آواتار حروف اول {name}"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "علاقه {weight}"
+
 #: src/features/forums/thread-detail.tsx:241
 msgid "Interest boosted"
 msgstr "علاقه‌مندی تقویت شد"
@@ -1563,7 +1731,7 @@ msgstr "علاقه‌مندی تقویت شد"
 msgid "Interest reduced"
 msgstr "علاقه‌مندی کاهش یافت"
 
-#: src/features/forums/pages/entity-forum-page.tsx:219
+#: src/features/forums/pages/entity-forum-page.tsx:221
 #: src/features/forums/thread-detail.tsx:265
 msgid "Interest removed"
 msgstr "علاقه‌مندی حذف شد"
@@ -1572,7 +1740,7 @@ msgstr "علاقه‌مندی حذف شد"
 msgid "Interests"
 msgstr "علاقه‌مندی‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "تاریخ نامعتبر"
 
@@ -1580,7 +1748,11 @@ msgstr "تاریخ نامعتبر"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "به نظر می‌رسد صفحه‌ای که به دنبال آن هستید <0/>وجود ندارد یا حذف شده است."
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "جزئیات مورد"
+
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "همین حالا"
 
@@ -1593,13 +1765,13 @@ msgstr "میانبرهای صفحه‌کلید"
 msgid "Large"
 msgstr "بزرگ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "چیدمان"
 
-#: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "فقط حروف، اعداد، فاصله و خط تیره"
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "فقط حروف، اعداد، فاصله، خط تیره و اسلش"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1609,15 +1781,15 @@ msgstr "روشن"
 msgid "Link"
 msgstr "پیوند"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "لینک‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "فهرست"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "بارگذاری بیشتر"
 
@@ -1625,20 +1797,29 @@ msgstr "بارگذاری بیشتر"
 msgid "Loading content…"
 msgstr "در حال بارگذاری محتوا…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "در حال بارگذاری مورد"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "در حال بارگذاری جزئیات مورد"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "در حال بارگذاری..."
 
-#: src/features/forums/components/thread/thread-content.tsx:387
+#: src/features/forums/components/thread/thread-content.tsx:385
 msgid "Lock"
 msgstr "قفل"
 
-#: src/features/forums/components/thread/thread-content.tsx:174
+#: src/features/forums/components/thread/thread-content.tsx:172
+#: src/routes/_authenticated/$forum_.moderation.tsx:811
 msgid "Locked"
 msgstr "قفل شده"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:82
+#: src/routes/_authenticated/$forum_.moderation.tsx:89
 msgid "Log"
 msgstr "گزارش"
 
@@ -1667,8 +1848,8 @@ msgstr "مدیریت دسته‌ها"
 msgid "Manual"
 msgstr "دستی"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "علامت‌گذاری همه به‌عنوان خوانده‌شده"
 
@@ -1676,7 +1857,7 @@ msgstr "علامت‌گذاری همه به‌عنوان خوانده‌شده"
 msgid "Markdown supported"
 msgstr "Markdown پشتیبانی می‌شود"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "حداکثر طول"
 
@@ -1687,6 +1868,10 @@ msgstr "سرور MCP"
 #: ../../../lib/web/src/lib/preference-utils.ts:102
 msgid "Medium"
 msgstr "متوسط"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
+msgid "Members"
+msgstr "اعضا"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:200
 msgid "Menu"
@@ -1700,12 +1885,16 @@ msgstr "پیام"
 msgid "Metric"
 msgstr "متریک"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/lib/shell-errors.ts:31
+msgid "Microphone permission denied"
+msgstr "اجازهٔ میکروفون رد شد"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "حداقل طول"
 
 #: src/features/forums/components/report-dialog.tsx:30
-#: src/routes/_authenticated/$forum_.moderation.tsx:804
+#: src/routes/_authenticated/$forum_.moderation.tsx:856
 msgid "Misinformation"
 msgstr "اطلاعات نادرست"
 
@@ -1713,22 +1902,22 @@ msgstr "اطلاعات نادرست"
 msgid "Mochi web"
 msgstr "وب Mochi"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:102
 msgid "Moderate, post, comment, vote, and view"
 msgstr "نظارت، ارسال پست، دیدگاه، رأی و مشاهده"
 
 #: ../../../lib/web/src/components/options-menu.tsx:164
-#: src/routes/_authenticated/$forum_.moderation.tsx:101
-#: src/routes/_authenticated/$forum_.moderation.tsx:106
-#: src/routes/_authenticated/$forum_.settings.tsx:95
+#: src/routes/_authenticated/$forum_.moderation.tsx:108
+#: src/routes/_authenticated/$forum_.moderation.tsx:113
+#: src/routes/_authenticated/$forum_.settings.tsx:93
 msgid "Moderation"
 msgstr "نظارت"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:356
+#: src/routes/_authenticated/$forum_.moderation.tsx:384
 msgid "Moderation queue is empty"
 msgstr "صف نظارت خالی است"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:115
+#: src/routes/_authenticated/$forum_.moderation.tsx:122
 msgid "Moderation sections"
 msgstr "بخش‌های نظارت"
 
@@ -1738,56 +1927,76 @@ msgstr "دوشنبه"
 
 #: ../../../lib/web/src/components/options-menu.tsx:145
 #: ../../../lib/web/src/components/options-menu.tsx:152
-#: src/features/forums/components/thread/thread-comment.tsx:421
-#: src/features/forums/components/thread/thread-comment.tsx:427
-#: src/features/forums/components/thread/thread-content.tsx:339
-#: src/features/forums/components/thread/thread-content.tsx:346
+#: src/features/forums/components/thread/thread-comment.tsx:422
+#: src/features/forums/components/thread/thread-comment.tsx:428
+#: src/features/forums/components/thread/thread-content.tsx:337
+#: src/features/forums/components/thread/thread-content.tsx:344
 msgid "More options"
 msgstr "گزینه‌های بیشتر"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:500
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "جابه‌جا شد"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "{field} جابه‌جا شد"
+
+#: src/features/forums/components/thread/thread-comment.tsx:540
+#: src/features/forums/components/thread/thread-content.tsx:463
+#: src/routes/_authenticated/$forum_.moderation.tsx:528
 msgid "Mute"
 msgstr "بی‌صدا"
 
-#: src/features/forums/components/thread/thread-comment.tsx:491
-#: src/features/forums/components/thread/thread-content.tsx:415
+#. placeholder {0}: comment.name
+#. placeholder {0}: post.name
+#: src/features/forums/components/thread/thread-comment.tsx:539
+#: src/features/forums/components/thread/thread-content.tsx:462
+msgid "Mute {0}? They will not be able to post or comment in this forum until unmuted."
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:490
+#: src/features/forums/components/thread/thread-comment.tsx:538
+#: src/features/forums/components/thread/thread-content.tsx:413
+#: src/features/forums/components/thread/thread-content.tsx:461
 msgid "Mute author"
 msgstr "بی‌صدا کردن نویسنده"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:792
+#: src/routes/_authenticated/$forum_.moderation.tsx:844
 msgid "Muted"
 msgstr "بی‌صدا"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
-#: src/routes/_authenticated/$forum_.settings.tsx:361
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
+#: src/routes/_authenticated/$forum_.settings.tsx:356
 msgid "Name"
 msgstr "نام"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:350
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+#: src/routes/_authenticated/$forum_.settings.tsx:345
 msgid "Name cannot contain < or > characters"
 msgstr "نام نمی‌تواند شامل کاراکترهای < یا > باشد"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "نام نمی‌تواند شامل علائم کوچک‌تر و بزرگ‌تر، بک‌اسلش، نقطه‌ویرگول، گیومه یا بک‌تیک باشد"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "نام الزامی است"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
-#: src/routes/_authenticated/$forum_.settings.tsx:349
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+#: src/routes/_authenticated/$forum_.settings.tsx:344
 msgid "Name must be 1000 characters or less"
 msgstr "نام باید ۱۰۰۰ کاراکتر یا کمتر باشد"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "خطای شبکه"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
-#: src/features/forums/components/edit-post-dialog.tsx:208
+#: src/features/forums/components/edit-post-dialog.tsx:216
 msgid "New"
 msgstr "جدید"
 
@@ -1799,32 +2008,32 @@ msgstr "بازی جدید"
 #: src/features/forums/components/create-post-dialog.tsx:205
 #: src/features/forums/components/create-post-dialog.tsx:210
 #: src/features/forums/components/create-post-dialog.tsx:217
-#: src/features/forums/pages/entity-forum-page.tsx:250
+#: src/features/forums/pages/entity-forum-page.tsx:251
 msgid "New post"
 msgstr "پست جدید"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:871
+#: src/routes/_authenticated/$forum_.settings.tsx:809
 msgid "New threads must be approved"
 msgstr "موضوع‌های جدید باید تأیید شوند"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:903
+#: src/routes/_authenticated/$forum_.settings.tsx:841
 msgid "New user threshold:"
 msgstr "آستانه کاربران جدید:"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "تصویر بعدی"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "هیچ {parentClassNames} برای افزودن به آن وجود ندارد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:667
-msgid "No {statusFilter} reports found"
-msgstr "گزارش {statusFilter} یافت نشد"
+#: src/routes/_authenticated/$forum_.moderation.tsx:643
+#~ msgid "No {statusFilter} reports found"
+#~ msgstr "گزارش {statusFilter} یافت نشد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:109
+#: src/routes/_authenticated/$forum_.settings.tsx:107
 msgid "No access"
 msgstr "بدون دسترسی"
 
@@ -1832,7 +2041,7 @@ msgstr "بدون دسترسی"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "هیچ قاعده دسترسی پیکربندی نشده است. برای کنترل دسترسی به این منبع، قاعده اضافه کنید."
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "هنوز فعالیتی وجود ندارد"
 
@@ -1840,7 +2049,7 @@ msgstr "هنوز فعالیتی وجود ندارد"
 msgid "No comments on this image yet."
 msgstr "هنوز نظری دربارهٔ این تصویر نیست."
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "هنوز نظری وجود ندارد"
 
@@ -1857,24 +2066,28 @@ msgstr "هنوز بازی‌ای وجود ندارد"
 msgid "No groups available"
 msgstr "هیچ گروهی در دسترس نیست"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "هیچ نوع آیتمی هنوز قابل ایجاد نیست. ابتدا آیتم‌های والد مورد نیاز را ایجاد کنید."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "شیء مطابقی وجود ندارد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:871
+#: src/routes/_authenticated/$forum_.moderation.tsx:946
 msgid "No moderation activity"
 msgstr "هیچ فعالیت نظارتی وجود ندارد"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
+#: src/routes/_authenticated/$forum_.moderation.tsx:700
+msgid "No pending reports found"
+msgstr ""
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
 msgid "No people found"
 msgstr "شخصی یافت نشد"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "مکانی یافت نشد"
 
@@ -1882,26 +2095,34 @@ msgstr "مکانی یافت نشد"
 msgid "No posts in this forum yet"
 msgstr "هنوز پستی در این انجمن وجود ندارد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:666
+#: src/routes/_authenticated/$forum_.moderation.tsx:694
 msgid "No reports"
 msgstr "هیچ گزارشی وجود ندارد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1002
+#: src/routes/_authenticated/$forum_.moderation.tsx:703
+msgid "No reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:702
+msgid "No resolved reports found"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1083
 msgid "No restrictions"
 msgstr "بدون محدودیت"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "نتیجه‌ای یافت نشد"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "نتیجه‌ای یافت نشد."
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "بدون وضعیت"
 
@@ -1913,7 +2134,7 @@ msgstr "منطقه زمانی یافت نشد."
 msgid "No topic record yet — try again after the next notification."
 msgstr "هنوز هیچ رکوردی برای موضوع وجود ندارد — پس از اعلان بعدی دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "اعلان خوانده‌نشده‌ای وجود ندارد"
 
@@ -1921,7 +2142,7 @@ msgstr "اعلان خوانده‌نشده‌ای وجود ندارد"
 msgid "No users found"
 msgstr "کاربری یافت نشد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:1003
+#: src/routes/_authenticated/$forum_.moderation.tsx:1084
 msgid "No users have been muted or banned"
 msgstr "هیچ کاربری بی‌صدا یا مسدود نشده است"
 
@@ -1930,17 +2151,21 @@ msgid "No views"
 msgstr "بدون بازدید"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "هیچ‌کدام"
@@ -1950,15 +2175,15 @@ msgid "Normal"
 msgstr "معمولی"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "یافت نشد"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "تنظیم نشده"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "چیزی یافت نشد"
 
@@ -1967,18 +2192,18 @@ msgid "Nothing saved yet"
 msgstr "هنوز چیزی ذخیره نشده است"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "اعلان‌ها: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "شماره"
 
 #: src/features/forums/components/report-dialog.tsx:31
-#: src/routes/_authenticated/$forum_.moderation.tsx:805
+#: src/routes/_authenticated/$forum_.moderation.tsx:857
 msgid "Off-topic"
 msgstr "خارج از موضوع"
 
@@ -1987,11 +2212,11 @@ msgid "On"
 msgstr "روشن"
 
 #. placeholder {0}: comment.attachment_name
-#: src/routes/_authenticated/$forum_.moderation.tsx:443
+#: src/routes/_authenticated/$forum_.moderation.tsx:471
 msgid "On image: {0}"
 msgstr "دربارهٔ تصویر: {0}"
 
-#: src/features/forums/components/thread/thread-comment.tsx:260
+#: src/features/forums/components/thread/thread-comment.tsx:261
 msgid "On this image"
 msgstr "دربارهٔ این تصویر"
 
@@ -1999,8 +2224,8 @@ msgstr "دربارهٔ این تصویر"
 msgid "Oops! Page Not Found!"
 msgstr "اوه! صفحه پیدا نشد!"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "باز کردن عملیات"
 
@@ -2008,13 +2233,13 @@ msgstr "باز کردن عملیات"
 msgid "Open menu"
 msgstr "باز کردن منو"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "باز کردن ناوبری"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "باز کردن اقدامات گزینه"
 
@@ -2022,8 +2247,8 @@ msgstr "باز کردن اقدامات گزینه"
 msgid "Open selected card"
 msgstr "باز کردن کارت انتخاب‌شده"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "باز کردن اقدامات نما"
 
@@ -2032,23 +2257,19 @@ msgstr "باز کردن اقدامات نما"
 msgid "Open view controls"
 msgstr "باز کردن کنترل‌های نما"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "نام گزینه"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:474
-msgid "Optional markdown banner shown at the top of your forum."
-msgstr "بنر Markdown اختیاری که در بالای انجمن شما نمایش داده می‌شود."
-
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "گزینه‌ها"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:166
 #: src/features/forums/components/report-dialog.tsx:32
-#: src/routes/_authenticated/$forum_.moderation.tsx:806
+#: src/routes/_authenticated/$forum_.moderation.tsx:858
 msgid "Other"
 msgstr "سایر"
 
@@ -2056,62 +2277,74 @@ msgstr "سایر"
 msgid "Owner"
 msgstr "مالک"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "والد"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "پسکی"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "تأیید با کلید عبور ناموفق بود. لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "پسکی‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "پسکی‌ها در این مرورگر در دسترس نیستند"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "الگو (regex)"
 
-#: src/features/forums/components/post-card.tsx:57
-#: src/features/forums/components/thread/thread-comment.tsx:279
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:775
+#: src/features/forums/components/post-card.tsx:81
+#: src/features/forums/components/thread/thread-comment.tsx:280
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:827
 msgid "Pending"
 msgstr "در انتظار"
 
-#: src/features/forums/components/thread/thread-content.tsx:162
+#: src/features/forums/components/thread/thread-content.tsx:160
 msgid "Pending approval"
 msgstr "در انتظار تأیید"
 
 #. placeholder {0}: pendingComments.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:415
+#: src/routes/_authenticated/$forum_.moderation.tsx:443
 msgid "Pending comments ({0})"
 msgstr "نظرات در انتظار ({0})"
 
 #. placeholder {0}: pendingPosts.length
-#: src/routes/_authenticated/$forum_.moderation.tsx:370
+#: src/routes/_authenticated/$forum_.moderation.tsx:398
 msgid "Pending posts ({0})"
 msgstr "پست‌های در انتظار ({0})"
 
+#: ../../../lib/web/src/components/person-picker.tsx:179
+msgid "People"
+msgstr "افراد"
+
 #: src/features/forums/components/create-post-dialog.tsx:288
-#: src/features/forums/components/edit-post-dialog.tsx:337
+#: src/features/forums/components/edit-post-dialog.tsx:345
 msgid "Photos and videos"
 msgstr "عکس‌ها و ویدیوها"
 
-#: src/features/forums/components/thread/thread-content.tsx:400
+#: src/features/forums/components/thread/thread-content.tsx:398
 msgid "Pin"
 msgstr "سنجاق"
 
-#: src/features/forums/components/thread/thread-content.tsx:180
+#: src/features/forums/components/thread/thread-content.tsx:178
+#: src/routes/_authenticated/$forum_.moderation.tsx:813
 msgid "Pinned"
 msgstr "سنجاق‌شده"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "لطفاً اتصال اینترنت خود را بررسی کرده و دوباره تلاش کنید."
@@ -2124,39 +2357,35 @@ msgstr "لطفاً مشکل را توصیف کنید..."
 msgid "Please enter a reply"
 msgstr "لطفاً یک پاسخ وارد کنید"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "لطفاً برای دسترسی به این منبع <0/> با اطلاعات ورود مناسب وارد شوید."
-
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "لطفاً چند لحظه صبر کنید و دوباره امتحان کنید."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:835
 msgid "Post"
 msgstr "ارسال"
 
-#: src/hooks/use-forum-websocket.ts:61
+#: src/hooks/use-forum-websocket.ts:75
 msgid "Post couldn't be saved — title or body is invalid"
 msgstr "نمی‌توان پست را ذخیره کرد — عنوان یا محتوا نامعتبر است"
 
-#: src/hooks/use-forum-websocket.ts:68
+#: src/hooks/use-forum-websocket.ts:86
 msgid "Post couldn't be saved on the forum server"
 msgstr "نمی‌توان پست را در سرور انجمن ذخیره کرد"
 
-#: src/hooks/use-forums-queries.ts:334
+#: src/hooks/use-forums-queries.ts:358
 msgid "Post deleted"
 msgstr "پست حذف شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:928
+#: src/routes/_authenticated/$forum_.settings.tsx:866
 msgid "Post limit"
 msgstr "محدودیت پست"
 
-#: src/hooks/use-forums-queries.ts:486
+#: src/hooks/use-forums-queries.ts:510
 msgid "Post locked"
 msgstr "پست قفل شد"
 
@@ -2164,39 +2393,39 @@ msgstr "پست قفل شد"
 msgid "Post not found"
 msgstr "پست یافت نشد"
 
-#: src/hooks/use-forums-queries.ts:514
+#: src/hooks/use-forums-queries.ts:538
 msgid "Post pinned"
 msgstr "پست سنجاق شد"
 
-#: src/hooks/use-forums-queries.ts:120
+#: src/hooks/use-forums-queries.ts:144
 msgid "Post published."
 msgstr "پست منتشر شد."
 
-#: src/hooks/use-forums-queries.ts:458
+#: src/hooks/use-forums-queries.ts:482
 msgid "Post removed"
 msgstr "پست حذف شد"
 
-#: src/hooks/use-forums-queries.ts:473
+#: src/hooks/use-forums-queries.ts:497
 msgid "Post restored"
 msgstr "پست بازیابی شد"
 
-#: src/hooks/use-forums-queries.ts:499
+#: src/hooks/use-forums-queries.ts:523
 msgid "Post unlocked"
 msgstr "پست باز شد"
 
-#: src/hooks/use-forums-queries.ts:529
+#: src/hooks/use-forums-queries.ts:553
 msgid "Post unpinned"
 msgstr "سنجاق پست برداشته شد"
 
-#: src/hooks/use-forums-queries.ts:317
+#: src/hooks/use-forums-queries.ts:341
 msgid "Post updated"
 msgstr "پست به‌روزرسانی شد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:105
+#: src/routes/_authenticated/$forum_.settings.tsx:103
 msgid "Post, comment, vote, and view"
 msgstr "ارسال، نظر دادن، رأی دادن و مشاهده"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:938
+#: src/routes/_authenticated/$forum_.settings.tsx:876
 msgid "posts"
 msgstr "نوشته"
 
@@ -2208,16 +2437,16 @@ msgstr "پست‌ها"
 msgid "Posts and comments"
 msgstr "پست‌ها و نظرات"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:864
+#: src/routes/_authenticated/$forum_.settings.tsx:802
 msgid "Pre-moderation"
 msgstr "پیش‌نظارت"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:924
+#: src/routes/_authenticated/$forum_.settings.tsx:862
 msgid "Prevent spam by limiting how often users can post"
 msgstr "با محدود کردن تعداد دفعات ارسال کاربران، از اسپم جلوگیری کنید"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "تصویر قبلی"
 
@@ -2230,13 +2459,13 @@ msgstr "حریم خصوصی"
 msgid "Processing…"
 msgstr "در حال پردازش…"
 
-#: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "اعضای پروژه"
-
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
 msgid "Prompt saved"
 msgstr "Prompt ذخیره شد"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "ویژگی‌ها"
 
 #: src/features/forums/components/create-post-dialog.tsx:332
 msgid "Publish post"
@@ -2250,7 +2479,7 @@ msgstr "در حال انتشار..."
 msgid "Push notification"
 msgstr "اعلان فوری"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:79
+#: src/routes/_authenticated/$forum_.moderation.tsx:86
 msgid "Queue"
 msgstr "صف"
 
@@ -2258,24 +2487,24 @@ msgstr "صف"
 msgid "Raised"
 msgstr "برجسته"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:923
+#: src/routes/_authenticated/$forum_.settings.tsx:861
 msgid "Rate limiting"
 msgstr "محدودیت نرخ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "حساب‌های خود را در این سرور مجدداً پیوند دهید"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "کلیدهای عبور خود را دوباره در این سرور ثبت کنید"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:716
+#: src/routes/_authenticated/$forum_.moderation.tsx:753
 msgid "Reason:"
 msgstr "دلیل:"
 
 #. placeholder {0}: entry.reason
-#: src/routes/_authenticated/$forum_.moderation.tsx:907
+#: src/routes/_authenticated/$forum_.moderation.tsx:983
 msgid "Reason: {0}"
 msgstr "دلیل: {0}"
 
@@ -2291,25 +2520,33 @@ msgstr "انجمن‌های توصیه‌شده"
 msgid "Reconnecting ({retries})..."
 msgstr "در حال اتصال مجدد ({retries})..."
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/lib/shell-errors.ts:43
+msgid "Recording failed. Please try again."
+msgstr "ضبط ناموفق بود. لطفاً دوباره تلاش کنید."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:39
+msgid "Recording produced no audio"
+msgstr "ضبط صدایی ندارد"
+
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "در حال تغییر مسیر به ورود."
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "کاهش علاقه"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:474
+#: src/routes/_authenticated/$forum_.moderation.tsx:502
 msgid "Reject"
 msgstr "رد کردن"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:246
-#: src/routes/_authenticated/$forum_.moderation.tsx:250
+#: src/routes/_authenticated/$forum_.moderation.tsx:267
+#: src/routes/_authenticated/$forum_.moderation.tsx:270
 msgid "Rejected"
 msgstr "رد شد"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "مرتبط است"
 
@@ -2321,16 +2558,24 @@ msgstr "نسبی (۵د، ۳س، ۲ر)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "در ۲۴ ساعت نسبی، در غیر این صورت مطلق"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "ارتباط {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "ارتباط {relevance}، علاقه {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/features/forums/components/thread/thread-comment.tsx:472
-#: src/features/forums/components/thread/thread-comment.tsx:528
-#: src/features/forums/components/thread/thread-content.tsx:374
-#: src/features/forums/components/thread/thread-content.tsx:452
-#: src/routes/_authenticated/$forum_.moderation.tsx:746
-#: src/routes/_authenticated/$forum_.moderation.tsx:1065
+#: src/features/forums/components/thread/thread-comment.tsx:473
+#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-content.tsx:372
+#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/routes/_authenticated/$forum_.moderation.tsx:783
+#: src/routes/_authenticated/$forum_.moderation.tsx:1146
 msgid "Remove"
 msgstr "حذف"
 
@@ -2354,7 +2599,7 @@ msgstr "قانون دسترسی برای «{0}» حذف شود؟"
 msgid "Remove access?"
 msgstr "حذف دسترسی؟"
 
-#: src/features/forums/components/thread/thread-comment.tsx:526
+#: src/features/forums/components/thread/thread-comment.tsx:525
 msgid "Remove comment"
 msgstr "حذف نظر"
 
@@ -2363,31 +2608,32 @@ msgstr "حذف نظر"
 msgid "Remove from saved"
 msgstr "حذف از ذخیره‌شده‌ها"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "حذف علاقه"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "حذف آیتم"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "حذف پیوند"
 
-#: src/features/forums/components/thread/thread-content.tsx:450
+#: src/features/forums/components/thread/thread-content.tsx:448
 msgid "Remove post"
 msgstr "حذف پست"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:392
+#: src/routes/_authenticated/$forum_.settings.tsx:387
 msgid "Remove this forum from your sidebar."
 msgstr "این انجمن را از نوار کناری خود حذف کنید."
 
-#: src/features/forums/components/post-card.tsx:63
-#: src/features/forums/components/thread/thread-comment.tsx:285
-#: src/features/forums/components/thread/thread-content.tsx:168
+#: src/features/forums/components/post-card.tsx:87
+#: src/features/forums/components/thread/thread-comment.tsx:286
+#: src/features/forums/components/thread/thread-content.tsx:166
+#: src/routes/_authenticated/$forum_.moderation.tsx:808
 msgid "Removed"
 msgstr "حذف شد"
 
@@ -2399,49 +2645,49 @@ msgstr "از ذخیره‌ شده‌ها حذف شد"
 msgid "Removing..."
 msgstr "در حال حذف..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "تغییر نام"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "تغییر نام ستون"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "تغییر نام این ستون تخته"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:202
+#: src/routes/_authenticated/$forum_.settings.tsx:198
 msgid "Renaming forum..."
 msgstr "در حال تغییر نام انجمن..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:953
+#: src/routes/_authenticated/$forum_.settings.tsx:891
 msgid "replies"
 msgstr "پاسخ"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:882
+#: src/routes/_authenticated/$forum_.settings.tsx:820
 msgid "Replies must be approved"
 msgstr "پاسخ‌ها باید تأیید شوند"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:256
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:304
-#: src/features/forums/components/thread/thread-comment.tsx:403
-#: src/features/forums/components/thread/thread-comment.tsx:409
-#: src/features/forums/components/thread/thread-content.tsx:318
-#: src/features/forums/components/thread/thread-content.tsx:327
+#: src/features/forums/components/thread/thread-comment.tsx:404
+#: src/features/forums/components/thread/thread-comment.tsx:410
+#: src/features/forums/components/thread/thread-content.tsx:316
+#: src/features/forums/components/thread/thread-content.tsx:325
 msgid "Reply"
 msgstr "پاسخ"
 
 #. placeholder {0}: comment.name
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
-#: src/features/forums/components/thread/thread-comment.tsx:563
+#: src/features/forums/components/thread/thread-comment.tsx:575
 msgid "Reply to {0}..."
 msgstr "پاسخ به {0}..."
 
-#: src/features/forums/components/thread/thread-comment.tsx:480
-#: src/features/forums/components/thread/thread-content.tsx:408
+#: src/features/forums/components/thread/thread-comment.tsx:481
+#: src/features/forums/components/thread/thread-content.tsx:406
 msgid "Report"
 msgstr "گزارش"
 
@@ -2453,63 +2699,87 @@ msgstr "گزارش نظر"
 msgid "Report post"
 msgstr "گزارش پست"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:584
+#: src/routes/_authenticated/$forum_.moderation.tsx:612
 msgid "Report resolved"
 msgstr "گزارش رفع شد"
 
-#: src/hooks/use-forums-queries.ts:541
-#: src/hooks/use-forums-queries.ts:613
+#: src/hooks/use-forums-queries.ts:565
+#: src/hooks/use-forums-queries.ts:637
 msgid "Report submitted"
 msgstr "گزارش ارسال شد"
 
 #. placeholder {0}: report.reporter_name ?? report.reporter
-#: src/routes/_authenticated/$forum_.moderation.tsx:724
+#: src/routes/_authenticated/$forum_.moderation.tsx:761
 msgid "Reported by {0}"
 msgstr "گزارش‌شده توسط {0}"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:80
+#: src/routes/_authenticated/$forum_.moderation.tsx:87
 msgid "Reports"
 msgstr "گزارش‌ها"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:865
+#: src/routes/_authenticated/$forum_.settings.tsx:803
 msgid "Require approval before content becomes visible"
 msgstr "قبل از قابل‌مشاهده شدن محتوا، تأیید لازم است"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:881
+#: src/routes/_authenticated/$forum_.settings.tsx:819
 msgid "Require approval for new comments"
 msgstr "تأیید برای نظرات جدید الزامی است"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:870
+#: src/routes/_authenticated/$forum_.settings.tsx:808
 msgid "Require approval for new posts"
 msgstr "تأیید برای پست‌های جدید الزامی است"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:892
+#: src/routes/_authenticated/$forum_.settings.tsx:830
 msgid "Require approval for new users"
 msgstr "تأیید برای کاربران جدید الزامی است"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "الزامی"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "ارسال مجدد ایمیل"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:657
-#: src/routes/_authenticated/$forum_.moderation.tsx:776
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "تسلیم"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "بازی را تسلیم می‌شوید؟"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "در حال تسلیم..."
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:685
+#: src/routes/_authenticated/$forum_.moderation.tsx:828
 msgid "Resolved"
 msgstr "رفع شد"
 
-#: src/features/forums/components/thread/thread-comment.tsx:466
-#: src/features/forums/components/thread/thread-content.tsx:368
+#: src/routes/_authenticated/$forum_.moderation.tsx:817
+msgid "Resolved report"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-comment.tsx:467
+#: src/features/forums/components/thread/thread-content.tsx:366
 msgid "Restore"
 msgstr "بازیابی"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:954
+#: src/routes/_authenticated/$forum_.moderation.tsx:809
+msgid "Restored"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:815
+msgid "Restricted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:1035
 msgid "Restriction removed"
 msgstr "محدودیت حذف شد"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:81
+#: src/routes/_authenticated/$forum_.moderation.tsx:88
 msgid "Restrictions"
 msgstr "محدودیت‌ها"
 
@@ -2533,12 +2803,12 @@ msgstr "لغو دسترسی"
 msgid "Revoke RSS access?"
 msgstr "دسترسی RSS لغو شود؟"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "ردیف‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "گروه‌بندی ردیف‌ها بر اساس"
 
@@ -2560,16 +2830,16 @@ msgstr "شنبه"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/forums/components/thread/thread-comment.tsx:328
-#: src/routes/_authenticated/$forum_.settings.tsx:494
+#: src/features/forums/components/thread/thread-comment.tsx:329
 msgid "Save"
 msgstr "ذخیره"
 
-#: src/features/forums/components/edit-post-dialog.tsx:407
+#: src/features/forums/components/edit-post-dialog.tsx:415
 msgid "Save changes"
 msgstr "ذخیره تغییرات"
 
@@ -2590,19 +2860,19 @@ msgid "Saved posts cleared"
 msgstr "نوشته‌های ذخیره‌شده پاک شد"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/forums/components/edit-post-dialog.tsx:402
+#: src/features/forums/components/edit-post-dialog.tsx:410
 #: src/lib/saved.ts:28
 msgid "Saving..."
 msgstr "در حال ذخیره..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:603
+#: src/routes/_authenticated/$forum_.settings.tsx:526
 msgid "Score prompt"
 msgstr "Prompt امتیاز"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "جست‌وجو"
 
@@ -2614,15 +2884,15 @@ msgstr "جست‌وجو بر اساس نام، شناسه، اثرانگشت ی�
 msgid "Search for a command to run..."
 msgstr "جستجوی فرمانی برای اجرا..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "جست‌وجوی یک مکان"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "جستجوی مکان..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "جست‌وجوی مقصد..."
 
@@ -2630,11 +2900,11 @@ msgstr "جست‌وجوی مقصد..."
 msgid "Search for forums..."
 msgstr "جست‌وجوی انجمن‌ها..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "جست‌وجوی مبدأ..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "جست‌وجوی اشیاء..."
 
@@ -2652,8 +2922,8 @@ msgstr "این نما را جست‌وجو، تماشا و مرتب کنید."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "جست‌وجو..."
@@ -2663,15 +2933,15 @@ msgstr "جست‌وجو..."
 msgid "Searching..."
 msgstr "در حال جست‌وجو..."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:968
+#: src/routes/_authenticated/$forum_.settings.tsx:906
 msgid "seconds"
 msgstr "ثانیه"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 msgid "Select"
 msgstr "انتخاب"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "انتخاب یک فیلد"
 
@@ -2699,7 +2969,7 @@ msgstr "انتخاب قاعده دسترسی"
 msgid "Select account type"
 msgstr "انتخاب نوع حساب"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select all"
 msgstr "انتخاب همه"
 
@@ -2707,7 +2977,7 @@ msgstr "انتخاب همه"
 msgid "Select group"
 msgstr "انتخاب گروه"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "انتخاب موقعیت"
 
@@ -2715,11 +2985,11 @@ msgstr "انتخاب موقعیت"
 msgid "Select next card"
 msgstr "انتخاب کارت بعدی"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:460
+#: src/routes/_authenticated/$forum_.moderation.tsx:488
 msgid "Select none"
 msgstr "انتخاب هیچ‌کدام"
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "شخصی را انتخاب کنید..."
 
@@ -2727,8 +2997,8 @@ msgstr "شخصی را انتخاب کنید..."
 msgid "Select previous card"
 msgstr "انتخاب کارت قبلی"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "انتخاب..."
 
@@ -2741,7 +3011,7 @@ msgstr "انتخاب‌شده: <0>{0}</0>"
 msgid "Send again"
 msgstr "ارسال مجدد"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "ارسال ایمیل"
 
@@ -2768,29 +3038,29 @@ msgstr "قوانین سرور"
 msgid "Session expired. Please log in again."
 msgstr "نشست منقضی شده است. لطفاً دوباره وارد شوید."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "تنظیم مبدأ و مقصد"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:125
 #: ../../../lib/web/src/components/options-menu.tsx:196
-#: src/routes/_authenticated/$forum_.settings.tsx:94
-#: src/routes/_authenticated/$forum_.settings.tsx:170
-#: src/routes/_authenticated/$forum_.settings.tsx:235
-#: src/routes/_authenticated/$forum_.settings.tsx:265
+#: src/routes/_authenticated/$forum_.settings.tsx:92
+#: src/routes/_authenticated/$forum_.settings.tsx:166
+#: src/routes/_authenticated/$forum_.settings.tsx:230
+#: src/routes/_authenticated/$forum_.settings.tsx:260
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:793
+#: src/routes/_authenticated/$forum_.moderation.tsx:845
 msgid "Shadowbanned"
 msgstr "مسدود پنهان"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "نمایش کلاس‌ها"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "نمایش فیلدها"
 
@@ -2802,7 +3072,7 @@ msgstr "فقط نظرهای این تصویر را نشان بده"
 msgid "Show this help"
 msgstr "نمایش این راهنما"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "نمایش {totalShown} از {total}"
 
@@ -2810,17 +3080,21 @@ msgstr "نمایش {totalShown} از {total}"
 msgid "Sidebar"
 msgstr "نوار کناری"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "با حسابی که به این منبع دسترسی دارد <0/> وارد شوید."
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "خروج"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "در حال خروج..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "فقط یک خط متن"
 
@@ -2842,23 +3116,28 @@ msgid "Spacious"
 msgstr "گسترده"
 
 #: src/features/forums/components/report-dialog.tsx:26
-#: src/routes/_authenticated/$forum_.moderation.tsx:800
+#: src/routes/_authenticated/$forum_.moderation.tsx:852
 msgid "Spam"
 msgstr "هرزنامه"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "با افزودن اولین نظر، گفت‌وگو را آغاز کنید."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "توقف تماشا"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "موضوع"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:435
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "ثبت نظر"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:434
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "ثبت پاسخ"
 
@@ -2870,12 +3149,12 @@ msgstr "ثبت گزارش"
 msgid "Submitting..."
 msgstr "در حال ثبت..."
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 #: src/features/forums/components/inline-forum-search.tsx:106
 #: src/features/forums/components/recommended-forums.tsx:69
-#: src/features/forums/pages/entity-forum-page.tsx:271
+#: src/features/forums/pages/entity-forum-page.tsx:272
 msgid "Subscribe"
 msgstr "اشتراک"
 
@@ -2889,14 +3168,14 @@ msgstr "مشترک شد"
 msgid "Subscribed to {0}"
 msgstr "در {0} مشترک شدید"
 
-#: src/hooks/use-forums-queries.ts:147
+#: src/hooks/use-forums-queries.ts:171
 msgid "Subscribed to forum"
 msgstr "اشتراک انجمن انجام شد"
 
 #: src/features/forums/components/inline-forum-search.tsx:81
 #: src/features/forums/components/recommended-forums.tsx:47
-#: src/features/forums/pages/entity-forum-page.tsx:268
-#: src/hooks/use-forums-queries.ts:138
+#: src/features/forums/pages/entity-forum-page.tsx:269
+#: src/hooks/use-forums-queries.ts:162
 #: src/routes/_authenticated/find.tsx:55
 msgid "Subscribing..."
 msgstr "در حال اشتراک..."
@@ -2915,24 +3194,24 @@ msgstr "تغییر به نمای ۱ تا ۹"
 msgid "System"
 msgstr "سیستم"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:561
+#: src/routes/_authenticated/$forum_.settings.tsx:484
 msgid "Tag"
 msgstr "برچسب"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "برچسب از پیش وجود دارد"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "برچسب باید ۵۰ نویسه یا کمتر باشد"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:602
+#: src/routes/_authenticated/$forum_.settings.tsx:525
 msgid "Tag prompt"
 msgstr "پیام برچسب"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "برچسب‌ها"
 
@@ -2945,11 +3224,11 @@ msgstr "برای ذخیره هر پست در اینجا برای بعد، روی
 msgid "Terms and conditions"
 msgstr "شرایط و ضوابط"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "متن"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "این کد نادرست است یا منقضی شده است."
 
@@ -2962,7 +3241,23 @@ msgstr "ارسال نشد. ممکن است فایل‌ها بیش از حد بز
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "برای بارگذاری بیش از حد بزرگ بود. فایل‌ها را حذف یا کوچک کنید و دوباره تلاش کنید."
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "دوربین در حال حاضر در حال استفاده است"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "درخواست دوربین پاسخ داده نشد"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "درخواست میکروفون پاسخ داده نشد"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "درخواست پسکی پاسخ داده نشد"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "محتوای درخواستی یافت نشد."
 
@@ -2970,28 +3265,36 @@ msgstr "محتوای درخواستی یافت نشد."
 msgid "The server returned a web page instead of data."
 msgstr "سرور به‌جای داده، یک صفحهٔ وب برگرداند."
 
-#: src/routes/_authenticated/$forum_.moderation.tsx:872
+#: src/routes/_authenticated/$forum_.moderation.tsx:947
 msgid "There are no moderation actions recorded yet"
 msgstr "هنوز هیچ اقدام نظارتی ثبت نشده است"
 
-#: src/features/forums/components/thread/thread-comment.tsx:540
-#: src/features/forums/components/thread/thread-content.tsx:464
-msgid "They will lose access to this forum. You can lift it later from the Restrictions tab."
-msgstr "دسترسی آن‌ها به این انجمن از بین می‌رود. می‌توانید بعداً از زبانهٔ محدودیت‌ها آن را بردارید."
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "این برنامه اجازه استفاده از پسکی شما را ندارد. در تنظیمات، بخش مجوزها به آن اجازه دهید."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:253
+#: src/hooks/use-forum-websocket.ts:78
+msgid "This comment was already submitted"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.settings.tsx:248
 msgid "This forum could not be loaded right now."
 msgstr "این انجمن در حال حاضر قابل بارگذاری نیست."
 
-#: src/routes/_authenticated/$forum_.settings.tsx:252
+#: src/routes/_authenticated/$forum_.settings.tsx:247
+#: src/routes/_authenticated/$forum/index.tsx:98
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "این انجمن ممکن است حذف شده باشد یا شما به آن دسترسی نداشته باشید."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "این کار بازی و گفتگوی آن را برای همیشه حذف می‌کند. این عمل قابل بازگشت نیست."
 
 #: src/features/forums/components/thread/empty-thread-state.tsx:17
 msgid "This post may have been deleted or doesn't exist."
 msgstr "این پست ممکن است حذف شده باشد یا وجود نداشته باشد."
 
-#: src/hooks/use-forum-websocket.ts:63
+#: src/hooks/use-forum-websocket.ts:79
 msgid "This post was already submitted"
 msgstr "این پست قبلاً ارسال شده است"
 
@@ -2999,16 +3302,16 @@ msgstr "این پست قبلاً ارسال شده است"
 msgid "This removes every post from your saved list. This cannot be undone."
 msgstr "این کار هر پست را از فهرست ذخیره‌شده‌های شما حذف می‌کند. این عمل قابل بازگشت نیست."
 
-#: src/features/forums/components/thread/thread-comment.tsx:527
+#: src/features/forums/components/thread/thread-comment.tsx:526
 msgid "This will hide the comment from regular users. Moderators can still see it and restore it later."
 msgstr "این کار نظر را از کاربران عادی پنهان می‌کند. ناظران همچنان می‌توانند آن را ببینند و بعداً بازیابی کنند."
 
-#: src/features/forums/components/thread/thread-content.tsx:451
+#: src/features/forums/components/thread/thread-content.tsx:449
 msgid "This will hide the post from regular users. Moderators can still see it and restore it later."
 msgstr "این کار پست را از کاربران عادی پنهان می‌کند. ناظران همچنان می‌توانند آن را ببینند و بعداً بازیابی کنند."
 
 #. placeholder {0}: forum.name
-#: src/routes/_authenticated/$forum_.settings.tsx:431
+#: src/routes/_authenticated/$forum_.settings.tsx:426
 msgid "This will permanently delete \"{0}\" and all its posts and comments. This action cannot be undone."
 msgstr "این کار «{0}» و تمام پست‌ها و نظرات آن را به‌طور دائمی حذف می‌کند. این عمل قابل بازگشت نیست."
 
@@ -3021,7 +3324,7 @@ msgid "Thursday"
 msgstr "پنجشنبه"
 
 #: src/features/forums/components/create-post-dialog.tsx:230
-#: src/features/forums/components/edit-post-dialog.tsx:296
+#: src/features/forums/components/edit-post-dialog.tsx:304
 msgid "Title"
 msgstr "عنوان"
 
@@ -3037,25 +3340,22 @@ msgstr "عنوان الزامی است"
 msgid "Title must be 1000 characters or less"
 msgstr "عنوان باید حداکثر 1000 نویسه باشد"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "به"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "تغییر وضعیت بخش"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-msgid "Toggle sidebar"
-msgstr "تغییر وضعیت نوار کناری"
-
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
+msgid "Toggle sidebar"
 msgstr "تغییر وضعیت نوار کناری"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -3067,7 +3367,7 @@ msgstr "تغییر وضعیت گزینه‌های نما"
 msgid "Toggle watched filter"
 msgstr "تغییر وضعیت فیلتر تماشاشده"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "درخواست‌های بیش از حد"
 
@@ -3075,7 +3375,7 @@ msgstr "درخواست‌های بیش از حد"
 msgid "Top"
 msgstr "بالا"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "در حال سفر"
 
@@ -3083,8 +3383,8 @@ msgstr "در حال سفر"
 msgid "Try adjusting your search terms"
 msgstr "عبارات جست‌وجوی خود را تنظیم کنید"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "دوباره تلاش کنید"
 
@@ -3092,12 +3392,12 @@ msgstr "دوباره تلاش کنید"
 msgid "Tuesday"
 msgstr "سه‌شنبه"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "نوع"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "یک فرمان تایپ کنید یا جست‌وجو کنید..."
 
@@ -3117,8 +3417,8 @@ msgstr "برای جست‌وجو تایپ کنید..."
 msgid "Unable to connect to remote server"
 msgstr "اتصال به سرور راه دور ممکن نیست"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "ریدایرکت به ورود ممکن نیست. لطفاً دوباره تلاش کنید."
 
@@ -3126,16 +3426,12 @@ msgstr "ریدایرکت به ورود ممکن نیست. لطفاً دوبار�
 msgid "Unassigned"
 msgstr "بدون اختصاص"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "دسترسی غیرمجاز"
-
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "در دسترس نیست"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "خطای غیرمنتظره API"
 
@@ -3143,58 +3439,79 @@ msgstr "خطای غیرمنتظره API"
 msgid "United States"
 msgstr "ایالات متحده"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/features/forums/components/forum-overview.tsx:84
 #: src/features/forums/pages/forums-list-page.tsx:112
-#: src/routes/_authenticated/$forum_.moderation.tsx:692
+#: src/routes/_authenticated/$forum_.moderation.tsx:729
 msgid "Unknown"
 msgstr "ناشناخته"
 
-#: src/features/forums/components/thread/thread-content.tsx:381
+#: src/features/forums/components/thread/thread-content.tsx:379
 msgid "Unlock"
 msgstr "باز کردن قفل"
 
-#: src/features/forums/components/thread/thread-content.tsx:394
+#: src/routes/_authenticated/$forum_.moderation.tsx:812
+msgid "Unlocked"
+msgstr ""
+
+#: src/features/forums/components/thread/thread-content.tsx:392
 msgid "Unpin"
 msgstr "برداشتن سنجاق"
 
+#: src/routes/_authenticated/$forum_.moderation.tsx:814
+msgid "Unpinned"
+msgstr ""
+
+#: src/routes/_authenticated/$forum_.moderation.tsx:816
+msgid "Unrestricted"
+msgstr ""
+
 #: ../../../lib/web/src/components/options-menu.tsx:211
-#: src/features/forums/pages/entity-forum-page.tsx:356
-#: src/routes/_authenticated/$forum_.settings.tsx:403
+#: src/features/forums/pages/entity-forum-page.tsx:357
+#: src/routes/_authenticated/$forum_.settings.tsx:398
 msgid "Unsubscribe"
 msgstr "لغو اشتراک"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:391
+#: src/routes/_authenticated/$forum_.settings.tsx:386
 msgid "Unsubscribe from forum"
 msgstr "لغو اشتراک از انجمن"
 
-#: src/features/forums/pages/entity-forum-page.tsx:353
+#: src/features/forums/pages/entity-forum-page.tsx:354
 msgid "Unsubscribe from forum?"
 msgstr "لغو اشتراک از انجمن؟"
 
-#: src/hooks/use-forums-queries.ts:161
-#: src/routes/_authenticated/$forum_.settings.tsx:181
+#: src/hooks/use-forums-queries.ts:185
+#: src/routes/_authenticated/$forum_.settings.tsx:177
 msgid "Unsubscribed"
 msgstr "لغو اشتراک شد"
 
-#: src/hooks/use-forums-queries.ts:160
-#: src/routes/_authenticated/$forum_.settings.tsx:180
+#: src/hooks/use-forums-queries.ts:184
+#: src/routes/_authenticated/$forum_.settings.tsx:176
 msgid "Unsubscribing..."
 msgstr "در حال لغو اشتراک..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "بدون عنوان"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "به‌روزرسانی شد"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "{field} به‌روزرسانی شد"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "بارگذاری"
 
@@ -3202,13 +3519,13 @@ msgstr "بارگذاری"
 msgid "Upload progress"
 msgstr "پیشرفت بارگذاری"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "از کلید عبور خود استفاده کنید"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "کاربر"
 
@@ -3228,7 +3545,7 @@ msgstr "متغیرها: {variables}"
 msgid "Verification code"
 msgstr "کد تأیید"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "تأیید"
@@ -3237,40 +3554,53 @@ msgstr "تأیید"
 msgid "Verify email address"
 msgstr "تأیید نشانی ایمیل"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 msgid "Video thumbnail"
 msgstr "بندانگشتی ویدیو"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "نمایشگر ویدیو: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "نمایش همه اعلان‌ها"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "نمایش و ویرایش جزئیات مورد"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "کنترل‌های نمایش"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:108
+#: src/routes/_authenticated/$forum_.settings.tsx:106
 msgid "View only"
 msgstr "فقط نمایش"
 
-#: src/features/forums/components/thread/thread-comment.tsx:261
+#: src/features/forums/components/thread/thread-comment.tsx:262
 msgid "View the image this comment is about"
 msgstr "تصویری را که این نظر دربارهٔ آن است ببینید"
 
 #: src/features/forums/components/report-dialog.tsx:29
-#: src/routes/_authenticated/$forum_.moderation.tsx:803
+#: src/routes/_authenticated/$forum_.moderation.tsx:855
 msgid "Violence"
 msgstr "خشونت"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:107
+#: ../../../lib/web/src/lib/shell-errors.ts:33
+msgid "Voice recording is not supported in this browser"
+msgstr "ضبط صدا در این مرورگر پشتیبانی نمی‌شود"
+
+#: src/routes/_authenticated/$forum_.settings.tsx:105
 msgid "Vote and view"
 msgstr "رأی دادن و نمایش"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "تماشا"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
@@ -3290,30 +3620,42 @@ msgstr "کد تأیید را به <0>{0}</0> ارسال کردیم. برای ت�
 msgid "Wednesday"
 msgstr "چهارشنبه"
 
-#: src/routes/_authenticated/$forum_.settings.tsx:958
+#: src/routes/_authenticated/$forum_.settings.tsx:896
 msgid "Window duration"
 msgstr "مدت پنجره"
 
 #: src/features/forums/components/inline-forum-search.tsx:87
 #: src/features/forums/components/recommended-forums.tsx:53
-#: src/hooks/use-forums-queries.ts:145
+#: src/hooks/use-forums-queries.ts:169
 #: src/routes/_authenticated/find.tsx:61
 msgid "You are already subscribed to this forum"
 msgstr "شما از پیش در این انجمن مشترک شده‌اید"
 
-#: src/hooks/use-forum-websocket.ts:59
+#: src/hooks/use-forum-websocket.ts:70
+msgid "You are commenting too quickly — please wait and try again"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:71
 msgid "You are posting too quickly — please wait and try again"
 msgstr "خیلی سریع پست می‌گذارید — لطفاً صبر کنید و دوباره تلاش کنید"
 
-#: src/hooks/use-forum-websocket.ts:57
+#: src/hooks/use-forum-websocket.ts:66
+msgid "You are restricted from commenting in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:67
 msgid "You are restricted from posting in this forum"
 msgstr "شما از ارسال در این انجمن محدود شده‌اید"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "شما به این بخش دسترسی ندارید."
 
-#: src/hooks/use-forum-websocket.ts:55
+#: src/hooks/use-forum-websocket.ts:62
+msgid "You don't have permission to comment in this forum"
+msgstr ""
+
+#: src/hooks/use-forum-websocket.ts:63
 msgid "You don't have permission to post in this forum"
 msgstr "شما اجازه ارسال در این انجمن را ندارید"
 
@@ -3321,11 +3663,11 @@ msgstr "شما اجازه ارسال در این انجمن را ندارید"
 msgid "You have no forums yet."
 msgstr "شما هنوز هیچ انجمنی ندارید."
 
-#: src/features/forums/pages/entity-forum-page.tsx:354
+#: src/features/forums/pages/entity-forum-page.tsx:355
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
 msgstr "دیگر به‌روزرسانی‌های این انجمن را دریافت نخواهید کرد. هر زمان که بخواهید می‌توانید دوباره مشترک شوید."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "حساب کاربری شما از {source} به اینجا منتقل شده است. تا زمانی که آن را آنجا حذف نکنید، پیام‌ها و اعلان‌ها ممکن است به هر دو سرور برسند، بخشی از محتوای شما همچنان از سرور قدیمی ارائه می‌شود، و دنبال‌کنندگان ممکن است چند دقیقه‌ای طول بکشد تا شما را اینجا پیدا کنند."
 
@@ -3333,7 +3675,7 @@ msgstr "حساب کاربری شما از {source} به اینجا منتقل ش
 msgid "Your attachments will be lost."
 msgstr "پیوست‌های شما از دست خواهند رفت."
 
-#: src/features/forums/components/edit-post-dialog.tsx:266
+#: src/features/forums/components/edit-post-dialog.tsx:274
 msgid "Your changes will be lost."
 msgstr "تغییرات شما از بین خواهد رفت."
 
