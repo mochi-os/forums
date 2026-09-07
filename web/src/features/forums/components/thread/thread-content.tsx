@@ -106,7 +106,6 @@ export function ThreadContent({
   const { formatTimestamp } = useFormat()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false)
-  const [muteDialogOpen, setMuteDialogOpen] = useState(false)
   const [banDialogOpen, setBanDialogOpen] = useState(false)
 
   // Local vote state to prevent re-render flicker
@@ -408,7 +407,7 @@ export function ThreadContent({
                     )}
                     {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
                     {canModerate && onMuteAuthor && (
-                      <DropdownMenuItem onClick={() => setMuteDialogOpen(true)}>
+                      <DropdownMenuItem onClick={() => onMuteAuthor()}>
                         <VolumeX className='me-2 size-4' />
                         <Trans>Mute author</Trans>
                       </DropdownMenuItem>
@@ -451,19 +450,6 @@ export function ThreadContent({
         handleConfirm={() => {
           setRemoveDialogOpen(false)
           onRemove?.()
-        }}
-      />
-
-      {/* Mute confirmation dialog */}
-      <ConfirmDialog
-        open={muteDialogOpen}
-        onOpenChange={setMuteDialogOpen}
-        title={t`Mute author`}
-        desc={t`Mute ${post.name}? They will not be able to post or comment in this forum until unmuted.`}
-        confirmText={t`Mute`}
-        handleConfirm={() => {
-          setMuteDialogOpen(false)
-          onMuteAuthor?.()
         }}
       />
 

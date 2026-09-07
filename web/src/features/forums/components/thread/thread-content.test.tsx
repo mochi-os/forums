@@ -46,7 +46,9 @@ function renderContent(props: Partial<Parameters<typeof ThreadContent>[0]>) {
 }
 
 describe('ThreadContent moderation confirmations', () => {
-  it('confirms before muting the author instead of firing immediately', async () => {
+  // Mute fires on click by choice: it is narrower than a ban and lifts just as
+  // easily, so a confirmation would guard nothing. Ban, below, still confirms.
+  it('mutes the author on click, without confirming', async () => {
     const user = userEvent.setup()
     const onMuteAuthor = vi.fn()
     renderContent({ onMuteAuthor })
@@ -54,12 +56,8 @@ describe('ThreadContent moderation confirmations', () => {
     await user.click(screen.getByLabelText('More options'))
     await user.click(await screen.findByText('Mute author'))
 
-    // Negative control: the pre-fix menu item called onMuteAuthor directly, so
-    // it would already be invoked here with no confirmation.
-    expect(onMuteAuthor).not.toHaveBeenCalled()
-
-    await user.click(await screen.findByRole('button', { name: 'Mute' }))
     expect(onMuteAuthor).toHaveBeenCalledTimes(1)
+    expect(screen.queryByRole('button', { name: 'Mute' })).toBeNull()
   })
 
   it('confirms before banning the author instead of firing immediately', async () => {
