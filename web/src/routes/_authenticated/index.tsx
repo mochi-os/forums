@@ -6,9 +6,9 @@
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { getErrorMessage, useAuthStore } from '@mochi/web'
-import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
+import { forumsInfoQueryOptions } from '@/hooks/use-forums-queries'
 import { getLastForum, clearLastForum } from '@/hooks/use-forums-storage'
 
 // Response type for info endpoint
@@ -24,12 +24,17 @@ interface InfoResponse {
 let hasCheckedRedirect = false
 
 export const Route = createFileRoute('/_authenticated/')({
-  loader: async () => {
+  loader: async ({ context }) => {
     let info: InfoResponse | null = null
     let loaderError: string | null = null
 
     try {
-      const response = await forumsApi.getForumsInfo()
+      // Go through the same react-query cache the layout's useForumsInfo reads,
+      // so `-/information` is fetched once on landing, not once here and again
+      // in the sidebar.
+      const response = await context.queryClient.ensureQueryData(
+        forumsInfoQueryOptions()
+      )
       // Backend returns { data: { entity, forums/forum, ... } }
       // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
       info = response.data as InfoResponse

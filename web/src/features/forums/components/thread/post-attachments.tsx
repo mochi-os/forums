@@ -4,8 +4,9 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import type { MutableRefObject, ReactNode } from 'react'
-import { AttachmentGallery, authenticatedUrl, getAppPath, normalizeEntityUrl } from '@mochi/web'
+import { AttachmentGallery } from '@mochi/web'
 import type { Attachment } from '@/api/types/posts'
+import { attachmentUrl } from '../../attachment-url'
 
 interface PostAttachmentsProps {
   attachments: Attachment[]
@@ -28,31 +29,12 @@ export function PostAttachments({
   renderComments,
   openerRef,
 }: PostAttachmentsProps) {
-  const appPath = getAppPath()
-  const serverParam = server ? `?server=${encodeURIComponent(server)}` : ''
-
   return (
     <AttachmentGallery
       attachments={attachments}
-      getUrl={(att) =>
-        authenticatedUrl(
-          normalizeEntityUrl(att.url ?? `${appPath}/${forumId}/-/attachments/${att.id}${serverParam}`)
-        )
-      }
-      getThumbnailUrl={(att) =>
-        authenticatedUrl(
-          normalizeEntityUrl(
-            att.thumbnail_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/thumbnail${serverParam}`
-          )
-        )
-      }
-      getPreviewUrl={(att) =>
-        authenticatedUrl(
-          normalizeEntityUrl(
-            att.preview_url ?? `${appPath}/${forumId}/-/attachments/${att.id}/preview${serverParam}`
-          )
-        )
-      }
+      getUrl={(att) => attachmentUrl(forumId, att.id, '', server)}
+      getThumbnailUrl={(att) => attachmentUrl(forumId, att.id, 'thumbnail', server)}
+      getPreviewUrl={(att) => attachmentUrl(forumId, att.id, 'preview', server)}
       mediaCap={mediaCap}
       showCaptions
       commentCount={commentCount}

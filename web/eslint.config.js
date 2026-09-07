@@ -13,9 +13,6 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig } from 'eslint/config'
 import i18nConfig from '@mochi/web/eslint-i18n-config'
 import tseslint from 'typescript-eslint'
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

@@ -150,6 +150,9 @@ function ForumsLayoutInner() {
     openForumDialog,
     forumsInfoError,
     refetchForumsInfo,
+    // `t` changes identity on a language change; without it the memoised
+    // sidebar labels ("All forums", "Saved", ...) stay in the old language.
+    t,
   ])
 
   return (

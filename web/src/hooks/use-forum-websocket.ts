@@ -49,23 +49,41 @@ interface ForumWebsocketEvent {
   tag?: { id: string; label: string; source: string } | string
 }
 
-function rejectMessage(reason: string | undefined): string {
+// A rejection can arrive for either a post or a comment; the message must
+// match, so a rejected comment doesn't tell the user their "post" was refused.
+export function rejectMessage(
+  reason: string | undefined,
+  kind: 'post' | 'comment'
+): string {
+  const isComment = kind === 'comment'
   switch (reason) {
     case 'access_denied':
-      return t`You don't have permission to post in this forum`
+      return isComment
+        ? t`You don't have permission to comment in this forum`
+        : t`You don't have permission to post in this forum`
     case 'restricted':
-      return t`You are restricted from posting in this forum`
+      return isComment
+        ? t`You are restricted from commenting in this forum`
+        : t`You are restricted from posting in this forum`
     case 'rate_limited':
-      return t`You are posting too quickly — please wait and try again`
+      return isComment
+        ? t`You are commenting too quickly — please wait and try again`
+        : t`You are posting too quickly — please wait and try again`
     case 'invalid':
-      return t`Post couldn't be saved — title or body is invalid`
+      return isComment
+        ? t`Comment couldn't be saved — it is invalid`
+        : t`Post couldn't be saved — title or body is invalid`
     case 'duplicate':
-      return t`This post was already submitted`
+      return isComment
+        ? t`This comment was already submitted`
+        : t`This post was already submitted`
     case 'forum_not_found':
       return t`Forum is no longer available`
     case 'server_error':
     default:
-      return t`Post couldn't be saved on the forum server`
+      return isComment
+        ? t`Comment couldn't be saved on the forum server`
+        : t`Post couldn't be saved on the forum server`
   }
 }
 
@@ -161,7 +179,7 @@ export function useForumWebsocket(
           // The forum owner refused the post; the Starlark handler has already
           // deleted the optimistic pending row. Surface the reason and refresh
           // the post list so the row disappears from the UI.
-          toast.error(rejectMessage(data.reason))
+          toast.error(rejectMessage(data.reason, 'post'))
           void queryClient.invalidateQueries({
             queryKey: ['forum-posts'],
             predicate: (query) => {
@@ -177,7 +195,7 @@ export function useForumWebsocket(
           // Same shape as post/reject: the owner refused the comment and the
           // Starlark handler has already deleted the optimistic pending row,
           // so the thread has to be refetched or it keeps showing it.
-          toast.error(rejectMessage(data.reason))
+          toast.error(rejectMessage(data.reason, 'comment'))
           if (data.post) {
             void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
             if (forumKey && forumKey !== forumId) {
