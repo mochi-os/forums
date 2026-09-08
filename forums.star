@@ -8800,7 +8800,7 @@ def ai_rerank(forum_data, posts, interests):
 
 
 # Internal: subscribe `user` to forum `forum_id`. Idempotent.
-# Returns {"fingerprint": fp, "already_subscribed": bool} or {"error": key, "code": N}.
+# Returns {"fingerprint": fp, "subscribed": bool} or {"error": key, "code": N}.
 def _subscribe_to_forum(user, forum_id, server):
     user_id = user.identity.id
 
@@ -8809,7 +8809,7 @@ def _subscribe_to_forum(user, forum_id, server):
 
     if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
         fp = mochi.entity.fingerprint(forum_id) or ""
-        return {"fingerprint": fp, "already_subscribed": True}
+        return {"fingerprint": fp, "subscribed": True}
 
     schema = None
     forum_name = ""
@@ -8855,7 +8855,7 @@ def _subscribe_to_forum(user, forum_id, server):
     )
     mochi.broadcast.touch(forum_id)
 
-    return {"fingerprint": fp, "already_subscribed": False}
+    return {"fingerprint": fp, "subscribed": False}
 
 
 # Internal: post on `forum_id` as `user`, subscriber-side path. Returns
@@ -8916,7 +8916,7 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
 
 # Internal: read-only check that `user` could post to `forum_id` -
 # _subscribe_to_forum's resolution without writes. An unreachable owner fails
-# the check, unlike subscribe. Returns {"fingerprint", "already_subscribed"} or
+# the check, unlike subscribe. Returns {"fingerprint", "subscribed"} or
 # {"error", "code"}.
 def _check_forum(user, forum_id):
     user_id = user.identity.id
@@ -8943,7 +8943,7 @@ def _check_forum(user, forum_id):
         return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
 
     fp = mochi.entity.fingerprint(forum_id) or ""
-    return {"fingerprint": fp, "already_subscribed": subscribed}
+    return {"fingerprint": fp, "subscribed": subscribed}
 
 
 # Whether an app/* service event came from the user it acts for. The app.json
@@ -8969,7 +8969,7 @@ def event_app_check(e):
         return
     e.write({
         "fingerprint": result.get("fingerprint", ""),
-        "already_subscribed": result.get("already_subscribed", False),
+        "subscribed": result.get("subscribed", False),
     })
 
 
@@ -8986,7 +8986,7 @@ def event_app_subscribe(e):
         return
     e.write({
         "fingerprint": result.get("fingerprint", ""),
-        "already_subscribed": result.get("already_subscribed", False),
+        "subscribed": result.get("subscribed", False),
     })
 
 
