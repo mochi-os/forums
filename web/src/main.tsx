@@ -10,13 +10,12 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import {
   ThemeProvider,
   SearchProvider,
-  CommandMenu,
   createQueryClient,
   getRouterBasepath,
   I18nProvider,
   type Catalogs,
 } from '@mochi/web'
-import { useSidebarData } from './components/layout/data/sidebar-data'
+import { ForumsCommandMenu } from './components/layout/forums-command-menu'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 // Styles
@@ -218,11 +217,6 @@ declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router
   }
-}
-
-function ForumsCommandMenu() {
-  const sidebarData = useSidebarData()
-  return <CommandMenu sidebarData={sidebarData} />
 }
 
 // Render the app
