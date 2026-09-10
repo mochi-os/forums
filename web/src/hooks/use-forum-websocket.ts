@@ -5,6 +5,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import {
   toast,
   useAuthStore,
@@ -13,6 +14,7 @@ import {
 } from '@mochi/web'
 import { t } from '@lingui/core/macro'
 import { forumsKeys } from './use-forums-queries'
+import { APP_ROUTES } from '@/config/routes'
 
 interface ForumWebsocketEvent {
   type:
@@ -37,6 +39,8 @@ interface ForumWebsocketEvent {
     | 'tag/add'
     | 'tag/remove'
     | 'forum/update'
+    | 'forum/resynced'
+    | 'forum/deleted'
   forum: string
   post?: string
   comment?: string
@@ -110,10 +114,17 @@ export function useForumWebsocket(
   onNewPostRef.current = onNewPost
   const onSyncRef = useRef(onSync)
   onSyncRef.current = onSync
+  const navigate = useNavigate()
+  const navigateRef = useRef(navigate)
+  navigateRef.current = navigate
 
   useEffect(() => {
     if (!authReady) return
     if (!forumKey) return
+
+    // Per subscription, so a forum/deleted navigates once however many copies
+    // of it arrive before the page unmounts.
+    let deleted = false
 
     const handleMessage = (event: EntityWebsocketEvent) => {
       const data = event as unknown as ForumWebsocketEvent
@@ -208,6 +219,35 @@ export function useForumWebsocket(
           // (server flipped `populated`); re-run the route loader so the board
           // leaves its loading state and renders the now-complete forum.
           onSyncRef.current?.()
+          break
+        case 'forum/resynced':
+          // This server replaced its copy with a fresh dump from the owner after
+          // a gap it could not replay. Refetch everything the page reads from
+          // that copy: the post list, any open thread, and the route loader.
+          void queryClient.invalidateQueries({
+            queryKey: ['forum-posts'],
+            predicate: (query) => {
+              const key = query.queryKey
+              if (key[0] !== 'forum-posts') return false
+              const queryForumId = key[1] as string | undefined
+              if (!queryForumId) return false
+              return queryForumId === forumKey || queryForumId === forumId
+            },
+          })
+          void queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'post', forumId] })
+          if (forumKey !== forumId) {
+            void queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'post', forumKey] })
+          }
+          onSyncRef.current?.()
+          break
+        case 'forum/deleted':
+          // The owner deleted the forum and this server has already purged its
+          // copy, so nothing on this page can load again. Leave for the forums
+          // list rather than sit on a forum that no longer exists.
+          if (deleted) break
+          deleted = true
+          void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+          void navigateRef.current({ to: APP_ROUTES.HOME })
           break
       }
     }
