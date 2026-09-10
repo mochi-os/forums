@@ -210,6 +210,26 @@ export interface RevokeAccessResponse {
   }
 }
 
+// Member roster types
+export interface ForumMember {
+  id: string
+  name: string
+  subscribed: number
+}
+
+export interface ListMembersResponse {
+  data: {
+    forum: Forum
+    members: ForumMember[]
+  }
+}
+
+export interface RemoveMemberResponse {
+  data: {
+    forum: Forum
+  }
+}
+
 // Probe types for remote forum lookup by URL
 export interface ProbeForumRequest {
   url: string

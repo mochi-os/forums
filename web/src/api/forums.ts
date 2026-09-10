@@ -35,6 +35,8 @@ import type {
   SetAccessResponse,
   RevokeAccessRequest,
   RevokeAccessResponse,
+  ListMembersResponse,
+  RemoveMemberResponse,
   ProbeForumRequest,
   ProbeForumResponse,
 } from '@/api/types/forums'
@@ -307,6 +309,15 @@ const forumsApi = {
       endpoints.forums.accessRevoke(payload.forum),
       { target: payload.user }
     ),
+
+  // Members
+  listMembers: (forumId: string) =>
+    client.get<ListMembersResponse>(endpoints.forums.members(forumId)),
+
+  removeMember: (forumId: string, member: string) =>
+    client.post<RemoveMemberResponse>(endpoints.forums.membersSave(forumId), {
+      remove: member,
+    }),
 
   // Management
   deleteForum: (forumId: string) =>

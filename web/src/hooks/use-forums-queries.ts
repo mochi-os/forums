@@ -20,6 +20,7 @@ export const forumsKeys = {
   detail: (forumId: string) => [...forumsKeys.all, 'detail', forumId] as const,
   search: (term: string) => [...forumsKeys.all, 'search', term] as const,
   access: (forumId: string) => [...forumsKeys.all, 'access', forumId] as const,
+  members: (forumId: string) => [...forumsKeys.all, 'members', forumId] as const,
   recommendations: () => [...forumsKeys.all, 'recommendations'] as const,
   post: (forumId: string, postId: string) =>
     [...forumsKeys.all, 'post', forumId, postId] as const,
@@ -89,6 +90,33 @@ export function useForumAccess(
     staleTime: 0,
     refetchOnWindowFocus: false,
     enabled: options?.enabled ?? true,
+  })
+}
+
+export function useForumMembers(forumId: string) {
+  return useQuery({
+    queryKey: forumsKeys.members(forumId),
+    queryFn: () => forumsApi.listMembers(forumId),
+    staleTime: 0,
+    refetchOnWindowFocus: false,
+  })
+}
+
+// Removal drops the member's row, votes, replay record and access in one call.
+// The forum's member count lives on the info queries, so those refresh too.
+export function useRemoveForumMember(forumId: string) {
+  const { t } = useLingui()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (member: string) => forumsApi.removeMember(forumId, member),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.members(forumId) })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.info(forumId) })
+      void queryClient.invalidateQueries({ queryKey: forumsInfoQueryOptions().queryKey })
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, t`Failed to remove member`))
+    },
   })
 }
 
