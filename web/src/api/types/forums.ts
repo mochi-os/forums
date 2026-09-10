@@ -10,7 +10,7 @@ import type { Post } from './posts'
 
 // Access levels in hierarchical order (higher grants all lower)
 // Only owners have full management permissions (no separate "manage" level)
-export type AccessLevel = 'view' | 'vote' | 'comment' | 'post' | 'moderate' | 'none'
+type AccessLevel = 'view' | 'vote' | 'comment' | 'post' | 'moderate' | 'none'
 
 export interface Forum {
   id: string

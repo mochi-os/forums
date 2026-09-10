@@ -65,7 +65,7 @@ export async function runBulk<T>(
 
 // The rate-limit window has a 60s server minimum; clamp before sending so a
 // smaller value (typed straight into the field) can neither be saved nor shown.
-export const LIMIT_WINDOW_MINIMUM = 60
+const LIMIT_WINDOW_MINIMUM = 60
 
 export function clampLimitWindow(value: number): number {
   if (!Number.isFinite(value)) return LIMIT_WINDOW_MINIMUM
