@@ -6490,19 +6490,12 @@ def event_post_submit_event(e):
         send_reject(forum["id"], sender_id, "post", id, "invalid")
         return
 
-    now = mochi.time.now()
-
     # Determine initial status
     status = "approved"
     if is_shadowbanned(forum["id"], sender_id):
         status = "removed"
     elif requires_premoderation(forum, sender_id, "post"):
         status = "pending"
-
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], sender_id, sender_name, title, body, status, now, now)
-    if status == "approved":
-        mochi.db.commit.fire("posts", "insert", id)
 
     # Resolve the sender's optimistic pending row. Not for a shadowbanned
     # sender: that status is deliberately invisible to them, and their copy
@@ -6516,14 +6509,26 @@ def event_post_submit_event(e):
     if attachments:
         attachment_accept(attachments, sender_id, id, forum["id"])
 
+    post_land(forum, sender_id, sender_name, id, title, body, status, e.content("tags") or [], attachments)
+
+# Land a post on the forum we own: write the row at `status`, apply the
+# submitter's tags, and fan out or queue for moderation. Shared by a member's
+# submit event and the owner's own help-app post, which lands here directly
+# rather than round-tripping a submit to itself. `tags` are validated here;
+# only the help app supplies them ("introduction" / "question") so the forum's
+# filter-by-tag UI can group help-app submissions. `exclude` is a member id the
+# post/create broadcast skips: the owner posting their own copy.
+def post_land(forum, member, name, id, title, body, status, tags, attachments, exclude=None):
+    now = mochi.time.now()
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, status, now, now)
+    if status == "approved":
+        mochi.db.commit.fire("posts", "insert", id)
+
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-    # Apply submitter-supplied tags (validated). Only the help app currently
-    # populates this — it adds "introduction" / "question" so the forum's
-    # filter-by-tag UI can group help-app submissions.
-    submitted_tags = e.content("tags") or []
     applied_tags = []
-    for raw in submitted_tags:
+    for raw in tags:
         label = validate_tag(raw)
         if not label:
             continue
@@ -6538,8 +6543,8 @@ def event_post_submit_event(e):
     if status == "approved":
         post_data = {
             "id": id,
-            "member": sender_id,
-            "name": sender_name,
+            "member": member,
+            "name": name,
             "title": title,
             "body": body,
             "created": now
@@ -6547,11 +6552,11 @@ def event_post_submit_event(e):
         if attachments:
             post_data["attachments"] = attachments
 
-        broadcast_event(forum["id"], "post/create", post_data)
+        broadcast_event(forum["id"], "post/create", post_data, exclude)
         for at in applied_tags:
-            broadcast_event(forum["id"], "tag/add", {"id": at["id"], "object": id, "label": at["label"], "source": "manual"})
+            broadcast_event(forum["id"], "tag/add", {"id": at["id"], "object": id, "label": at["label"], "source": "manual"}, exclude)
         if body:
-            notify_mentions(forum["id"], id, body, sender_id, sender_name)
+            notify_mentions(forum["id"], id, body, member, name)
 
         # Schedule AI tagging
         if forum.get("ai_mode", ""):
@@ -6561,9 +6566,9 @@ def event_post_submit_event(e):
             forum["id"],
             "moderation/queue",
             mochi.app.label("moderation.pending.title", forum=forum["name"]),
-            mochi.app.label("moderation.pending.body.post", author=sender_name),
+            mochi.app.label("moderation.pending.body.post", author=name),
             "",
-            sender_id,
+            member,
             source_id=id,
         )
 
@@ -8807,6 +8812,10 @@ def _subscribe_to_forum(user, forum_id, server):
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
 
+    # Our own forum: there is nothing to subscribe to.
+    if user_id and owned(forum_id):
+        return {"fingerprint": mochi.entity.fingerprint(forum_id) or "", "subscribed": True}
+
     if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
         fp = mochi.entity.fingerprint(forum_id) or ""
         return {"fingerprint": fp, "subscribed": True}
@@ -8877,6 +8886,26 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     if not forum:
         return {"error": "errors.forum_not_found", "code": 404}
 
+    # Our own forum: land the post here, as action_post_create does for the
+    # owner. A submit to ourselves would meet the pending copy written below
+    # and answer with its status, so the post would never leave pending.
+    if user_id and owned(forum_id):
+        if not check_event_access(user_id, forum_id, "post"):
+            return {"error": "errors.not_allowed_to_post", "code": 403}
+        restriction = check_restriction(forum_id, user_id, "post")
+        if restriction:
+            return {"error": "errors.restriction_" + restriction, "code": 403}
+        moderator = check_event_access(user_id, forum_id, "moderate")
+        if not moderator and check_rate_limit(forum, user_id, "post"):
+            return {"error": "errors.rate_limit_post", "code": 429}
+        status = "approved"
+        if is_shadowbanned(forum_id, user_id):
+            status = "removed"
+        elif not moderator and requires_premoderation(forum, user_id, "post"):
+            status = "pending"
+        post_land(forum, user_id, user_name, post_id, title, body, status, tags or [], [], user_id)
+        return {"forum": forum_id, "post": post_id, "fingerprint": mochi.entity.fingerprint(forum_id) or ""}
+
     access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["post"],
         "user": user_id,
@@ -8923,6 +8952,16 @@ def _check_forum(user, forum_id):
 
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
+
+    # Our own forum: the answer is local, the same gates action_post_create
+    # applies to the owner.
+    if user_id and owned(forum_id):
+        if not check_event_access(user_id, forum_id, "post"):
+            return {"error": "errors.not_allowed_to_post", "code": 403}
+        restriction = check_restriction(forum_id, user_id, "post")
+        if restriction:
+            return {"error": "errors.restriction_" + restriction, "code": 403}
+        return {"fingerprint": mochi.entity.fingerprint(forum_id) or "", "subscribed": True}
 
     subscribed = mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id)
 
