@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Plural, Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
+import { Plural, Trans, useLingui } from '@lingui/react/macro'
 import {
   Main,
   usePageTitle,
@@ -26,8 +25,10 @@ import {
   LoadingContent,
 } from '@mochi/web'
 import { Loader2, Rss, SquarePen, X } from 'lucide-react'
+import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import {
   useForumMembership,
   useCreatePost,
@@ -36,11 +37,9 @@ import {
   useSetForumSort,
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
-import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumBanner } from '../components/forum-banner'
 import { ForumOverview } from '../components/forum-overview'
-import forumsApi from '@/api/forums'
 
 interface EntityForumPageProps {
   forum: Forum
@@ -85,13 +84,19 @@ export function EntityForumPage({
   // rejection must still be caught so it isn't an unhandled promise rejection.
   useEffect(() => {
     if (isLoggedIn) {
-      void forumsApi.clearNotifications(forum.fingerprint ?? forum.id).catch(() => {})
+      void forumsApi
+        .clearNotifications(forum.fingerprint ?? forum.id)
+        .catch(() => {})
     }
   }, [forum.id, forum.fingerprint, isLoggedIn])
 
   // Subscription state and the default sort, from the information query the
   // layout already holds rather than a listing of every forum's posts.
-  const { isSubscribed, defaultSort, isLoading: isLoadingForums } = useForumMembership(forum.id)
+  const {
+    isSubscribed,
+    defaultSort,
+    isLoading: isLoadingForums,
+  } = useForumMembership(forum.id)
 
   // Adopt the global default once it loads, unless the user has overridden
   // (or this forum already has its own override from forum.sort).
@@ -127,7 +132,13 @@ export function EntityForumPage({
     hasAi,
     error: postsError,
     refetch,
-  } = useInfinitePosts({ forum: forum.id, entityContext, tag: activeTag, sort, server })
+  } = useInfinitePosts({
+    forum: forum.id,
+    entityContext,
+    tag: activeTag,
+    sort,
+    server,
+  })
 
   // Queue real-time new posts behind a "new posts available" pill instead of
   // injecting them while the user is reading.
@@ -195,7 +206,11 @@ export function EntityForumPage({
   const handleInterestUp = useCallback(
     async (qid: string) => {
       try {
-        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'up')
+        await forumsApi.adjustTagInterest(
+          forum.fingerprint ?? forum.id,
+          qid,
+          'up'
+        )
       } catch (error) {
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
@@ -206,7 +221,11 @@ export function EntityForumPage({
   const handleInterestDown = useCallback(
     async (qid: string) => {
       try {
-        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'down')
+        await forumsApi.adjustTagInterest(
+          forum.fingerprint ?? forum.id,
+          qid,
+          'down'
+        )
       } catch (error) {
         toast.error(getErrorMessage(error, t`Failed to adjust interest`))
       }
@@ -217,7 +236,11 @@ export function EntityForumPage({
   const handleInterestRemove = useCallback(
     async (qid: string) => {
       try {
-        await forumsApi.adjustTagInterest(forum.fingerprint ?? forum.id, qid, 'remove')
+        await forumsApi.adjustTagInterest(
+          forum.fingerprint ?? forum.id,
+          qid,
+          'remove'
+        )
         toast.success(t`Interest removed`)
       } catch (error) {
         toast.error(getErrorMessage(error, t`Failed to remove interest`))
@@ -251,7 +274,13 @@ export function EntityForumPage({
                 <Trans>New post</Trans>
               </Button>
             )}
-            {isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}
+            {isLoggedIn && (
+              <SortSelector
+                value={sort}
+                onValueChange={setSort}
+                options={sortOptions}
+              />
+            )}
             {!isLoadingForums && isRemoteForum && !isSubscribed && (
               <Button
                 onClick={() =>
@@ -266,7 +295,11 @@ export function EntityForumPage({
                 {subscribeMutation.isPending ? (
                   <>
                     <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && <span className='ms-2'><Trans>Subscribing...</Trans></span>}
+                    {!isMobile && (
+                      <span className='ms-2'>
+                        <Trans>Subscribing...</Trans>
+                      </span>
+                    )}
                   </>
                 ) : (
                   <Trans>Subscribe</Trans>
@@ -278,29 +311,51 @@ export function EntityForumPage({
         menuAction={
           <OptionsMenu
             entityId={forum.fingerprint}
-            onSettings={canManage ? () => void navigate({ to: `/${forum.fingerprint ?? forum.id}/settings` }) : undefined}
+            onSettings={
+              canManage
+                ? () =>
+                    void navigate({
+                      to: `/${forum.fingerprint ?? forum.id}/settings`,
+                    })
+                : undefined
+            }
             canShare={canManage}
-            onModeration={(canManage || canModerate) ? () => void navigate({ to: `/${forum.fingerprint ?? forum.id}/moderation` }) : undefined}
-            onUnsubscribe={canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined}
+            onModeration={
+              canManage || canModerate
+                ? () =>
+                    void navigate({
+                      to: `/${forum.fingerprint ?? forum.id}/moderation`,
+                    })
+                : undefined
+            }
+            onUnsubscribe={
+              canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined
+            }
             unsubscribePending={unsubscribeMutation.isPending}
           />
         }
       />
       <Main fixed>
-        <div ref={scrollRef} className="flex-1 overflow-y-auto">
+        <div ref={scrollRef} className='flex-1 overflow-y-auto'>
           <NewItemsPill
             count={newPosts.count}
             onClick={handleShowNewPosts}
             label={
-              <Plural value={newPosts.count} one="# new post" other="# new posts" />
+              <Plural
+                value={newPosts.count}
+                one='# new post'
+                other='# new posts'
+              />
             }
           />
           {forum.banner_html && (
             <ForumBanner bannerHtml={forum.banner_html} forumId={forum.id} />
           )}
           {activeTag && (
-            <div className='flex items-center gap-2 mb-4'>
-              <span className='text-muted-foreground text-sm'><Trans>Filtered by tag:</Trans></span>
+            <div className='mb-4 flex items-center gap-2'>
+              <span className='text-muted-foreground text-sm'>
+                <Trans>Filtered by tag:</Trans>
+              </span>
               <button
                 type='button'
                 className='bg-primary/10 text-primary inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium'
@@ -353,7 +408,12 @@ export function EntityForumPage({
         open={showUnsubscribeConfirm}
         onOpenChange={setShowUnsubscribeConfirm}
         title={<Trans>Unsubscribe from forum?</Trans>}
-        desc={<Trans>You will stop receiving updates from this forum. You can re-subscribe at any time.</Trans>}
+        desc={
+          <Trans>
+            You will stop receiving updates from this forum. You can
+            re-subscribe at any time.
+          </Trans>
+        }
         destructive
         confirmText={<Trans>Unsubscribe</Trans>}
         handleConfirm={() => unsubscribeMutation.mutate(forum.id)}

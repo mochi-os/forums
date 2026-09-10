@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useMemo, useState } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
+import { useLingui } from '@lingui/react/macro'
 import {
   GeneralError,
   Main,
@@ -17,7 +16,7 @@ import {
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
-
+import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
   selectForums,
@@ -25,10 +24,9 @@ import {
   selectDefaultSort,
   useSetDefaultSort,
 } from '@/hooks/use-forums-queries'
-import { ForumOverview } from '../components/forum-overview'
 import { setLastForum } from '@/hooks/use-forums-storage'
-import { useSidebarContext } from '@/context/sidebar-context'
 import { OptionsMenu } from '@/components/options-menu'
+import { ForumOverview } from '../components/forum-overview'
 
 interface ForumsListPageProps {
   forums?: Forum[]
@@ -115,21 +113,34 @@ export function ForumsListPage({
   }, [allPosts, forums, t])
 
   const subscribedIds = useMemo(
-    () => new Set(forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))),
+    () =>
+      new Set(
+        forums.flatMap((f) =>
+          [f.id, f.fingerprint].filter((x): x is string => !!x)
+        )
+      ),
     [forums]
   )
   const hasUsableData = forums.length > 0 || postsToDisplay.length > 0
   const showLoaderError =
-    !!loaderOwnedError &&
-    !forumsError &&
-    (!isLoading || hasUsableData)
+    !!loaderOwnedError && !forumsError && (!isLoading || hasUsableData)
 
   return (
     <>
       <PageHeader
         title={t`Forums`}
         icon={<Rss className='size-4 md:size-5' />}
-        actions={<>{isLoggedIn && <SortSelector value={sort} onValueChange={setSort} options={sortOptions} />}</>}
+        actions={
+          <>
+            {isLoggedIn && (
+              <SortSelector
+                value={sort}
+                onValueChange={setSort}
+                options={sortOptions}
+              />
+            )}
+          </>
+        }
         menuAction={<OptionsMenu showRss />}
       />
       <Main fixed>

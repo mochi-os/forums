@@ -2,10 +2,36 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useState, useEffect } from 'react'
 import { Trans, useLingui, Plural } from '@lingui/react/macro'
-import { Button, CommentBox, CommentTreeLayout, ConfirmDialog, EntityAvatar, MentionTextarea, authenticatedUrl, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, renderMentions, getAppPath, textUnchanged, type MentionUser, ActionPill, ActionPillSticky, ActionPillActions, useDiscardGuard, type Upload } from '@mochi/web'
+import {
+  Button,
+  CommentBox,
+  CommentTreeLayout,
+  ConfirmDialog,
+  EntityAvatar,
+  MentionTextarea,
+  authenticatedUrl,
+  cn,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  useFormat,
+  renderMentions,
+  getAppPath,
+  textUnchanged,
+  type MentionUser,
+  ActionPill,
+  ActionPillSticky,
+  ActionPillActions,
+  useDiscardGuard,
+  type Upload,
+} from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -149,7 +175,6 @@ export function ThreadComment({
     setLocalVote(comment.user_vote || '')
     setLocalUp(comment.up)
     setLocalDown(comment.down)
-     
   }, [comment.id, comment.user_vote, comment.up, comment.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
@@ -200,10 +225,11 @@ export function ThreadComment({
   const commentCanEdit = canEdit?.(comment.member) ?? false
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
-   
-  const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-   
+
+  const voteButtonClass =
+    'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const iconActionButtonClass =
+    'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
 
   const getTotalReplyCount = (c: ThreadCommentType): number => {
     if (!c.children) return 0
@@ -222,7 +248,7 @@ export function ThreadComment({
       styleUrl={assetUrl('style')}
       seed={comment.member}
       name={comment.name}
-      size="xs"
+      size='xs'
       className='z-10'
     />
   )
@@ -231,10 +257,12 @@ export function ThreadComment({
     <div className='flex h-5 items-center gap-2 py-0.5 text-xs select-none'>
       <span className='text-muted-foreground font-medium'>{comment.name}</span>
       <span className='text-muted-foreground'>·</span>
-      <span className='text-muted-foreground'>{formatTimestamp(comment.created)}</span>
+      <span className='text-muted-foreground'>
+        {formatTimestamp(comment.created)}
+      </span>
       {totalDescendants > 0 && (
         <span className='text-muted-foreground ms-2'>
-          <Plural value={totalDescendants} one="# reply" other="# replies" />
+          <Plural value={totalDescendants} one='# reply' other='# replies' />
         </span>
       )}
     </div>
@@ -269,7 +297,9 @@ export function ThreadComment({
               className='size-5 rounded object-cover text-transparent'
             />
             {comment.attachment_caption && (
-              <span className='max-w-32 truncate'>{comment.attachment_caption}</span>
+              <span className='max-w-32 truncate'>
+                {comment.attachment_caption}
+              </span>
             )}
           </button>
         )}
@@ -281,7 +311,7 @@ export function ThreadComment({
           </span>
         )}
         {isRemoved && (
-          <span className='inline-flex items-center gap-1 rounded-full bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive'>
+          <span className='bg-destructive/10 text-destructive inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium'>
             <EyeOff className='size-2.5' />
             <Trans>Removed</Trans>
           </span>
@@ -312,8 +342,7 @@ export function ThreadComment({
               size='sm'
               className='h-7 text-xs'
               disabled={
-                !editBody.trim() ||
-                textUnchanged(editBody.trim(), comment.body)
+                !editBody.trim() || textUnchanged(editBody.trim(), comment.body)
               }
               onClick={() => {
                 const trimmed = editBody.trim()
@@ -341,7 +370,11 @@ export function ThreadComment({
         </p>
       )}
 
-      <CommentAttachments attachments={comment.attachments} forumId={comment.forum} server={server} />
+      <CommentAttachments
+        attachments={comment.attachments}
+        forumId={comment.forum}
+        server={server}
+      />
 
       {/* Votes and actions row */}
       {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
@@ -364,28 +397,46 @@ export function ThreadComment({
                     className={voteButtonClass}
                     onClick={() => handleVote(localVote === 'up' ? '' : 'up')}
                   >
-                    {localVote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-3.5' />}
-                    {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
+                    {localVote === 'up' ? (
+                      <span className='text-sm'>👍</span>
+                    ) : (
+                      <ThumbsUp className='size-3.5' />
+                    )}
+                    {localUp > 0 && (
+                      <span className='text-[12px] leading-none'>
+                        {localUp}
+                      </span>
+                    )}
                   </button>
                   <button
                     type='button'
                     className={voteButtonClass}
-                    onClick={() => handleVote(localVote === 'down' ? '' : 'down')}
+                    onClick={() =>
+                      handleVote(localVote === 'down' ? '' : 'down')
+                    }
                   >
-                    {localVote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-3.5' />}
-                    {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
+                    {localVote === 'down' ? (
+                      <span className='text-sm'>👎</span>
+                    ) : (
+                      <ThumbsDown className='size-3.5' />
+                    )}
+                    {localDown > 0 && (
+                      <span className='text-[12px] leading-none'>
+                        {localDown}
+                      </span>
+                    )}
                   </button>
                 </>
               ) : (
                 <>
                   {localUp > 0 && (
-                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                    <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
                       <ThumbsUp className='size-3.5' />
                       {localUp}
                     </span>
                   )}
                   {localDown > 0 && (
-                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
+                    <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
                       <ThumbsDown className='size-3.5' />
                       {localDown}
                     </span>
@@ -453,26 +504,30 @@ export function ThreadComment({
                     {canModerate && (
                       <>
                         {isPending && onApprove && (
-                          <DropdownMenuItem onClick={() => onApprove(comment.id)}>
+                          <DropdownMenuItem
+                            onClick={() => onApprove(comment.id)}
+                          >
                             <Check className='me-2 size-4' />
                             <Trans>Approve</Trans>
                           </DropdownMenuItem>
                         )}
                         {isRemoved
                           ? onRestore && (
-                            <DropdownMenuItem
-                              onClick={() => onRestore(comment.id)}
-                            >
-                              <Eye className='me-2 size-4' />
-                              <Trans>Restore</Trans>
-                            </DropdownMenuItem>
-                          )
+                              <DropdownMenuItem
+                                onClick={() => onRestore(comment.id)}
+                              >
+                                <Eye className='me-2 size-4' />
+                                <Trans>Restore</Trans>
+                              </DropdownMenuItem>
+                            )
                           : onRemove && (
-                            <DropdownMenuItem onClick={() => setRemoving(true)}>
-                              <EyeOff className='me-2 size-4' />
-                              <Trans>Remove</Trans>
-                            </DropdownMenuItem>
-                          )}
+                              <DropdownMenuItem
+                                onClick={() => setRemoving(true)}
+                              >
+                                <EyeOff className='me-2 size-4' />
+                                <Trans>Remove</Trans>
+                              </DropdownMenuItem>
+                            )}
                       </>
                     )}
                     {onReport && currentUserId !== comment.member && (
@@ -501,7 +556,7 @@ export function ThreadComment({
               )}
             </ActionPillActions>
           </ActionPill>
-      </div>
+        </div>
       )}
 
       {/* Delete confirmation dialog */}

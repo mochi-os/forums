@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { z } from 'zod'
 import { createFileRoute } from '@tanstack/react-router'
 import { getEntityFingerprint, isDomainEntityRouting } from '@mochi/web'
@@ -24,7 +23,14 @@ function ThreadDetailWrapper() {
 
   // In domain entity routing, use the domain fingerprint as forum ID
   const domainFingerprint = getEntityFingerprint()
-  const forum = (isDomainEntityRouting() && domainFingerprint) ? domainFingerprint : urlForum
+  const forum =
+    isDomainEntityRouting() && domainFingerprint ? domainFingerprint : urlForum
 
-  return <ThreadDetail server={server} forumOverride={forum} fromAllForums={from === 'all'} />
+  return (
+    <ThreadDetail
+      server={server}
+      forumOverride={forum}
+      fromAllForums={from === 'all'}
+    />
+  )
 }

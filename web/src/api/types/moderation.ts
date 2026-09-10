@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // Moderation Types for Forums
-
+import type { Comment } from './comments'
 import type { Forum } from './forums'
 import type { Post, Attachment } from './posts'
-import type { Comment } from './comments'
 
 // Restriction types
 type RestrictionType = 'muted' | 'banned' | 'shadowban'

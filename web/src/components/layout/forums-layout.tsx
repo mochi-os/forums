@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import {
@@ -11,20 +10,11 @@ import {
   type NavItem,
   naturalCompare,
 } from '@mochi/web'
-import {
-  Bookmark,
-  Hash,
-  Plus,
-  RefreshCw,
-  Search,
-} from 'lucide-react'
+import { Bookmark, Hash, Plus, RefreshCw, Search } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
-import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
-import {
-  useForumsInfo,
-  useCreatePost,
-} from '@/hooks/use-forums-queries'
 import { loadSaved } from '@/lib/saved'
+import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
+import { useForumsInfo, useCreatePost } from '@/hooks/use-forums-queries'
 import { CreateForumDialog } from '@/features/forums/components/create-forum-dialog'
 import { CreatePostDialog } from '@/features/forums/components/create-post-dialog'
 
@@ -124,17 +114,17 @@ function ForumsLayoutInner() {
         animateList: true,
         items: forumsInfoError
           ? [
-            allForumsItem,
-            {
-              id: 'retry-forums-load',
-              title: t`Retry forums load`,
-              icon: RefreshCw,
-              onClick: () => {
-                void refetchForumsInfo()
+              allForumsItem,
+              {
+                id: 'retry-forums-load',
+                title: t`Retry forums load`,
+                icon: RefreshCw,
+                onClick: () => {
+                  void refetchForumsInfo()
+                },
+                className: 'text-destructive',
               },
-              className: 'text-destructive',
-            },
-          ]
+            ]
           : [allForumsItem, ...forumItems],
       },
       {

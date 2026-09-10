@@ -2,12 +2,11 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
 import forumsApi from '@/api/forums'
 import { ModerationTab } from './$forum_.settings'
 
@@ -44,7 +43,9 @@ function renderTab() {
 
 describe('ModerationTab optimistic settings', () => {
   it('reverts the toggle when the server rejects the change', async () => {
-    vi.mocked(forumsApi.saveModerationSettings).mockRejectedValue(new Error('nope'))
+    vi.mocked(forumsApi.saveModerationSettings).mockRejectedValue(
+      new Error('nope')
+    )
     const user = userEvent.setup()
     renderTab()
 
@@ -67,7 +68,9 @@ describe('ModerationTab optimistic settings', () => {
     const user = userEvent.setup()
     renderTab()
 
-    const windowInput = (await screen.findByDisplayValue('3600')) as HTMLInputElement
+    const windowInput = (await screen.findByDisplayValue(
+      '3600'
+    )) as HTMLInputElement
     await user.clear(windowInput)
     await user.type(windowInput, '30')
     // Blur to commit; updateSetting runs on blur.

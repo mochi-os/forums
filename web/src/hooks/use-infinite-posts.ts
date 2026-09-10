@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { getApiBasepath, requestHelpers } from '@mochi/web'
@@ -64,9 +63,13 @@ export function useInfinitePosts({
   tag,
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
   const query = useInfiniteQuery({
-    queryKey: ['forum-posts', forum, { limit, server, entityContext, sort, tag }],
+    queryKey: [
+      'forum-posts',
+      forum,
+      { limit, server, entityContext, sort, tag },
+    ],
     queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
-      if (!forum) throw new Error("Forum ID required")
+      if (!forum) throw new Error('Forum ID required')
 
       let data: {
         posts?: Post[]
@@ -90,15 +93,16 @@ export function useInfinitePosts({
         if (sort) params.set('sort', sort)
         if (tag) params.set('tag', tag)
         const queryString = params.toString()
-        const url = getApiBasepath() + 'posts' + (queryString ? `?${queryString}` : '')
+        const url =
+          getApiBasepath() + 'posts' + (queryString ? `?${queryString}` : '')
         const response = await requestHelpers.get<{
           posts?: Post[]
           forum?: Forum
           member?: Member
           can_manage?: boolean
           can_moderate?: boolean
-  
-        hasAi?: boolean
+
+          hasAi?: boolean
 
           hasMore?: boolean
           nextCursor?: number | null

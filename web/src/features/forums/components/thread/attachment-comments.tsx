@@ -2,12 +2,15 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMemo, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { CommentBox } from '@mochi/web'
-import { ThreadComment, type ThreadCommentType, type ThreadCommentProps } from './thread-comment'
+import {
+  ThreadComment,
+  type ThreadCommentType,
+  type ThreadCommentProps,
+} from './thread-comment'
 
 /**
  * The lightbox's comments panel: the post's real comments (ThreadComment)
@@ -26,7 +29,11 @@ export function AttachmentComments({
   /** Every per-comment prop the post page passes to ThreadComment. */
   commentProps: Omit<ThreadCommentProps, 'comment'>
   canComment: boolean
-  onAddComment?: (body: string, files: File[] | undefined, attachment: string) => Promise<unknown>
+  onAddComment?: (
+    body: string,
+    files: File[] | undefined,
+    attachment: string
+  ) => Promise<unknown>
 }) {
   const { t } = useLingui()
   const [showAll, setShowAll] = useState(false)
@@ -50,7 +57,11 @@ export function AttachmentComments({
         )}
         <div className='divide-y-0'>
           {shown.map((comment) => (
-            <ThreadComment key={comment.id} comment={comment} {...commentProps} />
+            <ThreadComment
+              key={comment.id}
+              comment={comment}
+              {...commentProps}
+            />
           ))}
         </div>
         {others > 0 && (

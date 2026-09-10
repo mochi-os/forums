@@ -2,18 +2,33 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Trans } from '@lingui/react/macro'
-import { Card, CardContent, EntityAvatar, PostTitleBar, cn, useFormat, getAppPath } from '@mochi/web'
-import { MessageSquare, ThumbsUp, ThumbsDown, Clock, EyeOff, Lock, Pin } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  EntityAvatar,
+  PostTitleBar,
+  cn,
+  useFormat,
+  getAppPath,
+} from '@mochi/web'
+import {
+  MessageSquare,
+  ThumbsUp,
+  ThumbsDown,
+  Clock,
+  EyeOff,
+  Lock,
+  Pin,
+} from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { sanitizeHtml } from '../utils'
-import { PostAttachments } from './thread/post-attachments'
 import { PostTagsTooltip } from './post-tags'
 import { SavedButton } from './saved-button'
+import { PostAttachments } from './thread/post-attachments'
 
 interface PostCardProps {
   post: Post
@@ -63,7 +78,7 @@ export function PostCard({
                 the card handler doesn't select a second time. */}
             <button
               type='button'
-              className='cursor-pointer rounded-sm text-start outline-none focus-visible:ring-[3px] focus-visible:ring-primary-foreground/70'
+              className='focus-visible:ring-primary-foreground/70 cursor-pointer rounded-sm text-start outline-none focus-visible:ring-[3px]'
               onClick={(e) => {
                 e.stopPropagation()
                 onSelect(post.fingerprint ?? post.forum, post.id)
@@ -82,7 +97,7 @@ export function PostCard({
               </span>
             )}
             {post.status === 'removed' && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive'>
+              <span className='bg-destructive/10 text-destructive inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
                 <EyeOff className='size-3' />
                 <Trans>Removed</Trans>
               </span>
@@ -93,7 +108,7 @@ export function PostCard({
               </span>
             )}
             {!!post.pinned && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary dark:bg-primary/20 dark:text-primary'>
+              <span className='bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
                 <Pin className='size-3' />
               </span>
             )}
@@ -113,7 +128,7 @@ export function PostCard({
                 styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
                 seed={post.member}
                 name={post.name}
-                size="xs"
+                size='xs'
               />
               <span>{post.name}</span>
               <span> · </span>
@@ -127,7 +142,7 @@ export function PostCard({
       {/* Body */}
       {post.body_markdown ? (
         <div
-          className='text-foreground max-w-none text-sm leading-normal line-clamp-2 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:ps-6 [&_li]:my-0'
+          className='text-foreground line-clamp-2 max-w-none text-sm leading-normal [&_li]:my-0 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:ps-6 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:ps-6'
           dangerouslySetInnerHTML={{ __html: sanitizedBody }}
         />
       ) : (
@@ -142,18 +157,31 @@ export function PostCard({
       />
 
       {/* Action buttons row - interactive */}
-      {(isLoggedIn || post.matches?.length || post.up > 0 || post.down > 0 || getCommentCount(post.comments) > 0) && (
-        <div className='text-muted-foreground flex items-center gap-4 md:gap-3 text-xs'>
+      {(isLoggedIn ||
+        post.matches?.length ||
+        post.up > 0 ||
+        post.down > 0 ||
+        getCommentCount(post.comments) > 0) && (
+        <div className='text-muted-foreground flex items-center gap-4 text-xs md:gap-3'>
           {/* Tags */}
           {isLoggedIn && post.tags && post.tags.length > 0 && (
-            <PostTagsTooltip tags={post.tags} onFilter={onTagFilter} onInterestUp={onInterestUp} onInterestDown={onInterestDown} onInterestRemove={onInterestRemove} />
+            <PostTagsTooltip
+              tags={post.tags}
+              onFilter={onTagFilter}
+              onInterestUp={onInterestUp}
+              onInterestDown={onInterestDown}
+              onInterestRemove={onInterestRemove}
+            />
           )}
 
           {/* Relevance match indicators */}
           {post.matches && post.matches.length > 0 && (
             <span className='inline-flex items-center gap-1'>
               {post.matches.map((m) => (
-                <span key={m.qid} className='bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 rounded-full px-1.5 py-0.5 text-xs font-medium'>
+                <span
+                  key={m.qid}
+                  className='rounded-full bg-yellow-100 px-1.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-200'
+                >
                   {m.label || m.qid}
                 </span>
               ))}
@@ -163,7 +191,11 @@ export function PostCard({
           {/* Upvote count */}
           {(post.up > 0 || post.user_vote === 'up') && (
             <span className='inline-flex items-center gap-1'>
-              {post.user_vote === 'up' ? <span className='text-sm'>👍</span> : <ThumbsUp className='size-4' />}
+              {post.user_vote === 'up' ? (
+                <span className='text-sm'>👍</span>
+              ) : (
+                <ThumbsUp className='size-4' />
+              )}
               {post.up > 0 && post.up}
             </span>
           )}
@@ -171,7 +203,11 @@ export function PostCard({
           {/* Downvote count */}
           {(post.down > 0 || post.user_vote === 'down') && (
             <span className='inline-flex items-center gap-1'>
-              {post.user_vote === 'down' ? <span className='text-sm'>👎</span> : <ThumbsDown className='size-4' />}
+              {post.user_vote === 'down' ? (
+                <span className='text-sm'>👎</span>
+              ) : (
+                <ThumbsDown className='size-4' />
+              )}
               {post.down > 0 && post.down}
             </span>
           )}
@@ -212,7 +248,7 @@ export function PostCard({
 
   return (
     <Card
-      className='group/card hover:border-primary/30 cursor-pointer overflow-hidden gap-0 py-0 md:py-0 transition-all hover:shadow-md'
+      className='group/card hover:border-primary/30 cursor-pointer gap-0 overflow-hidden py-0 transition-all hover:shadow-md md:py-0'
       onClick={() => onSelect(post.fingerprint ?? post.forum, post.id)}
     >
       <CardContent className='p-0'>{content}</CardContent>

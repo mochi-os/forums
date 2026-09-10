@@ -2,16 +2,15 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useMemo } from 'react'
-import { useLingui } from '@lingui/react/macro'
-import { createFileRoute } from '@tanstack/react-router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Hash } from 'lucide-react'
+import { createFileRoute } from '@tanstack/react-router'
+import { useLingui } from '@lingui/react/macro'
 import { FindEntityPage, toast, toastAction, getErrorMessage } from '@mochi/web'
-import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
-import forumsApi from '@/api/forums'
+import { Hash } from 'lucide-react'
 import endpoints from '@/api/endpoints'
+import forumsApi from '@/api/forums'
+import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 
 export const Route = createFileRoute('/_authenticated/find')({
   component: FindForumsPage,
@@ -40,9 +39,12 @@ function FindForumsPage() {
   const recommendations = recommendationsData?.data?.forums ?? []
 
   const subscribedForumIds = useMemo(
-    () => new Set(
-      forums.flatMap((f) => [f.id, f.fingerprint].filter((x): x is string => !!x))
-    ),
+    () =>
+      new Set(
+        forums.flatMap((f) =>
+          [f.id, f.fingerprint].filter((x): x is string => !!x)
+        )
+      ),
     [forums]
   )
 
@@ -84,10 +86,10 @@ function FindForumsPage() {
       resolveUri={resolveUri}
       onSubscribe={handleSubscribe}
       subscribedIds={subscribedForumIds}
-      entityClass="forum"
+      entityClass='forum'
       searchEndpoint={endpoints.forums.search}
       icon={Hash}
-      iconClassName="bg-primary/10 text-primary"
+      iconClassName='bg-primary/10 text-primary'
       title={t`Find forums`}
       placeholder={t`Search by name, ID, fingerprint, or URL...`}
       emptyMessage={t`No forums found`}

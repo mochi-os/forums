@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import type { MutableRefObject, ReactNode } from 'react'
 import { AttachmentGallery } from '@mochi/web'
 import type { Attachment } from '@/api/types/posts'
@@ -33,7 +32,9 @@ export function PostAttachments({
     <AttachmentGallery
       attachments={attachments}
       getUrl={(att) => attachmentUrl(forumId, att.id, '', server)}
-      getThumbnailUrl={(att) => attachmentUrl(forumId, att.id, 'thumbnail', server)}
+      getThumbnailUrl={(att) =>
+        attachmentUrl(forumId, att.id, 'thumbnail', server)
+      }
       getPreviewUrl={(att) => attachmentUrl(forumId, att.id, 'preview', server)}
       mediaCap={mediaCap}
       showCaptions

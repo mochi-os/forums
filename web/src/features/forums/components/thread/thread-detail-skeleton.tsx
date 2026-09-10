@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { Skeleton, Card, CardContent, Main } from '@mochi/web'
 
 export function ThreadDetailSkeleton() {
   return (
-    <Main className="space-y-4">
-      <Card className="shadow-md">
-        <CardContent className="p-6">
+    <Main className='space-y-4'>
+      <Card className='shadow-md'>
+        <CardContent className='p-6'>
           <div className='flex gap-4'>
             {/* Vote buttons */}
             <div className='flex flex-col items-center gap-1 pt-1'>
@@ -17,7 +16,7 @@ export function ThreadDetailSkeleton() {
               <Skeleton className='h-4 w-4' />
               <Skeleton className='h-8 w-8 rounded-md' />
             </div>
-            
+
             <div className='flex-1 space-y-2'>
               {/* Title */}
               <Skeleton className='h-6 w-3/4' />
@@ -35,16 +34,16 @@ export function ThreadDetailSkeleton() {
               </div>
             </div>
           </div>
-          
+
           {/* Divider */}
-          <div className='border-t pt-4 mt-6'>
+          <div className='mt-6 border-t pt-4'>
             {/* Comments Skeletons */}
             <div className='space-y-6'>
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className='flex gap-4'>
                   <div className='flex flex-col items-center gap-1'>
                     <Skeleton className='h-6 w-6 rounded-md' />
-                    <Skeleton className='h-8 w-px mx-auto' />
+                    <Skeleton className='mx-auto h-8 w-px' />
                   </div>
                   <div className='flex-1 space-y-2'>
                     <div className='flex items-center gap-2'>

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // API Request/Response Types
 import type { Post } from './posts'
 
@@ -33,7 +32,6 @@ export interface Forum {
   // loading state while this is 0.
   populated?: number
 }
-
 
 export interface Member {
   forum: string

@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
-import { plural } from '@lingui/core/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   Card,
@@ -42,10 +41,14 @@ import {
   History,
   Users,
 } from 'lucide-react'
-
 import forumsApi from '@/api/forums'
+import type {
+  Report,
+  ModerationLogEntry,
+  Restriction,
+} from '@/api/types/moderation'
 import type { Post, ViewPostComment } from '@/api/types/posts'
-import type { Report, ModerationLogEntry, Restriction } from '@/api/types/moderation'
+import { toError } from '@/lib/errors'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
 import {
   moderationActionLabel,
@@ -53,7 +56,6 @@ import {
   runBulk,
   truncateMiddle,
 } from '@/features/forums/moderation'
-import { toError } from '@/lib/errors'
 
 type TabId = 'queue' | 'reports' | 'log' | 'restrictions'
 
@@ -85,7 +87,11 @@ function useTabs(): Tab[] {
   return [
     { id: 'queue', label: t`Queue`, icon: <Clock className='h-4 w-4' /> },
     { id: 'reports', label: t`Reports`, icon: <Flag className='h-4 w-4' /> },
-    { id: 'restrictions', label: t`Restrictions`, icon: <Users className='h-4 w-4' /> },
+    {
+      id: 'restrictions',
+      label: t`Restrictions`,
+      icon: <Users className='h-4 w-4' />,
+    },
     { id: 'log', label: t`Log`, icon: <History className='h-4 w-4' /> },
   ]
 }
@@ -99,7 +105,8 @@ function ModerationPage() {
   const navigateModeration = Route.useNavigate()
   const { tab } = Route.useSearch()
   const activeTab = tab ?? 'queue'
-  const goBackToForum = () => navigate({ to: '/$forum', params: { forum: forumId } })
+  const goBackToForum = () =>
+    navigate({ to: '/$forum', params: { forum: forumId } })
 
   const setActiveTab = (newTab: TabId) => {
     void navigateModeration({ search: { tab: newTab }, replace: true })
@@ -110,34 +117,37 @@ function ModerationPage() {
   // Register with sidebar context
   return (
     <>
-      <PageHeader title={t`Moderation`} back={{ label: t`Back to forum`, onFallback: goBackToForum }} />
+      <PageHeader
+        title={t`Moderation`}
+        back={{ label: t`Back to forum`, onFallback: goBackToForum }}
+      />
       <Main className='space-y-6'>
         {/* Tabs */}
         <Tabs
-          variant="underline"
+          variant='underline'
           value={activeTab}
           onValueChange={(value) => setActiveTab(value as TabId)}
-          className="gap-6"
+          className='gap-6'
         >
           <TabsList aria-label={t`Moderation sections`}>
             {tabs.map((tab) => (
-              <TabsTrigger key={tab.id} value={tab.id} className="gap-2">
+              <TabsTrigger key={tab.id} value={tab.id} className='gap-2'>
                 {tab.icon}
                 {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <TabsContent value="queue" className="pt-2">
+          <TabsContent value='queue' className='pt-2'>
             <QueueTab forumId={forumId} />
           </TabsContent>
-          <TabsContent value="reports" className="pt-2">
+          <TabsContent value='reports' className='pt-2'>
             <ReportsTab forumId={forumId} />
           </TabsContent>
-          <TabsContent value="log" className="pt-2">
+          <TabsContent value='log' className='pt-2'>
             <LogTab forumId={forumId} />
           </TabsContent>
-          <TabsContent value="restrictions" className="pt-2">
+          <TabsContent value='restrictions' className='pt-2'>
             <RestrictionsTab forumId={forumId} />
           </TabsContent>
         </Tabs>
@@ -159,7 +169,9 @@ function QueueTab({ forumId }: QueueTabProps) {
   const [pendingComments, setPendingComments] = useState<ViewPostComment[]>([])
   const [actionInProgress, setActionInProgress] = useState<string | null>(null)
   const [selectedPosts, setSelectedPosts] = useState<Set<string>>(new Set())
-  const [selectedComments, setSelectedComments] = useState<Set<string>>(new Set())
+  const [selectedComments, setSelectedComments] = useState<Set<string>>(
+    new Set()
+  )
 
   const loadQueue = useCallback(async () => {
     setIsLoading(true)
@@ -206,9 +218,15 @@ function QueueTab({ forumId }: QueueTabProps) {
     })
   }
 
-  const allPostsSelected = pendingPosts.length === 0 || selectedPosts.size === pendingPosts.length
-  const allCommentsSelected = pendingComments.length === 0 || selectedComments.size === pendingComments.length
-  const allSelected = allPostsSelected && allCommentsSelected && (pendingPosts.length > 0 || pendingComments.length > 0)
+  const allPostsSelected =
+    pendingPosts.length === 0 || selectedPosts.size === pendingPosts.length
+  const allCommentsSelected =
+    pendingComments.length === 0 ||
+    selectedComments.size === pendingComments.length
+  const allSelected =
+    allPostsSelected &&
+    allCommentsSelected &&
+    (pendingPosts.length > 0 || pendingComments.length > 0)
   const hasSelection = selectedPosts.size > 0 || selectedComments.size > 0
 
   const toggleSelectAll = () => {
@@ -245,13 +263,21 @@ function QueueTab({ forumId }: QueueTabProps) {
         forumsApi.approvePost({ forum: forumId, post: postId })
       )
       const comments = await runBulk(selectedCommentRows(), (comment) =>
-        forumsApi.approveComment({ forum: forumId, post: comment.post, comment: comment.id })
+        forumsApi.approveComment({
+          forum: forumId,
+          post: comment.post,
+          comment: comment.id,
+        })
       )
       reportBulk(
         posts.succeeded + comments.succeeded,
         posts.failed + comments.failed,
         (n) => plural(n, { one: 'Approved # item', other: 'Approved # items' }),
-        (n) => plural(n, { one: 'Failed to approve # item', other: 'Failed to approve # items' })
+        (n) =>
+          plural(n, {
+            one: 'Failed to approve # item',
+            other: 'Failed to approve # items',
+          })
       )
     } finally {
       setActionInProgress(null)
@@ -264,16 +290,29 @@ function QueueTab({ forumId }: QueueTabProps) {
     setActionInProgress('bulk')
     try {
       const posts = await runBulk(selectedPosts, (postId) =>
-        forumsApi.removePost({ forum: forumId, post: postId, reason: t`Rejected` })
+        forumsApi.removePost({
+          forum: forumId,
+          post: postId,
+          reason: t`Rejected`,
+        })
       )
       const comments = await runBulk(selectedCommentRows(), (comment) =>
-        forumsApi.removeComment({ forum: forumId, post: comment.post, comment: comment.id, reason: t`Rejected` })
+        forumsApi.removeComment({
+          forum: forumId,
+          post: comment.post,
+          comment: comment.id,
+          reason: t`Rejected`,
+        })
       )
       reportBulk(
         posts.succeeded + comments.succeeded,
         posts.failed + comments.failed,
         (n) => plural(n, { one: 'Rejected # item', other: 'Rejected # items' }),
-        (n) => plural(n, { one: 'Failed to reject # item', other: 'Failed to reject # items' })
+        (n) =>
+          plural(n, {
+            one: 'Failed to reject # item',
+            other: 'Failed to reject # items',
+          })
       )
     } finally {
       setActionInProgress(null)
@@ -287,7 +326,9 @@ function QueueTab({ forumId }: QueueTabProps) {
     for (const post of pendingPosts.filter((p) => selectedPosts.has(p.id))) {
       if (post.member) authors.add(post.member)
     }
-    for (const comment of pendingComments.filter((c) => selectedComments.has(c.id))) {
+    for (const comment of pendingComments.filter((c) =>
+      selectedComments.has(c.id)
+    )) {
       if (comment.member) authors.add(comment.member)
     }
     return authors
@@ -308,7 +349,11 @@ function QueueTab({ forumId }: QueueTabProps) {
         succeeded,
         failed,
         (n) => plural(n, { one: 'Muted # user', other: 'Muted # users' }),
-        (n) => plural(n, { one: 'Failed to mute # user', other: 'Failed to mute # users' })
+        (n) =>
+          plural(n, {
+            one: 'Failed to mute # user',
+            other: 'Failed to mute # users',
+          })
       )
     } finally {
       setActionInProgress(null)
@@ -328,7 +373,11 @@ function QueueTab({ forumId }: QueueTabProps) {
         succeeded,
         failed,
         (n) => plural(n, { one: 'Banned # user', other: 'Banned # users' }),
-        (n) => plural(n, { one: 'Failed to ban # user', other: 'Failed to ban # users' })
+        (n) =>
+          plural(n, {
+            one: 'Failed to ban # user',
+            other: 'Failed to ban # users',
+          })
       )
     } finally {
       setActionInProgress(null)
@@ -339,24 +388,24 @@ function QueueTab({ forumId }: QueueTabProps) {
   if (isLoading) {
     return (
       <div className='space-y-6'>
-         <section> 
-           <Skeleton className='h-5 w-32 mb-3' />
-           <div className='divide-y rounded-lg border'>
-             {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className='flex gap-4 p-4'>
-                   <Skeleton className='h-4 w-4 rounded-sm mt-0.5' />
-                   <div className='flex-1 space-y-2'>
-                      <div className='flex justify-between'>
-                         <Skeleton className='h-5 w-48' />
-                         <Skeleton className='h-4 w-24' />
-                      </div>
-                      <Skeleton className='h-4 w-full' />
-                      <Skeleton className='h-4 w-3/4' />
-                   </div>
+        <section>
+          <Skeleton className='mb-3 h-5 w-32' />
+          <div className='divide-y rounded-lg border'>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className='flex gap-4 p-4'>
+                <Skeleton className='mt-0.5 h-4 w-4 rounded-sm' />
+                <div className='flex-1 space-y-2'>
+                  <div className='flex justify-between'>
+                    <Skeleton className='h-5 w-48' />
+                    <Skeleton className='h-4 w-24' />
+                  </div>
+                  <Skeleton className='h-4 w-full' />
+                  <Skeleton className='h-4 w-3/4' />
                 </div>
-             ))}
-           </div>
-         </section>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     )
   }
@@ -415,7 +464,7 @@ function QueueTab({ forumId }: QueueTabProps) {
                 <div className='min-w-0 flex-1 space-y-1'>
                   <div className='flex items-start justify-between gap-4'>
                     <h3 className='font-medium'>{post.title}</h3>
-                    <span className='text-muted-foreground whitespace-nowrap text-xs'>
+                    <span className='text-muted-foreground text-xs whitespace-nowrap'>
                       {post.name} · {formatTimestamp(post.created)}
                     </span>
                   </div>
@@ -460,7 +509,7 @@ function QueueTab({ forumId }: QueueTabProps) {
                 <div className='min-w-0 flex-1'>
                   <div className='flex items-start justify-between gap-4'>
                     <p className='line-clamp-3 text-sm'>{comment.body}</p>
-                    <span className='text-muted-foreground whitespace-nowrap text-xs'>
+                    <span className='text-muted-foreground text-xs whitespace-nowrap'>
                       {comment.name} · {formatTimestamp(comment.created)}
                     </span>
                   </div>
@@ -480,11 +529,7 @@ function QueueTab({ forumId }: QueueTabProps) {
 
       {/* Bulk action toolbar */}
       <div className='bg-background sticky bottom-0 flex items-center gap-4 border-t py-4'>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={toggleSelectAll}
-        >
+        <Button variant='outline' size='sm' onClick={toggleSelectAll}>
           {allSelected ? <Trans>Select none</Trans> : <Trans>Select all</Trans>}
         </Button>
         <div className='flex gap-2'>
@@ -543,10 +588,15 @@ function QueueTab({ forumId }: QueueTabProps) {
         </div>
         <span
           className='text-muted-foreground text-sm'
-          aria-live="polite"
-          aria-atomic="true"
+          aria-live='polite'
+          aria-atomic='true'
         >
-          {hasSelection ? plural(selectedPosts.size + selectedComments.size, { one: '# selected', other: '# selected' }) : ''}
+          {hasSelection
+            ? plural(selectedPosts.size + selectedComments.size, {
+                one: '# selected',
+                other: '# selected',
+              })
+            : ''}
         </span>
       </div>
 
@@ -560,7 +610,8 @@ function QueueTab({ forumId }: QueueTabProps) {
         title={t`Ban authors`}
         desc={plural(selectedAuthorCount, {
           one: '# author will lose access to this forum. You can lift it later from the Restrictions tab.',
-          other: '# authors will lose access to this forum. You can lift it later from the Restrictions tab.',
+          other:
+            '# authors will lose access to this forum. You can lift it later from the Restrictions tab.',
         })}
         confirmText={t`Ban`}
         destructive={true}
@@ -585,14 +636,19 @@ function ReportsTab({ forumId }: ReportsTabProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState<Error | null>(null)
   const [reports, setReports] = useState<Report[]>([])
-  const [statusFilter, setStatusFilter] = useState<'pending' | 'resolved' | 'all'>('pending')
+  const [statusFilter, setStatusFilter] = useState<
+    'pending' | 'resolved' | 'all'
+  >('pending')
   const [actionInProgress, setActionInProgress] = useState<string | null>(null)
 
   const loadReports = useCallback(async () => {
     setIsLoading(true)
     setLoadError(null)
     try {
-      const response = await forumsApi.getReports({ forum: forumId, status: statusFilter })
+      const response = await forumsApi.getReports({
+        forum: forumId,
+        status: statusFilter,
+      })
       setReports(response.data?.reports ?? [])
     } catch (error) {
       setLoadError(toError(error, t`Failed to load reports`))
@@ -608,7 +664,11 @@ function ReportsTab({ forumId }: ReportsTabProps) {
   const handleResolve = async (reportId: string, action: string) => {
     setActionInProgress(reportId)
     try {
-      await forumsApi.resolveReport({ forum: forumId, report: reportId, action })
+      await forumsApi.resolveReport({
+        forum: forumId,
+        report: reportId,
+        action,
+      })
       toast.success(t`Report resolved`)
       void loadReports()
     } catch (error) {
@@ -621,39 +681,39 @@ function ReportsTab({ forumId }: ReportsTabProps) {
   if (isLoading) {
     return (
       <div className='space-y-4'>
-         {/* Filter skeleton */}
-         <div className='flex gap-2'>
-            <Skeleton className='h-8 w-16' />
-            <Skeleton className='h-8 w-20' />
-            <Skeleton className='h-8 w-12' />
-         </div>
-         
-         <Card>
-            <CardContent className='divide-y pt-4'>
-               {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className='py-4'>
-                     <div className='flex justify-between gap-4'> 
-                        <div className='flex-1 space-y-3'>
-                           <div className='flex items-center gap-2'>
-                              <Skeleton className='h-5 w-16 rounded-full' />
-                              <Skeleton className='h-4 w-24' />
-                              <Skeleton className='h-4 w-32' />
-                           </div>
-                           <div className='bg-muted/50 rounded-md p-3 space-y-2'>
-                              <Skeleton className='h-5 w-48' />
-                              <Skeleton className='h-4 w-full' />
-                           </div>
-                           <Skeleton className='h-4 w-32' />
-                        </div>
-                        <div className='flex gap-2'>
-                            <Skeleton className='h-8 w-16' />
-                            <Skeleton className='h-8 w-16' />
-                        </div>
-                     </div>
+        {/* Filter skeleton */}
+        <div className='flex gap-2'>
+          <Skeleton className='h-8 w-16' />
+          <Skeleton className='h-8 w-20' />
+          <Skeleton className='h-8 w-12' />
+        </div>
+
+        <Card>
+          <CardContent className='divide-y pt-4'>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className='py-4'>
+                <div className='flex justify-between gap-4'>
+                  <div className='flex-1 space-y-3'>
+                    <div className='flex items-center gap-2'>
+                      <Skeleton className='h-5 w-16 rounded-full' />
+                      <Skeleton className='h-4 w-24' />
+                      <Skeleton className='h-4 w-32' />
+                    </div>
+                    <div className='bg-muted/50 space-y-2 rounded-md p-3'>
+                      <Skeleton className='h-5 w-48' />
+                      <Skeleton className='h-4 w-full' />
+                    </div>
+                    <Skeleton className='h-4 w-32' />
                   </div>
-               ))}
-            </CardContent>
-         </Card>
+                  <div className='flex gap-2'>
+                    <Skeleton className='h-8 w-16' />
+                    <Skeleton className='h-8 w-16' />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
     )
   }
@@ -682,7 +742,13 @@ function ReportsTab({ forumId }: ReportsTabProps) {
             variant={statusFilter === status ? 'default' : 'outline'}
             onClick={() => setStatusFilter(status)}
           >
-            {status === 'pending' ? <Trans>Pending</Trans> : status === 'resolved' ? <Trans>Resolved</Trans> : <Trans>All</Trans>}
+            {status === 'pending' ? (
+              <Trans>Pending</Trans>
+            ) : status === 'resolved' ? (
+              <Trans>Resolved</Trans>
+            ) : (
+              <Trans>All</Trans>
+            )}
           </Button>
         ))}
       </div>
@@ -750,7 +816,10 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                     </div>
                     {/* Report reason */}
                     <p className='mt-2 text-sm'>
-                      <span className='font-medium'><Trans>Reason:</Trans></span> {reasonLabels[report.reason] ?? report.reason}
+                      <span className='font-medium'>
+                        <Trans>Reason:</Trans>
+                      </span>{' '}
+                      {reasonLabels[report.reason] ?? report.reason}
                     </p>
                     {report.details && (
                       <p className='text-muted-foreground mt-1 text-sm'>
@@ -758,7 +827,9 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                       </p>
                     )}
                     <p className='text-muted-foreground mt-2 text-xs'>
-                      <Trans>Reported by {report.reporter_name ?? report.reporter}</Trans>
+                      <Trans>
+                        Reported by {report.reporter_name ?? report.reporter}
+                      </Trans>
                     </p>
                   </div>
                   {report.status === 'pending' && (
@@ -882,7 +953,10 @@ function LogTab({ forumId }: LogTabProps) {
       else setIsLoading(true)
       setLoadError(null)
       try {
-        const response = await forumsApi.getModerationLog({ forum: forumId, limit: nextLimit })
+        const response = await forumsApi.getModerationLog({
+          forum: forumId,
+          limit: nextLimit,
+        })
         const rows = response.data?.entries ?? []
         setEntries(rows)
         // A full page back means there may be more; stop at the server ceiling.
@@ -909,18 +983,18 @@ function LogTab({ forumId }: LogTabProps) {
   if (isLoading) {
     return (
       <Card>
-         <CardContent className='divide-y pt-4'>
-            {Array.from({ length: 5 }).map((_, i) => (
-               <div key={i} className='py-3 space-y-1'>
-                  <div className='flex items-center gap-2'>
-                     <Skeleton className='h-4 w-32' />
-                     <Skeleton className='h-4 w-24' />
-                     <Skeleton className='h-4 w-32' />
-                  </div>
-                  <Skeleton className='h-3 w-48' />
-               </div>
-            ))}
-         </CardContent>
+        <CardContent className='divide-y pt-4'>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className='space-y-1 py-3'>
+              <div className='flex items-center gap-2'>
+                <Skeleton className='h-4 w-32' />
+                <Skeleton className='h-4 w-24' />
+                <Skeleton className='h-4 w-32' />
+              </div>
+              <Skeleton className='h-3 w-48' />
+            </div>
+          ))}
+        </CardContent>
       </Card>
     )
   }
@@ -963,13 +1037,15 @@ function LogTab({ forumId }: LogTabProps) {
                     src={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/avatar`}
                     styleUrl={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/style`}
                     name={entry.author_name}
-                    size="sm"
+                    size='sm'
                     className='mt-0.5 shrink-0'
                   />
                 )}
                 <div className='min-w-0 flex-1'>
                   <p>
-                    <span className='text-muted-foreground'>{formatTimestamp(entry.created)}</span>{' '}
+                    <span className='text-muted-foreground'>
+                      {formatTimestamp(entry.created)}
+                    </span>{' '}
                     {moderationActionLabel(entry.action, actionLabels)}{' '}
                     <span className='font-medium' title={targetName}>
                       {truncateMiddle(targetName)}
@@ -1044,20 +1120,20 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
   if (isLoading) {
     return (
       <Card>
-         <CardContent className='divide-y pt-4'>
-            {Array.from({ length: 3 }).map((_, i) => (
-               <div key={i} className='flex justify-between items-center py-3'>
-                  <div className='flex items-center gap-2'>
-                      <Skeleton className='h-8 w-8 rounded-full' />
-                      <div className='space-y-1'>
-                         <Skeleton className='h-4 w-32' />
-                         <Skeleton className='h-3 w-24' />
-                      </div>
-                  </div>
-                  <Skeleton className='h-8 w-24' />
-               </div>
-            ))}
-         </CardContent>
+        <CardContent className='divide-y pt-4'>
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className='flex items-center justify-between py-3'>
+              <div className='flex items-center gap-2'>
+                <Skeleton className='h-8 w-8 rounded-full' />
+                <div className='space-y-1'>
+                  <Skeleton className='h-4 w-32' />
+                  <Skeleton className='h-3 w-24' />
+                </div>
+              </div>
+              <Skeleton className='h-8 w-24' />
+            </div>
+          ))}
+        </CardContent>
       </Card>
     )
   }
@@ -1100,39 +1176,41 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
                 src={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/avatar`}
                 styleUrl={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/style`}
                 name={restriction.name}
-                size="md"
+                size='md'
                 className='shrink-0'
               />
               <div className='min-w-0 flex-1'>
-              <div className='flex items-center gap-2'>
-                <span className='font-medium'>
-                  {restriction.name ?? restriction.user}
-                </span>
-                <span
-                  className={cn(
-                    'rounded-full px-2 py-0.5 text-xs font-medium',
-                    restriction.type === 'banned'
-                      ? 'bg-destructive/10 text-destructive'
-                      : restriction.type === 'muted'
-                        ? 'bg-warning/25 text-warning-foreground dark:bg-warning/15 dark:text-warning'
-                        : 'bg-muted text-muted-foreground'
-                  )}
-                >
-                  {restrictionLabels[restriction.type] ?? restriction.type}
-                </span>
-              </div>
-              {restriction.reason && (
-                <p className='text-muted-foreground mt-0.5 text-sm'>
-                  {restriction.reason}
+                <div className='flex items-center gap-2'>
+                  <span className='font-medium'>
+                    {restriction.name ?? restriction.user}
+                  </span>
+                  <span
+                    className={cn(
+                      'rounded-full px-2 py-0.5 text-xs font-medium',
+                      restriction.type === 'banned'
+                        ? 'bg-destructive/10 text-destructive'
+                        : restriction.type === 'muted'
+                          ? 'bg-warning/25 text-warning-foreground dark:bg-warning/15 dark:text-warning'
+                          : 'bg-muted text-muted-foreground'
+                    )}
+                  >
+                    {restrictionLabels[restriction.type] ?? restriction.type}
+                  </span>
+                </div>
+                {restriction.reason && (
+                  <p className='text-muted-foreground mt-0.5 text-sm'>
+                    {restriction.reason}
+                  </p>
+                )}
+                <p className='text-muted-foreground mt-1 text-xs'>
+                  <Trans>
+                    By {restriction.moderator_name ?? restriction.moderator}
+                  </Trans>
+                  {restriction.expires
+                    ? t` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
+                    : t` · Permanent`}
                 </p>
-              )}
-              <p className='text-muted-foreground mt-1 text-xs'>
-                <Trans>By {restriction.moderator_name ?? restriction.moderator}</Trans>
-                {restriction.expires
-                  ? t` · Expires ${formatDate(new Date(restriction.expires * 1000))}`
-                  : t` · Permanent`}
-              </p>
-            </div>
+              </div>
             </div>
             <Button
               size='sm'

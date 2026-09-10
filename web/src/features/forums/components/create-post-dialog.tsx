@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   ResponsiveDialog,
@@ -39,12 +38,11 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
+import { FileEdit, Send, Loader2 } from 'lucide-react'
 import {
-  FileEdit,
-  Send,
-  Loader2,
-} from 'lucide-react'
-import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
+  usePostSchema,
+  type PostFormValues,
+} from '@/features/forums/post-schema'
 
 type CreatePostFormValues = PostFormValues
 
@@ -212,103 +210,114 @@ export function CreatePostDialog({
           )}
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
+      <ResponsiveDialogContent className='flex max-h-[90vh] flex-col sm:max-w-[720px]'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle><Trans>New post</Trans></ResponsiveDialogTitle>
-          <ResponsiveDialogDescription className="sr-only">
+          <ResponsiveDialogTitle>
+            <Trans>New post</Trans>
+          </ResponsiveDialogTitle>
+          <ResponsiveDialogDescription className='sr-only'>
             <Trans>Create a new post</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)} {...dropzoneProps}>
-            <div className={cn('space-y-4 overflow-y-auto flex-1 min-h-0', isDragActive && dropActiveClass)}>
-            <FormField
-              control={form.control}
-              name='title'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel><Trans>Title</Trans></FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+          <form
+            className='flex min-h-0 flex-1 flex-col'
+            onSubmit={form.handleSubmit(onSubmit)}
+            {...dropzoneProps}
+          >
+            <div
+              className={cn(
+                'min-h-0 flex-1 space-y-4 overflow-y-auto',
+                isDragActive && dropActiveClass
               )}
-            />
+            >
+              <FormField
+                control={form.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Title</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Input disabled={isPending} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name='body'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel><Trans>Content</Trans></FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className='min-h-[180px] max-h-[50vh]'
-                      placeholder={t`Markdown supported`}
-                      disabled={isPending}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name='body'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Content</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className='max-h-[50vh] min-h-[180px]'
+                        placeholder={t`Markdown supported`}
+                        disabled={isPending}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Attachments - handled separately from react-hook-form. Same
+              {/* Attachments - handled separately from react-hook-form. Same
                 shape as the edit dialog: labelled blocks, and the add tile as
                 the last cell of the grid rather than a button under it. */}
-            <div className='space-y-2'>
-              <ComposerAttachments
-                files={attachments}
-                previewUrls={attachmentPreviewUrls}
-                state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
-                onRetry={form.handleSubmit(onSubmit)}
-                progress={progress?.slices}
-                onRemove={(file) =>
-                  setAttachments((prev) => removePendingFile(prev, file))
-                }
-                onReorder={(from, to) =>
-                  setAttachments((prev) => moveItem(prev, from, to))
-                }
-                captions={captions}
-                onCaption={(file, caption) =>
-                  setCaptions((prev) => {
-                    const next = { ...prev }
-                    if (caption) next[pendingFileKey(file)] = caption
-                    else delete next[pendingFileKey(file)]
-                    return next
-                  })
-                }
-                groupMedia
-                blockLabels={{
-                  media: <Trans>Photos and videos</Trans>,
-                  files: <Trans>Files</Trans>,
-                }}
-                addSlot={
-                  <AttachmentAddTile
-                    label={<Trans>Add files</Trans>}
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={isPending}
-                  />
-                }
-              />
+              <div className='space-y-2'>
+                <ComposerAttachments
+                  files={attachments}
+                  previewUrls={attachmentPreviewUrls}
+                  state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                  onRetry={form.handleSubmit(onSubmit)}
+                  progress={progress?.slices}
+                  onRemove={(file) =>
+                    setAttachments((prev) => removePendingFile(prev, file))
+                  }
+                  onReorder={(from, to) =>
+                    setAttachments((prev) => moveItem(prev, from, to))
+                  }
+                  captions={captions}
+                  onCaption={(file, caption) =>
+                    setCaptions((prev) => {
+                      const next = { ...prev }
+                      if (caption) next[pendingFileKey(file)] = caption
+                      else delete next[pendingFileKey(file)]
+                      return next
+                    })
+                  }
+                  groupMedia
+                  blockLabels={{
+                    media: <Trans>Photos and videos</Trans>,
+                    files: <Trans>Files</Trans>,
+                  }}
+                  addSlot={
+                    <AttachmentAddTile
+                      label={<Trans>Add files</Trans>}
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isPending}
+                    />
+                  }
+                />
 
-              {/* Hidden file input */}
-              <input
-                ref={fileInputRef}
-                type='file'
-                multiple
-                accept='image/*,video/*,.pdf,.doc,.docx,.txt,.md'
-                className='hidden'
-                onChange={handleFileChange}
-                disabled={isPending}
-              />
-            </div>
-
+                {/* Hidden file input */}
+                <input
+                  ref={fileInputRef}
+                  type='file'
+                  multiple
+                  accept='image/*,video/*,.pdf,.doc,.docx,.txt,.md'
+                  className='hidden'
+                  onChange={handleFileChange}
+                  disabled={isPending}
+                />
+              </div>
             </div>
             <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>
@@ -341,4 +350,3 @@ export function CreatePostDialog({
     </ResponsiveDialog>
   )
 }
-

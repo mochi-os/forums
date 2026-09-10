@@ -2,14 +2,21 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { LoadMoreTrigger, EmptyState, Button, CardSkeleton, EntityOnboardingEmptyState, useListAutoAnimate, type Upload } from '@mochi/web'
 import { Trans, useLingui } from '@lingui/react/macro'
+import {
+  LoadMoreTrigger,
+  EmptyState,
+  Button,
+  CardSkeleton,
+  EntityOnboardingEmptyState,
+  useListAutoAnimate,
+  type Upload,
+} from '@mochi/web'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
 import { CreatePostDialog } from './create-post-dialog'
-import { PostCard } from './post-card'
 import { InlineForumSearch } from './inline-forum-search'
+import { PostCard } from './post-card'
 import { RecommendedForums } from './recommended-forums'
 
 interface ForumOverviewProps {
@@ -77,7 +84,10 @@ export function ForumOverview({
     return (
       <div className='space-y-4'>
         {isLoading ? (
-          <CardSkeleton count={3} className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1' />
+          <CardSkeleton
+            count={3}
+            className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1'
+          />
         ) : posts.length > 0 ? (
           <div className='space-y-3' ref={listRef}>
             {posts.map((post) => (
@@ -103,12 +113,12 @@ export function ForumOverview({
             title={t`Forums`}
             description={t`You have no forums yet.`}
             searchSlot={<InlineForumSearch subscribedIds={subscribedIds} />}
-            primaryActionSlot={(
-              <Button variant="outline" onClick={onCreateForum}>
-                <Plus className="me-2 h-4 w-4" />
+            primaryActionSlot={
+              <Button variant='outline' onClick={onCreateForum}>
+                <Plus className='me-2 h-4 w-4' />
                 <Trans>Create a new forum</Trans>
               </Button>
-            )}
+            }
             secondarySlot={<RecommendedForums subscribedIds={subscribedIds} />}
           />
         )}
@@ -120,7 +130,10 @@ export function ForumOverview({
   return (
     <div className='space-y-6'>
       {isLoading ? (
-        <CardSkeleton count={3} className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1' />
+        <CardSkeleton
+          count={3}
+          className='grid-cols-1 sm:grid-cols-1 lg:grid-cols-1'
+        />
       ) : posts.length > 0 ? (
         <>
           <div className='space-y-3' ref={listRef}>
@@ -150,11 +163,12 @@ export function ForumOverview({
           )}
         </>
       ) : (
-
         <EmptyState
           icon={FileEdit}
           title={t`No posts in this forum yet`}
-          description={!forum.can_post ? t`Check back later for new content` : undefined}
+          description={
+            !forum.can_post ? t`Check back later for new content` : undefined
+          }
         >
           {forum.can_post && (
             <CreatePostDialog

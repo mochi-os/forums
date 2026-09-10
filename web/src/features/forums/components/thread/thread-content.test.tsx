@@ -2,13 +2,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Post } from '@/api/types/posts'
 import { ThreadContent } from './thread-content'
 
@@ -29,7 +28,9 @@ function makePost(): Post {
 }
 
 function renderContent(props: Partial<Parameters<typeof ThreadContent>[0]>) {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
   return render(
     <QueryClientProvider client={client}>
       <I18nProvider i18n={i18n}>

@@ -2,16 +2,15 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { t } from '@lingui/core/macro'
 import {
   toast,
   useAuthStore,
   entityWebsocketManager,
   type EntityWebsocketEvent,
 } from '@mochi/web'
-import { t } from '@lingui/core/macro'
 import { forumsKeys } from './use-forums-queries'
 
 interface ForumWebsocketEvent {
@@ -155,9 +154,13 @@ export function useForumWebsocket(
             },
           })
           if (data.post) {
-            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            void queryClient.invalidateQueries({
+              queryKey: forumsKeys.post(forumId, data.post),
+            })
             if (forumKey && forumKey !== forumId) {
-              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+              void queryClient.invalidateQueries({
+                queryKey: forumsKeys.post(forumKey, data.post),
+              })
             }
           }
           break
@@ -169,9 +172,13 @@ export function useForumWebsocket(
         case 'comment/restore':
         case 'comment/status':
           if (data.post) {
-            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            void queryClient.invalidateQueries({
+              queryKey: forumsKeys.post(forumId, data.post),
+            })
             if (forumKey && forumKey !== forumId) {
-              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+              void queryClient.invalidateQueries({
+                queryKey: forumsKeys.post(forumKey, data.post),
+              })
             }
           }
           break
@@ -197,9 +204,13 @@ export function useForumWebsocket(
           // so the thread has to be refetched or it keeps showing it.
           toast.error(rejectMessage(data.reason, 'comment'))
           if (data.post) {
-            void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, data.post) })
+            void queryClient.invalidateQueries({
+              queryKey: forumsKeys.post(forumId, data.post),
+            })
             if (forumKey && forumKey !== forumId) {
-              void queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumKey, data.post) })
+              void queryClient.invalidateQueries({
+                queryKey: forumsKeys.post(forumKey, data.post),
+              })
             }
           }
           break
@@ -212,7 +223,10 @@ export function useForumWebsocket(
       }
     }
 
-    const unsubscribe = entityWebsocketManager.subscribe(forumKey, handleMessage)
+    const unsubscribe = entityWebsocketManager.subscribe(
+      forumKey,
+      handleMessage
+    )
     return unsubscribe
   }, [authReady, authToken, forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
 }

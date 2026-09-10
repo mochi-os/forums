@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import DOMPurify from 'dompurify'
 
 const ALLOWED_IFRAME_HOSTS = [
@@ -69,11 +68,43 @@ export const sanitizeHtml = (html: string): string => {
 const sanitizeWithConfig = (html: string): string => {
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
-      'b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
-      'code', 'pre', 'blockquote', 'img', 'figure', 'figcaption',
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'iframe', 'div', 'span',
-      'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'del', 'sup',
-      'sub', 'details', 'summary',
+      'b',
+      'i',
+      'em',
+      'strong',
+      'a',
+      'p',
+      'br',
+      'ul',
+      'ol',
+      'li',
+      'code',
+      'pre',
+      'blockquote',
+      'img',
+      'figure',
+      'figcaption',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'iframe',
+      'div',
+      'span',
+      'table',
+      'thead',
+      'tbody',
+      'tr',
+      'th',
+      'td',
+      'hr',
+      'del',
+      'sup',
+      'sub',
+      'details',
+      'summary',
     ],
     // No 'style': author-supplied inline styles are a clickjacking-overlay
     // vector (position:fixed/opacity), and DOMPurify doesn't strip those. The
@@ -83,9 +114,19 @@ const sanitizeWithConfig = (html: string): string => {
     // are in the stylesheet, so a class is the same overlay by another route,
     // and an id can shadow the app's own anchors.
     ALLOWED_ATTR: [
-      'href', 'target', 'rel', 'src', 'alt', 'title',
-      'width', 'height', 'allow', 'allowfullscreen', 'frameborder',
-      'colspan', 'rowspan',
+      'href',
+      'target',
+      'rel',
+      'src',
+      'alt',
+      'title',
+      'width',
+      'height',
+      'allow',
+      'allowfullscreen',
+      'frameborder',
+      'colspan',
+      'rowspan',
     ],
     ADD_ATTR: ['target'],
   })
@@ -102,7 +143,9 @@ export const embedVideos = (html: string): string => {
       let embedUrl: string | null = null
 
       if (url.includes('youtube.com/watch') || url.includes('youtu.be/')) {
-        const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/)
+        const ytMatch = url.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/
+        )
         if (ytMatch) {
           embedUrl = `https://www.youtube.com/embed/${ytMatch[1]}`
         }

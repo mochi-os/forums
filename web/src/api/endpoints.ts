@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { isDomainEntityRouting, getEntityFingerprint } from '@mochi/web'
 
 // Get the base path for entity-level API calls
@@ -52,7 +51,8 @@ const endpoints = {
     rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
     bannerGet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/get`,
     bannerSet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/set`,
-    membersSearch: (forumId: string) => `${getEntityBase(forumId)}/-/members/search`,
+    membersSearch: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/members/search`,
 
     // Post endpoints
     post: {
@@ -68,15 +68,18 @@ const endpoints = {
 
     // AI settings
     aiSettings: (forumId: string) => `${getEntityBase(forumId)}/-/ai/settings`,
-    aiPromptsGet: (forumId: string) => `${getEntityBase(forumId)}/-/ai/prompts/get`,
-    aiPromptsSet: (forumId: string) => `${getEntityBase(forumId)}/-/ai/prompts/set`,
+    aiPromptsGet: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/ai/prompts/get`,
+    aiPromptsSet: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/ai/prompts/set`,
 
     // Tag endpoints
     postTagsAdd: (forumId: string, postId: string) =>
       `${getEntityBase(forumId)}/-/${postId}/tags/add`,
 
     // Interest/scoring endpoints
-    tagInterest: (forumId: string) => `${getEntityBase(forumId)}/-/tags/interest`,
+    tagInterest: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/tags/interest`,
 
     // Comment endpoints
     comment: {
@@ -98,7 +101,8 @@ const endpoints = {
     // Access control endpoints
     access: (forumId: string) => `${getEntityBase(forumId)}/-/access`,
     accessSet: (forumId: string) => `${getEntityBase(forumId)}/-/access/set`,
-    accessRevoke: (forumId: string) => `${getEntityBase(forumId)}/-/access/revoke`,
+    accessRevoke: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/access/revoke`,
 
     // Moderation endpoints
     moderation: {
@@ -108,8 +112,7 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/moderation/settings/save`,
       queue: (forumId: string) =>
         `${getEntityBase(forumId)}/-/moderation/queue`,
-      log: (forumId: string) =>
-        `${getEntityBase(forumId)}/-/moderation/log`,
+      log: (forumId: string) => `${getEntityBase(forumId)}/-/moderation/log`,
       reports: (forumId: string) =>
         `${getEntityBase(forumId)}/-/moderation/reports`,
       resolveReport: (forumId: string, reportId: string) =>
@@ -117,7 +120,8 @@ const endpoints = {
     },
 
     // Notifications
-    notificationsClear: (forumId: string) => `${getEntityBase(forumId)}/-/notifications/clear`,
+    notificationsClear: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/notifications/clear`,
 
     // Sort persistence
     sortSet: '-/sort/set',
@@ -130,7 +134,8 @@ const endpoints = {
     // User restrictions
     restrict: (forumId: string) => `${getEntityBase(forumId)}/-/restrict`,
     unrestrict: (forumId: string) => `${getEntityBase(forumId)}/-/unrestrict`,
-    restrictions: (forumId: string) => `${getEntityBase(forumId)}/-/restrictions`,
+    restrictions: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/restrictions`,
 
     // Post moderation actions
     postModeration: {

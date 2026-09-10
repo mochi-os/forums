@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   ConfirmDialog,
@@ -39,16 +39,23 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue, naturalCompare,
+  SelectValue,
+  naturalCompare,
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
   DISALLOWED_NAME_CHARS,
 } from '@mochi/web'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
+import {
+  Loader2,
+  Plus,
+  Hash,
+  Settings,
+  Shield,
+  Trash2,
+  Gavel,
+} from 'lucide-react'
 import forumsApi from '@/api/forums'
-import { clampLimitWindow } from '@/features/forums/moderation'
 import { toError, getErrorStatus } from '@/lib/errors'
-import { useQueryClient } from '@tanstack/react-query'
 import {
   forumsKeys,
   useDeleteForum,
@@ -57,6 +64,7 @@ import {
   useGroups,
   useUserSearch,
 } from '@/hooks/use-forums-queries'
+import { clampLimitWindow } from '@/features/forums/moderation'
 
 type TabId = 'general' | 'access' | 'moderation'
 
@@ -66,7 +74,12 @@ type SettingsSearch = {
 
 export const Route = createFileRoute('/_authenticated/$forum_/settings')({
   validateSearch: (search: Record<string, unknown>): SettingsSearch => ({
-    tab: (search.tab === 'general' || search.tab === 'access' || search.tab === 'moderation') ? search.tab : undefined,
+    tab:
+      search.tab === 'general' ||
+      search.tab === 'access' ||
+      search.tab === 'moderation'
+        ? search.tab
+        : undefined,
   }),
   component: ForumSettingsPage,
 })
@@ -89,8 +102,16 @@ interface Tab {
 function useTabs(): Tab[] {
   const { t } = useLingui()
   return [
-    { id: 'general', label: t`Settings`, icon: <Settings className='h-4 w-4' /> },
-    { id: 'moderation', label: t`Moderation`, icon: <Gavel className='h-4 w-4' /> },
+    {
+      id: 'general',
+      label: t`Settings`,
+      icon: <Settings className='h-4 w-4' />,
+    },
+    {
+      id: 'moderation',
+      label: t`Moderation`,
+      icon: <Gavel className='h-4 w-4' />,
+    },
     { id: 'access', label: t`Access`, icon: <Shield className='h-4 w-4' /> },
   ]
 }
@@ -121,7 +142,8 @@ function ForumSettingsPage() {
   const setActiveTab = (newTab: TabId) => {
     void navigateSettings({ search: { tab: newTab }, replace: true })
   }
-  const goBackToForum = () => navigate({ to: '/$forum', params: { forum: forumId } })
+  const goBackToForum = () =>
+    navigate({ to: '/$forum', params: { forum: forumId } })
   const [isUnsubscribing, setIsUnsubscribing] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
@@ -139,16 +161,20 @@ function ForumSettingsPage() {
     void navigate({ to: '/' })
   })
 
-  const selectedForum: ForumData | null = useMemo(() => forumInfoData?.data
-    ? {
-      id: forumInfoData.data.forum.id,
-      name: forumInfoData.data.forum.name,
-      fingerprint: forumInfoData.data.fingerprint,
-      can_manage: forumInfoData.data.permissions.manage,
-      ai_mode: forumInfoData.data.forum.ai_mode ?? '',
-      ai_account: forumInfoData.data.forum.ai_account ?? '',
-    }
-    : null, [forumInfoData])
+  const selectedForum: ForumData | null = useMemo(
+    () =>
+      forumInfoData?.data
+        ? {
+            id: forumInfoData.data.forum.id,
+            name: forumInfoData.data.forum.name,
+            fingerprint: forumInfoData.data.fingerprint,
+            can_manage: forumInfoData.data.permissions.manage,
+            ai_mode: forumInfoData.data.forum.ai_mode ?? '',
+            ai_account: forumInfoData.data.forum.ai_account ?? '',
+          }
+        : null,
+    [forumInfoData]
+  )
 
   const forumInfoStatus = getErrorStatus(forumInfoErrorRaw)
   const forumLookupError =
@@ -187,23 +213,27 @@ function ForumSettingsPage() {
   }, [selectedForum, isUnsubscribing, queryClient, navigate, t])
 
   const handleDelete = useCallback(() => {
-    if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending) return
+    if (!selectedForum || !selectedForum.can_manage || deleteForum.isPending)
+      return
     deleteForum.mutate(selectedForum.id)
   }, [selectedForum, deleteForum])
 
-  const handleRename = useCallback(async (name: string) => {
-    if (!selectedForum || !selectedForum.can_manage) return
+  const handleRename = useCallback(
+    async (name: string) => {
+      if (!selectedForum || !selectedForum.can_manage) return
 
-    await toastAction(forumsApi.renameForum(selectedForum.id, name), {
-      loading: t`Renaming forum...`,
-      success: t`Forum renamed`,
-      error: (e) => getErrorMessage(e, t`Failed to rename forum`),
-    })
-    // Invalidate every forum query: the sidebar reads the info-list query,
-    // which the refetch below does not cover.
-    void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
-    void refreshForumInfo()
-  }, [selectedForum, refreshForumInfo, queryClient, t])
+      await toastAction(forumsApi.renameForum(selectedForum.id, name), {
+        loading: t`Renaming forum...`,
+        success: t`Forum renamed`,
+        error: (e) => getErrorMessage(e, t`Failed to rename forum`),
+      })
+      // Invalidate every forum query: the sidebar reads the info-list query,
+      // which the refetch below does not cover.
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      void refreshForumInfo()
+    },
+    [selectedForum, refreshForumInfo, queryClient, t]
+  )
 
   // Can unsubscribe if subscribed and not the owner
   const canUnsubscribe = !!(selectedForum && !selectedForum.can_manage)
@@ -213,7 +243,7 @@ function ForumSettingsPage() {
       <>
         <PageHeader
           title={<Skeleton className='h-8 w-48' />}
-          icon={<Skeleton className='size-4 md:size-5 rounded-md' />}
+          icon={<Skeleton className='size-4 rounded-md md:size-5' />}
           back={{ label: t`Back to forum`, onFallback: goBackToForum }}
         />
         <Main className='space-y-6'>
@@ -227,7 +257,10 @@ function ForumSettingsPage() {
   if (!selectedForum) {
     return (
       <>
-        <PageHeader title={t`Settings`} back={{ label: t`Back to forum`, onFallback: goBackToForum }} />
+        <PageHeader
+          title={t`Settings`}
+          back={{ label: t`Back to forum`, onFallback: goBackToForum }}
+        />
         <Main>
           {forumLookupError ? (
             <GeneralError
@@ -257,21 +290,23 @@ function ForumSettingsPage() {
   return (
     <>
       <PageHeader
-        title={selectedForum.name ? t`${selectedForum.name} settings` : t`Settings`}
-        icon={<Settings className="size-4 md:size-5" />}
+        title={
+          selectedForum.name ? t`${selectedForum.name} settings` : t`Settings`
+        }
+        icon={<Settings className='size-4 md:size-5' />}
         back={{ label: t`Back to forum`, onFallback: goBackToForum }}
       />
       <Main className='space-y-6'>
         {/* Tabs - only show for owners */}
         {selectedForum.can_manage && (
           <Tabs
-            variant="underline"
+            variant='underline'
             value={activeTab}
             onValueChange={(value) => setActiveTab(value as TabId)}
           >
             <TabsList aria-label={t`Forum settings sections`}>
               {tabs.map((tab) => (
-                <TabsTrigger key={tab.id} value={tab.id} className="gap-2">
+                <TabsTrigger key={tab.id} value={tab.id} className='gap-2'>
                   {tab.icon}
                   {tab.label}
                 </TabsTrigger>
@@ -283,7 +318,7 @@ function ForumSettingsPage() {
         {/* Tab content */}
         <div
           id={`forum-settings-${activeTab}-tabpanel`}
-          role="tabpanel"
+          role='tabpanel'
           className='pt-2'
         >
           {activeTab === 'general' && (
@@ -342,16 +377,15 @@ function GeneralTab({
   const validateName = (name: string): string | null => {
     if (!name.trim()) return t`Forum name is required`
     if (name.length > 1000) return t`Name must be 1000 characters or less`
-    if (DISALLOWED_NAME_CHARS.test(name)) return t`Name cannot contain < or > characters`
+    if (DISALLOWED_NAME_CHARS.test(name))
+      return t`Name cannot contain < or > characters`
     return null
   }
 
   return (
     <div className='space-y-6'>
-      <Section
-        title={t`Identity`}
-      >
-        <div className="divide-y-0">
+      <Section title={t`Identity`}>
+        <div className='divide-y-0'>
           <EditableFieldRow
             label={t`Name`}
             value={forum.name}
@@ -378,7 +412,12 @@ function GeneralTab({
       )}
 
       {forum.can_manage && (
-        <AiSettingsSection forumId={forum.id} aiMode={forum.ai_mode} aiAccount={forum.ai_account} onSave={onRefresh} />
+        <AiSettingsSection
+          forumId={forum.id}
+          aiMode={forum.ai_mode}
+          aiAccount={forum.ai_account}
+          onSave={onRefresh}
+        />
       )}
 
       {canUnsubscribe && (
@@ -387,13 +426,13 @@ function GeneralTab({
           description={t`Remove this forum from your sidebar.`}
           action={
             <Button
-              variant="outline"
+              variant='outline'
               onClick={onUnsubscribe}
               disabled={isUnsubscribing}
-              size="sm"
+              size='sm'
             >
               {isUnsubscribing ? (
-                <Loader2 className="me-2 size-4 animate-spin" />
+                <Loader2 className='me-2 size-4 animate-spin' />
               ) : (
                 <Trans>Unsubscribe</Trans>
               )}
@@ -407,12 +446,12 @@ function GeneralTab({
           title={t`Delete forum`}
           action={
             <Button
-              variant="outline"
+              variant='outline'
               onClick={() => setShowDeleteDialog(true)}
               disabled={isDeleting}
-              size="sm"
+              size='sm'
             >
-              <Trash2 className="size-4 me-2" />
+              <Trash2 className='me-2 size-4' />
               <Trans>Delete</Trans>
             </Button>
           }
@@ -432,7 +471,17 @@ function GeneralTab({
   )
 }
 
-function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: string; aiMode: string; aiAccount: string; onSave: () => void }) {
+function AiSettingsSection({
+  forumId,
+  aiMode,
+  aiAccount,
+  onSave,
+}: {
+  forumId: string
+  aiMode: string
+  aiAccount: string
+  onSave: () => void
+}) {
   const { t } = useLingui()
   const normalizeMode = (m: string) => {
     if (m === 'score') return 'tag'
@@ -475,38 +524,56 @@ function AiSettingsSection({ forumId, aiMode, aiAccount, onSave }: { forumId: st
   return (
     <Section title={t`AI`}>
       <FieldRow label={t`AI actions on posts`}>
-        <Select value={mode} onValueChange={handleModeChange} disabled={isLoading}>
-          <SelectTrigger className="w-full max-w-xs">
+        <Select
+          value={mode}
+          onValueChange={handleModeChange}
+          disabled={isLoading}
+        >
+          <SelectTrigger className='w-full max-w-xs'>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="off"><Trans>Disabled</Trans></SelectItem>
-            <SelectItem value="tag"><Trans>Tag</Trans></SelectItem>
+            <SelectItem value='off'>
+              <Trans>Disabled</Trans>
+            </SelectItem>
+            <SelectItem value='tag'>
+              <Trans>Tag</Trans>
+            </SelectItem>
           </SelectContent>
         </Select>
       </FieldRow>
       {mode !== 'off' && (
         <FieldRow label={t`Account`}>
-          <Select value={isDefaultAccount(account) ? DEFAULT_ACCOUNT : account} onValueChange={handleAccountChange} disabled={isLoading}>
-            <SelectTrigger className="w-full max-w-xs">
+          <Select
+            value={isDefaultAccount(account) ? DEFAULT_ACCOUNT : account}
+            onValueChange={handleAccountChange}
+            disabled={isLoading}
+          >
+            <SelectTrigger className='w-full max-w-xs'>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={DEFAULT_ACCOUNT}><Trans>Default account</Trans></SelectItem>
-              {[...accounts].sort((a, b) => naturalCompare((a.label || a.identifier), b.label || b.identifier)).map((acc) => (
-                <SelectItem key={acc.id} value={String(acc.id)}>
-                  {acc.label || acc.identifier}
-                </SelectItem>
-              ))}
+              <SelectItem value={DEFAULT_ACCOUNT}>
+                <Trans>Default account</Trans>
+              </SelectItem>
+              {[...accounts]
+                .sort((a, b) =>
+                  naturalCompare(
+                    a.label || a.identifier,
+                    b.label || b.identifier
+                  )
+                )
+                .map((acc) => (
+                  <SelectItem key={acc.id} value={String(acc.id)}>
+                    {acc.label || acc.identifier}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </FieldRow>
       )}
       {mode !== 'off' && (
-        <AiPromptsEditor
-          forumId={forumId}
-          showPrompts={showPrompts}
-        />
+        <AiPromptsEditor forumId={forumId} showPrompts={showPrompts} />
       )}
     </Section>
   )
@@ -518,7 +585,13 @@ const SCORE_VARIABLES = '{{interests}}, {{posts}}'
 
 // The editor itself is AiPromptsEditor in @mochi/web, shared with the feeds
 // app. What stays here is which prompts this app offers and their wording.
-function AiPromptsEditor({ forumId, showPrompts }: { forumId: string; showPrompts: boolean }) {
+function AiPromptsEditor({
+  forumId,
+  showPrompts,
+}: {
+  forumId: string
+  showPrompts: boolean
+}) {
   const { t } = useLingui()
   const types: AiPromptType[] = showPrompts
     ? [
@@ -591,11 +664,13 @@ function AccessTab({ forumId }: AccessTabProps) {
     : null
   const canManageRules = !rulesError && !isLoadingRules && !!accessData
   const userSearchResults = coerceObjectArray<{ id: string; name: string }>(
-    userSearchData?.data?.results,
+    userSearchData?.data?.results
   )
-  const groups = coerceObjectArray<{ id: string; name: string; description?: string }>(
-    groupsData?.data?.groups,
-  )
+  const groups = coerceObjectArray<{
+    id: string
+    name: string
+    description?: string
+  }>(groupsData?.data?.groups)
 
   const handleAdd = async (
     subject: string,
@@ -644,14 +719,12 @@ function AccessTab({ forumId }: AccessTabProps) {
   }
 
   return (
-    <Section
-      title={t`Access management`}
-    >
+    <Section title={t`Access management`}>
       <div className='space-y-4'>
         <div className='flex justify-end'>
           <Button
             onClick={() => setDialogOpen(true)}
-            size="sm"
+            size='sm'
             disabled={!canManageRules}
           >
             <Plus className='me-2 h-4 w-4' />
@@ -752,7 +825,9 @@ export function ModerationTab({ forumId }: ModerationTabProps) {
         // The server rejected the change: roll the optimistic value back so the
         // UI reflects what is actually stored, not the value that failed.
         setSettings(previous)
-        toast.error(getErrorMessage(error, t`Failed to save moderation settings`))
+        toast.error(
+          getErrorMessage(error, t`Failed to save moderation settings`)
+        )
       }
     },
     [forumId, t]
@@ -803,54 +878,86 @@ export function ModerationTab({ forumId }: ModerationTabProps) {
         description={t`Require approval before content becomes visible`}
       >
         <div className='space-y-4 py-2 text-sm'>
-          <label className='flex items-center justify-between py-2 border-b border-border/40'>
-            <div className="space-y-0.5">
-              <span className="font-medium"><Trans>Require approval for new posts</Trans></span>
-              <p className="text-muted-foreground text-xs"><Trans>New threads must be approved</Trans></p>
+          <label className='border-border/40 flex items-center justify-between border-b py-2'>
+            <div className='space-y-0.5'>
+              <span className='font-medium'>
+                <Trans>Require approval for new posts</Trans>
+              </span>
+              <p className='text-muted-foreground text-xs'>
+                <Trans>New threads must be approved</Trans>
+              </p>
             </div>
             <Switch
               checked={settings.moderation_posts}
-              onCheckedChange={(checked) => updateSetting('moderation_posts', checked)}
+              onCheckedChange={(checked) =>
+                updateSetting('moderation_posts', checked)
+              }
             />
           </label>
 
-          <label className='flex items-center justify-between py-2 border-b border-border/40'>
-            <div className="space-y-0.5">
-              <span className="font-medium"><Trans>Require approval for new comments</Trans></span>
-              <p className="text-muted-foreground text-xs"><Trans>Replies must be approved</Trans></p>
+          <label className='border-border/40 flex items-center justify-between border-b py-2'>
+            <div className='space-y-0.5'>
+              <span className='font-medium'>
+                <Trans>Require approval for new comments</Trans>
+              </span>
+              <p className='text-muted-foreground text-xs'>
+                <Trans>Replies must be approved</Trans>
+              </p>
             </div>
             <Switch
               checked={settings.moderation_comments}
-              onCheckedChange={(checked) => updateSetting('moderation_comments', checked)}
+              onCheckedChange={(checked) =>
+                updateSetting('moderation_comments', checked)
+              }
             />
           </label>
 
           <label className='flex items-center justify-between py-2'>
-            <div className="space-y-0.5">
-              <span className="font-medium"><Trans>Require approval for new users</Trans></span>
-              <p className="text-muted-foreground text-xs"><Trans>Content from users below a threshold must be approved</Trans></p>
+            <div className='space-y-0.5'>
+              <span className='font-medium'>
+                <Trans>Require approval for new users</Trans>
+              </span>
+              <p className='text-muted-foreground text-xs'>
+                <Trans>
+                  Content from users below a threshold must be approved
+                </Trans>
+              </p>
             </div>
             <Switch
               checked={settings.moderation_new}
-              onCheckedChange={(checked) => updateSetting('moderation_new', checked)}
+              onCheckedChange={(checked) =>
+                updateSetting('moderation_new', checked)
+              }
             />
           </label>
 
           {!!settings.moderation_new && (
-            <div className='mt-4 flex items-center gap-3 bg-muted/40 p-4 rounded-lg'>
-              <span className='text-sm font-medium'><Trans>New user threshold:</Trans></span>
-              <div className="flex items-center gap-2">
+            <div className='bg-muted/40 mt-4 flex items-center gap-3 rounded-lg p-4'>
+              <span className='text-sm font-medium'>
+                <Trans>New user threshold:</Trans>
+              </span>
+              <div className='flex items-center gap-2'>
                 <Input
                   type='number'
                   min={0}
                   value={settings.new_user_days}
                   onChange={(e) =>
-                    setSettings((s) => ({ ...s, new_user_days: parseInt(e.target.value) || 0 }))
+                    setSettings((s) => ({
+                      ...s,
+                      new_user_days: parseInt(e.target.value) || 0,
+                    }))
                   }
-                  onBlur={(e) => updateSetting('new_user_days', parseInt(e.target.value) || 0)}
+                  onBlur={(e) =>
+                    updateSetting(
+                      'new_user_days',
+                      parseInt(e.target.value) || 0
+                    )
+                  }
                   className='h-8 w-16 text-center'
                 />
-                <span className='text-muted-foreground text-xs font-medium'><Trans>days</Trans></span>
+                <span className='text-muted-foreground text-xs font-medium'>
+                  <Trans>days</Trans>
+                </span>
               </div>
             </div>
           )}
@@ -862,48 +969,81 @@ export function ModerationTab({ forumId }: ModerationTabProps) {
         description={t`Prevent spam by limiting how often users can post`}
       >
         <div className='space-y-4 py-2 text-sm'>
-          <div className='flex items-center justify-between py-2 border-b border-border/40'>
-            <span className="font-medium"><Trans>Post limit</Trans></span>
-            <div className="flex items-center gap-2">
+          <div className='border-border/40 flex items-center justify-between border-b py-2'>
+            <span className='font-medium'>
+              <Trans>Post limit</Trans>
+            </span>
+            <div className='flex items-center gap-2'>
               <Input
                 type='number'
                 min={0}
                 value={settings.post_limit}
-                onChange={(e) => setSettings(s => ({ ...s, post_limit: parseInt(e.target.value) || 0 }))}
-                onBlur={(e) => updateSetting('post_limit', parseInt(e.target.value) || 0)}
+                onChange={(e) =>
+                  setSettings((s) => ({
+                    ...s,
+                    post_limit: parseInt(e.target.value) || 0,
+                  }))
+                }
+                onBlur={(e) =>
+                  updateSetting('post_limit', parseInt(e.target.value) || 0)
+                }
                 className='h-8 w-16 text-center'
               />
-              <span className='text-muted-foreground text-xs'><Trans>posts</Trans></span>
+              <span className='text-muted-foreground text-xs'>
+                <Trans>posts</Trans>
+              </span>
             </div>
           </div>
 
-          <div className='flex items-center justify-between py-2 border-b border-border/40'>
-            <span className="font-medium"><Trans>Comment limit</Trans></span>
-            <div className="flex items-center gap-2">
+          <div className='border-border/40 flex items-center justify-between border-b py-2'>
+            <span className='font-medium'>
+              <Trans>Comment limit</Trans>
+            </span>
+            <div className='flex items-center gap-2'>
               <Input
                 type='number'
                 min={0}
                 value={settings.comment_limit}
-                onChange={(e) => setSettings(s => ({ ...s, comment_limit: parseInt(e.target.value) || 0 }))}
-                onBlur={(e) => updateSetting('comment_limit', parseInt(e.target.value) || 0)}
+                onChange={(e) =>
+                  setSettings((s) => ({
+                    ...s,
+                    comment_limit: parseInt(e.target.value) || 0,
+                  }))
+                }
+                onBlur={(e) =>
+                  updateSetting('comment_limit', parseInt(e.target.value) || 0)
+                }
                 className='h-8 w-16 text-center'
               />
-              <span className='text-muted-foreground text-xs'><Trans>replies</Trans></span>
+              <span className='text-muted-foreground text-xs'>
+                <Trans>replies</Trans>
+              </span>
             </div>
           </div>
 
           <div className='flex items-center justify-between py-2'>
-            <span className="font-medium"><Trans>Window duration</Trans></span>
-            <div className="flex items-center gap-2">
+            <span className='font-medium'>
+              <Trans>Window duration</Trans>
+            </span>
+            <div className='flex items-center gap-2'>
               <Input
                 type='number'
                 min={60}
                 value={settings.limit_window}
-                onChange={(e) => setSettings(s => ({ ...s, limit_window: parseInt(e.target.value) || 0 }))}
-                onBlur={(e) => updateSetting('limit_window', parseInt(e.target.value) || 0)}
+                onChange={(e) =>
+                  setSettings((s) => ({
+                    ...s,
+                    limit_window: parseInt(e.target.value) || 0,
+                  }))
+                }
+                onBlur={(e) =>
+                  updateSetting('limit_window', parseInt(e.target.value) || 0)
+                }
                 className='h-8 w-24 text-center'
               />
-              <span className='text-muted-foreground text-xs'><Trans>seconds</Trans></span>
+              <span className='text-muted-foreground text-xs'>
+                <Trans>seconds</Trans>
+              </span>
             </div>
           </div>
         </div>
