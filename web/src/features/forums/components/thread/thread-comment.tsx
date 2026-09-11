@@ -464,20 +464,15 @@ export function ThreadComment({
               {/* More menu (edit, delete, moderation, report) */}
               {(commentCanEdit || canModerate || onReport) && (
                 <DropdownMenu>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type='button'
-                          className={iconActionButtonClass}
-                          aria-label={t`More options`}
-                        >
-                          <MoreHorizontal className='size-3.5' />
-                        </button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`More options`}</TooltipContent>
-                  </Tooltip>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`More options`}
+                    >
+                      <MoreHorizontal className='size-3.5' />
+                    </button>
+                  </DropdownMenuTrigger>
                   <DropdownMenuContent align='start'>
                     {commentCanEdit && onEdit && (
                       <DropdownMenuItem

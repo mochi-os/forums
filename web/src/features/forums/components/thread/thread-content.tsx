@@ -374,21 +374,16 @@ export function ThreadContent({
               {/* More menu (edit, delete, moderation, report) */}
               {(canEdit || canModerate || onReport) && (
                 <DropdownMenu>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type='button'
-                          className={iconActionButtonClass}
-                          aria-label={t`More options`}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <MoreHorizontal className='size-3.5' />
-                        </button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`More options`}</TooltipContent>
-                  </Tooltip>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`More options`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <MoreHorizontal className='size-3.5' />
+                    </button>
+                  </DropdownMenuTrigger>
                   <DropdownMenuContent align='start'>
                     {canEdit && onEdit && (
                       <DropdownMenuItem onClick={onEdit}>
