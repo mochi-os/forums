@@ -279,77 +279,70 @@ export function ThreadContent({
             onInterestRemove={onInterestRemove}
           />
         )}
-        {isLoggedIn && (
-          <SavedButton
-            post={post}
-            // The thread page keeps every action visible (the pill below is
-            // alwaysVisible too), so the bookmark stays with them.
-            alwaysVisible
-            className='text-muted-foreground hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active inline-flex size-7 items-center justify-center rounded-full transition-colors'
-          />
-        )}
-        {hasActionsOrVotes && (
+        {(hasActionsOrVotes || isLoggedIn) && (
           <ActionPill sticky expandActions={false} className='comment-actions'>
-            <ActionPillSticky>
-              {/* Votes */}
-              {canVote ? (
-                <>
-                  <button
-                    type='button'
-                    className={voteButtonClass}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleVote(localVote === 'up' ? '' : 'up')
-                    }}
-                  >
-                    {localVote === 'up' ? (
-                      <span className='text-sm'>👍</span>
-                    ) : (
-                      <ThumbsUp className='size-3.5' />
-                    )}
+            {(canVote || localUp > 0 || localDown > 0) && (
+              <ActionPillSticky>
+                {/* Votes */}
+                {canVote ? (
+                  <>
+                    <button
+                      type='button'
+                      className={voteButtonClass}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleVote(localVote === 'up' ? '' : 'up')
+                      }}
+                    >
+                      {localVote === 'up' ? (
+                        <span className='text-sm'>👍</span>
+                      ) : (
+                        <ThumbsUp className='size-3.5' />
+                      )}
+                      {localUp > 0 && (
+                        <span className='text-[12px] leading-none'>
+                          {localUp}
+                        </span>
+                      )}
+                    </button>
+                    <button
+                      type='button'
+                      className={voteButtonClass}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleVote(localVote === 'down' ? '' : 'down')
+                      }}
+                    >
+                      {localVote === 'down' ? (
+                        <span className='text-sm'>👎</span>
+                      ) : (
+                        <ThumbsDown className='size-3.5' />
+                      )}
+                      {localDown > 0 && (
+                        <span className='text-[12px] leading-none'>
+                          {localDown}
+                        </span>
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <>
                     {localUp > 0 && (
-                      <span className='text-[12px] leading-none'>
+                      <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
+                        <ThumbsUp className='size-3.5' />
                         {localUp}
                       </span>
                     )}
-                  </button>
-                  <button
-                    type='button'
-                    className={voteButtonClass}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleVote(localVote === 'down' ? '' : 'down')
-                    }}
-                  >
-                    {localVote === 'down' ? (
-                      <span className='text-sm'>👎</span>
-                    ) : (
-                      <ThumbsDown className='size-3.5' />
-                    )}
                     {localDown > 0 && (
-                      <span className='text-[12px] leading-none'>
+                      <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
+                        <ThumbsDown className='size-3.5' />
                         {localDown}
                       </span>
                     )}
-                  </button>
-                </>
-              ) : (
-                <>
-                  {localUp > 0 && (
-                    <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
-                      <ThumbsUp className='size-3.5' />
-                      {localUp}
-                    </span>
-                  )}
-                  {localDown > 0 && (
-                    <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
-                      <ThumbsDown className='size-3.5' />
-                      {localDown}
-                    </span>
-                  )}
-                </>
-              )}
-            </ActionPillSticky>
+                  </>
+                )}
+              </ActionPillSticky>
+            )}
 
             {/* Action buttons - always visible */}
             <ActionPillActions alwaysVisible>
@@ -370,6 +363,15 @@ export function ThreadContent({
                   </TooltipTrigger>
                   <TooltipContent>{t`Reply`}</TooltipContent>
                 </Tooltip>
+              )}
+              {isLoggedIn && (
+                <SavedButton
+                  post={post}
+                  // The thread page keeps every action visible, so the
+                  // bookmark stays with them.
+                  alwaysVisible
+                  className={iconActionButtonClass}
+                />
               )}
               {/* More menu (edit, delete, moderation, report) */}
               {(canEdit || canModerate || onReport) && (
