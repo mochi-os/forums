@@ -43,8 +43,9 @@ import {
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
   DISALLOWED_NAME_CHARS,
+  MemberList,
 } from '@mochi/web'
-import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel, UserMinus } from 'lucide-react'
+import { Loader2, Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { clampLimitWindow } from '@/features/forums/moderation'
 import { toError, getErrorStatus } from '@/lib/errors'
@@ -728,59 +729,27 @@ export function MembersSection({ forumId, ownerId, canRemove }: MembersSectionPr
   const removeMember = useRemoveForumMember(forumId)
   const [pending, setPending] = useState<{ id: string; name: string } | null>(null)
 
-  const members = useMemo(
-    () =>
-      [...coerceObjectArray<{ id: string; name: string }>(data?.data?.members)].sort((a, b) => {
-        if (a.id === ownerId) return -1
-        if (b.id === ownerId) return 1
-        return naturalCompare(a.name || a.id, b.name || b.id)
-      }),
-    [data, ownerId]
-  )
   const pendingName = pending?.name ?? ''
 
   return (
     <Section title={t`Members`}>
-      {error ? (
-        <GeneralError
-          error={toError(error, t`Failed to load members`)}
-          minimal
-          mode='inline'
-          reset={() => {
-            void refetch()
-          }}
-        />
-      ) : isLoading ? (
-        <div className='space-y-2'>
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-10 w-full' />
-        </div>
-      ) : (
-        <ul className='divide-y'>
-          {members.map((member) => (
-            <li key={member.id} className='flex min-h-12 items-center justify-between gap-2 py-1'>
-              <span className='truncate font-medium'>{member.name || member.id}</span>
-              {member.id === ownerId ? (
-                <span className='text-muted-foreground text-sm'>
-                  <Trans>Owner</Trans>
-                </span>
-              ) : (
-                canRemove && (
-                  <Button
-                    variant='ghost'
-                    size='icon'
-                    aria-label={t`Remove member`}
-                    disabled={removeMember.isPending}
-                    onClick={() => setPending({ id: member.id, name: member.name || member.id })}
-                  >
-                    <UserMinus className='h-4 w-4' />
-                  </Button>
-                )
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* No currentUserId: the Access tab needs manage, which only the owner
+          holds, so the viewer is always the row already tagged Owner. */}
+      <MemberList
+        members={coerceObjectArray<{ id: string; name: string }>(data?.data?.members)}
+        ownerId={ownerId}
+        onRemove={
+          canRemove
+            ? (member) => setPending({ id: member.id, name: member.name || member.id })
+            : undefined
+        }
+        disabled={removeMember.isPending}
+        isLoading={isLoading}
+        error={error ? toError(error, t`Failed to load members`) : null}
+        onRetry={() => {
+          void refetch()
+        }}
+      />
 
       <ConfirmDialog
         open={pending !== null}
