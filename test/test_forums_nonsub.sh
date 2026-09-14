@@ -36,7 +36,7 @@ echo ""
 echo "--- Setup: Create Forum on Instance 1 ---"
 
 RESULT=$("$CURL" -i 1 -a admin -X POST -H "Content-Type: application/json" \
-    -d '{"name":"Non-Sub Test Forum","access":"post"}' "/forums/create")
+    -d '{"name":"Non-Sub Test Forum","access":"post"}' "/forums/-/create")
 FORUM_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$FORUM_ID" ]; then
@@ -49,8 +49,8 @@ fi
 # Create a post as owner
 RESULT=$("$CURL" -i 1 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Owner Post" -F "body=This is a post by the forum owner" \
-    "/forums/post/create")
-OWNER_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    "/forums/-/post/create")
+OWNER_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$OWNER_POST_ID" ]; then
     pass "Create post as owner (id: $OWNER_POST_ID)"
@@ -69,7 +69,7 @@ fi
 # Owner adds a comment
 RESULT=$("$CURL" -i 1 -a admin -X POST -H "Content-Type: application/json" \
     -d '{"body":"Owner comment on the post"}' "/forums/$FORUM_ID/-/$OWNER_POST_ID/create")
-OWNER_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['comment'])" 2>/dev/null)
+OWNER_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$OWNER_COMMENT_ID" ]; then
     pass "Owner creates comment (id: $OWNER_COMMENT_ID)"
@@ -117,8 +117,8 @@ echo "--- Non-Subscriber Post Creation Test ---"
 
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Non-Subscriber Post" -F "body=This is a post by a non-subscriber" \
-    "/forums/post/create")
-NONSUB_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    "/forums/-/post/create")
+NONSUB_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$NONSUB_POST_ID" ]; then
     pass "Non-subscriber creates post (id: $NONSUB_POST_ID)"
@@ -148,9 +148,9 @@ echo -n 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgG
 
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Non-Sub Attachment Post" -F "body=Post with attachment from non-subscriber" \
-    -F "attachments=@$TEST_IMG" \
-    "/forums/post/create")
-NONSUB_ATT_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    -F "files=@$TEST_IMG" \
+    "/forums/-/post/create")
+NONSUB_ATT_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$NONSUB_ATT_POST_ID" ]; then
     pass "Non-subscriber creates post with attachment (id: $NONSUB_ATT_POST_ID)"
@@ -203,7 +203,7 @@ echo "--- Non-Subscriber Comment Test ---"
 
 RESULT=$("$CURL" -i 2 -a admin -X POST -H "Content-Type: application/json" \
     -d '{"body":"Non-subscriber comment on owner post"}' "/forums/$FORUM_ID/-/$OWNER_POST_ID/create")
-NONSUB_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['comment'])" 2>/dev/null)
+NONSUB_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$NONSUB_COMMENT_ID" ]; then
     pass "Non-subscriber creates comment (id: $NONSUB_COMMENT_ID)"
@@ -266,7 +266,7 @@ fi
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "title=Non-Sub Two Attachments" -F "body=Added another attachment" \
     -F "order=$ORDER_JSON" \
-    -F "attachments=@$TEST_IMG2" \
+    -F "files=@$TEST_IMG2" \
     "/forums/$FORUM_ID/-/$NONSUB_ATT_POST_ID/edit")
 
 if echo "$RESULT" | grep -q '"post"'; then

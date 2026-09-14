@@ -25,7 +25,7 @@ pass() {
 
 fail() {
     echo "[FAIL] $1: $2"
-    ((FAILED++))
+    ((FAILED++)) || true
 }
 
 # Helper for forum-level routes that need /-/ prefix in entity context
@@ -48,7 +48,7 @@ echo ""
 echo "--- Forum Creation Test ---"
 
 # Test: Create forum
-RESULT=$("$CURL_HELPER" -a admin -X POST -H "Content-Type: application/json" -d '{"name":"Test Forum","access":"post"}' "/forums/create")
+RESULT=$("$CURL_HELPER" -a admin -X POST -H "Content-Type: application/json" -d '{"name":"Test Forum","access":"post"}' "/forums/-/create")
 if echo "$RESULT" | grep -q '"id":"'; then
     FORUM_ENTITY=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
     if [ -n "$FORUM_ENTITY" ]; then
@@ -81,7 +81,7 @@ else
 fi
 
 # Test: Class-level list
-RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/list")
+RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/-/list")
 if echo "$RESULT" | grep -q '"forums":\['; then
     pass "Get forums list"
 else
@@ -111,9 +111,9 @@ echo ""
 echo "--- Post Lifecycle Tests ---"
 
 # Test: Create post (class-level endpoint with forum param)
-RESULT=$("$CURL_HELPER" -a admin -X POST "/forums/post/create" -F "forum=$FORUM_ENTITY" -F "title=Test Post Title" -F "body=Test post content for the forum")
-if echo "$RESULT" | grep -q '"post":"'; then
-    POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+RESULT=$("$CURL_HELPER" -a admin -X POST "/forums/-/post/create" -F "forum=$FORUM_ENTITY" -F "title=Test Post Title" -F "body=Test post content for the forum")
+if echo "$RESULT" | grep -q '"id":"'; then
+    POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
     if [ -n "$POST_ID" ]; then
         pass "Create post (id: $POST_ID)"
     else
@@ -171,8 +171,8 @@ echo "--- Comment Tests ---"
 
 # Test: Create comment
 RESULT=$(forum_api_curl POST "/$POST_ID/create" -H "Content-Type: application/json" -d '{"body":"Test comment on the post"}')
-if echo "$RESULT" | grep -q '"comment":"'; then
-    COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['comment'])" 2>/dev/null)
+if echo "$RESULT" | grep -q '"id":"'; then
+    COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
     if [ -n "$COMMENT_ID" ]; then
         pass "Create comment (id: $COMMENT_ID)"
     else
@@ -229,7 +229,7 @@ echo ""
 echo "--- Search Tests ---"
 
 # Test: Search forums
-RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/directory/search?search=Test")
+RESULT=$("$CURL_HELPER" -a admin -X GET "/forums/-/directory/search?search=Test")
 if echo "$RESULT" | grep -q '"results":\['; then
     pass "Search forums"
 else
@@ -243,12 +243,12 @@ fi
 echo ""
 echo "--- Unsubscribe Test ---"
 
-# Test: Unsubscribe from forum
+# Test: The owner cannot unsubscribe from their own forum
 RESULT=$(forum_api_curl POST "/unsubscribe")
-if echo "$RESULT" | grep -q '"data":'; then
-    pass "Unsubscribe from forum"
+if echo "$RESULT" | grep -q '<h1>Error 400</h1>'; then
+    pass "Owner cannot unsubscribe from own forum"
 else
-    fail "Unsubscribe from forum" "$RESULT"
+    fail "Owner cannot unsubscribe from own forum" "$RESULT"
 fi
 
 # ============================================================================

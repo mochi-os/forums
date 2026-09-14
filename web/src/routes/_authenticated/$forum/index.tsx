@@ -2,16 +2,21 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 import { z } from 'zod'
+import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { useLingui } from '@lingui/react/macro'
-import { EmptyState, GeneralError, Main, PageHeader, getErrorMessage } from '@mochi/web'
+import {
+  EmptyState,
+  GeneralError,
+  Main,
+  PageHeader,
+  getErrorMessage,
+} from '@mochi/web'
 import { Hash } from 'lucide-react'
+import forumsApi from '@/api/forums'
 import { getErrorStatus } from '@/lib/errors'
 import { EntityForumPage } from '@/features/forums/pages'
-import forumsApi from '@/api/forums'
 
 const searchSchema = z.object({
   server: z.string().optional(),
@@ -87,7 +92,10 @@ function ForumPage() {
       <>
         <PageHeader
           title={t`Forum`}
-          back={{ label: t`Back to forums`, onFallback: () => navigate({ to: '/' }) }}
+          back={{
+            label: t`Back to forums`,
+            onFallback: () => navigate({ to: '/' }),
+          }}
         />
         <Main>
           {data.notFound ? (

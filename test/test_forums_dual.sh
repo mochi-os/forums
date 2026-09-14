@@ -36,7 +36,7 @@ echo ""
 echo "--- Setup: Create Forum on Instance 1 ---"
 
 RESULT=$("$CURL" -i 1 -a admin -X POST -H "Content-Type: application/json" \
-    -d '{"name":"P2P Test Forum","access":"post"}' "/forums/create")
+    -d '{"name":"P2P Test Forum","access":"post"}' "/forums/-/create")
 FORUM_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$FORUM_ID" ]; then
@@ -49,8 +49,8 @@ fi
 # Create a post as owner
 RESULT=$("$CURL" -i 1 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Owner Post" -F "body=This is a post by the forum owner" \
-    "/forums/post/create")
-OWNER_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    "/forums/-/post/create")
+OWNER_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$OWNER_POST_ID" ]; then
     pass "Create post as owner (id: $OWNER_POST_ID)"
@@ -69,7 +69,7 @@ fi
 # Owner adds a comment
 RESULT=$("$CURL" -i 1 -a admin -X POST -H "Content-Type: application/json" \
     -d '{"body":"Owner comment on the post"}' "/forums/$FORUM_ID/-/$OWNER_POST_ID/create")
-OWNER_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['comment'])" 2>/dev/null)
+OWNER_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$OWNER_COMMENT_ID" ]; then
     pass "Owner creates comment (id: $OWNER_COMMENT_ID)"
@@ -128,8 +128,8 @@ echo "--- Subscriber Post Creation Test ---"
 
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Subscriber Post" -F "body=This is a post by a subscriber" \
-    "/forums/post/create")
-SUB_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    "/forums/-/post/create")
+SUB_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$SUB_POST_ID" ]; then
     pass "Subscriber creates post (id: $SUB_POST_ID)"
@@ -160,9 +160,9 @@ echo -n 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgG
 
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "forum=$FORUM_ID" -F "title=Post With Attachment" -F "body=This post has an attachment" \
-    -F "attachments=@$TEST_IMG" \
-    "/forums/post/create")
-ATT_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['post'])" 2>/dev/null)
+    -F "files=@$TEST_IMG" \
+    "/forums/-/post/create")
+ATT_POST_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$ATT_POST_ID" ]; then
     pass "Subscriber creates post with attachment (id: $ATT_POST_ID)"
@@ -204,7 +204,7 @@ fi
 RESULT=$("$CURL" -i 2 -a admin -X POST \
     -F "title=Post With Two Attachments" -F "body=This post now has two attachments" \
     -F "order=$ORDER_JSON" \
-    -F "attachments=@$TEST_IMG2" \
+    -F "files=@$TEST_IMG2" \
     "/forums/$FORUM_ID/-/$ATT_POST_ID/edit")
 
 if echo "$RESULT" | grep -q '"post"'; then
@@ -303,7 +303,7 @@ echo "--- Subscriber Comment Test ---"
 
 RESULT=$("$CURL" -i 2 -a admin -X POST -H "Content-Type: application/json" \
     -d '{"body":"Subscriber comment on owner post"}' "/forums/$FORUM_ID/-/$OWNER_POST_ID/create")
-SUB_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['comment'])" 2>/dev/null)
+SUB_COMMENT_ID=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 
 if [ -n "$SUB_COMMENT_ID" ]; then
     pass "Subscriber creates comment (id: $SUB_COMMENT_ID)"

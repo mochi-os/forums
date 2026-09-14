@@ -2,11 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
-import { Bookmark } from 'lucide-react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   ConfirmDialog,
@@ -15,13 +13,9 @@ import {
   PageHeader,
   usePageTitle,
 } from '@mochi/web'
+import { Bookmark } from 'lucide-react'
 import type { Post, SavedItem, SavedPostSnapshot } from '@/api/types/posts'
-import {
-  clearSaved,
-  getSaved,
-  loadSaved,
-  onSavedChange,
-} from '@/lib/saved'
+import { clearSaved, getSaved, loadSaved, onSavedChange } from '@/lib/saved'
 import { PostCard } from '../components/post-card'
 
 // Rebuild a Post-shaped object from the stored snapshot so the saved list can

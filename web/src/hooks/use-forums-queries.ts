@@ -2,15 +2,27 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
-import { handleServerError, toast, toastAction, getErrorMessage, MUTATION_SKIPPED, isMutationSkipped, textUnchanged, useUploadProgress, type MutationFnResult } from '@mochi/web'
+import {
+  handleServerError,
+  toast,
+  toastAction,
+  getErrorMessage,
+  MUTATION_SKIPPED,
+  isMutationSkipped,
+  textUnchanged,
+  useUploadProgress,
+  type MutationFnResult,
+} from '@mochi/web'
 import forumsApi from '@/api/forums'
+import type { EditCommentResponse } from '@/api/types/comments'
 import type { Forum, Post } from '@/api/types/forums'
 import type { EditPostResponse } from '@/api/types/posts'
-import type { EditCommentResponse } from '@/api/types/comments'
-import { isForumPostEditUnchanged, type ForumPostEditOriginal } from '@/features/forums/edit-compare'
+import {
+  isForumPostEditUnchanged,
+  type ForumPostEditOriginal,
+} from '@/features/forums/edit-compare'
 
 // Query keys for consistency
 export const forumsKeys = {
@@ -226,7 +238,9 @@ export function useSetDefaultSort() {
     mutationFn: (sort: string) => forumsApi.setDefaultSort(sort),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.list() })
-      queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'info-list'] })
+      queryClient.invalidateQueries({
+        queryKey: [...forumsKeys.all, 'info-list'],
+      })
     },
     onError: handleServerError,
   })
@@ -239,7 +253,9 @@ export function useSetForumSort(forumId: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: forumsKeys.info(forumId) })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
-      queryClient.invalidateQueries({ queryKey: [...forumsKeys.all, 'info-list'] })
+      queryClient.invalidateQueries({
+        queryKey: [...forumsKeys.all, 'info-list'],
+      })
     },
     onError: handleServerError,
   })
@@ -295,8 +311,25 @@ export function useCreateComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   const { progress, upload } = useUploadProgress()
   const mutation = useMutation({
-    mutationFn: ({ body, parent, files, attachment }: { body: string; parent?: string; files?: File[]; attachment?: string }) => {
-      const payload = { forum: forumId, post: postId, body, parent, files, attachment }
+    mutationFn: ({
+      body,
+      parent,
+      files,
+      attachment,
+    }: {
+      body: string
+      parent?: string
+      files?: File[]
+      attachment?: string
+    }) => {
+      const payload = {
+        forum: forumId,
+        post: postId,
+        body,
+        parent,
+        files,
+        attachment,
+      }
       return files?.length
         ? upload((onProgress) => forumsApi.createComment(payload, onProgress), {
             sizes: files.map((file) => file.size),
@@ -402,11 +435,7 @@ export function useEditComment(forumId: string, postId: string) {
       originalBody: string
     }
   >({
-    mutationFn: async ({
-      commentId,
-      body,
-      originalBody,
-    }) => {
+    mutationFn: async ({ commentId, body, originalBody }) => {
       if (textUnchanged(body, originalBody)) {
         return MUTATION_SKIPPED
       }
@@ -504,7 +533,9 @@ export function useRemovePost(forumId: string, postId: string) {
     mutationFn: (reason?: string) =>
       forumsApi.removePost({ forum: forumId, post: postId, reason }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post removed`)
@@ -519,7 +550,9 @@ export function useRestorePost(forumId: string, postId: string) {
   return useMutation({
     mutationFn: () => forumsApi.restorePost({ forum: forumId, post: postId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post restored`)
@@ -534,7 +567,9 @@ export function useLockPost(forumId: string, postId: string) {
   return useMutation({
     mutationFn: () => forumsApi.lockPost({ forum: forumId, post: postId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success(t`Post locked`)
     },
     onError: handleServerError,
@@ -547,7 +582,9 @@ export function useUnlockPost(forumId: string, postId: string) {
   return useMutation({
     mutationFn: () => forumsApi.unlockPost({ forum: forumId, post: postId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success(t`Post unlocked`)
     },
     onError: handleServerError,
@@ -560,7 +597,9 @@ export function usePinPost(forumId: string, postId: string) {
   return useMutation({
     mutationFn: () => forumsApi.pinPost({ forum: forumId, post: postId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post pinned`)
@@ -575,7 +614,9 @@ export function useUnpinPost(forumId: string, postId: string) {
   return useMutation({
     mutationFn: () => forumsApi.unpinPost({ forum: forumId, post: postId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       queryClient.invalidateQueries({ queryKey: forumsKeys.detail(forumId) })
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post unpinned`)
@@ -604,10 +645,23 @@ export function useRemoveComment(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ commentId, reason }: { commentId: string; reason?: string }) =>
-      forumsApi.removeComment({ forum: forumId, post: postId, comment: commentId, reason }),
+    mutationFn: ({
+      commentId,
+      reason,
+    }: {
+      commentId: string
+      reason?: string
+    }) =>
+      forumsApi.removeComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+        reason,
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success(t`Comment removed`)
     },
     onError: handleServerError,
@@ -619,9 +673,15 @@ export function useRestoreComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
-      forumsApi.restoreComment({ forum: forumId, post: postId, comment: commentId }),
+      forumsApi.restoreComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success(t`Comment restored`)
     },
     onError: handleServerError,
@@ -633,9 +693,15 @@ export function useApproveComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentId: string) =>
-      forumsApi.approveComment({ forum: forumId, post: postId, comment: commentId }),
+      forumsApi.approveComment({
+        forum: forumId,
+        post: postId,
+        comment: commentId,
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: forumsKeys.post(forumId, postId) })
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
       toast.success(t`Comment approved`)
     },
     onError: handleServerError,

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useState, type ChangeEvent } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
@@ -73,13 +72,23 @@ export function ReportDialog({
       <ResponsiveDialogContent>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>
-            {contentType === 'post' ? <Trans>Report post</Trans> : <Trans>Report comment</Trans>}
+            {contentType === 'post' ? (
+              <Trans>Report post</Trans>
+            ) : (
+              <Trans>Report comment</Trans>
+            )}
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             {contentType === 'post' ? (
-              <Trans>Select a reason for reporting this post. Reports are reviewed by moderators.</Trans>
+              <Trans>
+                Select a reason for reporting this post. Reports are reviewed by
+                moderators.
+              </Trans>
             ) : (
-              <Trans>Select a reason for reporting this comment. Reports are reviewed by moderators.</Trans>
+              <Trans>
+                Select a reason for reporting this comment. Reports are reviewed
+                by moderators.
+              </Trans>
             )}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
@@ -98,13 +107,23 @@ export function ReportDialog({
 
           <div className='space-y-2'>
             <Label htmlFor='details'>
-              {reason === 'other' ? <Trans>Details (required)</Trans> : <Trans>Additional details (optional)</Trans>}
+              {reason === 'other' ? (
+                <Trans>Details (required)</Trans>
+              ) : (
+                <Trans>Additional details (optional)</Trans>
+              )}
             </Label>
             <Textarea
               id='details'
               value={details}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
-              placeholder={reason === 'other' ? t`Please describe the issue...` : t`Any additional context...`}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setDetails(e.target.value)
+              }
+              placeholder={
+                reason === 'other'
+                  ? t`Please describe the issue...`
+                  : t`Any additional context...`
+              }
               rows={reason === 'other' ? 3 : 2}
             />
           </div>
@@ -115,8 +134,16 @@ export function ReportDialog({
             <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleSubmit} disabled={!isValid || isPending}>
-            {isPending ? <Loader2 className='size-4 animate-spin' /> : <Send className='size-4' />}
-            {isPending ? <Trans>Submitting...</Trans> : <Trans>Submit report</Trans>}
+            {isPending ? (
+              <Loader2 className='size-4 animate-spin' />
+            ) : (
+              <Send className='size-4' />
+            )}
+            {isPending ? (
+              <Trans>Submitting...</Trans>
+            ) : (
+              <Trans>Submit report</Trans>
+            )}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

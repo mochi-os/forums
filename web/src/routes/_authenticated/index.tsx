@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { getErrorMessage, useAuthStore } from '@mochi/web'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
-import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
 import { forumsInfoQueryOptions } from '@/hooks/use-forums-queries'
 import { getLastForum, clearLastForum } from '@/hooks/use-forums-storage'
+import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
 
 // Response type for info endpoint
 interface InfoResponse {

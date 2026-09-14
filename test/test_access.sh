@@ -5,7 +5,10 @@
 # Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 # Forums Access Control Test Script
-# Tests access levels for subscribers and verifies permissions are correct
+# Tests access levels for subscribers and verifies permissions are correct.
+# Self-seeding: instance 1's admin owns a new forum and post, instance 2's
+# admin subscribes and is the target of every access change, and the forum
+# is deleted at the end.
 
 # Don't exit on error - we want to run all tests
 set +e
@@ -13,12 +16,24 @@ set +e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CURL="$SCRIPT_DIR/../../../claude/scripts/curl.sh"
 
-# Test forum owned by instance 1
-FORUM_ID="1KGmt81NJYairn7J6zv6tgpn8SyDkx33BZez8xdBFWku5NNpRZ"
-# User 21's identity (subscriber on instance 2)
-USER_21_ID="12PC2NrjniSJWpjjXjT788wKoS5auVQNBzqzffBXrjCpLnJf8m6"
-# A post in the forum
-POST_ID="019b443443d17700b7109e1eca7eb773"
+FORUM_ID=$($CURL -i 1 -a admin -X POST -H "Content-Type: application/json" \
+    -d '{"name":"Access Test Forum","access":"post"}' "/forums/-/create" \
+    | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
+POST_ID=$($CURL -i 1 -a admin -X POST -F "forum=$FORUM_ID" -F "title=Access Test Post" \
+    -F "body=Access test post" "/forums/-/post/create" \
+    | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
+SUBSCRIBER_SESSION=$("$SCRIPT_DIR/../../../claude/scripts/get-token.sh" admin 2 2>/dev/null)
+SUBSCRIBER_ID=$(curl -s -b "session=$SUBSCRIBER_SESSION" "http://localhost:8082/_/identity" \
+    | python3 -c "import sys,json; print(json.load(sys.stdin)['identity']['id'])" 2>/dev/null)
+
+if [ -z "$FORUM_ID" ] || [ -z "$POST_ID" ] || [ -z "$SUBSCRIBER_ID" ]; then
+    echo "error: could not seed the forum, post or subscriber (are both instances running?)" >&2
+    [ -n "$FORUM_ID" ] && $CURL -i 1 -a admin -X POST "/forums/$FORUM_ID/-/delete" > /dev/null 2>&1
+    exit 2
+fi
+
+$CURL -i 2 -a admin -X POST "/forums/$FORUM_ID/-/subscribe" > /dev/null 2>&1
+sleep 2  # Allow time for P2P sync
 
 # Colors for output
 RED='\033[0;31m'
@@ -41,12 +56,12 @@ fail() {
     ((TESTS_FAILED++))
 }
 
-# Helper to set access level for user 21 on instance 1
+# Helper to set the subscriber's access level on instance 1
 set_access() {
     local level=$1
     echo -e "\n${YELLOW}Setting access level to: $level${NC}"
     $CURL -i 1 -a admin -X POST "/forums/$FORUM_ID/-/access/set" \
-        -d "target=$USER_21_ID&level=$level" > /dev/null 2>&1
+        -d "target=$SUBSCRIBER_ID&level=$level" > /dev/null 2>&1
     sleep 0.5  # Allow time for P2P sync
 }
 
@@ -65,7 +80,7 @@ test_forum_view() {
     echo "Testing forum view with '$level_name' access..."
 
     local response
-    response=$($CURL -i 2 -a admin -X GET "/forums/list?forum=$FORUM_ID" 2>/dev/null)
+    response=$($CURL -i 2 -a admin -X GET "/forums/$FORUM_ID/-/posts" 2>/dev/null)
 
     # Check forum is returned
     local forum_id
@@ -139,7 +154,7 @@ test_owner_view() {
     echo -e "\n${YELLOW}Testing owner access (instance 1)${NC}"
 
     local response
-    response=$($CURL -i 1 -a admin -X GET "/forums/list?forum=$FORUM_ID" 2>/dev/null)
+    response=$($CURL -i 1 -a admin -X GET "/forums/$FORUM_ID/-/posts" 2>/dev/null)
 
     # Check forum is returned with manage access
     local can_manage
@@ -163,7 +178,7 @@ echo "========================================"
 echo "Forums Access Control Tests"
 echo "========================================"
 echo "Forum: $FORUM_ID"
-echo "Subscriber: User 21 ($USER_21_ID)"
+echo "Subscriber: $SUBSCRIBER_ID"
 echo "Post: $POST_ID"
 echo "========================================"
 
@@ -199,6 +214,8 @@ set_access "post"
 echo -e "\n--- Testing 'post' access level ---"
 test_forum_view "true" "post"
 test_post_view "true" "true" "post"
+
+$CURL -i 1 -a admin -X POST "/forums/$FORUM_ID/-/delete" > /dev/null 2>&1
 
 # Summary
 echo ""

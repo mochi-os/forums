@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMemo } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import { z } from 'zod'
+import { useLingui } from '@lingui/react/macro'
 
 // Characters disallowed in post titles (matches backend validation for "name" type)
 const DISALLOWED_CHARS = /[<>\r\n]/
@@ -29,7 +28,7 @@ export function usePostSchema() {
           }),
         body: z.string().min(1, t`Content is required`),
       }),
-    [t],
+    [t]
   )
 }
 

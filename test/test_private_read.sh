@@ -124,12 +124,12 @@ curl -s -o /dev/null -X POST -H "Authorization: Bearer $OWNER" \
     "$BASE/forums/$PUB/-/$REMOVED_POST/remove" -F "forum=$PUB" -F "post=$REMOVED_POST"
 
 echo -e "\n${YELLOW}Removed post on a public forum (non-moderators must not see it)${NC}"
-# The owner is a moderator and still sees it. The non-member's request falls
-# through to the P2P post/view handler (403); the anonymous caller is stopped by
+# The owner is a moderator and still sees it. The non-member is refused (403 or
+# 404, depending on which side answers); the anonymous caller is stopped by
 # action_post_view's local status gate (404). Both mean "not disclosed".
-check "owner (moderator) sees removed"     "$BASE/forums/$PUB/-/$REMOVED_POST" "$OWNER"     200
-check "non-member cannot see removed"      "$BASE/forums/$PUB/-/$REMOVED_POST" "$NONMEMBER" 403
-check "anonymous cannot see removed"       "$BASE/forums/$PUB/-/$REMOVED_POST" ""           404
+check        "owner (moderator) sees removed"     "$BASE/forums/$PUB/-/$REMOVED_POST" "$OWNER"     200
+check_denied "non-member cannot see removed"      "$BASE/forums/$PUB/-/$REMOVED_POST" "$NONMEMBER"
+check        "anonymous cannot see removed"       "$BASE/forums/$PUB/-/$REMOVED_POST" ""           404
 
 echo -e "\n${YELLOW}Information endpoint privacy gate (:forum/-/information)${NC}"
 check        "owner reads private info"          "$BASE/forums/$PRIV/-/information" "$OWNER"     200
@@ -157,7 +157,7 @@ check        "cross-forum post tags rejected"       "$BASE/forums/$PRIV/-/$PUB_P
 ATTFILE="$(dirname "${BASH_SOURCE[0]}")/.att-tmp"
 printf 'attachment-bytes' > "$ATTFILE"
 ATT_POST=$(curl -s -X POST "$BASE/forums/-/post/create" -H "Authorization: Bearer $OWNER" \
-    -F "forum=$PUB" -F "title=WithAtt" -F "body=b" -F "attachments=@$ATTFILE" \
+    -F "forum=$PUB" -F "title=WithAtt" -F "body=b" -F "files=@$ATTFILE" \
     | python3 -c "import sys,json;print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
 ATT_ID=$(curl -s -H "Authorization: Bearer $OWNER" "$BASE/forums/$PUB/-/$ATT_POST" \
     | python3 -c "import sys,json;print(json.load(sys.stdin)['data']['post']['attachments'][0]['id'])" 2>/dev/null)

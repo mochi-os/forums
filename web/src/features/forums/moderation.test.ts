@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { describe, expect, it, vi } from 'vitest'
 import {
   clampLimitWindow,
@@ -23,14 +22,20 @@ describe('moderationActionLabel', () => {
   it('humanises an unknown action instead of rendering the raw enum', () => {
     // Negative control: the old code interpolated the raw enum, so this would
     // read "resolve_report".
-    expect(moderationActionLabel('resolve_report', labels)).toBe('resolve report')
+    expect(moderationActionLabel('resolve_report', labels)).toBe(
+      'resolve report'
+    )
   })
 })
 
 describe('moderationTargetName', () => {
   it('prefers the server-resolved name', () => {
     expect(
-      moderationTargetName({ author_name: 'Alice', author: 'a-id', target: 't-id' })
+      moderationTargetName({
+        author_name: 'Alice',
+        author: 'a-id',
+        target: 't-id',
+      })
     ).toBe('Alice')
   })
 

@@ -2,10 +2,34 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { useState, useEffect, type MutableRefObject, type ReactNode } from 'react'
+import {
+  useState,
+  useEffect,
+  type MutableRefObject,
+  type ReactNode,
+} from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { ConfirmDialog, EntityAvatar, PostTitleBar, cn, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Tooltip, TooltipContent, TooltipTrigger, useFormat, highlightMentions, renderMentions, getAppPath, ActionPill, ActionPillSticky, ActionPillActions } from '@mochi/web'
+import {
+  ConfirmDialog,
+  EntityAvatar,
+  PostTitleBar,
+  cn,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  useFormat,
+  highlightMentions,
+  renderMentions,
+  getAppPath,
+  ActionPill,
+  ActionPillSticky,
+  ActionPillActions,
+} from '@mochi/web'
 import {
   ThumbsUp,
   ThumbsDown,
@@ -25,10 +49,10 @@ import {
   MoreHorizontal,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
-import { PostAttachments } from './post-attachments'
+import { embedVideos, sanitizeHtml } from '../../utils'
 import { PostTagsTooltip } from '../post-tags'
 import { SavedButton } from '../saved-button'
-import { embedVideos, sanitizeHtml } from '../../utils'
+import { PostAttachments } from './post-attachments'
 
 interface ThreadContentProps {
   post: Post
@@ -119,7 +143,6 @@ export function ThreadContent({
     setLocalVote(post.user_vote || '')
     setLocalUp(post.up)
     setLocalDown(post.down)
-   
   }, [post.id, post.user_vote, post.up, post.down])
 
   const handleVote = (newVote: 'up' | 'down' | '') => {
@@ -140,12 +163,20 @@ export function ThreadContent({
   const isLocked = !!post.locked
   const isPinned = !!post.pinned
   const timestamp = formatTimestamp(post.created)
-   
-  const voteButtonClass = 'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-  const iconActionButtonClass = 'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
-   
 
-  const hasActionsOrVotes = canVote || localUp > 0 || localDown > 0 || (canReply && onReply) || canEdit || canModerate || !!onReport
+  const voteButtonClass =
+    'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+  const iconActionButtonClass =
+    'inline-flex size-7 shrink-0 items-center justify-center rounded-full leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
+
+  const hasActionsOrVotes =
+    canVote ||
+    localUp > 0 ||
+    localDown > 0 ||
+    (canReply && onReply) ||
+    canEdit ||
+    canModerate ||
+    !!onReport
 
   return (
     <div className='group space-y-4'>
@@ -161,7 +192,7 @@ export function ThreadContent({
               </span>
             )}
             {isRemoved && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive'>
+              <span className='bg-destructive/10 text-destructive inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
                 <EyeOff className='size-3' />
                 <Trans>Removed</Trans>
               </span>
@@ -173,7 +204,7 @@ export function ThreadContent({
               </span>
             )}
             {isPinned && (
-              <span className='inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary dark:bg-primary/20 dark:text-primary'>
+              <span className='bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium'>
                 <Pin className='size-3' />
                 <Trans>Pinned</Trans>
               </span>
@@ -194,12 +225,15 @@ export function ThreadContent({
                 styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
                 seed={post.member}
                 name={post.name}
-                size="xs"
+                size='xs'
               />
               <span>{post.name}</span>
               <span> · </span>
             </span>
-            <span className='whitespace-nowrap'>{timestamp}{post.edited ? t` (edited)` : ''}</span>
+            <span className='whitespace-nowrap'>
+              {timestamp}
+              {post.edited ? t` (edited)` : ''}
+            </span>
           </span>
         }
       />
@@ -207,8 +241,12 @@ export function ThreadContent({
       {/* Post Body */}
       {post.body_markdown ? (
         <div
-          className='prose prose-sm dark:prose-invert max-w-none text-foreground'
-          dangerouslySetInnerHTML={{ __html: highlightMentions(embedVideos(sanitizeHtml(post.body_markdown))) }}
+          className='prose prose-sm dark:prose-invert text-foreground max-w-none'
+          dangerouslySetInnerHTML={{
+            __html: highlightMentions(
+              embedVideos(sanitizeHtml(post.body_markdown))
+            ),
+          }}
         />
       ) : (
         <div className='text-foreground max-w-none text-sm leading-relaxed'>
@@ -241,69 +279,70 @@ export function ThreadContent({
             onInterestRemove={onInterestRemove}
           />
         )}
-        {isLoggedIn && (
-          <SavedButton
-            post={post}
-            // The thread page keeps every action visible (the pill below is
-            // alwaysVisible too), so the bookmark stays with them.
-            alwaysVisible
-            className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active"
-          />
-        )}
-        {hasActionsOrVotes && (
+        {(hasActionsOrVotes || isLoggedIn) && (
           <ActionPill sticky expandActions={false} className='comment-actions'>
-            <ActionPillSticky>
-              {/* Votes */}
-              {canVote ? (
-                <>
-                  <button
-                    type='button'
-                    className={voteButtonClass}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleVote(localVote === 'up' ? '' : 'up')
-                    }}
-                  >
-                    {localVote === 'up' ? (
-                      <span className='text-sm'>👍</span>
-                    ) : (
-                      <ThumbsUp className='size-3.5' />
+            {(canVote || localUp > 0 || localDown > 0) && (
+              <ActionPillSticky>
+                {/* Votes */}
+                {canVote ? (
+                  <>
+                    <button
+                      type='button'
+                      className={voteButtonClass}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleVote(localVote === 'up' ? '' : 'up')
+                      }}
+                    >
+                      {localVote === 'up' ? (
+                        <span className='text-sm'>👍</span>
+                      ) : (
+                        <ThumbsUp className='size-3.5' />
+                      )}
+                      {localUp > 0 && (
+                        <span className='text-[12px] leading-none'>
+                          {localUp}
+                        </span>
+                      )}
+                    </button>
+                    <button
+                      type='button'
+                      className={voteButtonClass}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleVote(localVote === 'down' ? '' : 'down')
+                      }}
+                    >
+                      {localVote === 'down' ? (
+                        <span className='text-sm'>👎</span>
+                      ) : (
+                        <ThumbsDown className='size-3.5' />
+                      )}
+                      {localDown > 0 && (
+                        <span className='text-[12px] leading-none'>
+                          {localDown}
+                        </span>
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {localUp > 0 && (
+                      <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
+                        <ThumbsUp className='size-3.5' />
+                        {localUp}
+                      </span>
                     )}
-                    {localUp > 0 && <span className='text-[12px] leading-none'>{localUp}</span>}
-                  </button>
-                  <button
-                    type='button'
-                    className={voteButtonClass}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleVote(localVote === 'down' ? '' : 'down')
-                    }}
-                  >
-                    {localVote === 'down' ? (
-                      <span className='text-sm'>👎</span>
-                    ) : (
-                      <ThumbsDown className='size-3.5' />
+                    {localDown > 0 && (
+                      <span className='text-muted-foreground inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none'>
+                        <ThumbsDown className='size-3.5' />
+                        {localDown}
+                      </span>
                     )}
-                    {localDown > 0 && <span className='text-[12px] leading-none'>{localDown}</span>}
-                  </button>
-                </>
-              ) : (
-                <>
-                  {localUp > 0 && (
-                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                      <ThumbsUp className='size-3.5' />
-                      {localUp}
-                    </span>
-                  )}
-                  {localDown > 0 && (
-                    <span className='inline-flex h-7 items-center justify-center gap-1.5 px-1.5 text-[12px] leading-none text-muted-foreground'>
-                      <ThumbsDown className='size-3.5' />
-                      {localDown}
-                    </span>
-                  )}
-                </>
-              )}
-            </ActionPillSticky>
+                  </>
+                )}
+              </ActionPillSticky>
+            )}
 
             {/* Action buttons - always visible */}
             <ActionPillActions alwaysVisible>
@@ -325,24 +364,28 @@ export function ThreadContent({
                   <TooltipContent>{t`Reply`}</TooltipContent>
                 </Tooltip>
               )}
+              {isLoggedIn && (
+                <SavedButton
+                  post={post}
+                  // The thread page keeps every action visible, so the
+                  // bookmark stays with them.
+                  alwaysVisible
+                  className={iconActionButtonClass}
+                />
+              )}
               {/* More menu (edit, delete, moderation, report) */}
               {(canEdit || canModerate || onReport) && (
                 <DropdownMenu>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type='button'
-                          className={iconActionButtonClass}
-                          aria-label={t`More options`}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <MoreHorizontal className='size-3.5' />
-                        </button>
-                      </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`More options`}</TooltipContent>
-                  </Tooltip>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={t`More options`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <MoreHorizontal className='size-3.5' />
+                    </button>
+                  </DropdownMenuTrigger>
                   <DropdownMenuContent align='start'>
                     {canEdit && onEdit && (
                       <DropdownMenuItem onClick={onEdit}>
@@ -351,12 +394,16 @@ export function ThreadContent({
                       </DropdownMenuItem>
                     )}
                     {canEdit && onDelete && (
-                      <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+                      <DropdownMenuItem
+                        onClick={() => setDeleteDialogOpen(true)}
+                      >
                         <Trash2 className='me-2 size-4' />
                         <Trans>Delete</Trans>
                       </DropdownMenuItem>
                     )}
-                    {canEdit && (canModerate || onReport) && <DropdownMenuSeparator />}
+                    {canEdit && (canModerate || onReport) && (
+                      <DropdownMenuSeparator />
+                    )}
                     {canModerate && (
                       <>
                         {isRemoved
@@ -367,7 +414,9 @@ export function ThreadContent({
                               </DropdownMenuItem>
                             )
                           : onRemove && (
-                              <DropdownMenuItem onClick={() => setRemoveDialogOpen(true)}>
+                              <DropdownMenuItem
+                                onClick={() => setRemoveDialogOpen(true)}
+                              >
                                 <EyeOff className='me-2 size-4' />
                                 <Trans>Remove</Trans>
                               </DropdownMenuItem>
@@ -406,7 +455,9 @@ export function ThreadContent({
                         <Trans>Report</Trans>
                       </DropdownMenuItem>
                     )}
-                    {canModerate && (onMuteAuthor || onBanAuthor) && <DropdownMenuSeparator />}
+                    {canModerate && (onMuteAuthor || onBanAuthor) && (
+                      <DropdownMenuSeparator />
+                    )}
                     {canModerate && onMuteAuthor && (
                       <DropdownMenuItem onClick={() => setMuteDialogOpen(true)}>
                         <VolumeX className='me-2 size-4' />

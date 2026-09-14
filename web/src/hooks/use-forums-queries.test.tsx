@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -13,14 +12,20 @@ import { useForumMembership } from './use-forums-queries'
 vi.mock('@/api/forums', () => ({
   default: {
     getForumsInfo: vi.fn(async () => ({
-      data: { entity: false, forums: [{ id: 'f1', name: 'Held' }], settings: { sort: 'top' } },
+      data: {
+        entity: false,
+        forums: [{ id: 'f1', name: 'Held' }],
+        settings: { sort: 'top' },
+      },
     })),
     listForums: vi.fn(async () => ({ data: { forums: [], posts: [] } })),
   },
 }))
 
 function wrapper({ children }: { children: ReactNode }) {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>
 }
 

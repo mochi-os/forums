@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   ResponsiveDialog,
@@ -48,14 +47,16 @@ import {
   forumPostEditOriginalFromPost,
   isForumPostEditUnchanged,
 } from '@/features/forums/edit-compare'
-import { usePostSchema, type PostFormValues } from '@/features/forums/post-schema'
+import {
+  usePostSchema,
+  type PostFormValues,
+} from '@/features/forums/post-schema'
 
 type EditPostFormValues = PostFormValues
 
 // Unified attachment type for editing - can be existing or new
 type EditingAttachment =
-  | { kind: 'existing'; attachment: AttachmentData }
-  | { kind: 'new'; file: File }
+  { kind: 'existing'; attachment: AttachmentData } | { kind: 'new'; file: File }
 
 type EditPostDialogProps = {
   post: Post
@@ -160,7 +161,12 @@ export function EditPostDialog({
   }, [items, watchedTitle, watchedBody, captions, post])
 
   const onSubmit = (values: EditPostFormValues) => {
-    const draft = buildForumPostEditDraft(items, values, captions, pendingFileKey)
+    const draft = buildForumPostEditDraft(
+      items,
+      values,
+      captions,
+      pendingFileKey
+    )
     const original = forumPostEditOriginalFromPost(post)
     if (isForumPostEditUnchanged(original, draft)) {
       onOpenChange(false)
@@ -206,7 +212,9 @@ export function EditPostDialog({
           name: file.name,
           size: file.size,
           type: file.type,
-          previewUrl: isMedia(file.type) ? (urlByNewFile.get(file) ?? null) : null,
+          previewUrl: isMedia(file.type)
+            ? (urlByNewFile.get(file) ?? null)
+            : null,
           previewKind: isVideo(file.type)
             ? ('video' as const)
             : ('image' as const),
@@ -257,8 +265,6 @@ export function EditPostDialog({
     addFiles(picked)
   }
 
-
-
   const removeItem = (index: number) => {
     setItems((prev) => prev.filter((_, i) => i !== index))
   }
@@ -286,106 +292,117 @@ export function EditPostDialog({
       }}
       shouldCloseOnInteractOutside={false}
     >
-      <ResponsiveDialogContent className='sm:max-w-[720px] max-h-[90vh] flex flex-col'>
+      <ResponsiveDialogContent className='flex max-h-[90vh] flex-col sm:max-w-[720px]'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle><Trans>Edit post</Trans></ResponsiveDialogTitle>
-          <ResponsiveDialogDescription className="sr-only">
+          <ResponsiveDialogTitle>
+            <Trans>Edit post</Trans>
+          </ResponsiveDialogTitle>
+          <ResponsiveDialogDescription className='sr-only'>
             <Trans>Edit post</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
-          <form className='flex flex-col flex-1 min-h-0' onSubmit={form.handleSubmit(onSubmit)} {...dropzoneProps}>
-            <div className={cn('space-y-4 overflow-y-auto flex-1 min-h-0', isDragActive && dropActiveClass)}>
-            <FormField
-              control={form.control}
-              name='title'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel><Trans>Title</Trans></FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+          <form
+            className='flex min-h-0 flex-1 flex-col'
+            onSubmit={form.handleSubmit(onSubmit)}
+            {...dropzoneProps}
+          >
+            <div
+              className={cn(
+                'min-h-0 flex-1 space-y-4 overflow-y-auto',
+                isDragActive && dropActiveClass
               )}
-            />
+            >
+              <FormField
+                control={form.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Title</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Input disabled={isPending} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name='body'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel><Trans>Content</Trans></FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className='min-h-[180px] max-h-[50vh]'
-                      disabled={isPending}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name='body'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Content</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className='max-h-[50vh] min-h-[180px]'
+                        disabled={isPending}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Attachments grid. The add tile is the last cell rather than a
+              {/* Attachments grid. The add tile is the last cell rather than a
                 button in the footer, where it sat beside Cancel and Save and
                 read as a dialog action instead of something acting on this
                 list. */}
-            <div className='space-y-2'>
-              <AttachmentComposer
-                items={attachmentItems}
-                layout='grid'
-                preview='tile'
-                groupMedia
-                blockLabels={{
-                  media: <Trans>Photos and videos</Trans>,
-                  files: <Trans>Files</Trans>,
-                }}
-                addSlot={
-                  <AttachmentAddTile
-                    label={<Trans>Add files</Trans>}
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={isPending}
-                  />
-                }
-                state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
-                onRetry={form.handleSubmit(onSubmit)}
-                onRemove={removeItem}
-                onReorder={(from, to) =>
-                  setItems((prev) => moveItem(prev, from, to))
-                }
-                onCaption={(index, caption) => {
-                  const item = items[index]
-                  if (!item) return
-                  const key =
-                    item.kind === 'existing'
-                      ? item.attachment.id
-                      : pendingFileKey(item.file)
-                  setCaptions((prev) => {
-                    const next = { ...prev }
-                    if (caption) next[key] = caption
-                    else delete next[key]
-                    return next
-                  })
-                }}
+              <div className='space-y-2'>
+                <AttachmentComposer
+                  items={attachmentItems}
+                  layout='grid'
+                  preview='tile'
+                  groupMedia
+                  blockLabels={{
+                    media: <Trans>Photos and videos</Trans>,
+                    files: <Trans>Files</Trans>,
+                  }}
+                  addSlot={
+                    <AttachmentAddTile
+                      label={<Trans>Add files</Trans>}
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isPending}
+                    />
+                  }
+                  state={isPending ? 'uploading' : isError ? 'error' : 'idle'}
+                  onRetry={form.handleSubmit(onSubmit)}
+                  onRemove={removeItem}
+                  onReorder={(from, to) =>
+                    setItems((prev) => moveItem(prev, from, to))
+                  }
+                  onCaption={(index, caption) => {
+                    const item = items[index]
+                    if (!item) return
+                    const key =
+                      item.kind === 'existing'
+                        ? item.attachment.id
+                        : pendingFileKey(item.file)
+                    setCaptions((prev) => {
+                      const next = { ...prev }
+                      if (caption) next[key] = caption
+                      else delete next[key]
+                      return next
+                    })
+                  }}
+                />
+              </div>
+
+              {/* Hidden file input */}
+              <input
+                ref={fileInputRef}
+                type='file'
+                multiple
+                accept='image/*,video/*,.pdf,.doc,.docx,.txt,.md'
+                className='hidden'
+                onChange={handleFileChange}
+                disabled={isPending}
               />
-            </div>
-
-            {/* Hidden file input */}
-            <input
-              ref={fileInputRef}
-              type='file'
-              multiple
-              accept='image/*,video/*,.pdf,.doc,.docx,.txt,.md'
-              className='hidden'
-              onChange={handleFileChange}
-              disabled={isPending}
-            />
-
             </div>
             <UploadProgress progress={progress ?? null} className='pt-2' />
             <ResponsiveDialogFooter className='gap-2 pt-4'>

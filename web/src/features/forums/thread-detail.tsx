@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useRef, useState, useEffect } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import { useNavigate, useParams } from '@tanstack/react-router'
+import { useLingui } from '@lingui/react/macro'
 import {
   Main,
   usePageTitle,
@@ -23,7 +22,6 @@ import {
   useDiscardGuard,
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
-import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import type { Tag } from '@/api/types/posts'
 import { useForumWebsocket } from '@/hooks/use-forum-websocket'
 import {
@@ -47,12 +45,13 @@ import {
   useReportPost,
   useReportComment,
 } from '@/hooks/use-forums-queries'
-import { ForumBanner } from './components/forum-banner'
+import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import { EditPostDialog } from './components/edit-post-dialog'
+import { ForumBanner } from './components/forum-banner'
 import { ReportDialog } from './components/report-dialog'
+import { AttachmentComments } from './components/thread/attachment-comments'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
 import { ThreadComment } from './components/thread/thread-comment'
-import { AttachmentComments } from './components/thread/attachment-comments'
 import { ThreadContent } from './components/thread/thread-content'
 import { ThreadDetailSkeleton } from './components/thread/thread-detail-skeleton'
 
@@ -108,7 +107,11 @@ export function ThreadDetail({
     setReplyFileCount(0)
     const selected = window.getSelection()?.toString().trim()
     if (selected) {
-      const quoted = selected.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n'
+      const quoted =
+        selected
+          .split('\n')
+          .map((line: string) => `> ${line}`)
+          .join('\n') + '\n\n'
       setCommentReplyBody(quoted)
     } else {
       setCommentReplyBody('')
@@ -122,7 +125,9 @@ export function ThreadDetail({
   }, [])
 
   const [reportPostDialogOpen, setReportPostDialogOpen] = useState(false)
-  const [reportingCommentId, setReportingCommentId] = useState<string | null>(null)
+  const [reportingCommentId, setReportingCommentId] = useState<string | null>(
+    null
+  )
 
   // Queries
   const {
@@ -142,7 +147,10 @@ export function ThreadDetail({
   usePageTitle(postData?.data?.post?.title ?? t`Thread`)
 
   // Real-time updates via WebSocket
-  useForumWebsocket(postData?.data?.forum?.fingerprint, postData?.data?.member?.id)
+  useForumWebsocket(
+    postData?.data?.forum?.fingerprint,
+    postData?.data?.member?.id
+  )
 
   const forumTitle = postData?.data?.forum?.name || t`Forum`
   const goBackToForumContext = () => {
@@ -178,12 +186,13 @@ export function ThreadDetail({
   const reportPostMutation = useReportPost(forum, postId)
   const reportCommentMutation = useReportComment(forum, postId)
 
-  const { requestClose: requestCloseReplyForm, discardDialog } = useDiscardGuard({
-    hasText: commentBody.trim().length > 0,
-    hasFiles: commentFileCount > 0,
-    onDiscard: () => setShowReplyForm(false),
-    locked: isSendingComment,
-  })
+  const { requestClose: requestCloseReplyForm, discardDialog } =
+    useDiscardGuard({
+      hasText: commentBody.trim().length > 0,
+      hasFiles: commentFileCount > 0,
+      onDiscard: () => setShowReplyForm(false),
+      locked: isSendingComment,
+    })
 
   // Opening another comment's reply box throws the current draft away, so it
   // asks first, exactly like closing the box does. The guard lives here rather
@@ -221,18 +230,21 @@ export function ThreadDetail({
     setLocalTags(null)
   }, [postId])
 
-  const handleTagAdded = useCallback(async (label: string) => {
-    try {
-      const tag = await forumsApi.addPostTag(forum, postId, label)
-      setLocalTags((prev) => {
-        const current = prev ?? postData?.data?.post?.tags ?? []
-        return [...current, tag]
-      })
-    } catch (error) {
-      toast.error(getErrorMessage(error, t`Failed to add tag`))
-      throw error
-    }
-  }, [forum, postId, postData?.data?.post?.tags, t])
+  const handleTagAdded = useCallback(
+    async (label: string) => {
+      try {
+        const tag = await forumsApi.addPostTag(forum, postId, label)
+        setLocalTags((prev) => {
+          const current = prev ?? postData?.data?.post?.tags ?? []
+          return [...current, tag]
+        })
+      } catch (error) {
+        toast.error(getErrorMessage(error, t`Failed to add tag`))
+        throw error
+      }
+    },
+    [forum, postId, postData?.data?.post?.tags, t]
+  )
 
   const handleInterestUp = useCallback(
     async (qid: string) => {
@@ -321,7 +333,7 @@ export function ThreadDetail({
           title={forumTitle}
           back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
         />
-        <Main className="space-y-4">
+        <Main className='space-y-4'>
           <GeneralError
             error={postError}
             minimal
@@ -342,9 +354,9 @@ export function ThreadDetail({
           title={forumTitle}
           back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
         />
-        <Main className="space-y-4">
-          <Card className="shadow-md">
-            <CardContent className="py-12 text-center">
+        <Main className='space-y-4'>
+          <Card className='shadow-md'>
+            <CardContent className='py-12 text-center'>
               <EmptyThreadState onBack={handleBack} />
             </CardContent>
           </Card>
@@ -417,7 +429,8 @@ export function ThreadDetail({
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
     server,
-    onOpenAttachment: (attachmentId: string) => lightboxOpener.current?.(attachmentId),
+    onOpenAttachment: (attachmentId: string) =>
+      lightboxOpener.current?.(attachmentId),
     onSearchPeople: (q: string) => forumsApi.searchMembers(forum, q),
     onVote: (commentId: string, vote: 'up' | 'down' | '') =>
       voteCommentMutation.mutate({ commentId, vote }),
@@ -445,12 +458,21 @@ export function ThreadDetail({
       }),
     onDelete: (commentId: string) => deleteCommentMutation.mutate(commentId),
     canModerate: can_moderate || isForumManager,
-    onRemove: (commentId: string) => removeCommentMutation.mutate({ commentId }),
+    onRemove: (commentId: string) =>
+      removeCommentMutation.mutate({ commentId }),
     onRestore: (commentId: string) => restoreCommentMutation.mutate(commentId),
     onApprove: (commentId: string) => approveCommentMutation.mutate(commentId),
-    onMuteAuthor: (can_moderate || isForumManager) ? (userId: string) => void handleMuteAuthor(userId) : undefined,
-    onBanAuthor: (can_moderate || isForumManager) ? (userId: string) => void handleBanAuthor(userId) : undefined,
-    onReport: can_vote ? (commentId: string) => setReportingCommentId(commentId) : undefined,
+    onMuteAuthor:
+      can_moderate || isForumManager
+        ? (userId: string) => void handleMuteAuthor(userId)
+        : undefined,
+    onBanAuthor:
+      can_moderate || isForumManager
+        ? (userId: string) => void handleBanAuthor(userId)
+        : undefined,
+    onReport: can_vote
+      ? (commentId: string) => setReportingCommentId(commentId)
+      : undefined,
     currentUserId,
   }
   return (
@@ -459,13 +481,13 @@ export function ThreadDetail({
         title={forumTitle}
         back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
       />
-      <Main className="space-y-4">
+      <Main className='space-y-4'>
         {forumData?.banner_html && (
           <ForumBanner bannerHtml={forumData.banner_html} forumId={forum} />
         )}
         {/* Single post */}
-        <Card className="gap-0 py-0 md:py-0 shadow-md">
-          <CardContent className="p-4">
+        <Card className='gap-0 py-0 shadow-md md:py-0'>
+          <CardContent className='p-4'>
             <div className='space-y-4'>
               <ThreadContent
                 post={{ ...post, tags: localTags ?? post.tags }}
@@ -473,7 +495,9 @@ export function ThreadDetail({
                 server={server}
                 commentCount={(attachmentId) =>
                   countCommentTree(
-                    comments.filter((comment) => comment.attachment === attachmentId),
+                    comments.filter(
+                      (comment) => comment.attachment === attachmentId
+                    ),
                     (comment) => comment.children
                   )
                 }
@@ -484,7 +508,11 @@ export function ThreadDetail({
                     commentProps={commentProps}
                     canComment={can_comment && !post.locked}
                     onAddComment={(body, files, attachment) =>
-                      createCommentMutation.mutateAsync({ body, files, attachment })
+                      createCommentMutation.mutateAsync({
+                        body,
+                        files,
+                        attachment,
+                      })
                     }
                   />
                 )}
@@ -511,9 +539,21 @@ export function ThreadDetail({
                 onUnlock={() => unlockPostMutation.mutate()}
                 onPin={() => pinPostMutation.mutate()}
                 onUnpin={() => unpinPostMutation.mutate()}
-                onMuteAuthor={(can_moderate || isForumManager) ? () => void handleMuteAuthor(post.member) : undefined}
-                onBanAuthor={(can_moderate || isForumManager) ? () => void handleBanAuthor(post.member) : undefined}
-                onReport={can_vote && !isPostAuthor ? () => setReportPostDialogOpen(true) : undefined}
+                onMuteAuthor={
+                  can_moderate || isForumManager
+                    ? () => void handleMuteAuthor(post.member)
+                    : undefined
+                }
+                onBanAuthor={
+                  can_moderate || isForumManager
+                    ? () => void handleBanAuthor(post.member)
+                    : undefined
+                }
+                onReport={
+                  can_vote && !isPostAuthor
+                    ? () => setReportPostDialogOpen(true)
+                    : undefined
+                }
               />
 
               {/* Divider */}

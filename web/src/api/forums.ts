@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { createAppClient } from '@mochi/web'
 import type { AxiosProgressEvent } from 'axios'
+import { createAppClient } from '@mochi/web'
 import endpoints from '@/api/endpoints'
 import type {
   CreateCommentRequest,
@@ -40,18 +39,6 @@ import type {
   ProbeForumRequest,
   ProbeForumResponse,
 } from '@/api/types/forums'
-import type {
-  CreatePostRequest,
-  CreatePostResponse,
-  DeletePostRequest,
-  DeletePostResponse,
-  EditPostRequest,
-  EditPostResponse,
-  ViewPostParams,
-  ViewPostResponse,
-  VotePostRequest,
-  VotePostResponse,
-} from '@/api/types/posts'
 import type {
   GetModerationSettingsParams,
   GetModerationSettingsResponse,
@@ -96,6 +83,18 @@ import type {
   ReportCommentRequest,
   ReportCommentResponse,
 } from '@/api/types/moderation'
+import type {
+  CreatePostRequest,
+  CreatePostResponse,
+  DeletePostRequest,
+  DeletePostResponse,
+  EditPostRequest,
+  EditPostResponse,
+  ViewPostParams,
+  ViewPostResponse,
+  VotePostRequest,
+  VotePostResponse,
+} from '@/api/types/posts'
 
 const client = createAppClient({ appName: 'forums' })
 
@@ -136,7 +135,6 @@ const forumsApi = {
   createForum: (payload: CreateForumRequest) =>
     client.post<CreateForumResponse>(endpoints.forums.create, payload),
 
-
   searchForums: (params: SearchForumsParams) =>
     client.get<SearchForumsResponse>(endpoints.forums.search, {
       params: { search: params.search },
@@ -146,8 +144,9 @@ const forumsApi = {
     client.get<RecommendationsResponse>(endpoints.forums.recommendations),
 
   probeForum: (params: ProbeForumRequest) =>
-    client.post<ProbeForumResponse>(endpoints.forums.probe, { url: params.url }),
-
+    client.post<ProbeForumResponse>(endpoints.forums.probe, {
+      url: params.url,
+    }),
 
   subscribeForum: (forumId: string, server?: string, peer?: string) =>
     client.post<SubscribeForumResponse>(endpoints.forums.subscribe(forumId), {
@@ -179,15 +178,17 @@ const forumsApi = {
     formData.append('title', payload.title)
     formData.append('body', payload.body)
     if (payload.attachments) {
-      payload.attachments.forEach((file) =>
-        formData.append('files', file)
-      )
+      payload.attachments.forEach((file) => formData.append('files', file))
       // Per-file captions, aligned with the attachments' order
       if (payload.captions?.some((caption) => caption)) {
         formData.append('captions', JSON.stringify(payload.captions))
       }
     }
-    return client.post<CreatePostResponse>(endpoints.forums.postCreate, formData, { timeout: 0, onUploadProgress: onProgress })
+    return client.post<CreatePostResponse>(
+      endpoints.forums.postCreate,
+      formData,
+      { timeout: 0, onUploadProgress: onProgress }
+    )
   },
 
   viewPost: (params: ViewPostParams) =>
@@ -213,9 +214,7 @@ const forumsApi = {
     formData.append('body', payload.body)
     if (payload.order) formData.append('order', JSON.stringify(payload.order))
     if (payload.attachments) {
-      payload.attachments.forEach((file) =>
-        formData.append('files', file)
-      )
+      payload.attachments.forEach((file) => formData.append('files', file))
     }
     // Caption edits, keyed by attachment id or "new:N" placeholder
     if (payload.captions && Object.keys(payload.captions).length > 0) {
@@ -253,7 +252,11 @@ const forumsApi = {
     return client.post<CreateCommentResponse>(
       endpoints.forums.comment.create(payload.forum, payload.post),
       formData,
-      { headers: { 'Content-Type': undefined }, timeout: 0, onUploadProgress: onProgress }
+      {
+        headers: { 'Content-Type': undefined },
+        timeout: 0,
+        onUploadProgress: onProgress,
+      }
     )
   },
 
@@ -347,18 +350,16 @@ const forumsApi = {
   searchUsers: async (query: string) => {
     const formData = new URLSearchParams()
     formData.append('search', query)
-    return client.post<{ data: { results: Array<{ id: string; name: string }> } }>(
-      endpoints.users.search,
-      formData,
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      }
-    )
+    return client.post<{
+      data: { results: Array<{ id: string; name: string }> }
+    }>(endpoints.users.search, formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
   },
 
   searchMembers: async (
     forumId: string,
-    query: string,
+    query: string
   ): Promise<Array<{ id: string; name: string }>> => {
     const formData = new URLSearchParams()
     formData.append('q', query)
@@ -497,39 +498,59 @@ const forumsApi = {
 
   removeComment: (payload: RemoveCommentRequest) =>
     client.post<RemoveCommentResponse>(
-      endpoints.forums.commentModeration.remove(payload.forum, payload.post, payload.comment),
+      endpoints.forums.commentModeration.remove(
+        payload.forum,
+        payload.post,
+        payload.comment
+      ),
       { reason: payload.reason }
     ),
 
   restoreComment: (payload: RestoreCommentRequest) =>
     client.post<RestoreCommentResponse>(
-      endpoints.forums.commentModeration.restore(payload.forum, payload.post, payload.comment),
+      endpoints.forums.commentModeration.restore(
+        payload.forum,
+        payload.post,
+        payload.comment
+      ),
       {}
     ),
 
   approveComment: (payload: ApproveCommentRequest) =>
     client.post<ApproveCommentResponse>(
-      endpoints.forums.commentModeration.approve(payload.forum, payload.post, payload.comment),
+      endpoints.forums.commentModeration.approve(
+        payload.forum,
+        payload.post,
+        payload.comment
+      ),
       {}
     ),
 
   reportComment: (payload: ReportCommentRequest) =>
     client.post<ReportCommentResponse>(
-      endpoints.forums.commentModeration.report(payload.forum, payload.post, payload.comment),
+      endpoints.forums.commentModeration.report(
+        payload.forum,
+        payload.post,
+        payload.comment
+      ),
       { reason: payload.reason, details: payload.details }
     ),
 
   getRssToken: (entity: string, mode: 'posts' | 'all') =>
-    client.post<{ data: { token: string } }>(endpoints.forums.rssToken, { entity, mode }),
+    client.post<{ data: { token: string } }>(endpoints.forums.rssToken, {
+      entity,
+      mode,
+    }),
   revokeRssToken: (entity: string) =>
-    client.post<{ data: { ok: boolean } }>(endpoints.forums.rssTokenRevoke, { entity }),
+    client.post<{ data: { ok: boolean } }>(endpoints.forums.rssTokenRevoke, {
+      entity,
+    }),
 
   // Tags
   addPostTag: async (forumId: string, postId: string, label: string) => {
-    const res = await client.post<{ data: { id: string; label: string; qid?: string } }>(
-      endpoints.forums.postTagsAdd(forumId, postId),
-      { label }
-    )
+    const res = await client.post<{
+      data: { id: string; label: string; qid?: string }
+    }>(endpoints.forums.postTagsAdd(forumId, postId), { label })
     return res.data
   },
 
@@ -537,15 +558,27 @@ const forumsApi = {
     const formData = new URLSearchParams()
     formData.append('mode', mode)
     formData.append('account', account)
-    return client.post(endpoints.forums.aiSettings(forumId), formData.toString(), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
+    return client.post(
+      endpoints.forums.aiSettings(forumId),
+      formData.toString(),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    )
   },
 
-  getAiPrompts: async (forumId: string): Promise<{ prompts: Record<string, string>; defaults: Record<string, string> }> => {
-    const res = await client.get<{ data: { prompts: Record<string, string>; defaults: Record<string, string> } }>(
-      endpoints.forums.aiPromptsGet(forumId)
-    )
+  getAiPrompts: async (
+    forumId: string
+  ): Promise<{
+    prompts: Record<string, string>
+    defaults: Record<string, string>
+  }> => {
+    const res = await client.get<{
+      data: {
+        prompts: Record<string, string>
+        defaults: Record<string, string>
+      }
+    }>(endpoints.forums.aiPromptsGet(forumId))
     return res.data
   },
 
@@ -553,14 +586,21 @@ const forumsApi = {
     const formData = new URLSearchParams()
     formData.append('type', type)
     formData.append('prompt', prompt)
-    return client.post(endpoints.forums.aiPromptsSet(forumId), formData.toString(), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
+    return client.post(
+      endpoints.forums.aiPromptsSet(forumId),
+      formData.toString(),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    )
   },
 
   // Interest/scoring
-  adjustTagInterest: (forumId: string, qid: string, direction: 'up' | 'down' | 'remove') =>
-    client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
+  adjustTagInterest: (
+    forumId: string,
+    qid: string,
+    direction: 'up' | 'down' | 'remove'
+  ) => client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
 
   clearNotifications: (forumId: string) =>
     client.post(endpoints.forums.notificationsClear(forumId)),
@@ -576,9 +616,13 @@ const forumsApi = {
   setForumSort: (forumId: string, sort: string) => {
     const formData = new URLSearchParams()
     formData.append('sort', sort)
-    return client.post(endpoints.forums.forumSortSet(forumId), formData.toString(), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
+    return client.post(
+      endpoints.forums.forumSortSet(forumId),
+      formData.toString(),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    )
   },
 }
 

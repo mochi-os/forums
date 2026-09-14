@@ -2,11 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // Pure helpers for the moderation UI, kept out of the route component so the
 // enum→label mapping, the target resolution and the bulk-action runner can be
 // unit-tested without rendering the page.
-
 import type { ModerationLogEntry } from '@/api/types/moderation'
 
 // Map a recorded moderation `action` (remove/restore/approve/lock/unlock/pin/
@@ -65,7 +63,7 @@ export async function runBulk<T>(
 
 // The rate-limit window has a 60s server minimum; clamp before sending so a
 // smaller value (typed straight into the field) can neither be saved nor shown.
-export const LIMIT_WINDOW_MINIMUM = 60
+const LIMIT_WINDOW_MINIMUM = 60
 
 export function clampLimitWindow(value: number): number {
   if (!Number.isFinite(value)) return LIMIT_WINDOW_MINIMUM

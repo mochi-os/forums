@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { arraysEqual, textUnchanged } from '@mochi/web'
 
 export interface ForumPostEditOriginal {
@@ -43,7 +42,8 @@ export function isForumPostEditUnchanged(
 
 export function buildForumPostEditDraft(
   items: Array<
-    { kind: 'existing'; attachment: { id: string } } | { kind: 'new'; file: File }
+    | { kind: 'existing'; attachment: { id: string } }
+    | { kind: 'new'; file: File }
   >,
   values: { title: string; body: string },
   // Keyed by attachment id for existing items and by the caller's file key
