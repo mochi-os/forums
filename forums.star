@@ -2800,6 +2800,29 @@ def action_members_save(a):
         "data": {"forum": forum}
     }
 
+# Proxy a member's person asset for the roster. Manage-gated like the roster,
+# and bound to the member table so it proxies nobody else.
+def action_member_asset(a):
+    asset = a.input("asset")
+    if asset not in _PERSON_ASSETS:
+        a.error.label(404, "errors.unknown_asset")
+        return
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    if not check_access(a, forum["id"], "manage"):
+        a.error.label(403, "errors.not_allowed")
+        return
+    user = a.input("user")
+    if not mochi.text.valid(user, "entity") or not mochi.db.exists("select 1 from members where forum=? and id=?", forum["id"], user):
+        a.error.label(404, "errors.unknown_asset")
+        return
+    return stream_asset(a, user, "people", asset)
+
 # Clear notifications for a specific forum
 def action_notifications_clear(a):
     if not a.user:

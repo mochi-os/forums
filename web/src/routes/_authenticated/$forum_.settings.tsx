@@ -725,61 +725,65 @@ function AccessTab({ forumId }: AccessTabProps) {
 
   return (
     <div className='space-y-6'>
-    <Section title={t`Access management`}>
-      <div className='space-y-4'>
-        <div className='flex justify-end'>
-          <Button
-            onClick={() => setDialogOpen(true)}
-            size='sm'
-            disabled={!canManageRules}
-          >
-            <Plus className='me-2 h-4 w-4' />
-            <Trans>Add rule</Trans>
-          </Button>
-        </div>
+      <Section title={t`Access management`}>
+        <div className='space-y-4'>
+          <div className='flex justify-end'>
+            <Button
+              onClick={() => setDialogOpen(true)}
+              size='sm'
+              disabled={!canManageRules}
+            >
+              <Plus className='me-2 h-4 w-4' />
+              <Trans>Add rule</Trans>
+            </Button>
+          </div>
 
-        <AccessDialog
-          open={dialogOpen}
-          onOpenChange={setDialogOpen}
-          onAdd={handleAdd}
-          levels={FORUMS_ACCESS_LEVELS.filter((l) => l.value !== 'none')}
-          defaultLevel='post'
-          userSearchResults={userSearchResults}
-          userSearchLoading={userSearchLoading}
-          userSearchError={userSearchError}
-          onRetryUserSearch={() => {
-            void refetchUserSearch()
-          }}
-          onUserSearch={setUserSearchQuery}
-          groups={groups}
-          groupsError={groupsError}
-          onRetryGroups={() => {
-            void refetchGroups()
-          }}
-        />
-
-        {rulesError ? (
-          <GeneralError
-            error={rulesError}
-            minimal
-            mode='inline'
-            reset={() => {
-              void refetchRules()
+          <AccessDialog
+            open={dialogOpen}
+            onOpenChange={setDialogOpen}
+            onAdd={handleAdd}
+            levels={FORUMS_ACCESS_LEVELS.filter((l) => l.value !== 'none')}
+            defaultLevel='post'
+            userSearchResults={userSearchResults}
+            userSearchLoading={userSearchLoading}
+            userSearchError={userSearchError}
+            onRetryUserSearch={() => {
+              void refetchUserSearch()
+            }}
+            onUserSearch={setUserSearchQuery}
+            groups={groups}
+            groupsError={groupsError}
+            onRetryGroups={() => {
+              void refetchGroups()
             }}
           />
-        ) : (
-          <AccessList
-            rules={rules}
-            levels={FORUMS_ACCESS_LEVELS}
-            onLevelChange={handleLevelChange}
-            onRevoke={handleRevoke}
-            isLoading={isLoadingRules}
-            error={null}
-          />
-        )}
-      </div>
-    </Section>
-    <MembersSection forumId={forumId} ownerId={ownerId} canRemove={canManageRules} />
+
+          {rulesError ? (
+            <GeneralError
+              error={rulesError}
+              minimal
+              mode='inline'
+              reset={() => {
+                void refetchRules()
+              }}
+            />
+          ) : (
+            <AccessList
+              rules={rules}
+              levels={FORUMS_ACCESS_LEVELS}
+              onLevelChange={handleLevelChange}
+              onRevoke={handleRevoke}
+              isLoading={isLoadingRules}
+              error={null}
+            />
+          )}
+        </div>
+      </Section>
+      <MembersSection
+        forumId={forumId}
+        ownerId={ownerId}
+        canRemove={canManageRules}
+      />
     </div>
   )
 }
@@ -796,24 +800,39 @@ interface MembersSectionProps {
 // owner's id; without it the owner's own row could offer a removal the server
 // ignores.
 // Exported for its test; not a route entry point.
-export function MembersSection({ forumId, ownerId, canRemove }: MembersSectionProps) {
+export function MembersSection({
+  forumId,
+  ownerId,
+  canRemove,
+}: MembersSectionProps) {
   const { t } = useLingui()
   const { data, isLoading, error, refetch } = useForumMembers(forumId)
   const removeMember = useRemoveForumMember(forumId)
-  const [pending, setPending] = useState<{ id: string; name: string } | null>(null)
+  const [pending, setPending] = useState<{ id: string; name: string } | null>(
+    null
+  )
 
-  const pendingName = pending?.name ?? ''
+  const name = pending?.name ?? ''
+  const assetUrl = (id: string, asset: 'avatar' | 'style') =>
+    `${getAppPath()}/${forumId}/-/members/${encodeURIComponent(id)}/asset/${asset}`
 
   return (
     <Section title={t`Members`}>
       {/* No currentUserId: the Access tab needs manage, which only the owner
           holds, so the viewer is always the row already tagged Owner. */}
       <MemberList
-        members={coerceObjectArray<{ id: string; name: string }>(data?.data?.members)}
+        members={coerceObjectArray<{ id: string; name: string }>(
+          data?.data?.members
+        )}
         ownerId={ownerId}
+        avatarUrls={(id) => ({
+          src: assetUrl(id, 'avatar'),
+          styleUrl: assetUrl(id, 'style'),
+        })}
         onRemove={
           canRemove
-            ? (member) => setPending({ id: member.id, name: member.name || member.id })
+            ? (member) =>
+                setPending({ id: member.id, name: member.name || member.id })
             : undefined
         }
         disabled={removeMember.isPending}
@@ -829,7 +848,7 @@ export function MembersSection({ forumId, ownerId, canRemove }: MembersSectionPr
         onOpenChange={(open) => {
           if (!open && !removeMember.isPending) setPending(null)
         }}
-        title={t`Remove ${pendingName}?`}
+        title={t`Remove ${name}?`}
         desc={t`Their votes in this forum are deleted.`}
         confirmText={t`Remove`}
         destructive

@@ -47,6 +47,10 @@ describe('MembersSection', () => {
     await screen.findByText('Member One')
     expect(screen.getByText('Owner Person')).toBeInTheDocument()
     expect(screen.getByText('Owner')).toBeInTheDocument()
+    // Avatars come through the forum's own roster route, never cross-app.
+    expect(
+      document.querySelector('img[src*="/f1/-/members/member-1/asset/avatar"]')
+    ).not.toBeNull()
     expect(
       screen.queryByRole('button', { name: /Remove Owner Person/ })
     ).not.toBeInTheDocument()
@@ -68,7 +72,9 @@ describe('MembersSection', () => {
     const user = userEvent.setup()
     renderSection(true)
 
-    await user.click(await screen.findByRole('button', { name: /Remove Member One/ }))
+    await user.click(
+      await screen.findByRole('button', { name: /Remove Member One/ })
+    )
     await user.click(await screen.findByRole('button', { name: 'Remove' }))
 
     await waitFor(() =>
@@ -84,7 +90,9 @@ describe('MembersSection', () => {
     const user = userEvent.setup()
     renderSection(true)
 
-    await user.click(await screen.findByRole('button', { name: /Remove Member One/ }))
+    await user.click(
+      await screen.findByRole('button', { name: /Remove Member One/ })
+    )
     await user.click(await screen.findByRole('button', { name: 'Remove' }))
 
     await waitFor(() => expect(forumsApi.removeMember).toHaveBeenCalled())

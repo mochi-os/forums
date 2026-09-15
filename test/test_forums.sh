@@ -221,6 +221,25 @@ else
     fail "Get members list" "$RESULT"
 fi
 
+# Test: Member avatar route serves a roster member (image bytes, or the
+# people service's own "not set" answer when the member has no avatar)
+# The forum object precedes the members array, so take the id from inside the array.
+MEMBER_ID=$(echo "$RESULT" | grep -o '"members":\[{[^}]*' | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+RESULT=$(forum_api_curl GET "/members/$MEMBER_ID/asset/avatar" | head -c 300)
+if [ -n "$MEMBER_ID" ] && ! echo "$RESULT" | grep -qi '<html\|Not allowed\|Not logged in\|Unknown asset'; then
+    pass "Member avatar route"
+else
+    fail "Member avatar route" "$RESULT"
+fi
+
+# Test: Member avatar route rejects someone not on the roster
+RESULT=$(forum_api_curl GET "/members/nobody/asset/avatar")
+if echo "$RESULT" | grep -q 'Unknown asset'; then
+    pass "Member avatar route rejects a non-member"
+else
+    fail "Member avatar route rejects a non-member" "$RESULT"
+fi
+
 # ============================================================================
 # SEARCH TESTS
 # ============================================================================

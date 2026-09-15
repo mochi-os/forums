@@ -32,7 +32,8 @@ export const forumsKeys = {
   detail: (forumId: string) => [...forumsKeys.all, 'detail', forumId] as const,
   search: (term: string) => [...forumsKeys.all, 'search', term] as const,
   access: (forumId: string) => [...forumsKeys.all, 'access', forumId] as const,
-  members: (forumId: string) => [...forumsKeys.all, 'members', forumId] as const,
+  members: (forumId: string) =>
+    [...forumsKeys.all, 'members', forumId] as const,
   recommendations: () => [...forumsKeys.all, 'recommendations'] as const,
   post: (forumId: string, postId: string) =>
     [...forumsKeys.all, 'post', forumId, postId] as const,
@@ -122,9 +123,13 @@ export function useRemoveForumMember(forumId: string) {
   return useMutation({
     mutationFn: (member: string) => forumsApi.removeMember(forumId, member),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: forumsKeys.members(forumId) })
+      void queryClient.invalidateQueries({
+        queryKey: forumsKeys.members(forumId),
+      })
       void queryClient.invalidateQueries({ queryKey: forumsKeys.info(forumId) })
-      void queryClient.invalidateQueries({ queryKey: forumsInfoQueryOptions().queryKey })
+      void queryClient.invalidateQueries({
+        queryKey: forumsInfoQueryOptions().queryKey,
+      })
     },
     onError: (error) => {
       toast.error(getErrorMessage(error, t`Failed to remove member`))
