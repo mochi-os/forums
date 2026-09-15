@@ -44,6 +44,7 @@ import {
   AiPromptsEditor as SharedAiPromptsEditor,
   type AiPromptType,
   DISALLOWED_NAME_CHARS,
+  MemberList,
 } from '@mochi/web'
 import {
   Loader2,
@@ -61,7 +62,9 @@ import {
   useDeleteForum,
   useForumAccess,
   useForumInfo,
+  useForumMembers,
   useGroups,
+  useRemoveForumMember,
   useUserSearch,
 } from '@/hooks/use-forums-queries'
 import { clampLimitWindow } from '@/features/forums/moderation'
@@ -718,7 +721,10 @@ function AccessTab({ forumId }: AccessTabProps) {
     }
   }
 
+  const ownerId = rules.find((rule) => rule.owner)?.subject
+
   return (
+    <div className='space-y-6'>
     <Section title={t`Access management`}>
       <div className='space-y-4'>
         <div className='flex justify-end'>
@@ -772,6 +778,67 @@ function AccessTab({ forumId }: AccessTabProps) {
           />
         )}
       </div>
+    </Section>
+    <MembersSection forumId={forumId} ownerId={ownerId} canRemove={canManageRules} />
+    </div>
+  )
+}
+
+interface MembersSectionProps {
+  forumId: string
+  ownerId?: string
+  canRemove: boolean
+}
+
+// Removing a member is not the same as revoking their access: a revoke leaves
+// them on the fan-out and replay roster, so new posts keep reaching them.
+// `canRemove` follows the access rules query, which is the only source of the
+// owner's id; without it the owner's own row could offer a removal the server
+// ignores.
+// Exported for its test; not a route entry point.
+export function MembersSection({ forumId, ownerId, canRemove }: MembersSectionProps) {
+  const { t } = useLingui()
+  const { data, isLoading, error, refetch } = useForumMembers(forumId)
+  const removeMember = useRemoveForumMember(forumId)
+  const [pending, setPending] = useState<{ id: string; name: string } | null>(null)
+
+  const pendingName = pending?.name ?? ''
+
+  return (
+    <Section title={t`Members`}>
+      {/* No currentUserId: the Access tab needs manage, which only the owner
+          holds, so the viewer is always the row already tagged Owner. */}
+      <MemberList
+        members={coerceObjectArray<{ id: string; name: string }>(data?.data?.members)}
+        ownerId={ownerId}
+        onRemove={
+          canRemove
+            ? (member) => setPending({ id: member.id, name: member.name || member.id })
+            : undefined
+        }
+        disabled={removeMember.isPending}
+        isLoading={isLoading}
+        error={error ? toError(error, t`Failed to load members`) : null}
+        onRetry={() => {
+          void refetch()
+        }}
+      />
+
+      <ConfirmDialog
+        open={pending !== null}
+        onOpenChange={(open) => {
+          if (!open && !removeMember.isPending) setPending(null)
+        }}
+        title={t`Remove ${pendingName}?`}
+        desc={t`Their votes in this forum are deleted.`}
+        confirmText={t`Remove`}
+        destructive
+        isLoading={removeMember.isPending}
+        handleConfirm={() => {
+          if (!pending) return
+          removeMember.mutate(pending.id, { onSuccess: () => setPending(null) })
+        }}
+      />
     </Section>
   )
 }

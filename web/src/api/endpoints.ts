@@ -51,8 +51,11 @@ const endpoints = {
     rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
     bannerGet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/get`,
     bannerSet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/set`,
-    membersSearch: (forumId: string) =>
-      `${getEntityBase(forumId)}/-/members/search`,
+    membersSearch: (forumId: string) => `${getEntityBase(forumId)}/-/members/search`,
+    members: (forumId: string) => `${getEntityBase(forumId)}/-/members`,
+    // Takes `remove=<member>`; the only owner-side way to take a member off the
+    // fan-out and replay roster. Access revoke leaves both in place.
+    membersSave: (forumId: string) => `${getEntityBase(forumId)}/-/members/save`,
 
     // Post endpoints
     post: {
