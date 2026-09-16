@@ -40,7 +40,7 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Check, Loader2 } from 'lucide-react'
+import { Check } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
 import {
   buildForumPostEditDraft,
@@ -419,19 +419,11 @@ export function EditPostDialog({
               </Button>
               <Button
                 type='submit'
-                disabled={!form.formState.isValid || isPending || !hasChanges}
+                disabled={!form.formState.isValid || !hasChanges}
+                loading={isPending}
+                icon={<Check className='size-4' />}
               >
-                {isPending ? (
-                  <>
-                    <Loader2 className='size-4 animate-spin' />
-                    <Trans>Saving...</Trans>
-                  </>
-                ) : (
-                  <>
-                    <Check className='size-4' />
-                    <Trans>Save changes</Trans>
-                  </>
-                )}
+                <Trans>Save changes</Trans>
               </Button>
             </ResponsiveDialogFooter>
           </form>

@@ -38,7 +38,7 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { FileEdit, Send, Loader2 } from 'lucide-react'
+import { FileEdit, Send } from 'lucide-react'
 import {
   usePostSchema,
   type PostFormValues,
@@ -328,19 +328,11 @@ export function CreatePostDialog({
               </ResponsiveDialogClose>
               <Button
                 type='submit'
-                disabled={!form.formState.isValid || isPending}
+                disabled={!form.formState.isValid}
+                loading={isPending}
+                icon={<Send className='size-4' />}
               >
-                {isPending ? (
-                  <>
-                    <Loader2 className='size-4 animate-spin' />
-                    <Trans>Publishing...</Trans>
-                  </>
-                ) : (
-                  <>
-                    <Send className='size-4' />
-                    <Trans>Publish post</Trans>
-                  </>
-                )}
+                <Trans>Publish post</Trans>
               </Button>
             </ResponsiveDialogFooter>
           </form>

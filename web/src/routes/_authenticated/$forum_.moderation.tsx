@@ -31,7 +31,6 @@ import {
   LoadMoreTrigger,
 } from '@mochi/web'
 import {
-  Loader2,
   CheckCircle,
   XCircle,
   Clock,
@@ -538,24 +537,18 @@ function QueueTab({ forumId }: QueueTabProps) {
             size='sm'
             onClick={() => void handleBulkReject()}
             disabled={!hasSelection || !!actionInProgress}
+            loading={actionInProgress === 'bulk'}
+            icon={<XCircle className='me-1 size-4' />}
           >
-            {actionInProgress === 'bulk' ? (
-              <Loader2 className='me-1 size-4 animate-spin' />
-            ) : (
-              <XCircle className='me-1 size-4' />
-            )}
             <Trans>Reject</Trans>
           </Button>
           <Button
             size='sm'
             onClick={() => void handleBulkApprove()}
             disabled={!hasSelection || !!actionInProgress}
+            loading={actionInProgress === 'bulk'}
+            icon={<CheckCircle className='me-1 size-4' />}
           >
-            {actionInProgress === 'bulk' ? (
-              <Loader2 className='me-1 size-4 animate-spin' />
-            ) : (
-              <CheckCircle className='me-1 size-4' />
-            )}
             <Trans>Approve</Trans>
           </Button>
         </div>
@@ -566,24 +559,18 @@ function QueueTab({ forumId }: QueueTabProps) {
             size='sm'
             onClick={() => void handleBulkMute()}
             disabled={!hasSelection || !!actionInProgress}
+            loading={actionInProgress === 'mute'}
           >
-            {actionInProgress === 'mute' ? (
-              <Loader2 className='size-4 animate-spin' />
-            ) : (
-              <Trans>Mute</Trans>
-            )}
+            <Trans>Mute</Trans>
           </Button>
           <Button
             variant='outline'
             size='sm'
             onClick={() => setBulkBanOpen(true)}
             disabled={!hasSelection || !!actionInProgress}
+            loading={actionInProgress === 'ban'}
           >
-            {actionInProgress === 'ban' ? (
-              <Loader2 className='size-4 animate-spin' />
-            ) : (
-              <Trans>Ban</Trans>
-            )}
+            <Trans>Ban</Trans>
           </Button>
         </div>
         <span
@@ -846,13 +833,9 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                         size='sm'
                         variant='outline'
                         onClick={() => void handleResolve(report.id, 'removed')}
-                        disabled={actionInProgress === report.id}
+                        loading={actionInProgress === report.id}
                       >
-                        {actionInProgress === report.id ? (
-                          <Loader2 className='size-4 animate-spin' />
-                        ) : (
-                          <Trans>Remove</Trans>
-                        )}
+                        <Trans>Remove</Trans>
                       </Button>
                     </div>
                   )}
@@ -1216,13 +1199,9 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
               size='sm'
               variant='outline'
               onClick={() => void handleUnrestrict(restriction.user)}
-              disabled={actionInProgress === restriction.user}
+              loading={actionInProgress === restriction.user}
             >
-              {actionInProgress === restriction.user ? (
-                <Loader2 className='size-4 animate-spin' />
-              ) : (
-                <Trans>Remove</Trans>
-              )}
+              <Trans>Remove</Trans>
             </Button>
           </div>
         ))}
