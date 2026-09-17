@@ -10,7 +10,6 @@ import {
   Main,
   usePageTitle,
   Button,
-  useScreenSize,
   PageHeader,
   SortSelector,
   type SortType,
@@ -24,7 +23,7 @@ import {
   ConfirmDialog,
   LoadingContent,
 } from '@mochi/web'
-import { Loader2, Rss, SquarePen, X } from 'lucide-react'
+import { Rss, SquarePen, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -62,7 +61,6 @@ export function EntityForumPage({
   const { t } = useLingui()
   const navigate = useNavigate()
   const router = useRouter()
-  const { isMobile } = useScreenSize()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const [activeTag, setActiveTag] = useState<string | undefined>(undefined)
   const [showUnsubscribeConfirm, setShowUnsubscribeConfirm] = useState(false)
@@ -300,21 +298,10 @@ export function EntityForumPage({
                     server: forum.server,
                   })
                 }
-                disabled={subscribeMutation.isPending}
+                loading={subscribeMutation.isPending}
               >
                 {/* button-icon-ok: Subscribe has no conventional glyph; every sibling app ships it text-only */}
-                {subscribeMutation.isPending ? (
-                  <>
-                    <Loader2 className='size-4 animate-spin' />
-                    {!isMobile && (
-                      <span className='ms-2'>
-                        <Trans>Subscribing...</Trans>
-                      </span>
-                    )}
-                  </>
-                ) : (
-                  <Trans>Subscribe</Trans>
-                )}
+                <Trans>Subscribe</Trans>
               </Button>
             )}
           </>

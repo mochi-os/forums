@@ -46,15 +46,7 @@ import {
   DISALLOWED_NAME_CHARS,
   MemberList,
 } from '@mochi/web'
-import {
-  Loader2,
-  Plus,
-  Hash,
-  Settings,
-  Shield,
-  Trash2,
-  Gavel,
-} from 'lucide-react'
+import { Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
 import {
@@ -432,14 +424,10 @@ function GeneralTab({
             <Button
               variant='outline'
               onClick={onUnsubscribe}
-              disabled={isUnsubscribing}
+              loading={isUnsubscribing}
               size='sm'
             >
-              {isUnsubscribing ? (
-                <Loader2 className='me-2 size-4 animate-spin' />
-              ) : (
-                <Trans>Unsubscribe</Trans>
-              )}
+              <Trans>Unsubscribe</Trans>
             </Button>
           }
         />
@@ -452,10 +440,10 @@ function GeneralTab({
             <Button
               variant='outline'
               onClick={() => setShowDeleteDialog(true)}
-              disabled={isDeleting}
+              loading={isDeleting}
+              icon={<Trash2 className='me-2 size-4' />}
               size='sm'
             >
-              <Trash2 className='me-2 size-4' />
               <Trans>Delete</Trans>
             </Button>
           }
