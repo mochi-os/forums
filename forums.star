@@ -8369,14 +8369,14 @@ def action_rss_token(a):
     # URL is shared casually and lives in reader histories and proxy logs, so
     # it must not also authorise the app's other actions.
     if forum_id == "*":
-        token = mochi.token.create("rss", ["rss"], 0, "-/rss", "")
+        token = mochi.token.create("rss", ["rss"], 0, "rss", "")
     else:
         # Bound to the fingerprint, not the id: a subscriber's server holds no
         # entity row for a forum it did not create, so the only identifier it
         # can compare is the one in the URL - which is the fingerprint the feed
         # URL is built from. Core accepts either identifier for an entity it
         # does host, so an owner's existing token keeps working.
-        token = mochi.token.create("rss", ["rss"], 0, ":forum/-/rss", forum["fingerprint"] if forum.get("fingerprint") else mochi.entity.fingerprint(forum_id))
+        token = mochi.token.create("rss", ["rss"], 0, ":forum/rss", forum["fingerprint"] if forum.get("fingerprint") else mochi.entity.fingerprint(forum_id))
     if not token:
         a.error.label(500, "errors.failed_to_create_token")
         return
@@ -8426,7 +8426,7 @@ def action_rss_all(a):
             mode = rss_row["mode"]
 
     # RSS requires absolute links (scheme + host). Mochi is served over https.
-    base = ""  # relative to the feed URL; readers resolve against it. Path uses the -/ separator.
+    base = a.origin
     a.header("Content-Type", "application/rss+xml; charset=utf-8")
     a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
     a.print('<rss version="2.0">\n')
@@ -8496,9 +8496,9 @@ def action_rss_all(a):
             title = forum_name + ": " + row["title"] if row["title"] else forum_name
 
         if row["type"] == "comment":
-            link = base + "/forums/" + forum_fp + "/-/" + comment_posts.get(item_id, item_id)
+            link = base + "/forums/" + forum_fp + "/" + comment_posts.get(item_id, item_id)
         else:
-            link = base + "/forums/" + forum_fp + "/-/" + item_id
+            link = base + "/forums/" + forum_fp + "/" + item_id
 
         a.print('<item>\n')
         a.print('<title>' + escape_xml(title) + '</title>\n')
@@ -8557,7 +8557,7 @@ def action_rss(a):
     fingerprint = mochi.entity.fingerprint(forum_id)
     # RSS requires absolute links (scheme + host); readers can't resolve relative
     # ones. Mochi is served over https.
-    base = ""  # relative to the feed URL; readers resolve against it. Path uses the -/ separator.
+    base = a.origin
 
     a.header("Content-Type", "application/rss+xml; charset=utf-8")
     a.print('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -8608,10 +8608,10 @@ def action_rss(a):
                 title = mochi.app.label("rss.comment_reply", title=parent_title)
             else:
                 title = mochi.app.label("rss.comment_by", author=row["author"])
-            link = base + "/forums/" + fingerprint + "/-/" + comment_posts.get(item_id, item_id)
+            link = base + "/forums/" + fingerprint + "/" + comment_posts.get(item_id, item_id)
         else:
             title = row["title"] if row["title"] else forum_name
-            link = base + "/forums/" + fingerprint + "/-/" + item_id
+            link = base + "/forums/" + fingerprint + "/" + item_id
 
         a.print('<item>\n')
         a.print('<title>' + escape_xml(title) + '</title>\n')
