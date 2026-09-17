@@ -468,6 +468,8 @@ msgstr "ਵਾਪਸ"
 msgid "Back to forum"
 msgstr "ਫੋਰਮ ਵਿੱਚ ਵਾਪਸ"
 
+#: src/features/forums/components/forum-gone.tsx
+#: src/features/forums/components/forum-gone.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Back to forums"
 msgstr "ਫੋਰਮਾਂ ਵਿੱਚ ਵਾਪਸ"
@@ -518,6 +520,19 @@ msgstr "ਬੈਨਰ ਹਟਾ ਦਿੱਤਾ"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Banner updated"
 msgstr "ਬੈਨਰ ਅਪਡੇਟ ਕੀਤਾ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block"
+msgstr "ਬਲੌਕ ਕਰੋ"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Block {name}"
+msgstr "{name} ਨੂੰ ਬਲੌਕ ਕਰੋ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block {name}?"
+msgstr "{name} ਨੂੰ ਬਲੌਕ ਕਰਨਾ ਹੈ?"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -1281,6 +1296,10 @@ msgstr "ਦਿਲਚਸਪੀ ਨੂੰ ਅਡਜਸਟ ਕਰਨ ਵਿੱਚ �
 msgid "Failed to ban user"
 msgstr "ਯੂਜ਼ਰ ਉੱਤੇ ਪਾਬੰਦੀ ਲਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
+#: src/hooks/use-forums-queries.ts
+msgid "Failed to block member"
+msgstr "ਮੈਂਬਰ ਬਲੌਕ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
 #: src/lib/saved.ts
 msgid "Failed to clear saved posts"
 msgstr "ਸੰਭਾਲੀਆਂ ਪੋਸਟਾਂ ਸਾਫ਼ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
@@ -1554,6 +1573,7 @@ msgstr "ਸਮਤਲ"
 msgid "forum"
 msgstr "ਫੋਰਮ"
 
+#: src/features/forums/components/forum-gone.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/thread-detail.tsx
@@ -3253,6 +3273,10 @@ msgstr "ਇਸ ਵਿਅਕਤੀ ਦੀਆਂ ਇਸ ਫੋਰਮ ਵਿਚਲ�
 msgid "There are no moderation actions recorded yet"
 msgstr "ਅਜੇ ਤੱਕ ਕੋਈ moderation ਕਾਰਵਾਈਆਂ ਦਰਜ ਨਹੀਂ ਹਨ"
 
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "They can no longer view this forum."
+msgstr "ਉਹ ਅੱਗੇ ਤੋਂ ਇਹ ਫੋਰਮ ਨਹੀਂ ਦੇਖ ਸਕਣਗੇ।"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "ਇਸ ਐਪ ਨੂੰ ਤੁਹਾਡੀ ਪਾਸਕੀ ਵਰਤਣ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ, ਇਜਾਜ਼ਤਾਂ ਹੇਠ ਇਸ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ।"
@@ -3269,6 +3293,10 @@ msgstr "ਇਹ ਫੋਰਮ ਹੁਣ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ਇਹ ਫੋਰਮ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ ਹੋ ਸਕਦਾ ਹੈ ਜਾਂ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੈ।"
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "This forum was deleted"
+msgstr "ਇਹ ਫੋਰਮ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
@@ -3646,6 +3674,10 @@ msgstr "ਇਸ ਫੋਰਮ ਵਿੱਚ ਪੋਸਟ ਕਰਨ ਦੀ ਤੁਹ
 #: src/features/forums/components/forum-overview.tsx
 msgid "You have no forums yet."
 msgstr "ਤੁਹਾਡੇ ਅਜੇ ਕੋਈ ਫੋਰਮ ਨਹੀਂ ਹਨ।"
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "You were removed from this forum"
+msgstr "ਤੁਹਾਨੂੰ ਇਸ ਫੋਰਮ ਤੋਂ ਹਟਾ ਦਿੱਤਾ ਗਿਆ"
 
 #: src/features/forums/pages/entity-forum-page.tsx
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."

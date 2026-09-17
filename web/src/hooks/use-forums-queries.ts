@@ -137,6 +137,33 @@ export function useRemoveForumMember(forumId: string) {
   })
 }
 
+// A block is the "No access" level: a deny on every level, and the server
+// drops the member with it, so the same queries refresh as for a removal plus
+// the access rules the deny now appears in.
+export function useBlockForumMember(forumId: string) {
+  const { t } = useLingui()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (member: string) =>
+      forumsApi.setAccess({ forum: forumId, user: member, level: 'none' }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: forumsKeys.members(forumId),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: forumsKeys.access(forumId),
+      })
+      void queryClient.invalidateQueries({ queryKey: forumsKeys.info(forumId) })
+      void queryClient.invalidateQueries({
+        queryKey: forumsInfoQueryOptions().queryKey,
+      })
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, t`Failed to block member`))
+    },
+  })
+}
+
 // ============================================================================
 // Mutations
 // ============================================================================

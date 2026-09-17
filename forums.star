@@ -697,6 +697,30 @@ def member_remove(member):
         mochi.broadcast.subscriber.remove(r["forum"], member)
         mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", r["forum"], mochi.time.now(), r["forum"])
 
+# member_drop takes one member off a forum this user owns: their votes, the
+# roster row, the fan-out and replay entries, the count, and their own host's
+# copy - the delete event, sent with a reason, tears down exactly the sender's
+# forum there, which is what a removed member must see. Access rules stay the
+# caller's.
+def member_drop(forum_id, member_id):
+    affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum_id, member_id)
+    mochi.db.execute("delete from votes where forum=? and voter=?", forum_id, member_id)
+    for v in affected:
+        if v["comment"]:
+            recount_comment_votes(v["comment"])
+        else:
+            recount_post_votes(v["post"])
+    mochi.db.execute("delete from members where forum=? and id=?", forum_id, member_id)
+    # Dropping them from the fan-out list stops new posts but not replay: core
+    # keeps a subscription record so a lagging subscriber can resync, and it
+    # lives on the log's own clock. Without this a removed member could still
+    # pull posts made after they were removed.
+    mochi.broadcast.subscriber.remove(forum_id, member_id)
+    mochi.db.execute("update forums set members=(select count(*) from members where forum=?), updated=? where id=?", forum_id, mochi.time.now(), forum_id)
+    # The reason lets their host show and notify a removal rather than a
+    # deletion; a host on an older release ignores it and still purges.
+    mochi.message.send({"from": forum_id, "to": member_id, "service": "forums", "event": "forum/delete"}, {"reason": "removed"})
+
 # error_broadcast_gap: core calls this when an unfillable broadcast gap was
 # skipped and events were permanently lost. broadcast/resync can't replay a
 # pruned gap, so pull a fresh full snapshot.
@@ -2770,20 +2794,8 @@ def action_members_save(a):
     # Handle member removal
     remove_id = a.input("remove")
     if remove_id and remove_id != a.user.identity.id:
-        affected = mochi.db.rows("select distinct post, comment from votes where forum=? and voter=?", forum["id"], remove_id)
-        mochi.db.execute("delete from votes where forum=? and voter=?", forum["id"], remove_id)
-        for v in affected:
-            if v["comment"]:
-                recount_comment_votes(v["comment"])
-            else:
-                recount_post_votes(v["post"])
-        # Remove from members table
-        mochi.db.execute("delete from members where forum=? and id=?", forum["id"], remove_id)
-        # Dropping them from the fan-out list stops new posts but not replay:
-        # core keeps a subscription record so a lagging subscriber can resync,
-        # and it lives on the log's own clock. Without this a removed member
-        # could still pull posts made after they were removed.
-        mochi.broadcast.subscriber.remove(forum["id"], remove_id)
+        if mochi.db.exists("select 1 from members where forum=? and id=?", forum["id"], remove_id):
+            member_drop(forum["id"], remove_id)
         # Revoke all access
         resource = "forum/" + forum["id"]
         for op in ACCESS_LEVELS + ["manage", "*"]:
@@ -5682,6 +5694,13 @@ def action_access_set(a):
         # Store deny rules for all levels to block access
         for op in ACCESS_LEVELS:
             mochi.access.deny(target, resource, op, granter)
+        # The rules bind this server's checks; a member reads their own host's
+        # copy and stays on the fan-out, which only a removal reaches. The
+        # owner is a member of their own forum and is never dropped from it.
+        entity = mochi.entity.info(forum["id"])
+        creator = entity.get("creator") if entity else None
+        if target != creator and mochi.db.exists("select 1 from members where forum=? and id=?", forum["id"], target):
+            member_drop(forum["id"], target)
     else:
         # Grant the new level
         mochi.access.allow(target, resource, level, granter)
@@ -5740,7 +5759,14 @@ def serve_attachment(a, variant):
     forum_id = a.input("forum")
     forum = get_forum(forum_id)
     if not forum:
-        a.error.label(404, "errors.attachment_not_found")
+        # A forum we don't hold: the viewer browsed it through its owner (the
+        # remote branch of action_view), so its attachments come from the owner
+        # the same way, and the owner's event_attachment_fetch decides the
+        # viewer's access. Browsing addresses a forum by entity id.
+        if not mochi.text.valid(forum_id, "entity"):
+            a.error.label(404, "errors.attachment_not_found")
+            return
+        attachment_relay(a, forum_id, attachment, variant=variant)
         return
     user_id = a.user.identity.id if a.user and a.user.identity else None
 
@@ -6837,13 +6863,14 @@ def event_post_delete_event(e):
 
     broadcast_websocket(forum_id, {"type": "post/delete", "forum": forum_id, "post": id, "sender": old_post["member"]})
 
-# Received a forum deletion from the owner (we are a subscriber). Purge the whole
-# local replica so a deleted forum stops lingering as live rows. Scoped to a
-# forum we actually subscribe to (server set) so a peer can't make us drop a
-# forum we own, nor one addressed by a spoofed id we don't hold.
+# Received a forum deletion, or our removal from it, from the owner (we are a
+# member). Purge the whole local replica so a deleted forum stops lingering as
+# live rows. Scoped to a forum we actually subscribe to (server set) so a peer
+# can't make us drop a forum we own, nor one addressed by a spoofed id we don't
+# hold: the target is the claim-verified sender, never a content field.
 def event_forum_delete_event(e):
     forum_id = e.header("from")
-    row = mochi.db.row("select id, server from forums where id=?", forum_id)
+    row = mochi.db.row("select id, name, server from forums where id=?", forum_id)
     if not row or not row["server"]:
         return
     purge_forum_rows(forum_id)
@@ -6851,9 +6878,17 @@ def event_forum_delete_event(e):
         mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
     rss_tokens_revoke(forum_id)
     mochi.db.execute("delete from forums where id=?", forum_id)
+    # The same teardown serves a removal (member_drop sends it with a reason),
+    # so a member on an older release still purges. The reason is the owner's
+    # word and decides only what the page and the notification say.
+    removed = e.content("reason") == "removed"
     fp = mochi.entity.fingerprint(forum_id)
     if fp:
-        mochi.websocket.write(fp, {"type": "forum/deleted", "forum": forum_id})
+        mochi.websocket.write(fp, {"type": "forum/removed" if removed else "forum/deleted", "forum": forum_id})
+    # Its notifications point at rows that no longer exist.
+    mochi.service.call("notifications", "clear/object", forum_id)
+    if removed:
+        notify("member/removed", forum_id, mochi.app.label("notifications.title.removed", forum=row["name"]), mochi.app.label("notifications.body.removed"), "/forums/", event_id="member/removed:" + forum_id)
 
 # Received a post vote from member (we are forum owner)
 def event_post_vote_event(e):

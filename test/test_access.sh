@@ -149,6 +149,34 @@ test_post_view() {
     fi
 }
 
+# Test that the subscriber (instance 2) is refused both views. "none" is a
+# block: the deny rules refuse the owner-side view, and the owner drops the
+# member, so their replica is purged rather than left serving stale posts.
+test_denied_view() {
+    local level_name=$1
+
+    echo "Testing forum view with '$level_name' access..."
+    local response
+    response=$($CURL -i 2 -a admin -X GET "/forums/$FORUM_ID/-/posts" 2>/dev/null)
+    local forum_id
+    forum_id=$(json_field "$response" "['data']['forum']['id']")
+    if [ "$forum_id" != "$FORUM_ID" ]; then
+        pass "Forum view is refused ($level_name)"
+    else
+        fail "Forum view is refused ($level_name)" "no forum data" "$forum_id"
+    fi
+
+    echo "Testing post view with '$level_name' access..."
+    response=$($CURL -i 2 -a admin -X GET "/forums/$FORUM_ID/-/$POST_ID" 2>/dev/null)
+    local post_id
+    post_id=$(json_field "$response" "['data']['post']['id']")
+    if [ "$post_id" != "$POST_ID" ]; then
+        pass "Post view is refused ($level_name)"
+    else
+        fail "Post view is refused ($level_name)" "no post data" "$post_id"
+    fi
+}
+
 # Test owner view (instance 1)
 test_owner_view() {
     echo -e "\n${YELLOW}Testing owner access (instance 1)${NC}"
@@ -185,14 +213,17 @@ echo "========================================"
 # Test 1: Owner access
 test_owner_view
 
-# Test 2: Subscriber with 'none' access
+# Test 2: Subscriber with 'none' access. The block drops the member, so their
+# replica is gone: the owner refuses both views, and nothing local answers.
 set_access "none"
 echo -e "\n--- Testing 'none' access level ---"
-test_forum_view "false" "none"
-test_post_view "false" "false" "none"
+test_denied_view "none"
 
-# Test 3: Subscriber with 'view' access
+# Test 3: Subscriber with 'view' access. The block removed them, so they join
+# again once admitted; the remaining levels test a member holding the replica.
 set_access "view"
+$CURL -i 2 -a admin -X POST "/forums/$FORUM_ID/-/subscribe" > /dev/null 2>&1
+sleep 2  # Allow time for P2P sync
 echo -e "\n--- Testing 'view' access level ---"
 test_forum_view "false" "view"
 test_post_view "false" "false" "view"

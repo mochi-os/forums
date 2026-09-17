@@ -468,6 +468,8 @@ msgstr "Rudi"
 msgid "Back to forum"
 msgstr "Rudi kwa jukwaa"
 
+#: src/features/forums/components/forum-gone.tsx
+#: src/features/forums/components/forum-gone.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Back to forums"
 msgstr "Rudi kwa majukwaa"
@@ -518,6 +520,19 @@ msgstr "Bango limeondolewa"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Banner updated"
 msgstr "Bango limesasishwa"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block"
+msgstr "Zuia"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Block {name}"
+msgstr "Zuia {name}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block {name}?"
+msgstr "Zuia {name}?"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -1281,6 +1296,10 @@ msgstr "Imeshindwa kurekebisha mvuto"
 msgid "Failed to ban user"
 msgstr "Imeshindwa kupiga marufuku mtumiaji"
 
+#: src/hooks/use-forums-queries.ts
+msgid "Failed to block member"
+msgstr "Imeshindwa kumzuia mwanachama"
+
 #: src/lib/saved.ts
 msgid "Failed to clear saved posts"
 msgstr "Imeshindwa kufuta machapisho yaliyohifadhiwa"
@@ -1338,7 +1357,7 @@ msgstr "Imeshindwa kupakia bango"
 #: src/routes/_authenticated/$forum/index.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Failed to load forum"
-msgstr "Imeshindwa kupakia kongamano"
+msgstr "Imeshindwa kupakia jukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Failed to load forum settings"
@@ -1346,7 +1365,7 @@ msgstr "Imeshindwa kupakia mipangilio ya jukwaa"
 
 #: src/routes/_authenticated/index.tsx
 msgid "Failed to load forums"
-msgstr "Imeshindwa kupakia makongamano"
+msgstr "Imeshindwa kupakia majukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Failed to load groups"
@@ -1437,7 +1456,7 @@ msgstr "Imeshindwa kuondoa chapisho lililohifadhiwa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Failed to rename forum"
-msgstr "Imeshindwa kubadilisha jina la kongamano"
+msgstr "Imeshindwa kubadilisha jina la jukwaa"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx
 msgid "Failed to reset prompt"
@@ -1470,7 +1489,7 @@ msgstr "Imeshindwa kuhifadhi kichocheo"
 #: src/features/forums/components/inline-forum-search.tsx
 #: src/features/forums/components/inline-forum-search.tsx
 msgid "Failed to search forums"
-msgstr "Imeshindwa kutafuta makongamano"
+msgstr "Imeshindwa kutafuta majukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Failed to search users"
@@ -1532,7 +1551,7 @@ msgstr "Imechujwa kwa tagi:"
 #: src/components/layout/forums-layout.tsx
 #: src/routes/_authenticated/find.tsx
 msgid "Find forums"
-msgstr "Tafuta makongamano"
+msgstr "Tafuta majukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Fingerprint"
@@ -1554,20 +1573,21 @@ msgstr "Tambarare"
 msgid "forum"
 msgstr "jukwaa"
 
+#: src/features/forums/components/forum-gone.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/thread-detail.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Forum"
-msgstr "Kongamano"
+msgstr "Jukwaa"
 
 #: src/hooks/use-forums-queries.ts
 msgid "Forum created"
-msgstr "Kongamano limeundwa"
+msgstr "Jukwaa limeundwa"
 
 #: src/hooks/use-forums-queries.ts
 msgid "Forum deleted"
-msgstr "Kongamano limefutwa"
+msgstr "Jukwaa limefutwa"
 
 #: src/hooks/use-forum-websocket.ts
 msgid "Forum is no longer available"
@@ -1579,31 +1599,31 @@ msgstr "Kiungo cha jukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Forum name is required"
-msgstr "Jina la kongamano linahitajika"
+msgstr "Jina la jukwaa linahitajika"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Forum not found"
-msgstr "Kongamano halikupatikana"
+msgstr "Jukwaa halikupatikana"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Forum renamed"
-msgstr "Kongamano limebadilishwa jina"
+msgstr "Jukwaa limebadilishwa jina"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Forum settings sections"
-msgstr "Sehemu za mipangilio ya kongamano"
+msgstr "Sehemu za mipangilio ya jukwaa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Forum unavailable"
-msgstr "Kongamano halipatikani"
+msgstr "Jukwaa halipatikani"
 
 #: src/components/layout/forums-layout.tsx
 #: src/features/forums/components/forum-overview.tsx
 #: src/features/forums/pages/forums-list-page.tsx
 #: src/features/forums/pages/forums-list-page.tsx
 msgid "Forums"
-msgstr "Makongamano"
+msgstr "Majukwaa"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Friday"
@@ -3247,11 +3267,15 @@ msgstr "Seva ilirudisha ukurasa wa wavuti badala ya data."
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Their votes in this forum are deleted."
-msgstr "Kura za mtu huyu katika kongamano hili zitafutwa."
+msgstr "Kura za mtu huyu katika jukwaa hili zitafutwa."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "There are no moderation actions recorded yet"
 msgstr "Hakuna vitendo vya udhibiti vilivyorekodiwa bado"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "They can no longer view this forum."
+msgstr "Hataweza kuona jukwaa hili tena."
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
@@ -3269,6 +3293,10 @@ msgstr "Jukwaa hili haliwezi kupakiwa sasa hivi."
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Jukwaa hili linaweza kuwa limefutwa au huna ufikiaji wake."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "This forum was deleted"
+msgstr "Jukwaa hili lilifutwa"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
@@ -3646,6 +3674,10 @@ msgstr "Huna ruhusa ya kuchapisha katika jukwaa hili"
 #: src/features/forums/components/forum-overview.tsx
 msgid "You have no forums yet."
 msgstr "Bado huna majukwaa yoyote."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "You were removed from this forum"
+msgstr "Umeondolewa kwenye jukwaa hili"
 
 #: src/features/forums/pages/entity-forum-page.tsx
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."

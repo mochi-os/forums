@@ -468,6 +468,8 @@ msgstr "ಹಿಂದೆ"
 msgid "Back to forum"
 msgstr "ಫೋರಮ್‌ಗೆ ಹಿಂದೆ"
 
+#: src/features/forums/components/forum-gone.tsx
+#: src/features/forums/components/forum-gone.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Back to forums"
 msgstr "ಫೋರಮ್‌ಗಳಿಗೆ ಹಿಂದೆ"
@@ -518,6 +520,19 @@ msgstr "ಬ್ಯಾನರ್ ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Banner updated"
 msgstr "ಬ್ಯಾನರ್ ನವೀಕರಿಸಲಾಗಿದೆ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block"
+msgstr "ನಿರ್ಬಂಧಿಸಿ"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Block {name}"
+msgstr "{name} ಅವರನ್ನು ನಿರ್ಬಂಧಿಸಿ"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block {name}?"
+msgstr "{name} ಅವರನ್ನು ನಿರ್ಬಂಧಿಸಬೇಕೆ?"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -1281,6 +1296,10 @@ msgstr "ಆಸಕ್ತಿ ಹೊಂದಿಸಲು ವಿಫಲವಾಗಿದ�
 msgid "Failed to ban user"
 msgstr "ಬಳಕೆದಾರರನ್ನು ನಿಷೇಧಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
+#: src/hooks/use-forums-queries.ts
+msgid "Failed to block member"
+msgstr "ಸದಸ್ಯರನ್ನು ನಿರ್ಬಂಧಿಸಲು ವಿಫಲವಾಗಿದೆ"
+
 #: src/lib/saved.ts
 msgid "Failed to clear saved posts"
 msgstr "ಉಳಿಸಿದ ಪೋಸ್ಟ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿಸಲು ವಿಫಲವಾಗಿದೆ"
@@ -1554,6 +1573,7 @@ msgstr "ಸಪಾಟು"
 msgid "forum"
 msgstr "ವೇದಿಕೆ"
 
+#: src/features/forums/components/forum-gone.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/thread-detail.tsx
@@ -3253,6 +3273,10 @@ msgstr "ಈ ವ್ಯಕ್ತಿಯ ಮತಗಳನ್ನು ಈ ಫೋರಮ�
 msgid "There are no moderation actions recorded yet"
 msgstr "ಇನ್ನೂ ಯಾವುದೇ ಮಾಡರೇಶನ್ ಕ್ರಿಯೆಗಳನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಲಾಗಿಲ್ಲ"
 
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "They can no longer view this forum."
+msgstr "ಅವರು ಇನ್ನು ಮುಂದೆ ಈ ಫೋರಮ್ ಅನ್ನು ನೋಡಲು ಸಾಧ್ಯವಿಲ್ಲ."
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "ಈ ಆ್ಯಪ್‌ಗೆ ನಿಮ್ಮ ಪಾಸ್‌ಕೀ ಬಳಸಲು ಅನುಮತಿ ಇಲ್ಲ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ, ಅನುಮತಿಗಳ ಅಡಿಯಲ್ಲಿ ಅದನ್ನು ಅನುಮತಿಸಿ."
@@ -3269,6 +3293,10 @@ msgstr "ಈ ವೇದಿಕೆಯನ್ನು ಇದೀಗ ಲೋಡ್ ಮಾ�
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "ಈ ವೇದಿಕೆಯನ್ನು ಅಳಿಸಿರಬಹುದು ಅಥವಾ ನಿಮಗೆ ಅದಕ್ಕೆ ಪ್ರವೇಶವಿಲ್ಲದಿರಬಹುದು."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "This forum was deleted"
+msgstr "ಈ ಫೋರಮ್ ಅನ್ನು ಅಳಿಸಲಾಗಿದೆ"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
@@ -3646,6 +3674,10 @@ msgstr "ಈ ವೇದಿಕೆಯಲ್ಲಿ ಪೋಸ್ಟ್ ಮಾಡಲು
 #: src/features/forums/components/forum-overview.tsx
 msgid "You have no forums yet."
 msgstr "ನಿಮಗೆ ಇನ್ನೂ ಯಾವುದೇ ಫೋರಂಗಳಿಲ್ಲ."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "You were removed from this forum"
+msgstr "ನಿಮ್ಮನ್ನು ಈ ಫೋರಮ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 
 #: src/features/forums/pages/entity-forum-page.tsx
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."

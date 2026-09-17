@@ -468,6 +468,8 @@ msgstr "Takaisin"
 msgid "Back to forum"
 msgstr "Takaisin foorumille"
 
+#: src/features/forums/components/forum-gone.tsx
+#: src/features/forums/components/forum-gone.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Back to forums"
 msgstr "Takaisin foorumeille"
@@ -518,6 +520,19 @@ msgstr "Banneri poistettu"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Banner updated"
 msgstr "Banneri päivitetty"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block"
+msgstr "Estä"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Block {name}"
+msgstr "Estä {name}"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block {name}?"
+msgstr "Estetäänkö {name}?"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -1281,6 +1296,10 @@ msgstr "Kiinnostuksen kohteen säätäminen epäonnistui"
 msgid "Failed to ban user"
 msgstr "Käyttäjän estäminen epäonnistui"
 
+#: src/hooks/use-forums-queries.ts
+msgid "Failed to block member"
+msgstr "Jäsenen estäminen epäonnistui"
+
 #: src/lib/saved.ts
 msgid "Failed to clear saved posts"
 msgstr "Tallennettujen julkaisujen tyhjentäminen epäonnistui"
@@ -1554,6 +1573,7 @@ msgstr "Litteä"
 msgid "forum"
 msgstr "foorumi"
 
+#: src/features/forums/components/forum-gone.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/thread-detail.tsx
@@ -3253,6 +3273,10 @@ msgstr "Tämän henkilön äänet tällä foorumilla poistetaan."
 msgid "There are no moderation actions recorded yet"
 msgstr "Moderointitoimia ei ole vielä kirjattu"
 
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "They can no longer view this forum."
+msgstr "Hän ei voi enää nähdä tätä foorumia."
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Tämä sovellus ei saa käyttää avainkoodiasi. Salli se Asetuksissa kohdassa Käyttöoikeudet."
@@ -3269,6 +3293,10 @@ msgstr "Tätä foorumia ei voitu ladata juuri nyt."
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "Tämä foorumi on saatettu poistaa tai sinulla ei ole pääsyä siihen."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "This forum was deleted"
+msgstr "Tämä foorumi poistettiin"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
@@ -3646,6 +3674,10 @@ msgstr "Sinulla ei ole lupaa lähettää viestejä tällä foorumilla"
 #: src/features/forums/components/forum-overview.tsx
 msgid "You have no forums yet."
 msgstr "Sinulla ei ole vielä foorumeita."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "You were removed from this forum"
+msgstr "Sinut poistettiin tästä foorumista"
 
 #: src/features/forums/pages/entity-forum-page.tsx
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."

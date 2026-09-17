@@ -11,7 +11,7 @@ import {
   entityWebsocketManager,
   type EntityWebsocketEvent,
 } from '@mochi/web'
-import { forumsKeys } from './use-forums-queries'
+import { forumsKeys, forumsInfoQueryOptions } from './use-forums-queries'
 
 interface ForumWebsocketEvent {
   type:
@@ -36,6 +36,8 @@ interface ForumWebsocketEvent {
     | 'tag/add'
     | 'tag/remove'
     | 'forum/update'
+    | 'forum/removed'
+    | 'forum/deleted'
   forum: string
   post?: string
   comment?: string
@@ -86,15 +88,21 @@ export function rejectMessage(
   }
 }
 
+// Why a forum the page was showing is gone: its owner removed this user from
+// it, or deleted it.
+export type ForumGoneReason = 'removed' | 'deleted'
+
 /**
  * Subscribe to a forum's websocket events. With `onNewPost`, `post/create`
- * events go to the callback instead of invalidating the posts list.
+ * events go to the callback instead of invalidating the posts list. `onGone`
+ * fires when the owner removes this user from the forum or deletes it.
  */
 export function useForumWebsocket(
   forumKey?: string,
   userId?: string,
   onNewPost?: (postId?: string) => void,
-  onSync?: () => void
+  onSync?: () => void,
+  onGone?: (reason: ForumGoneReason) => void
 ) {
   const queryClient = useQueryClient()
   const authReady = useAuthStore((state) => state.isInitialized)
@@ -109,6 +117,8 @@ export function useForumWebsocket(
   onNewPostRef.current = onNewPost
   const onSyncRef = useRef(onSync)
   onSyncRef.current = onSync
+  const onGoneRef = useRef(onGone)
+  onGoneRef.current = onGone
 
   useEffect(() => {
     if (!authReady) return
@@ -119,6 +129,19 @@ export function useForumWebsocket(
 
       // Skip events from the current user (optimistic UI already applied)
       if (userIdRef.current && data.sender === userIdRef.current) return
+
+      // The owner removed this user from the forum, or deleted it. The local
+      // replica is already purged, so refresh the sidebar list and let the
+      // page say why instead of failing on its next fetch.
+      if (data.type === 'forum/removed' || data.type === 'forum/deleted') {
+        void queryClient.invalidateQueries({
+          queryKey: forumsInfoQueryOptions().queryKey,
+        })
+        onGoneRef.current?.(
+          data.type === 'forum/removed' ? 'removed' : 'deleted'
+        )
+        return
+      }
 
       const forumId = data.forum
 

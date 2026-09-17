@@ -59,6 +59,7 @@ import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
 import {
   forumsKeys,
+  useBlockForumMember,
   useDeleteForum,
   useForumAccess,
   useForumInfo,
@@ -794,11 +795,13 @@ interface MembersSectionProps {
   canRemove: boolean
 }
 
-// Removing a member is not the same as revoking their access: a revoke leaves
-// them on the fan-out and replay roster, so new posts keep reaching them.
-// `canRemove` follows the access rules query, which is the only source of the
-// owner's id; without it the owner's own row could offer a removal the server
-// ignores.
+// Removing a member drops their membership and nothing more: a public forum's
+// wildcard grants still admit them, and they may join again. Blocking is the
+// "No access" level from the Access tab, offered here on the row: a deny on
+// every level, and the server drops the membership with it. Either way the
+// member's own host purges its replica and tells them. `canRemove` follows the
+// access rules query, which is the only source of the owner's id; without it
+// the owner's own row could offer a removal the server ignores.
 // Exported for its test; not a route entry point.
 export function MembersSection({
   forumId,
@@ -808,10 +811,14 @@ export function MembersSection({
   const { t } = useLingui()
   const { data, isLoading, error, refetch } = useForumMembers(forumId)
   const removeMember = useRemoveForumMember(forumId)
-  const [pending, setPending] = useState<{ id: string; name: string } | null>(
-    null
-  )
+  const blockMember = useBlockForumMember(forumId)
+  const [pending, setPending] = useState<{
+    id: string
+    name: string
+    kind: 'remove' | 'block'
+  } | null>(null)
 
+  const busy = removeMember.isPending || blockMember.isPending
   const name = pending?.name ?? ''
   const assetUrl = (id: string, asset: 'avatar' | 'style') =>
     `${getAppPath()}/${forumId}/-/members/${encodeURIComponent(id)}/asset/${asset}`
@@ -832,10 +839,24 @@ export function MembersSection({
         onRemove={
           canRemove
             ? (member) =>
-                setPending({ id: member.id, name: member.name || member.id })
+                setPending({
+                  id: member.id,
+                  name: member.name || member.id,
+                  kind: 'remove',
+                })
             : undefined
         }
-        disabled={removeMember.isPending}
+        onBlock={
+          canRemove
+            ? (member) =>
+                setPending({
+                  id: member.id,
+                  name: member.name || member.id,
+                  kind: 'block',
+                })
+            : undefined
+        }
+        disabled={busy}
         isLoading={isLoading}
         error={error ? toError(error, t`Failed to load members`) : null}
         onRetry={() => {
@@ -846,16 +867,24 @@ export function MembersSection({
       <ConfirmDialog
         open={pending !== null}
         onOpenChange={(open) => {
-          if (!open && !removeMember.isPending) setPending(null)
+          if (!open && !busy) setPending(null)
         }}
-        title={t`Remove ${name}?`}
-        desc={t`Their votes in this forum are deleted.`}
-        confirmText={t`Remove`}
+        title={
+          pending?.kind === 'block' ? t`Block ${name}?` : t`Remove ${name}?`
+        }
+        desc={
+          pending?.kind === 'block'
+            ? t`They can no longer view this forum.`
+            : t`Their votes in this forum are deleted.`
+        }
+        confirmText={pending?.kind === 'block' ? t`Block` : t`Remove`}
         destructive
-        isLoading={removeMember.isPending}
+        isLoading={busy}
         handleConfirm={() => {
           if (!pending) return
-          removeMember.mutate(pending.id, { onSuccess: () => setPending(null) })
+          const done = { onSuccess: () => setPending(null) }
+          if (pending.kind === 'block') blockMember.mutate(pending.id, done)
+          else removeMember.mutate(pending.id, done)
         }}
       />
     </Section>

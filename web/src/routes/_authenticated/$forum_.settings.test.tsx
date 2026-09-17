@@ -12,7 +12,7 @@ import forumsApi from '@/api/forums'
 import { MembersSection } from './$forum_.settings'
 
 vi.mock('@/api/forums', () => ({
-  default: { listMembers: vi.fn(), removeMember: vi.fn() },
+  default: { listMembers: vi.fn(), removeMember: vi.fn(), setAccess: vi.fn() },
 }))
 
 const members = [
@@ -54,15 +54,46 @@ describe('MembersSection', () => {
     expect(
       screen.queryByRole('button', { name: /Remove Owner Person/ })
     ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /Block Owner Person/ })
+    ).not.toBeInTheDocument()
   })
 
-  it('hides the remove control on every row when canRemove is false', async () => {
+  it('hides the remove and block controls on every row when canRemove is false', async () => {
     renderSection(false)
 
     await screen.findByText('Member One')
     expect(
       screen.queryByRole('button', { name: /Remove/ })
     ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /Block/ })
+    ).not.toBeInTheDocument()
+  })
+
+  it('blocks a member through the No access level after the confirm dialog is accepted', async () => {
+    vi.mocked(forumsApi.setAccess).mockResolvedValue({
+      data: { forum: 'f1', target: 'member-1', level: 'none' },
+    } as never)
+    const user = userEvent.setup()
+    renderSection(true)
+
+    await user.click(
+      await screen.findByRole('button', { name: /Block Member One/ })
+    )
+    await user.click(await screen.findByRole('button', { name: 'Block' }))
+
+    await waitFor(() =>
+      expect(forumsApi.setAccess).toHaveBeenCalledWith({
+        forum: 'f1',
+        user: 'member-1',
+        level: 'none',
+      })
+    )
+    expect(forumsApi.removeMember).not.toHaveBeenCalled()
+    await waitFor(() =>
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    )
   })
 
   it('removes a member after the confirm dialog is accepted', async () => {

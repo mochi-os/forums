@@ -23,7 +23,10 @@ import {
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'
-import { useForumWebsocket } from '@/hooks/use-forum-websocket'
+import {
+  useForumWebsocket,
+  type ForumGoneReason,
+} from '@/hooks/use-forum-websocket'
 import {
   usePostDetail,
   useVotePost,
@@ -48,6 +51,7 @@ import {
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { ForumBanner } from './components/forum-banner'
+import { ForumGone } from './components/forum-gone'
 import { ReportDialog } from './components/report-dialog'
 import { AttachmentComments } from './components/thread/attachment-comments'
 import { EmptyThreadState } from './components/thread/empty-thread-state'
@@ -146,10 +150,17 @@ export function ThreadDetail({
 
   usePageTitle(postData?.data?.post?.title ?? t`Thread`)
 
+  // Set when the owner removes this user from the forum, or deletes it, while
+  // the page is open.
+  const [gone, setGone] = useState<ForumGoneReason | null>(null)
+
   // Real-time updates via WebSocket
   useForumWebsocket(
     postData?.data?.forum?.fingerprint,
-    postData?.data?.member?.id
+    postData?.data?.member?.id,
+    undefined,
+    undefined,
+    setGone
   )
 
   const forumTitle = postData?.data?.forum?.name || t`Forum`
@@ -313,6 +324,8 @@ export function ThreadDetail({
   const handleBack = () => {
     void goBackToForumContext()
   }
+
+  if (gone) return <ForumGone reason={gone} />
 
   if (isLoading) {
     return (

@@ -28,7 +28,10 @@ import { Loader2, Rss, SquarePen, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { useForumWebsocket } from '@/hooks/use-forum-websocket'
+import {
+  useForumWebsocket,
+  type ForumGoneReason,
+} from '@/hooks/use-forum-websocket'
 import {
   useForumMembership,
   useCreatePost,
@@ -39,6 +42,7 @@ import {
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { OptionsMenu } from '@/components/options-menu'
 import { ForumBanner } from '../components/forum-banner'
+import { ForumGone } from '../components/forum-gone'
 import { ForumOverview } from '../components/forum-overview'
 
 interface EntityForumPageProps {
@@ -150,6 +154,10 @@ export function EntityForumPage({
     void refetch()
   }, [newPosts, refetch])
 
+  // Set when the owner removes this user from the forum, or deletes it, while
+  // the page is open.
+  const [gone, setGone] = useState<ForumGoneReason | null>(null)
+
   // Real-time updates via WebSocket. onSync re-runs the route loader when the
   // owner finishes pushing a fresh subscriber's initial posts (server flips
   // `populated`), so the board leaves its loading state.
@@ -157,7 +165,8 @@ export function EntityForumPage({
     forum.fingerprint,
     forumMember?.id,
     (postId) => newPosts.add(postId),
-    () => void router.invalidate()
+    () => void router.invalidate(),
+    setGone
   )
 
   // Fallback for the websocket race: if forum/update is missed, poll the loader
@@ -260,6 +269,8 @@ export function EntityForumPage({
   const canPost = forumData?.can_post ?? permissions?.post ?? false
   const isRemoteForum = !isSubscribed
   const canUnsubscribe = isSubscribed && !canManage
+
+  if (gone) return <ForumGone reason={gone} />
 
   return (
     <>

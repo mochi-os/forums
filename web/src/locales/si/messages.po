@@ -468,6 +468,8 @@ msgstr "ආපසු"
 msgid "Back to forum"
 msgstr "සංසදය වෙත ආපසු"
 
+#: src/features/forums/components/forum-gone.tsx
+#: src/features/forums/components/forum-gone.tsx
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "Back to forums"
 msgstr "සංසද වෙත ආපසු"
@@ -518,6 +520,19 @@ msgstr "බැනරය ඉවත් කළා"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Banner updated"
 msgstr "බැනරය යාවත්කාලීන කළා"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block"
+msgstr "අවහිර කරන්න"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Block {name}"
+msgstr "{name} අවහිර කරන්න"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Block {name}?"
+msgstr "{name} අවහිර කරන්නද?"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -1281,6 +1296,10 @@ msgstr "උනන්දුව සකස් කිරීමට අසමත් �
 msgid "Failed to ban user"
 msgstr "පරිශීලකයා තහනම් කිරීමට අසමත් විය"
 
+#: src/hooks/use-forums-queries.ts
+msgid "Failed to block member"
+msgstr "සාමාජිකයා අවහිර කිරීමට අසමත් විය"
+
 #: src/lib/saved.ts
 msgid "Failed to clear saved posts"
 msgstr "සුරැකූ පළ කිරීම් හිස් කිරීමට අසමත් විය"
@@ -1554,6 +1573,7 @@ msgstr "පැතලි"
 msgid "forum"
 msgstr "සංසදය"
 
+#: src/features/forums/components/forum-gone.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/pages/entity-forum-page.tsx
 #: src/features/forums/thread-detail.tsx
@@ -2798,7 +2818,7 @@ msgstr "RSS ප්‍රවේශය අවලංගු කරන ලදී"
 
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "RSS feed"
-msgstr "RSS පෝෂණය"
+msgstr "RSS සංග්‍රහය"
 
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "RSS URL copied to clipboard"
@@ -3253,6 +3273,10 @@ msgstr "මෙම පුද්ගලයාගේ ඡන්ද මෙම සභ�
 msgid "There are no moderation actions recorded yet"
 msgstr "තවමත් කිසිදු මධ්‍යස්ථකරණ ක්‍රියාවක් වාර්තා කර නොමැත"
 
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "They can no longer view this forum."
+msgstr "ඔවුන්ට තවදුරටත් මෙම සංසදය බැලීමට නොහැක."
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "මෙම යෙදුමට ඔබගේ passkey භාවිතා කිරීමට අවසර නැත. සැකසුම් තුළ, අවසර යටතේ එයට ඉඩ දෙන්න."
@@ -3269,6 +3293,10 @@ msgstr "මෙම සංසදය දැන් පූරණය කළ නොහ�
 #: src/routes/_authenticated/$forum/index.tsx
 msgid "This forum may have been deleted or you don't have access to it."
 msgstr "මෙම සංසදය මකා දමා ඇති විය හැකිය හෝ ඔබට එයට ප්‍රවේශය නොමැත."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "This forum was deleted"
+msgstr "මෙම සංසදය මකා ඇත"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
@@ -3646,6 +3674,10 @@ msgstr "මෙම සංසදයේ පළ කිරීමට ඔබට අව�
 #: src/features/forums/components/forum-overview.tsx
 msgid "You have no forums yet."
 msgstr "ඔබට තවමත් සංසද නොමැත."
+
+#: src/features/forums/components/forum-gone.tsx
+msgid "You were removed from this forum"
+msgstr "ඔබව මෙම සංසදයෙන් ඉවත් කර ඇත"
 
 #: src/features/forums/pages/entity-forum-page.tsx
 msgid "You will stop receiving updates from this forum. You can re-subscribe at any time."
