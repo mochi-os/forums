@@ -92,9 +92,23 @@ msgstr "{count, plural, one {#د} other {#د}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ه} other {#ه}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}، {from} تا {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "نام {entityLabel}"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} تا {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# مورد دیگر} other {+# مورد دیگر}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
@@ -318,6 +332,11 @@ msgstr "عملیات هوش مصنوعی روی پست‌ها"
 msgid "All"
 msgstr "همه"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "تمام‌روز"
+
 #: src/components/layout/data/sidebar-data.ts
 #: src/components/layout/forums-layout.tsx
 msgid "All forums"
@@ -418,6 +437,10 @@ msgstr "آیا از تسلیم شدن مطمئن هستید؟ {opponentName} ب�
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "صعودی"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "در دریا"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -571,6 +594,10 @@ msgstr "توسط {0}"
 msgid "By {0}"
 msgstr "توسط {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "سرور تقویم"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "مجوز دوربین رد شد"
@@ -636,6 +663,11 @@ msgstr "تغییر کرد"
 msgid "Changed {field}"
 msgstr "{field} تغییر کرد"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "رخداد تغییریافته"
+
 #: src/features/forums/components/forum-overview.tsx
 msgid "Check back later for new content"
 msgstr "بعداً برای محتوای جدید سر بزنید"
@@ -647,6 +679,10 @@ msgstr "کادر انتخاب"
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checklist"
 msgstr "چک‌لیست"
+
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "یک تاریخ انتخاب کنید"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
@@ -724,6 +760,7 @@ msgid "Collapse sidebar"
 msgstr "جمع کردن نوار کناری"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "رنگ"
 
@@ -863,6 +900,10 @@ msgstr "ادامه"
 msgid "Continue with {label}"
 msgstr "ادامه با {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "ادامه با {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "کپی شد"
@@ -871,6 +912,10 @@ msgstr "کپی شد"
 msgid "Copied to clipboard"
 msgstr "در کلیپ‌بورد کپی شد"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "کپی"
@@ -1216,6 +1261,10 @@ msgstr "ایمیل"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "کد ایمیل"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "پیش از شروع پایان می‌یابد"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1902,6 +1951,10 @@ msgstr "بخش‌های نظارت"
 msgid "Monday"
 msgstr "دوشنبه"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "ماه"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1915,6 +1968,13 @@ msgstr "جابه‌جا شد"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "{field} جابه‌جا شد"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "در حال جابه‌جایی به {0}"
 
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1998,6 +2058,14 @@ msgstr "آستانه کاربران جدید:"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "تصویر بعدی"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "ماه بعد"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "سال بعد"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2418,6 +2486,14 @@ msgstr "با محدود کردن تعداد دفعات ارسال کاربران
 msgid "Previous image"
 msgstr "تصویر قبلی"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "ماه قبل"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "سال قبل"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2636,6 +2712,11 @@ msgstr "تغییر نام این ستون تخته"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Renaming forum..."
 msgstr "در حال تغییر نام انجمن..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "تکرار می‌شود"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "replies"
@@ -3599,6 +3680,10 @@ msgstr "چهارشنبه"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Window duration"
 msgstr "مدت پنجره"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "سال"
 
 #: src/features/forums/components/inline-forum-search.tsx
 #: src/features/forums/components/recommended-forums.tsx

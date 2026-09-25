@@ -92,9 +92,23 @@ msgstr "{count, plural, one {#mnt} other {#mnt}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#mk} other {#mk}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, {from} zuwa {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "Sunan {entityLabel}"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} zuwa {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# ƙari} other {+# ƙari}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
@@ -318,6 +332,11 @@ msgstr "Ayyukan AI a kan saƙonni"
 msgid "All"
 msgstr "Duk"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "Duk rana"
+
 #: src/components/layout/data/sidebar-data.ts
 #: src/components/layout/forums-layout.tsx
 msgid "All forums"
@@ -418,6 +437,10 @@ msgstr "Kana da tabbacin kana son mika wuya? {opponentName} zai lashe wasan."
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Hawa sama"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "A teku"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -571,6 +594,10 @@ msgstr "ta hannun {0}"
 msgid "By {0}"
 msgstr "Ta hannun {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "Sabar kalanda"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "An ƙi izinin kyamara"
@@ -636,6 +663,11 @@ msgstr "An canza"
 msgid "Changed {field}"
 msgstr "An canza {field}"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "Maimaicin da aka canza"
+
 #: src/features/forums/components/forum-overview.tsx
 msgid "Check back later for new content"
 msgstr "Sake duba daga baya don sabon abun ciki"
@@ -647,6 +679,10 @@ msgstr "Checkbox"
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checklist"
 msgstr "Checklist"
+
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "Zaɓi kwanan wata"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
@@ -724,6 +760,7 @@ msgid "Collapse sidebar"
 msgstr "Rufe sidebar"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "Launi"
 
@@ -863,6 +900,10 @@ msgstr "Ci gaba"
 msgid "Continue with {label}"
 msgstr "Ci gaba da {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "Ci gaba da {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "An kwafi"
@@ -871,6 +912,10 @@ msgstr "An kwafi"
 msgid "Copied to clipboard"
 msgstr "An kwafi zuwa clipboard"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kwafi"
@@ -1216,6 +1261,10 @@ msgstr "Imel"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "Lambar imel"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "Yana ƙarewa kafin ya fara"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1902,6 +1951,10 @@ msgstr "Sashen moderation"
 msgid "Monday"
 msgstr "Litinin"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "Wata"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1915,6 +1968,13 @@ msgstr "An matsar"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "An matsar da {field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "Ana matsawa zuwa {0}"
 
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1998,6 +2058,14 @@ msgstr "Iyakar sabon mai amfani:"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "Hoton na gaba"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "Wata mai zuwa"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "Shekara mai zuwa"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2418,6 +2486,14 @@ msgstr "Hana spam ta hanyar iyakance yawan posting da masu amfani za su iya yi"
 msgid "Previous image"
 msgstr "Hoton da ya gabata"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "Watan da ya gabata"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "Shekarar da ta gabata"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2636,6 +2712,11 @@ msgstr "Sake suna wannan column na board"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Renaming forum..."
 msgstr "Ana sake suna dandalin tattaunawa..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "Yana maimaituwa"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "replies"
@@ -3599,6 +3680,10 @@ msgstr "Laraba"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Window duration"
 msgstr "Tsawon window"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "Shekara"
 
 #: src/features/forums/components/inline-forum-search.tsx
 #: src/features/forums/components/recommended-forums.tsx

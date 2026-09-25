@@ -92,9 +92,23 @@ msgstr "{count, plural, one {#នាទី} other {#នាទី}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#សប្ដាហ៍} other {#សប្ដាហ៍}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, {from} ដល់ {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "ឈ្មោះ {entityLabel}"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} ដល់ {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, other {+# បន្ថែមទៀត}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
@@ -318,6 +332,11 @@ msgstr "សកម្មភាព AI លើការបង្ហោះ"
 msgid "All"
 msgstr "ទាំងអស់"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "ពេញមួយថ្ងៃ"
+
 #: src/components/layout/data/sidebar-data.ts
 #: src/components/layout/forums-layout.tsx
 msgid "All forums"
@@ -418,6 +437,10 @@ msgstr "តើអ្នកប្រាកដថាចង់លាលែងពី
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "តាមលំដាប់កើន"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "នៅសមុទ្រ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -571,6 +594,10 @@ msgstr "ដោយ {0}"
 msgid "By {0}"
 msgstr "ដោយ {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "ម៉ាស៊ីនមេប្រតិទិន"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "សិទ្ធិកាមេរ៉ាត្រូវបានបដិសេធ"
@@ -636,6 +663,11 @@ msgstr "បានផ្លាស់ប្ដូរ"
 msgid "Changed {field}"
 msgstr "បានផ្លាស់ប្ដូរ {field}"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "ការកើតឡើងដែលបានផ្លាស់ប្តូរ"
+
 #: src/features/forums/components/forum-overview.tsx
 msgid "Check back later for new content"
 msgstr "ត្រឡប់មកវិញនៅពេលក្រោយសម្រាប់មាតិកាថ្មី"
@@ -647,6 +679,10 @@ msgstr "ប្រអប់ធីក"
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checklist"
 msgstr "បញ្ជីពិនិត្យ"
+
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "ជ្រើសរើសកាលបរិច្ឆេទ"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
@@ -724,6 +760,7 @@ msgid "Collapse sidebar"
 msgstr "បង្រួមរបារចំហៀង"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "ពណ៌"
 
@@ -863,6 +900,10 @@ msgstr "បន្ត"
 msgid "Continue with {label}"
 msgstr "បន្តជាមួយ {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "បន្តជាមួយ {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "បានចម្លង"
@@ -871,6 +912,10 @@ msgstr "បានចម្លង"
 msgid "Copied to clipboard"
 msgstr "បានចម្លងទៅក្ដារតម្បៀតខ្ទាស់"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "ចម្លង"
@@ -1216,6 +1261,10 @@ msgstr "អ៊ីមែល"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "កូដអ៊ីមែល"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "បញ្ចប់មុនពេលចាប់ផ្ដើម"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1902,6 +1951,10 @@ msgstr "ផ្នែកការសម្របសម្រួល"
 msgid "Monday"
 msgstr "ថ្ងៃច័ន្ទ"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "ខែ"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1915,6 +1968,13 @@ msgstr "បានផ្លាស់ទី"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "បានផ្លាស់ទី {field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "កំពុងផ្លាស់ទីទៅ {0}"
 
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1998,6 +2058,14 @@ msgstr "កម្រិតអ្នកប្រើថ្មី៖"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "រូបភាពបន្ទាប់"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "ខែក្រោយ"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "ឆ្នាំក្រោយ"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2418,6 +2486,14 @@ msgstr "ការពារ spam ដោយកំណត់ប្រេកង់ដ
 msgid "Previous image"
 msgstr "រូបភាពមុន"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "ខែមុន"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "ឆ្នាំមុន"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2636,6 +2712,11 @@ msgstr "ប្តូរឈ្មោះជួរឈរក្តារនេះ"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Renaming forum..."
 msgstr "កំពុងប្តូរឈ្មោះវេទិកា..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "ធ្វើឡើងវិញ"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "replies"
@@ -3599,6 +3680,10 @@ msgstr "ថ្ងៃពុធ"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Window duration"
 msgstr "រយៈពេលបង្អួច"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "ឆ្នាំ"
 
 #: src/features/forums/components/inline-forum-search.tsx
 #: src/features/forums/components/recommended-forums.tsx

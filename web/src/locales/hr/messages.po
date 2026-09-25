@@ -92,9 +92,23 @@ msgstr "{count, plural, one {#min} other {#min}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#tj} other {#tj}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, od {from} do {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "Naziv {entityLabel}"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "od {from} do {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# više} few {+# više} other {+# više}}"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "{n, plural, one {Approved # item} other {Approved # items}}"
@@ -318,6 +332,11 @@ msgstr "AI radnje na objavama"
 msgid "All"
 msgstr "Sve"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "Cijeli dan"
+
 #: src/components/layout/data/sidebar-data.ts
 #: src/components/layout/forums-layout.tsx
 msgid "All forums"
@@ -418,6 +437,10 @@ msgstr "Jeste li sigurni da želite predati partiju? {opponentName} će dobiti i
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Uzlazno"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "Na moru"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -571,6 +594,10 @@ msgstr "od {0}"
 msgid "By {0}"
 msgstr "Od {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "Poslužitelj kalendara"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "Dozvola za kameru je odbijena"
@@ -636,6 +663,11 @@ msgstr "Promijenjeno"
 msgid "Changed {field}"
 msgstr "Promijenjeno {field}"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "Izmijenjeno pojavljivanje"
+
 #: src/features/forums/components/forum-overview.tsx
 msgid "Check back later for new content"
 msgstr "Provjerite kasnije za novi sadržaj"
@@ -647,6 +679,10 @@ msgstr "Potvrdni okvir"
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checklist"
 msgstr "Lista"
+
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "Odaberite datum"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
@@ -724,6 +760,7 @@ msgid "Collapse sidebar"
 msgstr "Sažmi bočnu traku"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "Boja"
 
@@ -863,6 +900,10 @@ msgstr "Nastavi"
 msgid "Continue with {label}"
 msgstr "Nastavi s {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "Nastavi s {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Kopirano"
@@ -871,6 +912,10 @@ msgstr "Kopirano"
 msgid "Copied to clipboard"
 msgstr "Kopirano u međuspremnik"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopiraj"
@@ -1216,6 +1261,10 @@ msgstr "E-pošta"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "Kod e-pošte"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "Završava prije nego što počne"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1902,6 +1951,10 @@ msgstr "Odjeljci moderacije"
 msgid "Monday"
 msgstr "Ponedjeljak"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "Mjesec"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1915,6 +1968,13 @@ msgstr "Premješteno"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "Premješteno {field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "Premještanje na {0}"
 
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
@@ -1998,6 +2058,14 @@ msgstr "Prag za nove korisnike:"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "Sljedeća slika"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "Sljedeći mjesec"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "Sljedeća godina"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2418,6 +2486,14 @@ msgstr "Sprječavajte spam ograničavanjem koliko često korisnici mogu objavlji
 msgid "Previous image"
 msgstr "Prethodna slika"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "Prethodni mjesec"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "Prethodna godina"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2636,6 +2712,11 @@ msgstr "Preimenuj ovaj stupac ploče"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Renaming forum..."
 msgstr "Preimenovanje foruma..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "Ponavlja se"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "replies"
@@ -3599,6 +3680,10 @@ msgstr "Srijeda"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Window duration"
 msgstr "Trajanje prozora"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "Godina"
 
 #: src/features/forums/components/inline-forum-search.tsx
 #: src/features/forums/components/recommended-forums.tsx
