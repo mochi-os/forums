@@ -457,7 +457,7 @@ msgstr "អ្នកប្រើដែលបានផ្ទៀងផ្ទាត
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Authenticator code"
-msgstr "កូដ Authenticator"
+msgstr "កូដកម្មវិធីផ្ទៀងផ្ទាត់"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Available keyboard shortcuts"
@@ -788,6 +788,7 @@ msgid "Command Palette"
 msgstr "ផ្ទាំងពាក្យបញ្ជា"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Comment"
 msgstr "មតិយោបល់"
 
@@ -1174,9 +1175,13 @@ msgstr "បានផ្ដាច់"
 
 #: ../../../lib/web/src/components/restore-banner.tsx
 #: ../../../lib/web/src/components/restore-banner.tsx
-#: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Dismiss"
 msgstr "បិទ"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "moderation decision"
+msgid "Dismiss"
+msgstr "ច្រានចោល"
 
 #: src/features/forums/components/forum-banner.tsx
 #: src/features/forums/components/forum-banner.tsx
@@ -1284,7 +1289,7 @@ msgstr "បញ្ចូលកូដពីអ៊ីមែលរបស់អ្ន
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter your authenticator code"
-msgstr "បញ្ចូលកូដ authenticator របស់អ្នក"
+msgstr "បញ្ចូលកូដកម្មវិធីផ្ទៀងផ្ទាត់របស់អ្នក"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Entity ID"
@@ -1718,7 +1723,7 @@ msgstr "ប្រវត្តិ"
 #: ../../../lib/web/src/components/layout/top-bar.tsx
 #: ../../../lib/web/src/components/layout/top-bar.tsx
 msgid "Home"
-msgstr "ដើម"
+msgstr "ទំព័រដើម"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx
 msgid "Hot"
@@ -1739,7 +1744,7 @@ msgstr "កម្មវិធីមើលរូបភាព៖ {0}"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Imperial"
-msgstr "Imperial"
+msgstr "អ៊ីមភេរៀល"
 
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
@@ -1879,7 +1884,7 @@ msgstr "គ្រប់គ្រងប្រភេទ"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Manual"
-msgstr "សៀវភៅណែនាំ"
+msgstr "ដោយដៃ"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx
 #: ../../../lib/web/src/components/layout/notification-menu.tsx
@@ -2037,10 +2042,18 @@ msgid "Network error"
 msgstr "កំហុសបណ្តាញ"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
-#: ../../../lib/web/src/components/ui/sort-selector.tsx
-#: src/features/forums/components/edit-post-dialog.tsx
 msgid "New"
 msgstr "ថ្មី"
+
+#: src/features/forums/components/edit-post-dialog.tsx
+msgctxt "new attachment"
+msgid "New"
+msgstr "ថ្មី"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx
+msgctxt "sort order"
+msgid "New"
+msgstr "ថ្មីបំផុត"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
@@ -2242,9 +2255,13 @@ msgstr "មិនទាន់មានអ្វីបានរក្សាទុ
 msgid "Notifications: {0}"
 msgstr "ការជូនដំណឹង៖ {0}"
 
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgid "Number"
+msgstr "លេខ"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgctxt "item number"
 msgid "Number"
 msgstr "លេខ"
 
@@ -2329,12 +2346,12 @@ msgstr "មេ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Passkey"
-msgstr "សោសម្ងាត់"
+msgstr "កូនសោចូល"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkey verification failed. Please try again."
-msgstr "ការផ្ទៀងផ្ទាត់ passkey បានបរាជ័យ។ សូមព្យាយាមម្ដងទៀត។"
+msgstr "ការផ្ទៀងផ្ទាត់កូនសោចូលបានបរាជ័យ។ សូមព្យាយាមម្ដងទៀត។"
 
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Passkeys"
@@ -2342,7 +2359,7 @@ msgstr "កូនសោចូល"
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
-msgstr "Passkeys មិនមាននៅក្នុងកម្មវិធីរុករកនេះទេ"
+msgstr "កូនសោចូលមិនមាននៅក្នុងកម្មវិធីរុករកនេះទេ"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2410,8 +2427,9 @@ msgid "Please wait a moment and try again."
 msgstr "សូមរង់ចាំបន្តិច ហើយព្យាយាមម្តងទៀត។"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Post"
-msgstr "ប្រកាស"
+msgstr "ការបង្ហោះ"
 
 #: src/hooks/use-forum-websocket.ts
 msgid "Post couldn't be saved — title or body is invalid"
@@ -2487,7 +2505,7 @@ msgstr "ការកែប្រែជាមុន"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Prevent spam by limiting how often users can post"
-msgstr "ការពារ spam ដោយកំណត់ប្រេកង់ដែលអ្នកប្រើអាចប្រកាស"
+msgstr "ការពារសារឥតបានការ ដោយកំណត់ប្រេកង់ដែលអ្នកប្រើអាចប្រកាស"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
@@ -2513,7 +2531,7 @@ msgstr "កំពុងដំណើរការ…"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx
 msgid "Prompt saved"
-msgstr "បានរក្សាទុក prompt"
+msgstr "បានរក្សាទុកការសួរ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Properties"
@@ -2881,7 +2899,7 @@ msgstr "មតិព័ត៌មាន RSS"
 
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "RSS URL copied to clipboard"
-msgstr "បានចម្លង RSS URL ទៅ clipboard"
+msgstr "បានចម្លង RSS URL ទៅ ក្ដារតម្បៀតខ្ទាស់"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Saturday"
@@ -2910,7 +2928,11 @@ msgstr "រក្សាទុកសម្រាប់ពេលក្រោយ"
 #: src/components/layout/forums-layout.tsx
 #: src/features/forums/pages/saved-page.tsx
 #: src/features/forums/pages/saved-page.tsx
+msgid "Saved"
+msgstr "បានរក្សាទុក"
+
 #: src/lib/saved.ts
+msgctxt "saved status"
 msgid "Saved"
 msgstr "បានរក្សាទុក"
 
@@ -2924,7 +2946,7 @@ msgstr "កំពុងរក្សាទុក..."
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
-msgstr "Prompt ពិន្ទុ"
+msgstr "ការសួរពិន្ទុ"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
@@ -2996,7 +3018,7 @@ msgstr "វិនាទី"
 
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
-msgstr "ជ្រើសរើស"
+msgstr "ការជ្រើសរើស"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Select a field"
@@ -3188,7 +3210,7 @@ msgstr "បញ្ឈប់ការតាមដាន"
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Subject"
-msgstr "ប្រធានបទ"
+msgstr "អ្នកប្រើប្រាស់ ឬក្រុម"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Submit comment"
@@ -3240,15 +3262,20 @@ msgstr "ថ្ងៃអាទិត្យ"
 msgid "Switch to view 1-9"
 msgstr "ប្តូរទៅទិដ្ឋភាព 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "System"
 msgstr "ប្រព័ន្ធ"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx
+msgctxt "actor"
+msgid "System"
+msgstr "ប្រព័ន្ធ"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "AI mode"
 msgid "Tag"
-msgstr "ស្លាក"
+msgstr "ដាក់ស្លាក"
 
 #: ../../../lib/web/src/components/post-tags.tsx
 msgid "Tag already exists"
@@ -3307,7 +3334,7 @@ msgstr "សំណើមីក្រូហ្វូនមិនត្រូវប
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
-msgstr "សំណើ passkey មិនត្រូវបានឆ្លើយតបទេ"
+msgstr "សំណើកូនសោចូលមិនត្រូវបានឆ្លើយតបទេ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3331,7 +3358,7 @@ msgstr "គាត់នឹងមិនអាចមើលវេទិកានេ
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
-msgstr "កម្មវិធីនេះមិនត្រូវបានអនុញ្ញាតឱ្យប្រើ passkey របស់អ្នកទេ។ អនុញ្ញាតវានៅក្នុងការកំណត់ ក្រោមផ្នែកសិទ្ធិ។"
+msgstr "កម្មវិធីនេះមិនត្រូវបានអនុញ្ញាតឱ្យប្រើកូនសោចូលរបស់អ្នកទេ។ អនុញ្ញាតវានៅក្នុងការកំណត់ ក្រោមផ្នែកសិទ្ធិ។"
 
 #: src/hooks/use-forum-websocket.ts
 msgid "This comment was already submitted"
@@ -3585,7 +3612,7 @@ msgstr "វឌ្ឍនភាពនៃការផ្ទុកឡើង"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Use your passkey"
-msgstr "ប្រើ passkey របស់អ្នក"
+msgstr "ប្រើកូនសោចូលរបស់អ្នក"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx

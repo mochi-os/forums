@@ -369,7 +369,7 @@ msgstr "Radās negaidīta kļūda"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Android push"
-msgstr "Android push"
+msgstr "Android push paziņojumi"
 
 #: src/features/forums/components/report-dialog.tsx
 msgid "Any additional context..."
@@ -569,7 +569,7 @@ msgstr "Bloki"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Board"
-msgstr "Galds"
+msgstr "Dēlis"
 
 #: ../../../lib/web/src/components/post-tags.tsx
 #: ../../../lib/web/src/components/post-tags.tsx
@@ -788,6 +788,7 @@ msgid "Command Palette"
 msgstr "Komandu palete"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Comment"
 msgstr "Komentārs"
 
@@ -1174,9 +1175,13 @@ msgstr "Atvienots"
 
 #: ../../../lib/web/src/components/restore-banner.tsx
 #: ../../../lib/web/src/components/restore-banner.tsx
-#: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Dismiss"
 msgstr "Aizvērt"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "moderation decision"
+msgid "Dismiss"
+msgstr "Noraidīt"
 
 #: src/features/forums/components/forum-banner.tsx
 #: src/features/forums/components/forum-banner.tsx
@@ -2037,10 +2042,18 @@ msgid "Network error"
 msgstr "Tīkla kļūda"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
-#: ../../../lib/web/src/components/ui/sort-selector.tsx
-#: src/features/forums/components/edit-post-dialog.tsx
 msgid "New"
 msgstr "Jauns"
+
+#: src/features/forums/components/edit-post-dialog.tsx
+msgctxt "new attachment"
+msgid "New"
+msgstr "Jauns"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx
+msgctxt "sort order"
+msgid "New"
+msgstr "Jaunākie"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
@@ -2242,9 +2255,13 @@ msgstr "Vēl nekas nav saglabāts"
 msgid "Notifications: {0}"
 msgstr "Paziņojumi: {0}"
 
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgid "Number"
+msgstr "Numurs"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgctxt "item number"
 msgid "Number"
 msgstr "Numurs"
 
@@ -2410,6 +2427,7 @@ msgid "Please wait a moment and try again."
 msgstr "Lūdzu, uzgaidiet brīdi un mēģiniet vēlreiz."
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Post"
 msgstr "Ieraksts"
 
@@ -2910,7 +2928,11 @@ msgstr "Saglabāt vēlākam laikam"
 #: src/components/layout/forums-layout.tsx
 #: src/features/forums/pages/saved-page.tsx
 #: src/features/forums/pages/saved-page.tsx
+msgid "Saved"
+msgstr "Saglabāts"
+
 #: src/lib/saved.ts
+msgctxt "saved status"
 msgid "Saved"
 msgstr "Saglabāts"
 
@@ -2996,7 +3018,7 @@ msgstr "sekundes"
 
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
-msgstr "Atlasīt"
+msgstr "Izvēle"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Select a field"
@@ -3175,7 +3197,7 @@ msgstr "Plašs"
 #: src/features/forums/components/report-dialog.tsx
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Spam"
-msgstr "Spam"
+msgstr "Surogātpasts"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
 msgid "Start the discussion by adding the first comment."
@@ -3188,7 +3210,7 @@ msgstr "Pārtraukt skatīšanos"
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Subject"
-msgstr "Tēma"
+msgstr "Lietotājs vai grupa"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Submit comment"
@@ -3240,15 +3262,20 @@ msgstr "Svētdiena"
 msgid "Switch to view 1-9"
 msgstr "Pārslēgt uz skatu 1-9"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "System"
 msgstr "Sistēma"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx
+msgctxt "actor"
+msgid "System"
+msgstr "Sistēma"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "AI mode"
 msgid "Tag"
-msgstr "Tags"
+msgstr "Tagot"
 
 #: ../../../lib/web/src/components/post-tags.tsx
 msgid "Tag already exists"
@@ -3437,7 +3464,7 @@ msgstr "Pārāk daudz pieprasījumu"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx
 msgid "Top"
-msgstr "Augšā"
+msgstr "Labākie"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"

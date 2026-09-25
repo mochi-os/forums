@@ -827,7 +827,7 @@ function ReportsTab({ forumId }: ReportsTabProps) {
                         onClick={() => void handleResolve(report.id, 'ignored')}
                         disabled={actionInProgress === report.id}
                       >
-                        <Trans>Dismiss</Trans>
+                        <Trans context='moderation decision'>Dismiss</Trans>
                       </Button>
                       <Button
                         size='sm'
@@ -886,8 +886,8 @@ function useStatusLabels(): Record<string, string> {
 function useTargetLabels(): Record<string, string> {
   const { t } = useLingui()
   return {
-    post: t`Post`,
-    comment: t`Comment`,
+    post: t({ message: 'Post', context: 'noun' }),
+    comment: t({ message: 'Comment', context: 'noun' }),
   }
 }
 

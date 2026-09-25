@@ -386,7 +386,7 @@ msgstr "የገባ ማንኛውም ሰው"
 
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
-msgstr "በዚህ ምግብ የተመዘገበ ማንኛውም ነገር መቀበሉን ያቆማል። ከዚያ በኋላ አዲስ URL መቅዳት ይችላሉ።"
+msgstr "በዚህ ፊድ የተመዘገበ ማንኛውም ነገር መቀበሉን ያቆማል። ከዚያ በኋላ አዲስ URL መቅዳት ይችላሉ።"
 
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/routes/_authenticated/$forum_.moderation.tsx
@@ -788,6 +788,7 @@ msgid "Command Palette"
 msgstr "የትዕዛዝ ፓሌት"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Comment"
 msgstr "አስተያየት"
 
@@ -1174,9 +1175,13 @@ msgstr "ተቋርጧል"
 
 #: ../../../lib/web/src/components/restore-banner.tsx
 #: ../../../lib/web/src/components/restore-banner.tsx
-#: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Dismiss"
 msgstr "አጥፋ"
+
+#: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "moderation decision"
+msgid "Dismiss"
+msgstr "ውድቅ ያድርጉ"
 
 #: src/features/forums/components/forum-banner.tsx
 #: src/features/forums/components/forum-banner.tsx
@@ -1659,7 +1664,7 @@ msgstr "ፎረም አይገኝም"
 #: src/features/forums/pages/forums-list-page.tsx
 #: src/features/forums/pages/forums-list-page.tsx
 msgid "Forums"
-msgstr "ፎረሞች"
+msgstr "መድረኮች"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Friday"
@@ -2037,10 +2042,18 @@ msgid "Network error"
 msgstr "የአውታረ መረብ ስህተት"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
-#: ../../../lib/web/src/components/ui/sort-selector.tsx
-#: src/features/forums/components/edit-post-dialog.tsx
 msgid "New"
 msgstr "አዲስ"
+
+#: src/features/forums/components/edit-post-dialog.tsx
+msgctxt "new attachment"
+msgid "New"
+msgstr "አዲስ"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx
+msgctxt "sort order"
+msgid "New"
+msgstr "አዳዲስ"
 
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
@@ -2242,9 +2255,13 @@ msgstr "እስካሁን ምንም አልተቀመጠም"
 msgid "Notifications: {0}"
 msgstr "ማሳወቂያዎች፦ {0}"
 
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgid "Number"
+msgstr "ቁጥር"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-#: ../../../lib/web/src/hooks/use-field-type-labels.ts
+msgctxt "item number"
 msgid "Number"
 msgstr "ቁጥር"
 
@@ -2329,12 +2346,12 @@ msgstr "ወላጅ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Passkey"
-msgstr "የይለፍ ቁልፍ"
+msgstr "ፓስኪ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkey verification failed. Please try again."
-msgstr "የይለፍ ቁልፍ ማረጋገጫ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+msgstr "ፓስኪ ማረጋገጫ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
 
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Passkeys"
@@ -2410,6 +2427,7 @@ msgid "Please wait a moment and try again."
 msgstr "እባክዎ ትንሽ ይጠብቁና እንደገና ይሞክሩ።"
 
 #: src/routes/_authenticated/$forum_.moderation.tsx
+msgctxt "noun"
 msgid "Post"
 msgstr "ልጥፍ"
 
@@ -2752,7 +2770,7 @@ msgstr "ለ {0} መልስ..."
 #: src/features/forums/components/thread/thread-comment.tsx
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "Report"
-msgstr "ሪፖርት"
+msgstr "ሪፖርት አድርግ"
 
 #: src/features/forums/components/report-dialog.tsx
 msgid "Report comment"
@@ -2910,7 +2928,11 @@ msgstr "ለኋላ አስቀምጥ"
 #: src/components/layout/forums-layout.tsx
 #: src/features/forums/pages/saved-page.tsx
 #: src/features/forums/pages/saved-page.tsx
+msgid "Saved"
+msgstr "ተቀምጧል"
+
 #: src/lib/saved.ts
+msgctxt "saved status"
 msgid "Saved"
 msgstr "ተቀምጧል"
 
@@ -2996,7 +3018,7 @@ msgstr "ሰከንዶች"
 
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
-msgstr "ይምረጡ"
+msgstr "ምርጫ"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Select a field"
@@ -3188,7 +3210,7 @@ msgstr "መከታተል አቁም"
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Subject"
-msgstr "ርዕሰ ጉዳይ"
+msgstr "ተጠቃሚ ወይም ቡድን"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Submit comment"
@@ -3240,15 +3262,20 @@ msgstr "እሁድ"
 msgid "Switch to view 1-9"
 msgstr "ወደ ዕይታ 1-9 ቀይር"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "System"
 msgstr "ስርዓት"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx
+msgctxt "actor"
+msgid "System"
+msgstr "ስርዓቱ"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "AI mode"
 msgid "Tag"
-msgstr "መለያ"
+msgstr "መለያ መስጠት"
 
 #: ../../../lib/web/src/components/post-tags.tsx
 msgid "Tag already exists"
@@ -3437,7 +3464,7 @@ msgstr "በጣም ብዙ ጥያቄዎች"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx
 msgid "Top"
-msgstr "ላይ"
+msgstr "ምርጥ"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
@@ -3585,7 +3612,7 @@ msgstr "የመስቀል ሂደት"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Use your passkey"
-msgstr "የይለፍ ቁልፍዎን ይጠቀሙ"
+msgstr "ፓስኪዎን ይጠቀሙ"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx

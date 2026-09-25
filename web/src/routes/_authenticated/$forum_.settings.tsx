@@ -529,7 +529,7 @@ function AiSettingsSection({
               <Trans>Disabled</Trans>
             </SelectItem>
             <SelectItem value='tag'>
-              <Trans>Tag</Trans>
+              <Trans context='AI mode'>Tag</Trans>
             </SelectItem>
           </SelectContent>
         </Select>
