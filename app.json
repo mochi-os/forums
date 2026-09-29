@@ -25,7 +25,7 @@
 	"require": {"version": {"minimum": "0.4.230"}},
 
 	"database": {
-		"schema": 9,
+		"schema": 10,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -65,7 +65,9 @@
 		":forum/-/members/search": {"function": "action_member_search"},
 		":forum/-/members/save": {"function": "action_members_save"},
 		":forum/-/members/:user/asset/:asset": {"function": "action_member_asset", "asset": true},
+		":forum/-/notifications": {"function": "action_notifications"},
 		":forum/-/notifications/clear": {"function": "action_notifications_clear"},
+		":forum/-/notifications/set": {"function": "action_notifications_set"},
 		":forum/-/sort/set": {"function": "action_sort_set_forum"},
 		":forum/-/subscribe": {"function": "action_subscribe"},
 		":forum/-/unsubscribe": {"function": "action_unsubscribe"},
@@ -203,8 +205,8 @@
 		"moderation/report/resolve": {"function": "event_report_resolve_action"},
 		"mention/notify": {"function": "event_mention_notify"},
 		"moderator/notify": {"function": "event_moderator_notify"},
-		"app/check": {"function": "event_app_check", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help"]},
+		"app/check": {"function": "event_app_check", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help", "16MQ3jNWhdy2TaVv55kwxCn6QC8CM1y5W6tmFNkwkkEUtitukV", "air"]},
 		"app/subscribe": {"function": "event_app_subscribe", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help"]},
-		"app/post": {"function": "event_app_post", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help"]}
+		"app/post": {"function": "event_app_post", "apps": ["17Qx3vcsBJ6RcMhshTKfVSBPigPZUAaA52KkpCi4ZYFaekSgrY", "help", "16MQ3jNWhdy2TaVv55kwxCn6QC8CM1y5W6tmFNkwkkEUtitukV", "air"]}
 	}
 }
