@@ -195,6 +195,20 @@ def database_upgrade(version):
         if not any([c["name"] == "checked" for c in mochi.db.table("forums")]):
             mochi.db.execute("alter table forums add column checked integer not null default 0")
 
+    if version == 10:
+        # The activity notifications this user has turned on, per forum.
+        mochi.db.execute("create table if not exists notifications ( forum text not null, kind text not null, primary key ( forum, kind ) )")
+
+    if version == 11:
+        # The owner's closing update for a new subscriber never reached them,
+        # so every subscription is still marked as filling. They are long
+        # past their initial sync.
+        mochi.db.execute("update forums set populated=1 where populated=0")
+
+    if version == 12:
+        # The posts this user follows: every reply in them notifies.
+        mochi.db.execute("create table if not exists follows ( forum text not null, post text not null, primary key ( forum, post ) )")
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
@@ -215,6 +229,14 @@ def database_create():
 
     mochi.db.execute("create table if not exists members ( forum references forums( id ), id text not null, name text not null default '', subscribed integer not null default 0, primary key ( forum, id ) )")
     mochi.db.execute("create index if not exists members_id on members( id )")
+
+    # The activity notifications this user has turned on, per forum: one row
+    # per kind in NOTIFICATION_KINDS. None by default.
+    mochi.db.execute("create table if not exists notifications ( forum text not null, kind text not null, primary key ( forum, kind ) )")
+
+    # The posts this user follows: every reply in them notifies. A post is
+    # followed on creating it or commenting on it, and by choice.
+    mochi.db.execute("create table if not exists follows ( forum text not null, post text not null, primary key ( forum, post ) )")
 
     mochi.db.execute("""create table if not exists posts (
         id text not null primary key, forum text not null, member text not null, name text not null,
@@ -310,12 +332,13 @@ def registration_send(server, headers, content):
 
 # Strip owner-only configuration (moderation thresholds, rate limits, AI
 # prompts) from a forum row before returning it to a viewer; the owner-gated
-# settings actions serve them. Mutates and returns the dict.
+# settings actions serve them. Mutates and returns the dict. `populated` stays:
+# the clients show a loading state while a new subscription is still filling.
 def strip_forum_config(forum):
     for key in ["moderation_posts", "moderation_comments", "moderation_new",
                 "new_user_days", "post_limit", "comment_limit", "limit_window",
                 "ai_prompt_tag", "ai_prompt_score", "ai_account",
-                "server", "synced", "checked", "populated"]:
+                "server", "synced", "checked"]:
         forum.pop(key, None)
     return forum
 
@@ -1160,10 +1183,20 @@ def notify_moderation_local(forum_id, action, target_type, reason, source_id):
     elif action == "unrestrict":
         title = mochi.app.label("moderation.unrestricted.title", forum=forum_name)
         body = mochi.app.label("moderation.unrestricted.body")
+    elif action == "report":
+        # A report we made was settled; the reason carries the outcome.
+        if reason not in ("removed", "ignored"):
+            return
+        title = mochi.app.label("moderation.resolved.title", forum=forum_name)
+        body = mochi.app.label("moderation.resolved.body." + reason + "." + target_type)
     else:
         return
 
-    topic = "moderation/restricted" if action in ("remove", "restrict") else "moderation/unrestricted"
+    # One topic per kind of action, so muting restrictions in the notification
+    # settings does not also silence approvals and removals.
+    topic = {"remove": "moderation/removed", "approve": "moderation/approved",
+             "restrict": "moderation/restricted", "unrestrict": "moderation/unrestricted",
+             "report": "report/resolved"}[action]
     # event_id derived from the moderation target so the same action on the
     # same row dedupes across replicas. source_id is the post/comment/user id.
     event_id = topic + ":" + forum_id + ":" + action + ":" + target_type + ":" + source_id
@@ -1185,7 +1218,7 @@ def event_member_notify(e):
     # non-string or arbitrary value would build a junk label key or abort the
     # handler mid-concatenation, so pin each to what the owner path can send.
     action = e.content("action")
-    if action not in ("remove", "approve", "restrict", "unrestrict"):
+    if action not in ("remove", "approve", "restrict", "unrestrict", "report"):
         return
     target_type = e.content("type")
     if target_type not in ("post", "comment"):
@@ -1198,6 +1231,35 @@ def event_member_notify(e):
     if not mochi.text.valid(source, "id"):
         source = forum_id
     notify_moderation_local(forum_id, action, target_type, reason, source)
+
+# A forum's owner tells us they gave us access to it. Unsolicited, like a
+# friend invitation, since an invitee holds nothing of the forum yet; core
+# authenticates "from" to an entity the sender owns, and the level is pinned to
+# what access/set grants. The link opens the forum through its owner's server
+# when we do not hold it, which is where the web offers to subscribe.
+def event_access_granted(e):
+    forum_id = e.header("from")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    level = e.content("level")
+    if level not in ACCESS_LEVELS:
+        return
+    name = e.content("name")
+    if type(name) != "string" or not mochi.text.valid(name, "name"):
+        return
+
+    forum = get_forum(forum_id)
+    if forum:
+        name = forum["name"]
+        url = "/forums/" + (mochi.entity.fingerprint(forum_id) or forum_id)
+    elif e.header("local"):
+        url = "/forums/" + forum_id
+    else:
+        url = "/forums/" + forum_id + "?server=" + e.header("peer")
+
+    title = mochi.app.label("notifications.title.access", forum=name)
+    body = mochi.app.label("notifications.body.access." + level)
+    notify("access", forum_id, title, body, url, event_id="access:" + forum_id + ":" + level)
 
 # Notify every moderator (owner + 'moderate' grantees) of new queue work, except
 # `exclude_user_id` (the actor). The local owner gets notify(); remote
@@ -2337,9 +2399,6 @@ def action_post_create(a):
 
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-            # Get members for notification (excluding sender)
-            members = mochi.db.rows("select id from members where forum=? and id!=?", forum["id"], user_id)
-
             # Save any uploaded attachments locally
             attachments = attachment_save(a, id, captions=captions)
 
@@ -2395,6 +2454,7 @@ def action_post_create(a):
                 submit_data
             )
 
+        follow(forum["id"], id)
         return {
             "data": {"id": id, "forum": forum["id"]}
         }
@@ -2843,6 +2903,129 @@ def action_notifications_clear(a):
     if forum:
         mochi.service.call("notifications", "clear/object", forum["id"])
 
+# The activity notifications a user can turn on for a forum, each off until
+# they do: every new post, a reply to one of their own posts or comments, and
+# every reply.
+NOTIFICATION_KINDS = ["post", "reply", "comment"]
+
+def notification_settings(forum_id):
+    enabled = [r["kind"] for r in mochi.db.rows("select kind from notifications where forum=?", forum_id) or []]
+    return {kind: kind in enabled for kind in NOTIFICATION_KINDS}
+
+# The user's activity notifications for a forum they hold.
+def action_notifications(a):
+    if not a.user:
+        a.error.label(401, "errors.authentication_required")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    return {"data": notification_settings(forum["id"])}
+
+# Turn one of the user's activity notifications for a forum on or off.
+def action_notifications_set(a):
+    if not a.user:
+        a.error.label(401, "errors.authentication_required")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    kind = a.input("kind", "")
+    if kind not in NOTIFICATION_KINDS:
+        a.error.label(400, "errors.invalid_notification")
+        return
+    enabled = a.input("enabled", "")
+    if enabled in ("1", "true"):
+        mochi.db.execute("insert or ignore into notifications ( forum, kind ) values ( ?, ? )", forum["id"], kind)
+    elif enabled in ("0", "false"):
+        mochi.db.execute("delete from notifications where forum=? and kind=?", forum["id"], kind)
+    else:
+        a.error.label(400, "errors.invalid_data")
+        return
+    return {"data": notification_settings(forum["id"])}
+
+# notify_activity raises the local user's activity notification for a post, or
+# for `comment` on it, that has just become visible in `forum`: "reply" for a
+# reply to them, "thread" for any reply in a post they follow, else "comment".
+# `me` is the local user's identity. Their own work raises nothing, and nor
+# does anything that @mentions them, which the mention notification already
+# reports.
+def notify_activity(forum, me, post, comment=None):
+    if not me:
+        return
+    settings = notification_settings(forum["id"])
+    followed = comment != None and mochi.db.exists("select post from follows where forum=? and post=?", forum["id"], post["id"])
+    if not any(settings.values()) and not followed:
+        return
+    item = comment or post
+    if item["member"] == me:
+        return
+    member = mochi.db.row("select name from members where forum=? and id=?", forum["id"], me)
+    if member and member["name"] and ("@[" + member["name"] + "]").lower() in item["body"].lower():
+        return
+
+    fp = mochi.entity.fingerprint(forum["id"])
+    url = "/forums/" + fp + "/" + post["id"] if fp else "/forums"
+
+    if not comment:
+        if settings["post"]:
+            body = mochi.app.label("notifications.body.post", author=post["name"], forum=forum["name"])
+            notify("post", forum["id"], post["title"], body, url, event_id="post:" + post["id"])
+        return
+
+    # A reply to the user is a comment directly under their post, or under one
+    # of their comments.
+    if comment["parent"]:
+        reply = mochi.db.exists("select id from comments where id=? and forum=? and member=?", comment["parent"], forum["id"], me)
+    else:
+        reply = post["member"] == me
+    if reply and settings["reply"]:
+        kind = "reply"
+    elif followed:
+        kind = "thread"
+    elif settings["comment"]:
+        kind = "comment"
+    else:
+        return
+    body = mochi.app.label("notifications.body." + kind, author=comment["name"], excerpt=comment["body"].strip()[:80])
+    notify(kind, forum["id"], post["title"], body, url, event_id=kind + ":" + comment["id"])
+
+# The identity of a forum's owner, whose activity notifications the forum's
+# own server raises.
+def forum_owner(forum_id):
+    entity = mochi.entity.info(forum_id)
+    return entity.get("creator", "") if entity else ""
+
+# Follow a post in a forum we hold, so every reply in it notifies.
+def follow(forum_id, post_id):
+    mochi.db.execute("insert or ignore into follows ( forum, post ) values ( ?, ? )", forum_id, post_id)
+
+def action_post_follow(a):
+    return follow_set(a, True)
+
+def action_post_unfollow(a):
+    return follow_set(a, False)
+
+def follow_set(a, following):
+    if not a.user:
+        a.error.label(401, "errors.authentication_required")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    post_id = a.input("post")
+    if not mochi.db.exists("select id from posts where id=? and forum=?", post_id, forum["id"]):
+        a.error.label(404, "errors.post_not_found")
+        return
+    if following:
+        follow(forum["id"], post_id)
+    else:
+        mochi.db.execute("delete from follows where forum=? and post=?", forum["id"], post_id)
+    return {"data": {"following": following}}
+
 def action_sort_set_default(a):
     """Set the user's default post sort (applied to All forums and to forums with no override)."""
     if not a.user:
@@ -2940,7 +3123,7 @@ def action_subscribe(a):
     fp = mochi.entity.fingerprint(forum_id) or ""
     # populated=0: schema is fetched synchronously, but the bulk posts arrive
     # asynchronously from the owner; event_update_event flips it to 1 when the
-    # owner's post-subscribe "update" broadcast lands.
+    # owner's post-subscribe "update" message lands.
     mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
         forum_id, forum_name, 0, now, server or ("p2p/" + peer if peer else ""), fp)
 
@@ -3032,6 +3215,8 @@ def rss_tokens_revoke(entity_id):
 # replica on unsubscribe). tags key on post/comment id, so resolve them before the
 # posts/comments they reference are removed.
 def purge_forum_rows(forum_id):
+    mochi.db.execute("delete from notifications where forum=?", forum_id)
+    mochi.db.execute("delete from follows where forum=?", forum_id)
     mochi.db.execute("delete from tags where object in (select id from posts where forum=?) or object in (select id from comments where forum=?)", forum_id, forum_id)
     mochi.db.execute("delete from score_cache where forum=?", forum_id)
     mochi.db.execute("delete from reports where forum=?", forum_id)
@@ -3329,17 +3514,20 @@ def action_post_view(a):
     if banner:
         forum["banner_html"] = mochi.text.markdown(banner)
 
-    return {
-        "data": {
-            "forum": strip_forum_config(forum),
-            "post": post,
-            "comments": comments,
-            "member": member,
-            "can_vote": can_vote,
-            "can_comment": can_comment,
-            "can_moderate": can_moderate
-        }
+    data = {
+        "forum": strip_forum_config(forum),
+        "post": post,
+        "comments": comments,
+        "member": member,
+        "can_vote": can_vote,
+        "can_comment": can_comment,
+        "can_moderate": can_moderate
     }
+    # Only for a signed-in reader: an anonymous one runs as the owner, whose
+    # follows are theirs alone.
+    if a.user:
+        data["following"] = mochi.db.exists("select post from follows where forum=? and post=?", forum["id"], post_id)
+    return {"data": data}
 
 # Edit a post
 def action_post_edit(a):
@@ -3640,6 +3828,7 @@ def action_post_delete(a):
 
             # Delete the post
             mochi.db.execute("delete from posts where id=?", post_id)
+            mochi.db.execute("delete from follows where post=?", post_id)
 
             now = mochi.time.now()
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -3667,6 +3856,7 @@ def action_post_delete(a):
             mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
             mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
             mochi.db.execute("delete from posts where id=?", post_id)
+            mochi.db.execute("delete from follows where post=?", post_id)
 
         return {
             "data": {"forum": forum_id}
@@ -3706,8 +3896,9 @@ def action_comment_new(a):
     }
 
 # Create new comment
-def notify_mentions(forum_id, post_id, body, author_id, author_name):
-    """Notify only the @mentioned forum members via P2P."""
+def notify_mentions(forum_id, post_id, body, author_id, author_name, comment=""):
+    """Notify only the @mentioned forum members via P2P. `comment` is the
+    mentioning comment, empty for the post itself."""
     body_lower = body.lower()
     members = mochi.db.rows(
         "select id, name from members where forum=? and id!=?",
@@ -3724,7 +3915,7 @@ def notify_mentions(forum_id, post_id, body, author_id, author_name):
         if name and ("@[" + name + "]").lower() in body_lower:
             mochi.message.send(
                 {"from": forum_id, "to": m["id"], "service": "forums", "event": "mention/notify"},
-                {"post": post_id, "title": post_title, "excerpt": excerpt, "author": author_name, "url": url}
+                {"post": post_id, "comment": comment, "title": post_title, "excerpt": excerpt, "author": author_name, "url": url}
             )
 
 def action_comment_create(a):
@@ -3834,7 +4025,7 @@ def action_comment_create(a):
                 broadcast_event(forum["id"], "comment/create", comment_data, user_id)
                 mochi.db.commit.fire("comments", "insert", id)
                 if body:
-                    notify_mentions(forum["id"], post_id, body, user_id, user_name)
+                    notify_mentions(forum["id"], post_id, body, user_id, user_name, id)
         else:
             # We're a subscriber - check access with owner first
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
@@ -3874,6 +4065,7 @@ def action_comment_create(a):
             mochi.db.execute("update posts set updated=? where id=?", now, post_id)
             recount_post_comments(post_id)
 
+        follow(forum["id"], post_id)
         return {
             "data": {"id": id, "forum": forum["id"], "post": post_id}
         }
@@ -4151,6 +4343,25 @@ def action_post_remove(a):
         return
 
     post_id = a.input("post")
+    user = a.user.identity.id
+    reason = cap_text(a.input("reason", ""))
+
+    # A moderator who is not the owner may not hold the post - held content
+    # never fans out - so the owner, who does, decides; a copy we hold
+    # follows at once.
+    if not owned(forum["id"]):
+        if not mochi.text.valid(post_id, "id"):
+            a.error.label(400, "errors.invalid_post_id")
+            return
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/remove/submit"},
+            {"id": post_id, "reason": reason}
+        )
+        mochi.db.execute(
+            "update posts set status='removed', remover=?, reason=? where id=? and forum=?",
+            user, reason, post_id, forum["id"])
+        return {"data": {"success": True}}
+
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
         a.error.label(404, "errors.post_not_found")
@@ -4160,35 +4371,20 @@ def action_post_remove(a):
         a.error.label(400, "errors.post_already_removed")
         return
 
-    user = a.user.identity.id
-    reason = cap_text(a.input("reason", ""))
-    is_owner = owned(forum["id"])
+    now = mochi.time.now()
+    mochi.db.execute(
+        "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
+        user, reason, now, post_id)
 
-    if is_owner:
-        now = mochi.time.now()
-        mochi.db.execute(
-            "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
-            user, reason, now, post_id)
+    log_moderation(forum["id"], user, "remove", "post", post_id, post["member"], reason)
+    notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
 
-        log_moderation(forum["id"], user, "remove", "post", post_id, post["member"], reason)
-        notify_moderation_action(forum["id"], post["member"], "remove", "post", reason, target_id=post_id)
-
-        broadcast_event(forum["id"], "post/remove", {
-            "id": post_id,
-            "remover": user,
-            "reason": reason
-        })
-        broadcast_websocket(forum["id"], {"type": "post/remove", "forum": forum["id"], "post": post_id, "sender": user})
-    else:
-        mochi.message.send(
-            {"from": user, "to": forum["id"], "service": "forums", "event": "post/remove/submit"},
-            {"id": post_id, "reason": reason}
-        )
-        # Optimistic local update
-        mochi.db.execute(
-            "update posts set status='removed', remover=?, reason=? where id=?",
-            user, reason, post_id)
-
+    broadcast_event(forum["id"], "post/remove", {
+        "id": post_id,
+        "remover": user,
+        "reason": reason
+    })
+    broadcast_websocket(forum["id"], {"type": "post/remove", "forum": forum["id"], "post": post_id, "sender": user})
     return {"data": {"success": True}}
 
 # Restore a removed post (moderator action)
@@ -4245,6 +4441,72 @@ def action_post_restore(a):
     return {"data": {"success": True}}
 
 # Approve a pending post (moderator action)
+# post_approve makes a pending post on a forum we own visible: approve it,
+# record the moderator's action, fan it out, and run the tail of the create
+# path that a pending post skipped - the live update, @mention notifications,
+# the owner's activity notification and AI tagging. Shared by the owner's own
+# approval and a moderator's post/approve/submit, so the two cannot drift.
+def post_approve(forum, post, moderator):
+    now = mochi.time.now()
+    mochi.db.execute("update posts set status='approved', updated=? where id=?", now, post["id"])
+
+    log_moderation(forum["id"], moderator, "approve", "post", post["id"], post["member"], "")
+    notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post["id"])
+
+    post_data = {
+        "id": post["id"],
+        "member": post["member"],
+        "name": post["name"],
+        "title": post["title"],
+        "body": post["body"],
+        "created": post["created"]
+    }
+    attachments = attachments_wire(post["id"])
+    if attachments:
+        post_data["attachments"] = attachments
+    broadcast_event(forum["id"], "post/create", post_data)
+
+    mochi.db.commit.fire("posts", "insert", post["id"])
+    if post["body"]:
+        notify_mentions(forum["id"], post["id"], post["body"], post["member"], post["name"])
+    owner = forum_owner(forum["id"])
+    if moderator != owner:
+        notify_activity(forum, owner, post)
+    if forum.get("ai_mode", ""):
+        mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": post["id"]}, 0)
+
+# comment_approve is post_approve for a pending comment.
+def comment_approve(forum, comment, moderator):
+    now = mochi.time.now()
+    mochi.db.execute("update comments set status='approved' where id=?", comment["id"])
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+
+    log_moderation(forum["id"], moderator, "approve", "comment", comment["id"], comment["member"], "")
+    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment["id"])
+
+    comment_data = {
+        "id": comment["id"],
+        "post": comment["post"],
+        "parent": comment["parent"],
+        "member": comment["member"],
+        "name": comment["name"],
+        "body": comment["body"],
+        "created": comment["created"],
+        "attachment": comment.get("attachment", "")
+    }
+    attachments = attachments_wire(comment["id"])
+    if attachments:
+        comment_data["attachments"] = attachments
+    broadcast_event(forum["id"], "comment/create", comment_data)
+
+    mochi.db.commit.fire("comments", "insert", comment["id"])
+    if comment["body"]:
+        notify_mentions(forum["id"], comment["post"], comment["body"], comment["member"], comment["name"], comment["id"])
+    owner = forum_owner(forum["id"])
+    post = mochi.db.row("select id, member, name, title, body from posts where id=? and forum=?", comment["post"], forum["id"])
+    if moderator != owner and post:
+        notify_activity(forum, owner, post, comment)
+
 def action_post_approve(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -4260,6 +4522,22 @@ def action_post_approve(a):
         return
 
     post_id = a.input("post")
+    user = a.user.identity.id
+
+    # A moderator who is not the owner may not hold the post - held content
+    # never fans out - so the owner, who does, decides; a copy we hold
+    # follows at once.
+    if not owned(forum["id"]):
+        if not mochi.text.valid(post_id, "id"):
+            a.error.label(400, "errors.invalid_post_id")
+            return
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "post/approve/submit"},
+            {"id": post_id}
+        )
+        mochi.db.execute("update posts set status='approved' where id=? and forum=? and status='pending'", post_id, forum["id"])
+        return {"data": {"success": True}}
+
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
     if not post:
         a.error.label(404, "errors.post_not_found")
@@ -4269,48 +4547,7 @@ def action_post_approve(a):
         a.error.label(400, "errors.post_is_not_pending")
         return
 
-    user = a.user.identity.id
-    is_owner = owned(forum["id"])
-
-    if is_owner:
-        now = mochi.time.now()
-        mochi.db.execute(
-            "update posts set status='approved', updated=? where id=?",
-            now, post_id)
-
-        log_moderation(forum["id"], user, "approve", "post", post_id, post["member"], "")
-        notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
-
-        # Now broadcast the post to members
-        post_data = {
-            "id": post_id,
-            "member": post["member"],
-            "name": post["name"],
-            "title": post["title"],
-            "body": post["body"],
-            "created": post["created"]
-        }
-        attachments = attachments_wire(post_id)
-        if attachments:
-            post_data["attachments"] = attachments
-        broadcast_event(forum["id"], "post/create", post_data)
-
-        # Run the tail of the create path that a pending post skipped: the
-        # websocket fire (so connected members see the post appear), @mention
-        # notifications, and AI tagging. Approval is when the post becomes
-        # visible, so this is the moment those must fire.
-        mochi.db.commit.fire("posts", "insert", post_id)
-        if post["body"]:
-            notify_mentions(forum["id"], post_id, post["body"], post["member"], post["name"])
-        if forum.get("ai_mode", ""):
-            mochi.schedule.after("schedule_ai_tag", {"forum": forum["id"], "post": post_id}, 0)
-    else:
-        mochi.message.send(
-            {"from": user, "to": forum["id"], "service": "forums", "event": "post/approve/submit"},
-            {"id": post_id}
-        )
-        mochi.db.execute("update posts set status='approved' where id=?", post_id)
-
+    post_approve(forum, post, user)
     return {"data": {"success": True}}
 
 # Lock a post (prevent new comments)
@@ -4499,6 +4736,25 @@ def action_comment_remove(a):
         return
 
     comment_id = a.input("comment")
+    user = a.user.identity.id
+    reason = cap_text(a.input("reason", ""))
+
+    # A moderator who is not the owner may not hold the comment - held content
+    # never fans out - so the owner, who does, decides; a copy we hold
+    # follows at once.
+    if not owned(forum["id"]):
+        if not mochi.text.valid(comment_id, "id"):
+            a.error.label(400, "errors.invalid_id")
+            return
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/remove/submit"},
+            {"id": comment_id, "reason": reason}
+        )
+        mochi.db.execute(
+            "update comments set status='removed', remover=?, reason=? where id=? and forum=?",
+            user, reason, comment_id, forum["id"])
+        return {"data": {"success": True}}
+
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
         a.error.label(404, "errors.comment_not_found")
@@ -4508,37 +4764,23 @@ def action_comment_remove(a):
         a.error.label(400, "errors.comment_already_removed")
         return
 
-    user = a.user.identity.id
-    reason = cap_text(a.input("reason", ""))
-    is_owner = owned(forum["id"])
+    now = mochi.time.now()
+    mochi.db.execute(
+        "update comments set status='removed', remover=?, reason=? where id=?",
+        user, reason, comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
+    recount_post_comments(comment["post"])
 
-    if is_owner:
-        now = mochi.time.now()
-        mochi.db.execute(
-            "update comments set status='removed', remover=?, reason=? where id=?",
-            user, reason, comment_id)
-        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
-        recount_post_comments(comment["post"])
+    log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
+    notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
 
-        log_moderation(forum["id"], user, "remove", "comment", comment_id, comment["member"], reason)
-        notify_moderation_action(forum["id"], comment["member"], "remove", "comment", reason, target_id=comment_id)
-
-        broadcast_event(forum["id"], "comment/remove", {
-            "id": comment_id,
-            "post": comment["post"],
-            "remover": user,
-            "reason": reason
-        })
-        broadcast_websocket(forum["id"], {"type": "comment/remove", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user})
-    else:
-        mochi.message.send(
-            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/remove/submit"},
-            {"id": comment_id, "reason": reason}
-        )
-        mochi.db.execute(
-            "update comments set status='removed', remover=?, reason=? where id=?",
-            user, reason, comment_id)
-
+    broadcast_event(forum["id"], "comment/remove", {
+        "id": comment_id,
+        "post": comment["post"],
+        "remover": user,
+        "reason": reason
+    })
+    broadcast_websocket(forum["id"], {"type": "comment/remove", "forum": forum["id"], "post": comment["post"], "comment": comment_id, "sender": user})
     return {"data": {"success": True}}
 
 # Restore a removed comment (moderator action)
@@ -4612,6 +4854,22 @@ def action_comment_approve(a):
         return
 
     comment_id = a.input("comment")
+    user = a.user.identity.id
+
+    # A moderator who is not the owner may not hold the comment - held content
+    # never fans out - so the owner, who does, decides; a copy we hold
+    # follows at once.
+    if not owned(forum["id"]):
+        if not mochi.text.valid(comment_id, "id"):
+            a.error.label(400, "errors.invalid_id")
+            return
+        mochi.message.send(
+            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/approve/submit"},
+            {"id": comment_id}
+        )
+        mochi.db.execute("update comments set status='approved' where id=? and forum=? and status='pending'", comment_id, forum["id"])
+        return {"data": {"success": True}}
+
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
     if not comment:
         a.error.label(404, "errors.comment_not_found")
@@ -4621,40 +4879,7 @@ def action_comment_approve(a):
         a.error.label(400, "errors.comment_is_not_pending")
         return
 
-    user = a.user.identity.id
-    is_owner = owned(forum["id"])
-
-    if is_owner:
-        now = mochi.time.now()
-        mochi.db.execute("update comments set status='approved' where id=?", comment_id)
-        mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
-
-        log_moderation(forum["id"], user, "approve", "comment", comment_id, comment["member"], "")
-        notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
-
-        # Now broadcast the comment to members
-        comment_data = {
-            "id": comment_id,
-            "post": comment["post"],
-            "parent": comment["parent"],
-            "member": comment["member"],
-            "name": comment["name"],
-            "body": comment["body"],
-            "created": comment["created"],
-            "attachment": comment.get("attachment", "")
-        }
-        attachments = attachments_wire(comment_id)
-        if attachments:
-            comment_data["attachments"] = attachments
-        broadcast_event(forum["id"], "comment/create", comment_data)
-        mochi.db.commit.fire("comments", "insert", comment_id)
-    else:
-        mochi.message.send(
-            {"from": user, "to": forum["id"], "service": "forums", "event": "comment/approve/submit"},
-            {"id": comment_id}
-        )
-        mochi.db.execute("update comments set status='approved' where id=?", comment_id)
-
+    comment_approve(forum, comment, user)
     return {"data": {"success": True}}
 
 # RESTRICTION ACTIONS
@@ -5005,6 +5230,53 @@ def action_moderation_reports(a):
 
     return {"data": moderation_reports_data(forum, status)}
 
+# report_resolve settles a pending report on a forum we own: remove the
+# reported content if the moderator chose to, mark the report resolved, update
+# the other moderators' queues, and tell the reporter what became of it.
+# Shared by the owner's own action and both moderator paths.
+def report_resolve(forum, report, resolver, action):
+    now = mochi.time.now()
+    if action == "removed":
+        if report["type"] == "post":
+            post = mochi.db.row("select * from posts where id=? and forum=?", report["target"], forum["id"])
+            if post and post.get("status") != "removed":
+                mochi.db.execute(
+                    "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
+                    resolver, report["reason"], now, report["target"])
+                log_moderation(forum["id"], resolver, "remove", "post", report["target"], report["author"], report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
+                broadcast_event(forum["id"], "post/remove", {
+                    "id": report["target"], "remover": resolver, "reason": report["reason"]
+                })
+        elif report["type"] == "comment":
+            comment = mochi.db.row("select * from comments where id=? and forum=?", report["target"], forum["id"])
+            if comment and comment.get("status") != "removed":
+                mochi.db.execute(
+                    "update comments set status='removed', remover=?, reason=? where id=?",
+                    resolver, report["reason"], report["target"])
+                log_moderation(forum["id"], resolver, "remove", "comment", report["target"], report["author"], report["reason"])
+                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
+                broadcast_event(forum["id"], "comment/remove", {
+                    "id": report["target"], "post": comment["post"], "remover": resolver, "reason": report["reason"]
+                })
+
+    mochi.db.execute(
+        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
+        resolver, action, now, report["id"])
+
+    log_moderation(forum["id"], resolver, "resolve_report", "report", report["id"], report["author"], action)
+
+    broadcast_event(forum["id"], "report/resolve", {
+        "id": report["id"],
+        "action": action,
+        "resolver": resolver
+    })
+
+    # The outcome travels in the reason field; the reporter's side renders it.
+    # A moderator settling their own report needs no telling.
+    if report["reporter"] != resolver:
+        notify_moderation_action(forum["id"], report["reporter"], "report", report["type"], action, target_id=report["id"])
+
 # Resolve a report
 def action_report_resolve(a):
     if not a.user:
@@ -5045,48 +5317,7 @@ def action_report_resolve(a):
         a.error.label(400, "errors.invalid_action")
         return
 
-    user = a.user.identity.id
-    now = mochi.time.now()
-
-    # Perform the actual action
-    if action == "removed":
-        # Remove the reported content
-        if report["type"] == "post":
-            post = mochi.db.row("select * from posts where id=?", report["target"])
-            if post and post.get("status") != "removed":
-                mochi.db.execute(
-                    "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
-                    user, report["reason"], now, report["target"])
-                log_moderation(forum["id"], user, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
-                broadcast_event(forum["id"], "post/remove", {
-                    "id": report["target"], "remover": user, "reason": report["reason"]
-                })
-        elif report["type"] == "comment":
-            comment = mochi.db.row("select * from comments where id=?", report["target"])
-            if comment and comment.get("status") != "removed":
-                mochi.db.execute(
-                    "update comments set status='removed', remover=?, reason=? where id=?",
-                    user, report["reason"], report["target"])
-                log_moderation(forum["id"], user, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
-                broadcast_event(forum["id"], "comment/remove", {
-                    "id": report["target"], "post": comment["post"], "remover": user, "reason": report["reason"]
-                })
-
-    # Mark report as resolved
-    mochi.db.execute(
-        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
-        user, action, now, report_id)
-
-    log_moderation(forum["id"], user, "resolve_report", "report", report_id, report["author"], action)
-
-    # Broadcast resolution to all members so other moderators' queues update
-    broadcast_event(forum["id"], "report/resolve", {
-        "id": report_id,
-        "action": action,
-        "resolver": user
-    })
+    report_resolve(forum, report, a.user.identity.id, action)
     return {"data": {"success": True}}
 
 # MODERATION QUEUE ACTION
@@ -5685,6 +5916,11 @@ def action_access_set(a):
     resource = "forum/" + forum["id"]
     granter = a.user.identity.id
 
+    # Whether the grant gives a person something they could not already do,
+    # read before the old rules go: only that is worth telling them.
+    person = mochi.text.valid(target, "entity") and target != forum_owner(forum["id"])
+    news = person and level != "none" and not check_event_access(target, forum["id"], level)
+
     # Revoke all existing access levels first
     for op in ACCESS_LEVELS + ["manage", "*"]:
         mochi.access.revoke(target, resource, op)
@@ -5704,6 +5940,14 @@ def action_access_set(a):
     else:
         # Grant the new level
         mochi.access.allow(target, resource, level, granter)
+
+    # Tell them, on their own server, so an invitee to a private forum can
+    # find it: it is not in the directory.
+    if news:
+        mochi.message.send(
+            {"from": forum["id"], "to": target, "service": "forums", "event": "access/granted"},
+            {"level": level, "name": forum["name"]}
+        )
 
     return {
         "data": {"forum": forum["id"], "target": target, "level": level}
@@ -5866,11 +6110,17 @@ def event_mention_notify(e):
     # the recipient's own language.
     author = e.content("author") or mochi.app.label("notifications.mention.author_unknown")
     post_id = e.content("post") or ""
+    # Key on the mentioning comment when there is one: keyed on the post, a
+    # mention in a comment reads as a repeat of the post's own and is neither
+    # counted nor delivered. An owner too old to send it keys on the post.
+    comment = e.content("comment") or ""
+    if not mochi.text.valid(comment, "id"):
+        comment = ""
     # Build the link locally from the forum fingerprint rather than trusting a
     # sender-supplied url, so a forged mention cannot carry an arbitrary target.
     fp = mochi.entity.fingerprint(forum_id)
     url = "/forums/" + fp if fp else "/forums"
-    event_id = "mention:" + (post_id or forum_id)
+    event_id = "mention:" + (comment or post_id or forum_id)
     body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
     notify("mention", forum_id, title, body, url, event_id=event_id)
 
@@ -5951,6 +6201,11 @@ def event_comment_create_event(e):
 
     # Notify connected subscribers' tabs so the new comment appears without reload.
     mochi.db.commit.fire("comments", "insert", id)
+
+    # Catch-up "sync" comments are history, as in event_post_create_event.
+    if not e.content("sync") and mochi.db.exists("select id from comments where id=? and forum=?", id, forum["id"]):
+        row = mochi.db.row("select id, member, name, title, body from posts where id=? and forum=?", post, forum["id"])
+        notify_activity(forum, e.header("to"), row, {"id": id, "parent": parent, "member": member, "name": name, "body": body})
 
 # Received a comment submission from member (we are forum owner)
 def event_comment_submit_event(e):
@@ -6067,7 +6322,8 @@ def event_comment_submit_event(e):
 
         broadcast_event(forum["id"], "comment/create", comment_data)
         if body:
-            notify_mentions(forum["id"], post_id, body, sender_id, sender_name)
+            notify_mentions(forum["id"], post_id, body, sender_id, sender_name, id)
+        notify_activity(forum, forum_owner(forum["id"]), post, {"id": id, "parent": parent, "member": sender_id, "name": sender_name, "body": body})
     elif status == "pending":
         notify_moderators(
             forum["id"],
@@ -6364,6 +6620,12 @@ def event_post_create_event(e):
 
     mochi.db.commit.fire("posts", "insert", id)
 
+    # The owner's catch-up for a new subscriber marks its posts "sync"; they
+    # are history, not news. A colliding id another forum holds was ignored
+    # above, so only a row this forum now holds counts.
+    if not e.content("sync") and mochi.db.exists("select id from posts where id=? and forum=?", id, forum["id"]):
+        notify_activity(forum, e.header("to"), {"id": id, "member": member, "name": name, "title": title, "body": body})
+
 # Received a rejection from forum owner — our submitted post was refused.
 # Remove the optimistic pending row and signal the web tab to show a toast.
 def event_post_reject_event(e):
@@ -6383,6 +6645,7 @@ def event_post_reject_event(e):
     detail = e.content("detail") or ""
 
     mochi.db.execute("delete from posts where id=? and forum=? and status='pending'", post_id, forum_id)
+    mochi.db.execute("delete from follows where forum=? and post=?", forum_id, post_id)
 
     broadcast_websocket(forum_id, {
         "type": "post/reject",
@@ -6606,6 +6869,7 @@ def post_land(forum, member, name, id, title, body, status, tags, attachments, e
             broadcast_event(forum["id"], "tag/add", {"id": at["id"], "object": id, "label": at["label"], "source": "manual"}, exclude)
         if body:
             notify_mentions(forum["id"], id, body, member, name)
+        notify_activity(forum, forum_owner(forum["id"]), {"id": id, "member": member, "name": name, "title": title, "body": body})
 
         # Schedule AI tagging
         if forum.get("ai_mode", ""):
@@ -6757,6 +7021,7 @@ def event_post_delete_submit_event(e):
 
     # Delete the post
     mochi.db.execute("delete from posts where id=?", post_id)
+    mochi.db.execute("delete from follows where post=?", post_id)
 
     now = mochi.time.now()
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
@@ -6857,6 +7122,7 @@ def event_post_delete_event(e):
 
     # Delete the post
     mochi.db.execute("delete from posts where id=?", id)
+    mochi.db.execute("delete from follows where post=?", id)
 
     now = mochi.time.now()
     mochi.db.execute("update forums set updated=? where id=?", now, forum_id)
@@ -7076,8 +7342,14 @@ def event_subscribe_event(e):
                     {"id": t["id"], "object": t["object"], "label": t["label"], "qid": t.get("qid", ""), "relevance": t.get("relevance", 0), "source": t.get("source", "manual")}
                 )
 
-        # Notify all members of new subscription
+        # Notify the other members of the new subscription. The new member gets
+        # the same update directly, after its catch-up and on the same channel:
+        # it is their "initial content sent" signal, which flips populated.
         broadcast_event(forum["id"], "update", {"members": len(members)}, member_id)
+        mochi.message.send(
+            {"from": forum["id"], "to": member_id, "service": "forums", "event": "update"},
+            {"members": len(members)}
+        )
 
 # Received an unsubscribe request from member (we are forum owner)
 def event_unsubscribe_event(e):
@@ -7144,7 +7416,7 @@ def event_update_event(e):
     if type(members) != "int" or members < 0:
         return
 
-    # The member-count update is the owner's terminal broadcast sent right after
+    # The member-count update is the owner's terminal message sent right after
     # pushing a new subscriber's initial posts/comments/tags, so it doubles as
     # the "initial content arrived" signal: flip populated=1 and tell the browser
     # to re-load the forum so the board leaves its loading state.
@@ -7258,25 +7530,7 @@ def event_post_approve_submit_event(e):
     if not post or post.get("status") != "pending":
         return
 
-    now = mochi.time.now()
-    mochi.db.execute("update posts set status='approved', updated=? where id=?", now, post_id)
-
-    log_moderation(forum["id"], sender, "approve", "post", post_id, post["member"], "")
-    notify_moderation_action(forum["id"], post["member"], "approve", "post", "", target_id=post_id)
-
-    # Broadcast the post to members
-    post_data = {
-        "id": post_id,
-        "member": post["member"],
-        "name": post["name"],
-        "title": post["title"],
-        "body": post["body"],
-        "created": post["created"]
-    }
-    attachments = attachments_wire(post_id)
-    if attachments:
-        post_data["attachments"] = attachments
-    broadcast_event(forum["id"], "post/create", post_data)
+    post_approve(forum, post, sender)
 
 # Received a post lock request from moderator (we are forum owner)
 def event_post_lock_submit_event(e):
@@ -7496,28 +7750,7 @@ def event_comment_approve_submit_event(e):
     if not comment or comment.get("status") != "pending":
         return
 
-    now = mochi.time.now()
-    mochi.db.execute("update comments set status='approved' where id=?", comment_id)
-    mochi.db.execute("update posts set updated=? where id=?", now, comment["post"])
-
-    log_moderation(forum["id"], sender, "approve", "comment", comment_id, comment["member"], "")
-    notify_moderation_action(forum["id"], comment["member"], "approve", "comment", "", target_id=comment_id)
-
-    # Broadcast the comment to members
-    comment_data = {
-        "id": comment_id,
-        "post": comment["post"],
-        "parent": comment["parent"],
-        "member": comment["member"],
-        "name": comment["name"],
-        "body": comment["body"],
-        "created": comment["created"],
-        "attachment": comment.get("attachment", "")
-    }
-    attachments = attachments_wire(comment_id)
-    if attachments:
-        comment_data["attachments"] = attachments
-    broadcast_event(forum["id"], "comment/create", comment_data)
+    comment_approve(forum, comment, sender)
 
 # Received a user restriction request from moderator (we are forum owner)
 def event_restrict_submit_event(e):
@@ -7733,47 +7966,7 @@ def event_report_resolve_submit_event(e):
     if not report or report.get("status") != "pending":
         return
 
-    now = mochi.time.now()
-
-    # Perform the actual action
-    if action == "removed":
-        # Remove the reported content
-        if report["type"] == "post":
-            post = mochi.db.row("select * from posts where id=?", report["target"])
-            if post and post.get("status") != "removed":
-                mochi.db.execute(
-                    "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
-                    sender, report["reason"], now, report["target"])
-                log_moderation(forum["id"], sender, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "post", report["reason"], target_id=report["target"])
-                broadcast_event(forum["id"], "post/remove", {
-                    "id": report["target"], "remover": sender, "reason": report["reason"]
-                })
-        elif report["type"] == "comment":
-            comment = mochi.db.row("select * from comments where id=?", report["target"])
-            if comment and comment.get("status") != "removed":
-                mochi.db.execute(
-                    "update comments set status='removed', remover=?, reason=? where id=?",
-                    sender, report["reason"], report["target"])
-                log_moderation(forum["id"], sender, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum["id"], report["author"], "remove", "comment", report["reason"], target_id=report["target"])
-                broadcast_event(forum["id"], "comment/remove", {
-                    "id": report["target"], "post": comment["post"], "remover": sender, "reason": report["reason"]
-                })
-
-    # Mark report as resolved
-    mochi.db.execute(
-        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
-        sender, action, now, report_id)
-
-    log_moderation(forum["id"], sender, "resolve_report", "report", report_id, report["author"], action)
-
-    # Broadcast resolution to all members so other moderators' queues update
-    broadcast_event(forum["id"], "report/resolve", {
-        "id": report_id,
-        "action": action,
-        "resolver": sender
-    })
+    report_resolve(forum, report, sender, action)
 
 # Received a report resolution from forum owner
 def event_report_resolve_event(e):
@@ -8262,47 +8455,7 @@ def event_report_resolve_action(e):
         e.stream.write({"error": "errors.invalid_action"})
         return
 
-    now = mochi.time.now()
-
-    # Perform the actual action
-    if action == "removed":
-        if report["type"] == "post":
-            post = mochi.db.row("select * from posts where id=?", report["target"])
-            if post and post.get("status") != "removed":
-                mochi.db.execute(
-                    "update posts set status='removed', remover=?, reason=?, updated=? where id=?",
-                    requester, report["reason"], now, report["target"])
-                log_moderation(forum_id, requester, "remove", "post", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "post", report["reason"], target_id=report["target"])
-                broadcast_event(forum_id, "post/remove", {
-                    "id": report["target"], "remover": requester, "reason": report["reason"]
-                })
-        elif report["type"] == "comment":
-            comment = mochi.db.row("select * from comments where id=?", report["target"])
-            if comment and comment.get("status") != "removed":
-                mochi.db.execute(
-                    "update comments set status='removed', remover=?, reason=? where id=?",
-                    requester, report["reason"], report["target"])
-                log_moderation(forum_id, requester, "remove", "comment", report["target"], report["author"], report["reason"])
-                notify_moderation_action(forum_id, report["author"], "remove", "comment", report["reason"], target_id=report["target"])
-                broadcast_event(forum_id, "comment/remove", {
-                    "id": report["target"], "post": comment["post"], "remover": requester, "reason": report["reason"]
-                })
-
-    # Mark report as resolved
-    mochi.db.execute(
-        "update reports set status='resolved', resolver=?, action=?, resolved=? where id=?",
-        requester, action, now, report_id)
-
-    log_moderation(forum_id, requester, "resolve_report", "report", report_id, report["author"], action)
-
-    # Broadcast resolution to all members
-    broadcast_event(forum_id, "report/resolve", {
-        "id": report_id,
-        "action": action,
-        "resolver": requester
-    })
-
+    report_resolve(forum, report, requester, action)
     e.stream.write({"success": True})
 
 # CROSS-APP PROXY ACTIONS
@@ -8906,7 +9059,7 @@ def _subscribe_to_forum(user, forum_id, server):
     fp = mochi.entity.fingerprint(forum_id) or ""
     # populated=0: schema is fetched synchronously, but the bulk posts arrive
     # asynchronously from the owner; event_update_event flips it to 1 when the
-    # owner's post-subscribe "update" broadcast lands.
+    # owner's post-subscribe "update" message lands.
     mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
         forum_id, forum_name, 0, now, server or "", fp)
 
@@ -8962,6 +9115,7 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
         elif not moderator and requires_premoderation(forum, user_id, "post"):
             status = "pending"
         post_land(forum, user_id, user_name, post_id, title, body, status, tags or [], [], user_id)
+        follow(forum_id, post_id)
         return {"forum": forum_id, "post": post_id, "fingerprint": mochi.entity.fingerprint(forum_id) or ""}
 
     access_response = mochi.remote.request(forum_id, "forums", "access/check", {
@@ -8996,6 +9150,7 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     # second call rewrites the same row with the same values.
     mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
         post_id, forum_id, user_id, user_name, title, body, now, now)
+    follow(forum_id, post_id)
 
     fp = mochi.entity.fingerprint(forum_id) or ""
     return {"forum": forum_id, "post": post_id, "fingerprint": fp}

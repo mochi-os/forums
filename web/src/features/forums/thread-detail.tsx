@@ -40,6 +40,7 @@ import {
   useRestorePost,
   useLockPost,
   useUnlockPost,
+  useFollowPost,
   usePinPost,
   useUnpinPost,
   useRemoveComment,
@@ -188,6 +189,7 @@ export function ThreadDetail({
   const lockPostMutation = useLockPost(forum, postId)
   const unlockPostMutation = useUnlockPost(forum, postId)
   const pinPostMutation = usePinPost(forum, postId)
+  const followPostMutation = useFollowPost(forum, postId)
   const unpinPostMutation = useUnpinPost(forum, postId)
   // Comment moderation mutations
   const removeCommentMutation = useRemoveComment(forum, postId)
@@ -386,6 +388,7 @@ export function ThreadDetail({
     can_moderate = false,
     member,
     forum: forumData,
+    following,
   } = postData.data
   const commentCount = comments.length
   const currentUserId = member?.id
@@ -552,6 +555,8 @@ export function ThreadDetail({
                 onUnlock={() => unlockPostMutation.mutate()}
                 onPin={() => pinPostMutation.mutate()}
                 onUnpin={() => unpinPostMutation.mutate()}
+                following={following}
+                onFollowChange={(value) => followPostMutation.mutate(value)}
                 onMuteAuthor={
                   can_moderate || isForumManager
                     ? () => void handleMuteAuthor(post.member)

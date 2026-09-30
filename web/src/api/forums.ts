@@ -38,6 +38,8 @@ import type {
   RemoveMemberResponse,
   ProbeForumRequest,
   ProbeForumResponse,
+  NotificationKind,
+  NotificationSettingsResponse,
 } from '@/api/types/forums'
 import type {
   GetModerationSettingsParams,
@@ -94,6 +96,7 @@ import type {
   ViewPostResponse,
   VotePostRequest,
   VotePostResponse,
+  FollowPostResponse,
 } from '@/api/types/posts'
 
 const client = createAppClient({ appName: 'forums' })
@@ -478,6 +481,13 @@ const forumsApi = {
       {}
     ),
 
+  followPost: (forumId: string, postId: string, following: boolean) =>
+    client.post<FollowPostResponse>(
+      following
+        ? endpoints.forums.postModeration.follow(forumId, postId)
+        : endpoints.forums.postModeration.unfollow(forumId, postId)
+    ),
+
   pinPost: (payload: PinPostRequest) =>
     client.post<PinPostResponse>(
       endpoints.forums.postModeration.pin(payload.forum, payload.post),
@@ -604,6 +614,21 @@ const forumsApi = {
 
   clearNotifications: (forumId: string) =>
     client.post(endpoints.forums.notificationsClear(forumId)),
+
+  getNotifications: (forumId: string) =>
+    client.get<NotificationSettingsResponse>(
+      endpoints.forums.notifications(forumId)
+    ),
+
+  setNotification: (
+    forumId: string,
+    kind: NotificationKind,
+    enabled: boolean
+  ) =>
+    client.post<NotificationSettingsResponse>(
+      endpoints.forums.notificationsSet(forumId),
+      { kind, enabled: enabled ? 'true' : 'false' }
+    ),
 
   setDefaultSort: (sort: string) => {
     const formData = new URLSearchParams()

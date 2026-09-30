@@ -47,6 +47,8 @@ import {
   VolumeX,
   Ban,
   MoreHorizontal,
+  Bell,
+  BellRing,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 import { embedVideos, sanitizeHtml } from '../../utils'
@@ -90,6 +92,9 @@ interface ThreadContentProps {
   onReport?: () => void
   onMuteAuthor?: () => void
   onBanAuthor?: () => void
+  /** Whether the reader follows the post; undefined where they cannot. */
+  following?: boolean
+  onFollowChange?: (following: boolean) => void
 }
 
 export function ThreadContent({
@@ -125,6 +130,8 @@ export function ThreadContent({
   onReport,
   onMuteAuthor,
   onBanAuthor,
+  following,
+  onFollowChange,
 }: ThreadContentProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
@@ -372,6 +379,33 @@ export function ThreadContent({
                   alwaysVisible
                   className={iconActionButtonClass}
                 />
+              )}
+              {following !== undefined && onFollowChange && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type='button'
+                      className={iconActionButtonClass}
+                      aria-label={
+                        following ? t`Unfollow thread` : t`Follow thread`
+                      }
+                      aria-pressed={following}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onFollowChange(!following)
+                      }}
+                    >
+                      {following ? (
+                        <BellRing className='text-foreground size-3.5' />
+                      ) : (
+                        <Bell className='size-3.5' />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {following ? t`Unfollow thread` : t`Follow thread`}
+                  </TooltipContent>
+                </Tooltip>
               )}
               {/* More menu (edit, delete, moderation, report) */}
               {(canEdit || canModerate || onReport) && (

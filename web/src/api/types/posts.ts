@@ -165,7 +165,14 @@ export interface ViewPostResponse {
     can_vote: boolean
     can_comment: boolean
     can_moderate: boolean
+    /** Whether the signed-in reader follows the post; absent for a post in a
+     * forum they do not hold, which they cannot follow. */
+    following?: boolean
   }
+}
+
+export interface FollowPostResponse {
+  data: { following: boolean }
 }
 
 export interface VotePostRequest {

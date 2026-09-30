@@ -244,3 +244,12 @@ export interface ProbeForumResponse {
     peer?: string
   }
 }
+
+// The activity notifications the user has turned on for a forum.
+export type NotificationKind = 'post' | 'reply' | 'comment'
+
+export type NotificationSettings = Record<NotificationKind, boolean>
+
+export interface NotificationSettingsResponse {
+  data: NotificationSettings
+}

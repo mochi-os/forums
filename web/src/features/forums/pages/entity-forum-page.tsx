@@ -330,6 +330,9 @@ export function EntityForumPage({
               canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined
             }
             unsubscribePending={unsubscribeMutation.isPending}
+            notificationsForum={
+              isLoggedIn && isSubscribed ? forum.id : undefined
+            }
           />
         }
       />

@@ -17,7 +17,12 @@ import {
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { EditCommentResponse } from '@/api/types/comments'
-import type { Forum, Post } from '@/api/types/forums'
+import type {
+  Forum,
+  NotificationKind,
+  NotificationSettingsResponse,
+  Post,
+} from '@/api/types/forums'
 import type { EditPostResponse } from '@/api/types/posts'
 import {
   isForumPostEditUnchanged,
@@ -37,6 +42,8 @@ export const forumsKeys = {
   recommendations: () => [...forumsKeys.all, 'recommendations'] as const,
   post: (forumId: string, postId: string) =>
     [...forumsKeys.all, 'post', forumId, postId] as const,
+  notifications: (forumId: string) =>
+    [...forumsKeys.all, 'notifications', forumId] as const,
 }
 
 // ============================================================================
@@ -288,6 +295,32 @@ export function useSetForumSort(forumId: string) {
       queryClient.invalidateQueries({
         queryKey: [...forumsKeys.all, 'info-list'],
       })
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useForumNotifications(forumId: string, enabled: boolean) {
+  return useQuery({
+    queryKey: forumsKeys.notifications(forumId),
+    queryFn: () => forumsApi.getNotifications(forumId),
+    enabled,
+    refetchOnWindowFocus: false,
+  })
+}
+
+export function useSetForumNotification(forumId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({
+      kind,
+      enabled,
+    }: {
+      kind: NotificationKind
+      enabled: boolean
+    }) => forumsApi.setNotification(forumId, kind, enabled),
+    onSuccess: (response: NotificationSettingsResponse) => {
+      queryClient.setQueryData(forumsKeys.notifications(forumId), response)
     },
     onError: handleServerError,
   })
@@ -618,6 +651,20 @@ export function useUnlockPost(forumId: string, postId: string) {
         queryKey: forumsKeys.post(forumId, postId),
       })
       toast.success(t`Post unlocked`)
+    },
+    onError: handleServerError,
+  })
+}
+
+export function useFollowPost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (following: boolean) =>
+      forumsApi.followPost(forumId, postId, following),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: forumsKeys.post(forumId, postId),
+      })
     },
     onError: handleServerError,
   })

@@ -25,7 +25,7 @@
 	"require": {"version": {"minimum": "0.4.230"}},
 
 	"database": {
-		"schema": 10,
+		"schema": 12,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -100,6 +100,8 @@
 		":forum/-/:post/approve": {"function": "action_post_approve"},
 		":forum/-/:post/lock": {"function": "action_post_lock"},
 		":forum/-/:post/unlock": {"function": "action_post_unlock"},
+		":forum/-/:post/follow": {"function": "action_post_follow"},
+		":forum/-/:post/unfollow": {"function": "action_post_unfollow"},
 		":forum/-/:post/pin": {"function": "action_post_pin"},
 		":forum/-/:post/unpin": {"function": "action_post_unpin"},
 		":forum/-/:post/report": {"function": "action_post_report"},
@@ -166,6 +168,7 @@
 		"post/status": {"function": "event_post_status_event"},
 		"comment/status": {"function": "event_comment_status_event"},
 		"member/notify": {"function": "event_member_notify"},
+		"access/granted": {"function": "event_access_granted"},
 		"post/submit": {"function": "event_post_submit_event"},
 		"post/update": {"function": "event_post_update_event"},
 		"post/vote": {"function": "event_post_vote_event"},

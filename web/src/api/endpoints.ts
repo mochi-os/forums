@@ -125,8 +125,12 @@ const endpoints = {
     },
 
     // Notifications
+    notifications: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/notifications`,
     notificationsClear: (forumId: string) =>
       `${getEntityBase(forumId)}/-/notifications/clear`,
+    notificationsSet: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/notifications/set`,
 
     // Sort persistence
     sortSet: '-/sort/set',
@@ -160,6 +164,10 @@ const endpoints = {
         `${getEntityBase(forumId)}/-/${postId}/unpin`,
       report: (forumId: string, postId: string) =>
         `${getEntityBase(forumId)}/-/${postId}/report`,
+      follow: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/follow`,
+      unfollow: (forumId: string, postId: string) =>
+        `${getEntityBase(forumId)}/-/${postId}/unfollow`,
     },
 
     // Comment moderation actions
