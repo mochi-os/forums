@@ -2976,12 +2976,13 @@ def notify_activity(forum, me, post, comment=None):
         return
 
     # A reply to the user is a comment directly under their post, or under one
-    # of their comments.
+    # of their comments. All replies includes replies to the user, which keep
+    # their own wording.
     if comment["parent"]:
         reply = mochi.db.exists("select id from comments where id=? and forum=? and member=?", comment["parent"], forum["id"], me)
     else:
         reply = post["member"] == me
-    if reply and settings["reply"]:
+    if reply and (settings["reply"] or settings["comment"]):
         kind = "reply"
     elif followed:
         kind = "thread"

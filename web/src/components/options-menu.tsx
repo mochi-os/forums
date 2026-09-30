@@ -43,6 +43,9 @@ const revokeRssToken = async (entity: string) => {
 
 // Binds the forums api and routing to the shared entity menu.
 export function OptionsMenu({ notificationsForum, ...props }: OptionsMenuProps) {
+  // Read the notification settings with the page rather than when the menu
+  // opens, so the submenu opens with its ticks already in place.
+  useForumNotifications(notificationsForum ?? '', !!notificationsForum)
   return (
     <SharedOptionsMenu
       {...props}
@@ -64,9 +67,15 @@ function NotificationsMenu({ forumId }: { forumId: string }) {
   const setNotification = useSetForumNotification(forumId)
   const settings = data?.data
 
-  const kinds: { kind: NotificationKind; label: string }[] = [
+  // A kind whose notices another includes shows ticked and fixed while that
+  // one is on, keeping its own stored choice for when it is turned off.
+  const kinds: {
+    kind: NotificationKind
+    label: string
+    within?: NotificationKind
+  }[] = [
     { kind: 'post', label: t`New posts` },
-    { kind: 'reply', label: t`Replies to you` },
+    { kind: 'reply', label: t`Replies to you`, within: 'comment' },
     { kind: 'comment', label: t`All replies` },
   ]
 
@@ -77,20 +86,23 @@ function NotificationsMenu({ forumId }: { forumId: string }) {
         <Trans>Notifications</Trans>
       </DropdownMenuSubTrigger>
       <DropdownMenuSubContent>
-        {kinds.map(({ kind, label }) => (
-          <DropdownMenuCheckboxItem
-            key={kind}
-            checked={settings?.[kind] ?? false}
-            disabled={!settings}
-            // Stay open so several can be set in one visit.
-            onSelect={(event) => event.preventDefault()}
-            onCheckedChange={(checked) =>
-              setNotification.mutate({ kind, enabled: checked })
-            }
-          >
-            {label}
-          </DropdownMenuCheckboxItem>
-        ))}
+        {kinds.map(({ kind, label, within }) => {
+          const covered = !!within && !!settings?.[within]
+          return (
+            <DropdownMenuCheckboxItem
+              key={kind}
+              checked={covered || (settings?.[kind] ?? false)}
+              disabled={!settings || covered}
+              // Stay open so several can be set in one visit.
+              onSelect={(event) => event.preventDefault()}
+              onCheckedChange={(checked) =>
+                setNotification.mutate({ kind, enabled: checked })
+              }
+            >
+              {label}
+            </DropdownMenuCheckboxItem>
+          )
+        })}
       </DropdownMenuSubContent>
     </DropdownMenuSub>
   )
