@@ -46,7 +46,16 @@ import {
   DISALLOWED_NAME_CHARS,
   MemberList,
 } from '@mochi/web'
-import { Plus, Hash, Settings, Shield, Trash2, Gavel } from 'lucide-react'
+import {
+  Plus,
+  Hash,
+  Settings,
+  Shield,
+  Trash2,
+  Gavel,
+  Ban,
+  UserMinus,
+} from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
 import {
@@ -456,6 +465,7 @@ function GeneralTab({
         title={t`Delete forum?`}
         desc={t`This will permanently delete "${forum.name}" and all its posts and comments. This action cannot be undone.`}
         confirmText={t`Delete forum`}
+        icon={<Trash2 className='size-4' />}
         destructive
         handleConfirm={onDelete}
       />
@@ -866,6 +876,13 @@ export function MembersSection({
             : t`Their votes in this forum are deleted.`
         }
         confirmText={pending?.kind === 'block' ? t`Block` : t`Remove`}
+        icon={
+          pending?.kind === 'block' ? (
+            <Ban className='size-4' />
+          ) : (
+            <UserMinus className='size-4' />
+          )
+        }
         destructive
         isLoading={busy}
         handleConfirm={() => {

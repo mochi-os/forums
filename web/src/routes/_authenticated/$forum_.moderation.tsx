@@ -39,6 +39,7 @@ import {
   Flag,
   History,
   Users,
+  Ban,
 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type {
@@ -601,6 +602,7 @@ function QueueTab({ forumId }: QueueTabProps) {
             '# authors will lose access to this forum. You can lift it later from the Restrictions tab.',
         })}
         confirmText={t`Ban`}
+        icon={<Ban className='size-4' />}
         destructive={true}
         handleConfirm={() => {
           setBulkBanOpen(false)

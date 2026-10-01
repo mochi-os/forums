@@ -561,6 +561,7 @@ export function ThreadComment({
         title={t`Delete comment`}
         desc={t`Are you sure you want to delete this comment? This will also delete all replies. This action cannot be undone.`}
         confirmText={t`Delete`}
+        icon={<Trash2 className='size-4' />}
         destructive={true}
         handleConfirm={() => {
           onDelete?.(comment.id)
@@ -575,6 +576,7 @@ export function ThreadComment({
         title={t`Remove comment`}
         desc={t`This will hide the comment from regular users. Moderators can still see it and restore it later.`}
         confirmText={t`Remove`}
+        icon={<EyeOff className='size-4' />}
         handleConfirm={() => {
           onRemove?.(comment.id)
           setRemoving(false)
@@ -588,6 +590,7 @@ export function ThreadComment({
         title={t`Mute author`}
         desc={t`Mute ${comment.name}? They will not be able to post or comment in this forum until unmuted.`}
         confirmText={t`Mute`}
+        icon={<VolumeX className='size-4' />}
         handleConfirm={() => {
           onMuteAuthor?.(comment.member)
           setMuting(false)
@@ -601,6 +604,7 @@ export function ThreadComment({
         title={t`Ban author`}
         desc={t`Ban ${comment.name} from this forum? They will no longer be able to participate.`}
         confirmText={t`Ban`}
+        icon={<Ban className='size-4' />}
         destructive
         handleConfirm={() => {
           onBanAuthor?.(comment.member)

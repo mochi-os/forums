@@ -23,7 +23,7 @@ import {
   ConfirmDialog,
   LoadingContent,
 } from '@mochi/web'
-import { Rss, SquarePen, X } from 'lucide-react'
+import { Rss, SquarePen, UserMinus, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -417,6 +417,7 @@ export function EntityForumPage({
         }
         destructive
         confirmText={<Trans>Unsubscribe</Trans>}
+        icon={<UserMinus className='size-4' />}
         handleConfirm={() => unsubscribeMutation.mutate(forum.id)}
         isLoading={unsubscribeMutation.isPending}
       />

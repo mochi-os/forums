@@ -13,7 +13,7 @@ import {
   PageHeader,
   usePageTitle,
 } from '@mochi/web'
-import { Bookmark } from 'lucide-react'
+import { Bookmark, Trash2 } from 'lucide-react'
 import type { Post, SavedItem, SavedPostSnapshot } from '@/api/types/posts'
 import { clearSaved, getSaved, loadSaved, onSavedChange } from '@/lib/saved'
 import { PostCard } from '../components/post-card'
@@ -116,6 +116,7 @@ export function SavedPage() {
         }
         destructive
         confirmText={<Trans>Clear all</Trans>}
+        icon={<Trash2 className='size-4' />}
         handleConfirm={() => {
           clearSaved()
           setShowClearConfirm(false)
