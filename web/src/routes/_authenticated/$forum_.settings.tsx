@@ -301,15 +301,18 @@ function ForumSettingsPage() {
         icon={<Settings className='size-4 md:size-5' />}
         back={{ label: t`Back to forum`, onFallback: goBackToForum }}
       />
-      <Main className='space-y-6'>
-        {/* Tabs - only show for owners */}
-        {selectedForum.can_manage && (
-          <Tabs
-            variant='underline'
-            value={activeTab}
-            onValueChange={(value) => setActiveTab(value as TabId)}
-          >
-            <TabsList aria-label={t`Forum settings sections`}>
+      <Main>
+        {/* The panels sit inside Tabs with the strip: a sticky strip only
+            holds for as long as its parent is on screen. */}
+        <Tabs
+          variant='underline'
+          value={activeTab}
+          onValueChange={(value) => setActiveTab(value as TabId)}
+          className='gap-6'
+        >
+          {/* Tabs - only show for owners */}
+          {selectedForum.can_manage && (
+            <TabsList sticky aria-label={t`Forum settings sections`}>
               {tabs.map((tab) => (
                 <TabsTrigger key={tab.id} value={tab.id} className='gap-2'>
                   {tab.icon}
@@ -317,36 +320,36 @@ function ForumSettingsPage() {
                 </TabsTrigger>
               ))}
             </TabsList>
-          </Tabs>
-        )}
+          )}
 
-        {/* Tab content */}
-        <div
-          id={`forum-settings-${activeTab}-tabpanel`}
-          role='tabpanel'
-          className='pt-2'
-        >
-          {activeTab === 'general' && (
-            <GeneralTab
-              forum={selectedForum}
-              canUnsubscribe={canUnsubscribe}
-              isUnsubscribing={isUnsubscribing}
-              isDeleting={deleteForum.isPending}
-              showDeleteDialog={showDeleteDialog}
-              setShowDeleteDialog={setShowDeleteDialog}
-              onUnsubscribe={handleUnsubscribe}
-              onDelete={handleDelete}
-              onRename={handleRename}
-              onRefresh={refreshForumInfo}
-            />
-          )}
-          {activeTab === 'access' && selectedForum.can_manage && (
-            <AccessTab forumId={selectedForum.id} />
-          )}
-          {activeTab === 'moderation' && selectedForum.can_manage && (
-            <ModerationTab forumId={selectedForum.id} />
-          )}
-        </div>
+          {/* Tab content */}
+          <div
+            id={`forum-settings-${activeTab}-tabpanel`}
+            role='tabpanel'
+            className='pt-2'
+          >
+            {activeTab === 'general' && (
+              <GeneralTab
+                forum={selectedForum}
+                canUnsubscribe={canUnsubscribe}
+                isUnsubscribing={isUnsubscribing}
+                isDeleting={deleteForum.isPending}
+                showDeleteDialog={showDeleteDialog}
+                setShowDeleteDialog={setShowDeleteDialog}
+                onUnsubscribe={handleUnsubscribe}
+                onDelete={handleDelete}
+                onRename={handleRename}
+                onRefresh={refreshForumInfo}
+              />
+            )}
+            {activeTab === 'access' && selectedForum.can_manage && (
+              <AccessTab forumId={selectedForum.id} />
+            )}
+            {activeTab === 'moderation' && selectedForum.can_manage && (
+              <ModerationTab forumId={selectedForum.id} />
+            )}
+          </div>
+        </Tabs>
       </Main>
     </>
   )
