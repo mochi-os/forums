@@ -5,7 +5,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { Plural, Trans, useLingui } from '@lingui/react/macro'
+import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Main,
   usePageTitle,
@@ -13,7 +14,7 @@ import {
   PageHeader,
   SortSelector,
   type SortType,
-  NewItemsPill,
+  NewItemsAction,
   usePendingItems,
   toast,
   getErrorMessage,
@@ -277,6 +278,14 @@ export function EntityForumPage({
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>
+            <NewItemsAction
+              count={newPosts.count}
+              onClick={handleShowNewPosts}
+              label={plural(newPosts.count, {
+                one: '# new post',
+                other: '# new posts',
+              })}
+            />
             {canPost && (
               <Button onClick={() => openPostDialog(forum.id)}>
                 <SquarePen className='me-2 size-4' />
@@ -338,17 +347,6 @@ export function EntityForumPage({
       />
       <Main fixed>
         <div ref={scrollRef} className='flex-1 overflow-y-auto'>
-          <NewItemsPill
-            count={newPosts.count}
-            onClick={handleShowNewPosts}
-            label={
-              <Plural
-                value={newPosts.count}
-                one='# new post'
-                other='# new posts'
-              />
-            }
-          />
           {forum.banner_html && (
             <ForumBanner bannerHtml={forum.banner_html} forumId={forum.id} />
           )}
