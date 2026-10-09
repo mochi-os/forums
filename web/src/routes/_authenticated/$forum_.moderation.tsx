@@ -129,7 +129,7 @@ function ModerationPage() {
           onValueChange={(value) => setActiveTab(value as TabId)}
           className='gap-6'
         >
-          <TabsList aria-label={t`Moderation sections`}>
+          <TabsList sticky aria-label={t`Moderation sections`}>
             {tabs.map((tab) => (
               <TabsTrigger key={tab.id} value={tab.id} className='gap-2'>
                 {tab.icon}
