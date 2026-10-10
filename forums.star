@@ -7153,7 +7153,7 @@ def event_forum_delete_event(e):
     if fp:
         mochi.websocket.write(fp, {"type": "forum/removed" if removed else "forum/deleted", "forum": forum_id})
     # Its notifications point at rows that no longer exist.
-    mochi.service.call("notifications", "clear/object", forum_id)
+    mochi.service.call("notifications", "delete/object", forum_id)
     if removed:
         notify("member/removed", forum_id, mochi.app.label("notifications.title.removed", forum=row["name"]), mochi.app.label("notifications.body.removed"), "/forums/", event_id="member/removed:" + forum_id)
 
