@@ -406,6 +406,7 @@ export function ThreadDetail({
   const handleEditPost = (data: {
     title: string
     body: string
+    url: string
     order: string[]
     attachments: File[]
     captions: Record<string, string>

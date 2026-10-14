@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# izbran} two {# izbrana} few {# izbrani} other {# izbr
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ugnezdena} two {+# ugnezdeni} few {+# ugnezdene} other {+# ugnezdenih}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Dodana # skupnost} two {Dodani # skupnosti} few {Dodane # skupnosti} other {Dodanih # skupnosti}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Dodaj napis"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Dodaj element kontrolnega seznama"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Dodaj skupnosti"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Kopirano v odložišče"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopiraj"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Skupnosti ni bilo mogoče dodati"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Uvoz ni uspel"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Pregledovalnik slik: {0}"
 msgid "Imperial"
 msgstr "Imperialne enote"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Uvozi nastavitve"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Uvožene skupnosti: {0}, blokade: {1}, shranjene objave: {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Doslej uvožene skupnosti: {0}, blokade: {1}, shranjene objave: {2}; preostanek sledi"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Vključno z anonimnimi uporabniki"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Svetlo"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Povezava"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera je že v uporabi"
 msgid "The camera request was not answered"
 msgstr "Zahteva za kamero ni dobila odgovora"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Povezava lahko vsebuje največ 2048 znakov"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Povezava mora biti spletni naslov"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Zahteva za mikrofon ni dobila odgovora"
@@ -3877,6 +3922,10 @@ msgstr "Vaše priloge bodo izgubljene."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Vaše spremembe bodo izgubljene."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Vaše skupnosti drugje"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# kiválasztva} other {# kiválasztva}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# beágyazott} other {+# beágyazott}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# közösség hozzáadva} other {# közösség hozzáadva}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Képaláírás hozzáadása"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Ellenőrzőlista-elem hozzáadása"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Közösségek hozzáadása"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "A vágólapra másolva"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Másolás"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Nem sikerült hozzáadni a közösségeket"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Nem sikerült importálni"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Képnézegető: {0}"
 msgid "Imperial"
 msgstr "Angolszász"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Beállítások importálása"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Importálva: {0} közösség, {1} letiltás és {2} mentett bejegyzés"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Eddig importálva: {0} közösség, {1} letiltás és {2} mentett bejegyzés; a többi később következik"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Beleértve a névtelen felhasználókat"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Világos"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Hivatkozás"
 
@@ -3420,6 +3457,14 @@ msgstr "A kamera már használatban van"
 msgid "The camera request was not answered"
 msgstr "A kamerakérésre nem érkezett válasz"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "A hivatkozás legfeljebb 2048 karakter lehet"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "A hivatkozásnak webcímnek kell lennie"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "A mikrofonkérésre nem érkezett válasz"
@@ -3877,6 +3922,10 @@ msgstr "A mellékletei elvesznek."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "A módosításaid elvesznek."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Máshol lévő közösségei"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

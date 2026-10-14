@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# چونڊيل} other {# چونڊيل}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ذيلي} other {+# ذيلي}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# برادري شامل ڪئي وئي} other {# برادريون شامل ڪيون ويون}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "ڪيپشن شامل ڪريو"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "چيڪ لسٽ شيءِ شامل ڪريو"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "برادريون شامل ڪريو"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "ڪلپ بورڊ تي ڪاپي ٿيو"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "ڪاپي ڪريو"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "برادريون شامل نه ٿي سگهيون"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "درآمد نه ٿي سگهي"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "تصوير ڏسڻ وارو: {0}"
 msgid "Imperial"
 msgstr "امپيريل"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "سيٽنگون درآمد ڪريو"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} برادريون، {1} بلاڪ ۽ {2} محفوظ ٿيل پوسٽون درآمد ٿيون"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "هيستائين {0} برادريون، {1} بلاڪ ۽ {2} محفوظ ٿيل پوسٽون درآمد ٿيون؛ باقي پوءِ اينديون"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "گمنام صارفن سميت"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "روشن"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "لنڪ"
 
@@ -3420,6 +3457,14 @@ msgstr "ڪئميرا اڳ ۾ ئي استعمال ۾ آهي"
 msgid "The camera request was not answered"
 msgstr "ڪئميرا درخواست جو جواب نه مليو"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "لنڪ 2048 اکرن يا گهٽ هجڻ گهرجي"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "لنڪ ويب پتو هجڻ گهرجي"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "مائڪروفون درخواست جو جواب نه مليو"
@@ -3877,6 +3922,10 @@ msgstr "توهان جون منسلڪات گم ٿي وينديون."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "توهان جون تبديليون ضايع ٿي وينديون."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "ٻين هنڌن تي توهان جون برادريون"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

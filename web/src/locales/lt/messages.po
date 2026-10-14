@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# pasirinktas} few {# pasirinkti} many {# pasirinktų} 
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# įdėtas} few {+# įdėti} many {+# įdėto} other {+# įdėtų}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Pridėta # bendruomenė} few {Pridėtos # bendruomenės} many {Pridėta # bendruomenės} other {Pridėta # bendruomenių}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Pridėti antraštę"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Pridėti sąrašo elementą"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Pridėti bendruomenes"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Nukopijuota į iškarpinę"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopijuoti"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Nepavyko pridėti bendruomenių"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Nepavyko importuoti"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Paveikslėlių peržiūra: {0}"
 msgid "Imperial"
 msgstr "Imperinė"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Importuoti nustatymus"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Importuota: bendruomenių – {0}, blokavimų – {1}, išsaugotų įrašų – {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Kol kas importuota: bendruomenių – {0}, blokavimų – {1}, išsaugotų įrašų – {2}; likę bus importuoti vėliau"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Įskaitant anoniminius naudotojus"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Šviesi"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Nuoroda"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera jau naudojama"
 msgid "The camera request was not answered"
 msgstr "Į kameros užklausą neatsakyta"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Nuoroda turi būti ne ilgesnė nei 2048 simbolių"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Nuoroda turi būti žiniatinklio adresas"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Į mikrofono užklausą neatsakyta"
@@ -3877,6 +3922,10 @@ msgstr "Jūsų priedai bus prarasti."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Tavo pakeitimai bus prarasti."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Jūsų bendruomenės kitur"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

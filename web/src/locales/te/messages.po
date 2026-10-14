@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# ఎంచుకోబడింది} other {# ఎం
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# లోపలిది} other {+# లోపలివి}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# సంఘం జోడించబడింది} other {# సంఘాలు జోడించబడ్డాయి}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "క్యాప్షన్ జోడించండి"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "చెక్‌లిస్ట్ ఐటెమ్‌ను జోడించండి"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "సంఘాలను జోడించండి"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "క్లిప్‌బోర్డ్‌కి కాపీ చేయ�
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "కాపీ చేయండి"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "సంఘాలను జోడించడం సాధ్యం కాలేదు"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "దిగుమతి చేయడం సాధ్యం కాలేదు"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "చిత్ర వీక్షకం: {0}"
 msgid "Imperial"
 msgstr "ఇంపీరియల్"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "సెట్టింగ్‌లను దిగుమతి చేయండి"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} సంఘాలు, {1} బ్లాక్‌లు, {2} సేవ్ చేసిన పోస్ట్‌లు దిగుమతి చేయబడ్డాయి"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "ఇప్పటివరకు {0} సంఘాలు, {1} బ్లాక్‌లు, {2} సేవ్ చేసిన పోస్ట్‌లు దిగుమతి చేయబడ్డాయి; మిగిలినవి తర్వాత వస్తాయి"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "అనామక వినియోగదారులతో సహా"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "లైట్"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "లింక్"
 
@@ -3420,6 +3457,14 @@ msgstr "కెమెరా ఇప్పటికే వాడుకలో ఉం
 msgid "The camera request was not answered"
 msgstr "కెమెరా అభ్యర్థనకు స్పందన లేదు"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "లింక్ 2048 అక్షరాలు లేదా అంతకంటే తక్కువగా ఉండాలి"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "లింక్ వెబ్ చిరునామా అయి ఉండాలి"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "మైక్రోఫోన్ అభ్యర్థనకు స్పందన లేదు"
@@ -3877,6 +3922,10 @@ msgstr "మీ జోడింపులు పోతాయి."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "మీ మార్పులు పోతాయి."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "ఇతర చోట్ల మీ సంఘాలు"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

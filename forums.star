@@ -209,6 +209,13 @@ def database_upgrade(version):
         # The posts this user follows: every reply in them notifies.
         mochi.db.execute("create table if not exists follows ( forum text not null, post text not null, primary key ( forum, post ) )")
 
+    if version == 13:
+        # Link posts and communities on other networks (the federation plan,
+        # phase 14): a post's link, its card and its id on the network it came
+        # from, a comment's id there, and the account and server-side id of a
+        # community followed through a linked account.
+        community_schema_create()
+
 def database_create():
     mochi.db.execute("""create table if not exists forums (
         id text not null primary key, name text not null, members integer not null default 0, updated integer not null,
@@ -222,7 +229,8 @@ def database_create():
         banner text not null default '', sort text not null default '',
         synced integer not null default 0,
         checked integer not null default 0,
-        populated integer not null default 1 )""")
+        populated integer not null default 1,
+        account text not null default '', community text not null default '' )""")
     mochi.db.execute("create index if not exists forums_name on forums( name )")
     mochi.db.execute("create index if not exists forums_updated on forums( updated )")
     mochi.db.execute("create index if not exists forums_fingerprint on forums( fingerprint )")
@@ -244,7 +252,9 @@ def database_create():
         up integer not null default 0, down integer not null default 0,
         created integer not null, updated integer not null, edited integer not null default 0,
         status text not null default 'approved', remover text, reason text not null default '',
-        locked integer not null default 0, pinned integer not null default 0 )""")
+        locked integer not null default 0, pinned integer not null default 0,
+        url text not null default '', thumbnail text not null default '', embed text not null default '',
+        remote text not null default '' )""")
     mochi.db.execute("create index if not exists posts_forum on posts( forum )")
     mochi.db.execute("create index if not exists posts_forum_status on posts( forum, status )")
     mochi.db.execute("create index if not exists posts_created on posts( created )")
@@ -256,7 +266,7 @@ def database_create():
         up integer not null default 0, down integer not null default 0,
         created integer not null, edited integer not null default 0,
         status text not null default 'approved', remover text, reason text not null default '',
-        attachment text not null default '' )""")
+        attachment text not null default '', remote text not null default '' )""")
     mochi.db.execute("create index if not exists comments_forum on comments( forum )")
     mochi.db.execute("create index if not exists comments_post on comments( post )")
     mochi.db.execute("create index if not exists comments_parent on comments( parent )")
@@ -510,7 +520,7 @@ def attachments_wire(object):
 # that is not an entity is dropped rather than echoed to every open tab.
 def voter_content(e):
     voter = e.content("voter")
-    return voter if mochi.text.valid(voter, "entity") else ""
+    return voter if mochi.text.valid(voter, "author") else ""
 
 
 # Cap free-text moderation input (reasons, report details) so one field can't
@@ -523,7 +533,9 @@ def cap_text(text, limit=2000):
 # Helper: Does the current user own this forum's entity?
 # Source of truth is core/users.db.entities — the private key bearer is the owner.
 def owned(forum_id):
-    return len(mochi.entity.get(forum_id)) > 0
+    # A community on another network is keyed by its address, which is no
+    # entity: nobody here owns it.
+    return mochi.text.valid(forum_id, "entity") and len(mochi.entity.get(forum_id)) > 0
 
 # Helper: Build a set of forum IDs the current user owns, for batched checks in list views.
 def owned_set():
@@ -608,6 +620,10 @@ def check_access(a, forum_id, operation):
 # there - and only there, so a stale members row cannot override a revoked
 # grant. Never read entity.info's privacy: it is None for a remote entity.
 def can_view_forum(a, forum_id, user_id):
+    # A community on another network is read through the user's own account,
+    # so its rows are theirs alone: the member who holds it may view it.
+    if not mochi.text.valid(forum_id, "entity"):
+        return bool(user_id) and mochi.db.exists("select 1 from members where forum=? and id=?", forum_id, user_id)
     if check_access(a, forum_id, "view"):
         return True
     if not user_id or mochi.entity.info(forum_id) != None:
@@ -776,7 +792,7 @@ def request_resync(forum_id):
         return False
     insert_forum_schema(forum_id, schema)
     mochi.broadcast.touch(forum_id)
-    fp = mochi.entity.fingerprint(forum_id)
+    fp = forum_fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
     return True
@@ -990,7 +1006,7 @@ def send_status(forum_id, author_id, kind, target_id, status):
 def broadcast_websocket(forum_id, data):
     if not forum_id:
         return
-    fingerprint = mochi.entity.fingerprint(forum_id)
+    fingerprint = forum_fingerprint(forum_id)
     if not fingerprint:
         return
     mochi.websocket.write(fingerprint, data)
@@ -1036,7 +1052,7 @@ def on_db_commit(table, kind, row_uid):
     if not msg or not forum_id:
         return
 
-    fingerprint = mochi.entity.fingerprint(forum_id)
+    fingerprint = forum_fingerprint(forum_id)
     if fingerprint:
         mochi.websocket.write(fingerprint, msg)
 
@@ -1155,6 +1171,10 @@ def notify_moderation_action(forum_id, user_id, action, target_type, reason, tar
         notify_moderation_local(forum_id, action, target_type, reason, target_id or user_id)
         return
 
+    # Only a Mochi identity can be reached over P2P; an author on another
+    # network is told through the network, when a later phase carries it.
+    if not mochi.text.valid(user_id, "entity"):
+        return
     mochi.message.send(
         {"from": forum_id, "to": user_id, "service": "forums", "event": "member/notify"},
         {"action": action, "type": target_type, "reason": reason, "source": target_id or user_id}
@@ -1251,7 +1271,7 @@ def event_access_granted(e):
     forum = get_forum(forum_id)
     if forum:
         name = forum["name"]
-        url = "/forums/" + (mochi.entity.fingerprint(forum_id) or forum_id)
+        url = "/forums/" + (forum_fingerprint(forum_id) or forum_id)
     elif e.header("local"):
         url = "/forums/" + forum_id
     else:
@@ -1292,7 +1312,7 @@ def notify_moderators(forum_id, topic, title, body, url, exclude_user_id="", sou
     if not moderator_ids:
         return
 
-    fp = mochi.entity.fingerprint(forum_id) or forum_id
+    fp = forum_fingerprint(forum_id) or forum_id
     url = url or "/forums/" + fp + "/moderation"
 
     # Stable event_id derived from the triggering source row (post/comment/
@@ -1334,7 +1354,7 @@ def event_moderator_notify(e):
         source = ""
     # Build the link locally rather than trusting a sender-supplied url, so a
     # forged notification cannot carry an arbitrary click target.
-    fp = mochi.entity.fingerprint(forum_id) or forum_id
+    fp = forum_fingerprint(forum_id) or forum_id
     url = "/forums/" + fp + "/moderation"
     event_id = topic + ":" + (source or forum_id)
     notify(topic, forum_id, title, body, url, event_id=event_id)
@@ -1345,6 +1365,16 @@ def event_moderator_notify(e):
 def stream_asset(a, entity_id, service, asset):
     if not entity_id:
         a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
+        return None
+    # A person on another network has no Mochi server to stream from: their
+    # avatar is where their network keeps it, which the lookup answers.
+    if not mochi.text.valid(entity_id, "entity"):
+        found = mochi.account.resolve(entity_id) if asset == "avatar" else None
+        if found and safe_web_link(found.get("avatar", "")):
+            a.header("Cache-Control", "private, max-age=300")
+            a.redirect(found["avatar"])
+            return None
+        a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
         return None
     s = mochi.remote.stream(entity_id, service, asset, {})
     if not s:
@@ -1388,8 +1418,10 @@ def action_post_asset(a):
         a.error.label(404, "errors.unknown_asset")
         return
     # Public route - gate on view access first, or knowing a post id confirms
-    # that identity posted in a private forum.
-    forum_id = a.input("forum")
+    # that identity posted in a private forum. The route names the forum by id
+    # or by fingerprint, as a community on another network is reached.
+    forum = get_forum(a.input("forum"))
+    forum_id = forum["id"] if forum else a.input("forum")
     if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
@@ -1418,7 +1450,7 @@ def action_moderation_asset(a):
         a.error.label(403, "errors.not_allowed_to_moderate")
         return
     user = a.input("user")
-    if not mochi.text.valid(user, "entity"):
+    if not mochi.text.valid(user, "author"):
         a.error.label(404, "errors.unknown_asset")
         return
     return stream_asset(a, user, "people", asset)
@@ -1430,7 +1462,8 @@ def action_comment_asset(a):
         a.error.label(404, "errors.unknown_asset")
         return
     # Public route - gate on view access first (see action_post_asset).
-    forum_id = a.input("forum")
+    forum = get_forum(a.input("forum"))
+    forum_id = forum["id"] if forum else a.input("forum")
     if not can_view_forum(a, forum_id, a.user.identity.id if a.user and a.user.identity else None):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
@@ -1869,7 +1902,7 @@ def action_information_class(a):
 
     # Add fingerprints and permissions for owned forums (no P2P calls)
     for f in forums:
-        f["fingerprint"] = mochi.entity.fingerprint(f["id"])
+        f["fingerprint"] = forum_fingerprint(f["id"])
         if owned_ids.get(f["id"]):
             f["can_manage"] = check_access(a, f["id"], "manage")
             f["can_moderate"] = check_access(a, f["id"], "moderate")
@@ -1915,6 +1948,9 @@ def action_information_entity(a):
     if is_owner:
         can_manage = check_access(a, forum["id"], "manage")
         can_post = check_access(a, forum["id"], "post")
+    elif is_community(forum):
+        can_manage = False
+        can_post = community_posting(forum)
     elif user_id:
         can_manage = False
         # Query owner for post access
@@ -1938,7 +1974,7 @@ def action_information_entity(a):
     if banner:
         forum["banner_html"] = mochi.text.markdown(banner)
 
-    raw = mochi.entity.fingerprint(forum["id"])
+    raw = forum_fingerprint(forum["id"])
     fp = raw[:3] + "-" + raw[3:6] + "-" + raw[6:]
 
     return {"data": {
@@ -1996,7 +2032,7 @@ def action_view(a):
                     "forum": {
                         "id": entity_id,
                         "name": response.get("name", ""),
-                        "fingerprint": response.get("fingerprint") or (mochi.entity.fingerprint(entity_id) if mochi.text.valid(entity_id, "entity") else ""),
+                        "fingerprint": response.get("fingerprint") or (forum_fingerprint(entity_id) if mochi.text.valid(entity_id, "entity") else ""),
                         "members": 0,
                         "updated": 0,
                         "can_manage": False,
@@ -2038,7 +2074,7 @@ def action_view(a):
         # to a public action runs as the entity owner - so a stranger reading this
         # public route was told they owned it.
         is_owner = a.owner
-        forum["fingerprint"] = mochi.entity.fingerprint(forum["id"])
+        forum["fingerprint"] = forum_fingerprint(forum["id"])
         # Render banner markdown to HTML
         banner = forum.get("banner", "")
         if banner:
@@ -2065,6 +2101,8 @@ def action_view(a):
         can_moderate = False
         if is_owner:
             can_moderate = check_access(a, forum["id"], "moderate")
+        elif is_community(forum):
+            can_post = community_posting(forum)
         elif user_id:
             access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
                 "operations": ["post", "moderate"],
@@ -2129,7 +2167,7 @@ def action_view(a):
         im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, user_id, can_moderate)
         for p in posts:
-            p["fingerprint"] = forum.get("fingerprint") or mochi.entity.fingerprint(p["forum"])
+            p["fingerprint"] = forum.get("fingerprint") or forum_fingerprint(p["forum"])
             p["body_markdown"] = mochi.text.markdown(p["body"])
             # Attachment metadata is stored locally at fan-out; bytes pull on
             # demand when served.
@@ -2209,7 +2247,7 @@ def action_view(a):
         # For owned forums, check locally. For subscribed forums, skip remote
         # access check (too slow for list view) - permissions checked on forum view
         for f in forums:
-            f["fingerprint"] = mochi.entity.fingerprint(f["id"])
+            f["fingerprint"] = forum_fingerprint(f["id"])
             if owned_ids.get(f["id"]):
                 f["can_manage"] = check_access(a, f["id"], "manage")
                 f["can_post"] = check_access(a, f["id"], "post")
@@ -2217,7 +2255,7 @@ def action_view(a):
             else:
                 # Subscribers can never manage; defer post/moderate checks to forum view
                 f["can_manage"] = False
-                f["can_post"] = False
+                f["can_post"] = community_posting(f) if is_community(f) else False
                 f["can_moderate"] = False
 
         # Build forum lookup map for O(1) access
@@ -2231,7 +2269,7 @@ def action_view(a):
             p["attachments"] = attachment_list(p["id"], p["forum"])
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
-            p["fingerprint"] = forum["fingerprint"] if forum else mochi.entity.fingerprint(p["forum"])
+            p["fingerprint"] = forum["fingerprint"] if forum else forum_fingerprint(p["forum"])
             # Comment count, tags and the caller's vote come from the
             # whole-page queries above.
             p["comments"] = comment_counts.get(p["id"], 0)
@@ -2289,7 +2327,7 @@ def action_create(a):
 
     # Create forum record
     now = mochi.time.now()
-    fp = mochi.entity.fingerprint(entity_id) or ""
+    fp = forum_fingerprint(entity_id) or ""
     mochi.db.execute("replace into forums ( id, name, members, updated, fingerprint ) values ( ?, ?, ?, ?, ? )",
         entity_id, name, 1, now, fp)
 
@@ -2307,7 +2345,7 @@ def action_create(a):
         mochi.access.allow("*", resource, "view", creator)   # Anyone can view
 
     return {
-        "data": {"id": entity_id, "fingerprint": mochi.entity.fingerprint(entity_id)}
+        "data": {"id": entity_id, "fingerprint": forum_fingerprint(entity_id)}
     }
 
 # Form for new forum
@@ -2354,10 +2392,22 @@ def action_post_create(a):
                 return
             captions.append(caption)
 
+    # A link the post carries, with what a card shows of it (phase 14).
+    link = post_link_input(a)
+    if link == False:
+        a.error.label(400, "errors.invalid_link")
+        return
+    link = link or ""
+
     user_id = a.user.identity.id
     user_name = a.user.identity.name
     id = mochi.uid()
     now = mochi.time.now()
+
+    # A community on another network takes the post through the user's
+    # account there.
+    if forum and is_community(forum):
+        return community_post_create(a, forum, title, body, link, captions)
 
     # Check if forum exists locally
     if forum:
@@ -2394,8 +2444,9 @@ def action_post_create(a):
             elif not is_moderator and requires_premoderation(forum, user_id, "post"):
                 status = "pending"
 
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, status, now, now)
+            card = link_card(link)
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, status, now, now, card[0], card[1], card[2])
 
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -2404,14 +2455,14 @@ def action_post_create(a):
 
             # Only broadcast if approved
             if status == "approved":
-                post_data = {
+                post_data = link_fields({
                     "id": id,
                     "member": user_id,
                     "name": user_name,
                     "title": title,
                     "body": body,
                     "created": now
-                }
+                }, card)
                 if attachments:
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
@@ -2439,15 +2490,16 @@ def action_post_create(a):
             # Save attachments locally
             attachments = attachment_save(a, id, captions=captions)
 
-            submit_data = {"id": id, "title": title, "body": body}
+            card = link_card(link)
+            submit_data = link_fields({"id": id, "title": title, "body": body}, card)
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
             # Save locally BEFORE announcing: the owner pulls attachment bytes
             # the moment it accepts, and its fetch responder resolves the forum
             # through this row.
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, now, now)
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, now, now, card[0], card[1], card[2])
 
             mochi.message.send(
                 {"from": user_id, "to": forum["id"], "service": "forums", "event": "post/submit"},
@@ -2480,7 +2532,8 @@ def action_post_create(a):
     attachments = attachment_save(a, id, captions=captions)
 
     # Send post to remote forum owner with attachment metadata
-    submit_data = {"id": id, "title": title, "body": body}
+    card = link_card(link)
+    submit_data = link_fields({"id": id, "title": title, "body": body}, card)
     if attachments:
         submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
@@ -2489,8 +2542,8 @@ def action_post_create(a):
     # forum through this row. No forums row exists here, so the All-forums
     # list shows the post badged as an unknown forum until the
     # subscription lands.
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ? )",
-        id, forum_id, user_id, user_name, title, body, now, now)
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ? )",
+        id, forum_id, user_id, user_name, title, body, now, now, card[0], card[1], card[2])
 
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
@@ -2669,7 +2722,7 @@ def action_recommendations(a):
                 "id": entity_id,
                 "name": item.get("name", ""),
                 "blurb": item.get("blurb", ""),
-                "fingerprint": mochi.entity.fingerprint(entity_id),
+                "fingerprint": forum_fingerprint(entity_id),
                 "server": rec_server,
             })
 
@@ -2966,7 +3019,7 @@ def notify_activity(forum, me, post, comment=None):
     if member and member["name"] and ("@[" + member["name"] + "]").lower() in item["body"].lower():
         return
 
-    fp = mochi.entity.fingerprint(forum["id"])
+    fp = forum_fingerprint(forum["id"])
     url = "/forums/" + fp + "/" + post["id"] if fp else "/forums"
 
     if not comment:
@@ -3121,7 +3174,7 @@ def action_subscribe(a):
 
     # Create local forum record
     now = mochi.time.now()
-    fp = mochi.entity.fingerprint(forum_id) or ""
+    fp = forum_fingerprint(forum_id) or ""
     # populated=0: schema is fetched synchronously, but the bulk posts arrive
     # asynchronously from the owner; event_update_event flips it to 1 when the
     # owner's post-subscribe "update" message lands.
@@ -3151,7 +3204,7 @@ def action_subscribe(a):
     mochi.broadcast.touch(forum_id)
 
     return {
-        "data": {"fingerprint": mochi.entity.fingerprint(forum_id)}
+        "data": {"fingerprint": forum_fingerprint(forum_id)}
     }
 
 # Force a fresh schema pull from the forum owner. The subscriber-side
@@ -3182,6 +3235,9 @@ def action_unsubscribe(a):
     if not forum:
         a.error.label(404, "errors.forum_not_found")
         return
+
+    if is_community(forum):
+        return community_unsubscribe(a, forum)
 
     # Cannot unsubscribe from own forum
     if owned(forum["id"]):
@@ -3434,6 +3490,12 @@ def action_post_view(a):
                 can_vote = False
             if can_comment and check_restriction(forum["id"], user_id, "comment"):
                 can_comment = False
+    elif is_community(forum):
+        # The thread is read from the community's server as it is opened.
+        community_comments_refresh(forum, post, user_id)
+        can_vote = community_posting(forum)
+        can_comment = can_vote
+        can_moderate = False
     else:
         can_vote = False
         can_comment = False
@@ -3566,6 +3628,12 @@ def action_post_edit(a):
                 return
             captions[key] = caption
 
+    # The post's link: absent leaves it, empty clears it, else it changes.
+    link = post_link_input(a)
+    if link == False:
+        a.error.label(400, "errors.invalid_link")
+        return
+
     forum = get_forum(forum_id)
     # Scope the post lookup to the named forum. Authorization below checks access
     # on `forum`, so loading the post by id alone would let a caller who manages
@@ -3574,6 +3642,9 @@ def action_post_edit(a):
     post = None
     if forum:
         post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+
+    if post and forum and is_community(forum):
+        return community_post_edit(a, forum, post, title, body, link)
 
     # Check if we have the post locally
     if post and forum:
@@ -3634,14 +3705,15 @@ def action_post_edit(a):
 
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
+            card = post_link_apply(post_id, link)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
-            post_data = {
+            post_data = link_fields({
                 "id": post_id,
                 "title": title,
                 "body": body,
                 "edited": now
-            }
+            }, card)
             post_data["attachments"] = attachment_list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
             mochi.db.commit.fire("posts", "update", post_id)
@@ -3690,7 +3762,7 @@ def action_post_edit(a):
                     caption_edits[att["id"]] = captions[att["id"]]
 
             # Send edit request to forum owner with attachment metadata
-            submit_data = {"id": post_id, "title": title, "body": body}
+            submit_data = link_fields({"id": post_id, "title": title, "body": body}, link_card(link) if link != None else None)
             if order_json:
                 submit_data["order"] = final_order
                 submit_data["delete"] = delete_ids
@@ -3706,6 +3778,7 @@ def action_post_edit(a):
             # Update locally for optimistic UI
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
+            post_link_apply(post_id, link)
 
             # Handle local attachment changes for optimistic UI
             for att_id in delete_ids:
@@ -3750,7 +3823,7 @@ def action_post_edit(a):
         else:
             final_order.append(item)
 
-    submit_data = {"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}
+    submit_data = link_fields({"id": post_id, "title": title, "body": body, "order": final_order, "delete": []}, link_card(link) if link != None else None)
     if new_attachments:
         submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", 0)} for att in new_attachments]
     # Caption edits on existing attachments go to the owner unresolved: no
@@ -3796,6 +3869,9 @@ def action_post_delete(a):
     post = None
     if forum:
         post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+
+    if post and forum and is_community(forum):
+        return community_post_delete(a, forum, post)
 
     # Check if we have the post locally
     if post and forum:
@@ -3909,7 +3985,7 @@ def notify_mentions(forum_id, post_id, body, author_id, author_name, comment="")
     post = mochi.db.row("select title from posts where id=?", post_id)
     post_title = (post.get("title") or "") if post else ""
     excerpt = body.strip()[:80]
-    fp = mochi.entity.fingerprint(forum_id)
+    fp = forum_fingerprint(forum_id)
     url = "/forums/" + fp if fp else "/forums"
     for m in members:
         name = m.get("name")
@@ -3942,6 +4018,9 @@ def action_comment_create(a):
     user_name = a.user.identity.name
     id = mochi.uid()
     now = mochi.time.now()
+
+    if forum and is_community(forum):
+        return community_comment_create(a, forum, post_id, parent_id, body)
 
     # Check if forum exists locally
     if forum:
@@ -4139,6 +4218,9 @@ def action_comment_edit(a):
     if forum:
         comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
 
+    if comment and forum and is_community(forum):
+        return community_comment_edit(a, forum, comment, body)
+
     # Check if we have the comment locally
     if comment and forum:
         # Check if we own this forum
@@ -4249,6 +4331,9 @@ def action_comment_delete(a):
     comment = None
     if forum:
         comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+
+    if comment and forum and is_community(forum):
+        return community_comment_delete(a, forum, comment)
 
     # Check if we have the comment locally
     if comment and forum:
@@ -5597,6 +5682,9 @@ def action_post_vote(a):
             a.error.label(404, "errors.forum_not_found")
             return
 
+        if is_community(forum):
+            return community_vote(a, forum, post, None, vote)
+
         # Check if we own this forum
         is_owner = owned(forum["id"])
 
@@ -5719,6 +5807,13 @@ def action_comment_vote(a):
         if not forum:
             a.error.label(404, "errors.forum_not_found")
             return
+
+        if is_community(forum):
+            post = mochi.db.row("select * from posts where id=? and forum=?", comment["post"], forum["id"])
+            if not post:
+                a.error.label(404, "errors.post_not_found")
+                return
+            return community_vote(a, forum, post, comment, vote)
 
         # Check if we own this forum
         is_owner = owned(forum["id"])
@@ -6119,7 +6214,7 @@ def event_mention_notify(e):
         comment = ""
     # Build the link locally from the forum fingerprint rather than trusting a
     # sender-supplied url, so a forged mention cannot carry an arbitrary target.
-    fp = mochi.entity.fingerprint(forum_id)
+    fp = forum_fingerprint(forum_id)
     url = "/forums/" + fp if fp else "/forums"
     event_id = "mention:" + (comment or post_id or forum_id)
     body = mochi.app.label("notifications.body.mentioned_you", author=author, excerpt=excerpt)
@@ -6168,7 +6263,9 @@ def event_comment_create_event(e):
     body = e.content("body")
     created = e.content("created")
 
-    if not mochi.text.valid(member, "entity"):
+    # An author is a Mochi identity or a person's own identifier on another
+    # network; a release before this one dropped the latter.
+    if not mochi.text.valid(member, "author"):
         return
     if not mochi.text.valid(name, "name"):
         return
@@ -6591,7 +6688,9 @@ def event_post_create_event(e):
     body = e.content("body")
     created = e.content("created")
 
-    if not mochi.text.valid(member, "entity"):
+    # An author is a Mochi identity or a person's own identifier on another
+    # network; a release before this one dropped the latter.
+    if not mochi.text.valid(member, "author"):
         return
     if not mochi.text.valid(name, "name"):
         return
@@ -6607,10 +6706,11 @@ def event_post_create_event(e):
     if type(created) not in ("int", "float") or created > now + 86400 or created < now - 31536000:
         return
 
+    card = link_content(e)
     # insert or ignore (not replace): a genuinely new post inserts, but a colliding
     # id that belongs to a different forum must not be overwritten/moved into this one.
-    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, up, down, comments_count, created, created)
+    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, up, down, comments_count, created, created, card[0], card[1], card[2])
 
     # Store attachment metadata from the event
     attachments = e.content("attachments") or []
@@ -6822,7 +6922,7 @@ def event_post_submit_event(e):
     if attachments:
         attachment_accept(attachments, sender_id, id, forum["id"])
 
-    post_land(forum, sender_id, sender_name, id, title, body, status, e.content("tags") or [], attachments)
+    post_land(forum, sender_id, sender_name, id, title, body, status, e.content("tags") or [], attachments, card=link_content(e))
 
 # Land a post on the forum we own: write the row at `status`, apply the
 # submitter's tags, and fan out or queue for moderation. Shared by a member's
@@ -6831,10 +6931,10 @@ def event_post_submit_event(e):
 # only the help app supplies them ("introduction" / "question") so the forum's
 # filter-by-tag UI can group help-app submissions. `exclude` is a member id the
 # post/create broadcast skips: the owner posting their own copy.
-def post_land(forum, member, name, id, title, body, status, tags, attachments, exclude=None):
+def post_land(forum, member, name, id, title, body, status, tags, attachments, exclude=None, card=("", "", "")):
     now = mochi.time.now()
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, status, now, now)
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, status, now, now, card[0], card[1], card[2])
     if status == "approved":
         mochi.db.commit.fire("posts", "insert", id)
 
@@ -6854,14 +6954,14 @@ def post_land(forum, member, name, id, title, body, status, tags, attachments, e
 
     # Only broadcast if approved
     if status == "approved":
-        post_data = {
+        post_data = link_fields({
             "id": id,
             "member": member,
             "name": name,
             "title": title,
             "body": body,
             "created": now
-        }
+        }, card)
         if attachments:
             post_data["attachments"] = attachments
 
@@ -6969,15 +7069,19 @@ def event_post_edit_submit_event(e):
 
     # Update the post
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
+    card = None
+    if e.content("url") != None:
+        card = link_content(e)
+        mochi.db.execute("update posts set url=?, thumbnail=?, embed=? where id=?", card[0], card[1], card[2], post_id)
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
     # Broadcast update to all members with attachment metadata
-    post_data = {
+    post_data = link_fields({
         "id": post_id,
         "title": title,
         "body": body,
         "edited": now
-    }
+    }, card)
     post_data["attachments"] = attachment_list(post_id, forum["id"])
     broadcast_event(forum["id"], "post/edit", post_data)
 
@@ -7079,6 +7183,9 @@ def event_post_edit_event(e):
     now = mochi.time.now()
     mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
         title, body, now, edited, id)
+    if e.content("url") != None:
+        card = link_content(e)
+        mochi.db.execute("update posts set url=?, thumbnail=?, embed=? where id=?", card[0], card[1], card[2], id)
 
     # Update attachments from event
     attachments = e.content("attachments")
@@ -7149,7 +7256,7 @@ def event_forum_delete_event(e):
     # so a member on an older release still purges. The reason is the owner's
     # word and decides only what the page and the notification say.
     removed = e.content("reason") == "removed"
-    fp = mochi.entity.fingerprint(forum_id)
+    fp = forum_fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/removed" if removed else "forum/deleted", "forum": forum_id})
     # Its notifications point at rows that no longer exist.
@@ -7935,7 +8042,7 @@ def event_report_submit_event(e):
     if not reporter_name:
         reporter_entity = mochi.directory.get(sender)
         reporter_name = reporter_entity["name"] if reporter_entity and reporter_entity["name"] else mochi.app.label("notifications.mention.author_unknown")
-    fp = mochi.entity.fingerprint(forum["id"]) or forum["id"]
+    fp = forum_fingerprint(forum["id"]) or forum["id"]
     body_key = "moderation.report.body.post" if report_type == "post" else "moderation.report.body.comment"
     notify_moderators(
         forum["id"],
@@ -8007,7 +8114,7 @@ def event_information(e):
     e.stream.write({
         "id": entity["id"],
         "name": entity["name"],
-        "fingerprint": entity.get("fingerprint", mochi.entity.fingerprint(forum_id)),
+        "fingerprint": entity.get("fingerprint", forum_fingerprint(forum_id)),
         "privacy": entity.get("privacy", "public"),
     })
 
@@ -8143,7 +8250,7 @@ def event_view(e):
         return
 
     forum_name = entity.get("name", forum.get("name", ""))
-    forum_fingerprint = entity.get("fingerprint", mochi.entity.fingerprint(forum_id))
+    fingerprint = entity.get("fingerprint", forum_fingerprint(forum_id))
 
     if not check_event_access(requester, forum_id, "view"):
         e.stream.write({"error": "errors.not_allowed_to_view_this_forum"})
@@ -8184,7 +8291,7 @@ def event_view(e):
 
     e.stream.write({
         "name": forum_name,
-        "fingerprint": forum_fingerprint,
+        "fingerprint": fingerprint,
         "banner": banner,
         "banner_html": banner_html,
         "posts": formatted_posts,
@@ -8530,7 +8637,7 @@ def action_rss_token(a):
         # can compare is the one in the URL - which is the fingerprint the feed
         # URL is built from. Core accepts either identifier for an entity it
         # does host, so an owner's existing token keeps working.
-        token = mochi.token.create("rss", ["rss"], 0, ":forum/rss", forum["fingerprint"] if forum.get("fingerprint") else mochi.entity.fingerprint(forum_id))
+        token = mochi.token.create("rss", ["rss"], 0, ":forum/rss", forum["fingerprint"] if forum.get("fingerprint") else forum_fingerprint(forum_id))
     if not token:
         a.error.label(500, "errors.failed_to_create_token")
         return
@@ -8634,7 +8741,7 @@ def action_rss_all(a):
     for row in rows:
         item_id = row["id"]
         forum_id = row["forum"]
-        forum_fp = mochi.entity.fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
+        forum_fp = forum_fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
         forum_name = forum_names.get(forum_id, mochi.app.label("moderation.forum_unknown"))
         body = row["body"]
         if len(body) > 500:
@@ -8708,7 +8815,7 @@ def action_rss(a):
         return
 
     forum_name = forum.get("name", mochi.app.label("moderation.forum_unknown"))
-    fingerprint = mochi.entity.fingerprint(forum_id)
+    fingerprint = forum_fingerprint(forum_id)
     # RSS requires absolute links (scheme + host); readers can't resolve relative
     # ones. Mochi is served over https.
     base = a.origin
@@ -9026,10 +9133,10 @@ def _subscribe_to_forum(user, forum_id, server):
 
     # Our own forum: there is nothing to subscribe to.
     if user_id and owned(forum_id):
-        return {"fingerprint": mochi.entity.fingerprint(forum_id) or "", "subscribed": True}
+        return {"fingerprint": forum_fingerprint(forum_id) or "", "subscribed": True}
 
     if mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id):
-        fp = mochi.entity.fingerprint(forum_id) or ""
+        fp = forum_fingerprint(forum_id) or ""
         return {"fingerprint": fp, "subscribed": True}
 
     schema = None
@@ -9057,7 +9164,7 @@ def _subscribe_to_forum(user, forum_id, server):
                 schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
 
     now = mochi.time.now()
-    fp = mochi.entity.fingerprint(forum_id) or ""
+    fp = forum_fingerprint(forum_id) or ""
     # populated=0: schema is fetched synchronously, but the bulk posts arrive
     # asynchronously from the owner; event_update_event flips it to 1 when the
     # owner's post-subscribe "update" message lands.
@@ -9117,7 +9224,7 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
             status = "pending"
         post_land(forum, user_id, user_name, post_id, title, body, status, tags or [], [], user_id)
         follow(forum_id, post_id)
-        return {"forum": forum_id, "post": post_id, "fingerprint": mochi.entity.fingerprint(forum_id) or ""}
+        return {"forum": forum_id, "post": post_id, "fingerprint": forum_fingerprint(forum_id) or ""}
 
     access_response = mochi.remote.request(forum_id, "forums", "access/check", {
         "operations": ["post"],
@@ -9153,7 +9260,7 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
         post_id, forum_id, user_id, user_name, title, body, now, now)
     follow(forum_id, post_id)
 
-    fp = mochi.entity.fingerprint(forum_id) or ""
+    fp = forum_fingerprint(forum_id) or ""
     return {"forum": forum_id, "post": post_id, "fingerprint": fp}
 
 
@@ -9175,7 +9282,7 @@ def _check_forum(user, forum_id):
         restriction = check_restriction(forum_id, user_id, "post")
         if restriction:
             return {"error": "errors.restriction_" + restriction, "code": 403}
-        return {"fingerprint": mochi.entity.fingerprint(forum_id) or "", "subscribed": True}
+        return {"fingerprint": forum_fingerprint(forum_id) or "", "subscribed": True}
 
     subscribed = mochi.db.exists("select id from members where forum=? and id=?", forum_id, user_id)
 
@@ -9195,7 +9302,7 @@ def _check_forum(user, forum_id):
     if not access_response.get("post", False):
         return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
 
-    fp = mochi.entity.fingerprint(forum_id) or ""
+    fp = forum_fingerprint(forum_id) or ""
     return {"fingerprint": fp, "subscribed": subscribed}
 
 
@@ -9271,3 +9378,693 @@ def event_app_post(e):
         "post": post_result["post"],
         "fingerprint": post_result["fingerprint"],
     })
+
+# === Links, outside authors and communities on other networks (the federation plan, phase 14) ===
+#
+# Three things a forum did not have. A post may carry a link, with what a
+# card shows of it - thumbnail, title, description - read from the page where
+# the app holds the url grant for its host, and carried to every subscriber
+# with the post. An author may be a person on another network, stored as their
+# own permanent identifier and never disguised as a Mochi identity; their
+# avatar is wherever their network keeps it. And a community on another
+# network, read and written through one of the user's linked Lemmy accounts,
+# is a forums row keyed by the community's address, with a fingerprint derived
+# from it for routing; its posts and comments arrive from the account's server
+# with their authors as that network names them, and the user's posts,
+# comments and votes go back through the account.
+
+# What a post keeps of a link.
+LINK_MAXIMUM = 2048
+EMBED_MAXIMUM = 500
+
+# Seconds between polls of the subscribed communities' newest posts.
+COMMUNITY_INTERVAL = 300
+
+# How many of the newest posts a poll reads, and how many comments a thread
+# refresh reads.
+COMMUNITY_PAGE = 50
+COMMUNITY_COMMENTS = 300
+
+# Seconds a step of a settings import spends before booking the next.
+IMPORT_BUDGET = 40
+
+# The characters core derives a fingerprint from, so a community's derived
+# fingerprint is shaped as an entity's is.
+FINGERPRINT_ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz"
+
+def forum_fingerprint(forum_id):
+    """A forum's fingerprint: the entity's, or for a community on another
+    network nine characters derived from its address as core derives an
+    entity's from its id."""
+    if mochi.text.valid(forum_id, "entity"):
+        return mochi.entity.fingerprint(forum_id)
+    digest = mochi.crypto.hash.sha256(forum_id)
+    return "".join([FINGERPRINT_ALPHABET[int(digest[2 * i:2 * i + 2], 16) % len(FINGERPRINT_ALPHABET)] for i in range(9)])
+
+def community_schema_create():
+    """The columns this phase adds, at creation and by the migration alike."""
+    def add(table, column, ddl):
+        if not any([c["name"] == column for c in mochi.db.table(table)]):
+            mochi.db.execute("alter table " + table + " add column " + column + " " + ddl)
+    add("forums", "account", "text not null default ''")
+    add("forums", "community", "text not null default ''")
+    add("posts", "url", "text not null default ''")
+    add("posts", "thumbnail", "text not null default ''")
+    add("posts", "embed", "text not null default ''")
+    add("posts", "remote", "text not null default ''")
+    add("comments", "remote", "text not null default ''")
+
+# === Links ===
+
+def safe_web_link(value):
+    """A link kept only as a web one, within the length a post carries."""
+    link = str(value or "").strip()
+    if len(link) > LINK_MAXIMUM or " " in link:
+        return ""
+    return link if link.startswith("https://") or link.startswith("http://") else ""
+
+def post_link_input(a):
+    """The link a form names: None when the form does not name one, "" to
+    clear it, the link itself, or False when it is not a web link. An empty
+    field reads as None through a.input, so its presence is read from the
+    field's values: an edit that clears the link sends the field empty."""
+    link = a.input("url")
+    if link == None:
+        return "" if len(a.inputs("url")) > 0 else None
+    link = link.strip()
+    if not link:
+        return ""
+    return safe_web_link(link) or False
+
+def link_host(link):
+    host = link.split("//", 1)[1].split("/", 1)[0] if "//" in link else ""
+    host = host.split("@")[-1]
+    return host.split(":", 1)[0].lower()
+
+def embed_encode(fields):
+    """The card's words as the post keeps them: title, description, site and
+    page, each cut, as JSON; empty where there are none."""
+    clean = {}
+    for key in ("title", "description", "site", "page"):
+        value = str(fields.get(key, "") or "").strip()[:EMBED_MAXIMUM] if type(fields) == "dict" else ""
+        if key == "page":
+            value = safe_web_link(value)
+        if value:
+            clean[key] = value
+    return json.encode(clean) if clean else ""
+
+def link_card(link):
+    """(url, thumbnail, embed) for a link: what its page shows, read where the
+    app holds the url grant for the page's host, else the bare link."""
+    if not link:
+        return ("", "", "")
+    host = link_host(link)
+    if not host or not mochi.permission.check("url:" + host):
+        return (link, "", "")
+    card = mochi.url.card(link)
+    if not card:
+        return (link, "", "")
+    return (link, safe_web_link(card.get("image", "")), embed_encode(card))
+
+def link_content(e):
+    """(url, thumbnail, embed) from an event, each checked: the links web
+    ones, the embed a JSON object of short strings or nothing."""
+    url = safe_web_link(e.content("url"))
+    if not url:
+        return ("", "", "")
+    thumbnail = safe_web_link(e.content("thumbnail"))
+    embed = e.content("embed")
+    if type(embed) == "string":
+        embed = json.decode(embed, None)
+    return (url, thumbnail, embed_encode(embed) if type(embed) == "dict" else "")
+
+def link_fields(data, card):
+    """The link and its card on an event or a request, where there is one;
+    None leaves the event silent about the link, as an edit that did not
+    touch it is."""
+    if card == None:
+        return data
+    data["url"] = card[0]
+    data["thumbnail"] = card[1]
+    data["embed"] = card[2]
+    return data
+
+def post_link_apply(post_id, link):
+    """Apply a form's link to a post: None leaves it, "" clears it, a link is
+    read for its card. Answers the card stored, or None when nothing moved."""
+    if link == None:
+        return None
+    card = link_card(link)
+    mochi.db.execute("update posts set url=?, thumbnail=?, embed=? where id=?", card[0], card[1], card[2], post_id)
+    return card
+
+# === Communities ===
+
+def is_community(forum):
+    """Whether a forums row is a community on another network, read and
+    written through one of the user's linked accounts."""
+    return bool(forum and forum.get("account"))
+
+def lemmy_accounts():
+    """The user's linked Lemmy accounts."""
+    return [acc for acc in (mochi.account.list("social") or []) if acc.get("type") == "lemmy" and not acc.get("hosted")]
+
+def lemmy_account(id):
+    acc = mochi.account.get(id) if id else None
+    return acc if acc and acc.get("type") == "lemmy" and not acc.get("hosted") else None
+
+def community_account(forum):
+    return lemmy_account(forum.get("account", "")) if forum else None
+
+def community_posting(forum):
+    """Whether the user may write to a community: its account is linked and on."""
+    acc = community_account(forum)
+    return bool(acc and acc.get("enabled", 1))
+
+def lemmy_answer(answer):
+    """The data of an answer the server accepted, else None."""
+    if not answer:
+        return None
+    status = answer.get("status", 0)
+    if type(status) not in ("int", "float") or status < 200 or status > 299:
+        return None
+    data = answer.get("data")
+    return data if type(data) == "dict" else None
+
+def lemmy_get(acc, path, query=None):
+    return lemmy_answer(mochi.account.request(acc["id"], "GET", path, query=query or {}))
+
+def lemmy_send(acc, path, body):
+    return lemmy_answer(mochi.account.request(acc["id"], "POST", path, body=body))
+
+def lemmy_number(value):
+    return int(value) if type(value) in ("int", "float") else 0
+
+def community_row(acc, community, user_id, user_name):
+    """The forums row for a community on the account's server, made or
+    refreshed: keyed by the community's address, named by its title, its
+    description the banner, the server's own id kept for the account's calls,
+    and the user its one member. Answers the row, or None for no address."""
+    address = safe_web_link(community.get("actor_id", ""))
+    if not address:
+        return None
+    name = str(community.get("title") or community.get("name") or address).strip()[:200]
+    number = str(lemmy_number(community.get("id"))) if lemmy_number(community.get("id")) else ""
+    description = str(community.get("description", "") or "")[:5000]
+    now = mochi.time.now()
+    if mochi.db.exists("select 1 from forums where id=?", address):
+        mochi.db.execute("update forums set name=?, account=?, community=?, banner=? where id=?", name, acc["id"], number, description, address)
+    else:
+        mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, community, banner ) values ( ?, ?, 1, ?, ?, ?, ?, ? )",
+            address, name, now, forum_fingerprint(address), acc["id"], number, description)
+    if user_id:
+        mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
+            address, user_id, user_name or "", now)
+    return mochi.db.row("select * from forums where id=?", address)
+
+def community_author(acc, user_id, creator):
+    """The author a creator view names: the user where it is their own
+    account, else the person's own identifier; and their display name."""
+    actor = safe_web_link(creator.get("actor_id", "")) if type(creator) == "dict" else ""
+    if user_id and actor and actor == str(acc.get("url", "") or ""):
+        member = user_id
+    else:
+        member = actor
+    name = str(creator.get("display_name") or creator.get("name") or "").strip()[:200] if type(creator) == "dict" else ""
+    return (member, name or member)
+
+def community_vote_store(forum, post_id, comment_id, user_id, my_vote):
+    """The user's own vote on a view, as the server reports it."""
+    if not user_id or type(my_vote) not in ("int", "float"):
+        return
+    if int(my_vote) == 0:
+        mochi.db.execute("delete from votes where post=? and comment=? and voter=?", post_id, comment_id, user_id)
+    else:
+        mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )",
+            forum["id"], post_id, comment_id, user_id, "up" if int(my_vote) > 0 else "down")
+
+def community_post_store(forum, acc, view, user_id):
+    """A post view as a row of the community's forum, new or refreshed by the
+    post's id on the server; a row's author stays as first stored, so the
+    user's own posts keep their identity. Answers the row's id, or None."""
+    post = view.get("post") if type(view) == "dict" else None
+    if type(post) != "dict" or not lemmy_number(post.get("id")):
+        return None
+    remote = "post/" + str(lemmy_number(post.get("id")))
+    existing = mochi.db.row("select id from posts where forum=? and remote=?", forum["id"], remote)
+    if post.get("deleted") or post.get("removed"):
+        if existing:
+            community_post_drop(forum, existing["id"])
+        return None
+    counts = view.get("counts") if type(view.get("counts")) == "dict" else {}
+    title = str(post.get("name", "") or "").strip()[:1000] or "-"
+    body = str(post.get("body", "") or "")
+    url = safe_web_link(post.get("url"))
+    thumbnail = safe_web_link(post.get("thumbnail_url"))
+    embed = embed_encode({"title": post.get("embed_title"), "description": post.get("embed_description"), "page": post.get("ap_id")})
+    created = mochi.time.parse(str(post.get("published", "") or "")) or mochi.time.now()
+    updated = mochi.time.parse(str(post.get("updated", "") or "")) or created
+    up, down, comments = lemmy_number(counts.get("upvotes")), lemmy_number(counts.get("downvotes")), lemmy_number(counts.get("comments"))
+    locked = 1 if post.get("locked") else 0
+    pinned = 1 if post.get("featured_community") else 0
+    if existing:
+        post_id = existing["id"]
+        mochi.db.execute("update posts set title=?, body=?, url=?, thumbnail=?, embed=?, up=?, down=?, comments=?, updated=?, locked=?, pinned=?, status='approved' where id=?",
+            title, body, url, thumbnail, embed, up, down, comments, updated, locked, pinned, post_id)
+        mochi.db.commit.fire("posts", "update", post_id)
+    else:
+        member, name = community_author(acc, user_id, view.get("creator"))
+        if not mochi.text.valid(member, "author"):
+            return None
+        post_id = mochi.uid()
+        mochi.db.execute("insert into posts ( id, forum, member, name, title, body, url, thumbnail, embed, remote, up, down, comments, created, updated, locked, pinned ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+            post_id, forum["id"], member, name, title, body, url, thumbnail, embed, remote, up, down, comments, created, updated, locked, pinned)
+        mochi.db.commit.fire("posts", "insert", post_id)
+        if created > (forum.get("updated") or 0):
+            mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
+    community_vote_store(forum, post_id, "", user_id, view.get("my_vote"))
+    return post_id
+
+def community_post_drop(forum, post_id):
+    """A post the server no longer shows, and everything under it."""
+    mochi.db.execute("delete from tags where object=? or object in (select id from comments where post=?)", post_id, post_id)
+    mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
+    mochi.db.execute("delete from comments where forum=? and post=?", forum["id"], post_id)
+    mochi.db.execute("delete from follows where post=?", post_id)
+    mochi.db.execute("delete from saved where post=?", post_id)
+    mochi.db.execute("delete from posts where id=?", post_id)
+
+def community_comment_store(forum, acc, post, view, user_id):
+    """A comment view as a row of the post, new or refreshed by its id on the
+    server. Its parent is the comment before it on the path the server
+    gives, so parents are stored first. Answers the row's id, or None."""
+    comment = view.get("comment") if type(view) == "dict" else None
+    if type(comment) != "dict" or not lemmy_number(comment.get("id")):
+        return None
+    remote = "comment/" + str(lemmy_number(comment.get("id")))
+    existing = mochi.db.row("select id from comments where forum=? and remote=?", forum["id"], remote)
+    if comment.get("deleted") or comment.get("removed"):
+        if existing:
+            mochi.db.execute("delete from votes where comment=?", existing["id"])
+            mochi.db.execute("delete from comments where id=?", existing["id"])
+        return None
+    counts = view.get("counts") if type(view.get("counts")) == "dict" else {}
+    body = str(comment.get("content", "") or "")
+    created = mochi.time.parse(str(comment.get("published", "") or "")) or mochi.time.now()
+    edited = mochi.time.parse(str(comment.get("updated", "") or "")) or 0
+    up, down = lemmy_number(counts.get("upvotes")), lemmy_number(counts.get("downvotes"))
+    if existing:
+        comment_id = existing["id"]
+        mochi.db.execute("update comments set body=?, up=?, down=?, edited=?, status='approved' where id=?", body, up, down, edited, comment_id)
+    else:
+        parent = ""
+        path = str(comment.get("path", "") or "").split(".")
+        if len(path) >= 3:
+            above = mochi.db.row("select id from comments where forum=? and remote=?", forum["id"], "comment/" + path[-2])
+            parent = above["id"] if above else ""
+        member, name = community_author(acc, user_id, view.get("creator"))
+        if not mochi.text.valid(member, "author"):
+            return None
+        comment_id = mochi.uid()
+        mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, up, down, created, edited, remote ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+            comment_id, forum["id"], post["id"], parent, member, name, body, up, down, created, edited, remote)
+        mochi.db.commit.fire("comments", "insert", comment_id)
+    community_vote_store(forum, post["id"], comment_id, user_id, view.get("my_vote"))
+    return comment_id
+
+def community_comments_refresh(forum, post, user_id):
+    """The thread of a community's post as its server shows it now."""
+    acc = community_account(forum)
+    remote = str(post.get("remote", "") or "")
+    if not acc or not remote.startswith("post/"):
+        return
+    data = lemmy_get(acc, "comment/list", {"post_id": remote[5:], "max_depth": "8", "limit": str(COMMUNITY_COMMENTS), "sort": "New", "type_": "All"})
+    if data == None:
+        return
+    views = [v for v in (data.get("comments") or []) if type(v) == "dict" and type(v.get("comment")) == "dict"]
+    # Parents before children: a path lists a comment's ancestors, so the
+    # shorter it is the nearer the root.
+    for view in sorted(views, key=lambda v: len(str(v["comment"].get("path", "") or ""))):
+        community_comment_store(forum, acc, post, view, user_id)
+    recount_post_comments(post["id"])
+
+def community_poll(acc, user_id, user_name=""):
+    """The newest posts of the account's subscribed communities, as its
+    server's timeline lists them, into their forums; a community not held yet
+    becomes one. Answers how many posts are new."""
+    page = mochi.account.timeline(acc["id"], limit=COMMUNITY_PAGE)
+    count = 0
+    for view in (page or {}).get("items") or []:
+        if type(view) != "dict" or type(view.get("community")) != "dict":
+            continue
+        address = safe_web_link(view["community"].get("actor_id", ""))
+        forum = mochi.db.row("select * from forums where id=?", address) if address else None
+        if not forum:
+            forum = community_row(acc, view["community"], user_id, user_name)
+            if not forum:
+                continue
+        before = mochi.db.exists("select 1 from posts where forum=? and remote=?", forum["id"], "post/" + str(lemmy_number((view.get("post") or {}).get("id"))))
+        if community_post_store(forum, acc, view, user_id) and not before:
+            count += 1
+    return count
+
+def community_accounts():
+    """The linked accounts any community is read through."""
+    ids = {}
+    for row in mochi.db.rows("select distinct account from forums where account!=''") or []:
+        ids[row["account"]] = True
+    return [acc for acc in [lemmy_account(id) for id in ids] if acc]
+
+def ensure_communities_poll():
+    """Keep the recurring poll scheduled while any community is held."""
+    if not community_accounts():
+        return
+    for se in mochi.schedule.list():
+        if se.event == "schedule_communities_poll":
+            return
+    mochi.schedule.every("schedule_communities_poll", {}, COMMUNITY_INTERVAL)
+
+def schedule_communities_poll(e):
+    if e.source != "schedule":
+        return
+    accounts = community_accounts()
+    if not accounts:
+        for se in mochi.schedule.list():
+            if se.event == "schedule_communities_poll":
+                se.cancel()
+        return
+    user_id = e.user.identity.id if e.user else None
+    for acc in accounts:
+        if acc.get("enabled", 1):
+            community_poll(acc, user_id)
+
+def action_communities_add(a):
+    """Read a linked Lemmy account's subscribed communities into forums, and
+    their newest posts."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    acc = lemmy_account(a.input("account", ""))
+    if not acc:
+        a.error.label(404, "errors.account_not_linked")
+        return
+    user_id, user_name = a.user.identity.id, a.user.identity.name
+    added, total = 0, 0
+    for page in range(1, 21):
+        data = lemmy_get(acc, "community/list", {"type_": "Subscribed", "limit": "50", "page": str(page)})
+        if data == None:
+            if page == 1:
+                a.error.label(502, "errors.community_unavailable")
+                return
+            break
+        views = [v for v in (data.get("communities") or []) if type(v) == "dict" and type(v.get("community")) == "dict"]
+        for view in views:
+            address = safe_web_link(view["community"].get("actor_id", ""))
+            held = mochi.db.exists("select 1 from forums where id=?", address) if address else True
+            if community_row(acc, view["community"], user_id, user_name):
+                total += 1
+                if not held:
+                    added += 1
+        if len(views) < 50:
+            break
+    posts = community_poll(acc, user_id, user_name)
+    ensure_communities_poll()
+    a.json({"added": added, "communities": total, "posts": posts})
+
+def community_post_create(a, forum, title, body, link, captions):
+    """A post into a community through the account. The first image becomes
+    the post's link where it has none, and the other images go into the body
+    as markdown, each uploaded to the server's image store (decision 24)."""
+    acc = community_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.account_not_linked")
+        return
+    user_id = a.user.identity.id
+    stored = attachment_save(a, "upload/" + mochi.uid(), captions=captions)
+    images = []
+    for att in stored:
+        kind = str(att.get("content_type", "") or "")
+        if kind.startswith("image/"):
+            data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+            uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
+            if uploaded and safe_web_link(uploaded.get("url", "")):
+                images.append((uploaded["url"], att.get("caption", "") or att["name"]))
+        attachment_delete(att["id"])
+    url = link
+    if not url and images:
+        url = images[0][0]
+        images = images[1:]
+    if images:
+        body = body + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
+    object = {"kind": "post", "name": title, "community_id": lemmy_number(int(forum["community"]) if forum["community"] else 0)}
+    if url:
+        object["url"] = url
+    if body.strip():
+        object["body"] = body
+    result = mochi.account.object.create(acc["id"], object, key=mochi.uid())
+    view = result.get("data") if result and type(result.get("data")) == "dict" else None
+    if not view:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    post_id = community_post_store(forum, acc, view, user_id)
+    if not post_id:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    mochi.db.execute("update posts set member=?, name=? where id=?", user_id, a.user.identity.name, post_id)
+    follow(forum["id"], post_id)
+    return {"data": {"id": post_id, "forum": forum["id"]}}
+
+def community_remote(row, kind):
+    """The server's id for a row - post/<n> or comment/<n> - or None."""
+    remote = str(row.get("remote", "") or "")
+    return remote if remote.startswith(kind + "/") and mochi.text.valid(remote[len(kind) + 1:], "natural") else None
+
+def community_post_edit(a, forum, post, title, body, link):
+    acc = community_account(forum)
+    remote = community_remote(post, "post")
+    if not acc or not remote or post["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_edit_this_post")
+        return
+    object = {"name": title, "body": body}
+    if link != None:
+        object["url"] = link
+    result = mochi.account.object.update(acc["id"], remote, object)
+    view = result.get("data") if result and type(result.get("data")) == "dict" else None
+    if not view:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    community_post_store(forum, acc, view, a.user.identity.id)
+    return {"data": {"forum": forum["id"], "post": post["id"]}}
+
+def community_post_delete(a, forum, post):
+    acc = community_account(forum)
+    remote = community_remote(post, "post")
+    if not acc or not remote or post["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_delete_this_post")
+        return
+    mochi.account.object.delete(acc["id"], remote)
+    community_post_drop(forum, post["id"])
+    broadcast_websocket(forum["id"], {"type": "post/delete", "forum": forum["id"], "post": post["id"], "sender": a.user.identity.id})
+    return {"data": {"forum": forum["id"]}}
+
+def community_comment_create(a, forum, post_id, parent_id, body):
+    acc = community_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.account_not_linked")
+        return
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    remote = community_remote(post, "post") if post else None
+    if not post or not remote:
+        a.error.label(404, "errors.post_not_found")
+        return
+    if post.get("locked"):
+        a.error.label(403, "errors.this_post_is_locked")
+        return
+    object = {"kind": "comment", "content": body, "post_id": int(remote[5:])}
+    if parent_id:
+        parent = mochi.db.row("select * from comments where id=? and post=?", parent_id, post_id)
+        above = community_remote(parent, "comment") if parent else None
+        if not above:
+            a.error.label(404, "errors.parent_comment_not_found")
+            return
+        object["parent_id"] = int(above[8:])
+    result = mochi.account.object.create(acc["id"], object, key=mochi.uid())
+    view = result.get("data") if result and type(result.get("data")) == "dict" else None
+    if not view:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    user_id = a.user.identity.id
+    comment_id = community_comment_store(forum, acc, post, view, user_id)
+    if not comment_id:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    mochi.db.execute("update comments set member=?, name=? where id=?", user_id, a.user.identity.name, comment_id)
+    recount_post_comments(post_id)
+    follow(forum["id"], post_id)
+    return {"data": {"id": comment_id, "forum": forum["id"], "post": post_id}}
+
+def community_comment_edit(a, forum, comment, body):
+    acc = community_account(forum)
+    remote = community_remote(comment, "comment")
+    if not acc or not remote or comment["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_edit_this_comment")
+        return
+    result = mochi.account.object.update(acc["id"], remote, {"content": body})
+    view = result.get("data") if result and type(result.get("data")) == "dict" else None
+    post = mochi.db.row("select * from posts where id=? and forum=?", comment["post"], forum["id"])
+    if not view or not post:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    community_comment_store(forum, acc, post, view, a.user.identity.id)
+    return {"data": {"forum": forum["id"], "post": comment["post"], "comment": comment["id"]}}
+
+def community_comment_delete(a, forum, comment):
+    acc = community_account(forum)
+    remote = community_remote(comment, "comment")
+    if not acc or not remote or comment["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_delete_this_comment")
+        return
+    mochi.account.object.delete(acc["id"], remote)
+    mochi.db.execute("delete from votes where comment=?", comment["id"])
+    mochi.db.execute("delete from comments where id=?", comment["id"])
+    recount_post_comments(comment["post"])
+    return {"data": {"forum": forum["id"], "post": comment["post"]}}
+
+def community_vote(a, forum, post, comment, vote):
+    """A vote on a post or a comment through the account; the server answers
+    the counts, which the row takes."""
+    acc = community_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.not_allowed_to_vote")
+        return
+    score = 1 if vote == "up" else (-1 if vote == "down" else 0)
+    user_id = a.user.identity.id
+    if comment:
+        remote = community_remote(comment, "comment")
+        if not remote:
+            a.error.label(404, "errors.comment_not_found")
+            return
+        data = lemmy_send(acc, "comment/like", {"comment_id": int(remote[8:]), "score": score})
+        view = data.get("comment_view") if data else None
+        if type(view) != "dict":
+            a.error.label(502, "errors.community_unavailable")
+            return
+        community_comment_store(forum, acc, post, view, user_id)
+        community_vote_store(forum, post["id"], comment["id"], user_id, score)
+        return {"data": {"forum": forum["id"], "post": post["id"], "comment": comment["id"]}}
+    remote = community_remote(post, "post")
+    if not remote:
+        a.error.label(404, "errors.post_not_found")
+        return
+    data = lemmy_send(acc, "post/like", {"post_id": int(remote[5:]), "score": score})
+    view = data.get("post_view") if data else None
+    if type(view) != "dict":
+        a.error.label(502, "errors.community_unavailable")
+        return
+    community_post_store(forum, acc, view, user_id)
+    community_vote_store(forum, post["id"], "", user_id, score)
+    if vote:
+        update_interests_from_vote(post["id"], vote == "up")
+    return {"data": {"forum": forum["id"], "post": post["id"]}}
+
+def community_unsubscribe(a, forum):
+    """Leave a community: the account unfollows it on its server, and its
+    rows go."""
+    acc = community_account(forum)
+    if acc and forum.get("community"):
+        lemmy_send(acc, "community/follow", {"community_id": int(forum["community"]), "follow": False})
+    purge_forum_rows(forum["id"])
+    mochi.db.execute("delete from members where forum=?", forum["id"])
+    mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
+    mochi.db.execute("delete from forums where id=?", forum["id"])
+    return {"data": {}}
+
+# === Importing an account's settings ===
+
+def community_name(address):
+    """A community's name@host from its address, which its server resolves."""
+    host = link_host(address)
+    name = address.rstrip("/").rsplit("/", 1)[-1]
+    return (name + "@" + host) if host and name else ""
+
+def action_communities_import(a):
+    """Import a linked Lemmy account's settings export: its followed
+    communities as forums, its blocked instances as the user's domain blocks,
+    and its saved posts into Saved. A long export continues in scheduled
+    steps; the answer says what this step brought and whether more follow."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    acc = lemmy_account(a.input("account", ""))
+    if not acc:
+        a.error.label(404, "errors.account_not_linked")
+        return
+    data = lemmy_get(acc, "user/export_settings")
+    if data == None:
+        a.error.label(502, "errors.community_unavailable")
+        return
+    links = lambda key: [safe_web_link(x) for x in (data.get(key) or []) if type(x) == "string" and safe_web_link(x)]
+    state = {
+        "account": acc["id"],
+        "communities": links("followed_communities"),
+        "blocks": [str(x).strip().lower() for x in (data.get("blocked_instances") or []) if type(x) == "string" and x.strip()],
+        "saved": links("saved_posts"),
+        "done": {"communities": 0, "blocks": 0, "saved": 0},
+    }
+    more = import_settings_step(state, a.user.identity.id, a.user.identity.name)
+    a.json({"communities": state["done"]["communities"], "blocks": state["done"]["blocks"], "saved": state["done"]["saved"], "more": more})
+
+def import_settings_step(state, user_id, user_name):
+    """A step of a settings import, under a time budget; the rest is booked
+    for the next step. Answers whether more follows."""
+    acc = lemmy_account(state.get("account", ""))
+    if not acc:
+        return False
+    deadline = mochi.time.now() + IMPORT_BUDGET
+    done = state["done"]
+    while state["communities"] and mochi.time.now() < deadline:
+        address = state["communities"].pop(0)
+        if mochi.db.exists("select 1 from forums where id=?", address):
+            continue
+        name = community_name(address)
+        found = lemmy_get(acc, "community", {"name": name}) if name else None
+        view = found.get("community_view") if found else None
+        if type(view) == "dict" and type(view.get("community")) == "dict":
+            if community_row(acc, view["community"], user_id, user_name):
+                done["communities"] += 1
+    while state["blocks"] and mochi.time.now() < deadline:
+        domain = state["blocks"].pop(0)
+        mochi.account.block.add(domain)
+        done["blocks"] += 1
+    while state["saved"] and mochi.time.now() < deadline:
+        address = state["saved"].pop(0)
+        found = lemmy_get(acc, "resolve_object", {"q": address})
+        view = found.get("post") if found else None
+        if type(view) != "dict" or type(view.get("community")) != "dict":
+            continue
+        community_address = safe_web_link(view["community"].get("actor_id", ""))
+        forum = mochi.db.row("select * from forums where id=?", community_address) if community_address else None
+        if not forum:
+            forum = community_row(acc, view["community"], user_id, user_name)
+        if not forum:
+            continue
+        post_id = community_post_store(forum, acc, view, user_id)
+        if post_id and user_id and not mochi.db.exists("select 1 from saved where user=? and post=?", user_id, post_id):
+            row = mochi.db.row("select * from posts where id=?", post_id)
+            snapshot = {"id": post_id, "forum": forum["id"], "fingerprint": forum.get("fingerprint", ""), "forumName": forum["name"], "member": row["member"], "name": row["name"], "title": row["title"], "body": row["body"], "created": row["created"], "up": row["up"], "down": row["down"]}
+            mochi.db.execute("insert or ignore into saved ( id, user, post, data, created ) values ( ?, ?, ?, ?, ? )", mochi.uid(), user_id, post_id, json.encode(snapshot), mochi.time.now())
+            done["saved"] += 1
+    ensure_communities_poll()
+    if state["communities"] or state["blocks"] or state["saved"]:
+        mochi.schedule.after("schedule_communities_import", state, 2)
+        return True
+    return False
+
+def schedule_communities_import(e):
+    if e.source != "schedule":
+        return
+    state = dict(e.data)
+    for key in ("communities", "blocks", "saved"):
+        state[key] = list(state.get(key) or [])
+    state["done"] = dict(state.get("done") or {"communities": 0, "blocks": 0, "saved": 0})
+    import_settings_step(state, e.user.identity.id if e.user else None, "")

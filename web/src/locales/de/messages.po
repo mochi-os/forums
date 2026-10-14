@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# ausgewählt} other {# ausgewählt}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# verschachtelt} other {+# verschachtelt}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# Gemeinschaft hinzugefügt} other {# Gemeinschaften hinzugefügt}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Bildunterschrift hinzufügen"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Checklisten-Eintrag hinzufügen"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Gemeinschaften hinzufügen"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "In die Zwischenablage kopiert"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopieren"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Die Gemeinschaften konnten nicht hinzugefügt werden"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Import fehlgeschlagen"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Bildbetrachter: {0}"
 msgid "Imperial"
 msgstr "Angloamerikanisch"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Einstellungen importieren"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} Gemeinschaften, {1} blockierte Server und {2} gespeicherte Beiträge importiert"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Bisher {0} Gemeinschaften, {1} blockierte Server und {2} gespeicherte Beiträge importiert; der Rest folgt"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Einschließlich anonymer Benutzer"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Hell"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Link"
 
@@ -3420,6 +3457,14 @@ msgstr "Die Kamera wird bereits verwendet"
 msgid "The camera request was not answered"
 msgstr "Die Kamera-Anfrage wurde nicht beantwortet"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Der Link darf höchstens 2048 Zeichen lang sein"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Der Link muss eine Webadresse sein"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Die Mikrofon-Anfrage wurde nicht beantwortet"
@@ -3877,6 +3922,10 @@ msgstr "Deine Anhänge gehen verloren."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Ihre Änderungen gehen verloren."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Deine Gemeinschaften anderswo"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

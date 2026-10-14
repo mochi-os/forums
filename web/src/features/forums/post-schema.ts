@@ -27,6 +27,14 @@ export function usePostSchema() {
             message: t`Title cannot contain < or > characters`,
           }),
         body: z.string().min(1, t`Content is required`),
+        url: z
+          .string()
+          .trim()
+          .max(2048, t`The link must be 2048 characters or less`)
+          .refine((val) => val === '' || /^https?:\/\/\S+$/i.test(val), {
+            message: t`The link must be a web address`,
+          })
+          .optional(),
       }),
     [t]
   )

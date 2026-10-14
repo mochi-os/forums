@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# אויסגעקליבן} other {# אויסגעקליב
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# אײַנגענעסטיקט} other {+# אײַנגענעסטיקטע}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {צוגעלייגט # קהילה} other {צוגעלייגט # קהילות}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "צוגעבן אן אונטערשריפֿט"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "צולייגן טשעקליסטע פּונקט"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "צולייגן קהילות"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "קאָפּירט צו קליפּברעט"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "קאָפּירן"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "ניט געלונגען צוצולייגן די קהילות"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "ניט געלונגען צו אימפּאָרטירן"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "בילד־ווײַזער: {0}"
 msgid "Imperial"
 msgstr "אימפּעריאַל"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "אימפּאָרטירן אײַנשטעלונגען"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "אימפּאָרטירט {0} קהילות, {1} בלאָקירונגען און {2} אויפֿגעהיטענע אַרײַנשרײַבן"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "ביז איצט אימפּאָרטירט {0} קהילות, {1} בלאָקירונגען און {2} אויפֿגעהיטענע אַרײַנשרײַבן; די רעשט קומט נאָך"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "אַרײַנגערעכנט אַנאָנימע באַניצער"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "ליכטיק"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "לינק"
 
@@ -3420,6 +3457,14 @@ msgstr "די קאַמערע ווערט שוין גענוצט"
 msgid "The camera request was not answered"
 msgstr "די קאַמערע־בקשה איז נישט געענטפֿערט געוואָרן"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "דער לינק מוז זײַן 2048 צייכנס אָדער ווייניקער"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "דער לינק מוז זײַן אַ וועב־אַדרעס"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "די מיקראָפֿאָן־בקשה איז נישט געענטפֿערט געוואָרן"
@@ -3877,6 +3922,10 @@ msgstr "דײַנע צוגעלייגטע טעקעס וועלן פֿאַרלויר
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "אײַערע ענדערונגען װעלן פֿאַרלוירן װערן."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "אײַערע קהילות אין אַנדערע ערטער"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

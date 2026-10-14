@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# интихобшуда} other {# интихобшуд
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# дохилӣ} other {+# дохилӣ}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# ҷомеа илова шуд} other {# ҷомеа илова шуд}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Илова кардани зернавис"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Иловаи нуктаи рӯйхат"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Иловаи ҷомеаҳо"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Ба буфер нусхабардорӣ шуд"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Нусхабардорӣ"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Ҷомеаҳоро илова кардан нашуд"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Ворид кардан нашуд"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Тамошои тасвир: {0}"
 msgid "Imperial"
 msgstr "Империалӣ"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Ворид кардани танзимот"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} ҷомеа, {1} манъкунӣ ва {2} паёми захирашуда ворид карда шуд"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "То ҳол {0} ҷомеа, {1} манъкунӣ ва {2} паёми захирашуда ворид карда шуд; боқимонда баъдтар меояд"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Аз ҷумла корбарони номаълум"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Равшан"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Пайванд"
 
@@ -3420,6 +3457,14 @@ msgstr "Камера аллакай истифода мешавад"
 msgid "The camera request was not answered"
 msgstr "Ба дархости камера ҷавоб дода нашуд"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Пайванд бояд на бештар аз 2048 аломат бошад"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Пайванд бояд суроғаи веб бошад"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ба дархости микрофон ҷавоб дода нашуд"
@@ -3877,6 +3922,10 @@ msgstr "Замимаҳои шумо гум мешаванд."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Тағйироти шумо гум мешавад."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Ҷомеаҳои шумо дар ҷойҳои дигар"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

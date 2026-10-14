@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# निवडले} other {# निवडले}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# अंतर्भूत} other {+# अंतर्भूत}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# समुदाय जोडला} other {# समुदाय जोडले}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "कॅप्शन जोडा"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "चेकलिस्ट आयटम जोडा"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "समुदाय जोडा"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "क्लिपबोर्डवर कॉपी केले"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "कॉपी करा"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "समुदाय जोडता आले नाहीत"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "आयात करता आले नाही"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "प्रतिमा दर्शक: {0}"
 msgid "Imperial"
 msgstr "इम्पीरियल"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "सेटिंग्ज आयात करा"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} समुदाय, {1} ब्लॉक आणि {2} जतन केलेल्या पोस्ट आयात केल्या"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "आतापर्यंत {0} समुदाय, {1} ब्लॉक आणि {2} जतन केलेल्या पोस्ट आयात केल्या; उर्वरित नंतर आयात होतील"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "निनावी वापरकर्त्यांसह"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "हलके"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "दुवा"
 
@@ -3420,6 +3457,14 @@ msgstr "कॅमेरा आधीच वापरात आहे"
 msgid "The camera request was not answered"
 msgstr "कॅमेरा विनंतीला उत्तर मिळाले नाही"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "दुवा 2048 वर्ण किंवा त्याहून कमी असावा"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "दुवा वेब पत्ता असावा"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "मायक्रोफोन विनंतीला उत्तर मिळाले नाही"
@@ -3877,6 +3922,10 @@ msgstr "तुमची संलग्नके गमावली जाती
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "तुमचे बदल हरवतील."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "इतरत्र असलेले तुमचे समुदाय"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

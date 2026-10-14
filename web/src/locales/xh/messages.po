@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# ekhethiweyo} other {# ekhethiweyo}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# efakiweyo} other {+# ezifakiweyo}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Kongezwe iqela loluntu eli-#} other {Kongezwe amaqela oluntu angama-#}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Yongeza umbhalo"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Yongeza into yoluhlu lokuhlola"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Yongeza amaqela oluntu"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Kukotshelwe kwibhodi yokukotshela"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kotshela"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Akukwazekanga ukongeza amaqela oluntu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Akukwazekanga ukungenisa"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Umboniso womfanekiso: {0}"
 msgid "Imperial"
 msgstr "I-Imperial"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Ngenisa iisetingi"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Kungeniswe amaqela oluntu angu-{0}, izithintelo ezingu-{1} neeposti ezigciniweyo ezingu-{2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Ukuza kuthi ga ngoku kungeniswe amaqela oluntu angu-{0}, izithintelo ezingu-{1} neeposti ezigciniweyo ezingu-{2}; ezinye ziyalandela"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Kuquka abasebenzisi abangaziwayo"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Khaphukhaphu"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Ikhonkco"
 
@@ -3420,6 +3457,14 @@ msgstr "Ikhamera sele isetyenziswa"
 msgid "The camera request was not answered"
 msgstr "Isicelo sekhamera asiphendulwanga"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Ikhonkco kufuneka libe ziimpawu ezingama-2048 okanye ngaphantsi"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Ikhonkco kufuneka libe yidilesi yewebhu"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Isicelo semayikrofoni asiphendulwanga"
@@ -3877,6 +3922,10 @@ msgstr "Iziqhoboshelo zakho ziza kulahleka."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Utshintsho lwakho luya kulahleka."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Amaqela akho oluntu kwezinye iindawo"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

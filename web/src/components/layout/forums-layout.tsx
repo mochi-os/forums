@@ -61,6 +61,7 @@ function ForumsLayoutInner() {
       forum: string
       title: string
       body: string
+      url?: string
       attachments?: File[]
     }) => {
       createPostMutation.mutate(data)

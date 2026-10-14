@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# akllasqa} other {# akllasqa}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ukhupi} other {+# ukhupi}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# ayllu yapasqa} other {# ayllukuna yapasqa}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Sut'inchayta yapay"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Lista item yapay"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Ayllukunata yapay"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Clipboard-man copiasqa"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Copiay"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Mana ayllukunata yapayta atinchu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Mana importayta atinchu"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Imagen qhawana: {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Wakichiykunata importay"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} ayllukuna, {1} hark'aykuna, {2} waqaychasqa qillqakunapas importasqa"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Kunankama {0} ayllukuna, {1} hark'aykuna, {2} waqaychasqa qillqakunapas importasqa; puchuqqa qhipaman hamunqa"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Mana sutiyuq apaykachaqkunapas"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Sut'i"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "T'inki"
 
@@ -3420,6 +3457,14 @@ msgstr "Cámaraqa ñam llamk'achisqaña"
 msgid "The camera request was not answered"
 msgstr "Cámara mañakuyqa manam kutichisqachu karqan"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "T'inkiqa 2048 sananchakuna utaq pisilla kanan"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "T'inkiqa web direccion kanan"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Micrófono mañakuyqa manam kutichisqachu karqan"
@@ -3877,6 +3922,10 @@ msgstr "Adjuntoykikuna chinkanqa."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Hukchasqaykikuna chinkanqa."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Huk lawkunapi ayllukunayki"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

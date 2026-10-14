@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# valittu} other {# valittu}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# sisäkkäinen} other {+# sisäkkäistä}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Lisättiin # yhteisö} other {Lisättiin # yhteisöä}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Lisää kuvateksti"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Lisää tarkistuslistakohde"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Lisää yhteisöt"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Kopioitu leikepöydälle"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopioi"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Yhteisöjen lisääminen epäonnistui"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Tuonti epäonnistui"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Kuvankatselin: {0}"
 msgid "Imperial"
 msgstr "Brittiläinen"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Tuo asetukset"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Tuotiin {0} yhteisöä, {1} estettyä palvelinta ja {2} tallennettua julkaisua"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Tähän mennessä tuotiin {0} yhteisöä, {1} estettyä palvelinta ja {2} tallennettua julkaisua; loput tulevat perässä"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Mukaan lukien anonyymit käyttäjät"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Vaalea"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Linkki"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera on jo käytössä"
 msgid "The camera request was not answered"
 msgstr "Kamerapyyntöön ei vastattu"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Linkki saa olla enintään 2048 merkkiä"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Linkin on oltava verkko-osoite"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofonipyyntöön ei vastattu"
@@ -3877,6 +3922,10 @@ msgstr "Liitteesi menetetään."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Muutoksesi menetetään."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Yhteisösi muualla"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

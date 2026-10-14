@@ -65,6 +65,7 @@ type EditPostDialogProps = {
   onSave: (data: {
     title: string
     body: string
+    url: string
     order: string[]
     attachments: File[]
     captions: Record<string, string>
@@ -100,6 +101,7 @@ export function EditPostDialog({
     defaultValues: {
       title: post.title,
       body: post.body,
+      url: post.url ?? '',
     },
   })
 
@@ -118,6 +120,7 @@ export function EditPostDialog({
     form.reset({
       title: post.title,
       body: post.body,
+      url: post.url ?? '',
     })
     // Initialize attachment items from existing attachments
     const existingItems: EditingAttachment[] = (post.attachments || []).map(
@@ -176,6 +179,7 @@ export function EditPostDialog({
     onSave({
       title: draft.title,
       body: draft.body,
+      url: draft.url ?? '',
       order: draft.order ?? [],
       attachments: draft.attachments ?? [],
       captions: draft.captions ?? {},
@@ -323,6 +327,29 @@ export function EditPostDialog({
                     </FormLabel>
                     <FormControl>
                       <Input disabled={isPending} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='url'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Link</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type='url'
+                        inputMode='url'
+                        placeholder='https://'
+                        disabled={isPending}
+                        {...field}
+                        value={field.value ?? ''}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

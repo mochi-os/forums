@@ -26,6 +26,7 @@ import {
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
 import { sanitizeHtml } from '../utils'
+import { PostLink } from './post-link'
 import { PostTagsTooltip } from './post-tags'
 import { SavedButton } from './saved-button'
 import { PostAttachments } from './thread/post-attachments'
@@ -124,8 +125,8 @@ export function PostCard({
             ) : null}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
+                src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'
@@ -138,6 +139,8 @@ export function PostCard({
         }
         metaClassName='opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'
       />
+
+      <PostLink post={post} compact />
 
       {/* Body */}
       {post.body_markdown ? (

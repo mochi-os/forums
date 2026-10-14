@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# đã chọn} other {# đã chọn}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# lồng nhau}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Đã thêm # cộng đồng} other {Đã thêm # cộng đồng}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Thêm chú thích"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Thêm mục danh sách kiểm tra"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Thêm cộng đồng"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Đã sao chép vào bộ nhớ tạm"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Sao chép"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Không thể thêm các cộng đồng"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Không thể nhập"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Trình xem ảnh: {0}"
 msgid "Imperial"
 msgstr "Hệ Anh"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Nhập cài đặt"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Đã nhập {0} cộng đồng, {1} lượt chặn và {2} bài viết đã lưu"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Đến nay đã nhập {0} cộng đồng, {1} lượt chặn và {2} bài viết đã lưu; phần còn lại sẽ tiếp theo"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Bao gồm người dùng ẩn danh"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Sáng"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Liên kết"
 
@@ -3420,6 +3457,14 @@ msgstr "Máy ảnh đang được sử dụng"
 msgid "The camera request was not answered"
 msgstr "Yêu cầu máy ảnh không được trả lời"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Liên kết phải có 2048 ký tự trở xuống"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Liên kết phải là một địa chỉ web"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Yêu cầu micrô không được trả lời"
@@ -3877,6 +3922,10 @@ msgstr "Tệp đính kèm của bạn sẽ bị mất."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Các thay đổi của bạn sẽ bị mất."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Cộng đồng của bạn ở nơi khác"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

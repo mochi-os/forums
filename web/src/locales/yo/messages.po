@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# yan} other {# yan}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# nínú}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {A fi àwùjọ # kún} other {A fi àwọn àwùjọ # kún}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Fi àlàyé kún"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Fi ohun ìmọ́ ìṣàyẹ̀wò kún"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Fi àwọn àwùjọ kún"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "A ti ṣe àdàkọ sí clipboard"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Ṣe àdàkọ"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Kò ṣeé ṣe láti fi àwọn àwùjọ kún"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Kò ṣeé ṣe láti kó wọlé"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Ẹ̀rọ ìwo àwòrán: {0}"
 msgid "Imperial"
 msgstr "Òṣùwọ̀n Gẹ̀ẹ́sì"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Kó àwọn ìṣètò wọlé"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "A kó àwùjọ {0}, ìdènà {1} àti ìfìwéránṣẹ́ tí a fipamọ́ {2} wọlé"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Títí di ìsinsìnyí, a ti kó àwùjọ {0}, ìdènà {1} àti ìfìwéránṣẹ́ tí a fipamọ́ {2} wọlé; ìyókù ń bọ̀"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Pẹ̀lú àwọn olùmúlò aláìlórúkọ"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Ìmọ́lẹ̀"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Ọna asopọ"
 
@@ -3420,6 +3457,14 @@ msgstr "Kámẹ́rà ti wà ní lílò"
 msgid "The camera request was not answered"
 msgstr "A kò dáhùn ìbéèrè kámẹ́rà náà"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Ọ̀nà àsopọ̀ gbọ́dọ̀ jẹ́ àmì 2048 tàbí kéré sí i"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Ọ̀nà àsopọ̀ gbọ́dọ̀ jẹ́ àdírẹ́sì wẹ́ẹ̀bù"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "A kò dáhùn ìbéèrè gbohùngbohùn náà"
@@ -3877,6 +3922,10 @@ msgstr "Àwọn fáìlì àsomọ́ rẹ yóò sọnù."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Àwọn àyípadà rẹ yóò sọnù."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Àwọn àwùjọ rẹ ní ibòmíràn"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

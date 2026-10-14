@@ -52,6 +52,7 @@ import {
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 import { embedVideos, sanitizeHtml } from '../../utils'
+import { PostLink } from '../post-link'
 import { PostTagsTooltip } from '../post-tags'
 import { SavedButton } from '../saved-button'
 import { PostAttachments } from './post-attachments'
@@ -228,8 +229,8 @@ export function ThreadContent({
             )}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${getAppPath()}/${post.forum}/-/${post.id}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${post.forum}/-/${post.id}/asset/style`}
+                src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'
@@ -244,6 +245,8 @@ export function ThreadContent({
           </span>
         }
       />
+
+      <PostLink post={post} />
 
       {/* Post Body */}
       {post.body_markdown ? (

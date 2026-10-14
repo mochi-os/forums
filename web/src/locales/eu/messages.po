@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# hautatuta} other {# hautatuta}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# habiaratu} other {+# habiaratu}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# komunitate gehitu da} other {# komunitate gehitu dira}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Gehitu epigrafea"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Gehitu egiaztapen-zerrendako elementua"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Gehitu komunitateak"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Arbelera kopiatu da"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopiatu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Ezin izan dira komunitateak gehitu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Ezin izan da inportatu"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Irudi-ikustailea: {0}"
 msgid "Imperial"
 msgstr "Inperiala"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Inportatu ezarpenak"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} komunitate, blokeatutako {1} zerbitzari eta gordetako {2} argitalpen inportatu dira"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Orain arte {0} komunitate, blokeatutako {1} zerbitzari eta gordetako {2} argitalpen inportatu dira; gainerakoak gero etorriko dira"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Erabiltzaile anonimoak barne"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Argia"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Esteka"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera dagoeneko erabiltzen ari da"
 msgid "The camera request was not answered"
 msgstr "Kamera eskaerak ez du erantzunik jaso"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Estekak gehienez 2048 karaktere izan behar ditu"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Estekak web helbide bat izan behar du"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofono eskaerak ez du erantzunik jaso"
@@ -3877,6 +3922,10 @@ msgstr "Zure eranskinak galduko dira."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Zure aldaketak galduko dira."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Zure komunitateak beste leku batzuetan"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# נבחר} two {# נבחרו} many {# נבחרו} othe
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# מקונן} two {+# מקוננים} many {+# מקוננים} other {+# מקוננים}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {נוספה # קהילה} two {נוספו # קהילות} many {נוספו # קהילות} other {נוספו # קהילות}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "הוספת כיתוב"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "הוסף פריט לרשימת משימות"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "הוסף קהילות"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "הועתק ללוח"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "העתק"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "לא ניתן להוסיף את הקהילות"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "לא ניתן לייבא"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "מציג תמונות: {0}"
 msgid "Imperial"
 msgstr "אימפריאלי"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "ייבא הגדרות"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "יובאו {0} קהילות, {1} שרתים חסומים ו-{2} פוסטים שמורים"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "עד כה יובאו {0} קהילות, {1} שרתים חסומים ו-{2} פוסטים שמורים; השאר בדרך"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "כולל משתמשים אנונימיים"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "בהיר"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "קישור"
 
@@ -3420,6 +3457,14 @@ msgstr "המצלמה כבר בשימוש"
 msgid "The camera request was not answered"
 msgstr "בקשת המצלמה לא נענתה"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "הקישור חייב להיות באורך 2048 תווים לכל היותר"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "הקישור חייב להיות כתובת אינטרנט"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "בקשת המיקרופון לא נענתה"
@@ -3877,6 +3922,10 @@ msgstr "הקבצים המצורפים שלך יאבדו."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "השינויים שלכם יאבדו."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "הקהילות שלך במקומות אחרים"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

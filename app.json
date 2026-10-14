@@ -22,10 +22,10 @@
 		"forums.star",
 		"accounts.star"
 	],
-	"require": {"version": {"minimum": "0.4.230"}},
+	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 12,
+		"schema": 13,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -133,7 +133,9 @@
 		"-/groups": {"function": "action_groups"},
 
 		"-/accounts/providers": {"function": "action_accounts_providers"},
-		"-/accounts/list": {"function": "action_accounts_list"}
+		"-/accounts/list": {"function": "action_accounts_list"},
+		"-/communities/add": {"function": "action_communities_add"},
+		"-/communities/import": {"function": "action_communities_import"}
 	},
 
 	"errors": {

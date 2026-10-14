@@ -91,6 +91,11 @@ msgstr "{0, plural, other {# ເລືອກແລ້ວ}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# ຊັ້ນຍ່ອຍ}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {ເພີ່ມ # ຊຸມຊົນແລ້ວ} other {ເພີ່ມ # ຊຸມຊົນແລ້ວ}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "ເພີ່ມຄຳບັນຍາຍ"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "ເພີ່ມລາຍການກວດສອບ"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "ເພີ່ມຊຸມຊົນ"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "ສຳເນົາໄປຄລິບບອດແລ້ວ"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "ສຳເນົາ"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "ບໍ່ສາມາດເພີ່ມຊຸມຊົນໄດ້"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "ບໍ່ສາມາດນຳເຂົ້າໄດ້"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "ຕົວເບິ່ງຮູບພາບ: {0}"
 msgid "Imperial"
 msgstr "ອິມພີຣຽລ"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "ນຳເຂົ້າການຕັ້ງຄ່າ"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "ນຳເຂົ້າ {0} ຊຸມຊົນ, {1} ການບລັອກ ແລະ {2} ໂພສທີ່ບັນທຶກໄວ້ແລ້ວ"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "ນຳເຂົ້າແລ້ວ {0} ຊຸມຊົນ, {1} ການບລັອກ ແລະ {2} ໂພສທີ່ບັນທຶກໄວ້; ສ່ວນທີ່ເຫຼືອຈະຕາມມາ"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "ລວມທັງຜູ້ໃຊ້ນິລະນາມ"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "ສະຫວ່າງ"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "ລິ້ງ"
 
@@ -3420,6 +3457,14 @@ msgstr "ກ້ອງກຳລັງຖືກໃຊ້ຢູ່ແລ້ວ"
 msgid "The camera request was not answered"
 msgstr "ຄຳຮ້ອງຂໍກ້ອງບໍ່ໄດ້ຮັບການຕອບ"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "ລິ້ງຕ້ອງມີ 2048 ຕົວອັກສອນ ຫຼືໜ້ອຍກວ່າ"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "ລິ້ງຕ້ອງເປັນທີ່ຢູ່ເວັບ"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "ຄຳຮ້ອງຂໍໄມໂຄຣໂຟນບໍ່ໄດ້ຮັບການຕອບ"
@@ -3877,6 +3922,10 @@ msgstr "ໄຟລ໌ແນບຂອງທ່ານຈະສູນຫາຍ."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "ການປ່ຽນແປງຂອງເຈົ້າຈະຫາຍໄປ."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "ຊຸມຊົນຂອງທ່ານຢູ່ບ່ອນອື່ນ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

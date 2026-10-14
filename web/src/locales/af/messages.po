@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# gekies} other {# gekies}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# geneste} other {+# geneste}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# gemeenskap bygevoeg} other {# gemeenskappe bygevoeg}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Voeg byskrif by"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Voeg kontrolelysitem by"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Voeg gemeenskappe by"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Gekopieer na knipbord"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopieer"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Kon nie die gemeenskappe byvoeg nie"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Kon nie invoer nie"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Prentkyker: {0}"
 msgid "Imperial"
 msgstr "Imperiaal"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Voer instellings in"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} gemeenskappe, {1} geblokkeerde bedieners en {2} gestoorde plasings ingevoer"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Tot dusver {0} gemeenskappe, {1} geblokkeerde bedieners en {2} gestoorde plasings ingevoer; die res volg"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Insluitend anonieme gebruikers"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Lig"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Skakel"
 
@@ -3420,6 +3457,14 @@ msgstr "Die kamera is reeds in gebruik"
 msgid "The camera request was not answered"
 msgstr "Die kameraversoek is nie beantwoord nie"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Die skakel moet 2048 karakters of minder wees"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Die skakel moet 'n webadres wees"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Die mikrofoonversoek is nie beantwoord nie"
@@ -3877,6 +3922,10 @@ msgstr "Jou aanhegsels sal verlore gaan."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Jou veranderinge sal verlore gaan."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Jou gemeenskappe elders"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

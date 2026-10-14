@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# zaɓaɓɓe} other {# zaɓaɓɓu}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# a ciki} other {+# a ciki}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {An ƙara al'umma #} other {An ƙara al'ummomi #}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Ƙara bayanin hoto"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Ƙara abun checklist"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Ƙara al'ummomi"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "An kwafi zuwa clipboard"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kwafi"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Ba a iya ƙara al'ummomin ba"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Ba a iya shigo da su ba"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Mai duba hoto: {0}"
 msgid "Imperial"
 msgstr "Tsarin Birtaniya"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Shigo da saituna"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "An shigo da al'ummomi {0}, sabobin da aka toshe {1} da saƙonnin da aka ajiye {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Zuwa yanzu an shigo da al'ummomi {0}, sabobin da aka toshe {1} da saƙonnin da aka ajiye {2}; sauran na zuwa"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Haɗe da masu amfani da ba a san su ba"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Haske"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Hanyar haɗi"
 
@@ -3420,6 +3457,14 @@ msgstr "Ana amfani da kyamara tuni"
 msgid "The camera request was not answered"
 msgstr "Ba a amsa buƙatar kyamara ba"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Dole ne hanyar haɗi ta kasance haruffa 2048 ko ƙasa"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Dole ne hanyar haɗi ta zama adireshin yanar gizo"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ba a amsa buƙatar makirufo ba"
@@ -3877,6 +3922,10 @@ msgstr "Za a rasa fayilolin da ka makala."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Canje-canjenka za su ɓace."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Al'ummominka a wasu wurare"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

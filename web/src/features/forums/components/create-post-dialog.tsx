@@ -53,6 +53,7 @@ type CreatePostDialogProps = {
     forum: string
     title: string
     body: string
+    url?: string
     attachments?: File[]
     captions?: string[]
   }) => void
@@ -102,6 +103,7 @@ export function CreatePostDialog({
     defaultValues: {
       title: '',
       body: '',
+      url: '',
     },
   })
 
@@ -110,6 +112,7 @@ export function CreatePostDialog({
       forum: forumId,
       title: values.title,
       body: values.body,
+      url: values.url?.trim() || undefined,
       attachments: attachments.length > 0 ? attachments : undefined,
       captions:
         attachments.length > 0
@@ -160,6 +163,7 @@ export function CreatePostDialog({
 
   const watchedTitle = form.watch('title')
   const watchedBody = form.watch('body')
+  const watchedUrl = form.watch('url')
 
   const closeAndReset = useCallback(() => {
     setIsOpen(false)
@@ -172,7 +176,9 @@ export function CreatePostDialog({
   // once - Escape, the close button, Cancel, and a drag down on the mobile
   // drawer - rather than only the one Escape fires.
   const { requestClose, discardDialog } = useDiscardGuard({
-    hasText: Boolean(watchedTitle?.trim() || watchedBody?.trim()),
+    hasText: Boolean(
+      watchedTitle?.trim() || watchedBody?.trim() || watchedUrl?.trim()
+    ),
     hasFiles: attachments.length > 0,
     onDiscard: closeAndReset,
     locked: isPending,
@@ -241,6 +247,29 @@ export function CreatePostDialog({
                     </FormLabel>
                     <FormControl>
                       <Input disabled={isPending} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='url'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <Trans>Link</Trans>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type='url'
+                        inputMode='url'
+                        placeholder='https://'
+                        disabled={isPending}
+                        {...field}
+                        value={field.value ?? ''}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

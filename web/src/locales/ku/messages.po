@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# hilbijartî} other {# hilbijartî}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# di nav de} other {+# di nav de}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# civak hat zêdekirin} other {# civak hatin zêdekirin}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Binnivîsê zêde bike"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Hêmana lîsteya kontrolê zêde bike"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Civakan zêde bike"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Hat kopîkirin li clipboard"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopî bike"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Civak nehatin zêdekirin"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Îthalkirin pêk nehat"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Nêrîna wêneyan: {0}"
 msgid "Imperial"
 msgstr "Împeryal"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Mîhengan îthal bike"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} civak, {1} astengkirin û {2} şandiyên tomarkirî hatin îthalkirin"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Heta niha {0} civak, {1} astengkirin û {2} şandiyên tomarkirî hatin îthalkirin; yên mayî dê paşê werin"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Bi bikarhênerên nenas re"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Ronî"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Girêdan"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera jixwe tê bikaranîn"
 msgid "The camera request was not answered"
 msgstr "Daxwaza kamerayê nehat bersivandin"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Girêdan divê 2048 tîp an kêmtir be"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Girêdan divê navnîşaneke webê be"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Daxwaza mîkrofonê nehat bersivandin"
@@ -3877,6 +3922,10 @@ msgstr "Pêvekên te wê winda bibin."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Guhertinên te dê winda bibin."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Civakên te yên li cihên din"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

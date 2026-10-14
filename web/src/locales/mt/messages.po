@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# magħżul} few {# magħżula} many {# magħżula} oth
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# innestjat} few {+# innestjati} many {+# innestjati} other {+# innestjati}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# komunità miżjuda} two {# komunitajiet miżjuda} few {# komunitajiet miżjuda} many {# komunità miżjuda} other {# komunità miżjuda}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Żid didaskalija"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Żid item għall-checklist"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Żid komunitajiet"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Ikkupjat fil-clipboard"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Ikkupja"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Ma setgħux jiżdiedu l-komunitajiet"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "L-importazzjoni ma rnexxietx"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Viewer tal-istampi: {0}"
 msgid "Imperial"
 msgstr "Imperjali"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Importa l-issettjar"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Importati: komunitajiet {0}, imblokkar {1}, posts salvati {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "S'issa importati: komunitajiet {0}, imblokkar {1}, posts salvati {2}; il-bqija ġejjin"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Inklużi utenti anonimi"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Ċar"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Ħolqa"
 
@@ -3420,6 +3457,14 @@ msgstr "Il-kamera diġà qed tintuża"
 msgid "The camera request was not answered"
 msgstr "It-talba għall-kamera ma twiġbitx"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Il-link irid ikun 2048 karattru jew inqas"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Il-link irid ikun indirizz tal-web"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "It-talba għall-mikrofonu ma twiġbitx"
@@ -3877,6 +3922,10 @@ msgstr "L-annessi tiegħek se jintilfu."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "It-tibdiliet tiegħek se jintilfu."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Il-komunitajiet tiegħek band'oħra"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

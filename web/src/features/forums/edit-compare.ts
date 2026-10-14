@@ -7,6 +7,8 @@ import { arraysEqual, textUnchanged } from '@mochi/web'
 export interface ForumPostEditOriginal {
   title: string
   body: string
+  // The post's link, empty for none.
+  url: string
   attachmentIds: string[]
   // Caption per attachment id; absent means uncaptioned.
   captions: Record<string, string>
@@ -15,6 +17,7 @@ export interface ForumPostEditOriginal {
 interface ForumPostEditDraft {
   title: string
   body: string
+  url?: string
   order?: string[]
   attachments?: File[]
   // Keyed by order entry (attachment id or "new:N"). Existing ids always
@@ -32,6 +35,7 @@ export function isForumPostEditUnchanged(
 ): boolean {
   if (!textUnchanged(draft.title, original.title)) return false
   if (!textUnchanged(draft.body, original.body)) return false
+  if (draft.url !== undefined && draft.url.trim() !== original.url) return false
   if ((draft.attachments?.length ?? 0) > 0) return false
   const existing = existingOrderIds(draft.order)
   if (!arraysEqual(existing, original.attachmentIds)) return false
@@ -45,7 +49,7 @@ export function buildForumPostEditDraft(
     | { kind: 'existing'; attachment: { id: string } }
     | { kind: 'new'; file: File }
   >,
-  values: { title: string; body: string },
+  values: { title: string; body: string; url?: string },
   // Keyed by attachment id for existing items and by the caller's file key
   // for new ones; `fileKey` maps a new file to that key.
   itemCaptions: Record<string, string> = {},
@@ -71,6 +75,7 @@ export function buildForumPostEditDraft(
   return {
     title: values.title,
     body: values.body,
+    url: values.url?.trim() ?? '',
     order,
     attachments,
     captions,
@@ -80,6 +85,7 @@ export function buildForumPostEditDraft(
 export function forumPostEditOriginalFromPost(post: {
   title: string
   body: string
+  url?: string
   attachments?: Array<{ id: string; caption?: string }>
 }): ForumPostEditOriginal {
   const captions: Record<string, string> = {}
@@ -89,6 +95,7 @@ export function forumPostEditOriginalFromPost(post: {
   return {
     title: post.title,
     body: post.body,
+    url: post.url ?? '',
     attachmentIds: (post.attachments ?? []).map((att) => att.id),
     captions,
   }

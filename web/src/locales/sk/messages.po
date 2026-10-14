@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# vybraté} few {# vybraté} many {# vybratých} other 
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# vnorená} few {+# vnorené} many {+# vnorených} other {+# vnorených}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Pridaná # komunita} few {Pridané # komunity} many {Pridané # komunity} other {Pridaných # komunít}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Pridať popis"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Pridať položku zoznamu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Pridať komunity"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Skopírované do schránky"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopírovať"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Komunity sa nepodarilo pridať"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Import sa nepodaril"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Prehliadač obrázkov: {0}"
 msgid "Imperial"
 msgstr "Imperiálne"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Importovať nastavenia"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Importované komunity: {0}, blokovania: {1}, uložené príspevky: {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Zatiaľ importované komunity: {0}, blokovania: {1}, uložené príspevky: {2}; zvyšok nasleduje"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Vrátane anonymných používateľov"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Svetlý"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Odkaz"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera sa už používa"
 msgid "The camera request was not answered"
 msgstr "Žiadosť o kameru zostala bez odpovede"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Odkaz smie mať najviac 2048 znakov"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Odkaz musí byť webová adresa"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Žiadosť o mikrofón zostala bez odpovede"
@@ -3877,6 +3922,10 @@ msgstr "Vaše prílohy sa stratia."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Vaše zmeny budú stratené."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Vaše komunity inde"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

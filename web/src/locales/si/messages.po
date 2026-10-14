@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# තෝරාගත්} other {# තෝරාගත්
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# කැදැලි} other {+# කැදැලි}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {ප්‍රජාව #ක් එක් කරන ලදී} other {ප්‍රජාවන් #ක් එක් කරන ලදී}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "සිරස්තලයක් එක් කරන්න"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "පරීක්ෂා ලැයිස්තු අයිතමයක් එක් කරන්න"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "ප්‍රජාවන් එක් කරන්න"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් කරන �
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "පිටපත් කරන්න"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "ප්‍රජාවන් එක් කළ නොහැකි විය"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "ආයාත කළ නොහැකි විය"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "රූප දර්ශකය: {0}"
 msgid "Imperial"
 msgstr "ඉම්පීරියල්"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "සැකසුම් ආයාත කරන්න"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "ප්‍රජාවන් {0}ක්, අවහිර කිරීම් {1}ක් සහ සුරැකි පළ කිරීම් {2}ක් ආයාත කරන ලදී"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "මේ දක්වා ප්‍රජාවන් {0}ක්, අවහිර කිරීම් {1}ක් සහ සුරැකි පළ කිරීම් {2}ක් ආයාත කරන ලදී; ඉතිරිය පසුව එයි"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "නිර්නාමික පරිශීලකයන් ඇතුළුව"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "ලා"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "සබැඳිය"
 
@@ -3420,6 +3457,14 @@ msgstr "කැමරාව දැනටමත් භාවිතයේ පවත
 msgid "The camera request was not answered"
 msgstr "කැමරා ඉල්ලීමට පිළිතුරු ලැබුණේ නැත"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "සබැඳිය අක්ෂර 2048ක් හෝ ඊට අඩු විය යුතුයි"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "සබැඳිය වෙබ් ලිපිනයක් විය යුතුයි"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "මයික්‍රොෆෝන ඉල්ලීමට පිළිතුරු ලැබුණේ නැත"
@@ -3877,6 +3922,10 @@ msgstr "ඔබගේ ඇමුණුම් නැති වනු ඇත."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "ඔබේ වෙනස්කම් නැති වී යයි."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "වෙනත් තැන්වල ඔබේ ප්‍රජාවන්"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

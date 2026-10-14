@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# 선택됨} other {# 선택됨}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# 중첩}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {커뮤니티 #개를 추가했어요} other {커뮤니티 #개를 추가했어요}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "캡션 추가"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "체크리스트 항목 추가"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "커뮤니티 추가"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "클립보드에 복사되었어요"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "복사"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "커뮤니티를 추가할 수 없었어요"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "가져올 수 없었어요"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "이미지 뷰어: {0}"
 msgid "Imperial"
 msgstr "야드파운드법"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "설정 가져오기"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "커뮤니티 {0}개, 차단 {1}개, 저장된 게시물 {2}개를 가져왔어요"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "지금까지 커뮤니티 {0}개, 차단 {1}개, 저장된 게시물 {2}개를 가져왔어요. 나머지도 곧 가져와요"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "익명 사용자 포함"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "라이트"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "링크"
 
@@ -3420,6 +3457,14 @@ msgstr "카메라가 이미 사용 중입니다"
 msgid "The camera request was not answered"
 msgstr "카메라 요청에 응답이 없었습니다"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "링크는 2048자 이하여야 해요"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "링크는 웹 주소여야 해요"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "마이크 요청에 응답이 없었습니다"
@@ -3877,6 +3922,10 @@ msgstr "첨부 파일이 사라집니다."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "변경한 내용이 사라져요."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "다른 곳의 내 커뮤니티"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

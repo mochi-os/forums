@@ -16,6 +16,9 @@ import type {
   VoteCommentResponse,
 } from '@/api/types/comments'
 import type {
+  CommunitiesAddResponse,
+  CommunitiesImportResponse,
+  ConnectedAccount,
   CreateForumRequest,
   CreateForumResponse,
   InfoClassResponse,
@@ -146,6 +149,24 @@ const forumsApi = {
   getRecommendations: () =>
     client.get<RecommendationsResponse>(endpoints.forums.recommendations),
 
+  // Communities on other networks, through a linked Lemmy account
+  listAccounts: (capability: string) =>
+    client.get<ConnectedAccount[]>(endpoints.forums.accounts, {
+      params: { capability },
+    }),
+
+  addCommunities: (account: string) =>
+    client.post<CommunitiesAddResponse, { account: string }>(
+      endpoints.forums.communitiesAdd,
+      { account }
+    ),
+
+  importCommunities: (account: string) =>
+    client.post<CommunitiesImportResponse, { account: string }>(
+      endpoints.forums.communitiesImport,
+      { account }
+    ),
+
   probeForum: (params: ProbeForumRequest) =>
     client.post<ProbeForumResponse>(endpoints.forums.probe, {
       url: params.url,
@@ -180,6 +201,7 @@ const forumsApi = {
     formData.append('forum', payload.forum)
     formData.append('title', payload.title)
     formData.append('body', payload.body)
+    if (payload.url) formData.append('url', payload.url)
     if (payload.attachments) {
       payload.attachments.forEach((file) => formData.append('files', file))
       // Per-file captions, aligned with the attachments' order
@@ -215,6 +237,7 @@ const forumsApi = {
     const formData = new FormData()
     formData.append('title', payload.title)
     formData.append('body', payload.body)
+    if (payload.url !== undefined) formData.append('url', payload.url)
     if (payload.order) formData.append('order', JSON.stringify(payload.order))
     if (payload.attachments) {
       payload.attachments.forEach((file) => formData.append('files', file))

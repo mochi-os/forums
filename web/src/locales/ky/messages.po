@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# тандалган} other {# тандалган}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ичине салынган} other {+# ичине салынган}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# коомчулук кошулду} other {# коомчулук кошулду}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Түшүндүрмө кошуу"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Текшерүү тизмесине кошуу"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Коомчулуктарды кошуу"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Алмашуу буферине көчүрүлдү"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Көчүрүү"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Коомчулуктарды кошуу мүмкүн болбоду"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Импорттоо мүмкүн болбоду"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Сүрөт көрсөткүч: {0}"
 msgid "Imperial"
 msgstr "Империалдык"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Жөндөөлөрдү импорттоо"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} коомчулук, {1} бөгөт жана {2} сакталган жазуу импорттолду"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Азырынча {0} коомчулук, {1} бөгөт жана {2} сакталган жазуу импорттолду; калганы кийин"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Анонимдүү колдонуучуларды кошо"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Жарык"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Шилтеме"
 
@@ -3420,6 +3457,14 @@ msgstr "Камера буга чейин колдонулууда"
 msgid "The camera request was not answered"
 msgstr "Камера сурамына жооп берилген жок"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Шилтеме 2048 белгиден ашпашы керек"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Шилтеме веб-дарек болушу керек"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Микрофон сурамына жооп берилген жок"
@@ -3877,6 +3922,10 @@ msgstr "Тиркемелериңиз жоголот."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Өзгөртүүлөрүңүз жоголот."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Башка жердеги коомчулуктарыңыз"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

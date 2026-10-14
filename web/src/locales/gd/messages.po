@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# air a thaghadh} two {# air an taghadh} few {# air an 
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# neadaichte} two {+# neadaichte} few {+# neadaichte} other {+# neadaichte}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {Chaidh # choimhearsnachd a chur ris} two {Chaidh # choimhearsnachd a chur ris} few {Chaidh # coimhearsnachdan a chur ris} other {Chaidh # coimhearsnachd a chur ris}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Cuir caipsean ris"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Cuir nì ris an liosta-dearbhaidh"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Cuir coimhearsnachdan ris"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Air a chopaigeadh chun a' chliopaboird"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Dèan lethbhreac"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Cha b' urrainn dhuinn na coimhearsnachdan a chur ris"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Cha b' urrainn dhuinn ion-phortadh"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Sealladair dhealbhan: {0}"
 msgid "Imperial"
 msgstr "Ìmpireach"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Ion-phortaich roghainnean"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Air an ion-phortadh – coimhearsnachdan: {0}, frithealaichean bacte: {1}, postaichean air an sàbhaladh: {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Air an ion-phortadh gu ruige seo – coimhearsnachdan: {0}, frithealaichean bacte: {1}, postaichean air an sàbhaladh: {2}; thig an còrr an ceann greis"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "A' gabhail a-steach cleachdaichean gun ainm"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Soilleir"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Ceangal"
 
@@ -3420,6 +3457,14 @@ msgstr "Tha an camara ga chleachdadh mu thràth"
 msgid "The camera request was not answered"
 msgstr "Cha deach an t-iarrtas camara a fhreagairt"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Feumaidh an ceangal a bhith 2048 caractar no nas lugha"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Feumaidh an ceangal a bhith na sheòladh-lìn"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Cha deach an t-iarrtas micreofon a fhreagairt"
@@ -3877,6 +3922,10 @@ msgstr "Thèid na ceanglachain agad air chall."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Thèid na h-atharraichean agad air chall."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Do choimhearsnachdan ann an àiteachan eile"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

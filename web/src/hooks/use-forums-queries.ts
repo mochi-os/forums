@@ -422,6 +422,7 @@ export function useEditPost(forumId: string, postId: string) {
     {
       title: string
       body: string
+      url?: string
       order?: string[]
       attachments?: File[]
       captions?: Record<string, string>
@@ -433,6 +434,7 @@ export function useEditPost(forumId: string, postId: string) {
         isForumPostEditUnchanged(data.original, {
           title: data.title,
           body: data.body,
+          url: data.url,
           order: data.order,
           attachments: data.attachments,
           captions: data.captions,
@@ -445,6 +447,7 @@ export function useEditPost(forumId: string, postId: string) {
         post: postId,
         title: data.title,
         body: data.body,
+        url: data.url,
         order: data.order,
         attachments: data.attachments,
         captions: data.captions,

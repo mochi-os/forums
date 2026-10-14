@@ -69,6 +69,30 @@ export interface Post {
   pinned?: boolean
   remover?: string
   reason?: string
+  // A link post: the link, its thumbnail and the card's words as JSON
+  // ({title, description, site, page}), and the post's id on another network.
+  url?: string
+  thumbnail?: string
+  embed?: string
+  remote?: string
+}
+
+// The words of a link's card, decoded from a post's embed.
+export interface PostEmbed {
+  title?: string
+  description?: string
+  site?: string
+  page?: string
+}
+
+export function postEmbed(post: Pick<Post, 'embed'>): PostEmbed {
+  if (!post.embed) return {}
+  try {
+    const parsed: unknown = JSON.parse(post.embed)
+    return parsed && typeof parsed === 'object' ? (parsed as PostEmbed) : {}
+  } catch {
+    return {}
+  }
 }
 
 // Helper to safely get comment count
@@ -111,6 +135,7 @@ export interface CreatePostRequest {
   forum: string
   title: string
   body: string
+  url?: string
   attachments?: File[]
   captions?: string[] // aligned with attachments' order
 }
@@ -193,6 +218,8 @@ export interface EditPostRequest {
   post: string
   title: string
   body: string
+  // Absent leaves the post's link alone; empty clears it.
+  url?: string
   order?: string[] // Array of attachment IDs (existing) or "new:N" placeholders
   attachments?: File[] // New files to upload
   captions?: Record<string, string> // keyed by attachment id or "new:N" placeholder

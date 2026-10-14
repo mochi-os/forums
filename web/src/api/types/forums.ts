@@ -31,6 +31,10 @@ export interface Forum {
   // 1 (or absent, for owned / remote-preview) once present. The board shows a
   // loading state while this is 0.
   populated?: number
+  // A community on another network: the linked account it is read and
+  // written through, and the server's own id for it.
+  account?: string
+  community?: string
 }
 
 export interface Member {
@@ -64,6 +68,33 @@ export interface DirectoryEntry {
 }
 
 export type { Post }
+
+// One of the user's connected accounts, as core lists them.
+export interface ConnectedAccount {
+  id: string
+  type: string
+  identifier: string
+  label?: string
+  name?: string
+  server?: string
+  hosted?: boolean
+  enabled?: number | boolean
+}
+
+// What adding a linked account's subscribed communities brought.
+export interface CommunitiesAddResponse {
+  added: number
+  communities: number
+  posts: number
+}
+
+// What a step of importing a linked account's settings brought.
+export interface CommunitiesImportResponse {
+  communities: number
+  blocks: number
+  saved: number
+  more: boolean
+}
 
 // Permissions returned by the info endpoint
 export interface ForumPermissions {

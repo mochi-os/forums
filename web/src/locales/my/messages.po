@@ -91,6 +91,11 @@ msgstr "{0, plural, other {# ရွေးထား}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# ခု အတွင်း}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {အသိုင်းအဝိုင်း # ခု ထည့်ပြီးပါပြီ} other {အသိုင်းအဝိုင်း # ခု ထည့်ပြီးပါပြီ}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "စာတန်းထည့်ရန်"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "စစ်ဆေးစာရင်း အရာ ထည့်မည်"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "အသိုင်းအဝိုင်းများ ထည့်မည်"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "ကလစ်ဘုတ်သို့ ကူးပြီး"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "ကူးမည်"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "အသိုင်းအဝိုင်းများကို ထည့်၍ မရပါ"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "တင်သွင်း၍ မရပါ"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "ပုံကြည့်ရှုစနစ်- {0}"
 msgid "Imperial"
 msgstr "အင်ပီးရီးယယ်"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "ဆက်တင်များ တင်သွင်းမည်"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "အသိုင်းအဝိုင်း {0} ခု၊ ပိတ်ဆို့မှု {1} ခုနှင့် သိမ်းထားသော ပို့စ် {2} ခု တင်သွင်းပြီး"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "ယခုထိ အသိုင်းအဝိုင်း {0} ခု၊ ပိတ်ဆို့မှု {1} ခုနှင့် သိမ်းထားသော ပို့စ် {2} ခု တင်သွင်းပြီး၊ ကျန်သည်များ နောက်မှ လာမည်"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "အမည်မသိအသုံးပြုသူများအပါအဝင်"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "အလင်း"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "လင့်ခ်"
 
@@ -3420,6 +3457,14 @@ msgstr "ကင်မရာကို အသုံးပြုနေပြီး�
 msgid "The camera request was not answered"
 msgstr "ကင်မရာ တောင်းဆိုမှုကို မဖြေကြားခဲ့ပါ"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "လင့်ခ်သည် စာလုံး 2048 သို့မဟုတ် ထို့ထက်နည်းရမည်"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "လင့်ခ်သည် ဝဘ်လိပ်စာ ဖြစ်ရမည်"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "မိုက်ခရိုဖုန်း တောင်းဆိုမှုကို မဖြေကြားခဲ့ပါ"
@@ -3877,6 +3922,10 @@ msgstr "သင့်ပူးတွဲဖိုင်များ ပျော�
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "သင်၏ ပြင်ဆင်မှုများ ပျောက်ဆုံးသွားပါမည်။"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "အခြားနေရာရှိ သင်၏ အသိုင်းအဝိုင်းများ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

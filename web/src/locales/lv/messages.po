@@ -91,6 +91,11 @@ msgstr "{0, plural, zero {# atlasīti} one {# atlasīts} other {# atlasīti}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, zero {+# ligzdoti} one {+# ligzdots} other {+# ligzdoti}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, zero {Pievienotas # kopienas} one {Pievienota # kopiena} other {Pievienotas # kopienas}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "Pievienot parakstu"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "Pievienot kontrolsaraksta vienumu"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "Pievienot kopienas"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "Nokopēts starpliktuvē"
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "Kopēt"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "Nevarēja pievienot kopienas"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "Nevarēja importēt"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "Attēlu skatītājs: {0}"
 msgid "Imperial"
 msgstr "Imperiāls"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "Importēt iestatījumus"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "Importēts: kopienas – {0}, bloķējumi – {1}, saglabātie ieraksti – {2}"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "Pagaidām importēts: kopienas – {0}, bloķējumi – {1}, saglabātie ieraksti – {2}; pārējie sekos"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "Ieskaitot anonīmos lietotājus"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "Gaišs"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "Saite"
 
@@ -3420,6 +3457,14 @@ msgstr "Kamera jau tiek izmantota"
 msgid "The camera request was not answered"
 msgstr "Uz kameras pieprasījumu netika atbildēts"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "Saite nedrīkst pārsniegt 2048 rakstzīmes"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "Saitei jābūt tīmekļa adresei"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Uz mikrofona pieprasījumu netika atbildēts"
@@ -3877,6 +3922,10 @@ msgstr "Jūsu pielikumi tiks zaudēti."
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "Tavas izmaiņas tiks zaudētas."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "Jūsu kopienas citur"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

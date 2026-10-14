@@ -10,6 +10,7 @@ import { FindEntityPage, toast, toastAction, getErrorMessage } from '@mochi/web'
 import { Hash } from 'lucide-react'
 import endpoints from '@/api/endpoints'
 import forumsApi from '@/api/forums'
+import { LemmyAccounts } from '@/features/forums/components/lemmy-accounts'
 import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 
 export const Route = createFileRoute('/_authenticated/find')({
@@ -93,6 +94,7 @@ function FindForumsPage() {
       title={t`Find forums`}
       placeholder={t`Search by name, ID, fingerprint, or URL...`}
       emptyMessage={t`No forums found`}
+      aside={<LemmyAccounts />}
       recommendations={recommendations}
       isLoadingRecommendations={isLoadingRecommendations}
       isRecommendationsError={isRecommendationsError}

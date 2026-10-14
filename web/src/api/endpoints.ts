@@ -39,6 +39,10 @@ const endpoints = {
     recommendations: '-/recommendations',
     probe: '-/probe',
     postCreate: '-/post/create',
+    // Communities on other networks, through a linked Lemmy account
+    communitiesAdd: '-/communities/add',
+    communitiesImport: '-/communities/import',
+    accounts: '-/accounts/list',
 
     // Entity-level endpoints (use /-/ separator)
     // Use getEntityBase for domain-aware paths

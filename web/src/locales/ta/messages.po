@@ -91,6 +91,11 @@ msgstr "{0, plural, one {# தேர்ந்தெடுக்கப்பட�
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# உள்ளமை} other {+# உள்ளமை}}"
 
+#. placeholder {0}: answer.added
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "{0, plural, one {Added # community} other {Added # communities}}"
+msgstr "{0, plural, one {# சமூகம் சேர்க்கப்பட்டது} other {# சமூகங்கள் சேர்க்கப்பட்டன}}"
+
 #. placeholder {0}: selectedForum.name
 #: src/routes/_authenticated/$forum_.settings.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
@@ -295,6 +300,10 @@ msgstr "படக்குறிப்பைச் சேர்"
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 msgid "Add checklist item"
 msgstr "சரிபார்ப்பு பட்டியல் உருப்படி சேர்"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Add communities"
+msgstr "சமூகங்களைச் சேர்"
 
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx
@@ -968,6 +977,14 @@ msgstr "கிளிப்போர்டுக்கு நகலெடுக�
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copy"
 msgstr "நகலெடு"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not add the communities"
+msgstr "சமூகங்களைச் சேர்க்க முடியவில்லை"
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Could not import"
+msgstr "இறக்குமதி செய்ய முடியவில்லை"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1803,6 +1820,24 @@ msgstr "பட காட்சி: {0}"
 msgid "Imperial"
 msgstr "இம்பீரியல்"
 
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Import settings"
+msgstr "அமைப்புகளை இறக்குமதி செய்"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts"
+msgstr "{0} சமூகங்கள், {1} தடைகள், {2} சேமித்த இடுகைகள் இறக்குமதி செய்யப்பட்டன"
+
+#. placeholder {0}: answer.communities
+#. placeholder {1}: answer.blocks
+#. placeholder {2}: answer.saved
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Imported {0} communities, {1} blocks and {2} saved posts so far; the rest follow"
+msgstr "இதுவரை {0} சமூகங்கள், {1} தடைகள், {2} சேமித்த இடுகைகள் இறக்குமதி செய்யப்பட்டன; மீதி தொடர்ந்து வரும்"
+
 #: ../../../lib/web/src/features/access/types.ts
 msgid "Including anonymous users"
 msgstr "அநாமதேய பயனர்கள் உட்பட"
@@ -1874,6 +1909,8 @@ msgid "Light"
 msgstr "லைட்"
 
 #: ../../../lib/web/src/components/options-menu.tsx
+#: src/features/forums/components/create-post-dialog.tsx
+#: src/features/forums/components/edit-post-dialog.tsx
 msgid "Link"
 msgstr "இணைப்பு"
 
@@ -3420,6 +3457,14 @@ msgstr "கேமரா ஏற்கனவே பயன்பாட்டில�
 msgid "The camera request was not answered"
 msgstr "கேமரா கோரிக்கைக்கு பதில் இல்லை"
 
+#: src/features/forums/post-schema.ts
+msgid "The link must be 2048 characters or less"
+msgstr "இணைப்பு 2048 எழுத்துகள் அல்லது அதற்குக் குறைவாக இருக்க வேண்டும்"
+
+#: src/features/forums/post-schema.ts
+msgid "The link must be a web address"
+msgstr "இணைப்பு ஓர் இணைய முகவரியாக இருக்க வேண்டும்"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "மைக்ரோஃபோன் கோரிக்கைக்கு பதில் இல்லை"
@@ -3877,6 +3922,10 @@ msgstr "உங்கள் இணைப்புகள் இழக்கப்�
 #: src/features/forums/components/edit-post-dialog.tsx
 msgid "Your changes will be lost."
 msgstr "உங்கள் மாற்றங்கள் இழக்கப்படும்."
+
+#: src/features/forums/components/lemmy-accounts.tsx
+msgid "Your communities elsewhere"
+msgstr "பிற இடங்களில் உள்ள உங்கள் சமூகங்கள்"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."
