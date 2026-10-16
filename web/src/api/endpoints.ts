@@ -53,6 +53,11 @@ const endpoints = {
     unsubscribe: (forumId: string) => `${getEntityBase(forumId)}/-/unsubscribe`,
     delete: (forumId: string) => `${getEntityBase(forumId)}/-/delete`,
     rename: (forumId: string) => `${getEntityBase(forumId)}/-/rename`,
+    // The forum as a community on the fediverse (phase 20)
+    publish: (forumId: string) => `${getEntityBase(forumId)}/-/publish`,
+    publishSet: (forumId: string) => `${getEntityBase(forumId)}/-/publish/set`,
+    publishClear: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/publish/clear`,
     bannerGet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/get`,
     bannerSet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/set`,
     membersSearch: (forumId: string) =>

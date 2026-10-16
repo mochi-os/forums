@@ -115,6 +115,16 @@ const omitUndefined = (
   )
 }
 
+export interface PublishState {
+  published: boolean
+  // The community's permanent id on the fediverse, and its address as people
+  // write it (@name@domain).
+  address: string
+  identifier: string
+  domains: string[]
+  handles: Array<{ name: string; domain: string }>
+}
+
 const forumsApi = {
   // Forums
   listForums: (sort?: string) =>
@@ -359,6 +369,24 @@ const forumsApi = {
     client.post<{ data: { success: boolean } }>(
       endpoints.forums.rename(forumId),
       { forum: forumId, name }
+    ),
+
+  // The forum as a community on the fediverse (phase 20): whether it is
+  // published and at what address, with the domains a name may be taken on.
+  getPublish: (forumId: string) =>
+    client.get<{ data: PublishState }>(endpoints.forums.publish(forumId)),
+
+  setPublish: (forumId: string, name: string, domain: string) =>
+    client.post<{ data: PublishState }>(endpoints.forums.publishSet(forumId), {
+      forum: forumId,
+      name,
+      domain,
+    }),
+
+  clearPublish: (forumId: string) =>
+    client.post<{ data: PublishState }>(
+      endpoints.forums.publishClear(forumId),
+      { forum: forumId }
     ),
 
   getBanner: (forumId: string) =>

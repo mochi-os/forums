@@ -22,10 +22,19 @@
 		"forums.star",
 		"accounts.star"
 	],
+	"functions": {
+		// The group a published forum is: what arrives at its inbox, and the
+		// pinned posts its featured collection names (phase 20).
+		"activitypub/receive": {"function": "function_activitypub_receive"},
+		"activitypub/featured": {"function": "function_activitypub_featured"},
+		// A member's post or comment published to a community as their own
+		// account, served at its id.
+		"activitypub/object": {"function": "function_activitypub_object"}
+	},
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 13,
+		"schema": 14,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -125,6 +134,9 @@
 		":forum/-/access": {"function": "action_access"},
 		":forum/-/access/set": {"function": "action_access_set"},
 		":forum/-/access/revoke": {"function": "action_access_revoke"},
+		":forum/-/publish": {"function": "action_publish_get"},
+		":forum/-/publish/set": {"function": "action_publish_set"},
+		":forum/-/publish/clear": {"function": "action_publish_clear"},
 		"rss": {"function": "action_rss_all", "public": true},
 		":forum/rss": {"function": "action_rss", "public": true},
 		"-/rss/token": {"function": "action_rss_token"},

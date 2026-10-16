@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
@@ -48,6 +48,7 @@ import {
 } from '@mochi/web'
 import {
   Plus,
+  Globe,
   Hash,
   Settings,
   Shield,
@@ -96,6 +97,8 @@ interface ForumData {
   can_manage: boolean
   ai_mode: string
   ai_account: string
+  // The community's id on the fediverse, where the forum is published as one.
+  address?: string
 }
 
 interface Tab {
@@ -412,11 +415,21 @@ function GeneralTab({
               <DataChip value={forum.fingerprint} truncate='middle' />
             </FieldRow>
           )}
+
+          {forum.address && (
+            <FieldRow label={t`Community`}>
+              <DataChip value={forum.address} truncate='middle' />
+            </FieldRow>
+          )}
         </div>
       </Section>
 
       {forum.can_manage && (
         <BannerSection entityId={forum.id} api={forumsApi} />
+      )}
+
+      {forum.can_manage && (
+        <CommunitySection forumId={forum.id} onChanged={onRefresh} />
       )}
 
       {forum.can_manage && (
@@ -473,6 +486,131 @@ function GeneralTab({
         handleConfirm={onDelete}
       />
     </div>
+  )
+}
+
+// The forum as a community on the fediverse (phase 20): published on a
+// community name the owner takes - a bare name against their limit, a name
+// under their handle free - on one of the domains they may take names on, or
+// withdrawn, which frees the name and tells the followers.
+export function CommunitySection({
+  forumId,
+  onChanged,
+}: {
+  forumId: string
+  onChanged: () => void
+}) {
+  const { t } = useLingui()
+  const queryClient = useQueryClient()
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['forums', 'publish', forumId],
+    queryFn: () => forumsApi.getPublish(forumId),
+    retry: false,
+  })
+  const [name, setName] = useState('')
+  const [domain, setDomain] = useState('')
+  const [busy, setBusy] = useState(false)
+  const state = data?.data
+  const domains = state?.domains ?? []
+  const chosen = domain || domains[0] || ''
+
+  const changed = async () => {
+    await queryClient.invalidateQueries({
+      queryKey: ['forums', 'publish', forumId],
+    })
+    onChanged()
+  }
+
+  const publish = async () => {
+    setBusy(true)
+    try {
+      await forumsApi.setPublish(forumId, name.trim().toLowerCase(), chosen)
+      toast.success(t`Forum published as a community`)
+      setName('')
+      await changed()
+    } catch (err) {
+      toast.error(getErrorMessage(err, t`Could not publish the forum`))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const withdraw = async () => {
+    setBusy(true)
+    try {
+      await forumsApi.clearPublish(forumId)
+      toast.success(t`Community withdrawn`)
+      await changed()
+    } catch (err) {
+      toast.error(getErrorMessage(err, t`Could not withdraw the community`))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Section
+      title={t`Community`}
+      action={
+        state?.published ? (
+          <Button
+            variant='outline'
+            size='sm'
+            loading={busy}
+            onClick={() => void withdraw()}
+          >
+            <Trans>Withdraw</Trans>
+          </Button>
+        ) : undefined
+      }
+    >
+      {error ? (
+        <GeneralError error={error} minimal mode='inline' reset={refetch} />
+      ) : isLoading || !state ? (
+        <Skeleton className='h-9 w-full' />
+      ) : state.published ? (
+        <div className='divide-y-0'>
+          <FieldRow label={t`Address`}>
+            <DataChip value={state.identifier} />
+          </FieldRow>
+          <FieldRow label={t`Link`}>
+            <DataChip value={state.address} truncate='middle' />
+          </FieldRow>
+        </div>
+      ) : (
+        <div className='flex flex-col gap-2 sm:flex-row'>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            aria-label={t`Community name`}
+            placeholder='books'
+            disabled={busy}
+          />
+          {domains.length > 1 && (
+            <Select value={chosen} onValueChange={setDomain}>
+              <SelectTrigger aria-label={t`Domain`} className='sm:w-64'>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[...domains].sort(naturalCompare).map((d) => (
+                  <SelectItem key={d} value={d}>
+                    {d}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          <Button
+            onClick={() => void publish()}
+            loading={busy}
+            disabled={!name.trim() || !chosen}
+            icon={<Globe className='me-2 size-4' />}
+          >
+            <Trans>Publish</Trans>
+          </Button>
+        </div>
+      )}
+    </Section>
   )
 }
 

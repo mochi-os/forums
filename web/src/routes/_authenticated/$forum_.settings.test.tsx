@@ -9,11 +9,96 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import forumsApi from '@/api/forums'
-import { MembersSection } from './$forum_.settings'
+import { CommunitySection, MembersSection } from './$forum_.settings'
 
 vi.mock('@/api/forums', () => ({
-  default: { listMembers: vi.fn(), removeMember: vi.fn(), setAccess: vi.fn() },
+  default: {
+    listMembers: vi.fn(),
+    removeMember: vi.fn(),
+    setAccess: vi.fn(),
+    getPublish: vi.fn(),
+    setPublish: vi.fn(),
+    clearPublish: vi.fn(),
+  },
 }))
+
+vi.mock('@mochi/web', async (original) => ({
+  ...(await original<typeof import('@mochi/web')>()),
+  toast: { success: vi.fn(), error: vi.fn() },
+}))
+
+function renderCommunity(onChanged = vi.fn()) {
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  })
+  render(
+    <I18nProvider i18n={i18n}>
+      <QueryClientProvider client={client}>
+        <CommunitySection forumId='f1' onChanged={onChanged} />
+      </QueryClientProvider>
+    </I18nProvider>
+  )
+  return onChanged
+}
+
+const unpublished = {
+  data: {
+    published: false,
+    address: '',
+    identifier: '',
+    domains: ['example.com'],
+    handles: [],
+  },
+}
+const published = {
+  data: {
+    published: true,
+    address: 'https://example.com/~g1',
+    identifier: '@books@example.com',
+    domains: ['example.com'],
+    handles: [],
+  },
+}
+
+describe('CommunitySection', () => {
+  it('publishes the forum on the name given and then shows the community', async () => {
+    vi.mocked(forumsApi.getPublish)
+      .mockResolvedValueOnce(unpublished as never)
+      .mockResolvedValue(published as never)
+    vi.mocked(forumsApi.setPublish).mockResolvedValue(published as never)
+    const user = userEvent.setup()
+    const onChanged = renderCommunity()
+    // One domain: no chooser, the name alone.
+    const name = await screen.findByLabelText('Community name')
+    expect(screen.queryByLabelText('Domain')).not.toBeInTheDocument()
+    await user.type(name, 'Books')
+    await user.click(screen.getByRole('button', { name: 'Publish' }))
+    await waitFor(() =>
+      expect(forumsApi.setPublish).toHaveBeenCalledWith('f1', 'books', 'example.com')
+    )
+    expect(await screen.findByText('@books@example.com')).toBeInTheDocument()
+    expect(onChanged).toHaveBeenCalled()
+  })
+
+  it('withdraws a published community', async () => {
+    vi.mocked(forumsApi.getPublish).mockResolvedValue(published as never)
+    vi.mocked(forumsApi.clearPublish).mockResolvedValue(unpublished as never)
+    const user = userEvent.setup()
+    renderCommunity()
+    await screen.findByText('@books@example.com')
+    expect(screen.queryByRole('button', { name: 'Publish' })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Withdraw' }))
+    await waitFor(() => expect(forumsApi.clearPublish).toHaveBeenCalledWith('f1'))
+  })
+
+  it('offers the domain where the owner may take names on several', async () => {
+    vi.mocked(forumsApi.getPublish).mockResolvedValue({
+      data: { ...unpublished.data, domains: ['example.com', 'alice.example'] },
+    } as never)
+    renderCommunity()
+    expect(await screen.findByLabelText('Domain')).toBeInTheDocument()
+  })
+})
 
 const members = [
   { id: 'owner-1', name: 'Owner Person', subscribed: 0 },
