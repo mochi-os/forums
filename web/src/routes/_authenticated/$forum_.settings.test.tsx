@@ -9,7 +9,11 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import forumsApi from '@/api/forums'
-import { CommunitySection, MembersSection } from './$forum_.settings'
+import {
+  CommunitySection,
+  MembersSection,
+  SensitiveSection,
+} from './$forum_.settings'
 
 vi.mock('@/api/forums', () => ({
   default: {
@@ -19,6 +23,7 @@ vi.mock('@/api/forums', () => ({
     getPublish: vi.fn(),
     setPublish: vi.fn(),
     clearPublish: vi.fn(),
+    setSensitive: vi.fn(),
   },
 }))
 
@@ -221,5 +226,41 @@ describe('MembersSection', () => {
 
     await screen.findByRole('status')
     expect(screen.queryByText('Member One')).not.toBeInTheDocument()
+  })
+})
+
+describe('SensitiveSection', () => {
+  beforeEach(() => vi.clearAllMocks())
+
+  it('marks the forum sensitive and tells the page', async () => {
+    const user = userEvent.setup()
+    vi.mocked(forumsApi.setSensitive).mockResolvedValue({
+      data: { sensitive: 1 },
+    })
+    const onChanged = vi.fn()
+    render(
+      <I18nProvider i18n={i18n}>
+        <SensitiveSection forumId='f1' sensitive={false} onChanged={onChanged} />
+      </I18nProvider>
+    )
+    const toggle = screen.getByRole('switch', { name: 'Sensitive' })
+    expect(toggle).not.toBeChecked()
+    await user.click(toggle)
+    expect(forumsApi.setSensitive).toHaveBeenCalledWith('f1', true)
+    await waitFor(() => expect(onChanged).toHaveBeenCalledTimes(1))
+    expect(toggle).toBeChecked()
+  })
+
+  it('puts the switch back when the save fails', async () => {
+    const user = userEvent.setup()
+    vi.mocked(forumsApi.setSensitive).mockRejectedValue(new Error('no'))
+    render(
+      <I18nProvider i18n={i18n}>
+        <SensitiveSection forumId='f1' sensitive={false} onChanged={vi.fn()} />
+      </I18nProvider>
+    )
+    const toggle = screen.getByRole('switch', { name: 'Sensitive' })
+    await user.click(toggle)
+    await waitFor(() => expect(toggle).not.toBeChecked())
   })
 })

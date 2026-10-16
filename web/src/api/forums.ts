@@ -18,6 +18,7 @@ import type {
 import type {
   CommunitiesAddResponse,
   CommunitiesImportResponse,
+  CommunityJoined,
   ConnectedAccount,
   CreateForumRequest,
   CreateForumResponse,
@@ -177,6 +178,28 @@ const forumsApi = {
       { account }
     ),
 
+  // A community on another server joined as one of the user's hosted
+  // fediverse accounts, by !name@host or its address
+  joinCommunity: (address: string, account: string) =>
+    client.post<
+      { data: CommunityJoined },
+      { address: string; account: string }
+    >(endpoints.forums.communitiesJoin, { address, account }),
+
+  // Block a person by their address, a community by its address or a server
+  // by its domain
+  addBlock: (target: string) =>
+    client.post<{ data: Record<string, never> }, { target: string }>(
+      endpoints.forums.blocksAdd,
+      { target }
+    ),
+
+  setSensitive: (forumId: string, sensitive: boolean) =>
+    client.post<{ data: { sensitive: number } }, { sensitive: string }>(
+      endpoints.forums.sensitiveSet(forumId),
+      { sensitive: sensitive ? '1' : '0' }
+    ),
+
   probeForum: (params: ProbeForumRequest) =>
     client.post<ProbeForumResponse>(endpoints.forums.probe, {
       url: params.url,
@@ -212,6 +235,8 @@ const forumsApi = {
     formData.append('title', payload.title)
     formData.append('body', payload.body)
     if (payload.url) formData.append('url', payload.url)
+    if (payload.sensitive) formData.append('sensitive', '1')
+    if (payload.language) formData.append('language', payload.language)
     if (payload.attachments) {
       payload.attachments.forEach((file) => formData.append('files', file))
       // Per-file captions, aligned with the attachments' order
@@ -248,6 +273,10 @@ const forumsApi = {
     formData.append('title', payload.title)
     formData.append('body', payload.body)
     if (payload.url !== undefined) formData.append('url', payload.url)
+    if (payload.sensitive !== undefined)
+      formData.append('sensitive', payload.sensitive ? '1' : '0')
+    if (payload.language !== undefined)
+      formData.append('language', payload.language)
     if (payload.order) formData.append('order', JSON.stringify(payload.order))
     if (payload.attachments) {
       payload.attachments.forEach((file) => formData.append('files', file))

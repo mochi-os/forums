@@ -35,6 +35,9 @@ export function usePostSchema() {
             message: t`The link must be a web address`,
           })
           .optional(),
+        // Whether the post is sensitive and its language (phase 21).
+        sensitive: z.boolean().optional(),
+        language: z.string().optional(),
       }),
     [t]
   )

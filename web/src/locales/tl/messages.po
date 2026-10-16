@@ -255,6 +255,7 @@ msgstr "Tinanggal ang access"
 msgid "Access set for {subjectName}"
 msgstr "Naitakda ang access para kay {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Account"
@@ -262,6 +263,11 @@ msgstr "Account"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Uri ng account"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Aktibo"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Payagan ang sinuman na maghanap ng forum"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Payagan ang pag-sort ayon sa"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Nai-post din sa"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "I-block si {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "I-block si {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "I-block ang may-akda"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "I-block ang komunidad"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "I-block ang server"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Na-block"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Mga komento ({0})"
 msgid "Community"
 msgstr "Komunidad"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Address ng komunidad"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Pangalan ng komunidad"
@@ -943,6 +976,7 @@ msgstr "Kumokonekta..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Nilalaman"
 
@@ -978,6 +1012,11 @@ msgstr "Magpatuloy gamit ang {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Magpatuloy gamit ang {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Kontrobersyal"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Nakopya"
@@ -1001,9 +1040,18 @@ msgstr "Kopyahin"
 msgid "Could not add the communities"
 msgstr "Hindi maidagdag ang mga komunidad"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Hindi ma-block"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Hindi ma-import"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Hindi makasali sa komunidad"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Hindi ma-load ang document na ito. Subukan muli mamaya."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Hindi ma-publish ang forum"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Hindi ma-save"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Mukhang ang pahinang hinahanap mo <0/>ay wala o maaaring inalis na."
 msgid "Item details"
 msgstr "Detalye ng item"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Sumali"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Sumali sa isang komunidad sa ibang lugar"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Nakasali na"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Ngayon lang"
@@ -1926,6 +1990,11 @@ msgstr "Ngayon lang"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Mga keyboard shortcut"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Wika"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Buwan"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Iba pang opsyon"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Pinakamaraming komento"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Hindi ikinumpara: lampas sa limitasyon ng laki"
 msgid "Not found"
 msgstr "Hindi nahanap"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Hindi tinukoy"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Hindi naka-set"
@@ -2415,6 +2493,11 @@ msgstr "Numero"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Wala sa paksa"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Pinakaluma"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Nalinis ang mga naka-save na post"
 msgid "Saving..."
 msgstr "Sini-save..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Ayon sa laki"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompt ng score"
@@ -3261,6 +3349,15 @@ msgstr "Magpadala ng email"
 msgid "Send message"
 msgstr "Ipadala ang mensahe"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Sensitibo"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Serif"
@@ -3296,6 +3393,10 @@ msgstr "Mga setting"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Tahimik na na-ban"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Ipakita"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Na-delete ang forum na ito"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Permanenteng buburahin nito ang laro at ang chat nito. Hindi na maaaring bawiin ang aksyong ito."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Minarkahang sensitibo ang post na ito"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Taon"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

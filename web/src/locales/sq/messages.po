@@ -255,6 +255,7 @@ msgstr "Qasja u hoq"
 msgid "Access set for {subjectName}"
 msgstr "Qasja u caktua për {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Llogaria"
@@ -262,6 +263,11 @@ msgstr "Llogaria"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Lloji i llogarisë"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Aktive"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Lejo këdo të kërkojë për forum"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Lejo renditjen sipas"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Postuar edhe në"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Blloko {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Të bllokohet {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Blloko autorin"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Blloko komunitetin"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Blloko serverin"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "U bllokua"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Komentet ({0})"
 msgid "Community"
 msgstr "Komuniteti"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Adresa e komunitetit"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Emri i komunitetit"
@@ -943,6 +976,7 @@ msgstr "Po lidhet..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Përmbajtja"
 
@@ -978,6 +1012,11 @@ msgstr "Vazhdo me {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Vazhdo me {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Të diskutueshme"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "U kopjua"
@@ -1001,9 +1040,18 @@ msgstr "Kopjo"
 msgid "Could not add the communities"
 msgstr "Komunitetet nuk u shtuan dot"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Bllokimi dështoi"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Importimi nuk u krye dot"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Bashkimi me komunitetin dështoi"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Nuk mund të ngarkohej ky dokument. Provo më vonë."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Forumi nuk u publikua dot"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Ruajtja dështoi"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Duket se faqja që po kërkoni <0/>nuk ekziston ose është hequr."
 msgid "Item details"
 msgstr "Detajet e artikullit"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Bashkohu"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Bashkohu me një komunitet diku tjetër"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "U bashkuat"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Sapo"
@@ -1926,6 +1990,11 @@ msgstr "Sapo"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Shkurtoret e tastierës"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Gjuha"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Muaji"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Më shumë opsione"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Më të komentuarat"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Nuk u krahasua: mbi kufirin e madhësisë"
 msgid "Not found"
 msgstr "Nuk u gjet"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Pa specifikuar"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "I pacaktuar"
@@ -2415,6 +2493,11 @@ msgstr "Numri"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Jashtë teme"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Më të vjetrat"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Postimet e ruajtura u pastruan"
 msgid "Saving..."
 msgstr "Duke ruajtur..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Të shkallëzuara"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompti i vlerësimit"
@@ -3261,6 +3349,15 @@ msgstr "Dërgo email"
 msgid "Send message"
 msgstr "Dërgo mesazhin"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "E ndjeshme"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Me serif"
@@ -3296,6 +3393,10 @@ msgstr "Cilësimet"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "I përjashtuar fshehurazi"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Shfaq"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Ky forum u fshi"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Kjo do të fshijë përgjithmonë lojën dhe bisedën e saj. Ky veprim nuk mund të zhbëhet."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Ky postim është shënuar si i ndjeshëm"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Viti"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

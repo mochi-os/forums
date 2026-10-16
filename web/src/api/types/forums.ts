@@ -35,6 +35,12 @@ export interface Forum {
   // written through, and the server's own id for it.
   account?: string
   community?: string
+  // The community's address on the fediverse: a forum of ours published as
+  // one, or a community joined as one of the user's hosted accounts.
+  address?: string
+  hosted?: string
+  // Whether the forum's posts are all sensitive.
+  sensitive?: number
 }
 
 export interface Member {
@@ -94,6 +100,16 @@ export interface CommunitiesImportResponse {
   blocks: number
   saved: number
   more: boolean
+}
+
+// A community just joined as one of the user's hosted accounts: the forum it
+// became, and whether the group has accepted the follow yet.
+export interface CommunityJoined {
+  id: string
+  fingerprint: string
+  name: string
+  already_subscribed: boolean
+  accepted?: boolean
 }
 
 // Permissions returned by the info endpoint

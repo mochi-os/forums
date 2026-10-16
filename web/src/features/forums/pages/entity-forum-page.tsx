@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
 import { plural } from '@lingui/core/macro'
@@ -33,6 +34,7 @@ import {
   type ForumGoneReason,
 } from '@/hooks/use-forum-websocket'
 import {
+  forumsKeys,
   useForumMembership,
   useCreatePost,
   useSubscribeForum,
@@ -41,6 +43,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { OptionsMenu } from '@/components/options-menu'
+import { useForumSorts } from '@/features/forums/sorts'
 import { ForumBanner } from '../components/forum-banner'
 import { ForumGone } from '../components/forum-gone'
 import { ForumOverview } from '../components/forum-overview'
@@ -188,6 +191,21 @@ export function EntityForumPage({
   const unsubscribeMutation = useUnsubscribeForum(() => {
     navigate({ to: APP_ROUTES.HOME })
   })
+  const forumSorts = useForumSorts()
+
+  // Block a community joined on another network: the server drops it and its
+  // account no longer follows it.
+  const queryClient = useQueryClient()
+  const handleBlockCommunity = async () => {
+    try {
+      await forumsApi.addBlock(forum.address ?? forum.id)
+      toast.success(t`Blocked`)
+      await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
+      void navigate({ to: APP_ROUTES.HOME })
+    } catch (error) {
+      toast.error(getErrorMessage(error, t`Could not block`))
+    }
+  }
 
   const handleCreatePost = (data: {
     title: string
@@ -297,6 +315,7 @@ export function EntityForumPage({
                 value={sort}
                 onValueChange={setSort}
                 options={sortOptions}
+                extra={forumSorts}
               />
             )}
             {!isLoadingForums && isRemoteForum && !isSubscribed && (
@@ -339,6 +358,11 @@ export function EntityForumPage({
               canUnsubscribe ? () => setShowUnsubscribeConfirm(true) : undefined
             }
             unsubscribePending={unsubscribeMutation.isPending}
+            onBlock={
+              isLoggedIn && forum.account && forum.address && !forum.hosted
+                ? () => void handleBlockCommunity()
+                : undefined
+            }
             notificationsForum={
               isLoggedIn && isSubscribed ? forum.id : undefined
             }

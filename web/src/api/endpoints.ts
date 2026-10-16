@@ -43,6 +43,10 @@ const endpoints = {
     communitiesAdd: '-/communities/add',
     communitiesImport: '-/communities/import',
     accounts: '-/accounts/list',
+    // A community joined as one of the user's hosted accounts, and blocks of
+    // people, communities and servers (phase 21)
+    communitiesJoin: '-/communities/join',
+    blocksAdd: '-/blocks/add',
 
     // Entity-level endpoints (use /-/ separator)
     // Use getEntityBase for domain-aware paths
@@ -60,6 +64,8 @@ const endpoints = {
       `${getEntityBase(forumId)}/-/publish/clear`,
     bannerGet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/get`,
     bannerSet: (forumId: string) => `${getEntityBase(forumId)}/-/banner/set`,
+    sensitiveSet: (forumId: string) =>
+      `${getEntityBase(forumId)}/-/sensitive/set`,
     membersSearch: (forumId: string) =>
       `${getEntityBase(forumId)}/-/members/search`,
     members: (forumId: string) => `${getEntityBase(forumId)}/-/members`,

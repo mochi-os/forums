@@ -255,6 +255,7 @@ msgstr "Acesso removido"
 msgid "Access set for {subjectName}"
 msgstr "Acesso definido para {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Conta"
@@ -262,6 +263,11 @@ msgstr "Conta"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Tipo de conta"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Ativos"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Permitir que qualquer um pesquise o fórum"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Permitir ordenar por"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Também publicado em"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Bloquear {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Bloquear {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Bloquear autor"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Bloquear comunidade"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Bloquear servidor"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Bloqueado"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Comentários ({0})"
 msgid "Community"
 msgstr "Comunidade"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Endereço da comunidade"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Nome da comunidade"
@@ -943,6 +976,7 @@ msgstr "A ligar..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Conteúdo"
 
@@ -978,6 +1012,11 @@ msgstr "Continuar com {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Continuar com {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Controversos"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Copiado"
@@ -1001,9 +1040,18 @@ msgstr "Copiar"
 msgid "Could not add the communities"
 msgstr "Não foi possível adicionar as comunidades"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Não foi possível bloquear"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Não foi possível importar"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Não foi possível aderir à comunidade"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Não foi possível carregar este documento. Tente novamente mais tarde."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Não foi possível publicar o fórum"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Não foi possível guardar"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Parece que a página que procura <0/>não existe ou foi removida."
 msgid "Item details"
 msgstr "Detalhes do item"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Aderir"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Aderir a uma comunidade noutro servidor"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Aderiu à comunidade"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Agora mesmo"
@@ -1926,6 +1990,11 @@ msgstr "Agora mesmo"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Atalhos de teclado"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Idioma"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Mês"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Mais opções"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Mais comentados"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Não comparado: acima do limite de tamanho"
 msgid "Not found"
 msgstr "Não encontrado"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Não indicado"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Não definido"
@@ -2415,6 +2493,11 @@ msgstr "Número"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Fora do tópico"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Antigos"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Publicações guardadas limpas"
 msgid "Saving..."
 msgstr "A guardar..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Ponderados"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompt de pontuação"
@@ -3261,6 +3349,15 @@ msgstr "Enviar email"
 msgid "Send message"
 msgstr "Enviar mensagem"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Sensível"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Com serifa"
@@ -3296,6 +3393,10 @@ msgstr "Definições"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Banido em silêncio"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Mostrar"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Este fórum foi eliminado"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Isto elimina permanentemente o jogo e a sua conversa. Esta ação não pode ser anulada."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Esta publicação está marcada como sensível"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Ano"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

@@ -9,7 +9,27 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import type { Post } from '@/api/types/posts'
+import { ThreadComment, type ThreadCommentType } from './thread-comment'
 import { ThreadContent } from './thread-content'
+
+// The cross-post links are router links; outside a router they render as
+// plain anchors naming where they go.
+vi.mock('@tanstack/react-router', async (original) => ({
+  ...(await original<typeof import('@tanstack/react-router')>()),
+  Link: ({
+    children,
+    params,
+    className,
+  }: {
+    children: React.ReactNode
+    params: { forum: string; post: string }
+    className?: string
+  }) => (
+    <a href={`/${params.forum}/${params.post}`} className={className}>
+      {children}
+    </a>
+  ),
+}))
 
 function makePost(): Post {
   return {
@@ -24,6 +44,24 @@ function makePost(): Post {
     down: 0,
     created: 1_700_000_000,
     updated: 1_700_000_000,
+  }
+}
+
+function makeComment(member: string): ThreadCommentType {
+  return {
+    id: 'c1',
+    forum: 'f1',
+    post: 'p1',
+    parent: '',
+    member,
+    name: 'Someone',
+    body: 'A comment',
+    up: 0,
+    down: 0,
+    created: 1_700_000_000,
+    children: [],
+    can_vote: true,
+    can_comment: true,
   }
 }
 
@@ -74,5 +112,96 @@ describe('ThreadContent moderation confirmations', () => {
 
     await user.click(await screen.findByRole('button', { name: 'Ban' }))
     expect(onBanAuthor).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('ThreadContent marks and cross-posts', () => {
+  it('holds a sensitive post behind a cover until the reader shows it', async () => {
+    const user = userEvent.setup()
+    renderContent({ post: { ...makePost(), sensitive: 1 }, canModerate: false })
+
+    expect(screen.getByText('Sensitive')).toBeInTheDocument()
+    expect(screen.queryByText('Some body text')).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Show' }))
+    expect(screen.getByText('Some body text')).toBeInTheDocument()
+  })
+
+  it('shows a post that is not sensitive at once', () => {
+    renderContent({ post: makePost(), canModerate: false })
+    expect(screen.getByText('Some body text')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Show' })).not.toBeInTheDocument()
+  })
+
+  it('lists the other forums carrying the same link', () => {
+    renderContent({
+      post: {
+        ...makePost(),
+        url: 'https://example.org/shared',
+        crossposts: [
+          {
+            post: 'p2',
+            title: 'The same link',
+            forum: 'f2',
+            forum_name: 'Second forum',
+            fingerprint: 'abcdefghi',
+          },
+        ],
+      },
+      canModerate: false,
+    })
+    expect(screen.getByText('Also posted in')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Second forum' })).toHaveAttribute(
+      'href',
+      '/abcdefghi/p2'
+    )
+  })
+
+  it('offers blocking the author and their server when given', async () => {
+    const user = userEvent.setup()
+    const onBlockAuthor = vi.fn()
+    const onBlockServer = vi.fn()
+    renderContent({ onBlockAuthor, onBlockServer, canModerate: false })
+
+    await user.click(screen.getByLabelText('More options'))
+    await user.click(await screen.findByText('Block author'))
+    expect(onBlockAuthor).toHaveBeenCalledTimes(1)
+    await user.click(screen.getByLabelText('More options'))
+    await user.click(await screen.findByText('Block server'))
+    expect(onBlockServer).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('ThreadComment blocking', () => {
+  function renderComment(member: string, onBlockAuthor = vi.fn()) {
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    render(
+      <QueryClientProvider client={client}>
+        <I18nProvider i18n={i18n}>
+          <ThreadComment
+            comment={makeComment(member)}
+            onVote={vi.fn()}
+            onBlockAuthor={onBlockAuthor}
+            onBlockServer={vi.fn()}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    return onBlockAuthor
+  }
+
+  it('offers blocking an author on another network by their address', async () => {
+    const user = userEvent.setup()
+    const onBlockAuthor = renderComment('https://lemmy.example/u/someone')
+    await user.click(screen.getByLabelText('More options'))
+    await user.click(await screen.findByText('Block author'))
+    expect(onBlockAuthor).toHaveBeenCalledWith('https://lemmy.example/u/someone')
+  })
+
+  it('does not offer it for a Mochi member', () => {
+    renderComment('1Vg5EKW2KiMjy9xkUVmPAf2GCJcmX1cYKsfMG9nFbX3Bs8sEkV')
+    expect(screen.queryByText('Block author')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('More options')).toBeNull()
   })
 })

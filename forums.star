@@ -220,6 +220,11 @@ def database_upgrade(version):
         # phase 20): the group account it is published as and its address,
         # the activities the group has taken and each member's address there.
         hosted_schema_create()
+    if version == 15:
+        # Communities joined as the user's own account (the federation plan,
+        # phase 21): a post's sensitive mark and language, a forum's
+        # sensitive mark.
+        joined_schema_create()
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -325,6 +330,7 @@ def database_create():
     # Attachments now live in this database, owned by the shared library.
     attachment_schema_create()
     hosted_schema_create()
+    joined_schema_create()
 
 
 
@@ -1480,7 +1486,7 @@ def action_comment_asset(a):
         return
     return stream_asset(a, row["member"], "people", asset)
 
-VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant"]
+VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant", "active", "scaled", "controversial", "old", "comments"]
 
 # Build the ORDER BY for a post list; `prefix` qualifies columns for the joined
 # tag query ("p."). Emit the prefix directly - deriving the joined form with
@@ -1493,6 +1499,22 @@ def get_post_order(sort, prefix=""):
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
         return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + prefix + "created desc"
+    if sort == "active":
+        # Hot, by the last activity on the post rather than its creation: a
+        # post that is still being voted on or discussed stays up.
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "updated) / 3600) + 2), 1) desc, " + prefix + "created desc"
+    if sort == "scaled":
+        # Hot, scaled down by how much the post's forum has had in the last
+        # month, so a small forum's posts are not buried under a busy one's.
+        table = prefix if prefix else "posts."
+        return "(((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1)) / (1.0 + (select count(*) from posts scale where scale.forum=" + table + "forum and scale.created>" + str(mochi.time.now() - 2592000) + ") / 10.0) desc, " + prefix + "created desc"
+    if sort == "controversial":
+        # Many votes split both ways: the total weighted by how even the split is.
+        return "(case when " + prefix + "up>0 and " + prefix + "down>0 then (" + prefix + "up + " + prefix + "down) * (min(" + prefix + "up, " + prefix + "down) * 1.0 / max(" + prefix + "up, " + prefix + "down)) else 0 end) desc, " + prefix + "created desc"
+    if sort == "old":
+        return prefix + "created asc"
+    if sort == "comments":
+        return prefix + "comments desc, " + prefix + "created desc"
     # Default is "new" (also used as fallback for ai/interests/relevant which do post-query sorting)
     return prefix + "created desc"
 
@@ -2169,12 +2191,15 @@ def action_view(a):
         has_more = len(posts) > limit
         if has_more:
             posts = posts[:limit]
+        posts = unblocked(posts)
 
         im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, user_id, can_moderate)
         for p in posts:
             p["fingerprint"] = forum.get("fingerprint") or forum_fingerprint(p["forum"])
             p["body_markdown"] = mochi.text.markdown(p["body"])
+            if forum.get("sensitive"):
+                p["sensitive"] = 1
             # Attachment metadata is stored locally at fan-out; bytes pull on
             # demand when served.
             p["attachments"] = attachment_list(p["id"], forum["id"])
@@ -2248,6 +2273,7 @@ def action_view(a):
             posts = mochi.db.rows("select * from posts where status='approved' or (status='pending' and member=?) order by pinned desc, " + order_by + " limit 100", user_id)
         else:
             posts = mochi.db.rows("select * from posts where status='approved' order by pinned desc, " + order_by + " limit 100")
+        posts = unblocked(posts)
 
         # Add fingerprint and access flags to each forum
         # For owned forums, check locally. For subscribed forums, skip remote
@@ -2276,6 +2302,8 @@ def action_view(a):
             # Find the forum for this post and add fingerprint
             forum = forum_map.get(p["forum"])
             p["fingerprint"] = forum["fingerprint"] if forum else forum_fingerprint(p["forum"])
+            if forum and forum.get("sensitive"):
+                p["sensitive"] = 1
             # Comment count, tags and the caller's vote come from the
             # whole-page queries above.
             p["comments"] = comment_counts.get(p["id"], 0)
@@ -2405,6 +2433,11 @@ def action_post_create(a):
         return
     link = link or ""
 
+    # Whether the post is sensitive and what language it is in (phase 21).
+    sensitive, language = post_marks(a)
+    sensitive = sensitive or 0
+    language = language or ""
+
     user_id = a.user.identity.id
     user_name = a.user.identity.name
     id = mochi.uid()
@@ -2451,8 +2484,8 @@ def action_post_create(a):
                 status = "pending"
 
             card = link_card(link)
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, status, now, now, card[0], card[1], card[2])
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, status, now, now, card[0], card[1], card[2], sensitive, language)
 
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -2467,7 +2500,9 @@ def action_post_create(a):
                     "name": user_name,
                     "title": title,
                     "body": body,
-                    "created": now
+                    "created": now,
+                    "sensitive": sensitive,
+                    "language": language,
                 }, card)
                 if attachments:
                     post_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
@@ -2500,15 +2535,15 @@ def action_post_create(a):
             attachments = attachment_save(a, id, captions=captions)
 
             card = link_card(link)
-            submit_data = link_fields({"id": id, "title": title, "body": body}, card)
+            submit_data = link_fields({"id": id, "title": title, "body": body, "sensitive": sensitive, "language": language}, card)
             if attachments:
                 submit_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "caption": att.get("caption", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 
             # Save locally BEFORE announcing: the owner pulls attachment bytes
             # the moment it accepts, and its fetch responder resolves the forum
             # through this row.
-            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ? )",
-                id, forum["id"], user_id, user_name, title, body, now, now, card[0], card[1], card[2])
+            mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ? )",
+                id, forum["id"], user_id, user_name, title, body, now, now, card[0], card[1], card[2], sensitive, language)
 
             remote, address = group_publish_post(forum, user_id, id, title, body, card[0])
             if remote:
@@ -2556,8 +2591,10 @@ def action_post_create(a):
     # forum through this row. No forums row exists here, so the All-forums
     # list shows the post badged as an unknown forum until the
     # subscription lands.
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ? )",
-        id, forum_id, user_id, user_name, title, body, now, now, card[0], card[1], card[2])
+    submit_data["sensitive"] = sensitive
+    submit_data["language"] = language
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ? )",
+        id, forum_id, user_id, user_name, title, body, now, now, card[0], card[1], card[2], sensitive, language)
 
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "post/submit"},
@@ -3163,6 +3200,7 @@ def action_subscribe(a):
     # Get forum info from remote server or directory
     schema = None
     address = ""
+    sensitive = 0
     if peer or server:
         if not peer:
             peer = mochi.remote.peer(server)
@@ -3175,6 +3213,7 @@ def action_subscribe(a):
             return
         forum_name = response.get("name", "")
         address = response.get("address", "")
+        sensitive = response.get("sensitive", 0)
         schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
     else:
         # Use directory lookup when no server specified
@@ -3192,6 +3231,7 @@ def action_subscribe(a):
                 information = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
                 if information and not information.get("error"):
                     address = information.get("address", "")
+                    sensitive = information.get("sensitive", 0)
 
     # Create local forum record
     now = mochi.time.now()
@@ -3199,8 +3239,8 @@ def action_subscribe(a):
     # populated=0: schema is fetched synchronously, but the bulk posts arrive
     # asynchronously from the owner; event_update_event flips it to 1 when the
     # owner's post-subscribe "update" message lands.
-    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated, address ) values ( ?, ?, ?, ?, ?, ?, 0, ? )""",
-        forum_id, forum_name, 0, now, server or ("p2p/" + peer if peer else ""), fp, address if remote_ok(address) else "")
+    mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated, address, sensitive ) values ( ?, ?, ?, ?, ?, ?, 0, ?, ? )""",
+        forum_id, forum_name, 0, now, server or ("p2p/" + peer if peer else ""), fp, address if remote_ok(address) else "", 1 if sensitive else 0)
 
     # Add self as subscriber
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, a.user.identity.id, a.user.identity.name, now)
@@ -3567,6 +3607,7 @@ def action_post_view(a):
     if a.user:
         for v in mochi.db.rows("select comment, vote from votes where post=? and comment!='' and voter=?", post_id, a.user.identity.id) or []:
             comment_votes[v["comment"]] = v["vote"]
+    all_comments = unblocked(all_comments)
     comment_attachments = attachment_list_many([c["id"] for c in all_comments], forum["id"])
 
     children = {}
@@ -3589,6 +3630,9 @@ def action_post_view(a):
         return out
 
     post["user_vote"] = user_post_vote
+    post["crossposts"] = crossposts(post)
+    if forum.get("sensitive"):
+        post["sensitive"] = 1
     post["body_markdown"] = mochi.text.markdown(post["body"])
     # Metadata is stored locally on fan-out; bytes pull on demand at serve. The
     # old fetch-from-owner metadata fallback is obsolete.
@@ -3658,6 +3702,8 @@ def action_post_edit(a):
     if link == False:
         a.error.label(400, "errors.invalid_link")
         return
+    # The post's marks: None where the form leaves one alone (phase 21).
+    sensitive, language = post_marks(a)
 
     forum = get_forum(forum_id)
     # Scope the post lookup to the named forum. Authorization below checks access
@@ -3728,17 +3774,21 @@ def action_post_edit(a):
                 if att["id"] in captions and captions[att["id"]] != att.get("caption", ""):
                     attachment_update(att["id"], captions[att["id"]], att.get("description", ""))
 
-            mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
-                title, body, now, now, post_id)
+            sensitive = post.get("sensitive", 0) if sensitive == None else sensitive
+            language = post.get("language", "") if language == None else language
+            mochi.db.execute("update posts set title=?, body=?, sensitive=?, language=?, updated=?, edited=? where id=?",
+                title, body, sensitive, language, now, now, post_id)
             card = post_link_apply(post_id, link)
             mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
-            group_publish_edit(forum, user_id, "post", {"remote": post.get("remote", ""), "title": title, "body": body, "url": card[0]})
+            group_publish_edit(forum, user_id, "post", {"remote": post.get("remote", ""), "title": title, "body": body, "url": card[0] if card else post.get("url", "")})
 
             post_data = link_fields({
                 "id": post_id,
                 "title": title,
                 "body": body,
-                "edited": now
+                "edited": now,
+                "sensitive": sensitive,
+                "language": language,
             }, card)
             post_data["attachments"] = attachment_list(post_id, forum["id"])
             broadcast_event(forum["id"], "post/edit", post_data, user_id)
@@ -3791,6 +3841,10 @@ def action_post_edit(a):
 
             # Send edit request to forum owner with attachment metadata
             submit_data = link_fields({"id": post_id, "title": title, "body": body}, link_card(link) if link != None else None)
+            if sensitive != None:
+                submit_data["sensitive"] = sensitive
+            if language != None:
+                submit_data["language"] = language
             if order_json:
                 submit_data["order"] = final_order
                 submit_data["delete"] = delete_ids
@@ -3806,6 +3860,10 @@ def action_post_edit(a):
             # Update locally for optimistic UI
             mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
                 title, body, now, now, post_id)
+            if sensitive != None:
+                mochi.db.execute("update posts set sensitive=? where id=?", sensitive, post_id)
+            if language != None:
+                mochi.db.execute("update posts set language=? where id=?", language, post_id)
             post_link_apply(post_id, link)
 
             # Handle local attachment changes for optimistic UI
@@ -6806,10 +6864,11 @@ def event_post_create_event(e):
         return
 
     card = link_content(e)
+    sensitive, language = marks_content(e)
     # insert or ignore (not replace): a genuinely new post inserts, but a colliding
     # id that belongs to a different forum must not be overwritten/moved into this one.
-    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, url, thumbnail, embed ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, up, down, comments_count, created, created, card[0], card[1], card[2])
+    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, up, down, comments_count, created, created, card[0], card[1], card[2], sensitive, language)
     if remote_ok(e.content("remote")):
         mochi.db.execute("update posts set remote=? where id=? and forum=?", str(e.content("remote")), id, forum["id"])
 
@@ -7042,7 +7101,8 @@ def event_post_submit_event(e):
         group_address_record(forum["id"], sender_id, address)
     if remote:
         group_item_bind(forum, "post", id, remote)
-    post_land(forum, sender_id, sender_name, id, title, body, status, e.content("tags") or [], attachments, card=link_content(e), remote=remote)
+    sensitive, language = marks_content(e)
+    post_land(forum, sender_id, sender_name, id, title, body, status, e.content("tags") or [], attachments, card=link_content(e), remote=remote, sensitive=sensitive, language=language)
 
 # Land a post on the forum we own: write the row at `status`, apply the
 # submitter's tags, and fan out or queue for moderation. Shared by a member's
@@ -7051,10 +7111,10 @@ def event_post_submit_event(e):
 # only the help app supplies them ("introduction" / "question") so the forum's
 # filter-by-tag UI can group help-app submissions. `exclude` is a member id the
 # post/create broadcast skips: the owner posting their own copy.
-def post_land(forum, member, name, id, title, body, status, tags, attachments, exclude=None, card=("", "", ""), remote=""):
+def post_land(forum, member, name, id, title, body, status, tags, attachments, exclude=None, card=("", "", ""), remote="", sensitive=0, language=""):
     now = mochi.time.now()
-    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, remote ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, status, now, now, card[0], card[1], card[2], remote or "")
+    mochi.db.execute("replace into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, remote, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, status, now, now, card[0], card[1], card[2], remote or "", sensitive, language)
     if status == "approved":
         mochi.db.commit.fire("posts", "insert", id)
 
@@ -7080,7 +7140,9 @@ def post_land(forum, member, name, id, title, body, status, tags, attachments, e
             "name": name,
             "title": title,
             "body": body,
-            "created": now
+            "created": now,
+            "sensitive": sensitive,
+            "language": language,
         }, card)
         if attachments:
             post_data["attachments"] = attachments
@@ -7191,7 +7253,8 @@ def event_post_edit_submit_event(e):
                     attachment_update(att["id"], caption, att.get("description", ""))
 
     # Update the post
-    mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, post_id)
+    sensitive, language = marks_content(e, post)
+    mochi.db.execute("update posts set title=?, body=?, sensitive=?, language=?, updated=?, edited=? where id=?", title, body, sensitive, language, now, now, post_id)
     card = None
     if e.content("url") != None:
         card = link_content(e)
@@ -7203,7 +7266,9 @@ def event_post_edit_submit_event(e):
         "id": post_id,
         "title": title,
         "body": body,
-        "edited": now
+        "edited": now,
+        "sensitive": sensitive,
+        "language": language,
     }, card)
     post_data["attachments"] = attachment_list(post_id, forum["id"])
     broadcast_event(forum["id"], "post/edit", post_data)
@@ -7304,8 +7369,9 @@ def event_post_edit_event(e):
         return
 
     now = mochi.time.now()
-    mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?",
-        title, body, now, edited, id)
+    sensitive, language = marks_content(e, old_post)
+    mochi.db.execute("update posts set title=?, body=?, sensitive=?, language=?, updated=?, edited=? where id=?",
+        title, body, sensitive, language, now, edited, id)
     if e.content("url") != None:
         card = link_content(e)
         mochi.db.execute("update posts set url=?, thumbnail=?, embed=? where id=?", card[0], card[1], card[2], id)
@@ -7535,6 +7601,8 @@ def event_subscribe_event(e):
                 "down": p["down"],
                 "comments": p["comments"],
                 "created": p["created"],
+                "sensitive": p.get("sensitive", 0),
+                "language": p.get("language", ""),
                 "sync": True
             }
             if p.get("remote"):
@@ -7653,6 +7721,12 @@ def event_update_event(e):
         if type(address) != "string" or (address and not remote_ok(address)):
             return
         mochi.db.execute("update forums set address=?, updated=? where id=?", address, mochi.time.now(), forum_id)
+        return
+
+    # Whether the forum is sensitive (phase 21).
+    sensitive = e.content("sensitive")
+    if sensitive != None:
+        mochi.db.execute("update forums set sensitive=?, updated=? where id=?", 1 if sensitive in (1, True, "1") else 0, mochi.time.now(), forum_id)
         return
 
     # Handle member count update
@@ -8254,8 +8328,9 @@ def event_information(e):
         "fingerprint": entity.get("fingerprint", forum_fingerprint(forum_id)),
         "privacy": entity.get("privacy", "public"),
         # Where the forum is a community on the fediverse, so a member's
-        # server publishes to it (phase 20).
+        # server publishes to it (phase 20), and whether it is sensitive.
         "address": (forum or {}).get("address", ""),
+        "sensitive": (forum or {}).get("sensitive", 0),
     })
 
 # Return full forum content for reliable subscription sync
@@ -8279,7 +8354,7 @@ def event_schema(e):
     # content must never enter a member's replica. Moderators fetch pending
     # content via the moderation queue.
     posts = mochi.db.rows(
-        "select id, member, name, title, body, up, down, comments, created, updated, remote from posts where forum=? and status='approved' order by created desc limit 100",
+        "select id, member, name, title, body, up, down, comments, created, updated, remote, sensitive, language from posts where forum=? and status='approved' order by created desc limit 100",
         forum_id
     ) or []
 
@@ -8328,11 +8403,12 @@ def insert_forum_schema(forum_id, schema):
         if not mochi.text.valid(p.get("body", ""), "text"):
             continue
         mochi.db.execute(
-            "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated, remote) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated, remote, sensitive, language) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
             p.get("title", ""), p.get("body", ""), number(p.get("up", 0)), number(p.get("down", 0)),
             number(p.get("comments", 0)), number(p.get("created", 0)), number(p.get("updated", 0)),
-            str(p.get("remote", "")) if remote_ok(p.get("remote", "")) else ""
+            str(p.get("remote", "")) if remote_ok(p.get("remote", "")) else "",
+            1 if p.get("sensitive") in (1, True, "1") else 0, language_tag(p.get("language", ""))
         )
         # The dump is approved-only, so a row we hold as pending or removed is a
         # stale status whose event never reached us; insert or ignore alone
@@ -9679,8 +9755,12 @@ def community_account(forum):
     return lemmy_account(forum.get("account", "")) if forum else None
 
 def community_posting(forum):
-    """Whether the user may write to a community: its account is linked and on."""
-    acc = community_account(forum)
+    """Whether the user may write to a community: its account is linked and
+    on, or the hosted account it was joined with is still theirs."""
+    if is_joined(forum):
+        acc = joined_account(forum)
+    else:
+        acc = community_account(forum)
     return bool(acc and acc.get("enabled", 1))
 
 def lemmy_answer(answer):
@@ -9835,7 +9915,10 @@ def community_comment_store(forum, acc, post, view, user_id):
     return comment_id
 
 def community_comments_refresh(forum, post, user_id):
-    """The thread of a community's post as its server shows it now."""
+    """The thread of a community's post as its server shows it now; a joined
+    community's arrives as the group announces it."""
+    if is_joined(forum):
+        return
     acc = community_account(forum)
     remote = str(post.get("remote", "") or "")
     if not acc or not remote.startswith("post/"):
@@ -9937,6 +10020,8 @@ def community_post_create(a, forum, title, body, link, captions):
     """A post into a community through the account. The first image becomes
     the post's link where it has none, and the other images go into the body
     as markdown, each uploaded to the server's image store (decision 24)."""
+    if is_joined(forum):
+        return joined_post_create(a, forum, title, body, link, captions)
     acc = community_account(forum)
     if not acc or not acc.get("enabled", 1):
         a.error.label(403, "errors.account_not_linked")
@@ -9982,6 +10067,8 @@ def community_remote(row, kind):
     return remote if remote.startswith(kind + "/") and mochi.text.valid(remote[len(kind) + 1:], "natural") else None
 
 def community_post_edit(a, forum, post, title, body, link):
+    if is_joined(forum):
+        return joined_post_edit(a, forum, post, title, body, link)
     acc = community_account(forum)
     remote = community_remote(post, "post")
     if not acc or not remote or post["member"] != a.user.identity.id:
@@ -9999,6 +10086,8 @@ def community_post_edit(a, forum, post, title, body, link):
     return {"data": {"forum": forum["id"], "post": post["id"]}}
 
 def community_post_delete(a, forum, post):
+    if is_joined(forum):
+        return joined_post_delete(a, forum, post)
     acc = community_account(forum)
     remote = community_remote(post, "post")
     if not acc or not remote or post["member"] != a.user.identity.id:
@@ -10010,6 +10099,8 @@ def community_post_delete(a, forum, post):
     return {"data": {"forum": forum["id"]}}
 
 def community_comment_create(a, forum, post_id, parent_id, body):
+    if is_joined(forum):
+        return joined_comment_create(a, forum, post_id, parent_id, body)
     acc = community_account(forum)
     if not acc or not acc.get("enabled", 1):
         a.error.label(403, "errors.account_not_linked")
@@ -10046,6 +10137,8 @@ def community_comment_create(a, forum, post_id, parent_id, body):
     return {"data": {"id": comment_id, "forum": forum["id"], "post": post_id}}
 
 def community_comment_edit(a, forum, comment, body):
+    if is_joined(forum):
+        return joined_comment_edit(a, forum, comment, body)
     acc = community_account(forum)
     remote = community_remote(comment, "comment")
     if not acc or not remote or comment["member"] != a.user.identity.id:
@@ -10061,6 +10154,8 @@ def community_comment_edit(a, forum, comment, body):
     return {"data": {"forum": forum["id"], "post": comment["post"], "comment": comment["id"]}}
 
 def community_comment_delete(a, forum, comment):
+    if is_joined(forum):
+        return joined_comment_delete(a, forum, comment)
     acc = community_account(forum)
     remote = community_remote(comment, "comment")
     if not acc or not remote or comment["member"] != a.user.identity.id:
@@ -10075,6 +10170,8 @@ def community_comment_delete(a, forum, comment):
 def community_vote(a, forum, post, comment, vote):
     """A vote on a post or a comment through the account; the server answers
     the counts, which the row takes."""
+    if is_joined(forum):
+        return joined_vote(a, forum, post, comment, vote)
     acc = community_account(forum)
     if not acc or not acc.get("enabled", 1):
         a.error.label(403, "errors.not_allowed_to_vote")
@@ -10112,6 +10209,8 @@ def community_vote(a, forum, post, comment, vote):
 def community_unsubscribe(a, forum):
     """Leave a community: the account unfollows it on its server, and its
     rows go."""
+    if is_joined(forum):
+        return joined_leave(a, forum)
     acc = community_account(forum)
     if acc and forum.get("community"):
         lemmy_send(acc, "community/follow", {"community_id": int(forum["community"]), "follow": False})
@@ -10261,10 +10360,8 @@ def group_account(forum):
 def member_account():
     """The hosted fediverse account the current user publishes to communities
     with: their first, or None."""
-    for acc in mochi.account.list("network") or []:
-        if acc.get("hosted") and acc.get("type") == "fediverse" and acc.get("url"):
-            return acc
-    return None
+    accounts = hosted_accounts()
+    return accounts[0] if accounts else None
 
 def group_page(forum, domain):
     return "https://" + domain + "/forums/" + forum_fingerprint(forum["id"])
@@ -10309,7 +10406,7 @@ def group_refresh(forum_id):
     acc = group_account(forum)
     if not acc:
         return
-    mochi.account.update(acc["id"], label=forum["name"], summary=text_cut_plain(forum.get("banner", ""), GROUP_SUMMARY), page=group_page(forum, acc.get("domain", "")), moderators=group_moderators(forum), restricted=group_restricted(forum))
+    mochi.account.update(acc["id"], label=forum["name"], summary=text_cut_plain(forum.get("banner", ""), GROUP_SUMMARY), page=group_page(forum, acc.get("domain", "")), moderators=group_moderators(forum), restricted=group_restricted(forum), sensitive=bool(forum.get("sensitive")))
 
 def text_cut_plain(text, limit):
     text = text or ""
@@ -10460,10 +10557,11 @@ def group_unpublish(forum):
 
 # === What a member publishes, from their own server ===
 
-def group_object(forum, kind, body, title="", link="", parent=""):
+def group_object(forum, kind, body, title="", link="", parent="", sensitive=0, language=""):
     """A post as a Page or a comment as a Note, in the form communities take:
     the text as HTML with its markdown source, addressed to the public with
-    the community told and named as the audience."""
+    the community told and named as the audience, marked sensitive and with
+    its language where the post is."""
     rendered = mochi.text.fediverse(body or "")
     object = {
         "type": kind,
@@ -10473,7 +10571,6 @@ def group_object(forum, kind, body, title="", link="", parent=""):
         "to": [GROUP_PUBLIC],
         "cc": [forum["address"]],
         "audience": forum["address"],
-        "sensitive": False,
     }
     if kind == "Page":
         object["name"] = title
@@ -10482,7 +10579,7 @@ def group_object(forum, kind, body, title="", link="", parent=""):
             object["attachment"] = [{"type": "Link", "href": link}]
     else:
         object["inReplyTo"] = parent
-    return object
+    return object_mark(object, sensitive or forum.get("sensitive", 0), language)
 
 def group_publish_post(forum, member, post_id, title, body, link):
     """Publish the member's post to the community as their own account, and
@@ -10493,7 +10590,8 @@ def group_publish_post(forum, member, post_id, title, body, link):
     acc = member_account()
     if not acc:
         return ("", "")
-    page = group_object(forum, "Page", body, title=title, link=link)
+    marks = mochi.db.row("select sensitive, language from posts where id=?", post_id) or {}
+    page = group_object(forum, "Page", body, title=title, link=link, sensitive=marks.get("sensitive", 0), language=marks.get("language", ""))
     page["url"] = group_page(forum, host_of(forum["address"])) + "/" + post_id
     # The post's own id, so the group keys the record to the item when the
     # record arrives before the event (as feeds names a comment).
@@ -10536,7 +10634,8 @@ def group_publish_edit(forum, member, kind, item):
     if not acc or host_of(item["remote"]) != host_of(acc["url"]):
         return
     if kind == "post":
-        object = group_object(forum, "Page", item["body"], title=item["title"], link=item.get("url", ""))
+        marks = mochi.db.row("select sensitive, language from posts where remote=?", item["remote"]) or {}
+        object = group_object(forum, "Page", item["body"], title=item["title"], link=item.get("url", ""), sensitive=marks.get("sensitive", 0), language=marks.get("language", ""))
     else:
         parent = mochi.db.row("select remote from comments where id=?", item["parent"]) if item.get("parent") else mochi.db.row("select remote from posts where id=?", item["post"])
         object = group_object(forum, "Note", item["body"], parent=parent["remote"] if parent else "")
@@ -10559,13 +10658,14 @@ def group_vote_remote(kind, item_id, voter):
         row = mochi.db.row("select remote from votes where comment=? and voter=?", item_id, voter)
     return row["remote"] if row and row.get("remote") else ""
 
-def group_publish_vote(forum, member, kind, item_id, remote, vote, before=""):
+def group_publish_vote(forum, member, kind, item_id, remote, vote, before="", account=None):
     """Carry the member's vote to the community: a Like or Dislike of the
     record, the vote before it (the one that went out as before) undone
-    first; no vote undoes alone."""
+    first; no vote undoes alone. From the account given, else the member's
+    first."""
     if not forum or not forum.get("address") or not remote:
         return
-    acc = member_account()
+    acc = account or member_account()
     if not acc:
         return
     if before:
@@ -10684,9 +10784,13 @@ def group_item_bind(forum, kind, item_id, remote):
 
 def function_activitypub_receive(context, account, activities):
     """The activities core's engine queued for a group account, each verified
-    as from the actor it names."""
+    as from the actor it names; for a person's account, what the communities
+    it has joined announce (phase 21)."""
     forum = mochi.db.row("select * from forums where hosted=?", account)
-    if not forum or not owned(forum["id"]):
+    if not forum:
+        joined_receive(account, activities)
+        return None
+    if not owned(forum["id"]):
         return None
     for item in activities or []:
         if type(item) != "dict":
@@ -10794,8 +10898,10 @@ def group_post_from_network(forum, actor, page, activity):
         status = "pending"
     name = group_person(actor)
     post_id = group_named_id(page.get("mochi:post"), "posts")
-    link = group_link(page)
+    link = group_link(page) or joined_image(page)
     post_land(forum, actor, name, post_id, title, body, status, [], [], card=link_card(link) if link else ("", "", ""), remote=remote)
+    sensitive, language = object_marks(page)
+    mochi.db.execute("update posts set sensitive=?, language=? where id=?", sensitive, language, post_id)
     if federation_store(forum, "post", post_id, remote, actor, activity):
         group_announce_item(forum, "post", post_id)
 
@@ -10881,8 +10987,9 @@ def group_received_update(forum, actor, activity):
             return
         if group_member_of(forum["id"], actor) != item["member"]:
             # A stranger's edit is applied here; a member's own came by P2P.
-            mochi.db.execute("update posts set title=?, body=?, updated=?, edited=? where id=?", title, body, now, now, item["id"])
-            link = group_link(object)
+            sensitive, language = object_marks(object)
+            mochi.db.execute("update posts set title=?, body=?, sensitive=?, language=?, updated=?, edited=? where id=?", title, body, sensitive, language, now, now, item["id"])
+            link = group_link(object) or joined_image(object)
             card = post_link_apply(item["id"], link) if link != (item.get("url") or "") else (item.get("url", ""), item.get("thumbnail", ""), item.get("embed", ""))
             broadcast_event(forum["id"], "post/edit", link_fields({"id": item["id"], "title": title, "body": body, "edited": now}, card))
             mochi.db.commit.fire("posts", "update", item["id"])
@@ -11067,9 +11174,7 @@ def group_received_moderation(forum, actor, activity):
 
 def group_received_flag(forum, actor, activity):
     """A report of a post or comment from another server, for the moderators."""
-    objects = activity.get("object")
-    if type(objects) != "list":
-        objects = [objects]
+    objects = listed(activity.get("object"))
     reason = cap_text(str(activity.get("summary", "") or activity.get("content", "") or ""))
     for object in objects:
         kind, item = group_item_of(forum, object_id(object))
@@ -11092,8 +11197,9 @@ def function_activitypub_object(context, account, id):
         forum = get_forum(post["forum"])
         if not forum or not forum.get("address") or post.get("status") == "removed":
             return None
-        page = group_object(forum, "Page", post["body"], title=post["title"], link=post.get("url", ""))
-        page["url"] = group_page(forum, host_of(forum["address"])) + "/" + post["id"]
+        page = group_object(forum, "Page", post["body"], title=post["title"], link=post.get("url", ""), sensitive=post.get("sensitive", 0), language=post.get("language", ""))
+        if not is_joined(forum):
+            page["url"] = group_page(forum, host_of(forum["address"])) + "/" + post["id"]
         page["mochi:post"] = post["id"]
         return page
     comment = mochi.db.row("select * from comments where remote=?", id)
@@ -11113,3 +11219,829 @@ def function_activitypub_featured(context, account):
     if not forum:
         return []
     return [row["remote"] for row in mochi.db.rows("select remote from posts where forum=? and pinned>0 and status='approved' and remote!='' order by updated desc", forum["id"])]
+
+# === Communities joined as the user's own account (the federation plan, phase 21) ===
+#
+# A community on Lemmy, Mbin, PieFed or another Mochi server is joined by its
+# !name@host: one of the user's hosted fediverse accounts follows the Group,
+# and the community becomes a forums row keyed by the group's id, as phase
+# 14's are, with the account it was joined through and the group's address
+# set and no server-side id. What the group announces fills it; what the user
+# writes goes out from the account addressed to the group, which vouches for
+# it to everyone else. The phase 14 functions dispatch here where the row is
+# a joined one, so the actions above branch once on is_community.
+
+JOIN_LANGUAGE = 16
+JOIN_PAGE = 50
+HISTORY_LIMIT = 30
+
+def joined_schema_create():
+    """The columns of phase 21, at creation and by the migration alike: a
+    post's sensitive mark and language, both carried on its Page, and a
+    forum's sensitive mark, carried on its Group."""
+    def add(table, column, ddl):
+        if not any([c["name"] == column for c in mochi.db.table(table)]):
+            mochi.db.execute("alter table " + table + " add column " + column + " " + ddl)
+    add("posts", "sensitive", "integer not null default 0")
+    add("posts", "language", "text not null default ''")
+    add("forums", "sensitive", "integer not null default 0")
+
+def is_joined(forum):
+    """A community joined as one of the user's own hosted accounts, as
+    against one read through a linked account: its address is set and it is
+    not a forum of ours published as a group."""
+    return bool(forum and forum.get("account") and forum.get("address") and not forum.get("hosted"))
+
+def hosted_accounts():
+    """The user's hosted fediverse accounts, which communities are joined with."""
+    return [acc for acc in (mochi.account.list("network") or []) if acc.get("hosted") and acc.get("type") == "fediverse" and acc.get("url")]
+
+def joined_account(forum):
+    """The hosted account a joined community is read and written through, or
+    None where the community is not joined or the account is gone."""
+    if not is_joined(forum):
+        return None
+    acc = mochi.account.get(forum["account"])
+    return acc if acc and acc.get("hosted") and acc.get("type") == "fediverse" and acc.get("url") else None
+
+def joined_user(forum):
+    """The member who holds a joined community, as (id, name): its one
+    members row."""
+    row = mochi.db.row("select id, name from members where forum=?", forum["id"])
+    return (row["id"], row["name"]) if row else ("", "")
+
+def listed(value):
+    """A JSON array as core hands it to Starlark - a tuple - or a list, as a
+    list; a single value as a list of one; nothing for None."""
+    if value == None:
+        return []
+    if type(value) in ("list", "tuple"):
+        return list(value)
+    return [value]
+
+# === Marks on a post ===
+
+def language_tag(value):
+    """A language tag as a post carries it: letters, digits and hyphens
+    within length, lowercased; '' for none."""
+    value = str(value or "").strip().lower()
+    if not value or len(value) > JOIN_LANGUAGE:
+        return ""
+    for ch in value.elems():
+        if not (ch.isalpha() or ch.isdigit() or ch == "-"):
+            return ""
+    return value
+
+def marks_content(e, before=None):
+    """(sensitive, language) as an event carries them; an event silent on
+    one keeps the row's, where a row is given."""
+    sensitive = e.content("sensitive")
+    if sensitive == None:
+        sensitive = (before or {}).get("sensitive", 0)
+    language = e.content("language")
+    if language == None:
+        language = (before or {}).get("language", "")
+    return (1 if sensitive in (1, True, "1") else 0, language_tag(language))
+
+def post_marks(a):
+    """(sensitive, language) as a form names them: None for a field the form
+    leaves out, which an edit reads as unchanged; an empty language field
+    clears the language."""
+    sensitive = a.input("sensitive")
+    if sensitive != None:
+        sensitive = 1 if str(sensitive).lower() in ("1", "true", "on") else 0
+    language = a.input("language")
+    if language == None and len(a.inputs("language")) > 0:
+        language = ""
+    if language != None:
+        language = language_tag(language)
+    return (sensitive, language)
+
+def object_marks(object):
+    """(sensitive, language) as a Page or Note carries them: the sensitive
+    mark, and the tag of its language entry as Lemmy names it, else the first
+    key of its contentMap as Mastodon does."""
+    sensitive = 1 if object.get("sensitive") == True else 0
+    language = ""
+    entry = object.get("language")
+    if type(entry) == "dict":
+        language = language_tag(entry.get("identifier"))
+    if not language and type(object.get("contentMap")) == "dict":
+        for key in object["contentMap"]:
+            language = language_tag(key)
+            break
+    return (sensitive, language)
+
+def object_mark(object, sensitive, language):
+    """Put a post's marks on its Page or Note: sensitive as every network
+    reads it, the language as Lemmy names it and as a contentMap Mastodon
+    reads."""
+    object["sensitive"] = bool(sensitive)
+    if language:
+        object["language"] = {"identifier": language, "name": language}
+        object["contentMap"] = {language: object.get("content", "")}
+    return object
+
+def joined_image(object):
+    """The image a Page shows, where it names one: its image, else the first
+    Image attachment, as Lemmy's image posts carry it."""
+    image = object.get("image")
+    if type(image) == "dict" and remote_ok(image.get("url")):
+        return safe_web_link(str(image["url"]))
+    for attachment in listed(object.get("attachment")):
+        if type(attachment) == "dict" and attachment.get("type") == "Image" and remote_ok(attachment.get("url")):
+            return safe_web_link(str(attachment["url"]))
+    return ""
+
+# === Joining and leaving ===
+
+def community_identifier(value):
+    """name@host from what a person writes - !name@host, @name@host or
+    name@host - or the group's own address, which resolves as it is; '' for
+    neither."""
+    value = str(value or "").strip()
+    if value.startswith("https://") or value.startswith("http://"):
+        return value if remote_ok(value) else ""
+    value = value.lstrip("!").lstrip("@")
+    if "@" not in value or " " in value or "/" in value or len(value) > 256:
+        return ""
+    return value
+
+def joined_answer(forum, already):
+    return {"id": forum["id"], "fingerprint": forum.get("fingerprint") or forum_fingerprint(forum["id"]), "name": forum["name"], "already_subscribed": already}
+
+def action_communities_join(a):
+    """Join a community on another server as one of the user's hosted
+    accounts: !name@host or its address resolves to a Group, the account
+    follows it and the community becomes a forum, filled by what the group
+    announces, its recent posts read from its outbox now."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    identifier = community_identifier(a.input("address", ""))
+    if not identifier:
+        a.error.label(400, "errors.invalid_community")
+        return
+    wanted = a.input("account", "") or ""
+    acc = None
+    for candidate in hosted_accounts():
+        if not wanted or candidate["id"] == wanted:
+            acc = candidate
+            break
+    if not acc:
+        a.error.label(400, "errors.no_hosted_account")
+        return
+    found = mochi.account.resolve(identifier)
+    if not found or found.get("network") != "fediverse" or found.get("type") != "group" or not remote_ok(found.get("id", "")):
+        a.error.label(404, "errors.community_not_found")
+        return
+    forum = mochi.db.row("select * from forums where id=?", found["id"])
+    if forum:
+        return {"data": joined_answer(forum, True)}
+    followed = mochi.account.follow(acc["id"], found["id"])
+    forum = joined_row(found, acc, a.user.identity.id, a.user.identity.name)
+    joined_backfill(forum, acc, found.get("outbox", ""))
+    out = joined_answer(forum, False)
+    out["accepted"] = bool(followed and followed.get("accepted"))
+    return {"data": out}
+
+def joined_row(found, acc, user_id, user_name):
+    """The forums row of a community just joined: keyed by the group's id,
+    named for it, its summary the banner, the account and the address set,
+    and the user its one member."""
+    now = mochi.time.now()
+    name = str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+    banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
+    mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ? )",
+        found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0)
+    mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
+        found["id"], user_id, user_name or "", now)
+    return mochi.db.row("select * from forums where id=?", found["id"])
+
+def joined_backfill(forum, acc, outbox):
+    """The group's recent posts, from the first page of its outbox: each item
+    is what the group announced, taken as its announces are."""
+    if not remote_ok(outbox):
+        return
+    page = mochi.account.object.read(acc["id"], outbox)
+    if type(page) != "dict":
+        return
+    items = listed(page.get("orderedItems"))
+    if not items and remote_ok(page.get("first")):
+        first = mochi.account.object.read(acc["id"], str(page["first"]))
+        items = listed(first.get("orderedItems")) if type(first) == "dict" else []
+    for item in items[:JOIN_PAGE]:
+        if type(item) == "dict":
+            joined_take(forum, acc, item.get("object") if item.get("type") == "Announce" else item)
+
+def joined_leave(a, forum):
+    """Leave a joined community: the account unfollows the group and its rows
+    go."""
+    acc = joined_account(forum)
+    if acc:
+        mochi.account.unfollow(acc["id"], forum["address"])
+    joined_drop(forum)
+    return {"data": {}}
+
+def joined_drop(forum):
+    purge_forum_rows(forum["id"])
+    mochi.db.execute("delete from members where forum=?", forum["id"])
+    mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
+    mochi.db.execute("delete from follows where forum=?", forum["id"])
+    mochi.db.execute("delete from forums where id=?", forum["id"])
+
+# === Blocks ===
+
+def action_blocks_add(a):
+    """Block a person by their id, a community by its address or a server by
+    its domain, for every account of the user's; a joined community blocked
+    is left."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    target = (a.input("target", "") or "").strip()
+    if not target or len(target) > GROUP_REMOTE or " " in target:
+        a.error.label(400, "errors.invalid_block")
+        return
+    forum = mochi.db.row("select * from forums where id=?", target)
+    if forum and is_joined(forum):
+        joined_drop(forum)
+    elif forum and is_community(forum):
+        # A community read through a linked account is blocked on its server
+        # too, so the account's timeline no longer brings it back.
+        acc = community_account(forum)
+        if acc and forum.get("community"):
+            lemmy_send(acc, "community/block", {"community_id": int(forum["community"]), "block": True})
+        joined_drop(forum)
+    mochi.account.block.add(target)
+    return {"data": {}}
+
+def blocked_set():
+    """What the user has blocked, from core: people by their id and servers
+    by their domain."""
+    actors, domains = {}, {}
+    for row in mochi.account.block.list() or []:
+        if row.get("actor"):
+            actors[row["actor"]] = True
+        elif row.get("domain"):
+            domains[str(row["domain"]).lower()] = True
+    return (actors, domains)
+
+def blocked_author(blocked, member):
+    """Whether an author on another network is blocked: by their id, or by
+    their server or one above it."""
+    member = str(member or "")
+    if not member.startswith("http"):
+        return False
+    if member in blocked[0]:
+        return True
+    host = host_of(member)
+    for domain in blocked[1]:
+        if host == domain or host.endswith("." + domain):
+            return True
+    return False
+
+def unblocked(items):
+    """The items whose authors the user has not blocked; nothing is read from
+    core while no author is on another network."""
+    blocked = None
+    out = []
+    for item in items:
+        if str(item.get("member", "")).startswith("http"):
+            if blocked == None:
+                blocked = blocked_set()
+            if blocked_author(blocked, item["member"]):
+                continue
+        out.append(item)
+    return out
+
+# === Cross-posts ===
+
+def crossposts(post):
+    """The other posts here carrying the same link, each in its forum."""
+    url = post.get("url", "")
+    if not url:
+        return []
+    out = []
+    for row in mochi.db.rows("select p.id, p.title, p.forum, f.name from posts p join forums f on f.id=p.forum where p.url=? and p.id!=? and p.status='approved' order by p.created desc limit 20", url, post["id"]) or []:
+        out.append({"post": row["id"], "title": row["title"], "forum": row["forum"], "forum_name": row["name"], "fingerprint": forum_fingerprint(row["forum"])})
+    return out
+
+# === A forum's sensitive mark ===
+
+def action_sensitive_set(a):
+    """Mark the forum sensitive, or not: its group says so, and the members
+    are told."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    forum = get_forum(a.input("forum"))
+    if not forum:
+        a.error.label(404, "errors.forum_not_found")
+        return
+    if not owned(forum["id"]) or not check_access(a, forum["id"], "manage"):
+        a.error.label(403, "errors.not_forum_owner")
+        return
+    sensitive = 1 if str(a.input("sensitive", "") or "").lower() in ("1", "true", "on") else 0
+    mochi.db.execute("update forums set sensitive=?, updated=? where id=?", sensitive, mochi.time.now(), forum["id"])
+    group_refresh(forum["id"])
+    broadcast_event(forum["id"], "update", {"sensitive": sensitive})
+    return {"data": {"sensitive": sensitive}}
+
+# === What the user writes, from their account ===
+
+def joined_documents(a, acc, captions):
+    """The files a form carries, uploaded through the account and answered as
+    (url, type, caption) each; the local copies go once uploaded."""
+    stored = attachment_save(a, "upload/" + mochi.uid(), captions=captions)
+    out = []
+    for att in stored:
+        kind = str(att.get("content_type", "") or att.get("type", "") or "")
+        data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum()) if kind else None
+        uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
+        if uploaded and safe_web_link(uploaded.get("url", "")):
+            out.append((uploaded["url"], kind, att.get("caption", "") or att["name"]))
+        attachment_delete(att["id"])
+    return out
+
+def joined_images(body, link, documents):
+    """A post's images as a community shows them: the first becomes the
+    post's link where it has none, the rest go into the body as markdown.
+    Answers (body, link)."""
+    images = [d for d in documents if d[1].startswith("image/")]
+    if not link and images:
+        link = images[0][0]
+        images = images[1:]
+    if images:
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+    return (body, link)
+
+def joined_post_create(a, forum, title, body, link, captions):
+    """A post into a joined community: published from the account as a Page
+    addressed to the group, and kept here as the user's own."""
+    acc = joined_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.account_not_linked")
+        return
+    user_id, user_name = a.user.identity.id, a.user.identity.name
+    sensitive, language = post_marks(a)
+    sensitive = sensitive or 0
+    language = language or ""
+    body, link = joined_images(body, link, joined_documents(a, acc, captions))
+    if not mochi.text.valid(body, "text"):
+        a.error.label(400, "errors.invalid_body")
+        return
+    post_id = mochi.uid()
+    now = mochi.time.now()
+    card = link_card(link)
+    mochi.db.execute("insert into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, 'approved', ?, ?, ?, ?, ?, ?, ? )",
+        post_id, forum["id"], user_id, user_name, title, body, now, now, card[0], card[1], card[2], sensitive, language)
+    page = group_object(forum, "Page", body, title=title, link=card[0], sensitive=sensitive, language=language)
+    page["mochi:post"] = post_id
+    result = mochi.account.object.create(acc["id"], page, key="forum|" + post_id)
+    if not result or not result.get("id"):
+        mochi.db.execute("delete from posts where id=?", post_id)
+        a.error.label(502, "errors.community_unavailable")
+        return
+    mochi.db.execute("update posts set remote=? where id=?", str(result["id"]), post_id)
+    mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+    mochi.db.commit.fire("posts", "insert", post_id)
+    follow(forum["id"], post_id)
+    return {"data": {"id": post_id, "forum": forum["id"]}}
+
+def joined_post_edit(a, forum, post, title, body, link):
+    """The user's edit of their own post in a joined community: the record is
+    updated from the account, and the row here."""
+    acc = joined_account(forum)
+    if not acc or not post.get("remote") or post["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_edit_this_post")
+        return
+    sensitive, language = post_marks(a)
+    sensitive = post.get("sensitive", 0) if sensitive == None else sensitive
+    language = post.get("language", "") if language == None else language
+    now = mochi.time.now()
+    card = link_card(link) if link != None and link != post.get("url", "") else (post.get("url", ""), post.get("thumbnail", ""), post.get("embed", ""))
+    mochi.db.execute("update posts set title=?, body=?, url=?, thumbnail=?, embed=?, sensitive=?, language=?, updated=?, edited=? where id=?",
+        title, body, card[0], card[1], card[2], sensitive, language, now, now, post["id"])
+    page = group_object(forum, "Page", body, title=title, link=card[0], sensitive=sensitive, language=language)
+    page["mochi:post"] = post["id"]
+    mochi.account.object.update(acc["id"], post["remote"], page)
+    mochi.db.commit.fire("posts", "update", post["id"])
+    return {"data": {"id": post["id"], "forum": forum["id"]}}
+
+def joined_post_delete(a, forum, post):
+    acc = joined_account(forum)
+    if not acc or post["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_delete_this_post")
+        return
+    if post.get("remote"):
+        mochi.account.object.delete(acc["id"], post["remote"])
+    for att in attachment_list(post["id"], forum["id"]):
+        attachment_delete(att["id"])
+    clear_post_comment_attachments(forum["id"], post["id"])
+    community_post_drop(forum, post["id"])
+    broadcast_websocket(forum["id"], {"type": "post/delete", "forum": forum["id"], "post": post["id"], "sender": a.user.identity.id})
+    return {"data": {"forum": forum["id"]}}
+
+def joined_comment_create(a, forum, post_id, parent_id, body):
+    """A comment in a joined community: a Note from the account in reply to
+    the post's or the parent's record, kept here as the user's own."""
+    acc = joined_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.account_not_linked")
+        return
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post or not post.get("remote"):
+        a.error.label(404, "errors.post_not_found")
+        return
+    if post.get("locked"):
+        a.error.label(403, "errors.this_post_is_locked")
+        return
+    parent = post["remote"]
+    if parent_id:
+        above = mochi.db.row("select remote from comments where id=? and post=?", parent_id, post_id)
+        if not above or not above.get("remote"):
+            a.error.label(404, "errors.parent_comment_not_found")
+            return
+        parent = above["remote"]
+    documents = joined_documents(a, acc, [])
+    images = [d for d in documents if d[1].startswith("image/")]
+    if images:
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+    user_id, user_name = a.user.identity.id, a.user.identity.name
+    comment_id = mochi.uid()
+    now = mochi.time.now()
+    mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'approved', ? )",
+        comment_id, forum["id"], post_id, parent_id or "", user_id, user_name, body, now)
+    note = group_object(forum, "Note", body, parent=parent)
+    note["mochi:comment"] = comment_id
+    result = mochi.account.object.create(acc["id"], note, key="comment|" + comment_id)
+    if not result or not result.get("id"):
+        mochi.db.execute("delete from comments where id=?", comment_id)
+        a.error.label(502, "errors.community_unavailable")
+        return
+    mochi.db.execute("update comments set remote=? where id=?", str(result["id"]), comment_id)
+    mochi.db.execute("update posts set updated=? where id=?", now, post_id)
+    recount_post_comments(post_id)
+    mochi.db.commit.fire("comments", "insert", comment_id)
+    follow(forum["id"], post_id)
+    return {"data": {"id": comment_id, "forum": forum["id"], "post": post_id}}
+
+def joined_comment_edit(a, forum, comment, body):
+    acc = joined_account(forum)
+    if not acc or not comment.get("remote") or comment["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_edit_this_comment")
+        return
+    parent = mochi.db.row("select remote from comments where id=?", comment["parent"]) if comment.get("parent") else mochi.db.row("select remote from posts where id=?", comment["post"])
+    now = mochi.time.now()
+    mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, comment["id"])
+    note = group_object(forum, "Note", body, parent=parent["remote"] if parent and parent.get("remote") else "")
+    note["mochi:comment"] = comment["id"]
+    mochi.account.object.update(acc["id"], comment["remote"], note)
+    mochi.db.commit.fire("comments", "update", comment["id"])
+    return {"data": {"forum": forum["id"], "post": comment["post"], "comment": comment["id"]}}
+
+def joined_comment_delete(a, forum, comment):
+    acc = joined_account(forum)
+    if not acc or comment["member"] != a.user.identity.id:
+        a.error.label(403, "errors.not_allowed_to_delete_this_comment")
+        return
+    if comment.get("remote"):
+        mochi.account.object.delete(acc["id"], comment["remote"])
+    attachment_clear(comment["id"])
+    mochi.db.execute("delete from votes where comment=?", comment["id"])
+    mochi.db.execute("delete from comments where id=?", comment["id"])
+    recount_post_comments(comment["post"])
+    broadcast_websocket(forum["id"], {"type": "comment/delete", "forum": forum["id"], "post": comment["post"], "comment": comment["id"], "sender": a.user.identity.id})
+    return {"data": {"forum": forum["id"], "post": comment["post"]}}
+
+def joined_vote(a, forum, post, comment, vote):
+    """A vote in a joined community: cast here, and carried to the group as
+    a Like or Dislike from the account, the one before undone first."""
+    acc = joined_account(forum)
+    if not acc or not acc.get("enabled", 1):
+        a.error.label(403, "errors.not_allowed_to_vote")
+        return
+    user_id = a.user.identity.id
+    kind = "comment" if comment else "post"
+    item = comment or post
+    if not item.get("remote"):
+        a.error.label(404, "errors." + kind + "_not_found")
+        return
+    before = group_vote_remote(kind, item["id"], user_id)
+    if vote == "":
+        if comment:
+            mochi.db.execute("delete from votes where comment=? and voter=?", comment["id"], user_id)
+        else:
+            mochi.db.execute("delete from votes where post=? and comment='' and voter=?", post["id"], user_id)
+    else:
+        mochi.db.execute("insert into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? ) on conflict ( forum, post, comment, voter ) do update set vote=excluded.vote",
+            forum["id"], post["id"], comment["id"] if comment else "", user_id, vote)
+    if comment:
+        recount_comment_votes(comment["id"])
+        mochi.db.commit.fire("comments", "update", comment["id"])
+    else:
+        recount_post_votes(post["id"])
+        mochi.db.execute("update posts set updated=? where id=?", mochi.time.now(), post["id"])
+        mochi.db.commit.fire("posts", "update", post["id"])
+        if vote:
+            update_interests_from_vote(post["id"], vote == "up")
+    group_publish_vote(forum, user_id, kind, item["id"], item["remote"], vote, before, account=acc)
+    out = {"forum": forum["id"], "post": post["id"]}
+    if comment:
+        out["comment"] = comment["id"]
+    return {"data": out}
+
+# === What the group announces to the account ===
+
+def joined_forums(account):
+    """The communities joined through an account, by the group's id."""
+    return {row["id"]: row for row in mochi.db.rows("select * from forums where account=? and address!='' and hosted=''", account) or []}
+
+def joined_receive(account, activities):
+    """What the communities a hosted account has joined send it: each group's
+    announces of what it accepted, and the copy a server sends the author of
+    a post or comment replied to directly, addressed to the community."""
+    forums = joined_forums(account)
+    if not forums:
+        return
+    acc = mochi.account.get(account)
+    if not acc or not acc.get("url"):
+        return
+    for item in activities or []:
+        if type(item) != "dict":
+            continue
+        actor = str(item.get("actor", "") or "")
+        kind = str(item.get("type", "") or "")
+        activity = item.get("activity")
+        if type(activity) != "dict" or not remote_ok(actor) or host_of(actor) != host_of(object_id(activity.get("id"))):
+            continue
+        if kind == "Announce":
+            forum = forums.get(actor)
+            if forum:
+                joined_take(forum, acc, activity.get("object"))
+        elif kind in ("Create", "Update", "Delete", "Like", "Dislike", "Undo"):
+            forum = joined_addressed(forums, activity)
+            if forum:
+                joined_activity(forum, acc, actor, activity)
+
+def joined_addressed(forums, activity):
+    """The joined community an activity or its object names as the audience
+    or among to and cc, or None."""
+    object = activity.get("object") if type(activity.get("object")) == "dict" else {}
+    for source in (activity, object):
+        for key in ("audience", "to", "cc"):
+            for address in listed(source.get(key)):
+                if type(address) == "string" and address in forums:
+                    return forums[address]
+    return None
+
+def joined_take(forum, acc, announced):
+    """What a group announced: the activity it accepted, inlined as Lemmy
+    does, or named by id and read from its server; or the object itself, as
+    Mastodon announces, taken as its author's creation of it."""
+    if type(announced) == "string":
+        if not remote_ok(announced):
+            return
+        announced = mochi.account.object.read(acc["id"], announced)
+    if type(announced) != "dict":
+        return
+    kind = str(announced.get("type", "") or "")
+    if kind in ("Page", "Article", "Note"):
+        author = object_id(announced.get("attributedTo"))
+        announced = {"id": object_id(announced.get("id")) + "#create", "type": "Create", "actor": author, "object": announced}
+    joined_activity(forum, acc, object_id(announced.get("actor")), announced)
+
+def joined_activity(forum, acc, actor, activity):
+    """One activity the group vouched for, by its kind; the account's own,
+    echoed back, are already here."""
+    if not remote_ok(actor):
+        return
+    kind = str(activity.get("type", "") or "")
+    object = activity.get("object")
+    if kind == "Create" and type(object) == "dict":
+        joined_created(forum, acc, actor, object)
+    elif actor == acc["url"]:
+        return
+    elif kind == "Update" and type(object) == "dict":
+        joined_updated(forum, actor, object)
+    elif kind == "Delete":
+        joined_deleted(forum, actor, activity)
+    elif kind in ("Like", "Dislike"):
+        joined_voted(forum, actor, object_id(object), "up" if kind == "Like" else "down")
+    elif kind == "Undo" and type(object) == "dict":
+        inner = str(object.get("type", "") or "")
+        if inner in ("Like", "Dislike"):
+            joined_voted(forum, actor, object_id(object.get("object")), "")
+        elif inner == "Lock":
+            joined_locked(forum, object_id(object.get("object")), 0)
+        elif inner == "Delete":
+            joined_restored(forum, object_id(object.get("object")))
+    elif kind == "Lock":
+        joined_locked(forum, object_id(object), 1)
+    elif kind in ("Add", "Remove") and str(activity.get("target", "") or "").endswith("/featured"):
+        joined_pinned(forum, object_id(object), 1 if kind == "Add" else 0)
+
+def joined_created(forum, acc, actor, object):
+    """A Page becomes a post and a Note a comment under what its inReplyTo
+    names, each by its author's identifier; the account's own, where it is
+    not here already, as the user's."""
+    remote = object_id(object.get("id"))
+    kind = str(object.get("type", "") or "")
+    if not remote_ok(remote) or host_of(remote) != host_of(actor) or object_id(object.get("attributedTo")) not in ("", actor):
+        return
+    own = actor == acc["url"]
+    if own:
+        member, name = joined_user(forum)
+        if not member:
+            return
+    else:
+        member, name = actor, group_person(actor)
+    created = mochi.time.parse(str(object.get("published", "") or "")) or mochi.time.now()
+    now = mochi.time.now()
+    if kind in ("Page", "Article"):
+        if mochi.db.exists("select 1 from posts where remote=?", remote):
+            return
+        body = group_text(object)
+        if not mochi.text.valid(body, "text"):
+            body = ""
+        title = str(object.get("name", "") or "").strip()[:1000]
+        if not mochi.text.valid(title, "name"):
+            title = body.strip().split("\n")[0][:200]
+            if not mochi.text.valid(title, "name"):
+                return
+        link = group_link(object) or joined_image(object)
+        card = link_card(link) if link else ("", "", "")
+        if not card[1]:
+            card = (card[0], joined_image(object) if card[0] != joined_image(object) else "", card[2])
+        sensitive, language = object_marks(object)
+        # A Mochi member's record names its post's id, so the post is the same
+        # item on every server that holds it.
+        post_id = group_named_id(object.get("mochi:post"), "posts")
+        mochi.db.execute("insert into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, remote, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, 'approved', ?, ?, ?, ?, ?, ?, ?, ? )",
+            post_id, forum["id"], member, name, title, body, created, created, card[0], card[1], card[2], remote, sensitive, language)
+        if created > (forum.get("updated") or 0):
+            mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
+        mochi.db.commit.fire("posts", "insert", post_id)
+    elif kind == "Note":
+        if mochi.db.exists("select 1 from comments where remote=?", remote):
+            return
+        parent_remote = object_id(object.get("inReplyTo"))
+        post = mochi.db.row("select * from posts where forum=? and remote=?", forum["id"], parent_remote) if parent_remote else None
+        parent_id = ""
+        if not post:
+            parent = mochi.db.row("select * from comments where forum=? and remote=?", forum["id"], parent_remote) if parent_remote else None
+            if not parent:
+                return
+            parent_id = parent["id"]
+            post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], parent["post"])
+            if not post:
+                return
+        body = group_text(object)
+        if not mochi.text.valid(body, "text"):
+            return
+        comment_id = group_named_id(object.get("mochi:comment"), "comments")
+        mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, status, created, remote ) values ( ?, ?, ?, ?, ?, ?, ?, 'approved', ?, ? )",
+            comment_id, forum["id"], post["id"], parent_id, member, name, body, created, remote)
+        mochi.db.execute("update posts set updated=? where id=?", now, post["id"])
+        recount_post_comments(post["id"])
+        mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
+        mochi.db.commit.fire("comments", "insert", comment_id)
+        if not own:
+            notify_activity(forum, joined_user(forum)[0], post, {"id": comment_id, "parent": parent_id, "member": member, "name": name, "body": body})
+
+def joined_updated(forum, actor, object):
+    """An author's edit of their own post or comment."""
+    remote = object_id(object.get("id"))
+    kind, item = group_item_of(forum, remote)
+    if not kind or item["member"] != actor:
+        return
+    body = group_text(object)
+    if not mochi.text.valid(body, "text"):
+        return
+    now = mochi.time.now()
+    if kind == "post":
+        title = str(object.get("name", "") or item["title"]).strip()[:1000]
+        if not mochi.text.valid(title, "name"):
+            return
+        sensitive, language = object_marks(object)
+        mochi.db.execute("update posts set title=?, body=?, sensitive=?, language=?, updated=?, edited=? where id=?", title, body, sensitive, language, now, now, item["id"])
+        link = group_link(object) or joined_image(object)
+        if link != (item.get("url") or ""):
+            post_link_apply(item["id"], link)
+        mochi.db.commit.fire("posts", "update", item["id"])
+    else:
+        mochi.db.execute("update comments set body=?, edited=? where id=?", body, now, item["id"])
+        mochi.db.commit.fire("comments", "update", item["id"])
+
+def joined_deleted(forum, actor, activity):
+    """An author's deletion of their post or comment, or a moderator's
+    removal of another's, the group having vouched for either."""
+    remote = object_id(activity.get("object"))
+    kind, item = group_item_of(forum, remote)
+    if not kind:
+        return
+    if item["member"] == actor:
+        joined_item_delete(forum, kind, item)
+    elif item.get("status") != "removed":
+        reason = cap_text(str(activity.get("summary", "") or ""))
+        table = "posts" if kind == "post" else "comments"
+        mochi.db.execute("update " + table + " set status='removed', remover=?, reason=? where id=?", actor, reason, item["id"])
+        if kind == "comment":
+            recount_post_comments(item["post"])
+        broadcast_websocket(forum["id"], {"type": kind + "/remove", "forum": forum["id"], "post": item.get("post", item["id"]), "comment": item["id"] if kind == "comment" else "", "sender": actor})
+
+def joined_item_delete(forum, kind, item):
+    if kind == "post":
+        community_post_drop(forum, item["id"])
+        broadcast_websocket(forum["id"], {"type": "post/delete", "forum": forum["id"], "post": item["id"]})
+    else:
+        mochi.db.execute("delete from votes where comment=?", item["id"])
+        mochi.db.execute("delete from comments where id=?", item["id"])
+        recount_post_comments(item["post"])
+        broadcast_websocket(forum["id"], {"type": "comment/delete", "forum": forum["id"], "post": item["post"], "comment": item["id"]})
+
+def joined_restored(forum, remote):
+    kind, item = group_item_of(forum, remote)
+    if not kind or item.get("status") != "removed":
+        return
+    table = "posts" if kind == "post" else "comments"
+    mochi.db.execute("update " + table + " set status='approved', remover=null, reason='' where id=?", item["id"])
+    if kind == "comment":
+        recount_post_comments(item["post"])
+    mochi.db.commit.fire(table, "update", item["id"])
+
+def joined_voted(forum, voter, remote, vote):
+    """A person's Like or Dislike of a record, or its undoing, counted by
+    their identifier."""
+    kind, item = group_item_of(forum, remote)
+    if not kind:
+        return
+    if kind == "post":
+        if vote:
+            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, '', ?, ? )", forum["id"], item["id"], voter, vote)
+        else:
+            mochi.db.execute("delete from votes where post=? and comment='' and voter=?", item["id"], voter)
+        recount_post_votes(item["id"])
+        mochi.db.commit.fire("posts", "update", item["id"])
+        broadcast_websocket(forum["id"], {"type": "post/update", "forum": forum["id"], "post": item["id"], "sender": voter})
+    else:
+        if vote:
+            mochi.db.execute("replace into votes ( forum, post, comment, voter, vote ) values ( ?, ?, ?, ?, ? )", forum["id"], item["post"], item["id"], voter, vote)
+        else:
+            mochi.db.execute("delete from votes where comment=? and voter=?", item["id"], voter)
+        recount_comment_votes(item["id"])
+        mochi.db.commit.fire("comments", "update", item["id"])
+        broadcast_websocket(forum["id"], {"type": "comment/update", "forum": forum["id"], "post": item["post"], "comment": item["id"], "sender": voter})
+
+def joined_locked(forum, remote, locked):
+    kind, item = group_item_of(forum, remote)
+    if kind != "post" or bool(item.get("locked")) == bool(locked):
+        return
+    mochi.db.execute("update posts set locked=?, updated=? where id=?", locked, mochi.time.now(), item["id"])
+    broadcast_websocket(forum["id"], {"type": "post/lock", "forum": forum["id"], "post": item["id"], "locked": bool(locked)})
+
+def joined_pinned(forum, remote, pinned):
+    kind, item = group_item_of(forum, remote)
+    if kind != "post" or bool(item.get("pinned")) == bool(pinned):
+        return
+    mochi.db.execute("update posts set pinned=? where id=?", pinned, item["id"])
+    broadcast_websocket(forum["id"], {"type": "post/pin", "forum": forum["id"], "post": item["id"], "pinned": bool(pinned)})
+
+# === A person's history, for their profile ===
+
+def history_public(forum_id, known):
+    """Whether a forum's posts may be shown on a profile: a community on
+    another network is public; a forum of ours is public by its entity; a
+    forum we subscribe to is public where the directory lists it. Answers
+    are kept in `known` across one history."""
+    if forum_id in known:
+        return known[forum_id]
+    if not mochi.text.valid(forum_id, "entity"):
+        public = True
+    else:
+        entity = mochi.entity.info(forum_id)
+        if entity:
+            public = entity.get("privacy", "public") != "private"
+        else:
+            public = mochi.directory.get(forum_id) != None
+    known[forum_id] = public
+    return public
+
+def function_history(context, person, limit=HISTORY_LIMIT):
+    """The posts and comments the person who holds this app wrote, newest
+    first, across the public forums held here, for the people app's profile:
+    each with its forum and where it is; a comment with its post's title and
+    the start of its text. Nobody else's: the profile is the person's own."""
+    if not mochi.text.valid(person, "entity") or not any([e.get("id") == person for e in mochi.entity.owned() or []]):
+        return []
+    limit = min(int(limit or HISTORY_LIMIT), 100)
+    known = {}
+    out = []
+    for row in mochi.db.rows("select p.id, p.forum, p.title, p.created, p.up, p.down, p.comments, f.name from posts p join forums f on f.id=p.forum where p.member=? and p.status='approved' order by p.created desc limit ?", person, limit * 2) or []:
+        if history_public(row["forum"], known):
+            out.append({"kind": "post", "id": row["id"], "post": row["id"], "forum": row["forum"], "forum_name": row["name"], "fingerprint": forum_fingerprint(row["forum"]), "title": row["title"], "created": row["created"], "up": row["up"], "down": row["down"], "comments": row["comments"]})
+    for row in mochi.db.rows("select c.id, c.forum, c.post, c.body, c.created, c.up, c.down, p.title, f.name from comments c join posts p on p.id=c.post join forums f on f.id=c.forum where c.member=? and c.status='approved' order by c.created desc limit ?", person, limit * 2) or []:
+        if history_public(row["forum"], known):
+            out.append({"kind": "comment", "id": row["id"], "post": row["post"], "forum": row["forum"], "forum_name": row["name"], "fingerprint": forum_fingerprint(row["forum"]), "title": row["title"], "body": text_cut_plain(row["body"], 300), "created": row["created"], "up": row["up"], "down": row["down"]})
+    return sorted(out, key=lambda item: -item["created"])[:limit]

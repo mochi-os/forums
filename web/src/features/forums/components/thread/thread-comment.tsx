@@ -45,6 +45,8 @@ import {
   Clock,
   VolumeX,
   Ban,
+  ShieldOff,
+  ServerOff,
   MoreHorizontal,
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
@@ -109,6 +111,9 @@ export interface ThreadCommentProps {
   onReport?: (commentId: string) => void
   onMuteAuthor?: (userId: string) => void
   onBanAuthor?: (userId: string) => void
+  /** Block an author on another network, or their server, by their id. */
+  onBlockAuthor?: (author: string) => void
+  onBlockServer?: (author: string) => void
   currentUserId?: string
   onSearchPeople?: (query: string) => Promise<MentionUser[]>
   /**
@@ -143,6 +148,8 @@ export function ThreadComment({
   onReport,
   onMuteAuthor,
   onBanAuthor,
+  onBlockAuthor,
+  onBlockServer,
   currentUserId,
   onSearchPeople,
   onOpenAttachment,
@@ -223,6 +230,9 @@ export function ThreadComment({
   })
 
   const commentCanEdit = canEdit?.(comment.member) ?? false
+  // An author on another network is named by their web address, and may be
+  // blocked by it.
+  const blockable = !!onBlockAuthor && /^https?:\/\//.test(comment.member)
   const hasReplies = comment.children && comment.children.length > 0
   const hasVotes = localUp > 0 || localDown > 0
 
@@ -377,7 +387,12 @@ export function ThreadComment({
       />
 
       {/* Votes and actions row */}
-      {(canVote || canReply || commentCanEdit || canModerate || onReport) && (
+      {(canVote ||
+        canReply ||
+        commentCanEdit ||
+        canModerate ||
+        onReport ||
+        blockable) && (
         <div
           className={`comment-actions-row text-muted-foreground flex min-h-8 items-center gap-2.5 pt-1.5 text-xs md:min-h-[28px] md:gap-3 md:pt-1 ${hasVotes ? 'has-votes' : ''}`}
         >
@@ -462,7 +477,7 @@ export function ThreadComment({
                 </Tooltip>
               )}
               {/* More menu (edit, delete, moderation, report) */}
-              {(commentCanEdit || canModerate || onReport) && (
+              {(commentCanEdit || canModerate || onReport || blockable) && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
@@ -545,6 +560,25 @@ export function ThreadComment({
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
                       </DropdownMenuItem>
+                    )}
+                    {blockable && (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => onBlockAuthor?.(comment.member)}
+                        >
+                          <ShieldOff className='me-2 size-4' />
+                          <Trans>Block author</Trans>
+                        </DropdownMenuItem>
+                        {onBlockServer && (
+                          <DropdownMenuItem
+                            onClick={() => onBlockServer(comment.member)}
+                          >
+                            <ServerOff className='me-2 size-4' />
+                            <Trans>Block server</Trans>
+                          </DropdownMenuItem>
+                        )}
+                      </>
                     )}
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -663,6 +697,8 @@ export function ThreadComment({
           onReport={onReport}
           onMuteAuthor={onMuteAuthor}
           onBanAuthor={onBanAuthor}
+          onBlockAuthor={onBlockAuthor}
+          onBlockServer={onBlockServer}
           currentUserId={currentUserId}
           onSearchPeople={onSearchPeople}
         />

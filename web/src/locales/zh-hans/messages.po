@@ -255,6 +255,7 @@ msgstr "访问权限已移除"
 msgid "Access set for {subjectName}"
 msgstr "已为 {subjectName} 设置访问权限"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "账户"
@@ -262,6 +263,11 @@ msgstr "账户"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "账户类型"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "活跃"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "允许任何人搜索论坛"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "允许排序方式"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "同时发布于"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "屏蔽{name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "屏蔽{name}？"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "屏蔽作者"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "屏蔽社区"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "屏蔽服务器"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "已屏蔽"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "评论 ({0})"
 msgid "Community"
 msgstr "社区"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "社区地址"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "社区名称"
@@ -943,6 +976,7 @@ msgstr "正在连接..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "内容"
 
@@ -978,6 +1012,11 @@ msgstr "使用 {label} 继续"
 msgid "Continue with {providerLabel}"
 msgstr "使用 {providerLabel} 继续"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "有争议"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "已复制"
@@ -1001,9 +1040,18 @@ msgstr "复制"
 msgid "Could not add the communities"
 msgstr "无法添加社区"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "无法屏蔽"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "无法导入"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "无法加入社区"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "无法加载此文档。请稍后重试。"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "无法发布论坛"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "无法保存"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "您查找的页面 <0/>不存在或可能已被移除。"
 msgid "Item details"
 msgstr "条目详情"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "加入"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "加入其他服务器上的社区"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "已加入"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "刚刚"
@@ -1926,6 +1990,11 @@ msgstr "刚刚"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "键盘快捷键"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "语言"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "月"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "更多选项"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "评论最多"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "未比较：超过大小限制"
 msgid "Not found"
 msgstr "未找到"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "未指定"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "未设置"
@@ -2415,6 +2493,11 @@ msgstr "编号"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "离题"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "最旧"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "已清除保存的帖子"
 msgid "Saving..."
 msgstr "正在保存..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "按比例"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "评分提示词"
@@ -3261,6 +3349,15 @@ msgstr "发送邮件"
 msgid "Send message"
 msgstr "发送消息"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "敏感"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "衬线体"
@@ -3296,6 +3393,10 @@ msgstr "设置"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "已影子封禁"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "显示"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "此论坛已删除"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "此操作将永久删除对局及其聊天记录，且无法撤销。"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "此帖子已标记为敏感内容"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "年"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

@@ -255,6 +255,7 @@ msgstr "அணுகல் அகற்றப்பட்டது"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName}-க்கு அணுகல் அமைக்கப்பட்டது"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "கணக்கு"
@@ -262,6 +263,11 @@ msgstr "கணக்கு"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "கணக்கு வகை"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "செயலில் உள்ளவை"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "எவருக்கும் மன்றத்தைத் தேட 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "வரிசைப்படுத்துதலை அனுமதி"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "இவற்றிலும் பதிவிடப்பட்டது"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name} ஐத் தடு"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} ஐத் தடுக்கவா?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "ஆசிரியரைத் தடு"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "சமூகத்தைத் தடு"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "சர்வரைத் தடு"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "தடுக்கப்பட்டது"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "கருத்துகள் ({0})"
 msgid "Community"
 msgstr "சமூகம்"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "சமூக முகவரி"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "சமூகப் பெயர்"
@@ -943,6 +976,7 @@ msgstr "இணைக்கிறது..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "உள்ளடக்கம்"
 
@@ -978,6 +1012,11 @@ msgstr "{label} மூலம் தொடரவும்"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} மூலம் தொடரவும்"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "சர்ச்சைக்குரியவை"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "நகலெடுக்கப்பட்டது"
@@ -1001,9 +1040,18 @@ msgstr "நகலெடு"
 msgid "Could not add the communities"
 msgstr "சமூகங்களைச் சேர்க்க முடியவில்லை"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "தடுக்க முடியவில்லை"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "இறக்குமதி செய்ய முடியவில்லை"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "சமூகத்தில் சேர முடியவில்லை"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "இந்த ஆவணத்தை ஏற்ற முடியவில
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "ஃபோரத்தை வெளியிட முடியவில்லை"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "சேமிக்க முடியவில்லை"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "நீங்கள் தேடும் பக்கம் <0/>இல�
 msgid "Item details"
 msgstr "உருப்படி விவரங்கள்"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "சேர்"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "வேறு இடத்தில் உள்ள சமூகத்தில் சேர்"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "சேர்ந்துவிட்டீர்கள்"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "இப்போதுதான்"
@@ -1926,6 +1990,11 @@ msgstr "இப்போதுதான்"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "விசைப்பலகை குறுக்குவழிகள்"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "மொழி"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "மாதம்"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "மேலும் விருப்பங்கள்"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "அதிக கருத்துகள்"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "ஒப்பிடப்படவில்லை: அளவு வரம
 msgid "Not found"
 msgstr "கிடைக்கவில்லை"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "குறிப்பிடப்படவில்லை"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "அமைக்கப்படவில்லை"
@@ -2415,6 +2493,11 @@ msgstr "எண்"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "தலைப்புக்கு வெளியே"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "பழையவை"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "சேமித்த இடுகைகள் அழிக்கப்�
 msgid "Saving..."
 msgstr "சேமிக்கிறது..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "அளவிடப்பட்டவை"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "மதிப்பெண் வினவல்"
@@ -3261,6 +3349,15 @@ msgstr "மின்னஞ்சல் அனுப்பு"
 msgid "Send message"
 msgstr "செய்தியை அனுப்பு"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "உணர்திறன் மிக்கது"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "செரிஃப்"
@@ -3296,6 +3393,10 @@ msgstr "அமைப்புகள்"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "இரகசியமாக தடைசெய்யப்பட்டது"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "காட்டு"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "இந்த மன்றம் நீக்கப்பட்டது"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "இது விளையாட்டையும் அதன் அரட்டையையும் நிரந்தரமாக நீக்கும். இந்தச் செயலை மாற்ற முடியாது."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "இந்தப் பதிவு உணர்திறன் மிக்கதாகக் குறிக்கப்பட்டுள்ளது"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "ஆண்டு"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

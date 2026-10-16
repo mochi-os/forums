@@ -255,6 +255,7 @@ msgstr "צוטריט אַראָפּגענומען"
 msgid "Access set for {subjectName}"
 msgstr "צוטריט באַשטימט פֿאַר {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "קאָנטע"
@@ -262,6 +263,11 @@ msgstr "קאָנטע"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "קאָנטע סאָרט"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "אַקטיווע"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "דערלויבן עמעצן צו זוכן פֿאַר פֿאָרום"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "דערלויבן סאָרטירן לויט"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "אויך אַרויסגעשטעלט אין"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "בלאָקיר {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "בלאָקיר {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "בלאָקירן דעם מחבר"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "בלאָקירן די קהילה"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "בלאָקירן דעם סערווער"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "בלאָקירט"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "קאָמענטאַרן ({0})"
 msgid "Community"
 msgstr "קהילה"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "קהילה־אַדרעס"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "נאָמען פֿון דער קהילה"
@@ -943,6 +976,7 @@ msgstr "פֿאַרבינדט..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "אינהאַלט"
 
@@ -978,6 +1012,11 @@ msgstr "המשך מיט {label}"
 msgid "Continue with {providerLabel}"
 msgstr "ווײַטער מיט {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "קאָנטראָווערסיעלע"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "קאָפּירט"
@@ -1001,9 +1040,18 @@ msgstr "קאָפּירן"
 msgid "Could not add the communities"
 msgstr "ניט געלונגען צוצולייגן די קהילות"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "ניט געקענט בלאָקירן"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "ניט געלונגען צו אימפּאָרטירן"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "ניט געקענט זיך אָנשליסן אין דער קהילה"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "האָט נישט געקאָנט לאָדן דעם דאָקומענט. �
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "ניט געלונגען צו פֿאַרעפֿנטלעכן דעם פֿאָרום"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "ניט געקענט אויפֿהיטן"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "עס װײַזט אױס אַז די זײַט װאָס איר זוכט <0/
 msgid "Item details"
 msgstr "פּונקט־דעטאַלן"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "זיך אָנשליסן"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "זיך אָנשליסן אין אַ קהילה ערגעץ אַנדערש"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "אָנגעשלאָסן"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "פּונקט אַצינד"
@@ -1926,6 +1990,11 @@ msgstr "פּונקט אַצינד"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "קלאַוויאַטור־קורצוועגן"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "שפּראַך"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "חודש"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "מער אָפּציעס"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "מערסטע קאָמענטאַרן"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "נישט פֿאַרגליכן: איבער דער גרייס־גרענע�
 msgid "Not found"
 msgstr "נישט געפֿונען"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "ניט אָנגעגעבן"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "ניט געשטעלט"
@@ -2415,6 +2493,11 @@ msgstr "נומער"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "ניט-טעמע"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "עלטסטע"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "געשפּייכערטע פּאָסטן אויסגעמעקט"
 msgid "Saving..."
 msgstr "היטן..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "סקאַלירט"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "צאָל פּראָמפּט"
@@ -3261,6 +3349,15 @@ msgstr "שיק בליצפּאָסט"
 msgid "Send message"
 msgstr "שיק אַ מעלדונג"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "סענסיטיוו"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "סעריף"
@@ -3296,6 +3393,10 @@ msgstr "אײַנשטעלונגען"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "בסוד פֿאַרבאָטן"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "ווײַזן"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "דער פֿאָרום איז אויסגעמעקט געוואָרן"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "דאָס וועט אויף שטענדיק אויסמעקן דעם שפּיל און זײַן טשאַט. מע קען דעם ניט מבֿטל מאַכן."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "דער פּאָסט איז אָנגעצייכנט ווי סענסיטיוו"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "יאָר"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

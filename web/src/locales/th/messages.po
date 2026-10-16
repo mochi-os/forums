@@ -255,6 +255,7 @@ msgstr "ลบการเข้าถึงแล้ว"
 msgid "Access set for {subjectName}"
 msgstr "ตั้งค่าการเข้าถึงสำหรับ{subjectName}แล้ว"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "บัญชี"
@@ -262,6 +263,11 @@ msgstr "บัญชี"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "ประเภทบัญชี"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "เคลื่อนไหว"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "อนุญาตให้ใครก็ได้ค้นหาฟอ
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "อนุญาตให้เรียงตาม"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "ยังโพสต์ไว้ใน"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "บล็อก {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "บล็อก {name} หรือไม่"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "บล็อกผู้เขียน"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "บล็อกชุมชน"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "บล็อกเซิร์ฟเวอร์"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "บล็อกแล้ว"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "ความคิดเห็น ({0})"
 msgid "Community"
 msgstr "ชุมชน"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "ที่อยู่ชุมชน"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "ชื่อชุมชน"
@@ -943,6 +976,7 @@ msgstr "กำลังเชื่อมต่อ..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "เนื้อหา"
 
@@ -978,6 +1012,11 @@ msgstr "ดำเนินการต่อด้วย {label}"
 msgid "Continue with {providerLabel}"
 msgstr "ดำเนินการต่อด้วย {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "เป็นที่ถกเถียง"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "คัดลอกแล้ว"
@@ -1001,9 +1040,18 @@ msgstr "คัดลอก"
 msgid "Could not add the communities"
 msgstr "ไม่สามารถเพิ่มชุมชนได้"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "ไม่สามารถบล็อกได้"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "ไม่สามารถนำเข้าได้"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "ไม่สามารถเข้าร่วมชุมชนได้"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "ไม่สามารถโหลดเอกสารนี้ได
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "ไม่สามารถเผยแพร่ฟอรัมได้"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "ไม่สามารถบันทึกได้"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "ดูเหมือนว่าหน้าที่คุณกำล
 msgid "Item details"
 msgstr "รายละเอียดรายการ"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "เข้าร่วม"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "เข้าร่วมชุมชนที่อื่น"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "เข้าร่วมแล้ว"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "เมื่อสักครู่"
@@ -1926,6 +1990,11 @@ msgstr "เมื่อสักครู่"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "ทางลัดแป้นพิมพ์"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "ภาษา"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "เดือน"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "ตัวเลือกเพิ่มเติม"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "ความคิดเห็นมากที่สุด"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "ไม่ได้เปรียบเทียบ: เกินขี�
 msgid "Not found"
 msgstr "ไม่พบ"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "ไม่ระบุ"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "ยังไม่ได้ตั้งค่า"
@@ -2415,6 +2493,11 @@ msgstr "หมายเลข"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "นอกเรื่อง"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "เก่าที่สุด"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "ล้างโพสต์ที่บันทึกไว้แล้
 msgid "Saving..."
 msgstr "กำลังบันทึก..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "ปรับตามขนาด"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "พรอมต์คะแนน"
@@ -3261,6 +3349,15 @@ msgstr "ส่งอีเมล"
 msgid "Send message"
 msgstr "ส่งข้อความ"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "ละเอียดอ่อน"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "เซริฟ"
@@ -3296,6 +3393,10 @@ msgstr "การตั้งค่า"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "ถูกแบนแบบเงียบ"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "แสดง"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "ฟอรัมนี้ถูกลบแล้ว"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "การดำเนินการนี้จะลบเกมและแชทของเกมอย่างถาวร ไม่สามารถยกเลิกการดำเนินการนี้ได้"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "โพสต์นี้ถูกทำเครื่องหมายว่ามีเนื้อหาละเอียดอ่อน"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "ปี"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

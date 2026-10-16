@@ -255,6 +255,7 @@ msgstr "पहुंच हटा दिहल गइल"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} खातिर पहुंच सेट कइल गइल"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "खाता"
@@ -262,6 +263,11 @@ msgstr "खाता"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "खाता प्रकार"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "सक्रिय"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "केहू के फोरम खोजे के अनुमति 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "एकर अनुसार छांटे के अनुमति दीं"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "एहू में पोस्ट भइल"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name} के ब्लॉक करीं"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} के ब्लॉक करीं?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "लेखक के ब्लॉक करीं"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "समुदाय के ब्लॉक करीं"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "सर्वर के ब्लॉक करीं"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "ब्लॉक हो गइल"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "टिप्पणी ({0})"
 msgid "Community"
 msgstr "समुदाय"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "समुदाय के पता"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "समुदाय के नाम"
@@ -943,6 +976,7 @@ msgstr "जुड़त बा..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "सामग्री"
 
@@ -978,6 +1012,11 @@ msgstr "{label} के साथ आगे बढ़ीं"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} से आगे बढ़ीं"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "विवादित"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "कॉपी हो गइल"
@@ -1001,9 +1040,18 @@ msgstr "कॉपी करीं"
 msgid "Could not add the communities"
 msgstr "समुदाय ना जोड़ल जा सकल"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "ब्लॉक ना हो पाइल"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "इंपोर्ट ना हो सकल"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "समुदाय से ना जुड़ पाइल"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "एह दस्तावेज के लोड ना कर सकल
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "फोरम प्रकाशित ना हो सकल"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "सहेजल ना जा सकल"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "लागत बा कि रउआ जवन पन्ना खोज
 msgid "Item details"
 msgstr "आइटम विवरण"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "जुड़ीं"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "कहीं अउरी कवनो समुदाय से जुड़ीं"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "जुड़ गइल"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "अबहीं"
@@ -1926,6 +1990,11 @@ msgstr "अबहीं"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "भाषा"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "महीना"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "अउरी विकल्प"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "सबसे ढेर टिप्पणी"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "तुलना ना भइल: साइज सीमा से ब�
 msgid "Not found"
 msgstr "ना मिलल"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "नइखे बतावल गइल"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "सेट नइखे"
@@ -2415,6 +2493,11 @@ msgstr "क्रमांक"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "विषय से बाहर"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "सबसे पुरान"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "सहेजल पोस्ट साफ भइल"
 msgid "Saving..."
 msgstr "सहेज रहल बा..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "अनुपातिक"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "स्कोर प्रॉम्प्ट"
@@ -3261,6 +3349,15 @@ msgstr "ईमेल भेजीं"
 msgid "Send message"
 msgstr "संदेश भेजीं"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "संवेदनशील"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "सेरिफ़"
@@ -3296,6 +3393,10 @@ msgstr "सेटिंग सब"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "छिपके प्रतिबंधित"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "देखाईं"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "ई फोरम मेटा गइल"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ई खेल आ ओकर चैट के स्थायी रूप से मेटा दी। एकरा वापस नइखे कईल जा सकत।"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "ई पोस्ट संवेदनशील के रूप में चिह्नित बा"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "साल"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

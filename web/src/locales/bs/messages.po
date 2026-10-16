@@ -255,6 +255,7 @@ msgstr "Pristup uklonjen"
 msgid "Access set for {subjectName}"
 msgstr "Pristup postavljen za {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Račun"
@@ -262,6 +263,11 @@ msgstr "Račun"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Vrsta računa"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Aktivno"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Dozvoli svima da pretražuju forum"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Dozvoli sortiranje po"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Objavljeno i u"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Blokiraj {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Blokirati {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Blokiraj autora"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Blokiraj zajednicu"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Blokiraj server"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Blokirano"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Komentari ({0})"
 msgid "Community"
 msgstr "Zajednica"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Adresa zajednice"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Ime zajednice"
@@ -943,6 +976,7 @@ msgstr "Povezivanje..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Sadržaj"
 
@@ -978,6 +1012,11 @@ msgstr "Nastavi s {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Nastavi s {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Kontroverzno"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Kopirano"
@@ -1001,9 +1040,18 @@ msgstr "Kopiraj"
 msgid "Could not add the communities"
 msgstr "Dodavanje zajednica nije uspjelo"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Blokiranje nije uspjelo"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Uvoz nije uspio"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Pridruživanje zajednici nije uspjelo"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Nije moguće učitati ovaj dokument. Molimo pokušajte ponovo kasnije."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Objavljivanje foruma nije uspjelo"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Spremanje nije uspjelo"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Izgleda da stranica koju tražite <0/>ne postoji ili je uklonjena."
 msgid "Item details"
 msgstr "Detalji stavke"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Pridruži se"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Pridružite se zajednici na drugom mjestu"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Pridruženo"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Upravo sada"
@@ -1926,6 +1990,11 @@ msgstr "Upravo sada"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Tasterske prečice"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Jezik"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Mjesec"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Više opcija"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Najviše komentara"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Nije upoređeno: iznad ograničenja veličine"
 msgid "Not found"
 msgstr "Nije pronađeno"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Nije navedeno"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nije postavljeno"
@@ -2415,6 +2493,11 @@ msgstr "Broj"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Van teme"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Najstarije"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Sačuvane objave obrisane"
 msgid "Saving..."
 msgstr "Čuvanje..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Skalirano"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompt za ocjenjivanje"
@@ -3261,6 +3349,15 @@ msgstr "Pošalji email"
 msgid "Send message"
 msgstr "Pošalji poruku"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Osjetljivo"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Serifno"
@@ -3296,6 +3393,10 @@ msgstr "Postavke"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Skriveno zabranjen"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Prikaži"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Ovaj forum je izbrisan"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Ovo trajno briše igru i njen chat. Ova radnja se ne može poništiti."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Ova objava je označena kao osjetljiva"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Godina"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

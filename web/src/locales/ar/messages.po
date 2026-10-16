@@ -255,6 +255,7 @@ msgstr "تمت إزالة الوصول"
 msgid "Access set for {subjectName}"
 msgstr "تم تعيين الوصول لـ {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "الحساب"
@@ -262,6 +263,11 @@ msgstr "الحساب"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "نوع الحساب"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "الأكثر نشاطًا"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "اسمح لأي شخص بالبحث عن المنتدى"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "السماح بالترتيب حسب"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "نُشر أيضًا في"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "حظر {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "حظر {name}؟"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "حظر الكاتب"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "حظر المجتمع"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "حظر الخادم"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "تم الحظر"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "التعليقات ({0})"
 msgid "Community"
 msgstr "مجتمع"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "عنوان المجتمع"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "اسم المجتمع"
@@ -943,6 +976,7 @@ msgstr "جارٍ الاتصال..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "المحتوى"
 
@@ -978,6 +1012,11 @@ msgstr "المتابعة باستخدام {label}"
 msgid "Continue with {providerLabel}"
 msgstr "المتابعة باستخدام {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "الأكثر إثارة للجدل"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "تم النسخ"
@@ -1001,9 +1040,18 @@ msgstr "نسخ"
 msgid "Could not add the communities"
 msgstr "تعذّرت إضافة المجتمعات"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "تعذّر الحظر"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "تعذّر الاستيراد"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "تعذّر الانضمام إلى المجتمع"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "تعذّر تحميل هذا المستند. يرجى المحاولة �
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "تعذّر نشر المنتدى"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "تعذّر الحفظ"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "يبدو أن الصفحة التي تبحث عنها <0/>غير موج�
 msgid "Item details"
 msgstr "تفاصيل العنصر"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "انضمام"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "انضم إلى مجتمع في مكان آخر"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "تم الانضمام"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "الآن"
@@ -1926,6 +1990,11 @@ msgstr "الآن"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "اختصارات لوحة المفاتيح"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "اللغة"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "شهر"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "خيارات أخرى"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "الأكثر تعليقًا"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "لم تتم المقارنة: يتجاوز حد الحجم"
 msgid "Not found"
 msgstr "غير موجود"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "غير محدد"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "غير محدد"
@@ -2415,6 +2493,11 @@ msgstr "الرقم"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "خارج الموضوع"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "الأقدم"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "تم مسح المنشورات المحفوظة"
 msgid "Saving..."
 msgstr "جاري الحفظ..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "نسبي"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "موجّه التقييم"
@@ -3261,6 +3349,15 @@ msgstr "إرسال بريد إلكتروني"
 msgid "Send message"
 msgstr "إرسال رسالة"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "حساس"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "سيريف"
@@ -3296,6 +3393,10 @@ msgstr "الإعدادات"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "محظور بصمت"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "إظهار"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "تم حذف هذا المنتدى"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "سيؤدي هذا إلى حذف اللعبة ومحادثتها نهائيًا. لا يمكن التراجع عن هذا الإجراء."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "هذا المنشور مُعلَّم كمحتوى حساس"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "السنة"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

@@ -255,6 +255,7 @@ msgstr "アクセスを削除しました"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} のアクセスを設定しました"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "アカウント"
@@ -262,6 +263,11 @@ msgstr "アカウント"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "アカウントタイプ"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "アクティブ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "誰でもフォーラムを検索できるようにする"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "並べ替えを許可"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "ほかの投稿先"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name}をブロック"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name}をブロックしますか？"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "投稿者をブロック"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "コミュニティをブロック"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "サーバーをブロック"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "ブロックしました"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "コメント ({0})"
 msgid "Community"
 msgstr "コミュニティ"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "コミュニティのアドレス"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "コミュニティ名"
@@ -943,6 +976,7 @@ msgstr "接続中..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -978,6 +1012,11 @@ msgstr "{label} で続行"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel}で続行"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "賛否両論"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "コピーしました"
@@ -1001,9 +1040,18 @@ msgstr "コピー"
 msgid "Could not add the communities"
 msgstr "コミュニティを追加できませんでした"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "ブロックできませんでした"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "インポートできませんでした"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "コミュニティに参加できませんでした"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "このドキュメントを読み込めませんでした。後ほども
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "フォーラムを公開できませんでした"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "保存できませんでした"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "お探しのページは <0/>存在しないか、削除された可能�
 msgid "Item details"
 msgstr "項目の詳細"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "参加"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "他のサーバーのコミュニティに参加"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "参加しました"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "たった今"
@@ -1926,6 +1990,11 @@ msgstr "たった今"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "キーボードショートカット"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "言語"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "月"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "その他のオプション"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "コメントが多い順"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "比較されていません: サイズ制限を超えています"
 msgid "Not found"
 msgstr "見つかりません"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "指定なし"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "未設定"
@@ -2415,6 +2493,11 @@ msgstr "番号"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "トピック外"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "古い順"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "保存した投稿を消去しました"
 msgid "Saving..."
 msgstr "保存中..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "スケール"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "スコアプロンプト"
@@ -3261,6 +3349,15 @@ msgstr "メールを送信"
 msgid "Send message"
 msgstr "メッセージを送信"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "センシティブ"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "セリフ"
@@ -3296,6 +3393,10 @@ msgstr "設定"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "シャドウBAN済み"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "表示"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "このフォーラムは削除されました"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "この操作でゲームとそのチャットが完全に削除されます。この操作は元に戻せません。"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "この投稿はセンシティブとしてマークされています"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "年"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

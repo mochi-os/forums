@@ -255,6 +255,7 @@ msgstr "접근이 제거되었어요"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName}에 대한 접근이 설정되었어요"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "계정"
@@ -262,6 +263,11 @@ msgstr "계정"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "계정 유형"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "활동순"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "누구나 포럼 검색 허용"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "정렬 허용"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "함께 게시된 곳"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name}님 차단"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name}님을 차단할까요?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "작성자 차단"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "커뮤니티 차단"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "서버 차단"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "차단했어요"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "댓글 ({0})"
 msgid "Community"
 msgstr "커뮤니티"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "커뮤니티 주소"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "커뮤니티 이름"
@@ -943,6 +976,7 @@ msgstr "연결 중..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "콘텐츠"
 
@@ -978,6 +1012,11 @@ msgstr "{label}(으)로 계속하기"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel}(으)로 계속"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "논란순"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "복사됨"
@@ -1001,9 +1040,18 @@ msgstr "복사"
 msgid "Could not add the communities"
 msgstr "커뮤니티를 추가할 수 없었어요"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "차단하지 못했어요"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "가져올 수 없었어요"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "커뮤니티에 가입하지 못했어요"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "이 문서를 불러올 수 없었습니다. 잠시 후 다시 시도해
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "포럼을 게시할 수 없었어요"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "저장하지 못했어요"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "찾으시는 페이지가 <0/>존재하지 않거나 삭제된 것 같�
 msgid "Item details"
 msgstr "항목 세부 정보"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "가입"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "다른 곳의 커뮤니티 가입"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "가입했어요"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "방금"
@@ -1926,6 +1990,11 @@ msgstr "방금"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "키보드 단축키"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "언어"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "월"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "추가 옵션"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "댓글 많은순"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "비교하지 않음: 크기 제한 초과"
 msgid "Not found"
 msgstr "찾을 수 없음"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "지정 안 함"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "설정되지 않음"
@@ -2415,6 +2493,11 @@ msgstr "번호"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "주제와 무관"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "오래된순"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "저장된 게시물이 지워졌습니다"
 msgid "Saving..."
 msgstr "저장 중..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "규모 보정순"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "점수 프롬프트"
@@ -3261,6 +3349,15 @@ msgstr "이메일 보내기"
 msgid "Send message"
 msgstr "메시지 보내기"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "민감한 콘텐츠"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "세리프"
@@ -3296,6 +3393,10 @@ msgstr "설정"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "섀도밴됨"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "보기"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "이 포럼이 삭제되었어요"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "이 작업은 게임과 채팅을 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "이 게시물은 민감한 콘텐츠로 표시되어 있어요"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "연도"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

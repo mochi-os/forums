@@ -51,6 +51,7 @@ import {
   usePostSchema,
   type PostFormValues,
 } from '@/features/forums/post-schema'
+import { PostMarks } from './post-marks'
 
 type EditPostFormValues = PostFormValues
 
@@ -66,6 +67,8 @@ type EditPostDialogProps = {
     title: string
     body: string
     url: string
+    sensitive: boolean
+    language: string
     order: string[]
     attachments: File[]
     captions: Record<string, string>
@@ -102,6 +105,8 @@ export function EditPostDialog({
       title: post.title,
       body: post.body,
       url: post.url ?? '',
+      sensitive: !!post.sensitive,
+      language: post.language ?? '',
     },
   })
 
@@ -121,6 +126,8 @@ export function EditPostDialog({
       title: post.title,
       body: post.body,
       url: post.url ?? '',
+      sensitive: !!post.sensitive,
+      language: post.language ?? '',
     })
     // Initialize attachment items from existing attachments
     const existingItems: EditingAttachment[] = (post.attachments || []).map(
@@ -152,16 +159,31 @@ export function EditPostDialog({
 
   const watchedTitle = form.watch('title')
   const watchedBody = form.watch('body')
+  const watchedSensitive = form.watch('sensitive')
+  const watchedLanguage = form.watch('language')
   const hasChanges = useMemo(() => {
     const draft = buildForumPostEditDraft(
       items,
-      { title: watchedTitle, body: watchedBody },
+      {
+        title: watchedTitle,
+        body: watchedBody,
+        sensitive: watchedSensitive,
+        language: watchedLanguage,
+      },
       captions,
       pendingFileKey
     )
     const original = forumPostEditOriginalFromPost(post)
     return !isForumPostEditUnchanged(original, draft)
-  }, [items, watchedTitle, watchedBody, captions, post])
+  }, [
+    items,
+    watchedTitle,
+    watchedBody,
+    watchedSensitive,
+    watchedLanguage,
+    captions,
+    post,
+  ])
 
   const onSubmit = (values: EditPostFormValues) => {
     const draft = buildForumPostEditDraft(
@@ -180,6 +202,8 @@ export function EditPostDialog({
       title: draft.title,
       body: draft.body,
       url: draft.url ?? '',
+      sensitive: draft.sensitive ?? false,
+      language: draft.language ?? '',
       order: draft.order ?? [],
       attachments: draft.attachments ?? [],
       captions: draft.captions ?? {},
@@ -375,6 +399,8 @@ export function EditPostDialog({
                   </FormItem>
                 )}
               />
+
+              <PostMarks control={form.control} disabled={isPending} />
 
               {/* Attachments grid. The add tile is the last cell rather than a
                 button in the footer, where it sat beside Cancel and Save and

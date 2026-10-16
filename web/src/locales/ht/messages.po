@@ -255,6 +255,7 @@ msgstr "Aksè retire"
 msgid "Access set for {subjectName}"
 msgstr "Aksè defini pou {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Kont"
@@ -262,6 +263,11 @@ msgstr "Kont"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Tip kont"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Aktif"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Pèmèt nenpòt moun chèche fowòm"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Pèmèt klasman pa"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Pibliye tou nan"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Bloke {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Bloke {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Bloke otè a"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Bloke kominote a"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Bloke sèvè a"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Bloke"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Kòmantè ({0})"
 msgid "Community"
 msgstr "Kominote"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Adrès kominote a"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Non kominote"
@@ -943,6 +976,7 @@ msgstr "Konekte..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Kontni"
 
@@ -978,6 +1012,11 @@ msgstr "Kontinye ak {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Kontinye ak {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Kontwovèsyal"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Kopye"
@@ -1001,9 +1040,18 @@ msgstr "Kopye"
 msgid "Could not add the communities"
 msgstr "Pa t kapab ajoute kominote yo"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Pa t kapab bloke"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Pa t kapab enpòte"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Pa t kapab antre nan kominote a"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Pa t kapab chaje dokiman sa a. Tanpri eseye ankò pita."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Pa t kapab pibliye fowòm nan"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Pa t kapab anrejistre"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Sanble paj w ap chèche a <0/>pa egziste oswa yo retire l."
 msgid "Item details"
 msgstr "Detay atik"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Antre"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Antre nan yon kominote yon lòt kote"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Ou rantre"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Kounye a"
@@ -1926,6 +1990,11 @@ msgstr "Kounye a"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Rakousi klavye"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Lang"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Mwa"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Plis opsyon"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Plis kòmantè"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Pa konpare: depase limit gwosè a"
 msgid "Not found"
 msgstr "Pa jwenn"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Pa bay"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Pa defini"
@@ -2415,6 +2493,11 @@ msgstr "Nimewo"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Andeyò sijè a"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Pi ansyen"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Piblikasyon ki sove yo efase"
 msgid "Saving..."
 msgstr "Ap sove..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Pwopòsyonèl"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Pwomp nòt"
@@ -3261,6 +3349,15 @@ msgstr "Voye imèl"
 msgid "Send message"
 msgstr "Voye mesaj"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Sansib"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Serif"
@@ -3296,6 +3393,10 @@ msgstr "Paramèt"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Entèdi an kachèt"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Montre"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Fowòm sa a te efase"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Sa a ap efase jwèt la ak chat li pou tout tan. Aksyon sa a pa ka anile."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Piblikasyon sa a make kòm sansib"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Ane"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

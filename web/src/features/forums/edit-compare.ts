@@ -9,6 +9,9 @@ export interface ForumPostEditOriginal {
   body: string
   // The post's link, empty for none.
   url: string
+  // Whether the post is sensitive, and its language, empty for none.
+  sensitive: boolean
+  language: string
   attachmentIds: string[]
   // Caption per attachment id; absent means uncaptioned.
   captions: Record<string, string>
@@ -18,6 +21,8 @@ interface ForumPostEditDraft {
   title: string
   body: string
   url?: string
+  sensitive?: boolean
+  language?: string
   order?: string[]
   attachments?: File[]
   // Keyed by order entry (attachment id or "new:N"). Existing ids always
@@ -36,6 +41,10 @@ export function isForumPostEditUnchanged(
   if (!textUnchanged(draft.title, original.title)) return false
   if (!textUnchanged(draft.body, original.body)) return false
   if (draft.url !== undefined && draft.url.trim() !== original.url) return false
+  if (draft.sensitive !== undefined && draft.sensitive !== original.sensitive)
+    return false
+  if (draft.language !== undefined && draft.language !== original.language)
+    return false
   if ((draft.attachments?.length ?? 0) > 0) return false
   const existing = existingOrderIds(draft.order)
   if (!arraysEqual(existing, original.attachmentIds)) return false
@@ -49,7 +58,13 @@ export function buildForumPostEditDraft(
     | { kind: 'existing'; attachment: { id: string } }
     | { kind: 'new'; file: File }
   >,
-  values: { title: string; body: string; url?: string },
+  values: {
+    title: string
+    body: string
+    url?: string
+    sensitive?: boolean
+    language?: string
+  },
   // Keyed by attachment id for existing items and by the caller's file key
   // for new ones; `fileKey` maps a new file to that key.
   itemCaptions: Record<string, string> = {},
@@ -76,6 +91,8 @@ export function buildForumPostEditDraft(
     title: values.title,
     body: values.body,
     url: values.url?.trim() ?? '',
+    sensitive: values.sensitive ?? false,
+    language: values.language ?? '',
     order,
     attachments,
     captions,
@@ -86,6 +103,8 @@ export function forumPostEditOriginalFromPost(post: {
   title: string
   body: string
   url?: string
+  sensitive?: number
+  language?: string
   attachments?: Array<{ id: string; caption?: string }>
 }): ForumPostEditOriginal {
   const captions: Record<string, string> = {}
@@ -96,6 +115,8 @@ export function forumPostEditOriginalFromPost(post: {
     title: post.title,
     body: post.body,
     url: post.url ?? '',
+    sensitive: !!post.sensitive,
+    language: post.language ?? '',
     attachmentIds: (post.attachments ?? []).map((att) => att.id),
     captions,
   }

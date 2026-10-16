@@ -75,6 +75,20 @@ export interface Post {
   thumbnail?: string
   embed?: string
   remote?: string
+  // Whether the post is sensitive and the language it is in (phase 21).
+  sensitive?: number
+  language?: string
+  // The other posts here carrying the same link, on a post's own view.
+  crossposts?: Crosspost[]
+}
+
+// A post elsewhere carrying the same link as the one viewed.
+export interface Crosspost {
+  post: string
+  title: string
+  forum: string
+  forum_name: string
+  fingerprint: string
 }
 
 // The words of a link's card, decoded from a post's embed.
@@ -136,6 +150,8 @@ export interface CreatePostRequest {
   title: string
   body: string
   url?: string
+  sensitive?: boolean
+  language?: string
   attachments?: File[]
   captions?: string[] // aligned with attachments' order
 }
@@ -220,6 +236,9 @@ export interface EditPostRequest {
   body: string
   // Absent leaves the post's link alone; empty clears it.
   url?: string
+  // Absent leaves each alone; an empty language clears it.
+  sensitive?: boolean
+  language?: string
   order?: string[] // Array of attachment IDs (existing) or "new:N" placeholders
   attachments?: File[] // New files to upload
   captions?: Record<string, string> // keyed by attachment id or "new:N" placeholder

@@ -74,3 +74,36 @@ describe('EditPostDialog draft persistence', () => {
     expect(screen.getByDisplayValue('Second post')).toBeInTheDocument()
   })
 })
+
+describe('EditPostDialog marks', () => {
+  it('carries the language and a changed sensitive mark', async () => {
+    const user = userEvent.setup()
+    const onSave = vi.fn()
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    render(
+      <QueryClientProvider client={client}>
+        <I18nProvider i18n={i18n}>
+          <EditPostDialog
+            post={makePost({ sensitive: 1, language: 'fr' })}
+            open
+            onOpenChange={vi.fn()}
+            onSave={onSave}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+
+    const sensitive = screen.getByRole('switch', { name: 'Sensitive' })
+    expect(sensitive).toBeChecked()
+    await user.click(sensitive)
+    // Only the mark changed: the save is not skipped as unchanged.
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+    expect(onSave).toHaveBeenCalledTimes(1)
+    expect(onSave.mock.calls[0][0]).toMatchObject({
+      sensitive: false,
+      language: 'fr',
+    })
+  })
+})

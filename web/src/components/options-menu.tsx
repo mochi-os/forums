@@ -5,12 +5,13 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   DropdownMenuCheckboxItem,
+  DropdownMenuItem,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   OptionsMenu as SharedOptionsMenu,
 } from '@mochi/web'
-import { Bell } from 'lucide-react'
+import { Bell, ShieldOff } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { NotificationKind } from '@/api/types/forums'
 import {
@@ -29,6 +30,8 @@ interface OptionsMenuProps {
   canShare?: boolean
   /** A forum the user holds, whose activity notifications the menu offers. */
   notificationsForum?: string
+  /** Block a community on another network, which leaves it. */
+  onBlock?: () => void
 }
 
 const createShareLink = async (entityId: string) =>
@@ -42,7 +45,11 @@ const revokeRssToken = async (entity: string) => {
 }
 
 // Binds the forums api and routing to the shared entity menu.
-export function OptionsMenu({ notificationsForum, ...props }: OptionsMenuProps) {
+export function OptionsMenu({
+  notificationsForum,
+  onBlock,
+  ...props
+}: OptionsMenuProps) {
   // Read the notification settings with the page rather than when the menu
   // opens, so the submenu opens with its ticks already in place.
   useForumNotifications(notificationsForum ?? '', !!notificationsForum)
@@ -56,6 +63,12 @@ export function OptionsMenu({ notificationsForum, ...props }: OptionsMenuProps) 
     >
       {notificationsForum && (
         <NotificationsMenu forumId={notificationsForum} />
+      )}
+      {onBlock && (
+        <DropdownMenuItem onClick={onBlock}>
+          <ShieldOff className='size-4' />
+          <Trans>Block community</Trans>
+        </DropdownMenuItem>
       )}
     </SharedOptionsMenu>
   )

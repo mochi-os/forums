@@ -255,6 +255,7 @@ msgstr "Aċċess imneħħi"
 msgid "Access set for {subjectName}"
 msgstr "Aċċess stabbilit għal {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Kont"
@@ -262,6 +263,11 @@ msgstr "Kont"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Tip ta' kont"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Attivi"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Ippermetti lil kulħadd ifittex forum"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Ippermetti ssortjar bi"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Ippubblikat ukoll fi"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Imblokka lil {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Timblokka lil {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Imblokka l-awtur"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Imblokka l-komunità"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Imblokka s-server"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Imblukkat"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Kummenti ({0})"
 msgid "Community"
 msgstr "Komunità"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Indirizz tal-komunità"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Isem tal-komunità"
@@ -943,6 +976,7 @@ msgstr "Qed jgħaqqad..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Kontenut"
 
@@ -978,6 +1012,11 @@ msgstr "Kompli b'{label}"
 msgid "Continue with {providerLabel}"
 msgstr "Kompli b'{providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Kontroversjali"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Ikkupjat"
@@ -1001,9 +1040,18 @@ msgstr "Ikkupja"
 msgid "Could not add the communities"
 msgstr "Ma setgħux jiżdiedu l-komunitajiet"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Ma setax jiġi mblukkat"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "L-importazzjoni ma rnexxietx"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Ma stajtx tingħaqad mal-komunità"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Ma setax itella' dan id-dokument. Jekk jogħġbok ipprova mill-ġdid ikt
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Il-forum ma setax jiġi ppubblikat"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Ma setax jiġi ssejvjat"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Jidher li l-paġna li qed tfittex <0/>ma teżistix jew tneħħiet."
 msgid "Item details"
 msgstr "Dettalji tal-oġġett"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Ingħaqad"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Ingħaqad ma' komunità x'imkien ieħor"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Ingħaqadt"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Issa"
@@ -1926,6 +1990,11 @@ msgstr "Issa"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Shortcuts tat-tastiera"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Lingwa"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Xahar"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Aktar għażliet"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "L-aktar kummenti"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Mhux imqabbel: jaqbeż il-limitu tad-daqs"
 msgid "Not found"
 msgstr "Ma nstabx"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Mhux speċifikata"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Mhux issettjat"
@@ -2415,6 +2493,11 @@ msgstr "Numru"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Barra mit-tema"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "L-eqdem"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Il-pubblikazzjonijiet salvati tneħħew"
 msgid "Saving..."
 msgstr "Qed jiġi ssejvjat..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Skalati"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompt tal-punteġġ"
@@ -3261,6 +3349,15 @@ msgstr "Ibgħat email"
 msgid "Send message"
 msgstr "Ibgħat messaġġ"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Sensittiv"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Serif"
@@ -3296,6 +3393,10 @@ msgstr "Issettjar"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Ipprojbit bil-moħbi"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Uri"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Dan il-forum tħassar"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Dan għad iħassar il-logħba u ċ-chat tagħha b'mod permanenti. Din l-azzjoni ma tistax titħassar."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Dan il-post huwa mmarkat bħala sensittiv"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Sena"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

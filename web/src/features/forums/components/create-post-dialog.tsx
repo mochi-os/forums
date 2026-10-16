@@ -43,6 +43,7 @@ import {
   usePostSchema,
   type PostFormValues,
 } from '@/features/forums/post-schema'
+import { PostMarks } from './post-marks'
 
 type CreatePostFormValues = PostFormValues
 
@@ -54,6 +55,8 @@ type CreatePostDialogProps = {
     title: string
     body: string
     url?: string
+    sensitive?: boolean
+    language?: string
     attachments?: File[]
     captions?: string[]
   }) => void
@@ -104,6 +107,8 @@ export function CreatePostDialog({
       title: '',
       body: '',
       url: '',
+      sensitive: false,
+      language: '',
     },
   })
 
@@ -113,6 +118,8 @@ export function CreatePostDialog({
       title: values.title,
       body: values.body,
       url: values.url?.trim() || undefined,
+      sensitive: values.sensitive || undefined,
+      language: values.language || undefined,
       attachments: attachments.length > 0 ? attachments : undefined,
       captions:
         attachments.length > 0
@@ -296,6 +303,8 @@ export function CreatePostDialog({
                   </FormItem>
                 )}
               />
+
+              <PostMarks control={form.control} disabled={isPending} />
 
               {/* Attachments - handled separately from react-hook-form. Same
                 shape as the edit dialog: labelled blocks, and the add tile as

@@ -255,6 +255,7 @@ msgstr "دەستڕاگەیشتن لابرا"
 msgid "Access set for {subjectName}"
 msgstr "دەستڕاگەیشتن دانرا بۆ {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "هەژمار"
@@ -262,6 +263,11 @@ msgstr "هەژمار"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "جۆری هەژمار"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "چالاکترین"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "ڕێگە بدە بە هەرکەسێک بگەڕێت بۆ فۆڕەم"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "ڕێگە بدە بە ڕیزکردن بەپێی"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "هەروەها بڵاوکراوەتەوە لە"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "بلۆککردنی {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} بلۆک بکرێت؟"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "بلۆککردنی نووسەر"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "بلۆککردنی کۆمەڵگە"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "بلۆککردنی ڕاژەکار"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "بلۆک کرا"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "لێدوانەکان ({0})"
 msgid "Community"
 msgstr "کۆمەڵگە"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "ناونیشانی کۆمەڵگە"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "ناوی کۆمەڵگە"
@@ -943,6 +976,7 @@ msgstr "پەیوەندی دەکرێت..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "ناوەڕۆک"
 
@@ -978,6 +1012,11 @@ msgstr "بەردەوامبە بە {label}"
 msgid "Continue with {providerLabel}"
 msgstr "بەردەوامبوون بە {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "جێی مشتومڕ"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "کۆپی کرا"
@@ -1001,9 +1040,18 @@ msgstr "کۆپیکردن"
 msgid "Could not add the communities"
 msgstr "زیادکردنی کۆمەڵگەکان سەرکەوتوو نەبوو"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "نەتوانرا بلۆک بکرێت"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "هاوردەکردن سەرکەوتوو نەبوو"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "نەتوانرا بەشداری کۆمەڵگەکە بکرێت"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "ئەم دۆکومێنتە نەخوێنرایەوە. تکایە دوات�
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "بڵاوکردنەوەی فۆڕەمەکە سەرکەوتوو نەبوو"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "نەتوانرا پاشەکەوت بکرێت"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "وا دیارە ئەو پەڕەیەی بەدوایدا دەگەڕێیت 
 msgid "Item details"
 msgstr "وردەکارییەکانی بڕگە"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "بەشداربە"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "بەشداربوون لە کۆمەڵگەیەک لە شوێنێکی تر"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "بەشدار بوو"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "هەر ئێستا"
@@ -1926,6 +1990,11 @@ msgstr "هەر ئێستا"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "کورتە کلیلەکان"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "زمان"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "مانگ"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "بژاردەی زیاتر"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "زۆرترین لێدوان"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "بەراورد نەکراوە: لە سنووری قەبارە زیاتر
 msgid "Not found"
 msgstr "نەدۆزرایەوە"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "دیاری نەکراوە"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "دانەنراوە"
@@ -2415,6 +2493,11 @@ msgstr "ژمارە"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "دەرەوەی بابەت"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "کۆنترین"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "پۆستە پاشەکەوتکراوەکان پاککرانەوە"
 msgid "Saving..."
 msgstr "پاشەکەوتکردن..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "ڕێژەیی"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "پرۆمپتی خاڵ"
@@ -3261,6 +3349,15 @@ msgstr "ئیمەیڵ بنێرە"
 msgid "Send message"
 msgstr "نامە بنێرە"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "هەستیار"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "سێریف"
@@ -3296,6 +3393,10 @@ msgstr "ڕێکخستنەکان"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "بە نهێنی بلۆککراو"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "پیشاندان"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "ئەم فۆڕەمە سڕایەوە"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ئەمە یارییەکە و چاتەکەی بە یەکجاری دەسڕێتەوە. ئەم کردارە ناتوانرێت پووچ بکرێتەوە."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "ئەم پۆستە وەک هەستیار نیشانە کراوە"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "ساڵ"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

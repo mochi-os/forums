@@ -29,6 +29,7 @@ import { sanitizeHtml } from '../utils'
 import { PostLink } from './post-link'
 import { PostTagsTooltip } from './post-tags'
 import { SavedButton } from './saved-button'
+import { SensitiveBadge, SensitiveCover } from './sensitive-cover'
 import { PostAttachments } from './thread/post-attachments'
 
 interface PostCardProps {
@@ -91,6 +92,7 @@ export function PostCard({
         }
         trailing={
           <>
+            {!!post.sensitive && <SensitiveBadge />}
             {post.status === 'pending' && (
               <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
                 <Clock className='size-3' />
@@ -140,24 +142,28 @@ export function PostCard({
         metaClassName='opacity-100 transition-opacity md:opacity-0 md:group-hover/card:opacity-100'
       />
 
-      <PostLink post={post} compact />
+      <SensitiveCover sensitive={!!post.sensitive}>
+        <div className='space-y-3'>
+          <PostLink post={post} compact />
 
-      {/* Body */}
-      {post.body_markdown ? (
-        <div
-          className='text-foreground line-clamp-2 max-w-none text-sm leading-normal [&_li]:my-0 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:ps-6 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:ps-6'
-          dangerouslySetInnerHTML={{ __html: sanitizedBody }}
-        />
-      ) : (
-        <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
-      )}
+          {/* Body */}
+          {post.body_markdown ? (
+            <div
+              className='text-foreground line-clamp-2 max-w-none text-sm leading-normal [&_li]:my-0 [&_ol]:my-0 [&_ol]:list-decimal [&_ol]:ps-6 [&_p]:my-0 [&_ul]:my-0 [&_ul]:list-disc [&_ul]:ps-6'
+              dangerouslySetInnerHTML={{ __html: sanitizedBody }}
+            />
+          ) : (
+            <p className='text-foreground line-clamp-2 text-sm'>{post.body}</p>
+          )}
 
-      {/* Attachments */}
-      <PostAttachments
-        attachments={post.attachments || []}
-        forumId={post.forum}
-        server={server}
-      />
+          {/* Attachments */}
+          <PostAttachments
+            attachments={post.attachments || []}
+            forumId={post.forum}
+            server={server}
+          />
+        </div>
+      </SensitiveCover>
 
       {/* Action buttons row - interactive */}
       {(isLoggedIn ||

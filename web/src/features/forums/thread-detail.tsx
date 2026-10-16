@@ -407,6 +407,8 @@ export function ThreadDetail({
     title: string
     body: string
     url: string
+    sensitive: boolean
+    language: string
     order: string[]
     attachments: File[]
     captions: Record<string, string>
@@ -428,6 +430,26 @@ export function ThreadDetail({
       toast.success(t`User muted`)
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to mute user`))
+    }
+  }
+
+  // Block a person on another network by their address, or their server by
+  // its domain: their posts and comments are hidden everywhere after.
+  const handleBlock = async (target: string) => {
+    try {
+      await forumsApi.addBlock(target)
+      toast.success(t`Blocked`)
+      void refetchPost()
+    } catch (error) {
+      toast.error(getErrorMessage(error, t`Could not block`))
+    }
+  }
+  const remoteAuthor = (member: string) => /^https?:\/\//.test(member)
+  const serverOf = (member: string) => {
+    try {
+      return new URL(member).hostname
+    } catch {
+      return ''
     }
   }
 
@@ -489,6 +511,15 @@ export function ThreadDetail({
         : undefined,
     onReport: can_vote
       ? (commentId: string) => setReportingCommentId(commentId)
+      : undefined,
+    onBlockAuthor: isLoggedIn
+      ? (author: string) => void handleBlock(author)
+      : undefined,
+    onBlockServer: isLoggedIn
+      ? (author: string) => {
+          const server = serverOf(author)
+          if (server) void handleBlock(server)
+        }
       : undefined,
     currentUserId,
   }
@@ -571,6 +602,18 @@ export function ThreadDetail({
                 onReport={
                   can_vote && !isPostAuthor
                     ? () => setReportPostDialogOpen(true)
+                    : undefined
+                }
+                onBlockAuthor={
+                  isLoggedIn && remoteAuthor(post.member)
+                    ? () => void handleBlock(post.member)
+                    : undefined
+                }
+                onBlockServer={
+                  isLoggedIn &&
+                  remoteAuthor(post.member) &&
+                  serverOf(post.member)
+                    ? () => void handleBlock(serverOf(post.member))
                     : undefined
                 }
               />

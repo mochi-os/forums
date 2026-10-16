@@ -26,6 +26,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { setLastForum } from '@/hooks/use-forums-storage'
 import { OptionsMenu } from '@/components/options-menu'
+import { useForumSorts } from '@/features/forums/sorts'
 import { ForumOverview } from '../components/forum-overview'
 
 interface ForumsListPageProps {
@@ -82,6 +83,7 @@ export function ForumsListPage({
     setUserSort(value)
     setDefaultSortMutation.mutate(value)
   }
+  const forumSorts = useForumSorts()
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')
@@ -137,6 +139,7 @@ export function ForumsListPage({
                 value={sort}
                 onValueChange={setSort}
                 options={sortOptions}
+                extra={forumSorts}
               />
             )}
           </>

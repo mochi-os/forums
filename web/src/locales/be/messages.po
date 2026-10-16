@@ -255,6 +255,7 @@ msgstr "Доступ выдалены"
 msgid "Access set for {subjectName}"
 msgstr "Доступ усталяваны для {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Уліковы запіс"
@@ -262,6 +263,11 @@ msgstr "Уліковы запіс"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Тып уліковага запісу"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Актыўнае"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Дазволіць усім шукаць форум"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Дазволіць сартаваць па"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Таксама апублікавана ў"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Заблакаваць {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Заблакаваць {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Заблакаваць аўтара"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Заблакаваць супольнасць"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Заблакаваць сервер"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Заблакавана"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Каментарыі ({0})"
 msgid "Community"
 msgstr "Супольнасць"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Адрас супольнасці"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Імя супольнасці"
@@ -943,6 +976,7 @@ msgstr "Злучэнне..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Змесціва"
 
@@ -978,6 +1012,11 @@ msgstr "Працягнуць з {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Працягнуць з {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Спрэчнае"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Скапіявана"
@@ -1001,9 +1040,18 @@ msgstr "Капіраваць"
 msgid "Could not add the communities"
 msgstr "Не ўдалося дадаць супольнасці"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Не ўдалося заблакаваць"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Не ўдалося імпартаваць"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Не ўдалося далучыцца да супольнасці"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Не атрымалася загрузіць гэты дакумент. 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Не ўдалося апублікаваць форум"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Не ўдалося захаваць"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Здаецца, старонка, якую вы шукаеце, <0/>не
 msgid "Item details"
 msgstr "Дэталі элемента"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Далучыцца"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Далучыцца да супольнасці ў іншым месцы"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Вы далучыліся"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Толькі што"
@@ -1926,6 +1990,11 @@ msgstr "Толькі што"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Спалучэнні клавіш"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Мова"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Месяц"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Больш параметраў"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Больш за ўсё каментарыяў"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Не параўнана: перавышае ліміт памеру"
 msgid "Not found"
 msgstr "Не знойдзена"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Не пазначана"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Не ўсталявана"
@@ -2415,6 +2493,11 @@ msgstr "Нумар"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Не па тэме"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Старое"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Захаваныя запісы ачышчаны"
 msgid "Saving..."
 msgstr "Захаванне..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Маштабаванае"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Промпт ацэнкі"
@@ -3261,6 +3349,15 @@ msgstr "Адправіць эл. пошту"
 msgid "Send message"
 msgstr "Адправіць паведамленне"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Адчувальнае"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "З засечкамі"
@@ -3296,6 +3393,10 @@ msgstr "Налады"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Ценявы блок"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Паказаць"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Гэты форум быў выдалены"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Гэта незваротна выдаліць гульню і яе чат. Гэтае дзеянне нельга адрабіць."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Гэты допіс пазначаны як адчувальны"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Год"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

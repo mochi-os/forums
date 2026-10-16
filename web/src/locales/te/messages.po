@@ -255,6 +255,7 @@ msgstr "యాక్సెస్ తీసివేయబడింది"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} కోసం యాక్సెస్ సెట్ చేయబడింది"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "ఖాతా"
@@ -262,6 +263,11 @@ msgstr "ఖాతా"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "ఖాతా రకం"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "క్రియాశీలమైనవి"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "ఎవరైనా ఫోరమ్‌ను శోధించడాన�
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "వీటి ద్వారా క్రమబద్ధీకరణను అనుమతించండి"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "వీటిలో కూడా పోస్ట్ చేయబడింది"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name}ని బ్లాక్ చేయండి"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name}ని బ్లాక్ చేయాలా?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "రచయితను బ్లాక్ చేయండి"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "సంఘాన్ని బ్లాక్ చేయండి"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "సర్వర్‌ను బ్లాక్ చేయండి"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "బ్లాక్ చేయబడింది"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "వ్యాఖ్యలు ({0})"
 msgid "Community"
 msgstr "సంఘం"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "సంఘం చిరునామా"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "సంఘం పేరు"
@@ -943,6 +976,7 @@ msgstr "కనెక్ట్ అవుతోంది..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "కంటెంట్"
 
@@ -978,6 +1012,11 @@ msgstr "{label}తో కొనసాగించండి"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} తో కొనసాగించండి"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "వివాదాస్పదమైనవి"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "కాపీ అయింది"
@@ -1001,9 +1040,18 @@ msgstr "కాపీ చేయండి"
 msgid "Could not add the communities"
 msgstr "సంఘాలను జోడించడం సాధ్యం కాలేదు"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "బ్లాక్ చేయలేకపోయాము"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "దిగుమతి చేయడం సాధ్యం కాలేదు"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "సంఘంలో చేరలేకపోయాము"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "ఈ పత్రాన్ని లోడ్ చేయలేకపోయ
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "ఫోరమ్‌ను పబ్లిష్ చేయడం సాధ్యం కాలేదు"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "సేవ్ చేయలేకపోయాము"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "మీరు వెతుకుతున్న పేజీ <0/>లే�
 msgid "Item details"
 msgstr "అంశం వివరాలు"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "చేరండి"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "వేరే చోట ఉన్న సంఘంలో చేరండి"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "చేరారు"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "ఇప్పుడే"
@@ -1926,6 +1990,11 @@ msgstr "ఇప్పుడే"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "కీబోర్డ్ షార్ట్‌కట్‌లు"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "భాష"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "నెల"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "మరిన్ని ఎంపికలు"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "అత్యధిక వ్యాఖ్యలు"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "పోల్చలేదు: పరిమాణ పరిమితిన
 msgid "Not found"
 msgstr "కనుగొనబడలేదు"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "పేర్కొనబడలేదు"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "సెట్ చేయబడలేదు"
@@ -2415,6 +2493,11 @@ msgstr "సంఖ్య"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "విషయం వెలుపల"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "పాతవి"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "సేవ్ చేసిన పోస్ట్‌లు క్లియ
 msgid "Saving..."
 msgstr "సేవ్ చేస్తోంది..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "స్కేల్ చేసినవి"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "స్కోర్ ప్రాంప్ట్"
@@ -3261,6 +3349,15 @@ msgstr "ఇమెయిల్ పంపండి"
 msgid "Send message"
 msgstr "సందేశాన్ని పంపండి"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "సున్నితమైనది"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "సెరిఫ్"
@@ -3296,6 +3393,10 @@ msgstr "సెట్టింగ్‌లు"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "రహస్యంగా నిషేధించబడింది"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "చూపించు"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "ఈ ఫోరమ్ తొలగించబడింది"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ఇది గేమ్‌ను మరియు దాని చాట్‌ను శాశ్వతంగా తొలగిస్తుంది. ఈ చర్యను తిరిగి మార్చలేరు."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "ఈ పోస్ట్ సున్నితమైనదిగా గుర్తించబడింది"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "సంవత్సరం"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

@@ -255,6 +255,7 @@ msgstr "Kirish olib tashlandi"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} uchun kirish oʻrnatildi"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Hisob"
@@ -262,6 +263,11 @@ msgstr "Hisob"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Hisob turi"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Faol"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Hammaga forumni qidirishga ruxsat berish"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Saralashga ruxsat berish"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Shuningdek, bu yerlarda joylangan"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name}ni bloklash"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} bloklanadimi?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Muallifni bloklash"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Hamjamiyatni bloklash"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Serverni bloklash"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Bloklandi"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Izohlar ({0})"
 msgid "Community"
 msgstr "Hamjamiyat"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Hamjamiyat manzili"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Hamjamiyat nomi"
@@ -943,6 +976,7 @@ msgstr "Ulanmoqda..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Mazmun"
 
@@ -978,6 +1012,11 @@ msgstr "{label} bilan davom etish"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} bilan davom etish"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Bahsli"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Nusxalandi"
@@ -1001,9 +1040,18 @@ msgstr "Nusxalash"
 msgid "Could not add the communities"
 msgstr "Hamjamiyatlarni qoʻshib boʻlmadi"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Bloklab boʻlmadi"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Import qilib boʻlmadi"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Hamjamiyatga qoʻshilib boʻlmadi"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Bu hujjatni yuklab boʻlmadi. Iltimos, keyinroq qayta urinib koʻring."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Forumni nashr etib boʻlmadi"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Saqlab boʻlmadi"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Siz qidirayotgan sahifa <0/>mavjud emas yoki o'chirilgan ko'rinadi."
 msgid "Item details"
 msgstr "Element tafsilotlari"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Qoʻshilish"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Boshqa joydagi hamjamiyatga qoʻshilish"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Qoʻshildingiz"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Hozirgina"
@@ -1926,6 +1990,11 @@ msgstr "Hozirgina"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Klaviatura yorliqlari"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Til"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Oy"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Boshqa variantlar"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Eng koʻp izohli"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Solishtirilmadi: hajm chegarasidan oshadi"
 msgid "Not found"
 msgstr "Topilmadi"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Koʻrsatilmagan"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Oʻrnatilmagan"
@@ -2415,6 +2493,11 @@ msgstr "Raqam"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Mavzudan tashqari"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Eng eski"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Saqlangan postlar tozalandi"
 msgid "Saving..."
 msgstr "Saqlanmoqda..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Masshtablangan"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Baholash soʻrovi"
@@ -3261,6 +3349,15 @@ msgstr "Email yuborish"
 msgid "Send message"
 msgstr "Xabar yuborish"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Nozik"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Serif"
@@ -3296,6 +3393,10 @@ msgstr "Sozlamalar"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Yashirin bloklangan"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Koʻrsatish"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Bu forum oʻchirildi"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Bu oʻyin va uning chatini butunlay oʻchirib tashlaydi. Bu amalni bekor qilib boʻlmaydi."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Bu post nozik deb belgilangan"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Yil"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

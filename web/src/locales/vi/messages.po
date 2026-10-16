@@ -255,6 +255,7 @@ msgstr "Đã gỡ truy cập"
 msgid "Access set for {subjectName}"
 msgstr "Đã thiết lập truy cập cho {subjectName}"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Tài khoản"
@@ -262,6 +263,11 @@ msgstr "Tài khoản"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Loại tài khoản"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Hoạt động"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Cho phép bất kỳ ai tìm kiếm diễn đàn"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Cho phép sắp xếp theo"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Cũng được đăng trong"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "Chặn {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "Chặn {name}?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Chặn tác giả"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Chặn cộng đồng"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Chặn máy chủ"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Đã chặn"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Bình luận ({0})"
 msgid "Community"
 msgstr "Cộng đồng"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Địa chỉ cộng đồng"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Tên cộng đồng"
@@ -943,6 +976,7 @@ msgstr "Đang kết nối..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Nội dung"
 
@@ -978,6 +1012,11 @@ msgstr "Tiếp tục với {label}"
 msgid "Continue with {providerLabel}"
 msgstr "Tiếp tục với {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Gây tranh cãi"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Đã sao chép"
@@ -1001,9 +1040,18 @@ msgstr "Sao chép"
 msgid "Could not add the communities"
 msgstr "Không thể thêm các cộng đồng"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Không thể chặn"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Không thể nhập"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Không thể tham gia cộng đồng"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Không thể tải tài liệu này. Vui lòng thử lại sau."
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Không thể xuất bản diễn đàn"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Không thể lưu"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Có vẻ như trang bạn đang tìm <0/>không tồn tại hoặc đã 
 msgid "Item details"
 msgstr "Chi tiết mục"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Tham gia"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Tham gia cộng đồng ở nơi khác"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Đã tham gia"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Vừa xong"
@@ -1926,6 +1990,11 @@ msgstr "Vừa xong"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Phím tắt"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Ngôn ngữ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Tháng"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Tùy chọn khác"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Nhiều bình luận nhất"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Không so sánh: vượt quá giới hạn kích thước"
 msgid "Not found"
 msgstr "Không tìm thấy"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Không xác định"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Chưa đặt"
@@ -2415,6 +2493,11 @@ msgstr "Số"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Ngoài chủ đề"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Cũ nhất"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Đã xóa các bài viết đã lưu"
 msgid "Saving..."
 msgstr "Đang lưu..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Theo tỷ lệ"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Prompt chấm điểm"
@@ -3261,6 +3349,15 @@ msgstr "Gửi email"
 msgid "Send message"
 msgstr "Gửi tin nhắn"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Nhạy cảm"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Có chân"
@@ -3296,6 +3393,10 @@ msgstr "Cài đặt"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Bị cấm ngầm"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Hiện"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Diễn đàn này đã bị xóa"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Thao tác này sẽ xóa vĩnh viễn trận đấu và cuộc trò chuyện của nó. Không thể hoàn tác thao tác này."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Bài viết này được đánh dấu là nhạy cảm"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Năm"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

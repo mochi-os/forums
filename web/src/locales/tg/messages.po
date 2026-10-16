@@ -255,6 +255,7 @@ msgstr "Дастрасӣ хориҷ карда шуд"
 msgid "Access set for {subjectName}"
 msgstr "Дастрасӣ барои {subjectName} танзим карда шуд"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "Ҳисоб"
@@ -262,6 +263,11 @@ msgstr "Ҳисоб"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "Намуди ҳисоб"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "Фаъол"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "Иҷозат додан, ки ҳар кас форумро ҷустуҷ�
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "Иҷозати ҷобаҷогузорӣ аз рӯи"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "Инчунин нашр шудааст дар"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name}-ро манъ кардан"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name}-ро манъ мекунед?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "Муаллифро манъ кардан"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "Ҷомеаро манъ кардан"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "Серверро манъ кардан"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "Манъ карда шуд"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "Шарҳҳо ({0})"
 msgid "Community"
 msgstr "Ҷомеа"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "Суроғаи ҷомеа"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "Номи ҷомеа"
@@ -943,6 +976,7 @@ msgstr "Пайваст шуда истодааст..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "Мундариҷа"
 
@@ -978,6 +1012,11 @@ msgstr "Бо {label} идома диҳед"
 msgid "Continue with {providerLabel}"
 msgstr "Идома бо {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "Баҳсбарангез"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "Нусхабардорӣ шуд"
@@ -1001,9 +1040,18 @@ msgstr "Нусхабардорӣ"
 msgid "Could not add the communities"
 msgstr "Ҷомеаҳоро илова кардан нашуд"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "Манъ кардан муяссар нашуд"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "Ворид кардан нашуд"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "Ба ҷомеа ҳамроҳ шудан муяссар нашуд"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "Ин ҳуҷҷатро бор карда натавонист. Лутфа
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "Форумро нашр кардан нашуд"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "Захира кардан муяссар нашуд"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "Чунин ба назар мерасад, ки саҳифае, ки ш�
 msgid "Item details"
 msgstr "Тафсилоти ашё"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "Ҳамроҳ шудан"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "Ба ҷомеае дар ҷои дигар ҳамроҳ шудан"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "Шумо ҳамроҳ шудед"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Ҳозир"
@@ -1926,6 +1990,11 @@ msgstr "Ҳозир"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "Миёнбурҳои клавиатура"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "Забон"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "Моҳ"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "Имконоти бештар"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "Бештарин шарҳҳо"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "Муқоиса нашуд: аз ҳадди андоза зиёд"
 msgid "Not found"
 msgstr "Ёфт нашуд"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "Нишон дода нашудааст"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Танзим нашудааст"
@@ -2415,6 +2493,11 @@ msgstr "Рақам"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "Аз мавзӯъ берун"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "Куҳнатарин"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "Паёмҳои захирашуда тоза шуданд"
 msgid "Saving..."
 msgstr "Захира кардан..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "Мутаносиб"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "Дархости натиҷа"
@@ -3261,6 +3349,15 @@ msgstr "Имейл фиристодан"
 msgid "Send message"
 msgstr "Паём фиристодан"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "Ҳассос"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "Сериф"
@@ -3296,6 +3393,10 @@ msgstr "Танзимот"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "Пинҳонӣ манъшуда"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "Нишон додан"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "Ин форум нест карда шуд"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Ин бозӣ ва чати онро якумра нест мекунад. Ин амалро баргардонидан мумкин нест."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "Ин пост ҳамчун ҳассос қайд шудааст"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "Сол"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

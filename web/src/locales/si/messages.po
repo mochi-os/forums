@@ -255,6 +255,7 @@ msgstr "ප්‍රවේශය ඉවත් කරන ලදී"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} සඳහා ප්‍රවේශය සකසා ඇත"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "ගිණුම"
@@ -262,6 +263,11 @@ msgstr "ගිණුම"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "ගිණුම් වර්ගය"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "ක්‍රියාශීලී"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "ඕනෑම කෙනෙකුට සංසදය සෙවීමට �
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "මෙයින් වර්ග කිරීමට අවසර දෙන්න"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "මෙහිද පළ කර ඇත"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name} අවහිර කරන්න"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} අවහිර කරන්නද?"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "කර්තෘ අවහිර කරන්න"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "ප්‍රජාව අවහිර කරන්න"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "සේවාදායකය අවහිර කරන්න"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "අවහිර කළා"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "අදහස් ({0})"
 msgid "Community"
 msgstr "ප්‍රජාව"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "ප්‍රජා ලිපිනය"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "ප්‍රජා නාමය"
@@ -943,6 +976,7 @@ msgstr "සම්බන්ධ වෙමින්..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "අන්තර්ගතය"
 
@@ -978,6 +1012,11 @@ msgstr "{label} සමඟ ඉදිරියට යන්න"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} සමඟ ඉදිරියට"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "මතභේදාත්මක"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "පිටපත් කළා"
@@ -1001,9 +1040,18 @@ msgstr "පිටපත් කරන්න"
 msgid "Could not add the communities"
 msgstr "ප්‍රජාවන් එක් කළ නොහැකි විය"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "අවහිර කළ නොහැකි විය"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "ආයාත කළ නොහැකි විය"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "ප්‍රජාවට එක්විය නොහැකි විය"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "මෙම ලේඛනය පූරණය කළ නොහැකි ව�
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "සභාව ප්‍රකාශයට පත් කළ නොහැකි විය"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "සුරැකිය නොහැකි විය"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "ඔබ සොයන පිටුව <0/>නොපවතින බවක�
 msgid "Item details"
 msgstr "අයිතම විස්තර"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "එක්වන්න"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "වෙනත් තැනක ප්‍රජාවකට එක්වන්න"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "එක් වුණා"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "මේ දැන්"
@@ -1926,6 +1990,11 @@ msgstr "මේ දැන්"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "යතුරුපුවරු කෙටි මං"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "භාෂාව"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "මාසය"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "තවත් විකල්ප"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "වැඩිම අදහස්"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "සංසන්දනය නොකළේය: ප්‍රමාණ ස�
 msgid "Not found"
 msgstr "හමු නොවීය"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "සඳහන් කර නැත"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "සකසා නැත"
@@ -2415,6 +2493,11 @@ msgstr "අංකය"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "මාතෘකාවෙන් බැහැර"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "පැරණි"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "සුරැකි පළකිරීම් හිස් කළා"
 msgid "Saving..."
 msgstr "සුරකිමින්..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "පරිමාණිත"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "ලකුණු විමසීම"
@@ -3261,6 +3349,15 @@ msgstr "ඊමේල් යවන්න"
 msgid "Send message"
 msgstr "පණිවිඩය යවන්න"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "සංවේදී"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "සෙරිෆ්"
@@ -3296,6 +3393,10 @@ msgstr "සැකසුම්"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "රහසිගතව තහනම් කළ"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "පෙන්වන්න"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "මෙම සංසදය මකා ඇත"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "මෙය ක්‍රීඩාව සහ එහි කතාබස් ස්ථිරවම මකා දමයි. මෙම ක්‍රියාව අහෝසි කළ නොහැක."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "මෙම පළ කිරීම සංවේදී ලෙස සලකුණු කර ඇත"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "වර්ෂය"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

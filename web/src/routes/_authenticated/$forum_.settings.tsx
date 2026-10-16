@@ -99,6 +99,8 @@ interface ForumData {
   ai_account: string
   // The community's id on the fediverse, where the forum is published as one.
   address?: string
+  // Whether every post of the forum is sensitive.
+  sensitive?: number
 }
 
 interface Tab {
@@ -433,6 +435,14 @@ function GeneralTab({
       )}
 
       {forum.can_manage && (
+        <SensitiveSection
+          forumId={forum.id}
+          sensitive={!!forum.sensitive}
+          onChanged={onRefresh}
+        />
+      )}
+
+      {forum.can_manage && (
         <AiSettingsSection
           forumId={forum.id}
           aiMode={forum.ai_mode}
@@ -493,6 +503,50 @@ function GeneralTab({
 // community name the owner takes - a bare name against their limit, a name
 // under their handle free - on one of the domains they may take names on, or
 // withdrawn, which frees the name and tells the followers.
+// Whether every post of the forum is sensitive: readers here see them behind
+// a warning, and the community says so to other networks.
+export function SensitiveSection({
+  forumId,
+  sensitive,
+  onChanged,
+}: {
+  forumId: string
+  sensitive: boolean
+  onChanged: () => void
+}) {
+  const { t } = useLingui()
+  const [value, setValue] = useState(sensitive)
+  const [busy, setBusy] = useState(false)
+  useEffect(() => setValue(sensitive), [sensitive])
+
+  const change = async (checked: boolean) => {
+    setValue(checked)
+    setBusy(true)
+    try {
+      await forumsApi.setSensitive(forumId, checked)
+      onChanged()
+    } catch (err) {
+      setValue(!checked)
+      toast.error(getErrorMessage(err, t`Could not save`))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Section title={t`Content`}>
+      <FieldRow label={t({ message: 'Sensitive', context: 'content warning' })}>
+        <Switch
+          checked={value}
+          disabled={busy}
+          onCheckedChange={(checked) => void change(checked)}
+          aria-label={t({ message: 'Sensitive', context: 'content warning' })}
+        />
+      </FieldRow>
+    </Section>
+  )
+}
+
 export function CommunitySection({
   forumId,
   onChanged,

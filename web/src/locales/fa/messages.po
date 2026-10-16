@@ -255,6 +255,7 @@ msgstr "دسترسی حذف شد"
 msgid "Access set for {subjectName}"
 msgstr "دسترسی برای {subjectName} تنظیم شد"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "حساب"
@@ -262,6 +263,11 @@ msgstr "حساب"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "نوع حساب"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "فعال‌ترین"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "همه بتوانند انجمن را جست‌وجو کنند"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "اجازهٔ مرتب‌سازی بر اساس"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "همچنین ارسال‌شده در"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "مسدود کردن {name}"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} مسدود شود؟"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "مسدود کردن نویسنده"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "مسدود کردن جامعه"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "مسدود کردن سرور"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "مسدود شد"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "نظرها ({0})"
 msgid "Community"
 msgstr "جامعه"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "آدرس جامعه"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "نام جامعه"
@@ -943,6 +976,7 @@ msgstr "در حال اتصال..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "محتوا"
 
@@ -978,6 +1012,11 @@ msgstr "ادامه با {label}"
 msgid "Continue with {providerLabel}"
 msgstr "ادامه با {providerLabel}"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "بحث‌برانگیز"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "کپی شد"
@@ -1001,9 +1040,18 @@ msgstr "کپی"
 msgid "Could not add the communities"
 msgstr "افزودن جامعه‌ها ممکن نشد"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "مسدود کردن انجام نشد"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "وارد کردن ممکن نشد"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "پیوستن به جامعه انجام نشد"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "بارگذاری این سند ممکن نشد. لطفاً بعداً د
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "انتشار انجمن ممکن نشد"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "ذخیره نشد"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "به نظر می‌رسد صفحه‌ای که به دنبال آن هس
 msgid "Item details"
 msgstr "جزئیات مورد"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "پیوستن"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "پیوستن به جامعه‌ای در جای دیگر"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "پیوستید"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "همین حالا"
@@ -1926,6 +1990,11 @@ msgstr "همین حالا"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "میانبرهای صفحه‌کلید"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "زبان"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "ماه"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "گزینه‌های بیشتر"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "بیشترین نظر"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "مقایسه نشد: بیش از حد مجاز اندازه"
 msgid "Not found"
 msgstr "یافت نشد"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "مشخص نشده"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "تنظیم نشده"
@@ -2415,6 +2493,11 @@ msgstr "شماره"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "خارج از موضوع"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "قدیمی‌ترین"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "نوشته‌های ذخیره‌شده پاک شد"
 msgid "Saving..."
 msgstr "در حال ذخیره..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "نسبی"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "پرامپت امتیاز"
@@ -3261,6 +3349,15 @@ msgstr "ارسال ایمیل"
 msgid "Send message"
 msgstr "ارسال پیام"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "حساس"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "سریف"
@@ -3296,6 +3393,10 @@ msgstr "تنظیمات"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "مسدود پنهان"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "نمایش"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "این انجمن حذف شد"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "این کار بازی و گفتگوی آن را برای همیشه حذف می‌کند. این عمل قابل بازگشت نیست."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "این پست به‌عنوان حساس علامت‌گذاری شده است"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "سال"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

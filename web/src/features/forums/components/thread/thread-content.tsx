@@ -8,6 +8,7 @@ import {
   type MutableRefObject,
   type ReactNode,
 } from 'react'
+import { Link } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   ConfirmDialog,
@@ -29,6 +30,7 @@ import {
   ActionPill,
   ActionPillSticky,
   ActionPillActions,
+  nativeName,
 } from '@mochi/web'
 import {
   ThumbsUp,
@@ -49,12 +51,15 @@ import {
   MoreHorizontal,
   Bell,
   BellRing,
+  ShieldOff,
+  ServerOff,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
 import { embedVideos, sanitizeHtml } from '../../utils'
 import { PostLink } from '../post-link'
 import { PostTagsTooltip } from '../post-tags'
 import { SavedButton } from '../saved-button'
+import { SensitiveBadge, SensitiveCover } from '../sensitive-cover'
 import { PostAttachments } from './post-attachments'
 
 interface ThreadContentProps {
@@ -93,6 +98,9 @@ interface ThreadContentProps {
   onReport?: () => void
   onMuteAuthor?: () => void
   onBanAuthor?: () => void
+  /** Block the author, or their server, where they are on another network. */
+  onBlockAuthor?: () => void
+  onBlockServer?: () => void
   /** Whether the reader follows the post; undefined where they cannot. */
   following?: boolean
   onFollowChange?: (following: boolean) => void
@@ -131,6 +139,8 @@ export function ThreadContent({
   onReport,
   onMuteAuthor,
   onBanAuthor,
+  onBlockAuthor,
+  onBlockServer,
   following,
   onFollowChange,
 }: ThreadContentProps) {
@@ -184,7 +194,8 @@ export function ThreadContent({
     (canReply && onReply) ||
     canEdit ||
     canModerate ||
-    !!onReport
+    !!onReport ||
+    !!onBlockAuthor
 
   return (
     <div className='group space-y-4'>
@@ -193,6 +204,7 @@ export function ThreadContent({
         titleClassName={cn(isRemoved && 'opacity-60')}
         trailing={
           <>
+            {!!post.sensitive && <SensitiveBadge />}
             {isPending && (
               <span className='inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
                 <Clock className='size-3' />
@@ -242,39 +254,73 @@ export function ThreadContent({
               {timestamp}
               {post.edited ? t` (edited)` : ''}
             </span>
+            {post.language && (
+              <span className='whitespace-nowrap'>
+                {' · '}
+                {nativeName(post.language)}
+              </span>
+            )}
           </span>
         }
       />
 
-      <PostLink post={post} />
+      <SensitiveCover sensitive={!!post.sensitive}>
+        <div className='space-y-4'>
+          <PostLink post={post} />
 
-      {/* Post Body */}
-      {post.body_markdown ? (
-        <div
-          className='prose prose-sm dark:prose-invert text-foreground max-w-none'
-          dangerouslySetInnerHTML={{
-            __html: highlightMentions(
-              embedVideos(sanitizeHtml(post.body_markdown))
-            ),
-          }}
-        />
-      ) : (
-        <div className='text-foreground max-w-none text-sm leading-relaxed'>
-          <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
-            {renderMentions(post.body)}
-          </p>
+          {/* Post Body */}
+          {post.body_markdown ? (
+            <div
+              className='prose prose-sm dark:prose-invert text-foreground max-w-none'
+              dangerouslySetInnerHTML={{
+                __html: highlightMentions(
+                  embedVideos(sanitizeHtml(post.body_markdown))
+                ),
+              }}
+            />
+          ) : (
+            <div className='text-foreground max-w-none text-sm leading-relaxed'>
+              <p className='text-foreground m-0 leading-relaxed whitespace-pre-wrap'>
+                {renderMentions(post.body)}
+              </p>
+            </div>
+          )}
+
+          {/* Attachments */}
+          <PostAttachments
+            attachments={attachments || post.attachments || []}
+            forumId={post.forum}
+            server={server}
+            commentCount={commentCount}
+            renderComments={renderComments}
+            openerRef={openerRef}
+          />
+        </div>
+      </SensitiveCover>
+
+      {/* The same link posted in other forums */}
+      {post.crossposts && post.crossposts.length > 0 && (
+        <div className='text-muted-foreground text-sm' data-testid='crossposts'>
+          <span>
+            <Trans>Also posted in</Trans>{' '}
+          </span>
+          {post.crossposts.map((cross, index) => (
+            <span key={cross.post}>
+              {index > 0 && ', '}
+              <Link
+                to='/$forum/$post'
+                params={{
+                  forum: cross.fingerprint || cross.forum,
+                  post: cross.post,
+                }}
+                className='text-primary hover:underline'
+              >
+                {cross.forum_name}
+              </Link>
+            </span>
+          ))}
         </div>
       )}
-
-      {/* Attachments */}
-      <PostAttachments
-        attachments={attachments || post.attachments || []}
-        forumId={post.forum}
-        server={server}
-        commentCount={commentCount}
-        renderComments={renderComments}
-        openerRef={openerRef}
-      />
 
       {/* Actions row */}
       <div className='text-muted-foreground flex items-center gap-3 text-sm'>
@@ -411,7 +457,7 @@ export function ThreadContent({
                 </Tooltip>
               )}
               {/* More menu (edit, delete, moderation, report) */}
-              {(canEdit || canModerate || onReport) && (
+              {(canEdit || canModerate || onReport || onBlockAuthor) && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
@@ -505,6 +551,21 @@ export function ThreadContent({
                       <DropdownMenuItem onClick={() => setBanDialogOpen(true)}>
                         <Ban className='me-2 size-4' />
                         <Trans>Ban author</Trans>
+                      </DropdownMenuItem>
+                    )}
+                    {onBlockAuthor && (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={onBlockAuthor}>
+                          <ShieldOff className='me-2 size-4' />
+                          <Trans>Block author</Trans>
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                    {onBlockServer && (
+                      <DropdownMenuItem onClick={onBlockServer}>
+                        <ServerOff className='me-2 size-4' />
+                        <Trans>Block server</Trans>
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>

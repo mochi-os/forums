@@ -423,6 +423,8 @@ export function useEditPost(forumId: string, postId: string) {
       title: string
       body: string
       url?: string
+      sensitive?: boolean
+      language?: string
       order?: string[]
       attachments?: File[]
       captions?: Record<string, string>
@@ -435,6 +437,8 @@ export function useEditPost(forumId: string, postId: string) {
           title: data.title,
           body: data.body,
           url: data.url,
+          sensitive: data.sensitive,
+          language: data.language,
           order: data.order,
           attachments: data.attachments,
           captions: data.captions,
@@ -448,6 +452,8 @@ export function useEditPost(forumId: string, postId: string) {
         title: data.title,
         body: data.body,
         url: data.url,
+        sensitive: data.sensitive,
+        language: data.language,
         order: data.order,
         attachments: data.attachments,
         captions: data.captions,

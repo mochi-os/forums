@@ -255,6 +255,7 @@ msgstr "رسائي هٽائي وئي"
 msgid "Access set for {subjectName}"
 msgstr "{subjectName} لاءِ رسائي مقرر ڪئي وئي"
 
+#: src/features/forums/components/join-community.tsx
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Account"
 msgstr "اڪائونٽ"
@@ -262,6 +263,11 @@ msgstr "اڪائونٽ"
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Account type"
 msgstr "اڪائونٽ جو قسم"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Active"
+msgstr "فعال"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Activity"
@@ -400,6 +406,10 @@ msgstr "ڪنهن کي به فورم ڳولڻ جي اجازت ڏيو"
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Allow sort by"
 msgstr "ترتيب جي اجازت ڏيو"
+
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Also posted in"
+msgstr "هتي پڻ پوسٽ ٿيل"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "An error occurred"
@@ -599,6 +609,25 @@ msgstr "{name} کي بلاڪ ڪريو"
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Block {name}?"
 msgstr "{name} کي بلاڪ ڪريو؟"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block author"
+msgstr "ليکڪ کي بلاڪ ڪريو"
+
+#: src/components/options-menu.tsx
+msgid "Block community"
+msgstr "برادري کي بلاڪ ڪريو"
+
+#: src/features/forums/components/thread/thread-comment.tsx
+#: src/features/forums/components/thread/thread-content.tsx
+msgid "Block server"
+msgstr "سرور کي بلاڪ ڪريو"
+
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Blocked"
+msgstr "بلاڪ ٿي ويو"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
@@ -908,6 +937,10 @@ msgstr "تبصرا ({0})"
 msgid "Community"
 msgstr "برادري"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Community address"
+msgstr "برادري جو پتو"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Community name"
 msgstr "برادري جو نالو"
@@ -943,6 +976,7 @@ msgstr "ڳنڍجي رهيو آهي..."
 
 #: src/features/forums/components/create-post-dialog.tsx
 #: src/features/forums/components/edit-post-dialog.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Content"
 msgstr "مواد"
 
@@ -978,6 +1012,11 @@ msgstr "{label} سان جاري رکو"
 msgid "Continue with {providerLabel}"
 msgstr "{providerLabel} سان جاري رکو"
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Controversial"
+msgstr "تڪراري"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 msgid "Copied"
 msgstr "ڪاپي ٿيو"
@@ -1001,9 +1040,18 @@ msgstr "ڪاپي ڪريو"
 msgid "Could not add the communities"
 msgstr "برادريون شامل نه ٿي سگهيون"
 
+#: src/features/forums/pages/entity-forum-page.tsx
+#: src/features/forums/thread-detail.tsx
+msgid "Could not block"
+msgstr "بلاڪ نه ٿي سگهيو"
+
 #: src/features/forums/components/lemmy-accounts.tsx
 msgid "Could not import"
 msgstr "درآمد نه ٿي سگهي"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Could not join the community"
+msgstr "برادري ۾ شامل نه ٿي سگهيا"
 
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Could not load this document. Please try again later."
@@ -1012,6 +1060,10 @@ msgstr "هي دستاويز لوڊ نه ٿي سگهيو. مهرباني ڪري �
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not publish the forum"
 msgstr "فورم شايع نه ٿي سگهيو"
+
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgid "Could not save"
+msgstr "محفوظ نه ٿي سگهيو"
 
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Could not withdraw the community"
@@ -1919,6 +1971,18 @@ msgstr "لڳي ٿو ته جيڪو صفحو توھان ڳولي رھيا آھيو
 msgid "Item details"
 msgstr "شيءِ جا تفصيل"
 
+#: src/features/forums/components/join-community.tsx
+msgid "Join"
+msgstr "شامل ٿيو"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Join a community elsewhere"
+msgstr "ٻئي هنڌ ڪنهن برادري ۾ شامل ٿيو"
+
+#: src/features/forums/components/join-community.tsx
+msgid "Joined"
+msgstr "شامل ٿي ويا"
+
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "هينئر ئي"
@@ -1926,6 +1990,11 @@ msgstr "هينئر ئي"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
 msgstr "ڪيبورڊ شارٽ ڪٽَ"
+
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+msgid "Language"
+msgstr "ٻولي"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 #: ../../../lib/web/src/lib/preference-utils.ts
@@ -2104,6 +2173,11 @@ msgstr "مهينو"
 #: src/features/forums/components/thread/thread-content.tsx
 msgid "More options"
 msgstr "وڌيڪ اختيار"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Most comments"
+msgstr "سڀ کان وڌيڪ تبصرا"
 
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved"
@@ -2380,6 +2454,10 @@ msgstr "ڀيٽ نه ڪئي وئي: سائيز جي حد کان وڌيڪ"
 msgid "Not found"
 msgstr "نه مليو"
 
+#: src/features/forums/components/post-marks.tsx
+msgid "Not given"
+msgstr "ڄاڻايل ناهي"
+
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "سيٽ نه ٿيل"
@@ -2415,6 +2493,11 @@ msgstr "نمبر"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Off-topic"
 msgstr "غير موضوع"
+
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Old"
+msgstr "پراڻا"
 
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "On"
@@ -3106,6 +3189,11 @@ msgstr "محفوظ ٿيل پوسٽون صاف ٿي ويون"
 msgid "Saving..."
 msgstr "محفوظ ٿي رهيو آهي..."
 
+#: src/features/forums/sorts.tsx
+msgctxt "sort order"
+msgid "Scaled"
+msgstr "تناسب سان"
+
 #: src/routes/_authenticated/$forum_.settings.tsx
 msgid "Score prompt"
 msgstr "اسڪور پرامپٽ"
@@ -3261,6 +3349,15 @@ msgstr "اي ميل موڪليو"
 msgid "Send message"
 msgstr "پيغام موڪليو"
 
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/post-marks.tsx
+#: src/features/forums/components/sensitive-cover.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+#: src/routes/_authenticated/$forum_.settings.tsx
+msgctxt "content warning"
+msgid "Sensitive"
+msgstr "حساس"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
 msgstr "سيرف"
@@ -3296,6 +3393,10 @@ msgstr "سيٽنگون"
 #: src/routes/_authenticated/$forum_.moderation.tsx
 msgid "Shadowbanned"
 msgstr "ڳجهي طور تي پابند"
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "Show"
+msgstr "ڏيکاريو"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
@@ -3559,6 +3660,10 @@ msgstr "هي فورم ختم ڪيو ويو"
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "هي عمل گيم ۽ ان جي چيٽ کي مستقل طور ختم ڪندو. هي عمل واپس نه ٿي سگهندو."
+
+#: src/features/forums/components/sensitive-cover.tsx
+msgid "This post is marked sensitive"
+msgstr "هي پوسٽ حساس طور نشان لڳل آهي"
 
 #: src/features/forums/components/thread/empty-thread-state.tsx
 msgid "This post may have been deleted or doesn't exist."
@@ -3911,6 +4016,7 @@ msgid "Year"
 msgstr "سال"
 
 #: src/features/forums/components/inline-forum-search.tsx
+#: src/features/forums/components/join-community.tsx
 #: src/features/forums/components/recommended-forums.tsx
 #: src/hooks/use-forums-queries.ts
 #: src/routes/_authenticated/find.tsx

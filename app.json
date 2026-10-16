@@ -29,12 +29,15 @@
 		"activitypub/featured": {"function": "function_activitypub_featured"},
 		// A member's post or comment published to a community as their own
 		// account, served at its id.
-		"activitypub/object": {"function": "function_activitypub_object"}
+		"activitypub/object": {"function": "function_activitypub_object"},
+		// A person's posts and comments across the forums held here, for the
+		// people app's profile (phase 21).
+		"history": {"function": "function_history"}
 	},
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 14,
+		"schema": 15,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -85,6 +88,7 @@
 		":forum/-/rename": {"function": "action_rename"},
 		":forum/-/banner/get": {"function": "action_banner_get"},
 		":forum/-/banner/set": {"function": "action_banner_set"},
+		":forum/-/sensitive/set": {"function": "action_sensitive_set"},
 		":forum/-/:post": {"function": "action_post_view", "public": true},
 		":forum/-/:post/tags": {"function": "action_tags_list", "public": true},
 		":forum/-/:post/tags/add": {"function": "action_tags_add"},
@@ -147,7 +151,11 @@
 		"-/accounts/providers": {"function": "action_accounts_providers"},
 		"-/accounts/list": {"function": "action_accounts_list"},
 		"-/communities/add": {"function": "action_communities_add"},
-		"-/communities/import": {"function": "action_communities_import"}
+		"-/communities/import": {"function": "action_communities_import"},
+		// A community joined as one of the user's hosted accounts, and the
+		// user's blocks of people, communities and servers (phase 21).
+		"-/communities/join": {"function": "action_communities_join"},
+		"-/blocks/add": {"function": "action_blocks_add"}
 	},
 
 	"errors": {
