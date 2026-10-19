@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { useCallback, useRef, useState, useEffect } from 'react'
-import { useNavigate, useParams } from '@tanstack/react-router'
+import { useNavigate, useParams, useRouter } from '@tanstack/react-router'
 import { useLingui } from '@lingui/react/macro'
 import {
   Main,
@@ -20,6 +20,10 @@ import {
   findCommentTextInTree,
   countCommentTree,
   useDiscardGuard,
+  absoluteRouteUrl,
+  CommentThreadBack,
+  CommentThreadProvider,
+  findCommentInTree,
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'
@@ -65,6 +69,8 @@ interface ThreadDetailProps {
   forumOverride?: string
   inDomainContext?: boolean
   fromAllForums?: boolean
+  /** A comment the thread is opened on, alone with its replies. */
+  focusedComment?: string
 }
 
 export function ThreadDetail({
@@ -72,9 +78,12 @@ export function ThreadDetail({
   forumOverride,
   inDomainContext: _inDomainContext = false,
   fromAllForums = false,
+  focusedComment,
 }: ThreadDetailProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
+  const navigateThread = useNavigate({ from: '/$forum/$post' })
+  const router = useRouter()
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated)
   const { forum: urlForum = '', post: postId = '' } = useParams({
     strict: false,
@@ -462,12 +471,33 @@ export function ThreadDetail({
     }
   }
 
+  // Opening one comment is a navigation, so Back returns to the whole thread.
+  const openComment = (commentId?: string) =>
+    void navigateThread({
+      search: (prev) => ({ ...prev, comment: commentId }),
+    })
+  const focused = focusedComment
+    ? findCommentInTree(
+        comments,
+        focusedComment,
+        (comment) => comment.id,
+        (comment) => comment.children
+      )
+    : undefined
+
   // Everything a comment needs to reply, vote, edit, delete and moderate,
   // built once: the inline thread and the lightbox's comments panel both
   // render the SAME ThreadComment with these, so the panel is the post's
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
     server,
+    postAuthor: post.member,
+    shareUrl: (commentId: string) =>
+      absoluteRouteUrl(router, {
+        to: '/$forum/$post',
+        params: { forum, post: postId },
+        search: { server, comment: commentId },
+      }),
     onOpenAttachment: (attachmentId: string) =>
       lightboxOpener.current?.(attachmentId),
     onSearchPeople: (q: string) => forumsApi.searchMembers(forum, q),
@@ -639,15 +669,22 @@ export function ThreadDetail({
 
                 {/* Comments List */}
                 {commentCount > 0 ? (
-                  <div className='divide-y-0' ref={commentsListRef}>
-                    {comments.map((comment) => (
-                      <ThreadComment
-                        key={comment.id}
-                        comment={comment}
-                        {...commentProps}
-                      />
-                    ))}
-                  </div>
+                  <CommentThreadProvider
+                    value={{ onContinue: openComment, focusedId: focused?.id }}
+                  >
+                    {focused && (
+                      <CommentThreadBack onClick={() => openComment()} />
+                    )}
+                    <div className='divide-y-0' ref={commentsListRef}>
+                      {(focused ? [focused] : comments).map((comment) => (
+                        <ThreadComment
+                          key={comment.id}
+                          comment={comment}
+                          {...commentProps}
+                        />
+                      ))}
+                    </div>
+                  </CommentThreadProvider>
                 ) : null}
               </div>
             </div>

@@ -7,6 +7,7 @@ import { Trans, useLingui, Plural } from '@lingui/react/macro'
 import {
   Button,
   CommentBox,
+  CommentShareButton,
   CommentTreeLayout,
   ConfirmDialog,
   EntityAvatar,
@@ -116,6 +117,10 @@ export interface ThreadCommentProps {
   onBlockServer?: (author: string) => void
   currentUserId?: string
   onSearchPeople?: (query: string) => Promise<MentionUser[]>
+  /** The post's author, whose comments carry an OP mark. */
+  postAuthor?: string
+  /** The full address of a comment, for its Share button. */
+  shareUrl?: (commentId: string) => string
   /**
    * Opens the post's lightbox on the attachment a comment is anchored to,
    * comments showing.
@@ -153,6 +158,8 @@ export function ThreadComment({
   currentUserId,
   onSearchPeople,
   onOpenAttachment,
+  postAuthor,
+  shareUrl,
 }: ThreadCommentProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
@@ -286,6 +293,11 @@ export function ThreadComment({
         className='flex h-5 items-center gap-2 text-xs'
       >
         <span className='text-foreground font-medium'>{comment.name}</span>
+        {postAuthor && comment.member === postAuthor && (
+          <span className='bg-primary/10 text-primary rounded px-1 py-0.5 text-[10px] leading-none font-semibold'>
+            {t({ message: 'OP', comment: 'Original poster: the post author' })}
+          </span>
+        )}
         <span className='text-muted-foreground'>·</span>
         <span className='text-muted-foreground'>
           {formatTimestamp(comment.created)}
@@ -395,7 +407,8 @@ export function ThreadComment({
         commentCanEdit ||
         canModerate ||
         onReport ||
-        blockable) && (
+        blockable ||
+        shareUrl) && (
         <div
           className={`comment-actions-row text-muted-foreground flex min-h-8 items-center gap-2.5 pt-1.5 text-xs md:min-h-[28px] md:gap-3 md:pt-1 ${hasVotes ? 'has-votes' : ''}`}
         >
@@ -478,6 +491,12 @@ export function ThreadComment({
                   </TooltipTrigger>
                   <TooltipContent>{t`Reply`}</TooltipContent>
                 </Tooltip>
+              )}
+              {shareUrl && (
+                <CommentShareButton
+                  url={shareUrl(comment.id)}
+                  className={iconActionButtonClass}
+                />
               )}
               {/* More menu (edit, delete, moderation, report) */}
               {(commentCanEdit || canModerate || onReport || blockable) && (
@@ -704,6 +723,8 @@ export function ThreadComment({
           onBlockServer={onBlockServer}
           currentUserId={currentUserId}
           onSearchPeople={onSearchPeople}
+          postAuthor={postAuthor}
+          shareUrl={shareUrl}
         />
       ))}
     </>
@@ -716,6 +737,7 @@ export function ThreadComment({
       isCollapsed={collapsed}
       onToggleCollapse={() => setCollapsed(!collapsed)}
       hasChildren={hasReplies}
+      commentId={comment.id}
       avatar={avatar}
       content={content}
       collapsedContent={collapsedContent}
