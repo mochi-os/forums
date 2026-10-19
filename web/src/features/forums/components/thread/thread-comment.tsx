@@ -281,7 +281,10 @@ export function ThreadComment({
   const content = (
     <div className='comment-content group/row space-y-2 md:space-y-1.5'>
       {/* Header row with status badges */}
-      <div className='flex h-5 items-center gap-2 text-xs'>
+      <div
+        data-comment-header=''
+        className='flex h-5 items-center gap-2 text-xs'
+      >
         <span className='text-foreground font-medium'>{comment.name}</span>
         <span className='text-muted-foreground'>·</span>
         <span className='text-muted-foreground'>
