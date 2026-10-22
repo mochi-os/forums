@@ -20,7 +20,8 @@
 	"execute": [
 		"lib/attachments.star",
 		"forums.star",
-		"accounts.star"
+		"accounts.star",
+		"lemmy.star"
 	],
 	"functions": {
 		// The group a published forum is: what arrives at its inbox, and the
@@ -32,7 +33,43 @@
 		"activitypub/object": {"function": "function_activitypub_object"},
 		// A person's posts and comments across the forums held here, for the
 		// people app's profile (phase 21).
-		"history": {"function": "function_history"}
+		"history": {"function": "function_history"},
+		// What core's Lemmy interface asks of the forums a hosted fediverse
+		// account takes part in (phase 28).
+		"lemmy/communities": {"function": "function_lemmy_communities"},
+		"lemmy/community": {"function": "function_lemmy_community"},
+		"lemmy/follow": {"function": "function_lemmy_follow"},
+		"lemmy/block": {"function": "function_lemmy_block"},
+		"lemmy/posts": {"function": "function_lemmy_posts"},
+		"lemmy/post": {"function": "function_lemmy_post"},
+		"lemmy/post/create": {"function": "function_lemmy_post_create"},
+		"lemmy/post/edit": {"function": "function_lemmy_post_edit"},
+		"lemmy/post/delete": {"function": "function_lemmy_post_delete"},
+		"lemmy/post/remove": {"function": "function_lemmy_post_remove"},
+		"lemmy/post/lock": {"function": "function_lemmy_post_lock"},
+		"lemmy/post/feature": {"function": "function_lemmy_post_feature"},
+		"lemmy/post/vote": {"function": "function_lemmy_post_vote"},
+		"lemmy/post/save": {"function": "function_lemmy_post_save"},
+		"lemmy/comments": {"function": "function_lemmy_comments"},
+		"lemmy/comment": {"function": "function_lemmy_comment"},
+		"lemmy/comment/create": {"function": "function_lemmy_comment_create"},
+		"lemmy/comment/edit": {"function": "function_lemmy_comment_edit"},
+		"lemmy/comment/delete": {"function": "function_lemmy_comment_delete"},
+		"lemmy/comment/remove": {"function": "function_lemmy_comment_remove"},
+		"lemmy/comment/vote": {"function": "function_lemmy_comment_vote"},
+		"lemmy/comment/save": {"function": "function_lemmy_comment_save"},
+		"lemmy/post/report": {"function": "function_lemmy_post_report"},
+		"lemmy/comment/report": {"function": "function_lemmy_comment_report"},
+		"lemmy/reports": {"function": "function_lemmy_reports"},
+		"lemmy/report/resolve": {"function": "function_lemmy_report_resolve"},
+		"lemmy/modlog": {"function": "function_lemmy_modlog"},
+		"lemmy/ban": {"function": "function_lemmy_ban"},
+		"lemmy/moderator": {"function": "function_lemmy_moderator"},
+		"lemmy/search": {"function": "function_lemmy_search"},
+		"lemmy/resolve": {"function": "function_lemmy_resolve"},
+		"lemmy/person": {"function": "function_lemmy_person"},
+		"lemmy/replies": {"function": "function_lemmy_replies"},
+		"lemmy/mentions": {"function": "function_lemmy_mentions"}
 	},
 	"require": {"version": {"minimum": "2.0.12"}},
 
