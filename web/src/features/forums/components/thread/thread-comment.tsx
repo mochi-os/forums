@@ -494,7 +494,7 @@ export function ThreadComment({
               )}
               {shareUrl && (
                 <CommentShareButton
-                  url={shareUrl(comment.id)}
+                  getUrl={() => shareUrl(comment.id)}
                   className={iconActionButtonClass}
                 />
               )}

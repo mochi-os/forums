@@ -5,7 +5,7 @@
 import { useMemo, useState } from 'react'
 import { plural } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { CommentBox } from '@mochi/web'
+import { CommentBox, CommentThreadProvider } from '@mochi/web'
 import {
   ThreadComment,
   type ThreadCommentType,
@@ -55,15 +55,21 @@ export function AttachmentComments({
             <Trans>No comments on this image yet.</Trans>
           </p>
         )}
-        <div className='divide-y-0'>
-          {shown.map((comment) => (
-            <ThreadComment
-              key={comment.id}
-              comment={comment}
-              {...commentProps}
-            />
-          ))}
-        </div>
+        {/* Never cut deep replies here, wherever the panel ends up in the
+            tree: "Continue this thread" navigates, and the image viewer keeps
+            its open state to itself, so the thread would change behind it.
+            An empty provider shuts out any the page puts around it. */}
+        <CommentThreadProvider value={{}}>
+          <div className='divide-y-0'>
+            {shown.map((comment) => (
+              <ThreadComment
+                key={comment.id}
+                comment={comment}
+                {...commentProps}
+              />
+            ))}
+          </div>
+        </CommentThreadProvider>
         {others > 0 && (
           <button
             type='button'
