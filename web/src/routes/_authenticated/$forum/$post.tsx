@@ -10,6 +10,8 @@ import { ThreadDetail } from '@/features/forums/thread-detail'
 const searchSchema = z.object({
   server: z.string().optional(),
   from: z.string().optional(),
+  // A comment the thread is opened on, alone with its replies.
+  comment: z.string().optional(),
 })
 
 export const Route = createFileRoute('/_authenticated/$forum/$post')({
@@ -18,7 +20,7 @@ export const Route = createFileRoute('/_authenticated/$forum/$post')({
 })
 
 function ThreadDetailWrapper() {
-  const { server, from } = Route.useSearch()
+  const { server, from, comment } = Route.useSearch()
   const { forum: urlForum } = Route.useParams()
 
   // In domain entity routing, use the domain fingerprint as forum ID
@@ -31,6 +33,7 @@ function ThreadDetailWrapper() {
       server={server}
       forumOverride={forum}
       fromAllForums={from === 'all'}
+      focusedComment={comment}
     />
   )
 }
