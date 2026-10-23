@@ -6349,9 +6349,10 @@ def event_comment_create_event(e):
     # stores as unanchored (the caption path makes the same trade).
     anchor = comment_anchor(post, forum["id"], e.content("attachment"))
 
-    # insert or ignore (not replace): don't overwrite a colliding id from another forum.
-    mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], post, parent, member, name, body, up, down, created, anchor)
+    # insert or ignore (not replace): don't overwrite a colliding id from another
+    # forum. The owner's catch-up carries when a comment was edited.
+    mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created, edited, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], post, parent, member, name, body, up, down, created, count_content(e, "edited"), anchor)
     if remote_ok(e.content("remote")):
         mochi.db.execute("update comments set remote=? where id=? and forum=?", str(e.content("remote")), id, forum["id"])
 
@@ -6801,8 +6802,9 @@ def event_post_create_event(e):
     sensitive, language = marks_content(e)
     # insert or ignore (not replace): a genuinely new post inserts, but a colliding
     # id that belongs to a different forum must not be overwritten/moved into this one.
-    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
-        id, forum["id"], member, name, title, body, up, down, comments_count, created, created, card[0], card[1], card[2], sensitive, language)
+    # The owner's catch-up for a new subscriber carries when a post was edited.
+    mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, edited, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
+        id, forum["id"], member, name, title, body, up, down, comments_count, created, created, count_content(e, "edited"), card[0], card[1], card[2], sensitive, language)
     if remote_ok(e.content("remote")):
         mochi.db.execute("update posts set remote=? where id=? and forum=?", str(e.content("remote")), id, forum["id"])
 
@@ -7535,10 +7537,12 @@ def event_subscribe_event(e):
                 "down": p["down"],
                 "comments": p["comments"],
                 "created": p["created"],
+                "edited": p.get("edited", 0),
                 "sensitive": p.get("sensitive", 0),
                 "language": p.get("language", ""),
                 "sync": True
             }
+            link_fields(post_data, (p.get("url", ""), p.get("thumbnail", ""), p.get("embed", "")))
             if p.get("remote"):
                 post_data["remote"] = p["remote"]
             post_data["attachments"] = attachment_list(p["id"], forum["id"])
@@ -7560,6 +7564,7 @@ def event_subscribe_event(e):
                     "up": c["up"],
                     "down": c["down"],
                     "created": c["created"],
+                    "edited": c.get("edited", 0),
                     "attachment": c.get("attachment", ""),
                     "sync": True
                 }
@@ -8288,7 +8293,7 @@ def event_schema(e):
     # content must never enter a member's replica. Moderators fetch pending
     # content via the moderation queue.
     posts = mochi.db.rows(
-        "select id, member, name, title, body, up, down, comments, created, updated, remote, sensitive, language from posts where forum=? and status='approved' order by created desc limit 100",
+        "select id, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language from posts where forum=? and status='approved' order by created desc limit 100",
         forum_id
     ) or []
 
@@ -8297,7 +8302,7 @@ def event_schema(e):
     comments = []
     for pid in post_ids:
         rows = mochi.db.rows(
-            "select id, post, parent, member, name, body, up, down, created, attachment, remote from comments where forum=? and post=? and status='approved' order by created",
+            "select id, post, parent, member, name, body, up, down, created, edited, attachment, remote from comments where forum=? and post=? and status='approved' order by created",
             forum_id, pid
         ) or []
         for r in rows:
@@ -8326,9 +8331,10 @@ def event_schema(e):
 # Insert forum schema data into local database
 def insert_forum_schema(forum_id, schema):
     for p in (schema.get("posts") or []):
-        # insert or ignore (not replace): the dump comes from the forum owner, who
-        # could name an id that already exists in another of the user's forums;
-        # replace would delete that foreign row and move it into this forum.
+        # The owner's copy is the post: one held here that missed an edit takes
+        # its words, link, marks and counts. Only a row of this forum is
+        # updated: the owner could name an id that already exists in another of
+        # the user's forums, and that row must not be touched or moved here.
         # Apply the same validation the P2P submit path enforces; the dump is
         # owner-supplied and could otherwise seed the replica with a title/body
         # (bidi overrides, over-length) that event_post_submit_event rejects.
@@ -8336,12 +8342,14 @@ def insert_forum_schema(forum_id, schema):
             continue
         if not mochi.text.valid(p.get("body", ""), "text"):
             continue
+        card = link_clean(p.get("url"), p.get("thumbnail"), p.get("embed"))
         mochi.db.execute(
-            "insert or ignore into posts (id, forum, member, name, title, body, up, down, comments, created, updated, remote, sensitive, language) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert into posts (id, forum, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) on conflict (id) do update set title=excluded.title, body=excluded.body, up=excluded.up, down=excluded.down, comments=excluded.comments, edited=excluded.edited, url=excluded.url, thumbnail=excluded.thumbnail, embed=excluded.embed, sensitive=excluded.sensitive, language=excluded.language where posts.forum=excluded.forum",
             p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
             p.get("title", ""), p.get("body", ""), number(p.get("up", 0)), number(p.get("down", 0)),
-            number(p.get("comments", 0)), number(p.get("created", 0)), number(p.get("updated", 0)),
+            number(p.get("comments", 0)), number(p.get("created", 0)), number(p.get("updated", 0)), number(p.get("edited", 0)),
             str(p.get("remote", "")) if remote_ok(p.get("remote", "")) else "",
+            card[0], card[1], card[2],
             1 if p.get("sensitive") in (1, True, "1") else 0, language_tag(p.get("language", ""))
         )
         # The dump is approved-only, so a row we hold as pending or removed is a
@@ -8359,11 +8367,12 @@ def insert_forum_schema(forum_id, schema):
         # Same body validation the P2P submit path applies.
         if not mochi.text.valid(c.get("body", ""), "text"):
             continue
+        # As with posts: the owner's words and counts, on a row of this forum.
         mochi.db.execute(
-            "insert or ignore into comments (id, forum, post, parent, member, name, body, up, down, created, attachment, remote) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert into comments (id, forum, post, parent, member, name, body, up, down, created, edited, attachment, remote) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) on conflict (id) do update set body=excluded.body, up=excluded.up, down=excluded.down, edited=excluded.edited where comments.forum=excluded.forum",
             c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
             c.get("member", ""), c.get("name", ""), c.get("body", ""),
-            number(c.get("up", 0)), number(c.get("down", 0)), number(c.get("created", 0)),
+            number(c.get("up", 0)), number(c.get("down", 0)), number(c.get("created", 0)), number(c.get("edited", 0)),
             comment_anchor(c.get("post", ""), forum_id, c.get("attachment", "")),
             str(c.get("remote", "")) if remote_ok(c.get("remote", "")) else ""
         )
@@ -9639,16 +9648,18 @@ def link_card(link):
     return (link, safe_web_link(card.get("image", "")), embed_encode(card))
 
 def link_content(e):
-    """(url, thumbnail, embed) from an event, each checked: the links web
-    ones, the embed a JSON object of short strings or nothing."""
-    url = safe_web_link(e.content("url"))
+    """(url, thumbnail, embed) from an event, checked as link_clean does."""
+    return link_clean(e.content("url"), e.content("thumbnail"), e.content("embed"))
+
+def link_clean(url, thumbnail, embed):
+    """(url, thumbnail, embed) from a peer, each checked: the links web ones,
+    the embed a JSON object of short strings or nothing."""
+    url = safe_web_link(url)
     if not url:
         return ("", "", "")
-    thumbnail = safe_web_link(e.content("thumbnail"))
-    embed = e.content("embed")
     if type(embed) == "string":
         embed = json.decode(embed, None)
-    return (url, thumbnail, embed_encode(embed) if type(embed) == "dict" else "")
+    return (url, safe_web_link(thumbnail), embed_encode(embed) if type(embed) == "dict" else "")
 
 def link_fields(data, card):
     """The link and its card on an event or a request, where there is one;
