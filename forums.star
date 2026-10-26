@@ -1036,7 +1036,9 @@ def send_comment_correction(forum_id, sender_id, comment_id):
 # fan-out - a resync applies the owner's dump with insert or ignore and would
 # never clear it.
 def send_status(forum_id, author_id, kind, target_id, status):
-    if not forum_id or not author_id or not target_id:
+    # Only a Mochi identity holds a copy to converge; an author on another
+    # network learns of a moderator's decision through the community.
+    if not forum_id or not mochi.text.valid(author_id or "", "entity") or not target_id:
         return
     mochi.message.send(
         {"from": forum_id, "to": author_id, "service": "forums", "event": kind + "/status"},
@@ -10166,15 +10168,23 @@ def action_communities_import(a):
     if not acc:
         a.error.label(404, "errors.account_not_linked")
         return
-    data = lemmy_get(acc, "user/export_settings")
+    # Lemmy 1.0 moved the export from the 0.19 interface to its own, and
+    # splits the blocked instances by what is blocked of them.
+    data = lemmy_get(acc, "user/export_settings") or lemmy_get(acc, "v4/account/settings/export")
     if data == None:
         a.error.label(502, "errors.community_unavailable")
         return
     links = lambda key: [safe_web_link(x) for x in (data.get(key) or []) if type(x) == "string" and safe_web_link(x)]
+    blocks = []
+    for key in ("blocked_instances", "blocked_instances_communities", "blocked_instances_persons"):
+        for x in data.get(key) or []:
+            domain = str(x).strip().lower() if type(x) == "string" else ""
+            if domain and domain not in blocks:
+                blocks.append(domain)
     state = {
         "account": acc["id"],
         "communities": links("followed_communities"),
-        "blocks": [str(x).strip().lower() for x in (data.get("blocked_instances") or []) if type(x) == "string" and x.strip()],
+        "blocks": blocks,
         "saved": links("saved_posts"),
         "done": {"communities": 0, "blocks": 0, "saved": 0},
     }
@@ -10633,11 +10643,11 @@ def group_moderate_item(forum, member, action, kind, item_id, reason=""):
     if action == "lock":
         activity = {"type": "Lock", "object": remote}
     elif action == "unlock":
-        activity = {"type": "Undo", "object": {"type": "Lock", "object": remote}}
+        activity = {"type": "Undo", "object": group_undone(forum, kind, item_id, "Lock", remote) or {"type": "Lock", "object": remote}}
     elif action == "remove":
         activity = {"type": "Delete", "object": remote, "summary": reason or ""}
     elif action == "restore":
-        activity = {"type": "Undo", "object": {"type": "Delete", "object": remote, "summary": reason or ""}}
+        activity = {"type": "Undo", "object": group_undone(forum, kind, item_id, "Delete", remote) or {"type": "Delete", "object": remote, "summary": reason or ""}}
     elif action == "pin":
         activity = {"type": "Add", "object": remote, "target": forum["address"] + "/featured"}
     elif action == "unpin":
@@ -10656,8 +10666,19 @@ def group_moderate_user(forum, member, action, target, reason="", expires=None):
         if expires:
             activity["endTime"] = mochi.time.local(int(expires), "rfc3339", timezone="UTC")
     else:
-        activity = {"type": "Undo", "object": {"type": "Block", "object": address["address"], "target": forum["address"]}}
+        activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address["address"]) or {"type": "Block", "object": address["address"], "target": forum["address"]}}
     group_moderate(forum, member, activity)
+
+def group_undone(forum, kind, item, wanted, object):
+    """The moderator's act an Undo takes back, whole as the group took it:
+    Lemmy reads an Undo's object as that activity, id and all. None when the
+    group kept none, as for an act from before the forum was a community."""
+    for row in mochi.db.rows("select activity from federation where forum=? and kind=? and item=? order by created desc", forum["id"], kind, item) or []:
+        activity = json.decode(row["activity"], None)
+        if type(activity) == "dict" and activity.get("type") == wanted and object_id(activity.get("object")) == object:
+            activity.pop("@context", None)
+            return activity
+    return None
 
 # === Announcing ===
 
@@ -10711,10 +10732,12 @@ def group_item_bind(forum, kind, item_id, remote):
 def function_activitypub_receive(context, account, activities):
     """The activities core's engine queued for a group account, each verified
     as from the actor it names; for a person's account, what the communities
-    it has joined announce (phase 21)."""
+    it has joined announce (phase 21) and the votes sent it on what it
+    published to a forum the user hosts."""
     forum = mochi.db.row("select * from forums where hosted=?", account)
     if not forum:
         joined_receive(account, activities)
+        authored_receive(account, activities)
         return None
     if not owned(forum["id"]):
         return None
@@ -10933,6 +10956,12 @@ def group_received_delete(forum, actor, activity):
     remote = object_id(activity.get("object"))
     kind, item = group_item_of(forum, remote)
     if not kind:
+        # An item already gone here: the owner's own deletion drops the row
+        # before their Delete reaches the group. The author's Delete still
+        # goes to those the community announced the item to.
+        taken = mochi.db.row("select kind from federation where forum=? and remote=? and actor=? and announced>0", forum["id"], remote, actor)
+        if taken and federation_store(forum, taken["kind"], "", remote, actor, activity):
+            group_announce(forum, activity)
         return
     if group_author(forum, item, actor):
         if group_member_of(forum["id"], actor) != item["member"]:
@@ -11702,6 +11731,46 @@ def joined_receive(account, activities):
             forum = joined_addressed(forums, activity)
             if forum:
                 joined_activity(forum, acc, actor, activity)
+
+def authored_receive(account, activities):
+    """A vote a server sends the author of a post or comment rather than its
+    community, as Mastodon and NodeBB do: a Like or a Dislike of what the
+    account published to a forum the user hosts, or the Undo of one, counted
+    as the group counts what it is sent."""
+    acc = None
+    for item in activities or []:
+        if type(item) != "dict":
+            continue
+        actor = str(item.get("actor", "") or "")
+        kind = str(item.get("type", "") or "")
+        activity = item.get("activity")
+        if type(activity) != "dict" or not remote_ok(actor) or host_of(actor) != host_of(object_id(activity.get("id"))):
+            continue
+        voted = activity
+        if kind == "Undo" and type(activity.get("object")) == "dict":
+            voted = activity["object"]
+        elif kind not in ("Like", "Dislike"):
+            continue
+        if str(voted.get("type", "") or "") not in ("Like", "Dislike"):
+            continue
+        remote = object_id(voted.get("object"))
+        if not acc:
+            acc = mochi.account.get(account)
+            if not acc or not acc.get("url"):
+                return
+        if not remote_ok(remote) or not remote.startswith(acc["url"] + "/"):
+            continue
+        forum = authored_forum(remote)
+        if not forum or not owned(forum["id"]):
+            continue
+        if kind == "Undo":
+            group_received_undo(forum, actor, activity)
+        else:
+            group_received_vote(forum, actor, activity, "up" if kind == "Like" else "down")
+
+def authored_forum(remote):
+    """The hosted forum holding the post or comment of a record, or None."""
+    return mochi.db.row("select f.* from forums f join posts p on p.forum=f.id where p.remote=? and f.hosted!=''", remote) or mochi.db.row("select f.* from forums f join comments c on c.forum=f.id where c.remote=? and f.hosted!=''", remote)
 
 def joined_addressed(forums, activity):
     """The joined community an activity or its object names as the audience
