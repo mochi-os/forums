@@ -26,7 +26,6 @@ import {
   useFormat,
   highlightMentions,
   renderMentions,
-  getAppPath,
   ActionPill,
   ActionPillSticky,
   ActionPillActions,
@@ -55,6 +54,7 @@ import {
   ServerOff,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
+import { postAssets } from '../../author-assets'
 import { embedVideos, sanitizeHtml } from '../../utils'
 import { PostLink } from '../post-link'
 import { PostTagsTooltip } from '../post-tags'
@@ -241,8 +241,8 @@ export function ThreadContent({
             )}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/style`}
+                src={`${postAssets(post)}/avatar`}
+                styleUrl={`${postAssets(post)}/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'
