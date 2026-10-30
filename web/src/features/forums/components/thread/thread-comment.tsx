@@ -13,6 +13,7 @@ import {
   EntityAvatar,
   MentionTextarea,
   authenticatedUrl,
+  AssetImage,
   cn,
   DropdownMenu,
   DropdownMenuContent,
@@ -321,7 +322,7 @@ export function ThreadComment({
             title={comment.attachment_name || t`On this image`}
             aria-label={t`View the image this comment is about`}
           >
-            <img
+            <AssetImage
               src={authenticatedUrl(
                 `${getAppPath()}/${comment.forum}/-/attachments/${comment.attachment}/thumbnail`
               )}
