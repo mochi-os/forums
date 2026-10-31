@@ -19,6 +19,8 @@
 	},
 	"execute": [
 		"lib/attachments.star",
+		"lib/assets.star",
+		"lib/recommendations.star",
 		"forums.star",
 		"accounts.star",
 		"lemmy.star"
@@ -74,7 +76,7 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 15,
+		"schema": 16,
 		"file": "forums.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}

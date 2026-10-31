@@ -59,10 +59,6 @@ def enrich_tags(tags, interest_map):
 # "none" means no access (user has no rules or explicit deny).
 ACCESS_LEVELS = ["view", "vote", "comment", "post", "moderate"]
 
-# Entity of the shared forum-recommendations service (queried over P2P by
-# action_recommendations). Kept as one constant so the id isn't duplicated.
-RECOMMENDATIONS_ENTITY = "1JYmMpQU7fxvTrwHpNpiwKCgUg3odWqX7s9t1cLswSMAro5M2P"
-
 # ---- Saved posts ---- Per-user rows in this app's own database. Each stores a
 # JSON snapshot of the post so the saved list renders from one local query
 # without fanning out to forums that may be offline.
@@ -245,6 +241,10 @@ def database_upgrade(version):
         # phase 21): a post's sensitive mark and language, a forum's
         # sensitive mark.
         joined_schema_create()
+    if version == 16:
+        # The owner's last answer on what this user may do in each forum held
+        # here (forum_permissions).
+        permissions_schema_create()
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -351,6 +351,7 @@ def database_create():
     attachment_schema_create()
     hosted_schema_create()
     joined_schema_create()
+    permissions_schema_create()
 
 
 
@@ -862,28 +863,28 @@ def maybe_resubscribe(a, forum_id):
 own_status_interval = 3600
 
 # converge_stale_maximum: how many stale forums the cross-forum landing view
-# reconciles per request. Each reconciliation is a synchronous P2P round-trip
-# on the response path, so a cold landing with many stale forums must not pay
-# for all of them at once; the rest converge over the next few landings (each
-# converge_own_status stamps `checked`, so a reconciled forum is skipped next
-# time).
+# schedules a reconciliation for per request; the rest converge over the next
+# few landings (scheduling stamps `checked`, so a scheduled forum is skipped
+# next time).
 converge_stale_maximum = 3
 
-# converge_own_status reconciles the user's own posts and comments in a
-# subscribed forum against the owner's, which is authoritative for status. Both
-# directions: an optimistic 'pending' that the acceptance never cleared, and an
-# 'approved' that the removal never reached. The resync dump cannot do this -
-# it is approved-only and bounded, so absence from it proves nothing. Throttled
-# per forum, stamped before the request so an unreachable owner is asked once
-# per window.
+# converge_schedule reconciles the user's own posts and comments in a
+# subscribed forum against the owner's, which is authoritative for status, after
+# answering: the request waits on the owner, for seconds when it is
+# unreachable, so it never holds up a page. Throttled per forum on `checked`,
+# stamped here, before the request is scheduled, and only by the view that moves
+# it, so views arriving before it runs do not schedule it again and an
+# unreachable owner is asked once per window. A status it moves reaches an open
+# forum or post page over the websocket, as the owner's own report does.
+# Answers whether it scheduled one.
 #
-# Removable once no replica predates the owner reporting status directly
-# (send_status, schema 9): from then on nothing can strand a row, and this
-# whole reconciliation - helper, responder, call site and the forums.checked
-# column - is dead weight that can be deleted.
-def converge_own_status(a, forum_id):
-    """Returns True iff a status actually moved."""
-    user_id = a.user.identity.id if a.user else None
+# Both directions: an optimistic 'pending' that the acceptance never cleared,
+# and an 'approved' that the removal never reached. The resync dump cannot do
+# this - it is approved-only and bounded, so absence from it proves nothing. The
+# owner reports status directly (send_status), so this only catches a report
+# that never arrived: one the queue dropped past its age budget while the
+# author's server was away.
+def converge_schedule(user_id, forum_id):
     if not user_id:
         return False
     row = mochi.db.row("select server, checked from forums where id=?", forum_id)
@@ -892,11 +893,32 @@ def converge_own_status(a, forum_id):
     now = mochi.time.now()
     if row["checked"] and now - row["checked"] < own_status_interval:
         return False
+    if not mochi.db.exists("select 1 from posts where forum=? and member=? union all select 1 from comments where forum=? and member=?",
+        forum_id, user_id, forum_id, user_id):
+        return False
+    if mochi.db.execute("update forums set checked=? where id=? and checked=?", now, forum_id, row["checked"]) == 0:
+        return False
+    mochi.schedule.after("schedule_converge", {"forum": forum_id}, 0)
+    return True
+
+def schedule_converge(e):
+    if e.source != "schedule":
+        return
+    user_id = e.user.identity.id if e.user and e.user.identity else None
+    forum_id = e.data.get("forum", "")
+    if not user_id or not mochi.text.valid(forum_id, "entity"):
+        return
+    converge_own_status(user_id, forum_id)
+
+# converge_own_status asks the owner about the user's own content in a forum
+# held here and applies the answer. Returns True iff a status actually moved.
+def converge_own_status(user_id, forum_id):
+    if not mochi.db.exists("select 1 from forums where id=? and server!=''", forum_id):
+        return False
     posts = mochi.db.rows("select id from posts where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
     comments = mochi.db.rows("select id from comments where forum=? and member=? order by created desc limit 100", forum_id, user_id) or []
     if not posts and not comments:
         return False
-    mochi.db.execute("update forums set checked=? where id=?", now, forum_id)
     answer = mochi.remote.request(forum_id, "forums", "status/check", {
         "posts": [p["id"] for p in posts],
         "comments": [c["id"] for c in comments],
@@ -911,29 +933,105 @@ def converge_own_status(a, forum_id):
 # that we hold at anything but approved. A row the owner really does hold as
 # pending stays a candidate, so the per-forum throttle is what bounds the cost,
 # not the candidate list. This gives up the approved-here-but-removed-there
-# direction, which the forum and post views still ask about in full.
-def converge_stale_status(a):
-    user_id = a.user.identity.id if a.user else None
+# direction, which the forum and post views still ask about in full. The
+# landing itself is not told what moved; it shows it on its next load.
+def converge_stale_status(user_id):
     if not user_id:
         return
     rows = mochi.db.rows("""select distinct forum from posts where member=? and status!='approved'
         union select distinct forum from comments where member=? and status!='approved' limit 100""",
         user_id, user_id) or []
-    now = mochi.time.now()
     budget = converge_stale_maximum
     for row in rows:
         if budget <= 0:
             break
-        forum_id = row["forum"]
-        # converge_own_status only pays a round-trip when the per-forum throttle
-        # has lapsed, so spend the budget on the cold forums and let the warm
-        # ones cost nothing. A cold landing thus does at most converge_stale_maximum
-        # blocking round-trips; the rest reconcile over the next few landings.
-        checked = mochi.db.row("select checked from forums where id=?", forum_id)
-        if checked and checked["checked"] and now - checked["checked"] < own_status_interval:
-            continue
-        converge_own_status(a, forum_id)
-        budget = budget - 1
+        if converge_schedule(user_id, row["forum"]):
+            budget = budget - 1
+
+# permissions_interval: how long the owner's last answer on what this user may
+# do in a subscribed forum is used before it is asked for again, after
+# answering. An answer that lets the user moderate is never used: moderate
+# decides whether the replica's removed and pending content is shown, and
+# nothing tells this server when it is taken away.
+permissions_interval = 300
+
+# What forum_permissions answers, and asks the owner for.
+PERMISSIONS = ["post", "vote", "comment", "moderate"]
+
+# The owner's last answer on what this user may do in each forum held here:
+# one row per forum, with when it was last asked for. checked -1 marks an
+# answer something has since changed (permissions_forget), to be asked again.
+def permissions_schema_create():
+    mochi.db.execute("create table if not exists permissions ( forum text not null primary key, post integer not null default 0, vote integer not null default 0, comment integer not null default 0, moderate integer not null default 0, checked integer not null default 0 )")
+
+# forum_permissions answers what the owner of a forum held here lets the user
+# do, as {operation: bool} over PERMISSIONS. Every write still goes to the
+# owner, which checks it again, so a kept answer only decides which controls
+# show - except moderate, which is why an answer granting it is never kept in
+# use (see permissions_interval). Only a replica with a server keeps its answer:
+# the user's own forum reached through a hosted domain route runs in the route
+# owner's storage, shared by every visitor, and a replica with no server is
+# never refreshed. Only for a real authenticated caller: for an anonymous
+# request core substitutes the entity owner as the effective user.
+def forum_permissions(user_id, forum_id):
+    if not mochi.db.exists("select 1 from forums where id=? and server!=''", forum_id):
+        return permissions_ask(user_id, forum_id, False)
+    row = mochi.db.row("select * from permissions where forum=?", forum_id)
+    if row and row["checked"] >= 0 and not row["moderate"]:
+        now = mochi.time.now()
+        # Stamped first, and only by the view that moves it, so views arriving
+        # together schedule one refresh.
+        if now - row["checked"] >= permissions_interval and mochi.db.execute("update permissions set checked=? where forum=? and checked=?", now, forum_id, row["checked"]) > 0:
+            mochi.schedule.after("schedule_permissions", {"forum": forum_id}, 0)
+        return {operation: row[operation] == 1 for operation in PERMISSIONS}
+    return permissions_ask(user_id, forum_id, True)
+
+# permissions_ask asks the owner, keeping a complete answer when keep is set. A
+# failed or partial one - an error or a transport failure carries none of the
+# operations - answers nothing allowed and is not kept, so the next view asks
+# again. The answer is written only over the row this ask read: a grant or
+# restriction that marked it meanwhile, or an unsubscribe that removed it, wins.
+def permissions_ask(user_id, forum_id, keep):
+    before = mochi.db.row("select checked from permissions where forum=?", forum_id) if keep else None
+    answer = mochi.remote.request(forum_id, "forums", "access/check", {
+        "operations": PERMISSIONS,
+        "user": user_id,
+    })
+    if type(answer) != "dict":
+        return {}
+    for operation in PERMISSIONS:
+        if operation not in answer:
+            return {}
+    result = {operation: answer[operation] == True for operation in PERMISSIONS}
+    if keep:
+        post = 1 if result["post"] else 0
+        vote = 1 if result["vote"] else 0
+        comment = 1 if result["comment"] else 0
+        moderate = 1 if result["moderate"] else 0
+        if before:
+            mochi.db.execute("update permissions set post=?, vote=?, comment=?, moderate=?, checked=? where forum=? and checked=?",
+                post, vote, comment, moderate, mochi.time.now(), forum_id, before["checked"])
+        else:
+            mochi.db.execute("insert or ignore into permissions ( forum, post, vote, comment, moderate, checked ) select ?, ?, ?, ?, ?, ? where exists ( select 1 from forums where id=? and server!='' )",
+                forum_id, post, vote, comment, moderate, mochi.time.now(), forum_id)
+    return result
+
+# permissions_forget marks the kept answer for a forum held here as changed, so
+# the next view asks the owner again and a request already on its way cannot
+# write the old answer back.
+def permissions_forget(forum_id):
+    mochi.db.execute("replace into permissions ( forum, checked ) select ?, -1 where exists ( select 1 from forums where id=? )", forum_id, forum_id)
+
+def schedule_permissions(e):
+    if e.source != "schedule":
+        return
+    user_id = e.user.identity.id if e.user and e.user.identity else None
+    forum_id = e.data.get("forum", "")
+    if not user_id or not mochi.text.valid(forum_id, "entity"):
+        return
+    if not mochi.db.exists("select 1 from forums where id=? and server!=''", forum_id):
+        return
+    permissions_ask(user_id, forum_id, True)
 
 # apply_own_status writes the owner's answer over our own rows only. Scoped to
 # the forum and to the author so a reply naming someone else's row, or a row of
@@ -948,15 +1046,18 @@ def apply_own_status(forum_id, user_id, answer):
         if mochi.db.exists("select 1 from posts where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status):
             mochi.db.execute("update posts set status=? where id=? and forum=? and member=?",
                 status, id, forum_id, user_id)
+            broadcast_websocket(forum_id, {"type": "post/status", "forum": forum_id, "post": id, "status": status})
             moved = moved + 1
     for id, status in (answer.get("comments") or {}).items():
         if not mochi.text.valid(id, "id"):
             continue
         if status not in ("approved", "pending", "removed"):
             continue
-        if mochi.db.exists("select 1 from comments where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status):
+        row = mochi.db.row("select post from comments where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status)
+        if row:
             mochi.db.execute("update comments set status=? where id=? and forum=? and member=?",
                 status, id, forum_id, user_id)
+            broadcast_websocket(forum_id, {"type": "comment/status", "forum": forum_id, "post": row["post"], "comment": id, "status": status})
             moved = moved + 1
     return moved
 
@@ -1312,6 +1413,10 @@ def event_access_granted(e):
     if type(name) != "string" or not mochi.text.valid(name, "name"):
         return
 
+    # The owner now answers differently, so the next view asks again rather
+    # than using the answer kept from before the grant.
+    permissions_forget(forum_id)
+
     forum = get_forum(forum_id)
     if forum:
         name = forum["name"]
@@ -1403,16 +1508,11 @@ def event_moderator_notify(e):
     event_id = topic + ":" + (source or forum_id)
     notify(topic, forum_id, title, body, url, event_id=event_id)
 
-# Stream an entity's asset from its owning service; mochi.remote.stream() loops back
-# in-process for a local entity. Binary assets are header + bytes, JSON assets a
-# single write with "data".
+# A person on another network has no Mochi server to stream from: their
+# avatar is where their network keeps it, which the lookup answers. Everyone
+# else's asset comes through the shared relay.
 def stream_asset(a, entity_id, service, asset):
-    if not entity_id:
-        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
-        return None
-    # A person on another network has no Mochi server to stream from: their
-    # avatar is where their network keeps it, which the lookup answers.
-    if not mochi.text.valid(entity_id, "entity"):
+    if entity_id and not mochi.text.valid(entity_id, "entity"):
         found = mochi.account.resolve(entity_id) if asset == "avatar" else None
         if found and safe_web_link(found.get("avatar", "")):
             a.header("Cache-Control", "private, max-age=300")
@@ -1420,24 +1520,7 @@ def stream_asset(a, entity_id, service, asset):
             return None
         a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
         return None
-    s = mochi.remote.stream(entity_id, service, asset, {})
-    if not s:
-        a.error.label(404, "errors.asset_unavailable", asset=asset, log=False)
-        return None
-    header = s.read()
-    if not header or header.get("status") != "200":
-        a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
-        return None
-    a.header("Cache-Control", "private, max-age=300")
-    if "data" in header:
-        return {"data": header["data"]}
-    a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-    # Per-slot byte caps matching what the people app accepts on upload; the
-    # route is public, so an uncapped stream could run indefinitely. Unknown
-    # slots fall back to the largest cap.
-    caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
-    a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
-    return None
+    return asset_serve(a, entity_id, service, asset)
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
 
@@ -2014,11 +2097,7 @@ def action_information_entity(a):
     elif user_id:
         can_manage = False
         # Query owner for post access
-        access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-            "operations": ["post"],
-            "user": user_id,
-        })
-        can_post = access_response.get("post", False)
+        can_post = forum_permissions(user_id, forum["id"]).get("post", False)
     else:
         can_manage = False
         can_post = False
@@ -2126,8 +2205,8 @@ def action_view(a):
         # Re-establish with the owner if this subscription has gone idle.
         maybe_resubscribe(a, forum["id"])
 
-        # Converge our own content's status on the owner's before reading it.
-        converge_own_status(a, forum["id"])
+        # Converge our own content's status on the owner's, after answering.
+        converge_schedule(user_id, forum["id"])
 
         # a.owner: core answers for the routed entity against the AUTHENTICATED
         # caller. owned() resolved through mochi.entity.get, and an anonymous request
@@ -2156,7 +2235,6 @@ def action_view(a):
             before = int(before_str)
 
         # Determine access permissions
-        # For subscribed forums, do one P2P round-trip to check all permissions at once
         can_post = False
         can_moderate = False
         if is_owner:
@@ -2164,12 +2242,9 @@ def action_view(a):
         elif is_community(forum):
             can_post = community_posting(forum)
         elif user_id:
-            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-                "operations": ["post", "moderate"],
-                "user": user_id,
-            })
-            can_post = access_response.get("post", False)
-            can_moderate = access_response.get("moderate", False)
+            permissions = forum_permissions(user_id, forum["id"])
+            can_post = permissions.get("post", False)
+            can_moderate = permissions.get("moderate", False)
 
         # Get posts order
         order_by = get_post_order(sort)
@@ -2292,8 +2367,8 @@ def action_view(a):
         order_by = get_post_order(sort)
 
         # Converge any of our own content whose status we may be holding stale,
-        # before the query below reads it.
-        converge_stale_status(a)
+        # after answering.
+        converge_stale_status(a.user.identity.id if a.user else None)
 
         forums = mochi.db.rows("select * from forums order by updated desc")
         owned_ids = owned_set()
@@ -2772,22 +2847,15 @@ def action_recommendations(a):
     for f in forums:
         existing_ids.add(f["id"])
 
-    # Connect to recommendations service
-    s = mochi.remote.stream(RECOMMENDATIONS_ENTITY, "recommendations", "list", {"type": "forum", "language": user_language(a)})
-    if not s:
-        return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
-
-    r = s.read()
-    if r.get("status") != "200":
+    # Recommendations from the service, cached for an hour
+    items = recommendation_list("forum", user_language(a))
+    if items == None:
         return {"status": 500, "error": mochi.app.label("errors.recommendations_unavailable"), "data": {"forums": []}}
 
     recommendations = []
-    items = s.read()
-    if type(items) not in ["list", "tuple"]:
-        return {"data": {"forums": []}}
 
     # Get the server location from the recommendations entity so subscribers can reach the forums
-    rec_dir = mochi.directory.get(RECOMMENDATIONS_ENTITY)
+    rec_dir = mochi.directory.get(recommendation_entity)
     rec_server = ""
     if rec_dir:
         rec_server = rec_dir.get("location", "")
@@ -3365,6 +3433,7 @@ def rss_tokens_revoke(entity_id):
 # posts/comments they reference are removed.
 def purge_forum_rows(forum_id):
     mochi.db.execute("delete from notifications where forum=?", forum_id)
+    mochi.db.execute("delete from permissions where forum=?", forum_id)
     mochi.db.execute("delete from follows where forum=?", forum_id)
     mochi.db.execute("delete from tags where object in (select id from posts where forum=?) or object in (select id from comments where forum=?)", forum_id, forum_id)
     mochi.db.execute("delete from score_cache where forum=?", forum_id)
@@ -3556,14 +3625,8 @@ def action_post_view(a):
         a.error.label(403, "errors.not_allowed_to_view_this_forum")
         return
 
-    # Converge our own content's status on the owner's. The row was read before
-    # this ran, so re-read it - otherwise the response still carries the status
-    # we came in with, and the gate below judges the stale one.
-    if converge_own_status(a, forum["id"]):
-        post = mochi.db.row("select * from posts where id=?", post_id)
-        if not post:
-            a.error.label(404, "errors.post_not_found")
-            return
+    # Converge our own content's status on the owner's, after answering.
+    converge_schedule(user_id, forum["id"])
 
     # a.owner: core answers for the routed entity against the AUTHENTICATED
     # caller. owned() resolved through mochi.entity.get, and an anonymous request
@@ -3601,13 +3664,10 @@ def action_post_view(a):
         # the request would carry the local subscriber's identity and return
         # THEIR permissions, including a moderator's view.
         if user_id:
-            access_response = mochi.remote.request(forum["id"], "forums", "access/check", {
-                "operations": ["vote", "comment", "moderate"],
-                "user": user_id,
-            })
-            can_vote = access_response.get("vote", False)
-            can_comment = access_response.get("comment", False)
-            can_moderate = access_response.get("moderate", False)
+            permissions = forum_permissions(user_id, forum["id"])
+            can_vote = permissions.get("vote", False)
+            can_comment = permissions.get("comment", False)
+            can_moderate = permissions.get("moderate", False)
 
     # Non-moderators may only view an approved post, or their own PENDING post;
     # removed/shadowbanned and others' pending posts are hidden. Without this an
@@ -8084,6 +8144,9 @@ def event_user_restrict_event(e):
     mochi.db.execute(
         "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, '', '', ?, ?)",
         forum["id"], target_user, restriction_type, expires, now)
+    # On the restricted person's own server the owner now answers differently.
+    if target_user == e.header("to"):
+        permissions_forget(forum["id"])
 
 # Received a user unrestriction request from moderator (we are forum owner)
 def event_unrestrict_submit_event(e):
@@ -8118,6 +8181,8 @@ def event_user_unrestrict_event(e):
 
     target_user = e.content("user")
     mochi.db.execute("delete from restrictions where forum=? and user=?", forum["id"], target_user)
+    if target_user == e.header("to"):
+        permissions_forget(forum["id"])
 
 # Received a report submission from user (we are forum owner)
 def event_report_submit_event(e):
