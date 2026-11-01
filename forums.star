@@ -3638,10 +3638,13 @@ def action_post_view(a):
     if a.user:
         member = mochi.db.row("select * from members where forum=? and id=?", forum["id"], a.user.identity.id)
 
-    # Check access levels for UI permissions (is_owner already set above)
+    # Check access levels for UI permissions (is_owner already set above).
+    # can_manage follows the forum view: only where we hold the forum as owner.
+    can_manage = False
     if is_owner:
         can_vote = check_access(a, forum["id"], "vote")
         can_comment = check_access(a, forum["id"], "comment")
+        can_manage = check_access(a, forum["id"], "manage")
         can_moderate = check_access_remote(a, forum["id"], "moderate")
         # Check restrictions for vote/comment (banned users can't do either, muted can vote)
         if user_id:
@@ -3744,6 +3747,7 @@ def action_post_view(a):
         "member": member,
         "can_vote": can_vote,
         "can_comment": can_comment,
+        "can_manage": can_manage,
         "can_moderate": can_moderate
     }
     # Only for a signed-in reader: an anonymous one runs as the owner, whose
