@@ -162,8 +162,10 @@ export function ThreadDetail({
   // The gallery fills this with "open the lightbox on this attachment,
   // comments showing"; an anchored comment's image chip calls it.
   const lightboxOpener = useRef<((attachmentId: string) => void) | null>(null)
+  // The comments are shown once the thread is held, after the hook must run.
   const [commentsListRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isLoading,
+    count: postData?.data?.comments?.length ?? 0,
   })
 
   usePageTitle(postData?.data?.post?.title ?? t`Thread`)

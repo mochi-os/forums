@@ -80,6 +80,7 @@ export function ForumOverview({
   const avatars = useMemo(() => authorAssets(posts), [posts])
   const [listRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isFetchingNextPage,
+    count: posts.length,
   })
 
   if (!forum) {
