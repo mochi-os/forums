@@ -41,9 +41,9 @@ import {
   useUnsubscribeForum,
   useSetForumSort,
 } from '@/hooks/use-forums-queries'
-import { useInfinitePosts } from '@/hooks/use-infinite-posts'
+import { useInfinitePosts, type PostsSeed } from '@/hooks/use-infinite-posts'
 import { OptionsMenu } from '@/components/options-menu'
-import { useForumSorts } from '@/features/forums/sorts'
+import { initialSort, useForumSorts } from '@/features/forums/sorts'
 import { ForumBanner } from '../components/forum-banner'
 import { ForumGone } from '../components/forum-gone'
 import { ForumOverview } from '../components/forum-overview'
@@ -54,6 +54,8 @@ interface EntityForumPageProps {
   entityContext?: boolean
   /** Remote server of a `?server=` view, carried into the posts query. */
   server?: string
+  /** The first page of posts the route loader fetched for this navigation. */
+  seed?: PostsSeed
 }
 
 export function EntityForumPage({
@@ -61,6 +63,7 @@ export function EntityForumPage({
   permissions,
   entityContext = false,
   server,
+  seed,
 }: EntityForumPageProps) {
   const { t } = useLingui()
   const navigate = useNavigate()
@@ -104,15 +107,11 @@ export function EntityForumPage({
     isLoading: isLoadingForums,
   } = useForumMembership(forum.id)
 
-  // Adopt the global default once it loads, unless the user has overridden
-  // (or this forum already has its own override from forum.sort).
-  useEffect(() => {
-    if (userSort === null && defaultSort && isLoggedIn) {
-      setUserSort(defaultSort as SortType)
-    }
-  }, [defaultSort, userSort, isLoggedIn])
-
-  const sort: SortType = userSort ?? 'new'
+  // The global default applies unless the user has overridden it (or this
+  // forum has its own override from forum.sort). Derived rather than adopted
+  // after a render, so the page asks for its posts in that order from the
+  // start, as the route loader did.
+  const sort = initialSort(userSort, defaultSort, isLoggedIn)
   const setSort = (value: SortType) => {
     setUserSort(value)
     setForumSortMutation.mutate(value, {
@@ -144,6 +143,7 @@ export function EntityForumPage({
     tag: activeTag,
     sort,
     server,
+    seed,
   })
 
   // Queue real-time new posts behind a "new posts available" pill instead of

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { useCallback, useRef, useState, useEffect } from 'react'
+import { useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import { useNavigate, useParams, useRouter } from '@tanstack/react-router'
 import { useLingui } from '@lingui/react/macro'
 import {
@@ -53,6 +53,7 @@ import {
   useReportPost,
   useReportComment,
 } from '@/hooks/use-forums-queries'
+import { authorAssets } from '@/features/forums/author-assets'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { ForumBanner } from './components/forum-banner'
@@ -150,6 +151,13 @@ export function ThreadDetail({
     error: postError,
     refetch: refetchPost,
   } = usePostDetail(forum, postId, server)
+
+  // One avatar address per author across the post and its whole comment
+  // tree, shared by the inline thread and the lightbox's comments panel.
+  const avatars = useMemo(() => {
+    const data = postData?.data
+    return data ? authorAssets([data.post], data.comments ?? []) : undefined
+  }, [postData])
 
   // The gallery fills this with "open the lightbox on this attachment,
   // comments showing"; an anchored comment's image chip calls it.
@@ -491,6 +499,7 @@ export function ThreadDetail({
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
     server,
+    avatars,
     postAuthor: post.member,
     shareUrl: (commentId: string) =>
       absoluteRouteUrl(router, {

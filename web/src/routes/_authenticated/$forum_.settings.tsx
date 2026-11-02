@@ -538,7 +538,7 @@ export function SensitiveSection({
       <FieldRow label={t({ message: 'Sensitive', context: 'content warning' })}>
         <Switch
           checked={value}
-          disabled={busy}
+          loading={busy}
           onCheckedChange={(checked) => void change(checked)}
           aria-label={t({ message: 'Sensitive', context: 'content warning' })}
         />

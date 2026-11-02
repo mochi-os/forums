@@ -7,8 +7,20 @@
 // networks offer them.
 import { useMemo } from 'react'
 import { useLingui } from '@lingui/react/macro'
-import type { SortOption } from '@mochi/web'
+import type { SortOption, SortType } from '@mochi/web'
 import { Activity, History, MessagesSquare, Scale, Swords } from 'lucide-react'
+
+/**
+ * The sort a forum's posts open in: the forum's own, else the reader's default
+ * when they are signed in, else newest first.
+ */
+export function initialSort(
+  own: string | null | undefined,
+  fallback: string | undefined,
+  loggedIn: boolean
+): SortType {
+  return (own || (loggedIn ? fallback : '') || 'new') as SortType
+}
 
 export function useForumSorts(): SortOption[] {
   const { t } = useLingui()

@@ -12,7 +12,6 @@ import {
   PostTitleBar,
   cn,
   useFormat,
-  getAppPath,
 } from '@mochi/web'
 import {
   MessageSquare,
@@ -25,6 +24,7 @@ import {
 } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { postAssets } from '../author-assets'
 import { sanitizeHtml } from '../utils'
 import { PostLink } from './post-link'
 import { PostTagsTooltip } from './post-tags'
@@ -44,6 +44,11 @@ interface PostCardProps {
   onInterestRemove?: (qid: string) => void
   isLoggedIn?: boolean
   variant?: 'card' | 'list-item'
+  /**
+   * One asset address per author across the list (`authorAssets`), so an
+   * author's avatar and style are fetched once, not once per post.
+   */
+  avatars?: ReadonlyMap<string, string>
 }
 
 export function PostCard({
@@ -58,8 +63,10 @@ export function PostCard({
   onInterestRemove,
   isLoggedIn = true,
   variant = 'card',
+  avatars,
 }: PostCardProps) {
   const { formatTimestamp } = useFormat()
+  const assets = avatars?.get(post.member) ?? postAssets(post)
   const timestamp = formatTimestamp(post.created)
   // Sanitising HTML is not free; the card re-renders on hover/selection state,
   // so memoise on the raw markdown rather than re-running it every render.
@@ -127,8 +134,8 @@ export function PostCard({
             ) : null}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset/style`}
+                src={`${assets}/avatar`}
+                styleUrl={`${assets}/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'

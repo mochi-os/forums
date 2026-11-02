@@ -13,6 +13,7 @@ import {
   EntityAvatar,
   MentionTextarea,
   authenticatedUrl,
+  AssetImage,
   cn,
   DropdownMenu,
   DropdownMenuContent,
@@ -51,6 +52,7 @@ import {
   MoreHorizontal,
 } from 'lucide-react'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
+import { commentAssets } from '../../author-assets'
 import { CommentAttachments } from '../comment-attachments'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
@@ -126,6 +128,11 @@ export interface ThreadCommentProps {
    * comments showing.
    */
   onOpenAttachment?: (attachmentId: string) => void
+  /**
+   * One asset address per author across the thread (`authorAssets`), so an
+   * author's avatar and style are fetched once, not once per comment.
+   */
+  avatars?: ReadonlyMap<string, string>
 }
 
 export function ThreadComment({
@@ -160,6 +167,7 @@ export function ThreadComment({
   onOpenAttachment,
   postAuthor,
   shareUrl,
+  avatars,
 }: ThreadCommentProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
@@ -257,8 +265,8 @@ export function ThreadComment({
   }
   const totalDescendants = getTotalReplyCount(comment)
 
-  const assetUrl = (slot: string) =>
-    `${getAppPath()}/${comment.forum}/-/${comment.post}/${comment.id}/asset/${slot}`
+  const assets = avatars?.get(comment.member) ?? commentAssets(comment)
+  const assetUrl = (slot: string) => `${assets}/${slot}`
   const avatar = (
     <EntityAvatar
       src={assetUrl('avatar')}
@@ -314,7 +322,7 @@ export function ThreadComment({
             title={comment.attachment_name || t`On this image`}
             aria-label={t`View the image this comment is about`}
           >
-            <img
+            <AssetImage
               src={authenticatedUrl(
                 `${getAppPath()}/${comment.forum}/-/attachments/${comment.attachment}/thumbnail`
               )}
@@ -725,6 +733,7 @@ export function ThreadComment({
           onSearchPeople={onSearchPeople}
           postAuthor={postAuthor}
           shareUrl={shareUrl}
+          avatars={avatars}
         />
       ))}
     </>

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
+import { useMemo } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   LoadMoreTrigger,
@@ -14,6 +15,7 @@ import {
 } from '@mochi/web'
 import { MessageSquare, FileEdit, Plus } from 'lucide-react'
 import { type Forum, type Post } from '@/api/types/forums'
+import { authorAssets } from '../author-assets'
 import { CreatePostDialog } from './create-post-dialog'
 import { InlineForumSearch } from './inline-forum-search'
 import { PostCard } from './post-card'
@@ -75,6 +77,7 @@ export function ForumOverview({
   isLoggedIn = true,
 }: ForumOverviewProps) {
   const { t } = useLingui()
+  const avatars = useMemo(() => authorAssets(posts), [posts])
   const [listRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isFetchingNextPage,
   })
@@ -104,6 +107,7 @@ export function ForumOverview({
                 onInterestRemove={onInterestRemove}
                 isLoggedIn={isLoggedIn}
                 variant='card'
+                avatars={avatars}
               />
             ))}
           </div>
@@ -150,6 +154,7 @@ export function ForumOverview({
                 onInterestDown={onInterestDown}
                 onInterestRemove={onInterestRemove}
                 isLoggedIn={isLoggedIn}
+                avatars={avatars}
               />
             ))}
           </div>
