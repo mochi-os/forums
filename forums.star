@@ -817,8 +817,9 @@ idle_resync_age = 7 * 86400
 
 # request_resync pulls a fresh schema dump from the owner when an incoming event
 # references data we lack; subscribers only, throttled to once per 60 seconds
-# per forum.
-def request_resync(forum_id):
+# per forum. name, when given, asks for the first part as a subscriber of that
+# name, which the owner registers before it reads it.
+def request_resync(forum_id, name=None):
     """Returns True iff every part of a fresh schema was fetched and applied
     within this call. A pull that runs out of time is continued by
     schedule_schema; one that fails waits for the next resync."""
@@ -832,7 +833,7 @@ def request_resync(forum_id):
         return False
     mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
     peer = mochi.remote.peer(row["server"])
-    schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
+    schema = schema_fetch(forum_id, peer, SCHEMA_START, name)
     if not schema or schema.get("error"):
         return False
     if not insert_forum_schema(forum_id, schema, peer, now):
@@ -841,16 +842,80 @@ def request_resync(forum_id):
     return True
 
 # schema_completed(forum_id): a pull reached the last part, so the replica holds
-# the owner's window and its idle timer starts again.
+# the owner's window and its idle timer starts again. A subscription still
+# filling is then whole: the page leaves its loading state.
 def schema_completed(forum_id):
     mochi.broadcast.touch(forum_id)
+    filled = mochi.db.execute("update forums set populated=1 where id=? and populated=0", forum_id) > 0
     fp = forum_fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
+        if filled:
+            mochi.websocket.write(fp, {"type": "forum/update", "forum": forum_id})
 
-# maybe_resubscribe re-subscribes an idle forum (idle_resync_age). The owner's
-# subscribe handler is idempotent and pushes catch-up; touch() stamps the timer
-# so a dead owner is poked once per window.
+# fill_waits: the seconds before each pull of a subscription still filling
+# (schedule_fill): the first past the 60 in which request_resync lets no second
+# pull start, each after four times the last. Past the last, a view of the
+# forum starts them again (maybe_fill), so a subscription nobody looks at wakes
+# nothing.
+fill_waits = [61, 244, 976, 3904, 15616]
+
+# fill_pending(forum_id, event) -> bool: whether a scheduled event of the forum
+# is pending.
+def fill_pending(forum_id, event):
+    for scheduled in mochi.schedule.list():
+        if scheduled.event == event and scheduled.data.get("forum") == forum_id:
+            return True
+    return False
+
+# fill_schedule(forum_id, attempt, name, delay) schedules a subscription's
+# pull after fill_waits[attempt], or after delay when one is given, unless one
+# is pending or the waits have run out; the pull that follows waits the next
+# wait in turn. name, when given, asks as a subscriber.
+def fill_schedule(forum_id, attempt=0, name=None, delay=None):
+    if attempt >= len(fill_waits) or fill_pending(forum_id, "schedule_fill"):
+        return
+    data = {"forum": forum_id, "attempt": attempt if delay != None else attempt + 1}
+    if name:
+        data["name"] = name
+    mochi.schedule.after("schedule_fill", data, fill_waits[attempt] if delay == None else delay)
+
+# schedule_fill(e): a subscription still filling pulls the schema, and asks
+# again later until it is whole. A pull already under way - a continuation, or
+# a part retried - is left to finish first.
+def schedule_fill(e):
+    if e.source != "schedule":
+        return
+    forum_id = e.data.get("forum", "")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    attempt = number(e.data.get("attempt", 0))
+    name = e.data.get("name")
+    if type(name) != "string" or not mochi.text.valid(name, "name"):
+        name = None
+    row = mochi.db.row("select populated from forums where id=?", forum_id)
+    if not row or row["populated"] != 0:
+        return
+    if not fill_pending(forum_id, "schedule_schema"):
+        request_resync(forum_id, name)
+    row = mochi.db.row("select populated from forums where id=?", forum_id)
+    if row and row["populated"] == 0:
+        fill_schedule(forum_id, attempt, name)
+
+# maybe_fill(a, forum_id): a view of a subscription still filling pulls the
+# schema when no pull is waiting.
+def maybe_fill(a, forum_id):
+    if not a.user:
+        return
+    row = mochi.db.row("select server, populated from forums where id=?", forum_id)
+    if row and row["server"] and row["populated"] == 0:
+        fill_schedule(forum_id, 0, a.user.identity.name, 0)
+
+# maybe_resubscribe re-subscribes an idle forum (idle_resync_age), for an owner
+# that let the subscriber go, and fills the subscription again from the
+# owner's schema, as what was missed is past what the broadcast replays: the
+# pull asks as a subscriber, so the owner registers them before it reads.
+# touch() stamps the timer so a dead owner is poked once per window.
 def maybe_resubscribe(a, forum_id):
     user_id = a.user.identity.id if a.user else None
     if not user_id:
@@ -864,6 +929,8 @@ def maybe_resubscribe(a, forum_id):
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
         {"name": a.user.identity.name})
     mochi.broadcast.touch(forum_id)
+    mochi.db.execute("update forums set populated=0 where id=?", forum_id)
+    fill_schedule(forum_id, 0, a.user.identity.name, 0)
 
 # own_status_interval: how long between status reconciliations of a subscribed
 # forum. The owner tells an author what became of their submission as it
@@ -2212,8 +2279,10 @@ def action_view(a):
             a.error.label(403, "errors.not_allowed_to_view_this_forum")
             return
 
-        # Re-establish with the owner if this subscription has gone idle.
+        # Re-establish with the owner if this subscription has gone idle, and
+        # fill one still filling.
         maybe_resubscribe(a, forum["id"])
+        maybe_fill(a, forum["id"])
 
         # Converge our own content's status on the owner's, after answering.
         converge_schedule(user_id, forum["id"])
@@ -3311,7 +3380,6 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         forum_name = response.get("name", "")
         address = response.get("address", "")
         sensitive = response.get("sensitive", 0)
-        schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
     else:
         # Use directory lookup when no server specified
         directory = mochi.directory.get(forum_id)
@@ -3322,7 +3390,6 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         if server:
             peer = mochi.remote.peer(server)
             if peer:
-                schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
                 # Where the forum is a community on the fediverse (phase 20).
                 information = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
                 if information and not information.get("error"):
@@ -3332,20 +3399,31 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
     # Create local forum record
     now = mochi.time.now()
     fp = forum_fingerprint(forum_id) or ""
-    # populated=0: schema is fetched synchronously, but the bulk posts arrive
-    # asynchronously from the owner; event_update_event flips it to 1 when the
-    # owner's post-subscribe "update" message lands.
+    # populated=0 until a pull of the owner's schema completes (schema_completed).
+    # The forum is held before the schema is asked for, so what the owner
+    # broadcasts once asking registered us lands.
     mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated, address, sensitive ) values ( ?, ?, ?, ?, ?, ?, 0, ?, ? )""",
         forum_id, forum_name, 0, now, server or ("p2p/" + peer if peer else ""), fp, address if remote_ok(address) else "", 1 if sensitive else 0)
 
     # Add self as subscriber
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, user_id, user_name, now)
 
+    # The schema, asked for as a subscriber: the owner registers us before it
+    # reads the first part, so nothing changes between the two unseen. A pull
+    # whose first part arrived is under way, and stamps synced so the owner's
+    # answer to the subscribe does not start another (event_update_event).
+    if peer:
+        schema = schema_fetch(forum_id, peer, SCHEMA_START, user_name)
+    pulling = schema and not schema.get("error")
+    if pulling:
+        mochi.db.execute("update forums set synced=? where id=?", mochi.time.now(), forum_id)
+
     # Send subscribe message to forum owner. A private forum is not in the
     # directory, so when the subscription came via a share link (or the
     # directory row carried a location we resolved), pin that peer. It goes
     # before the schema is applied, so a pull that stops short still leaves a
-    # subscription the owner's catch-up fills.
+    # subscription, and the owner's answer to it pulls the schema again when
+    # this one never arrived.
     if peer:
         mochi.message.send.peer(peer,
             {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
@@ -3360,8 +3438,8 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
 
     # Insert schema data so posts/comments are available immediately, for as
     # long as the pull's time allows; a continuation takes the rest.
-    if schema and not schema.get("error"):
-        insert_forum_schema(forum_id, schema, peer, started)
+    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+        schema_completed(forum_id)
 
     return {"fingerprint": forum_fingerprint(forum_id)}, None
 
@@ -6500,7 +6578,8 @@ def event_comment_create_event(e):
     anchor = comment_anchor(post, forum["id"], e.content("attachment"))
 
     # insert or ignore (not replace): don't overwrite a colliding id from another
-    # forum. The owner's catch-up carries when a comment was edited.
+    # forum. An owner from before subscribers pulled their history pushes it,
+    # with when a comment was edited.
     mochi.db.execute("insert or ignore into comments ( id, forum, post, parent, member, name, body, up, down, created, edited, attachment ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], post, parent, member, name, body, up, down, created, count_content(e, "edited"), anchor)
     if remote_ok(e.content("remote")):
@@ -6952,7 +7031,8 @@ def event_post_create_event(e):
     sensitive, language = marks_content(e)
     # insert or ignore (not replace): a genuinely new post inserts, but a colliding
     # id that belongs to a different forum must not be overwritten/moved into this one.
-    # The owner's catch-up for a new subscriber carries when a post was edited.
+    # An owner from before subscribers pulled their history pushes it to a new
+    # subscriber, with when a post was edited.
     mochi.db.execute("insert or ignore into posts ( id, forum, member, name, title, body, up, down, comments, created, updated, edited, url, thumbnail, embed, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         id, forum["id"], member, name, title, body, up, down, comments_count, created, created, count_content(e, "edited"), card[0], card[1], card[2], sensitive, language)
     if remote_ok(e.content("remote")):
@@ -6967,9 +7047,10 @@ def event_post_create_event(e):
 
     mochi.db.commit.fire("posts", "insert", id)
 
-    # The owner's catch-up for a new subscriber marks its posts "sync"; they
-    # are history, not news. A colliding id another forum holds was ignored
-    # above, so only a row this forum now holds counts.
+    # An owner from before subscribers pulled their history marks the posts it
+    # pushes a new subscriber "sync"; they are history, not news. A colliding
+    # id another forum holds was ignored above, so only a row this forum now
+    # holds counts.
     if not e.content("sync") and mochi.db.exists("select id from posts where id=? and forum=?", id, forum["id"]):
         notify_activity(forum, e.header("to"), {"id": id, "member": member, "name": name, "title": title, "body": body})
 
@@ -7649,7 +7730,7 @@ def event_subscribe_event(e):
 
     if not mochi.text.valid(member_id, "entity"):
         return
-    if not mochi.text.valid(name, "name"):
+    if type(name) != "string" or not mochi.text.valid(name, "name"):
         return
 
     # Private forums only accept subscribers who already hold view access via
@@ -7659,89 +7740,37 @@ def event_subscribe_event(e):
     if not check_event_access(member_id, forum["id"], "view"):
         return
 
-    # Add as subscriber if not already a member
-    if not mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):
-        now = mochi.time.now()
-        mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum["id"], member_id, name, now)
-        # Record them for replay now rather than waiting for the next post to
-        # do it, so a gap before that post can still be healed.
-        mochi.broadcast.subscriber.add(forum["id"], member_id)
+    if member_register(forum, member_id, name):
+        member_announce(forum, member_id)
 
-        # Update member count
-        members = mochi.db.rows("select id from members where forum=?", forum["id"])
-        mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), now, forum["id"])
+    # The subscriber pulls the forum's history itself, in parts, from the
+    # schema; nothing is pushed post by post. This answer, sent whether or not
+    # they were a member already, tells them the subscription is held, and one
+    # whose own pull never completed pulls it then (event_update_event).
+    mochi.message.send(
+        {"from": forum["id"], "to": member_id, "service": "forums", "event": "update"},
+        {"members": mochi.db.row("select count(*) as count from members where forum=?", forum["id"])["count"]}
+    )
 
-        # Send recent posts to new member with attachment metadata. Only
-        # approved content seeds a member's replica: pending (pre-moderation)
-        # and removed/shadowbanned posts must never reach an ordinary member.
-        posts = mochi.db.rows("select * from posts where forum=? and status='approved' order by created desc limit 20", forum["id"])
-        mochi.log.info("event_subscribe: sending %v posts to %v", len(posts), member_id)
-        for p in posts:
-            post_data = {
-                "id": p["id"],
-                "member": p["member"],
-                "name": p["name"],
-                "title": p["title"],
-                "body": p["body"],
-                "up": p["up"],
-                "down": p["down"],
-                "comments": p["comments"],
-                "created": p["created"],
-                "edited": p.get("edited", 0),
-                "sensitive": p.get("sensitive", 0),
-                "language": p.get("language", ""),
-                "sync": True
-            }
-            link_fields(post_data, (p.get("url", ""), p.get("thumbnail", ""), p.get("embed", "")))
-            if p.get("remote"):
-                post_data["remote"] = p["remote"]
-            post_data["attachments"] = attachment_list(p["id"], forum["id"])
-            mochi.message.send(
-                {"from": forum["id"], "to": member_id, "service": "forums", "event": "post/create"},
-                post_data
-            )
+# member_register(forum, member_id, name) -> bool: adds a subscriber to a forum
+# we own, by their subscribe or by their asking for the schema as a subscriber,
+# which comes before it is read; whether they were not a member already.
+def member_register(forum, member_id, name):
+    if mochi.db.exists("select id from members where forum=? and id=?", forum["id"], member_id):
+        return False
+    mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum["id"], member_id, name, mochi.time.now())
+    # Record them for replay now rather than waiting for the next post to
+    # do it, so a gap before that post can still be healed.
+    mochi.broadcast.subscriber.add(forum["id"], member_id)
+    return True
 
-            # Send comments for this post with attachment metadata (approved only)
-            comments = mochi.db.rows("select * from comments where forum=? and post=? and status='approved' order by created asc", forum["id"], p["id"])
-            for c in comments:
-                comment_data = {
-                    "id": c["id"],
-                    "post": c["post"],
-                    "parent": c["parent"],
-                    "member": c["member"],
-                    "name": c["name"],
-                    "body": c["body"],
-                    "up": c["up"],
-                    "down": c["down"],
-                    "created": c["created"],
-                    "edited": c.get("edited", 0),
-                    "attachment": c.get("attachment", ""),
-                    "sync": True
-                }
-                if c.get("remote"):
-                    comment_data["remote"] = c["remote"]
-                comment_data["attachments"] = attachment_list(c["id"], forum["id"])
-                mochi.message.send(
-                    {"from": forum["id"], "to": member_id, "service": "forums", "event": "comment/create"},
-                    comment_data
-                )
-
-            # Send tags for this post
-            post_tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object=?", p["id"]) or []
-            for t in post_tags:
-                mochi.message.send(
-                    {"from": forum["id"], "to": member_id, "service": "forums", "event": "tag/add"},
-                    {"id": t["id"], "object": t["object"], "label": t["label"], "qid": t.get("qid", ""), "relevance": t.get("relevance", 0), "source": t.get("source", "manual")}
-                )
-
-        # Notify the other members of the new subscription. The new member gets
-        # the same update directly, after its catch-up and on the same channel:
-        # it is their "initial content sent" signal, which flips populated.
-        broadcast_event(forum["id"], "update", {"members": len(members)}, member_id)
-        mochi.message.send(
-            {"from": forum["id"], "to": member_id, "service": "forums", "event": "update"},
-            {"members": len(members)}
-        )
+# member_announce(forum, member_id) updates the member count and tells the
+# other members. It runs a step per member, so the schema runs it after
+# answering, not before.
+def member_announce(forum, member_id):
+    members = mochi.db.rows("select id from members where forum=?", forum["id"])
+    mochi.db.execute("update forums set members=?, updated=? where id=?", len(members), mochi.time.now(), forum["id"])
+    broadcast_event(forum["id"], "update", {"members": len(members)}, member_id)
 
 # Received an unsubscribe request from member (we are forum owner)
 def event_unsubscribe_event(e):
@@ -7822,13 +7851,24 @@ def event_update_event(e):
     members = e.content("members")
     if type(members) != "int" or members < 0:
         return
-
-    # The member-count update is the owner's terminal message sent right after
-    # pushing a new subscriber's initial posts/comments/tags, so it doubles as
-    # the "initial content arrived" signal: flip populated=1 and tell the browser
-    # to re-load the forum so the board leaves its loading state.
-    mochi.db.execute("update forums set members=?, updated=?, populated=1 where id=?", members, mochi.time.now(), forum_id)
+    mochi.db.execute("update forums set members=?, updated=? where id=?", members, mochi.time.now(), forum_id)
     broadcast_websocket(forum_id, {"type": "forum/update", "forum": forum_id})
+
+    # The owner answers a subscribe with the member count. A subscription whose
+    # own pull of the schema never completed - the owner was unreachable when
+    # it was made, or its first part was refused - pulls it now, the owner
+    # plainly reachable; schema_completed then marks it whole. One whose pull
+    # is under way or fails is looked at again (schedule_fill), in case the
+    # action running it never finished. An owner
+    # from before pulls were the rule pushes its history first, which the pull
+    # finds held. One reached through no peer and no server learns the peer
+    # the answer came by, so the pull, and every later resync, can reach it.
+    if forum["populated"] == 0:
+        peer = e.header("peer")
+        if not forum["server"] and mochi.text.valid(peer, "peer"):
+            mochi.db.execute("update forums set server=? where id=? and server=''", "p2p/" + peer, forum_id)
+        if not request_resync(forum_id):
+            fill_schedule(forum_id)
 
 # MODERATION EVENTS
 
@@ -8470,6 +8510,8 @@ SCHEMA_SPECS = {
     "tags": {"columns": "id, object, label, qid, relevance, source", "source": "tags where object in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(label as blob))"},
 }
 SCHEMA_ORDER = ["posts", "comments", "tags"]
+# The cursor of a schema's first part.
+SCHEMA_START = {"list": "posts", "after": []}
 
 # A post's thread for post/view: every comment, or for a requester who does
 # not moderate, the approved ones and their own pending.
@@ -8677,6 +8719,17 @@ def event_schema(e):
         if not part_cursor(part, SCHEMA_SPECS):
             e.stream.write({"error": "errors.invalid_data"})
             return
+        # A subscriber asking for the first part names itself (register), and
+        # is registered before the part is read: every change after the read
+        # then reaches it by broadcast, and none falls between the read and
+        # the subscribe that follows it.
+        register = e.content("register")
+        joined = None
+        if part["list"] == SCHEMA_START["list"] and not part["after"] and type(register) == "dict" and type(register.get("name")) == "string" and mochi.text.valid(register["name"], "name"):
+            forum = get_forum(forum_id)
+            requester = e.header("from")
+            if forum and forum["id"] == forum_id and mochi.text.valid(requester, "entity") and member_register(forum, requester, register["name"]):
+                joined = forum
         budget = part_budget()
         lists, next = part_take(SCHEMA_SPECS, SCHEMA_ORDER, {"posts": [forum_id, forum_id], "comments": [forum_id, forum_id], "tags": [forum_id]}, part, budget)
         for name in ["posts", "comments"]:
@@ -8694,6 +8747,8 @@ def event_schema(e):
         if next:
             reply["next"] = next
         e.stream.write(reply)
+        if joined:
+            member_announce(joined, e.header("from"))
         return
 
     # Approved content only: insert_forum_schema stores every dumped row as
@@ -8718,9 +8773,8 @@ def event_schema(e):
 
     tags = mochi.db.rows("select id, object, label, qid, relevance, source from tags where object in (select id from posts where forum=? and status='approved')", forum_id) or []
 
-    # Inline attachment metadata so subscribers can't lose it when post/create events
-    # from event_subscribe_event are dropped by the already-exists guard in
-    # event_post_create_event. Metadata only — files still fetch on demand from the owner.
+    # Inline attachment metadata: the schema is the only way a subscriber gets a
+    # post's history. Metadata only — files still fetch on demand from the owner.
     for p in posts:
         atts = attachment_list(p["id"], forum_id)
         if atts:
@@ -8736,11 +8790,15 @@ def event_schema(e):
         "tags": tags,
     })
 
-# schema_fetch(forum_id, peer, part) -> one part of the owner's schema. An
+# schema_fetch(forum_id, peer, part, name) -> one part of the owner's schema,
+# asked for as a subscriber of that name when one is given. An
 # owner that predates parts ignores `part` and answers the whole schema, which
 # carries no `next` and so is complete on its own.
-def schema_fetch(forum_id, peer, part):
-    return mochi.remote.request(forum_id, "forums", "schema", {"part": part}, peer)
+def schema_fetch(forum_id, peer, part, name=None):
+    content = {"part": part}
+    if name:
+        content["register"] = {"name": name}
+    return mochi.remote.request(forum_id, "forums", "schema", content, peer)
 
 # insert_forum_schema(forum_id, schema, peer, started, parts) imports schema, a
 # part of the owner's schema already received, then pulls and imports the parts
@@ -8769,6 +8827,7 @@ def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
         if mochi.time.now() - started >= PART_TIME:
             schema_resume(forum_id, "stopped", next, parts)
             return False
+        mochi.db.execute("update forums set synced=? where id=?", mochi.time.now(), forum_id)
         schema = schema_fetch(forum_id, peer, next)
         if type(schema) != "dict" or schema.get("error"):
             schema_resume(forum_id, schema_outcome(schema), next, parts)
@@ -9868,6 +9927,7 @@ def _subscribe_to_forum(user, forum_id, server):
         return {"fingerprint": fp, "subscribed": True}
 
     schema = None
+    peer = None
     forum_name = ""
     if server:
         peer = mochi.remote.peer(server)
@@ -9879,7 +9939,6 @@ def _subscribe_to_forum(user, forum_id, server):
                 return {"error": "errors.remote", "code": response.get("code", 502)}
             return {"error": response["error"], "code": response.get("code", 404)}
         forum_name = response.get("name", "")
-        schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
     else:
         directory = mochi.directory.get(forum_id)
         if not directory:
@@ -9888,21 +9947,25 @@ def _subscribe_to_forum(user, forum_id, server):
         server = directory.get("location", "")
         if server:
             peer = mochi.remote.peer(server)
-            if peer:
-                schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
 
     now = mochi.time.now()
     fp = forum_fingerprint(forum_id) or ""
-    # populated=0: schema is fetched synchronously, but the bulk posts arrive
-    # asynchronously from the owner; event_update_event flips it to 1 when the
-    # owner's post-subscribe "update" message lands.
+    # populated=0 until a pull completes; the forum is held, and the schema
+    # asked for as a subscriber, as in forum_subscribe.
     mochi.db.execute("""replace into forums ( id, name, members, updated, server, fingerprint, populated ) values ( ?, ?, ?, ?, ?, ?, 0 )""",
         forum_id, forum_name, 0, now, server or "", fp)
 
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, user_id, user.identity.name, now)
 
+    if peer:
+        schema = schema_fetch(forum_id, peer, SCHEMA_START, user.identity.name)
+    pulling = schema and not schema.get("error")
+    if pulling:
+        mochi.db.execute("update forums set synced=? where id=?", mochi.time.now(), forum_id)
+
     # Subscribe before the schema is applied, so a pull that stops short still
-    # leaves a subscription the owner's catch-up fills.
+    # leaves a subscription, and the owner's answer to it pulls the schema again
+    # when this one never arrived.
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
         {"name": user.identity.name},
@@ -9910,8 +9973,8 @@ def _subscribe_to_forum(user, forum_id, server):
     )
     mochi.broadcast.touch(forum_id)
 
-    if schema and not schema.get("error"):
-        insert_forum_schema(forum_id, schema, peer, started)
+    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+        schema_completed(forum_id)
 
     return {"fingerprint": fp, "subscribed": False}
 
