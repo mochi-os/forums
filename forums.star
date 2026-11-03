@@ -819,7 +819,9 @@ idle_resync_age = 7 * 86400
 # references data we lack; subscribers only, throttled to once per 60 seconds
 # per forum.
 def request_resync(forum_id):
-    """Returns True iff a fresh schema was actually fetched and applied."""
+    """Returns True iff every part of a fresh schema was fetched and applied
+    within this call. A pull that runs out of time is continued by
+    schedule_schema; one that fails waits for the next resync."""
     row = mochi.db.row("select server, synced from forums where id=?", forum_id)
     if not row:
         return False
@@ -830,15 +832,21 @@ def request_resync(forum_id):
         return False
     mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
     peer = mochi.remote.peer(row["server"])
-    schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+    schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
     if not schema or schema.get("error"):
         return False
-    insert_forum_schema(forum_id, schema)
+    if not insert_forum_schema(forum_id, schema, peer, now):
+        return False
+    schema_completed(forum_id)
+    return True
+
+# schema_completed(forum_id): a pull reached the last part, so the replica holds
+# the owner's window and its idle timer starts again.
+def schema_completed(forum_id):
     mochi.broadcast.touch(forum_id)
     fp = forum_fingerprint(forum_id)
     if fp:
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
-    return True
 
 # maybe_resubscribe re-subscribes an idle forum (idle_resync_age). The owner's
 # subscribe handler is idempotent and pushes catch-up; touch() stamps the timer
@@ -1520,6 +1528,7 @@ def stream_asset(a, entity_id, service, asset):
             return None
         a.error.label(404, "errors.asset_not_set", asset=asset, log=False)
         return None
+    # attachment-ok: a wrapper; this gate checks each stream_asset call for its own gate
     return asset_serve(a, entity_id, service, asset)
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
@@ -1580,6 +1589,7 @@ def action_moderation_asset(a):
     if not mochi.text.valid(user, "author"):
         a.error.label(404, "errors.unknown_asset")
         return
+    # attachment-ok: check_access_remote(moderate) above refuses anyone who cannot moderate the forum
     return stream_asset(a, user, "people", asset)
 
 # Proxy a comment author's person asset from the people service.
@@ -3278,6 +3288,7 @@ def action_share(a): # forums_share
 # through the peer of a share link, a named server, or the directory. Answers
 # (result, None) or (None, failure).
 def forum_subscribe(forum_id, user_id, user_name, server, peer):
+    started = mochi.time.now()
     if not mochi.text.valid(forum_id, "entity"):
         return None, (400, "errors.invalid_id")
 
@@ -3300,7 +3311,7 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         forum_name = response.get("name", "")
         address = response.get("address", "")
         sensitive = response.get("sensitive", 0)
-        schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+        schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
     else:
         # Use directory lookup when no server specified
         directory = mochi.directory.get(forum_id)
@@ -3311,7 +3322,7 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         if server:
             peer = mochi.remote.peer(server)
             if peer:
-                schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+                schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
                 # Where the forum is a community on the fediverse (phase 20).
                 information = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
                 if information and not information.get("error"):
@@ -3330,13 +3341,11 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
     # Add self as subscriber
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, user_id, user_name, now)
 
-    # Insert schema data so posts/comments are available immediately
-    if schema and not schema.get("error"):
-        insert_forum_schema(forum_id, schema)
-
     # Send subscribe message to forum owner. A private forum is not in the
     # directory, so when the subscription came via a share link (or the
-    # directory row carried a location we resolved), pin that peer.
+    # directory row carried a location we resolved), pin that peer. It goes
+    # before the schema is applied, so a pull that stops short still leaves a
+    # subscription the owner's catch-up fills.
     if peer:
         mochi.message.send.peer(peer,
             {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
@@ -3348,6 +3357,11 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
             []
         )
     mochi.broadcast.touch(forum_id)
+
+    # Insert schema data so posts/comments are available immediately, for as
+    # long as the pull's time allows; a continuation takes the rest.
+    if schema and not schema.get("error"):
+        insert_forum_schema(forum_id, schema, peer, started)
 
     return {"fingerprint": forum_fingerprint(forum_id)}, None
 
@@ -3571,6 +3585,42 @@ def action_banner_set(a):
     broadcast_event(forum["id"], "update", {"banner": banner})
     return {"data": {"success": True}}
 
+# thread_tree(comments, can_vote, can_comment) -> the comment tree of a thread
+# gathered flat from its owner: newest first among siblings, as the owner
+# orders a thread it answers whole. Each id is placed once and the walk has a
+# depth cap: the rows are the owner's word, and `parent` is not a foreign key,
+# so a hostile chain can point anywhere. Sorting and grouping read only values
+# of the type they compare, so a row of another shape cannot raise.
+def thread_tree(comments, can_vote, can_comment):
+    children = {}
+    seen = {}
+    for c in sorted([c for c in comments if type(c) == "dict"], key=lambda c: number(c.get("created")), reverse=True):
+        identifier = c.get("id")
+        parent = c.get("parent")
+        if type(parent) != "string":
+            parent = ""
+        if type(identifier) != "string" or not identifier or identifier in seen or parent == identifier:
+            continue
+        seen[identifier] = True
+        children.setdefault(parent, []).append(c)
+    placed = {}
+
+    def branch(parent_id, depth):
+        if depth > 100:
+            return []
+        out = []
+        for c in children.get(parent_id, []):
+            if c["id"] in placed:
+                continue
+            placed[c["id"]] = True
+            c["children"] = branch(c["id"], depth + 1)
+            c["can_vote"] = can_vote
+            c["can_comment"] = can_comment
+            out.append(c)
+        return out
+
+    return branch("", 0)
+
 # View a post with comments
 def action_post_view(a):
     post_id = a.input("post")
@@ -3600,11 +3650,19 @@ def action_post_view(a):
             a.error.label(502, "errors.unable_to_connect_to_server")
             return
 
-        # Request post data via P2P
-        response = mochi.remote.request(forum_id, "forums", "post/view", {"forum": forum_id, "post": post_id}, peer)
+        # Request post data via P2P, the thread part by part. A thread that
+        # stopped short is refused rather than shown short.
+        response, lists, complete = part_gather(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer, THREAD_SPECS, ["comments"])
         if response.get("error"):
             remote_error(a, response, 403)
             return
+        if lists != None:
+            if not complete:
+                a.error.label(502, "errors.remote")
+                return
+            response.pop("part", None)
+            response.pop("next", None)
+            response["comments"] = thread_tree(lists["comments"], response.get("can_vote", False), response.get("can_comment", False))
 
         # Return remote data
         return {"data": strip_remote_urls(response)}
@@ -5211,13 +5269,17 @@ def action_unrestrict(a):
 # HTTP owner path and the delegated-moderator P2P path.
 def moderation_restrictions_data(forum):
     restrictions = mochi.db.rows("select * from restrictions where forum=? order by created desc", forum["id"])
-    names = member_names(forum["id"], [r["user"] for r in restrictions] + [r["moderator"] for r in restrictions])
+    return {"restrictions": restrictions_named(forum["id"], restrictions)}
+
+# restrictions_named gives each restriction its user's and moderator's names.
+def restrictions_named(forum_id, restrictions):
+    names = member_names(forum_id, [r["user"] for r in restrictions] + [r["moderator"] for r in restrictions])
     for r in restrictions:
         if r["user"] in names:
             r["name"] = names[r["user"]]
         if r["moderator"] in names:
             r["moderator_name"] = names[r["moderator"]]
-    return {"restrictions": restrictions}
+    return restrictions
 
 
 # moderation_restrictions lists a forum's restrictions for a moderator, from
@@ -5230,12 +5292,18 @@ def moderation_restrictions(forum_input, user):
     if not check_access_remote_user(user, forum["id"], "moderate"):
         return None, (403, "errors.not_allowed_to_moderate")
 
-    # If we don't own the forum, proxy request to owner via P2P event
+    # If we don't own the forum, proxy request to owner via P2P event, part by
+    # part. A list that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response = mochi.remote.request(forum["id"], "forums", "restrictions", {})
-        if response and response.get("error"):
+        response, lists, complete = part_gather(forum["id"], "restrictions", {}, None, RESTRICTION_SPECS, ["restrictions"])
+        if response.get("error"):
             return None, remote_failure(response, 403)
-        return response, None
+        if lists == None:
+            return response, None
+        if not complete:
+            return None, (502, "errors.remote")
+        restrictions = [r for r in lists["restrictions"] if type(r) == "dict"]
+        return {"restrictions": sorted(restrictions, key=lambda r: number(r.get("created")), reverse=True)}, None
 
     return moderation_restrictions_data(forum), None
 
@@ -5567,7 +5635,11 @@ def moderation_queue_data(forum):
         group by type, target
         order by count desc, created asc
     """, forum["id"])
+    return moderation_queue_counted(forum, posts, comments, reports)
 
+# moderation_queue_counted(forum, posts, comments, reports) -> the queue
+# payload with its counts.
+def moderation_queue_counted(forum, posts, comments, reports):
     return {
         "forum": strip_forum_config(forum),
         "posts": posts,
@@ -5596,13 +5668,25 @@ def action_moderation_queue(a):
         a.error.label(403, "errors.not_allowed_to_moderate")
         return
 
-    # If we don't own the forum, proxy request to owner via P2P event
+    # If we don't own the forum, proxy request to owner via P2P event, part by
+    # part. A queue that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response = mochi.remote.request(forum["id"], "forums", "moderation/queue", {})
-        if response and response.get("error"):
+        response, lists, complete = part_gather(forum["id"], "moderation/queue", {}, None, QUEUE_SPECS, QUEUE_ORDER)
+        if response.get("error"):
             remote_error(a, response, 403)
             return
-        return {"data": response}
+        if lists == None:
+            return {"data": response}
+        if not complete:
+            a.error.label(502, "errors.remote")
+            return
+        # The rows are the owner's word: only dicts are kept, and they sort on
+        # numbers alone, so a row of another shape cannot raise.
+        posts = sorted([p for p in lists["posts"] if type(p) == "dict"], key=lambda p: number(p.get("created")))
+        comments = sorted([c for c in lists["comments"] if type(c) == "dict"], key=lambda c: number(c.get("created")))
+        reports = sorted(sorted([r for r in lists["reports"] if type(r) == "dict"], key=lambda r: number(r.get("created"))), key=lambda r: number(r.get("count")), reverse=True)
+        forum = response.get("forum")
+        return {"data": moderation_queue_counted(forum if type(forum) == "dict" else {}, posts, comments, reports)}
 
     return {"data": moderation_queue_data(forum)}
 
@@ -8343,6 +8427,231 @@ def event_information(e):
         "sensitive": (forum or {}).get("sensitive", 0),
     })
 
+# PARTS
+#
+# Core decodes at most 10,000 elements in one array and 100 MB on one stream,
+# each read within 30 seconds, so a reply holding every comment of a busy forum
+# cannot travel as one. A request carrying `part` (a cursor) is answered with
+# one bounded part: at most PART_ROWS rows and about PART_BYTES bytes, taken in
+# key order from the reply's lists, with `next` naming the cursor of the part
+# after it. The last part carries no `next`. A request without `part` gets the
+# whole reply, as owners before parts answered every one, and a requester takes
+# a reply without the `part` echo as whole.
+PART_ROWS = 1000
+PART_BYTES = 8388608
+# The most parts a requester follows, across a pull's continuations. Core
+# allows an app 600 remote calls a minute to one target.
+PART_PARTS = 500
+# The bytes one attachment row is counted as.
+PART_ATTACHMENT = 1024
+# The most bytes a cursor key holds. A row whose key is longer could not be
+# resumed after, so the owner never pages one.
+PART_KEY = 256
+# The seconds a pull or a gathering runs, well under the time limit of the
+# action or event it runs in: a schema pull leaves the rest to a continuation,
+# and a gathering refuses a reply it could not finish.
+PART_TIME = 60
+# The most bytes a gathering holds across its parts: what one whole reply could
+# carry before parts, so a reply in parts never costs the requester more.
+PART_GATHERED = 104857600
+# How many times in a row a continuation whose part went unanswered is tried
+# again before the pull waits for the next resync.
+PART_RETRIES = 3
+
+# The newest 100 approved posts, which the schema carries.
+SCHEMA_WINDOW = "select id from posts where forum=? and status='approved' order by created desc limit 100"
+
+# Each list a reply pages: the columns a part sends, the rows it reads (bound
+# by the caller's scope arguments), the key it is ordered and resumed by,
+# what a row costs in bytes beyond a fixed allowance, and an optional grouping.
+SCHEMA_SPECS = {
+    "posts": {"columns": "id, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language", "source": "posts where forum=? and status='approved' and id in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(title as blob)) + length(cast(body as blob)) + length(cast(url as blob)) + length(cast(embed as blob))"},
+    "comments": {"columns": "id, post, parent, member, name, body, up, down, created, edited, attachment, remote", "source": "comments where forum=? and status='approved' and post in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(body as blob))"},
+    "tags": {"columns": "id, object, label, qid, relevance, source", "source": "tags where object in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(label as blob))"},
+}
+SCHEMA_ORDER = ["posts", "comments", "tags"]
+
+# A post's thread for post/view: every comment, or for a requester who does
+# not moderate, the approved ones and their own pending.
+THREAD_SPECS = {"comments": {"columns": "*", "source": "comments where forum=? and post=?", "keys": ["id"], "size": "length(cast(body as blob))"}}
+THREAD_VISIBLE = {"comments": {"columns": "*", "source": "comments where forum=? and post=? and (status='approved' or (status='pending' and member=?))", "keys": ["id"], "size": "length(cast(body as blob))"}}
+
+# The moderation queue: pending posts and comments, and pending reports grouped
+# by what they report.
+QUEUE_SPECS = {
+    "posts": {"columns": "id, forum, title, body, member, name, created", "source": "posts where forum=? and status='pending'", "keys": ["id"], "size": "length(cast(title as blob)) + length(cast(body as blob))"},
+    "comments": {"columns": "id, body, post, member, name, created, attachment", "source": "comments where forum=? and status='pending'", "keys": ["id"], "size": "length(cast(body as blob))"},
+    "reports": {"columns": "type, target, author, reason, min(id) as id, min(details) as details, min(reporter) as reporter, min(created) as created, count(*) as count", "source": "reports where forum=? and status='pending'", "keys": ["type", "target"], "size": "0", "group": "type, target"},
+}
+QUEUE_ORDER = ["posts", "comments", "reports"]
+
+RESTRICTION_SPECS = {"restrictions": {"columns": "*", "source": "restrictions where forum=?", "keys": ["user"], "size": "length(cast(reason as blob))"}}
+
+# part_cursor(value, specs) -> bool: whether value is a part cursor: the list
+# the part starts in, and the key of the last row already sent from it (empty
+# at the start of the list).
+def part_cursor(value, specs):
+    if type(value) != "dict" or len(value) != 2:
+        return False
+    name = value.get("list")
+    if type(name) != "string" or name not in specs:
+        return False
+    after = value.get("after")
+    if type(after) not in ["list", "tuple"]:
+        return False
+    if after and len(after) != len(specs[name]["keys"]):
+        return False
+    for key in after:
+        if type(key) != "string" or len(key) > PART_KEY:
+            return False
+    return True
+
+# part_compare(keys, values, last) -> (condition, args): rows whose key sorts
+# after values, or, with last, at or before them.
+def part_compare(keys, values, last=False):
+    clauses = []
+    args = []
+    for index in range(len(keys)):
+        terms = []
+        for earlier in range(index):
+            terms.append(keys[earlier] + "=?")
+            args.append(values[earlier])
+        final = index == len(keys) - 1
+        terms.append(keys[index] + ("<=?" if last and final else ("<?" if last else ">?")))
+        args.append(values[index])
+        clauses.append("(" + " and ".join(terms) + ")")
+    return "(" + " or ".join(clauses) + ")", args
+
+# part_window(sizes, budget) -> how many of sizes (rows in key order, each with
+# its size in bytes) fit the part, charging them to the budget. The part's
+# first row always fits, so a row larger than the byte budget travels alone.
+def part_window(sizes, budget):
+    count = 0
+    for row in sizes:
+        if budget["rows"] <= 0:
+            break
+        if budget["taken"] > 0 and row["size"] > budget["bytes"]:
+            break
+        budget["rows"] -= 1
+        budget["bytes"] -= row["size"]
+        budget["taken"] += 1
+        count += 1
+    return count
+
+# part_list(spec, scope, after, budget) -> (rows, key): one list's share of a
+# part, and the key to resume it from, or None when the list is done. The
+# resume key is the last row sent, not the last row sized, so a row written
+# between the two queries is never stepped over, and the list is done only when
+# every row sized was sent. A row whose key a cursor cannot carry is never paged.
+def part_list(spec, scope, after, budget):
+    if budget["rows"] <= 0:
+        return [], list(after)
+    beyond, beyond_args = ("1=1", []) if not after else part_compare(spec["keys"], after)
+    fits = " and ".join(["length(cast(" + k + " as blob))<=?" for k in spec["keys"]])
+    fits_args = [PART_KEY] * len(spec["keys"])
+    order = ", ".join(spec["keys"])
+    group = (" group by " + spec["group"]) if spec.get("group") else ""
+    sizes = mochi.db.rows("select " + order + ", 64 + " + spec["size"] + " as size from " + spec["source"] + " and " + beyond + " and " + fits + group + " order by " + order + " limit ?", *(scope + beyond_args + fits_args + [budget["rows"] + 1])) or []
+    count = part_window(sizes, budget)
+    rows = []
+    if count:
+        upto, upto_args = part_compare(spec["keys"], [sizes[count - 1][k] for k in spec["keys"]], True)
+        rows = list(mochi.db.rows("select " + spec["columns"] + " from " + spec["source"] + " and " + beyond + " and " + upto + " and " + fits + group + " order by " + order + " limit ?", *(scope + beyond_args + upto_args + fits_args + [count])) or [])
+    if count >= len(sizes) and len(rows) >= count:
+        return rows, None
+    if rows:
+        return rows, [str(rows[-1][k]) for k in spec["keys"]]
+    if count:
+        return rows, [str(sizes[count - 1][k]) for k in spec["keys"]]
+    return rows, list(after)
+
+# part_budget() -> what one part may still hold.
+def part_budget():
+    return {"rows": PART_ROWS, "bytes": PART_BYTES, "taken": 0}
+
+# part_take(specs, order, scopes, cursor, budget) -> (lists, next): one bounded
+# part from cursor on, the lists taken in order, and the cursor of the part
+# after it, or None after the last. scopes holds each list's scope arguments.
+def part_take(specs, order, scopes, cursor, budget):
+    lists = {}
+    for name in order:
+        lists[name] = []
+    after = list(cursor["after"])
+    for name in order[order.index(cursor["list"]):]:
+        rows, last = part_list(specs[name], scopes[name], after, budget)
+        lists[name] = rows
+        if last != None:
+            return lists, {"list": name, "after": last}
+        after = []
+    return lists, None
+
+# part_attach(rows, forum_id, budget) gives each row its attachments, charged to
+# the bytes left, and answers the rows that fit: a row whose attachments
+# overrun them waits for the next part, and the cursor is then that row's.
+def part_attach(rows, forum_id, budget, anchored=False):
+    kept = []
+    for row in rows:
+        attachments = (attachment_list(row["id"], forum_id) or [])[:attachment_object_maximum]
+        cost = PART_ATTACHMENT * len(attachments)
+        if kept and cost > budget["bytes"]:
+            break
+        budget["bytes"] -= cost
+        row["attachments"] = attachments
+        if anchored:
+            row["attachment_name"] = comment_anchor_name(row)
+        kept.append(row)
+    return kept
+
+# part_bounded(reply, order) -> whether a part holds no more rows than a part
+# may, across all its lists.
+def part_bounded(reply, order):
+    rows = 0
+    for name in order:
+        value = reply.get(name)
+        if value != None and type(value) not in ["list", "tuple"]:
+            return False
+        rows += len(value or [])
+    return rows <= PART_ROWS
+
+# part_gather(forum_id, event, content, peer, specs, order) -> (reply, lists,
+# complete): asks the forum's owner for event part by part and gathers each
+# list across the parts. reply is the first answer: an error, or for an owner
+# that predates parts the whole reply, with lists None. A gathering that runs
+# past PART_TIME or holds more than PART_GATHERED bytes stops, incomplete.
+def part_gather(forum_id, event, content, peer, specs, order):
+    gathered = {}
+    for name in order:
+        gathered[name] = []
+    part = {"list": order[0], "after": []}
+    first = None
+    started = mochi.time.now()
+    held = 0
+    for _ in range(PART_PARTS):
+        if first != None and mochi.time.now() - started >= PART_TIME:
+            return first, gathered, False
+        reply = mochi.remote.request(forum_id, "forums", event, dict(content, part=part), peer)
+        if type(reply) != "dict" or reply.get("error"):
+            if first == None:
+                return reply if type(reply) == "dict" else {"error": "errors.remote", "code": 502}, None, False
+            return first, gathered, False
+        if first == None:
+            first = reply
+            if reply.get("part") == None:
+                return reply, None, True
+        if reply.get("part") == None or not part_bounded(reply, order):
+            return first, gathered, False
+        held += len(str(reply))
+        if held > PART_GATHERED:
+            return first, gathered, False
+        for name in order:
+            gathered[name].extend(reply.get(name) or [])
+        part = reply.get("next")
+        if part == None:
+            return first, gathered, True
+        if not part_cursor(part, specs):
+            return first, gathered, False
+    return first, gathered, False
+
 # Return full forum content for reliable subscription sync
 def event_schema(e):
     forum_id = e.header("to")
@@ -8357,6 +8666,34 @@ def event_schema(e):
     # not enough - the content dump itself must check the caller (#209).
     if not check_event_access(e.header("from"), forum_id, "view"):
         e.stream.write({"error": "errors.not_allowed"})
+        return
+
+    # One part of the schema. The gate above runs for every part, so a peer
+    # that loses view access stops at its next part; the part echoes its
+    # cursor, which tells the requester the reply is held to PART_ROWS. Tags
+    # are those of the posts carried, which are all a member can apply.
+    part = e.content("part")
+    if part != None:
+        if not part_cursor(part, SCHEMA_SPECS):
+            e.stream.write({"error": "errors.invalid_data"})
+            return
+        budget = part_budget()
+        lists, next = part_take(SCHEMA_SPECS, SCHEMA_ORDER, {"posts": [forum_id, forum_id], "comments": [forum_id, forum_id], "tags": [forum_id]}, part, budget)
+        for name in ["posts", "comments"]:
+            rows = lists[name]
+            lists[name] = part_attach(rows, forum_id, budget)
+            if len(lists[name]) < len(rows):
+                # Trimmed for their attachments: what follows waits too.
+                next = {"list": name, "after": [lists[name][-1]["id"]]}
+                if name == "posts":
+                    lists["comments"] = []
+                lists["tags"] = []
+                break
+        reply = {"part": part}
+        reply.update(lists)
+        if next:
+            reply["next"] = next
+        e.stream.write(reply)
         return
 
     # Approved content only: insert_forum_schema stores every dumped row as
@@ -8399,8 +8736,89 @@ def event_schema(e):
         "tags": tags,
     })
 
-# Insert forum schema data into local database
-def insert_forum_schema(forum_id, schema):
+# schema_fetch(forum_id, peer, part) -> one part of the owner's schema. An
+# owner that predates parts ignores `part` and answers the whole schema, which
+# carries no `next` and so is complete on its own.
+def schema_fetch(forum_id, peer, part):
+    return mochi.remote.request(forum_id, "forums", "schema", {"part": part}, peer)
+
+# insert_forum_schema(forum_id, schema, peer, started, parts) imports schema, a
+# part of the owner's schema already received, then pulls and imports the parts
+# after it until PART_TIME has passed since started; parts counts the parts the
+# pull took before this one. True when the last part arrived. A pull that runs
+# out of time is continued by schedule_schema, and one whose part goes
+# unanswered is tried again a few times; one that breaks a bound leaves the
+# parts before it in place for the next resync, which imports idempotently.
+def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
+    if started == None:
+        started = mochi.time.now()
+    for _ in range(PART_PARTS):
+        if parts >= PART_PARTS:
+            break
+        parts += 1
+        if type(schema) != "dict" or schema.get("error"):
+            return False
+        if schema.get("part") != None and not part_bounded(schema, SCHEMA_ORDER):
+            return False
+        schema_import(forum_id, schema)
+        next = schema.get("next")
+        if next == None:
+            return True
+        if not part_cursor(next, SCHEMA_SPECS):
+            return False
+        if mochi.time.now() - started >= PART_TIME:
+            schema_resume(forum_id, "stopped", next, parts)
+            return False
+        schema = schema_fetch(forum_id, peer, next)
+        if type(schema) != "dict" or schema.get("error"):
+            schema_resume(forum_id, schema_outcome(schema), next, parts)
+            return False
+    return False
+
+# schema_outcome(reply) -> "unanswered" when a part could not be fetched at all,
+# "failed" when the owner answered with a refusal.
+def schema_outcome(reply):
+    return "unanswered" if type(reply) != "dict" or reply.get("transport") else "failed"
+
+# schema_resume(forum_id, outcome, cursor, parts, attempt) leaves the rest of a
+# pull that stopped short to a continuation: at once when its time ran out, and
+# after a pause when a part went unanswered, PART_RETRIES times in a row at
+# most. A pull the owner refused waits for the next resync.
+def schema_resume(forum_id, outcome, cursor, parts, attempt=0):
+    data = {"forum": forum_id, "cursor": cursor, "parts": parts}
+    if outcome == "stopped":
+        data["attempt"] = 0
+        mochi.schedule.after("schedule_schema", data, 0)
+    elif outcome == "unanswered" and attempt < PART_RETRIES:
+        data["attempt"] = attempt + 1
+        mochi.schedule.after("schedule_schema", data, 60 * (attempt + 1) * (attempt + 1))
+
+# schedule_schema(e): a continuation of a pull schema_resume left, taking the
+# parts from its cursor on, within its own time.
+def schedule_schema(e):
+    if e.source != "schedule":
+        return
+    forum_id = e.data.get("forum", "")
+    cursor = e.data.get("cursor")
+    if not mochi.text.valid(forum_id, "entity") or not part_cursor(cursor, SCHEMA_SPECS):
+        return
+    row = mochi.db.row("select server from forums where id=?", forum_id)
+    if not row or not row["server"]:
+        return
+    parts = number(e.data.get("parts", 0))
+    attempt = number(e.data.get("attempt", 0))
+    started = mochi.time.now()
+    mochi.db.execute("update forums set synced=? where id=?", started, forum_id)
+    peer = mochi.remote.peer(row["server"])
+    schema = schema_fetch(forum_id, peer, cursor)
+    if type(schema) != "dict" or schema.get("error"):
+        schema_resume(forum_id, schema_outcome(schema), cursor, parts, attempt)
+        return
+    if insert_forum_schema(forum_id, schema, peer, started, parts):
+        schema_completed(forum_id)
+
+# Insert one part of the forum schema, or a whole schema, into local database
+def schema_import(forum_id, schema):
     for p in (schema.get("posts") or []):
         # The owner's copy is the post: one held here that missed an edit takes
         # its words, link, marks and counts. Only a row of this forum is
@@ -8500,20 +8918,26 @@ def event_view(e):
     else:
         posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, updated desc limit 100", forum_id, requester)
 
-    # Format posts with comments
+    # Each post carries the number of comments the requester may see, as the
+    # local view does: a list of them was unbounded, and a busy post's would
+    # not decode. The thread itself is post/view's. Same visibility rule for
+    # comments: moderators all, others approved plus their own pending.
+    counts = {}
+    ids = [post["id"] for post in posts]
+    if ids:
+        marks = ",".join(["?" for _ in ids])
+        if can_moderate:
+            rows = mochi.db.rows("select post, count(*) as count from comments where forum=? and post in (" + marks + ") group by post", forum_id, *ids)
+        else:
+            rows = mochi.db.rows("select post, count(*) as count from comments where forum=? and post in (" + marks + ") and (status='approved' or (status='pending' and member=?)) group by post", *([forum_id] + ids + [requester]))
+        for row in rows or []:
+            counts[row["post"]] = row["count"]
     formatted_posts = []
     for post in posts:
         post_data = dict(post)
         post_data["body_markdown"] = mochi.text.markdown(post["body"])
         post_data["attachments"] = attachment_list(post["id"], forum_id)
-        # Same visibility rule for comments: moderators all, others approved
-        # plus their own pending.
-        if can_moderate:
-            post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? order by created desc",
-                forum_id, post["id"])
-        else:
-            post_data["comments"] = mochi.db.rows("select * from comments where forum=? and post=? and (status='approved' or (status='pending' and member=?)) order by created desc",
-                forum_id, post["id"], requester)
+        post_data["comments"] = counts.get(post["id"], 0)
         post_data["tags"] = mochi.db.rows("select id, label, qid, source, relevance from tags where object=?", post["id"]) or []
         formatted_posts.append(post_data)
 
@@ -8644,6 +9068,40 @@ def event_post_view(e):
     post_vote = mochi.db.row("select vote from votes where post=? and comment='' and voter=?", post_id, requester)
     post_data["user_vote"] = post_vote["vote"] if post_vote else ""
 
+    # One part of the thread: its comments flat, each with the requester's
+    # vote, for the requester to gather and assemble into the tree.
+    part = e.content("part")
+    if part != None:
+        if not part_cursor(part, THREAD_SPECS):
+            e.stream.write({"error": "errors.invalid_data"})
+            return
+        if can_moderate:
+            lists, next = part_take(THREAD_SPECS, ["comments"], {"comments": [forum_id, post_id]}, part, part_budget())
+        else:
+            lists, next = part_take(THREAD_VISIBLE, ["comments"], {"comments": [forum_id, post_id, requester]}, part, part_budget())
+        comments = lists["comments"]
+        ids = [c["id"] for c in comments]
+        votes = {}
+        if ids:
+            for v in mochi.db.rows("select comment, vote from votes where post=? and voter=? and comment in (" + ",".join(["?" for _ in ids]) + ")", *([post_id, requester] + ids)) or []:
+                votes[v["comment"]] = v["vote"]
+        for c in comments:
+            c["user_vote"] = votes.get(c["id"], "")
+        reply = {
+            "forum": strip_forum_config(forum),
+            "post": post_data,
+            "comments": comments,
+            "member": None,
+            "can_vote": can_vote,
+            "can_comment": can_comment,
+            "can_moderate": can_moderate,
+            "part": part,
+        }
+        if next:
+            reply["next"] = next
+        e.stream.write(reply)
+        return
+
     # Fetch every visible comment for the post in one query, then assemble the
     # tree in memory, batching the requester's votes, so the thread costs a
     # fixed handful of queries instead of one per comment.
@@ -8702,6 +9160,30 @@ def event_moderation_queue(e):
         e.stream.write({"error": "errors.not_allowed_to_moderate"})
         return
 
+    # One part of the queue, its lists gathered and counted by the requester.
+    part = e.content("part")
+    if part != None:
+        if not part_cursor(part, QUEUE_SPECS):
+            e.stream.write({"error": "errors.invalid_data"})
+            return
+        budget = part_budget()
+        lists, next = part_take(QUEUE_SPECS, QUEUE_ORDER, {"posts": [forum_id], "comments": [forum_id], "reports": [forum_id]}, part, budget)
+        for name in ["posts", "comments"]:
+            rows = lists[name]
+            lists[name] = part_attach(rows, forum_id, budget, name == "comments")
+            if len(lists[name]) < len(rows):
+                next = {"list": name, "after": [lists[name][-1]["id"]]}
+                if name == "posts":
+                    lists["comments"] = []
+                lists["reports"] = []
+                break
+        reply = {"forum": strip_forum_config(forum), "part": part}
+        reply.update(lists)
+        if next:
+            reply["next"] = next
+        e.stream.write(reply)
+        return
+
     e.stream.write(moderation_queue_data(forum))
 
 # Handle moderation reports request from delegated moderators
@@ -8758,6 +9240,19 @@ def event_restrictions(e):
 
     if not check_event_access(requester, forum_id, "moderate"):
         e.stream.write({"error": "errors.not_allowed_to_moderate"})
+        return
+
+    # One part of the restrictions, gathered and ordered by the requester.
+    part = e.content("part")
+    if part != None:
+        if not part_cursor(part, RESTRICTION_SPECS):
+            e.stream.write({"error": "errors.invalid_data"})
+            return
+        lists, next = part_take(RESTRICTION_SPECS, ["restrictions"], {"restrictions": [forum_id]}, part, part_budget())
+        reply = {"restrictions": restrictions_named(forum_id, lists["restrictions"]), "part": part}
+        if next:
+            reply["next"] = next
+        e.stream.write(reply)
         return
 
     e.stream.write(moderation_restrictions_data(forum))
@@ -9359,6 +9854,7 @@ def ai_rerank(forum_data, posts, interests):
 # Returns {"fingerprint": fp, "subscribed": bool} or {"error": key, "code": N}.
 def _subscribe_to_forum(user, forum_id, server):
     user_id = user.identity.id
+    started = mochi.time.now()
 
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
@@ -9383,7 +9879,7 @@ def _subscribe_to_forum(user, forum_id, server):
                 return {"error": "errors.remote", "code": response.get("code", 502)}
             return {"error": response["error"], "code": response.get("code", 404)}
         forum_name = response.get("name", "")
-        schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+        schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
     else:
         directory = mochi.directory.get(forum_id)
         if not directory:
@@ -9393,7 +9889,7 @@ def _subscribe_to_forum(user, forum_id, server):
         if server:
             peer = mochi.remote.peer(server)
             if peer:
-                schema = mochi.remote.request(forum_id, "forums", "schema", {}, peer)
+                schema = schema_fetch(forum_id, peer, {"list": "posts", "after": []})
 
     now = mochi.time.now()
     fp = forum_fingerprint(forum_id) or ""
@@ -9405,15 +9901,17 @@ def _subscribe_to_forum(user, forum_id, server):
 
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed", forum_id, user_id, user.identity.name, now)
 
-    if schema and not schema.get("error"):
-        insert_forum_schema(forum_id, schema)
-
+    # Subscribe before the schema is applied, so a pull that stops short still
+    # leaves a subscription the owner's catch-up fills.
     mochi.message.send(
         {"from": user_id, "to": forum_id, "service": "forums", "event": "subscribe"},
         {"name": user.identity.name},
         []
     )
     mochi.broadcast.touch(forum_id)
+
+    if schema and not schema.get("error"):
+        insert_forum_schema(forum_id, schema, peer, started)
 
     return {"fingerprint": fp, "subscribed": False}
 
