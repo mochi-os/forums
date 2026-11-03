@@ -2,7 +2,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  type QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
 import {
   handleServerError,
@@ -654,33 +659,64 @@ export function useRestorePost(forumId: string, postId: string) {
   })
 }
 
+// Lock and pin show on the post at once and go back if the server refuses.
+// Only the post is patched: where a pinned post sits in the list is the
+// server's to say, so the list waits for the refetch on success.
+function postFlag(
+  queryClient: QueryClient,
+  forumId: string,
+  postId: string,
+  flag: 'locked' | 'pinned',
+  value: boolean
+) {
+  return optimistic<void>(queryClient, () => [
+    {
+      filters: { queryKey: forumsKeys.post(forumId, postId) },
+      update: (old: ViewPostResponse) => ({
+        ...old,
+        data: { ...old.data, post: { ...old.data.post, [flag]: value } },
+      }),
+    },
+  ])
+}
+
 export function useLockPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
+  const patch = postFlag(queryClient, forumId, postId, 'locked', true)
   return useMutation({
     mutationFn: () => forumsApi.lockPost({ forum: forumId, post: postId }),
+    onMutate: patch.onMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
       toast.success(t`Post locked`)
     },
-    onError: handleServerError,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
 export function useUnlockPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
+  const patch = postFlag(queryClient, forumId, postId, 'locked', false)
   return useMutation({
     mutationFn: () => forumsApi.unlockPost({ forum: forumId, post: postId }),
+    onMutate: patch.onMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
       toast.success(t`Post unlocked`)
     },
-    onError: handleServerError,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
@@ -716,8 +752,10 @@ export function useFollowPost(forumId: string, postId: string) {
 export function usePinPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
+  const patch = postFlag(queryClient, forumId, postId, 'pinned', true)
   return useMutation({
     mutationFn: () => forumsApi.pinPost({ forum: forumId, post: postId }),
+    onMutate: patch.onMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
@@ -726,15 +764,20 @@ export function usePinPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post pinned`)
     },
-    onError: handleServerError,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
 export function useUnpinPost(forumId: string, postId: string) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
+  const patch = postFlag(queryClient, forumId, postId, 'pinned', false)
   return useMutation({
     mutationFn: () => forumsApi.unpinPost({ forum: forumId, post: postId }),
+    onMutate: patch.onMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
@@ -743,7 +786,10 @@ export function useUnpinPost(forumId: string, postId: string) {
       queryClient.invalidateQueries({ queryKey: ['forum-posts', forumId] })
       toast.success(t`Post unpinned`)
     },
-    onError: handleServerError,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 

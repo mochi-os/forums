@@ -4,13 +4,29 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import forumsApi from '@/api/forums'
-import { useFollowPost, useSetForumNotification } from './use-forums-queries'
+import {
+  useFollowPost,
+  useLockPost,
+  usePinPost,
+  useSetForumNotification,
+  useUnlockPost,
+  useUnpinPost,
+} from './use-forums-queries'
 
 vi.mock('@/api/forums', () => ({
-  default: { setNotification: vi.fn(), followPost: vi.fn() },
+  default: {
+    setNotification: vi.fn(),
+    followPost: vi.fn(),
+    lockPost: vi.fn(),
+    unlockPost: vi.fn(),
+    pinPost: vi.fn(),
+    unpinPost: vi.fn(),
+  },
 }))
 vi.mock('@mochi/web', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@mochi/web')>()),
@@ -27,6 +43,10 @@ beforeEach(() => {
     })
   vi.mocked(forumsApi.setNotification).mockImplementation(waiting)
   vi.mocked(forumsApi.followPost).mockImplementation(waiting)
+  vi.mocked(forumsApi.lockPost).mockImplementation(waiting)
+  vi.mocked(forumsApi.unlockPost).mockImplementation(waiting)
+  vi.mocked(forumsApi.pinPost).mockImplementation(waiting)
+  vi.mocked(forumsApi.unpinPost).mockImplementation(waiting)
 })
 
 function mount<T>(hook: () => T, seed: (client: QueryClient) => void) {
@@ -34,7 +54,9 @@ function mount<T>(hook: () => T, seed: (client: QueryClient) => void) {
   seed(client)
   const view = renderHook(hook, {
     wrapper: ({ children }: { children: ReactNode }) => (
-      <QueryClientProvider client={client}>{children}</QueryClientProvider>
+      <I18nProvider i18n={i18n}>
+        <QueryClientProvider client={client}>{children}</QueryClientProvider>
+      </I18nProvider>
     ),
   })
   return { client, view }
@@ -82,4 +104,36 @@ describe('useFollowPost', () => {
     await waitFor(() => expect(view.result.current.isError).toBe(true))
     expect(following()).toBe(false)
   })
+})
+
+describe('lock and pin', () => {
+  const key = ['forums', 'post', 'f1', 'p1', undefined]
+  type Flags = { locked?: boolean; pinned?: boolean }
+
+  it.each([
+    ['lock', useLockPost, 'locked', false],
+    ['unlock', useUnlockPost, 'locked', true],
+    ['pin', usePinPost, 'pinned', false],
+    ['unpin', useUnpinPost, 'pinned', true],
+  ] as const)(
+    '%s shows on the post at once and goes back when refused',
+    async (_name, hook, flag, before) => {
+      const { client, view } = mount(
+        () => hook('f1', 'p1'),
+        (c) =>
+          c.setQueryData(key, {
+            data: { post: { id: 'p1', [flag]: before } },
+          })
+      )
+      const value = () =>
+        client.getQueryData<{ data: { post: Flags } }>(key)?.data.post[flag]
+
+      act(() => view.result.current.mutate())
+      await waitFor(() => expect(value()).toBe(!before))
+
+      act(() => refuse(new Error('refused')))
+      await waitFor(() => expect(view.result.current.isError).toBe(true))
+      expect(value()).toBe(before)
+    }
+  )
 })
