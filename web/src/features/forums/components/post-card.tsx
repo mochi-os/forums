@@ -36,6 +36,8 @@ import { PostAttachments } from './thread/post-attachments'
 interface PostCardProps {
   post: Post
   forumName: string
+  /** The server of a community on another network, beside its name. */
+  forumServer?: string
   showForumBadge: boolean
   server?: string
   onSelect: (forumId: string, postId: string) => void
@@ -55,6 +57,7 @@ interface PostCardProps {
 export function PostCard({
   post,
   forumName,
+  forumServer,
   showForumBadge,
   server,
   onSelect,
@@ -131,7 +134,13 @@ export function PostCard({
           // matching note in ThreadContent).
           <span className='inline-flex flex-wrap items-center gap-x-1.5 gap-y-1'>
             {showForumBadge ? (
-              <span className='whitespace-nowrap'>{forumName} · </span>
+              <span className='whitespace-nowrap'>
+                {forumName}
+                {forumServer && (
+                  <span className='opacity-70'> {forumServer}</span>
+                )}{' '}
+                ·{' '}
+              </span>
             ) : null}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar

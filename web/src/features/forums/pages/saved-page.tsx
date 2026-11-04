@@ -15,6 +15,7 @@ import {
 } from '@mochi/web'
 import { Bookmark, Trash2 } from 'lucide-react'
 import type { Post, SavedItem, SavedPostSnapshot } from '@/api/types/posts'
+import { communityServer } from '@/lib/community'
 import { forumPath } from '@/lib/forum-path'
 import { clearSaved, getSaved, loadSaved, onSavedChange } from '@/lib/saved'
 import { PostCard } from '../components/post-card'
@@ -91,6 +92,7 @@ export function SavedPage() {
                   key={post.id}
                   post={post}
                   forumName={post.forumName ?? ''}
+                  forumServer={communityServer(undefined, post.forum)}
                   showForumBadge={!!post.forumName}
                   isLoggedIn
                   onSelect={(forumId, postId) =>

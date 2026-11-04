@@ -28,6 +28,7 @@ import {
 import { Rss, SquarePen, UserMinus, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
+import { communityHandle } from '@/lib/community'
 import { forumPath } from '@/lib/forum-path'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -294,6 +295,7 @@ export function EntityForumPage({
     <>
       <PageHeader
         title={forum.name || t`Forum`}
+        description={communityHandle(forum.handle)}
         icon={<Rss className='size-4 md:size-5' />}
         actions={
           <>

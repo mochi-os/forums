@@ -156,6 +156,36 @@ describe('ThreadContent marks and cross-posts', () => {
     )
   })
 
+  // Two communities can share a title, so a cross-post names its server.
+  it("names a community cross-post's server beside its title", () => {
+    renderContent({
+      post: {
+        ...makePost(),
+        url: 'https://example.org/shared',
+        crossposts: [
+          {
+            post: 'p2',
+            title: 'The same link',
+            forum: 'https://lemmy.ml/c/test',
+            forum_name: 'test',
+            handle: 'test@lemmy.ml',
+            fingerprint: 'mZxJ7b43h',
+          },
+          {
+            post: 'p3',
+            title: 'The same link',
+            forum: 'f3',
+            forum_name: 'Ours',
+            fingerprint: 'abcdefghj',
+          },
+        ],
+      },
+      canModerate: false,
+    })
+    expect(screen.getByText('lemmy.ml')).toBeInTheDocument()
+    expect(screen.getAllByText(/lemmy|itjust/)).toHaveLength(1)
+  })
+
   it('offers blocking the author and their server when given', async () => {
     const user = userEvent.setup()
     const onBlockAuthor = vi.fn()

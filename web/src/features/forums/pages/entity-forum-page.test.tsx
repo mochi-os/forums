@@ -67,7 +67,18 @@ vi.mock('../components/forum-overview', () => ({
 
 vi.mock('@mochi/web', async (original) => ({
   ...(await original<typeof import('@mochi/web')>()),
-  PageHeader: () => null,
+  PageHeader: ({
+    title,
+    description,
+  }: {
+    title: ReactNode
+    description?: string
+  }) => (
+    <header>
+      <h1>{title}</h1>
+      {description && <p data-testid='header-description'>{description}</p>}
+    </header>
+  ),
   SortSelector: () => null,
   Main: ({ children }: { children: ReactNode }) => <main>{children}</main>,
 }))
@@ -113,5 +124,42 @@ describe('forum page', () => {
     expect(await screen.findByText('seeded')).toBeTruthy()
     await new Promise((resolve) => setTimeout(resolve, 20))
     expect(state.viewForum).not.toHaveBeenCalled()
+  })
+
+  // Two communities can share a title, so a community's page header gives its
+  // handle in full; a forum of ours has none.
+  it('names a community by its handle under its title, and a forum of ours by its title alone', async () => {
+    const queries = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    const community = {
+      ...forum,
+      id: 'https://lemmy.ml/c/test',
+      fingerprint: 'mZxJ7b43h',
+      name: 'test',
+      account: 'l1',
+      handle: 'test@lemmy.ml',
+    } as Forum
+    const { unmount } = render(
+      <QueryClientProvider client={queries}>
+        <I18nProvider i18n={i18n}>
+          <EntityForumPage forum={community} />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    expect((await screen.findByTestId('header-description')).textContent).toBe(
+      '!test@lemmy.ml'
+    )
+    unmount()
+
+    render(
+      <QueryClientProvider client={queries}>
+        <I18nProvider i18n={i18n}>
+          <EntityForumPage forum={forum} />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    expect(await screen.findByText('Forum')).toBeTruthy()
+    expect(screen.queryByTestId('header-description')).toBeNull()
   })
 })

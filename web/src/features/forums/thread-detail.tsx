@@ -27,6 +27,7 @@ import {
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'
+import { communityHandle } from '@/lib/community'
 import {
   useForumWebsocket,
   type ForumGoneReason,
@@ -570,6 +571,7 @@ export function ThreadDetail({
     <>
       <PageHeader
         title={forumTitle}
+        description={communityHandle(forumData?.handle)}
         back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
       />
       <Main className='space-y-4'>

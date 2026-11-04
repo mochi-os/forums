@@ -24,7 +24,12 @@ import { forumsKeys } from '@/hooks/use-forums-queries'
 export function LemmyAccounts() {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  const [busy, setBusy] = useState<string | null>(null)
+  // Which account's action is running: that button spins, and the account's
+  // other one waits, as both write its communities.
+  const [busy, setBusy] = useState<{
+    account: string
+    action: 'add' | 'import'
+  } | null>(null)
   const { data } = useQuery({
     queryKey: ['forums', 'accounts', 'lemmy'],
     queryFn: () => forumsApi.listAccounts('social'),
@@ -37,7 +42,7 @@ export function LemmyAccounts() {
   if (accounts.length === 0) return null
 
   const add = async (account: string) => {
-    setBusy(account)
+    setBusy({ account, action: 'add' })
     try {
       const answer = await forumsApi.addCommunities(account)
       toast.success(
@@ -55,7 +60,7 @@ export function LemmyAccounts() {
   }
 
   const importSettings = async (account: string) => {
-    setBusy(account)
+    setBusy({ account, action: 'import' })
     try {
       const answer = await forumsApi.importCommunities(account)
       toast.success(
@@ -94,15 +99,19 @@ export function LemmyAccounts() {
               <Button
                 size='sm'
                 variant='outline'
-                loading={busy === account.id}
+                loading={
+                  busy?.account === account.id && busy.action === 'import'
+                }
+                disabled={busy?.account === account.id}
+                icon={<Download className='size-4' />}
                 onClick={() => void importSettings(account.id)}
               >
-                <Download className='size-4' />
                 <Trans>Import settings</Trans>
               </Button>
               <Button
                 size='sm'
-                loading={busy === account.id}
+                loading={busy?.account === account.id && busy.action === 'add'}
+                disabled={busy?.account === account.id}
                 icon={<Plus className='size-4' />}
                 onClick={() => void add(account.id)}
               >

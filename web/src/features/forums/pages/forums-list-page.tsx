@@ -16,6 +16,7 @@ import {
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
+import { forumServer } from '@/lib/community'
 import { forumPath } from '@/lib/forum-path'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -111,6 +112,7 @@ export function ForumsListPage({
       return {
         ...post,
         forumName: forum?.name ?? t`Unknown`,
+        forumServer: forum ? forumServer(forum) : undefined,
       }
     })
   }, [allPosts, forums, t])

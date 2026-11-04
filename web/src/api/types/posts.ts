@@ -61,6 +61,8 @@ export interface Post {
   user_vote?: 'up' | 'down' | ''
   attachments?: Attachment[]
   forumName?: string
+  // The server of the post's forum where it is a community on another network.
+  forumServer?: string
   tags?: Tag[]
   matches?: RelevanceMatch[]
   // Moderation fields
@@ -88,6 +90,8 @@ export interface Crosspost {
   title: string
   forum: string
   forum_name: string
+  // The forum's handle where it is a community on another network.
+  handle?: string
   fingerprint: string
 }
 

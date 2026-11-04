@@ -12183,8 +12183,8 @@ def crossposts(post):
     if not url:
         return []
     out = []
-    for row in mochi.db.rows("select p.id, p.title, p.forum, f.name from posts p join forums f on f.id=p.forum where p.url=? and p.id!=? and p.status='approved' order by p.created desc limit 20", url, post["id"]) or []:
-        out.append({"post": row["id"], "title": row["title"], "forum": row["forum"], "forum_name": row["name"], "fingerprint": forum_fingerprint(row["forum"])})
+    for row in mochi.db.rows("select p.id, p.title, p.forum, f.name, f.handle from posts p join forums f on f.id=p.forum where p.url=? and p.id!=? and p.status='approved' order by p.created desc limit 20", url, post["id"]) or []:
+        out.append({"post": row["id"], "title": row["title"], "forum": row["forum"], "forum_name": row["name"], "handle": row["handle"], "fingerprint": forum_fingerprint(row["forum"])})
     return out
 
 # === A forum's sensitive mark ===

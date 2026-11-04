@@ -99,6 +99,7 @@ export function ForumOverview({
                 key={post.id}
                 post={post}
                 forumName={post.forumName || t`Unknown`}
+                forumServer={post.forumServer}
                 showForumBadge={true}
                 server={server}
                 onSelect={onSelectPost}
