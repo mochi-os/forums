@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
+import { handleServerError } from '@mochi/web'
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import forumsApi from '@/api/forums'
@@ -16,6 +17,8 @@ import {
   useSetForumNotification,
   useUnlockPost,
   useUnpinPost,
+  useVoteComment,
+  useVotePost,
 } from './use-forums-queries'
 
 vi.mock('@/api/forums', () => ({
@@ -26,6 +29,8 @@ vi.mock('@/api/forums', () => ({
     unlockPost: vi.fn(),
     pinPost: vi.fn(),
     unpinPost: vi.fn(),
+    votePost: vi.fn(),
+    voteComment: vi.fn(),
   },
 }))
 vi.mock('@mochi/web', async (importOriginal) => ({
@@ -36,10 +41,18 @@ vi.mock('@mochi/web', async (importOriginal) => ({
 // A notification tick and Follow change on the click, and go back if the
 // server refuses. Each request here waits until the test answers it.
 let refuse: (error: unknown) => void
+// Every request still waiting, oldest first, for tests that click twice.
+let pending: Array<{ accept: () => void; refuse: (error: unknown) => void }>
 beforeEach(() => {
+  pending = []
+  vi.mocked(handleServerError).mockClear()
   const waiting = () =>
-    new Promise<never>((_resolve, reject) => {
+    new Promise<never>((resolve, reject) => {
       refuse = reject
+      pending.push({
+        accept: () => resolve(undefined as never),
+        refuse: reject,
+      })
     })
   vi.mocked(forumsApi.setNotification).mockImplementation(waiting)
   vi.mocked(forumsApi.followPost).mockImplementation(waiting)
@@ -47,6 +60,8 @@ beforeEach(() => {
   vi.mocked(forumsApi.unlockPost).mockImplementation(waiting)
   vi.mocked(forumsApi.pinPost).mockImplementation(waiting)
   vi.mocked(forumsApi.unpinPost).mockImplementation(waiting)
+  vi.mocked(forumsApi.votePost).mockImplementation(waiting)
+  vi.mocked(forumsApi.voteComment).mockImplementation(waiting)
 })
 
 function mount<T>(hook: () => T, seed: (client: QueryClient) => void) {
@@ -136,4 +151,80 @@ describe('lock and pin', () => {
       expect(value()).toBe(before)
     }
   )
+})
+
+describe('votes', () => {
+  const key = ['forums', 'post', 'f1', 'p1', undefined]
+  type Counts = { up: number; down: number; user_vote?: string }
+  type Data = {
+    data: {
+      post: Counts
+      comments: Array<Counts & { id: string; children: unknown[] }>
+    }
+  }
+  const seed = (c: QueryClient) =>
+    c.setQueryData<Data>(key, {
+      data: {
+        post: { up: 2, down: 1, user_vote: '' },
+        comments: [
+          {
+            id: 'c1',
+            up: 0,
+            down: 0,
+            user_vote: '',
+            children: [
+              { id: 'c2', up: 3, down: 0, user_vote: 'up', children: [] },
+            ],
+          },
+        ],
+      },
+    })
+
+  it('a post vote counts at once and goes back when refused', async () => {
+    const { client, view } = mount(() => useVotePost('f1', 'p1'), seed)
+    const post = () => client.getQueryData<Data>(key)?.data.post
+
+    act(() => view.result.current.mutate('up'))
+    await waitFor(() =>
+      expect(post()).toEqual({ up: 3, down: 1, user_vote: 'up' })
+    )
+
+    act(() => refuse(new Error('refused')))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(post()).toEqual({ up: 2, down: 1, user_vote: '' })
+  })
+
+  it('a reply vote counts at once and goes back when refused', async () => {
+    const { client, view } = mount(() => useVoteComment('f1', 'p1'), seed)
+    const reply = () =>
+      client.getQueryData<Data>(key)?.data.comments[0].children[0]
+
+    act(() => view.result.current.mutate({ commentId: 'c2', vote: 'down' }))
+    await waitFor(() =>
+      expect(reply()).toMatchObject({ up: 2, down: 1, user_vote: 'down' })
+    )
+
+    act(() => refuse(new Error('refused')))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(reply()).toMatchObject({ up: 3, down: 0, user_vote: 'up' })
+  })
+
+  it('a refused first vote keeps the second one still waiting', async () => {
+    const { client, view } = mount(() => useVotePost('f1', 'p1'), seed)
+    const post = () => client.getQueryData<Data>(key)?.data.post
+
+    act(() => view.result.current.mutate('up'))
+    await waitFor(() => expect(pending).toHaveLength(1))
+    act(() => view.result.current.mutate('down'))
+    await waitFor(() => expect(pending).toHaveLength(2))
+    expect(post()).toEqual({ up: 2, down: 2, user_vote: 'down' })
+
+    act(() => pending[0].refuse(new Error('refused')))
+    await waitFor(() => expect(handleServerError).toHaveBeenCalled())
+    expect(post()).toEqual({ up: 2, down: 2, user_vote: 'down' })
+
+    act(() => pending[1].refuse(new Error('refused')))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(post()).toEqual({ up: 2, down: 1, user_vote: '' })
+  })
 })

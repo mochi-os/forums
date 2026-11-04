@@ -29,7 +29,11 @@ import type {
   NotificationSettingsResponse,
   Post,
 } from '@/api/types/forums'
-import type { EditPostResponse, ViewPostResponse } from '@/api/types/posts'
+import type {
+  EditPostResponse,
+  ViewPostComment,
+  ViewPostResponse,
+} from '@/api/types/posts'
 import {
   isForumPostEditUnchanged,
   type ForumPostEditOriginal,
@@ -368,30 +372,95 @@ export function usePostDetail(
   })
 }
 
+type Vote = 'up' | 'down' | ''
+
+// The counts after changing the reader's vote, the same sums the vote buttons
+// make on the click. The server answers a vote with no counts, so this guess
+// stays in the cache until the post is next fetched, as it stays in the
+// buttons' own state on main.
+function applyVote<T extends { up: number; down: number; user_vote?: Vote }>(
+  item: T,
+  vote: Vote
+): T {
+  const previous = item.user_vote || ''
+  let { up, down } = item
+  if (previous === 'up') up -= 1
+  if (previous === 'down') down -= 1
+  if (vote === 'up') up += 1
+  if (vote === 'down') down += 1
+  return { ...item, up, down, user_vote: vote }
+}
+
+function voteInComments(
+  comments: ViewPostComment[],
+  commentId: string,
+  vote: Vote
+): ViewPostComment[] {
+  return comments.map((comment) =>
+    comment.id === commentId
+      ? applyVote(comment, vote)
+      : {
+          ...comment,
+          children: voteInComments(comment.children ?? [], commentId, vote),
+        }
+  )
+}
+
+// Votes show at once in the buttons' own state, which follows the post query.
+// Patching the query as well means a refused vote puts the buttons back too:
+// the snapshot goes back, and their sync effect copies it in.
 export function useVotePost(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  const patch = optimistic(queryClient, (vote: Vote) => [
+    {
+      filters: { queryKey: forumsKeys.post(forumId, postId) },
+      update: (old: ViewPostResponse) => ({
+        ...old,
+        data: { ...old.data, post: applyVote(old.data.post, vote) },
+      }),
+    },
+  ])
   return useMutation({
-    mutationFn: (vote: 'up' | 'down' | '') =>
+    mutationFn: (vote: Vote) =>
       forumsApi.votePost({ forum: forumId, post: postId, vote }),
-    onError: handleServerError,
+    onMutate: patch.onMutate,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
 export function useVoteComment(forumId: string, postId: string) {
+  const queryClient = useQueryClient()
+  const patch = optimistic(
+    queryClient,
+    ({ commentId, vote }: { commentId: string; vote: Vote }) => [
+      {
+        filters: { queryKey: forumsKeys.post(forumId, postId) },
+        update: (old: ViewPostResponse) => ({
+          ...old,
+          data: {
+            ...old.data,
+            comments: voteInComments(old.data.comments ?? [], commentId, vote),
+          },
+        }),
+      },
+    ]
+  )
   return useMutation({
-    mutationFn: ({
-      commentId,
-      vote,
-    }: {
-      commentId: string
-      vote: 'up' | 'down' | ''
-    }) =>
+    mutationFn: ({ commentId, vote }: { commentId: string; vote: Vote }) =>
       forumsApi.voteComment({
         forum: forumId,
         post: postId,
         comment: commentId,
         vote,
       }),
-    onError: handleServerError,
+    onMutate: patch.onMutate,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 

@@ -2,13 +2,19 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
-import { render, screen } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import type { Post } from '@/api/types/posts'
+import forumsApi from '@/api/forums'
+import type { Post, ViewPostResponse } from '@/api/types/posts'
+import { useVotePost } from '@/hooks/use-forums-queries'
 import { ThreadComment, type ThreadCommentType } from './thread-comment'
 import { ThreadContent } from './thread-content'
 
@@ -29,6 +35,12 @@ vi.mock('@tanstack/react-router', async (original) => ({
       {children}
     </a>
   ),
+}))
+
+vi.mock('@/api/forums', () => ({ default: { votePost: vi.fn() } }))
+vi.mock('@mochi/web', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@mochi/web')>()),
+  handleServerError: vi.fn(),
 }))
 
 function makePost(): Post {
@@ -203,5 +215,52 @@ describe('ThreadComment blocking', () => {
     renderComment('1Vg5EKW2KiMjy9xkUVmPAf2GCJcmX1cYKsfMG9nFbX3Bs8sEkV')
     expect(screen.queryByText('Block author')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('More options')).toBeNull()
+  })
+})
+
+describe('ThreadContent votes', () => {
+  // As the thread page wires it: the post comes from the post query, and a
+  // vote goes through useVotePost. A refused vote must reach the buttons.
+  it('puts the count back on the button when the server refuses', async () => {
+    let refuse: (error: unknown) => void = () => {}
+    vi.mocked(forumsApi.votePost).mockImplementation(
+      () =>
+        new Promise<never>((_resolve, reject) => {
+          refuse = reject
+        })
+    )
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    const key = ['forums', 'post', 'f1', 'p1', undefined]
+    client.setQueryData(key, { data: { post: { ...makePost(), up: 2 } } })
+    function Page() {
+      const { data } = useQuery<ViewPostResponse>({
+        queryKey: key,
+        queryFn: () => new Promise(() => {}),
+        staleTime: Infinity,
+      })
+      const vote = useVotePost('f1', 'p1')
+      return data ? (
+        <ThreadContent
+          post={data.data.post}
+          onVote={(v) => vote.mutate(v)}
+          isLoggedIn
+        />
+      ) : null
+    }
+    render(
+      <QueryClientProvider client={client}>
+        <I18nProvider i18n={i18n}>
+          <Page />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+
+    await userEvent.click(screen.getByText('2'))
+    await waitFor(() => expect(screen.getByText('3')).toBeTruthy())
+
+    act(() => refuse(new Error('refused')))
+    await waitFor(() => expect(screen.getByText('2')).toBeTruthy())
   })
 })
