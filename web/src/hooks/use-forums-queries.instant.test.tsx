@@ -46,6 +46,7 @@ let pending: Array<{ accept: () => void; refuse: (error: unknown) => void }>
 beforeEach(() => {
   pending = []
   vi.mocked(handleServerError).mockClear()
+  vi.mocked(forumsApi.votePost).mockClear()
   const waiting = () =>
     new Promise<never>((resolve, reject) => {
       refuse = reject
@@ -207,6 +208,22 @@ describe('votes', () => {
     act(() => refuse(new Error('refused')))
     await waitFor(() => expect(view.result.current.isError).toBe(true))
     expect(reply()).toMatchObject({ up: 3, down: 0, user_vote: 'up' })
+  })
+
+  it('still sends a vote when another copy of the post has no post', async () => {
+    const { client, view } = mount(
+      () => useVotePost('f1', 'p1'),
+      (c) => {
+        seed(c)
+        c.setQueryData(['forums', 'post', 'f1', 'p1', 'other'], { data: {} })
+      }
+    )
+    act(() => view.result.current.mutate('up'))
+    await waitFor(() => expect(forumsApi.votePost).toHaveBeenCalled())
+    expect(client.getQueryData<Data>(key)?.data.post.up).toBe(3)
+    expect(
+      client.getQueryData(['forums', 'post', 'f1', 'p1', 'other'])
+    ).toEqual({ data: {} })
   })
 
   it('a refused first vote keeps the second one still waiting', async () => {

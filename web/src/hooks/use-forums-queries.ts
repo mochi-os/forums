@@ -374,6 +374,14 @@ export function usePostDetail(
 
 type Vote = 'up' | 'down' | ''
 
+// The post query is keyed by the server it came from as well, and a view the
+// server could not answer is cached with no post (thread-detail.tsx shows it
+// as not found). A patch leaves that copy alone rather than throwing, which
+// would stop the request being sent.
+function hasPost(old: ViewPostResponse | undefined): old is ViewPostResponse {
+  return !!old?.data?.post
+}
+
 // The counts after changing the reader's vote, the same sums the vote buttons
 // make on the click. The server answers a vote with no counts, so this guess
 // stays in the cache until the post is next fetched, as it stays in the
@@ -414,10 +422,13 @@ export function useVotePost(forumId: string, postId: string) {
   const patch = optimistic(queryClient, (vote: Vote) => [
     {
       filters: { queryKey: forumsKeys.post(forumId, postId) },
-      update: (old: ViewPostResponse) => ({
-        ...old,
-        data: { ...old.data, post: applyVote(old.data.post, vote) },
-      }),
+      update: (old: ViewPostResponse) =>
+        hasPost(old)
+          ? {
+              ...old,
+              data: { ...old.data, post: applyVote(old.data.post, vote) },
+            }
+          : old,
     },
   ])
   return useMutation({
@@ -438,13 +449,20 @@ export function useVoteComment(forumId: string, postId: string) {
     ({ commentId, vote }: { commentId: string; vote: Vote }) => [
       {
         filters: { queryKey: forumsKeys.post(forumId, postId) },
-        update: (old: ViewPostResponse) => ({
-          ...old,
-          data: {
-            ...old.data,
-            comments: voteInComments(old.data.comments ?? [], commentId, vote),
-          },
-        }),
+        update: (old: ViewPostResponse) =>
+          hasPost(old)
+            ? {
+                ...old,
+                data: {
+                  ...old.data,
+                  comments: voteInComments(
+                    old.data.comments ?? [],
+                    commentId,
+                    vote
+                  ),
+                },
+              }
+            : old,
       },
     ]
   )
@@ -741,10 +759,13 @@ function postFlag(
   return optimistic<void>(queryClient, () => [
     {
       filters: { queryKey: forumsKeys.post(forumId, postId) },
-      update: (old: ViewPostResponse) => ({
-        ...old,
-        data: { ...old.data, post: { ...old.data.post, [flag]: value } },
-      }),
+      update: (old: ViewPostResponse) =>
+        hasPost(old)
+          ? {
+              ...old,
+              data: { ...old.data, post: { ...old.data.post, [flag]: value } },
+            }
+          : old,
     },
   ])
 }
