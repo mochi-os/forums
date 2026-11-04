@@ -28,6 +28,7 @@ import {
 import { Rss, SquarePen, UserMinus, X } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
+import { forumPath } from '@/lib/forum-path'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumWebsocket,
@@ -278,7 +279,7 @@ export function EntityForumPage({
   const handlePostSelect = (forumId: string, post: string) => {
     navigate({
       to: '/$forum/$post',
-      params: { forum: forumId, post },
+      params: { forum: forumPath(forumId), post },
     })
   }
 

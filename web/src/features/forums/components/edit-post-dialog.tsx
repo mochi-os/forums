@@ -42,6 +42,7 @@ import {
 } from '@mochi/web'
 import { Check } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
+import { forumPath } from '@/lib/forum-path'
 import {
   buildForumPostEditDraft,
   forumPostEditOriginalFromPost,
@@ -225,7 +226,7 @@ export function EditPostDialog({
             type: att.type ?? '',
             previewUrl: att.type?.startsWith('image/')
               ? authenticatedUrl(
-                  `${appPath}/${post.forum}/-/attachments/${att.id}/thumbnail`
+                  `${appPath}/${forumPath(post.forum)}/-/attachments/${att.id}/thumbnail`
                 )
               : null,
             caption: captions[att.id],
@@ -337,7 +338,9 @@ export function EditPostDialog({
           >
             <div
               className={cn(
-                'min-h-0 flex-1 space-y-4 overflow-y-auto',
+                // Room on the right for the scrollbar, taken from the dialog's
+                // own padding, so it never lies over the fields' right edge.
+                '-ms-1 -me-4 min-h-0 flex-1 space-y-4 overflow-y-auto ps-1 pe-4',
                 isDragActive && dropActiveClass
               )}
             >

@@ -6,6 +6,7 @@ import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { t } from '@lingui/core/macro'
 import { getErrorMessage, useAuthStore } from '@mochi/web'
 import type { Forum, ForumPermissions } from '@/api/types/forums'
+import { forumPath } from '@/lib/forum-path'
 import { forumsInfoQueryOptions } from '@/hooks/use-forums-queries'
 import { getLastForum, clearLastForum } from '@/hooks/use-forums-storage'
 import { EntityForumPage, ForumsListPage } from '@/features/forums/pages'
@@ -55,7 +56,10 @@ export const Route = createFileRoute('/_authenticated/')({
             (f) => f.id === lastForumId || f.fingerprint === lastForumId
           )
           if (forumExists) {
-            throw redirect({ to: '/$forum', params: { forum: lastForumId } })
+            throw redirect({
+              to: '/$forum',
+              params: { forum: forumPath(lastForumId) },
+            })
           }
           clearLastForum()
         }

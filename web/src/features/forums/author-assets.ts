@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { addressByAuthor, getAppPath } from '@mochi/web'
+import { forumPath } from '@/lib/forum-path'
 
 interface PostRow {
   id: string
@@ -24,10 +25,10 @@ interface CommentRow {
 // Where an author's person assets (avatar, style) are served: under one of
 // their posts or comments, whose route resolves the author. Append the slot.
 export const postAssets = (post: PostRow) =>
-  `${getAppPath()}/${post.fingerprint ?? post.forum}/-/${post.id}/asset`
+  `${getAppPath()}/${forumPath(post.fingerprint ?? post.forum)}/-/${post.id}/asset`
 
 export const commentAssets = (comment: CommentRow) =>
-  `${getAppPath()}/${comment.forum}/-/${comment.post}/${comment.id}/asset`
+  `${getAppPath()}/${forumPath(comment.forum)}/-/${comment.post}/${comment.id}/asset`
 
 // Only an approved row stands in for its author: the route answers for a
 // pending or removed one only to its author and the forum's managers.

@@ -22,13 +22,38 @@ function webLink(url: string | undefined): string | undefined {
   return url && /^https?:\/\//i.test(url) ? url : undefined
 }
 
+const IMAGE = /\.(avif|gif|jpe?g|png|webp)$/i
+
+/**
+ * Whether a post's link is an image, as every Lemmy image post's is: by the
+ * media type its network gave, else by its address - the file's own, or the
+ * one Lemmy's image proxy carries in its url parameter.
+ */
+export function linkImage(post: Pick<Post, 'url' | 'embed'>): boolean {
+  const href = webLink(post.url)
+  if (!href) return false
+  const type = postEmbed(post).type
+  if (type) return type.startsWith('image/')
+  try {
+    const url = new URL(href)
+    if (IMAGE.test(url.pathname)) return true
+    const proxied = url.pathname.endsWith('/image_proxy')
+      ? url.searchParams.get('url')
+      : null
+    return !!proxied && IMAGE.test(new URL(proxied).pathname)
+  } catch {
+    return false
+  }
+}
+
 export function PostLink({
   post,
   compact = false,
   className,
 }: {
   post: Pick<Post, 'url' | 'thumbnail' | 'embed'>
-  /** The card's list form: one line, a small picture. */
+  /** The card's list form: one line, a small picture; for an image link, a
+   *  smaller copy of the image. */
   compact?: boolean
   className?: string
 }) {
@@ -36,6 +61,32 @@ export function PostLink({
   if (!href) return null
   const embed = postEmbed(post)
   const image = webLink(post.thumbnail)
+  // An image link is the post's picture: shown as itself, as its network
+  // shows it, rather than as a card naming its address. A list shows the
+  // network's smaller copy where it gave one.
+  if (linkImage(post)) {
+    return (
+      <a
+        href={href}
+        target='_blank'
+        rel='noopener noreferrer'
+        onClick={(e) => e.stopPropagation()}
+        className={cn('block w-fit max-w-full', className)}
+        data-testid='post-link'
+      >
+        <img
+          src={compact ? (image ?? href) : href}
+          alt={embed.title ?? ''}
+          referrerPolicy='no-referrer'
+          loading='lazy'
+          className={cn(
+            'rounded-lg',
+            compact ? 'max-h-48 object-cover' : 'max-h-[70vh] object-contain'
+          )}
+        />
+      </a>
+    )
+  }
   return (
     <a
       href={href}

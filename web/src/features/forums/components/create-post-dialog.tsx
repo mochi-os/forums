@@ -39,10 +39,12 @@ import {
   type Upload,
 } from '@mochi/web'
 import { FileEdit, Send } from 'lucide-react'
+import type { ForumDestination } from '@/api/types/forums'
 import {
   usePostSchema,
   type PostFormValues,
 } from '@/features/forums/post-schema'
+import { CommunityDestination } from './community-destination'
 import { PostMarks } from './post-marks'
 
 type CreatePostFormValues = PostFormValues
@@ -50,6 +52,8 @@ type CreatePostFormValues = PostFormValues
 type CreatePostDialogProps = {
   forumId: string
   forumName: string
+  /** Where the post goes, for a community on another network. */
+  destination?: ForumDestination
   onCreate: (data: {
     forum: string
     title: string
@@ -76,6 +80,7 @@ type CreatePostDialogProps = {
 export function CreatePostDialog({
   forumId,
   forumName: _forumName,
+  destination,
   onCreate,
   isPending = false,
   isSuccess = false,
@@ -231,6 +236,7 @@ export function CreatePostDialog({
           <ResponsiveDialogDescription className='sr-only'>
             <Trans>Create a new post</Trans>
           </ResponsiveDialogDescription>
+          <CommunityDestination destination={destination} />
         </ResponsiveDialogHeader>
         <Form {...form}>
           <form
@@ -240,7 +246,9 @@ export function CreatePostDialog({
           >
             <div
               className={cn(
-                'min-h-0 flex-1 space-y-4 overflow-y-auto',
+                // Room on the right for the scrollbar, taken from the dialog's
+                // own padding, so it never lies over the fields' right edge.
+                '-ms-1 -me-4 min-h-0 flex-1 space-y-4 overflow-y-auto ps-1 pe-4',
                 isDragActive && dropActiveClass
               )}
             >

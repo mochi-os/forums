@@ -205,3 +205,45 @@ describe('ThreadComment blocking', () => {
     expect(screen.queryByLabelText('More options')).toBeNull()
   })
 })
+
+// A reply in a community on another network goes to its server as the linked
+// account; the reply box says so, and in a forum of ours says nothing.
+describe('ThreadComment destination', () => {
+  function renderReplying(destination?: {
+    community: string
+    account: string
+  }) {
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    const comment = makeComment('https://lemmy.example/u/someone')
+    render(
+      <QueryClientProvider client={client}>
+        <I18nProvider i18n={i18n}>
+          <ThreadComment
+            comment={comment}
+            onVote={vi.fn()}
+            canReply
+            replyingToId={comment.id}
+            destination={destination}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+  }
+
+  it('names the community and the account above the reply box', () => {
+    renderReplying({
+      community: '!test@lemmy.example',
+      account: '@amy@lemmy.example',
+    })
+    expect(
+      screen.getByText('Posts to !test@lemmy.example as @amy@lemmy.example')
+    ).toBeInTheDocument()
+  })
+
+  it('says nothing in a forum of ours', () => {
+    renderReplying()
+    expect(screen.queryByText(/^Posts to /)).not.toBeInTheDocument()
+  })
+})

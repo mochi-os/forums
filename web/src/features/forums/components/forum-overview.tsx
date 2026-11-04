@@ -180,6 +180,7 @@ export function ForumOverview({
             <CreatePostDialog
               forumId={forum.id}
               forumName={forum.name}
+              destination={forum.destination}
               onCreate={onCreatePost}
               isPending={isCreatingPost}
               isSuccess={isPostCreated}

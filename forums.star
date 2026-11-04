@@ -245,6 +245,16 @@ def database_upgrade(version):
         # The owner's last answer on what this user may do in each forum held
         # here (forum_permissions).
         permissions_schema_create()
+    if version == 17:
+        # A community's handle, shown where a post or comment goes out to it.
+        # A community held already takes it from its address where that has
+        # the form Lemmy, PieFed and Mbin give one; one read through a linked
+        # account takes its own the next time it is read.
+        handle_schema_create()
+        for row in mochi.db.rows("select id, address from forums where account!='' and handle=''") or []:
+            handle = address_handle(row["address"] or row["id"])
+            if handle:
+                mochi.db.execute("update forums set handle=? where id=?", handle, row["id"])
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -352,6 +362,7 @@ def database_create():
     hosted_schema_create()
     joined_schema_create()
     permissions_schema_create()
+    handle_schema_create()
 
 
 
@@ -2132,6 +2143,7 @@ def action_information_class(a):
             # subscriber the owner's ai prompts, moderation settings and rate
             # limits; the moderation endpoints already strip these.
             strip_forum_config(f)
+        destination_set(a, f)
         # For subscribed forums, permissions require P2P - skip here for speed
 
     settings = mochi.db.row("select sort from settings where id=1") or {"sort": ""}
@@ -2195,7 +2207,7 @@ def action_information_entity(a):
 
     return {"data": {
         "entity": True,
-        "forum": strip_forum_config(forum),
+        "forum": destination_set(a, strip_forum_config(forum)),
         "permissions": permissions,
         "fingerprint": fp
     }}
@@ -2424,7 +2436,7 @@ def action_view(a):
 
         result = {
             "data": {
-                "forum": strip_forum_config(forum),
+                "forum": destination_set(a, strip_forum_config(forum)),
                 "posts": posts,
                 "member": member,
                 "can_manage": forum["can_manage"],
@@ -3877,7 +3889,7 @@ def action_post_view(a):
         forum["banner_html"] = mochi.text.markdown(banner)
 
     data = {
-        "forum": strip_forum_config(forum),
+        "forum": destination_set(a, strip_forum_config(forum)),
         "post": post,
         "comments": comments,
         "member": member,
@@ -10256,12 +10268,15 @@ def link_host(link):
 
 def embed_encode(fields):
     """The card's words as the post keeps them: title, description, site and
-    page, each cut, as JSON; empty where there are none."""
+    page, each cut, and the link's media type where its network gave one, as
+    JSON; empty where there are none."""
     clean = {}
-    for key in ("title", "description", "site", "page"):
+    for key in ("title", "description", "site", "page", "type"):
         value = str(fields.get(key, "") or "").strip()[:EMBED_MAXIMUM] if type(fields) == "dict" else ""
         if key == "page":
             value = safe_web_link(value)
+        if key == "type" and (len(value) > 100 or value.count("/") != 1 or " " in value):
+            value = ""
         if value:
             clean[key] = value
     return json.encode(clean) if clean else ""
@@ -10340,6 +10355,47 @@ def community_posting(forum):
         acc = community_account(forum)
     return bool(acc and acc.get("enabled", 1))
 
+def community_handle(name, host):
+    """A community's handle, name@host, as its network writes it after the
+    sign that marks a community; '' where the name or the host is missing."""
+    name, host = str(name or "").strip(), str(host or "").strip().lower()
+    if not name or not host or "@" in name or " " in name or "/" in name:
+        return ""
+    return name + "@" + host
+
+def address_handle(address):
+    """The handle a community's address carries where it has the form Lemmy,
+    PieFed and Mbin give one, https://host/c/name or https://host/m/name; ''
+    for any other."""
+    rest = str(address or "").split("://", 1)
+    parts = rest[1].split("/") if len(rest) == 2 else []
+    if len(parts) != 3 or parts[1] not in ("c", "m"):
+        return ""
+    return community_handle(parts[2], parts[0])
+
+def community_destination(forum):
+    """Where a post or comment written in a community goes: the community as
+    its network writes one, !name@host (its address where its handle is not
+    known), and the identifier of the account it goes out as. None for a
+    forum that is not a community, or whose account is gone."""
+    if not is_community(forum):
+        return None
+    acc = joined_account(forum) if is_joined(forum) else community_account(forum)
+    if not acc or not acc.get("identifier"):
+        return None
+    handle = forum.get("handle", "")
+    return {"community": "!" + handle if handle else (forum.get("address") or forum["id"]), "account": acc["identifier"]}
+
+def destination_set(a, forum):
+    """Names on a community's row where what is written in it goes, for a
+    signed-in caller only: an anonymous one runs as the owner, whose accounts
+    are theirs alone."""
+    if a.user and is_community(forum):
+        found = community_destination(forum)
+        if found:
+            forum["destination"] = found
+    return forum
+
 def lemmy_answer(answer):
     """The data of an answer the server accepted, else None."""
     if not answer:
@@ -10370,12 +10426,13 @@ def community_row(acc, community, user_id, user_name):
     name = str(community.get("title") or community.get("name") or address).strip()[:200]
     number = str(lemmy_number(community.get("id"))) if lemmy_number(community.get("id")) else ""
     description = str(community.get("description", "") or "")[:5000]
+    handle = community_handle(community.get("name"), host_of(address)) or address_handle(address)
     now = mochi.time.now()
     if mochi.db.exists("select 1 from forums where id=?", address):
-        mochi.db.execute("update forums set name=?, account=?, community=?, banner=? where id=?", name, acc["id"], number, description, address)
+        mochi.db.execute("update forums set name=?, account=?, community=?, banner=?, handle=? where id=?", name, acc["id"], number, description, handle, address)
     else:
-        mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, community, banner ) values ( ?, ?, 1, ?, ?, ?, ?, ? )",
-            address, name, now, forum_fingerprint(address), acc["id"], number, description)
+        mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, community, banner, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ? )",
+            address, name, now, forum_fingerprint(address), acc["id"], number, description, handle)
     if user_id:
         mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
             address, user_id, user_name or "", now)
@@ -10420,7 +10477,7 @@ def community_post_store(forum, acc, view, user_id):
     body = str(post.get("body", "") or "")
     url = safe_web_link(post.get("url"))
     thumbnail = safe_web_link(post.get("thumbnail_url"))
-    embed = embed_encode({"title": post.get("embed_title"), "description": post.get("embed_description"), "page": post.get("ap_id")})
+    embed = embed_encode({"title": post.get("embed_title"), "description": post.get("embed_description"), "page": post.get("ap_id"), "type": post.get("url_content_type")})
     created = mochi.time.parse(str(post.get("published", "") or "")) or mochi.time.now()
     updated = mochi.time.parse(str(post.get("updated", "") or "")) or created
     up, down, comments = lemmy_number(counts.get("upvotes")), lemmy_number(counts.get("downvotes")), lemmy_number(counts.get("comments"))
@@ -11831,6 +11888,12 @@ def joined_schema_create():
     add("posts", "language", "text not null default ''")
     add("forums", "sensitive", "integer not null default 0")
 
+def handle_schema_create():
+    """A community's handle, name@host, at creation and by the migration
+    alike."""
+    if not any([c["name"] == "handle" for c in mochi.db.table("forums")]):
+        mochi.db.execute("alter table forums add column handle text not null default ''")
+
 def is_joined(forum):
     """A community joined as one of the user's own hosted accounts, as
     against one read through a linked account: its address is set and it is
@@ -12002,8 +12065,9 @@ def joined_row(found, acc, user_id, user_name):
     now = mochi.time.now()
     name = str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
     banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
-    mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ? )",
-        found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0)
+    handle = community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
+    mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ?, ? )",
+        found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0, handle)
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
         found["id"], user_id, user_name or "", now)
     return mochi.db.row("select * from forums where id=?", found["id"])

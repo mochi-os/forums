@@ -158,6 +158,7 @@ function ForumsLayoutInner() {
         <CreatePostDialog
           forumId={dialogForum.id}
           forumName={dialogForum.name}
+          destination={dialogForum.destination}
           onCreate={handleCreatePost}
           isPending={createPostMutation.isPending}
           isSuccess={createPostMutation.isSuccess}

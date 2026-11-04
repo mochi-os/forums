@@ -55,6 +55,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { authorAssets } from '@/features/forums/author-assets'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
+import { CommunityDestination } from './components/community-destination'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { ForumBanner } from './components/forum-banner'
 import { ForumGone } from './components/forum-gone'
@@ -501,6 +502,7 @@ export function ThreadDetail({
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
     server,
+    destination: postData?.data?.forum?.destination,
     avatars,
     postAuthor: post.member,
     shareUrl: (commentId: string) =>
@@ -662,6 +664,12 @@ export function ThreadDetail({
               {/* Divider */}
               <div className='border-border/60 mt-6 border-t pt-4'>
                 {/* Reply Form - shown above comments */}
+                {showReplyForm && (
+                  <CommunityDestination
+                    destination={postData?.data?.forum?.destination}
+                    className='mb-1'
+                  />
+                )}
                 {showReplyForm && (
                   <CommentBox
                     kind='reply'

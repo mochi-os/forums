@@ -15,6 +15,7 @@ import {
 } from '@mochi/web'
 import { Bookmark, Trash2 } from 'lucide-react'
 import type { Post, SavedItem, SavedPostSnapshot } from '@/api/types/posts'
+import { forumPath } from '@/lib/forum-path'
 import { clearSaved, getSaved, loadSaved, onSavedChange } from '@/lib/saved'
 import { PostCard } from '../components/post-card'
 
@@ -95,7 +96,7 @@ export function SavedPage() {
                   onSelect={(forumId, postId) =>
                     navigate({
                       to: '/$forum/$post',
-                      params: { forum: forumId, post: postId },
+                      params: { forum: forumPath(forumId), post: postId },
                     })
                   }
                 />

@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { forumPath } from '@/lib/forum-path'
 import { postAssets } from '../author-assets'
 import { sanitizeHtml } from '../utils'
 import { PostLink } from './post-link'
@@ -232,7 +233,7 @@ export function PostCard({
           {getCommentCount(post.comments) > 0 && (
             <Link
               to='/$forum/$post'
-              params={{ forum: post.forum, post: post.id }}
+              params={{ forum: forumPath(post.forum), post: post.id }}
               search={showForumBadge ? { from: 'all' } : undefined}
               className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
               onClick={(e) => e.stopPropagation()}

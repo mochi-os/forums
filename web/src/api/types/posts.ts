@@ -97,6 +97,8 @@ export interface PostEmbed {
   description?: string
   site?: string
   page?: string
+  // The link's media type where its network gave one (image/jpeg).
+  type?: string
 }
 
 export function postEmbed(post: Pick<Post, 'embed'>): PostEmbed {

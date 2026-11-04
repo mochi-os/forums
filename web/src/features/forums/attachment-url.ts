@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { authenticatedUrl, getAppPath, normalizeEntityUrl } from '@mochi/web'
+import { forumPath } from '@/lib/forum-path'
 
 export type AttachmentVariant = '' | 'thumbnail' | 'preview'
 
@@ -20,7 +21,7 @@ export function attachmentUrl(
   const query = server ? `?server=${encodeURIComponent(server)}` : ''
   return authenticatedUrl(
     normalizeEntityUrl(
-      `${getAppPath()}/${forumId}/-/attachments/${attachmentId}${suffix}${query}`
+      `${getAppPath()}/${forumPath(forumId)}/-/attachments/${attachmentId}${suffix}${query}`
     )
   )
 }
