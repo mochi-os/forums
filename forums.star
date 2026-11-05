@@ -3369,7 +3369,6 @@ def action_share(a): # forums_share
 # through the peer of a share link, a named server, or the directory. Answers
 # (result, None) or (None, failure).
 def forum_subscribe(forum_id, user_id, user_name, server, peer):
-    started = mochi.time.now()
     if not mochi.text.valid(forum_id, "entity"):
         return None, (400, "errors.invalid_id")
 
@@ -3448,9 +3447,11 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         )
     mochi.broadcast.touch(forum_id)
 
-    # Insert schema data so posts/comments are available immediately, for as
-    # long as the pull's time allows; a continuation takes the rest.
-    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+    # Import the first part, so the newest posts are here at once, and answer:
+    # each further part may take 30 seconds to arrive, past what a client waits
+    # for the subscribe. A continuation (schedule_schema) takes the rest, and
+    # schema_completed tells an open page when the last part lands.
+    if pulling and insert_forum_schema(forum_id, schema, peer, budget=0):
         schema_completed(forum_id)
 
     return {"fingerprint": forum_fingerprint(forum_id)}, None
@@ -3501,11 +3502,8 @@ def forum_unsubscribe(forum_input, user_id):
         return None, (400, "errors.cannot_unsubscribe_own_forum")
 
     # Delete all local data for this forum
-    purge_forum_rows(forum["id"])
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum["id"])
     rss_tokens_revoke(forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
     registration_send(forum["server"],
@@ -3531,6 +3529,26 @@ def rss_tokens_revoke(entity_id):
     for r in mochi.db.rows("select token from rss where entity=?", entity_id) or []:
         mochi.token.delete(r["token"])
     mochi.db.execute("delete from rss where entity=?", entity_id)
+
+# forum_drop(forum_id) deletes a forum held here and every row scoped to it. Its
+# pending pulls are cancelled, and the forums row goes before the rows it holds,
+# so a pull of the forum under way stops and purges what it imports after this
+# (schema_held); the members and votes that reference it go just before it.
+def forum_drop(forum_id):
+    pull_cancel(forum_id)
+    mochi.db.execute("delete from votes where forum=?", forum_id)
+    mochi.db.execute("delete from members where forum=?", forum_id)
+    mochi.db.execute("delete from forums where id=?", forum_id)
+    purge_forum_rows(forum_id)
+
+# pull_cancel(forum_id) cancels a forum's pending pulls: the continuations of
+# a pull under way and the fills of a subscription still filling. Left pending
+# past a drop, one would run for a subscription made again before it came due,
+# and mark the new one whole before the new one's own pull had every part.
+def pull_cancel(forum_id):
+    for scheduled in mochi.schedule.list():
+        if scheduled.event in ["schedule_schema", "schedule_fill"] and scheduled.data.get("forum") == forum_id:
+            scheduled.cancel()
 
 # Delete every row scoped to a forum (owner delete, or a member dropping the local
 # replica on unsubscribe). tags key on post/comment id, so resolve them before the
@@ -3577,11 +3595,8 @@ def action_delete(a):
     group_unpublish(forum)
 
     # Delete all local data
-    purge_forum_rows(forum["id"])
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum["id"])
     rss_tokens_revoke(forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Revoke every access rule on this resource, not just the "*" subject's.
     # Per-user grants (moderators, invited members) would otherwise be orphaned
@@ -3742,7 +3757,7 @@ def action_post_view(a):
 
         # Request post data via P2P, the thread part by part. A thread that
         # stopped short is refused rather than shown short.
-        response, lists, complete = part_gather(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer, THREAD_SPECS, ["comments"])
+        response, lists, complete = part_gather(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer, THREAD_SPECS, ["comments"], VIEW_TIME)
         if response.get("error"):
             remote_error(a, response, 403)
             return
@@ -5385,7 +5400,7 @@ def moderation_restrictions(forum_input, user):
     # If we don't own the forum, proxy request to owner via P2P event, part by
     # part. A list that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response, lists, complete = part_gather(forum["id"], "restrictions", {}, None, RESTRICTION_SPECS, ["restrictions"])
+        response, lists, complete = part_gather(forum["id"], "restrictions", {}, None, RESTRICTION_SPECS, ["restrictions"], VIEW_TIME)
         if response.get("error"):
             return None, remote_failure(response, 403)
         if lists == None:
@@ -5761,7 +5776,7 @@ def action_moderation_queue(a):
     # If we don't own the forum, proxy request to owner via P2P event, part by
     # part. A queue that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response, lists, complete = part_gather(forum["id"], "moderation/queue", {}, None, QUEUE_SPECS, QUEUE_ORDER)
+        response, lists, complete = part_gather(forum["id"], "moderation/queue", {}, None, QUEUE_SPECS, QUEUE_ORDER, VIEW_TIME)
         if response.get("error"):
             remote_error(a, response, 403)
             return
@@ -7615,11 +7630,8 @@ def event_forum_delete_event(e):
     row = mochi.db.row("select id, name, server from forums where id=?", forum_id)
     if not row or not row["server"]:
         return
-    purge_forum_rows(forum_id)
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum_id) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum_id)
     rss_tokens_revoke(forum_id)
-    mochi.db.execute("delete from forums where id=?", forum_id)
     # The same teardown serves a removal (member_drop sends it with a reason),
     # so a member on an older release still purges. The reason is the owner's
     # word and decides only what the page and the notification say.
@@ -8499,10 +8511,14 @@ PART_ATTACHMENT = 1024
 # The most bytes a cursor key holds. A row whose key is longer could not be
 # resumed after, so the owner never pages one.
 PART_KEY = 256
-# The seconds a pull or a gathering runs, well under the time limit of the
-# action or event it runs in: a schema pull leaves the rest to a continuation,
-# and a gathering refuses a reply it could not finish.
+# The seconds a schema pull runs, well under the time limit of the event or
+# continuation it runs in, before it leaves the rest to a continuation. A
+# subscribe, which someone waits on, takes the first part only.
 PART_TIME = 60
+# The seconds a view gathers for before it refuses a reply it could not finish:
+# a page and the Android client give up on a request after 30, and the last
+# part asked for may take a while to arrive.
+VIEW_TIME = 20
 # The most bytes a gathering holds across its parts: what one whole reply could
 # carry before parts, so a reply in parts never costs the requester more.
 PART_GATHERED = 104857600
@@ -8667,12 +8683,13 @@ def part_bounded(reply, order):
         rows += len(value or [])
     return rows <= PART_ROWS
 
-# part_gather(forum_id, event, content, peer, specs, order) -> (reply, lists,
-# complete): asks the forum's owner for event part by part and gathers each
-# list across the parts. reply is the first answer: an error, or for an owner
-# that predates parts the whole reply, with lists None. A gathering that runs
-# past PART_TIME or holds more than PART_GATHERED bytes stops, incomplete.
-def part_gather(forum_id, event, content, peer, specs, order):
+# part_gather(forum_id, event, content, peer, specs, order, budget) -> (reply,
+# lists, complete): asks the forum's owner for event part by part and gathers
+# each list across the parts. reply is the first answer: an error, or for an
+# owner that predates parts the whole reply, with lists None. A gathering that
+# runs past budget seconds or holds more than PART_GATHERED bytes stops,
+# incomplete.
+def part_gather(forum_id, event, content, peer, specs, order, budget):
     gathered = {}
     for name in order:
         gathered[name] = []
@@ -8681,7 +8698,7 @@ def part_gather(forum_id, event, content, peer, specs, order):
     started = mochi.time.now()
     held = 0
     for _ in range(PART_PARTS):
-        if first != None and mochi.time.now() - started >= PART_TIME:
+        if first != None and mochi.time.now() - started >= budget:
             return first, gathered, False
         reply = mochi.remote.request(forum_id, "forums", event, dict(content, part=part), peer)
         if type(reply) != "dict" or reply.get("error"):
@@ -8812,14 +8829,17 @@ def schema_fetch(forum_id, peer, part, name=None):
         content["register"] = {"name": name}
     return mochi.remote.request(forum_id, "forums", "schema", content, peer)
 
-# insert_forum_schema(forum_id, schema, peer, started, parts) imports schema, a
-# part of the owner's schema already received, then pulls and imports the parts
-# after it until PART_TIME has passed since started; parts counts the parts the
-# pull took before this one. True when the last part arrived. A pull that runs
-# out of time is continued by schedule_schema, and one whose part goes
-# unanswered is tried again a few times; one that breaks a bound leaves the
-# parts before it in place for the next resync, which imports idempotently.
-def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
+# insert_forum_schema(forum_id, schema, peer, started, parts, budget) imports
+# schema, a part of the owner's schema already received, then pulls and imports
+# the parts after it until budget seconds have passed since started; parts
+# counts the parts the pull took before this one. True when the last part
+# arrived. A subscribe passes a budget of 0, so it imports the first part and
+# answers; a pull that runs out of time is continued by schedule_schema, and
+# one whose part goes unanswered is tried again a few times; one that breaks a
+# bound leaves the parts before it in place for the next resync, which imports
+# idempotently. A pull of a forum dropped while it ran stops, with no
+# continuation, and purges what it imported after the drop's own purge.
+def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0, budget=PART_TIME):
     if started == None:
         started = mochi.time.now()
     for _ in range(PART_PARTS):
@@ -8831,12 +8851,17 @@ def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
         if schema.get("part") != None and not part_bounded(schema, SCHEMA_ORDER):
             return False
         schema_import(forum_id, schema)
+        # Checked after every import, so also before every fetch the loop makes:
+        # schedule_schema checks before the fetch a continuation makes.
+        if not schema_held(forum_id):
+            purge_forum_rows(forum_id)
+            return False
         next = schema.get("next")
         if next == None:
             return True
         if not part_cursor(next, SCHEMA_SPECS):
             return False
-        if mochi.time.now() - started >= PART_TIME:
+        if mochi.time.now() - started >= budget:
             schema_resume(forum_id, "stopped", next, parts)
             return False
         mochi.db.execute("update forums set synced=? where id=?", mochi.time.now(), forum_id)
@@ -8845,6 +8870,12 @@ def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
             schema_resume(forum_id, schema_outcome(schema), next, parts)
             return False
     return False
+
+# schema_held(forum_id) -> whether the forum is still held here. Every path that
+# drops a forum deletes its forums row before the rows it holds, so a part a
+# pull imports after that path's purge is seen here and purged in turn.
+def schema_held(forum_id):
+    return mochi.db.exists("select 1 from forums where id=?", forum_id)
 
 # schema_outcome(reply) -> "unanswered" when a part could not be fetched at all,
 # "failed" when the owner answered with a refusal.
@@ -9925,7 +9956,6 @@ def ai_rerank(forum_data, posts, interests):
 # Returns {"fingerprint": fp, "subscribed": bool} or {"error": key, "code": N}.
 def _subscribe_to_forum(user, forum_id, server):
     user_id = user.identity.id
-    started = mochi.time.now()
 
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
@@ -9985,7 +10015,9 @@ def _subscribe_to_forum(user, forum_id, server):
     )
     mochi.broadcast.touch(forum_id)
 
-    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+    # The first part only, as in forum_subscribe: the calling app's request
+    # gives up after 30 seconds, and a person who then sends again posts twice.
+    if pulling and insert_forum_schema(forum_id, schema, peer, budget=0):
         schema_completed(forum_id)
 
     return {"fingerprint": fp, "subscribed": False}
@@ -10829,10 +10861,9 @@ def community_unsubscribe(forum):
     acc = community_account(forum)
     if acc and forum.get("community"):
         lemmy_send(acc, "community/follow", {"community_id": int(forum["community"]), "follow": False})
-    purge_forum_rows(forum["id"])
-    mochi.db.execute("delete from members where forum=?", forum["id"])
+    # The saved posts first, while the posts they name are there to find them by.
     mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
+    forum_drop(forum["id"])
     return {}, None
 
 # === Importing an account's settings ===
@@ -12098,11 +12129,9 @@ def joined_leave(forum):
     return {}, None
 
 def joined_drop(forum):
-    purge_forum_rows(forum["id"])
-    mochi.db.execute("delete from members where forum=?", forum["id"])
+    # The saved posts first, while the posts they name are there to find them by.
     mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
-    mochi.db.execute("delete from follows where forum=?", forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
+    forum_drop(forum["id"])
 
 # === Blocks ===
 
