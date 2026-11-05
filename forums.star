@@ -3926,7 +3926,7 @@ def post_edit(forum_input, post_id, user_id, title, body, link, sensitive, langu
         post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
 
     if post and forum and is_community(forum):
-        return community_post_edit(forum, post, user_id, title, body, link, sensitive, language)
+        return community_post_edit(forum, post, user_id, title, body, link, sensitive, language, save)
 
     # Check if we have the post locally
     if post and forum:
@@ -10653,29 +10653,18 @@ def action_communities_add(a):
 def community_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save):
     """A post into a community through the account. The first image becomes
     the post's link where it has none, and the other images go into the body
-    as markdown, each uploaded to the server's image store (decision 24).
-    Answers (result, None) or (None, failure)."""
+    as markdown, each uploaded to the server's image store (decision 24); a
+    file that does not go refuses the post (community_uploads). Answers
+    (result, None) or (None, failure)."""
     if is_joined(forum):
         return joined_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save)
     acc = community_account(forum)
     if not acc or not acc.get("enabled", 1):
         return None, (403, "errors.account_not_linked")
-    stored = save("upload/" + mochi.uid())
-    images = []
-    for att in stored:
-        kind = str(att.get("content_type", "") or "")
-        if kind.startswith("image/"):
-            data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-            uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
-            if uploaded and safe_web_link(uploaded.get("url", "")):
-                images.append((uploaded["url"], att.get("caption", "") or att["name"]))
-        attachment_delete(att["id"])
-    url = link
-    if not url and images:
-        url = images[0][0]
-        images = images[1:]
-    if images:
-        body = body + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    body, url = community_images(body, link, images)
     object = {"kind": "post", "name": title, "community_id": lemmy_number(int(forum["community"]) if forum["community"] else 0)}
     if url:
         object["url"] = url
@@ -10700,13 +10689,19 @@ def community_remote(row, kind):
 # The community_* writers below act as the user named, through their account,
 # and answer (result, None) or (None, failure).
 
-def community_post_edit(forum, post, user_id, title, body, link, sensitive, language):
+def community_post_edit(forum, post, user_id, title, body, link, sensitive, language, save):
+    """The user's edit of their own post in a community, through their
+    account. Images the edit adds are uploaded as a new post's are, the first
+    becoming the link where the post has none (community_images)."""
     if is_joined(forum):
-        return joined_post_edit(forum, post, user_id, title, body, link, sensitive, language)
+        return joined_post_edit(forum, post, user_id, title, body, link, sensitive, language, save)
     acc = community_account(forum)
     remote = community_remote(post, "post")
     if not acc or not remote or post["member"] != user_id:
         return None, (403, "errors.not_allowed_to_edit_this_post")
+    body, link, failure = community_edit_images(acc, post, body, link, save)
+    if failure:
+        return None, failure
     object = {"name": title, "body": body}
     if link != None:
         object["url"] = link
@@ -10748,6 +10743,11 @@ def community_comment_create(forum, post_id, parent_id, user_id, user_name, body
         if not above:
             return None, (404, "errors.parent_comment_not_found")
         object["parent_id"] = int(above[8:])
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    if images:
+        object["content"] = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     result = mochi.account.object.create(acc["id"], object, key=mochi.uid())
     view = result.get("data") if result and type(result.get("data")) == "dict" else None
     if not view:
@@ -12210,31 +12210,70 @@ def action_sensitive_set(a):
 
 # === What the user writes, from their account ===
 
-def joined_documents(acc, save):
-    """The files save(object) keeps, uploaded through the account and
-    answered as (url, type, caption) each; the local copies go once
-    uploaded."""
+def community_uploads(acc, save):
+    """The images save(object) keeps for a post or comment in a community,
+    uploaded through the account and answered as (url, caption) each; the
+    local copies go either way. A community post or comment carries only
+    images, and nothing goes out without one the user added: a file that is
+    not an image refuses the lot before any uploads, and the first image that
+    fails to upload stops the rest and answers why. Answers (images, None) or
+    (None, failure)."""
     stored = save("upload/" + mochi.uid())
-    out = []
+    failure = None
     for att in stored:
-        kind = str(att.get("content_type", "") or att.get("type", "") or "")
-        data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum()) if kind else None
-        uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
-        if uploaded and safe_web_link(uploaded.get("url", "")):
-            out.append((uploaded["url"], kind, att.get("caption", "") or att["name"]))
+        if not str(att.get("content_type", "") or att.get("type", "") or "").startswith("image/"):
+            failure = (400, "errors.upload_image_only", {"name": att["name"]})
+            break
+    images = []
+    for att in stored:
+        if not failure:
+            kind = str(att.get("content_type", "") or att.get("type", "") or "")
+            data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+            uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
+            failure = upload_refusal(acc, att, uploaded)
+            if not failure:
+                images.append((uploaded["url"], att.get("caption", "") or att["name"]))
         attachment_delete(att["id"])
-    return out
+    if failure:
+        return None, failure
+    return images, None
 
-def joined_images(body, link, documents):
+def upload_refusal(acc, att, uploaded):
+    """Why a file did not upload through the account, as the action's failure
+    naming it, with the reason core gives in the user's language
+    (mochi.account.upload); None where it uploaded."""
+    if uploaded and safe_web_link(uploaded.get("url", "")):
+        return None
+    failed = uploaded.get("error") if uploaded and type(uploaded.get("error")) == "dict" else {}
+    status = 403 if failed.get("reason") == "blocked" else 502
+    if failed.get("message"):
+        return (status, "errors.upload_failed_because", {"name": att["name"], "reason": str(failed["message"])})
+    return (status, "errors.upload_failed", {"name": att["name"]})
+
+def community_edit_images(acc, post, body, link, save):
+    """An edit's added images, uploaded through the account: the first is the
+    link where the post has none, the rest go into the body. link is None
+    where the edit leaves it, and stays so unless an image becomes it.
+    Answers (body, link, None) or (body, link, failure)."""
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return (body, link, failure)
+    if images:
+        current = link if link != None else (post.get("url", "") or "")
+        body, chosen = community_images(body, current, images)
+        if chosen != current:
+            link = chosen
+    return (body, link, None)
+
+def community_images(body, link, images):
     """A post's images as a community shows them: the first becomes the
     post's link where it has none, the rest go into the body as markdown.
     Answers (body, link)."""
-    images = [d for d in documents if d[1].startswith("image/")]
     if not link and images:
         link = images[0][0]
         images = images[1:]
     if images:
-        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     return (body, link)
 
 def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save):
@@ -12243,7 +12282,10 @@ def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, 
     acc = joined_account(forum)
     if not acc or not acc.get("enabled", 1):
         return None, (403, "errors.account_not_linked")
-    body, link = joined_images(body, link, joined_documents(acc, save))
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    body, link = community_images(body, link, images)
     if not mochi.text.valid(body, "text"):
         return None, (400, "errors.invalid_body")
     post_id = mochi.uid()
@@ -12263,13 +12305,16 @@ def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, 
     follow(forum["id"], post_id)
     return {"id": post_id, "forum": forum["id"]}, None
 
-def joined_post_edit(forum, post, user_id, title, body, link, sensitive, language):
+def joined_post_edit(forum, post, user_id, title, body, link, sensitive, language, save):
     """The user's edit of their own post in a joined community: the record is
-    updated from the account, and the row here. sensitive and language are
-    None where the edit leaves them."""
+    updated from the account, and the row here, with any images it adds.
+    sensitive and language are None where the edit leaves them."""
     acc = joined_account(forum)
     if not acc or not post.get("remote") or post["member"] != user_id:
         return None, (403, "errors.not_allowed_to_edit_this_post")
+    body, link, failure = community_edit_images(acc, post, body, link, save)
+    if failure:
+        return None, failure
     sensitive = post.get("sensitive", 0) if sensitive == None else sensitive
     language = post.get("language", "") if language == None else language
     now = mochi.time.now()
@@ -12312,10 +12357,11 @@ def joined_comment_create(forum, post_id, parent_id, user_id, user_name, body, s
         if not above or not above.get("remote"):
             return None, (404, "errors.parent_comment_not_found")
         parent = above["remote"]
-    documents = joined_documents(acc, save)
-    images = [d for d in documents if d[1].startswith("image/")]
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
     if images:
-        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     comment_id = mochi.uid()
     now = mochi.time.now()
     mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'approved', ? )",
