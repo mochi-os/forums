@@ -43,3 +43,36 @@ describe('the image viewer panel', () => {
     expect(screen.getByText('never cuts')).toBeTruthy()
   })
 })
+
+// A comment on an image in a community on another network goes to its server
+// as the linked account, as every comment there does; the box says so.
+describe('the image viewer comment box', () => {
+  function renderBox(destination?: { community: string; account: string }) {
+    render(
+      <I18nProvider i18n={i18n}>
+        <AttachmentComments
+          comments={comments}
+          attachmentId='img1'
+          commentProps={{ onVote: () => {}, destination }}
+          canComment
+          onAddComment={vi.fn()}
+        />
+      </I18nProvider>
+    )
+  }
+
+  it('names the community and the account in a community forum', () => {
+    renderBox({
+      community: '!test@lemmy.example',
+      account: '@amy@lemmy.example',
+    })
+    expect(
+      screen.getByText('Posts to !test@lemmy.example as @amy@lemmy.example')
+    ).toBeTruthy()
+  })
+
+  it('says nothing in a forum of ours', () => {
+    renderBox()
+    expect(screen.queryByText(/^Posts to /)).toBeNull()
+  })
+})

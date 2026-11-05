@@ -168,6 +168,36 @@ describe('ThreadContent marks and cross-posts', () => {
     )
   })
 
+  // Two communities can share a title, so a cross-post names its server.
+  it("names a community cross-post's server beside its title", () => {
+    renderContent({
+      post: {
+        ...makePost(),
+        url: 'https://example.org/shared',
+        crossposts: [
+          {
+            post: 'p2',
+            title: 'The same link',
+            forum: 'https://lemmy.ml/c/test',
+            forum_name: 'test',
+            handle: 'test@lemmy.ml',
+            fingerprint: 'mZxJ7b43h',
+          },
+          {
+            post: 'p3',
+            title: 'The same link',
+            forum: 'f3',
+            forum_name: 'Ours',
+            fingerprint: 'abcdefghj',
+          },
+        ],
+      },
+      canModerate: false,
+    })
+    expect(screen.getByText('lemmy.ml')).toBeInTheDocument()
+    expect(screen.getAllByText(/lemmy|itjust/)).toHaveLength(1)
+  })
+
   it('offers blocking the author and their server when given', async () => {
     const user = userEvent.setup()
     const onBlockAuthor = vi.fn()
@@ -262,5 +292,47 @@ describe('ThreadContent votes', () => {
 
     act(() => refuse(new Error('refused')))
     await waitFor(() => expect(screen.getByText('2')).toBeTruthy())
+  })
+})
+
+// A reply in a community on another network goes to its server as the linked
+// account; the reply box says so, and in a forum of ours says nothing.
+describe('ThreadComment destination', () => {
+  function renderReplying(destination?: {
+    community: string
+    account: string
+  }) {
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    const comment = makeComment('https://lemmy.example/u/someone')
+    render(
+      <QueryClientProvider client={client}>
+        <I18nProvider i18n={i18n}>
+          <ThreadComment
+            comment={comment}
+            onVote={vi.fn()}
+            canReply
+            replyingToId={comment.id}
+            destination={destination}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+  }
+
+  it('names the community and the account above the reply box', () => {
+    renderReplying({
+      community: '!test@lemmy.example',
+      account: '@amy@lemmy.example',
+    })
+    expect(
+      screen.getByText('Posts to !test@lemmy.example as @amy@lemmy.example')
+    ).toBeInTheDocument()
+  })
+
+  it('says nothing in a forum of ours', () => {
+    renderReplying()
+    expect(screen.queryByText(/^Posts to /)).not.toBeInTheDocument()
   })
 })

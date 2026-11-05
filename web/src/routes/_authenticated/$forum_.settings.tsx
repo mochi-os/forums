@@ -59,6 +59,7 @@ import {
 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { toError, getErrorStatus } from '@/lib/errors'
+import { forumPath } from '@/lib/forum-path'
 import {
   forumsKeys,
   useBlockForumMember,
@@ -1016,7 +1017,7 @@ export function MembersSection({
   const busy = removeMember.isPending || blockMember.isPending
   const name = pending?.name ?? ''
   const assetUrl = (id: string, asset: 'avatar' | 'style') =>
-    `${getAppPath()}/${forumId}/-/members/${encodeURIComponent(id)}/asset/${asset}`
+    `${getAppPath()}/${forumPath(forumId)}/-/members/${encodeURIComponent(id)}/asset/${asset}`
 
   return (
     <Section title={t`Members`}>

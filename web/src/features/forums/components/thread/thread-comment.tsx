@@ -51,9 +51,12 @@ import {
   ServerOff,
   MoreHorizontal,
 } from 'lucide-react'
+import type { ForumDestination } from '@/api/types/forums'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
+import { forumPath } from '@/lib/forum-path'
 import { commentAssets } from '../../author-assets'
 import { CommentAttachments } from '../comment-attachments'
+import { CommunityDestination } from '../community-destination'
 
 // Comment interface aligned with ViewPostResponse.data.comments from API
 export interface ThreadCommentType {
@@ -98,6 +101,8 @@ export interface ThreadCommentProps {
   onReplyFilesChange?: (count: number) => void
   /** The remote server of a `?server=` view, carried into the attachment routes. */
   server?: string
+  /** Where a reply goes, in a community on another network. */
+  destination?: ForumDestination
   onReplySubmit?: (commentId: string, files?: File[]) => void | Promise<void>
   /** Byte progress of an in-flight reply upload */
   replyProgress?: Upload | null
@@ -137,6 +142,7 @@ export interface ThreadCommentProps {
 
 export function ThreadComment({
   comment,
+  destination,
   onVote,
   canVote = true,
   canReply = false,
@@ -324,7 +330,7 @@ export function ThreadComment({
           >
             <AssetImage
               src={authenticatedUrl(
-                `${getAppPath()}/${comment.forum}/-/attachments/${comment.attachment}/thumbnail`
+                `${getAppPath()}/${forumPath(comment.forum)}/-/attachments/${comment.attachment}/thumbnail`
               )}
               alt=''
               className='size-5 rounded object-cover text-transparent'
@@ -680,9 +686,15 @@ export function ThreadComment({
 
       {/* Reply input */}
       {isReplying && (
+        <CommunityDestination
+          destination={destination}
+          className='mt-2 border-t pt-2'
+        />
+      )}
+      {isReplying && (
         <CommentBox
           kind='reply'
-          className='mt-2 border-t pt-2'
+          className={destination ? 'mt-1' : 'mt-2 border-t pt-2'}
           value={replyValue}
           onValueChange={(value) => onReplyChange?.(value)}
           onSubmit={submitReply}
@@ -704,6 +716,7 @@ export function ThreadComment({
           key={reply.id}
           comment={reply}
           server={server}
+          destination={destination}
           onOpenAttachment={onOpenAttachment}
           onVote={onVote}
           canVote={canVote}

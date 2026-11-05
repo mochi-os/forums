@@ -27,6 +27,7 @@ import {
 } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import type { Tag } from '@/api/types/posts'
+import { communityHandle } from '@/lib/community'
 import {
   useForumWebsocket,
   type ForumGoneReason,
@@ -55,6 +56,7 @@ import {
 } from '@/hooks/use-forums-queries'
 import { authorAssets } from '@/features/forums/author-assets'
 import { forumPostEditOriginalFromPost } from '@/features/forums/edit-compare'
+import { CommunityDestination } from './components/community-destination'
 import { EditPostDialog } from './components/edit-post-dialog'
 import { ForumBanner } from './components/forum-banner'
 import { ForumGone } from './components/forum-gone'
@@ -162,8 +164,10 @@ export function ThreadDetail({
   // The gallery fills this with "open the lightbox on this attachment,
   // comments showing"; an anchored comment's image chip calls it.
   const lightboxOpener = useRef<((attachmentId: string) => void) | null>(null)
+  // The comments are shown once the thread is held, after the hook must run.
   const [commentsListRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isLoading,
+    count: postData?.data?.comments?.length ?? 0,
   })
 
   usePageTitle(postData?.data?.post?.title ?? t`Thread`)
@@ -499,6 +503,7 @@ export function ThreadDetail({
   // thread scoped to an image, not a second thread with fewer powers.
   const commentProps = {
     server,
+    destination: postData?.data?.forum?.destination,
     avatars,
     postAuthor: post.member,
     shareUrl: (commentId: string) =>
@@ -566,6 +571,7 @@ export function ThreadDetail({
     <>
       <PageHeader
         title={forumTitle}
+        description={communityHandle(forumData?.handle)}
         back={{ label: t`Back to forum`, onFallback: goBackToForumContext }}
       />
       <Main className='space-y-4'>
@@ -660,6 +666,12 @@ export function ThreadDetail({
               {/* Divider */}
               <div className='border-border/60 mt-6 border-t pt-4'>
                 {/* Reply Form - shown above comments */}
+                {showReplyForm && (
+                  <CommunityDestination
+                    destination={postData?.data?.forum?.destination}
+                    className='mb-1'
+                  />
+                )}
                 {showReplyForm && (
                   <CommentBox
                     kind='reply'

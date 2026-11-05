@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 import type { Post } from '@/api/types/forums'
 import { getCommentCount } from '@/api/types/posts'
+import { forumPath } from '@/lib/forum-path'
 import { postAssets } from '../author-assets'
 import { sanitizeHtml } from '../utils'
 import { PostLink } from './post-link'
@@ -35,6 +36,8 @@ import { PostAttachments } from './thread/post-attachments'
 interface PostCardProps {
   post: Post
   forumName: string
+  /** The server of a community on another network, beside its name. */
+  forumServer?: string
   showForumBadge: boolean
   server?: string
   onSelect: (forumId: string, postId: string) => void
@@ -54,6 +57,7 @@ interface PostCardProps {
 export function PostCard({
   post,
   forumName,
+  forumServer,
   showForumBadge,
   server,
   onSelect,
@@ -130,7 +134,13 @@ export function PostCard({
           // matching note in ThreadContent).
           <span className='inline-flex flex-wrap items-center gap-x-1.5 gap-y-1'>
             {showForumBadge ? (
-              <span className='whitespace-nowrap'>{forumName} · </span>
+              <span className='whitespace-nowrap'>
+                {forumName}
+                {forumServer && (
+                  <span className='opacity-70'> {forumServer}</span>
+                )}{' '}
+                ·{' '}
+              </span>
             ) : null}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
@@ -232,7 +242,7 @@ export function PostCard({
           {getCommentCount(post.comments) > 0 && (
             <Link
               to='/$forum/$post'
-              params={{ forum: post.forum, post: post.id }}
+              params={{ forum: forumPath(post.forum), post: post.id }}
               search={showForumBadge ? { from: 'all' } : undefined}
               className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs transition-colors'
               onClick={(e) => e.stopPropagation()}

@@ -18,7 +18,10 @@ beforeAll(() => {
   Element.prototype.scrollIntoView ??= () => {}
 })
 
-function renderDialog(onCreate = vi.fn()) {
+function renderDialog(
+  onCreate = vi.fn(),
+  destination?: { community: string; account: string }
+) {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   })
@@ -28,6 +31,7 @@ function renderDialog(onCreate = vi.fn()) {
         <CreatePostDialog
           forumId='f1'
           forumName='Forum'
+          destination={destination}
           onCreate={onCreate}
           open
           onOpenChange={vi.fn()}
@@ -69,5 +73,24 @@ describe('CreatePostDialog marks', () => {
 
     expect(onCreate.mock.calls[0][0].sensitive).toBeUndefined()
     expect(onCreate.mock.calls[0][0].language).toBeUndefined()
+  })
+})
+
+// A post in a community on another network always goes to its server, as the
+// linked account, so the composer says where and as whom.
+describe('CreatePostDialog destination', () => {
+  it('names the community and the account in a community forum', () => {
+    renderDialog(vi.fn(), {
+      community: '!test@lemmy.example',
+      account: '@amy@lemmy.example',
+    })
+    expect(
+      screen.getByText('Posts to !test@lemmy.example as @amy@lemmy.example')
+    ).toBeInTheDocument()
+  })
+
+  it('says nothing in a forum of ours', () => {
+    renderDialog()
+    expect(screen.queryByText(/^Posts to /)).not.toBeInTheDocument()
   })
 })

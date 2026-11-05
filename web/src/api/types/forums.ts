@@ -41,6 +41,16 @@ export interface Forum {
   hosted?: string
   // Whether the forum's posts are all sensitive.
   sensitive?: number
+  // A community's handle, name@host, and where what is written in it goes.
+  handle?: string
+  destination?: ForumDestination
+}
+
+// Where a post or comment written in a community goes: the community as its
+// network writes one (!name@host) and the account it goes out as.
+export interface ForumDestination {
+  community: string
+  account: string
 }
 
 export interface Member {

@@ -16,6 +16,8 @@ import {
 } from '@mochi/web'
 import { Rss } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
+import { forumServer } from '@/lib/community'
+import { forumPath } from '@/lib/forum-path'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
   useForumsList,
@@ -98,7 +100,7 @@ export function ForumsListPage({
   const handlePostSelect = (forum: string, post: string) => {
     navigate({
       to: '/$forum/$post',
-      params: { forum, post },
+      params: { forum: forumPath(forum), post },
       search: { from: 'all' },
     })
   }
@@ -110,6 +112,7 @@ export function ForumsListPage({
       return {
         ...post,
         forumName: forum?.name ?? t`Unknown`,
+        forumServer: forum ? forumServer(forum) : undefined,
       }
     })
   }, [allPosts, forums, t])

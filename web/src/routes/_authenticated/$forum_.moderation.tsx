@@ -49,6 +49,7 @@ import type {
 } from '@/api/types/moderation'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import { toError } from '@/lib/errors'
+import { forumPath } from '@/lib/forum-path'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
 import {
   moderationActionLabel,
@@ -1019,8 +1020,8 @@ function LogTab({ forumId }: LogTabProps) {
               <div className='flex items-start gap-2 text-sm'>
                 {entry.author && (
                   <EntityAvatar
-                    src={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/avatar`}
-                    styleUrl={`${getAppPath()}/${forumId}/-/moderation/${entry.author}/asset/style`}
+                    src={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${entry.author}/asset/avatar`}
+                    styleUrl={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${entry.author}/asset/style`}
                     name={entry.author_name}
                     size='sm'
                     className='mt-0.5 shrink-0'
@@ -1158,8 +1159,8 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
           >
             <div className='flex min-w-0 flex-1 items-center gap-3'>
               <EntityAvatar
-                src={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${forumId}/-/moderation/${restriction.user}/asset/style`}
+                src={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${restriction.user}/asset/avatar`}
+                styleUrl={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${restriction.user}/asset/style`}
                 name={restriction.name}
                 size='md'
                 className='shrink-0'

@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { PostLink } from './post-link'
+import { linkImage, PostLink } from './post-link'
 
 describe('PostLink', () => {
   it('shows the card the server read, as a link to the page', () => {
@@ -48,5 +48,69 @@ describe('PostLink', () => {
       </>
     )
     expect(container.querySelector('[data-testid="post-link"]')).toBeNull()
+  })
+})
+
+// A Lemmy image post's link is the image itself: shown as the picture, as its
+// network shows it, never as a card naming its address.
+describe('an image link', () => {
+  const image = 'https://lemmy.example/pictrs/image/abc.jpeg'
+
+  it('shows as the image, linking to it, and not its address', () => {
+    render(
+      <PostLink
+        post={{
+          url: image,
+          thumbnail: 'https://lemmy.example/pictrs/image/small.jpeg',
+        }}
+      />
+    )
+    const link = screen.getByTestId('post-link')
+    expect(link).toHaveAttribute('href', image)
+    expect(link.querySelector('img')).toHaveAttribute('src', image)
+    expect(screen.queryByText(image)).toBeNull()
+  })
+
+  it("shows the network's smaller copy in a list", () => {
+    render(
+      <PostLink
+        post={{
+          url: image,
+          thumbnail: 'https://lemmy.example/pictrs/image/small.jpeg',
+        }}
+        compact
+      />
+    )
+    expect(
+      screen.getByTestId('post-link').querySelector('img')
+    ).toHaveAttribute('src', 'https://lemmy.example/pictrs/image/small.jpeg')
+    expect(screen.queryByText(image)).toBeNull()
+  })
+
+  it("is known by its file, by Lemmy's image proxy, or by the type its network gave", () => {
+    expect(linkImage({ url: image })).toBe(true)
+    expect(
+      linkImage({
+        url: 'https://lemmy.example/api/v3/image_proxy?url=https%3A%2F%2Fthere.example%2Fa.png',
+      })
+    ).toBe(true)
+    expect(
+      linkImage({
+        url: 'https://there.example/picture',
+        embed: JSON.stringify({ type: 'image/webp' }),
+      })
+    ).toBe(true)
+    expect(linkImage({ url: 'https://there.example/story' })).toBe(false)
+    expect(
+      linkImage({
+        url: 'https://there.example/share?url=https%3A%2F%2Fthere.example%2Fa.png',
+      })
+    ).toBe(false)
+    expect(
+      linkImage({
+        url: 'https://there.example/a.png',
+        embed: JSON.stringify({ type: 'text/html' }),
+      })
+    ).toBe(false)
   })
 })

@@ -80,6 +80,7 @@ export function ForumOverview({
   const avatars = useMemo(() => authorAssets(posts), [posts])
   const [listRef] = useListAutoAnimate<HTMLDivElement>({
     disabled: isFetchingNextPage,
+    count: posts.length,
   })
 
   if (!forum) {
@@ -98,6 +99,7 @@ export function ForumOverview({
                 key={post.id}
                 post={post}
                 forumName={post.forumName || t`Unknown`}
+                forumServer={post.forumServer}
                 showForumBadge={true}
                 server={server}
                 onSelect={onSelectPost}
@@ -179,6 +181,7 @@ export function ForumOverview({
             <CreatePostDialog
               forumId={forum.id}
               forumName={forum.name}
+              destination={forum.destination}
               onCreate={onCreatePost}
               isPending={isCreatingPost}
               isSuccess={isPostCreated}

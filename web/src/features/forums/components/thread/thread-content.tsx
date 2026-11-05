@@ -54,6 +54,7 @@ import {
   ServerOff,
 } from 'lucide-react'
 import type { Post, Attachment } from '@/api/types/posts'
+import { communityServer } from '@/lib/community'
 import { postAssets } from '../../author-assets'
 import { embedVideos, sanitizeHtml } from '../../utils'
 import { PostLink } from '../post-link'
@@ -317,6 +318,12 @@ export function ThreadContent({
               >
                 {cross.forum_name}
               </Link>
+              {communityServer(cross.handle, cross.forum) && (
+                <span className='text-muted-foreground'>
+                  {' '}
+                  {communityServer(cross.handle, cross.forum)}
+                </span>
+              )}
             </span>
           ))}
         </div>

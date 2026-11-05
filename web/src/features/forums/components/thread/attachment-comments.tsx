@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react'
 import { plural } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { CommentBox, CommentThreadProvider } from '@mochi/web'
+import { CommunityDestination } from '../community-destination'
 import {
   ThreadComment,
   type ThreadCommentType,
@@ -88,8 +89,14 @@ export function AttachmentComments({
         )}
       </div>
       {canComment && onAddComment && (
+        <CommunityDestination
+          destination={commentProps.destination}
+          className='border-t px-3 pt-3'
+        />
+      )}
+      {canComment && onAddComment && (
         <CommentBox
-          className='border-t p-3'
+          className={commentProps.destination ? 'p-3 pt-1' : 'border-t p-3'}
           value={draft}
           onValueChange={setDraft}
           // Rejects on failure so the box keeps the draft and files for Retry.

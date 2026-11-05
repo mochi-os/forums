@@ -14,6 +14,7 @@ import {
 import { Hash } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { DirectoryEntry } from '@/api/types/forums'
+import { forumPath } from '@/lib/forum-path'
 import { forumsKeys } from '@/hooks/use-forums-queries'
 
 interface InlineForumSearchProps {
@@ -90,7 +91,7 @@ export function InlineForumSearch({
     }
     void queryClient.invalidateQueries({ queryKey: forumsKeys.all })
     onRefresh?.()
-    void navigate({ to: '/$forum', params: { forum: forum.id } })
+    void navigate({ to: '/$forum', params: { forum: forumPath(forum.id) } })
   }
 
   return (

@@ -12,6 +12,7 @@ import {
 } from '@mochi/web'
 import { Bookmark, Hash, Plus, RefreshCw, Search } from 'lucide-react'
 import type { Forum } from '@/api/types/forums'
+import { forumServer } from '@/lib/community'
 import { loadSaved } from '@/lib/saved'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useForumsInfo, useCreatePost } from '@/hooks/use-forums-queries'
@@ -85,6 +86,8 @@ function ForumsLayoutInner() {
       return {
         id: f.id,
         title: f.name,
+        // A community's server, so two of the same title read apart.
+        meta: forumServer(f),
         url: `/${forumUrl}`,
         icon: Hash,
       }
@@ -158,6 +161,7 @@ function ForumsLayoutInner() {
         <CreatePostDialog
           forumId={dialogForum.id}
           forumName={dialogForum.name}
+          destination={dialogForum.destination}
           onCreate={handleCreatePost}
           isPending={createPostMutation.isPending}
           isSuccess={createPostMutation.isSuccess}

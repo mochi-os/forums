@@ -166,16 +166,22 @@ const forumsApi = {
       params: { capability },
     }),
 
+  // These three wait on the account's server: reading its pages, importing
+  // its settings within a budget, following and reading a community. No limit
+  // of the client's own, since the server always answers, and a limit shorter
+  // than its work reported a failure for a step that went on to finish.
   addCommunities: (account: string) =>
     client.post<CommunitiesAddResponse, { account: string }>(
       endpoints.forums.communitiesAdd,
-      { account }
+      { account },
+      { timeout: 0 }
     ),
 
   importCommunities: (account: string) =>
     client.post<CommunitiesImportResponse, { account: string }>(
       endpoints.forums.communitiesImport,
-      { account }
+      { account },
+      { timeout: 0 }
     ),
 
   // A community on another server joined as one of the user's hosted
@@ -184,7 +190,7 @@ const forumsApi = {
     client.post<
       { data: CommunityJoined },
       { address: string; account: string }
-    >(endpoints.forums.communitiesJoin, { address, account }),
+    >(endpoints.forums.communitiesJoin, { address, account }, { timeout: 0 }),
 
   // Block a person by their address, a community by its address or a server
   // by its domain
