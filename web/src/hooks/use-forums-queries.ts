@@ -12,6 +12,8 @@ import { useLingui } from '@lingui/react/macro'
 import {
   handleServerError,
   optimistic,
+  optimisticFields,
+  type FieldsPlace,
   toast,
   toastAction,
   getErrorMessage,
@@ -382,6 +384,61 @@ function hasPost(old: ViewPostResponse | undefined): old is ViewPostResponse {
   return !!old?.data?.post
 }
 
+// Votes, lock, pin and follow all change the one post query, often several
+// at once: a vote on two comments, or a vote while a lock is out. Each goes
+// back field by field on its own item, so a refused one leaves the others as
+// the reader set them. A whole-query undo would put back the post as it was
+// before both.
+
+// The post's own fields.
+const onPost = (forumId: string, postId: string): FieldsPlace<Post>[] => [
+  {
+    filters: { queryKey: forumsKeys.post(forumId, postId) },
+    edit: (old: ViewPostResponse, _id, change) => {
+      if (!hasPost(old)) return old
+      const post = change(old.data.post)
+      return post === old.data.post
+        ? old
+        : { ...old, data: { ...old.data, post } }
+    },
+  },
+]
+
+function editComments(
+  comments: ViewPostComment[],
+  id: string,
+  change: (comment: ViewPostComment) => ViewPostComment
+): ViewPostComment[] {
+  let changed = false
+  const next = comments.map((comment) => {
+    const updated = comment.id === id ? change(comment) : comment
+    const children = comment.children?.length
+      ? editComments(comment.children, id, change)
+      : comment.children
+    if (updated === comment && children === comment.children) return comment
+    changed = true
+    return { ...updated, children }
+  })
+  return changed ? next : comments
+}
+
+// A comment anywhere in the post's thread.
+const onComment = (
+  forumId: string,
+  postId: string
+): FieldsPlace<ViewPostComment>[] => [
+  {
+    filters: { queryKey: forumsKeys.post(forumId, postId) },
+    edit: (old: ViewPostResponse, id, change) => {
+      if (!hasPost(old)) return old
+      const comments = editComments(old.data.comments ?? [], id, change)
+      return comments === old.data.comments
+        ? old
+        : { ...old, data: { ...old.data, comments } }
+    },
+  },
+]
+
 // The counts after changing the reader's vote, the same sums the vote buttons
 // make on the click. The server answers a vote with no counts, so this guess
 // stays in the cache until the post is next fetched, as it stays in the
@@ -391,6 +448,7 @@ function applyVote<T extends { up: number; down: number; user_vote?: Vote }>(
   vote: Vote
 ): T {
   const previous = item.user_vote || ''
+  if (previous === vote) return item
   let { up, down } = item
   if (previous === 'up') up -= 1
   if (previous === 'down') down -= 1
@@ -399,38 +457,19 @@ function applyVote<T extends { up: number; down: number; user_vote?: Vote }>(
   return { ...item, up, down, user_vote: vote }
 }
 
-function voteInComments(
-  comments: ViewPostComment[],
-  commentId: string,
-  vote: Vote
-): ViewPostComment[] {
-  return comments.map((comment) =>
-    comment.id === commentId
-      ? applyVote(comment, vote)
-      : {
-          ...comment,
-          children: voteInComments(comment.children ?? [], commentId, vote),
-        }
-  )
-}
+const VOTE_FIELDS = ['up', 'down', 'user_vote'] as const
 
 // Votes show at once in the buttons' own state, which follows the post query.
 // Patching the query as well means a refused vote puts the buttons back too:
-// the snapshot goes back, and their sync effect copies it in.
+// the fields go back, and their sync effect copies them in.
 export function useVotePost(forumId: string, postId: string) {
   const queryClient = useQueryClient()
-  const patch = optimistic(queryClient, (vote: Vote) => [
-    {
-      filters: { queryKey: forumsKeys.post(forumId, postId) },
-      update: (old: ViewPostResponse) =>
-        hasPost(old)
-          ? {
-              ...old,
-              data: { ...old.data, post: applyVote(old.data.post, vote) },
-            }
-          : old,
-    },
-  ])
+  const patch = optimisticFields(queryClient, {
+    places: onPost(forumId, postId),
+    id: () => postId,
+    fields: VOTE_FIELDS,
+    apply: (post: Post, vote: Vote) => applyVote(post, vote),
+  })
   return useMutation({
     mutationFn: (vote: Vote) =>
       forumsApi.votePost({ forum: forumId, post: postId, vote }),
@@ -444,28 +483,12 @@ export function useVotePost(forumId: string, postId: string) {
 
 export function useVoteComment(forumId: string, postId: string) {
   const queryClient = useQueryClient()
-  const patch = optimistic(
-    queryClient,
-    ({ commentId, vote }: { commentId: string; vote: Vote }) => [
-      {
-        filters: { queryKey: forumsKeys.post(forumId, postId) },
-        update: (old: ViewPostResponse) =>
-          hasPost(old)
-            ? {
-                ...old,
-                data: {
-                  ...old.data,
-                  comments: voteInComments(
-                    old.data.comments ?? [],
-                    commentId,
-                    vote
-                  ),
-                },
-              }
-            : old,
-      },
-    ]
-  )
+  const patch = optimisticFields(queryClient, {
+    places: onComment(forumId, postId),
+    id: ({ commentId }: { commentId: string; vote: Vote }) => commentId,
+    fields: VOTE_FIELDS,
+    apply: (comment: ViewPostComment, { vote }) => applyVote(comment, vote),
+  })
   return useMutation({
     mutationFn: ({ commentId, vote }: { commentId: string; vote: Vote }) =>
       forumsApi.voteComment({
@@ -756,18 +779,13 @@ function postFlag(
   flag: 'locked' | 'pinned',
   value: boolean
 ) {
-  return optimistic<void>(queryClient, () => [
-    {
-      filters: { queryKey: forumsKeys.post(forumId, postId) },
-      update: (old: ViewPostResponse) =>
-        hasPost(old)
-          ? {
-              ...old,
-              data: { ...old.data, post: { ...old.data.post, [flag]: value } },
-            }
-          : old,
-    },
-  ])
+  return optimisticFields<void, Post>(queryClient, {
+    places: onPost(forumId, postId),
+    id: () => postId,
+    fields: [flag],
+    apply: (post: Post) =>
+      post[flag] === value ? post : { ...post, [flag]: value },
+  })
 }
 
 export function useLockPost(forumId: string, postId: string) {
@@ -814,15 +832,22 @@ export function useUnlockPost(forumId: string, postId: string) {
 // server it was read from, so the patch matches it as a prefix.
 export function useFollowPost(forumId: string, postId: string) {
   const queryClient = useQueryClient()
-  const patch = optimistic(queryClient, (following: boolean) => [
-    {
-      filters: { queryKey: forumsKeys.post(forumId, postId) },
-      update: (old: ViewPostResponse) => ({
-        ...old,
-        data: { ...old.data, following },
-      }),
-    },
-  ])
+  const patch = optimisticFields(queryClient, {
+    places: [
+      {
+        filters: { queryKey: forumsKeys.post(forumId, postId) },
+        edit: (old: ViewPostResponse, _id, change) => {
+          if (!old?.data) return old
+          const data = change(old.data)
+          return data === old.data ? old : { ...old, data }
+        },
+      },
+    ],
+    id: () => postId,
+    fields: ['following'],
+    apply: (data: ViewPostResponse['data'], following: boolean) =>
+      data.following === following ? data : { ...data, following },
+  })
   return useMutation({
     mutationFn: (following: boolean) =>
       forumsApi.followPost(forumId, postId, following),

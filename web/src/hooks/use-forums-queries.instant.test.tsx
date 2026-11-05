@@ -244,4 +244,49 @@ describe('votes', () => {
     await waitFor(() => expect(view.result.current.isError).toBe(true))
     expect(post()).toEqual({ up: 2, down: 1, user_vote: '' })
   })
+
+  it('a refused vote on one comment leaves a taken vote on another', async () => {
+    const { client, view } = mount(() => useVoteComment('f1', 'p1'), seed)
+    const top = () => client.getQueryData<Data>(key)?.data.comments[0]
+    const reply = () => top()?.children[0]
+
+    act(() => view.result.current.mutate({ commentId: 'c1', vote: 'up' }))
+    await waitFor(() => expect(pending).toHaveLength(1))
+    act(() => view.result.current.mutate({ commentId: 'c2', vote: '' }))
+    await waitFor(() => expect(pending).toHaveLength(2))
+
+    act(() => pending[1].accept())
+    await waitFor(() => expect(view.result.current.isSuccess).toBe(true))
+    act(() => pending[0].refuse(new Error('refused')))
+    await waitFor(() => expect(handleServerError).toHaveBeenCalled())
+
+    expect(top()).toMatchObject({ up: 0, down: 0, user_vote: '' })
+    expect(reply()).toMatchObject({ up: 2, down: 0, user_vote: '' })
+  })
+
+  it('a refused lock goes back after a vote changed the post', async () => {
+    const { client, view } = mount(
+      () => ({ lock: useLockPost('f1', 'p1'), vote: useVotePost('f1', 'p1') }),
+      (c) =>
+        c.setQueryData(key, {
+          data: {
+            post: { up: 2, down: 1, user_vote: '', locked: false },
+            comments: [],
+          },
+        })
+    )
+    const post = () =>
+      client.getQueryData<{ data: { post: Counts & { locked?: boolean } } }>(
+        key
+      )?.data.post
+
+    act(() => view.result.current.lock.mutate())
+    await waitFor(() => expect(pending).toHaveLength(1))
+    act(() => view.result.current.vote.mutate('up'))
+    await waitFor(() => expect(pending).toHaveLength(2))
+
+    act(() => pending[0].refuse(new Error('refused')))
+    await waitFor(() => expect(view.result.current.lock.isError).toBe(true))
+    expect(post()).toEqual({ up: 3, down: 1, user_vote: 'up', locked: false })
+  })
 })
