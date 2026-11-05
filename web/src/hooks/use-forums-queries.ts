@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
 import {
   handleServerError,
+  optimistic,
   toast,
   toastAction,
   getErrorMessage,
@@ -23,7 +24,7 @@ import type {
   NotificationSettingsResponse,
   Post,
 } from '@/api/types/forums'
-import type { EditPostResponse } from '@/api/types/posts'
+import type { EditPostResponse, ViewPostResponse } from '@/api/types/posts'
 import {
   isForumPostEditUnchanged,
   type ForumPostEditOriginal,
@@ -309,8 +310,22 @@ export function useForumNotifications(forumId: string, enabled: boolean) {
   })
 }
 
+// The tick moves on the click and goes back if the server refuses. The
+// server's answer then replaces it, along with any kind the change covers.
 export function useSetForumNotification(forumId: string) {
   const queryClient = useQueryClient()
+  const patch = optimistic(
+    queryClient,
+    ({ kind, enabled }: { kind: NotificationKind; enabled: boolean }) => [
+      {
+        filters: { queryKey: forumsKeys.notifications(forumId), exact: true },
+        update: (old: NotificationSettingsResponse) => ({
+          ...old,
+          data: { ...old.data, [kind]: enabled },
+        }),
+      },
+    ]
+  )
   return useMutation({
     mutationFn: ({
       kind,
@@ -319,10 +334,14 @@ export function useSetForumNotification(forumId: string) {
       kind: NotificationKind
       enabled: boolean
     }) => forumsApi.setNotification(forumId, kind, enabled),
+    onMutate: patch.onMutate,
     onSuccess: (response: NotificationSettingsResponse) => {
       queryClient.setQueryData(forumsKeys.notifications(forumId), response)
     },
-    onError: handleServerError,
+    onError: (error, _variables, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
@@ -665,17 +684,32 @@ export function useUnlockPost(forumId: string, postId: string) {
   })
 }
 
+// Follow flips on the click and back if refused. The post's key ends in the
+// server it was read from, so the patch matches it as a prefix.
 export function useFollowPost(forumId: string, postId: string) {
   const queryClient = useQueryClient()
+  const patch = optimistic(queryClient, (following: boolean) => [
+    {
+      filters: { queryKey: forumsKeys.post(forumId, postId) },
+      update: (old: ViewPostResponse) => ({
+        ...old,
+        data: { ...old.data, following },
+      }),
+    },
+  ])
   return useMutation({
     mutationFn: (following: boolean) =>
       forumsApi.followPost(forumId, postId, following),
+    onMutate: patch.onMutate,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: forumsKeys.post(forumId, postId),
       })
     },
-    onError: handleServerError,
+    onError: (error, _following, context) => {
+      patch.rollback(context)
+      handleServerError(error)
+    },
   })
 }
 
