@@ -829,8 +829,13 @@ idle_resync_age = 7 * 86400
 # request_resync pulls a fresh schema dump from the owner when an incoming event
 # references data we lack; subscribers only, throttled to once per 60 seconds
 # per forum. name, when given, asks for the first part as a subscriber of that
-# name, which the owner registers before it reads it.
-def request_resync(forum_id, name=None):
+# name, which the owner registers before it reads it. budget is the seconds the
+# call may spend on parts after the first, PART_TIME when None (it is defined
+# after this). One that cannot
+# start now is put off rather than dropped, unless defer is False: a
+# subscription still filling asks again by itself (schedule_fill). force, for a
+# resync the user asks for, starts it at once whatever is under way.
+def request_resync(forum_id, name=None, budget=None, defer=True, force=False):
     """Returns True iff every part of a fresh schema was fetched and applied
     within this call. A pull that runs out of time is continued by
     schedule_schema; one that fails waits for the next resync."""
@@ -840,14 +845,21 @@ def request_resync(forum_id, name=None):
     if not row["server"]:
         return False
     now = mochi.time.now()
-    if row["synced"] and now - row["synced"] < 60:
+    # A pull under way, its continuation pending, finishes first: one started
+    # beside it would take the forum again from the start. One within the last
+    # minute stands. What asked for this one - a gap, an event naming what is
+    # not held - may need what they read before it, so it runs after them.
+    pending = fill_pending(forum_id, "schedule_schema")
+    if not force and (pending or (row["synced"] and now - row["synced"] < 60)):
+        if defer:
+            resync_defer(forum_id, 61 if pending else 61 - (now - row["synced"]))
         return False
     mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
     peer = mochi.remote.peer(row["server"])
     schema = schema_fetch(forum_id, peer, SCHEMA_START, name)
     if not schema or schema.get("error"):
         return False
-    if not insert_forum_schema(forum_id, schema, peer, now):
+    if not insert_forum_schema(forum_id, schema, peer, now, budget=PART_TIME if budget == None else budget):
         return False
     schema_completed(forum_id)
     return True
@@ -863,6 +875,22 @@ def schema_completed(forum_id):
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
         if filled:
             mochi.websocket.write(fp, {"type": "forum/update", "forum": forum_id})
+
+# resync_defer(forum_id, wait) puts off a resync request_resync could not start
+# for wait seconds, once a forum however often it is asked for meanwhile.
+def resync_defer(forum_id, wait):
+    if not fill_pending(forum_id, "schedule_resync"):
+        mochi.schedule.after("schedule_resync", {"forum": forum_id}, wait)
+
+# schedule_resync(e): a resync put off (resync_defer), put off again while a
+# pull still runs.
+def schedule_resync(e):
+    if e.source != "schedule":
+        return
+    forum_id = e.data.get("forum", "")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    request_resync(forum_id)
 
 # fill_waits: the seconds before each pull of a subscription still filling
 # (schedule_fill): the first past the 60 in which request_resync lets no second
@@ -893,7 +921,7 @@ def fill_schedule(forum_id, attempt=0, name=None, delay=None):
 
 # schedule_fill(e): a subscription still filling pulls the schema, and asks
 # again later until it is whole. A pull already under way - a continuation, or
-# a part retried - is left to finish first.
+# a part retried - is left to finish first (request_resync).
 def schedule_fill(e):
     if e.source != "schedule":
         return
@@ -907,8 +935,7 @@ def schedule_fill(e):
     row = mochi.db.row("select populated from forums where id=?", forum_id)
     if not row or row["populated"] != 0:
         return
-    if not fill_pending(forum_id, "schedule_schema"):
-        request_resync(forum_id, name)
+    request_resync(forum_id, name, defer=False)
     row = mochi.db.row("select populated from forums where id=?", forum_id)
     if row and row["populated"] == 0:
         fill_schedule(forum_id, attempt, name)
@@ -3470,7 +3497,11 @@ def action_subscribe(a):
 
 # Force a fresh schema pull from the forum owner. The subscriber-side
 # event handlers self-heal via request_resync on the next inbound event;
-# this action lets the UI or a user trigger it explicitly.
+# this action lets the UI or a user trigger it explicitly. It answers after the
+# first part, as a subscribe does: each further part may take 30 seconds to
+# arrive, past what a client waits. A continuation takes the rest, and synced
+# says whether the first was the last. It starts at once, whatever pull is under
+# way or ran in the last minute.
 def action_resync(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -3482,8 +3513,7 @@ def action_resync(a):
     if owned(forum["id"]):
         # Owners are the canonical source; nothing to resync from.
         return {"data": {"synced": False}}
-    mochi.db.execute("update forums set synced=0 where id=?", forum["id"])
-    synced = request_resync(forum["id"])
+    synced = request_resync(forum["id"], budget=0, force=True)
     return {"data": {"synced": synced}}
 
 # Unsubscribe from forum
@@ -7891,7 +7921,7 @@ def event_update_event(e):
         peer = e.header("peer")
         if not forum["server"] and mochi.text.valid(peer, "peer"):
             mochi.db.execute("update forums set server=? where id=? and server=''", "p2p/" + peer, forum_id)
-        if not request_resync(forum_id):
+        if not request_resync(forum_id, defer=False):
             fill_schedule(forum_id)
 
 # MODERATION EVENTS
