@@ -8957,8 +8957,11 @@ def schema_import(forum_id, schema):
         # updated: the owner could name an id that already exists in another of
         # the user's forums, and that row must not be touched or moved here.
         # Apply the same validation the P2P submit path enforces; the dump is
-        # owner-supplied and could otherwise seed the replica with a title/body
-        # (bidi overrides, over-length) that event_post_submit_event rejects.
+        # owner-supplied and could otherwise seed the replica with an id, a
+        # title or a body (a path in the id, bidi overrides, over-length) that
+        # event_post_create_event rejects. Clients build addresses from the id.
+        if not mochi.text.valid(p.get("id", ""), "id"):
+            continue
         if not mochi.text.valid(p.get("title", ""), "name"):
             continue
         if not mochi.text.valid(p.get("body", ""), "text"):
@@ -8985,7 +8988,9 @@ def schema_import(forum_id, schema):
         # Only accept a comment whose post is a post in THIS forum.
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
             continue
-        # Same body validation the P2P submit path applies.
+        # Same id and body validation the P2P submit path applies.
+        if not mochi.text.valid(c.get("id", ""), "id"):
+            continue
         if not mochi.text.valid(c.get("body", ""), "text"):
             continue
         # As with posts: the owner's words and counts, on a row of this forum.
