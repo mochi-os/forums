@@ -1315,6 +1315,11 @@ def on_db_commit(table, kind, row_uid):
         mochi.websocket.write(fingerprint, msg)
 
 
+def restriction_target(value):
+    """Whether a restriction may name this person: a Mochi identity, or the
+    actor address a person from another network is a member by."""
+    return mochi.text.valid(value, "entity") or remote_ok(value)
+
 # Helper: Check if user is restricted from a forum
 # Returns a stable reason code ("banned" / "muted") if restricted, None if
 # allowed. Callers localise the code: HTTP via a.error.label, P2P by passing it
@@ -5304,7 +5309,7 @@ def restrict(forum_input, user, target_user, kind, reason, duration):
     if not check_access_remote_user(user, forum["id"], "moderate"):
         return None, (403, "errors.not_allowed_to_moderate")
 
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return None, (400, "errors.invalid_user")
 
     if kind not in ["muted", "banned", "shadowban"]:
@@ -5363,7 +5368,7 @@ def unrestrict(forum_input, user, target_user):
     if not check_access_remote_user(user, forum["id"], "moderate"):
         return None, (403, "errors.not_allowed_to_moderate")
 
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return None, (400, "errors.invalid_user")
 
     restriction = mochi.db.row("select * from restrictions where forum=? and user=?", forum["id"], target_user)
@@ -5412,6 +5417,12 @@ def restrictions_named(forum_id, restrictions):
     for r in restrictions:
         if r["user"] in names:
             r["name"] = names[r["user"]]
+        elif remote_ok(r["user"]):
+            # A person from another network is no member: they are named as
+            # their latest post or comment here names them.
+            row = mochi.db.row("select name, created from posts where forum=? and member=? union all select name, created from comments where forum=? and member=? order by created desc limit 1", forum_id, r["user"], forum_id, r["user"])
+            if row and row["name"]:
+                r["name"] = row["name"]
         if r["moderator"] in names:
             r["moderator_name"] = names[r["moderator"]]
     return restrictions
@@ -8266,7 +8277,7 @@ def event_restrict_submit_event(e):
     target_user = e.content("user")
     # A restriction names a person; an unvalidated value writes a row that
     # matches nobody, or matches by accident.
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return
     restriction_type = e.content("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
@@ -8311,7 +8322,7 @@ def event_user_restrict_event(e):
     # compared numerically against now() - a string from the wire would compare
     # by SQLite type ordering and never expire.
     target_user = e.content("user")
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return
     restriction_type = e.content("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
@@ -11410,16 +11421,19 @@ def group_moderate_item(forum, member, action, kind, item_id, reason=""):
     group_moderate(forum, member, activity)
 
 def group_moderate_user(forum, member, action, target, reason="", expires=None):
-    """A restriction on a member as a Block of their address, lifted by an Undo."""
-    address = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], target)
+    """A restriction on a member as a Block of their address, lifted by an Undo:
+    a Mochi member's fediverse account, or the actor a person from another
+    network is a member by."""
+    row = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], target)
+    address = row["address"] if row else (target if remote_ok(target) else "")
     if not address:
         return
     if action == "restrict":
-        activity = {"type": "Block", "object": address["address"], "target": forum["address"], "summary": reason or "", "removeData": False}
+        activity = {"type": "Block", "object": address, "target": forum["address"], "summary": reason or "", "removeData": False}
         if expires:
             activity["endTime"] = mochi.time.local(int(expires), "rfc3339", timezone="UTC")
     else:
-        activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address["address"]) or {"type": "Block", "object": address["address"], "target": forum["address"]}}
+        activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address) or {"type": "Block", "object": address, "target": forum["address"]}}
     group_moderate(forum, member, activity)
 
 def group_undone(forum, kind, item, wanted, object):
@@ -11529,10 +11543,16 @@ def group_text(object):
     return mochi.text.clean(str(object.get("content", "") or ""))
 
 def group_link(object):
-    """The link a Page carries: its first Link attachment, else nothing."""
+    """The link a Page carries: its first Link attachment, or its first Image
+    attachment, which is how Lemmy carries an image post's image (the Page's
+    own image is only the thumbnail), else nothing."""
     for attachment in object.get("attachment") or []:
-        if type(attachment) == "dict" and attachment.get("type") == "Link" and remote_ok(attachment.get("href")):
+        if type(attachment) != "dict":
+            continue
+        if attachment.get("type") == "Link" and remote_ok(attachment.get("href")):
             return safe_web_link(str(attachment["href"]))
+        if attachment.get("type") == "Image" and remote_ok(attachment.get("url")):
+            return safe_web_link(str(attachment["url"]))
     return ""
 
 def group_named_id(named, table):
