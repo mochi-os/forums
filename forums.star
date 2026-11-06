@@ -5396,6 +5396,8 @@ def restrict(forum_input, user, target_user, kind, reason, duration):
             "type": kind,
             "expires": expires
         })
+        if kind == "banned":
+            group_follow_drop(forum, target_user)
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "restrict/submit"},
@@ -8371,6 +8373,8 @@ def event_restrict_submit_event(e):
     mochi.db.execute(
         "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, ?, ?, ?, ?)",
         forum["id"], target_user, restriction_type, reason, sender, expires, now)
+    if restriction_type == "banned":
+        group_follow_drop(forum, target_user)
 
     log_moderation(forum["id"], sender, "restrict", "user", target_user, None, reason)
     notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
@@ -11801,10 +11805,11 @@ def group_publish_vote(forum, member, kind, item_id, remote, vote, before="", ac
         mochi.db.execute("update votes set remote=? where comment=? and voter=?", sent, item_id, member)
     group_address_record(forum["id"], member, acc["url"])
 
-def group_moderate(forum, member, activity):
+def group_moderate(forum, member, activity, told=[]):
     """Carry a moderator's act to the community as their own account: the
     group announces it once it has checked them. Nothing without an account,
-    which leaves the act to Mochi alone (decision 28)."""
+    which leaves the act to Mochi alone (decision 28). Those told are sent it
+    directly as well."""
     if not forum or not forum.get("address"):
         return
     acc = member_account()
@@ -11812,7 +11817,7 @@ def group_moderate(forum, member, activity):
         return
     activity["audience"] = forum["address"]
     activity["to"] = [GROUP_PUBLIC]
-    activity["cc"] = [forum["address"]]
+    activity["cc"] = [forum["address"]] + [person for person in told if person != forum["address"]]
     if type(activity.get("object")) == "dict" and not activity["object"].get("actor"):
         activity["object"]["actor"] = acc["url"]
     mochi.account.activity(acc["id"], activity)
@@ -11855,7 +11860,24 @@ def group_moderate_user(forum, member, action, target, reason="", expires=None):
             activity["endTime"] = mochi.time.local(int(expires), "rfc3339", timezone="UTC")
     else:
         activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address) or {"type": "Block", "object": address, "target": forum["address"]}}
-    group_moderate(forum, member, activity)
+    # The person is told directly, as Lemmy tells them: a ban unsubscribes
+    # them, and their server then refuses whatever the community announces
+    # if they were its only subscriber there, the lifting of the ban among it.
+    group_moderate(forum, member, activity, told=[address])
+
+def group_follow_drop(forum, person):
+    """A person the community bans no longer follows it, as Lemmy unsubscribes
+    whoever its communities ban, so nothing more is announced to them: a Mochi
+    member by their fediverse account, a person from another network by their
+    address. Nothing where the forum is not published here, or on a core
+    without the call."""
+    acc = group_account(forum)
+    if not acc or not hasattr(mochi.account, "follower"):
+        return
+    row = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], person)
+    address = row["address"] if row else (person if remote_ok(person) else "")
+    if address:
+        mochi.account.follower.remove(acc["id"], address)
 
 def group_undone(forum, kind, item, wanted, object):
     """The moderator's act an Undo takes back, whole as the group took it:
@@ -12313,6 +12335,7 @@ def group_received_moderation(forum, actor, activity):
             expires = mochi.time.parse(str(activity.get("endTime", ""))) if activity.get("endTime") else None
             mochi.db.execute("replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, 'banned', ?, ?, ?, ?)", forum["id"], subject, reason, moderator, expires or None, now)
             log_moderation(forum["id"], moderator, "restrict", "user", subject, subject, reason)
+            group_follow_drop(forum, subject)
     else:
         return
     if item_kind:

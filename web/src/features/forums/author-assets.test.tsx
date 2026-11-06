@@ -13,7 +13,7 @@ import { I18nProvider } from '@lingui/react'
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Post } from '@/api/types/posts'
-import { authorAssets } from './author-assets'
+import { authorAssets, moderationAssets } from './author-assets'
 import { ForumOverview } from './components/forum-overview'
 import { PostCard } from './components/post-card'
 import {
@@ -111,6 +111,21 @@ describe('authorAssets', () => {
     )
     expect(found.get('ann')).toBe('/f1/-/p1/c2/asset')
     expect(found.has('bob')).toBe(false)
+  })
+})
+
+describe('moderationAssets', () => {
+  it('serves a Mochi member through the moderation proxy', () => {
+    expect(moderationAssets('f1', 'ann')).toEqual({
+      avatar: '/f1/-/moderation/ann/asset/avatar',
+      style: '/f1/-/moderation/ann/asset/style',
+    })
+  })
+
+  it('asks no route for a person named by their address on another network', () => {
+    // THE POINT: an address in the path matches no action, so each row of a
+    // restrictions list or log cost two failed requests.
+    expect(moderationAssets('f1', 'https://lemmy.world/u/ann')).toBeNull()
   })
 })
 

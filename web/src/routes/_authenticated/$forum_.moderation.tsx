@@ -27,7 +27,6 @@ import {
   Skeleton,
   GeneralError,
   useFormat,
-  getAppPath,
   LoadMoreTrigger,
 } from '@mochi/web'
 import {
@@ -49,7 +48,7 @@ import type {
 } from '@/api/types/moderation'
 import type { Post, ViewPostComment } from '@/api/types/posts'
 import { toError } from '@/lib/errors'
-import { forumPath } from '@/lib/forum-path'
+import { moderationAssets } from '@/features/forums/author-assets'
 import { PostAttachments } from '@/features/forums/components/thread/post-attachments'
 import {
   moderationActionLabel,
@@ -1020,8 +1019,8 @@ function LogTab({ forumId }: LogTabProps) {
               <div className='flex items-start gap-2 text-sm'>
                 {entry.author && (
                   <EntityAvatar
-                    src={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${entry.author}/asset/avatar`}
-                    styleUrl={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${entry.author}/asset/style`}
+                    src={moderationAssets(forumId, entry.author)?.avatar}
+                    styleUrl={moderationAssets(forumId, entry.author)?.style}
                     name={entry.author_name}
                     size='sm'
                     className='mt-0.5 shrink-0'
@@ -1159,8 +1158,8 @@ function RestrictionsTab({ forumId }: RestrictionsTabProps) {
           >
             <div className='flex min-w-0 flex-1 items-center gap-3'>
               <EntityAvatar
-                src={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${restriction.user}/asset/avatar`}
-                styleUrl={`${getAppPath()}/${forumPath(forumId)}/-/moderation/${restriction.user}/asset/style`}
+                src={moderationAssets(forumId, restriction.user)?.avatar}
+                styleUrl={moderationAssets(forumId, restriction.user)?.style}
                 name={restriction.name}
                 size='md'
                 className='shrink-0'
