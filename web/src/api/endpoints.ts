@@ -47,6 +47,7 @@ const endpoints = {
     // A community joined as one of the user's hosted accounts, and blocks of
     // people, communities and servers (phase 21)
     communitiesJoin: '-/communities/join',
+    communitiesLookup: '-/communities/lookup',
     blocksAdd: '-/blocks/add',
 
     // Entity-level endpoints (use /-/ separator)

@@ -3,27 +3,29 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 //
-// Joining a community on another server - Lemmy, Mbin, PieFed or another
-// Mochi server - by its !name@host, as one of the user's own fediverse
-// accounts here, which then posts, comments and votes in it.
-import { useState } from 'react'
+// A community on another server - Lemmy, Mbin, PieFed or another Mochi
+// server - found by the !name@host or link typed into Find, and joined as one
+// of the user's own fediverse accounts here, which then posts, comments and
+// votes in it.
+import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  EntityAvatar,
   getErrorMessage,
   naturalCompare,
   toast,
 } from '@mochi/web'
+import { Loader2 } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
+import { communityHandle } from '@/lib/community'
 
 // What may name a community elsewhere: !name@host or @name@host, name@host,
 // or a link that is not a Mochi forum's.
@@ -35,39 +37,62 @@ export function looksLikeCommunity(query: string): boolean {
   return /^https?:\/\//i.test(q) || /^[@!]?[^@/!]+@[^@/]+\.[^@/]+$/.test(q)
 }
 
-// The form to join a community by its address, or, given the address a search
-// typed, the way to join that one: the search box hides the empty form.
-export function JoinCommunity({ address: typed }: { address?: string } = {}) {
+// The community a search names, as a result like the forums found here, with
+// Join; where the user has more than one hosted account, Join asks which.
+// found hears whether there is one, so the page says nothing was found only
+// where there is not.
+export function CommunityResult({
+  query,
+  found: told,
+}: {
+  query: string
+  found?: (yes: boolean) => void
+}) {
   const { t } = useLingui()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const [entered, setAddress] = useState('')
-  const address = typed ?? entered
-  const [chosen, setChosen] = useState('')
   const [busy, setBusy] = useState(false)
-  const { data } = useQuery({
+  const typed = looksLikeCommunity(query)
+  const { data: listed } = useQuery({
     queryKey: ['forums', 'accounts', 'network'],
     queryFn: () => forumsApi.listAccounts('network'),
+    enabled: typed,
     retry: false,
     refetchOnWindowFocus: false,
   })
-  const accounts = (data ?? [])
+  const accounts = (listed ?? [])
     .filter((account) => account.type === 'fediverse' && account.hosted)
     .sort((a, b) => naturalCompare(a.identifier, b.identifier))
-  if (accounts.length === 0) return null
-  const account = chosen || accounts[0].id
+  const { data: found, isLoading } = useQuery({
+    queryKey: ['forums', 'communities', 'lookup', query],
+    queryFn: async () => (await forumsApi.lookupCommunity(query)).data,
+    enabled: typed && accounts.length > 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
+  // The lookup on its way counts, so the page does not say first that nothing
+  // was found.
+  const shown = typed && accounts.length > 0 && (isLoading || !!found)
+  useEffect(() => told?.(shown), [told, shown])
+  if (!typed || accounts.length === 0) return null
+  if (isLoading) {
+    return (
+      <div className='flex justify-center py-4'>
+        <Loader2 className='text-muted-foreground size-5 animate-spin' />
+      </div>
+    )
+  }
+  if (!found) return null
 
-  const join = async () => {
-    if (!address.trim()) return
+  const join = async (account: string) => {
     setBusy(true)
     try {
-      const answer = await forumsApi.joinCommunity(address.trim(), account)
+      const answer = await forumsApi.joinCommunity(found.id, account)
       if (answer.data.already_subscribed) {
         toast.info(t`You are already subscribed to this forum`)
       } else {
         toast.success(t`Joined`)
       }
-      setAddress('')
       await queryClient.invalidateQueries({ queryKey: forumsKeys.all })
       void navigate({
         to: '/$forum',
@@ -80,55 +105,55 @@ export function JoinCommunity({ address: typed }: { address?: string } = {}) {
     }
   }
 
+  const button = (
+    <Button
+      size='sm'
+      loading={busy}
+      onClick={
+        accounts.length === 1 ? () => void join(accounts[0].id) : undefined
+      }
+      className='h-8 rounded-full px-4'
+    >
+      {/* button-icon-ok: Join has no conventional glyph, as Subscribe on the forums found beside it */}
+      <Trans>Join</Trans>
+    </Button>
+  )
+
   return (
-    <div className='mb-6' data-testid='join-community'>
-      <p className='text-muted-foreground mb-3 text-xs font-medium tracking-wide uppercase'>
-        <Trans>Join a community elsewhere</Trans>
-      </p>
-      <form
-        className='flex flex-col gap-2 sm:flex-row'
-        onSubmit={(event) => {
-          event.preventDefault()
-          void join()
-        }}
-      >
-        {typed === undefined ? (
-          <Input
-            value={address}
-            onChange={(event) => setAddress(event.target.value)}
-            placeholder='!name@example.org'
-            aria-label={t`Community address`}
-            disabled={busy}
-            className='sm:flex-1'
-          />
-        ) : (
-          <span className='self-center truncate font-medium sm:flex-1'>
-            {typed}
-          </span>
-        )}
-        {accounts.length > 1 && (
-          <Select value={account} onValueChange={setChosen} disabled={busy}>
-            <SelectTrigger aria-label={t`Account`} className='sm:w-56'>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {accounts.map((item) => (
-                <SelectItem key={item.id} value={item.id}>
-                  {item.identifier}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        )}
-        <Button
-          type='submit'
-          variant='outline'
-          loading={busy}
-          disabled={!address.trim()}
-        >
-          <Trans>Join</Trans>
-        </Button>
-      </form>
+    <div
+      className='group hover:bg-hover flex items-center justify-between gap-3 rounded-lg border border-transparent p-3 transition-all duration-200 hover:border-border hover:shadow-sm'
+      data-testid='community-result'
+    >
+      <div className='flex min-w-0 items-center gap-3'>
+        <EntityAvatar src={found.avatar || null} name={found.name} size='lg' />
+        <div className='min-w-0'>
+          <div className='mb-1 truncate text-sm leading-none font-medium'>
+            {found.name}
+          </div>
+          {found.handle && (
+            <div className='text-muted-foreground truncate text-xs opacity-80'>
+              {communityHandle(found.handle)}
+            </div>
+          )}
+        </div>
+      </div>
+      {accounts.length === 1 ? (
+        button
+      ) : (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>{button}</DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            {accounts.map((account) => (
+              <DropdownMenuItem
+                key={account.id}
+                onSelect={() => void join(account.id)}
+              >
+                {account.identifier}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </div>
   )
 }

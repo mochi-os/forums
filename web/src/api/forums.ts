@@ -18,6 +18,7 @@ import type {
 import type {
   CommunitiesAddResponse,
   CommunitiesImportResponse,
+  CommunityFound,
   CommunityJoined,
   ConnectedAccount,
   CreateForumRequest,
@@ -183,6 +184,13 @@ const forumsApi = {
       { account },
       { timeout: 0 }
     ),
+
+  // A community on another server, by !name@host or its address, as Find
+  // shows it before it is joined
+  lookupCommunity: (address: string) =>
+    client.get<{ data: CommunityFound }>(endpoints.forums.communitiesLookup, {
+      params: { address },
+    }),
 
   // A community on another server joined as one of the user's hosted
   // fediverse accounts, by !name@host or its address

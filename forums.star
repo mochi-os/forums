@@ -12552,14 +12552,49 @@ def community_identifier(value):
 def joined_answer(forum, already):
     return {"id": forum["id"], "fingerprint": forum.get("fingerprint") or forum_fingerprint(forum["id"]), "name": forum["name"], "already_subscribed": already}
 
+def community_resolve(address):
+    """The Group a community on another server is, from !name@host or its
+    address. Answers (found, None) or (None, failure)."""
+    identifier = community_identifier(address)
+    if not identifier:
+        return None, (400, "errors.invalid_community")
+    found = mochi.account.resolve(identifier)
+    if not found or found.get("network") != "fediverse" or found.get("type") != "group" or not remote_ok(found.get("id", "")):
+        return None, (404, "errors.community_not_found")
+    return found, None
+
+def joined_name(found):
+    return str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+
+def joined_handle(found):
+    return community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
+
+def communities_lookup(address):
+    """A community on another server as Find shows it before it is joined:
+    the name and handle its forum would have, and its avatar. Answers
+    (result, None) or (None, failure)."""
+    found, failure = community_resolve(address)
+    if failure:
+        return None, failure
+    return {"id": found["id"], "name": joined_name(found), "handle": joined_handle(found), "avatar": safe_web_link(found.get("avatar", ""))}, None
+
+def action_communities_lookup(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    result, failure = communities_lookup(a.input("address", ""))
+    if failure:
+        fail(a, failure)
+        return
+    return {"data": result}
+
 def communities_join(user_id, user_name, address, account):
     """Join a community on another server as one of the user's hosted
     accounts - account, or the first where it is empty: !name@host or its
     address resolves to a Group, the account follows it and the community
     becomes a forum, filled by what the group announces, its recent posts
     read from its outbox now. Answers (result, None) or (None, failure)."""
-    identifier = community_identifier(address)
-    if not identifier:
+    if not community_identifier(address):
         return None, (400, "errors.invalid_community")
     wanted = account or ""
     acc = None
@@ -12569,9 +12604,9 @@ def communities_join(user_id, user_name, address, account):
             break
     if not acc:
         return None, (400, "errors.no_hosted_account")
-    found = mochi.account.resolve(identifier)
-    if not found or found.get("network") != "fediverse" or found.get("type") != "group" or not remote_ok(found.get("id", "")):
-        return None, (404, "errors.community_not_found")
+    found, failure = community_resolve(address)
+    if failure:
+        return None, failure
     forum = mochi.db.row("select * from forums where id=?", found["id"])
     if forum:
         return joined_answer(forum, True), None
@@ -12597,9 +12632,9 @@ def joined_row(found, acc, user_id, user_name):
     named for it, its summary the banner, the account and the address set,
     and the user its one member."""
     now = mochi.time.now()
-    name = str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+    name = joined_name(found)
     banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
-    handle = community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
+    handle = joined_handle(found)
     mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ?, ? )",
         found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0, handle)
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
