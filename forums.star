@@ -12354,10 +12354,14 @@ def group_received_flag(forum, actor, activity):
             continue
         if mochi.db.exists("select 1 from reports where forum=? and type=? and target=? and reporter=? and status='pending'", forum["id"], kind, item["id"], actor):
             continue
+        report = mochi.uid()
         mochi.db.execute("insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, ?, ?, ?, 'other', ?, ?)",
-            mochi.uid(), forum["id"], actor, kind, item["id"], item["member"], reason, mochi.time.now())
+            report, forum["id"], actor, kind, item["id"], item["member"], reason, mochi.time.now())
         name = group_person(actor)
-        notify_moderators(forum["id"], "moderation/reports", mochi.app.label("moderation.report.title", forum=forum["name"]), mochi.app.label("moderation.report.body." + kind, reporter=name, reason=reason or "other"), "", "", source_id=item["id"])
+        # As a report made here is told: its topic, a link to the reports, and
+        # the report itself as the source, so each reporter's is its own.
+        fp = forum_fingerprint(forum["id"]) or forum["id"]
+        notify_moderators(forum["id"], "moderation/report", mochi.app.label("moderation.report.title", forum=forum["name"]), mochi.app.label("moderation.report.body." + kind, reporter=name, reason=reason or "other"), "/forums/" + fp + "/moderation?tab=reports", "", source_id=report)
 
 def function_activitypub_object(context, account, id):
     """A post or comment a member here published to a community as their own

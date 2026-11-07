@@ -9,7 +9,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import forumsApi from '@/api/forums'
-import { JoinCommunity } from './join-community'
+import { JoinCommunity, looksLikeCommunity } from './join-community'
 
 const navigate = vi.fn()
 
@@ -38,15 +38,26 @@ function renderJoin() {
   return client
 }
 
-function renderWith(client: QueryClient) {
+function renderWith(client: QueryClient, address?: string) {
   render(
     <I18nProvider i18n={i18n}>
       <QueryClientProvider client={client}>
-        <JoinCommunity />
+        <JoinCommunity address={address} />
       </QueryClientProvider>
     </I18nProvider>
   )
 }
+
+describe('looksLikeCommunity', () => {
+  it('takes what may name a community elsewhere, and nothing else', () => {
+    for (const query of ['!technology@lemmy.world', '@books@lemmy.example', 'books@lemmy.example', 'https://lemmy.world/c/technology']) {
+      expect(looksLikeCommunity(query), query).toBe(true)
+    }
+    for (const query of ['technology', 'my forum', 'mochi://forum/x', 'https://example.com/forums/abcdefghi', '']) {
+      expect(looksLikeCommunity(query), query).toBe(false)
+    }
+  })
+})
 
 describe('JoinCommunity', () => {
   beforeEach(() => vi.clearAllMocks())
@@ -81,6 +92,23 @@ describe('JoinCommunity', () => {
         params: { forum: 'abcdefghi' },
       })
     )
+  })
+
+  it('joins the community a search typed, the search box hiding the empty form', async () => {
+    const user = userEvent.setup()
+    vi.mocked(forumsApi.listAccounts).mockResolvedValue([
+      { id: 'h1', type: 'fediverse', identifier: '@me@example.com', hosted: true },
+    ])
+    vi.mocked(forumsApi.joinCommunity).mockResolvedValue({
+      data: { id: 'https://lemmy.world/c/technology', fingerprint: 'technolog', name: 'Technology', already_subscribed: false },
+    })
+    renderWith(new QueryClient({ defaultOptions: { queries: { retry: false } } }), '!technology@lemmy.world')
+
+    // THE POINT: the typed address is offered to join, with no form to refill.
+    await user.click(await screen.findByRole('button', { name: 'Join' }))
+    expect(screen.queryByLabelText('Community address')).toBeNull()
+    expect(screen.getByText('!technology@lemmy.world')).toBeTruthy()
+    expect(forumsApi.joinCommunity).toHaveBeenCalledWith('!technology@lemmy.world', 'h1')
   })
 
   it('offers nothing to a user with no hosted fediverse account', async () => {

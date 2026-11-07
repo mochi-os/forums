@@ -25,11 +25,24 @@ import {
 import forumsApi from '@/api/forums'
 import { forumsKeys } from '@/hooks/use-forums-queries'
 
-export function JoinCommunity() {
+// What may name a community elsewhere: !name@host or @name@host, name@host,
+// or a link that is not a Mochi forum's.
+export function looksLikeCommunity(query: string): boolean {
+  const q = query.trim()
+  if (!q || /\s/.test(q) || /^mochi:/i.test(q) || q.includes('/forums/')) {
+    return false
+  }
+  return /^https?:\/\//i.test(q) || /^[@!]?[^@/!]+@[^@/]+\.[^@/]+$/.test(q)
+}
+
+// The form to join a community by its address, or, given the address a search
+// typed, the way to join that one: the search box hides the empty form.
+export function JoinCommunity({ address: typed }: { address?: string } = {}) {
   const { t } = useLingui()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const [address, setAddress] = useState('')
+  const [entered, setAddress] = useState('')
+  const address = typed ?? entered
   const [chosen, setChosen] = useState('')
   const [busy, setBusy] = useState(false)
   const { data } = useQuery({
@@ -79,14 +92,20 @@ export function JoinCommunity() {
           void join()
         }}
       >
-        <Input
-          value={address}
-          onChange={(event) => setAddress(event.target.value)}
-          placeholder='!name@example.org'
-          aria-label={t`Community address`}
-          disabled={busy}
-          className='sm:flex-1'
-        />
+        {typed === undefined ? (
+          <Input
+            value={address}
+            onChange={(event) => setAddress(event.target.value)}
+            placeholder='!name@example.org'
+            aria-label={t`Community address`}
+            disabled={busy}
+            className='sm:flex-1'
+          />
+        ) : (
+          <span className='self-center truncate font-medium sm:flex-1'>
+            {typed}
+          </span>
+        )}
         {accounts.length > 1 && (
           <Select value={account} onValueChange={setChosen} disabled={busy}>
             <SelectTrigger aria-label={t`Account`} className='sm:w-56'>

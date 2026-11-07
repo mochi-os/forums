@@ -10,7 +10,10 @@ import { FindEntityPage, toast, toastAction, getErrorMessage } from '@mochi/web'
 import { Hash } from 'lucide-react'
 import endpoints from '@/api/endpoints'
 import forumsApi from '@/api/forums'
-import { JoinCommunity } from '@/features/forums/components/join-community'
+import {
+  JoinCommunity,
+  looksLikeCommunity,
+} from '@/features/forums/components/join-community'
 import { LemmyAccounts } from '@/features/forums/components/lemmy-accounts'
 import { useForumsInfo, forumsKeys } from '@/hooks/use-forums-queries'
 
@@ -95,6 +98,11 @@ function FindForumsPage() {
       title={t`Find forums`}
       placeholder={t`Search by name, ID, fingerprint, or URL...`}
       emptyMessage={t`No forums found`}
+      supplement={(query) =>
+        looksLikeCommunity(query) ? (
+          <JoinCommunity key={query} address={query} />
+        ) : null
+      }
       aside={
         <>
           <JoinCommunity />
