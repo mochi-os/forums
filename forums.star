@@ -255,6 +255,9 @@ def database_upgrade(version):
             handle = address_handle(row["address"] or row["id"])
             if handle:
                 mochi.db.execute("update forums set handle=? where id=?", handle, row["id"])
+    if version == 18:
+        # What a pull that runs past its own call may still prune (hold_keep).
+        holdings_schema_create()
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -363,6 +366,7 @@ def database_create():
     joined_schema_create()
     permissions_schema_create()
     handle_schema_create()
+    holdings_schema_create()
 
 
 
@@ -829,8 +833,13 @@ idle_resync_age = 7 * 86400
 # request_resync pulls a fresh schema dump from the owner when an incoming event
 # references data we lack; subscribers only, throttled to once per 60 seconds
 # per forum. name, when given, asks for the first part as a subscriber of that
-# name, which the owner registers before it reads it.
-def request_resync(forum_id, name=None):
+# name, which the owner registers before it reads it. budget is the seconds the
+# call may spend on parts after the first, PART_TIME when None (it is defined
+# after this). One that cannot
+# start now is put off rather than dropped, unless defer is False: a
+# subscription still filling asks again by itself (schedule_fill). force, for a
+# resync the user asks for, starts it at once whatever is under way.
+def request_resync(forum_id, name=None, budget=None, defer=True, force=False):
     """Returns True iff every part of a fresh schema was fetched and applied
     within this call. A pull that runs out of time is continued by
     schedule_schema; one that fails waits for the next resync."""
@@ -840,14 +849,28 @@ def request_resync(forum_id, name=None):
     if not row["server"]:
         return False
     now = mochi.time.now()
-    if row["synced"] and now - row["synced"] < 60:
+    # A pull under way, its continuation pending, finishes first: one started
+    # beside it would take the forum again from the start. One within the last
+    # minute stands. What asked for this one - a gap, an event naming what is
+    # not held - may need what they read before it, so it runs after them.
+    pending = fill_pending(forum_id, "schedule_schema")
+    if not force and (pending or (row["synced"] and now - row["synced"] < 60)):
+        if defer:
+            resync_defer(forum_id, 61 if pending else 61 - (now - row["synced"]))
         return False
     mochi.db.execute("update forums set synced=? where id=?", now, forum_id)
     peer = mochi.remote.peer(row["server"])
+    # What the replica holds before the first part is read: only those rows may
+    # be pruned once the pull completes, so a row written after it began is
+    # never one the pull failed to list.
+    pull = hold_begin(forum_id)
+    held = hold_snapshot(forum_id)
     schema = schema_fetch(forum_id, peer, SCHEMA_START, name)
     if not schema or schema.get("error"):
+        hold_end(forum_id, pull)
         return False
-    if not insert_forum_schema(forum_id, schema, peer, now):
+    hold_claim(forum_id, pull)
+    if not insert_forum_schema(forum_id, schema, peer, now, budget=PART_TIME if budget == None else budget, held=held, pull=pull):
         return False
     schema_completed(forum_id)
     return True
@@ -863,6 +886,22 @@ def schema_completed(forum_id):
         mochi.websocket.write(fp, {"type": "forum/resynced", "forum": forum_id})
         if filled:
             mochi.websocket.write(fp, {"type": "forum/update", "forum": forum_id})
+
+# resync_defer(forum_id, wait) puts off a resync request_resync could not start
+# for wait seconds, once a forum however often it is asked for meanwhile.
+def resync_defer(forum_id, wait):
+    if not fill_pending(forum_id, "schedule_resync"):
+        mochi.schedule.after("schedule_resync", {"forum": forum_id}, wait)
+
+# schedule_resync(e): a resync put off (resync_defer), put off again while a
+# pull still runs.
+def schedule_resync(e):
+    if e.source != "schedule":
+        return
+    forum_id = e.data.get("forum", "")
+    if not mochi.text.valid(forum_id, "entity"):
+        return
+    request_resync(forum_id)
 
 # fill_waits: the seconds before each pull of a subscription still filling
 # (schedule_fill): the first past the 60 in which request_resync lets no second
@@ -893,7 +932,7 @@ def fill_schedule(forum_id, attempt=0, name=None, delay=None):
 
 # schedule_fill(e): a subscription still filling pulls the schema, and asks
 # again later until it is whole. A pull already under way - a continuation, or
-# a part retried - is left to finish first.
+# a part retried - is left to finish first (request_resync).
 def schedule_fill(e):
     if e.source != "schedule":
         return
@@ -907,8 +946,7 @@ def schedule_fill(e):
     row = mochi.db.row("select populated from forums where id=?", forum_id)
     if not row or row["populated"] != 0:
         return
-    if not fill_pending(forum_id, "schedule_schema"):
-        request_resync(forum_id, name)
+    request_resync(forum_id, name, defer=False)
     row = mochi.db.row("select populated from forums where id=?", forum_id)
     if row and row["populated"] == 0:
         fill_schedule(forum_id, attempt, name)
@@ -1124,6 +1162,7 @@ def schedule_permissions(e):
 # another forum we subscribe to, cannot move it.
 def apply_own_status(forum_id, user_id, answer):
     moved = 0
+    approved = False
     for id, status in (answer.get("posts") or {}).items():
         if not mochi.text.valid(id, "id"):
             continue
@@ -1132,6 +1171,7 @@ def apply_own_status(forum_id, user_id, answer):
         if mochi.db.exists("select 1 from posts where id=? and forum=? and member=? and status!=?", id, forum_id, user_id, status):
             mochi.db.execute("update posts set status=? where id=? and forum=? and member=?",
                 status, id, forum_id, user_id)
+            approved = approved or status == "approved"
             broadcast_websocket(forum_id, {"type": "post/status", "forum": forum_id, "post": id, "status": status})
             moved = moved + 1
     for id, status in (answer.get("comments") or {}).items():
@@ -1143,8 +1183,13 @@ def apply_own_status(forum_id, user_id, answer):
         if row:
             mochi.db.execute("update comments set status=? where id=? and forum=? and member=?",
                 status, id, forum_id, user_id)
+            approved = approved or status == "approved"
             broadcast_websocket(forum_id, {"type": "comment/status", "forum": forum_id, "post": row["post"], "comment": id, "status": status})
             moved = moved + 1
+    # A row of the user's own approved here before the post/create or status
+    # message that would cancel: a pull under way must not prune it.
+    if approved:
+        hold_cancel(forum_id)
     return moved
 
 # Helper: Send a rejection back to the original sender of a submit event.
@@ -1155,7 +1200,10 @@ def apply_own_status(forum_id, user_id, answer):
 # built for its own routes. The client must never fetch an authenticated
 # resource at a path another server chose, so they are dropped from
 # every attachments list in a remote answer; the client builds the URL from
-# the id and this app's own route, with ?server= for the proxy.
+# the id and this app's own route, with ?server= for the proxy. That address
+# is only as safe as the id in it, so an attachment whose id is not one, and a
+# comment's anchor naming no attachment id, go too: a path in either sends the
+# request, with the session, to another action of any app.
 def strip_remote_urls(value):
     # A remote answer's arrays arrive as tuples (immutable), so this rebuilds
     # rather than mutating in place - popping from a tuple is not possible, and
@@ -1168,17 +1216,41 @@ def strip_remote_urls(value):
             if key == "attachments" and type(item) in ("list", "tuple"):
                 cleaned = []
                 for attachment in item:
-                    if type(attachment) == "dict":
-                        cleaned.append({field: attachment[field] for field in attachment if field not in ("url", "thumbnail_url", "preview_url")})
-                    else:
-                        cleaned.append(strip_remote_urls(attachment))
+                    # Anything but a row with an id is no attachment.
+                    if type(attachment) != "dict" or not attachment_identifier(attachment.get("id")):
+                        continue
+                    cleaned.append({field: attachment[field] for field in attachment if field not in ("url", "thumbnail_url", "preview_url")})
                 result[key] = cleaned
+            elif key == "attachment" and type(item) == "string":
+                result[key] = item if attachment_identifier(item) else ""
             else:
                 result[key] = strip_remote_urls(item)
         return result
     if kind in ("list", "tuple"):
         return [strip_remote_urls(item) for item in value]
     return value
+
+# The most bytes a name may hold: the "name" pattern's thousand characters, of
+# four bytes at most.
+NAME_BYTES = 4000
+
+# name_strip(name) -> a peer's name without the controls that embed, override
+# or isolate a direction (U+202A to U+202E, U+2066 to U+2069): one of them
+# reorders the text around the name for every reader. Joiners and marks, which
+# names in many scripts and emoji need, are kept, which is why the name is not
+# refused as the "display" pattern would. Anything but a string, and a string
+# longer than any name may be, is returned as it is, for the check after it to
+# refuse: any peer may send one, and the walk is a step per character.
+def name_strip(name):
+    if type(name) != "string" or len(name) > NAME_BYTES:
+        return name
+    kept = []
+    for character in name.codepoints():
+        code = ord(character)
+        if (code >= 0x202A and code <= 0x202E) or (code >= 0x2066 and code <= 0x2069):
+            continue
+        kept.append(character)
+    return "".join(kept)
 
 def send_reject(forum_id, sender_id, kind, target_id, reason, detail=""):
     if not sender_id or not target_id:
@@ -1287,6 +1359,11 @@ def on_db_commit(table, kind, row_uid):
     if fingerprint:
         mochi.websocket.write(fingerprint, msg)
 
+
+def restriction_target(value):
+    """Whether a restriction may name this person: a Mochi identity, or the
+    actor address a person from another network is a member by."""
+    return mochi.text.valid(value, "entity") or remote_ok(value)
 
 # Helper: Check if user is restricted from a forum
 # Returns a stable reason code ("banned" / "muted") if restricted, None if
@@ -3369,7 +3446,6 @@ def action_share(a): # forums_share
 # through the peer of a share link, a named server, or the directory. Answers
 # (result, None) or (None, failure).
 def forum_subscribe(forum_id, user_id, user_name, server, peer):
-    started = mochi.time.now()
     if not mochi.text.valid(forum_id, "entity"):
         return None, (400, "errors.invalid_id")
 
@@ -3448,9 +3524,11 @@ def forum_subscribe(forum_id, user_id, user_name, server, peer):
         )
     mochi.broadcast.touch(forum_id)
 
-    # Insert schema data so posts/comments are available immediately, for as
-    # long as the pull's time allows; a continuation takes the rest.
-    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+    # Import the first part, so the newest posts are here at once, and answer:
+    # each further part may take 30 seconds to arrive, past what a client waits
+    # for the subscribe. A continuation (schedule_schema) takes the rest, and
+    # schema_completed tells an open page when the last part lands.
+    if pulling and insert_forum_schema(forum_id, schema, peer, budget=0):
         schema_completed(forum_id)
 
     return {"fingerprint": forum_fingerprint(forum_id)}, None
@@ -3469,7 +3547,11 @@ def action_subscribe(a):
 
 # Force a fresh schema pull from the forum owner. The subscriber-side
 # event handlers self-heal via request_resync on the next inbound event;
-# this action lets the UI or a user trigger it explicitly.
+# this action lets the UI or a user trigger it explicitly. It answers after the
+# first part, as a subscribe does: each further part may take 30 seconds to
+# arrive, past what a client waits. A continuation takes the rest, and synced
+# says whether the first was the last. It starts at once, whatever pull is under
+# way or ran in the last minute.
 def action_resync(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -3481,8 +3563,7 @@ def action_resync(a):
     if owned(forum["id"]):
         # Owners are the canonical source; nothing to resync from.
         return {"data": {"synced": False}}
-    mochi.db.execute("update forums set synced=0 where id=?", forum["id"])
-    synced = request_resync(forum["id"])
+    synced = request_resync(forum["id"], budget=0, force=True)
     return {"data": {"synced": synced}}
 
 # Unsubscribe from forum
@@ -3501,11 +3582,8 @@ def forum_unsubscribe(forum_input, user_id):
         return None, (400, "errors.cannot_unsubscribe_own_forum")
 
     # Delete all local data for this forum
-    purge_forum_rows(forum["id"])
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum["id"])
     rss_tokens_revoke(forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Notify forum owner
     registration_send(forum["server"],
@@ -3532,10 +3610,31 @@ def rss_tokens_revoke(entity_id):
         mochi.token.delete(r["token"])
     mochi.db.execute("delete from rss where entity=?", entity_id)
 
+# forum_drop(forum_id) deletes a forum held here and every row scoped to it. Its
+# pending pulls are cancelled, and the forums row goes before the rows it holds,
+# so a pull of the forum under way stops and purges what it imports after this
+# (schema_held); the members and votes that reference it go just before it.
+def forum_drop(forum_id):
+    pull_cancel(forum_id)
+    mochi.db.execute("delete from votes where forum=?", forum_id)
+    mochi.db.execute("delete from members where forum=?", forum_id)
+    mochi.db.execute("delete from forums where id=?", forum_id)
+    purge_forum_rows(forum_id)
+
+# pull_cancel(forum_id) cancels a forum's pending pulls: the continuations of
+# a pull under way and the fills of a subscription still filling. Left pending
+# past a drop, one would run for a subscription made again before it came due,
+# and mark the new one whole before the new one's own pull had every part.
+def pull_cancel(forum_id):
+    for scheduled in mochi.schedule.list():
+        if scheduled.event in ["schedule_schema", "schedule_fill"] and scheduled.data.get("forum") == forum_id:
+            scheduled.cancel()
+
 # Delete every row scoped to a forum (owner delete, or a member dropping the local
 # replica on unsubscribe). tags key on post/comment id, so resolve them before the
 # posts/comments they reference are removed.
 def purge_forum_rows(forum_id):
+    mochi.db.execute("delete from holdings where forum=?", forum_id)
     mochi.db.execute("delete from notifications where forum=?", forum_id)
     mochi.db.execute("delete from permissions where forum=?", forum_id)
     mochi.db.execute("delete from follows where forum=?", forum_id)
@@ -3577,11 +3676,8 @@ def action_delete(a):
     group_unpublish(forum)
 
     # Delete all local data
-    purge_forum_rows(forum["id"])
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum["id"]) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum["id"])
     rss_tokens_revoke(forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
 
     # Revoke every access rule on this resource, not just the "*" subject's.
     # Per-user grants (moderators, invited members) would otherwise be orphaned
@@ -3742,7 +3838,7 @@ def action_post_view(a):
 
         # Request post data via P2P, the thread part by part. A thread that
         # stopped short is refused rather than shown short.
-        response, lists, complete = part_gather(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer, THREAD_SPECS, ["comments"])
+        response, lists, complete = part_gather(forum_id, "post/view", {"forum": forum_id, "post": post_id}, peer, THREAD_SPECS, ["comments"], VIEW_TIME)
         if response.get("error"):
             remote_error(a, response, 403)
             return
@@ -3926,7 +4022,7 @@ def post_edit(forum_input, post_id, user_id, title, body, link, sensitive, langu
         post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
 
     if post and forum and is_community(forum):
-        return community_post_edit(forum, post, user_id, title, body, link, sensitive, language)
+        return community_post_edit(forum, post, user_id, title, body, link, sensitive, language, save)
 
     # Check if we have the post locally
     if post and forum:
@@ -4845,6 +4941,9 @@ def post_restore(forum_input, post_id, user):
         mochi.db.execute(
             "update posts set status='approved', remover=null, reason='' where id=?",
             post_id)
+        # Approved here before the owner's answer: a pull under way must not
+        # prune it as a row its parts never named.
+        hold_cancel(forum["id"])
 
     group_moderate_item(forum, user, "restore", "post", post_id)
     return {"success": True}, None
@@ -4949,6 +5048,9 @@ def post_approve(forum_input, post_id, user):
             {"id": post_id}
         )
         mochi.db.execute("update posts set status='approved' where id=? and forum=? and status='pending'", post_id, forum["id"])
+        # Approved here before the owner's answer: a pull under way must not
+        # prune it as a row its parts never named.
+        hold_cancel(forum["id"])
         return {"success": True}, None
 
     post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
@@ -5190,6 +5292,9 @@ def comment_restore(forum_input, comment_id, user):
         mochi.db.execute(
             "update comments set status='approved', remover=null, reason='' where id=?",
             comment_id)
+        # Approved here before the owner's answer: a pull under way must not
+        # prune it as a row its parts never named.
+        hold_cancel(forum["id"])
 
     group_moderate_item(forum, user, "restore", "comment", comment_id)
     return {"success": True}, None
@@ -5224,6 +5329,9 @@ def comment_approve(forum_input, comment_id, user):
             {"id": comment_id}
         )
         mochi.db.execute("update comments set status='approved' where id=? and forum=? and status='pending'", comment_id, forum["id"])
+        # Approved here before the owner's answer: a pull under way must not
+        # prune it as a row its parts never named.
+        hold_cancel(forum["id"])
         return {"success": True}, None
 
     comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
@@ -5259,7 +5367,7 @@ def restrict(forum_input, user, target_user, kind, reason, duration):
     if not check_access_remote_user(user, forum["id"], "moderate"):
         return None, (403, "errors.not_allowed_to_moderate")
 
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return None, (400, "errors.invalid_user")
 
     if kind not in ["muted", "banned", "shadowban"]:
@@ -5288,6 +5396,8 @@ def restrict(forum_input, user, target_user, kind, reason, duration):
             "type": kind,
             "expires": expires
         })
+        if kind == "banned":
+            group_follow_drop(forum, target_user)
     else:
         mochi.message.send(
             {"from": user, "to": forum["id"], "service": "forums", "event": "restrict/submit"},
@@ -5318,7 +5428,7 @@ def unrestrict(forum_input, user, target_user):
     if not check_access_remote_user(user, forum["id"], "moderate"):
         return None, (403, "errors.not_allowed_to_moderate")
 
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return None, (400, "errors.invalid_user")
 
     restriction = mochi.db.row("select * from restrictions where forum=? and user=?", forum["id"], target_user)
@@ -5367,6 +5477,12 @@ def restrictions_named(forum_id, restrictions):
     for r in restrictions:
         if r["user"] in names:
             r["name"] = names[r["user"]]
+        elif remote_ok(r["user"]):
+            # A person from another network is no member: they are named as
+            # their latest post or comment here names them.
+            row = mochi.db.row("select name, created from posts where forum=? and member=? union all select name, created from comments where forum=? and member=? order by created desc limit 1", forum_id, r["user"], forum_id, r["user"])
+            if row and row["name"]:
+                r["name"] = row["name"]
         if r["moderator"] in names:
             r["moderator_name"] = names[r["moderator"]]
     return restrictions
@@ -5385,7 +5501,7 @@ def moderation_restrictions(forum_input, user):
     # If we don't own the forum, proxy request to owner via P2P event, part by
     # part. A list that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response, lists, complete = part_gather(forum["id"], "restrictions", {}, None, RESTRICTION_SPECS, ["restrictions"])
+        response, lists, complete = part_gather(forum["id"], "restrictions", {}, None, RESTRICTION_SPECS, ["restrictions"], VIEW_TIME)
         if response.get("error"):
             return None, remote_failure(response, 403)
         if lists == None:
@@ -5591,7 +5707,7 @@ def moderation_reports(forum_input, user, status):
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
             return None, remote_failure(response, 403)
-        return response, None
+        return strip_remote_urls(response), None
 
     if status not in ["pending", "resolved", "all"]:
         return None, (400, "errors.invalid_status")
@@ -5761,12 +5877,12 @@ def action_moderation_queue(a):
     # If we don't own the forum, proxy request to owner via P2P event, part by
     # part. A queue that stopped short is refused rather than shown short.
     if not owned(forum["id"]):
-        response, lists, complete = part_gather(forum["id"], "moderation/queue", {}, None, QUEUE_SPECS, QUEUE_ORDER)
+        response, lists, complete = part_gather(forum["id"], "moderation/queue", {}, None, QUEUE_SPECS, QUEUE_ORDER, VIEW_TIME)
         if response.get("error"):
             remote_error(a, response, 403)
             return
         if lists == None:
-            return {"data": response}
+            return {"data": strip_remote_urls(response)}
         if not complete:
             a.error.label(502, "errors.remote")
             return
@@ -5776,7 +5892,7 @@ def action_moderation_queue(a):
         comments = sorted([c for c in lists["comments"] if type(c) == "dict"], key=lambda c: number(c.get("created")))
         reports = sorted(sorted([r for r in lists["reports"] if type(r) == "dict"], key=lambda r: number(r.get("created"))), key=lambda r: number(r.get("count")), reverse=True)
         forum = response.get("forum")
-        return {"data": moderation_queue_counted(forum if type(forum) == "dict" else {}, posts, comments, reports)}
+        return {"data": strip_remote_urls(moderation_queue_counted(forum if type(forum) == "dict" else {}, posts, comments, reports))}
 
     return {"data": moderation_queue_data(forum)}
 
@@ -6550,6 +6666,7 @@ def event_comment_create_event(e):
     # / approval). Scope to the sending forum so another forum can't tamper with
     # this forum's comment rows in your replica (cross-forum tampering).
     if mochi.db.exists("select id from comments where id=? and forum=?", id, forum["id"]):
+        hold_cancel(forum["id"])
         mochi.db.execute("update comments set up=?, down=?, status='approved' where id=? and forum=?", up, down, id, forum["id"])
         if remote_ok(e.content("remote")):
             mochi.db.execute("update comments set remote=? where id=? and forum=? and remote=''", str(e.content("remote")), id, forum["id"])
@@ -6564,10 +6681,13 @@ def event_comment_create_event(e):
 
     parent = e.content("parent") or ""
     member = e.content("member")
-    name = e.content("name")
+    name = name_strip(e.content("name"))
     body = e.content("body")
     created = e.content("created")
 
+    # A parent is a comment id or nothing; the threads a client draws hang on it.
+    if parent and (type(parent) != "string" or not mochi.text.valid(parent, "id")):
+        return
     # An author is a Mochi identity or a person's own identifier on another
     # network; a release before this one dropped the latter.
     if not mochi.text.valid(member, "author"):
@@ -6946,12 +7066,13 @@ def event_comment_vote_event(e):
     if not comment_id:
         return
 
-    comment = mochi.db.row("select * from comments where id=?", comment_id)
-    if not comment:
-        return
-
-    forum = get_forum(comment["forum"])
+    # Bound to the forum the vote was sent to: found by id alone, a vote
+    # addressed to one forum landed on another's comment.
+    forum = get_forum(e.header("to"))
     if not forum:
+        return
+    comment = mochi.db.row("select * from comments where id=? and forum=?", comment_id, forum["id"])
+    if not comment:
         return
 
     sender_id = e.header("from")
@@ -7010,13 +7131,14 @@ def event_post_create_event(e):
     # Scope to the sending forum so a forum you also subscribe to cannot overwrite
     # another forum's post counts/status in your replica (cross-forum tampering).
     if mochi.db.exists("select id from posts where id=? and forum=?", id, forum["id"]):
+        hold_cancel(forum["id"])
         mochi.db.execute("update posts set up=?, down=?, comments=?, status='approved' where id=? and forum=?", up, down, comments_count, id, forum["id"])
         if remote_ok(e.content("remote")):
             mochi.db.execute("update posts set remote=? where id=? and forum=? and remote=''", str(e.content("remote")), id, forum["id"])
         return
 
     member = e.content("member")
-    name = e.content("name")
+    name = name_strip(e.content("name"))
     title = e.content("title")
     body = e.content("body")
     created = e.content("created")
@@ -7144,6 +7266,7 @@ def event_post_status_event(e):
     if not mochi.db.exists("select id from posts where id=? and forum=? and member=?", post_id, forum_id, author_id):
         return
 
+    hold_cancel(forum_id)
     mochi.db.execute("update posts set status=? where id=? and forum=? and member=?",
         status, post_id, forum_id, author_id)
 
@@ -7171,6 +7294,7 @@ def event_comment_status_event(e):
     if not row:
         return
 
+    hold_cancel(forum_id)
     mochi.db.execute("update comments set status=? where id=? and forum=? and member=?",
         status, comment_id, forum_id, author_id)
 
@@ -7615,11 +7739,8 @@ def event_forum_delete_event(e):
     row = mochi.db.row("select id, name, server from forums where id=?", forum_id)
     if not row or not row["server"]:
         return
-    purge_forum_rows(forum_id)
-    for _row in mochi.db.rows("select forum, id from members where forum=?", forum_id) or []:
-        mochi.db.execute("delete from members where forum=? and id=?", _row["forum"], _row["id"])
+    forum_drop(forum_id)
     rss_tokens_revoke(forum_id)
-    mochi.db.execute("delete from forums where id=?", forum_id)
     # The same teardown serves a removal (member_drop sends it with a reason),
     # so a member on an older release still purges. The reason is the owner's
     # word and decides only what the page and the notification say.
@@ -7638,12 +7759,13 @@ def event_post_vote_event(e):
     if not post_id:
         return
 
-    post = mochi.db.row("select * from posts where id=?", post_id)
-    if not post:
-        return
-
-    forum = get_forum(post["forum"])
+    # Bound to the forum the vote was sent to, as post_vote binds its route:
+    # found by id alone, a vote addressed to one forum landed on another's post.
+    forum = get_forum(e.header("to"))
     if not forum:
+        return
+    post = mochi.db.row("select * from posts where id=? and forum=?", post_id, forum["id"])
+    if not post:
         return
 
     sender_id = e.header("from")
@@ -7693,6 +7815,8 @@ def event_tag_add(e):
     label = e.content("label")
     if not tag_id or not object_id or not label:
         return
+    if not mochi.text.valid(tag_id, "id"):
+        return
     # The owner's broadcast is not trusted input. Four action paths run
     # validate_tag; this one stored whatever arrived, so a compromised or
     # buggy owner could push a 1MB label, markup, or a non-numeric relevance
@@ -7700,8 +7824,9 @@ def event_tag_add(e):
     label = validate_tag(label)
     if not label:
         return
+    # A manual tag carries no qid; only the tagger's name a topic.
     qid = e.content("qid") or ""
-    if not mochi.text.valid(qid, "line"):
+    if qid and (type(qid) != "string" or not mochi.text.valid(qid, "line")):
         return
     relevance = e.content("relevance") or 0
     if type(relevance) not in ["int", "float"]:
@@ -7738,7 +7863,7 @@ def event_subscribe_event(e):
         return
 
     member_id = e.header("from")
-    name = e.content("name")
+    name = name_strip(e.content("name"))
 
     if not mochi.text.valid(member_id, "entity"):
         return
@@ -7879,7 +8004,7 @@ def event_update_event(e):
         peer = e.header("peer")
         if not forum["server"] and mochi.text.valid(peer, "peer"):
             mochi.db.execute("update forums set server=? where id=? and server=''", "p2p/" + peer, forum_id)
-        if not request_resync(forum_id):
+        if not request_resync(forum_id, defer=False):
             fill_schedule(forum_id)
 
 # MODERATION EVENTS
@@ -7969,6 +8094,7 @@ def event_post_restore_event(e):
         return
 
     post_id = e.content("id")
+    hold_cancel(forum["id"])
     mochi.db.execute(
         "update posts set status='approved', remover=null, reason='' where id=? and forum=?",
         post_id, forum["id"])
@@ -8187,6 +8313,7 @@ def event_comment_restore_event(e):
         return
 
     comment_id = e.content("id")
+    hold_cancel(forum["id"])
     mochi.db.execute(
         "update comments set status='approved', remover=null, reason='' where id=? and forum=?",
         comment_id, forum["id"])
@@ -8224,7 +8351,7 @@ def event_restrict_submit_event(e):
     target_user = e.content("user")
     # A restriction names a person; an unvalidated value writes a row that
     # matches nobody, or matches by accident.
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return
     restriction_type = e.content("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
@@ -8246,6 +8373,8 @@ def event_restrict_submit_event(e):
     mochi.db.execute(
         "replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, ?, ?, ?, ?, ?)",
         forum["id"], target_user, restriction_type, reason, sender, expires, now)
+    if restriction_type == "banned":
+        group_follow_drop(forum, target_user)
 
     log_moderation(forum["id"], sender, "restrict", "user", target_user, None, reason)
     notify_moderation_action(forum["id"], target_user, "restrict", restriction_type, reason, target_id=target_user)
@@ -8269,7 +8398,7 @@ def event_user_restrict_event(e):
     # compared numerically against now() - a string from the wire would compare
     # by SQLite type ordering and never expire.
     target_user = e.content("user")
-    if not mochi.text.valid(target_user, "entity"):
+    if not restriction_target(target_user):
         return
     restriction_type = e.content("type")
     if restriction_type not in ["muted", "banned", "shadowban"]:
@@ -8499,10 +8628,14 @@ PART_ATTACHMENT = 1024
 # The most bytes a cursor key holds. A row whose key is longer could not be
 # resumed after, so the owner never pages one.
 PART_KEY = 256
-# The seconds a pull or a gathering runs, well under the time limit of the
-# action or event it runs in: a schema pull leaves the rest to a continuation,
-# and a gathering refuses a reply it could not finish.
+# The seconds a schema pull runs, well under the time limit of the event or
+# continuation it runs in, before it leaves the rest to a continuation. A
+# subscribe, which someone waits on, takes the first part only.
 PART_TIME = 60
+# The seconds a view gathers for before it refuses a reply it could not finish:
+# a page and the Android client give up on a request after 30, and the last
+# part asked for may take a while to arrive.
+VIEW_TIME = 20
 # The most bytes a gathering holds across its parts: what one whole reply could
 # carry before parts, so a reply in parts never costs the requester more.
 PART_GATHERED = 104857600
@@ -8511,16 +8644,61 @@ PART_GATHERED = 104857600
 PART_RETRIES = 3
 
 # The newest 100 approved posts, which the schema carries.
-SCHEMA_WINDOW = "select id from posts where forum=? and status='approved' order by created desc limit 100"
+SCHEMA_LIMIT = 100
 
-# Each list a reply pages: the columns a part sends, the rows it reads (bound
-# by the caller's scope arguments), the key it is ordered and resumed by,
-# what a row costs in bytes beyond a fixed allowance, and an optional grouping.
-SCHEMA_SPECS = {
-    "posts": {"columns": "id, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language", "source": "posts where forum=? and status='approved' and id in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(title as blob)) + length(cast(body as blob)) + length(cast(url as blob)) + length(cast(embed as blob))"},
-    "comments": {"columns": "id, post, parent, member, name, body, up, down, created, edited, attachment, remote", "source": "comments where forum=? and status='approved' and post in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(body as blob))"},
-    "tags": {"columns": "id, object, label, qid, relevance, source", "source": "tags where object in (" + SCHEMA_WINDOW + ")", "keys": ["id"], "size": "length(cast(label as blob))"},
-}
+# A pull's window: {"floor": created}, the owner's SCHEMA_LIMIT newest approved
+# posts and any as new, or {"whole": True}, every approved post of a forum with
+# fewer. The owner fixes it on the first part and every reply names it; the
+# requester asks each later part for the same one. Worked out again for each
+# part, a post that left the window while the pull ran lost its comments and
+# tags from the parts after, and a short list could not say whether it was the
+# whole forum.
+SCHEMA_WHOLE = "select id from posts where forum=? and status='approved'"
+SCHEMA_FLOOR = SCHEMA_WHOLE + " and created>=?"
+
+# schema_window(forum_id, asked) -> the window a part reads: asked, a window a
+# requester names, or the forum's own now when it names none. None when asked
+# is not a window.
+def schema_window(forum_id, asked=None):
+    if asked != None:
+        return schema_named(asked)
+    row = mochi.db.row("select created from posts where forum=? and status='approved' order by created desc limit 1 offset ?", forum_id, SCHEMA_LIMIT - 1)
+    if row:
+        return {"floor": int(row["created"])}
+    return {"whole": True}
+
+# schema_named(value) -> value as a window, or None when it is not one.
+def schema_named(value):
+    if type(value) != "dict" or len(value) != 1:
+        return None
+    if value.get("whole") == True:
+        return {"whole": True}
+    floor = value.get("floor")
+    if type(floor) == "float" and floor == int(floor):
+        floor = int(floor)
+    if type(floor) == "int" and floor >= 0:
+        return {"floor": floor}
+    return None
+
+# schema_specs(window) -> the lists a reply pages, read within window: the
+# columns a part sends, the rows it reads (bound by the caller's scope
+# arguments, schema_scopes), the key it is ordered and resumed by, what a row
+# costs in bytes beyond a fixed allowance, and an optional grouping.
+def schema_specs(window):
+    clause = SCHEMA_WHOLE if window.get("whole") else SCHEMA_FLOOR
+    return {
+        "posts": {"columns": "id, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language", "source": "posts where forum=? and status='approved' and id in (" + clause + ")", "keys": ["id"], "size": "length(cast(title as blob)) + length(cast(body as blob)) + length(cast(url as blob)) + length(cast(embed as blob))"},
+        "comments": {"columns": "id, post, parent, member, name, body, up, down, created, edited, attachment, remote", "source": "comments where forum=? and status='approved' and post in (" + clause + ")", "keys": ["id"], "size": "length(cast(body as blob))"},
+        "tags": {"columns": "id, object, label, qid, relevance, source", "source": "tags where object in (" + clause + ")", "keys": ["id"], "size": "length(cast(label as blob))"},
+    }
+
+# schema_scopes(forum_id, window) -> the scope arguments of schema_specs(window).
+def schema_scopes(forum_id, window):
+    within = [forum_id] if window.get("whole") else [forum_id, window["floor"]]
+    return {"posts": [forum_id] + within, "comments": [forum_id] + within, "tags": within}
+
+# The lists and keys of every window, which a cursor is checked against.
+SCHEMA_SPECS = schema_specs({"whole": True})
 SCHEMA_ORDER = ["posts", "comments", "tags"]
 # The cursor of a schema's first part.
 SCHEMA_START = {"list": "posts", "after": []}
@@ -8667,12 +8845,13 @@ def part_bounded(reply, order):
         rows += len(value or [])
     return rows <= PART_ROWS
 
-# part_gather(forum_id, event, content, peer, specs, order) -> (reply, lists,
-# complete): asks the forum's owner for event part by part and gathers each
-# list across the parts. reply is the first answer: an error, or for an owner
-# that predates parts the whole reply, with lists None. A gathering that runs
-# past PART_TIME or holds more than PART_GATHERED bytes stops, incomplete.
-def part_gather(forum_id, event, content, peer, specs, order):
+# part_gather(forum_id, event, content, peer, specs, order, budget) -> (reply,
+# lists, complete): asks the forum's owner for event part by part and gathers
+# each list across the parts. reply is the first answer: an error, or for an
+# owner that predates parts the whole reply, with lists None. A gathering that
+# runs past budget seconds or holds more than PART_GATHERED bytes stops,
+# incomplete.
+def part_gather(forum_id, event, content, peer, specs, order, budget):
     gathered = {}
     for name in order:
         gathered[name] = []
@@ -8681,7 +8860,7 @@ def part_gather(forum_id, event, content, peer, specs, order):
     started = mochi.time.now()
     held = 0
     for _ in range(PART_PARTS):
-        if first != None and mochi.time.now() - started >= PART_TIME:
+        if first != None and mochi.time.now() - started >= budget:
             return first, gathered, False
         reply = mochi.remote.request(forum_id, "forums", event, dict(content, part=part), peer)
         if type(reply) != "dict" or reply.get("error"):
@@ -8740,10 +8919,14 @@ def event_schema(e):
         if part["list"] == SCHEMA_START["list"] and not part["after"] and type(register) == "dict" and type(register.get("name")) == "string" and mochi.text.valid(register["name"], "name"):
             forum = get_forum(forum_id)
             requester = e.header("from")
-            if forum and forum["id"] == forum_id and mochi.text.valid(requester, "entity") and member_register(forum, requester, register["name"]):
+            if forum and forum["id"] == forum_id and mochi.text.valid(requester, "entity") and member_register(forum, requester, name_strip(register["name"])):
                 joined = forum
+        window = schema_window(forum_id, e.content("window"))
+        if window == None:
+            e.stream.write({"error": "errors.invalid_data"})
+            return
         budget = part_budget()
-        lists, next = part_take(SCHEMA_SPECS, SCHEMA_ORDER, {"posts": [forum_id, forum_id], "comments": [forum_id, forum_id], "tags": [forum_id]}, part, budget)
+        lists, next = part_take(schema_specs(window), SCHEMA_ORDER, schema_scopes(forum_id, window), part, budget)
         for name in ["posts", "comments"]:
             rows = lists[name]
             lists[name] = part_attach(rows, forum_id, budget)
@@ -8754,7 +8937,7 @@ def event_schema(e):
                     lists["comments"] = []
                 lists["tags"] = []
                 break
-        reply = {"part": part}
+        reply = {"part": part, "window": window}
         reply.update(lists)
         if next:
             reply["next"] = next
@@ -8802,67 +8985,116 @@ def event_schema(e):
         "tags": tags,
     })
 
-# schema_fetch(forum_id, peer, part, name) -> one part of the owner's schema,
-# asked for as a subscriber of that name when one is given. An
-# owner that predates parts ignores `part` and answers the whole schema, which
-# carries no `next` and so is complete on its own.
-def schema_fetch(forum_id, peer, part, name=None):
+# schema_fetch(forum_id, peer, part, name, window) -> one part of the owner's
+# schema, asked for as a subscriber of that name when one is given, read within
+# window, the pull's (schema_window), when one is given. An owner that predates
+# parts ignores `part` and answers the whole schema, which carries no `next` and
+# so is complete on its own.
+def schema_fetch(forum_id, peer, part, name=None, window=None):
     content = {"part": part}
     if name:
         content["register"] = {"name": name}
+    if window:
+        content["window"] = window
     return mochi.remote.request(forum_id, "forums", "schema", content, peer)
 
-# insert_forum_schema(forum_id, schema, peer, started, parts) imports schema, a
-# part of the owner's schema already received, then pulls and imports the parts
-# after it until PART_TIME has passed since started; parts counts the parts the
-# pull took before this one. True when the last part arrived. A pull that runs
-# out of time is continued by schedule_schema, and one whose part goes
-# unanswered is tried again a few times; one that breaks a bound leaves the
-# parts before it in place for the next resync, which imports idempotently.
-def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0):
+# insert_forum_schema(forum_id, schema, peer, started, parts, budget) imports
+# schema, a part of the owner's schema already received, then pulls and imports
+# the parts after it until budget seconds have passed since started; parts
+# counts the parts the pull took before this one. True when the last part
+# arrived. A subscribe passes a budget of 0, so it imports the first part and
+# answers; a pull that runs out of time is continued by schedule_schema, and
+# one whose part goes unanswered is tried again a few times; one that breaks a
+# bound leaves the parts before it in place for the next resync, which imports
+# idempotently. A pull of a forum dropped while it ran stops, with no
+# continuation, and purges what it imported after the drop's own purge.
+# held is what the replica held when the pull began, in the call that began it;
+# a continuation passes None and reads what is left of it from holdings. pull is
+# the pull's id, "" for one that prunes nothing. window is the pull's window,
+# which a continuation passes and the call that began it takes from the first
+# part; a pull prunes only while every part names it, so an owner that predates
+# windows, or a part read within another, leaves the replica as it is.
+def insert_forum_schema(forum_id, schema, peer=None, started=None, parts=0, budget=PART_TIME, held=None, pull="", window=None):
     if started == None:
         started = mochi.time.now()
+    named = hold_named()
+    if window == None and type(schema) == "dict":
+        window = schema_named(schema.get("window"))
     for _ in range(PART_PARTS):
         if parts >= PART_PARTS:
             break
         parts += 1
         if type(schema) != "dict" or schema.get("error"):
+            hold_end(forum_id, pull)
+            return False
+        # A reply with no echo after the first is no part of this pull: taken
+        # as a whole schema, it would end the pull with the lists unread.
+        if parts > 1 and schema.get("part") == None:
+            hold_end(forum_id, pull)
             return False
         if schema.get("part") != None and not part_bounded(schema, SCHEMA_ORDER):
+            hold_end(forum_id, pull)
             return False
+        if pull and (window == None or schema_named(schema.get("window")) != window):
+            hold_end(forum_id, pull)
+            pull = ""
+        hold_name(named, schema)
         schema_import(forum_id, schema)
+        # Checked after every import, so also before every fetch the loop makes:
+        # schedule_schema checks before the fetch a continuation makes.
+        if not schema_held(forum_id):
+            purge_forum_rows(forum_id)
+            return False
         next = schema.get("next")
         if next == None:
+            hold_prune(forum_id, named, held, pull, window)
+            hold_end(forum_id, pull)
             return True
         if not part_cursor(next, SCHEMA_SPECS):
+            hold_end(forum_id, pull)
             return False
-        if mochi.time.now() - started >= PART_TIME:
-            schema_resume(forum_id, "stopped", next, parts)
+        if mochi.time.now() - started >= budget:
+            hold_keep(forum_id, named, held, pull)
+            schema_resume(forum_id, "stopped", next, parts, pull=pull, window=window)
             return False
         mochi.db.execute("update forums set synced=? where id=?", mochi.time.now(), forum_id)
-        schema = schema_fetch(forum_id, peer, next)
+        schema = schema_fetch(forum_id, peer, next, window=window)
         if type(schema) != "dict" or schema.get("error"):
-            schema_resume(forum_id, schema_outcome(schema), next, parts)
+            hold_keep(forum_id, named, held, pull)
+            schema_resume(forum_id, schema_outcome(schema), next, parts, pull=pull, window=window)
             return False
+    # PART_PARTS parts and no end: the pull stops for good.
+    hold_end(forum_id, pull)
     return False
+
+# schema_held(forum_id) -> whether the forum is still held here. Every path that
+# drops a forum deletes its forums row before the rows it holds, so a part a
+# pull imports after that path's purge is seen here and purged in turn.
+def schema_held(forum_id):
+    return mochi.db.exists("select 1 from forums where id=?", forum_id)
 
 # schema_outcome(reply) -> "unanswered" when a part could not be fetched at all,
 # "failed" when the owner answered with a refusal.
 def schema_outcome(reply):
     return "unanswered" if type(reply) != "dict" or reply.get("transport") else "failed"
 
-# schema_resume(forum_id, outcome, cursor, parts, attempt) leaves the rest of a
-# pull that stopped short to a continuation: at once when its time ran out, and
-# after a pause when a part went unanswered, PART_RETRIES times in a row at
-# most. A pull the owner refused waits for the next resync.
-def schema_resume(forum_id, outcome, cursor, parts, attempt=0):
-    data = {"forum": forum_id, "cursor": cursor, "parts": parts}
+# schema_resume(forum_id, outcome, cursor, parts, attempt, pull, window) leaves
+# the rest of a pull that stopped short to a continuation, which reads within
+# the same window: at once when its time ran out, and after a pause when a part
+# went unanswered, PART_RETRIES times in a row at most. A pull the owner refused
+# waits for the next resync.
+def schema_resume(forum_id, outcome, cursor, parts, attempt=0, pull="", window=None):
+    data = {"forum": forum_id, "cursor": cursor, "parts": parts, "pull": pull}
+    if window:
+        data["window"] = window
     if outcome == "stopped":
         data["attempt"] = 0
         mochi.schedule.after("schedule_schema", data, 0)
     elif outcome == "unanswered" and attempt < PART_RETRIES:
         data["attempt"] = attempt + 1
         mochi.schedule.after("schedule_schema", data, 60 * (attempt + 1) * (attempt + 1))
+    else:
+        hold_end(forum_id, pull)
 
 # schedule_schema(e): a continuation of a pull schema_resume left, taking the
 # parts from its cursor on, within its own time.
@@ -8878,17 +9110,244 @@ def schedule_schema(e):
         return
     parts = number(e.data.get("parts", 0))
     attempt = number(e.data.get("attempt", 0))
+    # A continuation of a pull since replaced, or of one before pulls pruned,
+    # still lands its parts but prunes nothing.
+    pull = e.data.get("pull")
+    if type(pull) != "string" or not hold_current(forum_id, pull):
+        pull = ""
+    # One with no window, of an owner that names none, prunes nothing.
+    window = schema_named(e.data.get("window"))
+    if window == None:
+        pull = ""
     started = mochi.time.now()
     mochi.db.execute("update forums set synced=? where id=?", started, forum_id)
     peer = mochi.remote.peer(row["server"])
-    schema = schema_fetch(forum_id, peer, cursor)
+    schema = schema_fetch(forum_id, peer, cursor, window=window)
     if type(schema) != "dict" or schema.get("error"):
-        schema_resume(forum_id, schema_outcome(schema), cursor, parts, attempt)
+        schema_resume(forum_id, schema_outcome(schema), cursor, parts, attempt, pull, window)
         return
-    if insert_forum_schema(forum_id, schema, peer, started, parts):
+    if insert_forum_schema(forum_id, schema, peer, started, parts, pull=pull, window=window):
         schema_completed(forum_id)
 
+# holdings_schema_create: what a pull of a forum held here may still prune once
+# its last part lands, kept between the calls a pull runs across (hold_keep).
+# Each pull has a row ('', '') while it is the forum's own, and a row
+# ('', HOLD_PRUNE) while it may still prune.
+def holdings_schema_create():
+    mochi.db.execute("create table if not exists holdings ( forum text not null, pull text not null, list text not null, key text not null, primary key ( forum, pull, list, key ) )")
+
+# The lists a pull reconciles, the key of its permission to prune, and how many
+# keys one statement writes or strikes out.
+HOLD_LISTS = ["posts", "comments", "tags"]
+HOLD_PRUNE = "prune"
+HOLD_BATCH = 500
+
+# hold_begin(forum_id) -> the id of a new pull of the replica, which may prune.
+# Written only while the replica is held, so a pull that begins beside a purge
+# has no rows and prunes nothing.
+def hold_begin(forum_id):
+    pull = mochi.uid()
+    for key in ["", HOLD_PRUNE]:
+        mochi.db.execute("insert or ignore into holdings (forum, pull, list, key) select ?, ?, '', ? where exists (select 1 from forums where id=? and server!='')", forum_id, pull, key, forum_id)
+    return pull
+
+# hold_claim(forum_id, pull): a pull whose first part has arrived replaces every
+# pull of the replica before it, whose continuations then prune nothing.
+def hold_claim(forum_id, pull):
+    mochi.db.execute("delete from holdings where forum=? and pull!=?", forum_id, pull)
+
+# hold_end(forum_id, pull): a pull that finished, or stopped for good, leaves no
+# rows behind.
+def hold_end(forum_id, pull):
+    if pull:
+        mochi.db.execute("delete from holdings where forum=? and pull=?", forum_id, pull)
+
+# hold_current(forum_id, pull) -> whether the pull is still the replica's own.
+def hold_current(forum_id, pull):
+    return pull != "" and mochi.db.exists("select 1 from holdings where forum=? and pull=? and list='' and key=''", forum_id, pull)
+
+# hold_permitted(forum_id, pull) -> whether the pull may still prune.
+def hold_permitted(forum_id, pull):
+    return pull != "" and mochi.db.exists("select 1 from holdings where forum=? and pull=? and list='' and key=?", forum_id, pull, HOLD_PRUNE)
+
+# hold_cancel(forum_id): a live event brings a row back, so a pull under way
+# prunes nothing. Otherwise the owner removes a row the pull held, a part is
+# read without it, the owner restores it, and the last part's prune deletes a
+# row the owner holds. What the owner deleted meanwhile waits for the next pull.
+def hold_cancel(forum_id):
+    mochi.db.execute("delete from holdings where forum=? and key!=''", forum_id)
+
+# hold_snapshot(forum_id) -> the rows the replica holds of the forum, keyed by
+# id under HOLD_LISTS: the rows a complete pull may prune. A tag is held only on
+# a post, as the dump carries no other.
+def hold_snapshot(forum_id):
+    held = {"posts": {}, "comments": {}, "tags": {}}
+    for row in mochi.db.rows("select id from posts where forum=?", forum_id) or []:
+        held["posts"][row["id"]] = True
+    for row in mochi.db.rows("select id from comments where forum=?", forum_id) or []:
+        held["comments"][row["id"]] = True
+    for row in mochi.db.rows("select t.id as id from tags t join posts p on p.id=t.object where p.forum=?", forum_id) or []:
+        held["tags"][row["id"]] = True
+    return held
+
+# hold_named() -> what one call of a pull has named: the ids of each list, and
+# the id of every post the window listed, well formed or not.
+def hold_named():
+    return {"posts": {}, "comments": {}, "tags": {}, "listed": {}}
+
+# hold_name(named, schema) records what one part, or a whole schema, names. A
+# row whose id is not one names nothing, so a malformed copy the replica took
+# before ids were checked is pruned rather than kept by it.
+def hold_name(named, schema):
+    for p in (schema.get("posts") or []):
+        if type(p) != "dict" or type(p.get("id")) != "string":
+            continue
+        named["listed"][p["id"]] = True
+        if mochi.text.valid(p["id"], "id"):
+            named["posts"][p["id"]] = True
+    for name in ["comments", "tags"]:
+        for row in (schema.get(name) or []):
+            if type(row) == "dict" and type(row.get("id")) == "string" and mochi.text.valid(row["id"], "id"):
+                named[name][row["id"]] = True
+
+# hold_keep(forum_id, named, held, pull) records, as a pull hands the rest to a
+# continuation, what its last part may still prune. The call that began the
+# pull writes the rows the replica held before it that no part so far named; a
+# continuation strikes out the rows its own parts named. Both add the posts the
+# window listed. Written only while the pull may still prune.
+def hold_keep(forum_id, named, held, pull):
+    if not hold_permitted(forum_id, pull):
+        return
+    rows = [["listed", id] for id in named["listed"]]
+    if held != None:
+        for name in HOLD_LISTS:
+            for id in held[name]:
+                if id not in named[name]:
+                    rows.append([name, id])
+    else:
+        for name in HOLD_LISTS:
+            ids = list(named[name].keys())
+            for start in range(0, len(ids), HOLD_BATCH):
+                batch = ids[start:start + HOLD_BATCH]
+                mochi.db.execute("delete from holdings where forum=? and pull=? and list=? and key in (" + ", ".join(["?"] * len(batch)) + ")", forum_id, pull, name, batch)
+    for start in range(0, len(rows), HOLD_BATCH):
+        batch = rows[start:start + HOLD_BATCH]
+        mochi.db.execute("insert or ignore into holdings (forum, pull, list, key) select ?, ?, column1, column2 from (values " + ", ".join(["(?, ?)"] * len(batch)) + ") where exists (select 1 from holdings where forum=? and pull=? and list='' and key=?)", forum_id, pull, [value for row in batch for value in row], forum_id, pull, HOLD_PRUNE)
+
+# hold_kept(forum_id, pull) -> (held, listed): what earlier calls of the pull
+# left it to prune, and the posts they listed.
+def hold_kept(forum_id, pull):
+    held = {"posts": {}, "comments": {}, "tags": {}}
+    listed = {}
+    for row in mochi.db.rows("select list, key from holdings where forum=? and pull=? and list!=''", forum_id, pull) or []:
+        if row["list"] in held:
+            held[row["list"]][row["key"]] = True
+        elif row["list"] == "listed":
+            listed[row["key"]] = True
+    return held, listed
+
+# hold_prune(forum_id, named, held, pull, window): the pull's last part has
+# landed, every part within window, so delete what the replica held when it
+# began and no part named. A post is pruned only within the window: any of a
+# whole one, else one created at or after its floor. A comment or tag only on a
+# post the window listed, and a tag only one the owner's AI gave: a manual tag
+# made on the replica never reaches the owner. Rows the replica holds as
+# anything but approved when the prune runs, a pending post of the user's own
+# or one removed while the pull ran, are not the dump's.
+# The permission is checked before each deletion, so a live event that lands
+# while the prune runs stops the rest of it.
+def hold_prune(forum_id, named, held, pull, window):
+    if not hold_permitted(forum_id, pull) or not window:
+        return
+    listed = dict(named["listed"])
+    if held == None:
+        held, earlier = hold_kept(forum_id, pull)
+        listed.update(earlier)
+    floor = window.get("floor")
+    pruned = False
+    for row in mochi.db.rows("select id, created from posts where forum=? and status='approved'", forum_id) or []:
+        if row["id"] not in held["posts"] or row["id"] in named["posts"]:
+            continue
+        if floor != None and number(row["created"]) < floor:
+            continue
+        if not hold_permitted(forum_id, pull):
+            return
+        replica_post_drop(forum_id, row["id"])
+        pruned = True
+    counted = {}
+    for row in mochi.db.rows("select id, post from comments where forum=? and status='approved'", forum_id) or []:
+        if row["id"] not in held["comments"] or row["id"] in named["comments"] or row["post"] not in listed:
+            continue
+        if not hold_permitted(forum_id, pull):
+            return
+        replica_comment_drop(forum_id, row["id"])
+        counted[row["post"]] = True
+        pruned = True
+    for row in mochi.db.rows("select t.id as id, t.object as object from tags t join posts p on p.id=t.object where p.forum=? and t.source!='manual'", forum_id) or []:
+        if row["id"] not in held["tags"] or row["id"] in named["tags"] or row["object"] not in listed:
+            continue
+        if not hold_permitted(forum_id, pull):
+            return
+        mochi.db.execute("delete from tags where id=?", row["id"])
+        pruned = True
+    for post in counted:
+        recount_post_comments(post)
+    if pruned:
+        mochi.db.execute("update forums set updated=? where id=?", mochi.time.now(), forum_id)
+
+# replica_post_drop(forum_id, id) deletes a post the replica holds, with its
+# comments and everything hung on either.
+def replica_post_drop(forum_id, id):
+    for row in mochi.db.rows("select id from comments where forum=? and post=?", forum_id, id) or []:
+        replica_comment_drop(forum_id, row["id"])
+    mochi.db.execute("delete from tags where object=?", id)
+    replica_attachments_drop(forum_id, id)
+    mochi.db.execute("delete from votes where forum=? and post=?", forum_id, id)
+    mochi.db.execute("delete from follows where post=?", id)
+    mochi.db.execute("delete from score_cache where forum=? and post=?", forum_id, id)
+    mochi.db.execute("delete from posts where id=? and forum=?", id, forum_id)
+
+# replica_comment_drop(forum_id, id) deletes a comment the replica holds, with
+# its tags, attachments and votes.
+def replica_comment_drop(forum_id, id):
+    mochi.db.execute("delete from tags where object=?", id)
+    replica_attachments_drop(forum_id, id)
+    mochi.db.execute("delete from votes where comment=?", id)
+    mochi.db.execute("delete from comments where id=? and forum=?", id, forum_id)
+
+# replica_attachments_drop(forum_id, object) deletes the forum's copies of an
+# object's attachments, and nothing else: a file of the user's own, the only copy
+# of one they posted, stays, as does any row another forum holds under that id.
+def replica_attachments_drop(forum_id, object):
+    for row in mochi.db.rows("select * from attachments where object=? and entity=?", object, forum_id) or []:
+        mochi.db.execute("delete from attachments where id=?", row["id"])
+        attachment_forget(row)
+
 # Insert one part of the forum schema, or a whole schema, into local database
+# texts(row, keys) -> whether each of keys holds a string in row: a check of
+# its content would stop the handler on any other type.
+def texts(row, keys):
+    if type(row) != "dict":
+        return False
+    for key in keys:
+        if type(row.get(key, "")) != "string":
+            return False
+    return True
+
+# tag_pulled(label, source) -> the label a pulled tag keeps, or None. A manual
+# tag was held to validate_tag when the owner took it; one the owner's AI gave
+# names whatever it found, "münchen" and "c++" included, so it is held to a
+# name shown to people, of a tag's length.
+def tag_pulled(label, source):
+    if type(label) != "string":
+        return None
+    if source == "manual":
+        return validate_tag(label)
+    label = label.strip()
+    if not label or len(label) > 200 or not mochi.text.valid(label, "display"):
+        return None
+    return label
+
 def schema_import(forum_id, schema):
     for p in (schema.get("posts") or []):
         # The owner's copy is the post: one held here that missed an edit takes
@@ -8896,16 +9355,28 @@ def schema_import(forum_id, schema):
         # updated: the owner could name an id that already exists in another of
         # the user's forums, and that row must not be touched or moved here.
         # Apply the same validation the P2P submit path enforces; the dump is
-        # owner-supplied and could otherwise seed the replica with a title/body
-        # (bidi overrides, over-length) that event_post_submit_event rejects.
-        if not mochi.text.valid(p.get("title", ""), "name"):
+        # owner-supplied and could otherwise seed the replica with an id, a
+        # title or a body (a path in the id, bidi overrides, over-length) that
+        # event_post_create_event rejects. Clients build addresses from the id.
+        if not texts(p, ["id", "member", "name", "title", "body"]) or not mochi.text.valid(p["id"], "id"):
             continue
-        if not mochi.text.valid(p.get("body", ""), "text"):
+        # A post and a comment never share an id: what is hung on one, its tags
+        # and attachments, would hang on the other too.
+        if mochi.db.exists("select 1 from comments where id=?", p["id"]):
+            continue
+        if not mochi.text.valid(p["member"], "author"):
+            continue
+        name = name_strip(p["name"])
+        if not mochi.text.valid(name, "name"):
+            continue
+        if not mochi.text.valid(p["title"], "name"):
+            continue
+        if not mochi.text.valid(p["body"], "text"):
             continue
         card = link_clean(p.get("url"), p.get("thumbnail"), p.get("embed"))
         mochi.db.execute(
             "insert into posts (id, forum, member, name, title, body, up, down, comments, created, updated, edited, remote, url, thumbnail, embed, sensitive, language) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) on conflict (id) do update set title=excluded.title, body=excluded.body, up=excluded.up, down=excluded.down, comments=excluded.comments, edited=excluded.edited, url=excluded.url, thumbnail=excluded.thumbnail, embed=excluded.embed, sensitive=excluded.sensitive, language=excluded.language where posts.forum=excluded.forum",
-            p.get("id", ""), forum_id, p.get("member", ""), p.get("name", ""),
+            p.get("id", ""), forum_id, p.get("member", ""), name,
             p.get("title", ""), p.get("body", ""), number(p.get("up", 0)), number(p.get("down", 0)),
             number(p.get("comments", 0)), number(p.get("created", 0)), number(p.get("updated", 0)), number(p.get("edited", 0)),
             str(p.get("remote", "")) if remote_ok(p.get("remote", "")) else "",
@@ -8921,17 +9392,32 @@ def schema_import(forum_id, schema):
         if atts:
             attachment_store(atts, forum_id, p.get("id", ""))
     for c in (schema.get("comments") or []):
+        if not texts(c, ["post"]):
+            continue
         # Only accept a comment whose post is a post in THIS forum.
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", c.get("post", ""), forum_id):
             continue
-        # Same body validation the P2P submit path applies.
-        if not mochi.text.valid(c.get("body", ""), "text"):
+        # Same validation the P2P submit path applies. A parent is a comment
+        # id or nothing; the threads a client draws hang on it.
+        if not texts(c, ["id", "member", "name", "body"]) or not mochi.text.valid(c["id"], "id"):
+            continue
+        if mochi.db.exists("select 1 from posts where id=?", c["id"]):
+            continue
+        parent = c.get("parent") or ""
+        if parent and (type(parent) != "string" or not mochi.text.valid(parent, "id")):
+            continue
+        if not mochi.text.valid(c["member"], "author"):
+            continue
+        name = name_strip(c["name"])
+        if not mochi.text.valid(name, "name"):
+            continue
+        if not mochi.text.valid(c["body"], "text"):
             continue
         # As with posts: the owner's words and counts, on a row of this forum.
         mochi.db.execute(
             "insert into comments (id, forum, post, parent, member, name, body, up, down, created, edited, attachment, remote) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) on conflict (id) do update set body=excluded.body, up=excluded.up, down=excluded.down, edited=excluded.edited where comments.forum=excluded.forum",
-            c.get("id", ""), forum_id, c.get("post", ""), c.get("parent", ""),
-            c.get("member", ""), c.get("name", ""), c.get("body", ""),
+            c.get("id", ""), forum_id, c.get("post", ""), parent,
+            c.get("member", ""), name, c.get("body", ""),
             number(c.get("up", 0)), number(c.get("down", 0)), number(c.get("created", 0)), number(c.get("edited", 0)),
             comment_anchor(c.get("post", ""), forum_id, c.get("attachment", "")),
             str(c.get("remote", "")) if remote_ok(c.get("remote", "")) else ""
@@ -8943,14 +9429,30 @@ def schema_import(forum_id, schema):
         if atts:
             attachment_store(atts, forum_id, c.get("id", ""))
     for t in (schema.get("tags") or []):
+        if type(t) != "dict":
+            continue
         # Only tag a post or comment that belongs to this forum.
         obj = t.get("object", "")
         if not mochi.db.exists("select 1 from posts where id=? and forum=?", obj, forum_id) and not mochi.db.exists("select 1 from comments where id=? and forum=?", obj, forum_id):
             continue
+        # The checks event_tag_add makes of the same fields.
+        if type(t.get("id")) != "string" or not mochi.text.valid(t["id"], "id"):
+            continue
+        source = t.get("source") or "manual"
+        if type(source) != "string" or not mochi.text.valid(source, "name"):
+            source = "manual"
+        label = tag_pulled(t.get("label"), source)
+        if not label:
+            continue
+        qid = t.get("qid") or ""
+        if qid and (type(qid) != "string" or not mochi.text.valid(qid, "line")):
+            continue
+        relevance = t.get("relevance") or 0
+        if type(relevance) not in ["int", "float"]:
+            relevance = 0
         mochi.db.execute(
             "insert or ignore into tags (id, object, label, qid, relevance, source) values (?, ?, ?, ?, ?, ?)",
-            t.get("id", ""), obj, t.get("label", ""),
-            t.get("qid", ""), t.get("relevance", 0.0), t.get("source", "manual")
+            t.get("id", ""), obj, label, qid, relevance, source
         )
 
 # Handle view request for a forum (used for remote forum viewing)
@@ -9925,7 +10427,6 @@ def ai_rerank(forum_data, posts, interests):
 # Returns {"fingerprint": fp, "subscribed": bool} or {"error": key, "code": N}.
 def _subscribe_to_forum(user, forum_id, server):
     user_id = user.identity.id
-    started = mochi.time.now()
 
     if not mochi.text.valid(forum_id, "entity"):
         return {"error": "errors.invalid_id", "code": 400}
@@ -9985,7 +10486,9 @@ def _subscribe_to_forum(user, forum_id, server):
     )
     mochi.broadcast.touch(forum_id)
 
-    if pulling and insert_forum_schema(forum_id, schema, peer, started):
+    # The first part only, as in forum_subscribe: the calling app's request
+    # gives up after 30 seconds, and a person who then sends again posts twice.
+    if pulling and insert_forum_schema(forum_id, schema, peer, budget=0):
         schema_completed(forum_id)
 
     return {"fingerprint": fp, "subscribed": False}
@@ -10653,29 +11156,18 @@ def action_communities_add(a):
 def community_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save):
     """A post into a community through the account. The first image becomes
     the post's link where it has none, and the other images go into the body
-    as markdown, each uploaded to the server's image store (decision 24).
-    Answers (result, None) or (None, failure)."""
+    as markdown, each uploaded to the server's image store (decision 24); a
+    file that does not go refuses the post (community_uploads). Answers
+    (result, None) or (None, failure)."""
     if is_joined(forum):
         return joined_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save)
     acc = community_account(forum)
     if not acc or not acc.get("enabled", 1):
         return None, (403, "errors.account_not_linked")
-    stored = save("upload/" + mochi.uid())
-    images = []
-    for att in stored:
-        kind = str(att.get("content_type", "") or "")
-        if kind.startswith("image/"):
-            data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-            uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
-            if uploaded and safe_web_link(uploaded.get("url", "")):
-                images.append((uploaded["url"], att.get("caption", "") or att["name"]))
-        attachment_delete(att["id"])
-    url = link
-    if not url and images:
-        url = images[0][0]
-        images = images[1:]
-    if images:
-        body = body + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    body, url = community_images(body, link, images)
     object = {"kind": "post", "name": title, "community_id": lemmy_number(int(forum["community"]) if forum["community"] else 0)}
     if url:
         object["url"] = url
@@ -10700,13 +11192,19 @@ def community_remote(row, kind):
 # The community_* writers below act as the user named, through their account,
 # and answer (result, None) or (None, failure).
 
-def community_post_edit(forum, post, user_id, title, body, link, sensitive, language):
+def community_post_edit(forum, post, user_id, title, body, link, sensitive, language, save):
+    """The user's edit of their own post in a community, through their
+    account. Images the edit adds are uploaded as a new post's are, the first
+    becoming the link where the post has none (community_images)."""
     if is_joined(forum):
-        return joined_post_edit(forum, post, user_id, title, body, link, sensitive, language)
+        return joined_post_edit(forum, post, user_id, title, body, link, sensitive, language, save)
     acc = community_account(forum)
     remote = community_remote(post, "post")
     if not acc or not remote or post["member"] != user_id:
         return None, (403, "errors.not_allowed_to_edit_this_post")
+    body, link, failure = community_edit_images(acc, post, body, link, save)
+    if failure:
+        return None, failure
     object = {"name": title, "body": body}
     if link != None:
         object["url"] = link
@@ -10748,6 +11246,11 @@ def community_comment_create(forum, post_id, parent_id, user_id, user_name, body
         if not above:
             return None, (404, "errors.parent_comment_not_found")
         object["parent_id"] = int(above[8:])
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    if images:
+        object["content"] = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     result = mochi.account.object.create(acc["id"], object, key=mochi.uid())
     view = result.get("data") if result and type(result.get("data")) == "dict" else None
     if not view:
@@ -10829,10 +11332,9 @@ def community_unsubscribe(forum):
     acc = community_account(forum)
     if acc and forum.get("community"):
         lemmy_send(acc, "community/follow", {"community_id": int(forum["community"]), "follow": False})
-    purge_forum_rows(forum["id"])
-    mochi.db.execute("delete from members where forum=?", forum["id"])
+    # The saved posts first, while the posts they name are there to find them by.
     mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
+    forum_drop(forum["id"])
     return {}, None
 
 # === Importing an account's settings ===
@@ -11303,10 +11805,11 @@ def group_publish_vote(forum, member, kind, item_id, remote, vote, before="", ac
         mochi.db.execute("update votes set remote=? where comment=? and voter=?", sent, item_id, member)
     group_address_record(forum["id"], member, acc["url"])
 
-def group_moderate(forum, member, activity):
+def group_moderate(forum, member, activity, told=[]):
     """Carry a moderator's act to the community as their own account: the
     group announces it once it has checked them. Nothing without an account,
-    which leaves the act to Mochi alone (decision 28)."""
+    which leaves the act to Mochi alone (decision 28). Those told are sent it
+    directly as well."""
     if not forum or not forum.get("address"):
         return
     acc = member_account()
@@ -11314,7 +11817,7 @@ def group_moderate(forum, member, activity):
         return
     activity["audience"] = forum["address"]
     activity["to"] = [GROUP_PUBLIC]
-    activity["cc"] = [forum["address"]]
+    activity["cc"] = [forum["address"]] + [person for person in told if person != forum["address"]]
     if type(activity.get("object")) == "dict" and not activity["object"].get("actor"):
         activity["object"]["actor"] = acc["url"]
     mochi.account.activity(acc["id"], activity)
@@ -11344,17 +11847,37 @@ def group_moderate_item(forum, member, action, kind, item_id, reason=""):
     group_moderate(forum, member, activity)
 
 def group_moderate_user(forum, member, action, target, reason="", expires=None):
-    """A restriction on a member as a Block of their address, lifted by an Undo."""
-    address = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], target)
+    """A restriction on a member as a Block of their address, lifted by an Undo:
+    a Mochi member's fediverse account, or the actor a person from another
+    network is a member by."""
+    row = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], target)
+    address = row["address"] if row else (target if remote_ok(target) else "")
     if not address:
         return
     if action == "restrict":
-        activity = {"type": "Block", "object": address["address"], "target": forum["address"], "summary": reason or "", "removeData": False}
+        activity = {"type": "Block", "object": address, "target": forum["address"], "summary": reason or "", "removeData": False}
         if expires:
             activity["endTime"] = mochi.time.local(int(expires), "rfc3339", timezone="UTC")
     else:
-        activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address["address"]) or {"type": "Block", "object": address["address"], "target": forum["address"]}}
-    group_moderate(forum, member, activity)
+        activity = {"type": "Undo", "object": group_undone(forum, "user", "", "Block", address) or {"type": "Block", "object": address, "target": forum["address"]}}
+    # The person is told directly, as Lemmy tells them: a ban unsubscribes
+    # them, and their server then refuses whatever the community announces
+    # if they were its only subscriber there, the lifting of the ban among it.
+    group_moderate(forum, member, activity, told=[address])
+
+def group_follow_drop(forum, person):
+    """A person the community bans no longer follows it, as Lemmy unsubscribes
+    whoever its communities ban, so nothing more is announced to them: a Mochi
+    member by their fediverse account, a person from another network by their
+    address. Nothing where the forum is not published here, or on a core
+    without the call."""
+    acc = group_account(forum)
+    if not acc or not hasattr(mochi.account, "follower"):
+        return
+    row = mochi.db.row("select address from addresses where forum=? and member=?", forum["id"], person)
+    address = row["address"] if row else (person if remote_ok(person) else "")
+    if address:
+        mochi.account.follower.remove(acc["id"], address)
 
 def group_undone(forum, kind, item, wanted, object):
     """The moderator's act an Undo takes back, whole as the group took it:
@@ -11463,10 +11986,16 @@ def group_text(object):
     return mochi.text.clean(str(object.get("content", "") or ""))
 
 def group_link(object):
-    """The link a Page carries: its first Link attachment, else nothing."""
+    """The link a Page carries: its first Link attachment, or its first Image
+    attachment, which is how Lemmy carries an image post's image (the Page's
+    own image is only the thumbnail), else nothing."""
     for attachment in object.get("attachment") or []:
-        if type(attachment) == "dict" and attachment.get("type") == "Link" and remote_ok(attachment.get("href")):
+        if type(attachment) != "dict":
+            continue
+        if attachment.get("type") == "Link" and remote_ok(attachment.get("href")):
             return safe_web_link(str(attachment["href"]))
+        if attachment.get("type") == "Image" and remote_ok(attachment.get("url")):
+            return safe_web_link(str(attachment["url"]))
     return ""
 
 def group_named_id(named, table):
@@ -11806,6 +12335,7 @@ def group_received_moderation(forum, actor, activity):
             expires = mochi.time.parse(str(activity.get("endTime", ""))) if activity.get("endTime") else None
             mochi.db.execute("replace into restrictions (forum, user, type, reason, moderator, expires, created) values (?, ?, 'banned', ?, ?, ?, ?)", forum["id"], subject, reason, moderator, expires or None, now)
             log_moderation(forum["id"], moderator, "restrict", "user", subject, subject, reason)
+            group_follow_drop(forum, subject)
     else:
         return
     if item_kind:
@@ -11824,10 +12354,14 @@ def group_received_flag(forum, actor, activity):
             continue
         if mochi.db.exists("select 1 from reports where forum=? and type=? and target=? and reporter=? and status='pending'", forum["id"], kind, item["id"], actor):
             continue
+        report = mochi.uid()
         mochi.db.execute("insert into reports (id, forum, reporter, type, target, author, reason, details, created) values (?, ?, ?, ?, ?, ?, 'other', ?, ?)",
-            mochi.uid(), forum["id"], actor, kind, item["id"], item["member"], reason, mochi.time.now())
+            report, forum["id"], actor, kind, item["id"], item["member"], reason, mochi.time.now())
         name = group_person(actor)
-        notify_moderators(forum["id"], "moderation/reports", mochi.app.label("moderation.report.title", forum=forum["name"]), mochi.app.label("moderation.report.body." + kind, reporter=name, reason=reason or "other"), "", "", source_id=item["id"])
+        # As a report made here is told: its topic, a link to the reports, and
+        # the report itself as the source, so each reporter's is its own.
+        fp = forum_fingerprint(forum["id"]) or forum["id"]
+        notify_moderators(forum["id"], "moderation/report", mochi.app.label("moderation.report.title", forum=forum["name"]), mochi.app.label("moderation.report.body." + kind, reporter=name, reason=reason or "other"), "/forums/" + fp + "/moderation?tab=reports", "", source_id=report)
 
 def function_activitypub_object(context, account, id):
     """A post or comment a member here published to a community as their own
@@ -12018,14 +12552,49 @@ def community_identifier(value):
 def joined_answer(forum, already):
     return {"id": forum["id"], "fingerprint": forum.get("fingerprint") or forum_fingerprint(forum["id"]), "name": forum["name"], "already_subscribed": already}
 
+def community_resolve(address):
+    """The Group a community on another server is, from !name@host or its
+    address. Answers (found, None) or (None, failure)."""
+    identifier = community_identifier(address)
+    if not identifier:
+        return None, (400, "errors.invalid_community")
+    found = mochi.account.resolve(identifier)
+    if not found or found.get("network") != "fediverse" or found.get("type") != "group" or not remote_ok(found.get("id", "")):
+        return None, (404, "errors.community_not_found")
+    return found, None
+
+def joined_name(found):
+    return str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+
+def joined_handle(found):
+    return community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
+
+def communities_lookup(address):
+    """A community on another server as Find shows it before it is joined:
+    the name and handle its forum would have, and its avatar. Answers
+    (result, None) or (None, failure)."""
+    found, failure = community_resolve(address)
+    if failure:
+        return None, failure
+    return {"id": found["id"], "name": joined_name(found), "handle": joined_handle(found), "avatar": safe_web_link(found.get("avatar", ""))}, None
+
+def action_communities_lookup(a):
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    result, failure = communities_lookup(a.input("address", ""))
+    if failure:
+        fail(a, failure)
+        return
+    return {"data": result}
+
 def communities_join(user_id, user_name, address, account):
     """Join a community on another server as one of the user's hosted
     accounts - account, or the first where it is empty: !name@host or its
     address resolves to a Group, the account follows it and the community
     becomes a forum, filled by what the group announces, its recent posts
     read from its outbox now. Answers (result, None) or (None, failure)."""
-    identifier = community_identifier(address)
-    if not identifier:
+    if not community_identifier(address):
         return None, (400, "errors.invalid_community")
     wanted = account or ""
     acc = None
@@ -12035,9 +12604,9 @@ def communities_join(user_id, user_name, address, account):
             break
     if not acc:
         return None, (400, "errors.no_hosted_account")
-    found = mochi.account.resolve(identifier)
-    if not found or found.get("network") != "fediverse" or found.get("type") != "group" or not remote_ok(found.get("id", "")):
-        return None, (404, "errors.community_not_found")
+    found, failure = community_resolve(address)
+    if failure:
+        return None, failure
     forum = mochi.db.row("select * from forums where id=?", found["id"])
     if forum:
         return joined_answer(forum, True), None
@@ -12063,9 +12632,9 @@ def joined_row(found, acc, user_id, user_name):
     named for it, its summary the banner, the account and the address set,
     and the user its one member."""
     now = mochi.time.now()
-    name = str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+    name = joined_name(found)
     banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
-    handle = community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
+    handle = joined_handle(found)
     mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ?, ? )",
         found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0, handle)
     mochi.db.execute("insert into members ( forum, id, name, subscribed ) values ( ?, ?, ?, ? ) on conflict ( forum, id ) do update set name=excluded.name, subscribed=excluded.subscribed",
@@ -12098,11 +12667,9 @@ def joined_leave(forum):
     return {}, None
 
 def joined_drop(forum):
-    purge_forum_rows(forum["id"])
-    mochi.db.execute("delete from members where forum=?", forum["id"])
+    # The saved posts first, while the posts they name are there to find them by.
     mochi.db.execute("delete from saved where post in (select id from posts where forum=?)", forum["id"])
-    mochi.db.execute("delete from follows where forum=?", forum["id"])
-    mochi.db.execute("delete from forums where id=?", forum["id"])
+    forum_drop(forum["id"])
 
 # === Blocks ===
 
@@ -12210,31 +12777,70 @@ def action_sensitive_set(a):
 
 # === What the user writes, from their account ===
 
-def joined_documents(acc, save):
-    """The files save(object) keeps, uploaded through the account and
-    answered as (url, type, caption) each; the local copies go once
-    uploaded."""
+def community_uploads(acc, save):
+    """The images save(object) keeps for a post or comment in a community,
+    uploaded through the account and answered as (url, caption) each; the
+    local copies go either way. A community post or comment carries only
+    images, and nothing goes out without one the user added: a file that is
+    not an image refuses the lot before any uploads, and the first image that
+    fails to upload stops the rest and answers why. Answers (images, None) or
+    (None, failure)."""
     stored = save("upload/" + mochi.uid())
-    out = []
+    failure = None
     for att in stored:
-        kind = str(att.get("content_type", "") or att.get("type", "") or "")
-        data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum()) if kind else None
-        uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
-        if uploaded and safe_web_link(uploaded.get("url", "")):
-            out.append((uploaded["url"], kind, att.get("caption", "") or att["name"]))
+        if not str(att.get("content_type", "") or att.get("type", "") or "").startswith("image/"):
+            failure = (400, "errors.upload_image_only", {"name": att["name"]})
+            break
+    images = []
+    for att in stored:
+        if not failure:
+            kind = str(att.get("content_type", "") or att.get("type", "") or "")
+            data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+            uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
+            failure = upload_refusal(acc, att, uploaded)
+            if not failure:
+                images.append((uploaded["url"], att.get("caption", "") or att["name"]))
         attachment_delete(att["id"])
-    return out
+    if failure:
+        return None, failure
+    return images, None
 
-def joined_images(body, link, documents):
+def upload_refusal(acc, att, uploaded):
+    """Why a file did not upload through the account, as the action's failure
+    naming it, with the reason core gives in the user's language
+    (mochi.account.upload); None where it uploaded."""
+    if uploaded and safe_web_link(uploaded.get("url", "")):
+        return None
+    failed = uploaded.get("error") if uploaded and type(uploaded.get("error")) == "dict" else {}
+    status = 403 if failed.get("reason") == "blocked" else 502
+    if failed.get("message"):
+        return (status, "errors.upload_failed_because", {"name": att["name"], "reason": str(failed["message"])})
+    return (status, "errors.upload_failed", {"name": att["name"]})
+
+def community_edit_images(acc, post, body, link, save):
+    """An edit's added images, uploaded through the account: the first is the
+    link where the post has none, the rest go into the body. link is None
+    where the edit leaves it, and stays so unless an image becomes it.
+    Answers (body, link, None) or (body, link, failure)."""
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return (body, link, failure)
+    if images:
+        current = link if link != None else (post.get("url", "") or "")
+        body, chosen = community_images(body, current, images)
+        if chosen != current:
+            link = chosen
+    return (body, link, None)
+
+def community_images(body, link, images):
     """A post's images as a community shows them: the first becomes the
     post's link where it has none, the rest go into the body as markdown.
     Answers (body, link)."""
-    images = [d for d in documents if d[1].startswith("image/")]
     if not link and images:
         link = images[0][0]
         images = images[1:]
     if images:
-        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     return (body, link)
 
 def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, language, save):
@@ -12243,7 +12849,10 @@ def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, 
     acc = joined_account(forum)
     if not acc or not acc.get("enabled", 1):
         return None, (403, "errors.account_not_linked")
-    body, link = joined_images(body, link, joined_documents(acc, save))
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
+    body, link = community_images(body, link, images)
     if not mochi.text.valid(body, "text"):
         return None, (400, "errors.invalid_body")
     post_id = mochi.uid()
@@ -12263,13 +12872,16 @@ def joined_post_create(forum, user_id, user_name, title, body, link, sensitive, 
     follow(forum["id"], post_id)
     return {"id": post_id, "forum": forum["id"]}, None
 
-def joined_post_edit(forum, post, user_id, title, body, link, sensitive, language):
+def joined_post_edit(forum, post, user_id, title, body, link, sensitive, language, save):
     """The user's edit of their own post in a joined community: the record is
-    updated from the account, and the row here. sensitive and language are
-    None where the edit leaves them."""
+    updated from the account, and the row here, with any images it adds.
+    sensitive and language are None where the edit leaves them."""
     acc = joined_account(forum)
     if not acc or not post.get("remote") or post["member"] != user_id:
         return None, (403, "errors.not_allowed_to_edit_this_post")
+    body, link, failure = community_edit_images(acc, post, body, link, save)
+    if failure:
+        return None, failure
     sensitive = post.get("sensitive", 0) if sensitive == None else sensitive
     language = post.get("language", "") if language == None else language
     now = mochi.time.now()
@@ -12312,10 +12924,11 @@ def joined_comment_create(forum, post_id, parent_id, user_id, user_name, body, s
         if not above or not above.get("remote"):
             return None, (404, "errors.parent_comment_not_found")
         parent = above["remote"]
-    documents = joined_documents(acc, save)
-    images = [d for d in documents if d[1].startswith("image/")]
+    images, failure = community_uploads(acc, save)
+    if failure:
+        return None, failure
     if images:
-        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, _, alt in images])
+        body = (body or "") + "\n\n" + "\n\n".join(["![" + alt.replace("]", "") + "](" + u + ")" for u, alt in images])
     comment_id = mochi.uid()
     now = mochi.time.now()
     mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, status, created ) values ( ?, ?, ?, ?, ?, ?, ?, 'approved', ? )",

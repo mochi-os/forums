@@ -17,6 +17,7 @@ import {
   type SortType,
   NewItemsAction,
   usePendingItems,
+  usePoll,
   toast,
   getErrorMessage,
   GeneralError,
@@ -175,11 +176,10 @@ export function EntityForumPage({
 
   // Fallback for the websocket race: if forum/update is missed, poll the loader
   // while the forum is still filling so the board never stays stuck loading.
-  useEffect(() => {
-    if (forum.populated !== 0) return
-    const timer = setInterval(() => void router.invalidate(), 3000)
-    return () => clearInterval(timer)
-  }, [forum.populated, router])
+  // The polls slow down and stop after ten minutes, since a subscription held
+  // here can stay filling for good when its owner is gone; forum/update still
+  // reloads the page when a pull lands later.
+  usePoll(forum.populated === 0, () => void router.invalidate(), forum.id)
   const sortOptions: SortType[] = useMemo(() => {
     const opts: SortType[] = []
     if (hasAi) opts.push('ai')

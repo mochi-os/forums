@@ -30,6 +30,18 @@ export const postAssets = (post: PostRow) =>
 export const commentAssets = (comment: CommentRow) =>
   `${getAppPath()}/${forumPath(comment.forum)}/-/${comment.post}/${comment.id}/asset`
 
+// Where a person's avatar and style are served through the forum's moderation
+// proxy: a Mochi identity only. A person from another network is named by
+// their address, which no route takes, so they show their initials.
+export const moderationAssets = (
+  forumId: string,
+  person: string
+): { avatar: string; style: string } | null => {
+  if (/^https?:\/\//.test(person)) return null
+  const base = `${getAppPath()}/${forumPath(forumId)}/-/moderation/${person}/asset`
+  return { avatar: `${base}/avatar`, style: `${base}/style` }
+}
+
 // Only an approved row stands in for its author: the route answers for a
 // pending or removed one only to its author and the forum's managers.
 const approved = (status?: string) => !status || status === 'approved'

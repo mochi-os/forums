@@ -112,6 +112,15 @@ export interface CommunitiesImportResponse {
   more: boolean
 }
 
+// A community on another server found by its address, before it is joined:
+// the name and handle its forum would have, and its avatar.
+export interface CommunityFound {
+  id: string
+  name: string
+  handle: string
+  avatar: string
+}
+
 // A community just joined as one of the user's hosted accounts: the forum it
 // became, and whether the group has accepted the follow yet.
 export interface CommunityJoined {
