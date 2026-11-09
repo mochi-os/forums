@@ -106,7 +106,7 @@ export function AttachmentComments({
           }}
           onSearchPeople={commentProps.onSearchPeople}
           progress={commentProps.replyProgress}
-          placeholder={t`Comment on this image…`}
+          placeholder={t`Comment on this image`}
         />
       )}
     </div>

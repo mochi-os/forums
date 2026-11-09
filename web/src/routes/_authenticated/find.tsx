@@ -93,7 +93,7 @@ function FindForumsPage() {
       icon={Hash}
       iconClassName='bg-primary/10 text-primary'
       title={t`Find forums`}
-      placeholder={t`Search by name, ID, fingerprint, or URL...`}
+      placeholder={t`Search by name, ID, fingerprint, or URL`}
       emptyMessage={t`No forums found`}
       supplement={(query, found) => (
         <CommunityResult query={query} found={found} />
