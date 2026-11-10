@@ -1770,33 +1770,91 @@ VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant", "active",
 
 # Build the ORDER BY for a post list; `prefix` qualifies columns for the joined
 # tag query ("p."). Emit the prefix directly - deriving the joined form with
-# .replace() rewrites the "up" inside "updated".
-def get_post_order(sort, prefix=""):
+# .replace() rewrites the "up" inside "updated". Every order ends on the id, so
+# posts sharing a second keep one order from page to page; now is the moment a
+# scored list began.
+def get_post_order(sort, prefix="", now=None):
+    if now == None:
+        now = mochi.time.now()
+    last = prefix + "created desc, " + prefix + "id desc"
     if sort == "top":
-        return "(" + prefix + "up - " + prefix + "down) desc, " + prefix + "created desc"
+        return "(" + prefix + "up - " + prefix + "down) desc, " + last
     if sort == "hot":
         # score / (age_in_hours + 2)
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
-        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + prefix + "created desc"
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + last
     if sort == "active":
         # Hot, by the last activity on the post rather than its creation: a
         # post that is still being voted on or discussed stays up.
-        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "updated) / 3600) + 2), 1) desc, " + prefix + "created desc"
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "updated) / 3600) + 2), 1) desc, " + last
     if sort == "scaled":
         # Hot, scaled down by how much the post's forum has had in the last
         # month, so a small forum's posts are not buried under a busy one's.
         table = prefix if prefix else "posts."
-        return "(((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1)) / (1.0 + (select count(*) from posts scale where scale.forum=" + table + "forum and scale.created>" + str(mochi.time.now() - 2592000) + ") / 10.0) desc, " + prefix + "created desc"
+        return "(((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "created) / 3600) + 2), 1)) / (1.0 + (select count(*) from posts scale where scale.forum=" + table + "forum and scale.created>" + str(now - 2592000) + ") / 10.0) desc, " + last
     if sort == "controversial":
         # Many votes split both ways: the total weighted by how even the split is.
-        return "(case when " + prefix + "up>0 and " + prefix + "down>0 then (" + prefix + "up + " + prefix + "down) * (min(" + prefix + "up, " + prefix + "down) * 1.0 / max(" + prefix + "up, " + prefix + "down)) else 0 end) desc, " + prefix + "created desc"
+        return "(case when " + prefix + "up>0 and " + prefix + "down>0 then (" + prefix + "up + " + prefix + "down) * (min(" + prefix + "up, " + prefix + "down) * 1.0 / max(" + prefix + "up, " + prefix + "down)) else 0 end) desc, " + last
     if sort == "old":
-        return prefix + "created asc"
+        return prefix + "created asc, " + prefix + "id asc"
     if sort == "comments":
-        return prefix + "comments desc, " + prefix + "created desc"
+        return prefix + "comments desc, " + last
     # Default is "new" (also used as fallback for ai/interests/relevant which do post-query sorting)
-    return prefix + "created desc"
+    return last
+
+# A list of posts in a time order resumes after the last post it showed, by its
+# time and id, since many posts share a second; resuming at the second alone
+# skipped the rest of it. A scored order resumes at a position, its scores
+# reckoned as they stood when the list began: the last post's time is no place
+# in a list sorted by score. Pinned posts all lead the first page and stay out
+# of the rest, where a pinned post older than the cursor came back on top.
+def page_scored(sort):
+    return sort in ("top", "hot", "active", "scaled", "controversial", "comments")
+
+# page_cursor(cursor, before, scored) -> where a list of posts resumes: None for
+# its first page, {created, id} for a time order or {position, started} for a
+# scored one, or False for a cursor of another shape. A client that predates
+# the cursor sends the page's nextCursor as before: a time, or for a scored
+# order a position.
+def page_cursor(cursor, before, scored):
+    if cursor:
+        first, _, second = str(cursor).partition(":")
+        if not mochi.text.valid(first, "integer"):
+            return False
+        if scored:
+            if not mochi.text.valid(second, "integer"):
+                return False
+            return {"position": max(int(first), 0), "started": int(second)}
+        if not mochi.text.valid(second, "constant"):
+            return False
+        return {"created": int(first), "id": second}
+    if not before or not mochi.text.valid(str(before), "integer"):
+        return None
+    if scored:
+        return {"position": max(int(before), 0), "started": 0}
+    return {"created": int(before), "id": ""}
+
+# page_where(cursor, prefix, ascending) -> the condition and its arguments that
+# resume a list in time order after the post its cursor names. The bound on
+# created alone keeps the walk on the created index: written as one "or", it
+# read every row past the cursor.
+def page_where(cursor, prefix="", ascending=False):
+    if not cursor or "created" not in cursor:
+        return "", []
+    sign = ">" if ascending else "<"
+    if cursor["id"]:
+        return " and " + prefix + "created" + sign + "=? and (" + prefix + "created" + sign + "? or " + prefix + "id" + sign + "?)", [cursor["created"], cursor["created"], cursor["id"]]
+    return " and " + prefix + "created" + sign + "?", [cursor["created"]]
+
+# page_next(posts, scored, position, started, limit) -> the nextCursor and
+# cursor of the page after this one.
+def page_next(posts, scored, position, started, limit):
+    if scored:
+        after = position + limit
+        return after, str(after) + ":" + str(started)
+    last = posts[-1]
+    return last["created"], str(last["created"]) + ":" + last["id"]
 
 # Validate and clean a tag label
 def validate_tag(label):
@@ -2394,13 +2452,18 @@ def action_view(a):
 
         # Pagination parameters
         limit_str = a.input("limit")
-        before_str = a.input("before")
         limit = 20
         if limit_str and mochi.text.valid(limit_str, "natural"):
             limit = min(int(limit_str), 100)
-        before = None
-        if before_str and mochi.text.valid(before_str, "integer"):
-            before = int(before_str)
+
+        # Where this page resumes, and the order it resumes in.
+        scored = page_scored(sort)
+        cursor = page_cursor(a.input("cursor"), a.input("before"), scored)
+        if cursor == False:
+            a.error.label(400, "errors.invalid_data")
+            return
+        position = cursor["position"] if scored and cursor else 0
+        started = cursor["started"] if scored and cursor and cursor["started"] > 0 else mochi.time.now()
 
         # Determine access permissions
         can_post = False
@@ -2415,10 +2478,14 @@ def action_view(a):
             can_moderate = permissions.get("moderate", False)
 
         # Get posts order
-        order_by = get_post_order(sort)
+        order_p = get_post_order(sort, "p.", started)
+        page_filter, page_args = page_where(cursor, "p.", sort == "old")
 
         # Get posts for this forum with pagination
         # Moderators see all posts; regular users see only approved or their own pending
+        match = ""
+        match_args = []
+        wanted = True
         if len(tags) > 0:
             # Tag-filtered queries (AND logic — posts must have all specified tags)
             valid_tags = []
@@ -2426,47 +2493,35 @@ def action_view(a):
                 vt = validate_tag(t)
                 if vt:
                     valid_tags.append(vt)
-            if len(valid_tags) == 0:
-                posts = []
-            else:
-                p_order = get_post_order(sort, "p.")
-                placeholders = ", ".join(["?" for _ in valid_tags])
-                tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
-                if can_moderate:
-                    if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, before, limit + 1)
-                    else:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, limit + 1)
-                else:
-                    if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, before, user_id or "", limit + 1)
-                    else:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, user_id or "", limit + 1)
-        elif can_moderate:
-            if before:
-                posts = mochi.db.rows("select * from posts where forum=? and created<? order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], before, limit + 1)
-            else:
-                posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], limit + 1)
-        else:
-            # Regular users see approved posts or their own pending posts
-            if before:
-                posts = mochi.db.rows("select * from posts where forum=? and created<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], before, user_id or "", limit + 1)
-            else:
-                posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], user_id or "", limit + 1)
+            placeholders = ", ".join(["?" for _ in valid_tags])
+            match = " and (select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
+            match_args = valid_tags
+            wanted = len(valid_tags) > 0
+        if not can_moderate:
+            match += " and (p.status='approved' or (p.status='pending' and p.member=?))"
+            match_args = match_args + [user_id or ""]
+
+        pinned = []
+        posts = []
+        if wanted:
+            if not cursor:
+                pinned = mochi.db.rows("select p.* from posts p where p.forum=?" + match + " and p.pinned!=0 order by " + order_p, forum["id"], match_args)
+            posts = mochi.db.rows("select p.* from posts p where p.forum=?" + match + " and p.pinned=0" + page_filter + " order by " + order_p + " limit ? offset ?",
+                forum["id"], match_args, page_args, limit + 1, position)
 
         # Check if there are more posts (we fetched limit+1)
         has_more = len(posts) > limit
         if has_more:
             posts = posts[:limit]
-        posts = unblocked(posts)
+
+        # Calculate next cursor from the rows the order gave, before any are
+        # left out below. nextCursor is what a client that predates cursor
+        # sends back as before; cursor is the page's exact place.
+        next_cursor = None
+        page = None
+        if has_more and len(posts) > 0:
+            next_cursor, page = page_next(posts, scored, position, started, limit)
+        posts = unblocked(list(pinned) + list(posts))
 
         im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, user_id, can_moderate)
@@ -2484,13 +2539,6 @@ def action_view(a):
             p["tags"] = enrich_tags(tags_by_post.get(p["id"], []), im)
             if user_id:
                 p["user_vote"] = votes_by_post.get(p["id"], "")
-
-        # Calculate next cursor. Must match the ORDER BY key (created), not
-        # updated: paginating on updated while ordering by created silently drops
-        # posts whose updated was bumped by a later vote/comment.
-        next_cursor = None
-        if has_more and len(posts) > 0:
-            next_cursor = posts[-1]["created"]
 
         # Re-rank by relevance if requested (ai = with AI reranking, interests = formula only)
         matches_info = []
@@ -2520,6 +2568,7 @@ def action_view(a):
                 "can_moderate": can_moderate,
                 "hasMore": has_more,
                 "nextCursor": next_cursor,
+                "cursor": page,
                 "hasAi": has_ai,
             }
         }

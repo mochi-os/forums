@@ -4,7 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Post } from '@/api/types/posts'
 import {
@@ -226,5 +226,53 @@ describe('a list not seeded by this navigation', () => {
 
     await waitFor(() => expect(ids()).toEqual(['fresh']))
     expect(viewForum).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('the page after the first', () => {
+  type Asked = { before?: number; cursor?: string }
+
+  /** The first page, then a second, as a server with or without cursor gives them. */
+  function serve(first: Record<string, unknown>, second: Post[]) {
+    viewForum.mockImplementation(async (asked: Asked) =>
+      asked.before === undefined && asked.cursor === undefined
+        ? {
+            data: {
+              posts: [post('pinned'), post('a'), post('b')],
+              hasMore: true,
+              ...first,
+            },
+          }
+        : { data: { posts: second, hasMore: false } }
+    )
+  }
+
+  async function next(sort: string) {
+    const { hook, ids } = mount(client(), { sort })
+    await waitFor(() => expect(ids()).toEqual(['pinned', 'a', 'b']))
+    await act(() => hook.result.current.fetchNextPage())
+    await waitFor(() => expect(viewForum).toHaveBeenCalledTimes(2))
+    return { asked: viewForum.mock.calls[1][0] as Asked, ids }
+  }
+
+  it("resumes where the server's cursor says", async () => {
+    serve({ nextCursor: 1790000000, cursor: '1790000000:b' }, [post('c')])
+    const { asked } = await next('new')
+    expect(asked.cursor).toBe('1790000000:b')
+    expect(asked.before).toBeUndefined()
+  })
+
+  it('is asked by before of a server that sends no cursor', async () => {
+    serve({ nextCursor: 1790000000 }, [post('c')])
+    const { asked } = await next('new')
+    expect(asked.before).toBe(1790000000)
+    expect(asked.cursor).toBeUndefined()
+  })
+
+  it('shows a post an older server repeats once', async () => {
+    // A server before the cursor sends a pinned post again on every page.
+    serve({ nextCursor: 1790000000 }, [post('pinned'), post('c')])
+    const { ids } = await next('new')
+    await waitFor(() => expect(ids()).toEqual(['pinned', 'a', 'b', 'c']))
   })
 })

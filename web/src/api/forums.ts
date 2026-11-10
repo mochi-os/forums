@@ -144,6 +144,7 @@ const forumsApi = {
       params: omitUndefined({
         limit: params.limit,
         before: params.before,
+        cursor: params.cursor,
         server: params.server,
         sort: params.sort,
         tag: params.tag,
