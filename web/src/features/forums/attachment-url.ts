@@ -5,7 +5,7 @@
 import { authenticatedUrl, getAppPath, normalizeEntityUrl } from '@mochi/web'
 import { forumPath } from '@/lib/forum-path'
 
-export type AttachmentVariant = '' | 'thumbnail' | 'preview'
+export type AttachmentVariant = '' | 'thumbnail' | 'medium' | 'preview'
 
 // The address of an attachment's bytes: this app's own route, in the forum it
 // is being viewed in. Never the `url` fields a remote forum's answer carries -

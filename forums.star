@@ -6513,6 +6513,9 @@ def action_attachment_thumbnail(a):
 def action_attachment_preview(a):
     serve_attachment(a, "preview")
 
+def action_attachment_medium(a):
+    serve_attachment(a, "medium")
+
 def serve_attachment(a, variant):
     attachment = a.input("id")
     forum_id = a.input("forum")
