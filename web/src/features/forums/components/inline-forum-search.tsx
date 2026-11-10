@@ -101,7 +101,7 @@ export function InlineForumSearch({
       probe={probe}
       onSubscribe={handleSubscribe}
       icon={Hash}
-      placeholder={t`Search for forums...`}
+      placeholder={t`Search for forums`}
       emptyMessage={t`No forums found`}
       searchErrorMessage={t`Failed to search forums`}
       subscribeLabel={t`Subscribe`}

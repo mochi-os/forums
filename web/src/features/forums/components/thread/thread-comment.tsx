@@ -702,7 +702,7 @@ export function ThreadComment({
           onFilesChange={handleReplyFilesChange}
           onSearchPeople={onSearchPeople}
           progress={replyProgress}
-          placeholder={t`Reply to ${comment.name}...`}
+          placeholder={t`Reply to ${comment.name}`}
           autoFocus
         />
       )}

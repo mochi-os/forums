@@ -47,7 +47,6 @@ export function ReportDialog({
   isPending,
   contentType,
 }: ReportDialogProps) {
-  const { t } = useLingui()
   const reasons = useReportReasons()
   const [reason, setReason] = useState('')
   const [details, setDetails] = useState('')
@@ -118,11 +117,6 @@ export function ReportDialog({
               value={details}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                 setDetails(e.target.value)
-              }
-              placeholder={
-                reason === 'other'
-                  ? t`Please describe the issue...`
-                  : t`Any additional context...`
               }
               rows={reason === 'other' ? 3 : 2}
             />
