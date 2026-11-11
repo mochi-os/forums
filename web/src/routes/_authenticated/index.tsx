@@ -36,7 +36,7 @@ export const Route = createFileRoute('/_authenticated/')({
         forumsInfoQueryOptions()
       )
       // Backend returns { data: { entity, forums/forum, ... } }
-      // createAppClient unwraps axios response.data, so response = { data: { entity, ... } }
+      // createAppClient unwraps the response's data, so response = { data: { entity, ... } }
       info = response.data as InfoResponse
     } catch (error) {
       loaderError = getErrorMessage(error, t`Failed to load forums`)
