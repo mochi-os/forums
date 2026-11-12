@@ -336,3 +336,15 @@ describe('ThreadComment destination', () => {
     expect(screen.queryByText(/^Posts to /)).not.toBeInTheDocument()
   })
 })
+
+describe('ThreadContent share', () => {
+  it('has a Share button for the post when given its link', () => {
+    renderContent({ shareUrl: () => 'https://example.org/f1/p1' })
+    expect(screen.getByLabelText('Share')).toBeInTheDocument()
+  })
+
+  it('has no Share button without a link', () => {
+    renderContent({})
+    expect(screen.queryByLabelText('Share')).not.toBeInTheDocument()
+  })
+})

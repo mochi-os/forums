@@ -29,6 +29,7 @@ import {
   ActionPill,
   ActionPillSticky,
   ActionPillActions,
+  CommentShareButton,
   nativeName,
 } from '@mochi/web'
 import {
@@ -105,6 +106,8 @@ interface ThreadContentProps {
   /** Whether the reader follows the post; undefined where they cannot. */
   following?: boolean
   onFollowChange?: (following: boolean) => void
+  /** The full address of the post, for its Share button. */
+  shareUrl?: () => string
 }
 
 export function ThreadContent({
@@ -144,6 +147,7 @@ export function ThreadContent({
   onBlockServer,
   following,
   onFollowChange,
+  shareUrl,
 }: ThreadContentProps) {
   const { t } = useLingui()
   const { formatTimestamp } = useFormat()
@@ -196,7 +200,8 @@ export function ThreadContent({
     canEdit ||
     canModerate ||
     !!onReport ||
-    !!onBlockAuthor
+    !!onBlockAuthor ||
+    !!shareUrl
 
   return (
     <div className='group space-y-4'>
@@ -426,6 +431,13 @@ export function ThreadContent({
                   </TooltipTrigger>
                   <TooltipContent>{t`Reply`}</TooltipContent>
                 </Tooltip>
+              )}
+              {/* After Reply, where each comment has its own Share. */}
+              {shareUrl && (
+                <CommentShareButton
+                  getUrl={shareUrl}
+                  className={iconActionButtonClass}
+                />
               )}
               {isLoggedIn && (
                 <SavedButton

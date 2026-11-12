@@ -634,6 +634,13 @@ export function ThreadDetail({
                 onUnpin={() => unpinPostMutation.mutate()}
                 following={following}
                 onFollowChange={(value) => followPostMutation.mutate(value)}
+                shareUrl={() =>
+                  absoluteRouteUrl(router, {
+                    to: '/$forum/$post',
+                    params: { forum, post: postId },
+                    search: { server },
+                  })
+                }
                 onMuteAuthor={
                   can_moderate || isForumManager
                     ? () => void handleMuteAuthor(post.member)
