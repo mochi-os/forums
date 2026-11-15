@@ -312,13 +312,20 @@ export function useSetForumSort(forumId: string) {
   })
 }
 
-export function useForumNotifications(forumId: string, enabled: boolean) {
-  return useQuery({
+// Shared by the forum route's loader, which starts it beside the posts, and
+// the page's options menu. The staleTime keeps the loader's answer fresh
+// across the page mounting; a change made here sets it from the answer.
+export function forumNotificationsQueryOptions(forumId: string) {
+  return {
     queryKey: forumsKeys.notifications(forumId),
     queryFn: () => forumsApi.getNotifications(forumId),
-    enabled,
+    staleTime: 30_000,
     refetchOnWindowFocus: false,
-  })
+  }
+}
+
+export function useForumNotifications(forumId: string, enabled: boolean) {
+  return useQuery({ ...forumNotificationsQueryOptions(forumId), enabled })
 }
 
 // The tick moves on the click and goes back if the server refuses. The

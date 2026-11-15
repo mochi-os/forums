@@ -7,19 +7,31 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { useAuthStore } from '@mochi/web'
-import { render, renderHook } from '@testing-library/react'
+import { render, renderHook, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { forumsInfoQueryOptions } from '@/hooks/use-forums-queries'
+import {
+  forumsInfoQueryOptions,
+  useForumNotifications,
+  useForumsInfo,
+} from '@/hooks/use-forums-queries'
 import { postsKey, useInfinitePosts } from '@/hooks/use-infinite-posts'
 import { loadForum, Route } from './index'
 
 const state = vi.hoisted(() => ({
   viewForum: vi.fn(),
+  getForumsInfo: vi.fn(),
+  getNotifications: vi.fn(),
   loaderData: undefined as unknown,
   mounts: 0,
 }))
 
-vi.mock('@/api/forums', () => ({ default: { viewForum: state.viewForum } }))
+vi.mock('@/api/forums', () => ({
+  default: {
+    viewForum: state.viewForum,
+    getForumsInfo: state.getForumsInfo,
+    getNotifications: state.getNotifications,
+  },
+}))
 
 // The page itself is the forum page's own concern; here it only has to say
 // when it mounts.
@@ -67,6 +79,12 @@ function client() {
 beforeEach(() => {
   state.viewForum.mockReset()
   state.viewForum.mockResolvedValue(answer(['p1', 'p2']))
+  state.getForumsInfo.mockReset()
+  state.getForumsInfo.mockResolvedValue({
+    data: { entity: false, forums: [], settings: {} },
+  })
+  state.getNotifications.mockReset()
+  state.getNotifications.mockResolvedValue({ data: { post: true } })
   state.mounts = 0
   useAuthStore.setState({ isAuthenticated: true })
 })
@@ -172,6 +190,100 @@ describe('forum loader', () => {
       expect.objectContaining({ forum: 'abcdefghi', limit: 20, sort: 'new' })
     )
     expect(moved.seed).toBeDefined()
+  })
+})
+
+// The layout's information and the menu's notification settings are asked
+// for beside the posts, not once the page has mounted after them, and with
+// the hooks' own options, so the mounted hooks ask for neither again.
+describe('forum loader, beside the posts', () => {
+  // A posts request that answers only when the test says.
+  function held() {
+    let release: () => void = () => {}
+    state.viewForum.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          release = () => resolve(answer(['p1']))
+        })
+    )
+    return () => release()
+  }
+
+  const wrapperFor =
+    (queries: QueryClient) =>
+    ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={queries}>{children}</QueryClientProvider>
+    )
+
+  it("starts the layout's information before the posts answer", async () => {
+    const release = held()
+    const queries = client()
+
+    const loading = loadForum({
+      forum: 'abcdefghi',
+      client: queries,
+      cause: 'enter',
+    })
+
+    expect(state.getForumsInfo).toHaveBeenCalledTimes(1)
+    release()
+    await loading
+
+    // The layout's hook, mounting after the loader, finds it held.
+    const { result } = renderHook(() => useForumsInfo(), {
+      wrapper: wrapperFor(queries),
+    })
+    await waitFor(() => expect(result.current.isSuccess).toBe(true))
+    expect(state.getForumsInfo).toHaveBeenCalledTimes(1)
+  })
+
+  it('starts the notification settings of a forum the reader holds before the posts answer', async () => {
+    const release = held()
+    state.getForumsInfo.mockResolvedValue({
+      data: {
+        entity: false,
+        forums: [{ id: ID, fingerprint: 'abcdefghi' }],
+        settings: {},
+      },
+    })
+    const queries = client()
+
+    const loading = loadForum({
+      forum: 'abcdefghi',
+      client: queries,
+      cause: 'enter',
+    })
+
+    await waitFor(() => expect(state.getNotifications).toHaveBeenCalledTimes(1))
+    expect(state.getNotifications).toHaveBeenCalledWith(ID)
+    expect(state.viewForum).toHaveBeenCalledTimes(1)
+    release()
+    await loading
+
+    // The page's menu, mounting after the loader, finds them held.
+    const { result } = renderHook(() => useForumNotifications(ID, true), {
+      wrapper: wrapperFor(queries),
+    })
+    await waitFor(() => expect(result.current.isSuccess).toBe(true))
+    expect(state.getNotifications).toHaveBeenCalledTimes(1)
+  })
+
+  it('asks for no notification settings of a forum the reader does not hold, or when signed out', async () => {
+    const queries = client()
+    await loadForum({ forum: 'abcdefghi', client: queries, cause: 'enter' })
+
+    state.getForumsInfo.mockResolvedValue({
+      data: {
+        entity: false,
+        forums: [{ id: ID, fingerprint: 'abcdefghi' }],
+        settings: {},
+      },
+    })
+    useAuthStore.setState({ isAuthenticated: false })
+    await loadForum({ forum: 'abcdefghi', client: client(), cause: 'enter' })
+    await new Promise((resolve) => setTimeout(resolve, 20))
+
+    expect(state.getNotifications).not.toHaveBeenCalled()
   })
 })
 
