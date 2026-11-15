@@ -575,8 +575,7 @@ def voter_content(e):
 # approach the 1MB body limit. Truncates rather than rejecting: a reason/detail is
 # explanatory, and an over-long value is almost certainly a paste or abuse.
 def cap_text(text, limit=2000):
-    text = text or ""
-    return text[:limit]
+    return text_cut_plain(text, limit)
 
 # Helper: Does the current user own this forum's entity?
 # Source of truth is core/users.db.entities — the private key bearer is the owner.
@@ -1554,7 +1553,7 @@ def event_member_notify(e):
     reason = e.content("reason")
     if type(reason) != "string":
         reason = ""
-    reason = reason[:200]
+    reason = text_cut_plain(reason, 200)
     source = e.content("source")
     if not mochi.text.valid(source, "id"):
         source = forum_id
@@ -2008,8 +2007,7 @@ def ai_tag_post(forum_id, post_id):
         return
     title = post.get("title", "")
     text = (title + ": " + body).strip() if title else body
-    if len(text) > 500:
-        text = text[:500]
+    text = text_cut_plain(text, 500)
     # Surface any linked domains so the AI can tag recognisable publishers
     # (resolved via QID; unrecognised domains drop out)
     domains = collect_domains(extract_urls(body))
@@ -3408,7 +3406,7 @@ def notify_activity(forum, me, post, comment=None):
         kind = "comment"
     else:
         return
-    body = mochi.app.label("notifications.body." + kind, author=comment["name"], excerpt=comment["body"].strip()[:80])
+    body = mochi.app.label("notifications.body." + kind, author=comment["name"], excerpt=text_cut_plain(comment["body"].strip(), 80))
     notify(kind, forum["id"], post["title"], body, url, event_id=kind + ":" + comment["id"])
 
 # The identity of a forum's owner, whose activity notifications the forum's
@@ -4451,7 +4449,7 @@ def notify_mentions(forum_id, post_id, body, author_id, author_name, comment="")
         return
     post = mochi.db.row("select title from posts where id=?", post_id)
     post_title = (post.get("title") or "") if post else ""
-    excerpt = body.strip()[:80]
+    excerpt = text_cut_plain(body.strip(), 80)
     fp = forum_fingerprint(forum_id)
     url = "/forums/" + fp if fp else "/forums"
     for m in members:
@@ -5731,12 +5729,12 @@ def moderation_reports_data(forum, status):
             post = mochi.db.row("select title, body from posts where id=?", r["target"])
             if post:
                 r["content_title"] = post["title"]
-                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
+                r["content_preview"] = text_cut_plain(post["body"], 200)
                 r["attachments"] = attachment_list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
-                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
+                r["content_preview"] = text_cut_plain(comment["body"], 200)
 
     return {"forum": strip_forum_config(forum), "reports": reports}
 
@@ -8531,12 +8529,12 @@ def event_report_submit_event(e):
     report_type = e.content("type")
     target = e.content("target")
     reason = e.content("reason")
-    # Cap and type-check details, matching the 1000-char bound the local report
-    # path applies; a non-string peer value would otherwise abort the handler.
+    # Cap and type-check details with the bound the local report path
+    # applies; a non-string peer value would otherwise abort the handler.
     details = e.content("details")
     if type(details) != "string":
         details = ""
-    details = details[:1000]
+    details = cap_text(details)
 
     if report_type not in ["post", "comment"]:
         return
@@ -10096,8 +10094,9 @@ def action_rss_all(a):
         forum_fp = forum_fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
         forum_name = forum_names.get(forum_id, mochi.app.label("moderation.forum_unknown"))
         body = row["body"]
-        if len(body) > 500:
-            body = body[:500] + "..."
+        cut = text_cut_plain(body, 500)
+        if cut != body:
+            body = cut + "..."
 
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
@@ -10212,8 +10211,9 @@ def action_rss(a):
     for row in rows:
         item_id = row["id"]
         body = row["body"]
-        if len(body) > 500:
-            body = body[:500] + "..."
+        cut = text_cut_plain(body, 500)
+        if cut != body:
+            body = cut + "..."
 
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
@@ -10435,8 +10435,7 @@ def ai_rerank(forum_data, posts, interests):
     for i, p in enumerate(candidates):
         title = p.get("title", "")
         body = p.get("body", "")
-        if len(body) > 200:
-            body = body[:200]
+        body = text_cut_plain(body, 200)
         text = (title + ": " + body).strip() if title else body
         tags = [m["qid"] for m in p.get("_matches", [])]
         tag_str = ", ".join(tags) if tags else "none"
@@ -10827,7 +10826,7 @@ def embed_encode(fields):
     JSON; empty where there are none."""
     clean = {}
     for key in ("title", "description", "site", "page", "type"):
-        value = str(fields.get(key, "") or "").strip()[:EMBED_MAXIMUM] if type(fields) == "dict" else ""
+        value = text_cut_plain(str(fields.get(key, "") or "").strip(), EMBED_MAXIMUM) if type(fields) == "dict" else ""
         if key == "page":
             value = safe_web_link(value)
         if key == "type" and (len(value) > 100 or value.count("/") != 1 or " " in value):
@@ -10978,9 +10977,9 @@ def community_row(acc, community, user_id, user_name):
     address = safe_web_link(community.get("actor_id", ""))
     if not address:
         return None
-    name = str(community.get("title") or community.get("name") or address).strip()[:200]
+    name = text_cut_plain(str(community.get("title") or community.get("name") or address).strip(), 200)
     number = str(lemmy_number(community.get("id"))) if lemmy_number(community.get("id")) else ""
-    description = str(community.get("description", "") or "")[:5000]
+    description = text_cut_plain(str(community.get("description", "") or ""), 5000)
     handle = community_handle(community.get("name"), host_of(address)) or address_handle(address)
     now = mochi.time.now()
     if mochi.db.exists("select 1 from forums where id=?", address):
@@ -11001,7 +11000,7 @@ def community_author(acc, user_id, creator):
         member = user_id
     else:
         member = actor
-    name = str(creator.get("display_name") or creator.get("name") or "").strip()[:200] if type(creator) == "dict" else ""
+    name = text_cut_plain(str(creator.get("display_name") or creator.get("name") or "").strip(), 200) if type(creator) == "dict" else ""
     return (member, name or member)
 
 def community_vote_store(forum, post_id, comment_id, user_id, my_vote):
@@ -11028,7 +11027,7 @@ def community_post_store(forum, acc, view, user_id):
             community_post_drop(forum, existing["id"])
         return None
     counts = view.get("counts") if type(view.get("counts")) == "dict" else {}
-    title = str(post.get("name", "") or "").strip()[:1000] or "-"
+    title = text_cut_plain(str(post.get("name", "") or "").strip(), 1000) or "-"
     body = str(post.get("body", "") or "")
     url = safe_web_link(post.get("url"))
     thumbnail = safe_web_link(post.get("thumbnail_url"))
@@ -11586,8 +11585,14 @@ def group_refresh(forum_id):
     mochi.account.update(acc["id"], label=forum["name"], summary=text_cut_plain(forum.get("banner", ""), GROUP_SUMMARY), page=group_page(forum, acc.get("domain", "")), moderators=group_moderators(forum), restricted=group_restricted(forum), sensitive=bool(forum.get("sensitive")))
 
 def text_cut_plain(text, limit):
-    text = text or ""
-    return text[:limit]
+    """The first limit characters of text: Starlark slices strings by bytes,
+    which can cut a character in half."""
+    points = []
+    for c in (text or "").codepoints():
+        if len(points) >= limit:
+            break
+        points.append(c)
+    return "".join(points)
 
 def group_address_record(forum_id, member, address):
     """Remember a member's fediverse address, from the activity they
@@ -12616,7 +12621,7 @@ def community_resolve(address):
     return found, None
 
 def joined_name(found):
-    return str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+    return text_cut_plain(str(found.get("name") or found.get("username") or found["id"]).strip(), 200)
 
 def joined_handle(found):
     return community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
@@ -12685,7 +12690,7 @@ def joined_row(found, acc, user_id, user_name):
     and the user its one member."""
     now = mochi.time.now()
     name = joined_name(found)
-    banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
+    banner = text_cut_plain(mochi.text.clean(str(found.get("summary", "") or "")), GROUP_SUMMARY)
     handle = joined_handle(found)
     mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ?, ? )",
         found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0, handle)
@@ -13211,9 +13216,9 @@ def joined_created(forum, acc, actor, object):
         body = group_text(object)
         if not mochi.text.valid(body, "text"):
             body = ""
-        title = str(object.get("name", "") or "").strip()[:1000]
+        title = text_cut_plain(str(object.get("name", "") or "").strip(), 1000)
         if not mochi.text.valid(title, "name"):
-            title = body.strip().split("\n")[0][:200]
+            title = text_cut_plain(body.strip().split("\n")[0], 200)
             if not mochi.text.valid(title, "name"):
                 return
         link = group_link(object) or joined_image(object)
@@ -13267,7 +13272,7 @@ def joined_updated(forum, actor, object):
         return
     now = mochi.time.now()
     if kind == "post":
-        title = str(object.get("name", "") or item["title"]).strip()[:1000]
+        title = text_cut_plain(str(object.get("name", "") or item["title"]).strip(), 1000)
         if not mochi.text.valid(title, "name"):
             return
         sensitive, language = object_marks(object)

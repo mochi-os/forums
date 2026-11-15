@@ -826,7 +826,7 @@ def function_lemmy_resolve(context, account, query):
         held = get_forum(found["id"])
         if held:
             return {"community": lemmy_community(held, me)}
-        name = str(found.get("name", "") or found.get("address", "") or found["id"])[:200]
+        name = text_cut_plain(str(found.get("name", "") or found.get("address", "") or found["id"]), 200)
         return {"community": {"id": found["id"], "name": str(found.get("address", "")).lstrip("!@").split("@", 1)[0] or lemmy_slug(name), "title": name,
             "description": str(found.get("summary", "") or ""), "url": found["id"], "local": False, "nsfw": False, "restricted": False,
             "created": 0, "updated": 0, "subscribed": "no", "blocked": False, "banned": False, "members": 0, "posts": 0, "comments": 0,
