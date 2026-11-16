@@ -173,6 +173,7 @@ export interface ViewForumParams {
   forum: string
   limit?: number
   before?: number
+  cursor?: string
   server?: string
   sort?: string
   tag?: string
@@ -187,6 +188,7 @@ export interface ViewForumResponse {
     can_moderate: boolean
     hasMore: boolean
     nextCursor: number | null
+    cursor?: string | null
   }
 }
 

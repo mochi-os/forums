@@ -36,6 +36,7 @@ export function PostAttachments({
         attachmentUrl(forumId, att.id, 'thumbnail', server)
       }
       getPreviewUrl={(att) => attachmentUrl(forumId, att.id, 'preview', server)}
+      getMediumUrl={(att) => attachmentUrl(forumId, att.id, 'medium', server)}
       mediaCap={mediaCap}
       showCaptions
       commentCount={commentCount}
