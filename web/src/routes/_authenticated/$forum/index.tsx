@@ -19,7 +19,10 @@ import { Hash } from 'lucide-react'
 import forumsApi from '@/api/forums'
 import type { InfoClassResponse } from '@/api/types/forums'
 import { getErrorStatus } from '@/lib/errors'
-import { forumsInfoQueryOptions } from '@/hooks/use-forums-queries'
+import {
+  forumNotificationsQueryOptions,
+  forumsInfoQueryOptions,
+} from '@/hooks/use-forums-queries'
 import { POSTS_LIMIT, seedPosts } from '@/hooks/use-infinite-posts'
 import { EntityForumPage } from '@/features/forums/pages'
 import { initialSort } from '@/features/forums/sorts'
@@ -36,16 +39,38 @@ let shown: string | undefined
 // with an AI model.
 const SLOW = new Set(['ai', 'relevant'])
 
+// The forum's row in the layout's information query, which lists the forums
+// the reader holds, once that has loaded.
+function heldForum(client: QueryClient, forumId: string) {
+  const info = client.getQueryData<InfoClassResponse>(
+    forumsInfoQueryOptions().queryKey
+  )
+  return {
+    info,
+    row: info?.data?.forums?.find(
+      (f) => f.id === forumId || f.fingerprint === forumId
+    ),
+  }
+}
+
+// The layout's information and the forum's notification settings, asked for
+// beside the posts rather than once the page has mounted, with the options the
+// hooks use, so the hooks find them held. The page's menu reads the settings
+// of a forum the reader holds, by its entity id, which the information names.
+function prefetchForum(client: QueryClient, forumId: string) {
+  void client.prefetchQuery(forumsInfoQueryOptions()).then(() => {
+    const { row } = heldForum(client, forumId)
+    if (row && useAuthStore.getState().isAuthenticated) {
+      void client.prefetchQuery(forumNotificationsQueryOptions(row.id))
+    }
+  })
+}
+
 // The sort the page will open the forum's posts in, from what the layout's
 // information query already holds. A forum it does not hold, or before it has
 // loaded, opens in the reader's default or newest first, as the page does.
 function expectedSort(client: QueryClient, forumId: string) {
-  const info = client.getQueryData<InfoClassResponse>(
-    forumsInfoQueryOptions().queryKey
-  )
-  const row = info?.data?.forums?.find(
-    (f) => f.id === forumId || f.fingerprint === forumId
-  )
+  const { info, row } = heldForum(client, forumId)
   return initialSort(
     row?.sort,
     info?.data?.settings?.sort,
@@ -76,6 +101,7 @@ export async function loadForum({
   // the page fetches its posts with its own loading state.
   const expected = expectedSort(client, forumId)
   const sort = again || SLOW.has(expected) ? undefined : expected
+  prefetchForum(client, forumId)
   const asked = Date.now()
   let response: Awaited<ReturnType<typeof forumsApi.viewForum>>
   try {

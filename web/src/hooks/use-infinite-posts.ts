@@ -62,6 +62,8 @@ interface PageData {
 
   hasMore: boolean
   nextCursor: number | undefined
+  /** Where the next page resumes, from a server that sends it. */
+  cursor: string | undefined
 }
 
 /** What the server answers a request for a page of posts with. */
@@ -76,9 +78,16 @@ interface PostsResponse {
 
   hasMore?: boolean
   nextCursor?: number | null
+  cursor?: string | null
 }
 
-type PostsData = InfiniteData<PageData, number | undefined>
+/**
+ * Where a page of the list resumes: the server's cursor, or from one that
+ * predates it, its nextCursor, sent back as before.
+ */
+type PageParam = string | number | undefined
+
+type PostsData = InfiniteData<PageData, PageParam>
 
 /** The query key of a list of a forum's posts. */
 export function postsKey({
@@ -106,6 +115,7 @@ function toPage(data: PostsResponse): PageData {
     hasAi: data.hasAi ?? false,
     hasMore: data.hasMore ?? false,
     nextCursor: data.nextCursor ?? undefined,
+    cursor: typeof data.cursor === 'string' ? data.cursor : undefined,
   }
 }
 
@@ -160,8 +170,10 @@ export function useInfinitePosts({
 }: UseInfinitePostsOptions): UseInfinitePostsResult {
   const query = useInfiniteQuery({
     queryKey: postsKey({ forum, limit, server, entityContext, sort, tag }),
-    queryFn: async ({ pageParam }: { pageParam: number | undefined }) => {
+    queryFn: async ({ pageParam }: { pageParam: PageParam }) => {
       if (!forum) throw new Error('Forum ID required')
+      const cursor = typeof pageParam === 'string' ? pageParam : undefined
+      const before = typeof pageParam === 'number' ? pageParam : undefined
 
       let data: PostsResponse
 
@@ -169,7 +181,8 @@ export function useInfinitePosts({
         // In entity context (domain routing), use getApiBasepath() which returns /-/
         const params = new URLSearchParams()
         if (limit) params.set('limit', limit.toString())
-        if (pageParam) params.set('before', pageParam.toString())
+        if (cursor) params.set('cursor', cursor)
+        if (before !== undefined) params.set('before', before.toString())
         if (server) params.set('server', server)
         if (sort) params.set('sort', sort)
         if (tag) params.set('tag', tag)
@@ -182,7 +195,8 @@ export function useInfinitePosts({
         const response = await forumsApi.viewForum({
           forum,
           limit,
-          before: pageParam,
+          before,
+          cursor,
           server,
           sort,
           tag,
@@ -192,9 +206,9 @@ export function useInfinitePosts({
 
       return toPage(data)
     },
-    initialPageParam: undefined as number | undefined,
+    initialPageParam: undefined as PageParam,
     getNextPageParam: (lastPage: PageData) =>
-      lastPage.hasMore ? lastPage.nextCursor : undefined,
+      lastPage.hasMore ? (lastPage.cursor ?? lastPage.nextCursor) : undefined,
     enabled: enabled && !!forum,
     staleTime: 0,
     // Opening or returning to a forum shows what has changed since, so a mount
@@ -221,7 +235,16 @@ export function useInfinitePosts({
   // Flatten all pages into a single array of posts
   const posts = useMemo(() => {
     if (!query.data?.pages) return []
-    return query.data.pages.flatMap((page: PageData) => page.posts)
+    // A post shows once: a scored list pages by position, so a post that
+    // moves up between pages can come again.
+    const shown = new Set<string>()
+    return query.data.pages
+      .flatMap((page: PageData) => page.posts)
+      .filter((post) => {
+        if (shown.has(post.id)) return false
+        shown.add(post.id)
+        return true
+      })
   }, [query.data?.pages])
 
   // Get forum/member/permissions from first page (they don't change between pages)

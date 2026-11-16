@@ -106,6 +106,7 @@ export function useForumWebsocket(
 ) {
   const queryClient = useQueryClient()
   const authReady = useAuthStore((state) => state.isInitialized)
+  const signedIn = useAuthStore((state) => state.isAuthenticated)
   const authToken = useAuthStore((state) => state.token)
 
   // Use ref for userId so it doesn't cause reconnections
@@ -122,6 +123,10 @@ export function useForumWebsocket(
 
   useEffect(() => {
     if (!authReady) return
+    // Core refuses a socket with no signed-in user, and the manager retries a
+    // refused one for as long as the page is open, so an anonymous reader of
+    // a public forum gets none. Signing in on the page opens it.
+    if (!signedIn) return
     if (!forumKey) return
 
     const handleMessage = (event: EntityWebsocketEvent) => {
@@ -251,5 +256,5 @@ export function useForumWebsocket(
       handleMessage
     )
     return unsubscribe
-  }, [authReady, authToken, forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
+  }, [authReady, signedIn, authToken, forumKey, queryClient]) // Note: userId NOT in deps - uses ref instead
 }

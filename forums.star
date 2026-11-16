@@ -575,8 +575,7 @@ def voter_content(e):
 # approach the 1MB body limit. Truncates rather than rejecting: a reason/detail is
 # explanatory, and an over-long value is almost certainly a paste or abuse.
 def cap_text(text, limit=2000):
-    text = text or ""
-    return text[:limit]
+    return text_cut_plain(text, limit)
 
 # Helper: Does the current user own this forum's entity?
 # Source of truth is core/users.db.entities — the private key bearer is the owner.
@@ -1554,7 +1553,7 @@ def event_member_notify(e):
     reason = e.content("reason")
     if type(reason) != "string":
         reason = ""
-    reason = reason[:200]
+    reason = text_cut_plain(reason, 200)
     source = e.content("source")
     if not mochi.text.valid(source, "id"):
         source = forum_id
@@ -1770,33 +1769,91 @@ VALID_SORTS = ["", "new", "hot", "top", "interests", "ai", "relevant", "active",
 
 # Build the ORDER BY for a post list; `prefix` qualifies columns for the joined
 # tag query ("p."). Emit the prefix directly - deriving the joined form with
-# .replace() rewrites the "up" inside "updated".
-def get_post_order(sort, prefix=""):
+# .replace() rewrites the "up" inside "updated". Every order ends on the id, so
+# posts sharing a second keep one order from page to page; now is the moment a
+# scored list began.
+def get_post_order(sort, prefix="", now=None):
+    if now == None:
+        now = mochi.time.now()
+    last = prefix + "created desc, " + prefix + "id desc"
     if sort == "top":
-        return "(" + prefix + "up - " + prefix + "down) desc, " + prefix + "created desc"
+        return "(" + prefix + "up - " + prefix + "down) desc, " + last
     if sort == "hot":
         # score / (age_in_hours + 2)
         # We use string formatting because mochi.time.now() is a variable value at runtime
         # Use max(..., 1) to prevent divide by zero if created time is in the future due to clock skew
-        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + prefix + "created desc"
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "created) / 3600) + 2), 1) desc, " + last
     if sort == "active":
         # Hot, by the last activity on the post rather than its creation: a
         # post that is still being voted on or discussed stays up.
-        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "updated) / 3600) + 2), 1) desc, " + prefix + "created desc"
+        return "((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "updated) / 3600) + 2), 1) desc, " + last
     if sort == "scaled":
         # Hot, scaled down by how much the post's forum has had in the last
         # month, so a small forum's posts are not buried under a busy one's.
         table = prefix if prefix else "posts."
-        return "(((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(mochi.time.now()) + " - " + prefix + "created) / 3600) + 2), 1)) / (1.0 + (select count(*) from posts scale where scale.forum=" + table + "forum and scale.created>" + str(mochi.time.now() - 2592000) + ") / 10.0) desc, " + prefix + "created desc"
+        return "(((" + prefix + "up - " + prefix + "down) + 1) / max((((" + str(now) + " - " + prefix + "created) / 3600) + 2), 1)) / (1.0 + (select count(*) from posts scale where scale.forum=" + table + "forum and scale.created>" + str(now - 2592000) + ") / 10.0) desc, " + last
     if sort == "controversial":
         # Many votes split both ways: the total weighted by how even the split is.
-        return "(case when " + prefix + "up>0 and " + prefix + "down>0 then (" + prefix + "up + " + prefix + "down) * (min(" + prefix + "up, " + prefix + "down) * 1.0 / max(" + prefix + "up, " + prefix + "down)) else 0 end) desc, " + prefix + "created desc"
+        return "(case when " + prefix + "up>0 and " + prefix + "down>0 then (" + prefix + "up + " + prefix + "down) * (min(" + prefix + "up, " + prefix + "down) * 1.0 / max(" + prefix + "up, " + prefix + "down)) else 0 end) desc, " + last
     if sort == "old":
-        return prefix + "created asc"
+        return prefix + "created asc, " + prefix + "id asc"
     if sort == "comments":
-        return prefix + "comments desc, " + prefix + "created desc"
+        return prefix + "comments desc, " + last
     # Default is "new" (also used as fallback for ai/interests/relevant which do post-query sorting)
-    return prefix + "created desc"
+    return last
+
+# A list of posts in a time order resumes after the last post it showed, by its
+# time and id, since many posts share a second; resuming at the second alone
+# skipped the rest of it. A scored order resumes at a position, its scores
+# reckoned as they stood when the list began: the last post's time is no place
+# in a list sorted by score. Pinned posts all lead the first page and stay out
+# of the rest, where a pinned post older than the cursor came back on top.
+def page_scored(sort):
+    return sort in ("top", "hot", "active", "scaled", "controversial", "comments")
+
+# page_cursor(cursor, before, scored) -> where a list of posts resumes: None for
+# its first page, {created, id} for a time order or {position, started} for a
+# scored one, or False for a cursor of another shape. A client that predates
+# the cursor sends the page's nextCursor as before: a time, or for a scored
+# order a position.
+def page_cursor(cursor, before, scored):
+    if cursor:
+        first, _, second = str(cursor).partition(":")
+        if not mochi.text.valid(first, "integer"):
+            return False
+        if scored:
+            if not mochi.text.valid(second, "integer"):
+                return False
+            return {"position": max(int(first), 0), "started": int(second)}
+        if not mochi.text.valid(second, "constant"):
+            return False
+        return {"created": int(first), "id": second}
+    if not before or not mochi.text.valid(str(before), "integer"):
+        return None
+    if scored:
+        return {"position": max(int(before), 0), "started": 0}
+    return {"created": int(before), "id": ""}
+
+# page_where(cursor, prefix, ascending) -> the condition and its arguments that
+# resume a list in time order after the post its cursor names. The bound on
+# created alone keeps the walk on the created index: written as one "or", it
+# read every row past the cursor.
+def page_where(cursor, prefix="", ascending=False):
+    if not cursor or "created" not in cursor:
+        return "", []
+    sign = ">" if ascending else "<"
+    if cursor["id"]:
+        return " and " + prefix + "created" + sign + "=? and (" + prefix + "created" + sign + "? or " + prefix + "id" + sign + "?)", [cursor["created"], cursor["created"], cursor["id"]]
+    return " and " + prefix + "created" + sign + "?", [cursor["created"]]
+
+# page_next(posts, scored, position, started, limit) -> the nextCursor and
+# cursor of the page after this one.
+def page_next(posts, scored, position, started, limit):
+    if scored:
+        after = position + limit
+        return after, str(after) + ":" + str(started)
+    last = posts[-1]
+    return last["created"], str(last["created"]) + ":" + last["id"]
 
 # Validate and clean a tag label
 def validate_tag(label):
@@ -1950,8 +2007,7 @@ def ai_tag_post(forum_id, post_id):
         return
     title = post.get("title", "")
     text = (title + ": " + body).strip() if title else body
-    if len(text) > 500:
-        text = text[:500]
+    text = text_cut_plain(text, 500)
     # Surface any linked domains so the AI can tag recognisable publishers
     # (resolved via QID; unrecognised domains drop out)
     domains = collect_domains(extract_urls(body))
@@ -2394,13 +2450,18 @@ def action_view(a):
 
         # Pagination parameters
         limit_str = a.input("limit")
-        before_str = a.input("before")
         limit = 20
         if limit_str and mochi.text.valid(limit_str, "natural"):
             limit = min(int(limit_str), 100)
-        before = None
-        if before_str and mochi.text.valid(before_str, "integer"):
-            before = int(before_str)
+
+        # Where this page resumes, and the order it resumes in.
+        scored = page_scored(sort)
+        cursor = page_cursor(a.input("cursor"), a.input("before"), scored)
+        if cursor == False:
+            a.error.label(400, "errors.invalid_data")
+            return
+        position = cursor["position"] if scored and cursor else 0
+        started = cursor["started"] if scored and cursor and cursor["started"] > 0 else mochi.time.now()
 
         # Determine access permissions
         can_post = False
@@ -2415,10 +2476,14 @@ def action_view(a):
             can_moderate = permissions.get("moderate", False)
 
         # Get posts order
-        order_by = get_post_order(sort)
+        order_p = get_post_order(sort, "p.", started)
+        page_filter, page_args = page_where(cursor, "p.", sort == "old")
 
         # Get posts for this forum with pagination
         # Moderators see all posts; regular users see only approved or their own pending
+        match = ""
+        match_args = []
+        wanted = True
         if len(tags) > 0:
             # Tag-filtered queries (AND logic — posts must have all specified tags)
             valid_tags = []
@@ -2426,47 +2491,35 @@ def action_view(a):
                 vt = validate_tag(t)
                 if vt:
                     valid_tags.append(vt)
-            if len(valid_tags) == 0:
-                posts = []
-            else:
-                p_order = get_post_order(sort, "p.")
-                placeholders = ", ".join(["?" for _ in valid_tags])
-                tag_filter = "(select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
-                if can_moderate:
-                    if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, before, limit + 1)
-                    else:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, limit + 1)
-                else:
-                    if before:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and p.created<? and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, before, user_id or "", limit + 1)
-                    else:
-                        posts = mochi.db.rows("select p.* from posts p where p.forum=? and " + tag_filter + " and (p.status='approved' or (p.status='pending' and p.member=?)) order by p.pinned desc, " + p_order + " limit ?",
-                            forum["id"], valid_tags, user_id or "", limit + 1)
-        elif can_moderate:
-            if before:
-                posts = mochi.db.rows("select * from posts where forum=? and created<? order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], before, limit + 1)
-            else:
-                posts = mochi.db.rows("select * from posts where forum=? order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], limit + 1)
-        else:
-            # Regular users see approved posts or their own pending posts
-            if before:
-                posts = mochi.db.rows("select * from posts where forum=? and created<? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], before, user_id or "", limit + 1)
-            else:
-                posts = mochi.db.rows("select * from posts where forum=? and (status='approved' or (status='pending' and member=?)) order by pinned desc, " + order_by + " limit ?",
-                    forum["id"], user_id or "", limit + 1)
+            placeholders = ", ".join(["?" for _ in valid_tags])
+            match = " and (select count(*) from tags t where t.object = p.id and lower(t.label) in (" + placeholders + ")) = " + str(len(valid_tags))
+            match_args = valid_tags
+            wanted = len(valid_tags) > 0
+        if not can_moderate:
+            match += " and (p.status='approved' or (p.status='pending' and p.member=?))"
+            match_args = match_args + [user_id or ""]
+
+        pinned = []
+        posts = []
+        if wanted:
+            if not cursor:
+                pinned = mochi.db.rows("select p.* from posts p where p.forum=?" + match + " and p.pinned!=0 order by " + order_p, forum["id"], match_args)
+            posts = mochi.db.rows("select p.* from posts p where p.forum=?" + match + " and p.pinned=0" + page_filter + " order by " + order_p + " limit ? offset ?",
+                forum["id"], match_args, page_args, limit + 1, position)
 
         # Check if there are more posts (we fetched limit+1)
         has_more = len(posts) > limit
         if has_more:
             posts = posts[:limit]
-        posts = unblocked(posts)
+
+        # Calculate next cursor from the rows the order gave, before any are
+        # left out below. nextCursor is what a client that predates cursor
+        # sends back as before; cursor is the page's exact place.
+        next_cursor = None
+        page = None
+        if has_more and len(posts) > 0:
+            next_cursor, page = page_next(posts, scored, position, started, limit)
+        posts = unblocked(list(pinned) + list(posts))
 
         im = get_interest_map(a)
         comment_counts, tags_by_post, votes_by_post = enrich_posts_batch(posts, user_id, can_moderate)
@@ -2484,13 +2537,6 @@ def action_view(a):
             p["tags"] = enrich_tags(tags_by_post.get(p["id"], []), im)
             if user_id:
                 p["user_vote"] = votes_by_post.get(p["id"], "")
-
-        # Calculate next cursor. Must match the ORDER BY key (created), not
-        # updated: paginating on updated while ordering by created silently drops
-        # posts whose updated was bumped by a later vote/comment.
-        next_cursor = None
-        if has_more and len(posts) > 0:
-            next_cursor = posts[-1]["created"]
 
         # Re-rank by relevance if requested (ai = with AI reranking, interests = formula only)
         matches_info = []
@@ -2520,6 +2566,7 @@ def action_view(a):
                 "can_moderate": can_moderate,
                 "hasMore": has_more,
                 "nextCursor": next_cursor,
+                "cursor": page,
                 "hasAi": has_ai,
             }
         }
@@ -3359,7 +3406,7 @@ def notify_activity(forum, me, post, comment=None):
         kind = "comment"
     else:
         return
-    body = mochi.app.label("notifications.body." + kind, author=comment["name"], excerpt=comment["body"].strip()[:80])
+    body = mochi.app.label("notifications.body." + kind, author=comment["name"], excerpt=text_cut_plain(comment["body"].strip(), 80))
     notify(kind, forum["id"], post["title"], body, url, event_id=kind + ":" + comment["id"])
 
 # The identity of a forum's owner, whose activity notifications the forum's
@@ -4402,7 +4449,7 @@ def notify_mentions(forum_id, post_id, body, author_id, author_name, comment="")
         return
     post = mochi.db.row("select title from posts where id=?", post_id)
     post_title = (post.get("title") or "") if post else ""
-    excerpt = body.strip()[:80]
+    excerpt = text_cut_plain(body.strip(), 80)
     fp = forum_fingerprint(forum_id)
     url = "/forums/" + fp if fp else "/forums"
     for m in members:
@@ -5682,12 +5729,12 @@ def moderation_reports_data(forum, status):
             post = mochi.db.row("select title, body from posts where id=?", r["target"])
             if post:
                 r["content_title"] = post["title"]
-                r["content_preview"] = post["body"][:200] if len(post["body"]) > 200 else post["body"]
+                r["content_preview"] = text_cut_plain(post["body"], 200)
                 r["attachments"] = attachment_list(r["target"], forum["id"])
         elif r["type"] == "comment":
             comment = mochi.db.row("select body from comments where id=?", r["target"])
             if comment:
-                r["content_preview"] = comment["body"][:200] if len(comment["body"]) > 200 else comment["body"]
+                r["content_preview"] = text_cut_plain(comment["body"], 200)
 
     return {"forum": strip_forum_config(forum), "reports": reports}
 
@@ -6512,6 +6559,9 @@ def action_attachment_thumbnail(a):
 
 def action_attachment_preview(a):
     serve_attachment(a, "preview")
+
+def action_attachment_medium(a):
+    serve_attachment(a, "medium")
 
 def serve_attachment(a, variant):
     attachment = a.input("id")
@@ -8479,12 +8529,12 @@ def event_report_submit_event(e):
     report_type = e.content("type")
     target = e.content("target")
     reason = e.content("reason")
-    # Cap and type-check details, matching the 1000-char bound the local report
-    # path applies; a non-string peer value would otherwise abort the handler.
+    # Cap and type-check details with the bound the local report path
+    # applies; a non-string peer value would otherwise abort the handler.
     details = e.content("details")
     if type(details) != "string":
         details = ""
-    details = details[:1000]
+    details = cap_text(details)
 
     if report_type not in ["post", "comment"]:
         return
@@ -10044,8 +10094,9 @@ def action_rss_all(a):
         forum_fp = forum_fingerprint(forum_id) if mochi.text.valid(forum_id, "entity") else forum_id
         forum_name = forum_names.get(forum_id, mochi.app.label("moderation.forum_unknown"))
         body = row["body"]
-        if len(body) > 500:
-            body = body[:500] + "..."
+        cut = text_cut_plain(body, 500)
+        if cut != body:
+            body = cut + "..."
 
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
@@ -10160,8 +10211,9 @@ def action_rss(a):
     for row in rows:
         item_id = row["id"]
         body = row["body"]
-        if len(body) > 500:
-            body = body[:500] + "..."
+        cut = text_cut_plain(body, 500)
+        if cut != body:
+            body = cut + "..."
 
         if row["type"] == "comment":
             parent_title = post_titles.get(item_id, "")
@@ -10383,8 +10435,7 @@ def ai_rerank(forum_data, posts, interests):
     for i, p in enumerate(candidates):
         title = p.get("title", "")
         body = p.get("body", "")
-        if len(body) > 200:
-            body = body[:200]
+        body = text_cut_plain(body, 200)
         text = (title + ": " + body).strip() if title else body
         tags = [m["qid"] for m in p.get("_matches", [])]
         tag_str = ", ".join(tags) if tags else "none"
@@ -10775,7 +10826,7 @@ def embed_encode(fields):
     JSON; empty where there are none."""
     clean = {}
     for key in ("title", "description", "site", "page", "type"):
-        value = str(fields.get(key, "") or "").strip()[:EMBED_MAXIMUM] if type(fields) == "dict" else ""
+        value = text_cut_plain(str(fields.get(key, "") or "").strip(), EMBED_MAXIMUM) if type(fields) == "dict" else ""
         if key == "page":
             value = safe_web_link(value)
         if key == "type" and (len(value) > 100 or value.count("/") != 1 or " " in value):
@@ -10926,9 +10977,9 @@ def community_row(acc, community, user_id, user_name):
     address = safe_web_link(community.get("actor_id", ""))
     if not address:
         return None
-    name = str(community.get("title") or community.get("name") or address).strip()[:200]
+    name = text_cut_plain(str(community.get("title") or community.get("name") or address).strip(), 200)
     number = str(lemmy_number(community.get("id"))) if lemmy_number(community.get("id")) else ""
-    description = str(community.get("description", "") or "")[:5000]
+    description = text_cut_plain(str(community.get("description", "") or ""), 5000)
     handle = community_handle(community.get("name"), host_of(address)) or address_handle(address)
     now = mochi.time.now()
     if mochi.db.exists("select 1 from forums where id=?", address):
@@ -10949,7 +11000,7 @@ def community_author(acc, user_id, creator):
         member = user_id
     else:
         member = actor
-    name = str(creator.get("display_name") or creator.get("name") or "").strip()[:200] if type(creator) == "dict" else ""
+    name = text_cut_plain(str(creator.get("display_name") or creator.get("name") or "").strip(), 200) if type(creator) == "dict" else ""
     return (member, name or member)
 
 def community_vote_store(forum, post_id, comment_id, user_id, my_vote):
@@ -10976,7 +11027,7 @@ def community_post_store(forum, acc, view, user_id):
             community_post_drop(forum, existing["id"])
         return None
     counts = view.get("counts") if type(view.get("counts")) == "dict" else {}
-    title = str(post.get("name", "") or "").strip()[:1000] or "-"
+    title = text_cut_plain(str(post.get("name", "") or "").strip(), 1000) or "-"
     body = str(post.get("body", "") or "")
     url = safe_web_link(post.get("url"))
     thumbnail = safe_web_link(post.get("thumbnail_url"))
@@ -11534,8 +11585,14 @@ def group_refresh(forum_id):
     mochi.account.update(acc["id"], label=forum["name"], summary=text_cut_plain(forum.get("banner", ""), GROUP_SUMMARY), page=group_page(forum, acc.get("domain", "")), moderators=group_moderators(forum), restricted=group_restricted(forum), sensitive=bool(forum.get("sensitive")))
 
 def text_cut_plain(text, limit):
-    text = text or ""
-    return text[:limit]
+    """The first limit characters of text: Starlark slices strings by bytes,
+    which can cut a character in half."""
+    points = []
+    for c in (text or "").codepoints():
+        if len(points) >= limit:
+            break
+        points.append(c)
+    return "".join(points)
 
 def group_address_record(forum_id, member, address):
     """Remember a member's fediverse address, from the activity they
@@ -12564,7 +12621,7 @@ def community_resolve(address):
     return found, None
 
 def joined_name(found):
-    return str(found.get("name") or found.get("username") or found["id"]).strip()[:200]
+    return text_cut_plain(str(found.get("name") or found.get("username") or found["id"]).strip(), 200)
 
 def joined_handle(found):
     return community_handle(found.get("username"), found.get("host")) or address_handle(found["id"])
@@ -12633,7 +12690,7 @@ def joined_row(found, acc, user_id, user_name):
     and the user its one member."""
     now = mochi.time.now()
     name = joined_name(found)
-    banner = mochi.text.clean(str(found.get("summary", "") or ""))[:GROUP_SUMMARY]
+    banner = text_cut_plain(mochi.text.clean(str(found.get("summary", "") or "")), GROUP_SUMMARY)
     handle = joined_handle(found)
     mochi.db.execute("insert into forums ( id, name, members, updated, fingerprint, account, address, banner, sensitive, handle ) values ( ?, ?, 1, ?, ?, ?, ?, ?, ?, ? )",
         found["id"], name, now, forum_fingerprint(found["id"]), acc["id"], found["id"], banner, 1 if found.get("sensitive") else 0, handle)
@@ -13159,9 +13216,9 @@ def joined_created(forum, acc, actor, object):
         body = group_text(object)
         if not mochi.text.valid(body, "text"):
             body = ""
-        title = str(object.get("name", "") or "").strip()[:1000]
+        title = text_cut_plain(str(object.get("name", "") or "").strip(), 1000)
         if not mochi.text.valid(title, "name"):
-            title = body.strip().split("\n")[0][:200]
+            title = text_cut_plain(body.strip().split("\n")[0], 200)
             if not mochi.text.valid(title, "name"):
                 return
         link = group_link(object) or joined_image(object)
@@ -13215,7 +13272,7 @@ def joined_updated(forum, actor, object):
         return
     now = mochi.time.now()
     if kind == "post":
-        title = str(object.get("name", "") or item["title"]).strip()[:1000]
+        title = text_cut_plain(str(object.get("name", "") or item["title"]).strip(), 1000)
         if not mochi.text.valid(title, "name"):
             return
         sensitive, language = object_marks(object)
