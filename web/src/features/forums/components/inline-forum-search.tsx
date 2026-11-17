@@ -45,7 +45,7 @@ export function InlineForumSearch({
       return (response.data.results ?? []).map(withSubtitle)
     } catch (error) {
       // The panel shows error.message, so the server's own wording has to be
-      // pulled out here rather than left inside the axios error.
+      // pulled out here rather than left inside the request error.
       throw new Error(getErrorMessage(error, t`Failed to search forums`))
     }
   }

@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import type { AxiosProgressEvent } from 'axios'
-import { createAppClient } from '@mochi/web'
+import { createAppClient, type TransferProgress } from '@mochi/web'
 import endpoints from '@/api/endpoints'
 import type {
   CreateCommentRequest,
@@ -243,7 +242,7 @@ const forumsApi = {
   // Posts
   createPost: (
     payload: CreatePostRequest,
-    onProgress?: (event: AxiosProgressEvent) => void
+    onProgress?: (event: TransferProgress) => void
   ) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)
@@ -282,7 +281,7 @@ const forumsApi = {
 
   editPost: (
     payload: EditPostRequest,
-    onProgress?: (event: AxiosProgressEvent) => void
+    onProgress?: (event: TransferProgress) => void
   ) => {
     const formData = new FormData()
     formData.append('title', payload.title)
@@ -316,7 +315,7 @@ const forumsApi = {
   // Comments
   createComment: (
     payload: CreateCommentRequest & { files?: File[] },
-    onProgress?: (event: AxiosProgressEvent) => void
+    onProgress?: (event: TransferProgress) => void
   ) => {
     const formData = new FormData()
     formData.append('forum', payload.forum)

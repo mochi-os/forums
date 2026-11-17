@@ -33,7 +33,7 @@ export function RecommendedForums({
       return response.data.forums ?? []
     } catch (error) {
       // The block shows error.message, so the server's own wording has to be
-      // pulled out here rather than left inside the axios error.
+      // pulled out here rather than left inside the request error.
       throw new Error(
         getErrorMessage(error, t`Failed to load recommended forums`)
       )
