@@ -4,6 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { useCallback, useEffect, useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { parseForumParams } from '@/config/routes'
 import { plural } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
@@ -64,6 +65,7 @@ type ModerationSearch = {
 }
 
 export const Route = createFileRoute('/_authenticated/$forum_/moderation')({
+  params: { parse: parseForumParams },
   validateSearch: (search: Record<string, unknown>): ModerationSearch => ({
     tab:
       search.tab === 'queue' ||

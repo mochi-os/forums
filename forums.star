@@ -1264,6 +1264,75 @@ def strip_remote_urls(value):
         return [strip_remote_urls(item) for item in value]
     return value
 
+# The fields of a remote forum's rows that every client puts into request
+# paths, routes and image addresses: ids this app mints, and the people a row
+# names. The forum's own id and fingerprint are not taken from the answer at
+# all; remote_clean writes the forum that was asked about.
+REMOTE_IDS = ("id", "post", "parent")
+REMOTE_AUTHORS = ("member", "user", "moderator", "author", "reporter", "resolver")
+
+# remote_valid(row) -> whether a row a remote forum sent holds only ids and
+# people that are what this app stores there. An absent or empty field passes;
+# a present one must be the shape, so another server cannot aim a reader's
+# client at an action of its choosing by naming a post "../delete".
+def remote_valid(row):
+    for key in REMOTE_IDS:
+        value = row.get(key)
+        if value == None or value == "":
+            continue
+        if type(value) != "string" or not mochi.text.valid(value, "id"):
+            return False
+    for key in REMOTE_AUTHORS:
+        value = row.get(key)
+        if value == None or value == "":
+            continue
+        if type(value) != "string" or not mochi.text.valid(value, "author"):
+            return False
+    target = row.get("target")
+    if target != None and target != "":
+        if type(target) != "string" or not (mochi.text.valid(target, "id") or mochi.text.valid(target, "author")):
+            return False
+    return True
+
+# remote_clean(value, forum) -> value: a remote forum's answer about forum,
+# with every row remote_valid refuses dropped, and each forum id and
+# fingerprint it states replaced by forum's own.
+def remote_clean(value, forum):
+    kind = type(value)
+    if kind == "dict":
+        result = {}
+        for key in value:
+            item = value[key]
+            if key == "forum":
+                if type(item) == "dict":
+                    item = remote_clean(item, forum)
+                    item["id"] = forum
+                    item["fingerprint"] = forum_fingerprint(forum)
+                    result[key] = item
+                else:
+                    result[key] = forum
+            elif key == "fingerprint":
+                result[key] = forum_fingerprint(forum)
+            else:
+                result[key] = remote_clean(item, forum)
+        return result
+    if kind in ("list", "tuple"):
+        return [remote_clean(item, forum) for item in value if type(item) != "dict" or remote_valid(item)]
+    return value
+
+# remote_forum(asked, answer) -> the id of the forum a remote answer is about:
+# the entity asked for, or, where it was asked for by fingerprint, the id the
+# answer names when that id has the fingerprint asked for. None otherwise.
+def remote_forum(asked, answer):
+    if type(asked) != "string":
+        return None
+    if mochi.text.valid(asked, "entity"):
+        return asked
+    claimed = answer.get("id") if type(answer) == "dict" else None
+    if mochi.text.valid(asked, "fingerprint") and type(claimed) == "string" and mochi.text.valid(claimed, "entity") and forum_fingerprint(claimed) == asked:
+        return claimed
+    return None
+
 # The most bytes a name may hold: the "name" pattern's thousand characters, of
 # four bytes at most.
 NAME_BYTES = 4000
@@ -2404,9 +2473,9 @@ def action_view(a):
                 a.error.label(401, "errors.not_logged_in")
                 return
 
-            # Can only fetch remote forums if we have a full entity ID (49-51 chars)
+            # Can only fetch remote forums if we have a full entity ID
             # Fingerprints (9 chars) can't be used for P2P addressing
-            if len(entity_id) < 49:
+            if not mochi.text.valid(entity_id, "entity"):
                 a.error.label(404, "errors.forum_not_found")
                 return
 
@@ -2428,7 +2497,7 @@ def action_view(a):
                     "forum": {
                         "id": entity_id,
                         "name": response.get("name", ""),
-                        "fingerprint": response.get("fingerprint") or (forum_fingerprint(entity_id) if mochi.text.valid(entity_id, "entity") else ""),
+                        "fingerprint": forum_fingerprint(entity_id),
                         "members": 0,
                         "updated": 0,
                         "can_manage": False,
@@ -2436,7 +2505,7 @@ def action_view(a):
                         "banner": response.get("banner", ""),
                         "banner_html": response.get("banner_html", ""),
                     },
-                    "posts": strip_remote_urls(response.get("posts", [])),
+                    "posts": strip_remote_urls(remote_clean(response.get("posts", []), entity_id)),
                     "member": None,
                     "can_manage": False,
                     "can_moderate": response.get("can_moderate", False),
@@ -3934,7 +4003,19 @@ def action_post_view(a):
             response.pop("next", None)
             response["comments"] = thread_tree(lists["comments"], response.get("can_vote", False), response.get("can_comment", False))
 
-        # Return remote data
+        # The answer names the forum and every post and comment in it; the
+        # forum is the one asked for, and a row whose ids are not this app's
+        # is dropped, so the other server cannot choose what the reader's
+        # client requests.
+        forum = remote_forum(forum_id, response.get("forum"))
+        if not forum:
+            a.error.label(502, "errors.remote")
+            return
+        response = remote_clean(response, forum)
+        post = response.get("post")
+        if type(post) != "dict" or not post.get("id") or not remote_valid(post):
+            a.error.label(502, "errors.remote")
+            return
         return {"data": strip_remote_urls(response)}
 
     if not post:
@@ -5593,10 +5674,10 @@ def moderation_restrictions(forum_input, user):
         if response.get("error"):
             return None, remote_failure(response, 403)
         if lists == None:
-            return response, None
+            return remote_clean(response, forum["id"]), None
         if not complete:
             return None, (502, "errors.remote")
-        restrictions = [r for r in lists["restrictions"] if type(r) == "dict"]
+        restrictions = [r for r in remote_clean(lists["restrictions"], forum["id"]) if type(r) == "dict"]
         return {"restrictions": sorted(restrictions, key=lambda r: number(r.get("created")), reverse=True)}, None
 
     return moderation_restrictions_data(forum), None
@@ -5795,7 +5876,7 @@ def moderation_reports(forum_input, user, status):
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
             return None, remote_failure(response, 403)
-        return strip_remote_urls(response), None
+        return strip_remote_urls(remote_clean(response, forum["id"])), None
 
     if status not in ["pending", "resolved", "all"]:
         return None, (400, "errors.invalid_status")
@@ -5970,7 +6051,7 @@ def action_moderation_queue(a):
             remote_error(a, response, 403)
             return
         if lists == None:
-            return {"data": strip_remote_urls(response)}
+            return {"data": strip_remote_urls(remote_clean(response, forum["id"]))}
         if not complete:
             a.error.label(502, "errors.remote")
             return
@@ -5979,8 +6060,8 @@ def action_moderation_queue(a):
         posts = sorted([p for p in lists["posts"] if type(p) == "dict"], key=lambda p: number(p.get("created")))
         comments = sorted([c for c in lists["comments"] if type(c) == "dict"], key=lambda c: number(c.get("created")))
         reports = sorted(sorted([r for r in lists["reports"] if type(r) == "dict"], key=lambda r: number(r.get("created"))), key=lambda r: number(r.get("count")), reverse=True)
-        forum = response.get("forum")
-        return {"data": strip_remote_urls(moderation_queue_counted(forum if type(forum) == "dict" else {}, posts, comments, reports))}
+        answer = response.get("forum")
+        return {"data": strip_remote_urls(remote_clean(moderation_queue_counted(answer if type(answer) == "dict" else {}, posts, comments, reports), forum["id"]))}
 
     return {"data": moderation_queue_data(forum)}
 
@@ -6142,7 +6223,7 @@ def moderation_log(forum_input, user, limit):
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit or "50"})
         if response and response.get("error"):
             return None, remote_failure(response, 403)
-        return response, None
+        return remote_clean(response, forum["id"]), None
 
     count = 50
     if limit and mochi.text.valid(limit, "natural"):

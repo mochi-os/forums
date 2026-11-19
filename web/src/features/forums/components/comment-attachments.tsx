@@ -17,17 +17,21 @@ export function CommentAttachments({
   forumId,
   server,
 }: CommentAttachmentsProps) {
-  if (!attachments || attachments.length === 0) return null
+  // An attachment whose id cannot be one path segment is left out.
+  const shown = (attachments ?? []).filter(
+    (att) => attachmentUrl(forumId, att.id) !== undefined
+  )
+  if (shown.length === 0) return null
 
   // The addresses carry the viewer's token, as the post gallery's do: inside
   // the sandboxed shell iframe an <img> sends no cookies, so a private
   // container's attachment would 401 and the thumbnail never appear.
   return (
     <AttachmentGallery
-      attachments={attachments}
-      getUrl={(att) => attachmentUrl(forumId, att.id, '', server)}
+      attachments={shown}
+      getUrl={(att) => attachmentUrl(forumId, att.id, '', server) ?? ''}
       getThumbnailUrl={(att) =>
-        attachmentUrl(forumId, att.id, 'thumbnail', server)
+        attachmentUrl(forumId, att.id, 'thumbnail', server) ?? ''
       }
       rowHeight={80}
     />

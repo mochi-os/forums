@@ -75,6 +75,32 @@ describe('EditPostDialog draft persistence', () => {
   })
 })
 
+// The preview of an image already on the post is the forum's own attachment
+// route, through attachmentUrl: the id encoded as one segment, and an id that
+// cannot be one shown as a file rather than fetched from another path.
+describe('EditPostDialog previews', () => {
+  const image = (id: string, name: string) =>
+    ({ id, name, type: 'image/png', size: 1 }) as unknown as NonNullable<
+      Post['attachments']
+    >[number]
+
+  it('previews an image from its encoded id, and nothing for an id that is no segment', () => {
+    renderHarness(
+      makePost({
+        attachments: [
+          image('a?b', 'cat.png'),
+          image('../delete?x=', 'evil.png'),
+        ],
+      })
+    )
+    expect(screen.getByAltText('cat.png').getAttribute('src')).toBe(
+      '/f1/-/attachments/a%3Fb/thumbnail'
+    )
+    expect(screen.queryByAltText('evil.png')).toBeNull()
+    expect(screen.getByText('evil.png')).toBeInTheDocument()
+  })
+})
+
 describe('EditPostDialog marks', () => {
   it('carries the language and a changed sensitive mark', async () => {
     const user = userEvent.setup()

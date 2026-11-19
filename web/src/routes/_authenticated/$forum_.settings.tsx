@@ -5,6 +5,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { parseForumParams } from '@/config/routes'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
@@ -45,6 +46,8 @@ import {
   type AiPromptType,
   DISALLOWED_NAME_CHARS,
   MemberList,
+  path,
+  tryPath,
 } from '@mochi/web'
 import {
   Plus,
@@ -80,6 +83,7 @@ type SettingsSearch = {
 }
 
 export const Route = createFileRoute('/_authenticated/$forum_/settings')({
+  params: { parse: parseForumParams },
   validateSearch: (search: Record<string, unknown>): SettingsSearch => ({
     tab:
       search.tab === 'general' ||
@@ -1016,8 +1020,12 @@ export function MembersSection({
 
   const busy = removeMember.isPending || blockMember.isPending
   const name = pending?.name ?? ''
+  // A member id that cannot be one path segment gives no address: initials.
   const assetUrl = (id: string, asset: 'avatar' | 'style') =>
-    `${getAppPath()}/${forumPath(forumId)}/-/members/${encodeURIComponent(id)}/asset/${asset}`
+    tryPath(
+      () =>
+        `${getAppPath()}/${path`${forumPath(forumId)}/-/members/${id}/asset/${asset}`}`
+    ) ?? ''
 
   return (
     <Section title={t`Members`}>
