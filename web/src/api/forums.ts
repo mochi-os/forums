@@ -126,6 +126,9 @@ export interface PublishState {
   handles: Array<{ name: string; domain: string }>
 }
 
+// A call whose address is built from an id is async, so an id the endpoint
+// table refuses rejects the call as a failed request would, rather than
+// throwing out of an effect or an event handler.
 const forumsApi = {
   // Forums
   listForums: (sort?: string) =>
@@ -133,12 +136,12 @@ const forumsApi = {
       params: sort ? { sort } : undefined,
     }),
 
-  getForumInfo: (forumId: string) =>
+  getForumInfo: async (forumId: string) =>
     client.get<InfoEntityResponse>(endpoints.forums.forumInfo(forumId)),
 
   getForumsInfo: () => client.get<InfoClassResponse>(endpoints.forums.info),
 
-  viewForum: (params: ViewForumParams) =>
+  viewForum: async (params: ViewForumParams) =>
     client.get<ViewForumResponse>(endpoints.forums.posts(params.forum), {
       params: omitUndefined({
         limit: params.limit,
@@ -208,7 +211,7 @@ const forumsApi = {
       { target }
     ),
 
-  setSensitive: (forumId: string, sensitive: boolean) =>
+  setSensitive: async (forumId: string, sensitive: boolean) =>
     client.post<{ data: { sensitive: number } }, { sensitive: string }>(
       endpoints.forums.sensitiveSet(forumId),
       { sensitive: sensitive ? '1' : '0' }
@@ -219,7 +222,7 @@ const forumsApi = {
       url: params.url,
     }),
 
-  subscribeForum: (forumId: string, server?: string, peer?: string) =>
+  subscribeForum: async (forumId: string, server?: string, peer?: string) =>
     client.post<SubscribeForumResponse>(endpoints.forums.subscribe(forumId), {
       forum: forumId,
       server,
@@ -227,13 +230,13 @@ const forumsApi = {
     }),
 
   // Produce a mochi://<peer>/<forum> share link for a forum the caller owns.
-  shareForum: (forumId: string) =>
+  shareForum: async (forumId: string) =>
     client.post<{ data: { link: string; peer: string; forum: string } }>(
       endpoints.forums.share(forumId),
       {}
     ),
 
-  unsubscribeForum: (forumId: string) =>
+  unsubscribeForum: async (forumId: string) =>
     client.post<UnsubscribeForumResponse>(
       endpoints.forums.unsubscribe(forumId),
       {}
@@ -265,7 +268,7 @@ const forumsApi = {
     )
   },
 
-  viewPost: (params: ViewPostParams) =>
+  viewPost: async (params: ViewPostParams) =>
     client.get<ViewPostResponse>(
       endpoints.forums.post.view(params.forum, params.post),
       {
@@ -273,13 +276,13 @@ const forumsApi = {
       }
     ),
 
-  votePost: (payload: VotePostRequest) =>
+  votePost: async (payload: VotePostRequest) =>
     client.post<VotePostResponse>(
       endpoints.forums.post.vote(payload.forum, payload.post, payload.vote),
       {}
     ),
 
-  editPost: (
+  editPost: async (
     payload: EditPostRequest,
     onProgress?: (event: TransferProgress) => void
   ) => {
@@ -306,14 +309,14 @@ const forumsApi = {
     )
   },
 
-  deletePost: (payload: DeletePostRequest) =>
+  deletePost: async (payload: DeletePostRequest) =>
     client.post<DeletePostResponse>(
       endpoints.forums.post.delete(payload.forum, payload.post),
       {}
     ),
 
   // Comments
-  createComment: (
+  createComment: async (
     payload: CreateCommentRequest & { files?: File[] },
     onProgress?: (event: TransferProgress) => void
   ) => {
@@ -339,7 +342,7 @@ const forumsApi = {
     )
   },
 
-  voteComment: (payload: VoteCommentRequest) =>
+  voteComment: async (payload: VoteCommentRequest) =>
     client.post<VoteCommentResponse>(
       endpoints.forums.comment.vote(
         payload.forum,
@@ -352,7 +355,7 @@ const forumsApi = {
 
   // Body only: action_comment_edit forwards {id, body} to the forum owner and
   // ignores anything else, so an order or file part would be silently dropped.
-  editComment: (payload: EditCommentRequest) => {
+  editComment: async (payload: EditCommentRequest) => {
     const formData = new FormData()
     formData.append('body', payload.body)
     return client.post<EditCommentResponse>(
@@ -366,7 +369,7 @@ const forumsApi = {
     )
   },
 
-  deleteComment: (payload: DeleteCommentRequest) =>
+  deleteComment: async (payload: DeleteCommentRequest) =>
     client.post<DeleteCommentResponse>(
       endpoints.forums.comment.delete(
         payload.forum,
@@ -377,38 +380,38 @@ const forumsApi = {
     ),
 
   // Access Control
-  getAccess: (params: GetAccessParams) =>
+  getAccess: async (params: GetAccessParams) =>
     client.get<GetAccessResponse>(endpoints.forums.access(params.forum)),
 
-  setAccess: (payload: SetAccessRequest) =>
+  setAccess: async (payload: SetAccessRequest) =>
     client.post<SetAccessResponse>(endpoints.forums.accessSet(payload.forum), {
       target: payload.user,
       level: payload.level,
     }),
 
-  revokeAccess: (payload: RevokeAccessRequest) =>
+  revokeAccess: async (payload: RevokeAccessRequest) =>
     client.post<RevokeAccessResponse>(
       endpoints.forums.accessRevoke(payload.forum),
       { target: payload.user }
     ),
 
   // Members
-  listMembers: (forumId: string) =>
+  listMembers: async (forumId: string) =>
     client.get<ListMembersResponse>(endpoints.forums.members(forumId)),
 
-  removeMember: (forumId: string, member: string) =>
+  removeMember: async (forumId: string, member: string) =>
     client.post<RemoveMemberResponse>(endpoints.forums.membersSave(forumId), {
       remove: member,
     }),
 
   // Management
-  deleteForum: (forumId: string) =>
+  deleteForum: async (forumId: string) =>
     client.post<{ data: Record<string, never> }>(
       endpoints.forums.delete(forumId),
       {}
     ),
 
-  renameForum: (forumId: string, name: string) =>
+  renameForum: async (forumId: string, name: string) =>
     client.post<{ data: { success: boolean } }>(
       endpoints.forums.rename(forumId),
       { forum: forumId, name }
@@ -416,28 +419,28 @@ const forumsApi = {
 
   // The forum as a community on the fediverse (phase 20): whether it is
   // published and at what address, with the domains a name may be taken on.
-  getPublish: (forumId: string) =>
+  getPublish: async (forumId: string) =>
     client.get<{ data: PublishState }>(endpoints.forums.publish(forumId)),
 
-  setPublish: (forumId: string, name: string, domain: string) =>
+  setPublish: async (forumId: string, name: string, domain: string) =>
     client.post<{ data: PublishState }>(endpoints.forums.publishSet(forumId), {
       forum: forumId,
       name,
       domain,
     }),
 
-  clearPublish: (forumId: string) =>
+  clearPublish: async (forumId: string) =>
     client.post<{ data: PublishState }>(
       endpoints.forums.publishClear(forumId),
       { forum: forumId }
     ),
 
-  getBanner: (forumId: string) =>
+  getBanner: async (forumId: string) =>
     client.get<{ data: { banner: string } }>(
       endpoints.forums.bannerGet(forumId)
     ),
 
-  setBanner: (forumId: string, banner: string) =>
+  setBanner: async (forumId: string, banner: string) =>
     client.post<{ data: { success: boolean } }>(
       endpoints.forums.bannerSet(forumId),
       { forum: forumId, banner }
@@ -476,12 +479,12 @@ const forumsApi = {
   },
 
   // Moderation
-  getModerationSettings: (params: GetModerationSettingsParams) =>
+  getModerationSettings: async (params: GetModerationSettingsParams) =>
     client.get<GetModerationSettingsResponse>(
       endpoints.forums.moderation.settings(params.forum)
     ),
 
-  saveModerationSettings: (payload: SaveModerationSettingsRequest) => {
+  saveModerationSettings: async (payload: SaveModerationSettingsRequest) => {
     const { forum, ...settings } = payload
     const formData = new URLSearchParams()
     Object.entries(settings).forEach(([key, value]) => {
@@ -496,12 +499,12 @@ const forumsApi = {
     )
   },
 
-  getModerationQueue: (params: GetModerationQueueParams) =>
+  getModerationQueue: async (params: GetModerationQueueParams) =>
     client.get<GetModerationQueueResponse>(
       endpoints.forums.moderation.queue(params.forum)
     ),
 
-  getModerationLog: (params: GetModerationLogParams) =>
+  getModerationLog: async (params: GetModerationLogParams) =>
     client.get<GetModerationLogResponse>(
       endpoints.forums.moderation.log(params.forum),
       {
@@ -512,7 +515,7 @@ const forumsApi = {
       }
     ),
 
-  getReports: (params: GetReportsParams) =>
+  getReports: async (params: GetReportsParams) =>
     client.get<GetReportsResponse>(
       endpoints.forums.moderation.reports(params.forum),
       {
@@ -520,18 +523,18 @@ const forumsApi = {
       }
     ),
 
-  resolveReport: (payload: ResolveReportRequest) =>
+  resolveReport: async (payload: ResolveReportRequest) =>
     client.post<ResolveReportResponse>(
       endpoints.forums.moderation.resolveReport(payload.forum, payload.report),
       { action: payload.action }
     ),
 
-  getRestrictions: (params: GetRestrictionsParams) =>
+  getRestrictions: async (params: GetRestrictionsParams) =>
     client.get<GetRestrictionsResponse>(
       endpoints.forums.restrictions(params.forum)
     ),
 
-  restrictUser: (payload: RestrictUserRequest) => {
+  restrictUser: async (payload: RestrictUserRequest) => {
     const { forum, ...data } = payload
     return client.post<RestrictUserResponse>(
       endpoints.forums.restrict(forum),
@@ -539,68 +542,68 @@ const forumsApi = {
     )
   },
 
-  unrestrictUser: (payload: UnrestrictUserRequest) =>
+  unrestrictUser: async (payload: UnrestrictUserRequest) =>
     client.post<UnrestrictUserResponse>(
       endpoints.forums.unrestrict(payload.forum),
       { user: payload.user }
     ),
 
-  removePost: (payload: RemovePostRequest) =>
+  removePost: async (payload: RemovePostRequest) =>
     client.post<RemovePostResponse>(
       endpoints.forums.postModeration.remove(payload.forum, payload.post),
       { reason: payload.reason }
     ),
 
-  restorePost: (payload: RestorePostRequest) =>
+  restorePost: async (payload: RestorePostRequest) =>
     client.post<RestorePostResponse>(
       endpoints.forums.postModeration.restore(payload.forum, payload.post),
       {}
     ),
 
-  approvePost: (payload: ApprovePostRequest) =>
+  approvePost: async (payload: ApprovePostRequest) =>
     client.post<ApprovePostResponse>(
       endpoints.forums.postModeration.approve(payload.forum, payload.post),
       {}
     ),
 
-  lockPost: (payload: LockPostRequest) =>
+  lockPost: async (payload: LockPostRequest) =>
     client.post<LockPostResponse>(
       endpoints.forums.postModeration.lock(payload.forum, payload.post),
       {}
     ),
 
-  unlockPost: (payload: UnlockPostRequest) =>
+  unlockPost: async (payload: UnlockPostRequest) =>
     client.post<UnlockPostResponse>(
       endpoints.forums.postModeration.unlock(payload.forum, payload.post),
       {}
     ),
 
-  followPost: (forumId: string, postId: string, following: boolean) =>
+  followPost: async (forumId: string, postId: string, following: boolean) =>
     client.post<FollowPostResponse>(
       following
         ? endpoints.forums.postModeration.follow(forumId, postId)
         : endpoints.forums.postModeration.unfollow(forumId, postId)
     ),
 
-  pinPost: (payload: PinPostRequest) =>
+  pinPost: async (payload: PinPostRequest) =>
     client.post<PinPostResponse>(
       endpoints.forums.postModeration.pin(payload.forum, payload.post),
       {}
     ),
 
-  unpinPost: (payload: UnpinPostRequest) =>
+  unpinPost: async (payload: UnpinPostRequest) =>
     client.post<UnpinPostResponse>(
       endpoints.forums.postModeration.unpin(payload.forum, payload.post),
       {}
     ),
 
-  reportPost: (payload: ReportPostRequest) =>
+  reportPost: async (payload: ReportPostRequest) =>
     client.post<ReportPostResponse>(
       endpoints.forums.postModeration.report(payload.forum, payload.post),
       { reason: payload.reason, details: payload.details }
     ),
 
-  removeComment: (payload: RemoveCommentRequest) =>
+  removeComment: async (payload: RemoveCommentRequest) =>
     client.post<RemoveCommentResponse>(
       endpoints.forums.commentModeration.remove(
         payload.forum,
@@ -610,7 +613,7 @@ const forumsApi = {
       { reason: payload.reason }
     ),
 
-  restoreComment: (payload: RestoreCommentRequest) =>
+  restoreComment: async (payload: RestoreCommentRequest) =>
     client.post<RestoreCommentResponse>(
       endpoints.forums.commentModeration.restore(
         payload.forum,
@@ -620,7 +623,7 @@ const forumsApi = {
       {}
     ),
 
-  approveComment: (payload: ApproveCommentRequest) =>
+  approveComment: async (payload: ApproveCommentRequest) =>
     client.post<ApproveCommentResponse>(
       endpoints.forums.commentModeration.approve(
         payload.forum,
@@ -630,7 +633,7 @@ const forumsApi = {
       {}
     ),
 
-  reportComment: (payload: ReportCommentRequest) =>
+  reportComment: async (payload: ReportCommentRequest) =>
     client.post<ReportCommentResponse>(
       endpoints.forums.commentModeration.report(
         payload.forum,
@@ -658,7 +661,7 @@ const forumsApi = {
     return res.data
   },
 
-  setAiSettings: (forumId: string, mode: string, account: string) => {
+  setAiSettings: async (forumId: string, mode: string, account: string) => {
     const formData = new URLSearchParams()
     formData.append('mode', mode)
     formData.append('account', account)
@@ -686,7 +689,7 @@ const forumsApi = {
     return res.data
   },
 
-  setAiPrompt: (forumId: string, type: string, prompt: string) => {
+  setAiPrompt: async (forumId: string, type: string, prompt: string) => {
     const formData = new URLSearchParams()
     formData.append('type', type)
     formData.append('prompt', prompt)
@@ -700,21 +703,21 @@ const forumsApi = {
   },
 
   // Interest/scoring
-  adjustTagInterest: (
+  adjustTagInterest: async (
     forumId: string,
     qid: string,
     direction: 'up' | 'down' | 'remove'
   ) => client.post(endpoints.forums.tagInterest(forumId), { qid, direction }),
 
-  clearNotifications: (forumId: string) =>
+  clearNotifications: async (forumId: string) =>
     client.post(endpoints.forums.notificationsClear(forumId)),
 
-  getNotifications: (forumId: string) =>
+  getNotifications: async (forumId: string) =>
     client.get<NotificationSettingsResponse>(
       endpoints.forums.notifications(forumId)
     ),
 
-  setNotification: (
+  setNotification: async (
     forumId: string,
     kind: NotificationKind,
     enabled: boolean
@@ -732,7 +735,7 @@ const forumsApi = {
     })
   },
 
-  setForumSort: (forumId: string, sort: string) => {
+  setForumSort: async (forumId: string, sort: string) => {
     const formData = new URLSearchParams()
     formData.append('sort', sort)
     return client.post(

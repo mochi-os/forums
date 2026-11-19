@@ -258,6 +258,14 @@ def database_upgrade(version):
     if version == 18:
         # What a pull that runs past its own call may still prune (hold_keep).
         holdings_schema_create()
+    if version == 19:
+        # An attachment row's owner is its object and kind, so a comment's
+        # attachments are never a post's. Every row lands as an object's; a
+        # comment's rows are marked. An id both tables hold came from a peer's
+        # choice, as did the comment's member and any remote row's creator, so
+        # its rows stay the post's.
+        attachment_schema_kind()
+        mochi.db.execute("update attachments set kind='comment' where kind='object' and object in (select id from comments) and object not in (select id from posts)")
 
 def database_create():
     mochi.db.execute("""create table if not exists forums (
@@ -362,6 +370,7 @@ def database_create():
 
     # Attachments now live in this database, owned by the shared library.
     attachment_schema_create()
+    attachment_schema_kind()
     hosted_schema_create()
     joined_schema_create()
     permissions_schema_create()
@@ -558,10 +567,36 @@ def comment_descendants(forum_id, post_id, parent_id):
 # stored rows so an approval fans out the same attachments a direct create
 # would have - a subscriber only ever calls attachment_store for attachments the
 # event actually carries.
-def attachments_wire(object):
+def attachments_wire(object, kind="object"):
     return [{"id": att["id"], "name": att["name"], "size": att["size"],
              "content_type": att.get("content_type", ""), "rank": att.get("rank", 0),
-             "created": att["created"]} for att in attachment_list(object)]
+             "created": att["created"]} for att in attachment_list(object, kind=kind)]
+
+
+# identifier_held(id) reports whether a post or a comment, in any forum, has
+# id. Tags key on a bare id that cannot tell a post from a comment, so an id
+# either table holds is never free for a new row of either.
+def identifier_held(id):
+    return mochi.db.exists("select 1 from posts where id=? union all select 1 from comments where id=?", id, id)
+
+# identifier_foreign(id, table, forum_id) reports whether id names a row the
+# forum's own fan-out or dump may not write as a row of table ("posts" or
+# "comments"): a row of the other table, in any forum, or one of table in
+# another forum. Each row an owner sends is bound to that owner's forum.
+def identifier_foreign(id, table, forum_id):
+    other = "comments" if table == "posts" else "posts"
+    if mochi.db.exists("select 1 from " + other + " where id=?", id):
+        return True
+    return mochi.db.exists("select 1 from " + table + " where id=? and forum!=?", id, forum_id)
+
+# attachments_land(rows, table, id, forum_id) files the attachment rows a
+# forum's event or dump carries for its post (table "posts") or comment
+# ("comments"), with the forum as their provenance. Every caller has refused
+# an id identifier_foreign names first, so the row with id is that forum's.
+def attachments_land(rows, table, id, forum_id):
+    if not rows:
+        return
+    attachment_store(rows, forum_id, id, kind="comment" if table == "comments" else "object")
 
 
 # The sender of a vote, used only to address a websocket re-emit. Anything
@@ -1228,6 +1263,75 @@ def strip_remote_urls(value):
     if kind in ("list", "tuple"):
         return [strip_remote_urls(item) for item in value]
     return value
+
+# The fields of a remote forum's rows that every client puts into request
+# paths, routes and image addresses: ids this app mints, and the people a row
+# names. The forum's own id and fingerprint are not taken from the answer at
+# all; remote_clean writes the forum that was asked about.
+REMOTE_IDS = ("id", "post", "parent")
+REMOTE_AUTHORS = ("member", "user", "moderator", "author", "reporter", "resolver")
+
+# remote_valid(row) -> whether a row a remote forum sent holds only ids and
+# people that are what this app stores there. An absent or empty field passes;
+# a present one must be the shape, so another server cannot aim a reader's
+# client at an action of its choosing by naming a post "../delete".
+def remote_valid(row):
+    for key in REMOTE_IDS:
+        value = row.get(key)
+        if value == None or value == "":
+            continue
+        if type(value) != "string" or not mochi.text.valid(value, "id"):
+            return False
+    for key in REMOTE_AUTHORS:
+        value = row.get(key)
+        if value == None or value == "":
+            continue
+        if type(value) != "string" or not mochi.text.valid(value, "author"):
+            return False
+    target = row.get("target")
+    if target != None and target != "":
+        if type(target) != "string" or not (mochi.text.valid(target, "id") or mochi.text.valid(target, "author")):
+            return False
+    return True
+
+# remote_clean(value, forum) -> value: a remote forum's answer about forum,
+# with every row remote_valid refuses dropped, and each forum id and
+# fingerprint it states replaced by forum's own.
+def remote_clean(value, forum):
+    kind = type(value)
+    if kind == "dict":
+        result = {}
+        for key in value:
+            item = value[key]
+            if key == "forum":
+                if type(item) == "dict":
+                    item = remote_clean(item, forum)
+                    item["id"] = forum
+                    item["fingerprint"] = forum_fingerprint(forum)
+                    result[key] = item
+                else:
+                    result[key] = forum
+            elif key == "fingerprint":
+                result[key] = forum_fingerprint(forum)
+            else:
+                result[key] = remote_clean(item, forum)
+        return result
+    if kind in ("list", "tuple"):
+        return [remote_clean(item, forum) for item in value if type(item) != "dict" or remote_valid(item)]
+    return value
+
+# remote_forum(asked, answer) -> the id of the forum a remote answer is about:
+# the entity asked for, or, where it was asked for by fingerprint, the id the
+# answer names when that id has the fingerprint asked for. None otherwise.
+def remote_forum(asked, answer):
+    if type(asked) != "string":
+        return None
+    if mochi.text.valid(asked, "entity"):
+        return asked
+    claimed = answer.get("id") if type(answer) == "dict" else None
+    if mochi.text.valid(asked, "fingerprint") and type(claimed) == "string" and mochi.text.valid(claimed, "entity") and forum_fingerprint(claimed) == asked:
+        return claimed
+    return None
 
 # The most bytes a name may hold: the "name" pattern's thousand characters, of
 # four bytes at most.
@@ -2369,9 +2473,9 @@ def action_view(a):
                 a.error.label(401, "errors.not_logged_in")
                 return
 
-            # Can only fetch remote forums if we have a full entity ID (49-51 chars)
+            # Can only fetch remote forums if we have a full entity ID
             # Fingerprints (9 chars) can't be used for P2P addressing
-            if len(entity_id) < 49:
+            if not mochi.text.valid(entity_id, "entity"):
                 a.error.label(404, "errors.forum_not_found")
                 return
 
@@ -2393,7 +2497,7 @@ def action_view(a):
                     "forum": {
                         "id": entity_id,
                         "name": response.get("name", ""),
-                        "fingerprint": response.get("fingerprint") or (forum_fingerprint(entity_id) if mochi.text.valid(entity_id, "entity") else ""),
+                        "fingerprint": forum_fingerprint(entity_id),
                         "members": 0,
                         "updated": 0,
                         "can_manage": False,
@@ -2401,7 +2505,7 @@ def action_view(a):
                         "banner": response.get("banner", ""),
                         "banner_html": response.get("banner_html", ""),
                     },
-                    "posts": strip_remote_urls(response.get("posts", [])),
+                    "posts": strip_remote_urls(remote_clean(response.get("posts", []), entity_id)),
                     "member": None,
                     "can_manage": False,
                     "can_moderate": response.get("can_moderate", False),
@@ -3693,8 +3797,10 @@ def purge_forum_rows(forum_id):
     mochi.db.execute("delete from votes where forum=?", forum_id)
     # The library sweep only removes files with no row, so the rows must go
     # here or every image the forum carried stays on disk forever.
-    for row in mochi.db.rows("select id from posts where forum=? union select id from comments where forum=?", forum_id, forum_id) or []:
+    for row in mochi.db.rows("select id from posts where forum=?", forum_id) or []:
         attachment_clear(row["id"])
+    for row in mochi.db.rows("select id from comments where forum=?", forum_id) or []:
+        attachment_clear(row["id"], kind="comment")
     mochi.db.execute("delete from comments where forum=?", forum_id)
     mochi.db.execute("delete from posts where forum=?", forum_id)
 
@@ -3897,7 +4003,19 @@ def action_post_view(a):
             response.pop("next", None)
             response["comments"] = thread_tree(lists["comments"], response.get("can_vote", False), response.get("can_comment", False))
 
-        # Return remote data
+        # The answer names the forum and every post and comment in it; the
+        # forum is the one asked for, and a row whose ids are not this app's
+        # is dropped, so the other server cannot choose what the reader's
+        # client requests.
+        forum = remote_forum(forum_id, response.get("forum"))
+        if not forum:
+            a.error.label(502, "errors.remote")
+            return
+        response = remote_clean(response, forum)
+        post = response.get("post")
+        if type(post) != "dict" or not post.get("id") or not remote_valid(post):
+            a.error.label(502, "errors.remote")
+            return
         return {"data": strip_remote_urls(response)}
 
     if not post:
@@ -3993,7 +4111,7 @@ def action_post_view(a):
         for v in mochi.db.rows("select comment, vote from votes where post=? and comment!='' and voter=?", post_id, a.user.identity.id) or []:
             comment_votes[v["comment"]] = v["vote"]
     all_comments = unblocked(all_comments)
-    comment_attachments = attachment_list_many([c["id"] for c in all_comments], forum["id"])
+    comment_attachments = attachment_list_many([c["id"] for c in all_comments], forum["id"], kind="comment")
 
     children = {}
     for c in all_comments:
@@ -4314,7 +4432,7 @@ def action_post_edit(a):
 # images on disk forever.
 def clear_post_comment_attachments(forum_id, post_id):
     for _c in mochi.db.rows("select id from comments where forum=? and post=?", forum_id, post_id) or []:
-        attachment_clear(_c["id"])
+        attachment_clear(_c["id"], kind="comment")
 
 # post_delete deletes a post the user wrote or manages: here and for the
 # members on a forum we own, else asked of its owner. Answers (result, None) or
@@ -4650,7 +4768,7 @@ def action_comment_create(a):
 
     # An optional anchor: the id of one of the post's attachments this
     # comment is about. Resolved against the post's rows.
-    result, failure = comment_create(a.input("forum"), a.input("post"), a.input("parent"), a.user.identity.id, a.user.identity.name, body, lambda object: attachment_save(a, object), attachment=a.input("attachment") or "")
+    result, failure = comment_create(a.input("forum"), a.input("post"), a.input("parent"), a.user.identity.id, a.user.identity.name, body, lambda object: attachment_save(a, object, kind="comment"), attachment=a.input("attachment") or "")
     if failure:
         fail(a, failure)
         return
@@ -4699,7 +4817,7 @@ def comment_edit(forum_input, post_id, comment_id, user_id, body, order, save):
             # Handle attachment changes — mirrors post_edit. The order is
             # "<existing-id>" or "new:<index>" entries describing the desired
             # final order.
-            current_attachments = attachment_list(comment_id, forum["id"])
+            current_attachments = attachment_list(comment_id, forum["id"], kind="comment")
             current_ids = [att["id"] for att in current_attachments]
             new_attachments = save(comment_id)
 
@@ -4726,7 +4844,7 @@ def comment_edit(forum_input, post_id, comment_id, user_id, body, order, save):
                 "post": comment["post"],
                 "body": body,
                 "edited": now,
-                "attachments": attachment_list(comment_id, forum["id"]),
+                "attachments": attachment_list(comment_id, forum["id"], kind="comment"),
             }
             broadcast_event(forum["id"], "comment/edit", comment_data, user_id)
             mochi.db.commit.fire("comments", "update", comment_id)
@@ -4776,7 +4894,7 @@ def action_comment_edit(a):
     order_json = a.input("order")
     order = (json.decode(order_json, None) or []) if order_json else None
 
-    result, failure = comment_edit(a.input("forum"), a.input("post"), a.input("comment"), a.user.identity.id, body, order, lambda object: attachment_save(a, object))
+    result, failure = comment_edit(a.input("forum"), a.input("post"), a.input("comment"), a.user.identity.id, body, order, lambda object: attachment_save(a, object, kind="comment"))
     if failure:
         fail(a, failure)
         return
@@ -4814,7 +4932,7 @@ def comment_delete(forum_input, post_id, comment_id, user_id):
 
             # Delete attachments for all comments being deleted
             for cid in comment_ids:
-                attachments = attachment_list(cid, forum["id"])
+                attachments = attachment_list(cid, forum["id"], kind="comment")
                 for att in attachments:
                     attachment_delete(att["id"])
 
@@ -4846,9 +4964,13 @@ def comment_delete(forum_input, post_id, comment_id, user_id):
                 {"id": comment_id}
             )
 
-            # Delete locally for optimistic UI
+            # Delete locally for optimistic UI. The attachment rows go with
+            # their comments: once the comment row is gone, the owner's
+            # comment/delete no longer finds it here to clear them.
             comment_ids = [comment_id] + comment_descendants(forum["id"], comment["post"], comment_id)
 
+            for cid in comment_ids:
+                attachment_clear(cid, kind="comment")
             for cid in comment_ids:
                 mochi.db.execute("delete from votes where comment=?", cid)
             for cid in comment_ids:
@@ -5061,7 +5183,7 @@ def comment_approval(forum, comment, moderator):
         "created": comment["created"],
         "attachment": comment.get("attachment", "")
     }
-    attachments = attachments_wire(comment["id"])
+    attachments = attachments_wire(comment["id"], kind="comment")
     if attachments:
         comment_data["attachments"] = attachments
     broadcast_event(forum["id"], "comment/create", comment_data)
@@ -5552,10 +5674,10 @@ def moderation_restrictions(forum_input, user):
         if response.get("error"):
             return None, remote_failure(response, 403)
         if lists == None:
-            return response, None
+            return remote_clean(response, forum["id"]), None
         if not complete:
             return None, (502, "errors.remote")
-        restrictions = [r for r in lists["restrictions"] if type(r) == "dict"]
+        restrictions = [r for r in remote_clean(lists["restrictions"], forum["id"]) if type(r) == "dict"]
         return {"restrictions": sorted(restrictions, key=lambda r: number(r.get("created")), reverse=True)}, None
 
     return moderation_restrictions_data(forum), None
@@ -5754,7 +5876,7 @@ def moderation_reports(forum_input, user, status):
         response = mochi.remote.request(forum["id"], "forums", "moderation/reports", {"status": status})
         if response and response.get("error"):
             return None, remote_failure(response, 403)
-        return strip_remote_urls(response), None
+        return strip_remote_urls(remote_clean(response, forum["id"])), None
 
     if status not in ["pending", "resolved", "all"]:
         return None, (400, "errors.invalid_status")
@@ -5878,7 +6000,7 @@ def moderation_queue_data(forum):
         "select id, body, post, member, name, created, attachment from comments where forum=? and status='pending' order by created asc",
         forum["id"])
     for c in comments:
-        c["attachments"] = attachment_list(c["id"], forum["id"])
+        c["attachments"] = attachment_list(c["id"], forum["id"], kind="comment")
         c["attachment_name"] = comment_anchor_name(c)
     reports = mochi.db.rows("""
         select type, target, author, reason, min(id) as id, min(details) as details,
@@ -5929,7 +6051,7 @@ def action_moderation_queue(a):
             remote_error(a, response, 403)
             return
         if lists == None:
-            return {"data": strip_remote_urls(response)}
+            return {"data": strip_remote_urls(remote_clean(response, forum["id"]))}
         if not complete:
             a.error.label(502, "errors.remote")
             return
@@ -5938,8 +6060,8 @@ def action_moderation_queue(a):
         posts = sorted([p for p in lists["posts"] if type(p) == "dict"], key=lambda p: number(p.get("created")))
         comments = sorted([c for c in lists["comments"] if type(c) == "dict"], key=lambda c: number(c.get("created")))
         reports = sorted(sorted([r for r in lists["reports"] if type(r) == "dict"], key=lambda r: number(r.get("created"))), key=lambda r: number(r.get("count")), reverse=True)
-        forum = response.get("forum")
-        return {"data": strip_remote_urls(moderation_queue_counted(forum if type(forum) == "dict" else {}, posts, comments, reports))}
+        answer = response.get("forum")
+        return {"data": strip_remote_urls(remote_clean(moderation_queue_counted(answer if type(answer) == "dict" else {}, posts, comments, reports), forum["id"]))}
 
     return {"data": moderation_queue_data(forum)}
 
@@ -6101,7 +6223,7 @@ def moderation_log(forum_input, user, limit):
         response = mochi.remote.request(forum["id"], "forums", "moderation/log", {"limit": limit or "50"})
         if response and response.get("error"):
             return None, remote_failure(response, 403)
-        return response, None
+        return remote_clean(response, forum["id"]), None
 
     count = 50
     if limit and mochi.text.valid(limit, "natural"):
@@ -6547,6 +6669,16 @@ def access_revoke(forum_input, user_id, target):
 
 
 
+# holder(object, kind, forum_id) -> the status and member of the post (kind
+# "object") or comment (kind "comment") of forum_id that an attachment row's
+# owner names, else None. A comment's row is never judged against the posts
+# table, nor a post's against the comments.
+def holder(object, kind, forum_id):
+    table = {"object": "posts", "comment": "comments"}.get(kind)
+    if not table:
+        return None
+    return mochi.db.row("select status, member from " + table + " where id=? and forum=?", object, forum_id)
+
 # Attachment routes are public so anonymous viewers can load a public forum's
 # files. attachment_serve does no access check, so serve_attachment is the gate:
 # view access on a.user, and the attachment bound to a post or comment in this
@@ -6596,10 +6728,8 @@ def serve_attachment(a, variant):
     # attachment_serve does no access check: the view gate ran above and
     # `visible` binds the attachment to this forum and hides a removed or
     # someone else's pending object.
-    def visible(obj):
-        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
-        if not target:
-            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+    def visible(obj, kind):
+        target = holder(obj, kind, forum_id)
         if not target:
             return False
         if check_access(a, forum_id, "moderate"):
@@ -6626,9 +6756,8 @@ def event_attachment_fetch(e):
     if attachment_identifier(id):
         row = attachment_row(id)
         if row:
-            obj = mochi.db.row("select forum from posts where id=?", row["object"])
-            if not obj:
-                obj = mochi.db.row("select forum from comments where id=?", row["object"])
+            table = "comments" if row["kind"] == "comment" else "posts"
+            obj = mochi.db.row("select forum from " + table + " where id=?", row["object"])
             if obj:
                 forum_id = obj["forum"]
     requester = e.header("from")
@@ -6643,10 +6772,8 @@ def event_attachment_fetch(e):
         # wildcard view grant creation writes, so it passes this same check.
         return check_event_access(sender, container, "view")
 
-    def visible(obj):
-        target = mochi.db.row("select status, member from posts where id=? and forum=?", obj, forum_id)
-        if not target:
-            target = mochi.db.row("select status, member from comments where id=? and forum=?", obj, forum_id)
+    def visible(obj, kind):
+        target = holder(obj, kind, forum_id)
         if not target:
             return False
         # The forum's own entity sees everything bound to it: the pending
@@ -6722,6 +6849,11 @@ def event_comment_create_event(e):
             mochi.db.execute("update comments set remote=? where id=? and forum=? and remote=''", str(e.content("remote")), id, forum["id"])
         return
 
+    # An id a post has, or another forum's comment, is not this forum's to
+    # write: what is hung on the id would hang on that row too.
+    if identifier_foreign(id, "comments", forum["id"]):
+        return
+
     post = e.content("post")
     if not mochi.db.exists("select id from posts where forum=? and id=?", forum["id"], post):
         # Out-of-order delivery: post hasn't arrived yet. Resync from
@@ -6767,10 +6899,8 @@ def event_comment_create_event(e):
     if remote_ok(e.content("remote")):
         mochi.db.execute("update comments set remote=? where id=? and forum=?", str(e.content("remote")), id, forum["id"])
 
-    # Store attachment metadata from the event
-    attachments = e.content("attachments") or []
-    if attachments:
-        attachment_store(attachments, e.header("from"), id)
+    # Store attachment metadata from the event, on this forum's row only.
+    attachments_land(e.content("attachments"), "comments", id, forum["id"])
 
     mochi.db.execute("update posts set updated=? where id=?", created, post)
     recount_post_comments(post)
@@ -6839,8 +6969,14 @@ def event_comment_submit_event(e):
         group_address_record(forum["id"], sender_id, address)
         send_status(forum["id"], sender_id, "comment", id, existing["status"])
         return
-    if mochi.db.exists("select id from comments where id=?", id):
+    if existing and existing["member"] == sender_id:
         return  # Duplicate: already accepted, so nothing to reject
+    # Any other holder of the id, a post or a comment in any forum, refuses it:
+    # posts and comments share one id space, and the sender does not choose
+    # a row to hang its comment on.
+    if identifier_held(id):
+        send_reject(forum["id"], sender_id, "comment", id, "duplicate")
+        return
 
     post_id = e.content("post")
     post = mochi.db.row("select * from posts where forum=? and id=?", forum["id"], post_id)
@@ -6895,7 +7031,7 @@ def event_comment_submit_event(e):
     # the sender now, while it is online; a pull that fails heals on serve.
     attachments = e.content("attachments") or []
     if attachments:
-        attachment_accept(attachments, sender_id, id, forum["id"])
+        attachment_accept(attachments, sender_id, id, forum["id"], kind="comment")
 
     mochi.db.execute("update posts set updated=? where id=?", now, post_id)
     recount_post_comments(post_id)
@@ -7006,7 +7142,7 @@ def event_comment_delete_submit_event(e):
 
     # Delete attachments for these comments
     for cid in comment_ids:
-        attachments = attachment_list(cid, forum["id"])
+        attachments = attachment_list(cid, forum["id"], kind="comment")
         for att in attachments:
             attachment_delete(att["id"])
 
@@ -7092,7 +7228,7 @@ def event_comment_delete_event(e):
         # Verify this comment belongs to this forum
         if mochi.db.exists("select id from comments where id=? and forum=?", comment_id, forum_id):
             # Delete attachments for this comment
-            attachments = attachment_list(comment_id, forum_id)
+            attachments = attachment_list(comment_id, forum_id, kind="comment")
             for att in attachments:
                 attachment_delete(att["id"])
             # Delete votes for this comment
@@ -7187,6 +7323,11 @@ def event_post_create_event(e):
             mochi.db.execute("update posts set remote=? where id=? and forum=? and remote=''", str(e.content("remote")), id, forum["id"])
         return
 
+    # An id a comment has, or another forum's post, is not this forum's to
+    # write: what is hung on the id would hang on that row too.
+    if identifier_foreign(id, "posts", forum["id"]):
+        return
+
     member = e.content("member")
     name = name_strip(e.content("name"))
     title = e.content("title")
@@ -7222,10 +7363,8 @@ def event_post_create_event(e):
     if remote_ok(e.content("remote")):
         mochi.db.execute("update posts set remote=? where id=? and forum=?", str(e.content("remote")), id, forum["id"])
 
-    # Store attachment metadata from the event
-    attachments = e.content("attachments") or []
-    if attachments:
-        attachment_store(attachments, e.header("from"), id)
+    # Store attachment metadata from the event, on this forum's row only.
+    attachments_land(e.content("attachments"), "posts", id, forum["id"])
 
     mochi.db.execute("update forums set updated=? where id=?", created, forum["id"])
 
@@ -7417,7 +7556,10 @@ def event_post_submit_event(e):
         # the status message is what their pending row is waiting for.
         send_status(forum["id"], sender_id, "post", id, existing["status"])
         return
-    if mochi.db.exists("select id from posts where id=?", id):
+    # Any other holder of the id, a post or a comment in any forum, refuses it:
+    # posts and comments share one id space, and the sender does not choose a
+    # row to hang its post on.
+    if identifier_held(id):
         send_reject(forum["id"], sender_id, "post", id, "duplicate")
         return
 
@@ -7659,6 +7801,9 @@ def event_post_delete_submit_event(e):
     for att in attachments:
         attachment_delete(att["id"])
 
+    # Clear each comment's attachments too before the comment rows go.
+    clear_post_comment_attachments(forum["id"], post_id)
+
     # Delete votes for all comments on this post
     mochi.db.execute("delete from votes where forum=? and post=?", forum["id"], post_id)
 
@@ -7763,6 +7908,9 @@ def event_post_delete_event(e):
     attachments = attachment_list(id, forum_id)
     for att in attachments:
         attachment_delete(att["id"])
+
+    # Clear each comment's attachments too before the comment rows go.
+    clear_post_comment_attachments(forum_id, id)
 
     # Delete votes for all comments on this post
     mochi.db.execute("delete from votes where forum=? and post=?", forum_id, id)
@@ -8867,13 +9015,14 @@ def part_take(specs, order, scopes, cursor, budget):
         after = []
     return lists, None
 
-# part_attach(rows, forum_id, budget) gives each row its attachments, charged to
-# the bytes left, and answers the rows that fit: a row whose attachments
-# overrun them waits for the next part, and the cursor is then that row's.
-def part_attach(rows, forum_id, budget, anchored=False):
+# part_attach(rows, forum_id, budget, kind) gives each row, a post ("object")
+# or a comment ("comment"), its attachments, charged to the bytes left, and
+# answers the rows that fit: a row whose attachments overrun them waits for the
+# next part, and the cursor is then that row's.
+def part_attach(rows, forum_id, budget, kind, anchored=False):
     kept = []
     for row in rows:
-        attachments = (attachment_list(row["id"], forum_id) or [])[:attachment_object_maximum]
+        attachments = (attachment_list(row["id"], forum_id, kind=kind) or [])[:attachment_object_maximum]
         cost = PART_ATTACHMENT * len(attachments)
         if kept and cost > budget["bytes"]:
             break
@@ -8979,7 +9128,7 @@ def event_schema(e):
         lists, next = part_take(schema_specs(window), SCHEMA_ORDER, schema_scopes(forum_id, window), part, budget)
         for name in ["posts", "comments"]:
             rows = lists[name]
-            lists[name] = part_attach(rows, forum_id, budget)
+            lists[name] = part_attach(rows, forum_id, budget, "comment" if name == "comments" else "object")
             if len(lists[name]) < len(rows):
                 # Trimmed for their attachments: what follows waits too.
                 next = {"list": name, "after": [lists[name][-1]["id"]]}
@@ -9025,7 +9174,7 @@ def event_schema(e):
         if atts:
             p["attachments"] = atts
     for c in comments:
-        atts = attachment_list(c["id"], forum_id)
+        atts = attachment_list(c["id"], forum_id, kind="comment")
         if atts:
             c["attachments"] = atts
 
@@ -9351,7 +9500,7 @@ def replica_post_drop(forum_id, id):
     for row in mochi.db.rows("select id from comments where forum=? and post=?", forum_id, id) or []:
         replica_comment_drop(forum_id, row["id"])
     mochi.db.execute("delete from tags where object=?", id)
-    replica_attachments_drop(forum_id, id)
+    replica_attachments_drop(forum_id, id, "object")
     mochi.db.execute("delete from votes where forum=? and post=?", forum_id, id)
     mochi.db.execute("delete from follows where post=?", id)
     mochi.db.execute("delete from score_cache where forum=? and post=?", forum_id, id)
@@ -9361,15 +9510,16 @@ def replica_post_drop(forum_id, id):
 # its tags, attachments and votes.
 def replica_comment_drop(forum_id, id):
     mochi.db.execute("delete from tags where object=?", id)
-    replica_attachments_drop(forum_id, id)
+    replica_attachments_drop(forum_id, id, "comment")
     mochi.db.execute("delete from votes where comment=?", id)
     mochi.db.execute("delete from comments where id=? and forum=?", id, forum_id)
 
-# replica_attachments_drop(forum_id, object) deletes the forum's copies of an
-# object's attachments, and nothing else: a file of the user's own, the only copy
-# of one they posted, stays, as does any row another forum holds under that id.
-def replica_attachments_drop(forum_id, object):
-    for row in mochi.db.rows("select * from attachments where object=? and entity=?", object, forum_id) or []:
+# replica_attachments_drop(forum_id, object, kind) deletes the forum's copies of
+# the attachments of object, a post ("object") or comment ("comment"), and
+# nothing else: a file of the user's own, the only copy of one they posted,
+# stays, as does any row another forum holds under that id.
+def replica_attachments_drop(forum_id, object, kind):
+    for row in mochi.db.rows("select * from attachments where object=? and kind=? and entity=?", object, attachment_kind(kind), forum_id) or []:
         mochi.db.execute("delete from attachments where id=?", row["id"])
         attachment_forget(row)
 
@@ -9410,9 +9560,10 @@ def schema_import(forum_id, schema):
         # event_post_create_event rejects. Clients build addresses from the id.
         if not texts(p, ["id", "member", "name", "title", "body"]) or not mochi.text.valid(p["id"], "id"):
             continue
-        # A post and a comment never share an id: what is hung on one, its tags
-        # and attachments, would hang on the other too.
-        if mochi.db.exists("select 1 from comments where id=?", p["id"]):
+        # A post and a comment never share an id, and another forum's post is
+        # not this forum's to write: what is hung on the id, its tags and
+        # attachments, would hang on that row too.
+        if identifier_foreign(p["id"], "posts", forum_id):
             continue
         if not mochi.text.valid(p["member"], "author"):
             continue
@@ -9438,9 +9589,7 @@ def schema_import(forum_id, schema):
         # would leave it that way forever.
         mochi.db.execute("update posts set status='approved' where id=? and forum=? and status!='approved'",
             p.get("id", ""), forum_id)
-        atts = p.get("attachments") or []
-        if atts:
-            attachment_store(atts, forum_id, p.get("id", ""))
+        attachments_land(p.get("attachments"), "posts", p["id"], forum_id)
     for c in (schema.get("comments") or []):
         if not texts(c, ["post"]):
             continue
@@ -9451,7 +9600,7 @@ def schema_import(forum_id, schema):
         # id or nothing; the threads a client draws hang on it.
         if not texts(c, ["id", "member", "name", "body"]) or not mochi.text.valid(c["id"], "id"):
             continue
-        if mochi.db.exists("select 1 from posts where id=?", c["id"]):
+        if identifier_foreign(c["id"], "comments", forum_id):
             continue
         parent = c.get("parent") or ""
         if parent and (type(parent) != "string" or not mochi.text.valid(parent, "id")):
@@ -9475,9 +9624,7 @@ def schema_import(forum_id, schema):
         # Same staleness correction as the posts loop above.
         mochi.db.execute("update comments set status='approved' where id=? and forum=? and status!='approved'",
             c.get("id", ""), forum_id)
-        atts = c.get("attachments") or []
-        if atts:
-            attachment_store(atts, forum_id, c.get("id", ""))
+        attachments_land(c.get("attachments"), "comments", c["id"], forum_id)
     for t in (schema.get("tags") or []):
         if type(t) != "dict":
             continue
@@ -9793,7 +9940,7 @@ def event_moderation_queue(e):
         lists, next = part_take(QUEUE_SPECS, QUEUE_ORDER, {"posts": [forum_id], "comments": [forum_id], "reports": [forum_id]}, part, budget)
         for name in ["posts", "comments"]:
             rows = lists[name]
-            lists[name] = part_attach(rows, forum_id, budget, name == "comments")
+            lists[name] = part_attach(rows, forum_id, budget, "comment" if name == "comments" else "object", name == "comments")
             if len(lists[name]) < len(rows):
                 next = {"list": name, "after": [lists[name][-1]["id"]]}
                 if name == "posts":
@@ -10554,6 +10701,12 @@ def _post_to_forum_subscriber(user, forum_id, post_id, title, body, tags=None):
     user_name = user.identity.name
 
     if not mochi.text.valid(post_id, "id"):
+        return {"error": "errors.invalid_post_id", "code": 400}
+    # A retry names the user's own post in this forum again; an id any other
+    # post or comment holds is not the caller's to take, and the replace
+    # below would move or overwrite that row.
+    own = mochi.db.exists("select 1 from posts where id=? and forum=? and member=?", post_id, forum_id, user_id)
+    if not own and identifier_held(post_id):
         return {"error": "errors.invalid_post_id", "code": 400}
     if not mochi.text.valid(title, "name"):
         return {"error": "errors.invalid_title", "code": 400}
@@ -12055,12 +12208,13 @@ def group_link(object):
             return safe_web_link(str(attachment["url"]))
     return ""
 
-def group_named_id(named, table):
+def group_named_id(named):
     """The id a Mochi member's record names for its item, when it is one and
     free, else a new id: a member's event arriving after their record then
-    finds its row."""
+    finds its row. Free means no post and no comment has it: a post and a
+    comment share one id space for what hangs on them."""
     named = str(named or "")
-    if mochi.text.valid(named, "id") and not mochi.db.exists("select 1 from " + table + " where id=?", named):
+    if mochi.text.valid(named, "id") and not identifier_held(named):
         return named
     return mochi.uid()
 
@@ -12119,7 +12273,7 @@ def group_post_from_network(forum, actor, page, activity):
     elif requires_premoderation(forum, actor, "post"):
         status = "pending"
     name = group_person(actor)
-    post_id = group_named_id(page.get("mochi:post"), "posts")
+    post_id = group_named_id(page.get("mochi:post"))
     link = group_link(page) or joined_image(page)
     post_land(forum, actor, name, post_id, title, body, status, [], [], card=link_card(link) if link else ("", "", ""), remote=remote)
     sensitive, language = object_marks(page)
@@ -12157,7 +12311,7 @@ def group_comment_from_network(forum, actor, note, activity):
     elif requires_premoderation(forum, actor, "comment"):
         status = "pending"
     name = group_person(actor)
-    comment_id = group_named_id(note.get("mochi:comment"), "comments")
+    comment_id = group_named_id(note.get("mochi:comment"))
     now = mochi.time.now()
     mochi.db.execute("replace into comments ( id, forum, post, parent, member, name, body, status, created, remote ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         comment_id, forum["id"], post["id"], parent_id, actor, name, body, status, now, remote)
@@ -12267,11 +12421,11 @@ def group_item_delete(forum, kind, item):
         broadcast_event(forum["id"], "post/delete", {"id": item["id"]})
         broadcast_websocket(forum["id"], {"type": "post/delete", "forum": forum["id"], "post": item["id"]})
     else:
-        attachment_clear(item["id"])
+        attachment_clear(item["id"], kind="comment")
         mochi.db.execute("delete from votes where comment=?", item["id"])
         mochi.db.execute("delete from comments where id=?", item["id"])
         recount_post_comments(item["post"])
-        broadcast_event(forum["id"], "comment/delete", {"id": item["id"], "post": item["post"]})
+        broadcast_event(forum["id"], "comment/delete", {"ids": [item["id"]], "post": item["post"]})
         broadcast_websocket(forum["id"], {"type": "comment/delete", "forum": forum["id"], "post": item["post"], "comment": item["id"]})
     mochi.db.execute("update forums set updated=? where id=?", now, forum["id"])
 
@@ -13022,7 +13176,7 @@ def joined_comment_delete(forum, comment, user_id):
         return None, (403, "errors.not_allowed_to_delete_this_comment")
     if comment.get("remote"):
         mochi.account.object.delete(acc["id"], comment["remote"])
-    attachment_clear(comment["id"])
+    attachment_clear(comment["id"], kind="comment")
     mochi.db.execute("delete from votes where comment=?", comment["id"])
     mochi.db.execute("delete from comments where id=?", comment["id"])
     recount_post_comments(comment["post"])
@@ -13228,7 +13382,7 @@ def joined_created(forum, acc, actor, object):
         sensitive, language = object_marks(object)
         # A Mochi member's record names its post's id, so the post is the same
         # item on every server that holds it.
-        post_id = group_named_id(object.get("mochi:post"), "posts")
+        post_id = group_named_id(object.get("mochi:post"))
         mochi.db.execute("insert into posts ( id, forum, member, name, title, body, status, created, updated, url, thumbnail, embed, remote, sensitive, language ) values ( ?, ?, ?, ?, ?, ?, 'approved', ?, ?, ?, ?, ?, ?, ?, ? )",
             post_id, forum["id"], member, name, title, body, created, created, card[0], card[1], card[2], remote, sensitive, language)
         if created > (forum.get("updated") or 0):
@@ -13251,7 +13405,7 @@ def joined_created(forum, acc, actor, object):
         body = group_text(object)
         if not mochi.text.valid(body, "text"):
             return
-        comment_id = group_named_id(object.get("mochi:comment"), "comments")
+        comment_id = group_named_id(object.get("mochi:comment"))
         mochi.db.execute("insert into comments ( id, forum, post, parent, member, name, body, status, created, remote ) values ( ?, ?, ?, ?, ?, ?, ?, 'approved', ?, ? )",
             comment_id, forum["id"], post["id"], parent_id, member, name, body, created, remote)
         mochi.db.execute("update posts set updated=? where id=?", now, post["id"])

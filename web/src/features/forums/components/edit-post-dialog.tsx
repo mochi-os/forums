@@ -22,8 +22,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  getAppPath,
-  authenticatedUrl,
   AttachmentComposer,
   AttachmentAddTile,
   cn,
@@ -42,7 +40,7 @@ import {
 } from '@mochi/web'
 import { Check } from 'lucide-react'
 import type { Post, Attachment as AttachmentData } from '@/api/types/posts'
-import { forumPath } from '@/lib/forum-path'
+import { attachmentUrl } from '@/features/forums/attachment-url'
 import {
   buildForumPostEditDraft,
   forumPostEditOriginalFromPost,
@@ -91,7 +89,6 @@ export function EditPostDialog({
   progress,
 }: EditPostDialogProps) {
   const { t } = useLingui()
-  const appPath = getAppPath()
   const [items, setItems] = useState<EditingAttachment[]>([])
   // Keyed by attachment id (existing) or pendingFileKey (new), so neither
   // removal nor reorder can re-attach a caption to the wrong item.
@@ -225,9 +222,7 @@ export function EditPostDialog({
             size: att.size,
             type: att.type ?? '',
             previewUrl: att.type?.startsWith('image/')
-              ? authenticatedUrl(
-                  `${appPath}/${forumPath(post.forum)}/-/attachments/${att.id}/thumbnail`
-                )
+              ? (attachmentUrl(post.forum, att.id, 'thumbnail') ?? null)
               : null,
             caption: captions[att.id],
             // Saved attachments are not part of the save's upload, so they
@@ -259,7 +254,7 @@ export function EditPostDialog({
           progress: progress?.slices?.[newFiles.indexOf(file)],
         }
       }),
-    [items, captions, appPath, post.forum, urlByNewFile, newFiles, progress]
+    [items, captions, post.forum, urlByNewFile, newFiles, progress]
   )
 
   // One staging path for the picker and for a drop. The list mixes saved

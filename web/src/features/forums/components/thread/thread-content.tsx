@@ -186,6 +186,7 @@ export function ThreadContent({
   const isLocked = !!post.locked
   const isPinned = !!post.pinned
   const timestamp = formatTimestamp(post.created)
+  const assets = postAssets(post)
 
   const voteButtonClass =
     'inline-flex h-7 min-w-7 shrink-0 items-center justify-center gap-1.5 rounded-full px-1.5 leading-none text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground active:bg-interactive-active'
@@ -247,8 +248,8 @@ export function ThreadContent({
             )}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${postAssets(post)}/avatar`}
-                styleUrl={`${postAssets(post)}/style`}
+                src={assets && `${assets}/avatar`}
+                styleUrl={assets && `${assets}/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'

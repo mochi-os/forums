@@ -85,6 +85,58 @@ describe('attachment addresses', () => {
     }
   })
 
+  // The id can come from another server too: one that cannot be one path
+  // segment would aim the request at another action, so its attachment is
+  // left out, and one that can is encoded.
+  it('post gallery encodes each id and leaves out one that cannot be a segment', () => {
+    const { container } = render(
+      <PostAttachments
+        attachments={[
+          { ...remote, id: 'a?b' },
+          { ...remote, id: '../delete?x=' },
+          { ...remote, id: 'x/delete' },
+        ]}
+        forumId='f1'
+      />
+    )
+    const items = container.querySelectorAll('[data-testid="attachment"]')
+    expect(items).toHaveLength(1)
+    expect(addresses(container)).toEqual([
+      '/f1/-/attachments/a%3Fb',
+      '/f1/-/attachments/a%3Fb/thumbnail',
+      '/f1/-/attachments/a%3Fb/preview',
+    ])
+  })
+
+  it('comment gallery leaves out an attachment whose id cannot be a segment', () => {
+    const { container } = render(
+      <CommentAttachments
+        attachments={[
+          { ...remote, id: 'a1' },
+          { ...remote, id: '../delete' },
+        ]}
+        forumId='f1'
+      />
+    )
+    expect(
+      container.querySelectorAll('[data-testid="attachment"]')
+    ).toHaveLength(1)
+    expect(addresses(container)[0]).toBe('/f1/-/attachments/a1')
+  })
+
+  it('comment gallery shows nothing when no attachment can be addressed', () => {
+    const { container } = render(
+      <CommentAttachments
+        attachments={[
+          { ...remote, id: '..' },
+          { ...remote, id: 'x/y' },
+        ]}
+        forumId='f1'
+      />
+    )
+    expect(container.innerHTML).toBe('')
+  })
+
   it('comment gallery does the same', () => {
     const { container } = render(
       <CommentAttachments attachments={[remote]} forumId='f1' />

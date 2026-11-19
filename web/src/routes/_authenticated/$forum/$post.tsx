@@ -4,6 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { z } from 'zod'
 import { createFileRoute } from '@tanstack/react-router'
+import { parsePostParams } from '@/config/routes'
 import { getEntityFingerprint, isDomainEntityRouting } from '@mochi/web'
 import { ThreadDetail } from '@/features/forums/thread-detail'
 
@@ -15,6 +16,7 @@ const searchSchema = z.object({
 })
 
 export const Route = createFileRoute('/_authenticated/$forum/$post')({
+  params: { parse: parsePostParams },
   validateSearch: searchSchema,
   component: ThreadDetailWrapper,
 })

@@ -5,6 +5,7 @@
 import { z } from 'zod'
 import type { QueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
+import { parseForumParams } from '@/config/routes'
 import { t } from '@lingui/core/macro'
 import { useLingui } from '@lingui/react/macro'
 import {
@@ -168,6 +169,7 @@ export async function loadForum({
 }
 
 export const Route = createFileRoute('/_authenticated/$forum/')({
+  params: { parse: parseForumParams },
   validateSearch: searchSchema,
   // Carry ?server= into the loader so a remote forum is viewed against the
   // right server rather than being looked up locally and 404ing.

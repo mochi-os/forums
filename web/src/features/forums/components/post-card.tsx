@@ -147,8 +147,8 @@ export function PostCard({
             ) : null}
             <span className='inline-flex items-center gap-1.5 whitespace-nowrap'>
               <EntityAvatar
-                src={`${assets}/avatar`}
-                styleUrl={`${assets}/style`}
+                src={assets && `${assets}/avatar`}
+                styleUrl={assets && `${assets}/style`}
                 seed={post.member}
                 name={post.name}
                 size='xs'

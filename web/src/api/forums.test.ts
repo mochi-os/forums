@@ -37,3 +37,30 @@ describe('forumsApi communities', () => {
     expect(post.mock.calls[0][2]).toEqual({ timeout: 0 })
   })
 })
+
+// A call built from an id the endpoint table refuses rejects, as a failed
+// request does, so a caller's catch sees it; a throw would escape a
+// `void call().catch(...)` in an effect and take the page down.
+describe('forumsApi refused ids', () => {
+  beforeEach(() => {
+    post.mockReset()
+    post.mockResolvedValue({ data: {} })
+  })
+
+  it('rejects rather than throws, and sends nothing', async () => {
+    let call: Promise<unknown> | undefined
+    expect(() => {
+      call = forumsApi.clearNotifications('..')
+    }).not.toThrow()
+    await expect(call).rejects.toThrow(/path: refused/)
+    await expect(
+      forumsApi.removeComment({
+        forum: 'f1',
+        post: 'p1',
+        comment: '../delete',
+        reason: '',
+      })
+    ).rejects.toThrow(/path: refused/)
+    expect(post).not.toHaveBeenCalled()
+  })
+})

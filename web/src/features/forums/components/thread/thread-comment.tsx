@@ -12,7 +12,6 @@ import {
   ConfirmDialog,
   EntityAvatar,
   MentionTextarea,
-  authenticatedUrl,
   AssetImage,
   cn,
   DropdownMenu,
@@ -25,7 +24,6 @@ import {
   TooltipTrigger,
   useFormat,
   renderMentions,
-  getAppPath,
   textUnchanged,
   type MentionUser,
   ActionPill,
@@ -53,7 +51,7 @@ import {
 } from 'lucide-react'
 import type { ForumDestination } from '@/api/types/forums'
 import type { Attachment as AttachmentData } from '@/api/types/posts'
-import { forumPath } from '@/lib/forum-path'
+import { attachmentUrl } from '../../attachment-url'
 import { commentAssets } from '../../author-assets'
 import { CommentAttachments } from '../comment-attachments'
 import { CommunityDestination } from '../community-destination'
@@ -272,7 +270,11 @@ export function ThreadComment({
   const totalDescendants = getTotalReplyCount(comment)
 
   const assets = avatars?.get(comment.member) ?? commentAssets(comment)
-  const assetUrl = (slot: string) => `${assets}/${slot}`
+  const assetUrl = (slot: string) => assets && `${assets}/${slot}`
+  // The image the comment is about, when its id can be one path segment.
+  const attachmentThumbnail =
+    comment.attachment &&
+    attachmentUrl(comment.forum, comment.attachment, 'thumbnail', server)
   const avatar = (
     <EntityAvatar
       src={assetUrl('avatar')}
@@ -317,7 +319,7 @@ export function ThreadComment({
           {formatTimestamp(comment.created)}
           {comment.edited ? t` (edited)` : ''}
         </span>
-        {comment.attachment && (
+        {attachmentThumbnail && (
           <button
             type='button'
             className='text-muted-foreground hover:text-foreground ms-1 inline-flex min-w-0 items-center gap-1 rounded transition-colors'
@@ -329,9 +331,7 @@ export function ThreadComment({
             aria-label={t`View the image this comment is about`}
           >
             <AssetImage
-              src={authenticatedUrl(
-                `${getAppPath()}/${forumPath(comment.forum)}/-/attachments/${comment.attachment}/thumbnail`
-              )}
+              src={attachmentThumbnail}
               alt=''
               className='size-5 rounded object-cover text-transparent'
             />
