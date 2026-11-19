@@ -524,9 +524,11 @@ def function_lemmy_comments(context, account, post="", parent="", community="", 
         visible = "" if moderator else " and (status='approved' or member=?)"
         args = [] if moderator else [me]
         for c in mochi.db.rows("select * from comments where forum=?" + visible + " order by created desc limit ?", forum["id"], *(args + [start + limit])) or []:
-            p = mochi.db.row("select * from posts where id=?", c["post"])
-            if p:
-                out.append(lemmy_comment(c, p, forum, me, moderator))
+            # Only under a post the user may see: a comment stays approved
+            # when its post is removed, and the comment carries the post.
+            row, p, held = lemmy_comment_find(c["id"], me)
+            if row:
+                out.append(lemmy_comment(row, p, held, me, moderator))
     out = sorted(out, key=lambda c: -c["created"])
     if liked:
         out = [c for c in out if c["vote"] == 1]
@@ -793,9 +795,10 @@ def function_lemmy_search(context, account, query, type="All", community="", pag
                 out["posts"].append(lemmy_post(p, forums[p["forum"]], me, owned(p["forum"])))
     if type in ("All", "Comments"):
         for c in mochi.db.rows("select * from comments where status='approved' and body like ? order by created desc limit ? offset ?", like, limit, start) or []:
-            p = mochi.db.row("select * from posts where id=?", c["post"])
-            if p and c["forum"] in forums:
-                out["comments"].append(lemmy_comment(c, p, forums[c["forum"]], me, owned(c["forum"])))
+            # Only under a post the user may see, as for every comment list.
+            row, p, held = lemmy_comment_find(c["id"], me)
+            if row and c["forum"] in forums:
+                out["comments"].append(lemmy_comment(row, p, forums[c["forum"]], me, owned(c["forum"])))
     return out
 
 def function_lemmy_resolve(context, account, query):
@@ -807,12 +810,12 @@ def function_lemmy_resolve(context, account, query):
         return {"error": "couldnt_find_object"}
     me = identity["id"]
     query = str(query or "").strip()
-    post = mochi.db.row("select * from posts where remote=? or url=?", query, query) if query.startswith("https://") else None
+    post = mochi.db.row("select * from posts where (remote=? and claim='') or url=?", query, query) if query.startswith("https://") else None
     if post:
         row, forum = lemmy_post_find(post["id"], me)
         if row:
             return {"post": lemmy_post(row, forum, me, owned(forum["id"]))}
-    comment = mochi.db.row("select * from comments where remote=?", query) if query.startswith("https://") else None
+    comment = mochi.db.row("select * from comments where remote=? and claim=''", query) if query.startswith("https://") else None
     if comment:
         row, p, forum = lemmy_comment_find(comment["id"], me)
         if row:
@@ -855,9 +858,10 @@ def function_lemmy_person(context, account, person, self=False, page=1, limit=20
     comments = []
     if not saved:
         for c in mochi.db.rows("select * from comments where member=? and (status='approved' or member=?) order by created desc limit ? offset ?", who, me, limit, start) or []:
-            p = mochi.db.row("select * from posts where id=?", c["post"])
-            if p and c["forum"] in forums:
-                comments.append(lemmy_comment(c, p, forums[c["forum"]], me, owned(c["forum"])))
+            # Only under a post the user may see, as for every comment list.
+            row, p, held = lemmy_comment_find(c["id"], me)
+            if row and c["forum"] in forums:
+                comments.append(lemmy_comment(row, p, forums[c["forum"]], me, owned(c["forum"])))
     counts = mochi.db.row("select (select count(*) from posts where member=?) as posts, (select count(*) from comments where member=?) as comments", who, who)
     moderates = [lemmy_community(f, me) for f in forums.values() if self and owned(f["id"])]
     name = ""
