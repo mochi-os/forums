@@ -49,6 +49,7 @@ function renderCommunity(onChanged = vi.fn()) {
 const unpublished = {
   data: {
     published: false,
+    offered: true,
     address: '',
     identifier: '',
     domains: ['example.com'],
@@ -94,6 +95,27 @@ describe('CommunitySection', () => {
     expect(screen.queryByRole('button', { name: 'Publish' })).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Withdraw' }))
     await waitFor(() => expect(forumsApi.clearPublish).toHaveBeenCalledWith('f1'))
+  })
+
+  it('shows nothing where the server hosts no fediverse accounts', async () => {
+    vi.mocked(forumsApi.getPublish).mockResolvedValue({
+      data: { ...unpublished.data, offered: false },
+    } as never)
+    renderCommunity()
+    await waitFor(() => expect(forumsApi.getPublish).toHaveBeenCalled())
+    // Settled: the answer has been read and still nothing shows.
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(screen.queryByText('Community')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Community name')).not.toBeInTheDocument()
+  })
+
+  it('still shows a published community to withdraw where the server has stopped hosting them', async () => {
+    vi.mocked(forumsApi.getPublish).mockResolvedValue({
+      data: { ...published.data, offered: false },
+    } as never)
+    renderCommunity()
+    expect(await screen.findByText('@books@example.com')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Withdraw' })).toBeInTheDocument()
   })
 
   it('offers the domain where the owner may take names on several', async () => {

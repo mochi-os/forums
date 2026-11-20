@@ -13,3 +13,11 @@ def action_accounts_providers(a):
 def action_accounts_list(a):
     capability = a.input("capability")
     a.json(mochi.account.list(capability))
+
+def action_networks(a):
+    """The networks the server hosts accounts on: Find offers to set up an
+    ActivityPub account where a community is looked for without one."""
+    if not a.user:
+        a.error.label(401, "errors.not_logged_in")
+        return
+    a.json({"data": {"networks": mochi.account.networks() or []}})

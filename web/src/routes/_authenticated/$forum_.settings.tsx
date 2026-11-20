@@ -573,6 +573,13 @@ export function CommunitySection({
   const domains = state?.domains ?? []
   const chosen = domain || domains[0] || ''
 
+  // Nothing where the server hosts no accounts on the fediverse, unless the
+  // forum is a community already and may be withdrawn; nothing while that is
+  // asked, so a server that offers none never shows the section at all.
+  if (!error && (isLoading || !state || (!state.published && !state.offered))) {
+    return null
+  }
+
   const changed = async () => {
     await queryClient.invalidateQueries({
       queryKey: ['forums', 'publish', forumId],
@@ -625,9 +632,7 @@ export function CommunitySection({
     >
       {error ? (
         <GeneralError error={error} minimal mode='inline' reset={refetch} />
-      ) : isLoading || !state ? (
-        <Skeleton className='h-9 w-full' />
-      ) : state.published ? (
+      ) : state?.published ? (
         <div className='divide-y-0'>
           <FieldRow label={t`Address`}>
             <DataChip value={state.identifier} />

@@ -11999,10 +11999,11 @@ def publish_forum(a):
 
 def publish_state(forum):
     """What the settings page shows of a forum's community: whether it is
-    published and at what address, the domains a name may be taken on and the
-    owner's handles a name may sit under."""
+    published and at what address, whether the server hosts accounts on the
+    fediverse, which a new community needs, the domains a name may be taken on
+    and the owner's handles a name may sit under."""
     acc = group_account(forum)
-    state = {"published": bool(acc), "address": forum.get("address", ""), "identifier": acc.get("identifier", "") if acc else "", "domains": mochi.handle.domains() or [], "handles": []}
+    state = {"published": bool(acc), "offered": "fediverse" in (mochi.account.networks() or []), "address": forum.get("address", ""), "identifier": acc.get("identifier", "") if acc else "", "domains": mochi.handle.domains() or [], "handles": []}
     held = mochi.handle.list() or {}
     for h in held.get("handles", []) or []:
         if h.get("kind") == "handle" and not h.get("parent"):

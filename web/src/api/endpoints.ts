@@ -56,6 +56,7 @@ const endpoints = {
     // people, communities and servers (phase 21)
     communitiesJoin: '-/communities/join',
     communitiesLookup: '-/communities/lookup',
+    networks: '-/networks',
     blocksAdd: '-/blocks/add',
 
     // Entity-level endpoints (use /-/ separator)

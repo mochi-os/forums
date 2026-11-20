@@ -40,6 +40,16 @@ function FindForumsPage() {
   })
   const recommendations = recommendationsData?.data?.forums ?? []
 
+  // Whether communities elsewhere are found here, for the field's example
+  // address: where the server hosts accounts on the fediverse.
+  const { data: hosted } = useQuery({
+    queryKey: ['forums', 'networks'],
+    queryFn: async () => (await forumsApi.getNetworks()).data.networks,
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
+  const example = hosted?.includes('fediverse') ? '!name@example.social' : null
+
   const subscribedForumIds = useMemo(
     () =>
       new Set(
@@ -93,7 +103,11 @@ function FindForumsPage() {
       icon={Hash}
       iconClassName='bg-primary/10 text-primary'
       title={t`Find forums`}
-      placeholder={t`Search by name, ID, fingerprint, or URL`}
+      placeholder={
+        example
+          ? t`Search by name, ID, fingerprint, URL, or ${example}`
+          : t`Search by name, ID, fingerprint, or URL`
+      }
       emptyMessage={t`No forums found`}
       supplement={(query, found) => (
         <CommunityResult query={query} found={found} />

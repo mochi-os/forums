@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   EntityAvatar,
+  NetworkSetup,
   getErrorMessage,
   naturalCompare,
   toast,
@@ -72,8 +73,28 @@ export function CommunityResult({
   })
   // The lookup on its way counts, so the page does not say first that nothing
   // was found.
-  const shown = typed && accounts.length > 0 && (isLoading || !!found)
+  // With no account to join through, where the server hosts them: a way to
+  // set one up, in place of the community.
+  const { data: hosted } = useQuery({
+    queryKey: ['forums', 'networks'],
+    queryFn: async () => (await forumsApi.getNetworks()).data.networks,
+    enabled: typed && listed !== undefined && accounts.length === 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
+  const settable =
+    typed &&
+    listed !== undefined &&
+    accounts.length === 0 &&
+    !!hosted?.includes('fediverse')
+  const shown =
+    settable || (typed && accounts.length > 0 && (isLoading || !!found))
   useEffect(() => told?.(shown), [told, shown])
+  if (settable) {
+    return (
+      <NetworkSetup network='fediverse' label={t`Set up`} className='px-3' />
+    )
+  }
   if (!typed || accounts.length === 0) return null
   if (isLoading) {
     return (

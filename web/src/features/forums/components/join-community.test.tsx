@@ -16,6 +16,7 @@ const navigate = vi.fn()
 vi.mock('@/api/forums', () => ({
   default: {
     listAccounts: vi.fn(),
+    getNetworks: vi.fn(),
     lookupCommunity: vi.fn(),
     joinCommunity: vi.fn(),
   },
@@ -123,10 +124,13 @@ describe('CommunityResult', () => {
     )
   })
 
-  it('offers nothing to a user with no hosted fediverse account', async () => {
+  it('offers nothing to a user with no hosted fediverse account where the server hosts none', async () => {
     vi.mocked(forumsApi.listAccounts).mockResolvedValue([
       { id: 'l1', type: 'lemmy', identifier: 'me@lemmy.example' },
     ])
+    vi.mocked(forumsApi.getNetworks).mockResolvedValue({
+      data: { networks: ['bluesky'] },
+    })
     const found = vi.fn()
     const client = show('!technology@lemmy.world', found)
     // The accounts have arrived and been read before absence is judged.
@@ -138,6 +142,21 @@ describe('CommunityResult', () => {
     expect(forumsApi.lookupCommunity).not.toHaveBeenCalled()
     expect(screen.queryByTestId('community-result')).toBeNull()
     expect(found).not.toHaveBeenCalledWith(true)
+  })
+
+  it('offers to set up an ActivityPub account where the server hosts them and the user has none', async () => {
+    vi.mocked(forumsApi.listAccounts).mockResolvedValue([
+      { id: 'l1', type: 'lemmy', identifier: 'me@lemmy.example' },
+    ])
+    vi.mocked(forumsApi.getNetworks).mockResolvedValue({
+      data: { networks: ['fediverse', 'bluesky'] },
+    })
+    const found = vi.fn()
+    show('!technology@lemmy.world', found)
+    expect(await screen.findByText('ActivityPub')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Set up' })).toBeTruthy()
+    expect(found).toHaveBeenCalledWith(true)
+    expect(forumsApi.lookupCommunity).not.toHaveBeenCalled()
   })
 
   it('looks nothing up for a search that names no community', () => {

@@ -118,6 +118,9 @@ const omitUndefined = (
 
 export interface PublishState {
   published: boolean
+  // Whether the server hosts accounts on the fediverse, which a community
+  // needs; a published one is shown, to be withdrawn, even when it does not.
+  offered?: boolean
   // The community's permanent id on the fediverse, and its address as people
   // write it (@name@domain).
   address: string
@@ -187,6 +190,10 @@ const forumsApi = {
       { account },
       { timeout: 0 }
     ),
+
+  // The networks the server hosts accounts on
+  getNetworks: () =>
+    client.get<{ data: { networks: string[] } }>(endpoints.forums.networks),
 
   // A community on another server, by !name@host or its address, as Find
   // shows it before it is joined
