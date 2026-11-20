@@ -1671,7 +1671,9 @@ def remote_valid(row):
 
 # remote_clean(value, forum) -> value: a remote forum's answer about forum,
 # with every row remote_valid refuses dropped, and each forum id and
-# fingerprint it states replaced by forum's own.
+# fingerprint it states replaced by forum's own. In a list whose rows are
+# keyed by id, a row without one, and each repeat of one, is dropped as well:
+# clients key such a list by id, and a repeated key closes the Android one.
 def remote_clean(value, forum):
     kind = type(value)
     if kind == "dict":
@@ -1692,7 +1694,20 @@ def remote_clean(value, forum):
                 result[key] = remote_clean(item, forum)
         return result
     if kind in ("list", "tuple"):
-        return [remote_clean(item, forum) for item in value if type(item) != "dict" or remote_valid(item)]
+        rows = [item for item in value if type(item) != "dict" or remote_valid(item)]
+        keyed = [row for row in rows if type(row) == "dict" and row.get("id")]
+        if keyed:
+            seen = {}
+            kept = []
+            for row in rows:
+                if type(row) == "dict":
+                    key = row.get("id")
+                    if not key or key in seen:
+                        continue
+                    seen[key] = True
+                kept.append(row)
+            rows = kept
+        return [remote_clean(item, forum) for item in rows]
     return value
 
 # remote_forum(asked, answer) -> the id of the forum a remote answer is about:
@@ -2737,7 +2752,8 @@ def action_ai_settings(a):
     mochi.db.execute("update forums set ai_mode=?, ai_account=? where id=?", mode, account, forum["id"])
     return {"data": {"ok": True}}
 
-# Get custom AI prompts for a forum
+# Get a forum's AI settings for its owner: the custom prompts and their
+# defaults, and the forum's AI mode and account
 def action_ai_prompts_get(a):
     if not a.user:
         a.error.label(401, "errors.not_logged_in")
@@ -2755,7 +2771,12 @@ def action_ai_prompts_get(a):
         prompts["tag"] = forum["ai_prompt_tag"]
     if forum.get("ai_prompt_score", ""):
         prompts["score"] = forum["ai_prompt_score"]
-    return {"data": {"prompts": prompts, "defaults": AI_PROMPT_DEFAULTS}}
+    # The mode and account too: the forum row the settings page reads leaves
+    # the account out, and a mode change there sends the account it holds.
+    # The column's legacy 0 is no account.
+    account = forum.get("ai_account", "")
+    return {"data": {"prompts": prompts, "defaults": AI_PROMPT_DEFAULTS,
+                     "mode": forum.get("ai_mode", ""), "account": str(account) if account else ""}}
 
 # Set custom AI prompts for a forum
 def action_ai_prompts_set(a):

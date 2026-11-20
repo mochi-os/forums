@@ -20,6 +20,7 @@ import {
   AccessList,
   coerceObjectArray,
   type AccessLevel,
+  type Account,
   type AccessRule,
   getErrorMessage,
   toast,
@@ -678,7 +679,8 @@ export function CommunitySection({
   )
 }
 
-function AiSettingsSection({
+// Exported for its test; not a route entry point.
+export function AiSettingsSection({
   forumId,
   aiMode,
   aiAccount,
@@ -690,6 +692,55 @@ function AiSettingsSection({
   onSave: () => void
 }) {
   const { t } = useLingui()
+  // The owner's own AI settings, read before anything is offered: the forum
+  // row leaves the account out, and a mode change sends the account held
+  // here, so a choice made from the row set the account back to the default.
+  // A server that does not send them leaves the row's values in place.
+  const { data, error, refetch } = useQuery({
+    queryKey: ['forums', 'ai', forumId],
+    queryFn: () => forumsApi.getAiPrompts(forumId),
+    retry: false,
+  })
+  const { accounts, isLoading } = useAccounts(getAppPath(), 'ai')
+
+  if (!isLoading && accounts.length === 0) return null
+  if (error) {
+    return (
+      <Section title={t`AI`}>
+        <GeneralError error={error} minimal mode='inline' reset={refetch} />
+      </Section>
+    )
+  }
+  if (!data) return null
+  return (
+    <AiSettingsForm
+      forumId={forumId}
+      aiMode={data.mode ?? aiMode}
+      aiAccount={data.account ?? aiAccount}
+      accounts={accounts}
+      isLoading={isLoading}
+      onSave={onSave}
+    />
+  )
+}
+
+function AiSettingsForm({
+  forumId,
+  aiMode,
+  aiAccount,
+  accounts,
+  isLoading,
+  onSave,
+}: {
+  forumId: string
+  aiMode: string
+  aiAccount: string
+  accounts: Account[]
+  isLoading: boolean
+  onSave: () => void
+}) {
+  const { t } = useLingui()
+  const queryClient = useQueryClient()
   const normalizeMode = (m: string) => {
     if (m === 'score') return 'tag'
     return m || 'off'
@@ -699,15 +750,22 @@ function AiSettingsSection({
   const DEFAULT_ACCOUNT = 'default'
   const isDefaultAccount = (id: string) => id === '' || id === '0'
   const [account, setAccount] = useState(aiAccount)
-  const { accounts, isLoading } = useAccounts(getAppPath(), 'ai')
 
-  if (!isLoading && accounts.length === 0) return null
+  // What was saved, so the section opened again starts from it rather than
+  // from the answer cached before the change.
+  const remember = (savedMode: string, savedAccount: string) =>
+    queryClient.setQueryData(
+      ['forums', 'ai', forumId],
+      (old: Awaited<ReturnType<typeof forumsApi.getAiPrompts>> | undefined) =>
+        old ? { ...old, mode: savedMode, account: savedAccount } : old
+    )
 
   const handleModeChange = async (val: string) => {
     const apiMode = val === 'off' ? '' : val
     try {
       await forumsApi.setAiSettings(forumId, apiMode, account)
       setMode(val)
+      remember(apiMode, account)
       onSave()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to update AI settings`))
@@ -720,6 +778,7 @@ function AiSettingsSection({
     try {
       await forumsApi.setAiSettings(forumId, apiMode, newAccount)
       setAccount(newAccount)
+      remember(apiMode, newAccount)
       onSave()
     } catch (error) {
       toast.error(getErrorMessage(error, t`Failed to update AI settings`))

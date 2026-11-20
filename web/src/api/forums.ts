@@ -681,16 +681,23 @@ const forumsApi = {
     )
   },
 
+  // The owner's AI settings: the custom prompts and their defaults, and the
+  // forum's mode and account, which the forum row leaves out (absent from a
+  // server that does not send them).
   getAiPrompts: async (
     forumId: string
   ): Promise<{
     prompts: Record<string, string>
     defaults: Record<string, string>
+    mode?: string
+    account?: string
   }> => {
     const res = await client.get<{
       data: {
         prompts: Record<string, string>
         defaults: Record<string, string>
+        mode?: string
+        account?: string
       }
     }>(endpoints.forums.aiPromptsGet(forumId))
     return res.data

@@ -7,9 +7,11 @@ import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest'
+import { useAccounts } from '@mochi/web'
 import forumsApi from '@/api/forums'
 import {
+  AiSettingsSection,
   CommunitySection,
   MembersSection,
   SensitiveSection,
@@ -24,13 +26,25 @@ vi.mock('@/api/forums', () => ({
     setPublish: vi.fn(),
     clearPublish: vi.fn(),
     setSensitive: vi.fn(),
+    getAiPrompts: vi.fn(),
+    setAiPrompt: vi.fn(),
+    setAiSettings: vi.fn(),
   },
 }))
 
 vi.mock('@mochi/web', async (original) => ({
   ...(await original<typeof import('@mochi/web')>()),
   toast: { success: vi.fn(), error: vi.fn() },
+  useAccounts: vi.fn(),
 }))
+
+// Radix's select reads pointer capture and scrolls its item into view, which
+// jsdom has not got.
+beforeAll(() => {
+  Element.prototype.hasPointerCapture ??= () => false
+  Element.prototype.releasePointerCapture ??= () => {}
+  Element.prototype.scrollIntoView ??= () => {}
+})
 
 function renderCommunity(onChanged = vi.fn()) {
   const client = new QueryClient({
@@ -284,5 +298,66 @@ describe('SensitiveSection', () => {
     const toggle = screen.getByRole('switch', { name: 'Sensitive' })
     await user.click(toggle)
     await waitFor(() => expect(toggle).not.toBeChecked())
+  })
+})
+
+describe('AiSettingsSection', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(useAccounts).mockReturnValue({
+      accounts: [
+        { id: 'a1', label: 'First', identifier: '' },
+        { id: 'a2', label: 'Second', identifier: '' },
+      ],
+      isLoading: false,
+    } as never)
+    vi.mocked(forumsApi.setAiSettings).mockResolvedValue({} as never)
+  })
+
+  function renderAi() {
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    })
+    render(
+      <I18nProvider i18n={i18n}>
+        <QueryClientProvider client={client}>
+          {/* The forum row as the owner is shown it: no account. */}
+          <AiSettingsSection
+            forumId='f1'
+            aiMode='tag'
+            aiAccount=''
+            onSave={vi.fn()}
+          />
+        </QueryClientProvider>
+      </I18nProvider>
+    )
+  }
+
+  it('shows the account the forum holds, and a mode change keeps it', async () => {
+    vi.mocked(forumsApi.getAiPrompts).mockResolvedValue({
+      prompts: {},
+      defaults: { tag: 'T', score: 'S' },
+      mode: 'tag',
+      account: 'a2',
+    })
+    const user = userEvent.setup()
+    renderAi()
+    // The owner's own answer names the account the row leaves out.
+    expect(await screen.findByText('Second')).toBeInTheDocument()
+    await user.click(screen.getAllByRole('combobox')[0])
+    await user.click(await screen.findByRole('option', { name: 'Disabled' }))
+    await waitFor(() =>
+      expect(forumsApi.setAiSettings).toHaveBeenCalledWith('f1', '', 'a2')
+    )
+  })
+
+  it('takes the forum row from a server that does not answer its own', async () => {
+    vi.mocked(forumsApi.getAiPrompts).mockResolvedValue({
+      prompts: {},
+      defaults: { tag: 'T', score: 'S' },
+    })
+    renderAi()
+    expect(await screen.findByText('Default account')).toBeInTheDocument()
+    expect(screen.getAllByRole('combobox')[0]).toHaveTextContent('Tag')
   })
 })
