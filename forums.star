@@ -4,10 +4,24 @@
 # This file is part of Mochi, licensed under the GNU AGPL v3 with the
 # Mochi Application Interface Exception - see license.txt and license-exception.md.
 
+# remote_status is the status a far end's refusal is answered with here: its
+# own code when that is an error status, else [code]. A 401 becomes 502: to
+# every client of this server 401 means the caller's own session has ended,
+# and a peer's answer says nothing about that session.
+def remote_status(response, code=502):
+    status = response.get("code", code)
+    if type(status) == "float":
+        status = int(status)
+    if type(status) != "int" or status < 400 or status > 599:
+        return code
+    if status == 401:
+        return 502
+    return status
+
 # remote_error surfaces a failed mochi.remote.request: core-authored
 # transport failures (marked "transport") become a translated generic
 # error with the detail kept in the server log; far-end app answers
-# pass through unchanged.
+# pass through with their label, under remote_status.
 def remote_error(a, response, code=502):
     fail(a, remote_failure(response, code))
 
@@ -16,9 +30,9 @@ def remote_error(a, response, code=502):
 def remote_failure(response, code=502):
     if response.get("transport"):
         mochi.log.info("Remote transport error: %s", response.get("error", ""))
-        return (response.get("code", code), "errors.remote")
+        return (remote_status(response, code), "errors.remote")
     # The remote sends a stable label key; localise it in the caller's language.
-    return (response.get("code", code), response.get("error", "errors.remote"))
+    return (remote_status(response, code), response.get("error", "errors.remote"))
 
 # fail answers a helper's refusal - (status, label), or (status, label,
 # {arguments}) - as an action's error.
@@ -10825,8 +10839,8 @@ def _subscribe_to_forum(user, forum_id, server):
         response = mochi.remote.request(forum_id, "forums", "information", {"forum": forum_id}, peer)
         if response.get("error"):
             if response.get("transport"):
-                return {"error": "errors.remote", "code": response.get("code", 502)}
-            return {"error": response["error"], "code": response.get("code", 404)}
+                return {"error": "errors.remote", "code": remote_status(response, 502)}
+            return {"error": response["error"], "code": remote_status(response, 404)}
         forum_name = response.get("name", "")
     else:
         directory = mochi.directory.get(forum_id)
@@ -10986,7 +11000,7 @@ def _check_forum(user, forum_id):
         "user": user_id,
     })
     if not access_response.get("post", False):
-        return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": access_response.get("code", 403)}
+        return {"error": access_response.get("error", "errors.not_allowed_to_post"), "code": remote_status(access_response, 403)}
 
     fp = forum_fingerprint(forum_id) or ""
     return {"fingerprint": fp, "subscribed": subscribed}
